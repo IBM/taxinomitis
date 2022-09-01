@@ -80,10 +80,12 @@
                                     <li><a href="?lang=cy">Cymraeg</a></li>
                                     <li><a href="?lang=de">Deutsch</a></li>
                                     <li><a href="?lang=el">Ελληνικά</a></li>
+                                    <li><a href="?lang=fa">فارسی</a></li>
                                     <li><a href="?lang=fr">Français</a></li>
                                     <li><a href="?lang=it">Italiano</a></li>
                                     <li><a href="?lang=ja">日本語</a></li>
                                     <li><a href="?lang=ko">한국어</a></li>
+                                    <li><a href="?lang=hu">Magyar</a></li>
                                     <li><a href="?lang=nl-be">Nederlands</a></li>
                                     <li><a href="?lang=pt-br">Português do Brasil</a></li>
                                     <li><a href="?lang=ru">Русский</a></li>
@@ -92,6 +94,7 @@
                                     <li><a href="?lang=es">Español</a></li>
                                     <li><a href="?lang=sv-se">Svenska</a></li>
                                     <li><a href="?lang=tr">Türkçe</a></li>
+                                    <li><a href="?lang=uk">Українська</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li><a href="https://github.com/IBM/taxinomitis/wiki/Support-for-other-languages" target="_blank">Other...</a></li>
                                 </ul>
@@ -135,14 +138,14 @@
 
         <script type="text/javascript" src="/static/bower_components/auth0-lock/build/lock.min.js"></script>
         <script type="text/javascript" src="/static/bower_components/angular-lock/dist/angular-lock.min.js"></script>
-        <script type="text/javascript" src="/static/bower_components/auth0.js/build/auth0.min.js"></script>
+        <script type="text/javascript" src="/static/bower_components/auth0.js/dist/auth0.min.js"></script>
         <script type="text/javascript" src="/static/bower_components/angular-jwt/dist/angular-jwt.min.js"></script>
 
         <!-- now added dynamically when needed using public/components/utils/utils.service.js -->
         <!-- <script type="text/javascript" src="/static/bower_components/blueimp-canvas-to-blob/js/canvas-to-blob.min.js"></script> -->
 
         <%= USE_IN_PROD_ONLY %>
-        <script src="https://browser.sentry-cdn.com/5.30.0/bundle.min.js" crossorigin="anonymous"></script>
+        <script src="https://browser.sentry-cdn.com/6.18.2/bundle.min.js" crossorigin="anonymous"></script>
         <%= AFTER_USE_IN_PROD_ONLY %>
 
         <script type="text/javascript" src="/static/app-<%= VERSION %>.js"></script>

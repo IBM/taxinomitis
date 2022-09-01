@@ -39,7 +39,7 @@
                             modelurl : $scope.modeljson,
                             modeltype : $scope.modeltypeid === 10 ? 'teachablemachineimage' : 'graphdefimage'
                         }).then(function (extensionInfo) {
-                            $window.open('/scratch3?url=' + siteUrl + extensionInfo.url, '_blank');
+                            $window.open('https://scratch.machinelearningforkids.co.uk?url=' + siteUrl + extensionInfo.url, '_blank');
                             $scope.validating = false;
                             $mdDialog.hide();
                         }).catch(function (err) {

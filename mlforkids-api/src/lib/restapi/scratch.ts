@@ -1,6 +1,7 @@
 // external dependencies
 import * as Express from 'express';
 import * as httpstatus from 'http-status';
+import * as cors from 'cors';
 // local dependencies
 import * as store from '../db/store';
 import * as Types from '../db/db-types';
@@ -500,7 +501,18 @@ async function trainNewClassifier(req: Express.Request, res: Express.Response) {
 
 
 
+const CORS_CONFIG = {
+    origin: /machinelearningforkids\.co\.uk$/,
+};
+
+function doNothing(req: Express.Request, res: Express.Response, next: Express.NextFunction) {
+    next();
+}
+
+
 export default function registerApis(app: Express.Application) {
+
+    app.options('/api/scratch/*', cors(CORS_CONFIG), doNothing);
 
     app.get(urls.SCRATCHKEYS,
             auth.authenticate,
@@ -508,18 +520,18 @@ export default function registerApis(app: Express.Application) {
             auth.verifyProjectAccess,
             getScratchKeys);
 
-    app.get(urls.SCRATCHKEY_CLASSIFY, classifyWithScratchKey);
-    app.post(urls.SCRATCHKEY_CLASSIFY, postClassifyWithScratchKey);
-    app.post(urls.SCRATCHKEY_MODEL, trainNewClassifier);
+    app.get(urls.SCRATCHKEY_CLASSIFY, cors(CORS_CONFIG), classifyWithScratchKey);
+    app.post(urls.SCRATCHKEY_CLASSIFY, cors(CORS_CONFIG), postClassifyWithScratchKey);
+    app.post(urls.SCRATCHKEY_MODEL, cors(CORS_CONFIG), trainNewClassifier);
 
-    app.get(urls.SCRATCHKEY_TRAIN, getTrainingData);
-    app.get(urls.SCRATCHKEY_IMAGE, getImageTrainingDataItem);
-    app.post(urls.SCRATCHKEY_TRAIN, storeTrainingData);
+    app.get(urls.SCRATCHKEY_TRAIN, cors(CORS_CONFIG), getTrainingData);
+    app.get(urls.SCRATCHKEY_IMAGE, cors(CORS_CONFIG), getImageTrainingDataItem);
+    app.post(urls.SCRATCHKEY_TRAIN, cors(CORS_CONFIG), storeTrainingData);
 
-    app.post(urls.SCRATCHTFJS_EXTENSIONS, generateTfjsExtension);
+    app.post(urls.SCRATCHTFJS_EXTENSIONS, cors(CORS_CONFIG), generateTfjsExtension);
 
-    app.get(urls.SCRATCHKEY_EXTENSION, getScratchxExtension);
-    app.get(urls.SCRATCH3_EXTENSION, getScratch3Extension);
-    app.get(urls.SCRATCHTFJS_EXTENSION, getTfjsExtension);
-    app.get(urls.SCRATCHKEY_STATUS, getScratchxStatus);
+    app.get(urls.SCRATCHKEY_EXTENSION, cors(CORS_CONFIG), getScratchxExtension);
+    app.get(urls.SCRATCH3_EXTENSION, cors(CORS_CONFIG), getScratch3Extension);
+    app.get(urls.SCRATCHTFJS_EXTENSION, cors(CORS_CONFIG), getTfjsExtension);
+    app.get(urls.SCRATCHKEY_STATUS, cors(CORS_CONFIG), getScratchxStatus);
 }

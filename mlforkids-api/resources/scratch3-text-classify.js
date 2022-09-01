@@ -176,6 +176,7 @@ class MachineLearningText {
                 }
                 else {
                     console.log('added');
+                    trainingCache.add(txt);
                 }
             })
             .then((responseJson) => {
@@ -224,6 +225,17 @@ class MachineLearningText {
             });
     }
 }
+
+
+
+var trainingCache = new Set();
+getTrainingDataItems()
+    .then((t) => {
+        trainingCache = t;
+    })
+    .catch((err) => {
+        console.log('failed to get training data', err);
+    });
 
 
 
@@ -388,6 +400,12 @@ function getTextClassificationResponse(text, cacheKey, valueToReturn, callback) 
 
         // return the requested value from the response
         callback(result[valueToReturn]);
+
+        // check if we just classified something that
+        //  was used for training the classifier
+        if (trainingCache.has(cleanedUpText)) {
+            postMessage({ mlforkids : 'mlforkids-recognisetext-training-help' });
+        }
     });
 }
 
@@ -564,6 +582,35 @@ function cleanUpText(str, maxlength) {
     else {
         return str;
     }
+}
+
+
+function getTrainingDataItems() {
+    var url = new URL('{{{ storeurl }}}');
+    var options = {
+        headers : {
+            'Accept': 'application/json',
+            'X-User-Agent': 'mlforkids-scratch3-text'
+        }
+    };
+    return fetch(url, options)
+        .then((response) => {
+            if (response.status === 200) {
+                return response.json();
+            }
+            else {
+                console.log('failed to fetch training');
+            }
+        })
+        .then((trainingdata) => {
+            const existingTrainingText = new Set();
+            if (trainingdata) {
+                for (var j = 0; j < trainingdata.length; j++) {
+                    existingTrainingText.add(trainingdata[j].textdata);
+                }
+            }
+            return existingTrainingText;
+        });
 }
 
 

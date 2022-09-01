@@ -33,16 +33,6 @@
                 errObj = {};
             }
 
-            if (errObj &&
-                status === 403 &&
-                errObj.error === 'Support for images projects is not enabled for your class' &&
-                vm.profile.tenant === 'session-users')
-            {
-                errObj.message = 'You can\'t train machine learning models to recognise images with "Try it now". ' +
-                                 'You will be able to create images projects if you login with a regular account. ' +
-                                 'See the "Help" page for more details about the differences between creating an account and using "Try it now".';
-            }
-
             vm[type].push({
                 alertid : alertId++,
                 message : errObj.message || errObj.error || 'Unknown error',
@@ -64,7 +54,9 @@
                     'WORKSHEETS.NOUGHTSANDCROSSES.TITLE', 'DATASETS.DATA.NOUGHTSANDCROSSES.SUMMARY', 'DATASETS.DATA.NOUGHTSANDCROSSES.DESCRIPTION', 'DATASETS.DATA.NOUGHTSANDCROSSES.DETAILS',
                     'DATASETS.DATA.TOPTRUMPS.TITLE', 'DATASETS.DATA.TOPTRUMPS.SUMMARY', 'DATASETS.DATA.TOPTRUMPS.DESCRIPTION', 'DATASETS.DATA.TOPTRUMPS.DETAILS',
                     'DATASETS.DATA.SONGLYRICS.TITLE', 'DATASETS.DATA.SONGLYRICS.SUMMARY', 'DATASETS.DATA.SONGLYRICS.DESCRIPTION', 'DATASETS.DATA.SONGLYRICS.DETAILS',
-                    'DATASETS.DATA.HANDGESTURES.TITLE', 'DATASETS.DATA.HANDGESTURES.SUMMARY', 'DATASETS.DATA.HANDGESTURES.DESCRIPTION', 'DATASETS.DATA.HANDGESTURES.DETAILS'
+                    'DATASETS.DATA.HANDGESTURES.TITLE', 'DATASETS.DATA.HANDGESTURES.SUMMARY', 'DATASETS.DATA.HANDGESTURES.DESCRIPTION', 'DATASETS.DATA.HANDGESTURES.DETAILS',
+                    'DATASETS.DATA.POKEMONSTATS.TITLE', 'DATASETS.DATA.POKEMONSTATS.SUMMARY', 'DATASETS.DATA.POKEMONSTATS.DESCRIPTION', 'DATASETS.DATA.POKEMONSTATS.DETAILS',
+                    'DATASETS.DATA.POKEMONIMAGES.TITLE', 'DATASETS.DATA.POKEMONIMAGES.SUMMARY', 'DATASETS.DATA.POKEMONIMAGES.DESCRIPTION', 'DATASETS.DATA.POKEMONIMAGES.DETAILS'
                 ]).then(function (translations) {
                     vm.datasets = [
                         {
@@ -129,6 +121,24 @@
                             details: translations['DATASETS.DATA.SONGLYRICS.DETAILS'],
                             type: 'text',
                             image: 'static/images/dataset-songlyrics.png'
+                        },
+                        {
+                            id: 'pokemon-stats',
+                            title: translations['DATASETS.DATA.POKEMONSTATS.TITLE'],
+                            summary: translations['DATASETS.DATA.POKEMONSTATS.SUMMARY'],
+                            description: translations['DATASETS.DATA.POKEMONSTATS.DESCRIPTION'],
+                            details: translations['DATASETS.DATA.POKEMONSTATS.DETAILS'],
+                            type: 'numbers',
+                            image: 'static/images/dataset-pokemonstats.png'
+                        },
+                        {
+                            id: 'pokemon',
+                            title: translations['DATASETS.DATA.POKEMONIMAGES.TITLE'],
+                            summary: translations['DATASETS.DATA.POKEMONIMAGES.SUMMARY'],
+                            description: translations['DATASETS.DATA.POKEMONIMAGES.DESCRIPTION'],
+                            details: translations['DATASETS.DATA.POKEMONIMAGES.DETAILS'],
+                            type: 'imgtfjs',
+                            image: 'static/images/dataset-pokemonimages.png'
                         },
                         {
                             id: 'hand-gestures',

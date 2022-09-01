@@ -190,7 +190,12 @@
 
             'WORKSHEETS.EXPLAINABILITY.TITLE', 'WORKSHEETS.EXPLAINABILITY.SUMMARY', 'WORKSHEETS.EXPLAINABILITY.DESCRIPTION',
             'WORKSHEETS.EXPLAINABILITY.WORKSHEET_1.URL',
-            'WORKSHEETS.EXPLAINABILITY.TEACHERSNOTES_URL'
+            'WORKSHEETS.EXPLAINABILITY.TEACHERSNOTES_URL',
+
+            'WORKSHEETS.POKEMONIMAGES.TITLE', 'WORKSHEETS.POKEMONIMAGES.SUMMARY', 'WORKSHEETS.POKEMONIMAGES.DESCRIPTION',
+            'WORKSHEETS.POKEMONIMAGES.WORKSHEET_1.URL',
+            'WORKSHEETS.POKEMONSTATS.TITLE', 'WORKSHEETS.POKEMONSTATS.SUMMARY', 'WORKSHEETS.POKEMONSTATS.DESCRIPTION',
+            'WORKSHEETS.POKEMONSTATS.WORKSHEET_1.URL'
         ]).then(function (translations) {
             vm.worksheets = [
                 {
@@ -206,6 +211,21 @@
                     downloads : [
                         {
                             worksheet : translations['WORKSHEETS.DESCRIBETHEGLASS.WORKSHEET_1.URL']
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.POKEMONIMAGES.TITLE'],
+                    summary : translations['WORKSHEETS.POKEMONIMAGES.SUMMARY'],
+                    description : translations['WORKSHEETS.POKEMONIMAGES.DESCRIPTION'],
+                    difficulty : 'Beginner',
+                    type : 'images',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-pokemonimages.png',
+                    tags : [ 'image classification', 'supervised learning' ],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.POKEMONIMAGES.WORKSHEET_1.URL']
                         }
                     ]
                 },
@@ -256,6 +276,21 @@
                         {
                             description : translations['WORKSHEETS.MAKEMEHAPPY.WORKSHEET_3.DESCRIPTION'],
                             worksheet : translations['WORKSHEETS.MAKEMEHAPPY.WORKSHEET_3.URL']
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.POKEMONSTATS.TITLE'],
+                    summary : translations['WORKSHEETS.POKEMONSTATS.SUMMARY'],
+                    description : translations['WORKSHEETS.POKEMONSTATS.DESCRIPTION'],
+                    difficulty : 'Beginner',
+                    type : 'numbers',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-pokemonstatistics.png',
+                    tags : [ 'predictive model', 'supervised learning' ],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.POKEMONSTATS.WORKSHEET_1.URL']
                         }
                     ]
                 },

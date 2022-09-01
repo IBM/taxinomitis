@@ -244,7 +244,9 @@
         "CREATE": "إنشاء",
         "ERRORS": {
             "REQUIRED": "هذا مطلوب!",
-            "TOOLONG": "هذا طويل جدًا!"
+            "TOOLONG": "هذا طويل جدًا!",
+            "EXCEEDLIMIT": "You've reached the limit for the number of projects you can have. You need to delete one of your current projects before you can create another.",
+            "TRYITNOW": "Sorry! You can only create one project at a time if you use 'Try it now'. You need to delete your current project before you can create another."
         },
         "WARNINGS": {
             "MLCRED-TEXT-NOKEYS": "يُرجى إعلام معلمك بأنه سيحتاج إلى إضافة \"Watson Assistant API key \" إلى صفك للسماح لك بالتدريب على نموذج تعلُّم الآلة لمشروعك الجديد.",
@@ -312,6 +314,18 @@
                 "SUMMARY": "Recognize hand gestures from finger positions",
                 "DESCRIPTION": "Train a machine learning model to recognize different hand gestures, by collecting examples of the positions of your fingers.",
                 "DETAILS": "This is an empty template to help you collect your own training data. For instructions on how to use it, download 'Hand gestures' from Worksheets."
+            },
+            "POKEMONSTATS": {
+                "TITLE": "Pokémon statistics",
+                "SUMMARY": "Recognize Pokémon from their statistics",
+                "DESCRIPTION": "Train a machine learning model to predict the type of a Pokémon based on a collection of statistics about hundreds of Pokémon. ",
+                "DETAILS": "This training dataset includes attributes of a selection of Pokémon. \n\nThe 'height' field is the height of a Pokémon in metres. \nThe 'weight' field is the weight of a Pokémon in kilograms. \nThe 'attack' field is the attack strength of a level 100 Pokémon. \nThe 'defense' field is the defense strength of a level 100 Pokémon. \nThe 'speed' field is the speed rating of a level 100 Pokémon. \nThe 'HP' field is the hit point statistics for a Pokémon. \nThe 'capture rate' field is the catch rate for a Pokémon. Pokémon with higher catch rates are easier to capture than Pokémon with lower catch rates."
+            },
+            "POKEMONIMAGES": {
+                "TITLE": "Pokémon images",
+                "SUMMARY": "Recognize Pokémon from pictures",
+                "DESCRIPTION": "Train a machine learning model to predict the type of a Pokémon based on a set of pictures of a hundred Pokémon. ",
+                "DETAILS": "This training dataset includes images of a selection of Pokémon, grouped by their type. It is a good starting set for training a machine learning model to predict the type of a Pokémon from a picture."
             }
         }
     },
@@ -869,7 +883,6 @@
     },
     "MAKES": {
         "TITLE": "اصنع شيئًا باستخدام نموذج تعلم الآلة",
-        "SCRATCH2": "قم بعمل مشروع في الإصدار القديم من Scratch",
         "SCRATCH3": "استخدم الإصدار الجديد من  Scratch",
         "PYTHON": "اكتب رمز Python لاستخدام نموذج تعلم الآلة",
         "APPINVENTOR": "إنشاء تطبيق  لهاتفك الجوال أو جهازك اللوحي"
@@ -883,7 +896,7 @@
         "LOCAL": "انسخ الرمز لتشغيله على جهاز الكمبيوتر الخاص بك",
         "REPLIT": {
             "TITLE": "Coding in replit",
-            "TIP": "Tip: You have to click on <span class='pythonreplhighlight'>Fork</span> to start editing your own copy of the code",
+            "TIP": "Tip: You have to click on <span class='pythonreplhighlight'>Fork repl</span> to start editing your own copy of the code",
             "GO": "Go to replit.com"
         },
         "MODE": {
@@ -1451,6 +1464,22 @@
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-explainability.pdf"
             }
+        },
+        "POKEMONSTATS": {
+            "TITLE": "Pokémon statistics",
+            "SUMMARY": "Teach a computer to recognize patterns in sets of numbers",
+            "DESCRIPTION": "Make a project in Scratch that predicts the type of Pokémon from their size and fighting stats.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pokemonstats.pdf"
+            }
+        },
+        "POKEMONIMAGES": {
+            "TITLE": "Pokémon images",
+            "SUMMARY": "Teach a computer to recognize pictures",
+            "DESCRIPTION": "Make a project in Scratch that predicts the type of Pokémon from how it looks",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pokemonimages.pdf"
+            }
         }
     },
     "TEACHER": {
@@ -1605,12 +1634,12 @@
             "mlforkids.text.recogniseConfidence": "التعرف على النص [TEXT] (confidence)",
             "mlforkids.text.addTraining": "إضافة بيانات التدريب [TEXT] [LABEL]",
             "mlforkids.text.trainNewModel": "تدريب نموذج جديد لتعلم الآلة",
-            "mlforkids.text.checkModelStatus": "هل نموذج تعلم الآلة [الحالة]؟"
+            "mlforkids.text.checkModelStatus": "هل نموذج تعلم الآلة [STATUS]؟"
         },
         "IMAGES_PROJECTS": {
-            "mlforkids.images.recogniseLabel": "التعرف على الصورة [صورة] (LABEL)",
-            "mlforkids.images.recogniseConfidence": "التعرف على الصورة [صورة] (confidence)",
-            "mlforkids.images.addTraining": "إضافة بيانات التدريب [نص] [LABEL]"
+            "mlforkids.images.recogniseLabel": "التعرف على الصورة [IMAGE] (LABEL)",
+            "mlforkids.images.recogniseConfidence": "التعرف على الصورة [IMAGE] (confidence)",
+            "mlforkids.images.addTraining": "إضافة بيانات التدريب [TEXT] [LABEL]"
         },
         "NUMBER_PROJECTS": {
             "mlforkids.numbers.trainNewModel": "تدريب نموذج جديد لتعلم الآلة"
@@ -1620,7 +1649,7 @@
             "mlforkids.sounds.stopListening": "توقف عن الاستماع"
         },
         "TWITTER": {
-            "mlforkids.twitter.getrecenttweet": "الحصول على أحدث تغريدة [فهرس] حول [موضوع]"
+            "mlforkids.twitter.getrecenttweet": "الحصول على أحدث تغريدة [TWEET] حول [TOPIC]"
         },
         "FACE": {
             "mlforkids.face.size": "حجم [LANDMARK]",
@@ -1628,7 +1657,7 @@
             "mlforkids.face.ylocation": "y تنسيق  [LANDMARK]"
         },
         "POSENET": {
-            "mlforkids.posenet.getposition": "العثور على [وضع] من [LANDMARK]"
+            "mlforkids.posenet.getposition": "العثور على [POSITION] من [LANDMARK]"
         },
         "HANDPOSE": {
             "mlforkids.handpose.getposition": "find [POSITION] of [LANDMARK]"
@@ -1691,10 +1720,10 @@
             "Q2-A-2": "<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>اتبع التعليمات هنا</a>لمعرفة كيفية التحقق من ذلك وإصلاحه.",
             "Q3": "توقف لبنات مصنف تعلم الآلة في Scratch 2 عن العمل",
             "Q3-A-1": "من حين لآخر ، يمكن أن تفقد لبنات Scratch لنموذج تعلم الآلة الخاص بك الاتصال بالخادم. عندما يحدث هذا ، سيتوقفون عن إرجاع النتائج.",
-            "Q3-A-2": "يمكنك التحقق مما إذا حدث هذا باستخدام ضوء الحالة الملون في لوحة \"لبنات إضافية\".",
-            "Q3-A-3": "إذا كان ضوء الحالة بجوار لبنات Scratch تعلم الآلة الخاص بك باللون الأحمر ، فهذا يعني عادةً أن هناك خطأ ما. قد تكون مشكلة مؤقتة.حاول حفظ مشروعك (باستخدام 'File' -&gt; 'حفظ المشروع')، ثم قم بتحديث صفحة المتصفح. إذا تحول ضوء الحالة إلى اللون الأخضر بعد إعادة تحميل الصفحة ، فيمكنك تحميل مشروعك (باستخدام 'File' -&gt; 'تحميل المشروع')  لالتقاط المكان الذي تركته.",
-            "Q3-A-4": "إذا كان ضوء الحالة لا يزال أحمر بعد إعادة تحميل الصفحة ، فربما يكون هناك خطأ في نموذج تعلم الآلة. حاول الانتقال إلى صفحة \"تعلم وamp; اختبر \" للمشروع ، حيث يمكن العثور على أي رسائل خطأ حول نموذجك.",
-            "Q3-A-5": "إذا كان ضوء الحالة الموجود بجوار لبنات Scratch  تعلم الآلة الخاصة بك باللون الأخضر ، فيجب أن تعمل لبنات. إذا لم تحصل على الردود التي تتوقعها منهم ، فجرّب الانتقال إلى صفحة \"تعلم وamp; اختبر \" والتحقق من النتائج التي يرجعها نموذجك.",
+            "Q3-A-2": "يمكنك التحقق مما إذا حدث هذا باستخدام ضوء STATUS الملون في لوحة \"لبنات إضافية\".",
+            "Q3-A-3": "إذا كان ضوء STATUS بجوار لبنات Scratch تعلم الآلة الخاص بك باللون الأحمر ، فهذا يعني عادةً أن هناك خطأ ما. قد تكون مشكلة مؤقتة.حاول حفظ مشروعك (باستخدام 'File' -&gt; 'حفظ المشروع')، ثم قم بتحديث صفحة المتصفح. إذا تحول ضوء STATUS إلى اللون الأخضر بعد إعادة تحميل الصفحة ، فيمكنك تحميل مشروعك (باستخدام 'File' -&gt; 'تحميل المشروع')  لالتقاط المكان الذي تركته.",
+            "Q3-A-4": "إذا كان ضوء STATUS لا يزال أحمر بعد إعادة تحميل الصفحة ، فربما يكون هناك خطأ في نموذج تعلم الآلة. حاول الانتقال إلى صفحة \"تعلم وamp; اختبر \" للمشروع ، حيث يمكن العثور على أي رسائل خطأ حول نموذجك.",
+            "Q3-A-5": "إذا كان ضوء STATUS الموجود بجوار لبنات Scratch  تعلم الآلة الخاصة بك باللون الأخضر ، فيجب أن تعمل لبنات. إذا لم تحصل على الردود التي تتوقعها منهم ، فجرّب الانتقال إلى صفحة \"تعلم وamp; اختبر \" والتحقق من النتائج التي يرجعها نموذجك.",
             "Q5": "هل يمكنني استخدام أي إصدار من Scratch؟",
             "Q5-A-1": "تحتاج إلى استخدام إصدارات Scratch التي يوفرها موقع تعلم الآلة للأطفال. يمكن إطلاقها بالنقر فوق زر Scratch أو \"Scratch 3\" من صفحة مشروعك.",
             "Q6": "يعمل Scratch 3 فقط على حفظ المشاريع في مجلد \"التنزيلات\"",
@@ -1729,7 +1758,7 @@
             "Q5-A-1": "يتم إنشاء نماذج تعلم الآلة في الأداة باستخدام واجهات برمجة تطبيقات IBM Watson.",
             "Q5-A-2": "إذا كان لديك حساب فصل \"غير مُدار\" ، فسيحتاج معلمك أو قائد المجموعة إلى تقديم بيانات اعتماد Watson API من IBM Cloud لكي يعمل هذا.",
             "Q5-A-3": "إذا تم إنشاء حسابات مجانية ، فستطبق حدًا على معدل الطلبات لنماذج تعلم الآلة الجديدة. في الاستخدام العادي ، لن يؤثر هذا على الصف. ومع ذلك ، إذا حصل الطلاب على خطأ \"لم تعد هناك مساحات عمل متاحة\" أو \"لم يعد هناك المزيد من المصنفات المتاحة\" (كما هو موضح أعلاه) ولكن استمر بعد ذلك في النقر فوق زر \"تدريب نموذج جديد لتعلم الآلة\" عدة مرات في الثانية ، لعدة دقائق ، ثم سيتم تطبيق تحديد المعدل.",
-            "Q5-A-4": "سيتم عرض مثل هذه الرسالة للطلاب في هذه الحالة:",
+            "Q5-A-4": "سيتم عرض مثل هذه الرسالة للطلاب في هذه STATUS:",
             "Q5-A-5": "يجري صفك العديد من الطلبات لإنشاء نماذج تعلُم الآلة بمعدل سريع جدًا. يُرجى التوقف الآن وإخبار معلمك أو قائد المجموعة أن \"خدمة Watson Assistant تعمل حاليًا على تقييد معدل مفتاح API الخاص بهم\"",
             "Q5-A-6": "لا يتم تطبيق حد المعدل من خلال موقع تعلم الآلة للأطفال أو تحت سيطرته. عادة ما يكون مؤقتًا ، ويتم حله بشكل أفضل من خلال الانتظار لفترة قصيرة.",
             "Q5-A-7": "إذا كان الطلاب ينقرون على زر \"تدريب نموذج جديد لتعلم الآلة\" ويحصلون على أخطاء \"لم تعد هناك مساحات عمل متاحة\" أو \"لا تتوفر المزيد من المصنفات\" (كما هو موضح أعلاه) ، فيجب أن يدركوا أن النقر المتكرر على الزر لن يحل المشكلة ، وسيجعل الوضع في الواقع أسوأ بالنسبة لبقية الصف.",
@@ -1753,7 +1782,7 @@
             "Q2-A-1": "تطبق إدارةالمستخدم لتعلم الآلة للأطفال استخدام خدمة الطرف الثالث <a href=\"https://auth0.com/\">Auth0</a>.",
             "Q2-A-2": "في بعض الأحيان ، يمكن أن تصبح قائمة الطلاب التي تعيدها Auth0 غير محدثة بعض الشيء ، فقد ينقصها الطلاب الذين تم إضافتهم مؤخرًا  (أو كذلك تُظهر الطلاب الذين تم حذفهم مؤخرًا).",
             "Q2-A-3": "في هذه الحالات، عادةً ما يتم إنشاء الطلاب (أو حذفهم) بنجاح ، وأن قائمة الطلاب المعروضة لا تعكس التحديثات الأخيرة.",
-            "Q2-A-4": "يقوموا  Auth0 عادةً بالإبلاغ عن مثل هذه الحوادث في صفحة الحالة الخاصة بهم مثل <a href='https://status.auth0.com/incidents/0sk1d3hjlw0m'>تأخيرات فهرسة المستخدم</a> أو <a href='https://status.auth0.com/incidents/t8995b9jggx5'>مشاكل في بحث واجهة برمجة تطبيقات API</a>.",
+            "Q2-A-4": "يقوموا  Auth0 عادةً بالإبلاغ عن مثل هذه الحوادث في صفحة STATUS الخاصة بهم مثل <a href='https://status.auth0.com/incidents/0sk1d3hjlw0m'>تأخيرات فهرسة المستخدم</a> أو <a href='https://status.auth0.com/incidents/t8995b9jggx5'>مشاكل في بحث واجهة برمجة تطبيقات API</a>.",
             "Q2-A-5": "أفضل شيء يمكن فعله في هذه الحالات هو انتظار فهرسة Auth0 للوصول.",
             "Q4": "لماذا يتم حذف نماذج تعلم الآلة تلقائيًا؟",
             "Q4-A-1": "كانت هذه ميزة طلبتها المدارس عندما تم تطوير تعلم الآلة للأطفال لأول مرة. لقد جاءت من حقيقة أن هناك حدًا لعدد نماذج تعلم الآلة التي يمكن للصف دراستها في أي وقت ، والحاجة إلى تسهيل إدارة هذا الحد.",
@@ -1835,7 +1864,7 @@
         "HOWTO": {
             "TITLE": "كيف تستخدم",
             "INTRO": "انقر على الزر للذهاب إلى Scratch.",
-            "HOW_1": "انتقل إلى إصدار<a href='https://machinelearningforkids.co.uk/scratch3'> Scratch 3</a> المتوفر من تعلم الآلة للأطفال.",
+            "HOW_1": "انتقل إلى إصدار<a href='https://scratch.machinelearningforkids.co.uk'> Scratch 3</a> المتوفر من تعلم الآلة للأطفال.",
             "HOW_2": "تتوفر نماذج تم تدريبها مسبقًا من لوحة الملحقات. انقر على زر الإضافات الزرقاء في أسفل يسار نافذة Scratch للعثور عليها ، ثم انقر على الزر الذي تريد إضافته إلى مشروعك.",
             "HOW_3": "ستتم إضافة لبنات الخاصة بالنموذج الذي تم تدريبه مسبقًا إلى مربع أدوات Scratch."
         },

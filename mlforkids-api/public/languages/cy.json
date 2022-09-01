@@ -244,7 +244,9 @@
         "CREATE": "Creu",
         "ERRORS": {
             "REQUIRED": "Mae hyn yn ofynnol!",
-            "TOOLONG": "Mae hynny'n rhy hir!"
+            "TOOLONG": "Mae hynny'n rhy hir!",
+            "EXCEEDLIMIT": "You've reached the limit for the number of projects you can have. You need to delete one of your current projects before you can create another.",
+            "TRYITNOW": "Sorry! You can only create one project at a time if you use 'Try it now'. You need to delete your current project before you can create another."
         },
         "WARNINGS": {
             "MLCRED-TEXT-NOKEYS": "Rhowch wybod i'ch athro / athrawes y bydd angen iddynt ychwanegu \"allwedd API Cynorthwyydd Watson\" i'ch dosbarth i adael i chi hyfforddi'r model dysgu peiriant ar gyfer eich prosiect newydd",
@@ -312,6 +314,18 @@
                 "SUMMARY": "Recognize hand gestures from finger positions",
                 "DESCRIPTION": "Train a machine learning model to recognize different hand gestures, by collecting examples of the positions of your fingers.",
                 "DETAILS": "This is an empty template to help you collect your own training data. For instructions on how to use it, download 'Hand gestures' from Worksheets."
+            },
+            "POKEMONSTATS": {
+                "TITLE": "Pokémon statistics",
+                "SUMMARY": "Recognize Pokémon from their statistics",
+                "DESCRIPTION": "Train a machine learning model to predict the type of a Pokémon based on a collection of statistics about hundreds of Pokémon. ",
+                "DETAILS": "This training dataset includes attributes of a selection of Pokémon. \n\nThe 'height' field is the height of a Pokémon in metres. \nThe 'weight' field is the weight of a Pokémon in kilograms. \nThe 'attack' field is the attack strength of a level 100 Pokémon. \nThe 'defense' field is the defense strength of a level 100 Pokémon. \nThe 'speed' field is the speed rating of a level 100 Pokémon. \nThe 'HP' field is the hit point statistics for a Pokémon. \nThe 'capture rate' field is the catch rate for a Pokémon. Pokémon with higher catch rates are easier to capture than Pokémon with lower catch rates."
+            },
+            "POKEMONIMAGES": {
+                "TITLE": "Pokémon images",
+                "SUMMARY": "Recognize Pokémon from pictures",
+                "DESCRIPTION": "Train a machine learning model to predict the type of a Pokémon based on a set of pictures of a hundred Pokémon. ",
+                "DETAILS": "This training dataset includes images of a selection of Pokémon, grouped by their type. It is a good starting set for training a machine learning model to predict the type of a Pokémon from a picture."
             }
         }
     },
@@ -869,7 +883,6 @@
     },
     "MAKES": {
         "TITLE": "Creu rywbeth gyda'ch model dysgu peiriant",
-        "SCRATCH2": "Creu brosiect yn yr hen fersiwn o Scratch",
         "SCRATCH3": "Defnyddio fersiwn newydd o Scratch",
         "PYTHON": "Ysgrifennwch god Python i ddefnyddio'ch model dysgu peiriant",
         "APPINVENTOR": "Creu ap symudol ar gyfer eich ffôn neu dabled"
@@ -883,7 +896,7 @@
         "LOCAL": "Copi cod i'w redeg ar eich cyfrifiadur",
         "REPLIT": {
             "TITLE": "Coding in replit",
-            "TIP": "Tip: You have to click on <span class='pythonreplhighlight'>Fork</span> to start editing your own copy of the code",
+            "TIP": "Tip: You have to click on <span class='pythonreplhighlight'>Fork repl</span> to start editing your own copy of the code",
             "GO": "Go to replit.com"
         },
         "MODE": {
@@ -1451,6 +1464,22 @@
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-explainability.pdf"
             }
+        },
+        "POKEMONSTATS": {
+            "TITLE": "Pokémon statistics",
+            "SUMMARY": "Teach a computer to recognize patterns in sets of numbers",
+            "DESCRIPTION": "Make a project in Scratch that predicts the type of Pokémon from their size and fighting stats.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pokemonstats.pdf"
+            }
+        },
+        "POKEMONIMAGES": {
+            "TITLE": "Pokémon images",
+            "SUMMARY": "Teach a computer to recognize pictures",
+            "DESCRIPTION": "Make a project in Scratch that predicts the type of Pokémon from how it looks",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pokemonimages.pdf"
+            }
         }
     },
     "TEACHER": {
@@ -1833,7 +1862,7 @@
         "HOWTO": {
             "TITLE": "Sut i ddefnyddio",
             "INTRO": "Cliciwch ar y botwm i fynd i Scratch.",
-            "HOW_1": "Ewch i'r fersiwn o <a href='https://machinelearningforkids.co.uk/scratch3'>Scratch 3</a> ar gael o Dysgu Peiriant i Blant.",
+            "HOW_1": "Ewch i'r fersiwn o <a href='https://scratch.machinelearningforkids.co.uk'>Scratch 3</a> ar gael o Dysgu Peiriant i Blant.",
             "HOW_2": "Mae modelau wedi'u hyfforddi ymlaen llaw ar gael gan y panel Estyniadau. Cliciwch ar y botwm estyniadau glas yng ngwaelod chwith y ffenestr Scratch i ddod o hyd iddyn nhw, yna cliciwch ar yr un rydych chi am ei ychwanegu at eich prosiect.",
             "HOW_3": "Bydd y blociau ar gyfer y model wedi'i hyfforddi ymlaen llaw yn cael eu hychwanegu at flwch offer Scratch."
         },

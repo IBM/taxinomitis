@@ -1,0 +1,2058 @@
+{
+    "APP": {
+        "TITLE": "Gépi Tanulás (ML) gyerekeknek",
+
+        "BACK": "Vissza",
+        "NEXT": "Következő",
+        "BACKTOPROJECT": "&lt; Vissza a projekthez",
+        "BACKTOMODEL": "&lt; Vissza a modellhez",
+        "ERROR": "Hiba:",
+        "WARNING": "Figyelmeztetés:",
+        "INFO": "Információ:",
+
+        "ADD": "Hozzáad",
+        "CANCEL": "Mégse",
+        "DELETE": "Töröl",
+        "EDIT": "Szerkeszt",
+        "TEST": "Teszt",
+        "RESET": "Visszaállít",
+
+        "ABOUT": "Termékről",
+        "TEACHER": "Tanár",
+        "PROJECTS": "Projektek",
+        "WORKSHEETS": "Munkalapok",
+        "PRETRAINED": "Előre tanított",
+        "NEWS": "Hírek",
+        "HELP": "Segítség",
+        "LOGIN": "Belépés",
+        "LOGOUT": "Kilépés",
+
+        "BETA": "Béta",
+        "INCOMPLETE": "Befejezetlen!"
+    },
+    "ABOUT": {
+        "TITLE": "Gépi Tanulás (ML) gyerekeknek",
+        "IN6SECS": "6 másodpercben...",
+        "IN20MINS": "20 percben...",
+        "WHAT": {
+            "TITLE": "Mi ez?",
+            "BODY": " Ez egy ingyenes eszköz, ami gyakorlati tapasztalatokat nyújtva mutatja be a Gépi Tanulás (ML) világát, miközben Gépi Tanulási (ML) rendszerek tanításával és hasznos alkalmazások építésével próbálkozhatunk. <br/><br/>Könnyen használható környezetet biztosít, amiben szöveg-, szám- kép-, hangfelismerésre képes gépi tanulási modelleket használhatunk.   <br/><br/>Kódolásra nyitott gyerekek belső motivációjára épít, kódolási platformként a <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a>-et és az <a href='http://appinventor.mit.edu/' target='_blank'>App Inventor</a>-t használja. A gyerekek projekteket, vagy játékokat hozhatnak létre a Gépi Tanulás segítségével.  <br/><br/>Ez az eszköz először 2017-ben volt elérhető a nagyközönség számára, <a href='https://wakelet.com/wake/4d3680cb-2a11-49ab-9180-fcfeced48393' target='_blank'>azóta iskolák, szakkörök, családok ezrei használják a világon.</a>. <br/><br/>Tovább, kattints:"
+        },
+        "WHY": {
+            "TITLE": "Miért?",
+            "BODY": "A gépi tanulás mindenütt itt van körülöttünk. Nincs olyan ember, aki napi szinten ne használna gépi tanulást - úgy mint a levélszemét-szűrők, az ajánló rendszerek, nyelvi fordítók, csetbotok, digitális asszisztenciák, keresőrendszerek.<br/><br/>Hamarosan megszokott lesz hogy a gépi tanulási rendszerek segítenek az orvosoknak a diagnózisban, a kezelésben, gyógyításban, vagy az autóvezetésben. <br/><br/>Nagyon fontos, hogy a gyerekek tudják, miképp működik a körülöttünk lévő világ. A lehetőségek megismerésének legegyszerűbb módja, ha ők maguk is részt vesznek a programozásban. <br/><br/>Tovább, kattints: <a target='_blank' class='btn btn-primary' href='http://dalelane.co.uk/blog/?p=3513'>'Bevezetés a Gépi Tanulás Gyerekeknek rendszerbe'</a>"
+        },
+        "TECH": {
+            "TITLE": "Technológia",
+            "BODY": "Maga a rendszer teljesen internetalapú, és nem igényel semmiféle telepítést, vagy bonyolult beállításokat. <br/><br/>Iskolai osztályok, programozó szakkörök, érdeklődő csoportok számára készült. Admin felületet biztosít a tanároknak, vagy a csoportvezetőknek, aminek segítségével könnyen kezelhető a diákok munkája. <br/><br/> <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane készítette</a> API kulcsokat használva <a target='_blank' href='https://www.ibm.com/watson/developer/'>IBM Watson</a>.<br/><br/>További részletekért kattints<a target='_blank' href='https://github.com/IBM/taxinomitis/'>forráskód a GitHub-on</a>, vagy olvasson <a target='_blank' href='http://dalelane.co.uk/blog/?tag=mlforkids-tech'> blog bejegyzéseket a témáról </a>. ",
+            "LOGIN": "Kezdjük: "
+        },
+        "PRETRAINED": {
+            "BODY": "A diákok előre tanított modelleket is felhasználhatnak a saját projektjeikhez. Ezek a modellek használhatók akkor, ha a diák számára túl nehéz lenne a feladat, vagy csak gyakorlati betekintést szeretne kapni a Gépi Tanulás lehetőségeibe."
+        },
+        "FURTHER": {
+            "TITLE": "További tanulnivalók",
+            "BODY": "A Gépi Tanulás Gyerekeknek hasznos eszköz arra, hogy a diákok megtapasztalják a Gépi tanulási rendszerek tanítását, használatát, illetve a mesterséges intelligencia által vezérelt applikációk belső világát.<br/><br/>További forrásokért, beleértve a tanári kézikönyvet is, kattints: "
+        }
+    },
+    "NEWS": {
+        "TITLE": "Hírek",
+        "UPDATES": {
+            "TITLE": "Hírek és Frissítések",
+            "DESCRIPTION": "Hírek és friss információk @MLforKids"
+        },
+        "MENTIONS": {
+            "TITLE": "Hivatkozások és médiamegjelenések",
+            "DESCRIPTION": "hivatkozások betöltése &amp; Media from wakelet.com"
+        }
+    },
+    "LINKS": {
+        "TITLE": "Oktatási célú mesterséges intelligencia anyagok gyerekeknek",
+        "INTRO": "Ez az oldal további - a mesterséges intelligenciát bemutató - eszközöket és forrásokat tartalmaz.",
+        "ECRAFT2LEARN": {
+            "BODY1": "<a href='http://users.ox.ac.uk/~oucs0030/' target='_blank'>Ken Kahn</a> készített egy forrást, ami lehetővé teszi a kezdőknek, hogy mesterséges intelligencia programokat készítsenek Snap-ben.(a Scratch-hez hasonló vizuális program).",
+            "BODY2": "Amíg én arra fókuszálok, hogy elmagyarázzam, hogy tanítsuk a mesterséges intelligenciát, és az hogyan viselkedik (és mik a valós relevanciái),addig az eCraft2Learn nagyszerű forrásokat tartalmaz, és mélyre ás a valós gépi tanulási rendszer működésében.",
+            "BODY3": "A <a href='https://ecraft2learn.github.io/ai/AI-Teacher-Guide/chapter-6.html' target='_blank'>neurális háló amőbajáték</a> különösen elbűvölő, ami a Snap-ben történő hiperparaméterekkel történő kísérletezést tesz lehetővé."
+        },
+        "STEMLEARNING": {
+            "BODY1": "A STEM tanulás és a UK Gazdasági Minisztérium energetikai és ipari stratégiája, a mesterséges intelligencia elméletének tanításához készítettek el anyagokat.",
+            "BODY2": "Ezek az anyagok tartalmazzák a <em>Machine Learning for Kids</em> projektjeit, kiegészítve tanári jegyzetekkel, prezentációs anyagokkal, kártyákkal, és különböző, eszközt nem igénylő feladatokkal."
+        },
+        "RASPBERRYPI": {
+            "BODY1": "A Raspberry Pi Alapítvány a kódoló szakköröknek kínál anyagokat, amelyek lépésről-lépésre instrukciót adnak a különböző projektekhez.",
+            "BODY2": "Az ő gépi tanulási rendszerük tartalmazza <em>Machine Learning for Kids</em> változatos anyagait is."
+        },
+        "APPSFORGOOD": {
+            "BODY1": "Apps for Good az Egyesült Királyságban található, nonprofit szervezet, amely a technológia alapú tantárgyak tanítására használható forrásokat tesz elérhetővé iskolák számára.",
+            "BODY2": "Ez a forrás magába foglalja a Machine Learning for kids projektet kiegészítő anyagokkal,</em>, úgy mint különböző minták, óravázlatok, munkafüzetek, prezentációk stb. Segíti az iskolákat abban hogy gépi tanulási oktatást nyújtsanak amelyek értelmezik a kódolási feladatokat."
+        },
+        "AIFAMILYCHALLENGE": {
+            "BODY1": "A Családi Mesterséges Intelligencia kihívás egy ingyenes, kézzel fogható oktatóprogram családok számára. ők is a <em>Machine Learning for Kids</em> programot használják, kiegészítve különböző támogatásokkal, úgy mint technikai segítség, mentorálás, oktató videók és óravázlatok.",
+            "BODY2": "A programban számos versenyt is meghirdetnek, ahol a diákok saját mesterséges intelligenciájukat találhatják ki a családjaik támogatásával és technikai mentorokkal."
+        },
+        "MAGENTADEMOS": {
+            "BODY1": "Online játékok, amelyek a gépi tanulás különböző aspektuasait mutatják be, TensorFlow.js-t használva"
+        },
+        "AIINSCHOOLS": {
+            "BODY1": "Az AIinSchools program olyan óravázlatokat tartalmaz, amely 13-14 éves diákok számára mutatja be a mesterséges intelligencia működését.",
+            "BODY2": "Magába foglal mind eszközt nem igénylő tevékenységeket, mind pedig programozási feladatokat, amelyek AWS-en futó GPUs neurális hálózatok tanítását célozza meg."
+        },
+        "TEENSINAI": {
+            "BODY1": "A Teens in AI a hackathonok, gyorsító oktatások és a bevonó táborok kombinációját használja annak érdekében, hogy 12-18 éves diákok feldfedezzék a mesterséges intelligenciát."
+        },
+        "AI4ALL": {
+            "BODY1": "AI4ALL nyári táborokat szervez amerikai középiskolásoknak abból a célból, hogy bepillantást kapjanak a mesterséges intelligencia működésébe."
+        },
+        "CALYPSO": {
+            "BODY1": "A diákok a programozható Cozmo robotokkal a Calypso programozási keretrendszert használva kézzelfogható élményeket szereznek a mesterséges intelligencia programozásban, olyanokkal kisérletezve mint a kép- vagy beszédfelismerés."
+        },
+        "AIINABOX": {
+            "BODY1": "AI-in-a-Box egy robotcsomag, kiegészítőkkel, tanári segédletekkel. A készlet olyan projektek oktatására használható, mint a vizuális felismerés, az arcfelismerés, a beszédgenerálás és a beszédfelismerés."
+        },
+        "GOOGLEEXPERIMENTS": {
+            "BODY1": "Egyszerű online kísérletek a gépi tanulás felfedezéséhez képeken, rajzokon, nyelven és zenén keresztül."
+        },
+        "EXPLORINGCS": {
+            "BODY1": "Az Exploring CS a mesterséges intelligencia ismeretét és készségeit kínálja a diákoknak, miközben figyelembe veszi a társadalmi, erkölcsi és etikai hatásokat.",
+            "BODY2": "Felfedezik az mesterséges intelligencia gyakorlati és napi alkalmazásait, amelyek hatással vannak az életükre. A diákok okosvárosokat, otthonokat és iskolákat terveznek. Emellett megtanulnak MI-rendszert építeni, betanítani és tesztelni az NVIDIA platformon keresztül, és megnézik, hogyan kommunikálják az MI üzenetét."       },
+        "VIDEOS": {
+            "TITLE": "Videók",
+            "INTRO": "Ezeket a videókat szintén hasznosnak találtam, amikor a mesterséges intelligencia működését tanulmányoztam:"
+        }
+    },
+    "ERRORS": {
+        "PAGENOTFOUND": "A lap nem található",
+        "NOTLOGGEDIN": "Nem vagy bejelentkezve",
+
+        "MISSINGPROJECTID": "Hiányzó projektazonosító. Lépj vissza ",
+        "IFPERSISTENT": "Ha továbbra is ez történik, kérem ",
+
+        "LETMEKNOW": "tudasd velem"
+    },
+    "WELCOME": {
+        "TITLE": "Tanítsuk meg a gépet játszani",
+        "GET_STARTED": "Kezdjük",
+        "LEARN_MORE": "Tudjunk meg többet",
+        "ADMIN_LABEL": "Lépj be az <strong>admin oldaladra</strong>",
+        "PROJECT_LABEL": "Lépj a<strong>Projekjeidhez</strong>",
+        "STEP_1_TEXT": "Gyűjts példákat dolgokra, hogy a későbbiekben a számítógép fel tudja ismerni őket.",
+	"STEP_2_TEXT": "Használd a példákat a számítógép betanítására hogy képes legyen felismerni őket",
+        "STEP_3_TEXT": "Készíts egy játékot Scratch-ben ami a számítógép képességeit használja arra, hogy felismerjen dolgokat."
+    },
+    "LOGIN": {
+        "TITLE": "Kezdjük el a Gépi Tanulást!",
+        "WELCOME": "Üdvözöllek! Nagyszerű, hogy érdeklődsz egy fiók iránt, amellyel bejelentkezhetsz a Machine Learning for Kids szolgáltatásba.",
+        "ALREADY_LOGGEDIN": "<strong>Info: </strong> Már be vagy jelentkezve",
+        "ERROR": "<strong>Hiba:</strong> {{ message }}",
+        "ERROR_HELP": "Ha ez továbbra is így marad, kérjük, keresd fel súgóoldalunkat",
+        "FIRST_TIME": "Először vagy itt?",
+        "SIGN_UP": "Iratkozz fel!",
+        "WHY_REGISTER": "Miért regisztrálj?",
+        "WHY_REGISTER_INTRO_1": "<strong>Nem kell regisztrálnod ahhoz, hogy fiókod legyen</strong> a Machine Learning for Kids platformon, de ha megteszed, még több lehetőség nyílik meg előtted.",
+        "WHY_REGISTER_INTRO_2": "Az alábbi táblázat elmagyarázza a különbséget, hogy mit tehetsz, regisztráció nélkül \"Próbáld ki\", és miket tehetsz, ha regisztrált fiókod van.",
+        "ALREADY_REGISTERED": "Már regisztráltál?",
+        "LOGIN": "Lépj be",
+        "FORGOT_DETAILS": "Elfelejtett jelszó?",
+        "TRY_TITLE": "Próbáld ki regisztráció nélkül",
+        "TRY_NOW": "Próbáld ki!",
+        "WHO_YOU": "Ki vagy?",
+        "TEACHER": "Szülő, tanár szakkörvezető?",
+        "STUDENT": "Diák",
+        "FORGOT_TEXT": "Elfelejtetted a felhasználói neved, vagy jelszavad?? Nincs ezzel semmi baj, mindannyian felejtünk el dolgokat.",
+        "ARE_YOU_A_STUDENT": "Diák vagy?",
+        "ARE_YOU_A_STUDENT_INTRO_1": "Ha az osztályod már használja ezt az eszközt, kérd meg a tanárodat, vagy a szakkörvezetődet, hogy hozzon létre neked egy fiókot.",
+        "ARE_YOU_A_STUDENT_INTRO_2": "Ha az osztályod még nem használja ezt az eszközt, kérd meg a tanárodat, vagy a szakkörvezetődet, hogy lépjen kapcsolatba velünk.",
+        "RESET_STUDENT_PASSWORD_1": "Ha diák vagy, nálunk nincs meg a jelszó visszaállításához szükséges e-mail-címed.",
+        "RESET_STUDENT_PASSWORD_2": "Semmi gond!",
+        "RESET_STUDENT_PASSWORD_3": "Kérdezd meg a tanárodat, vagy szakkörvezetődet, aki regisztrált téged. Az Admin felületükről vissza fogják tudni állítani a jelszavad."
+    },
+    "SIGNUP": {
+        "TEACHER": {
+            "TITLE": "Tanár vagy, vagy egy programozó szakkör vezetője?",
+            "INFO1": "Ha hozzáférést szeretnél a diákjaidnak, akkor hozz létre egy osztályfiókot.",
+            "INFO2": "Kétféle osztályfiók létezik - attól függően, hogy ki állítja be."
+        },
+        "UNMANAGED": {
+            "TITLE": "Készíts egy <strong>nem ellenőrzött</strong> osztályfiókot",
+            "INTRO": "Ha szeretnél magad létre hozni egy osztálycsoportot, most megcsinálhatod.!",
+            "LISTINTRO": "Szükséged lesz ezekre:",
+            "LIST_CREATEACCOUNT": "Készíts egy ingyenes fiókot az IBM Cloud-ban",
+            "LIST_CREATEAPIKEYS": "Készíts API kulcs(oka)t  Watson felhő szolgáltatásaihoz, ami ahhoz szükséges, hogy a gépi tanulási modellt tanítani tudd",
+            "LIST_ENTERAPIKEYS": " Add hozzá az API kulcsokat a Machine Learning for Kids-hez",
+            "HELP": "Mindezekhez elérhetők lépésről lépésre utasítások képernyőképekkel."
+        },
+        "MANAGED": {
+            "TITLE": "Készíts egy <strong>ellenőrzött</strong> osztály fiókot",
+            "INTRO": "Ha azt szeretnéd hogy Dale hozza létre az osztályfiókot, használd a lenti gombot, és küldj egy e-mailt, amiben szükséges megadni az alábbi információkat:",
+            "LIST_NUMBEROFSTUDENTS": "Nagyjából hány tanulói fiókra lesz szükséged",
+            "LIST_NAMEOFSCHOOL": "Az iskola vagy a szakkör neve, akinek a fiókot létrehozod.",
+            "RESTRICTIONS": "Ez az ajánlat az iskoláknak, illetve a non-profit szakkörök számára elérhető.",
+            "EMAIL": "Email"
+        }
+    },
+    "PROJECTS": {
+        "TITLE": "A gépi tanulási projektjeid",
+        "ADDNEWPROJECT": "Adj hozzá egy új projektet",
+        "COPYTEMPLATE": "Minta másolása",
+        "CREATEFIRSTPROJECT": "Kattints a 'plusz' gombra a jobb oldalon, és hozd létre az első projekted.",
+        "RECOGNISING": "Felismerés",
+        "AS": "mint",
+        "SHARE": "Megoszt",
+        "UNSHARE": "Megosztást visszavon",
+        "WHOLE_CLASS_TITLE": "Közösségi fejlesztésű projekt",
+        "WHOLE_CLASS_NOTES": "Ez egy egész osztályos közös projekt. Minden diák a teremben fel tudja használni, és a projektjeihez adni."
+    },
+    "NEWPROJECT": {
+        "TITLE": "Új Gépi Tanulás projekt kezdése",
+        "PROJECT_NAME": {
+            "TITLE": "Projekt neve",
+            "NOTES": "Adj olyan nevet a projektednek, amely jól leírja azt, hogy minek a felismerését fogod megtanítani a számítógépnek."
+        },
+        "WHOLE_CLASS_PROJECT": {
+            "TITLE": "Egész osztályos projekt?",
+            "NOTES_1": "Válaszd ezt, ha azt szeretnéd, hogy az egész osztály együtt dolgozhasson ezen a projekten.",
+            "NOTES_2": "Ez olyan projekteknél hasznos, amelyek a csoportos alkotást preferálják a gépi tanulási projektek tanításának megközelítéseként."
+        },
+        "TYPES": {
+            "LABEL": "Ismerje fel:",
+            "NOTES_1": "Milyen típusú dolgot szeretnél megtanítani a számítógéppel, hogy felismerje",
+            "NOTES_2": "Szavak, mondatok, bekezdések felismerésére, kattints a  \"szövegre\"",
+            "NOTES_3": "Képek, diagrammok, fotók felismerésére válaszd a \"képeket\"",
+            "NOTES_4": "Számsorok, vagy többszörös választós tesztekre válaszd \"számokat\"",
+            "NOTES_5": "Hangok, zajok felismerésére válaszd a \"hangokat\""
+        },
+        "LANGUAGE": {
+            "LABEL": "Nyelv",
+            "NOTES": "Milyen nyelven írod a projektet?"
+        },
+        "FIELDS": {
+            "TYPE": {
+                "TITLE": "Érték típusa",
+                "NUMBER": "számok",
+                "MULTIPLE_CHOICE": "többszörös választás"
+            },
+            "CHOICES": {
+                "TITLE": "Választás:",
+                "LABEL": "adj meg egy választási lehetőséget"
+            },
+            "NEWFIELD": {
+                "DESCRIBE_FIELD": "Adj olyan nevet a mezőnek, ami leírja az értéket.",
+                "MULTICHOICE": "Ha több lehetőségből lehet választani, válaszd a \"többszörös választást\".",
+                "ADD_FIRST_FIELD": "Gépeld be a többszörös választási lista elemét, majd nyomj egy entert.",
+                "ADD_ANOTHER_FIELD": "Írj be egy másik lehetőséget a feleletválasztós listában való használatra, majd nyomj egy entert."
+            },
+            "NEWVALUE": {
+                "ADD_FIRST_VALUE": " Kezdd el leírni azokat az értékeket, amelyeket a számítógép betanításához az egyes példákhoz mellékelni fogsz a következő gombra kattintva 'Adj hozzá egy értéket'",
+                "VALUES_LIMIT": "Tíz értéknél több nem lehet egy projektben."
+            }
+        },
+        "CREATE": "Készítés",
+        "ERRORS": {
+            "REQUIRED": "Kötelező megadni!",
+            "TOOLONG": "Ez túl hosszú!",
+            "EXCEEDLIMIT": "You've reached the limit for the number of projects you can have. You need to delete one of your current projects before you can create another.",
+            "TRYITNOW": "Sorry! You can only create one project at a time if you use 'Try it now'. You need to delete your current project before you can create another."
+        },
+        "WARNINGS": {
+            "MLCRED-TEXT-NOKEYS": "Mondd meg a tanárodnak, hogy szükségetek lesz egy \"Watson Assistant API kulcsra\" ahhoz, hogy egy új modellt be tudjatok tanítani a rendszernek.",
+            "MLCRED-TEXT-INVALID": "Gond lehet a IBM Cloud API kulccsal, amire azért lehet szükséged, hogy betaníts a rendszernek egy új projektet. Kérd meg a tanárodat, hogy erősítse meg a  \"Watson Assistant API kulcsokat\" az osztályban."
+        }
+    },
+    "DATASETS": {
+        "TITLE": "Másold ki az ML projektsablont!",
+        "INTRO": {
+            "INTRO_1": "Erre a mintára alapozva egy új gépi tanulási projektet hozhatsz létre.",
+            "INTRO_2": "Mindegyik tartalmaz egy alap tanítási adatbázist, amelyet neked gyűjtöttünk össze, hogy segítsen a gyors kezdésben.",
+            "INTRO_3": "Változtathatsz a tanítási adatokon, ha gondolod, vagy akár ezzel is elkezdheted a tanítást."
+        },
+        "IMPORT": "Importálás",
+        "MORE": {
+            "TITLE": "Másik adat készlet",
+            "SUMMARY": "Milyen másik adat készletet szeretnél látni?",
+            "DESCRIPTION": "Van ötleted arra nézve, hogy milyen adat készletet szeretnél itt látni? Vagy van olyan adat készleted, amivel te tudsz támogatást adni?  Lépj velünk kapcsolatba!",
+            "MOREINFO": "Több..."
+        },
+        "DATA": {
+            "TITANIC": {
+                "TITLE": "Titanic túlélők",
+                "SUMMARY": "Jósold meg a Titanic túlélőket",
+                "DESCRIPTION": "Április 15-én 1912-ben, az RMS Titanic nekiütközött egy jéghegynek és elsüllyedt 1500 főnyi legénységgel és utasokkal a fedélzetén. A projekt személyes adatokat tartalmaz az utasokról. Ezt használhatod arra, hogy megtanítsd a modellt arra, hogyha adsz egy leírást az utasokról, akkor megjósolja vajon túlélik e a katasztrófát, vagy sem.",
+                "DETAILS": "A 'jegy osztálya' mező megmutatja, hogy milyen osztályra szól az utasok jegye: első osztály(1), másodosztály (2), vagy harmadosztály (3). \nA 'nem' mező megmutatja, hogy az utas 'férfi' vagy 'nő'. \nA 'kor' mező megmutatja az utas korát. \nA 'testv. házastrs.' az a szám, ahány testvére volt az utasnak (amennyiben gyerek volt) a fedélzeten vele együtt, vagy a házastársát, ha felnőtt volt. \nA 'szülő, gyerek' mezőbe az a szám kerül, ahány szülője ott volt a fedélzeten, ha gyerek volt, illetve, ahány gyerek vele volt, ha felnőtt volt. \nA 'jegy ára' mező azt mutatja, hogy mennyibe került a jegy. \nA 'beszállás' mező megmutatja, hogy hol történt a felszállás, Cherbourg-ban, Queenstown-ban vagy Southampton-ban."
+            },
+            "CATSANDDOGS": {
+                "TITLE": "Macskák és kutyák",
+                "SUMMARY": "Ismerd fel a kutyák és macskák képét",
+                "DESCRIPTION": "Ez a gépi tanulási modell, amely a macskák és kutyák fényképeinek felismerésére lett betanítva, jó és egyszerű bevezetés a képfelismerésbe.",
+                "DETAILS": "Ez a Wikimedia Commons fotóiból álló tanítási adatbázis jó kiindulási készlet az állatfotókból készült saját tanítási adatok összeállításához"
+            },
+            "UKNEWSPAPERS": {
+                "TITLE": "UK újságcímek",
+                "SUMMARY": "Ismerd fel a főcímek nyelvhasználatát.",
+                "DESCRIPTION": "Különböző újságoknak különböző nyelvhasználatuk van. Ez a projekt négy, nagy brit folyóirat első lapjának főcímeit tartalmazza. Ezzel a programmal megtaníthatod a rendszert megjósolni, hogy melyik cím melyik újságból való.",
+                "DETAILS": "Az adatbázis az alábbi napilapok elemeit tartalmazza: the Daily Mail, the Daily Telegraph, the Independent, and The Guardian"
+            },
+            "PHISHING": {
+                "TITLE": "Adathalászat",
+                "SUMMARY": "Jósold meg egy linkről, vajon adathalász-e.",
+                "DESCRIPTION": "Az adathalászat az a folyamat, amikor egy weboldal megpróbál belőled érzékeny adatokat kicsikarni olyan módon, hogy egy linket küld egy hamis weboldalra, amit igazinak álcáz. Megtaníthatod a rendszernek, hogy megjósolja, vajon egy link valós-e, vagy adathalász.",
+                "DETAILS": "Ez az adatbázis 500 legitim webcím jellemzőjét tartalmazza, és 500 adathalászét. \nA „domain kora” mező a címeket aszerint csoportosítja, hogy a címben szereplő webcím mennyi ideje volt regisztrálva. \nAz „átirányítások” mező a képzési címeket aszerint csoportosítja, hogy hányszor küldték el egy webböngészőt egy másik címre, mielőtt elérné az utolsó oldalt. \nA „domain reg” mező „lejár”, ha a webcím domain név regisztrációja egy éven belül lejár.n\nA 'cím típusa' mező "
+            },
+            "NOUGHTSANDCROSSES": {
+                "SUMMARY": "Hogy kell játszani",
+                "DESCRIPTION": "Tanítsd meg a rendszert amőbát játszani, oly módon, hogy összegyűjtöd az összes lépési lehetőséget, hogy a számítógép utána meg tudja jósolni a valószínűleg legkedvezőbbet.",
+                "DETAILS": "Ez egy üres minta, annak segítésére, hogy összegyűjthesd a tanításhoz szükséges adatokat. A használati utasítását megtalálod az 'Amőba' címszó alatt a 'gépi tanulás projektek közt'."
+            },
+            "TOPTRUMPS": {
+                "TITLE": "Kings & Queens Top Trumps",
+                "SUMMARY": "Tanítsd meg, hogyan kell ezt a játékot játszani.",
+                "DESCRIPTION": "Tanítsd meg a rendszert, hogyan kell az angol királyok és királynőkről szóló Top Trumps játékot játszani, oly módon, hogy összegyűjtöd azokat a lépéseket, amiket a számítógép választhat, annak megjósolására, hogy melyik értéket kell választania.",
+                "DETAILS": "Ez egy üres minta, annak segítésére, hogy összegyűjthesd a tanításhoz szükséges adatokat. A használati utasítását megtalálod a 'Top Trumps' címszó alatt a 'gépi tanulás projektek közt'."
+            },
+            "SONGLYRICS": {
+                "TITLE": "Dalszövegek",
+                "SUMMARY": "Ismerd fel a különböző típusú dalokat",
+                "DESCRIPTION": "Tanítsd meg a számítógépet arra, megismerje a különböző stílusokat a szövegük alapján.",
+                "DETAILS": "Ez az adatbázis 140 sor dalszöveget tartalmaz - a fele gyerekdal, a másik fele a TOP 40 dalból van. Ez egy jó kezdet ahhoz, hogy a rendszer felismerjen különböző nyelvhasználatokat."
+            },
+            "HANDGESTURES": {
+                "TITLE": "Kézi gesztusok",
+                "SUMMARY": "Ismerd fel a különböző gesztusokat az ujjak állásából.",
+                "DESCRIPTION": "Tanítsd meg a rendszert, hogy felismerje a különböző gesztusokat oly módon, hogy az ujjaid állásáról összegyűjtesz megfelelő mennyiségű példát.",
+                "DETAILS": "Ez egy üres minta, annak segítésére, hogy összegyűjthesd a tanításhoz szükséges adatokat. A használati utasítását megtalálod az 'Gesztusok' címszó alatt a 'gépi tanulás projektek közt'"
+            },
+            "POKEMONSTATS": {
+                "TITLE": "Pokémon statistics",
+                "SUMMARY": "Recognize Pokémon from their statistics",
+                "DESCRIPTION": "Train a machine learning model to predict the type of a Pokémon based on a collection of statistics about hundreds of Pokémon. ",
+                "DETAILS": "This training dataset includes attributes of a selection of Pokémon. \n\nThe 'height' field is the height of a Pokémon in metres. \nThe 'weight' field is the weight of a Pokémon in kilograms. \nThe 'attack' field is the attack strength of a level 100 Pokémon. \nThe 'defense' field is the defense strength of a level 100 Pokémon. \nThe 'speed' field is the speed rating of a level 100 Pokémon. \nThe 'HP' field is the hit point statistics for a Pokémon. \nThe 'capture rate' field is the catch rate for a Pokémon. Pokémon with higher catch rates are easier to capture than Pokémon with lower catch rates."
+            },
+            "POKEMONIMAGES": {
+                "TITLE": "Pokémon images",
+                "SUMMARY": "Recognize Pokémon from pictures",
+                "DESCRIPTION": "Train a machine learning model to predict the type of a Pokémon based on a set of pictures of a hundred Pokémon. ",
+                "DETAILS": "This training dataset includes images of a selection of Pokémon, grouped by their type. It is a good starting set for training a machine learning model to predict the type of a Pokémon from a picture."
+            }
+        }
+    },
+    "PROJECT": {
+        "TRAIN": {
+            "TITLE": "Tanítás",
+            "BODY": "Gyűjts példákat, amiket szeretnél, hogy a számítógép felismerjen."
+        },
+        "LEARNANDTEST": {
+            "TITLE": "Tanítsd majd &amp; Teszteld",
+            "BODY": "Használd fel a példákat, annak érdekében, hogy megtanítsd a számítógépet a felismerésre"
+        },
+        "MAKES": {
+            "TITLE": "Készítés",
+            "BODY": "Használd a modellt, amit már betanítottál, arra, hogy egy játékot, vagy appot készíts Scratch-ben, Python-ban, vagy App Inventor-ban",
+            "BODY_SCRATCHONLY": "Használd a modellt, amit már betanítottál, arra, hogy egy játékot készíts Scratch-ben"
+        },
+        "SCRATCH": {
+            "TITLE": "Scratch",
+            "BODY": "Használd a modellt, amit már betanítottál, arra, hogy egy játékot készíts Scratch-ben"
+        },
+        "PYTHON": {
+            "TITLE": "Python",
+            "BODY": "Használd a modellt, amit már betanítottál, arra, hogy egy játékot készíts Python-ban"
+        },
+        "APPINVENTOR": {
+            "TITLE": "App Inventor",
+            "BODY": "Készíts egy mobilapplikációt a modelled felhasználásával."
+        },
+        "SCRATCH3": {
+            "TITLE": "Scratch 3",
+            "BODY": "Használd a modelledet a Scratch legújabb verziójában"
+        }
+    },
+    "TRAINING": {
+        "TITLE": "Tanítás",
+        "ADDLABEL": "Adj hozzá új címkét.",
+        "CREATEFIRSTLABEL": "Klikkelj a 'plusz' gombra jobb oldalt, és add meg az első kategóriádat.",
+        "CROWDSOURCEDEMPTY": "Frissítsd ezt az oldalt, miután a tanárod készített egy új kategóriát.",
+        "ADDEXAMPLE": "Adj hozzá egy példát",
+        "ADDURL": "www",
+        "ADDWEBCAM": "webkamera",
+        "ADDDRAWING": "rajzolás",
+        "DRAGIMAGES": "Húzz és dobj ide egy képet a böngészőből ide",
+        "NEWLABEL": {
+            "INTRO": "Írj be új címkét, hogy felismerje",
+            "ERROR": "Csak betűket és számokat használj a cimkékben"
+        },
+        "NEWEXAMPLE": {
+            "INTRO": "Adj meg egy példát ",
+            "INTROURL": "Add meg a példaként szolgáló kép URL-jét",
+            "INTRODRAWING": "Rajzolj egy új példát",
+            "INTROWEBCAM": "Adj hozzá egy új példát",
+            "ERROR": "Nem használhatsz tabulátort, vagy új sort.",
+            "REQUIRED": "A példa minden mezőjéhez értéket kell megadnod",
+            "PATTERNNUMBER": "Ez nem úgy tűnik, mint egy szám",
+            "PATTERNURL": "Ennek a kép webcímének kell lennie",
+            "WEBCAMFAIL": "Elnézést! Nem férünk hozzá a webkamerádhoz.",
+            "WEBCAMERROR": "Az üzenet, amit a böngésződ küldött nekünk, az volt, hogy:"
+        },
+        "BACKGROUNDNOISE": "A háttérzajok összegyűjtése abban segíti a számítógépet, hogy megtanulja felismerni a hangokat."
+    },
+    "MODELS": {
+        "TITLE": "Gépi tanulási modellek",
+        "TRAIN": "Taníts be egy új modellt",
+        "CANCEL": "Állítsd le a tanítást",
+        "DELETE": "Töröld a modellt",
+        "TEST_CANVAS": "Rajzolj valamit, hogy tesztelhesd a modelledet",
+        "TEST_WEBCAM": "Készíts egy fotót a modell teszteléséhez",
+        "WHATHAVEYOUDONE": {
+            "TITLE": "Mit csináltál eddig?",
+            "PLEASEWAIT": "Ez általában pár percet vesz igénybe, de hosszabbra is nyúlhat, ha a számítógép nagyon leterhelt.",
+            "FAIL": "Sajnos valami elromlott.",
+
+            "TRAINING" : {
+                "CROWDSOURCED" : {
+                    "TEXT" : "Az osztályod azokat a szövegeket használja a tanításhoz, amiket együtt gyűjtöttetek.",
+                    "IMAGES" : "Az osztályod azokat a képeket használja a tanításhoz, amiket együtt gyűjtöttetek",
+                    "NUMBERS" : "Az osztályod azokat a számokat használja a tanításhoz, amiket együtt gyűjtöttetek",
+                    "SOUNDS" : "Az osztályod azokat a hangokat használja a tanításhoz, amiket együtt gyűjtöttetek."
+                },
+                "INDIVIDUAL" : {
+                    "TEXT" : "Elkezdted tanítani a modellt, használva azokat a szövegeket, amiket gyűjtöttél.",
+                    "IMAGES" : "Elkezdted tanítani a modellt, használva azokat a képeket, amiket gyűjtöttél.",
+                    "NUMBERS" : "Elkezdted tanítani a modellt, használva azokat a számokat, amiket gyűjtöttél.",
+                    "SOUNDS" : "Elkezdted tanítani a modellt, használva azokat a hangokat, amiket gyűjtöttél."
+                },
+                "SINCE": "Még tanul"
+            },
+            "READY" : {
+                "CROWDSOURCED" : {
+                    "TEXT" : "Az osztályod megtanította a modellt, hogy felismerje, amikor a szöveg",
+                    "IMAGES" : "Az osztályod megtanította a modellt, hogy felismerje, amikor a képek",
+                    "NUMBERS" : "Az osztályod megtanította a modellt, hogy felismerje, amikor a számok",
+                    "SOUNDS" : "Az osztályod megtanította a modellt, hogy felismerje, amikor a hangok"
+                },
+                "INDIVIDUAL" : {
+                    "TEXT" : "Megtanítottad a modellt, hogy felismerje, amikor a szöveg",
+                    "IMAGES" : "Megtanítottad a modellt, hogy felismerje, amikor a képek",
+                    "NUMBERS" : "Megtanítottad a modellt, hogy felismerje, amikor a számok",
+                    "SOUNDS" : "Megtanítottad a modellt, hogy felismerje, amikor a hangok"
+                },
+                "CREATED" : {
+                    "TEACHER" : "A tanárod készített egy modellt a  ",
+                    "YOU" : "Készítettél egy modellt a "
+                },
+                "TRAINING" : {
+                    "CLASS" : "Az osztályod összegyűjtötte: ",
+                    "YOU" : "Te összegyűjtötted: "
+                }
+            },
+            "ERROR": {
+                "CROWDSOURCED" : {
+                    "CLASS" : {
+                        "TEXT" : "A tanárod megpróbálta megtanítani a modellt, használva azokat a szövegpéldákat, amelyeket az osztályod gyűjtött.",
+                        "IMAGES" : "A tanárod megpróbálta megtanítani a modellt, használva azokat a képeket, amelyeket az osztályod gyűjtött.",
+                        "NUMBERS" : "A tanárod megpróbálta megtanítani a modellt, használva azokat a számokat, amelyeket az osztályod gyűjtött.",
+                        "SOUNDS" : "A tanárod megpróbálta megtanítani a modellt, használva azokat a angokat, amelyeket az osztályod gyűjtött."
+                    },
+                    "YOU" : {
+                        "TEXT" : "Megpróbáltad megtanítani a modellt, használva azokat a szövegpéldákat, amelyeket az osztályod gyűjtött.",
+                        "IMAGES" : "Megpróbáltad megtanítani a modellt, használva azokat a képeket, amelyeket az osztályod gyűjtött.",
+                        "NUMBERS" : "Megpróbáltad megtanítani a modellt, használva azokat a számokat, amelyeket az osztályod gyűjtött.",
+                        "SOUNDS" : "Megpróbáltad megtanítani a modellt, használva azokat a hangokat, amelyeket az osztályod gyűjtött."
+                    }
+                },
+                "INDIVIDUAL" : {
+                    "TEXT" : "Megpróbáltad megtanítani a modellt, használva azokat a szövegpéldákat, amelyeket gyűjtöttél.",
+                    "IMAGES" : "Megpróbáltad megtanítani a modellt, használva azokat a képeket, amelyeket gyűjtöttél.",
+                    "NUMBERS" : "Megpróbáltad megtanítani a modellt, használva azokat a számokat, amelyeket gyűjtöttél.",
+                    "SOUNDS" : "Megpróbáltad megtanítani a modellt, használva azokat a hangokat, amelyeket gyűjtöttél."
+                }
+            },
+            "IDLE" : {
+                "NOLABELS" : {
+                    "CROWDSOURCED" : {
+                        "TEXT" : "Az osztályod azt mondta, hogy szövegeket akartok gyűjteni.",
+                        "IMAGES" : "Az osztályod azt mondta, hogy képeket akartok gyűjteni.",
+                        "NUMBERS" : "Az osztályod azt mondta, hogy számokat akartok gyűjteni.",
+                        "SOUNDS" : "Az osztályod azt mondta, hogy hangokat akartok gyűjteni."
+                    },
+                    "INDIVIDUAL" : {
+                        "TEXT" : "Azt mondtad, hogy szövegeket akarsz gyűjteni.",
+                        "IMAGES" : "Azt mondtad, hogy képeket akarsz gyűjteni.",
+                        "NUMBERS" : "Azt mondtad, hogy számokat akarsz gyűjteni.",
+                        "SOUNDS" : "Azt mondtad, hogy hangokat akarsz gyűjteni."
+                    }
+                },
+                "NODATA" : {
+                    "CROWDSOURCED" : {
+                        "TEXT" : "Az osztályod úgy döntött, hogy szöveges példákat akartok gyűjteni, hogy a számítógép felismerje, amikor a szöveg ",
+                        "IMAGES" : "Az osztályod azt állítja, hogy képes példákat akarsz gyűjteni, hogy a számítógép felismerje, amikor a képek ",
+                        "NUMBERS" : "Az osztályod úgy döntött, hogy számokra akartok példákat  gyűjteni, hogy a számítógép felismerje, amikor a számok ",
+                        "SOUNDS" : "Az osztályod úgy döntött, hogy hangokra akartok példákat  gyűjteni, hogy a számítógép felismerje, amikor a hangok "
+                    },
+                    "INDIVIDUAL" : {
+                        "TEXT" : "Azt mondtad, hogy szöveges példákat akarsz gyűjteni, hogy a számítógép felismerje, amikor a szöveg ",
+                        "IMAGES" : "Azt mondtad, hogy képekre akarsz példákat  gyűjteni, hogy a számítógép felismerje, amikor a képek ",
+                        "NUMBERS" : "Azt mondtad, hogy számokra akarsz példákat  gyűjteni, hogy a számítógép felismerje, amikor a számok ",
+                        "SOUNDS" : "Azt mondtad, hogy hangokra akarsz példákat  gyűjteni, hogy a számítógép felismerje, amikor a hangok "
+                    }
+                },
+                "NOEXAMPLES" : {
+                    "CLASS" : "Eddig az osztályod nem gyűjött példákat.",
+                    "YOU" : "Eddig nem gyűjtöttél példákat."
+                },
+                "DATA" : {
+                    "CROWDSOURCED" : {
+                        "TEXT" : "Az osztályod szöveges példákat gyűjtött, azért, hogy a számítógép felismerje, amikor a szöveg ",
+                        "IMAGES" : "Az osztályod képekre gyűjtött példákat, azért, hogy a számítógép felismerje, amikor a képek ",
+                        "NUMBERS" : "Az osztályod számokra gyűjtött példákat, azért, hogy a számítógép felismerje, amikor a számok ",
+                        "SOUNDS" : "Az osztályod hangokra gyűjtött példákat, azért, hogy a számítógép felismerje, amikor a hangok "
+                    },
+                    "INDIVIDUAL" : {
+                        "TEXT" : "Szöveges példákat gyűjtöttél, azért, hogy a számítógép felismerje, amikor a szöveg ",
+                        "IMAGES" : "Képekre gyűjtöttél példákat, azért, hogy a számítógép felismerje, amikor a képek ",
+                        "NUMBERS" : "Számokra gyűjtöttél példákat, azért, hogy a számítógép felismerje, amikor a számok ",
+                        "SOUNDS" : "Hangokra gyűjtöttél példákat, azért, hogy a számítógép felismerje, amikor a hangok "
+                    },
+                    "COLLECTED" : {
+                        "CLASS" : "Ezt gyűjtötték: ",
+                        "YOU" : "Ezt gyűjtötted: "
+                    }
+                }
+            }
+        },
+        "WHATSNEXT": {
+            "TITLE": "Mi a következő?",
+            "PLEASEWAIT": "Megvárhatod, amíg befejeződik a modell tanítás.",
+            "OFFERQUIZ": "Vagy megpróbálhatsz válaszolni a lenti kvízkérdésekre, azért, hogy ellenőrizd, mit tanultál.",
+            "FAIL": "A hibaüzenet lent található. Ha számodra ez értelmezhető, akkor próbáld meg megoldani a problémát. Másképp érdemes lehet még egyszer megpróbálkozni vele, hátha ez csak egy random hiba.",
+
+            "IDLE": {
+                "NOLABELS" : "Következő lépésként menj a <a href='{{ urls.train }}'>Tanítás</a> oldalra. Add meg néhány kategóriáját azoknak a tárgyaknak, amiket meg akarsz tanítani a számítógépnek, és azt szeretnéd, hogy felismerje őket.",
+                "ONELABEL" : {
+                    "EXPLANATION": "Csak egy dolgot mondtál, amit szeretnél, hogy a számítógép felismerjen: {{ label }}",
+                    "ISTHATALL": "Csak ezt az egy dolgot akarod, hogy felismerje a számítógép?",
+                    "NO": "<strong>Nem?</strong><br/>Menj vissza a <a href='{{ urls.train }}'>Tanítás</a> oldalra.<br/>Add meg több kategóriáját azoknak a dolgoknak, amiket szeretnél, hogy a számítógép felismerjen.<br/><br/>",
+                    "YES": "<strong>Igen?</strong><br/>Egy kicsit ennél több munkát kell beletenned.<br/>Ahhoz, hogy a számítógép megtanulja felismerni a \"{{ label }}\", olyan példákat is meg kell adnod, amelyek nem {{ label }}.<br/>Menj vissza a  <a href='{{ urls.train }}'>Tanítás</a> oldalra és készíts még egy kategóriát, amelyek nem {{ label }}. Elnevezheted \"nem-{{ label }}\"."
+                },
+                "LABELS" : {
+                    "NO_DATA" : "Következő lépésként menj a <a href='{{ urls.train }}'>Tanítás</a> oldalra. Adj példákat minden kategóriához.",
+                    "MORE_DATA" : {
+                        "KEEP_GOING": "Folytasd!",
+                        "MORE_EXAMPLES" : {
+                            "YOU": "Menj vissza a <a href='{{ urls.train }}'>Tanítás</a> oldalra és gyűjts még több példát a kategóriákhoz.",
+                            "CLASS": "Kérd meg az osztályod, hogy menjenek vissza a <a href='{{ urls.train }}'>Tanítás</a> oldalra, és gyűjtsenek még több példát a kategóriákhoz."
+                        },
+                        "MORE_IS_BETTER" : "Minél több példát adsz meg, annál jobban megtanulja, de a {{ minimumExamples }} példa az abszolút minimum."
+                    },
+                    "ENOUGH_DATA" : {
+                        "READY_TO_START" : "Készen állsz a számítógép tanítására?",
+                        "START_TRAINING" : {
+                            "CROWDSOURCED" : "Kattints a gombra alul, és kezd meg a modell tanítását, használva azokat a példákat, amiket az osztályod eddig összegyűjtött.",
+                            "INDIVIDUAL" : "Kattints a gombra alul, és kezdd meg a modell tanítását, használva azokat a példákat, amiket eddig összegyűjtöttél."
+                        },
+                        "MORE_EXAMPLES" : {
+                            "CROWDSOURCED" : "(Vagy kérd meg az osztályod, hogy lépjen vissza a <a href='{{ urls.train }}'>Tanítás</a> oldalra, ha azt szeretnéd, hogy még gyűjtsenek példákat.)",
+                            "INDIVIDUAL" : "(Vagy lépj vissza a <a href='{{ urls.train }}'>Tanítás</a> oldalra, ha még további példákat szeretnél gyűjteni.)"
+                        },
+                        "WAITING_FOR_TEACHER" : "Várunk a tanárra, hogy megkezdje a gép tanítását."
+                    }
+                }
+            },
+            "READY" : {
+                "TEST" : {
+                    "TEXT" : "Próbáld meg lent tesztelni a gépi tanulási modellt. Gépelj be egy szöveget, amit a példákban nem tanítottál meg. Meg fogja mondani, hogy mit ismer fel, és hány százalékra biztos benne.",
+                    "IMAGES" : "Próbáld meg lent tesztelni a gépi tanulási modellt. Mutass neki egy képet lent, amit a példákban nem tanítottál meg. Meg fogja mondani, hogy mit ismer fel, és hány százalékra biztos benne.",
+                    "NUMBERS" : "Próbáld meg lent tesztelni a gépi tanulási modellt. Mutass neki számokat Mutass egy példát számokra lent, amit nem alkalmaztál a  betanításhoz használt példák során. A gép azt is megmondja, hogy minek ismeri fel, és mennyire biztos ebben.",
+                    "SOUNDS" : "Próbáld meg lent tesztelni a gépi tanulási modellt. Kattints a 'kezdd a hallgatást' gombra. Ha a gépi tanulási rendszered bármilyen hangot felismer, megmondja mit ismer fel, és mennyire biztos benne."
+                },
+                "SCRATCH" : "Ha úgy tűnik, hogy a számítógép ezeket helyesen megtanulta, és korrektül felismeri a dolgokat, akkor áttérhetsz a Scratch programozás részére, hogy készíts egy játékot!",
+                "ADDITIONAL_TRAINING" : {
+                    "MORE_EXAMPLES" : {
+                        "CROWDSOURCED" : "Ha a számítógép túl sok hibát követ el, az osztályodnak célszerű visszatérnie a <a href='{{ urls.train }}'>Tanítás</a> oldalra, és még több példát gyűjteni.",
+                        "INDIVIDUAL" : "Ha a számítógép túl sok hibát követ el, célszerű visszatérned a <a href='{{ urls.train }}'>Tanítás</a> oldalra, és még több példát gyűjteni."
+                    },
+                    "RETRAIN" : {
+                        "YOU" : "Ha egyszer ezt megcsináltad, klikkelj az alsó gombra, és tanítsd meg a gépet az új modellre, hogy lásd a különbséget, mi történik az extra példák hozzáadása után!",
+                        "CLASS" : "Ha ezzel kész vagy, a tanárod meg fogja tanítani az új modellt a rendszernek."
+                    }
+                }
+            }
+        },
+        "TRAINING": {
+            "TITLE": "Információ a számítógépről:",
+            "STARTED": "A modell elkezdett tanulni:",
+            "STATUS": "A modell jelenlegi státusza:",
+            "DETAIL": "Részletek:",
+            "DELETION": "Modelled automatikusan törlésre kerül:",
+            "LASTCHECK": "Modellt utoljára ellenőrizted:",
+            "PROMPTREFRESH": "Ha ez több mint egy perc, frissítsd az oldalt, hogy naprakész legyen"
+        },
+        "TESTING": {
+            "INTRO": {
+                "TEXT": "Próbáld meg szöveget beilleszteni, hogy meglásd, hogyan ismeri fel a rendszer a tanításod alapján.",
+                "IMAGES": "Próbálj meg képeket mutatni, hogy meglásd, hogyan ismeri fel a rendszer a tanításod alapján.",
+                "NUMBERS": "Próbálj meg számokat beadni, hogy meglásd, hogyan ismeri fel a rendszer a tanításod alapján.",
+                "SOUNDS": "Próbálj meg hangot beadni, hogy meglásd, hogyan ismeri fel a rendszer a tanításod alapján."
+            },
+            "WEBCAM": "Teszteld a  <strong>webkamerával</strong>",
+            "DRAWING": "Teszteld <strong>rajzolással</strong>",
+            "WWW": "Teszteld <strong>webbel</strong>",
+            "RECOGNISED": "Ismerd fel, mint <strong>{{ testoutput }}</strong>",
+            "STARTLISTENING": "Kezdd el a hallgatást",
+            "STOPLISTENING": "Fejezd be a hallgatást"
+        },
+        "QUIZ": {
+            "TITLE": "Játsszunk!",
+            "INTROQUESTION": "Amíg vársz, hogy a modell megtanulja a példákat, próbálj válaszolni a kérdésekre.",
+            "PREVIOUSLY_ATTEMPTED": "Ez a kérdés már volt egyszer. Lássuk, emlékszel-e a helyes válaszra!",
+            "CORRECT_ANSWER": "Nagyszerű!",
+            "INCORRECT_ANSWER": "Nem igazán ez a helyes válasz. A helyes válasz fent található.",
+            "NEXT_QUESTION": "Következő kérdés",
+
+            "QUESTION_1": {
+                "QUESTION": "Általában mi segít a gépnek, hogy jobban tanuljon?",
+                "ANSWER_1": "Több példa",
+                "ANSWER_2": "Kevesebb példa",
+                "NOTES_1": "Nem ez az egyetlen dolog, ami számít. De nagy általánosságban minél több a példa, annál jobban tanul."
+            },
+            "QUESTION_2": {
+                "QUESTION": "Melyik lenne a legcélszerűbb az alábbiak közül, hogy a modell megtanulja felismerni az alma képét?",
+                "ANSWER_1": "Képek a kutyáról",
+                "ANSWER_2": "Különböző képek, különböző almákról, különböző helyeken",
+                "ANSWER_3": "Azonos képek az almáról",
+                "ANSWER_4": "Nagyon hasonló képek ugyanarról az almáról, ugyanazon a helyen.",
+                "NOTES_1": "Minél több példát összegyűjtesz, a rendszer annál jobban meg tudja különböztetni a különböző almákat.",
+                "NOTES_2": "Ha minden példa, amit mutatsz neki, ugyanazon a barna faasztalon van, akkor azt fogja megtanulni, hogy valami akkor alma, ha az barna faasztalon van."
+            },
+            "QUESTION_3": {
+                "QUESTION": "Mire lehetne használni a gépi tanulást?",
+                "ANSWER_1": "Nagy számok összeadása",
+                "ANSWER_2": "Annak felismerésére, hohy valami spam-e",
+                "ANSWER_3": "Annak számolására, hogy hányszor nyomsz le egy gombot.",
+                "NOTES_1": "A levélszemét szűrés egy jó példája a gépi tanulásnak.",
+                "NOTES_2": "Megfelelő számú levél és megfelelő számú levélszemét bemutatásával a számítógép elkezdi megtanulni felismerni a levélszemetet."
+            },
+            "QUESTION_4": {
+                "QUESTION": "Ezek közül melyik nem jó használata a gépi tanulásnak?",
+                "ANSWER_1": "Érzések elemzése - felismeri a szöveg hangnemét, tónusát, a benne rejlő érzelmeket.",
+		"ANSWER_2": "Szövegfordítás egyik nyelvről a másikra.",
+		"ANSWER_3": "Arcfelismerés- felismerni egy fotóról az arcot és megmondani, hogy kicsoda.",
+		"ANSWER_4": "Önvezető autók.",
+		"ANSWER_5": "Kiszámolni az árát valaminek különböző országokban a valutaárfolyam alapján.",
+		"ANSWER_6": "Ajánlani egy filmet annak alapján, hogy milyen filmeket néztél előtte.",
+                "NOTES_1": "A kidolgozható szabályok követésével járó feladatok nem alkalmasak a gépi tanulásra.",
+                "NOTES_2": "A számítógép nem fogja megtanulni hogyan kell alkalmazni a valutaárfolyamot példákból- elég megmondanunk, hogy mit csináljon."
+            },
+            "QUESTION_5": {
+                "QUESTION": "Az alábbiak közül melyik lesz nagyobb valószínűséggel sikeres?",
+                "ANSWER_1": "Gyűjts egy kis mintájú példát, tanítsd meg a rendszert, teszteld, hogy mennyire működik jól. Adj hozzá még több példát, teszteld újra. Ismételd addig, amíg nem működik tökéletesen.",
+                "ANSWER_2": "A több példa jobb, ezért törődj bele, hogy több millió példára van szükséged. Kezdj el hatalmas mennyiségű példákat gyűjteni, és tölts hónapokat azzal, hogy egyre többet és többet gyűjts.",
+                "NOTES_1": "Több példa általában segít, de maradj észszerű.",
+                "NOTES_2": "A pragmatizmus fontos. A rendszeres tesztelés hasznos annak érdekében, hogy tájékozódj a dolgok alakulásáról, és arról, hogy mikor készítettél eleget.",
+                "NOTES_3": "Ha van tíz példád, valószínűleg a következő tíz példa nagy változásokat okozhat.",
+                "NOTES_4": "Ha már van 100.000 példád, még tíz példa valószínűleg semmilyen változást nem fog eredményezni."
+            },
+            "QUESTION_6": {
+                "QUESTION": "Melyik állítás igaz?",
+                "ANSWER_1": "A gépi tanulás egy technika, ahol a számítógépet megtanítjuk feladatok elvégzésére, ahelyett, hogy a feladatok pontos sorrendjét meghatároznánk.",
+                "ANSWER_2": "A gépi tanulás egy varázslat",
+                "ANSWER_3": "A gépi tanulás azt jelenti, hogy soha többé nem fogunk dolgokon gondolkodni, mert a számítógép megteszi ezt helyettünk.",
+                "ANSWER_4": "A gépi tanulás váltotta ki az igényt arra, hogy megtanuljunk kódolni.",
+                "ANSWER_5": "A gépi tanulás csak szuperszámítógépeken fut."
+            },
+            "QUESTION_7": {
+                "QUESTION": "A fát tartalmazó képek felismerésére kiképzett gépi tanulási rendszernek az alábbi feladatok közül melyikben kell jónak lennie:",
+                "ANSWER_1": "Gyümölcs azonosítására",
+                "ANSWER_2": "Egy darab írásból felismerni az érzelmeket.",
+                "ANSWER_3": "Felismerni a fákat képről.",
+                "NOTES_1": "A gépi tanulás nem azt jelenti, hogy a számítógép varázslatos módon mindent megtanul.",
+                "NOTES_2": "Ez azt jelenti, hogy megtanulják, hogy kell egy speciális feladatot elvégezni oly módon, hogy példákat mutatnak nekik a speciális feladatból.",
+                "NOTES_3": "Ha azt akarod, hogy csináljon még valamit, azt is meg kell neki tanítanod oly módon, hogy példákat adsz abból a feladatból is."
+            },
+            "QUESTION_8": {
+                "QUESTION": "Alice és Bob meg akarják tanítani a gépi tanuló rendszert, hogy felismerjék, hogy egy szöveg vidám-e, vagy szomorú. Melyik tűnik a legjobb módszernek?",
+                "ANSWER_1": "Alice tíz szomorú és tíz vidám szöveget gyűjtött.",
+                "ANSWER_2": "Bob ezer vidám és 10 szomorú szöveget gyűjtött.",
+                "NOTES_1": "Körülbelül egyforma mennyiségű szöveget kell gyűjteni mind a két kategóriából.",
+                "NOTES_2": "Ha több vidám szöveget tanítasz meg neki, akkor azt fogja feltételezni, hogy nem valószínű, hogy a szöveg szomorú.",
+                "NOTES_4": "Lehet, hogy azt akarod, hogy így csinálja.",
+                "NOTES_5": "Ha a tanítás során 98%-ban vidám szövegeket adsz meg neki, a reális tapasztalatok megtanítása is megér egy próbát."
+            },
+            "QUESTION_9": {
+                "QUESTION": "A magas szintű gépi tanulás mindig tökéletes válaszokat fog adni. A helytelen válasz azt jelenti, hogy a gépi tanulás technológiája nem elég jó.",
+                "ANSWER_1": "Igaz",
+                "ANSWER_2": "Hamis",
+                "NOTES_1": "Nem releváns.",
+                "NOTES_3": "A technológia és az algoritmusok a fontosak. De a gépi tanulás csak annyira pontos és megbízható, amennyire a tanítás pontos volt.",
+                "NOTES_4": "Egy egyszerű tanuló algoritmus magas szintű tanítással jobb eredményt tud produkálni, mint a legjobb algoritmus, kis számú modell megadásával."
+            },
+            "QUESTION_10": {
+                "QUESTION": "Hogy lehetsz biztos abban, hogy a tanításra szánt állatképeid megfelelő minőségűek, és nincs bennük semmilyen hiba?",
+                "ANSWER_1": "Manuálisan ellenőrizd az összes állatképet, és győződj meg arról, hogy egyetértesz-e az összes címkével",
+                "ANSWER_2": "Kérj meg sok embert, hogy címkézzék fel az összes képet, és csak azokat a tanulási címkéket tartsd meg, amelyekben az emberek általában egyetértenek",
+                "ANSWER_3": "Trükkös kérdés! Az embernek mindig igaza van, a gépek tévedhetnek.",
+                "NOTES_1": "Mindenki tévedhet, az emberek is, és nincs mindig idő arra, hogy kétszer ellenőrizd a tanításra szánt adataidat.",
+                "NOTES_2": "Ha a feladat bonyolult, jó ötlet lehet egynél több embert rávenni, hogy címkézzen meg minden képet, és tartsd meg azt a címkét, amelyikben a legtöbb ember egyetért.."
+            },
+            "QUESTION_11": {
+                "QUESTION": "Megtanítottad a számítógépet, hogy felismerje az alábbi kategóriákat: \"étel\" or \"nem étel\" ennek ellenére következetlen válaszokat ad a szendvics képére, mindig betéve a \"nem étel\" osztályba. Mi magyarázhatja ezt?",
+                "ANSWER_1": "Az ember, aki tanította a rendszert, nem szereti a szendvicseket, és nem is tette bele a tanítási adatokba",
+                "ANSWER_2": "A gépnek megfelelő hangulatban kell lennie egy szendvicshez, emiatt sokat változtat a véleményen",
+                "ANSWER_3": "A szendvics nem étel. A rendszer jól működik, amikor ebben nem biztos.",
+                "NOTES_1": "A gépi tanulási rendszer csak azokat a példákat tudja megtanulni, amiket megmutatunk neki.",
+                "NOTES_2": "Nagyon könnyen előfordulhat, hogy az ember véletlenül beépítik tetszéseit és nemtetszését a gépi tanulási modellekbe, ezért nagyon óvatosnak kell lennünk azzal kapcsolatban, hogy milyen tanítási adatokat használunk."
+            },
+            "QUESTION_12": {
+                "QUESTION": "Mi írja le leginkább a felügyelet nélküli tanulást?",
+                "ANSWER_1": "Sok ha/akkor utasítást tartalmazó program írása meghatározza az eredményt",
+                "ANSWER_2": "Gépi tanulási algoritmus, amely címkézetlen adatokat használ, és az alapján osztályozza azokat, hogy mennyire hasonlít az egyik adatkészlet a másikhoz",
+                "ANSWER_3": "Gépi tanulási algoritmus, amely címkézett adatokat használ, és osztályozza őket bemenet-kimenet párok példáit használó tanításon",
+                "NOTES_1": "A felügyelet nélküli tanulás a gépi tanulás egy fajtája, míg a ha/akkor utasítások használata nem az.",
+                "NOTES_2": "A felügyelet nélküli tanulási algoritmusokat továbbra is betanítják, de a hozzájuk kapott bemenetek nincsenek címkézve vagy besorolva.",
+                "NOTES_3": "Ha az adatok fel vannak címkézve, akkor ez az úgynevezett felügyelt tanulás."
+            },
+            "QUESTION_13": {
+                "QUESTION": "Gépi tanulás nélkül az olyan keresőmotorok létezése, mint a Google, nem lenne lehetséges.",
+                "ANSWER_1": "Igaz",
+                "ANSWER_2": "Hamis",
+                "NOTES_1": "Míg sok keresőmotor gépi tanulást alkalmaz, nem lehetetlen készíteni egyet gépi tanulás nélkül. Az alap keresőmotor csak olyan dokumentumokat, weboldalakat fog keresni, ami tartalmazza a keresett szavakat."
+            }
+        }
+    },
+    "DESCRIBEMODEL": {
+        "TITLE": "Értsd meg a gépi tanulási modellt",
+        "TRYITOUT": "Próbáld ki a gépi tanulási modelledet, hogy megtudd, hogyan használja a döntési fát az előrejelzésekhez",
+        "EXPLANATION": {
+            "EXPL_1": "A gépi tanulási modell létrehozásához használt technikát így hívjuk <a target='_blank' href='https://wikipedia.org/wiki/Decision_tree_learning'>Decision Tree Classifier</a>.",
+            "EXPL_2": "Nem ez az egyetlen módja a gépi tanulási modell betanításának. Azért használjuk, mert nagyon gyorsan és egyszerűen betanítható, és ez az egyik legkönnyebben megérthető technika. Ezen az oldalon az összegyűjtött tanítási példák alapján létrehozott döntési fa látható.",
+	    "EXPL_3": "A modell tesztelésekor a számítógép a fa tetejéről indul, és egy útvonalat követ, amíg el nem éri a fa alját. Az <strong>osztály</strong> a fa alján megmutatja azt a jóslatot, amit a gépi tanulás készített.",
+            "EXPL_4": "A fa minden dobozánál a doboz tetején leírt teszt olvasható. Ha a teszt értékei megfelelnek a dobozban leírt tesztnek, akkor az a balra mutató nyilat követi. Ha nem megy át a teszten, akkor a jobbra mutató nyilat.",
+            "EXPL_5": "Az egyes mezőkben látható <strong>minták</strong> megmutatják, hogy a betanítási adatokban hány példa egyezik a döntési fa adott részével.",
+            "EXPL_6": "Az egyes mezőkben látható <strong>értékek</strong> megmutatják, hogy a tanítási adatok közül hány példa teljesítette a felül látható tesztet (a balra mutató nyíl után), és hány példa nem ment át a felül látható teszten (a jobbra mutató nyíl után)."
+        },
+        "ERRORS": {
+            "NUMBERSONLY": "Csak a számprojektekhez tartozó gépi tanulási modellek írhatók le"
+        }
+    },
+    "DESCRIBETEXTMODEL": {
+        "ZOOM": "Használd ez a vezérlőt, hogy a diagramokra közelítsen.",
+        "ERRORS": {
+            "TEXTONLY": "Csak a szöveges projektekhez használható neurális hálózatok írhatók le"
+        },
+        "MOREINFO": "További részletekért keress:",
+        "PAGE1": {
+            "TITLE": "neurális hálózatok",
+            "TEXT1": "A projektben betanított gépi tanulási modell típusának neve <em>neurális háló</em>.",
+            "TEXT2": "A következő pár oldal bemutatja, hogy készült a modelled.",
+            "TEXT3": "Az alábbi diagramok nem pontos leírásai a modellednek. A te modelled sokkal nagyobb és bonyolultabb, de ezeken a diagramokon könnyebb elmagyarázni."
+        },
+        "PAGE2": {
+            "TITLE": "mély tanulás",
+            "TEXT1": "A modelled <em>csomópontokból épül fel</em>, ami függőleges <em>rétegekben rendeződik</em>.",
+            "TEXT2": "A sok rétegű modellt <em>mélynek nevezzük</em>.",
+            "TEXT3": "A mély modellek jobb eredményt adnak, de tovább tart őket megtanítani."
+        },
+        "PAGE3": {
+            "TITLE": "bemeneti réteg",
+            "TEXT1": "Kezdjük az egyik példával, amit a te modelledhez használtál.",
+            "TEXT2": "A te példád <em>bemenetként </em> jelenik meg bal oldalon."
+        },
+        "PAGE4": {
+            "TITLE": "kódolás",
+            "TEXT1": "Ahhoz, hogy megtanítsuk a modelledet, a szövegedet számsorokká kell alakítani.",
+            "TEXT2": "Ennek több módja is van.",
+            "TEXT3": "Ha te építed a saját gépi tanulási modelledet, olyan módot kell választanod, ami a te egyedi projektedhez megfelelő."
+        },
+        "PAGE5": {
+            "TITLE": "szócsoportok",
+            "TEXT1": "Egy módja annak, hogy miként lehet a szavakat számokká alakítani, az, hogy minden szám azt jelöli, hogy az adott szó hányszor fordul elő."
+        },
+        "PAGE6": {
+            "TITLE": "jellemzők kinyerése",
+            "TEXT1": "Más dolgokat is megszámolhatsz. Hogy mi jelent segítséget a számolásnál, attól függ, hogy milyen projekten dolgozol, és mit szeretnél, hogy a modelled megtanuljon felismerni",
+            "TEXT2": "A dolgok számolása gyors és egyszerű, de nem annyira jó azoknál a projekteknél, ahol számít a szavak sorrendje."
+        },
+        "PAGE7": {
+            "TITLE": "Szóbeágyazás",
+            "TEXT1": "Ha te készíted a saját gépi tanulási modelledet, neked kell kiválasztani, hogy milyen módon alakítod a szöveget számokká.",
+            "TEXT2": "A modelled sokkal bonyolultabb technikát használ, ami magába foglalja a szavak sorrendjét a szövegben."
+        },
+        "PAGE8": {
+            "TITLE": "rejtett rétegek",
+            "TEXT1": "A bemeneti rétegből származó számok összegekké alakulnak, amelyek kiszámítják a következő réteg csomópontjainak értékeit.",
+            "TEXT2": "A diagramon látható vonalak azt mutatják, hogy a következő réteg mely bemeneti értékeket számítja ki."
+        },
+        "PAGE9": {
+            "TITLE": "aktiválási funkciók",
+            "TEXT1": "Jó néhány különböző típusú számítás használható. A modellben nem minden csomópontnak kell ugyanazt a számítást használnia.",
+            "TEXT2": "Ha te készíted a saját gépi tanulási modelledet, neked kell kiválasztanod, hogy melyik egyenletet választod a csomópontokhoz.",
+            "TEXT3": "A modell minden egyes csomópontjához használandó függvények neked lettek kiválasztva."
+        },
+        "PAGE10": {
+            "TITLE": "súlyozás",
+            "TEXT1": "A diagram minden sora tartalmaz egy  <em>súly</em> számot, amit fel lehet használni az összegben.",
+            "TEXT2": "A modell betanítása az, ahogyan kidolgozzuk a legjobb számot az egyes sorokra, ahogy azt hamarosan meg is látod."
+        },
+        "PAGE11": {
+            "TITLE": "torzítási szám",
+            "TEXT1": "A diagram minden csomópontja tartalmaz egy <em>torzítási</em> számot, amit szintén fel lehet használni az összegben.",
+            "TEXT2": "A modell betanítása egyben az is, hogy hogyan dolgozzuk ki a megfelelő torzítási számot, amint azt hamarosan látni fogod.",
+            "TEXT3": "Próbáld meg kitalálni, mennyi lesz az értéke ennek a csomópontnak."
+        },
+        "PAGE12": {
+            "TITLE": "aktiválási funkciók",
+            "TEXT1": "Ez egy általános<em>funkció </em> amit a neurális hálózatokban használnak.",
+            "TEXT2": "Minden bemeneti érték megszorozódik az azt összekötő vonal értékével. Ezeket mind összeadjuk. Ezután hozzáadjuk magának a csomópontnak az értékét."
+        },
+        "PAGE13": {
+            "TITLE": "aktiválási funkciók",
+            "TEXT1": "Minden csomópontnak van egy <em>torzítási</em> értéke.",
+            "TEXT2": "Minden sornak van egy <em>súlyozott</em> értéke."
+        },
+        "PAGE14": {
+            "TITLE": "rejtett rétegek",
+            "TEXT1": "A modell minden csomópontja különböző egyenleteket használhat.",
+            "TEXT2": "Ha saját gépi tanulási modellt építesz, ezeket kell mérlegelned:",
+            "LIST1": "Hány réteg legyen",
+            "LIST2": "hány csomópontot tegyünk rétegenként",
+            "LIST3": "melyik funkciót használjuk csomópontonként?"
+        },
+        "PAGE15": {
+            "TITLE": "rejtett rétegek",
+            "TEXT1": "Ez folytatódik a modell többi részében.",
+            "TEXT2": "A rétegek számát, az egyes rétegekben lévő csomópontok számát és a modellben az egyes csomópontokhoz használandó funkciókat  neked választották ki."
+        },
+        "PAGE16": {
+            "TITLE": "kimeneti réteg",
+            "TEXT1": "Az utolsó réteg megadja a gépi tanulási modell előrejelzését.",
+            "TEXT2": "Minden megtanítandó kategóriához, amit létrehoztál, tartozik egy csomópont."
+        },
+        "PAGE17": {
+            "TITLE": "veszteségfüggvény",
+            "TEXT1": "A jóslatot összehasonlítjuk a helyes válasszal. (a megtanítandó kategóriába, ahol elhelyezted a példát).",
+            "TEXT2": "A különbséget <em>hiba százaléknak</em>, tartjuk, ami megmutatja, hogy a rendszer milyen jól működik a betanításnak ebben az állapotában."
+        },
+        "PAGE18": {
+            "TITLE": "visszautalás",
+            "TEXT1": "A <em>hibaarány</em> a rétegeken való visszalépésre és az egyes vonalakhoz és csomópontokhoz tartozó számok eltolására szolgál.",
+            "TEXT2": "Minden súlyozott és torzítási számot csökkentjük, vagy növeljük egy kicsit, attól függően, hogy mi csökkenti a  hibaarányt."
+        },
+        "PAGE19": {
+            "TITLE": "neurális hálózat",
+            "TEXT1": "Ezután ezt az egészet megismételjük egy másik tanulási példával."
+        },
+        "PAGE20": {
+            "TITLE": "kódolás",
+            "TEXT1": "Ne felejtsd el, az első lépés a példaszöveg számokká alakítása.",
+            "TEXT2": "A szövegben szereplő dolgok megszámlálása egyszerű módszer, de vannak bonyolultabb módszerek is, ha fontos a szavak sorrendje.",
+            "TEXT3": "A modelled módszerét neked választották ki."
+        },
+        "PAGE21": {
+            "TITLE": "rejtett rétegek",
+            "TEXT1": "Ne felejtsd el, hogy a modell közepén található csomópontok olyan összegeket mutatnak, amelyek a bemeneti számok felhasználásával készültek",
+            "TEXT2": "Különbözet számolást minden csomópontnál lehet választani."
+        },
+        "PAGE22": {
+            "TITLE": "aktiválási funkciók",
+            "TEXT1": "Ne felejtsd el, hogy a számítások a hozzá kapcsolódó bal oldali csomópontok számait, valamint az őket összekötő vonalak számát használják.."
+        },
+        "PAGE23": {
+            "TITLE": "aktiválási funkciók",
+            "TEXT1": "A számítások szintén alkalmaznak egy <emtorzítási</em> számot a csomópontra magára."
+        },
+        "PAGE24": {
+            "TITLE": "rejtett rétegek",
+            "TEXT1": "Ez folytatódik a teljes modellen át.",
+            "TEXT2": "A modell minden egyes csomópontjához használandó függvényeket neked választották ki."
+        },
+        "PAGE25": {
+            "TITLE": "kimeneti réteg",
+            "TEXT1": "Ne felejtsd el, hogy a <em>kimeneti réteg</em> biztosítja a jóslatokat.",
+            "TEXT2": "Mindegyik csomópont ad előrejelzést egyre azok közül a kategóriák közül, amelyeket a tanításnál használtál."
+        },
+        "PAGE26": {
+            "TITLE": "veszteségfüggvény",
+            "TEXT1": "Ne felejtsd el, hogy a <em>kimeneti réteg</em> eredményeit a rendszer összehasonlítja a helyes válasszal, amely megmutatja, hogy a gépi tanulási modell milyen jól teljesít.."
+        },
+        "PAGE27": {
+            "TITLE": "visszautalás",
+            "TEXT1": "Ne felejtsd el, hogy a <em>hiba arány</em> a rétegeken való visszalépésre és az egyes vonalakhoz és csomópontokhoz tartozó számok eltolására szolgál..",
+            "TEXT2": "Minden <em>súlyozott</em> és <em>torzítási</em> számot csökkentjük, vagy növeljük egy kicsit, attól függően, hogy milyen hibaszámot szeretnénk csökkenteni.",
+            "TEXT3": "Ez az, ahogy a tanítás meghatározza az egyes csomópontokhoz és vonalakhoz használható legjobb számokat."
+        },
+        "PAGE28": {
+            "TITLE": "Ciklus",
+            "TEXT1": "A modellen keresztül összegyűjtött összes képzési példa egy átfutását nevezzük <em>ciklusnak</em>.",
+            "TEXT2": "Minden egyes alkalommal az egyes csomópontok súlyozását egy kicsit tovább tolják, amíg remélhetőleg az előrejelzések hibaaránya olyan alacsony lesz, amennyire csak lehet.",
+            "TEXT3": "Ha magad készíted a gépi tanulási modellt, neked kell eldöntened, hogy hány ciklussal fogsz dolgozni."
+        },
+        "PAGE29": {
+            "TITLE": "neurális hálózat",
+            "TEXT1": "Remélem, ez az egyszerűsített leírás képet ad arról, hogy mi történik, ha rákattintasz a  \"Tanítsd az új modellt\" gombra.",
+            "TEXT2": "A folyamat működésének magyarázatához próbáld meg megnézni a \"<a href='https://youtu.be/R9OHn5ZF4Uo'>Hogy Tanul a Gép</a>\" CGP Grey-től."
+        }
+    },
+    "MAKES": {
+        "TITLE": "Készíts valamit a gépi tanulási modelleddel",
+        "SCRATCH3": "Használd a Scratch új verzióját",
+        "PYTHON": "Írj egy Python kódot, és használd a gépi tanulási modelledet.",
+        "APPINVENTOR": "Készíts egy mobilapplikációt a telefonodra vagy a tabletedre"
+    },
+    "PYTHON": {
+        "TITLE": "A gépi tanulás használata Python-ban",
+
+        "NOTREADY": "A projekted még nincs kész ahhoz, hogy Python-ban programozd.",
+        "NOMODEL": "Még nem tanítottad be a modellt.",
+
+        "NOSOUND": "Python nem tud hangfelismerést végezni.",
+
+        "LAUNCH": "Futtasd a Python-t a böngészőben!",
+        "LOCAL": "Másold le a kódot, hogy fusson a számítógépeden!",
+
+        "REPLIT": {
+            "TITLE": "Replit-ben kódolva",
+            "TIP": "Tipp: Kattints a <span class='pythonreplhighlight'>Fork</span> ahhoz, hogy elkezdhesd a saját kódod szerkeszteni.",
+            "GO": "Menj a replit.com oldalra!"
+        },
+
+        "MODE": {
+            "INTRO": "Hová szeretnéd írni és futtatni a Python kódot?",
+            "BROWSER": "A webböngészőben mindent megtehetsz, ami azt jelenti, hogy nem kell aggódnod a Python, illetve a szükséges harmadik féltől származó Python modulok telepítése vagy beállítása miatt.",
+            "LOCAL": "Vagy lemásolhatod a kódot a saját számítógépeden való futtatáshoz. Ez akkor hasznos, ha vannak helyi fájlok vagy eszközök, például webkamera vagy hangszóró, amelyeket használni szeretnél a Python programban."
+        },
+
+        "APIKEY_INSTRUCTION": "Hozzá kell adnod az <span class='strongemphasis'> API kulcsokat</span> a projekthez. Tedd ezt a minta hatodik sorában.",
+        "APIKEY_WARNING": "Kezeld ezt a kódot jelszóként, és ügyelj arra, hogy titokban tartsd!",
+
+        "REPLACE_THIS": "Cseréld le ezt:",
+        "WITH_THIS": "Ezzel:",
+
+        "UNCOMMENT": "A funkció használatához el kell távolítania a # megjegyzés karaktert a mintakódból.",
+
+        "RECOGNIZE": {
+            "INSTRUCTION": "Próbáld meg frissíteni a példát a sablon 28. sorában.",
+            "TEXT": {
+                "INTRO": "Ha azt szeretnéd, hogy a gépi tanulási rendszer <span class='strongemphasis'>szöveget ismerjen fel</span>, használhatod a <code>classifyText</code> funkciót.",
+                "REPLACE": "Frissítd ezt azzal a szöveggel, amelyet a gépi tanulási modellel fel szeretnél ismertetni:"
+            },
+            "IMAGES": {
+                "INTRO": "Ha azt szeretnéd, hogy a gépi tanulási rendszer <span class='strongemphasis'>képeket ismerjen fel</span>, használhatod a <code>classifyImages</code> funkciót.",
+                "REPLACE": "Frissítsd ezt egy olyan kép webcímével, amelyet szeretnél, hogy a gépi tanulási modell felismerjen:"
+            },
+            "NUMBERS": {
+                "INTRO": "Ha azt szeretnéd, hogy a gépi tanulási rendszer <span class='strongemphasis'>számokat ismerjen fel</span>, használhatod a <code>classifyNumbers</code> funkciót."
+            }
+        },
+        "STORE": {
+            "ADD": "Hozzáadni kívánt adatok:",
+            "INSTRUCTION": "Próbáld meg frissíteni a példát a sablon 45. sorában.",
+            "TEXT": {
+                "INTRO": "Ha <span class='strongemphasis'>tanítási adatot szeretnél hozzáadni</span> a gépi tanulási projekthez, használhatod a <code>storeText</code> funkciót."
+            },
+            "NUMBERS": {
+                "INTRO": "Ha <span class='strongemphasis'>tanítási adatot szeretnél hozzáadni</span> a gépi tanulási projekthez, használhatod a <code>storeNumbers</code> funkciót."
+            }
+        }
+    },
+    "APPINVENTOR": {
+        "TITLE": "A gépi tanulás használata App Inventor-ban",
+
+        "LAUNCH_APPINVENTOR_BY_ITSELF": "(Használhatod a <a href='{{ url }}' class='btn btn-default' target='_blank'>App Inventor-t magában</a> ha akarod.)",
+
+        "NOTREADY": "A projekted még nem kész arra, hogy App Inventorban használd.",
+        "NOMODEL": "Még nem tanítottad meg a modellt.",
+
+        "LAUNCH": "Nyisd meg az App Inventor-t"
+    },
+    "SCRATCH": {
+        "TITLE": "Használd a gépi tanulást Scratch-ben",
+
+        "NOTREADY": "A projekted még nem kész ahhoz, hogy Scratch-ben használd.",
+        "NOMODEL": "Még nem tanítottad be az ML modellt.",
+
+        "LAUNCH": "Nyisd meg Scratch-ben",
+
+        "LAUNCH_SCRATCH_BY_ITSELF": "(Használhatod a <a href='{{ url }}' class='btn btn-default' target='_blank'>Scratch-et magában/a> ha akarod.)",
+        "GO_TO_LEARNANDTEST": "Vagy lépj a  <a href='{{ urls.learnandtest }}'>Taníts és  &amp; Teszteld</a> oldalra néhány tippért, arra vonatkozóan, hogy mi legyen a következő lépés.",
+
+        "MORE_BLOCKS": "A projekted hozzá fogja adni a blokkokat <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>Több Blokk</span> lapon a Scriptben.",
+        "MORE_BLOCKS_3": "A projekted hozzá fogja adni ezeket a blokkokat a Scratch-hez.",
+        "EXPLAIN_RECOGNISE_LABEL": "Tegyél {{ type }} képeket a bemenetbe, és a rendszer azt a címkét adja vissza, amelyen a gépi tanulási modell felismeri.",
+        "EXPLAIN_RECOGNISE_CONFIDENCE": "Ez visszajelzi, hogy a gépi tanulási modell mennyire biztos abban, hogy felismeri a képek típusát.{{ type }}. (Ez egy szám 0 - 100-ig).",
+        "EXPLAIN_LABELS": "Ezek a blokkok a projektben létrehozott címkéket képviselik, így a nevüket használhatod a szkriptekben.",
+        "EXPLAIN_COSTUMEIMAGE": "Ez a blokk a Sprites Looks palettáján található, és az aktuálisan kiválasztott jelmez képét adja vissza.",
+        "EXPLAIN_ADD_TRAINING": "Használd ezt a tanítási adatokhoz történő új példa hozzáadásához. (A tanítási adatok a gépi tanulási modell betanítása után fejtik ki hatásukat)",
+        "EXPLAIN_TRAIN_MODEL": "Használd ezt, hogy új modellt taníts.",
+        "EXPLAIN_IS_MODEL_READY": "A gépi tanulási modell egy percet vesz igénybe, mielőtt használatra készen állna. Ezekkel a blokkokkal megvárhatod, amíg elkészül.",
+        "SAMPLE_SCRIPT": "Ez azt jelenti, hogy valami ilyesmit csinálhatsz:",
+        "SAMPLE_SCREENSHOT": "Valahogy így fog kinézni – kivéve a projekt nevével.",
+        "EXPLAIN_STATUS": "A projekt neve melletti színes kör jelzi, hogy a gépi tanulási modell megfelelő-e.",
+        "STATUS_GREEN": "azt jelenti, hogy a modelled betanított és használatra kész",
+        "STATUS_YELLOW": "ez azt jelenti, hogy a modelled még nem fejezte be a tanulást.",
+        "STATUS_RED": "ez azt jelenti, hogy valami elromlott. Menj vissza a <a href='{{ urls.learnandtest }}'>Tanítás és Tesztelés </a> oldalra, hogy lásd mivel van baj a tanulás közben."
+    },
+    "SCRATCH3": {
+        "TITLE": "A gépi tanulás használata Scratch 3-ban",
+
+        "LAUNCH": "Nyisd meg Scratch 3-ban"
+    },
+    "WORKSHEETS": {
+        "TITLE": "Gépi tanulás projektek",
+
+        "INTRO_1": "Ezek a projektek letölthetőek és lépésről lépésre követhetőek.  Sőt mi több, színes képernyőképet és magyarázatot is tartalmaznak, amelyeket a diákok könnyen követhetnek.",
+        "INTRO_2": "Minden projekt önálló tevékenységre alkalmas, és egy órát igényel. Segítségükkel a diákok játékokat vagy olyan önálló projekteket készíthetnek, amelyek a mesterséges intelligencia és a gépi tanulás valóságos hasznosulását demonstrálják.",
+        "INTRO_3": "Új projekt és munkalap javaslatokat, fejlesztési ötleteket és segítséget örömmel fogadunk.",
+
+        "TYPES": {
+            "TITLE": "Felismerés:",
+            "ALL": "Összes projekttípus",
+
+            "PREFIX": "Tanítsd meg a számítógépet, hogy felismerje a ",
+
+            "TEXT": "szöveget",
+            "IMAGES": "képeket",
+            "NUMBERS": "számokat",
+            "SOUNDS": "hangokat",
+            "FACES": "arcokat"
+        },
+
+        "LEVELS": {
+            "TITLE": "Bonyolultság:",
+            "ALL": "Összes szint",
+            "BEGINNER": "Kezdő projektek",
+            "INTERMEDIATE": "középhaladó projektek",
+            "ADVANCED": "haladó projektek"
+        },
+
+        "DOWNLOAD": "letöltés",
+
+        "DOWNLOADS": {
+            "AUDIENCE": {
+                "TEACHERS": "Tanároknak:",
+                "STUDENTS": "Diákoknak:"
+            },
+            "GUIDANCE": {
+                "TITLE": "A tanári útmutató letöltése",
+                "DETAIL": "Ez a dokumentum segítséget nyújt a tanároknak, szakkörvezetőknek az előkészületekhez, illetve a projekt kivitelezéséhez és felügyeletéhez.",
+                "NOTES": "Jegyzetek:"
+            },
+            "WORKSHEET": {
+                "TITLE": "A projekt munkalap letöltése",
+                "AUTHOR": "A munkalapot biztosította:"
+            },
+            "RESOURCES": {
+                "TITLE": "Kiegészítő adalékok a projekthez",
+                "DETAIL": "Célszerű a diákoknak kiadni a nyomtatott verziót."
+            }
+        },
+
+        "MAKETYPES": {
+            "ALL": "Az összes programozás típus",
+
+            "SCRATCH": "Scratch projektek",
+            "PYTHON": "Python projektek",
+            "APPINVENTOR": "App Inventor projektek",
+
+            "SCRATCH_WORKSHEET": " Scratch-ben programozható projektek dokumentációja",
+            "PYTHON_WORKSHEET": "Python-ban programozható projektek dokumentációja",
+            "APPINVENTOR_WORKSHEET": "App Inventor-ban programozható projektek dokumentációja"
+        },
+
+        "NO_WORKSHEETS": {
+            "NO_MATCHES": "Nincs projekt munkalap találat ezekhez a szűrőkhöz.",
+            "MAKE_YOUR_OWN": "Átírható egy már meglévő projek munkalap, illetve újak is készíthetők",
+            "CONTRIBUTE": "Ha lehetséges, vedd figyelembe az alábbiakat <a href='https://github.com/IBM/taxinomitis-docs/blob/master/README.md#contributions'>ezzel is támogatva másokat a használatban.</a>."
+        },
+
+
+        "DESCRIBETHEGLASS": {
+            "TITLE": "A pohár jellemzése",
+            "SUMMARY": "Tanítsd meg a számítógépet a válasz megjósolására.",
+            "DESCRIPTION": "Készíts egy játékot Scratch-ben, ami megtanulja, hogy szerinted a pohár félig üres, vagy félig tele.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-describetheglass.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-describetheglass.pdf"
+            }
+        },
+        "SMARTCLASSROOM": {
+            "TITLE": "Okos osztály",
+            "SUMMARY": "Tanítsd meg a számítógépet a parancsaid felismerésére.",
+            "DESCRIPTION": "Készíts egy okos segítséget Scratch-ben, ami segít ellenőrizni a virtuális eszközöket.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-smartclassroom.pdf",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "A projekt teljes verziója, ahol először a diákok elkészítenek egy nem gépi tanulás megoldást is.",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "A projekt rövidebb változata, amikor a diákok csak a gépi tanulást használják, mint segítőt.",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-easy.pdf"
+            },
+            "WORKSHEET_3": {
+                "DESCRIPTION": "Teljesen leegyszerűsített változata a projektnek, ami arra tökéletes, hogy az eszközt először bemutassuk.",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-tryitnow.pdf"
+            }
+        },
+        "MAKEMEHAPPY": {
+            "TITLE": "Tégy boldoggá",
+            "SUMMARY": "Tanítsd meg a számítógépet a bókok és a kritika felismerésére",
+            "DESCRIPTION": "Készíts egy smile-t, ami nevet, ha kedveset mondasz neki, és sír, ha megbántod.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-makemehappy.pdf",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "A projekt teljes verziója, ahol a diákok először nem használják a gépi tanulást",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "A Scratch projekt rövidebb változata, amikor a diákok csak a gépi tanulást használják",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-easy.pdf"
+            },
+            "WORKSHEET_3": {
+                "DESCRIPTION": "Python projekt - a Python-ban történő programozáshoz",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-python.pdf"
+            }
+        },
+        "SNAP": {
+            "TITLE": "Römi!",
+            "SUMMARY": "Tanítsd meg a számítógépet a különböző képek felismerésére.",
+            "DESCRIPTION": "Készíts egy kártyajátékot Scratch-ben, amely megtanulja felismerni a kártyalapjaidat.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-snap.pdf",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Teljes verziója a projektnek, ahol a diákok maguk készítik el a saját kártyalapjaikat, amelyeket aztán megtanítanak a gépnek.",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "A projekt rövidebb verziója, ahol a tanár által kinyomtatott és kiadott képeket használnak a diákok, ezzel is rövidítve a felhasznált időt.",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap-easy.pdf",
+                "RESOURCES": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/resources-snap-easy.pdf"
+            }
+        },
+        "CHAMELEON": {
+            "TITLE": "Kaméleon",
+            "SUMMARY": "Tanítsd meg a számítógépet a színfelismerésre",
+            "DESCRIPTION": "Készíts egy kaméleont Scratch-ben, ami a háttérnek megfelelően változtatja a színét.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-chameleon.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chameleon.pdf"
+            }
+        },
+        "QUIZSHOW": {
+            "TITLE": "Ön is tudja? (műveltségi vetélkedő)",
+            "SUMMARY": "Készíts egy műveltségi vetélkedőt, ahol a szereplő tudja a választ a kérdéseidre.",
+            "DESCRIPTION": "Tanítsd meg a számítógépet, hogy különböző dokumentumokban megkeresse a kérdéseidre a választ.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-quizshow.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-quizshow.pdf"
+            }
+        },
+        "MAILMANMAX": {
+            "TITLE": "Emil a postás",
+            "SUMMARY": "Tanítsd meg a számítógépet a kézírás felismerésére",
+            "DESCRIPTION": "Készíts Scratch-ben egy postai elosztót, ami felismeri a kézírással írt irányítószámokat a borítékokon.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-mailmanmax.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-mailmanmax.pdf"
+            }
+        },
+        "SHOOTTHEBUG": {
+            "TITLE": "Lőj a bogárra!",
+            "SUMMARY": "Tanítsd meg a számítógépet játszani",
+            "DESCRIPTION": "Készíts egy faltörő játékot Scratch-ben, ami megtanulja eltalálni a megfelelő labda lövési szöget.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-shootthebug.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shootthebug.pdf"
+            }
+        },
+        "CARORCUP": {
+            "TITLE": "Autó vagy csésze?",
+            "SUMMARY": "Tanítsd meg a számítógépet a különböző tárgyak képének felismerésére.",
+            "DESCRIPTION": "Tanítsd meg a számítógépet, hogy csoportosítsa a képeket.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-carorcup.pdf",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Egyéni projekt, ahol mindenki egyedül dolgozik.",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Csoportos verzió, ahol az egész osztály együtt készíti el a modellt.",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup-crowd.pdf"
+            }
+        },
+        "FACELOCK": {
+            "TITLE": "Arcfelismerés",
+            "SUMMARY": "Tanítsd meg a számítógépet felismerni az arcokat",
+            "DESCRIPTION": "Készíts egy telefont Scratch-ben, ami feloldja a képernyőt, ha felismeri az arcodat.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-facelock.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-facelock.pdf"
+            }
+        },
+        "JOURNEYTOSCHOOL": {
+            "TITLE": "Út az iskolába",
+            "SUMMARY": "Tanítsd meg a számítógépet jósolni",
+            "DESCRIPTION": "Tanítsd meg a számítógépet megjósolni, hogy mivel fogsz másnap iskolába menni.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-journeytoschool.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-journeytoschool.pdf"
+            }
+        },
+        "SHYPANDA": {
+            "TITLE": "Szégyenlős panda",
+            "SUMMARY": "Tanítsd meg a számítógépet felismerni a webkamerás képeket!",
+            "DESCRIPTION": "Készíts egy táncoló pandát, aki elszégyelli magát és megáll, ha meglátja, hogy figyeled.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-shypanda.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shypanda.pdf"
+            }
+        },
+        "VIRTUALPET": {
+            "TITLE": "Virtuális kiskedvenc",
+            "SUMMARY": "Tanítsd meg a számítógépnek felismerni a webkamerás képeket",
+            "DESCRIPTION": "Tanítsd meg a számítógépet felismerni, hogy mit csinálsz, így vigyázhatsz a virtuális állatkádra.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-virtualpet.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-virtualpet.pdf"
+            }
+        },
+        "PACMAN": {
+            "TITLE": "Pac-Man",
+            "SUMMARY": "Tanítsd meg a számítógépet játszani",
+            "DESCRIPTION": "Készíts egy Pac-Man-t Scratch-ben, ami megtanulja elkerülni a szellemet.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-pacman.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pacman.pdf"
+            }
+        },
+        "CHATBOTS": {
+            "TITLE": "Chatbotok",
+            "SUMMARY": "Tanítsd meg a számítógépet felismerni a kérdéseidet!",
+            "DESCRIPTION": "Hozz létre egy chatbotot, amely megválaszolhatja az általad választott témával kapcsolatos kérdéseket.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-chatbots.pdf",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Scratch projekt - egy chatbot készítésére Scratch-ben",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Python projekt - egy chatbot készítésére Python-ban",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots-python.pdf"
+            }
+        },
+        "TOURISTINFO": {
+            "TITLE": "Tourinform",
+            "SUMMARY": "Tanítsd meg a számítógépet, hogy tegyen javaslatokat!",
+            "DESCRIPTION": "Készíts egy mobilalkalmazást Scratch-ben, ami a turistáknak édeklődésük alapján javaslatokat tesz különböző látványosságok megtekintésére.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-touristinfo.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-touristinfo.pdf"
+            }
+        },
+        "SORTINGHAT": {
+            "TITLE": "Teszlek Süveg",
+            "SUMMARY": "Tanítsd meg a számítógépet a nyelvhasználat felismerésére.",
+            "DESCRIPTION": "Készíts egy Teszlek Süveget, ahogy a Harry Potter-ben is van, ami különböző házakba rak téged, függően attól, amit mondasz.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-sortinghat.pdf",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Egyéni projekt, ahol mindenki egyedül dolgozik. ",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Csoportos verzió, ahol az egész osztály együtt készíti el a modellt.",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat-crowd.pdf"
+            }
+        },
+        "ROCKPAPERSCISSORS": {
+            "TITLE": "Kő-papír-olló",
+            "SUMMARY": "Tanítsd meg a számítógépet az alakfelismerésre.",
+            "DESCRIPTION": "Készíts Kő-papír-olló játékot Scratch-ben, ami felismeri a kézjeleket.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-rockpaperscissors.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-rockpaperscissors.pdf"
+            }
+        },
+        "JUDGEABOOK": {
+            "TITLE": "Ítélj meg egy könyvet",
+            "SUMMARY": "Tanítsd meg a számítógépet a különböző stílusok felismerésére.",
+            "DESCRIPTION": "Készíts egy játékot, amivel tesztelheted, hogy valóban meg lehet-e ítélni egy könyvet a borítójáról.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-judgeabook.pdf",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "A teljes verzióban a diákok olyan játékot készítenek, amelyben a számítógéppel versenyeznek a könyvfelismerésben.",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Az egyszerűsített verzióban a diákok a számítógéppel felismertetik a könyvborítókat.",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-easy.pdf"
+            },
+            "WORKSHEET_3": {
+                "DESCRIPTION": "App Inventor projektben a diákok mobilalkalmazást készítenek, ami javaslatot tesz a legideálisabb polc kiválasztására.",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-appinventor.pdf"
+            }
+        },
+        "LOCATELARRY": {
+            "TITLE": "Keresd meg Vilit",
+            "SUMMARY": "Tanítsd meg a számítógépet megtalálni a képen valamit.",
+            "DESCRIPTION": "Készíts egy \"Hol van Vili?\"típusú játékot Scratch-ben, és tanítsd meg a számítógépet, hogy megtalálja a karakteredet.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-locatelarry.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-locatelarry.pdf"
+            }
+        },
+        "FOOLED": {
+            "TITLE": "Megviccelve",
+            "SUMMARY": "Tanítsd meg a számítógépet a gyümölcsfelismerésre.",
+            "DESCRIPTION": "Lásd meg milyen, ha a számítógép megzavarodik és hibázik, minekután rosszul lett megtanítva.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-fooled.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-fooled.pdf"
+            }
+        },
+        "SCHOOLLIBRARY": {
+            "TITLE": "Iskolai könyvtár",
+            "SUMMARY": "Tanítsd meg a számítógépet ajánlásokat tenni",
+            "DESCRIPTION": "Készíts egy iskolai könyvtárost Scratch-ben, aki olvasásra ajánl könyveket.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-schoollibrary.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-schoollibrary.pdf"
+            }
+        },
+        "WHATTWITTERTHINKS": {
+            "TITLE": "Mit gondol a Twitter?",
+            "SUMMARY": "Tanítsd meg a számítógépet a közvélemény mérésére",
+            "DESCRIPTION": "Készíts egy érzékeny elemző rendszert Scratch-ben, ami a Twitter csevegéseket elemzi.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-whattwitterthinks.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-whattwitterthinks.pdf"
+            }
+        },
+        "NOUGHTSANDCROSSES": {
+            "TITLE": "Amőba",
+            "SUMMARY": "Tanítsd meg a számítógépet játszani.",
+            "DESCRIPTION": "Készíts amőbát Python-ban, ami megver téged.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-noughtsandcrosses.pdf",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Az osztályverzióban mindenki maga készíti el a játékát Scratch-ben",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Az osztályverzióban mindenki maga készíti el a játékát Python-ban",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses-python.pdf"
+            },
+            "WORKSHEET_3": {
+                "DESCRIPTION": "Demo verzió olyan eseményekhez, mint a Kutatók Éjszakájas, ahol minden gyereknek van egy-két perce, hogy kipróbáljon valamit",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses-event.pdf"
+            }
+        },
+        "TOPTRUMPS": {
+            "TITLE": "Top Trumps",
+            "SUMMARY": "Tanítsd meg a számítógépet játszani",
+            "DESCRIPTION": "Tanítsd meg a számítógépet Top Trumps (mint autóskártya) kártyajátékot játszani Scratch-ben.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-toptrumps.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-toptrumps.pdf"
+            }
+        },
+        "HEADLINES": {
+            "TITLE": "Főcímek",
+            "SUMMARY": "Tanítsd meg a számítógépet a nyelvhasználat felismerésére",
+            "DESCRIPTION": "Készíts egy programot, ami felismeri melyik újságból származik a főcím.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf"
+            }
+        },
+        "NEWSPAPERSHELVES": {
+            "TITLE": "Újságos polcok",
+            "SUMMARY": "Teszteld a számítógép nyelvfelismerő képességeit.",
+            "DESCRIPTION": "Tanítsd meg a számítógépet, hogy felismerje a hazai újságok címeit.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-headlines-easy.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines-easy.pdf"
+            }
+        },
+        "HEADLINETESTING": {
+            "TITLE": "Főcím ellenőrzés",
+            "SUMMARY": "Teszteld a számítógép nyelvfelismerő képességeit",
+            "DESCRIPTION": "Készíts egy tesztelő rendszert Scratch-ben, ami megmutatja, mennyire jól működik a gépi tanulás.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-headlines.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf"
+            }
+        },
+        "FINDIT": {
+            "TITLE": "Találd meg!",
+            "SUMMARY": "Tanítsd meg a számítógépet képek felismerésére.",
+            "DESCRIPTION": "Készíts egy bújócska játékot a mobilodra.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-findit.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-findit.pdf"
+            }
+        },
+        "ALIENLANGUAGE": {
+            "TITLE": "Földönkívüliek nyelve",
+            "SUMMARY": "Tanítsd meg a számítógépet a hangfelismerésre",
+            "DESCRIPTION": "Készíts egy földönkívülit Scratch-ben, ami megtanulja felismerni a földönkívüliek nyelvét.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-alienlanguage.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-alienlanguage.pdf"
+            }
+        },
+        "SECRETCODE": {
+            "TITLE": "Titkos kód",
+            "SUMMARY": "Tanítsd meg a számítógépet a beszédfelismerésre.",
+            "DESCRIPTION": "Tanítsd meg a számítógépet megérteni a titkos szavakat, hogy segíthessen egy kémnek.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-secretcode.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-secretcode.pdf"
+            }
+        },
+        "JARGONBUSTER": {
+            "TITLE": "Bogozd ki a zsargonokat!",
+            "SUMMARY": "Tanítsd meg a számítógépet szavak meghallására",
+            "DESCRIPTION": "Készíts egy projektet Scratch-ben, ami megmutatja a szavaid jelentését.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-jargonbuster.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-jargonbuster.pdf"
+            }
+        },
+        "TITANIC": {
+            "TITLE": "Titanic",
+            "SUMMARY": "Tanítsd meg a számítógépet az eredmények megjósolására",
+            "DESCRIPTION": "Készíts egy Python programot, ami megjósolja, hogy ki éli túl a Titanic katasztrófát.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-titanic.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-titanic-python.pdf"
+            }
+        },
+        "ZOMBIEESCAPE": {
+            "TITLE": "Zombi menekülés!",
+            "SUMMARY": "Tanítsd meg a számítógépet jóslásra",
+            "DESCRIPTION": "Tanítsd meg a számítógépet, hogy miképp meneküljön el a zombik hordájától.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-zombieescape.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-zombieescape.pdf"
+            }
+        },
+        "PHISHING": {
+            "TITLE": "Adathalászat",
+            "SUMMARY": "Tanítsd meg a számítógépet az adathalász linkek felismerésére",
+            "DESCRIPTION": "Készíts egy Python programot, ami megjósolja, hogy egy URL cím legális-e.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-phishing.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-phishing.pdf"
+            }
+        },
+        "KIWIORSTOAT": {
+            "TITLE": "Kiwimadár vagy hermelin",
+            "SUMMARY": "Tanítsd meg a számítógépet az állatképek felismerésére.",
+            "DESCRIPTION": "Készíts egy projektet Scratch-ben, ami felismeri a természetvédelmi területekről származó állatokat a képeken.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-kiwiorstoat.pdf"
+            }
+        },
+        "INKBLOTS": {
+            "TITLE": "Tintapacák",
+            "SUMMARY": "Tanítsd meg a számítógépet a tárgyak felismerésére. ",
+            "DESCRIPTION": "Készíts egy MIT kutatóprojektet és ismerd meg, hogy a mesterséges intelligencia miképp van jelen a hírekben.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-inkblots.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-inkblots.pdf"
+            }
+        },
+        "FACEFINDER": {
+            "TITLE": "Arckereső",
+            "SUMMARY": "Használd a számítógépet arcfelismerésre.",
+            "DESCRIPTION": "Készíts egy videószűrőt Scratch-ben, ami az arcodból rajzfilmet készít.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-facefinder.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-facefinder.pdf"
+            }
+        },
+        "EMOJIMASK": {
+            "TITLE": "Emoji maszkok",
+            "SUMMARY": "Használd a számítógépet arcfelismerésre.",
+            "DESCRIPTION": "Készíts videószűrőket Scratch-ben és adj hozzá különböző emojikat az arcodhoz.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-emojimask.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-emojimask.pdf"
+            }
+        },
+        "LASEREYES": {
+            "TITLE": "Lézer szemek",
+            "SUMMARY": "Tanítsd meg a számítógépet arc- és beszédfelismerésre.",
+            "DESCRIPTION": "Készíts egy hangirányítású lézerszem játékot Scratch-ben.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-lasereyes.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-lasereyes.pdf"
+            }
+        },
+        "SEMAPHORES": {
+            "TITLE": "Közlekedési lámpa játék",
+            "SUMMARY": "Tanítsd meg a számítógépet felismerni a beszédet és különböző pózokat.",
+            "DESCRIPTION": "Készíts hangvezérelte közlekedési lámpa játékot, amit a kezed mozgatásával működtethetsz..",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-semaphores.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-semaphores.pdf"
+            }
+        },
+        "HANDGESTURES": {
+            "TITLE": "Kézjelek",
+            "SUMMARY": "Tanítsd meg a számítógépet az alakfelismerésre",
+            "DESCRIPTION": "Készíts egy webkamera projektet Scratch-ben, ami felismeri, amit a kezeddel mutatsz.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-handgestures.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-handgestures.pdf"
+            }
+        },
+        "EXPLAINABILITY": {
+            "TITLE": "Az elmagyarázható mesterséges intelligencia",
+            "SUMMARY": "Tanítsd meg a számítógépet, hogy webkamerán keresztül tárgyakat ismerjen fel.",
+            "DESCRIPTION": "Készíts egy projektet Scratch-ben, ami elmagyarázza, hogy a kép osztályzó mire néz",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-explainability.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-explainability.pdf"
+            }
+        },
+        "POKEMONSTATS": {
+            "TITLE": "Pokémon statistics",
+            "SUMMARY": "Teach a computer to recognize patterns in sets of numbers",
+            "DESCRIPTION": "Make a project in Scratch that predicts the type of Pokémon from their size and fighting stats.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pokemonstats.pdf"
+            }
+        },
+        "POKEMONIMAGES": {
+            "TITLE": "Pokémon images",
+            "SUMMARY": "Teach a computer to recognize pictures",
+            "DESCRIPTION": "Make a project in Scratch that predicts the type of Pokémon from how it looks",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pokemonimages.pdf"
+            }
+        }
+    },
+    "TEACHER": {
+        "MENU": {
+            "TITLE": "Adminisztráció",
+
+            "RESTRICTIONS": {
+                "TITLE": "Korlátozások",
+                "DESCRIPTION": "Tekintsd át a limiteket és korlátozásokat, amelyeket alkalmaznod kell az osztályodban."
+            },
+            "APIKEYS": {
+                "TITLE": "API Kulcsok",
+                "TITLELONG": "Watson API Kulcsok",
+                "DESCRIPTION": "Állítsd be az IBM Watson hitelesítéseket annak érdekében, hogy ML modelleket tudj készíteni."
+            },
+            "STUDENTS": {
+                "TITLE": "Diákok",
+                "TITLELONG": "Diákok kezelése",
+                "DESCRIPTION": "Készíts, állíts vissza, vagy törölj belépési kódokat az osztályod diákjainak."
+            },
+            "SUPERVISION": {
+                "TITLE": "Felügyelet",
+                "DESCRIPTION": "A diákmunkák áttenkintése"
+            },
+
+            "ADVANCEDOPTIONS": "Magasabb szintű lehetőségek",
+
+            "DELETECLASS": {
+                "TITLE": "Az osztály törlése",
+                "DESCRIPTION": "Ezzel törlöd a saját magad és a diákjaid számára készíett fiókokat."
+            },
+
+            "CANYOUHELP": {
+                "TITLE": "Segítenél?",
+                "DESCRIPTION": "Oszd meg a konstruktív tapasztalataidat, amivel javíthatunk a rendszeren."
+            },
+
+            "NOTAUTHORISED": "Nincs jogosultságod hozzáférni az osztályod tanári oldalához."
+        },
+        "APIKEYS": {
+            "TITLE": "Adminisztráció: IBM Watson API Kulcsok",
+
+            "ADDNEWCREDENTIALS": "Add hozzá az új hitelesítéseket",
+            "ADDAPIKEY": "Add hozzá az új API kulcsot",
+            "REMOVE": "Eltávolít",
+            "VERIFY": "Ellenőrzés",
+
+            "LITE_30_DAYS_EXPIRE": "Az IBM Cloud deaktiválhatja a „Lite” előfizetés Watson API kulcsait, ha azokat 30 napig nem használják",
+            "TRIAL_30_DAYS_EXPIRE": "IBM Cloud a próba Watson API kulcsokat 30 nap után letilthatja",
+
+            "NO_TEXT_CREDENTIALS": "Egyáltalán nincs Assistant hitelesítőd. <br/>Ez azt jelenti, hogy nem tudod megtanítani a modellt<strong>szöveg</strong> projektekre.",
+            "NO_IMAGE_CREDENTIALS": "Egyáltalán nincs Vizuális Felismerés API kulcsod. <br/>Ez azt jelenti, hogy a diákjaid ezt a <strong>képfelismerő</strong> projektet csak a számítógépükön tudják tanítani (nem a felhőben).",
+
+            "LINK_TO_APIKEYS_GUIDE": "Ha nem tudod, hol találod őket, töltsd le a <a href='/apikeys-guide'>ami egy alapos, lépésről lépésre bemutató ismertető </a>",
+
+            "NOTAUTHORISED": "Nincs jogosultságod hozzáférni az osztályod által használt Watson API kulcsokhoz.",
+            "MANAGEDCLASS": "Az osztályod által használt API kulcsokat helyetted kezeljük.",
+
+            "HELP_STEPBYSTEP_GUIDE": "Ha nem vagy biztos abban, hogy mit kell itt csinálni, kövesd az <a href='/apikeys-guide'> az alapos ismertetőt </a>. Ha segítségre van szükséged <strong><a style='cursor: pointer;' href='/help'>lépj kapcsolatba</a></strong>.",
+
+            "INTRO_WATSONASSISTANT": "Tanítsd meg a ML modelt <span class='mlprojecttype'>szövegfelismerésre</span> és használj <a class='mlprojecttype' href='https://www.ibm.com/cloud/watson-assistant/'>Watson Asszisztenst</a>",
+            "INTRO_NUMBERS": "Tanítsd meg a ML modelt <span class='mlprojecttype'>számfelismerésre</span> és közben <strong>nincs</strong> szükség API kulcsra",
+            "INTRO_SOUNDS": "Tanítsd meg a ML modelt <span class='mlprojecttype'>hangfelismerésre</span> és közben <strong>nincs</strong> szükség API kulcsra",
+            "INTRO_IMAGES": "Tanítsd meg a ML modelt <span class='mlprojecttype'>képfelismerésre</span>és közben<strong>nincs</strong> szükség API kulcsra",
+
+            "ERROR_FETCHING_WATSONASSISTANT": "Nem sikerült a Watson Assistant jelszót érvényesíteni",
+
+            "USERNAME": "Felhasználónév",
+            "PASSWORD": "Jelszó",
+            "APIKEY": "API kulcs",
+
+            "NUMBER_OF_ML_MODELS": "Az ML modellek száma",
+            "UNKNOWN": "ismeretlen",
+            "UNLIMITED": "nem korlátozott",
+
+            "LIMIT_TEXT_PROJECTS": "A gépi tanulási szöveges modellek száma, amik a diákjaid rendelkezésére állhatnak:",
+
+            "ADD_API_KEYS": {
+                "ASSISTANT_TITLE": "Add hozzá a Watson Assistant hitelesítéseket",
+
+                "USED_FOR_TEXT_PROJECTS": "Ez akkor lesz használva, amikor a diákjaid tanítják a szöveges modellt.",
+
+                "HIDDEN_FROM_STUDENTS": "Ezt a csoportod diákjai nem fogják látni",
+
+                "PRICING_PLAN": "Melyik előfizetést választod?",
+                "ENTER_APIKEY": "Alulra írd be az API kulcsot",
+                "ENTER_PASSWORD": "Alulra írd be a felhasználónevet és a jelszót",
+
+                "CREDENTIALS_TYPE": "Mit készítettél Watson Assistant-ben?"
+            }
+        },
+        "RESTRICTIONS": {
+            "TITLE": "Adminisztráció: Korlátozások",
+
+            "ASK_FOR_CHANGES": "Ha ezek a korlátozások bármilyen problémát okoznak a csoport munkájában, akkor <strong><a href='/help'>lépj kapcsolatba velünk</a></strong>.",
+
+            "CLASS_LIMITS": {
+                "TITLE": "Osztály limitek",
+                "NUM_USERS": "A tanár által regisztrált osztálynak <span class='mlprojecttype'>{{ num }}</span>  (tanulója lehet tanárral együtt).",
+                "NUM_TEXT_MODELS": "Az osztályod maximum <span class='mlprojecttype'>{{ num }}</span> a teljes modelljeikben <span class='mlprojecttype'>szöveges</span> projektet készíthet.",
+                "NUM_IMAGE_MODELS": "Az osztályod maximum <span class='mlprojecttype'>{{ num }}</span> a teljes modelljeikben <span class='mlprojecttype'>képi</span> projekteket készíthet.</div>"
+            },
+            "PROJECT_LIMITS": {
+                "TITLE": "A diákok által elkészített projektek száma",
+                "NUM_PROJECTS": "Minden diák <span class='mlprojecttype'>{{ num }}</span> projektet készíthet.",
+                "TYPES": "A diákjaid projekteket készíthetnek, hogy felismerjék <span class='mlprojecttype'>{{ types }}</span>.",
+                "TRAINING_DATA": "Minden <span class='mlprojecttype'>{{ type }}</span> projektnek <span class='mlprojecttype'>{{ num }}</span> tanítási adat példája lehet. "
+            },
+            "EXPIRY": {
+                "TITLE": "Segítség a gépi tanulási modellek száma korlátainak elkerüléséhez:",
+                "TIME_LIMIT": "Az elkészített gépi tanulási modellek<span class='mlprojecttype'>{{ type }}</span> projektjei automatikusan törlődnek <span class='mlprojecttype'>{{ num }}</span> óra után.",
+                "DONT_WORRY": "(Ne izgulj! A tanítási adataid nem törlődnek, így a tanulók mindig újra betaníthatnak egy új gépi tanulási modellt, ha ezután is szükségük van rá.)"
+            },
+
+            "NOT_AUTHORIZED": "Nem vagy jogosult hozzáférni az osztályodra vonatkozó korlátozásokhoz."
+        },
+        "SUPERVISION": {
+            "TITLE": "Adminisztráció: Diák projektek",
+
+            "INTRO_1": "Ez az oldal azokat a projekteket listázza, amiken az osztályod jelenleg dolgozik. Itt áttekintheted, hogy min dolgoznak.",
+            "INTRO_2": "Ha elérted a készíthető projektek maximumát, itt áttekintheted a jelenleg folyó munkákat, és törölheted, amelyekre nincs szükség többet.",
+
+            "NO_PROJECTS_1": "Jelenleg egyetlen diáknak sincs folyamatban projektje.",
+            "NO_PROJECTS_2": "Ha a diákok elkezdenek dolgozni egy projekten, ide visszatérve megtekintheted a munkájukat.",
+
+            "NAME": "Név",
+            "TYPE": "Típus",
+            "STUDENT": "Diákok",
+            "MODELS": "ML modelek",
+
+            "DELETE": "Kattints az ikonra a törléshez",
+
+            "NOT_AUTHORIZED": "Nincs jogosultságod hozzáférni az osztályodban lévő összes diák projektlistájához."
+        },
+        "STUDENTMANAGEMENT": {
+            "TITLE": "Adminisztráció: Diákok kezelése",
+
+            "CONTROLS": "Vezérlés",
+
+            "CREATE_FIRST_STUDENT": "Kattints a 'plusz' gombra jobb oldalon, hogy létrehozd az első diákot",
+            "CREATE_FIRST_GROUP": "Kattints a 'plusz' gombra jobb oldalon, hogy létrehozd az első csoportot",
+
+            "ADD": "Adj hozzá új diákot.",
+            "NEW_USERNAME": "Válassz egy egyedi felhasználónevet!",
+            "ALPHANUMERIC": "Csak betűket és számokat használj!",
+
+            "NOT_LOGGED_IN": "Még nem vagy bejelentkezve",
+            "LAST_LOGIN": "Utolsó bejelentkezés",
+
+            "RESET_PASSWORD": "Állítsd vissza a jelszót",
+            "RESET_ALL_PASSWORDS": "Állítsd vissza az összes diák jelszavát!",
+            "RESET_SELECTED_PASSWORDS": "Állítsd vissza a kiválasztott diákok jelszavát!",
+
+            "DELETE_STUDENT": "Diák törlése",
+            "DELETE_SELECTED_STUDENTS": "Töröld a kiválasztott diákokat!",
+
+            "NOT_AUTHORIZED": "Nincs jogod az osztályodban lévő diákok listájának hozzáféréséhez.",
+
+            "GROUPS": {
+                "UNGROUPED": "Csoportba nem osztott diákok",
+                "NO_UNGROUPED": "Csoportba nem osztott diákok",
+                "LABEL": "Csoport",
+                "CREATE": "Alakíts csoportot",
+                "DELETE": "Töröld a csoportot",
+                "MOVE_IN": "Helyezd a kiválasztott diákokat a csoportba",
+                "REMOVE_FROM": "Távolítsd el a kiválasztott diákokat a csoportból"
+            },
+
+            "ADD_MULTIPLE": {
+                "BUTTON" : "Többszörözd meg a diákokat könnyedén",
+
+                "TITLE" : "Adj hozzá új diákot",
+                "INTRO" : "Ezt egynél több diák szimultán fiókjának elkészítéséhez használhatod.",
+                "USERNAME" : "Mivel kezdődjön minden felhasználónév?",
+                "USERNAME_REQUIRED" : "Válassz egy felhasználónév előtagot.",
+                "USERNAME_TOOLONG" : "Ez túl hosszú",
+                "USERNAME_INVALID" : "Érvénytelen karakterek",
+                "NUMBER" : "Hány diák fiókot szeretnél készíteni?",
+                "NUMBER_REQUIRED" : "Add meg a diákok számát.",
+                "NUMBER_TOOMANY" : "A csoportnak van egy diákokra vonatkozó limitje {{userslimit}} .",
+                "PASSWORD" : "A jelszavuk:",
+                "PASSWORD_TOOSHORT" : "Túl rövid"
+            }
+        }
+    },
+    "SCRATCHBLOCKS": {
+        "TEXT_PROJECTS": {
+            "mlforkids.text.recogniseLabel": "ismerd fel a szöveget [TEXT] (label)",
+            "mlforkids.text.recogniseConfidence": "szövegfelismerés [TEXT] (confidence)",
+            "mlforkids.text.addTraining": "addj hozzá még adatot[TEXT] [LABEL]",
+            "mlforkids.text.trainNewModel": "tanítsd az új modellt",
+            "mlforkids.text.checkModelStatus": "Az új modell [STATUS] ?"
+        },
+        "IMAGES_PROJECTS": {
+            "mlforkids.images.recogniseLabel": "ismerd fel a képet [IMAGE] (label)",
+            "mlforkids.images.recogniseConfidence": "képfelismerés [IMAGE] (confidence)",
+            "mlforkids.images.addTraining": "adj hozzá még adatot [TEXT] [LABEL]"
+        },
+        "NUMBER_PROJECTS": {
+            "mlforkids.numbers.trainNewModel": "tanítsd az új modellt"
+        },
+        "SOUND_PROJECTS": {
+            "mlforkids.sounds.startListening": "kezd el hallgatni",
+            "mlforkids.sounds.stopListening": "hagyd abba a hallgatást"
+        },
+        "TWITTER": {
+            "mlforkids.twitter.getrecenttweet": "menj a leggyakoribb [INDEX] bejegyzéshez az alábbi témáról [TOPIC]"
+        },
+        "FACE": {
+            "mlforkids.face.size": "mérete [LANDMARK]",
+            "mlforkids.face.xlocation": "x koordinátája [LANDMARK]",
+            "mlforkids.face.ylocation": "y koordinátája [LANDMARK]"
+        },
+        "POSENET": {
+            "mlforkids.posenet.getposition": "találd meg a  [POSITION] of [LANDMARK]"
+        },
+        "HANDPOSE": {
+            "mlforkids.handpose.getposition": "találd meg a  [POSITION] of [LANDMARK]"
+        },
+        "QNA": {
+            "mlforkids.qna.getTopAnswer": "találd meg a választ  [QUESTION] az alábbi szövegben [PASSAGE]"
+        },
+        "TOXICITY": {
+            "mlforkids.toxicity.confidencetrue": "az esélye annak [TEXT] van [LABEL]",
+            "mlforkids.toxicity.confidencefalse": "az esélye annak [TEXT] nincs [LABEL]"
+        },
+        "WIKIPEDIA": {
+            "mlforkids.wikipedia.getpagetext": "Wikipedia szöveg az alábbiról [TOPIC]"
+        },
+        "IMAGE_BLOCKS": {
+            "mlforkids.imageblocks.getCostumeImage": "jelmez",
+            "mlforkids.imageblocks.getBackdropCostumeImage": "háttérkép",
+            "mlforkids.imageblocks.getBackdropImage": "háttérkép",
+            "mlforkids.imageblocks.saveScreenshotToCostume": "mentsd el a képernyőképet jelmeznek"
+        },
+        "GUI": {
+            "gui.menuBar.ml4kidssharing": "Megosztás",
+            "gui.menuBar.mlforkidsstartrecording": "kezdd el a felvételt",
+            "gui.menuBar.mlforkidsstoprecording": "fejezd be a felvételt",
+            "gui.menuBar.mlforkidsLibrary": "Projektminták",
+            "gui.mlforkidsLibrary.templates": "Machine Learning for Kids projektminták"
+        }
+    },
+    "HELP": {
+        "LOG": "Napló letöltése",
+        "CONTACT": "Ha kérdésed, vagy problémád van, fordulj <a target='_blank' href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids fórumhoz</a>",
+        "GETTINGSTARTED": {
+            "TITLE": "Kezdhetjük?",
+            "INTRO": "Töltsd le a PDF fájlt egy rövid kezdő útmutatóval:",
+            "MANAGED": "Kezelt osztályfiókok",
+            "MANAGEDEXPL": "Iskolai tanároknak, kódoló csoportvezetőknek vagy más önkénteseknek",
+            "UNMANAGED": "Nem kezelt osztályfiókok",
+            "UNMANAGEDEXPL": "IBM alkalmazottak, tanárok és kódolócsoport-vezetők számára, akik saját osztályfiókjukat kezelik"
+        },
+        "FAQS": {
+            "TITLE": "Többet akarsz tudni?",
+            "INTRO1": "Valami nem működik?",
+            "INTRO2": "Az alábbi lista azokat a kérdéseket és problémákat tartalmazza, amelyekről a leggyakrabban hallok. Ha valami hasonlót látsz a problémádhoz, kattints az összefoglalóra további információért.",
+            "INTRO3": "Ha még mindig elakadsz, vagy olyan problémába ütköztél, amelyet nem vettem fel a listára, elnézést! Kérlek, az alábbi linken <a href='https://groups.google.com/d/forum/mlforkids'>kérdezz a mlforkids Google csoportban, </a> hogy tudjak segíteni."
+        },
+
+        "PROJECTS": {
+            "TITLE": "Projekttel kapcsolatos kérdések",
+
+            "Q4": "Mely modelleket tanítottad a számítógépeden és melyeket a felhőben?",
+            "Q4-A-1": "<strong>szöveg</strong> projekteket csak a felhőben tudsz tanítani.",
+            "Q4-A-2": "<strong>számok</strong> projekteket csak a felhőben tudsz tanítani.",
+            "Q4-A-3": "<strong>hang</strong> projekteket csak a számítógépen tudsz tanítani.",
+            "Q4-A-4": "<strong>képi</strong> projekteket a számítógépen és a felhőben is tudsz tanítani (ha tudsz csatlakozni a Watson Vizuális Felismeréshez)."
+
+        },
+
+        "SCRATCH": {
+            "TITLE": "Problémák a Scratch-csel",
+
+            "Q1": "Nem tudom hogyan működik a Scratch 2",
+            "Q1-A-1": "A SCRATCH régebbi változata a Scratch 2 Adobe Flash-t igényel, tehát egy olyan operációs rendszerre és böngészőre van szükséged, ami képes a flasht futtatni.",
+            "Q1-A-2": "Ha nem vagy biztos a használatában, letölthetsz<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-scratchx.pdf'>dokumentumokat tippekkel</a>. Vagy használhatod az új verziót, a Scratch 3-t helyette.",
+
+            "Q2": "A \"Projekt betöltés\" és a \"Projekt mentése\" menük nem működnek.",
+            "Q2-A-1": "Ha Safari-t használsz  macOS-on és a Scratch menük \"File -&gt; Projekt betöltése\" és a \"File -&gt; Projekt mentése\" menük nem működnek, lehet, hogy biztonsági módban futtatod.",
+            "Q2-A-2": "<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>kövesd az utasításokat</a> for how to check and fix this.",
+
+            "Q3": "A gépi tanulási osztályozó blokkok Scratch 2-ben leálltak",
+            "Q3-A-1": "Esetenként a gépi tanulási modell Scratch blokkjai megszakíthatják a kapcsolatot a szerverrel. Amikor ez megtörténik, leállítják az eredmények visszaadását.",
+            "Q3-A-2": "Ellenőrizheted, hogy mi történt a színes állapotjelző segítségével \"Több Blok\" palettán.",
+            "Q3-A-3": "Ha a gépi tanulási Scratch blokkok melletti állapotjelző lámpa pirosan világít, az általában azt jelenti, hogy valami nincs rendben. Lehet, hogy átmeneti probléma. Próbáld meg menteni a projektedet (használd a 'File' -&gt; 'Projekt mentése'), utána frissítsd a böngészőt. Ha az állapotjelző lámpa zöldre vált az oldal újratöltése után, betöltheti a projektet (használd a 'File' -&gt; 'Projekt betöltése') utána folytasd, ahol abbahagytad.",
+            "Q3-A-4": "Ha az állapotjelző lámpa az oldal újratöltése után is pirosan világít, akkor valószínűleg valami nincs rendben a gépi tanulási modellel. Nyisd meg a projekt \"Tanulás és tesztelés\" oldalt, ahol a modellel kapcsolatos hibaüzenetek megtalálhatók.",
+            "Q3-A-5": "Ha a gépi tanulási Scratch blokkok melletti állapotjelző fény zölden világít, akkor a blokkoknak működniük kell. Ha nem azt a választ kapod, amit vársz, próbáld meg a \"Tanítás &amp; Tesztelés\" oldalt, és ellenőrizd a modelled által adott válaszokat.",
+
+            "Q5": "Használhatom az új Scratch verziót?",
+            "Q5-A-1": "Azt a Scratch verziót kell használnod, amit támogat a Machine Learning for Kids oldal. Elindíthatók a projektoldaladon a Scratch, vagy a Scratch 3 gombokra kattintva.",
+
+            "Q6": "A Scratch 3 csak a „Letöltések” mappába menti a projekteket",
+            "Q6-A-1": "Amikor a 'File'-ra klikkelsz -> 'Mentés a számítógépen Scratch 3-ban, a Scratch projekt mentésre kerül a számítógépére.",
+            "Q6-A-2": "Egyes tanárok arról a problémáról számoltak be, hogy olyan számítógépre lett elmentve, ahol a diákok nem férnek hozzá a Letöltések mappához a Windows rendszerben. Az eredmény az volt, hogy a diákok nem fértek hozzá a mentett projektjeikhez.",
+            "Q6-A-3": "Ha ezt a problémát tapasztalod, keresd meg a webböngésző beállításaiban az olyan beállítást, mint a „Letöltés előtt kérdezze meg, hová kell menteni az egyes fájlokat”. Ha engedélyezi ezt, a tanulók kiválaszthatják, hogy projektjeik hova kerüljenek mentésre."
+        },
+
+        "TRAININGUI": {
+            "TITLE": "UI tanítási problémák",
+
+            "Q1": "Nem sikerült bedobni a képet ebbe a kategóriába, mert nem működik",
+            "Q1-A-1": "A képet nem tudod bedobni ebbe a kategóriába, ha Internet Explorert használsz.",
+            "Q1-A-2": "Elnézést. Ha van lehetőséged más böngészőt használni, mint a Firefox, vagy a Chrome, tedd azt. Más esetben klikkelj a \"www\" gombra és másold be a képek URL címét."
+        },
+
+        "MODELS": {
+            "TITLE": "Hibák a gépi tanulási modellekkel",
+
+            "Q1": "\"Nincsenek Watson hitelesítők beállítva\"",
+            "Q1-A-1": "A gépi tanulási modelleket IBM Watson API-kat használva készítheted el.",
+            "Q1-A-2": "Ha egy \"nem ellenőrzött\" osztályfiókod van, akkor a tanárodnak vagy a csoportvezetődnek meg kell adnia a Watson API hitelesítő adatait az IBM Cloudból, hogy ez működjön. Ennek módja lépésről lépésre az oldal tetején található \"Kezdő lépések\" dokumentumban találhatók.",
+
+            "Q2": "\"Az osztályod által használt Watson hitelesítő adatokat elutasították\"",
+            "Q2-A-1": "A gépi tanulási modelleket IBM Watson API-kat használva készítheted el.",
+            "Q2-A-2": "Ha egy \"nem ellenőrzött\" osztályfiókod van, akkor a tanárodnak vagy a csoportvezetődnek meg kell adnia a Watson API hitelesítő adatait az IBM Cloudból, hogy ez működjön. (Ahogy ez le van írva a \"Kezdjük\" dokumentumban az oldal tetején).",
+            "Q2-A-3": "A megadott hitelesítő adatok azonban jelenleg nem működnek. A legvalószínűbb ok az, hogy a hitelesítő adatokat törölték az IBM Cloudból, mivel eredetileg biztosították őket. Ha ez nem így van, a Watson hitelesítési adatokat megadó tanárnak vagy csoportvezetőnek vissza kell térnie az IBM Cloud irányítópultra, hogy ellenőrizze az általa létrehozott Watson Assistant vagy Vizuális Felsimerő szolgáltatás állapotát.",
+
+            "Q3": "\"A Watson Assistant API kulcsok nem rendelkeznek több elérhető képességgel\"",
+            "Q3-A-1": "Az eszközben található gépi tanulási modellek IBM Watson API-k segítségével jönnek létre.",
+            "Q3-A-2": "A tanárok által létrehozott Watson Assistant hitelesítési adatok korlátozzák a létrehozható gépi tanulási modellek számát. Ez megjelenik az IBM Cloud UI-ban, ahol a hitelesítési adatok létrejöttek, és ahol a nevük\"skillek\".",
+            "Q3-A-3": "Ha ezt a határt túllépik, az új gépi tanulási modellek betanítására irányuló kísérletek sikertelenek lesznek, és ez az üzenet jelenik meg:",
+            "Q3-A-4": "Az osztályod már létrehozta a megengedett maximális számú modellt. Kérjük, tájékoztasd tanárodat vagy csoportvezetődet, hogy nincs több \"Watson Assistant API kulcs\".",
+            "Q3-A-5": "Ha egy diák, akinek sikeresen betanított modellje van, törli a modelljét, ez egy másik tanuló számára lehetőséget biztosít.",
+            "Q3-A-6": "E hiba jövőbeni elkerülésének egyik módja a kisebb osztálylétszám. Ha kevesebb a tanuló, mint amennyit a Watson Assistant hitelesítő adatai támogatnak, akkor nem léped túl a keretet.",
+            "Q3-A-7": "A hiba elkerülésének másik módja, ha további Watson Assistant API kulcsokat ad hozzá az osztályhoz, vagy olyan Watson Assistant példány \"tervet\", amely magasabb korlátokkal rendelkezik.",
+
+            "Q5": "\"Watson ... jelenleg korlátozza az API kulcsát\"",
+            "Q5-A-1": "Az eszközben található gépi tanulási modellek IBM Watson API-k segítségével jönnek létre.",
+            "Q5-A-2": "Ha \"nem ellenőrzött\" osztályfiókod van, akkor a tanárodnak vagy a csoportvezetődnek meg kell adnia a Watson API hitelesítő adatait az IBM Cloudból, hogy ez működjön.",
+            "Q5-A-3": "Ha ingyenes fiókokat hoztok létre, akkor ezek korlátozzák az új gépi tanulási modellekre vonatkozó kérelmek arányát. Normál használat esetén ez nincs hatással az osztályra. Mégis, ha a diákok olyan hibajelzést kapnak mint\"nincs több elérhető skill\" vagy \"nincs több elérhető osztályzó\" (ahogy fentebb írtuk) klikkelj a \"Tanítsd az új gépi tanulási modellt\" gombra másodpercenként többször, több percig, akkor a sebességkorlátozás lép érvénybe.",
+            "Q5-A-4": "Ehhez hasonló üzenetet látnak a diákok, abban az esetben, ha:",
+            "Q5-A-5": "Az osztűlyod túl sok kérést küld túl gyorsan arra nézve, hogy modelleket készíthessen. Kérjük, állj meg most, és tájékoztasd tanárodat vagy csoportvezetődet, hogy \"a Watson Assistant szolgáltatás jelenleg korlátozza az API kulcsukat\"",
+            "Q5-A-6": "A sebességkorlátozást a Machine Learning for Kids webhely nem alkalmazza, és nem is annak ellenőrzése alatt áll. Ez általában csak átmeneti, és a legegyszerűbben rövid várakozással oldható meg.",
+            "Q5-A-7": "Ha a tanulók az \"Új gépi tanulási modell betanítása\" gombra kattintanak, és \"nincs több rendelkezésre álló készség\" vagy \"nincs több elérhető osztályozó\" hibaüzenetet kapnak (a fent leírtak szerint), akkor tudniuk kell, hogy a gomb nem oldja meg a problémát, sőt az osztály többi tagjának helyzetét rontja.",
+
+            "Q6": "Évekig várok arra, hogy a modell megtanulja a példákat!",
+            "Q6-A-1": "Próbáld frissíteni az oldalt.",
+            "Q6-A-2": "Az oldalnak 30 másodpercenként ellenőriznie kell a gépi tanulási modell állapotát, de időnként leállítja az ellenőrzést, így előfordulhat, hogy megvárja a modellt, amikor valóban készen áll a számodra.",
+            "Q6-A-3": "Ha már több perc telt el, érdemes az oldal frissítésével/újratöltésével ellenőrizni.",
+            "Q6-A-4": "Ha több mint tíz perc telt el, érdemes megfontolni az újraindítást (kattints a Mégse gombra, majd kattints a gombra az új gépi tanulási modell betanításához).",
+
+            "Q7": "\"Az osztályod megosztja a Watson API kulcsokat... jelenleg nincsenek elérhetők\"",
+            "Q7-A-1": "Az eszközben található gépi tanulási modellek IBM Watson API-k segítségével jönnek létre.",
+            "Q7-A-2": "Ha van \"ellenőrzött\" osztályfiókja, ez azt jelenti, hogy az osztálya sok más iskolával megosztja ezeket a kulcsokat. ",
+            "Q7-A-3": "Általában minden iskola számára van elegendő, de ha nagyon lefoglalt, és az összes elérhető API kulcs használatban van, akkor az új gépi tanulási modellek betanítására tett kísérletek sikertelenek, és ez az üzenet jelenik meg:",
+            "Q7-A-4": "Az osztályod megosztja a Watson Assistant / Vizuális Felsimerő \"API kulcsokat\" sok más iskolával, és sajnos jelenleg egyik sem érhető el. Kérjük, tájékoztasd a tanárodat vagy csoportvezetődet, hogy később tudod betanítani a gépi tanulási modelledet",
+            "Q7-A-5": "Ha egy diák, akinek sikeresen betanított modellje van, törli a modelljét, ez felszabadít lehetőségeket egy másik tanuló számára.",
+            "Q7-A-6": "A legjobb, ha később próbálkozik újra, miután a többi diák törölte gépi tanulási modelljét, és az API kulcsok újra elérhetőek lesznek. Tanulási adatai addig is biztonságban lesznek.",
+            "Q7-A-7": "A hiba elkerülésének másik módja, ha az osztály létrehoz egy \"nem ellenőrzött\" osztályfiókot, ahol a tanár létrehozza saját Watson \"API kulcsát\", amelyet csak a saját osztálya használhat."
+        },
+
+        "TEACHERUI": {
+            "TITLE": "Tanár / Admin UI hibák",
+
+            "Q2": "Hiányzik a diákfiók a tanári oldalon található listáról",
+            "Q2-A-1": "A Machine Learning for Kids felhasználói kezelését egy harmadik féltől származó szolgáltatás segítségével valósítják meg, <a href=\"https://auth0.com/\">Auth0</a>.",
+            "Q2-A-2": "Esetenként az Auth0 által visszaadott tanulók listája kissé elavulttá válhat, és nem tükrözi a nemrégiben létrehozott tanulókat (vagy hasonló módon továbbra is a nemrég törölt tanulókat mutatja).",
+            "Q2-A-3": "Ezekben az esetekben a tanulókat általában sikeresen létrehozták (vagy törölték), és a tanulók listája nem tükrözi a legutóbbi frissítéseket.",
+            "Q2-A-4": "Az Auth0 általában az állapotoldalukon jelenti az ilyen eseményeket, mint <a href='https://status.auth0.com/incidents/0sk1d3hjlw0m'>felhasználói indexelési késések</a> vagy <a href='https://status.auth0.com/incidents/t8995b9jggx5'>problémák az API-k keresésével</a>.",
+            "Q2-A-5": "Ilyen esetekben a legjobb, ha megvárja, amíg az Auth0 indexelés felzárkózik.",
+
+            "Q4": "Miért törlődnek automatikusan a gépi tanulási modellek??",
+            "Q4-A-1": "Ezt a funkciót az iskolák kérték a Machine Learning for Kids első kifejlesztésekor. Ez abból a tényből adódott, hogy egy osztálynak egy adott időpontban korlátozva van, hogy hány gépi tanulási modellje lehet, és ennek a korlátnak a kezelését egyszerűbbé kell tenni.",
+            "Q4-A-2": "Ahelyett, hogy megkövetelné a gyerekektől, hogy egy óra után kitakarítsák és töröljék a modelljeiket (hogy a következő osztály tudjon modelleket készíteni), az eszköz automatikusan megtisztítja a modelleket a tanóra után. Ez megkönnyíti a következő és az azt követő órák megtartását anélkül, hogy közben kézi tisztítást kellene végezni.",
+            "Q4-A-3": "A modellek törlése előtti időkorlát konfigurálható. Egy iskolában, ahol az órák 1 vagy 2 órásak, észszerű lehet két óra után törölni a modelleket. Egy heti kódoló szakkör esetében hat nap megfelelőbb lehet annak biztosítására, hogy a modelleket minden új szakköri foglalkozás előtt letisztítsák..",
+            "Q4-A-4": "Az osztály időkorlátjának megadásához keresd fel a <a href='https://machinelearningforkids.co.uk/#!/teacher/restrictions'>A Tanári oldal Korlátozások oldala</a>.",
+            "Q4-A-6": "<em>Fontos: Csak a gépi tanulási modellek törlődnek automatikusan, a létrehozásukhoz használt betanítási adatok nem. Tehát ha egy modell automatikusan törlődik egy olyan projekthez, amelyen egy diák még dolgozik, mindig újra rákattinthat a \"Tanítás\" gombra a modell újbóli létrehozásához.</em>"
+        },
+
+        "ACCOUNTISSUES": {
+            "TITLE": "Fiók problémák",
+
+            "Q1": "Mi a különbség a fiók létrehozása vagy az alábbi oldal használata között \"Próbáld ki most\"?",
+            "Q1-A-1": "A \"Próbáld ki most\" azt jelenti, hogy nincs szükség bejelentkezésre vagy fiók létrehozására. Nincsenek jelszavak, amelyeket a diákoknak meg kell jegyezniük, és a tanároknak sem kell személyes adatokat megadniuk. A tanároknak a diákfiókok kezeléséhez szükséges időt is megtakaríthatja.",
+            "Q1-A-2": "A fiók létrehozása azonban további funkciókat tesz lehetővé. A tanulók elmenthetik munkájukat, és egy későbbi időpontban visszatérhetnek. Együtt dolgozhatnak az osztályuk többi diákjával ugyanazon a projekten. Otthonról bejelentkezhetnek, és megmutathatják családjuknak, amit készítettek.",
+            "Q1-A-3": "A különbségek összefoglalása az alábbiakban látható:",
+
+            "CREATE_ACCOUNT": "Készíts egy fiókot",
+            "TRAINMODELS": "Tanítsd a gépi tanulási modellt, hogy felismerje...",
+            "PRETRAINED_MODELS": "Használd az előre tanított gépi tanulási modellt",
+            "TENSORFLOW_MODELS": "Használj TensorFlow - val támogatott modellt",
+            "SCRATCH_ONLY": "(csak a Scratch-ből használható)",
+            "USE": "Használjon gépi tanulási modelleket innen...",
+            "CREATE_PROJECTS": "Készíts projekteket",
+            "ONE_PROJECT": " 1 projekt ",
+            "MULTIPLE_PROJECTS": " Többszörözd meg a projekteket ",
+            "SAVE_PROJECTS": "projektek mentése és betöltése",
+            "WORK_ON_PROJECTS": "Dolgozz gépi tanulási projekteken...",
+            "FEW_HOURS": " pár órára ",
+            "UNTIL_DELETION": " amíg nem törlöd őket ",
+            "ONE_COMPUTER": " egy számítógépből ",
+            "ONLINE": " bárhonnan online ",
+            "BY_YOURSELF": " magadtól ",
+            "WITH_CLASSMATES": "az osztálytársakkal",
+
+            "Q2": "Készítettem egy osztályfiókot, de a tanári belépés nem működik.",
+            "Q2-A-1": "Meg kell erősítened az e-mail-címedet, mielőtt belépsz.",
+            "Q2-A-2": "Amikor létrehoztad az osztályfiókot, egy e-mailt küldünk az általad megadott e-mail-címre egy hivatkozással, amelyre kattints. Ha erre a linkre kattintasz, az e-mail-címed ellenőrizzük, és az osztályfiókot aktiváljuk. Most már be kell tudnod jelentkezni.",
+            "Q2-A-3": "Ha még nem láttad a visszaigazoló e-mailt, ellenőrizd, hogy nem került-e a spam mappába.",
+            "Q2-A-4": "Ha még mindig nem találod, <a href='https://groups.google.com/d/forum/mlforkids'>tudasd velem</a> és megpróbálok segíteni.",
+
+            "Q3": "Fiókok törlése",
+            "Q3-A-1": "Tanulói fiókok",
+            "Q3-A-2": "A diákok nem törölhetik a saját fiókjaikat.",
+            "Q3-A-3": " A tanár bármikor törölheti a diák fiókjátt, oly módon, hogy a \"Tanár\" oldalra kattint azon belül pedig  \"Diák fiókjának törlése\" gombra kattint.",
+            "Q3-A-4": "Ezzel törlöd az adott tanulóról, valamint az összes projektedről és gépi tanulási modelledről tárolt összes információt.",
+            "Q3-A-5": "Ezt nem lehet visszavonni.",
+            "Q3-A-6": "Tanári fiókok",
+            "Q3-A-7": "Ha törlöd a tanári fiókot, a teljes osztály és minden diák fiókja törlődni fog. Ez visszavonhatatlan.",
+            "Q3-A-8": "Ezt az alábbi gombra kattintva teheted meg \"Osztály törlése\" a Speciális beállítások részében <a href='https://machinelearningforkids.co.uk/teacher'>a tanári oldaladon</a>",
+
+            "Q4": "Milyen információkat tárolunk a felhasználókról?",
+            "Q4-A-1": "Tanári fiókok",
+            "Q4-A-2": "A fiók létrehozásakor megadott felhasználónevet és e-mail-címet tárolom, hogy tarthassam veled a kapcsolatot.",
+            "Q4-A-3": "Diák fiókok",
+            "Q4-A-4": "Tárolom a hallgatói fiókokhoz tartozó felhasználóneveket, hogy be tudjatok jelentkezni. Nincsenek e-mail-címeim vagy elérhetőségeim a diákokhoz. A diákokról nincs más személyazonosításra alkalmas adatom.",
+            "Q4-A-5": "Szintén javaslom <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-schools.pdf'>általános felhasználónevet adni a diákoknak</a> (pl. diak01) hogy a tanulók ne legyenek azonosíthatók iskolájukon vagy kódoló csoportjukon kívül.",
+            "Q4-A-6": "Általános információkat tárolunk minden fiókról",
+            "Q4-A-7": "A Machine Learning for Kids felhasználói kezelését a harmadik féltől származó szolgáltatás segítségével valósítják meg, <a href='https://auth0.com/'>Auth0</a>. Azt az IP-címet tárolják, amelyről utoljára bejelentkeztél a Machine Learning for Kids szolgáltatásba, valamint a használt böngésző típusát. Soha nem találtam okot a használatára, de el van tárolva, ha meg akarom keresni.",
+            "Q4-A-8": "A webböngészőben előforduló hibákat a harmadik féltől származó szolgáltatás rögzíti, <a href='https://sentry.io/'>Sentry</a>. Ha valami elromlik, információkat rögzít a hibáról, beleértve a felhasználónevét, IP-címét, a használt böngésző típusát és a hiba műszaki leírását.",
+            "Q4-A-9": " <a href='https://www.google.com/analytics/'>Google Analyticset használok</a> hogy tudjam, hány felhasználó keresi fel naponta a Machine Learning for Kids szolgáltatást. Bár olyan információkat rögzít, mint a földrajzi hely és a böngésző típusa, ez mindig csak anonimizált összesített módon jelenik meg számomra.",
+
+            "Q5": "Mi történik, ha a tanuláshoz szükséges adatokat diákok készítik?",
+            "Q5-A-1": "Minden gépi tanulási projektben, amelyet a diákok ezen a webhelyen hajtanak végre, egy fontos lépés a tanítási példák létrehozása vagy összegyűjtése. Szöveges projekteknél ez rövid szövegrészek beírását jelentheti. Képprojektek esetén ez azt jelentheti, hogy képeket rajzol a képernyőn megjelenő vászonra, vagy fényképeket készít a webkamera segítségével. Számprojektek esetén ez számkészletek beírását jelenti.",
+            "Q5-A-2": "Mindezek a tanítási példák a <a href='https://www.ibm.com/cloud/databases-for-postgresql'>Az IBM Cloudon tárolt PostgreSQL adatbázis</a> az Egyesült Államokban, Dallasban. Adatbázis-adminisztrátorként minden diák projekthez hozzáférek, és azok tanítási példáihoz, de nem használom más célra, csak arra, hogy lehetővé tegyem a diákok számára, hogy hozzáférjenek saját projektjeikhez, és dolgozhassanak azokon. Nem teszem közzé a tanítási adatokat (sem nyilvánosan, sem magánszemélyek, sem harmadik felek számára), és nem osztom meg más módon, az alábbiakban ismertetett két kivétellel, az IBM Watson API-khoz való benyújtás kivételével.",
+            "Q5-A-3": "A szöveges projektek gépi tanulási modelljeit az alábbi módon készítik <a href='https://www.ibm.com/cloud/watson-assistant/'>IBM Watson Assistant</a> felhőszolgáltatás, ami azt jelenti, hogy amikor a tanulók modellt tanítanak, az általuk beírt tanítási példák másolata lesz <a href='https://cloud.ibm.com/apidocs/assistant#create-workspace'>benyújtva az IBM Watsonnak</a>. (A felhőszolgáltatás helyét a tanárok választják meg, mikor <a href='https://machinelearningforkids.co.uk/apikeys-guide'>API kulcsokat generálnak</a>.) Az IBM Watson ezeket a tanítási példákat semmilyen más célra nem használja. Ez azért van, mert a Machine Learning for Kids <a href='https://cloud.ibm.com/apidocs/assistant#data-collection'>leiratkozást kér</a> az IBM által a szolgáltatás fejlesztésére használt diák tanítási példákhoz, mint <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>a Watson documentációban le van írva</a>.",
+            "Q5-A-4": "A képiprojektek gépi tanulási modelljeit az alábbi módon készítik <a href='https://www.ibm.com/watson/services/visual-recognition/'>IBM Vizuális Felsimerő</a> felhőszolgáltatás, ami azt jelenti, hogy amikor a tanulók modellt tanítanak, az általuk beírt tanítási példák <a href='https://cloud.ibm.com/apidocs/visual-recognition#create-a-classifier'>IBM Watson-hoz vannak feltöltve</a>. (A felhőszolgáltatás helyét a tanárok választják meg, mikor <a href='https://machinelearningforkids.co.uk/apikeys-guide'> API kulcsokat generálnak</a>.) Az IBM Watson ezeket a tanítási példákat semmilyen más célra nem használja. Ez azért van, mert a Machine Learning for Kids <a href='https://cloud.ibm.com/apidocs/visual-recognition#data-collection'>rleiratkozást kér</a> az IBM által a szolgáltatás fejlesztésére használt diák tanítási példákhoz, mint <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>a Watson documentációban le van írva</a>.",
+            "Q5-A-5": "IBM Watson nyújt néhány <a href='https://cloud.ibm.com/docs/services/assistant?topic=assistant-information-security#information-security-gdpr-wa'>általános útmutatást a tanítási adatok megosztásához</a>, amelyek a Machine Learning for Kids programban létrehozott és összegyűjtött tanítási adatokra is vonatkoznak. Konkrétan fel kell hívni a tanulók figyelmét arra, hogy az általuk gyűjtött példákban ne szerepeljenek személyazonosításra alkalmas adatok."
+        }
+    },
+    "APIKEYSGUIDE": {
+        "TITLE": "Útmutató az IBM felhőhöz",
+        "INTRO": {
+            "INTRO_1": "A nem ellenőrzött osztályfiókkal rendelkező tanároknak / szülőknek / kód szakkörvezetőknek biztosítaniuk kell '<strong>API Kulcsokat</strong>' IBM Felhőből. Ezek olyan titkos kódok, amelyek hozzáférést biztosítanak a mesterséges intelligencia technológiájához, amely a diákprojekteket vezérli.",
+            "INTRO_2": "A szöveges projektekhez „Watson Assistant” API kulcs szükséges. (A képekhez, számokhoz és hangprojektekhez nincs szükség API kulcsokra).",
+            "INTRO_3": "A kódok létrehozásához létre kell hoznia egy fiókot az IBM Felhő szolgáltatásban. A fiók létrehozása ingyenes, és a „Lite” API kulcsokért nem kell fizetni. "
+        },
+        "LINK": "Hogyan generálj API kulcsot?",
+        "EXPLANATION": "Töltse le a részletes útmutatót az API kulcsok IBM Felhőben történő létrehozásához"
+    },
+    "PRETRAINED": {
+        "TITLE": "Előre betanított modellek",
+        "INTRO": {
+            "INTRO_1": "<strong>Machine Learning for Kids</strong> előre betanított modelleket biztosít, amelyeket projektjeid során használhatsz. A valós gépi tanulási projektek gyakran olyan modelleket használnak, amelyeket mások már betanítottak. Rengeteg jól képzett modell áll rendelkezésre szabadon, ezek akkor lehetnek hasznosak, ha nincs időd összegyűjteni a saját tanításhoz szükséges mennyiségű tanítási adatot."
+        },
+        "HOWTO": {
+            "TITLE": "Használat",
+            "INTRO": "Klikkelj a gombra és menj a Scratch oldalára.",
+            "HOW_1": "Használd a <a href='https://scratch.machinelearningforkids.co.uk'>Scratch 3-t</a> ami elérhető a Gépi Tanulás Gyerekeknek programon keresztül.",
+            "HOW_2": "Az előre betanított modellek a Bővítmények panelen érhetők el. Kattints a kék bővítmények gombra a Scratch ablak bal alsó sarkában, hogy megtaláld őket, majd kattints arra, amelyet hozzá szeretnél adni a projekthez.",
+            "HOW_3": "Az előre betanított modell blokkjai hozzáadódnak a Scratch eszköztárhoz."
+        },
+        "SPEECHTOTEXT": {
+            "TITLE": "Beszéd szöveggé alakítása",
+            "SPEECH_1": "Ez a modell a mikrofonon keresztül rögzített beszéd felismerésére használható.",
+            "SPEECH_2": "Ez ad egy blokkot, amellyel hangot rögzíthetsz, majd megadja a felismert szöveget, valamint egy blokkot, amellyel megmondhatod, hogy figyeljen egy adott szóra vagy kifejezésre.",
+            "SPEECH_3": "A Google Chrome-hoz tartozó beszédfelismerő képességet használja, így az általad használt ML-modell a Google-tól származik. (Ez azt is jelenti, hogy csak akkor használhatod ezt a modellt, ha a Google Chrome böngészőt használod, elnézést!)"
+        },
+        "FACEAPI": {
+            "TITLE": "Arcfelismerés",
+            "FACE_1": "Ezzel a modellel felismerheted az arcod a webkamerád segítségével egy videóban.",
+            "FACE_2": "Olyan blokkokat ad, amelyek megtalálják a szem, az orr és a száj x,y koordinátáit.",
+            "FACE_3": "Felülről lefelé irányuló technikát használ – azzal kezdődik, hogy keres valamit, ami úgy néz ki, mint egy arc a képen. Miután ezt megtalálta, megpróbálja azonosítani az arcvonásokat az adott területen. A gépi tanulási modell a MobileNeten alapul (egy mobileszközökhöz tervezett ML modell, így nem igényel nagy programozási tudást).",
+            "FACE_4": "Az ehhez a modellhez használt tanítási adatok abból a halmazból származnak, amelyek <a href='http://shuoyang1213.me/WIDERFACE/' target='_blank'>WIDER FACE néven ismertek</a>."
+        },
+        "POSENET": {
+            "TITLE": "Póz felismerés",
+            "POSE_1": "Ez a modell használható a póz felismerésére a webkamerája segítségével a videóban.",
+            "POSE_2": "Olyan blokkokat ad, amelyek megtalálják tested különböző részeinek x,y koordinátáit, például váll, könyök, csukló, térd és boka.",
+            "POSE_3": "Alulról felfelé irányuló technikát használ – az emberi test kulcspontjait keresi (mint például váll, könyök, csukló, térd és boka stb.) majd csoportosítja őket, azért, hogy azonosítsa a személyt és a pózt. ",
+            "POSE_4": "Az ehhez a modellhez használt tanítási adatok abból a halmazból származnak, amelyek <a href='http://cocodataset.org/index.htm#keypoints-2019' target='_blank'>Common Objects in Context néven ismertek (COCO)</a>.",
+            "POSE_5": "További információkért, beleértve a modell néhány feladatának és lehetséges problémájának leírását, lásd a <a href='https://drive.google.com/file/d/1VFC_wIpw4O7xBOiTgUldl79d9LA-LsnA/view'>modell kártya</a>."
+        },
+        "HANDPOSE": {
+            "TITLE": "Kézfelismerés",
+            "POSE_1": "Ez a modell használható a kezed felismerésére a webkamerád segítségével a videóban.",
+            "POSE_2": "Olyan blokkokat ad, amelyek megtalálják a kezed különböző részeinek x,y koordinátáit: az ujjaid hegyét és a csuklód..",
+            "POSE_3": "Csak az egyik kézről tud információt adni.",
+            "POSE_4": "További információkért, beleértve a modell néhány feladatának és lehetséges problémájának leírását, lásd a <a href='https://drive.google.com/file/d/1sv4sSb9BSNVZhLzxXJ0jBv9DqD-4jnAz/view'>modell kártya</a>."
+        },
+        "TOXICITY": {
+            "TITLE": "Mérgezőség",
+            "TOXICITY_1": "Ez a modell használható annak felismerésére, hogy a szöveg tartalmaz-e sértő tartalmat.",
+            "TOXICITY_2": "Olyan blokkokat ad, amelyek megjósolják annak százalékos valószínűségét, hogy bizonyos szövegek sértő tartalmat, például fenyegető nyelvezetet, sértéseket, obszcenitásokat vagy identitáson alapuló gyűlöletet tartalmaznak.",
+            "TOXICITY_3": "A tanításhoz használt adatok <a href='https://medium.com/tensorflow/text-classification-using-tensorflow-js-an-example-of-detecting-offensive-language-in-browser-e2b94e3565ce'>this model</a> származnak <a href='https://figshare.com/articles/data_json/7376747' target='_blank'>kétmillió, a felhasználók által hírcikkekre generált megjegyzésből </a>."
+        },
+        "IMAGENET": {
+            "TITLE": "Imagenet",
+            "IMAGENET_1": "Ez a modell a jelmezben lévő tárgyak felismerésére használható.",
+            "IMAGENET_2": "Olyan blokkokat ad, amelyek megjósolják a sprite-ban látható fő tárgyakat.",
+            "IMAGENET_3": "Arra képezték ki, hogy felismerje a fényképeket <a href='https://storage.googleapis.com/download.tensorflow.org/data/ImageNetLabels.txt'>ezer általános tárgy</a>. A gépi tanulási modell a MobileNeten alapul (egy mobileszközökhöz tervezett ML modell), így nem igényel nagy programozási tudást",
+            "IMAGENET_4": "Fényképek felismerésére alkalmas, de a rajzfilmeket, vagy a rajzokat nem ismeri fel túl jól."
+        },
+        "QNA": {
+            "TITLE": "Kérdés, felelet",
+            "QNA_1": "Ez a modell kérdések megválaszolására használható.",
+            "QNA_2": "Egy olyan blokkot biztosít, amely egy kérdésre keresi a választ az általad megadott szövegben.",
+            "QNA_3": "Ez egyfajta gépi tanulási modell, az úgynevezett <a href='https://github.com/google-research/bert'>BERT</a> ami hasznos a szöveges projektekhez.",
+            "QNA_4": "Ezt a Stanford Egyetem által összegyűjtött Wikipédia-cikkekből származó kérdések és válaszok felhasználásával tanították '<a href='https://rajpurkar.github.io/SQuAD-explorer'>SQuAD</a>'.",
+            "QNA_5": "Ez egy összetett modell, ezért előfordulhat, hogy lassú, és sok memóriát igényel a számítógépen!"
+        },
+        "SPICE": {
+            "TITLE": "Hangmagasság becslés",
+            "SPICE_1": "Ez a modell a számítógép mikrofonjából énekelt hangok felismerésére használható.",
+            "SPICE_2": "Olyan blokkokat kapsz, amelyek visszaadják az általa felismert hang frekvenciáját, és ezt névvé vagy MIDI hanggá alakítják.",
+            "SPICE_3": "A modellt úgy hívják, hogy <a href='https://ai.googleblog.com/2019/11/spice-self-supervised-pitch-estimation.html'>SPICE</a>, és arra tanították, hogy azonosítsa az énekelt hang domináns hangmagasságát, beleértve az énekelt hangok felismerését, még akkor is, ha háttérzene és zaj van.",
+            "SPICE_4": "A modellhez használt tanítási adatok innen származnak <a href='https://sites.google.com/site/unvoicedsoundseparation/mir-1k'>MIR-1K</a>, amely 1000 rövid hangfelvételből álló adatbázis amatőr énekesektől, akik karaoke mellett énekelnek.",
+            "SPICE_5": "Ennek a modellnek a használatához engedélyeznie kell a Scratch számára a mikrofon használatát."
+        },
+        "IDEAS": {
+            "IDEAS_1": "Vannak-e más gépi tanulási modellek, amelyeket használni szeretne a Scratch projektekben?",
+            "IDEAS_2": "Kérdezd meg a <a href='https://groups.google.com/d/forum/mlforkids'>ML for Kids fórumon</a>."
+        },
+        "TENSORFLOW": {
+            "TITLE": "TensorFlow",
+            "BUTTON": "Nyisd meg a TensorFlow modellt",
+            "TF_1": "<a href='https://www.tensorflow.org/'>TensorFlow</a> egy eszköz, amely képes a machine learnings for kids felületet tanítani és futtatni",
+            "TF_2": "Ha tudod, hogyan hozhatsz létre saját gépi tanulási modellt a TensorFlow segítségével, kattints a fenti gombra a használatához Scratch-ben.",
+            "TF_3": "Megépítheted <a href='https://www.tensorflow.org/overview/'>a saját modelledet</a>, például Python nyelvet használva.",
+            "TF_4": "Vagy használhatsz <a href='https://teachablemachine.withgoogle.com/'>Tanítható gép programot</a> hogy könnyedén betaníthass egy TensorFlow modellt, majd itt készíts vele valamit Scratch-ben.",
+            "TF_5": "(Ma még csak a képosztályozók támogatottak, de hamarosan több típusú gépi tanulási modell támogatása is elérhető lesz!)"
+        }
+    },
+    "BOOK": {
+        "TITLE": "Könyv",
+        "NOTES_1": "<strong>Machine Learning for Kids: Projektalapú bevezetés a mesterséges intelligenciába e</strong> egy új könyv, amely ezt az oldalt támogatja.",
+        "NOTES_2": "A könyv alapos gyakorlati és kézenfekvő bevezetést nyújt ahhoz, hogy a mesterséges intelligencia hogyan befolyásolja életünket. Lépésről lépésre tartalmaz utasításokat a különféle gépi tanulással hajtott Scratch-ben projektek elkészítéséhez, és elmagyarázza, hogy ezek hogyan kapcsolódnak a valós MI-alkalmazásokhoz.",
+        "NOTES_3": "Számos projektet látunk alaposan részletezve, elmerülve a gépi tanulás alkalmazásának bizonyos aspektusaiba, beleértve az MI-ben elkövetett leggyakoribb hibák újraalkotását, valamint a gépi tanulási rendszerek teljesítményének mérésének és leírásának különböző módjainak megismerését.",
+        "NOTES_4": "Végül a könyv az elfogult gépi tanulási rendszerek példáinak újraalkotásával zárul, és megvitatja az általuk felvetett MI etikai kérdéseket.",
+        "UPDATES": {
+            "TITLE": "Frissítések és javítások",
+            "NOTES": "Az esetleges frissítések vagy javítások itt lesznek közzétéve. További segítségért tekintsd meg a <a ui-sref='help'>Help</a> lapot."
+        }
+    }
+}

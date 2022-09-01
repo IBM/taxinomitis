@@ -250,7 +250,9 @@
         "CREATE": "Creează",
         "ERRORS": {
             "REQUIRED": "Acest lucru este necesar!",
-            "TOOLONG": "E prea lung!"
+            "TOOLONG": "E prea lung!",
+            "EXCEEDLIMIT": "You've reached the limit for the number of projects you can have. You need to delete one of your current projects before you can create another.",
+            "TRYITNOW": "Sorry! You can only create one project at a time if you use 'Try it now'. You need to delete your current project before you can create another."
         },
         "WARNINGS": {
             "MLCRED-TEXT-NOKEYS": "Te rog să informezi profesorul că va trebui să adauge o \"cheie Watson Assistant API\" la clasa ta pentru a vă permite să instruiți modelul de învățare automată pentru noul vostru proiect",
@@ -318,6 +320,18 @@
                 "SUMMARY": "Recunoaște gesturile mâinilor din pozițiile degetelor",
                 "DESCRIPTION": "Instruiește un model de învățare automată pentru a recunoaște diferite gesturi ale mâinilor, colectând exemple de poziții ale degetelor.",
                 "DETAILS": "Acesta este un șablon (template) gol pentru a te ajuta să colectezi propriile date de antrenament. Pentru instrucțiuni despre modul de utilizare, descarcă „Gesturile mâinilor” din foi de lucru."
+            },
+            "POKEMONSTATS": {
+                "TITLE": "Pokémon statistics",
+                "SUMMARY": "Recognize Pokémon from their statistics",
+                "DESCRIPTION": "Train a machine learning model to predict the type of a Pokémon based on a collection of statistics about hundreds of Pokémon. ",
+                "DETAILS": "This training dataset includes attributes of a selection of Pokémon. \n\nThe 'height' field is the height of a Pokémon in metres. \nThe 'weight' field is the weight of a Pokémon in kilograms. \nThe 'attack' field is the attack strength of a level 100 Pokémon. \nThe 'defense' field is the defense strength of a level 100 Pokémon. \nThe 'speed' field is the speed rating of a level 100 Pokémon. \nThe 'HP' field is the hit point statistics for a Pokémon. \nThe 'capture rate' field is the catch rate for a Pokémon. Pokémon with higher catch rates are easier to capture than Pokémon with lower catch rates."
+            },
+            "POKEMONIMAGES": {
+                "TITLE": "Pokémon images",
+                "SUMMARY": "Recognize Pokémon from pictures",
+                "DESCRIPTION": "Train a machine learning model to predict the type of a Pokémon based on a set of pictures of a hundred Pokémon. ",
+                "DETAILS": "This training dataset includes images of a selection of Pokémon, grouped by their type. It is a good starting set for training a machine learning model to predict the type of a Pokémon from a picture."
             }
         }
     },
@@ -878,8 +892,7 @@
     },
     "MAKES": {
         "TITLE": "Make something with your machine learning model",
-        "SCRATCH2": "Make a project in the old version of Scratch",
-        "SCRATCH3": "Use the new version of Scratch",
+        "SCRATCH3": "Use your machine learning model in Scratch",
         "PYTHON": "Write Python code to use your machine learning model",
         "APPINVENTOR": "Make a mobile app for your phone or tablet"
     },
@@ -896,7 +909,7 @@
 
         "REPLIT": {
             "TITLE": "Coding in replit",
-            "TIP": "Tip: You have to click on <span class='pythonreplhighlight'>Fork</span> to start editing your own copy of the code",
+            "TIP": "Tip: You have to click on <span class='pythonreplhighlight'>Fork repl</span> to start editing your own copy of the code",
             "GO": "Go to replit.com"
         },
 
@@ -1491,6 +1504,22 @@
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-explainability.pdf"
             }
+        },
+        "POKEMONSTATS": {
+            "TITLE": "Pokémon statistics",
+            "SUMMARY": "Teach a computer to recognize patterns in sets of numbers",
+            "DESCRIPTION": "Make a project in Scratch that predicts the type of Pokémon from their size and fighting stats.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pokemonstats.pdf"
+            }
+        },
+        "POKEMONIMAGES": {
+            "TITLE": "Pokémon images",
+            "SUMMARY": "Teach a computer to recognize pictures",
+            "DESCRIPTION": "Make a project in Scratch that predicts the type of Pokémon from how it looks",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pokemonimages.pdf"
+            }
         }
     },
     "TEACHER": {
@@ -1939,7 +1968,7 @@
         "HOWTO": {
             "TITLE": "Cum se folosește",
             "INTRO": "Faceți clic pe buton pentru a merge la Scratch.",
-            "HOW_1": "Accesați versiunea de <a href='https://machinelearningforkids.co.uk/scratch3'>Scratch 3</a> disponibila de la Machine Learning for Kids.",
+            "HOW_1": "Accesați versiunea de <a href='https://scratch.machinelearningforkids.co.uk'>Scratch 3</a> disponibila de la Machine Learning for Kids.",
             "HOW_2": "Modelele pre-instruite sunt disponibile din panoul Extensii. Faceți clic pe butonul albastru de extensii din partea stângă jos a ferestrei Scratch pentru a le găsi, apoi faceți clic pe cel pe care doriți să îl adăugați la proiect.",
             "HOW_3": "Blocurile pentru modelul pre-antrenat vor fi adăugate în caseta de instrumente Scratch."
         },

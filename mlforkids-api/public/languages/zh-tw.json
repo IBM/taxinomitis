@@ -250,7 +250,9 @@
         "CREATE": "建立",
         "ERRORS": {
             "REQUIRED": "這是必需的！",
-            "TOOLONG": "太久了！"
+            "TOOLONG": "太久了！",
+            "EXCEEDLIMIT": "You've reached the limit for the number of projects you can have. You need to delete one of your current projects before you can create another.",
+            "TRYITNOW": "Sorry! You can only create one project at a time if you use 'Try it now'. You need to delete your current project before you can create another."
         },
         "WARNINGS": {
             "MLCRED-TEXT-NOKEYS": "請告知您的老師，他們將需要在課程中加入「 Watson Assistant API密碼」，才能為新專案訓練機器學習模型",
@@ -318,6 +320,18 @@
                 "SUMMARY": "Recognize hand gestures from finger positions",
                 "DESCRIPTION": "Train a machine learning model to recognize different hand gestures, by collecting examples of the positions of your fingers.",
                 "DETAILS": "This is an empty template to help you collect your own training data. For instructions on how to use it, download 'Hand gestures' from Worksheets."
+            },
+            "POKEMONSTATS": {
+                "TITLE": "Pokémon statistics",
+                "SUMMARY": "Recognize Pokémon from their statistics",
+                "DESCRIPTION": "Train a machine learning model to predict the type of a Pokémon based on a collection of statistics about hundreds of Pokémon. ",
+                "DETAILS": "This training dataset includes attributes of a selection of Pokémon. \n\nThe 'height' field is the height of a Pokémon in metres. \nThe 'weight' field is the weight of a Pokémon in kilograms. \nThe 'attack' field is the attack strength of a level 100 Pokémon. \nThe 'defense' field is the defense strength of a level 100 Pokémon. \nThe 'speed' field is the speed rating of a level 100 Pokémon. \nThe 'HP' field is the hit point statistics for a Pokémon. \nThe 'capture rate' field is the catch rate for a Pokémon. Pokémon with higher catch rates are easier to capture than Pokémon with lower catch rates."
+            },
+            "POKEMONIMAGES": {
+                "TITLE": "Pokémon images",
+                "SUMMARY": "Recognize Pokémon from pictures",
+                "DESCRIPTION": "Train a machine learning model to predict the type of a Pokémon based on a set of pictures of a hundred Pokémon. ",
+                "DETAILS": "This training dataset includes images of a selection of Pokémon, grouped by their type. It is a good starting set for training a machine learning model to predict the type of a Pokémon from a picture."
             }
         }
     },
@@ -878,7 +892,6 @@
     },
     "MAKES": {
         "TITLE": "使用你的機器學習模型製作一些作品吧",
-        "SCRATCH2": "使用舊版本的Scratch進行創作",
         "SCRATCH3": "使用新版的Scratch進行創作",
         "PYTHON": "寫一些Python程式碼來使用你的機器學習模型",
         "APPINVENTOR": "製作一個手機APP給你的手機或平板使用"
@@ -896,7 +909,7 @@
 
         "REPLIT": {
             "TITLE": "Coding in replit",
-            "TIP": "Tip: You have to click on <span class='pythonreplhighlight'>Fork</span> to start editing your own copy of the code",
+            "TIP": "Tip: You have to click on <span class='pythonreplhighlight'>Fork repl</span> to start editing your own copy of the code",
             "GO": "Go to replit.com"
         },
 
@@ -1491,6 +1504,22 @@
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-explainability.pdf"
             }
+        },
+        "POKEMONSTATS": {
+            "TITLE": "Pokémon statistics",
+            "SUMMARY": "Teach a computer to recognize patterns in sets of numbers",
+            "DESCRIPTION": "Make a project in Scratch that predicts the type of Pokémon from their size and fighting stats.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pokemonstats.pdf"
+            }
+        },
+        "POKEMONIMAGES": {
+            "TITLE": "Pokémon images",
+            "SUMMARY": "Teach a computer to recognize pictures",
+            "DESCRIPTION": "Make a project in Scratch that predicts the type of Pokémon from how it looks",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pokemonimages.pdf"
+            }
         }
     },
     "TEACHER": {
@@ -1939,7 +1968,7 @@
         "HOWTO": {
             "TITLE": "如何使用",
             "INTRO": "點擊按鈕進入Scratch",
-            "HOW_1": "選擇兒童機器學習可使用的版本<a href='https://machinelearningforkids.co.uk/scratch3'>Scratch 3</a>",
+            "HOW_1": "選擇兒童機器學習可使用的版本<a href='https://scratch.machinelearningforkids.co.uk'>Scratch 3</a>",
             "HOW_2": "在「擴充功能」面板中可以取得預先訓練好的模型。 點擊Scratch視窗左下角的藍色擴展按鈕並找到它們，然後點擊要添加到專案中的擴充功能。",
             "HOW_3": "預先訓練模型的積木將會添加到Scratch工具箱中。"
         },

@@ -18,6 +18,17 @@
 
         $scope.creating = false;
 
+        var errorExceededLimit = 'You have reached the limit for the number of projects you can have. You need to delete one of your current projects before you can create another.';
+        var errorTryItNow = 'Sorry! You can only create one project at a time if you use "Try it now". You need to delete your current project before you can create another.';
+        $translate([ 'NEWPROJECT.ERRORS.EXCEEDLIMIT', 'NEWPROJECT.ERRORS.TRYITNOW' ])
+            .then(function (translations) {
+                errorExceededLimit = translations['NEWPROJECT.ERRORS.EXCEEDLIMIT'];
+                errorTryItNow = translations['NEWPROJECT.ERRORS.TRYITNOW'];
+            })
+            .catch(function (err) {
+                loggerService.error('[ml4kproj] Failed to get translated error messages', err);
+            });
+
         // use the language that the site is running in
         //  as the default language for text projects
         //  (if supported) otherwise use the universal
@@ -141,8 +152,19 @@
                 })
                 .catch(function (err) {
                     loggerService.error('[ml4kproj] Failed to create project', err);
-                    displayAlert('errors', err.status, err.data);
 
+                    // treat a user creating too many projects as a special case, and display a
+                    //  translated message with additional guidance
+                    if (err.status === 409 && err.data.error === 'User already has maximum number of projects') {
+                        if (vm.profile.tenant === 'session-users') {
+                            err.data.message = errorTryItNow;
+                        }
+                        else {
+                            err.data.message = errorExceededLimit;
+                        }
+                    }
+
+                    displayAlert('errors', err.status, err.data);
                     $scope.creating = false;
                 });
         };

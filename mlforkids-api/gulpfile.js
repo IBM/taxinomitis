@@ -116,6 +116,12 @@ gulp.task('tensorflowfacelandmarks', function() {
         'node_modules/@tensorflow-models/face-landmarks-detection/dist/face-landmarks-detection.min.js'
     ]).pipe(gulp.dest('web/static/bower_components/tensorflow-models/face-landmarks-detection'));
 });
+gulp.task('tensorflowfacemesh', function() {
+    return gulp.src([
+        'node_modules/@mediapipe/face_mesh/*'
+    ]).pipe(gulp.dest('web/static/bower_components/tensorflow-models/face-mesh'));
+});
+
 gulp.task('imagerecognitionmodel', function() {
     const files = [
         { url : 'https://storage.googleapis.com/tfjs-models/tfjs/mobilenet_v1_0.25_224/model.json', file : 'model.json' }
@@ -139,7 +145,7 @@ gulp.task('tfjs',
     gulp.parallel('tensorflowjs',
         'tensorflowspeechcommands', 'speechcommandsmodel',
         'tensorflowposenet', 'posenetmodel',
-        'tensorflowfacelandmarks',
+        'tensorflowfacelandmarks', 'tensorflowfacemesh',
         'tensorflowhandposemodel',
         'imagerecognitionmodel'));
 
