@@ -1120,6 +1120,8 @@ var SharedDispatch = /*#__PURE__*/function () {
           });
         } else if (message.mlforkidsimage.command === 'classify') {
           this.mlforkidsImageSupport.classifyImageData(message.mlforkidsimage.data, worker);
+        } else if (message.mlforkidsimage.command === 'train') {
+          this.mlforkidsImageSupport.trainNewModel(message.mlforkidsimage.data, worker);
         }
       } else if (message.mlforkidstensorflow) {
         if (message.mlforkidstensorflow.command === 'init') {
@@ -1532,6 +1534,7 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
   // PROJECTS[projectid].modelNumClasses = <number of modelClasses>
   // PROJECTS[projectid].state = INIT/READY/TRAINING/TRAINED/ERROR
   // PROJECTS[projectid].transferModel = <model>
+  // PROJECTS[projectid].usingRestoredModel = true/false
   // states:
   //   INIT - not ready yet
   //   READY - ready for training
@@ -1553,8 +1556,12 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
 
       if (!this.initPromise) {
         this.initPromise = new Promise(function (resolve, reject) {
-          tf.enableProdMode();
-          var BASE_MODEL = 'https://storage.googleapis.com' + '/tfjs-models/tfjs' + '/mobilenet_v1_0.25_224' + '/model.json';
+          tf.enableProdMode(); // const BASE_MODEL = 'https://storage.googleapis.com' +
+          //                     '/tfjs-models/tfjs' +
+          //                     '/mobilenet_v1_0.25_224' +
+          //                     '/model.json';
+
+          var BASE_MODEL = 'https://machinelearningforkids.co.uk/static/bower_components/tensorflow-models/image-recognition/model.json';
           tf.loadLayersModel(BASE_MODEL).then(function (pretrainedModel) {
             var activationLayer = pretrainedModel.getLayer('conv_pw_13_relu');
             _this.baseModel = tf.model({
@@ -1581,16 +1588,19 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
     value: function initProject(encprojectdata, worker) {
       var _this2 = this;
 
+      console.log('[mlforkids] ML4KidsImageTraining init');
       var projectData = JSON.parse(encprojectdata);
       var projectid = projectData.projectid;
       this.PROJECTS[projectid] = {};
       this.PROJECTS[projectid].state = 'INIT';
       this.PROJECTS[projectid].modelClasses = projectData.labels;
       this.PROJECTS[projectid].modelNumClasses = projectData.labels.length;
+      this.PROJECTS[projectid].usingRestoredModel = false;
       return this._loadModel(projectid).then(function (model) {
         if (model) {
           _this2.PROJECTS[projectid].transferModel = model;
           _this2.PROJECTS[projectid].state = 'TRAINED';
+          _this2.PROJECTS[projectid].usingRestoredModel = true;
           worker.postMessage({
             mlforkidsimage: 'modelready',
             data: {
@@ -1759,9 +1769,37 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
       });
     }
   }, {
+    key: "_saveModel",
+    value: function _saveModel(projectid) {
+      var _this3 = this;
+
+      console.log('[mlforkids] ML4KidsImageTraining saving model to browser storage');
+
+      var savelocation = this._getModelDbLocation(projectid);
+
+      return this.PROJECTS[projectid].transferModel.save(savelocation).then(function (results) {
+        console.log('[mlforkids] ML4KidsImageTraining saved model', savelocation, results);
+
+        _this3._storeModelSavedDate(savelocation);
+      }).catch(function (err) {
+        console.log('[mlforkids] ML4KidsImageTraining failed to save model', err);
+      });
+    }
+  }, {
+    key: "_storeModelSavedDate",
+    value: function _storeModelSavedDate(modelid) {
+      try {
+        if (window.localStorage) {
+          window.localStorage.setItem(modelid, Date.now());
+        }
+      } catch (err) {
+        console.log('[mlforkids] ML4KidsImageTraining unable to save model date');
+      }
+    }
+  }, {
     key: "_watchForNewModels",
     value: function _watchForNewModels(projectid) {
-      var _this3 = this;
+      var _this4 = this;
 
       if (!this.PROJECTS[projectid].modelWatcher) {
         console.log('[mlforkids] ML4KidsImageTraining listening for model updates', projectid);
@@ -1772,10 +1810,11 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
         window.addEventListener('storage', function (evt) {
           if (evt.key === modellocation) {
             console.log('[mlforkids] ML4KidsImageTraining new model is available');
-            return _this3._loadModel(projectid).then(function (updated) {
+            return _this4._loadModel(projectid).then(function (updated) {
               if (updated) {
-                _this3.PROJECTS[projectid].transferModel = updated;
-                _this3.PROJECTS[projectid].state = 'TRAINED';
+                _this4.PROJECTS[projectid].transferModel = updated;
+                _this4.PROJECTS[projectid].state = 'TRAINED';
+                _this4.PROJECTS[projectid].usingRestoredModel = true;
                 console.log('[mlforkids] ML4KidsImageTraining using updated model');
               } else {
                 console.log('[mlforkids] ML4KidsImageTraining failed to load updated model, continuing with previous model');
@@ -1784,6 +1823,136 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
           }
         });
       }
+    }
+  }, {
+    key: "trainNewModel",
+    value: function trainNewModel(data, worker) {
+      var _this5 = this;
+
+      var projectid = data.projectid;
+
+      if (this.state !== 'READY') {
+        console.log('[mlforkids] ML4KidsImageTraining not ready to train a new ML model - state : ' + this.state);
+        return;
+      }
+
+      if (this.PROJECTS[projectid].state === 'TRAINING') {
+        console.log('[mlforkids] ML4KidsImageTraining training in progress for this model');
+        return;
+      }
+
+      console.log('[mlforkids] ML4KidsImageTraining training new model');
+      this.PROJECTS[projectid].state = 'TRAINING';
+
+      if (this.PROJECTS[projectid].usingRestoredModel) {
+        this.PROJECTS[projectid].transferModel = this.prepareTransferLearningModel(this.PROJECTS[projectid].modelNumClasses);
+      }
+
+      var that = this;
+      return Promise.all(data.trainingdata.map(this._getTensorForImageData)).then(function (trainingdata) {
+        var xs;
+        var ys;
+
+        var _loop = function _loop(i) {
+          var trainingdataitem = trainingdata[i];
+
+          var labelIdx = _this5.PROJECTS[projectid].modelClasses.indexOf(trainingdataitem.metadata.label);
+
+          var xval = _this5.baseModel.predict(trainingdataitem.data);
+
+          var yval = tf.tidy(function () {
+            return tf.oneHot(tf.tensor1d([labelIdx]).toInt(), that.PROJECTS[projectid].modelNumClasses);
+          });
+
+          if (i === 0) {
+            xs = xval;
+            ys = yval;
+          } else {
+            oldxs = xs;
+            oldys = ys;
+            xs = oldxs.concat(xval, 0);
+            ys = oldys.concat(yval, 0);
+            oldxs.dispose();
+            oldys.dispose();
+          }
+        };
+
+        for (var i = 0; i < trainingdata.length; i++) {
+          var oldxs;
+          var oldys;
+
+          _loop(i);
+        }
+
+        var epochs = 10;
+
+        if (trainingdata.length > 55) {
+          epochs = 15;
+        }
+
+        _this5.PROJECTS[projectid].transferModel.fit(xs, ys, {
+          batchSize: 10,
+          epochs: epochs,
+          callbacks: {
+            onEpochEnd: function onEpochEnd(epoch, logs) {
+              console.log('[mlforkids] ML4KidsImageTraining epoch ' + epoch + ' loss ' + logs.loss);
+            },
+            onTrainEnd: function onTrainEnd() {
+              console.log('[mlforkids] ML4KidsImageTraining training complete');
+
+              that._saveModel(projectid);
+
+              that.PROJECTS[projectid].state = 'TRAINED';
+              that.PROJECTS[projectid].usingRestoredModel = false;
+              worker.postMessage({
+                mlforkidsimage: 'modelready',
+                data: {
+                  projectid: projectid
+                }
+              });
+            }
+          }
+        });
+      }).catch(function (err) {
+        console.log('[mlforkids] ML4KidsImageTraining failed to train model', err);
+        _this5.PROJECTS[projectid].state = 'ERROR';
+        worker.postMessage({
+          mlforkidsimage: 'modelfailed',
+          data: {
+            projectid: projectid
+          }
+        });
+      });
+    }
+  }, {
+    key: "_getTensorForImageData",
+    value: function _getTensorForImageData(_ref) {
+      var imgdata = _ref.imgdata,
+          metadata = _ref.metadata;
+      return new Promise(function (resolve, reject) {
+        var imgDataBlob = URL.createObjectURL(new Blob([imgdata]));
+        var hiddenImg = document.createElement('img');
+        hiddenImg.width = 224;
+        hiddenImg.height = 224;
+
+        hiddenImg.onerror = function (err) {
+          console.log('[mlforkids] ML4KidsImageTraining failed to load image', err);
+          return reject(err);
+        };
+
+        hiddenImg.onload = function () {
+          var imageData = tf.tidy(function () {
+            return tf.browser.fromPixels(hiddenImg).expandDims(0).toFloat().div(127).sub(1);
+          });
+          resolve({
+            metadata: metadata,
+            data: imageData
+          });
+          URL.revokeObjectURL(imgDataBlob);
+        };
+
+        hiddenImg.src = imgDataBlob;
+      });
     }
   }]);
 
