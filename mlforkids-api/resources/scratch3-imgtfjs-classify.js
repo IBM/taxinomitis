@@ -135,6 +135,14 @@ class MachineLearningImagesTfjs {
                 },
 
                 {
+                    opcode: 'trainNewModel',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: {
+                        default: 'train new machine learning model',
+                        id: 'mlforkids.text.trainNewModel'
+                    }
+                },
+                {
                     opcode: 'checkModelStatus',
                     blockType: Scratch.BlockType.BOOLEAN,
                     text: {
@@ -323,6 +331,90 @@ class MachineLearningImagesTfjs {
             this.numIncorrectUses = 0;
         }
     }
+
+
+
+    trainNewModel () {
+        this.modelReady = false;
+        this.training = true;
+
+        var that = this;
+        return this._getTrainingData()
+            .then((trainingdata) => {
+                if (trainingdata && trainingdata.length >= 5) {
+                    postMessage({
+                        mlforkidsimage : {
+                            command : 'train',
+                            data : {
+                                projectid : '{{{projectid}}}',
+                                trainingdata
+                            }
+                        }
+                    });
+                }
+                else {
+                    console.log('not training - need training data', trainingdata);
+                }
+            })
+            .catch((err) => {
+                console.log('failed to train model', err);
+                that.modelError = true;
+            });
+    }
+
+
+    _getTrainingImageData (metadata) {
+        var that = this;
+        return fetch(metadata.imageurl)
+            .then((response) => {
+                if (response.status !== 200) {
+                    console.log('failed to download training image', response.status);
+                    that.modelError = true;
+                }
+                else {
+                    return response.arrayBuffer();
+                }
+            })
+            .then((imgdata) => {
+                return { imgdata, metadata };
+            })
+            .catch((err) => {
+                console.log('failed to download training image', err);
+                that.modelError = true;
+            });
+    }
+
+
+    _getTrainingData() {
+        var urlstr = '{{{ storeurl }}}';
+        var url = new URL(urlstr);
+        var options = {
+            headers : {
+                'Accept': 'application/json',
+                'X-User-Agent': 'mlforkids-scratch3-images'
+            }
+        };
+
+        var that = this;
+        return fetch(url, options)
+            .then((response) => {
+                if (response.status !== 200) {
+                    that.modelError = true;
+                    return [];
+                }
+                else {
+                    return response.json();
+                }
+            })
+            .then((traininginfo) => {
+                return Promise.all(traininginfo.map(trainingitem => {
+                    return that._getTrainingImageData(trainingitem);
+                }));
+            });
+    }
+
+
+
 }
 
 
