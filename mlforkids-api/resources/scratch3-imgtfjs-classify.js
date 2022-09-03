@@ -256,6 +256,10 @@ class MachineLearningImagesTfjs {
             else if (that && msg.data.mlforkidsimage === 'modelinit')
             {
                 console.log('ready to train a new model');
+
+                // to avoid the user needing to do this, we'll
+                //  try to train a model automatically
+                that.trainNewModel();
             }
             else if (that && msg.data.mlforkidsimage === 'classifyresponse')
             {
@@ -335,6 +339,11 @@ class MachineLearningImagesTfjs {
 
 
     trainNewModel () {
+        if (this.training) {
+            console.log('already training');
+            return;
+        }
+
         this.modelReady = false;
         this.training = true;
 
@@ -354,11 +363,13 @@ class MachineLearningImagesTfjs {
                 }
                 else {
                     console.log('not training - need training data', trainingdata);
+                    that.training = false;
                 }
             })
             .catch((err) => {
                 console.log('failed to train model', err);
                 that.modelError = true;
+                that.training = false;
             });
     }
 
