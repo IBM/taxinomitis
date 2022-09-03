@@ -2,6 +2,14 @@
 
 set -e
 
+# allow this script to be run from other locations, despite the
+#  relative file paths used in it
+if [[ $BASH_SOURCE = */* ]]; then
+  cd -- "${BASH_SOURCE%/*}/" || exit
+fi
+
+
+
 function update_app {
     echo "Refreshing credentials"
     ibmcloud ce secret update --name $DOCKER_IMAGE --from-env-file prod-credentials.env
@@ -12,13 +20,9 @@ function update_app {
         --image $DOCKER_ORG/$DOCKER_IMAGE:$DOCKER_VERSION
 }
 
+
 echo "Applying config from env file"
 export $(grep -v '^#' app.env | xargs)
-
-echo "Publishing Docker image"
-docker push $DOCKER_ORG/$DOCKER_IMAGE:$DOCKER_VERSION
-
-
 
 echo "EU-DE deployment"
 echo "Selecting code engine project"

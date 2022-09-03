@@ -33,9 +33,6 @@ const log = loggerSetup();
 export default function setup(app: Express.Application): void {
     log.info('Setting up REST API');
 
-    // force HTTPS when running on Bluemix
-    serverConfig.setupForBluemix(app);
-
     // third-party middleware
     app.use(query());
     app.use(helmet({

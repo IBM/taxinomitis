@@ -2,6 +2,12 @@
 
 set -e
 
+# allow this script to be run from other locations, despite the
+#  relative file paths used in it
+if [[ $BASH_SOURCE = */* ]]; then
+    cd -- "${BASH_SOURCE%/*}/" || exit
+fi
+
 echo "Applying config from env files"
 export $(grep -v '^#' app.env | xargs)
 export $(grep -v '^#' devtest-credentials.env | xargs)
@@ -16,7 +22,7 @@ docker run --rm --detach \
     --env PORT=$PORT \
     -p $PORT:$PORT \
     --name taxinomitis-numbers \
-    $DOCKER_ORG/$DOCKER_IMAGE:$DOCKER_VERSION
+    $DOCKER_ORG/$DOCKER_IMAGE:local
 
 echo "Waiting for start"
 sleep 4
@@ -44,7 +50,7 @@ curl -H "Content-Type: application/json" \
     --user $VERIFY_USER:$VERIFY_PASSWORD \
     --output /tmp/taxinomitis-visualisations.json \
     'http://localhost:8000/api/models?tenantid=daletenant&studentid=MYUSERID&projectid=testproject'
-echo "differences against previous viz generation"
+echo "differences against previous viz generation (should be '0')"
 diff --ignore-blank-lines /tmp/taxinomitis-visualisations.json ./data/testdata-viz.json | wc -l
 
 echo "stopping image"

@@ -1,6 +1,7 @@
 // external dependencies
 import * as Express from 'express';
 
+
 function ping(req: Express.Request, res: Express.Response) {
     res.json({});
 }

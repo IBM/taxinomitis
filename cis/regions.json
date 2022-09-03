@@ -1,0 +1,67 @@
+{
+    "EEU": {
+        "region": "Eastern Europe",
+        "origins": [ "j8ayd8ayn23.eu-de.codeengine.appdomain.cloud", "j8ahcaxwtd1.au-syd.codeengine.appdomain.cloud", "j8clybxvjr0.us-south.codeengine.appdomain.cloud" ]
+    },
+    "WEU": {
+        "region": "Western Europe",
+        "origins": [ "j8ayd8ayn23.eu-de.codeengine.appdomain.cloud", "j8ahcaxwtd1.au-syd.codeengine.appdomain.cloud", "j8clybxvjr0.us-south.codeengine.appdomain.cloud" ]
+    },
+    "ME": {
+        "region": "Middle East",
+        "origins": [ "j8ayd8ayn23.eu-de.codeengine.appdomain.cloud", "j8ahcaxwtd1.au-syd.codeengine.appdomain.cloud", "j8clybxvjr0.us-south.codeengine.appdomain.cloud" ]
+    },
+    "NAF": {
+        "region": "Northern Africa",
+        "origins": [ "j8ayd8ayn23.eu-de.codeengine.appdomain.cloud", "j8ahcaxwtd1.au-syd.codeengine.appdomain.cloud", "j8clybxvjr0.us-south.codeengine.appdomain.cloud" ]
+    },
+    "SAF": {
+        "region": "Southern Africa",
+        "origins": [ "j8ayd8ayn23.eu-de.codeengine.appdomain.cloud", "j8ahcaxwtd1.au-syd.codeengine.appdomain.cloud", "j8clybxvjr0.us-south.codeengine.appdomain.cloud" ]
+    },
+
+
+
+    "WNAM": {
+        "region": "Western North America",
+        "origins": [ "j8clybxvjr0.us-south.codeengine.appdomain.cloud", "j8ayd8ayn23.eu-de.codeengine.appdomain.cloud", "j8ahcaxwtd1.au-syd.codeengine.appdomain.cloud" ]
+    },
+    "ENAM": {
+        "region": "Eastern North America",
+        "origins": [ "j8clybxvjr0.us-south.codeengine.appdomain.cloud", "j8ayd8ayn23.eu-de.codeengine.appdomain.cloud", "j8ahcaxwtd1.au-syd.codeengine.appdomain.cloud" ]
+    },
+    "NSAM": {
+        "region": "Northern South America",
+        "origins": [ "j8clybxvjr0.us-south.codeengine.appdomain.cloud", "j8ayd8ayn23.eu-de.codeengine.appdomain.cloud", "j8ahcaxwtd1.au-syd.codeengine.appdomain.cloud" ]
+    },
+    "SSAM": {
+        "region": "Southern South America",
+        "origins": [ "j8clybxvjr0.us-south.codeengine.appdomain.cloud", "j8ayd8ayn23.eu-de.codeengine.appdomain.cloud", "j8ahcaxwtd1.au-syd.codeengine.appdomain.cloud" ]
+    },
+
+
+
+    "OC": {
+        "region": "Oceania",
+        "origins": [ "j8ahcaxwtd1.au-syd.codeengine.appdomain.cloud", "j8clybxvjr0.us-south.codeengine.appdomain.cloud", "j8ayd8ayn23.eu-de.codeengine.appdomain.cloud" ]
+    },
+    "SAS": {
+        "region": "Southern Asia",
+        "origins": [ "j8ahcaxwtd1.au-syd.codeengine.appdomain.cloud", "j8clybxvjr0.us-south.codeengine.appdomain.cloud", "j8ayd8ayn23.eu-de.codeengine.appdomain.cloud" ]
+    },
+    "NEAS": {
+        "region": "Northeast Asia",
+        "origins": [ "j8ahcaxwtd1.au-syd.codeengine.appdomain.cloud", "j8clybxvjr0.us-south.codeengine.appdomain.cloud", "j8ayd8ayn23.eu-de.codeengine.appdomain.cloud" ]
+    },
+    "SEAS": {
+        "region": "Southeast Asia",
+        "origins": [ "j8ahcaxwtd1.au-syd.codeengine.appdomain.cloud", "j8clybxvjr0.us-south.codeengine.appdomain.cloud", "j8ayd8ayn23.eu-de.codeengine.appdomain.cloud" ]
+    },
+
+
+
+    "UNK": {
+        "region": "Unknown",
+        "origins": [ "j8ahcaxwtd1.au-syd.codeengine.appdomain.cloud", "j8ayd8ayn23.eu-de.codeengine.appdomain.cloud", "j8clybxvjr0.us-south.codeengine.appdomain.cloud" ]
+    }
+}

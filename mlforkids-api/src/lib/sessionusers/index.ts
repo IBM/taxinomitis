@@ -1,6 +1,9 @@
 // local dependencies
 import * as store from '../db/store';
 import * as Objects from '../db/db-types';
+import loggerSetup from '../utils/logger';
+
+const log = loggerSetup();
 
 
 /*
@@ -82,6 +85,8 @@ export async function cleanupExpiredSessionUsers(): Promise<void>
     let expiredUsers = await store.getExpiredTemporaryUsers();
 
     while (expiredUsers.length > 0) {
+        log.info({ count: expiredUsers.length }, 'expired session users to delete');
+
         // delete resources for each expired user
         for (const expiredUser of expiredUsers) {
             await store.deleteEntireUser(expiredUser.id, CLASS_NAME);

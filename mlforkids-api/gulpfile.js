@@ -22,7 +22,7 @@ const now = new Date();
 const VERSION = now.getTime();
 
 const DEPLOYMENT = process.env.DEPLOYMENT;
-
+console.log('Building for ' + DEPLOYMENT);
 
 const paths = {
     json : ['src/**/*.json'],
@@ -342,5 +342,5 @@ gulp.task('buildprod',
             'prodhtml',
             'angularcomponents',
             'prodlanguages',
-            'scratch'),
+            'scratchblocks'),
         'compile'));

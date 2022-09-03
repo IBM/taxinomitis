@@ -7,34 +7,6 @@ import * as compression from 'compression';
 import * as constants from '../utils/constants';
 
 
-export function setupForBluemix(app: express.Application): void {
-    if (process.env.BLUEMIX_REGION) {
-        app.use((req, res, next) => {
-            if (req.secure) {
-                next();
-            }
-            else {
-                res.redirect(httpstatus.MOVED_PERMANENTLY,
-                            'https://' + req.headers.host + req.url);
-            }
-        });
-
-        // when running on Bluemix, need to force non-www URLs as
-        //  the auth-callbacks won't support use of www
-        app.get('/*', (req, res, next) => {
-            if (req.hostname.startsWith('www.')){
-                const host: string = req.headers.host as string;
-
-                res.redirect(httpstatus.MOVED_PERMANENTLY,
-                            'https://' + host.substr(4) + req.url);
-            }
-            else {
-                next();
-            }
-        });
-    }
-}
-
 export const CSP_DIRECTIVES = {
     defaultSrc: ["'self'",
         // used for auth
@@ -171,7 +143,7 @@ export function setupUI(app: express.Application): void {
     // Scratch has moved - leave a redirect for students who have the old location bookmarked!
     // const scratch3location: string = path.join(__dirname, '/../../../web/scratch3');
     // app.use('/scratch3', compression(), express.static(scratch3location, { maxAge : constants.ONE_WEEK }));
-    app.get('/scratch3', redirectToNewScratchSubdomain);
+    app.get('/scratch3/*', redirectToNewScratchSubdomain);
 
     app.get('/about', (req, res) => { res.redirect('/#!/about'); });
     app.get('/projects', (req, res) => { res.redirect('/#!/projects'); });
