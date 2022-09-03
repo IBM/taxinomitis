@@ -37,6 +37,7 @@ An instance of [Cloud Internet Services](https://www.ibm.com/cloud/cloud-interne
 
 | **url**                              | **routed to**     | **notes** |
 | ------------------------------------ | ----------------- | --------- |
+| login.machinelearningforkids.co.uk   | _Auth0_           | see [Where users are authenticated](#where-users-are-authenticated) |
 | scratch.machinelearningforkids.co.uk | mlforkids-scratch | *caching means most requests are  served immediately from Cloud Internet Services layer* |
 | proxy.machinelearningforkids.co.uk   | mlforkids-proxies |
 | machinelearningforkids.co.uk         | mlforkids-api     |
@@ -69,7 +70,7 @@ Authentication is provided by a third-party service, [Auth0](https://auth0.com).
 
 Back-end/API authentication is handled by the **mlforkids-api** service, which makes requests directly to Auth0 APIs using express middleware.
 
-Web authentication is handled through Auth0.
+Web authentication is handled through Auth0. The `login.machinelearningforkids.co.uk` subdomain is delegated to Auth0 - with a CNAME pointing at the Auth0 servers.
 
 ![deployment components](./docs/04-auth.png)
 
