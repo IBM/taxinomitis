@@ -7,10 +7,10 @@
     TeacherApiKeysController.$inject = [
         'authService',
         'usersService',
-        '$stateParams', '$mdDialog', '$document', '$timeout', 'loggerService'
+        '$mdDialog', '$document', '$timeout', 'loggerService'
     ];
 
-    function TeacherApiKeysController(authService, usersService, $stateParams, $mdDialog, $document, $timeout, loggerService) {
+    function TeacherApiKeysController(authService, usersService, $mdDialog, $document, $timeout, loggerService) {
 
         var vm = this;
         vm.authService = authService;
@@ -212,7 +212,7 @@
                         $mdDialog.hide(resp);
                     };
                 },
-                templateUrl : 'static/components-' + $stateParams.VERSION + '/teacher_apikeys/newcreds' + type + '.tmpl.html',
+                templateUrl : 'static/components/teacher_apikeys/newcreds' + type + '.tmpl.html',
                 targetEvent : ev,
                 clickOutsideToClose : true
             })
@@ -274,7 +274,7 @@
                         $mdDialog.hide(resp);
                     };
                 },
-                templateUrl : 'static/components-' + $stateParams.VERSION + '/teacher_apikeys/modifycreds' + type + '.tmpl.html',
+                templateUrl : 'static/components/teacher_apikeys/modifycreds' + type + '.tmpl.html',
                 targetEvent : ev,
                 clickOutsideToClose : true
             })

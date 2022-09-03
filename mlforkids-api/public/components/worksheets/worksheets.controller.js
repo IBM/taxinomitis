@@ -5,12 +5,11 @@
         .controller('WorksheetsController', WorksheetsController);
 
     WorksheetsController.$inject = [
-        '$stateParams',
         '$translate',
-        '$mdDialog', '$scope', '$sce'
+        '$mdDialog', '$scope'
     ];
 
-    function WorksheetsController($stateParams, $translate, $mdDialog, $scope, $sce) {
+    function WorksheetsController($translate, $mdDialog, $scope) {
 
         var vm = this;
 
@@ -953,7 +952,7 @@
                         $mdDialog.cancel();
                     };
                 },
-                templateUrl : 'static/components-' + $stateParams.VERSION + '/worksheets/download.tmpl.html',
+                templateUrl : 'static/components/worksheets/download.tmpl.html',
                 targetEvent : ev,
                 clickOutsideToClose : true
             });

@@ -7,10 +7,10 @@
     TeacherStudentsController.$inject = [
         'authService',
         'usersService',
-        '$stateParams', '$scope', '$mdDialog', '$document', '$timeout', 'loggerService'
+        '$scope', '$mdDialog', '$document', '$timeout', 'loggerService'
     ];
 
-    function TeacherStudentsController(authService, usersService, $stateParams, $scope, $mdDialog, $document, $timeout, loggerService) {
+    function TeacherStudentsController(authService, usersService, $scope, $mdDialog, $document, $timeout, loggerService) {
 
         var vm = this;
         vm.authService = authService;
@@ -362,7 +362,7 @@
                         $mdDialog.hide(resp);
                     };
                 },
-                templateUrl : 'static/components-' + $stateParams.VERSION + '/teacher_students/newgroup.tmpl.html',
+                templateUrl : 'static/components/teacher_students/newgroup.tmpl.html',
                 targetEvent : ev,
                 clickOutsideToClose : true
             })
@@ -503,7 +503,7 @@
                         $mdDialog.hide(resp);
                     };
                 },
-                templateUrl : 'static/components-' + $stateParams.VERSION + '/teacher_students/newstudent.tmpl.html',
+                templateUrl : 'static/components/teacher_students/newstudent.tmpl.html',
                 targetEvent : ev,
                 clickOutsideToClose : true
             })
@@ -580,7 +580,7 @@
 
                     $scope.refreshPassword();
                 },
-                templateUrl : 'static/components-' + $stateParams.VERSION + '/teacher_students/newstudents.tmpl.html',
+                templateUrl : 'static/components/teacher_students/newstudents.tmpl.html',
                 targetEvent : ev,
                 clickOutsideToClose : true
             })

@@ -8,11 +8,11 @@
             'authService',
             'projectsService',
             'loggerService',
-            '$state', '$translate', '$mdDialog', '$stateParams'
+            '$state', '$translate', '$mdDialog'
         ];
 
 
-    function DatasetsController(authService, projectsService, loggerService, $state, $translate, $mdDialog, $stateParams) {
+    function DatasetsController(authService, projectsService, loggerService, $state, $translate, $mdDialog) {
 
         var vm = this;
         vm.authService = authService;
@@ -181,7 +181,7 @@
                         $mdDialog.cancel();
                     };
                 },
-                templateUrl : 'static/components-' + $stateParams.VERSION + '/datasets/dataset.tmpl.html',
+                templateUrl : 'static/components/datasets/dataset.tmpl.html',
                 targetEvent : ev,
                 clickOutsideToClose : true
             })

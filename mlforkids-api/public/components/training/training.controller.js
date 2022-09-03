@@ -235,7 +235,7 @@
                         }
                     }, true);
                 },
-                templateUrl : 'static/components-' + $stateParams.VERSION + '/training/trainingdata.tmpl.html',
+                templateUrl : 'static/components/training/trainingdata.tmpl.html',
                 targetEvent : ev,
                 clickOutsideToClose : true
             })
@@ -407,7 +407,7 @@
                         $mdDialog.hide(resp);
                     };
                 },
-                templateUrl : 'static/components-' + $stateParams.VERSION + '/training/newlabel.tmpl.html',
+                templateUrl : 'static/components/training/newlabel.tmpl.html',
                 targetEvent : ev,
                 clickOutsideToClose : true
             })
@@ -568,7 +568,7 @@
                     };
 
                 },
-                templateUrl : 'static/components-' + $stateParams.VERSION + '/training/webcam.tmpl.html',
+                templateUrl : 'static/components/training/webcam.tmpl.html',
                 targetEvent : ev,
                 clickOutsideToClose : true
             })
@@ -642,7 +642,7 @@
                         });
                     };
                 },
-                templateUrl : 'static/components-' + $stateParams.VERSION + '/training/canvas.tmpl.html',
+                templateUrl : 'static/components/training/canvas.tmpl.html',
                 targetEvent : ev,
                 clickOutsideToClose : true
             })
@@ -735,7 +735,7 @@
                             });
                     };
                 },
-                templateUrl : 'static/components-' + $stateParams.VERSION + '/training/trainingdata.tmpl.html',
+                templateUrl : 'static/components/training/trainingdata.tmpl.html',
                 targetEvent : ev,
                 clickOutsideToClose : true
             })

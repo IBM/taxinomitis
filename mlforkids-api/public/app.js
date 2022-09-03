@@ -24,16 +24,16 @@
         $stateProvider
             .state('home', {
                 url: '',
-                templateUrl: 'static/components-<%= VERSION %>/welcome/welcome.html'
+                templateUrl: 'static/components/welcome/welcome.html'
             })
             .state('welcome', {
                 url: '/welcome',
-                templateUrl: 'static/components-<%= VERSION %>/welcome/welcome.html'
+                templateUrl: 'static/components/welcome/welcome.html'
             })
             .state('login', {
                 url: '/login',
                 controller: 'LoginController',
-                templateUrl: 'static/components-<%= VERSION %>/login/login.html',
+                templateUrl: 'static/components/login/login.html',
                 controllerAs: 'vm',
                 params: {
                     DEPLOYMENT : '<%= DEPLOYMENT %>'
@@ -42,7 +42,7 @@
             .state('signup', {
                 url: '/signup',
                 controller: 'SignupController',
-                templateUrl: 'static/components-<%= VERSION %>/signup/signup.html',
+                templateUrl: 'static/components/signup/signup.html',
                 controllerAs: 'vm',
                 params: {
                     DEPLOYMENT : '<%= DEPLOYMENT %>'
@@ -50,97 +50,81 @@
             })
             .state('about', {
                 url: '/about',
-                templateUrl: 'static/components-<%= VERSION %>/about/about.html'
+                templateUrl: 'static/components/about/about.html'
             })
             .state('news', {
                 url: '/news',
-                templateUrl: 'static/components-<%= VERSION %>/news/news.html'
+                templateUrl: 'static/components/news/news.html'
             })
             .state('help', {
                 url: '/help',
-                templateUrl: 'static/components-<%= VERSION %>/help/help.html'
+                templateUrl: 'static/components/help/help.html'
             })
             .state('apikeysguide', {
                 url: '/apikeys-guide',
-                templateUrl: 'static/components-<%= VERSION %>/apikeysguide/guide.html'
+                templateUrl: 'static/components/apikeysguide/guide.html'
             })
             .state('worksheets', {
                 url: '/worksheets',
                 controller: 'WorksheetsController',
-                templateUrl: 'static/components-<%= VERSION %>/worksheets/worksheets.html',
-                controllerAs: 'vm',
-                params: {
-                    VERSION : <%= VERSION %>
-                }
+                templateUrl: 'static/components/worksheets/worksheets.html',
+                controllerAs: 'vm'
             })
             .state('teacher', {
                 url: '/teacher',
                 controller: 'TeacherController',
-                templateUrl: 'static/components-<%= VERSION %>/teacher/teacher.html',
+                templateUrl: 'static/components/teacher/teacher.html',
                 controllerAs: 'vm'
             })
             .state('teacher_restrictions', {
                 url: '/teacher/restrictions',
                 controller: 'TeacherRestrictionsController',
-                templateUrl: 'static/components-<%= VERSION %>/teacher_restrictions/teacher_restrictions.html',
-                controllerAs: 'vm',
-                params: {
-                    VERSION : <%= VERSION %>
-                }
+                templateUrl: 'static/components/teacher_restrictions/teacher_restrictions.html',
+                controllerAs: 'vm'
             })
             .state('teacher_apikeys', {
                 url: '/teacher/apikeys',
                 controller: 'TeacherApiKeysController',
-                templateUrl: 'static/components-<%= VERSION %>/teacher_apikeys/teacher_apikeys.html',
-                controllerAs: 'vm',
-                params: {
-                    VERSION : <%= VERSION %>
-                }
+                templateUrl: 'static/components/teacher_apikeys/teacher_apikeys.html',
+                controllerAs: 'vm'
             })
             .state('teacher_students', {
                 url: '/teacher/students',
                 controller: 'TeacherStudentsController',
-                templateUrl: 'static/components-<%= VERSION %>/teacher_students/teacher_students.html',
-                controllerAs: 'vm',
-                params: {
-                    VERSION : <%= VERSION %>
-                }
+                templateUrl: 'static/components/teacher_students/teacher_students.html',
+                controllerAs: 'vm'
             })
             .state('teacher_supervision', {
                 url: '/teacher/projects',
                 controller: 'TeacherProjectsController',
-                templateUrl: 'static/components-<%= VERSION %>/teacher_supervision/teacher_supervision.html',
+                templateUrl: 'static/components/teacher_supervision/teacher_supervision.html',
                 controllerAs: 'vm'
             })
             .state('teacher_review_training', {
                 url: '/teacher/projects/:userId/:projectId/training',
                 controller: 'TrainingController',
-                templateUrl: 'static/components-<%= VERSION %>/training/training.html',
+                templateUrl: 'static/components/training/training.html',
                 controllerAs: 'vm',
                 params: {
-                    review: true,
-                    VERSION : <%= VERSION %>
+                    review: true
                 }
             })
             .state('newproject', {
                 url: '/newproject',
                 controller: 'NewProjectController',
-                templateUrl: 'static/components-<%= VERSION %>/newproject/newproject.html',
+                templateUrl: 'static/components/newproject/newproject.html',
                 controllerAs: 'vm'
             })
             .state('importdataset', {
                 url: '/importdataset',
                 controller: 'DatasetsController',
-                templateUrl: 'static/components-<%= VERSION %>/datasets/datasets.html',
-                controllerAs: 'vm',
-                params: {
-                    VERSION : <%= VERSION %>
-                }
+                templateUrl: 'static/components/datasets/datasets.html',
+                controllerAs: 'vm'
             })
             .state('projects', {
                 url: '/projects',
                 controller: 'ProjectsController',
-                templateUrl: 'static/components-<%= VERSION %>/projects/projects.html',
+                templateUrl: 'static/components/projects/projects.html',
                 controllerAs: 'vm',
                 params: {
                     id: null
@@ -149,112 +133,99 @@
             .state('mlproject', {
                 url: '/mlproject/:userId/:projectId',
                 controller: 'ProjectController',
-                templateUrl: 'static/components-<%= VERSION %>/mlproject/mlproject.html',
+                templateUrl: 'static/components/mlproject/mlproject.html',
                 controllerAs: 'vm'
             })
             .state('mlproject_training', {
                 url: '/mlproject/:userId/:projectId/training',
                 controller: 'TrainingController',
-                templateUrl: 'static/components-<%= VERSION %>/training/training.html',
+                templateUrl: 'static/components/training/training.html',
                 controllerAs: 'vm',
                 params: {
-                    review: false,
-                    VERSION : <%= VERSION %>
+                    review: false
                 }
             })
             .state('mlproject_models', {
                 url: '/mlproject/:userId/:projectId/models',
                 controller: 'ModelsController',
-                templateUrl: 'static/components-<%= VERSION %>/models/models.html',
-                controllerAs: 'vm',
-                params: {
-                    VERSION : <%= VERSION %>
-                }
+                templateUrl: 'static/components/models/models.html',
+                controllerAs: 'vm'
             })
             .state('mlproject_model_describe', {
                 url: '/mlproject/:userId/:projectId/models/:modelId',
                 controller: 'ModelDescribeController',
-                templateUrl: 'static/components-<%= VERSION %>/describemodel/describemodel.html',
-                controllerAs: 'vm',
-                params: {
-                    VERSION : <%= VERSION %>
-                }
+                templateUrl: 'static/components/describemodel/describemodel.html',
+                controllerAs: 'vm'
             })
             .state('mlproject_text_model_describe', {
                 url: '/mlproject/:userId/:projectId/models/text/:modelId',
                 controller: 'ModelTextDescribeController',
-                templateUrl: 'static/components-<%= VERSION %>/describetextmodel/describemodel.html',
-                controllerAs: 'vm',
-                params: {
-                    VERSION : <%= VERSION %>
-                }
+                templateUrl: 'static/components/describetextmodel/describemodel.html',
+                controllerAs: 'vm'
             })
             .state('mlproject_makes', {
                 url: '/mlproject/:userId/:projectId/makes',
                 controller: 'MakesController',
-                templateUrl: 'static/components-<%= VERSION %>/makes/makes.html',
+                templateUrl: 'static/components/makes/makes.html',
                 controllerAs: 'vm'
             })
             .state('mlproject_scratch', {
                 url: '/mlproject/:userId/:projectId/scratch',
                 controller: 'ScratchController',
-                templateUrl: 'static/components-<%= VERSION %>/scratch/scratch.html',
+                templateUrl: 'static/components/scratch/scratch.html',
                 controllerAs: 'vm'
             })
             .state('mlproject_scratch3', {
                 url: '/mlproject/:userId/:projectId/scratch3',
                 controller: 'Scratch3Controller',
-                templateUrl: 'static/components-<%= VERSION %>/scratch3/scratch3.html',
+                templateUrl: 'static/components/scratch3/scratch3.html',
                 controllerAs: 'vm'
             })
             .state('mlproject_python', {
                 url: '/mlproject/:userId/:projectId/python',
                 controller: 'PythonController',
-                templateUrl: 'static/components-<%= VERSION %>/python/python.html',
+                templateUrl: 'static/components/python/python.html',
                 controllerAs: 'vm'
             })
             .state('mlproject_python_local', {
                 url: '/mlproject/:userId/:projectId/pythonlocal',
                 controller: 'PythonLocalController',
-                templateUrl: 'static/components-<%= VERSION %>/pythonlocal/python.html',
+                templateUrl: 'static/components/pythonlocal/python.html',
                 controllerAs: 'vm'
             })
             .state('mlproject_appinventor', {
                 url: '/mlproject/:userId/:projectId/appinventor',
                 controller: 'AppInventorController',
-                templateUrl: 'static/components-<%= VERSION %>/appinventor/appinventor.html',
+                templateUrl: 'static/components/appinventor/appinventor.html',
                 controllerAs: 'vm'
             })
             .state('links', {
                 url: '/links',
-                templateUrl: 'static/components-<%= VERSION %>/links/links.html#top'
+                templateUrl: 'static/components/links/links.html#top'
             })
             .state('pretrained', {
                 url: '/pretrained',
                 controller: 'PretrainedController',
-                templateUrl: 'static/components-<%= VERSION %>/pretrained/pretrained.html',
-                controllerAs: 'vm',
-                params: {
-                    VERSION : <%= VERSION %>
-                }
+                templateUrl: 'static/components/pretrained/pretrained.html',
+                controllerAs: 'vm'
             })
             .state('404', {
                 url: '/404',
-                templateUrl: 'static/components-<%= VERSION %>/404/404.html'
+                templateUrl: 'static/components/404/404.html'
             })
             .state('siteadmin', {
                 url: '/siteadmin',
                 controller: 'AdminController',
-                templateUrl: 'static/components-<%= VERSION %>/admin/admin.html',
+                templateUrl: 'static/components/admin/admin.html',
                 controllerAs: 'vm'
             })
             .state('book', {
                 url: '/book',
-                templateUrl: 'static/components-<%= VERSION %>/book/book.html',
+                templateUrl: 'static/components/book/book.html',
             })
             .state('debug', {
                 url: '/debug',
-                templateUrl: 'static/components-<%= VERSION %>/debug/debug.html',
+                templateUrl: 'static/components/debug/debug.html',
             });
 
 
@@ -324,7 +295,7 @@
         $translateProvider
             .useSanitizeValueStrategy('sanitizeParameters')
             .useStaticFilesLoader({
-                prefix: 'static/languages-<%= VERSION %>/',
+                prefix: 'static/languages/',
                 suffix: '.json'
             })
             .determinePreferredLanguage(function () {

@@ -7,10 +7,10 @@
     PretrainedController.$inject = [
         'scratchService', 'loggerService',
         '$mdDialog',
-        '$stateParams', '$location', '$window'
+        '$location', '$window'
     ];
 
-    function PretrainedController(scratchService, loggerService, $mdDialog, $stateParams, $location, $window) {
+    function PretrainedController(scratchService, loggerService, $mdDialog, $location, $window) {
         var vm = this;
 
         var siteUrl = $location.protocol() + '://' + $location.host();
@@ -56,7 +56,7 @@
                         }));
                     };
                 },
-                templateUrl : 'static/components-' + $stateParams.VERSION + '/pretrained/tfjs.tmpl.html',
+                templateUrl : 'static/components/pretrained/tfjs.tmpl.html',
                 targetEvent : ev,
                 clickOutsideToClose : true
             });

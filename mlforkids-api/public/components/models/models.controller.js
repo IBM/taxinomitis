@@ -74,7 +74,7 @@
                             $mdDialog.hide();
                         };
                     },
-                    templateUrl : 'static/components-' + $stateParams.VERSION + '/models/errordetail.tmpl.html'
+                    templateUrl : 'static/components/models/errordetail.tmpl.html'
                 })
                 .then(
                     function () {
@@ -404,7 +404,7 @@
                         $mdDialog.hide(err.data.location);
                     };
                 },
-                templateUrl : 'static/components-' + $stateParams.VERSION + '/models/downloadfail.tmpl.html'
+                templateUrl : 'static/components/models/downloadfail.tmpl.html'
             })
             .then(
                 function (location) {
@@ -616,7 +616,7 @@
                         $mdDialog.hide(getCanvasData($scope.canvas));
                     };
                 },
-                templateUrl : 'static/components-' + $stateParams.VERSION + '/models/canvas.tmpl.html',
+                templateUrl : 'static/components/models/canvas.tmpl.html',
                 targetEvent : ev,
                 clickOutsideToClose : true
             })
@@ -713,7 +713,7 @@
                         }
                     };
                 },
-                templateUrl : 'static/components-' + $stateParams.VERSION + '/models/webcam.tmpl.html',
+                templateUrl : 'static/components/models/webcam.tmpl.html',
                 targetEvent : ev,
                 clickOutsideToClose : true
             })

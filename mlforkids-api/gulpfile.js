@@ -16,11 +16,6 @@ const htmlminify = require('gulp-htmlmin');
 const del = require('del');
 
 
-// something unique to protect against problems from browsers
-//  caching old versions of JS
-const now = new Date();
-const VERSION = now.getTime();
-
 const DEPLOYMENT = process.env.DEPLOYMENT;
 console.log('Building for ' + DEPLOYMENT);
 
@@ -198,7 +193,7 @@ gulp.task('compile', () => {
 
 
 function prepareHtml (isForProd) {
-    const options = { VERSION, DEPLOYMENT };
+    const options = { DEPLOYMENT };
     if (isForProd) {
         options.USE_IN_PROD_ONLY = '         ';
         options.AFTER_USE_IN_PROD_ONLY = '          ';
@@ -226,32 +221,32 @@ gulp.task('css', gulp.series('html', () => {
     return gulp.src(paths.css)
             .pipe(cleanCSS())
             .pipe(autoprefixer())
-            .pipe(concat('style-' + VERSION + '.min.css'))
+            .pipe(concat('style.min.css'))
             .pipe(gulp.dest('web/static'));
 }));
 
 gulp.task('jsapp', () => {
     return gulp.src('public/app.js')
-            .pipe(template({ VERSION, DEPLOYMENT }))
-            .pipe(rename('app-' + VERSION + '.js'))
+            .pipe(template({ DEPLOYMENT }))
+            .pipe(rename('app.js'))
             .pipe(gulp.dest('web/static'));
 });
 
 gulp.task('angularcomponents', gulp.series('jsapp', () => {
     return gulp.src(paths.html)
             .pipe(htmlminify(htmlMinifyOptions))
-            .pipe(gulp.dest('web/static/components-' + VERSION));
+            .pipe(gulp.dest('web/static/components'));
 }));
 
 gulp.task('languages', () => {
     return gulp.src('public/languages/**')
-        .pipe(gulp.dest('web/static/languages-' + VERSION));
+        .pipe(gulp.dest('web/static/languages'));
 });
 
 gulp.task('prodlanguages', () => {
     return gulp.src('public/languages/**')
         .pipe(jsonminify())
-        .pipe(gulp.dest('web/static/languages-' + VERSION));
+        .pipe(gulp.dest('web/static/languages'));
 });
 
 gulp.task('images', () => {
@@ -287,7 +282,7 @@ function concatAndMinifiyWebJs (isForProd) {
                 .pipe(ngAnnotate())
                 .pipe(concat('mlapp.js'))
                 .pipe(minify())
-                .pipe(rename({ extname : '-' + VERSION + '.min.js' }))
+                .pipe(rename({ extname : '.min.js' }))
             .pipe(sourcemaps.write('.'))
             .pipe(gulp.dest('web/static'));
 }

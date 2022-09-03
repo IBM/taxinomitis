@@ -7,10 +7,10 @@
     TeacherRestrictionsController.$inject = [
         'authService',
         'usersService',
-        '$stateParams', '$mdDialog'
+        '$mdDialog'
     ];
 
-    function TeacherRestrictionsController(authService, usersService, $stateParams, $mdDialog) {
+    function TeacherRestrictionsController(authService, usersService, $mdDialog) {
 
         var vm = this;
         vm.authService = authService;
@@ -111,7 +111,7 @@
                         $mdDialog.hide(resp);
                     };
                 },
-                templateUrl : 'static/components-' + $stateParams.VERSION + '/teacher_restrictions/modifyexpiry.tmpl.html',
+                templateUrl : 'static/components/teacher_restrictions/modifyexpiry.tmpl.html',
                 targetEvent : ev,
                 clickOutsideToClose : true
             })
