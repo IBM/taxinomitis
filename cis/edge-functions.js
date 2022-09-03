@@ -6,21 +6,15 @@ addEventListener('fetch', event => {
 async function handle(request) {
   let url = new URL(request.url)
   if (url.hostname === 'machinelearningforkids.co.uk') {
-      return handleGeoSteeredRequest(request, 'mlforkids-api.');
+    return handleGeoSteeredRequest(request, 'mlforkids-api.');
   } else if (url.hostname === 'scratch.machinelearningforkids.co.uk') {
-      return handleRequest(request, [
-          'mlforkids-scratch.j8ayd8ayn23.eu-de.codeengine.appdomain.cloud',
-          'mlforkids-scratch.j8clybxvjr0.us-south.codeengine.appdomain.cloud',
-          'mlforkids-scratch.j8ahcaxwtd1.au-syd.codeengine.appdomain.cloud'
-      ]);
+    return handleGeoSteeredRequest(request, 'mlforkids-scratch.');
   } else if (url.hostname === 'proxy.machinelearningforkids.co.uk') {
-      return handleRequest(request, [
-          'mlforkids-proxy.j8ayd8ayn23.eu-de.codeengine.appdomain.cloud',
-          'mlforkids-proxy.j8clybxvjr0.us-south.codeengine.appdomain.cloud',
-          'mlforkids-proxy.j8ahcaxwtd1.au-syd.codeengine.appdomain.cloud'
-      ]);
+    return handleGeoSteeredRequest(request, 'mlforkids-proxy.');
   } else {
-      return fetch(request)
+    // should never get here - only triggers for the above
+    //  three hostnames should be registered
+    return fetch(request)
   }
 }
 
@@ -39,21 +33,6 @@ async function handleGeoSteeredRequest(request, routePrefix) {
   let response = null;
   for (const targetHost of targetOrigins) {
       response = await forwardRequest(request, routePrefix + targetHost);
-
-      if (response.ok || response.redirected) {
-          // successful request - return the response
-          return response;
-      }
-  }
-  // request failed for all target hosts - return the last attempt
-  return response;
-}
-
-
-async function handleRequest(request, targetHostCandidates) {
-  let response = null;
-  for (const targetHost of targetHostCandidates) {
-      response = await forwardRequest(request, targetHost);
 
       if (response.ok || response.redirected) {
           // successful request - return the response

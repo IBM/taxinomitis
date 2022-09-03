@@ -30,8 +30,6 @@ function create_app_image_builder {
 
 
 function create_app {
-    instance_min_instances=$1
-
     echo "setting up credentials"
     ibmcloud ce secret create --name $DOCKER_IMAGE --from-env-file prod-credentials.env
 
@@ -43,7 +41,7 @@ function create_app {
         --cpu $CPU --memory $MEMORY --ephemeral-storage $DISK \
         --service-account $SERVICE_ACCOUNT \
         --env-from-secret $DOCKER_IMAGE \
-        --min-scale $instance_min_instances --max-scale $MAX_INSTANCES \
+        --min-scale $MIN_INSTANCES --max-scale $MAX_INSTANCES \
         --no-cluster-local
 }
 
@@ -52,19 +50,19 @@ function create_app {
 echo "EU-DE deployment"
 echo "Selecting code engine project"
 ../../ops/codeengine-region-eude.sh
-echo "Creating app (min instances $MIN_INSTANCES - for use as primary)"
-create_app $MIN_INSTANCES
+echo "Creating app"
+create_app
 
 echo "US-SOUTH deployment"
 echo "Selecting code engine project"
 ../../ops/codeengine-region-ussouth.sh
 echo "Setting up image builder in us-south only"
 create_app_image_builder
-echo "Creating app (scale-to-zero - for use as fallback)"
-create_app 0
+echo "Creating app"
+create_app
 
 echo "AU-SYD deployment"
 echo "Selecting code engine project"
 ../../ops/codeengine-region-ausyd.sh
-echo "Creating app (scale-to-zero - for use as fallback)"
-create_app 0
+echo "Creating app"
+create_app
