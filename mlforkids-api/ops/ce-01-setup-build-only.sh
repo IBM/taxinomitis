@@ -21,7 +21,7 @@ function create_app_image_builder {
         --size medium \
         --build-type git \
         --source https://github.com/IBM/taxinomitis \
-        --commit the-move-to-code-engine-rebasing \
+        --commit master \
         --context-dir $DOCKER_IMAGE \
         --dockerfile Dockerfile \
         --image $DOCKER_ORG/$DOCKER_IMAGE:$DOCKER_VERSION \
