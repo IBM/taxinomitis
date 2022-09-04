@@ -85,8 +85,6 @@ function requestAndResize(url: string, callback: (resp: HttpResponse) => void): 
                         return callback(handleError(err));
                     }
 
-                    fs.writeFileSync('/tmp/validate', buffer);
-
                     log('success');
                     callback(new HttpResponse(buffer.toString('base64'),
                                               OK, MimeTypes.ImagePng));
@@ -151,6 +149,17 @@ function handleError(err: any): HttpResponse {
 
 function recognizeCommonProblems(response: request.Response): HttpResponse | undefined {
 
+    if (response.statusCode === 400 &&
+        response.headers &&
+        response.headers['content-type'] &&
+        response.headers['content-type'].startsWith('text/html') &&
+        response.request.uri.href.startsWith('https://accounts.google.com/ServiceLogin?continue='))
+    {
+        return new HttpResponse({
+            error : 'Google would not allow "Machine Learning for Kids" to use that image',
+        }, BAD_REQUEST);
+    }
+
     if (response.statusCode >= 400) {
         return handleErrorResponse(response);
     }
@@ -159,16 +168,6 @@ function recognizeCommonProblems(response: request.Response): HttpResponse | und
         return new HttpResponse({
             'error' : 'Image size exceeds maximum limit',
             'content-length' : response.headers['content-length'],
-        }, BAD_REQUEST);
-    }
-
-    if (response.headers &&
-        response.headers['content-type'] &&
-        response.headers['content-type'].startsWith('text/html') &&
-        response.request.uri.href.startsWith('https://accounts.google.com/ServiceLogin?continue='))
-    {
-        return new HttpResponse({
-            error : 'Google would not allow "Machine Learning for Kids" to use that image',
         }, BAD_REQUEST);
     }
 }

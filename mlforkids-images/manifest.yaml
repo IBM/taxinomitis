@@ -4,15 +4,15 @@ packages:
     actions:
       CreateZip:
         function: dist/CreateZip.js
-        runtime: nodejs:12
+        runtime: nodejs:16
         web-export: true
       ResizeImage:
         function: dist/Resize.js
-        runtime: nodejs:12
+        runtime: nodejs:16
         web-export: true
       AuthCheck:
         function: dist/AuthCheck.js
-        runtime: nodejs:12
+        runtime: nodejs:16
         web-export: true
     apis:
       mltraining-images:

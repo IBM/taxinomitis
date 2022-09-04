@@ -251,6 +251,16 @@ describe('Create image training zip function', () => {
                                                 nextFile();
                                             });
                                 break;
+                            case 72053:
+                                Debug.log('comparing small-thinkpad-3', unzippedFile);
+                                filecompare('./test/resources/small-thinkpad-5.png',
+                                            unzippedFile.location,
+                                            (isEq: boolean) => {
+                                                Debug.log('compared small-thinkpad-5', isEq);
+                                                assert(isEq, './test/resources/small-thinkpad-5.png');
+                                                nextFile();
+                                            });
+                                break;
                             case 65536:
                                 Debug.log('comparing small-thinkpad-4', unzippedFile);
                                 filecompare('./test/resources/small-thinkpad-4.png',
@@ -258,6 +268,26 @@ describe('Create image training zip function', () => {
                                             (isEq: boolean) => {
                                                 Debug.log('compared small-thinkpad-4', isEq);
                                                 assert(isEq, './test/resources/small-thinkpad-4.png');
+                                                nextFile();
+                                            });
+                                break;
+                            case 8991:
+                                Debug.log('comparing small-ibm-3.png', unzippedFile);
+                                filecompare('./test/resources/small-ibm-3.png',
+                                            unzippedFile.location,
+                                            (isEq: boolean) => {
+                                                Debug.log('compared small-ibm-3', isEq);
+                                                assert(isEq, './test/resources/small-ibm-3.png');
+                                                nextFile();
+                                            });
+                                break;
+                            case 6085:
+                                Debug.log('comparing small-dog-3.png', unzippedFile);
+                                filecompare('./test/resources/small-dog-3.png',
+                                            unzippedFile.location,
+                                            (isEq: boolean) => {
+                                                Debug.log('compared small-dog-3', isEq);
+                                                assert(isEq, './test/resources/small-dog-3.png');
                                                 nextFile();
                                             });
                                 break;
@@ -332,7 +362,7 @@ describe('Create image training zip function', () => {
         });
 
 
-        it('should handle requests to include unsupported image types', () => {
+        it.skip('should handle requests to include unsupported image types', () => {
             const params: CreateZipParams = {
                 locations : [
                     { type : 'download', imageid : '1',
