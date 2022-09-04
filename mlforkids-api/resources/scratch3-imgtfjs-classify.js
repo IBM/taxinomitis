@@ -397,9 +397,10 @@ class MachineLearningImagesTfjs {
 
 
     _getTrainingData() {
-        var urlstr = '{{{ storeurl }}}';
+        var urlstr = '{{{ storeurl }}}?proxy=true';
         var url = new URL(urlstr);
         var options = {
+
             headers : {
                 'Accept': 'application/json',
                 'X-User-Agent': 'mlforkids-scratch3-images'
