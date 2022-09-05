@@ -46,13 +46,12 @@ async function handleGeoSteeredRequest(request, routePrefix) {
 
 function forwardRequest(request, targetHost) {
   const newUrl = new URL(request.url);
-  const newRequest = new Request(request);
-
-  newRequest.headers.set('X-Forwarded-Host', request.url.hostname);
-  newRequest.headers.set('host', targetHost);
-
   newUrl.hostname = targetHost;
   newUrl.protocol = 'https:';
+
+  const newRequest = new Request(request);
+  newRequest.headers.set('X-Forwarded-Host', request.url.hostname);
+  newRequest.headers.set('host', targetHost);
 
   return fetch(newUrl, newRequest);
 }
