@@ -33,7 +33,8 @@ class MLforKidsImageProject:
         print("MLFORKIDS: Downloading information about your machine learning project")
         self.scratchkey = scratchkey
         try:
-            with urllib.request.urlopen("https://machinelearningforkids.co.uk/api/scratch/" + scratchkey + "/train") as url:
+            apiurl = self.__switchToTemporarySite("https://machinelearningforkids.co.uk/api/scratch/" + scratchkey + "/train")
+            with urllib.request.urlopen(apiurl) as url:
                 self.__downloaded_training_images_list = json.loads(url.read().decode())
         except urllib.error.HTTPError:
             raise RuntimeError("Unable to retrieve machine learning project - please check that the key is correct")
@@ -54,7 +55,7 @@ class MLforKidsImageProject:
         projectcachedir = str(os.path.expanduser(os.path.join(cachedir, cachelocation)))
         for trainingitem in self.__downloaded_training_images_list:
             try:
-                tf.keras.utils.get_file(origin=trainingitem["imageurl"],
+                tf.keras.utils.get_file(origin=self.__switchToTemporarySite(trainingitem["imageurl"]),
                                         cache_dir=cachedir,
                                         cache_subdir=os.path.join(cachelocation, trainingitem["label"]),
                                         fname=self.__get_fname(trainingitem))
@@ -112,6 +113,20 @@ class MLforKidsImageProject:
             epochs = 15
         self.ml_model.fit(trainingimagesdata, epochs=epochs, steps_per_epoch=steps_per_epoch, verbose=0)
         print("MLFORKIDS: Model training complete")
+
+
+    # Cloudflare is currently blocking access to the Machine Learning for Kids API
+    #  from non-browser user agents
+    # While I raise this with them to get this unblocked, switching to this
+    #  temporary URL should avoid the problem
+    #
+    # TODO: remove this function as soon as Cloudflare have
+    #  stopped breaking Python apps
+    #
+    def __switchToTemporarySite(self, url):
+        return url.replace("https://machinelearningforkids.co.uk/api/scratch/",
+                           "https://mlforkids-api.j8clybxvjr0.us-south.codeengine.appdomain.cloud/api/scratch/")
+
 
     #
     # public methods
