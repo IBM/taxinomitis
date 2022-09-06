@@ -44,7 +44,7 @@
         },
         "TECH": {
             "TITLE": "기술",
-            "BODY": "이 도구는 웹 기반이므로 설치나 복잡한 설정이 필요하지 않습니다. <br/><br/>학교, 교실에서 자발적으로 코딩 그룹을 운영하도록 설계되었습니다. 그리고 교사 또는 그룹 리더가 학생을 위한 액세스를 관리하고 관리할 수 있는 관리자 페이지를 제공합니다.<br/><br/><a target='_blank' href='https://www.ibm.com/watson/developercloud/'>IBM Watson Developer Cloud</a>의 API를 사용하여 <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a>이 개발했습니다.",
+            "BODY": "이 도구는 웹 기반이므로 설치나 복잡한 설정이 필요하지 않습니다. <br/><br/>학교, 교실에서 자발적으로 코딩 그룹을 운영하도록 설계되었습니다. 그리고 교사 또는 그룹 리더가 학생을 위한 액세스를 관리하고 관리할 수 있는 관리자 페이지를 제공합니다.<br/><br/><a target='_blank' href='https://www.ibm.com/watson'>IBM Watson Developer Cloud</a>의 API를 사용하여 <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a>이 개발했습니다.",
             "LOGIN": "시작하려면: "
         },
         "PRETRAINED": {

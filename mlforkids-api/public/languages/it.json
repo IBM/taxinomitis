@@ -40,7 +40,7 @@
         },
         "TECH": {
             "TITLE": "Tecnologia",
-            "BODY": "Lo strumento è interamente basato sul Web e non richiede installazione o configurazioni complicate per poterlo utilizzare. <br/><br/>È stato progettato per l'uso in classe da parte di scuole e gruppi di coding gestiti da volontari per bambini, e fornisce una pagina di amministrazione per insegnanti o istruttori di gruppi per essere in grado di gestire e amministrare l'accesso per i loro studenti. <br/><br/>È stato realizzato da<a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> usando le API fornite da <a target='_blank' href='https://www.ibm.com/watson/developercloud/'>IBM Watson Developer Cloud</a>.",
+            "BODY": "Lo strumento è interamente basato sul Web e non richiede installazione o configurazioni complicate per poterlo utilizzare. <br/><br/>È stato progettato per l'uso in classe da parte di scuole e gruppi di coding gestiti da volontari per bambini, e fornisce una pagina di amministrazione per insegnanti o istruttori di gruppi per essere in grado di gestire e amministrare l'accesso per i loro studenti. <br/><br/>È stato realizzato da<a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> usando le API fornite da <a target='_blank' href='https://www.ibm.com/watson'>IBM Watson Developer Cloud</a>.",
             "LOGIN": "Per cominciare: "
         },
         "PRETRAINED": {

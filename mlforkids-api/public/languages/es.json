@@ -40,7 +40,7 @@
         },
         "TECH": {
             "TITLE": "Tecnología",
-            "BODY": "La herramienta está basada enteramente en la web y no requiere ni instalación ni configuración compleja para usarse. <br/><br/>Fue diseñada para su uso en el aula, tanto en escuelas como en clubes de programación para niños dirigidos por voluntarios, y proporciona una página de administración para que los maestros o líderes de grupos puedan administrar y gestionar el acceso de sus estudiantes.<br/><br/>El desarrollo está a cargo de <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> utilizando APIs de <a target='_blank' href='https://www.ibm.com/watson/developercloud/'>IBM Watson Developer Cloud</a>.",
+            "BODY": "La herramienta está basada enteramente en la web y no requiere ni instalación ni configuración compleja para usarse. <br/><br/>Fue diseñada para su uso en el aula, tanto en escuelas como en clubes de programación para niños dirigidos por voluntarios, y proporciona una página de administración para que los maestros o líderes de grupos puedan administrar y gestionar el acceso de sus estudiantes.<br/><br/>El desarrollo está a cargo de <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> utilizando APIs de <a target='_blank' href='https://www.ibm.com/watson'>IBM Watson Developer Cloud</a>.",
             "LOGIN": "Para comenzar: "
         },
         "PRETRAINED": {

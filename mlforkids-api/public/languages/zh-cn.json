@@ -40,7 +40,7 @@
         },
         "TECH": {
             "TITLE": " 技术 ",
-            "BODY": "该工具完全基于网络，无需安装或复杂的设置即可使用。<br/> <br/>它专为学校和志愿者编写的课堂设计而设计儿童，并为教师或小组负责人提供管理页面，以便能够管理和管理学生的访问权限。<br/> <br/>它由<a target ='_blank' href='http://dalelane.co.uk/'>Dale Lane </a>使用来自<a target='_blank' href='https://www.ibm.com/watson/developercloud/'> IBM Watson Developer Cloud的API </ a>。",
+            "BODY": "该工具完全基于网络，无需安装或复杂的设置即可使用。<br/> <br/>它专为学校和志愿者编写的课堂设计而设计儿童，并为教师或小组负责人提供管理页面，以便能够管理和管理学生的访问权限。<br/> <br/>它由<a target ='_blank' href='http://dalelane.co.uk/'>Dale Lane </a>使用来自<a target='_blank' href='https://www.ibm.com/watson'> IBM Watson Developer Cloud的API </ a>。",
             "LOGIN": "开始: "
         },
         "PRETRAINED": {

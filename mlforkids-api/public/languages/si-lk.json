@@ -40,7 +40,7 @@
         },
         "TECH": {
             "TITLE": "තාක්ෂණය",
-            "BODY": "මෙම මෙවලම සම්පූර්ණයෙන්ම වෙබ් පාදක වන අතර සංකීර්ණ ස්ථාපනයක් අවශ්‍ය නොවේ. <br/><br/>එය පාසල්වල පන්ති කාමර වල හා ළමයින්ට coding උගන්වන ස්වේච්ඡා කණ්ඩායම් වල භාවිතය සඳහා නිර්මාණය කර ඇත, එසේම ගුරුවරුන්ට හා කණ්ඩායම් නායකයන්ට ඔවුන්ගේ ශිෂ්‍යයන් කළමනාකරණයට හා පරිපාලක ප්‍රවේශය ලබාදෙන admin page සපසයි.<br/><br/>එය නිර්මාණය කරන ලද්දේ <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> විසින්  <a target='_blank' href='https://www.ibm.com/watson/developercloud/'>IBM Watson Developer Cloud</a> හි API භාවිතයෙනි.",
+            "BODY": "මෙම මෙවලම සම්පූර්ණයෙන්ම වෙබ් පාදක වන අතර සංකීර්ණ ස්ථාපනයක් අවශ්‍ය නොවේ. <br/><br/>එය පාසල්වල පන්ති කාමර වල හා ළමයින්ට coding උගන්වන ස්වේච්ඡා කණ්ඩායම් වල භාවිතය සඳහා නිර්මාණය කර ඇත, එසේම ගුරුවරුන්ට හා කණ්ඩායම් නායකයන්ට ඔවුන්ගේ ශිෂ්‍යයන් කළමනාකරණයට හා පරිපාලක ප්‍රවේශය ලබාදෙන admin page සපසයි.<br/><br/>එය නිර්මාණය කරන ලද්දේ <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> විසින්  <a target='_blank' href='https://www.ibm.com/watson'>IBM Watson Developer Cloud</a> හි API භාවිතයෙනි.",
             "LOGIN": "ආරම්භ කරන්න: "
         },
         "PRETRAINED": {

@@ -40,7 +40,7 @@
         },
         "TECH": {
             "TITLE": "Teknik",
-            "BODY": "Verktyget är helt och hållet webb-baserat och kräver ingen installation eller komplicerad konfiguration för att användas. <br/><br/>Det utformades för att användas i klassrum av skolor och frivilliga kodningsgrupper för barn, och tillhandahåller en admin-sida för lärare eller grupphandledare för att hantera och administrera tillgång för deras elever.<br/><br/> Det utvecklas av <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> och använder API:er från <a target='_blank' href='https://www.ibm.com/watson/developercloud/'>IBM Watson Developer Cloud</a>.",
+            "BODY": "Verktyget är helt och hållet webb-baserat och kräver ingen installation eller komplicerad konfiguration för att användas. <br/><br/>Det utformades för att användas i klassrum av skolor och frivilliga kodningsgrupper för barn, och tillhandahåller en admin-sida för lärare eller grupphandledare för att hantera och administrera tillgång för deras elever.<br/><br/> Det utvecklas av <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> och använder API:er från <a target='_blank' href='https://www.ibm.com/watson'>IBM Watson Developer Cloud</a>.",
             "LOGIN": "För att komma igång: "
         },
         "PRETRAINED": {

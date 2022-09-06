@@ -40,7 +40,7 @@
         },
         "TECH": {
             "TITLE": "Technologie",
-            "BODY": "Deze tool is volledig webgebaseerd en er is geen nood aan een installatie of complexe setup om hem te gebruiken. <br/><br/> Het is ontwikkeld om te gebruiken in scholen of codeerclubs voor kinderen en omvat een administratorpagina voor hun leerkracht of begeleider zodat deze een overzicht kan hebben over de verschillende studenten.<br/><br/>De tool is gebouwd door <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> gebruik makend van APIs van <a target='_blank' href='https://www.ibm.com/watson/developercloud/'>IBM Watson Developer Cloud</a>.",
+            "BODY": "Deze tool is volledig webgebaseerd en er is geen nood aan een installatie of complexe setup om hem te gebruiken. <br/><br/> Het is ontwikkeld om te gebruiken in scholen of codeerclubs voor kinderen en omvat een administratorpagina voor hun leerkracht of begeleider zodat deze een overzicht kan hebben over de verschillende studenten.<br/><br/>De tool is gebouwd door <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> gebruik makend van APIs van <a target='_blank' href='https://www.ibm.com/watson'>IBM Watson Developer Cloud</a>.",
             "LOGIN": "Om te beginnen: "
         },
         "PRETRAINED": {
