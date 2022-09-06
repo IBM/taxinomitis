@@ -4,7 +4,7 @@ addEventListener('fetch', event => {
 
 
 async function handle(request) {
-  let url = new URL(request.url)
+  const url = new URL(request.url);
   if (url.hostname === 'machinelearningforkids.co.uk') {
     return handleGeoSteeredRequest(request, 'mlforkids-api.');
   } else if (url.hostname === 'scratch.machinelearningforkids.co.uk') {
@@ -19,23 +19,59 @@ async function handle(request) {
 }
 
 
-async function handleGeoSteeredRequest(request, routePrefix) {
-  // get the country that the client is in, as identified by Cloudflare
-  let countryCode = request.headers.get('cf-ipcountry');
-  if (! (countryCode in COUNTRIES)) {
-    countryCode = 'XX';
+// super-paranoid and hopefully fail-safe function for
+//  getting the country code for the incoming request
+function getCountryCode(request) {
+  try {
+    // get the country that the client is in, as identified by Cloudflare
+    const hdr = request.headers.get('cf-ipcountry');
+    if (hdr in COUNTRIES) {
+      return hdr;
+    }
+  }
+  catch (err) {
+    // something unexpected went wrong
+    //   I don't have access to logs for edge workers
+    //   so no point in logging it
   }
 
-  const countryInfo = COUNTRIES[countryCode];
-  const regionInfo = REGIONS[countryInfo.regionid];
-  const targetOrigins = regionInfo.origins;
+  // default country code if we couldn't work out
+  //  the right code to use
+  return 'XX';
+}
+
+
+// super-paranoid and hopefully fail-safe function for
+//  getting a list of origin sites, sorted in
+//  order of preference (based on location of the
+//  incoming request)
+function getOrigins(request) {
+  try {
+    const countryCode = getCountryCode(request);
+    const countryInfo = COUNTRIES[countryCode];
+    const regionInfo = REGIONS[countryInfo.regionid];
+    return regionInfo.origins;
+  }
+  catch (err) {
+    // something went wrong - return an arbitrary list
+    return [
+      'j8ahcaxwtd1.au-syd.codeengine.appdomain.cloud',
+      'j8ayd8ayn23.eu-de.codeengine.appdomain.cloud',
+      'j8clybxvjr0.us-south.codeengine.appdomain.cloud'
+    ];
+  }
+}
+
+
+async function handleGeoSteeredRequest(request, routePrefix) {
+  const targetOrigins = getOrigins(request);
 
   let response = null;
   for (const targetHost of targetOrigins) {
       response = await forwardRequest(request, routePrefix + targetHost);
 
-      if (response.ok || response.redirected) {
-          // successful request - return the response
+      if (response.status < 500) {
+          // request successfully handled by the target - return the response
           return response;
       }
   }
@@ -50,12 +86,46 @@ function forwardRequest(request, targetHost) {
   newUrl.protocol = 'https:';
 
   const newRequest = new Request(request);
-  newRequest.headers.set('X-Forwarded-Host', request.url.hostname);
+  // newRequest.headers.set('X-Forwarded-Host', request.url.hostname);
   newRequest.headers.set('host', targetHost);
+
+  if (!includesUserAgent(request) && isUrlExemptFromBrowserIntegrityCheck(request)) {
+    // the request didn't include a user-agent but they are trying
+    //  to access a resource that shouldn't be blocked for this so
+    //  we'll inject a dummy user-agent so can get through the
+    //  Cloudflare in-front of Code Engine
+    newRequest.headers.set('user-agent', 'MachineLearningForKids');
+  }
 
   return fetch(newUrl, newRequest);
 }
 
+
+function includesUserAgent(request) {
+  try {
+    return request.headers.has('User-Agent');
+  }
+  catch (err) {
+    // we couldn't check - let's assume there is one
+    return true;
+  }
+}
+
+function isUrlExemptFromBrowserIntegrityCheck(request) {
+  try {
+    return BIC_EXEMPT_URLS.some((urlRegexTest) => urlRegexTest.test(request.url));
+  }
+  catch (err) {
+    // we couldn't check - let's assume it isn't
+    return false;
+  }
+}
+
+const BIC_EXEMPT_URLS = [
+  /https:\/\/machinelearningforkids\.co\.uk\/api\/scratch\/[0-9a-f-]{72}\/train/,
+  /https:\/\/machinelearningforkids\.co\.uk\/api\/scratch\/[0-9a-f-]{72}\/images\/api\/classes\/.*\/students\/.*\/projects\/.*\/images\/.*/,
+  /https:\/\/machinelearningforkids\.co\.uk\/api\/appinventor\/[0-9a-f-]{72}\/extension/,
+];
 
 
 const COUNTRIES = {
