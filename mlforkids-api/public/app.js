@@ -320,6 +320,9 @@
                 else if (lang.indexOf('es') === 0) {
                     lang = 'es';
                 }
+                else if (lang.indexOf('de') === 0) {
+                    lang = 'de';
+                }
                 else if (lang.indexOf('zh') === 0) {
                     if (lang.indexOf('zh-tw') === 0) {
                         lang = 'zh-tw';
