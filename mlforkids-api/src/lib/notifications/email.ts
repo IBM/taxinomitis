@@ -70,8 +70,11 @@ export function close() {
 }
 
 
-export async function deletedClass(tenant: string, teachers: SupervisorInfo[]): Promise<void> {
-    return sendEmailToUser(teachers[0], tenant, EMAILS.deletedclass, { classid: tenant }, true);
+export async function deletedClass(tenant: string, teachers: SupervisorInfo[]): Promise<void[]> {
+    return Promise.all(
+        teachers.map((teacher) => {
+            return sendEmailToUser(teacher, tenant, EMAILS.deletedclass, { classid: tenant }, true);
+        }));
 }
 
 export interface DeletedClass {

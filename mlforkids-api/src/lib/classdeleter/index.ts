@@ -64,6 +64,7 @@ export async function deleteClass(classid: string): Promise<void> {
     //  have one, unless they've modified the default class definition)
     await db.deleteClassTenant(classid);
 
+    // notify teachers that their class has been deleted
     emails.deletedClass(classid, teachers);
 
     log.info({ classid }, 'Deleted class');
