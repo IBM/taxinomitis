@@ -152,14 +152,20 @@
         function deleteModel(modeltype, projectid) {
             loggerService.debug('[ml4kmodels] deleting stored model', projectid);
             var savelocation = getModelDbLocation(modeltype, projectid);
-            return tf.io.removeModel(savelocation)
-                .then(function () {
-                    loggerService.debug('[ml4kmodels] model deleted');
-                    clearModelSavedDate(savelocation);
-                })
-                .catch(function (err) {
-                    loggerService.debug('[ml4kmodels] model could not be deleted', err);
-                });
+            if (typeof tf !== 'undefined') {
+                return tf.io.removeModel(savelocation)
+                    .then(function () {
+                        loggerService.debug('[ml4kmodels] model deleted');
+                        clearModelSavedDate(savelocation);
+                    })
+                    .catch(function (err) {
+                        loggerService.debug('[ml4kmodels] model could not be deleted', err);
+                    });
+            }
+            else {
+                loggerService.debug('[ml4kmodels] tensorflow not loaded - skipping model deletion');
+                return Promise.resolve();
+            }
         }
 
         function saveModel(modeltype, projectid, transfermodel) {
