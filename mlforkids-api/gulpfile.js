@@ -96,6 +96,11 @@ gulp.task('tensorflowspeechcommands', function() {
         'node_modules/@tensorflow-models/speech-commands/dist/speech-commands.min.js'
     ]).pipe(gulp.dest('web/static/bower_components/tensorflow-models/speech-commands'));
 });
+gulp.task('tensorflowspeechcommands-scratch', function() {
+    return gulp.src([
+        'node_modules/@tensorflow-models/speech-commands/dist/speech-commands.min.js'
+    ]).pipe(gulp.dest('web/static/bower_components/tensorflow-models/speech-commands-scratch'));
+});
 gulp.task('speechcommandsmodel', function() {
     const files = [
         { url : 'https://storage.googleapis.com/tfjs-models/tfjs/speech-commands/v0.5/browser_fft/18w/metadata.json', file : 'metadata.json' },
@@ -105,6 +110,16 @@ gulp.task('speechcommandsmodel', function() {
     ];
     return download(files)
         .pipe(gulp.dest('web/static/bower_components/tensorflow-models/speech-commands'));
+});
+gulp.task('speechcommandsmodel-scratch', function() {
+    const files = [
+        { url : 'https://storage.googleapis.com/tfjs-models/tfjs/speech-commands/v0.5/browser_fft/18w/metadata.json', file : 'metadata.json' },
+        { url : 'https://storage.googleapis.com/tfjs-models/tfjs/speech-commands/v0.5/browser_fft/18w/model.json', file : 'model.json' },
+        { url : 'https://storage.googleapis.com/tfjs-models/tfjs/speech-commands/v0.5/browser_fft/18w/group1-shard1of2', file : 'group1-shard1of2' },
+        { url : 'https://storage.googleapis.com/tfjs-models/tfjs/speech-commands/v0.5/browser_fft/18w/group1-shard2of2', file : 'group1-shard2of2' }
+    ];
+    return download(files)
+        .pipe(gulp.dest('web/static/bower_components/tensorflow-models/speech-commands-scratch'));
 });
 gulp.task('tensorflowfacelandmarks', function() {
     return gulp.src([
@@ -131,6 +146,21 @@ gulp.task('imagerecognitionmodel', function() {
     return download(files)
         .pipe(gulp.dest('web/static/bower_components/tensorflow-models/image-recognition'));
 });
+gulp.task('imagerecognitionmodel-scratch', function() {
+    const files = [
+        { url : 'https://storage.googleapis.com/tfjs-models/tfjs/mobilenet_v1_0.25_224/model.json', file : 'model.json' }
+    ];
+    for (var x = 1; x <= 55; x++) {
+        const filename = 'group' + x + '-shard1of1';
+        files.push({
+            url : 'https://storage.googleapis.com/tfjs-models/tfjs/mobilenet_v1_0.25_224/' + filename,
+            file : filename
+        });
+    }
+    return download(files)
+        .pipe(gulp.dest('web/static/bower_components/tensorflow-models/image-recognition-scratch'));
+});
+
 gulp.task('tensorflowhandposemodel', function() {
     return gulp.src([
         'node_modules/@tensorflow-models/handpose/dist/handpose.min.js'
@@ -138,11 +168,12 @@ gulp.task('tensorflowhandposemodel', function() {
 });
 gulp.task('tfjs',
     gulp.parallel('tensorflowjs',
-        'tensorflowspeechcommands', 'speechcommandsmodel',
+        'tensorflowspeechcommands', 'tensorflowspeechcommands-scratch',
+        'speechcommandsmodel', 'speechcommandsmodel-scratch',
         'tensorflowposenet', 'posenetmodel',
         'tensorflowfacelandmarks', 'tensorflowfacemesh',
         'tensorflowhandposemodel',
-        'imagerecognitionmodel'));
+        'imagerecognitionmodel', 'imagerecognitionmodel-scratch'));
 
 gulp.task('scratchblocks', function() {
     return gulp.src('public/third-party/scratchblocks-v3.1-min.js').pipe(gulp.dest('web/static'));

@@ -1561,7 +1561,7 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
           //                     '/mobilenet_v1_0.25_224' +
           //                     '/model.json';
 
-          var BASE_MODEL = 'https://machinelearningforkids.co.uk/static/bower_components/tensorflow-models/image-recognition/model.json';
+          var BASE_MODEL = 'https://machinelearningforkids.co.uk/static/bower_components/tensorflow-models/image-recognition-scratch/model.json';
           tf.loadLayersModel(BASE_MODEL).then(function (pretrainedModel) {
             var activationLayer = pretrainedModel.getLayer('conv_pw_13_relu');
             _this.baseModel = tf.model({
@@ -2021,7 +2021,7 @@ var ML4KidsSoundTraining = /*#__PURE__*/function () {
     key: "loadSpeechCommands",
     value: function loadSpeechCommands() {
       var scriptid = 'mlforkids-script-speechcommands';
-      var scripturl = 'https://machinelearningforkids.co.uk' + '/static/bower_components' + '/tensorflow-models/speech-commands' + '/speech-commands.min.js';
+      var scripturl = 'https://machinelearningforkids.co.uk' + '/static/bower_components' + '/tensorflow-models/speech-commands-scratch' + '/speech-commands.min.js';
       return new Promise(function (resolve, reject) {
         if (document.getElementById(scriptid)) {
           return resolve();
@@ -2055,7 +2055,7 @@ var ML4KidsSoundTraining = /*#__PURE__*/function () {
     value: function initSoundSupport(loadModelIfAvailable, worker) {
       var _this2 = this;
 
-      var siteUrl = 'https://machinelearningforkids.co.uk' + '/static/bower_components' + '/tensorflow-models/speech-commands';
+      var siteUrl = 'https://machinelearningforkids.co.uk' + '/static/bower_components' + '/tensorflow-models/speech-commands-scratch';
       var vocab = null;
       var modelJson = siteUrl + '/model.json';
       var metadataJson = siteUrl + '/metadata.json';
