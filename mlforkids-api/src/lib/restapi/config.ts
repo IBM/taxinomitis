@@ -143,6 +143,7 @@ export function setupUI(app: express.Application): void {
     // Scratch has moved - leave a redirect for students who have the old location bookmarked!
     // const scratch3location: string = path.join(__dirname, '/../../../web/scratch3');
     // app.use('/scratch3', compression(), express.static(scratch3location, { maxAge : constants.ONE_WEEK }));
+    app.get('/scratch3', redirectToNewScratchSubdomain);
     app.get('/scratch3/*', redirectToNewScratchSubdomain);
 
     app.get('/about', (req, res) => { res.redirect('/#!/about'); });
