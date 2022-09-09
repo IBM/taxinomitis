@@ -145,6 +145,8 @@ export function setupUI(app: express.Application): void {
     // app.use('/scratch3', compression(), express.static(scratch3location, { maxAge : constants.ONE_WEEK }));
     app.get('/scratch3', redirectToNewScratchSubdomain);
     app.get('/scratch3/*', redirectToNewScratchSubdomain);
+    // never actually a URL, but a likely typo
+    app.get('/scratch', redirectToNewScratchSubdomain);
 
     app.get('/about', (req, res) => { res.redirect('/#!/about'); });
     app.get('/projects', (req, res) => { res.redirect('/#!/projects'); });
