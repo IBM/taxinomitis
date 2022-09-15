@@ -89,27 +89,17 @@ function forwardRequest(request, targetHost) {
   // newRequest.headers.set('X-Forwarded-Host', request.url.hostname);
   newRequest.headers.set('host', targetHost);
 
-  if (!includesUserAgent(request) && isUrlExemptFromBrowserIntegrityCheck(request)) {
-    // the request didn't include a user-agent but they are trying
-    //  to access a resource that shouldn't be blocked for this so
-    //  we'll inject a dummy user-agent so can get through the
-    //  Cloudflare in-front of Code Engine
-    newRequest.headers.set('user-agent', 'MachineLearningForKids');
+  if (isUrlExemptFromBrowserIntegrityCheck(request)) {
+    // URLs for some Scratch APIs are commonly accessed by non-browser
+    //  clients (Python/Tensorflow/AppInventor/etc) so for these we
+    //  add a user-agent to pretend to be curl, so that the Cloudflare
+    //  in-front of Code Engine is less likely to block them
+    newRequest.headers.set('user-agent', 'curl/7.79.1');
   }
 
   return fetch(newUrl, newRequest);
 }
 
-
-function includesUserAgent(request) {
-  try {
-    return request.headers.has('User-Agent');
-  }
-  catch (err) {
-    // we couldn't check - let's assume there is one
-    return true;
-  }
-}
 
 function isUrlExemptFromBrowserIntegrityCheck(request) {
   try {
