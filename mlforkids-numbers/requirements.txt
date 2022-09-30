@@ -20,7 +20,7 @@ scipy==1.9.1
 #
 # dependencies automatically dragged in
 #
-joblib==1.1.0
+joblib==1.2.0
 pyparsing==3.0.9
 threadpoolctl==3.1.0
 jaraco.classes==3.2.2
