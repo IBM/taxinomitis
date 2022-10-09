@@ -298,7 +298,7 @@ describe('REST API - image uploads', () => {
         it('should download a resized version of a file ready for client-side training', async () => {
             let id;
             const filepath = './src/tests/utils/resources/test-01.jpg';
-            const expectedResizedContents = await readFileToBuffer('./src/tests/utils/resources/book-small.jpg');
+            const expectedResizedContents = await readFileToBuffer('./src/tests/utils/resources/book-small-01.jpg');
 
             const userid = uuid();
 

@@ -1578,7 +1578,7 @@ describe('REST API - scratch keys', () => {
 
             const scratchKey = await store.storeUntrainedScratchKey(testProject);
 
-            const testFileData = await readFile('./src/tests/utils/resources/watson-1.jpg');
+            const testFileData = await readFile('./src/tests/utils/resources/watson-2.jpg');
 
             await request(testServer)
                 .get('/api/scratch/' + scratchKey +
@@ -1737,7 +1737,7 @@ describe('REST API - scratch keys', () => {
 
             const scratchKey = await store.storeUntrainedScratchKey(testProject);
 
-            const testFileData = await readFile('./src/tests/utils/resources/watson-1.jpg');
+            const testFileData = await readFile('./src/tests/utils/resources/watson-2.jpg');
 
             await request(testServer)
                 .get('/api/scratch/' + scratchKey +
