@@ -94,50 +94,34 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
 /* eslint-env worker */
+
 var ArgumentType = __webpack_require__(/*! ../extension-support/argument-type */ "./node_modules/scratch-vm/src/extension-support/argument-type.js");
-
 var BlockType = __webpack_require__(/*! ../extension-support/block-type */ "./node_modules/scratch-vm/src/extension-support/block-type.js");
-
 var dispatch = __webpack_require__(/*! ../dispatch/worker-dispatch */ "./node_modules/scratch-vm/src/dispatch/worker-dispatch.js");
-
 var TargetType = __webpack_require__(/*! ../extension-support/target-type */ "./node_modules/scratch-vm/src/extension-support/target-type.js");
-
 var ExtensionWorker = /*#__PURE__*/function () {
   function ExtensionWorker() {
     var _this = this;
-
     _classCallCheck(this, ExtensionWorker);
-
     this.nextExtensionId = 0;
     this.initialRegistrations = [];
     this.extensionURL = null;
     dispatch.waitForConnection.then(function () {
       dispatch.call('extensions', 'allocateWorker').then(function (x) {
         var _x = _slicedToArray(x, 2),
-            id = _x[0],
-            extension = _x[1];
-
+          id = _x[0],
+          extension = _x[1];
         _this.workerId = id;
         console.log('[mlforkids] ExtensionWorker ' + extension);
-
         if (extension.indexOf('http') === 0) {
           console.log('[mlforkids] Extension from remote URL : ' + extension);
           _this.extensionURL = extension;
@@ -146,7 +130,6 @@ var ExtensionWorker = /*#__PURE__*/function () {
           _this.extensionURL = extension;
           return dispatch.call('extensions', 'onWorkerInit', id);
         }
-
         try {
           importScripts(extension);
           var initialRegistrations = _this.initialRegistrations;
@@ -156,7 +139,6 @@ var ExtensionWorker = /*#__PURE__*/function () {
           });
         } catch (e) {
           dispatch.call('extensions', 'onWorkerInit', id, e);
-
           if (postMessage && e.name === 'NetworkError' && extension.indexOf('extension3.js') > 0) {
             postMessage({
               mlforkids: 'mlforkids-extension-help'
@@ -167,38 +149,32 @@ var ExtensionWorker = /*#__PURE__*/function () {
     });
     this.extensions = [];
   }
-
   _createClass(ExtensionWorker, [{
     key: "register",
     value: function register(extensionObject) {
       var _this2 = this;
-
       var extensionId = this.nextExtensionId++;
       this.extensions.push(extensionObject);
       var serviceName = "extension.".concat(this.workerId, ".").concat(extensionId);
       var promise = dispatch.setService(serviceName, extensionObject).then(function () {
         return dispatch.call('extensions', 'registerExtensionService', serviceName, _this2.extensionURL);
       });
-
       if (this.initialRegistrations) {
         this.initialRegistrations.push(promise);
       }
-
       return promise;
     }
   }]);
-
   return ExtensionWorker;
 }();
-
 global.Scratch = global.Scratch || {};
 global.Scratch.ArgumentType = ArgumentType;
 global.Scratch.BlockType = BlockType;
 global.Scratch.TargetType = TargetType;
+
 /**
  * Expose only specific parts of the worker to extensions.
  */
-
 var extensionWorker = new ExtensionWorker();
 global.Scratch.extensions = {
   register: extensionWorker.register.bind(extensionWorker)
@@ -810,38 +786,23 @@ module.exports = logger;
 /***/ (function(module, exports, __webpack_require__) {
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
 function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
 var log = __webpack_require__(/*! ../util/log */ "./node_modules/scratch-vm/src/util/log.js");
-
 var mlforkidsSound = __webpack_require__(/*! ../mlforkids-components/sound */ "./node_modules/scratch-vm/src/mlforkids-components/sound/index.js");
-
 var mlforkidsImages = __webpack_require__(/*! ../mlforkids-components/images */ "./node_modules/scratch-vm/src/mlforkids-components/images/index.js");
-
 var mlforkidsTensorFlow = __webpack_require__(/*! ../mlforkids-components/tensorflow */ "./node_modules/scratch-vm/src/mlforkids-components/tensorflow/index.js");
+
 /**
  * @typedef {object} DispatchCallMessage - a message to the dispatch system representing a service method call
  * @property {*} responseId - send a response message with this response ID. See {@link DispatchResponseMessage}
@@ -866,12 +827,9 @@ var mlforkidsTensorFlow = __webpack_require__(/*! ../mlforkids-components/tensor
  * The SharedDispatch class is responsible for dispatch features shared by
  * {@link CentralDispatch} and {@link WorkerDispatch}.
  */
-
-
 var SharedDispatch = /*#__PURE__*/function () {
   function SharedDispatch() {
     _classCallCheck(this, SharedDispatch);
-
     /**
      * List of callback registrations for promises waiting for a response from a call to a service on another
      * worker. A callback registration is an array of [resolve,reject] Promise functions.
@@ -879,13 +837,14 @@ var SharedDispatch = /*#__PURE__*/function () {
      * @type {Array.<Function[]>}
      */
     this.callbacks = [];
+
     /**
      * The next response ID to be used.
      * @type {int}
      */
-
     this.nextResponseId = 0;
   }
+
   /**
    * Call a particular method on a particular service, regardless of whether that service is provided locally or on
    * a worker. If the service is provided by a worker, the `args` will be copied using the Structured Clone
@@ -900,17 +859,15 @@ var SharedDispatch = /*#__PURE__*/function () {
    * @param {*} [args] - the arguments to be copied to the method, if any.
    * @returns {Promise} - a promise for the return value of the service method.
    */
-
-
   _createClass(SharedDispatch, [{
     key: "call",
     value: function call(service, method) {
       for (var _len = arguments.length, args = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
         args[_key - 2] = arguments[_key];
       }
-
       return this.transferCall.apply(this, [service, method, null].concat(args));
     }
+
     /**
      * Call a particular method on a particular service, regardless of whether that service is provided locally or on
      * a worker. If the service is provided by a worker, the `args` will be copied using the Structured Clone
@@ -926,45 +883,41 @@ var SharedDispatch = /*#__PURE__*/function () {
      * @param {*} [args] - the arguments to be copied to the method, if any.
      * @returns {Promise} - a promise for the return value of the service method.
      */
-
   }, {
     key: "transferCall",
     value: function transferCall(service, method, transfer) {
       try {
         var _this$_getServiceProv = this._getServiceProvider(service),
-            provider = _this$_getServiceProv.provider,
-            isRemote = _this$_getServiceProv.isRemote;
-
+          provider = _this$_getServiceProv.provider,
+          isRemote = _this$_getServiceProv.isRemote;
         if (provider) {
           for (var _len2 = arguments.length, args = new Array(_len2 > 3 ? _len2 - 3 : 0), _key2 = 3; _key2 < _len2; _key2++) {
             args[_key2 - 3] = arguments[_key2];
           }
-
           if (isRemote) {
             return this._remoteTransferCall.apply(this, [provider, service, method, transfer].concat(args));
           }
-
           var result = provider[method].apply(provider, args);
           return Promise.resolve(result);
         }
-
         return Promise.reject(new Error("Service not found: ".concat(service)));
       } catch (e) {
         return Promise.reject(e);
       }
     }
+
     /**
      * Check if a particular service lives on another worker.
      * @param {string} service - the service to check.
      * @returns {boolean} - true if the service is remote (calls must cross a Worker boundary), false otherwise.
      * @private
      */
-
   }, {
     key: "_isRemoteService",
     value: function _isRemoteService(service) {
       return this._getServiceProvider(service).isRemote;
     }
+
     /**
      * Like {@link call}, but force the call to be posted through a particular communication channel.
      * @param {object} provider - send the call through this object's `postMessage` function.
@@ -973,16 +926,15 @@ var SharedDispatch = /*#__PURE__*/function () {
      * @param {*} [args] - the arguments to be copied to the method, if any.
      * @returns {Promise} - a promise for the return value of the service method.
      */
-
   }, {
     key: "_remoteCall",
     value: function _remoteCall(provider, service, method) {
       for (var _len3 = arguments.length, args = new Array(_len3 > 3 ? _len3 - 3 : 0), _key3 = 3; _key3 < _len3; _key3++) {
         args[_key3 - 3] = arguments[_key3];
       }
-
       return this._remoteTransferCall.apply(this, [provider, service, method, null].concat(args));
     }
+
     /**
      * Like {@link transferCall}, but force the call to be posted through a particular communication channel.
      * @param {object} provider - send the call through this object's `postMessage` function.
@@ -992,25 +944,20 @@ var SharedDispatch = /*#__PURE__*/function () {
      * @param {*} [args] - the arguments to be copied to the method, if any.
      * @returns {Promise} - a promise for the return value of the service method.
      */
-
   }, {
     key: "_remoteTransferCall",
     value: function _remoteTransferCall(provider, service, method, transfer) {
       var _this = this;
-
       for (var _len4 = arguments.length, args = new Array(_len4 > 4 ? _len4 - 4 : 0), _key4 = 4; _key4 < _len4; _key4++) {
         args[_key4 - 4] = arguments[_key4];
       }
-
       return new Promise(function (resolve, reject) {
         var responseId = _this._storeCallbacks(resolve, reject);
+
         /** @TODO: remove this hack! this is just here so we don't try to send `util` to a worker */
-
-
         if (args.length > 0 && typeof args[args.length - 1].yield === 'function') {
           args.pop();
         }
-
         if (transfer) {
           provider.postMessage({
             service: service,
@@ -1028,6 +975,7 @@ var SharedDispatch = /*#__PURE__*/function () {
         }
       });
     }
+
     /**
      * Store callback functions pending a response message.
      * @param {Function} resolve - function to call if the service method returns.
@@ -1035,7 +983,6 @@ var SharedDispatch = /*#__PURE__*/function () {
      * @returns {*} - a unique response ID for this set of callbacks. See {@link _deliverResponse}.
      * @protected
      */
-
   }, {
     key: "_storeCallbacks",
     value: function _storeCallbacks(resolve, reject) {
@@ -1043,23 +990,21 @@ var SharedDispatch = /*#__PURE__*/function () {
       this.callbacks[responseId] = [resolve, reject];
       return responseId;
     }
+
     /**
      * Deliver call response from a worker. This should only be called as the result of a message from a worker.
      * @param {int} responseId - the response ID of the callback set to call.
      * @param {DispatchResponseMessage} message - the message containing the response value(s).
      * @protected
      */
-
   }, {
     key: "_deliverResponse",
     value: function _deliverResponse(responseId, message) {
       try {
         var _this$callbacks$respo = _slicedToArray(this.callbacks[responseId], 2),
-            resolve = _this$callbacks$respo[0],
-            reject = _this$callbacks$respo[1];
-
+          resolve = _this$callbacks$respo[0],
+          reject = _this$callbacks$respo[1];
         delete this.callbacks[responseId];
-
         if (message.error) {
           reject(message.error);
         } else {
@@ -1069,23 +1014,21 @@ var SharedDispatch = /*#__PURE__*/function () {
         log.error("Dispatch callback failed: ".concat(JSON.stringify(e)));
       }
     }
+
     /**
      * Handle a message event received from a connected worker.
      * @param {Worker} worker - the worker which sent the message, or the global object if running in a worker.
      * @param {MessageEvent} event - the message event to be handled.
      * @protected
      */
-
   }, {
     key: "_onMessage",
     value: function _onMessage(worker, event) {
       var _this2 = this;
-
       /** @type {DispatchMessage} */
       var message = event.data;
       message.args = message.args || [];
       var promise;
-
       if (message.service) {
         if (message.service === 'dispatch') {
           promise = this._onDispatchMessage(worker, message);
@@ -1100,7 +1043,6 @@ var SharedDispatch = /*#__PURE__*/function () {
           if (!this.mlforkidsSoundSupport) {
             this.mlforkidsSoundSupport = new mlforkidsSound();
           }
-
           this.mlforkidsSoundSupport.init(message.mlforkidssound.data, worker);
         } else if (message.mlforkidssound.command === 'train') {
           this.mlforkidsSoundSupport.trainNewModel(message.mlforkidssound.data, worker);
@@ -1114,7 +1056,6 @@ var SharedDispatch = /*#__PURE__*/function () {
           if (!this.mlforkidsImageSupport) {
             this.mlforkidsImageSupport = new mlforkidsImages();
           }
-
           this.mlforkidsImageSupport.init().then(function () {
             _this2.mlforkidsImageSupport.initProject(message.mlforkidsimage.data, worker);
           });
@@ -1128,7 +1069,6 @@ var SharedDispatch = /*#__PURE__*/function () {
           if (!this.mlforkidsTensorFlowSupport) {
             this.mlforkidsTensorFlowSupport = new mlforkidsTensorFlow();
           }
-
           this.mlforkidsTensorFlowSupport.initProject(message.mlforkidstensorflow.data, worker);
         } else if (message.mlforkidstensorflow.command === 'classify') {
           this.mlforkidsTensorFlowSupport.classifyData(message.mlforkidstensorflow.data, worker);
@@ -1138,7 +1078,6 @@ var SharedDispatch = /*#__PURE__*/function () {
       } else {
         this._deliverResponse(message.responseId, message);
       }
-
       if (promise) {
         if (typeof message.responseId === 'undefined') {
           log.error("Dispatch message missing required response ID: ".concat(JSON.stringify(event)));
@@ -1157,6 +1096,7 @@ var SharedDispatch = /*#__PURE__*/function () {
         }
       }
     }
+
     /**
      * Fetch the service provider object for a particular service name.
      * @abstract
@@ -1164,12 +1104,12 @@ var SharedDispatch = /*#__PURE__*/function () {
      * @returns {{provider:(object|Worker), isRemote:boolean}} - the means to contact the service, if found
      * @protected
      */
-
   }, {
     key: "_getServiceProvider",
     value: function _getServiceProvider(service) {
       throw new Error("Could not get provider for ".concat(service, ": _getServiceProvider not implemented"));
     }
+
     /**
      * Handle a call message sent to the dispatch service itself
      * @abstract
@@ -1178,17 +1118,14 @@ var SharedDispatch = /*#__PURE__*/function () {
      * @returns {Promise|undefined} - a promise for the results of this operation, if appropriate
      * @private
      */
-
   }, {
     key: "_onDispatchMessage",
     value: function _onDispatchMessage(worker, message) {
       throw new Error("Unimplemented dispatch message handler cannot handle ".concat(message.method, " method"));
     }
   }]);
-
   return SharedDispatch;
 }();
-
 module.exports = SharedDispatch;
 
 /***/ }),
@@ -1201,30 +1138,19 @@ module.exports = SharedDispatch;
 /***/ (function(module, exports, __webpack_require__) {
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 var SharedDispatch = __webpack_require__(/*! ./shared-dispatch */ "./node_modules/scratch-vm/src/dispatch/shared-dispatch.js");
-
 var log = __webpack_require__(/*! ../util/log */ "./node_modules/scratch-vm/src/util/log.js");
+
 /**
  * This class provides a Worker with the means to participate in the message dispatch system managed by CentralDispatch.
  * From any context in the messaging system, the dispatcher's "call" method can call any method on any "service"
@@ -1232,29 +1158,24 @@ var log = __webpack_require__(/*! ../util/log */ "./node_modules/scratch-vm/src/
  * worker boundaries as needed.
  * @see {CentralDispatch}
  */
-
-
 var WorkerDispatch = /*#__PURE__*/function (_SharedDispatch) {
   _inherits(WorkerDispatch, _SharedDispatch);
-
   var _super = _createSuper(WorkerDispatch);
-
   function WorkerDispatch() {
     var _this;
-
     _classCallCheck(this, WorkerDispatch);
-
     _this = _super.call(this);
+
     /**
      * This promise will be resolved when we have successfully connected to central dispatch.
      * @type {Promise}
      * @see {waitForConnection}
      * @private
      */
-
     _this._connectionPromise = new Promise(function (resolve) {
       _this._onConnect = resolve;
     });
+
     /**
      * Map of service name to local service provider.
      * If a service is not listed here, it is assumed to be provided by another context (another Worker or the main
@@ -1262,16 +1183,14 @@ var WorkerDispatch = /*#__PURE__*/function (_SharedDispatch) {
      * @see {setService}
      * @type {object}
      */
-
     _this.services = {};
     _this._onMessage = _this._onMessage.bind(_assertThisInitialized(_this), self);
-
     if (typeof self !== 'undefined') {
       self.onmessage = _this._onMessage;
     }
-
     return _this;
   }
+
   /**
    * @returns {Promise} a promise which will resolve upon connection to central dispatch. If you need to make a call
    * immediately on "startup" you can attach a 'then' to this promise.
@@ -1280,13 +1199,12 @@ var WorkerDispatch = /*#__PURE__*/function (_SharedDispatch) {
    *          dispatch.call('myService', 'hello');
    *      })
    */
-
-
   _createClass(WorkerDispatch, [{
     key: "waitForConnection",
     get: function get() {
       return this._connectionPromise;
     }
+
     /**
      * Set a local object as the global provider of the specified service.
      * WARNING: Any method on the provider can be called from any worker within the dispatch system.
@@ -1294,21 +1212,19 @@ var WorkerDispatch = /*#__PURE__*/function (_SharedDispatch) {
      * @param {object} provider - a local object which provides this service.
      * @returns {Promise} - a promise which will resolve once the service is registered.
      */
-
   }, {
     key: "setService",
     value: function setService(service, provider) {
       var _this2 = this;
-
       if (this.services.hasOwnProperty(service)) {
         log.warn("Worker dispatch replacing existing service provider for ".concat(service));
       }
-
       this.services[service] = provider;
       return this.waitForConnection.then(function () {
         return _this2._remoteCall(self, 'dispatch', 'setService', service);
       });
     }
+
     /**
      * Fetch the service provider object for a particular service name.
      * @override
@@ -1316,7 +1232,6 @@ var WorkerDispatch = /*#__PURE__*/function (_SharedDispatch) {
      * @returns {{provider:(object|Worker), isRemote:boolean}} - the means to contact the service, if found
      * @protected
      */
-
   }, {
     key: "_getServiceProvider",
     value: function _getServiceProvider(service) {
@@ -1327,6 +1242,7 @@ var WorkerDispatch = /*#__PURE__*/function (_SharedDispatch) {
         isRemote: !provider
       };
     }
+
     /**
      * Handle a call message sent to the dispatch service itself
      * @override
@@ -1335,17 +1251,14 @@ var WorkerDispatch = /*#__PURE__*/function (_SharedDispatch) {
      * @returns {Promise|undefined} - a promise for the results of this operation, if appropriate
      * @protected
      */
-
   }, {
     key: "_onDispatchMessage",
     value: function _onDispatchMessage(worker, message) {
       var promise;
-
       switch (message.method) {
         case 'handshake':
           promise = this._onConnect();
           break;
-
         case 'terminate':
           // Don't close until next tick, after sending confirmation back
           setTimeout(function () {
@@ -1353,18 +1266,14 @@ var WorkerDispatch = /*#__PURE__*/function (_SharedDispatch) {
           }, 0);
           promise = Promise.resolve();
           break;
-
         default:
           log.error("Worker dispatch received message for unknown method: ".concat(message.method));
       }
-
       return promise;
     }
   }]);
-
   return WorkerDispatch;
 }(SharedDispatch);
-
 module.exports = new WorkerDispatch();
 
 /***/ }),
@@ -1385,37 +1294,30 @@ var ArgumentType = {
    * Numeric value with angle picker
    */
   ANGLE: 'angle',
-
   /**
    * Boolean value with hexagonal placeholder
    */
   BOOLEAN: 'Boolean',
-
   /**
    * Numeric value with color picker
    */
   COLOR: 'color',
-
   /**
    * Numeric value with text field
    */
   NUMBER: 'number',
-
   /**
    * String value with text field
    */
   STRING: 'string',
-
   /**
    * String value with matrix field
    */
   MATRIX: 'matrix',
-
   /**
    * MIDI note number with note picker (piano) field
    */
   NOTE: 'note',
-
   /**
    * Inline image on block (as part of the label)
    */
@@ -1441,40 +1343,33 @@ var BlockType = {
    * Boolean reporter with hexagonal shape
    */
   BOOLEAN: 'Boolean',
-
   /**
    * A button (not an actual block) for some special action, like making a variable
    */
   BUTTON: 'button',
-
   /**
    * Command block
    */
   COMMAND: 'command',
-
   /**
    * Specialized command block which may or may not run a child branch
    * The thread continues with the next block whether or not a child branch ran.
    */
   CONDITIONAL: 'conditional',
-
   /**
    * Specialized hat block with no implementation function
    * This stack only runs if the corresponding event is emitted by other code.
    */
   EVENT: 'event',
-
   /**
    * Hat block which conditionally starts a block stack
    */
   HAT: 'hat',
-
   /**
    * Specialized command block which may or may not run a child branch
    * If a child branch runs, the thread evaluates the loop block again.
    */
   LOOP: 'loop',
-
   /**
    * General reporter with numeric or string value
    */
@@ -1500,7 +1395,6 @@ var TargetType = {
    * Rendered target which can move, change costumes, etc.
    */
   SPRITE: 'sprite',
-
   /**
    * Rendered target which cannot move but can change backdrops
    */
@@ -1518,16 +1412,14 @@ module.exports = TargetType;
 /***/ (function(module, exports) {
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
 var ML4KidsImageTraining = /*#__PURE__*/function () {
   // This component needs to support multiple instances of the image
   //  extension being used at once, so all state and models are
   //  indexed by project id
   // The base model can be shared across all projects
+
   // state = <INIT/READY/ERROR>
   // baseModel = <model>
   // PROJECTS[projectid].modelClasses = <label1/label2/label3/...>
@@ -1535,32 +1427,33 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
   // PROJECTS[projectid].state = INIT/READY/TRAINING/TRAINED/ERROR
   // PROJECTS[projectid].transferModel = <model>
   // PROJECTS[projectid].usingRestoredModel = true/false
+
   // states:
   //   INIT - not ready yet
   //   READY - ready for training
   //   TRAINING - training in progress
   //   TRAINED - ML model ready for use
   //   ERROR - something went wrong
+
   function ML4KidsImageTraining() {
     _classCallCheck(this, ML4KidsImageTraining);
-
     this.PROJECTS = {};
     this.state = 'INIT';
-  } // safe to call this multiple times, including calling it before the first call has completed
+  }
 
-
+  // safe to call this multiple times, including calling it before the first call has completed
   _createClass(ML4KidsImageTraining, [{
     key: "init",
     value: function init() {
       var _this = this;
-
       if (!this.initPromise) {
         this.initPromise = new Promise(function (resolve, reject) {
-          tf.enableProdMode(); // const BASE_MODEL = 'https://storage.googleapis.com' +
+          tf.enableProdMode();
+
+          // const BASE_MODEL = 'https://storage.googleapis.com' +
           //                     '/tfjs-models/tfjs' +
           //                     '/mobilenet_v1_0.25_224' +
           //                     '/model.json';
-
           var BASE_MODEL = 'https://machinelearningforkids.co.uk/static/bower_components/tensorflow-models/image-recognition-scratch/model.json';
           tf.loadLayersModel(BASE_MODEL).then(function (pretrainedModel) {
             var activationLayer = pretrainedModel.getLayer('conv_pw_13_relu');
@@ -1577,17 +1470,16 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
           });
         });
       }
-
       return this.initPromise;
-    } // encprojectdata
+    }
+
+    // encprojectdata
     // JSON.stringify-ed version of
     //   { labels : [ labelA, labelB, labelC ], projectid : projectId }
-
   }, {
     key: "initProject",
     value: function initProject(encprojectdata, worker) {
       var _this2 = this;
-
       console.log('[mlforkids] ML4KidsImageTraining init');
       var projectData = JSON.parse(encprojectdata);
       var projectid = projectData.projectid;
@@ -1617,7 +1509,6 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
             }
           });
         }
-
         _this2._watchForNewModels(projectid);
       }).catch(function (err) {
         console.log('[mlforkids] ML4KidsImageTraining failed init', err);
@@ -1640,17 +1531,17 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
       } else {
         return 0;
       }
-    } // encrequest
+    }
+
+    // encrequest
     // JSON.stringify-ed version of
     //   { projectid : projectId, requestid : requestId, imagedata: base64-enc-jpg }
-
   }, {
     key: "classifyImageData",
     value: function classifyImageData(encrequest, worker) {
       var requestData = JSON.parse(encrequest);
       var projectid = requestData.projectid;
       var requestid = requestData.requestid;
-
       if (projectid in this.PROJECTS) {
         if (this.PROJECTS[projectid].state !== 'TRAINED') {
           console.log('[mlforkids] ML4KidsImageTraining received classify request before a model is ready');
@@ -1662,11 +1553,9 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
             }
           });
         }
-
         var imageElement = document.createElement('img');
         imageElement.width = 224;
         imageElement.height = 224;
-
         imageElement.onerror = function (err) {
           console.log('[mlforkids] failed to prepare image data for prediction', err);
           return worker.postMessage({
@@ -1677,9 +1566,7 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
             }
           });
         };
-
         var that = this;
-
         imageElement.onload = function () {
           var imageDataTensor = tf.tidy(function () {
             return tf.browser.fromPixels(imageElement).expandDims(0).toFloat().div(127).sub(1);
@@ -1697,7 +1584,6 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
                 }
               });
             }
-
             var matches = that.PROJECTS[projectid].modelClasses.map(function (label, idx) {
               return {
                 class_name: label,
@@ -1714,7 +1600,6 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
             });
           });
         };
-
         imageElement.src = 'data:image/jpeg;base64,' + requestData.imagedata;
       } else {
         console.log('[mlforkids] ML4KidsImageTraining received request for unknown project');
@@ -1760,9 +1645,7 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
     key: "_loadModel",
     value: function _loadModel(projectid) {
       console.log('[mlforkids] ML4KidsImageTraining loading model from browser storage');
-
       var savelocation = this._getModelDbLocation(projectid);
-
       return tf.loadLayersModel(savelocation).catch(function (err) {
         console.log('[mlforkids] ML4KidsImageTraining failed to load model from storage', err);
         return;
@@ -1772,14 +1655,10 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
     key: "_saveModel",
     value: function _saveModel(projectid) {
       var _this3 = this;
-
       console.log('[mlforkids] ML4KidsImageTraining saving model to browser storage');
-
       var savelocation = this._getModelDbLocation(projectid);
-
       return this.PROJECTS[projectid].transferModel.save(savelocation).then(function (results) {
         console.log('[mlforkids] ML4KidsImageTraining saved model', savelocation, results);
-
         _this3._storeModelSavedDate(savelocation);
       }).catch(function (err) {
         console.log('[mlforkids] ML4KidsImageTraining failed to save model', err);
@@ -1800,13 +1679,10 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
     key: "_watchForNewModels",
     value: function _watchForNewModels(projectid) {
       var _this4 = this;
-
       if (!this.PROJECTS[projectid].modelWatcher) {
         console.log('[mlforkids] ML4KidsImageTraining listening for model updates', projectid);
         this.PROJECTS[projectid].modelWatcher = true;
-
         var modellocation = this._getModelDbLocation(projectid);
-
         window.addEventListener('storage', function (evt) {
           if (evt.key === modellocation) {
             console.log('[mlforkids] ML4KidsImageTraining new model is available');
@@ -1828,42 +1704,31 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
     key: "trainNewModel",
     value: function trainNewModel(data, worker) {
       var _this5 = this;
-
       var projectid = data.projectid;
-
       if (this.state !== 'READY') {
         console.log('[mlforkids] ML4KidsImageTraining not ready to train a new ML model - state : ' + this.state);
         return;
       }
-
       if (this.PROJECTS[projectid].state === 'TRAINING') {
         console.log('[mlforkids] ML4KidsImageTraining training in progress for this model');
         return;
       }
-
       console.log('[mlforkids] ML4KidsImageTraining training new model');
       this.PROJECTS[projectid].state = 'TRAINING';
-
       if (this.PROJECTS[projectid].usingRestoredModel) {
         this.PROJECTS[projectid].transferModel = this.prepareTransferLearningModel(this.PROJECTS[projectid].modelNumClasses);
       }
-
       var that = this;
       return Promise.all(data.trainingdata.map(this._getTensorForImageData)).then(function (trainingdata) {
         var xs;
         var ys;
-
         var _loop = function _loop(i) {
           var trainingdataitem = trainingdata[i];
-
           var labelIdx = _this5.PROJECTS[projectid].modelClasses.indexOf(trainingdataitem.metadata.label);
-
           var xval = _this5.baseModel.predict(trainingdataitem.data);
-
           var yval = tf.tidy(function () {
             return tf.oneHot(tf.tensor1d([labelIdx]).toInt(), that.PROJECTS[projectid].modelNumClasses);
           });
-
           if (i === 0) {
             xs = xval;
             ys = yval;
@@ -1876,20 +1741,15 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
             oldys.dispose();
           }
         };
-
         for (var i = 0; i < trainingdata.length; i++) {
           var oldxs;
           var oldys;
-
           _loop(i);
         }
-
         var epochs = 10;
-
         if (trainingdata.length > 55) {
           epochs = 15;
         }
-
         _this5.PROJECTS[projectid].transferModel.fit(xs, ys, {
           batchSize: 10,
           epochs: epochs,
@@ -1899,9 +1759,7 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
             },
             onTrainEnd: function onTrainEnd() {
               console.log('[mlforkids] ML4KidsImageTraining training complete');
-
               that._saveModel(projectid);
-
               that.PROJECTS[projectid].state = 'TRAINED';
               that.PROJECTS[projectid].usingRestoredModel = false;
               worker.postMessage({
@@ -1928,18 +1786,16 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
     key: "_getTensorForImageData",
     value: function _getTensorForImageData(_ref) {
       var imgdata = _ref.imgdata,
-          metadata = _ref.metadata;
+        metadata = _ref.metadata;
       return new Promise(function (resolve, reject) {
         var imgDataBlob = URL.createObjectURL(new Blob([imgdata]));
         var hiddenImg = document.createElement('img');
         hiddenImg.width = 224;
         hiddenImg.height = 224;
-
         hiddenImg.onerror = function (err) {
           console.log('[mlforkids] ML4KidsImageTraining failed to load image', err);
           return reject(err);
         };
-
         hiddenImg.onload = function () {
           var imageData = tf.tidy(function () {
             return tf.browser.fromPixels(hiddenImg).expandDims(0).toFloat().div(127).sub(1);
@@ -1950,15 +1806,12 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
           });
           URL.revokeObjectURL(imgDataBlob);
         };
-
         hiddenImg.src = imgDataBlob;
       });
     }
   }]);
-
   return ML4KidsImageTraining;
 }();
-
 module.exports = ML4KidsImageTraining;
 
 /***/ }),
@@ -1971,11 +1824,8 @@ module.exports = ML4KidsImageTraining;
 /***/ (function(module, exports) {
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
 var ML4KidsSoundTraining = /*#__PURE__*/function () {
   // states:
   //   INIT - not ready yet
@@ -1984,19 +1834,18 @@ var ML4KidsSoundTraining = /*#__PURE__*/function () {
   //   TRAINED - ML model ready for use
   //   LISTENING - ML model being used
   //   ERROR - something went wrong
+
   function ML4KidsSoundTraining() {
     _classCallCheck(this, ML4KidsSoundTraining);
-
     this.state = 'INIT';
     this.usingRestoredModel = false;
   }
-
   _createClass(ML4KidsSoundTraining, [{
     key: "init",
     value: function init(encprojectdata, worker) {
       var _this = this;
-
       // TODO this will break if there are multiple sound extensions open in Scratch - use multi-project approach from image-support class
+
       if (encprojectdata[0] === '{') {
         // additional info for using indexeddb to store/load models
         var projectData = JSON.parse(encprojectdata);
@@ -2007,12 +1856,12 @@ var ML4KidsSoundTraining = /*#__PURE__*/function () {
         // project id only means new models can be created only
         this.mlprojectid = encprojectdata;
       }
-
       tf.enableProdMode();
       this.stopListening = this.stopListening.bind(this);
       window.addEventListener('mlforkids-runtime-project-stop-all', this.stopListening);
       return this.loadSpeechCommands().then(function () {
-        return _this.initSoundSupport(true, worker); // })
+        return _this.initSoundSupport(true, worker);
+        // })
         // .then(() => {
         //     this._watchForNewModels(this.mlprojectid);
       });
@@ -2054,7 +1903,6 @@ var ML4KidsSoundTraining = /*#__PURE__*/function () {
     key: "initSoundSupport",
     value: function initSoundSupport(loadModelIfAvailable, worker) {
       var _this2 = this;
-
       var siteUrl = 'https://machinelearningforkids.co.uk' + '/static/bower_components' + '/tensorflow-models/speech-commands-scratch';
       var vocab = null;
       var modelJson = siteUrl + '/model.json';
@@ -2064,21 +1912,17 @@ var ML4KidsSoundTraining = /*#__PURE__*/function () {
       return baseRecognizer.ensureModelLoaded().then(function () {
         console.log('[mlforkids] Creating transfer learning model');
         _this2.transferRecognizer = baseRecognizer.createTransfer(_this2.mlprojectid);
-
         var modelInfo = _this2.transferRecognizer.modelInputShape();
-
         _this2.transferModelInfo = {
           numFrames: modelInfo[1],
           fftSize: modelInfo[2]
         };
-
         if (loadModelIfAvailable) {
           return _this2._loadModel(_this2.mlprojectid, _this2.mlprojectlabels, worker);
         }
       }).catch(function (err) {
         console.log('[mlforkids] ML4KidsSoundTraining failed init', err);
         _this2.state = 'ERROR';
-
         if (worker) {
           worker.postMessage({
             mlforkidssound: 'modelfailed'
@@ -2090,26 +1934,20 @@ var ML4KidsSoundTraining = /*#__PURE__*/function () {
     key: "trainNewModel",
     value: function trainNewModel(data, worker) {
       var _this3 = this;
-
       if (this.state === 'LISTENING') {
         this.stopListening();
       }
-
       if (this.state !== 'READY' && this.state !== 'TRAINED') {
         console.log('[mlforkids] ML4KidsSoundTraining not ready to train a new ML model - state : ' + this.state);
         return;
       }
-
       this.state = 'TRAINING';
       return this.prepareSoundService(worker).then(function () {
         _this3.transferRecognizer.dataset.clear();
-
         _this3.transferRecognizer.dataset.label2Ids = {};
         _this3.transferRecognizer.words = null;
-
         for (var i = 0; i < data.length; i++) {
           var trainingdataitem = data[i];
-
           _this3.transferRecognizer.dataset.addExample({
             label: trainingdataitem.label,
             spectrogram: {
@@ -2118,9 +1956,7 @@ var ML4KidsSoundTraining = /*#__PURE__*/function () {
             }
           });
         }
-
         _this3.transferRecognizer.collateTransferWords();
-
         return tf.nextFrame();
       }).then(function () {
         return _this3.transferRecognizer.train({
@@ -2150,22 +1986,18 @@ var ML4KidsSoundTraining = /*#__PURE__*/function () {
         console.log('[mlforkids] ML4KidsSoundTraining not ready to listen - state : ' + this.state);
         return;
       }
-
       console.log('[mlforkids] startListening');
-
       try {
         var that = this;
         this.transferRecognizer.listen(function (result) {
           var matches = [];
           var labels = that.transferRecognizer.wordLabels();
-
           for (var i = 0; i < result.scores.length; i++) {
             matches.push({
               class_name: labels[i],
               confidence: result.scores[i] * 100
             });
           }
-
           matches.sort(function (a, b) {
             return b.confidence - a.confidence;
           });
@@ -2190,9 +2022,7 @@ var ML4KidsSoundTraining = /*#__PURE__*/function () {
         console.log('[mlforkids] ML4KidsSoundTraining not listening - state : ' + this.state);
         return;
       }
-
       console.log('[mlforkids] stopListening');
-
       try {
         this.transferRecognizer.stopListening();
         this.state = 'TRAINED';
@@ -2211,14 +2041,10 @@ var ML4KidsSoundTraining = /*#__PURE__*/function () {
     key: "_saveModel",
     value: function _saveModel(projectid) {
       var _this4 = this;
-
       console.log('[mlforkids] ML4KidsSoundTraining saving model to browser storage');
-
       var savelocation = this._getModelDbLocation(projectid);
-
       this.transferRecognizer.save(savelocation).then(function (r) {
         console.log('[mlforkids] ML4KidsSoundTraining saved model', r);
-
         _this4._storeModelSavedDate(savelocation);
       }).catch(function (err) {
         console.log('[mlforkids] ML4KidsSoundTraining failed to save model', err);
@@ -2239,18 +2065,14 @@ var ML4KidsSoundTraining = /*#__PURE__*/function () {
     key: "_loadModel",
     value: function _loadModel(projectid, labels, worker) {
       var _this5 = this;
-
       if (labels) {
         console.log('[mlforkids] ML4KidsSoundTraining loading model from browser storage');
-
         var savelocation = this._getModelDbLocation(projectid);
-
         return this.transferRecognizer.load(savelocation).then(function () {
           _this5.transferRecognizer.words = labels;
           console.log('[mlforkids] ML4KidsSoundTraining loaded model from storage');
           _this5.state = 'TRAINED';
           _this5.usingRestoredModel = true;
-
           if (worker) {
             worker.postMessage({
               mlforkidssound: 'modelready'
@@ -2259,7 +2081,6 @@ var ML4KidsSoundTraining = /*#__PURE__*/function () {
         }).catch(function (err) {
           console.log('[mlforkids] ML4KidsSoundTraining failed to load model from storage', err);
           _this5.state = 'READY';
-
           if (worker) {
             worker.postMessage({
               mlforkidssound: 'modelinit'
@@ -2270,7 +2091,9 @@ var ML4KidsSoundTraining = /*#__PURE__*/function () {
         console.log('[mlforkids] ML4KidsSoundTraining unable to restore model from storage');
         this.state = 'READY';
       }
-    } // TODO - too risky for now... need to consider things like:
+    }
+
+    // TODO - too risky for now... need to consider things like:
     //   - what if the transferRecognizer is currently listening? do we need to stop listening first? notify extensions?
     // _watchForNewModels (projectid) {
     //     if (!this.modelWatcher) {
@@ -2286,12 +2109,9 @@ var ML4KidsSoundTraining = /*#__PURE__*/function () {
     //         });
     //     }
     // }
-
   }]);
-
   return ML4KidsSoundTraining;
 }();
-
 module.exports = ML4KidsSoundTraining;
 
 /***/ }),
@@ -2304,41 +2124,39 @@ module.exports = ML4KidsSoundTraining;
 /***/ (function(module, exports) {
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
 var ML4KidsTensorFlow = /*#__PURE__*/function () {
   // This component needs to support multiple instances of the model
   //  extension being used at once, so all state and models are
   //  indexed by a unique request id
+
   // PROJECTS[projectid].modelClasses = <label1/label2/label3/...>
   // PROJECTS[projectid].modelNumClasses = <number of modelClasses>
   // PROJECTS[projectid].dataType = teachablemachineimage
   // PROJECTS[projectid].state = INIT/READY/TRAINED/ERROR
   // PROJECTS[projectid].model = <model>
+
   // states:
   //   INIT - not ready yet
   //   READY - ready for training
   //   TRAINED - ML model ready for use
   //   ERROR - something went wrong
+
   function ML4KidsTensorFlow() {
     _classCallCheck(this, ML4KidsTensorFlow);
-
     this.PROJECTS = {};
     this.state = 'INIT';
     tf.enableProdMode();
-  } // encprojectdata
+  }
+
+  // encprojectdata
   // JSON.stringify-ed version of
   //   { projectid : someprojectid, labels : [ labelA, labelB, labelC ], dataType : IMAGE, modelurl : http://somedomain... }
-
-
   _createClass(ML4KidsTensorFlow, [{
     key: "initProject",
     value: function initProject(encprojectdata, worker) {
       var _this = this;
-
       var projectData = JSON.parse(encprojectdata);
       var projectid = projectData.projectid;
       var modellocation = projectData.modelurl;
@@ -2349,18 +2167,14 @@ var ML4KidsTensorFlow = /*#__PURE__*/function () {
       this.PROJECTS[projectid].modelNumClasses = projectData.labels.length;
       this.PROJECTS[projectid].dataType = projectData.dataType;
       var loadModelPromise;
-
       if (this.PROJECTS[projectid].dataType === 'graphdefimage') {
         var loadModelOptions = {};
-
         if (modellocation.startsWith('https://tfhub.dev')) {
           loadModelOptions.fromTFHub = true;
         }
-
         if (this.urlEndsWith(modellocation, '/model.json')) {
           modellocation = modellocation.substr(0, modellocation.length - '/model.json'.length);
         }
-
         console.log('[mlforkids] loading graph model', modellocation, loadModelOptions);
         loadModelPromise = tf.loadGraphModel(modellocation, loadModelOptions);
       } else if (this.PROJECTS[projectid].dataType === 'teachablemachinepose') {
@@ -2374,7 +2188,6 @@ var ML4KidsTensorFlow = /*#__PURE__*/function () {
         console.log('[mlforkids] loading layers model', modellocation);
         loadModelPromise = tf.loadLayersModel(modellocation);
       }
-
       return loadModelPromise.then(function (model) {
         _this.PROJECTS[projectid].model = model;
         _this.PROJECTS[projectid].state = 'TRAINED';
@@ -2410,15 +2223,15 @@ var ML4KidsTensorFlow = /*#__PURE__*/function () {
       } else {
         return 0;
       }
-    } // encrequest
+    }
+
+    // encrequest
     // JSON.stringify-ed version of
     //   { projectid : projectId, requestid : requestId, requestdata : somethingtouse }
-
   }, {
     key: "classifyData",
     value: function classifyData(encrequest, worker) {
       var _this2 = this;
-
       var requestData = JSON.parse(encrequest);
       var projectid = requestData.projectid;
       var requestid = requestData.requestid;
@@ -2430,7 +2243,6 @@ var ML4KidsTensorFlow = /*#__PURE__*/function () {
         }
       }).then(function (output) {
         var matches;
-
         if (_this2.PROJECTS[projectid].dataType === 'teachablemachinepose') {
           matches = output.sort(_this2.sortByConfidence);
         } else {
@@ -2444,18 +2256,15 @@ var ML4KidsTensorFlow = /*#__PURE__*/function () {
           } else {
             // label names aren't known, so we just have to refer to them by idx
             var anonScores = new Array(output.length);
-
             for (var idx = 0; idx < output.length; idx++) {
               anonScores[idx] = {
                 class_name: 'label ' + idx,
                 confidence: 100 * output[idx]
               };
             }
-
             matches = anonScores.sort(_this2.sortByConfidence);
           }
         }
-
         return worker.postMessage({
           mlforkidstensorflow: 'classifyresponse',
           data: {
@@ -2468,7 +2277,6 @@ var ML4KidsTensorFlow = /*#__PURE__*/function () {
         if (err) {
           console.log('[mlforkids] ML4KidsTensorFlow error', err);
         }
-
         return worker.postMessage({
           mlforkidstensorflow: 'classifyresponse',
           data: {
@@ -2482,30 +2290,25 @@ var ML4KidsTensorFlow = /*#__PURE__*/function () {
     key: "_prepareDataForClassification",
     value: function _prepareDataForClassification(projectid, classifydata) {
       var _this3 = this;
-
       return new Promise(function (resolve, reject) {
         if (projectid in _this3.PROJECTS) {
           if (_this3.PROJECTS[projectid].state !== 'TRAINED') {
             console.log('[mlforkids] ML4KidsTensorFlow received classify request before a model is ready');
             return reject();
           }
-
           if (_this3.PROJECTS[projectid].dataType === 'teachablemachineimage' || _this3.PROJECTS[projectid].dataType === 'graphdefimage') {
             var imageElement = document.createElement('img');
             imageElement.width = 224;
             imageElement.height = 224;
-
             imageElement.onerror = function (err) {
               console.log('[mlforkids] ML4KidsTensorFlow failed to prepare image data for prediction', err);
               return reject();
             };
-
             imageElement.onload = function () {
               return resolve(tf.tidy(function () {
                 return tf.browser.fromPixels(imageElement).expandDims(0).toFloat().div(127).sub(1);
               }));
             };
-
             imageElement.src = 'data:image/jpeg;base64,' + classifydata;
           } else if (_this3.PROJECTS[projectid].dataType === 'teachablemachinepose') {
             _this3.teachableMachinePoseIframe.contentWindow.createImage(classifydata, resolve);
@@ -2524,7 +2327,6 @@ var ML4KidsTensorFlow = /*#__PURE__*/function () {
       return new Promise(function (resolve) {
         var id = 'mlforkids-iframe-posenet';
         var iframeObj = document.getElementById(id);
-
         if (iframeObj) {
           console.log('[mlforkids] Posenet already loaded');
           resolve(iframeObj);
@@ -2534,20 +2336,16 @@ var ML4KidsTensorFlow = /*#__PURE__*/function () {
           iframeObj.id = id;
           iframeObj.type = 'text/javascript';
           iframeObj.src = 'teachablemachinepose.html';
-
           iframeObj.onload = function () {
             resolve(iframeObj);
           };
-
           document.head.appendChild(iframeObj);
         }
       });
     }
   }]);
-
   return ML4KidsTensorFlow;
 }();
-
 module.exports = ML4KidsTensorFlow;
 
 /***/ }),
@@ -2560,7 +2358,6 @@ module.exports = ML4KidsTensorFlow;
 /***/ (function(module, exports, __webpack_require__) {
 
 var minilog = __webpack_require__(/*! minilog */ "./node_modules/scratch-vm/node_modules/minilog/lib/web/index.js");
-
 minilog.enable();
 module.exports = minilog('vm');
 
