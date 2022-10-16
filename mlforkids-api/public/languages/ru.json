@@ -882,10 +882,10 @@
         }
     },
     "MAKES": {
-        "TITLE": "Make something with your machine learning model",
-        "SCRATCH3": "Use your machine learning model in Scratch",
-        "PYTHON": "Write Python code to use your machine learning model",
-        "APPINVENTOR": "Make a mobile app for your phone or tablet"
+        "TITLE": "Создайте что-нибудь с помощью вашей модели машинного обучения",
+        "SCRATCH3": "Используйте свою модель машинного обучения в Scratch",
+        "PYTHON": "Напишите код на Python для того, чтобы использовать вашу модель машинного обучения",
+        "APPINVENTOR": "Создайте мобильное приложение для своего телефона или планшета"
     },
     "PYTHON": {
         "TITLE": "Using machine learning in Python",
@@ -1628,58 +1628,58 @@
     },
     "SCRATCHBLOCKS": {
         "TEXT_PROJECTS": {
-            "mlforkids.text.recogniseLabel": "recognise text [TEXT] (label)",
-            "mlforkids.text.recogniseConfidence": "recognise text [TEXT] (confidence)",
-            "mlforkids.text.addTraining": "add training data [TEXT] [LABEL]",
-            "mlforkids.text.trainNewModel": "train new machine learning model",
-            "mlforkids.text.checkModelStatus": "Is the machine learning model [STATUS] ?"
+            "mlforkids.text.recogniseLabel": "распознать текст [TEXT] (метка)",
+            "mlforkids.text.recogniseConfidence": "распознать текст [TEXT] (точность)",
+            "mlforkids.text.addTraining": "добавить данные для обучения [TEXT] [LABEL]",
+            "mlforkids.text.trainNewModel": "обучить новую ML-модель",
+            "mlforkids.text.checkModelStatus": "Статус модели [STATUS] ?"
         },
         "IMAGES_PROJECTS": {
-            "mlforkids.images.recogniseLabel": "recognise image [IMAGE] (label)",
-            "mlforkids.images.recogniseConfidence": "recognise image [IMAGE] (confidence)",
-            "mlforkids.images.addTraining": "add training data [TEXT] [LABEL]"
+            "mlforkids.images.recogniseLabel": "распознать изображение [IMAGE] (метка)",
+            "mlforkids.images.recogniseConfidence": "распознать изображение [IMAGE] (точность)",
+            "mlforkids.images.addTraining": "добавить данные для обучения [TEXT] [LABEL]"
         },
         "NUMBER_PROJECTS": {
-            "mlforkids.numbers.trainNewModel": "train new machine learning model"
+            "mlforkids.numbers.trainNewModel": "обучить новую ML-модель"
         },
         "SOUND_PROJECTS": {
-            "mlforkids.sounds.startListening": "start listening",
-            "mlforkids.sounds.stopListening": "stop listening"
+            "mlforkids.sounds.startListening": "начать слушать",
+            "mlforkids.sounds.stopListening": "перестать слушать"
         },
         "TWITTER": {
-            "mlforkids.twitter.getrecenttweet": "get the [INDEX] most recent tweet about [TOPIC]"
+            "mlforkids.twitter.getrecenttweet": "получить [INDEX] последних твитов о [TOPIC]"
         },
         "FACE": {
-            "mlforkids.face.size": "size of [LANDMARK]",
-            "mlforkids.face.xlocation": "x coord of [LANDMARK]",
-            "mlforkids.face.ylocation": "y coord of [LANDMARK]"
+            "mlforkids.face.size": "размер [LANDMARK] [SOURCE]",
+            "mlforkids.face.xlocation": "координата x [LANDMARK] [SOURCE]",
+            "mlforkids.face.ylocation": "координата y [LANDMARK] [SOURCE]"
         },
         "POSENET": {
-            "mlforkids.posenet.getposition": "find [POSITION] of [LANDMARK]"
+            "mlforkids.posenet.getposition": "определить [POSITION] [LANDMARK] [SOURCE]"
         },
         "HANDPOSE": {
-            "mlforkids.handpose.getposition": "find [POSITION] of [LANDMARK]"
+            "mlforkids.handpose.getposition": "определить [POSITION] [LANDMARK] [SOURCE]"
         },
         "QNA": {
-            "mlforkids.qna.getTopAnswer": "find answer to [QUESTION] in [PASSAGE]"
+            "mlforkids.qna.getTopAnswer": "найти ответ на [QUESTION] в [PASSAGE]"
         },
         "TOXICITY": {
-            "mlforkids.toxicity.confidencetrue": "probability that [TEXT] is [LABEL]",
-            "mlforkids.toxicity.confidencefalse": "probability that [TEXT] is NOT [LABEL]"
+            "mlforkids.toxicity.confidencetrue": "вероятность того, что [TEXT] является [LABEL]",
+            "mlforkids.toxicity.confidencefalse": "вероятность того, что [TEXT] не является [LABEL]"
         },
         "WIKIPEDIA": {
-            "mlforkids.wikipedia.getpagetext": "Wikipedia text about [TOPIC]"
+            "mlforkids.wikipedia.getpagetext": "текст из Wikipedia о [TOPIC]"
         },
         "IMAGE_BLOCKS": {
-            "mlforkids.imageblocks.getCostumeImage": "costume image",
-            "mlforkids.imageblocks.getBackdropCostumeImage": "backdrop image",
-            "mlforkids.imageblocks.getBackdropImage": "backdrop image",
-            "mlforkids.imageblocks.saveScreenshotToCostume": "save screenshot to costume"
+            "mlforkids.imageblocks.getCostumeImage": "картинка из костюма",
+            "mlforkids.imageblocks.getBackdropCostumeImage": "картинка из фона",
+            "mlforkids.imageblocks.getBackdropImage": "картинка из фона",
+            "mlforkids.imageblocks.saveScreenshotToCostume": "сохранить скриншот в костюм"
         },
         "GUI": {
-            "gui.menuBar.ml4kidssharing": "Share",
-            "gui.menuBar.mlforkidsstartrecording": "Start recording the Stage",
-            "gui.menuBar.mlforkidsstoprecording": "Stop recording the Stage",
+            "gui.menuBar.ml4kidssharing": "Поделиться",
+            "gui.menuBar.mlforkidsstartrecording": "Начать запись Сцены",
+            "gui.menuBar.mlforkidsstoprecording": "Остановить запись Сцены",
             "gui.menuBar.mlforkidsLibrary": "Шаблоны проектов",
             "gui.mlforkidsLibrary.templates": "Машинное обучение для детей - шаблоны проектов"
         }
