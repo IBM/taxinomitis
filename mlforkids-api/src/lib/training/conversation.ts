@@ -658,7 +658,7 @@ export async function identifyRegion(username: string, password: string): Promis
         'https://api.eu-de.assistant.watson.cloud.ibm.com',
         'https://api.au-syd.assistant.watson.cloud.ibm.com',
         'https://api.jp-tok.assistant.watson.cloud.ibm.com',
-        'https://api.kr-seo.assistant.watson.cloud.ibm.com',
+        // 'https://api.kr-seo.assistant.watson.cloud.ibm.com',
     ];
 
     let lastErr: Error = new Error('Failed to verify credentials');
