@@ -652,7 +652,6 @@ export async function identifyRegion(username: string, password: string): Promis
 
 
     const POSSIBLE_URLS = [
-        // new URLs
         'https://api.us-south.assistant.watson.cloud.ibm.com',
         'https://api.us-east.assistant.watson.cloud.ibm.com',
         'https://api.eu-gb.assistant.watson.cloud.ibm.com',
@@ -660,16 +659,6 @@ export async function identifyRegion(username: string, password: string): Promis
         'https://api.au-syd.assistant.watson.cloud.ibm.com',
         'https://api.jp-tok.assistant.watson.cloud.ibm.com',
         'https://api.kr-seo.assistant.watson.cloud.ibm.com',
-
-        // old URLs - being decommissioned 26th May 2021
-        'https://gateway.watsonplatform.net/assistant/api',
-        'https://gateway-wdc.watsonplatform.net/assistant/api',
-        'https://gateway-syd.watsonplatform.net/assistant/api',
-        'https://gateway-fra.watsonplatform.net/assistant/api',
-        'https://gateway-tok.watsonplatform.net/assistant/api',
-        'https://gateway-lon.watsonplatform.net/assistant/api',
-        'https://gateway-seo.watsonplatform.net/assistant/api',
-        'https://gateway.watsonplatform.net/conversation/api',
     ];
 
     let lastErr: Error = new Error('Failed to verify credentials');
