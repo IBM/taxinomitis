@@ -1,0 +1,140 @@
+.storiessection {
+    padding-bottom: 3em;
+}
+.storiessection .intro {
+    font-size: 1.2em;
+    margin-bottom: 1em;
+    padding: 1em;
+}
+.storiessection .intro .print-icon {
+    float: left;
+    font-size: 1.4em;
+    display: inline-table;
+    text-align: center;
+    min-width: 50px;
+    margin-right: 10px;
+    cursor: pointer;
+    border-radius: 6px;
+    border: thin solid #808080;
+}
+.storiessection .intro .print-icon .label {
+    font-size: 0.3em;
+    margin: 0 4px;
+}
+.storiessection .intro.menu {
+    display: flex;
+    flex-direction: column;
+}
+.storiessection .navigation .storiestitle {
+    font-weight: 300;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    flex-grow: 1;
+    padding-right: 10px;
+    margin-left: 1em;
+}
+@media (max-width: 700px) {
+    .storiessection .navigation .storiestitle {
+        font-size: 1em;
+    }
+}
+@media (min-width: 701px) {
+    .storiessection .navigation .storiestitle {
+        font-size: 1.3em;
+        margin-top: 7px;
+        white-space: nowrap;
+    }
+}
+@media (max-width: 660px) {
+    .storiessection .navigation .storiesprint {
+        display: none;
+    }
+}
+
+.storiessection .navigation {
+    display: flex;
+    flex-flow: row;
+    background-color: #e7e7e7;
+    margin-left: 1em;
+    margin-right: 1em;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
+}
+.storiessection .navigation .storieslist,.previousstory,.nextstory,.storiesprint {
+    font-size: 2em;
+}
+.storiessection .navigation .glyphicon {
+    margin-top: -10px;
+    cursor: pointer;
+}
+.storiessection .navigation .storieslist {
+    margin: 0 1em;
+}
+.storiessection .story {
+    margin: 1em;
+}
+.storiessection .story .videolink {
+    float: left;
+    margin: 0.2em 0.8em;
+    font-size: 2em;
+    display: inline-table;
+    text-align: center;
+    min-width: 80px;
+
+    border-radius: 10px;
+    border: 2px solid #303030;
+}
+.storiessection .story .videolink .glyphicon {
+    margin-top: -10px;
+}
+.storiessection .story .storytext {
+    text-align: justify;
+}
+.storiessection .story .storytext .screenshot {
+    border: thin black solid;
+    margin: 10px;
+    width: 450px;
+    max-width: 95%;
+}
+.storiessection .story .storytext .screenshot.left {
+    float: left;
+}
+.storiessection .story .storytext .screenshot.right {
+    float: right;
+}
+.storiessection .video {
+    padding-top: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    height: 450px;
+    background-color: yellow;
+    margin-bottom: 4em;
+    clear: both;
+}
+
+.storiessection .separator {
+    margin: 0 15px;
+    clear: both;
+}
+.storiessection hr {
+    border-bottom: thin black solid;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+}
+
+@media print {
+    .hidden-print {
+        display: none !important;
+    }
+}
+
+.storylistbutton {
+    text-transform: none !important;
+}
+.storylist {
+    padding: 1em;
+}

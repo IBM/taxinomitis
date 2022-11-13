@@ -203,6 +203,11 @@
                 url: '/links',
                 templateUrl: 'static/components/links/links.html#top'
             })
+            .state('stories', {
+                url: '/stories/:storyId',
+                controller: 'StoriesController',
+                templateUrl: 'static/components/stories/stories.html'
+            })
             .state('pretrained', {
                 url: '/pretrained',
                 controller: 'PretrainedController',

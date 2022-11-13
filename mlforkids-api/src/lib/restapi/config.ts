@@ -159,6 +159,7 @@ export function setupUI(app: express.Application): void {
     app.get('/apikeys-guide', (req, res) => { res.redirect('/#!/apikeys-guide'); });
     app.get('/pretrained', (req, res) => { res.redirect('/#!/pretrained'); });
     app.get('/book', (req, res) => { res.redirect('/#!/book'); });
+    app.get('/stories', (req, res) => { res.redirect('/#!/stories/intro'); });
 
     const indexHtml: string = path.join(__dirname, '/../../../web/dynamic');
     app.use('/', compression(), express.static(indexHtml, { maxAge : constants.ONE_HOUR }));
