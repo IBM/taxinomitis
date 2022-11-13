@@ -33,6 +33,11 @@
     padding-right: 10px;
     margin-left: 1em;
 }
+.storiessection .navigation .storiestitle .storycounter {
+    font-size: 0.6em;
+    vertical-align: super;
+    margin-right: 3px;
+}
 @media (max-width: 700px) {
     .storiessection .navigation .storiestitle {
         font-size: 1em;
@@ -97,6 +102,7 @@
     margin: 10px;
     width: 450px;
     max-width: 95%;
+    min-height: 245px;
 }
 .storiessection .story .storytext .screenshot.left {
     float: left;

@@ -45,7 +45,7 @@
         <div class="storiesprint hidden-print">
             <md-icon class="glyphicon glyphicon-print" aria-label="print stories" ng-click="print()"></md-icon>
         </div>
-        <div class="storiestitle" translate="STORIES.MLHASNTREPLACEDCODING.TITLE"></div>
+        <div class="storiestitle"><span class="storycounter">(1/15)</span> {{ "STORIES.MLHASNTREPLACEDCODING.TITLE" | translate }}</div>
         <div class="nextstory hidden-print" ng-click="changePage(pageNum + 1)">
             <md-icon class="glyphicon glyphicon-chevron-right" aria-label="next story"></md-icon>
         </div>
@@ -56,13 +56,13 @@
         </div>
         <div class="storytext">
             <p translate="STORIES.MLHASNTREPLACEDCODING.TEXT1"></p>
-            <img class="screenshot left" src="/static/images/project-describetheglass.png" />
+            <iframe class="hidden-print screenshot right" src="https://www.youtube.com/embed/RTEqH03w3co" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <p translate="STORIES.MLHASNTREPLACEDCODING.TEXT2"></p>
-            <img class="screenshot right" src="/static/images/project-describetheglass.png" />
+            <iframe class="hidden-print screenshot left" src="https://www.youtube.com/embed/6_dMG-M3HBI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <p translate="STORIES.MLHASNTREPLACEDCODING.TEXT3"></p>
             <p translate="STORIES.MLHASNTREPLACEDCODING.TEXT4"></p>
             <p translate="STORIES.MLHASNTREPLACEDCODING.TEXT5"></p>
-            <p>
+            <p style="clear: both;">
                 <a ng-click="downloadWorksheet($event, 'facefinder')" class="btn btn-primary">
                     <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
                 </a>
@@ -87,7 +87,7 @@
         <div class="storiesprint hidden-print">
             <md-icon class="glyphicon glyphicon-print" aria-label="print stories" ng-click="print()"></md-icon>
         </div>
-        <div class="storiestitle" translate="STORIES.MLWORKFLOW.TITLE"></div>
+        <div class="storiestitle"><span class="storycounter">(2/15)</span> {{ "STORIES.MLWORKFLOW.TITLE" | translate }}</div>
         <div class="nextstory hidden-print" ng-click="changePage(pageNum + 1)">
             <md-icon class="glyphicon glyphicon-chevron-right" aria-label="next story"></md-icon>
         </div>
@@ -100,7 +100,7 @@
             <p translate="STORIES.MLWORKFLOW.TEXT1"></p>
             <p translate="STORIES.MLWORKFLOW.TEXT2"></p>
             <p translate="STORIES.MLWORKFLOW.TEXT3"></p>
-            <img class="screenshot right" src="/static/images/project-smartclassroom.png" />
+            <iframe class="hidden-print screenshot right" src="https://www.youtube.com/embed/7gT0tvnWw6o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <p translate="STORIES.MLWORKFLOW.TEXT4"></p>
             <p translate="STORIES.MLWORKFLOW.TEXT5"></p>
             <p translate="STORIES.MLWORKFLOW.TEXT6"></p>
@@ -131,7 +131,7 @@
         <div class="storiesprint hidden-print">
             <md-icon class="glyphicon glyphicon-print" aria-label="print stories" ng-click="print()"></md-icon>
         </div>
-        <div class="storiestitle" translate="STORIES.TRAININGQUANTITY.TITLE"></div>
+        <div class="storiestitle"><span class="storycounter">(3/15)</span> {{ "STORIES.TRAININGQUANTITY.TITLE" | translate }}</div>
         <div class="nextstory hidden-print" ng-click="changePage(pageNum + 1)">
             <md-icon class="glyphicon glyphicon-chevron-right" aria-label="next story"></md-icon>
         </div>
@@ -144,7 +144,7 @@
             <p translate="STORIES.TRAININGQUANTITY.TEXT1"></p>
             <p translate="STORIES.TRAININGQUANTITY.TEXT2"></p>
             <p translate="STORIES.TRAININGQUANTITY.TEXT3"></p>
-            <img class="screenshot right" src="/static/images/project-pacman.png" />
+            <iframe class="hidden-print screenshot right" src="https://www.youtube.com/embed/aAaWz7NeMSo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <p translate="STORIES.TRAININGQUANTITY.TEXT4"></p>
             <p translate="STORIES.TRAININGQUANTITY.TEXT5"></p>
             <p translate="STORIES.TRAININGQUANTITY.TEXT6"></p>
@@ -178,7 +178,7 @@
         <div class="storiesprint hidden-print">
             <md-icon class="glyphicon glyphicon-print" aria-label="print stories" ng-click="print()"></md-icon>
         </div>
-        <div class="storiestitle" translate="STORIES.CROWDSOURCING.TITLE"></div>
+        <div class="storiestitle"><span class="storycounter">(4/15)</span> {{ "STORIES.CROWDSOURCING.TITLE" | translate }}</div>
         <div class="nextstory hidden-print" ng-click="changePage(pageNum + 1)">
             <md-icon class="glyphicon glyphicon-chevron-right" aria-label="next story"></md-icon>
         </div>
@@ -239,7 +239,7 @@
         <div class="storiesprint hidden-print">
             <md-icon class="glyphicon glyphicon-print" aria-label="print stories" ng-click="print()"></md-icon>
         </div>
-        <div class="storiestitle" translate="STORIES.TESTDATA.TITLE"></div>
+        <div class="storiestitle"><span class="storycounter">(5/15)</span> {{ "STORIES.TESTDATA.TITLE" | translate }}</div>
         <div class="nextstory hidden-print" ng-click="changePage(pageNum + 1)">
             <md-icon class="glyphicon glyphicon-chevron-right" aria-label="next story"></md-icon>
         </div>
@@ -255,6 +255,7 @@
             <p translate="STORIES.TESTDATA.TEXT4"></p>
             <p translate="STORIES.TESTDATA.TEXT5"></p>
             <p translate="STORIES.TESTDATA.TEXT6"></p>
+            <iframe class="hidden-print screenshot right" src="https://www.youtube.com/embed/sUgPL3AXDxg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <p translate="STORIES.TESTDATA.TEXT7"></p>
             <p translate="STORIES.TESTDATA.TEXT8"></p>
             <p translate="STORIES.TESTDATA.TEXT9"></p>
@@ -290,7 +291,7 @@
         <div class="storiesprint hidden-print">
             <md-icon class="glyphicon glyphicon-print" aria-label="print stories" ng-click="print()"></md-icon>
         </div>
-        <div class="storiestitle" translate="STORIES.NOTJUSTINTENTS.TITLE"></div>
+        <div class="storiestitle"><span class="storycounter">(6/15)</span> {{ "STORIES.NOTJUSTINTENTS.TITLE" | translate }}</div>
         <div class="nextstory hidden-print" ng-click="changePage(pageNum + 1)">
             <md-icon class="glyphicon glyphicon-chevron-right" aria-label="next story"></md-icon>
         </div>
@@ -303,7 +304,8 @@
             <p translate="STORIES.NOTJUSTINTENTS.TEXT1"></p>
             <p translate="STORIES.NOTJUSTINTENTS.TEXT2"></p>
             <p translate="STORIES.NOTJUSTINTENTS.TEXT3"></p>
-            <p>
+            <iframe class="hidden-print screenshot right" src="https://www.youtube.com/embed/omramg8B_4w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <p style="clear: both;">
                 <a ng-click="downloadWorksheet($event, 'makemehappy')" class="btn btn-primary">
                     <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
                 </a>
@@ -328,7 +330,7 @@
         <div class="storiesprint hidden-print">
             <md-icon class="glyphicon glyphicon-print" aria-label="print stories" ng-click="print()"></md-icon>
         </div>
-        <div class="storiestitle" translate="STORIES.COLLECTINGERRORS.TITLE"></div>
+        <div class="storiestitle"><span class="storycounter">(7/15)</span> {{ "STORIES.COLLECTINGERRORS.TITLE" | translate }}</div>
         <div class="nextstory hidden-print" ng-click="changePage(pageNum + 1)">
             <md-icon class="glyphicon glyphicon-chevron-right" aria-label="next story"></md-icon>
         </div>
@@ -345,6 +347,7 @@
             <p translate="STORIES.COLLECTINGERRORS.TEXT5"></p>
             <p translate="STORIES.COLLECTINGERRORS.TEXT6"></p>
             <p translate="STORIES.COLLECTINGERRORS.TEXT7"></p>
+            <iframe class="hidden-print screenshot left" src="https://www.youtube.com/embed/aQ5LoMoZNtM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <p translate="STORIES.COLLECTINGERRORS.TEXT8"></p>
             <p translate="STORIES.COLLECTINGERRORS.TEXT9"></p>
             <p translate="STORIES.COLLECTINGERRORS.TEXT10"></p>
@@ -385,7 +388,7 @@
         <div class="storiesprint hidden-print">
             <md-icon class="glyphicon glyphicon-print" aria-label="print stories" ng-click="print()"></md-icon>
         </div>
-        <div class="storiestitle" translate="STORIES.CONFIDENCESCORES.TITLE"></div>
+        <div class="storiestitle"><span class="storycounter">(8/15)</span> {{ "STORIES.CONFIDENCESCORES.TITLE" | translate }}</div>
         <div class="nextstory hidden-print" ng-click="changePage(pageNum + 1)">
             <md-icon class="glyphicon glyphicon-chevron-right" aria-label="next story"></md-icon>
         </div>
@@ -399,6 +402,7 @@
             <p translate="STORIES.CONFIDENCESCORES.TEXT2"></p>
             <p translate="STORIES.CONFIDENCESCORES.TEXT3"></p>
             <p translate="STORIES.CONFIDENCESCORES.TEXT4"></p>
+            <iframe class="hidden-print screenshot left" src="https://www.youtube.com/embed/qk8LNVe3m3s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <p translate="STORIES.CONFIDENCESCORES.TEXT5"></p>
             <p translate="STORIES.CONFIDENCESCORES.TEXT6"></p>
             <p translate="STORIES.CONFIDENCESCORES.TEXT7"></p>
@@ -432,7 +436,7 @@
         <div class="storiesprint hidden-print">
             <md-icon class="glyphicon glyphicon-print" aria-label="print stories" ng-click="print()"></md-icon>
         </div>
-        <div class="storiestitle" translate="STORIES.BLACKBOX.TITLE"></div>
+        <div class="storiestitle"><span class="storycounter">(9/15)</span> {{ "STORIES.BLACKBOX.TITLE" | translate }}</div>
         <div class="nextstory hidden-print" ng-click="changePage(pageNum + 1)">
             <md-icon class="glyphicon glyphicon-chevron-right" aria-label="next story"></md-icon>
         </div>
@@ -493,7 +497,7 @@
         <div class="storiesprint hidden-print">
             <md-icon class="glyphicon glyphicon-print" aria-label="print stories" ng-click="print()"></md-icon>
         </div>
-        <div class="storiestitle" translate="STORIES.CONFUSED.TITLE"></div>
+        <div class="storiestitle"><span class="storycounter">(10/15)</span> {{ "STORIES.CONFUSED.TITLE" | translate }}</div>
         <div class="nextstory hidden-print" ng-click="changePage(pageNum + 1)">
             <md-icon class="glyphicon glyphicon-chevron-right" aria-label="next story"></md-icon>
         </div>
@@ -522,6 +526,7 @@
             <p translate="STORIES.CONFUSED.TEXT17"></p>
             <p translate="STORIES.CONFUSED.TEXT18"></p>
             <p translate="STORIES.CONFUSED.TEXT19"></p>
+            <iframe class="hidden-print screenshot left" src="https://www.youtube.com/embed/DLr-5Y9r_RI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <p translate="STORIES.CONFUSED.TEXT20"></p>
             <p translate="STORIES.CONFUSED.TEXT21"></p>
             <p translate="STORIES.CONFUSED.TEXT22"></p>
@@ -547,7 +552,7 @@
         <div class="storiesprint hidden-print">
             <md-icon class="glyphicon glyphicon-print" aria-label="print stories" ng-click="print()"></md-icon>
         </div>
-        <div class="storiestitle" translate="STORIES.LEARNINGWRONGTHING.TITLE"></div>
+        <div class="storiestitle"><span class="storycounter">(11/15)</span> {{ "STORIES.LEARNINGWRONGTHING.TITLE" | translate }}</div>
         <div class="nextstory hidden-print" ng-click="changePage(pageNum + 1)">
             <md-icon class="glyphicon glyphicon-chevron-right" aria-label="next story"></md-icon>
         </div>
@@ -601,7 +606,7 @@
         <div class="storiesprint hidden-print">
             <md-icon class="glyphicon glyphicon-print" aria-label="print stories" ng-click="print()"></md-icon>
         </div>
-        <div class="storiestitle" translate="STORIES.BIAS.TITLE"></div>
+        <div class="storiestitle"><span class="storycounter">(12/15)</span> {{ "STORIES.BIAS.TITLE" | translate }}</div>
         <div class="nextstory hidden-print" ng-click="changePage(pageNum + 1)">
             <md-icon class="glyphicon glyphicon-chevron-right" aria-label="next story"></md-icon>
         </div>
@@ -651,6 +656,7 @@
             <p translate="STORIES.BIAS.TEXT38"></p>
             <p translate="STORIES.BIAS.TEXT39"></p>
             <p translate="STORIES.BIAS.TEXT40"></p>
+            <iframe class="hidden-print screenshot left" src="https://www.youtube.com/embed/zFshnbF-wqM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <p translate="STORIES.BIAS.TEXT41"></p>
             <p translate="STORIES.BIAS.TEXT42"></p>
             <p translate="STORIES.BIAS.TEXT43"></p>
@@ -679,7 +685,7 @@
         <div class="storiesprint hidden-print">
             <md-icon class="glyphicon glyphicon-print" aria-label="print stories" ng-click="print()"></md-icon>
         </div>
-        <div class="storiestitle" translate="STORIES.SOLUTIONS.TITLE"></div>
+        <div class="storiestitle"><span class="storycounter">(13/15)</span> {{ "STORIES.SOLUTIONS.TITLE" | translate }}</div>
         <div class="nextstory hidden-print" ng-click="changePage(pageNum + 1)">
             <md-icon class="glyphicon glyphicon-chevron-right" aria-label="next story"></md-icon>
         </div>
@@ -696,7 +702,9 @@
                 </a>
             </p>
 
-            <p>
+            <iframe class="hidden-print screenshot left" src="https://www.youtube.com/embed/kEQtoqwyI04" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+            <p style="clear: both;">
                 <a ng-click="downloadWorksheet($event, 'lasereyes')" class="btn btn-primary">
                     <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
                 </a>
@@ -722,7 +730,7 @@
         <div class="storiesprint hidden-print">
             <md-icon class="glyphicon glyphicon-print" aria-label="print stories" ng-click="print()"></md-icon>
         </div>
-        <div class="storiestitle" translate="STORIES.MISUSING.TITLE"></div>
+        <div class="storiestitle"><span class="storycounter">(14/15)</span> {{ "STORIES.MISUSING.TITLE" | translate }}</div>
         <div class="nextstory hidden-print" ng-click="changePage(pageNum + 1)">
             <md-icon class="glyphicon glyphicon-chevron-right" aria-label="next story"></md-icon>
         </div>
@@ -758,7 +766,7 @@
         <div class="storiesprint hidden-print">
             <md-icon class="glyphicon glyphicon-print" aria-label="print stories" ng-click="print()"></md-icon>
         </div>
-        <div class="storiestitle" translate="STORIES.INVISIBLEAI.TITLE"></div>
+        <div class="storiestitle"><span class="storycounter">(15/15)</span> {{ "STORIES.INVISIBLEAI.TITLE" | translate }}</div>
         <div class="nextstory hidden-print" ng-click="changePage(pageNum + 1)" ng-hide="true">
             <md-icon class="glyphicon glyphicon-chevron-right" aria-label="next story"></md-icon>
         </div>
@@ -772,6 +780,7 @@
             <p translate="STORIES.INVISIBLEAI.TEXT2"></p>
             <p translate="STORIES.INVISIBLEAI.TEXT3"></p>
             <p translate="STORIES.INVISIBLEAI.TEXT4"></p>
+            <iframe class="hidden-print screenshot left" src="https://www.youtube.com/embed/sKaXHEkbFjo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <p translate="STORIES.INVISIBLEAI.TEXT5"></p>
             <p translate="STORIES.INVISIBLEAI.TEXT6"></p>
             <p translate="STORIES.INVISIBLEAI.TEXT7"></p>

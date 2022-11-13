@@ -33,7 +33,8 @@
         $scope.pageId = $stateParams.storyId;
         $scope.pageNum = pageIds.indexOf($stateParams.storyId);
 
-        if ($scope.pageNum === -1) {
+        if ($scope.pageNum < 0) {
+            $scope.pageNum = -1;
             $scope.pageId = 'intro';
         }
 
