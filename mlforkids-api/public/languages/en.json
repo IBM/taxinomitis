@@ -2145,7 +2145,7 @@
             "TEXT4": "If left to experiment and encouraged to compare their projects, students often notice differences in the way that their different projects behave.",
             "TEXT5": "Projects trained with a wider variety of training examples often perform better. Their models make fewer mistakes and have a higher confidence score for hand shapes they recognise correctly.",
             "TEXT6": "Projects trained with a very similar set of training examples make more mistakes, particularly when students play each other's Rock, Paper, Scissors holding with their hand in a position or at an angle that was different to the way it was trained.",
-            "CALLOUT": "Letting students try each other's project often allows them to see that machine learning models trained with a wide variety of training examples perform better. "
+            "CALLOUT": "Letting students try each other's project often allows them to see that machine learning models trained with a wider variety of training examples perform better. "
         },
         "TESTDATA": {
             "TITLE": "Training and test data should be kept separate",
