@@ -17,6 +17,7 @@
             'ml-workflow',
             'correlation-of-quantity-with-accuracy',
             'crowdsourcing-and-gamification',
+            'variety-of-training-data',
             'separation-of-training-and-test-data',
             'not-just-intents',
             'adding-errors-to-training',
@@ -38,6 +39,7 @@
             $scope.pageId = 'intro';
         }
 
+        $scope.datestring = new Date().toDateString();
 
         $scope.isPrinting = false;
 
@@ -113,7 +115,7 @@
             }, 0);
         }
         $scope.scrollToVideo = function () {
-            scrollToId('storyVideo');
+            scrollToId('storyvideo');
         };
 
 

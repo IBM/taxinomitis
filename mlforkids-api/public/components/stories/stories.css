@@ -6,6 +6,11 @@
     margin-bottom: 1em;
     padding: 1em;
 }
+.storiessection .intro .printheader {
+    font-size: 0.7em;
+    text-align: center;
+    margin-bottom: 1em;
+}
 .storiessection .intro .print-icon {
     float: left;
     font-size: 1.4em;
@@ -97,6 +102,23 @@
 .storiessection .story .storytext {
     text-align: justify;
 }
+.storiessection .story .storytext .callout {
+    clear: both;
+    font-size: 1.3em;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin: 40px 20px;
+    border-left: thick grey solid;
+    padding: 0 10px;
+    color: black;
+}
+.storiessection .story .storytext .btn {
+    font-size: 0.8em;
+}
+.storiessection .story .storytext .sidenote {
+    font-style: italic;
+    font-size: 0.9em;
+    color: #303030;
+}
 .storiessection .story .storytext .screenshot {
     border: thin black solid;
     margin: 10px;
@@ -116,7 +138,7 @@
     margin-right: auto;
     width: 90%;
     height: 450px;
-    background-color: yellow;
+    border: thin black solid;
     margin-bottom: 4em;
     clear: both;
 }
