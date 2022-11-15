@@ -49,6 +49,9 @@
                 $window.print();
             });
         };
+        addEventListener('afterprint', () => {
+            $scope.isPrinting = false;
+        });
 
         $scope.changePage = function (pageNum) {
             scrollToId('topofstory');

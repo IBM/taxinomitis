@@ -17,7 +17,7 @@
         </div>
     </div>
 
-    <div class="intro menu" ng-show="pageId === 'intro' && !isPrinting">
+    <div class="intro menu" ng-show="pageId === 'intro' || isPrinting">
         <md-button class="md-raised storylistbutton" translate="STORIES.MLHASNTREPLACEDCODING.TITLE" ng-click="changePage(0)"></md-button>
         <md-button class="md-raised storylistbutton" translate="STORIES.MLWORKFLOW.TITLE"            ng-click="changePage(1)"></md-button>
         <md-button class="md-raised storylistbutton" translate="STORIES.TRAININGQUANTITY.TITLE"      ng-click="changePage(2)"></md-button>
@@ -121,7 +121,10 @@
             <p translate="STORIES.MLWORKFLOW.TEXT7"></p>
             <p translate="STORIES.MLWORKFLOW.TEXT8"></p>
             <p translate="STORIES.MLWORKFLOW.TEXT9"></p>
-            <p>
+            <p translate="STORIES.MLWORKFLOW.TEXT10"></p>
+            <p translate="STORIES.MLWORKFLOW.TEXT11"></p>
+            <p translate="STORIES.MLWORKFLOW.TEXT12"></p>
+            <p class="hidden-print">
                 <a ng-click="downloadWorksheet($event, 'chatbots')" class="btn btn-primary">
                     <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
                 </a>
@@ -170,7 +173,7 @@
             <p translate="STORIES.TRAININGQUANTITY.TEXT9"></p>
             <p translate="STORIES.TRAININGQUANTITY.TEXT10"></p>
             <p translate="STORIES.TRAININGQUANTITY.TEXT11"></p>
-            <p>
+            <p class="hidden-print">
                 <a ng-click="downloadWorksheet($event, 'pacman')" class="btn btn-primary">
                     <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
                 </a>
@@ -213,7 +216,7 @@
             <p translate="STORIES.CROWDSOURCING.TEXT4"></p>
             <p translate="STORIES.CROWDSOURCING.TEXT5"></p>
             <p translate="STORIES.CROWDSOURCING.TEXT6"></p>
-            <p>
+            <p class="hidden-print">
                 <a ng-click="downloadWorksheet($event, 'pacman')" class="btn btn-primary">
                     <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
                 </a>
@@ -232,7 +235,7 @@
             <p translate="STORIES.CROWDSOURCING.TEXT15"></p>
             <p translate="STORIES.CROWDSOURCING.TEXT16"></p>
             <p translate="STORIES.CROWDSOURCING.TEXT17"></p>
-            <p>
+            <p class="hidden-print">
                 <a ng-click="downloadWorksheet($event, 'noughtsandcrosses')" class="btn btn-primary">
                     <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
                 </a>
@@ -277,7 +280,7 @@
             <p translate="STORIES.VARIETY.TEXT4"></p>
             <p translate="STORIES.VARIETY.TEXT5"></p>
             <p translate="STORIES.VARIETY.TEXT6"></p>
-            <p>
+            <p class="hidden-print">
                 <a ng-click="downloadWorksheet($event, 'rockpaperscissors')" class="btn btn-primary">
                     <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
                 </a>
@@ -319,6 +322,7 @@
             <p translate="STORIES.TESTDATA.TEXT4"></p>
             <p translate="STORIES.TESTDATA.TEXT5"></p>
             <p translate="STORIES.TESTDATA.TEXT6"></p>
+            <p class="hidden-print sidenote" translate="STORIES.EXAMPLES.VIDEO"></p>
             <iframe class="hidden-print screenshot right" src="https://www.youtube.com/embed/sUgPL3AXDxg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <p translate="STORIES.TESTDATA.TEXT7"></p>
             <p translate="STORIES.TESTDATA.TEXT8"></p>
@@ -330,7 +334,7 @@
             <p translate="STORIES.TESTDATA.TEXT14"></p>
             <p translate="STORIES.TESTDATA.TEXT15"></p>
             <p translate="STORIES.TESTDATA.TEXT16"></p>
-            <p>
+            <p class="hidden-print">
                 <a ng-click="downloadWorksheet($event, 'newspapers')" class="btn btn-primary">
                     <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
                 </a>
@@ -369,7 +373,7 @@
             <p translate="STORIES.NOTJUSTINTENTS.TEXT2"></p>
             <p translate="STORIES.NOTJUSTINTENTS.TEXT3"></p>
             <iframe class="hidden-print screenshot right" src="https://www.youtube.com/embed/omramg8B_4w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <p style="clear: both;">
+            <p class="hidden-print">
                 <a ng-click="downloadWorksheet($event, 'makemehappy')" class="btn btn-primary">
                     <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
                 </a>
@@ -427,7 +431,7 @@
             <p translate="STORIES.COLLECTINGERRORS.TEXT20"></p>
             <p translate="STORIES.COLLECTINGERRORS.TEXT21"></p>
             <p translate="STORIES.COLLECTINGERRORS.TEXT22"></p>
-            <p>
+            <p class="hidden-print">
                 <a ng-click="downloadWorksheet($event, 'smartclassroom')" class="btn btn-primary">
                     <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
                 </a>
@@ -475,7 +479,7 @@
             <p translate="STORIES.CONFIDENCESCORES.TEXT10"></p>
             <p translate="STORIES.CONFIDENCESCORES.TEXT11"></p>
             <p translate="STORIES.CONFIDENCESCORES.TEXT12"></p>
-            <p>
+            <p class="hidden-print">
                 <a ng-click="downloadWorksheet($event, 'smartclassroom')" class="btn btn-primary">
                     <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
                 </a>
@@ -536,7 +540,7 @@
             <p translate="STORIES.BLACKBOX.TEXT24"></p>
             <p translate="STORIES.BLACKBOX.TEXT25"></p>
             <p translate="STORIES.BLACKBOX.TEXT26"></p>
-            <p>
+            <p class="hidden-print">
                 <a ng-click="downloadWorksheet($event, 'explainability')" class="btn btn-primary">
                     <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
                 </a>
@@ -645,7 +649,7 @@
             <p translate="STORIES.LEARNINGWRONGTHING.TEXT17"></p>
             <p translate="STORIES.LEARNINGWRONGTHING.TEXT18"></p>
             <p translate="STORIES.LEARNINGWRONGTHING.TEXT19"></p>
-            <p>
+            <p class="hidden-print">
                 <a ng-click="downloadWorksheet($event, 'rockpaperscissors')" class="btn btn-primary">
                     <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
                 </a>
@@ -724,7 +728,7 @@
             <p translate="STORIES.BIAS.TEXT41"></p>
             <p translate="STORIES.BIAS.TEXT42"></p>
             <p translate="STORIES.BIAS.TEXT43"></p>
-            <p>
+            <p class="hidden-print">
                 <a ng-click="downloadWorksheet($event, 'touristinfo')" class="btn btn-primary">
                     <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
                 </a>
@@ -760,7 +764,7 @@
         </div>
         <div class="storytext">
 
-            <p>
+            <p class="hidden-print">
                 <a ng-click="downloadWorksheet($event, 'secretcode')" class="btn btn-primary">
                     <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
                 </a>
@@ -768,7 +772,7 @@
 
             <iframe class="hidden-print screenshot left" src="https://www.youtube.com/embed/kEQtoqwyI04" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-            <p style="clear: both;">
+            <p class="hidden-print">
                 <a ng-click="downloadWorksheet($event, 'lasereyes')" class="btn btn-primary">
                     <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
                 </a>
@@ -805,7 +809,7 @@
         </div>
         <div class="storytext">
 
-            <p>
+            <p class="hidden-print">
                 <a ng-click="downloadWorksheet($event, 'inkblots')" class="btn btn-primary">
                     <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
                 </a>
@@ -850,7 +854,7 @@
             <p translate="STORIES.INVISIBLEAI.TEXT7"></p>
             <p translate="STORIES.INVISIBLEAI.TEXT8"></p>
             <p translate="STORIES.INVISIBLEAI.TEXT9"></p>
-            <p>
+            <p class="hidden-print">
                 <a ng-click="downloadWorksheet($event, 'mailmanmax')" class="btn btn-primary">
                     <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
                 </a>

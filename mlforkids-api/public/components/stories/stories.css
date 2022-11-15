@@ -3,7 +3,6 @@
 }
 .storiessection .intro {
     font-size: 1.2em;
-    margin-bottom: 1em;
     padding: 1em;
 }
 .storiessection .intro .printheader {
@@ -29,6 +28,10 @@
 .storiessection .intro.menu {
     display: flex;
     flex-direction: column;
+}
+.storiessection .navigation {
+    page-break-before: always;
+    break-before: always;
 }
 .storiessection .navigation .storiestitle {
     font-weight: 300;
@@ -165,4 +168,18 @@
 }
 .storylist {
     padding: 1em;
+}
+@media print {
+    .storylistbutton {
+        padding: 0;
+        margin: 0;
+        border: 0;
+        text-align: left;
+        box-shadow: none !important;
+        line-height: 28px;
+        min-height: 28px;
+    }
+    .storylistbutton:before {
+        content: "• ";
+    }
 }

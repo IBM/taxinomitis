@@ -2066,19 +2066,19 @@
             "TEXT4": "If you have your own story to share, <a href='https://groups.google.com/g/mlforkids'>please consider contributing it</a>."
         },
         "EXAMPLES": {
-            "VIDEO": "🎥 See the video for an example of this."
+            "VIDEO": "🎥 See the video for an example."
         },
         "MLHASNTREPLACEDCODING": {
             "TITLE": "Machine learning hasn't replaced the need to learn to code",
-            "TEXT1": "A simple introduction to building with machine learning is to allow students to play with <a href='/pretrained'>pretrained models</a> - a range of new blocks that can be added to the Scratch palette to represent a whole range of powerful machine learning models.",
-            "TEXT2": "One example is imagenet: a model that can recognise the object in a photo that you give it. It is a well-known ML model that is able to recognise over a thousand different things.",
+            "TEXT1": "I like to introduce new classes to building with machine learning by allowing students to play with <a href='/pretrained'>pretrained models</a> - a range of new blocks that can be added to the Scratch palette to represent a whole range of powerful machine learning models.",
+            "TEXT2": "For example, imagenet: a model that can recognise the object in a photo that you give it. It is a well-known ML model that is able to recognise over a thousand different things.",
             "TEXT3": "With just a few Scratch blocks, students can start building projects that do remarkably powerful and impressive things.",
             "TEXT4": "Another example is the face detection model: a model that can identify different parts of a face (e.g. eyes, nose, ears, etc.) in a picture or webcam view. ",
             "TEXT5": "With just a few blocks, students can make a fun face filter with animated sprites that follow their face. ",
             "TEXT6": "These are very simple things to build, and offer a lot of opportunities for experimentation and creativity.",
-            "TEXT7": "Learning about machine learning in an existing sandbox that students are already familiar with (rather than learn about AI/ML in a new AI-specific tool or platform) brings it's own lesson, and sends a clear message to students. ",
-            "TEXT8": "It means that students don't get an implicit message that what they already learn about coding isn't useful any more. They don't get the impression that learning to code is somehow less valuable because machine learning models will just magically do stuff for them.",
-            "TEXT9": "Instead, what students learn is that machine learning adds a few new tools to their existing toolbox. What they see is that what they've been learning about coding is still important and valuable, and that adding machine learning to the mix just expands the types of things they're able to build.",
+            "TEXT7": "Learning about machine learning in an existing sandbox that students are already familiar with (rather than learn about AI/ML in a new AI-specific tool or platform) sends a clear message to students. ",
+            "TEXT8": "Students don't think that what they already learn about coding isn't useful any more. They don't get the impression that learning to code is somehow less valuable because machine learning models will just magically do stuff for them.",
+            "TEXT9": "Instead, students learn that machine learning adds a few new tools to their existing toolbox. They see that what they've been learning about coding is still important and valuable, and adding machine learning to the mix expands the types of things they're able to build.",
             "CALLOUT": "Building with machine learning in an existing sandbox like Scratch makes it clear that ML isn't separate to, or a replacement for, coding. It's another tool to add to their coding toolbox."
         },
         "MLWORKFLOW": {
@@ -2090,8 +2090,11 @@
             "TEXT5": "For each of those questions, they had come up with a few examples of how someone might ask that question.",
             "TEXT6": "They used those examples to train their own custom machine learning model, unique to their project.",
             "TEXT7": "Then they script the responses that their chatbot should give when it gets a question that it has learned to recognise.",
-            "TEXT8": "This project has been done thousands of times, with each class bringing their own creativity and imagination to a basic chatbot. History classes have made chatbot Vikings, chatbot Romans, and chatbot Ancient Greeks - trained to answer about what it was like to live in their times, what they ate, what they wore, and so on. English classes have created chatbot Shakespeares that they trained to answer questions about his life and some of his most famous plays. Students have created local chatbot guides about their own school or their own town, trained to answer questions about their local area. ",
-            "TEXT9": "Whatever project they create, by going through the process for themselves, they learn the basic workflow of a machine learning project that is similar to many real-world projects: predict what users might do; collect examples of how the user would do that; use those example to train a machine learning model to recognise that; script what the system should do in response when it recognises something.",
+            "TEXT8": "I've run this project with school classes dozens of times, and it is different every time, with each class bringing their own creativity and imagination to a basic chatbot.",
+            "TEXT9": "I've helped history classes make chatbot Vikings, chatbot Romans, and chatbot Ancient Greeks - trained to answer about what it was like to live in their times, what they ate, what they wore, and so on. ",
+            "TEXT10": "I've helped English classes have created chatbot Shakespeares that they trained to answer questions about his life and some of his most famous plays. ",
+            "TEXT11": "I've helped school clubs create local chatbot guides about their own school or their own town, trained to answer questions about their local area. ",
+            "TEXT12": "Whatever project they create, by going through the process for themselves, they learn the basic workflow of a machine learning project that is similar to many real-world projects: predict what users might do; collect examples of how the user would do that; use those example to train a machine learning model to recognise that; script what the system should do in response when it recognises something.",
             "CALLOUT": "Going through the process of creating a machine learning project for themselves gives students an insight into how these systems are created in the real world."
         },
         "TRAININGQUANTITY": {
