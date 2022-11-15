@@ -190,6 +190,12 @@ gulp.task('robotstxt', function() {
     ]).pipe(gulp.dest('web/dynamic'));
 });
 
+gulp.task('stories', function() {
+    return gulp.src([
+        'public/static-files/stories/*'
+    ]).pipe(gulp.dest('web/static/stories'));
+});
+
 gulp.task('scratchxinstall', gulp.series('crossdomain', function() {
     return gulp.src([
         'public/scratchx/**',
@@ -368,5 +374,6 @@ gulp.task('buildprod',
             'prodhtml',
             'angularcomponents',
             'prodlanguages',
-            'scratchblocks'),
+            'scratchblocks',
+            'stories'),
         'compile'));
