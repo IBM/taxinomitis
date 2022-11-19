@@ -1,0 +1,924 @@
+<div class="jumbotron">
+    <h2 class="text-center" translate="STORIES.TITLE"></h2>
+</div>
+<div class="storiessection">
+
+    <div class="intro">
+        <div class="hidden-print print-icon" ng-show="pageId === 'intro'">
+            <md-icon class="glyphicon glyphicon-print" aria-label="print stories" ng-click="print()"></md-icon>
+            <div class="label" translate="STORIES.INTRO.PRINT"></div>
+        </div>
+        <p translate="STORIES.INTRO.TEXT1"></p>
+        <p translate="STORIES.INTRO.TEXT2"></p>
+        <p translate="STORIES.INTRO.TEXT3"></p>
+        <p translate="STORIES.INTRO.TEXT4"></p>
+        <div class="printheader" ng-show="isPrinting">
+            This article was printed from <a href="https://machinelearningforkids.co.uk/stories">https://machinelearningforkids.co.uk/stories</a> at {{ datestring }}
+        </div>
+    </div>
+
+    <div class="intro menu" ng-show="pageId === 'intro' || isPrinting">
+        <md-button class="md-raised storylistbutton" translate="STORIES.MLHASNTREPLACEDCODING.TITLE" ng-click="changePage(0)"></md-button>
+        <md-button class="md-raised storylistbutton" translate="STORIES.MLWORKFLOW.TITLE"            ng-click="changePage(1)"></md-button>
+        <md-button class="md-raised storylistbutton" translate="STORIES.TRAININGQUANTITY.TITLE"      ng-click="changePage(2)"></md-button>
+        <md-button class="md-raised storylistbutton" translate="STORIES.CROWDSOURCING.TITLE"         ng-click="changePage(3)"></md-button>
+        <md-button class="md-raised storylistbutton" translate="STORIES.VARIETY.TITLE"               ng-click="changePage(4)"></md-button>
+        <md-button class="md-raised storylistbutton" translate="STORIES.TESTDATA.TITLE"              ng-click="changePage(5)"></md-button>
+        <md-button class="md-raised storylistbutton" translate="STORIES.NOTJUSTINTENTS.TITLE"        ng-click="changePage(6)"></md-button>
+        <md-button class="md-raised storylistbutton" translate="STORIES.COLLECTINGERRORS.TITLE"      ng-click="changePage(7)"></md-button>
+        <md-button class="md-raised storylistbutton" translate="STORIES.CONFIDENCESCORES.TITLE"      ng-click="changePage(8)"></md-button>
+        <md-button class="md-raised storylistbutton" translate="STORIES.BLACKBOX.TITLE"              ng-click="changePage(9)"></md-button>
+        <md-button class="md-raised storylistbutton" translate="STORIES.LEARNINGWRONGTHING.TITLE"    ng-click="changePage(10)"></md-button>
+        <md-button class="md-raised storylistbutton" translate="STORIES.CONFUSED.TITLE"              ng-click="changePage(11)"></md-button>
+        <md-button class="md-raised storylistbutton" translate="STORIES.BIAS.TITLE"                  ng-click="changePage(12)"></md-button>
+        <md-button class="md-raised storylistbutton" translate="STORIES.SOLUTIONS.TITLE"             ng-click="changePage(13)"></md-button>
+        <md-button class="md-raised storylistbutton" translate="STORIES.MISUSING.TITLE"              ng-click="changePage(14)"></md-button>
+        <md-button class="md-raised storylistbutton" translate="STORIES.INVISIBLEAI.TITLE"           ng-click="changePage(15)"></md-button>
+    </div>
+
+    <div id="topofstory"></div>
+
+    <!-- ------------------------------------------------- -->
+    <!-- machine learning hasn't replaced the need to code -->
+    <!-- ------------------------------------------------- -->
+    <div class="navigation" ng-show="pageId === 'ml-hasnt-replaced-coding' || isPrinting">
+        <div class="previousstory hidden-print">
+            <md-icon class="glyphicon glyphicon-chevron-left" aria-label="previous story" ng-hide="true"></md-icon>
+        </div>
+        <div class="storieslist hidden-print" ng-click="displayStories($event)">
+            <md-icon class="glyphicon glyphicon-list" aria-label="list stories"></md-icon>
+        </div>
+        <div class="storiesprint hidden-print">
+            <md-icon class="glyphicon glyphicon-print" aria-label="print stories" ng-click="print()"></md-icon>
+        </div>
+        <div class="storiestitle"><span class="storycounter">(1/16)</span> {{ "STORIES.MLHASNTREPLACEDCODING.TITLE" | translate }}</div>
+        <div class="nextstory hidden-print" ng-click="changePage(pageNum + 1)">
+            <md-icon class="glyphicon glyphicon-chevron-right" aria-label="next story"></md-icon>
+        </div>
+    </div>
+    <div class="story" ng-show="pageId === 'ml-hasnt-replaced-coding' || isPrinting">
+        <div class="videolink hidden-print" ng-hide="isPrinting" ng-click="scrollToVideo()">
+            <md-icon class="glyphicon glyphicon-film" aria-label="play video"></md-icon>
+        </div>
+        <div class="storytext">
+            <p translate="STORIES.MLHASNTREPLACEDCODING.TEXT1"></p>
+            <iframe class="hidden-print screenshot right" src="https://www.youtube.com/embed/RTEqH03w3co" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <p translate="STORIES.MLHASNTREPLACEDCODING.TEXT2"></p>
+            <p translate="STORIES.MLHASNTREPLACEDCODING.TEXT3"></p>
+            <p class="hidden-print sidenote" translate="STORIES.EXAMPLES.VIDEO"></p>
+            <p translate="STORIES.MLHASNTREPLACEDCODING.TEXT4"></p>
+            <p translate="STORIES.MLHASNTREPLACEDCODING.TEXT5"></p>
+            <p class="hidden-print sidenote" translate="STORIES.EXAMPLES.VIDEO"></p>
+            <iframe class="hidden-print screenshot left" src="https://www.youtube.com/embed/6_dMG-M3HBI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <p translate="STORIES.MLHASNTREPLACEDCODING.TEXT6"></p>
+            <p translate="STORIES.MLHASNTREPLACEDCODING.TEXT7"></p>
+            <p translate="STORIES.MLHASNTREPLACEDCODING.TEXT8"></p>
+            <p translate="STORIES.MLHASNTREPLACEDCODING.TEXT9"></p>
+            <p class="hidden-print">
+                <a ng-click="downloadWorksheet($event, 'facefinder')" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
+                </a>
+            </p>
+            <p class="callout" translate="STORIES.MLHASNTREPLACEDCODING.CALLOUT"></p>
+        </div>
+    </div>
+    <div class="separator" ng-show="pageId === 'ml-hasnt-replaced-coding' || isPrinting">
+        <hr/>
+    </div>
+
+
+    <!-- --------------------------------- -->
+    <!-- machine learning project workflow -->
+    <!-- --------------------------------- -->
+    <div class="navigation" ng-show="pageId === 'ml-workflow' || isPrinting">
+        <div class="previousstory hidden-print" ng-click="changePage(pageNum - 1)">
+            <md-icon class="glyphicon glyphicon-chevron-left" aria-label="previous story"></md-icon>
+        </div>
+        <div class="storieslist hidden-print" ng-click="displayStories($event)">
+            <md-icon class="glyphicon glyphicon-list" aria-label="list stories"></md-icon>
+        </div>
+        <div class="storiesprint hidden-print">
+            <md-icon class="glyphicon glyphicon-print" aria-label="print stories" ng-click="print()"></md-icon>
+        </div>
+        <div class="storiestitle"><span class="storycounter">(2/16)</span> {{ "STORIES.MLWORKFLOW.TITLE" | translate }}</div>
+        <div class="nextstory hidden-print" ng-click="changePage(pageNum + 1)">
+            <md-icon class="glyphicon glyphicon-chevron-right" aria-label="next story"></md-icon>
+        </div>
+    </div>
+    <div class="story" ng-show="pageId === 'ml-workflow' || isPrinting">
+        <div class="videolink hidden-print" ng-hide="isPrinting" ng-click="scrollToVideo()">
+            <md-icon class="glyphicon glyphicon-film" aria-label="play video"></md-icon>
+        </div>
+        <div class="storytext">
+            <p translate="STORIES.MLWORKFLOW.TEXT1"></p>
+            <p translate="STORIES.MLWORKFLOW.TEXT2"></p>
+            <p translate="STORIES.MLWORKFLOW.TEXT3"></p>
+            <p class="hidden-print sidenote" translate="STORIES.EXAMPLES.VIDEO"></p>
+            <iframe class="hidden-print screenshot right" src="https://www.youtube.com/embed/7gT0tvnWw6o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <p translate="STORIES.MLWORKFLOW.TEXT4"></p>
+            <p translate="STORIES.MLWORKFLOW.TEXT5"></p>
+            <p translate="STORIES.MLWORKFLOW.TEXT6"></p>
+            <p translate="STORIES.MLWORKFLOW.TEXT7"></p>
+            <p translate="STORIES.MLWORKFLOW.TEXT8"></p>
+            <p translate="STORIES.MLWORKFLOW.TEXT9"></p>
+            <p translate="STORIES.MLWORKFLOW.TEXT10"></p>
+            <p translate="STORIES.MLWORKFLOW.TEXT11"></p>
+            <p translate="STORIES.MLWORKFLOW.TEXT12"></p>
+            <p class="hidden-print">
+                <a ng-click="downloadWorksheet($event, 'chatbots')" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
+                </a>
+            </p>
+            <p class="callout" translate="STORIES.MLWORKFLOW.CALLOUT"></p>
+        </div>
+    </div>
+    <div class="separator" ng-show="pageId === 'ml-workflow' || isPrinting">
+        <hr/>
+    </div>
+
+
+    <!-- --------------------------------------------------- -->
+    <!-- correlation of training data quantity with accuracy -->
+    <!-- --------------------------------------------------- -->
+    <div class="navigation" ng-show="pageId === 'correlation-of-quantity-with-accuracy' || isPrinting">
+        <div class="previousstory hidden-print" ng-click="changePage(pageNum - 1)">
+            <md-icon class="glyphicon glyphicon-chevron-left" aria-label="previous story"></md-icon>
+        </div>
+        <div class="storieslist hidden-print" ng-click="displayStories($event)">
+            <md-icon class="glyphicon glyphicon-list" aria-label="list stories"></md-icon>
+        </div>
+        <div class="storiesprint hidden-print">
+            <md-icon class="glyphicon glyphicon-print" aria-label="print stories" ng-click="print()"></md-icon>
+        </div>
+        <div class="storiestitle"><span class="storycounter">(3/16)</span> {{ "STORIES.TRAININGQUANTITY.TITLE" | translate }}</div>
+        <div class="nextstory hidden-print" ng-click="changePage(pageNum + 1)">
+            <md-icon class="glyphicon glyphicon-chevron-right" aria-label="next story"></md-icon>
+        </div>
+    </div>
+    <div class="story" ng-show="pageId === 'correlation-of-quantity-with-accuracy' || isPrinting">
+        <div class="videolink hidden-print" ng-hide="isPrinting" ng-click="scrollToVideo()">
+            <md-icon class="glyphicon glyphicon-film" aria-label="play video"></md-icon>
+        </div>
+        <div class="storytext">
+            <p translate="STORIES.TRAININGQUANTITY.TEXT1"></p>
+            <p translate="STORIES.TRAININGQUANTITY.TEXT2"></p>
+            <iframe class="hidden-print screenshot right" src="https://www.youtube.com/embed/aAaWz7NeMSo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <p translate="STORIES.TRAININGQUANTITY.TEXT3"></p>
+            <p translate="STORIES.TRAININGQUANTITY.TEXT4"></p>
+            <p class="hidden-print sidenote" translate="STORIES.EXAMPLES.VIDEO"></p>
+            <p translate="STORIES.TRAININGQUANTITY.TEXT5"></p>
+            <p translate="STORIES.TRAININGQUANTITY.TEXT6"></p>
+            <p translate="STORIES.TRAININGQUANTITY.TEXT7"></p>
+            <p translate="STORIES.TRAININGQUANTITY.TEXT8"></p>
+            <p translate="STORIES.TRAININGQUANTITY.TEXT9"></p>
+            <p translate="STORIES.TRAININGQUANTITY.TEXT10"></p>
+            <p translate="STORIES.TRAININGQUANTITY.TEXT11"></p>
+            <p class="hidden-print">
+                <a ng-click="downloadWorksheet($event, 'pacman')" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
+                </a>
+            </p>
+            <p class="callout" translate="STORIES.TRAININGQUANTITY.CALLOUT"></p>
+        </div>
+    </div>
+    <div class="separator" ng-show="pageId === 'correlation-of-quantity-with-accuracy' || isPrinting">
+        <hr/>
+    </div>
+
+
+    <!-- ------------------------------ -->
+    <!-- crowdsourcing and gamification -->
+    <!-- ------------------------------ -->
+    <div class="navigation" ng-show="pageId === 'crowdsourcing-and-gamification' || isPrinting">
+        <div class="previousstory hidden-print" ng-click="changePage(pageNum - 1)">
+            <md-icon class="glyphicon glyphicon-chevron-left" aria-label="previous story"></md-icon>
+        </div>
+        <div class="storieslist hidden-print" ng-click="displayStories($event)">
+            <md-icon class="glyphicon glyphicon-list" aria-label="list stories"></md-icon>
+        </div>
+        <div class="storiesprint hidden-print">
+            <md-icon class="glyphicon glyphicon-print" aria-label="print stories" ng-click="print()"></md-icon>
+        </div>
+        <div class="storiestitle"><span class="storycounter">(4/16)</span> {{ "STORIES.CROWDSOURCING.TITLE" | translate }}</div>
+        <div class="nextstory hidden-print" ng-click="changePage(pageNum + 1)">
+            <md-icon class="glyphicon glyphicon-chevron-right" aria-label="next story"></md-icon>
+        </div>
+    </div>
+    <div class="story" ng-show="pageId === 'crowdsourcing-and-gamification' || isPrinting">
+        <div class="videolink hidden-print" ng-hide="isPrinting" ng-click="scrollToVideo()">
+            <md-icon class="glyphicon glyphicon-film" aria-label="play video"></md-icon>
+        </div>
+        <div class="storytext">
+            <p translate="STORIES.CROWDSOURCING.TEXT1"></p>
+            <iframe class="hidden-print screenshot right" src="https://www.youtube.com/embed/aAaWz7NeMSo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <p translate="STORIES.CROWDSOURCING.TEXT2"></p>
+            <p translate="STORIES.CROWDSOURCING.TEXT3"></p>
+            <p translate="STORIES.CROWDSOURCING.TEXT4"></p>
+            <p translate="STORIES.CROWDSOURCING.TEXT5"></p>
+            <p translate="STORIES.CROWDSOURCING.TEXT6"></p>
+            <p class="hidden-print">
+                <a ng-click="downloadWorksheet($event, 'pacman')" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
+                </a>
+            </p>
+            <p class="callout" translate="STORIES.CROWDSOURCING.CALLOUT1"></p>
+            <img class="screenshot left" src="static/images/stories-noughtsandcrosses-test.png"/>
+            <p translate="STORIES.CROWDSOURCING.TEXT7"></p>
+            <p translate="STORIES.CROWDSOURCING.TEXT8"></p>
+            <p translate="STORIES.CROWDSOURCING.TEXT9"></p>
+            <p translate="STORIES.CROWDSOURCING.TEXT10"></p>
+            <p translate="STORIES.CROWDSOURCING.TEXT11"></p>
+            <p translate="STORIES.CROWDSOURCING.TEXT12"></p>
+            <img class="screenshot right" src="static/images/stories-noughtsandcrosses-training.png"/>
+            <p translate="STORIES.CROWDSOURCING.TEXT13"></p>
+            <p translate="STORIES.CROWDSOURCING.TEXT14"></p>
+            <p translate="STORIES.CROWDSOURCING.TEXT15"></p>
+            <p translate="STORIES.CROWDSOURCING.TEXT16"></p>
+            <p translate="STORIES.CROWDSOURCING.TEXT17"></p>
+            <p translate="STORIES.CROWDSOURCING.TEXT18"></p>
+            <p class="hidden-print">
+                <a ng-click="downloadWorksheet($event, 'noughtsandcrosses')" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
+                </a>
+            </p>
+            <p class="callout" translate="STORIES.CROWDSOURCING.CALLOUT2"></p>
+            <p translate="STORIES.CROWDSOURCING.TEXT19"></p>
+            <p translate="STORIES.CROWDSOURCING.TEXT20"></p>
+        </div>
+    </div>
+    <div class="separator" ng-show="pageId === 'crowdsourcing-and-gamification' || isPrinting">
+        <hr/>
+    </div>
+
+
+    <!-- -------------------------------------------- -->
+    <!-- diversity of training data improves accuracy -->
+    <!-- -------------------------------------------- -->
+    <div class="navigation" ng-show="pageId === 'variety-of-training-data' || isPrinting">
+        <div class="previousstory hidden-print" ng-click="changePage(pageNum - 1)">
+            <md-icon class="glyphicon glyphicon-chevron-left" aria-label="previous story"></md-icon>
+        </div>
+        <div class="storieslist hidden-print" ng-click="displayStories($event)">
+            <md-icon class="glyphicon glyphicon-list" aria-label="list stories"></md-icon>
+        </div>
+        <div class="storiesprint hidden-print">
+            <md-icon class="glyphicon glyphicon-print" aria-label="print stories" ng-click="print()"></md-icon>
+        </div>
+        <div class="storiestitle"><span class="storycounter">(5/16)</span> {{ "STORIES.VARIETY.TITLE" | translate }}</div>
+        <div class="nextstory hidden-print" ng-click="changePage(pageNum + 1)">
+            <md-icon class="glyphicon glyphicon-chevron-right" aria-label="next story"></md-icon>
+        </div>
+    </div>
+    <div class="story" ng-show="pageId === 'variety-of-training-data' || isPrinting">
+        <div class="videolink hidden-print" ng-hide="isPrinting" ng-click="scrollToVideo()">
+            <md-icon class="glyphicon glyphicon-film" aria-label="play video"></md-icon>
+        </div>
+        <div class="storytext">
+            <p translate="STORIES.VARIETY.TEXT1"></p>
+            <p translate="STORIES.VARIETY.TEXT2"></p>
+            <img class="screenshot left" src="static/images/stories-rockpaperscissors.png"/>
+            <p translate="STORIES.VARIETY.TEXT3"></p>
+            <p translate="STORIES.VARIETY.TEXT4"></p>
+            <img class="screenshot right" src="static/images/stories-rockpaperscissors-better.png"/>
+            <p translate="STORIES.VARIETY.TEXT5"></p>
+            <p translate="STORIES.VARIETY.TEXT6"></p>
+            <p class="hidden-print">
+                <a ng-click="downloadWorksheet($event, 'rockpaperscissors')" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
+                </a>
+            </p>
+            <p class="callout" translate="STORIES.VARIETY.CALLOUT"></p>
+        </div>
+    </div>
+    <div class="separator" ng-show="pageId === 'variety-of-training-data' || isPrinting">
+        <hr/>
+    </div>
+
+
+    <!-- ------------------------------------ -->
+    <!-- separation of training and test data -->
+    <!-- ------------------------------------ -->
+    <div class="navigation" ng-show="pageId === 'separation-of-training-and-test-data' || isPrinting">
+        <div class="previousstory hidden-print" ng-click="changePage(pageNum - 1)">
+            <md-icon class="glyphicon glyphicon-chevron-left" aria-label="previous story"></md-icon>
+        </div>
+        <div class="storieslist hidden-print" ng-click="displayStories($event)">
+            <md-icon class="glyphicon glyphicon-list" aria-label="list stories"></md-icon>
+        </div>
+        <div class="storiesprint hidden-print">
+            <md-icon class="glyphicon glyphicon-print" aria-label="print stories" ng-click="print()"></md-icon>
+        </div>
+        <div class="storiestitle"><span class="storycounter">(6/16)</span> {{ "STORIES.TESTDATA.TITLE" | translate }}</div>
+        <div class="nextstory hidden-print" ng-click="changePage(pageNum + 1)">
+            <md-icon class="glyphicon glyphicon-chevron-right" aria-label="next story"></md-icon>
+        </div>
+    </div>
+    <div class="story" ng-show="pageId === 'separation-of-training-and-test-data' || isPrinting">
+        <div class="videolink hidden-print" ng-hide="isPrinting" ng-click="scrollToVideo()">
+            <md-icon class="glyphicon glyphicon-film" aria-label="play video"></md-icon>
+        </div>
+        <div class="storytext">
+            <p translate="STORIES.TESTDATA.TEXT1"></p>
+            <p translate="STORIES.TESTDATA.TEXT2"></p>
+            <p translate="STORIES.TESTDATA.TEXT3"></p>
+            <p translate="STORIES.TESTDATA.TEXT4"></p>
+            <p translate="STORIES.TESTDATA.TEXT5"></p>
+            <p translate="STORIES.TESTDATA.TEXT6"></p>
+            <iframe class="hidden-print screenshot left" src="https://www.youtube.com/embed/sUgPL3AXDxg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <p class="hidden-print sidenote" translate="STORIES.EXAMPLES.VIDEO"></p>
+            <p translate="STORIES.TESTDATA.TEXT7"></p>
+            <p translate="STORIES.TESTDATA.TEXT8"></p>
+            <p translate="STORIES.TESTDATA.TEXT9"></p>
+            <p translate="STORIES.TESTDATA.TEXT10"></p>
+            <p translate="STORIES.TESTDATA.TEXT11"></p>
+            <p translate="STORIES.TESTDATA.TEXT12"></p>
+            <p translate="STORIES.TESTDATA.TEXT13"></p>
+            <p translate="STORIES.TESTDATA.TEXT14"></p>
+            <p class="hidden-print">
+                <a ng-click="downloadWorksheet($event, 'newspapers')" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
+                </a>
+            </p>
+            <p class="callout" translate="STORIES.TESTDATA.CALLOUT"></p>
+        </div>
+    </div>
+    <div class="separator" ng-show="pageId === 'separation-of-training-and-test-data' || isPrinting">
+        <hr/>
+    </div>
+
+
+    <!-- ---------------- -->
+    <!-- not just intents -->
+    <!-- ---------------- -->
+    <div class="navigation" ng-show="pageId === 'not-just-intents' || isPrinting">
+        <div class="previousstory hidden-print" ng-click="changePage(pageNum - 1)">
+            <md-icon class="glyphicon glyphicon-chevron-left" aria-label="previous story"></md-icon>
+        </div>
+        <div class="storieslist hidden-print" ng-click="displayStories($event)">
+            <md-icon class="glyphicon glyphicon-list" aria-label="list stories"></md-icon>
+        </div>
+        <div class="storiesprint hidden-print">
+            <md-icon class="glyphicon glyphicon-print" aria-label="print stories" ng-click="print()"></md-icon>
+        </div>
+        <div class="storiestitle"><span class="storycounter">(7/16)</span> {{ "STORIES.NOTJUSTINTENTS.TITLE" | translate }}</div>
+        <div class="nextstory hidden-print" ng-click="changePage(pageNum + 1)">
+            <md-icon class="glyphicon glyphicon-chevron-right" aria-label="next story"></md-icon>
+        </div>
+    </div>
+    <div class="story" ng-show="pageId === 'not-just-intents' || isPrinting">
+        <div class="videolink hidden-print" ng-hide="isPrinting" ng-click="scrollToVideo()">
+            <md-icon class="glyphicon glyphicon-film" aria-label="play video"></md-icon>
+        </div>
+        <div class="storytext">
+            <p translate="STORIES.NOTJUSTINTENTS.TEXT1"></p>
+            <p translate="STORIES.NOTJUSTINTENTS.TEXT2"></p>
+            <iframe class="hidden-print screenshot left" src="https://www.youtube.com/embed/omramg8B_4w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <p class="hidden-print sidenote" translate="STORIES.EXAMPLES.VIDEO"></p>
+            <p translate="STORIES.NOTJUSTINTENTS.TEXT3"></p>
+            <p translate="STORIES.NOTJUSTINTENTS.TEXT4"></p>
+            <p translate="STORIES.NOTJUSTINTENTS.TEXT5"></p>
+            <p translate="STORIES.NOTJUSTINTENTS.TEXT6"></p>
+            <p translate="STORIES.NOTJUSTINTENTS.TEXT7"></p>
+            <p translate="STORIES.NOTJUSTINTENTS.TEXT8"></p>
+            <p translate="STORIES.NOTJUSTINTENTS.TEXT9"></p>
+            <p translate="STORIES.NOTJUSTINTENTS.TEXT10"></p>
+            <p class="hidden-print">
+                <a ng-click="downloadWorksheet($event, 'makemehappy')" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
+                </a>
+            </p>
+            <p class="callout" translate="STORIES.NOTJUSTINTENTS.CALLOUT"></p>
+        </div>
+    </div>
+    <div class="separator" ng-show="pageId === 'not-just-intents' || isPrinting">
+        <hr/>
+    </div>
+
+
+    <!-- --------------------------------------------------- -->
+    <!-- collecting poorly handled inputs to add to training -->
+    <!-- --------------------------------------------------- -->
+    <div class="navigation" ng-show="pageId === 'adding-errors-to-training' || isPrinting">
+        <div class="previousstory hidden-print" ng-click="changePage(pageNum - 1)">
+            <md-icon class="glyphicon glyphicon-chevron-left" aria-label="previous story"></md-icon>
+        </div>
+        <div class="storieslist hidden-print" ng-click="displayStories($event)">
+            <md-icon class="glyphicon glyphicon-list" aria-label="list stories"></md-icon>
+        </div>
+        <div class="storiesprint hidden-print">
+            <md-icon class="glyphicon glyphicon-print" aria-label="print stories" ng-click="print()"></md-icon>
+        </div>
+        <div class="storiestitle"><span class="storycounter">(8/16)</span> {{ "STORIES.COLLECTINGERRORS.TITLE" | translate }}</div>
+        <div class="nextstory hidden-print" ng-click="changePage(pageNum + 1)">
+            <md-icon class="glyphicon glyphicon-chevron-right" aria-label="next story"></md-icon>
+        </div>
+    </div>
+    <div class="story" ng-show="pageId === 'adding-errors-to-training' || isPrinting">
+        <div class="videolink hidden-print" ng-hide="isPrinting" ng-click="scrollToVideo()">
+            <md-icon class="glyphicon glyphicon-film" aria-label="play video"></md-icon>
+        </div>
+        <div class="storytext">
+            <p translate="STORIES.COLLECTINGERRORS.TEXT1"></p>
+            <p translate="STORIES.COLLECTINGERRORS.TEXT2"></p>
+            <p class="hidden-print sidenote" translate="STORIES.EXAMPLES.VIDEO"></p>
+            <iframe class="hidden-print screenshot right" src="https://www.youtube.com/embed/aQ5LoMoZNtM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <p translate="STORIES.COLLECTINGERRORS.TEXT3"></p>
+            <p translate="STORIES.COLLECTINGERRORS.TEXT4"></p>
+            <p translate="STORIES.COLLECTINGERRORS.TEXT5"></p>
+            <p translate="STORIES.COLLECTINGERRORS.TEXT6"></p>
+            <p translate="STORIES.COLLECTINGERRORS.TEXT7"></p>
+            <p translate="STORIES.COLLECTINGERRORS.TEXT8"></p>
+            <p translate="STORIES.COLLECTINGERRORS.TEXT9"></p>
+            <p translate="STORIES.COLLECTINGERRORS.TEXT10"></p>
+            <img style="width: 550px;" class="screenshot left" src="static/images/stories-smartclassroom-alexa.gif"/>
+            <p translate="STORIES.COLLECTINGERRORS.TEXT11"></p>
+            <p class="hidden-print sidenote" translate="STORIES.EXAMPLES.IMAGES"></p>
+            <p translate="STORIES.COLLECTINGERRORS.TEXT12"></p>
+            <p translate="STORIES.COLLECTINGERRORS.TEXT13"></p>
+            <p translate="STORIES.COLLECTINGERRORS.TEXT14"></p>
+            <p translate="STORIES.COLLECTINGERRORS.TEXT15"></p>
+            <p translate="STORIES.COLLECTINGERRORS.TEXT16"></p>
+            <p class="hidden-print">
+                <a ng-click="downloadWorksheet($event, 'smartclassroom')" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
+                </a>
+            </p>
+            <p class="callout" translate="STORIES.COLLECTINGERRORS.CALLOUT"></p>
+        </div>
+    </div>
+    <div class="separator" ng-show="pageId === 'adding-errors-to-training' || isPrinting">
+        <hr/>
+    </div>
+
+
+    <!-- ----------------- -->
+    <!-- confidence scores -->
+    <!-- ----------------- -->
+    <div class="navigation" ng-show="pageId === 'confidence-scores' || isPrinting">
+        <div class="previousstory hidden-print" ng-click="changePage(pageNum - 1)">
+            <md-icon class="glyphicon glyphicon-chevron-left" aria-label="previous story"></md-icon>
+        </div>
+        <div class="storieslist hidden-print" ng-click="displayStories($event)">
+            <md-icon class="glyphicon glyphicon-list" aria-label="list stories"></md-icon>
+        </div>
+        <div class="storiesprint hidden-print">
+            <md-icon class="glyphicon glyphicon-print" aria-label="print stories" ng-click="print()"></md-icon>
+        </div>
+        <div class="storiestitle"><span class="storycounter">(9/16)</span> {{ "STORIES.CONFIDENCESCORES.TITLE" | translate }}</div>
+        <div class="nextstory hidden-print" ng-click="changePage(pageNum + 1)">
+            <md-icon class="glyphicon glyphicon-chevron-right" aria-label="next story"></md-icon>
+        </div>
+    </div>
+    <div class="story" ng-show="pageId === 'confidence-scores' || isPrinting">
+        <div class="videolink hidden-print" ng-hide="isPrinting" ng-click="scrollToVideo()">
+            <md-icon class="glyphicon glyphicon-film" aria-label="play video"></md-icon>
+        </div>
+        <div class="storytext">
+            <p translate="STORIES.CONFIDENCESCORES.TEXT1"></p>
+            <p translate="STORIES.CONFIDENCESCORES.TEXT2"></p>
+            <p translate="STORIES.CONFIDENCESCORES.TEXT3"></p>
+            <iframe class="hidden-print screenshot left" src="https://www.youtube.com/embed/qk8LNVe3m3s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <p translate="STORIES.CONFIDENCESCORES.TEXT4"></p>
+            <p translate="STORIES.CONFIDENCESCORES.TEXT5"></p>
+            <p translate="STORIES.CONFIDENCESCORES.TEXT6"></p>
+            <p translate="STORIES.CONFIDENCESCORES.TEXT7"></p>
+            <p translate="STORIES.CONFIDENCESCORES.TEXT8"></p>
+            <p translate="STORIES.CONFIDENCESCORES.TEXT9"></p>
+            <p translate="STORIES.CONFIDENCESCORES.TEXT10"></p>
+            <p translate="STORIES.CONFIDENCESCORES.TEXT11"></p>
+            <p translate="STORIES.CONFIDENCESCORES.TEXT12"></p>
+            <p translate="STORIES.CONFIDENCESCORES.TEXT13"></p>
+            <p class="hidden-print">
+                <a ng-click="downloadWorksheet($event, 'smartclassroom')" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
+                </a>
+            </p>
+            <p class="callout" translate="STORIES.CONFIDENCESCORES.CALLOUT"></p>
+        </div>
+    </div>
+    <div class="separator" ng-show="pageId === 'confidence-scores' || isPrinting">
+        <hr/>
+    </div>
+
+
+    <!-- --------- -->
+    <!-- black box -->
+    <!-- --------- -->
+    <div class="navigation" ng-show="pageId === 'black-box-challenge' || isPrinting">
+        <div class="previousstory hidden-print" ng-click="changePage(pageNum - 1)">
+            <md-icon class="glyphicon glyphicon-chevron-left" aria-label="previous story"></md-icon>
+        </div>
+        <div class="storieslist hidden-print" ng-click="displayStories($event)">
+            <md-icon class="glyphicon glyphicon-list" aria-label="list stories"></md-icon>
+        </div>
+        <div class="storiesprint hidden-print">
+            <md-icon class="glyphicon glyphicon-print" aria-label="print stories" ng-click="print()"></md-icon>
+        </div>
+        <div class="storiestitle"><span class="storycounter">(10/16)</span> {{ "STORIES.BLACKBOX.TITLE" | translate }}</div>
+        <div class="nextstory hidden-print" ng-click="changePage(pageNum + 1)">
+            <md-icon class="glyphicon glyphicon-chevron-right" aria-label="next story"></md-icon>
+        </div>
+    </div>
+    <div class="story" ng-show="pageId === 'black-box-challenge' || isPrinting">
+        <div class="videolink hidden-print" ng-hide="isPrinting" ng-click="scrollToVideo()">
+            <md-icon class="glyphicon glyphicon-film" aria-label="play video"></md-icon>
+        </div>
+        <div class="storytext">
+            <p translate="STORIES.BLACKBOX.TEXT1"></p>
+            <p translate="STORIES.BLACKBOX.TEXT2"></p>
+            <img style="width: 600px;" class="screenshot left" src="static/images/stories-visualisation-toys.gif"/>
+            <p translate="STORIES.BLACKBOX.TEXT3"></p>
+            <p translate="STORIES.BLACKBOX.TEXT4"></p>
+            <p translate="STORIES.BLACKBOX.TEXT5"></p>
+            <p translate="STORIES.BLACKBOX.TEXT6"></p>
+            <p translate="STORIES.BLACKBOX.TEXT7"></p>
+            <p style="clear: both;" translate="STORIES.BLACKBOX.TEXT8"></p>
+            <p translate="STORIES.BLACKBOX.TEXT9"></p>
+            <img class="screenshot" src="static/images/stories-visualisations-toys-1.png"/>
+            <p translate="STORIES.BLACKBOX.TEXT10"></p>
+            <p translate="STORIES.BLACKBOX.TEXT11"></p>
+            <p translate="STORIES.BLACKBOX.TEXT12"></p>
+            <p translate="STORIES.BLACKBOX.TEXT13"></p>
+            <img class="screenshot" src="static/images/stories-visualisations-toys-2.png"/>
+            <p translate="STORIES.BLACKBOX.TEXT14"></p>
+            <img class="screenshot" src="static/images/stories-visualisations-toys-3.png"/>
+            <p translate="STORIES.BLACKBOX.TEXT15"></p>
+            <p translate="STORIES.BLACKBOX.TEXT16"></p>
+            <p translate="STORIES.BLACKBOX.TEXT17"></p>
+            <p translate="STORIES.BLACKBOX.TEXT18"></p>
+            <img class="screenshot" src="static/images/stories-visualisations-toys-4.png"/>
+            <p translate="STORIES.BLACKBOX.TEXT19"></p>
+            <p translate="STORIES.BLACKBOX.TEXT20"></p>
+            <p translate="STORIES.BLACKBOX.TEXT21"></p>
+            <p class="hidden-print">
+                <a ng-click="downloadWorksheet($event, 'explainability')" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
+                </a>
+            </p>
+            <p class="callout" translate="STORIES.BLACKBOX.CALLOUT"></p>
+        </div>
+    </div>
+    <div class="separator" ng-show="pageId === 'black-box-challenge' || isPrinting">
+        <hr/>
+    </div>
+
+
+    <!-- ------------------------- -->
+    <!-- learning the wrong thing  -->
+    <!-- ------------------------- -->
+    <div class="navigation" ng-show="pageId === 'learning-the-wrong-thing' || isPrinting">
+        <div class="previousstory hidden-print" ng-click="changePage(pageNum - 1)">
+            <md-icon class="glyphicon glyphicon-chevron-left" aria-label="previous story"></md-icon>
+        </div>
+        <div class="storieslist hidden-print" ng-click="displayStories($event)">
+            <md-icon class="glyphicon glyphicon-list" aria-label="list stories"></md-icon>
+        </div>
+        <div class="storiesprint hidden-print">
+            <md-icon class="glyphicon glyphicon-print" aria-label="print stories" ng-click="print()"></md-icon>
+        </div>
+        <div class="storiestitle"><span class="storycounter">(11/16)</span> {{ "STORIES.LEARNINGWRONGTHING.TITLE" | translate }}</div>
+        <div class="nextstory hidden-print" ng-click="changePage(pageNum + 1)">
+            <md-icon class="glyphicon glyphicon-chevron-right" aria-label="next story"></md-icon>
+        </div>
+    </div>
+    <div class="story" ng-show="pageId === 'learning-the-wrong-thing' || isPrinting">
+        <div class="videolink hidden-print" ng-hide="isPrinting" ng-click="scrollToVideo()">
+            <md-icon class="glyphicon glyphicon-film" aria-label="play video"></md-icon>
+        </div>
+        <div class="storytext">
+            <p translate="STORIES.LEARNINGWRONGTHING.TEXT1"></p>
+            <p translate="STORIES.LEARNINGWRONGTHING.TEXT2"></p>
+            <img class="screenshot right" src="static/images/stories-rockpaperscissors.png"/>
+            <p translate="STORIES.LEARNINGWRONGTHING.TEXT3"></p>
+            <p translate="STORIES.LEARNINGWRONGTHING.TEXT4"></p>
+            <p translate="STORIES.LEARNINGWRONGTHING.TEXT5"></p>
+            <p translate="STORIES.LEARNINGWRONGTHING.TEXT6"></p>
+            <img class="screenshot left" src="static/images/stories-rockpaperscissors-training-better.png"/>
+            <p translate="STORIES.LEARNINGWRONGTHING.TEXT7"></p>
+            <p translate="STORIES.LEARNINGWRONGTHING.TEXT8"></p>
+            <p translate="STORIES.LEARNINGWRONGTHING.TEXT9"></p>
+            <p translate="STORIES.LEARNINGWRONGTHING.TEXT10"></p>
+            <p translate="STORIES.LEARNINGWRONGTHING.TEXT11"></p>
+            <p translate="STORIES.LEARNINGWRONGTHING.TEXT12"></p>
+            <p translate="STORIES.LEARNINGWRONGTHING.TEXT13"></p>
+            <p translate="STORIES.LEARNINGWRONGTHING.TEXT14"></p>
+            <p class="hidden-print">
+                <a ng-click="downloadWorksheet($event, 'rockpaperscissors')" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
+                </a>
+            </p>
+            <p class="callout" translate="STORIES.LEARNINGWRONGTHING.CALLOUT"></p>
+            <p translate="STORIES.LEARNINGWRONGTHING.TEXT15"></p>
+            <img class="screenshot right" src="static/images/stories-appletomato-1.png"/>
+            <p translate="STORIES.LEARNINGWRONGTHING.TEXT16"></p>
+            <p translate="STORIES.LEARNINGWRONGTHING.TEXT17"></p>
+            <p translate="STORIES.LEARNINGWRONGTHING.TEXT18"></p>
+            <p translate="STORIES.LEARNINGWRONGTHING.TEXT19"></p>
+            <p translate="STORIES.LEARNINGWRONGTHING.TEXT20"></p>
+            <img class="screenshot left" src="static/images/stories-appletomato-2.png"/>
+            <p translate="STORIES.LEARNINGWRONGTHING.TEXT21"></p>
+            <p translate="STORIES.LEARNINGWRONGTHING.TEXT22"></p>
+            <p translate="STORIES.LEARNINGWRONGTHING.TEXT23"></p>
+            <p translate="STORIES.LEARNINGWRONGTHING.TEXT24"></p>
+            <p translate="STORIES.LEARNINGWRONGTHING.TEXT25"></p>
+        </div>
+    </div>
+    <div class="separator" ng-show="pageId === 'learning-the-wrong-thing' || isPrinting">
+        <hr/>
+    </div>
+
+
+    <!-- --------- -->
+    <!-- confused  -->
+    <!-- --------- -->
+    <div class="navigation" ng-show="pageId === 'testing-with-data-not-represented-in-training' || isPrinting">
+        <div class="previousstory hidden-print" ng-click="changePage(pageNum - 1)">
+            <md-icon class="glyphicon glyphicon-chevron-left" aria-label="previous story"></md-icon>
+        </div>
+        <div class="storieslist hidden-print" ng-click="displayStories($event)">
+            <md-icon class="glyphicon glyphicon-list" aria-label="list stories"></md-icon>
+        </div>
+        <div class="storiesprint hidden-print">
+            <md-icon class="glyphicon glyphicon-print" aria-label="print stories" ng-click="print()"></md-icon>
+        </div>
+        <div class="storiestitle"><span class="storycounter">(12/16)</span> {{ "STORIES.CONFUSED.TITLE" | translate }}</div>
+        <div class="nextstory hidden-print" ng-click="changePage(pageNum + 1)">
+            <md-icon class="glyphicon glyphicon-chevron-right" aria-label="next story"></md-icon>
+        </div>
+    </div>
+    <div class="story" ng-show="pageId === 'testing-with-data-not-represented-in-training' || isPrinting">
+        <div class="videolink hidden-print" ng-hide="isPrinting" ng-click="scrollToVideo()">
+            <md-icon class="glyphicon glyphicon-film" aria-label="play video"></md-icon>
+        </div>
+        <div class="storytext">
+            <p translate="STORIES.CONFUSED.TEXT1"></p>
+            <p translate="STORIES.CONFUSED.TEXT2"></p>
+            <iframe class="hidden-print screenshot left" src="https://www.youtube.com/embed/DLr-5Y9r_RI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <p class="hidden-print sidenote" translate="STORIES.EXAMPLES.VIDEO"></p>
+            <p translate="STORIES.CONFUSED.TEXT3"></p>
+            <p translate="STORIES.CONFUSED.TEXT4"></p>
+            <p translate="STORIES.CONFUSED.TEXT5"></p>
+            <p translate="STORIES.CONFUSED.TEXT6"></p>
+            <p translate="STORIES.CONFUSED.TEXT7"></p>
+            <p translate="STORIES.CONFUSED.TEXT8"></p>
+            <p translate="STORIES.CONFUSED.TEXT9"></p>
+            <p translate="STORIES.CONFUSED.TEXT10"></p>
+            <p translate="STORIES.CONFUSED.TEXT11"></p>
+            <p class="hidden-print">
+                <a href="/book" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
+                </a>
+            </p>
+            <p class="callout" translate="STORIES.CONFUSED.CALLOUT"></p>
+        </div>
+    </div>
+    <div class="separator" ng-show="pageId === 'testing-with-data-not-represented-in-training' || isPrinting">
+        <hr/>
+    </div>
+
+
+    <!-- ---- -->
+    <!-- bias -->
+    <!-- ---- -->
+    <div class="navigation" ng-show="pageId === 'bias' || isPrinting">
+        <div class="previousstory hidden-print" ng-click="changePage(pageNum - 1)">
+            <md-icon class="glyphicon glyphicon-chevron-left" aria-label="previous story"></md-icon>
+        </div>
+        <div class="storieslist hidden-print" ng-click="displayStories($event)">
+            <md-icon class="glyphicon glyphicon-list" aria-label="list stories"></md-icon>
+        </div>
+        <div class="storiesprint hidden-print">
+            <md-icon class="glyphicon glyphicon-print" aria-label="print stories" ng-click="print()"></md-icon>
+        </div>
+        <div class="storiestitle"><span class="storycounter">(13/16)</span> {{ "STORIES.BIAS.TITLE" | translate }}</div>
+        <div class="nextstory hidden-print" ng-click="changePage(pageNum + 1)">
+            <md-icon class="glyphicon glyphicon-chevron-right" aria-label="next story"></md-icon>
+        </div>
+    </div>
+    <div class="story" ng-show="pageId === 'bias' || isPrinting">
+        <div class="videolink hidden-print" ng-hide="isPrinting" ng-click="scrollToVideo()">
+            <md-icon class="glyphicon glyphicon-film" aria-label="play video"></md-icon>
+        </div>
+        <div class="storytext">
+            <p translate="STORIES.BIAS.TEXT1"></p>
+            <p translate="STORIES.BIAS.TEXT2"></p>
+            <iframe class="hidden-print screenshot left" src="https://www.youtube.com/embed/zFshnbF-wqM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <p translate="STORIES.BIAS.TEXT3"></p>
+            <p class="hidden-print sidenote" translate="STORIES.EXAMPLES.VIDEO"></p>
+            <p translate="STORIES.BIAS.TEXT4"></p>
+            <p translate="STORIES.BIAS.TEXT5"></p>
+            <p translate="STORIES.BIAS.TEXT6"></p>
+            <p translate="STORIES.BIAS.TEXT7"></p>
+            <p translate="STORIES.BIAS.TEXT8"></p>
+            <p translate="STORIES.BIAS.TEXT9"></p>
+            <p translate="STORIES.BIAS.TEXT10"></p>
+            <img class="screenshot right" src="static/images/stories-touristinfo-training.png"/>
+            <p translate="STORIES.BIAS.TEXT11"></p>
+            <p translate="STORIES.BIAS.TEXT12"></p>
+            <p translate="STORIES.BIAS.TEXT13"></p>
+            <p translate="STORIES.BIAS.TEXT14"></p>
+            <p translate="STORIES.BIAS.TEXT15"></p>
+            <p translate="STORIES.BIAS.TEXT16"></p>
+            <img class="screenshot left" src="static/images/stories-touristinfo-realworld.png"/>
+            <p translate="STORIES.BIAS.TEXT17"></p>
+            <p translate="STORIES.BIAS.TEXT18"></p>
+            <p translate="STORIES.BIAS.TEXT19"></p>
+            <p translate="STORIES.BIAS.TEXT20"></p>
+            <p class="hidden-print">
+                <a ng-click="downloadWorksheet($event, 'touristinfo')" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
+                </a>
+            </p>
+            <p class="callout" translate="STORIES.BIAS.CALLOUT"></p>
+        </div>
+    </div>
+    <div class="separator" ng-show="pageId === 'bias' || isPrinting">
+        <hr/>
+    </div>
+
+
+    <!-- -------------------- -->
+    <!-- assembling solutions -->
+    <!-- -------------------- -->
+    <div class="navigation" ng-show="pageId === 'assembling-ml-solutions' || isPrinting">
+        <div class="previousstory hidden-print" ng-click="changePage(pageNum - 1)">
+            <md-icon class="glyphicon glyphicon-chevron-left" aria-label="previous story"></md-icon>
+        </div>
+        <div class="storieslist hidden-print" ng-click="displayStories($event)">
+            <md-icon class="glyphicon glyphicon-list" aria-label="list stories"></md-icon>
+        </div>
+        <div class="storiesprint hidden-print">
+            <md-icon class="glyphicon glyphicon-print" aria-label="print stories" ng-click="print()"></md-icon>
+        </div>
+        <div class="storiestitle"><span class="storycounter">(14/16)</span> {{ "STORIES.SOLUTIONS.TITLE" | translate }}</div>
+        <div class="nextstory hidden-print" ng-click="changePage(pageNum + 1)">
+            <md-icon class="glyphicon glyphicon-chevron-right" aria-label="next story"></md-icon>
+        </div>
+    </div>
+    <div class="story" ng-show="pageId === 'assembling-ml-solutions' || isPrinting">
+        <div class="videolink hidden-print" ng-hide="isPrinting" ng-click="scrollToVideo()">
+            <md-icon class="glyphicon glyphicon-film" aria-label="play video"></md-icon>
+        </div>
+        <div class="storytext">
+            <p translate="STORIES.SOLUTIONS.TEXT1"></p>
+            <p translate="STORIES.SOLUTIONS.TEXT2"></p>
+            <iframe class="hidden-print screenshot left" src="https://www.youtube.com/embed/kEQtoqwyI04" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <p translate="STORIES.SOLUTIONS.TEXT3"></p>
+            <p class="hidden-print">
+                <a ng-click="downloadWorksheet($event, 'lasereyes')" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
+                </a>
+            </p>
+            <p translate="STORIES.SOLUTIONS.TEXT4"></p>
+            <p translate="STORIES.SOLUTIONS.TEXT5"></p>
+            <p translate="STORIES.SOLUTIONS.TEXT6"></p>
+            <p translate="STORIES.SOLUTIONS.TEXT7"></p>
+            <p class="callout" translate="STORIES.SOLUTIONS.CALLOUT"></p>
+        </div>
+    </div>
+    <div class="separator" ng-show="pageId === 'assembling-ml-solutions' || isPrinting">
+        <hr/>
+    </div>
+
+
+    <!-- ---------------------------------- -->
+    <!-- models learn to do specific things -->
+    <!-- ---------------------------------- -->
+    <div class="navigation" ng-show="pageId === 'models-learn-to-do-specific-jobs' || isPrinting">
+        <div class="previousstory hidden-print" ng-click="changePage(pageNum - 1)">
+            <md-icon class="glyphicon glyphicon-chevron-left" aria-label="previous story"></md-icon>
+        </div>
+        <div class="storieslist hidden-print" ng-click="displayStories($event)">
+            <md-icon class="glyphicon glyphicon-list" aria-label="list stories"></md-icon>
+        </div>
+        <div class="storiesprint hidden-print">
+            <md-icon class="glyphicon glyphicon-print" aria-label="print stories" ng-click="print()"></md-icon>
+        </div>
+        <div class="storiestitle"><span class="storycounter">(15/16)</span> {{ "STORIES.MISUSING.TITLE" | translate }}</div>
+        <div class="nextstory hidden-print" ng-click="changePage(pageNum + 1)">
+            <md-icon class="glyphicon glyphicon-chevron-right" aria-label="next story"></md-icon>
+        </div>
+    </div>
+    <div class="story" ng-show="pageId === 'models-learn-to-do-specific-jobs' || isPrinting">
+        <div class="videolink hidden-print" ng-hide="isPrinting" ng-click="scrollToVideo()">
+            <md-icon class="glyphicon glyphicon-film" aria-label="play video"></md-icon>
+        </div>
+        <div class="storytext">
+            <p translate="STORIES.MISUSING.TEXT1"></p>
+            <p translate="STORIES.MISUSING.TEXT2"></p>
+            <img class="screenshot left" src="static/images/stories-norman-training.gif"/>
+            <p translate="STORIES.MISUSING.TEXT3"></p>
+            <p translate="STORIES.MISUSING.TEXT5"></p>
+            <p translate="STORIES.MISUSING.TEXT7"></p>
+            <p style="clear: both;" translate="STORIES.MISUSING.TEXT8"></p>
+            <img class="screenshot" src="static/images/stories-norman-inkblot.png"/>
+            <br clear="all"/>
+            <img style="width: 600px;" class="screenshot left" src="static/images/stories-norman-test.gif"/>
+            <p translate="STORIES.MISUSING.TEXT9"></p>
+            <p translate="STORIES.MISUSING.TEXT10"></p>
+            <p translate="STORIES.MISUSING.TEXT11"></p>
+            <p translate="STORIES.MISUSING.TEXT12"></p>
+            <p translate="STORIES.MISUSING.TEXT13"></p>
+            <br clear="all"/>
+            <img style="width: 600px;" class="screenshot right" src="static/images/stories-norman-news.gif"/>
+            <p translate="STORIES.MISUSING.TEXT14"></p>
+            <p translate="STORIES.MISUSING.TEXT15"></p>
+            <p translate="STORIES.MISUSING.TEXT16"></p>
+            <p translate="STORIES.MISUSING.TEXT17"></p>
+            <p class="hidden-print">
+                <a ng-click="downloadWorksheet($event, 'inkblots')" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
+                </a>
+            </p>
+            <p class="callout" translate="STORIES.MISUSING.CALLOUT"></p>
+        </div>
+    </div>
+    <div class="separator" ng-show="pageId === 'models-learn-to-do-specific-jobs' || isPrinting">
+        <hr/>
+    </div>
+
+
+    <!-- -------------------------- -->
+    <!-- invisible ai is everywhere -->
+    <!-- -------------------------- -->
+    <div class="navigation" ng-show="pageId === 'invisible-ai' || isPrinting">
+        <div class="previousstory hidden-print" ng-click="changePage(pageNum - 1)">
+            <md-icon class="glyphicon glyphicon-chevron-left" aria-label="previous story"></md-icon>
+        </div>
+        <div class="storieslist hidden-print" ng-click="displayStories($event)">
+            <md-icon class="glyphicon glyphicon-list" aria-label="list stories"></md-icon>
+        </div>
+        <div class="storiesprint hidden-print">
+            <md-icon class="glyphicon glyphicon-print" aria-label="print stories" ng-click="print()"></md-icon>
+        </div>
+        <div class="storiestitle"><span class="storycounter">(16/16)</span> {{ "STORIES.INVISIBLEAI.TITLE" | translate }}</div>
+        <div class="nextstory hidden-print" ng-click="changePage(pageNum + 1)" ng-hide="true">
+            <md-icon class="glyphicon glyphicon-chevron-right" aria-label="next story"></md-icon>
+        </div>
+    </div>
+    <div class="story" ng-show="pageId === 'invisible-ai' || isPrinting">
+        <div class="videolink hidden-print" ng-hide="isPrinting" ng-click="scrollToVideo()">
+            <md-icon class="glyphicon glyphicon-film" aria-label="play video"></md-icon>
+        </div>
+        <div class="storytext">
+            <p translate="STORIES.INVISIBLEAI.TEXT1"></p>
+            <p translate="STORIES.INVISIBLEAI.TEXT2"></p>
+            <iframe class="hidden-print screenshot left" src="https://www.youtube.com/embed/sKaXHEkbFjo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <p translate="STORIES.INVISIBLEAI.TEXT3"></p>
+            <p class="hidden-print sidenote" translate="STORIES.EXAMPLES.VIDEO"></p>
+            <p translate="STORIES.INVISIBLEAI.TEXT4"></p>
+            <p translate="STORIES.INVISIBLEAI.TEXT5"></p>
+            <p translate="STORIES.INVISIBLEAI.TEXT6"></p>
+            <p class="hidden-print">
+                <a ng-click="downloadWorksheet($event, 'mailmanmax')" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-download-alt"> </span> {{ 'STORIES.DOWNLOAD' | translate }}
+                </a>
+            </p>
+            <p class="callout" translate="STORIES.INVISIBLEAI.CALLOUT"></p>
+        </div>
+    </div>
+    <div class="separator" ng-show="pageId === 'invisible-ai' || isPrinting">
+        <hr/>
+    </div>
+
+
+
+    <!-- ------------ -->
+    <!--    VIDEO     -->
+    <!-- ------------ -->
+
+    <div class="video" id="storyvideo" ng-hide="isPrinting">
+        <iframe ng-if="pageId === 'intro'"
+                src="https://www.youtube.com/embed/videoseries?list=PL6TA5qbHBL5ZSnDFpmAAR7gfFkKvrRG5N" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe ng-if="pageId === 'ml-hasnt-replaced-coding'"
+                src="https://www.youtube.com/embed/34G1Fd3XDyM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe ng-if="pageId === 'ml-workflow'"
+                src="https://www.youtube.com/embed/n5Yz5HBV2ko" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe ng-if="pageId === 'correlation-of-quantity-with-accuracy'"
+                src="https://www.youtube.com/embed/c4Kmoyjt2Vs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe ng-if="pageId === 'crowdsourcing-and-gamification'"
+                src="https://www.youtube.com/embed/1lfc3ukKUmU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe ng-if="pageId === 'variety-of-training-data'"
+                src="https://www.youtube.com/embed/AAR0Q8X3J9E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe ng-if="pageId === 'separation-of-training-and-test-data'"
+                src="https://www.youtube.com/embed/gRz4kx__gvY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe ng-if="pageId === 'not-just-intents'"
+                src="https://www.youtube.com/embed/VbzQenkQ-AQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe ng-if="pageId === 'adding-errors-to-training'"
+                src="https://www.youtube.com/embed/VYj9c7b-JFY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe ng-if="pageId === 'confidence-scores'"
+                src="https://www.youtube.com/embed/ecR9tb5J-rY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe ng-if="pageId === 'black-box-challenge'"
+                src="https://www.youtube.com/embed/kladZW-RSaA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe ng-if="pageId === 'learning-the-wrong-thing'"
+                src="https://www.youtube.com/embed/s2bCWs3T200" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe ng-if="pageId === 'testing-with-data-not-represented-in-training'"
+                src="https://www.youtube.com/embed/WS-Azstnw1Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe ng-if="pageId === 'bias'"
+                src="https://www.youtube.com/embed/XIrm6nDiTAc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe ng-if="pageId === 'models-learn-to-do-specific-jobs'"
+                src="https://www.youtube.com/embed/q-HUDSjCr-c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe ng-if="pageId === 'invisible-ai'"
+                src="https://www.youtube.com/embed/nqz8_nO_9rI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+</div>

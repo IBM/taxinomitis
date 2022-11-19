@@ -1,0 +1,187 @@
+.storiessection {
+    padding-bottom: 3em;
+}
+.storiessection .intro {
+    font-size: 1.2em;
+    padding: 1em;
+}
+.storiessection .intro .printheader {
+    font-size: 0.7em;
+    text-align: center;
+    margin-bottom: 1em;
+}
+.storiessection .intro .print-icon {
+    float: left;
+    font-size: 1.4em;
+    display: inline-table;
+    text-align: center;
+    min-width: 50px;
+    margin-right: 10px;
+    cursor: pointer;
+    border-radius: 6px;
+    border: thin solid #808080;
+}
+.storiessection .intro .print-icon .label {
+    font-size: 0.3em;
+    margin: 0 4px;
+}
+.storiessection .intro.menu {
+    display: flex;
+    flex-direction: column;
+}
+.storiessection .navigation {
+    page-break-before: always;
+    break-before: always;
+}
+.storiessection .navigation .storiestitle {
+    font-weight: 300;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    flex-grow: 1;
+    padding-right: 10px;
+    margin-left: 1em;
+}
+.storiessection .navigation .storiestitle .storycounter {
+    font-size: 0.6em;
+    vertical-align: super;
+    margin-right: 3px;
+}
+@media (max-width: 700px) {
+    .storiessection .navigation .storiestitle {
+        font-size: 1em;
+    }
+}
+@media (min-width: 701px) {
+    .storiessection .navigation .storiestitle {
+        font-size: 1.3em;
+        margin-top: 7px;
+        white-space: nowrap;
+    }
+}
+@media (max-width: 660px) {
+    .storiessection .navigation .storiesprint {
+        display: none;
+    }
+}
+
+.storiessection .navigation {
+    display: flex;
+    flex-flow: row;
+    background-color: #e7e7e7;
+    margin-left: 1em;
+    margin-right: 1em;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
+}
+.storiessection .navigation .storieslist,.previousstory,.nextstory,.storiesprint {
+    font-size: 2em;
+}
+.storiessection .navigation .glyphicon {
+    margin-top: -10px;
+    cursor: pointer;
+}
+.storiessection .navigation .storieslist {
+    margin: 0 1em;
+}
+.storiessection .story {
+    margin: 1em;
+}
+.storiessection .story .videolink {
+    float: left;
+    margin: 0.2em 0.8em;
+    font-size: 2em;
+    display: inline-table;
+    text-align: center;
+    min-width: 80px;
+
+    border-radius: 10px;
+    border: 2px solid #303030;
+}
+.storiessection .story .videolink .glyphicon {
+    margin-top: -10px;
+}
+.storiessection .story .storytext {
+    text-align: justify;
+}
+.storiessection .story .storytext .callout {
+    clear: both;
+    font-size: 1.3em;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin: 40px 20px;
+    border-left: thick grey solid;
+    padding: 0 10px;
+    color: black;
+}
+.storiessection .story .storytext .btn {
+    font-size: 0.8em;
+}
+.storiessection .story .storytext .sidenote {
+    font-style: italic;
+    font-size: 0.9em;
+    color: #303030;
+}
+.storiessection .story .storytext .screenshot {
+    border: thin black solid;
+    margin: 10px;
+    width: 450px;
+    max-width: 95%;
+    min-height: 245px;
+}
+.storiessection .story .storytext .screenshot.left {
+    float: left;
+}
+.storiessection .story .storytext .screenshot.right {
+    float: right;
+}
+.storiessection .video {
+    padding-top: 1em;
+    margin-bottom: 4em;
+    clear: both;
+}
+.storiessection .video iframe {
+    border: thin black solid;
+    margin-left: 1em;
+    margin-right: 1em;
+    width: 95vw;
+    height: calc(95vw/1.77);
+}
+
+.storiessection .separator {
+    margin: 0 15px;
+    clear: both;
+}
+.storiessection hr {
+    border-bottom: thin black solid;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+}
+
+@media print {
+    .hidden-print {
+        display: none !important;
+    }
+}
+
+.storylistbutton {
+    text-transform: none !important;
+}
+.storylist {
+    padding: 1em;
+}
+@media print {
+    .storylistbutton {
+        padding: 0;
+        margin: 0;
+        border: 0;
+        text-align: left;
+        box-shadow: none !important;
+        line-height: 28px;
+        min-height: 28px;
+    }
+    .storylistbutton:before {
+        content: "• ";
+    }
+}

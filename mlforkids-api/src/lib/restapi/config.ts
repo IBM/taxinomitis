@@ -160,6 +160,29 @@ export function setupUI(app: express.Application): void {
     app.get('/pretrained', (req, res) => { res.redirect('/#!/pretrained'); });
     app.get('/book', (req, res) => { res.redirect('/#!/book'); });
 
+    const stories = [
+        'ml-hasnt-replaced-coding',
+        'ml-workflow',
+        'correlation-of-quantity-with-accuracy',
+        'crowdsourcing-and-gamification',
+        'separation-of-training-and-test-data',
+        'not-just-intents',
+        'adding-errors-to-training',
+        'confidence-scores',
+        'black-box-challenge',
+        'testing-with-data-not-represented-in-training',
+        'learning-the-wrong-thing',
+        'bias',
+        'assembling-ml-solutions',
+        'models-learn-to-do-specific-jobs',
+        'invisible-ai'
+    ];
+    const storiesfolder = path.join(uilocation, 'stories');
+    for (const story of stories) {
+        app.use('/stories/' + story, express.static(storiesfolder, { index: story + '.html', maxAge : constants.ONE_YEAR }));
+    }
+    app.use('/stories', express.static(storiesfolder, { index: 'intro.html', maxAge : constants.ONE_YEAR }));
+
     const indexHtml: string = path.join(__dirname, '/../../../web/dynamic');
     app.use('/', compression(), express.static(indexHtml, { maxAge : constants.ONE_HOUR }));
 }
