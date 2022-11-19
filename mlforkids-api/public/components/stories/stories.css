@@ -48,7 +48,7 @@
 }
 @media (max-width: 700px) {
     .storiessection .navigation .storiestitle {
-        font-size: 1em;
+        font-size: 1.1em;
     }
 }
 @media (min-width: 701px) {
@@ -90,17 +90,34 @@
 }
 .storiessection .story .videolink {
     float: left;
-    margin: 0.2em 0.8em;
-    font-size: 2em;
     display: inline-table;
     text-align: center;
-    min-width: 80px;
-
-    border-radius: 10px;
-    border: 2px solid #303030;
 }
-.storiessection .story .videolink .glyphicon {
-    margin-top: -10px;
+@media (max-width: 700px) {
+    .storiessection .story .videolink {
+        margin: 0.2em 0.4em;
+        font-size: 1.7em;
+        min-width: 50px;
+
+        border-radius: 7px;
+        border: 1px solid #303030;
+    }
+    .storiessection .story .videolink .glyphicon {
+        margin-top: -7px;
+    }
+}
+@media (min-width: 701px) {
+    .storiessection .story .videolink {
+        margin: 0.2em 0.8em;
+        font-size: 2em;
+        min-width: 80px;
+
+        border-radius: 10px;
+        border: 2px solid #303030;
+    }
+    .storiessection .story .videolink .glyphicon {
+        margin-top: -10px;
+    }
 }
 .storiessection .story .storytext {
     text-align: justify;
