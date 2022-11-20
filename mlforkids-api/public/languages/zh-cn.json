@@ -1965,7 +1965,7 @@
         },
         "MLHASNTREPLACEDCODING": {
             "TITLE": "Machine learning hasn't replaced the need to learn to code",
-            "TEXT1": "I like to introduce students to machine learning by allowing them to make things with <a href='/pretrained'>pretrained models</a> - a range of new blocks that can be added to the Scratch palette to represent a range of powerful machine learning models.",
+            "TEXT1": "I like to introduce students to machine learning by allowing them to make things with <a href='/pretrained'>pretrained models</a> - a range of new blocks that can be added to the Scratch palette to represent a variety of powerful machine learning models.",
             "TEXT2": "For example, imagenet: a model that can recognise the object in a photo that you give it. It can recognise over a thousand different things.",
             "TEXT3": "With just a few Scratch blocks, students can start building projects that do remarkably powerful and impressive things.",
             "TEXT4": "Another example is the face detection model: a model that can identify different parts of a face (e.g. eyes, nose, ears, etc.) in a picture or webcam view. ",
