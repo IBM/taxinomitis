@@ -1,5 +1,5 @@
 numpy==1.23.5
 Pillow==9.3.0
 scipy==1.9.3
-tensorflow==2.10.0
+tensorflow==2.10.1
 tensorflow-hub==0.12.0
