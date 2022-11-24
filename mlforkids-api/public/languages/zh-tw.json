@@ -23,6 +23,7 @@
         "WORKSHEETS": "作品清單",
         "PRETRAINED": "免訓練模型",
         "NEWS": "新聞",
+        "STORIES": "Stories",
         "HELP": "幫助",
         "LOGIN": "登入",
         "LOGOUT": " 登出",
@@ -1000,6 +1001,7 @@
         "INTRO_1": "這些專案是可以下載的一步一步教學指引，包含說明與彩色的螢幕截圖讓學生可以跟著學習",
         "INTRO_2": "每個專案都是一個獨立的活動為一堂課的時間而製作，這堂課將指導孩子們創造一個遊戲或互動式專案，以展示真實世界中人工智慧和機器學習的運用。",
         "INTRO_3": "非常歡迎您提出新作品清單的建議，包含對任何作品清單進行改善的建議或貢獻。",
+        "INTRO_4": "Examples of how to use these worksheets, and a suggested order for using these with a class, can be found in the <a href='/stories'>stories about what students learn</a>.",
 
         "TYPES": {
             "TITLE": "辨識：",

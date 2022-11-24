@@ -20,6 +20,7 @@
         "WORKSHEETS": "Plan de travail",
         "PRETRAINED": "Pré-entraîné",
         "NEWS": "Nouvelles",
+        "STORIES": "Stories",
         "HELP": "Aide",
         "LOGIN": "Connexion",
         "LOGOUT": "Déconnexion",
@@ -973,6 +974,7 @@
         "INTRO_1": "Ces projets sont des guides téléchargeables étape par étape, avec des explications et des captures d'écran en couleur que les élèves peuvent suivre.",
         "INTRO_2": "Chaque projet est une activité autonome, écrite pour durer une seule séance, et guidera les jeunes pour créer un jeu ou un projet interactif qui démontre une utilisation réelle de l'intelligence artificielle et de l'apprentissage automatique.",
         "INTRO_3": "Les suggestions de nouvelles feuilles de travail, les suggestions d'améliorations à apporter à l'une ou l'autre des feuilles de travail, ou les contributions de nouvelles feuilles de travail de projet, sont toutes les bienvenues.",
+        "INTRO_4": "Examples of how to use these worksheets, and a suggested order for using these with a class, can be found in the <a href='/stories'>stories about what students learn</a>.",
         "TYPES": {
             "TITLE": "Reconnaître:",
             "ALL": "Tous types de projets",

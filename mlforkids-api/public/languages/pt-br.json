@@ -20,6 +20,7 @@
         "WORKSHEETS": "Fichas de Trabalho",
         "PRETRAINED": "Pretrained",
         "NEWS": "Notícias",
+        "STORIES": "Stories",
         "HELP": "Ajuda",
         "LOGIN": "Entrar",
         "LOGOUT": "Sair",
@@ -973,6 +974,7 @@
         "INTRO_1": "Esses projetos são guias passo-a-passo para download, com explicações e capturas de tela para os alunos seguirem.",
         "INTRO_2": "Cada projeto é uma atividade completa, escrita para durar uma única aula, e guiará as crianças a criar um jogo ou projeto interativo que demonstra um uso real da inteligência artificial e aprendizado de máquina.",
         "INTRO_3": "Sugestões para novas fichas de trabalho, sugestões de melhorias em qualquer uma das planilhas ou contribuições de novas fichas de trabalho de projetos são muito bem-vindas.",
+        "INTRO_4": "Examples of how to use these worksheets, and a suggested order for using these with a class, can be found in the <a href='/stories'>stories about what students learn</a>.",
         "TYPES": {
             "TITLE": "Reconhecendo:",
             "ALL": "Todos tipos de projeto",

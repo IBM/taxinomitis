@@ -20,6 +20,7 @@
         "WORKSHEETS": "Werkbladen",
         "PRETRAINED": "Pretrained",
         "NEWS": "Nieuws",
+        "STORIES": "Stories",
         "HELP": "Help",
         "LOGIN": "Log In",
         "LOGOUT": "Log Uit",
@@ -973,6 +974,7 @@
         "INTRO_1": "Deze projecten zijn downloadbare stap-per-stap handleidingen, met uitleg en screenshots in kleur voor de studenten om te volgen.",
         "INTRO_2": "Elk project is een stand-alone activiteit, geschreven om een les te vullen en zal de kinderen helpen om een spel of interactief project te maken dat het gebruik van artificiële intelligentie en machine learning in de echte wereld demonstreert.",
         "INTRO_3": "Suggesties voor nieuwe werkbladen, suggesties voor verbeteringen voor een van de werkbladen of bijdragen aan nieuwe project werkbladen, zijn allemaal zeer welkom.",
+        "INTRO_4": "Examples of how to use these worksheets, and a suggested order for using these with a class, can be found in the <a href='/stories'>stories about what students learn</a>.",
         "TYPES": {
             "TITLE": "Herkenning:",
             "ALL": "Alle project types",

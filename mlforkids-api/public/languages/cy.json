@@ -20,6 +20,7 @@
         "WORKSHEETS": "Taflenni Waith",
         "PRETRAINED": "Pretrained",
         "NEWS": "Newyddion",
+        "STORIES": "Stories",
         "HELP": "Cymorth",
         "LOGIN": "Mewngofnodi",
         "LOGOUT": "Allgofnodi",
@@ -973,6 +974,7 @@
         "INTRO_1": "Mae'r prosiectau hyn yn ganllawiau cam wrth gam y gellir eu lawrlwytho, gydag esboniadau a sgrinluniau lliw i fyfyrwyr eu dilyn.",
         "INTRO_2": "Mae pob prosiect yn weithgaredd ar ei ben ei hun, a ysgrifennwyd i bara am wers sengl, a bydd yn tywys plant i greu gêm neu brosiect rhyngweithiol sy'n dangos defnydd yn y byd go iawn o ddeallusrwydd artiffisial a dysgu â pheiriant.",
         "INTRO_3": "Mae croeso mawr i awgrymiadau ar gyfer taflenni gwaith newydd, awgrymiadau o welliannau i unrhyw un o'r taflenni gwaith, neu gyfraniadau taflenni gwaith prosiect newydd.",
+        "INTRO_4": "Examples of how to use these worksheets, and a suggested order for using these with a class, can be found in the <a href='/stories'>stories about what students learn</a>.",
         "TYPES": {
             "TITLE": "Cydnabod:",
             "ALL": "Pob math o brosiect",

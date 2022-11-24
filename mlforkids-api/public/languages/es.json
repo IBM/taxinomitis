@@ -20,6 +20,7 @@
         "WORKSHEETS": "Ejercicios",
         "PRETRAINED": "Pretrained",
         "NEWS": "Novedades",
+        "STORIES": "Stories",
         "HELP": "Ayuda",
         "LOGIN": "Ingresar",
         "LOGOUT": "Salir",
@@ -973,6 +974,7 @@
         "INTRO_1": "Estos proyectos son tutoriales descargables, con instrucciones paso a paso, explicaciones, y capturas de pantalla en color para que los puedan seguir los estudiantes..",
         "INTRO_2": "Cada Proyecto es una actividad independiente, diseñado como lección única, y  enseña a los niños cóm crear un juego o un Proyecto interactivo como ejemplo de un uso real de la inteligencia artificial y el aprendizaje automático. .",
         "INTRO_3": "Se aceptan sugerencias de nuevas fichas, mejora de las actuales o nuevos proyectos.",
+        "INTRO_4": "Examples of how to use these worksheets, and a suggested order for using these with a class, can be found in the <a href='/stories'>stories about what students learn</a>.",
         "TYPES": {
             "TITLE": "Reconocimiento:",
             "ALL": "Todos los proyectos",

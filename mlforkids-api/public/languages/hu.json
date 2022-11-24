@@ -23,6 +23,7 @@
         "WORKSHEETS": "Munkalapok",
         "PRETRAINED": "Előre tanított",
         "NEWS": "Hírek",
+        "STORIES": "Stories",
         "HELP": "Segítség",
         "LOGIN": "Belépés",
         "LOGOUT": "Kilépés",
@@ -999,6 +1000,7 @@
         "INTRO_1": "Ezek a projektek letölthetőek és lépésről lépésre követhetőek.  Sőt mi több, színes képernyőképet és magyarázatot is tartalmaznak, amelyeket a diákok könnyen követhetnek.",
         "INTRO_2": "Minden projekt önálló tevékenységre alkalmas, és egy órát igényel. Segítségükkel a diákok játékokat vagy olyan önálló projekteket készíthetnek, amelyek a mesterséges intelligencia és a gépi tanulás valóságos hasznosulását demonstrálják.",
         "INTRO_3": "Új projekt és munkalap javaslatokat, fejlesztési ötleteket és segítséget örömmel fogadunk.",
+        "INTRO_4": "Examples of how to use these worksheets, and a suggested order for using these with a class, can be found in the <a href='/stories'>stories about what students learn</a>.",
 
         "TYPES": {
             "TITLE": "Felismerés:",

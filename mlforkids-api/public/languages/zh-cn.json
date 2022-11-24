@@ -20,6 +20,7 @@
         "WORKSHEETS": "工作表",
         "PRETRAINED": "Pretrained",
         "NEWS": "新闻",
+        "STORIES": "Stories",
         "HELP": "帮助",
         "LOGIN": "登录",
         "LOGOUT": "注销",
@@ -973,6 +974,7 @@
         "INTRO_1": "这些项目是可下载的逐步指南,附有解释和彩色屏幕截图供学生遵循。",
         "INTRO_2": "每个项目都是一个独立的活动,写入最后一课,并将引导孩子们创建一个游戏或互动项目,展示人工智能和机器学习的真实使用。",
         "INTRO_3": "对新工作表的建议,对任何工作表的改进建议,或新项目工作表的贡献,都非常受欢迎。",
+        "INTRO_4": "Examples of how to use these worksheets, and a suggested order for using these with a class, can be found in the <a href='/stories'>stories about what students learn</a>.",
         "TYPES": {
             "TITLE": "认识: ",
             "ALL": "所有项目类型",

@@ -20,6 +20,7 @@
         "WORKSHEETS": "Çalışma Sayfaları",
         "PRETRAINED": "Pretrained",
         "NEWS": "Haberler",
+        "STORIES": "Stories",
         "HELP": "Yardım",
         "LOGIN": "Oturum Aç",
         "LOGOUT": "Oturumu Kapat",
@@ -973,6 +974,7 @@
         "INTRO_1": "Bu projeler, öğrencilerin takip edebileceği açıklamalar ve renkli ekran görüntülerini içeren, karşıdan yükleyebileceğiniz adım adım yönergeli kılavuzlardır.",
         "INTRO_2": "Her bir proje, tek bir ders boyunca sürecek şekilde yazılmış, bağımsız bir etkinliktir. Yapay zeka ve makine öğreniminin gerçek dünyada kullanımını gösteren, etkileşimli bir proje veya bir oyun yaratmak için öğrencilere yardımcı olur.",
         "INTRO_3": "Yeni çalışma sayfaları için öneriler, çalışma sayfalarının herhangi birine ilişkin iyileştirme önerileri, yeni proje çalışma sayfası katkıları her zaman memnuniyetle kabul edilir.",
+        "INTRO_4": "Examples of how to use these worksheets, and a suggested order for using these with a class, can be found in the <a href='/stories'>stories about what students learn</a>.",
         "TYPES": {
             "TITLE": "Tanıma:",
             "ALL": "Tüm proje türleri",

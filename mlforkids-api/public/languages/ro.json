@@ -23,6 +23,7 @@
         "WORKSHEETS": "Fișe de lucru ",
         "PRETRAINED": "Pre-instruire",
         "NEWS": "Noutăți",
+        "STORIES": "Stories",
         "HELP": "Ajutor",
         "LOGIN": "Autentificare",
         "LOGOUT": "Deconectare",
@@ -999,7 +1000,8 @@
 
         "INTRO_1": "Aceste proiecte sunt ghiduri descărcabile pas cu pas, cu explicații și capturi de ecran color pe care elevii trebuie să le urmeze.",
         "INTRO_2": "Fiecare proiect este o activitate autonomă, scrisă pentru a dura o singură lecție și îi va îndruma pe copii să creeze un joc sau un proiect interactiv care să demonstreze o utilizare reală a inteligenței artificiale și a învățării automate.",
-         "INTRO_3": "Sugestii pentru noi foi de lucru, sugestii de îmbunătățire a oricăreia dintre foile de lucru sau contribuții de noi foi de lucru pentru proiecte, toate sunt foarte binevenite.",
+        "INTRO_3": "Sugestii pentru noi foi de lucru, sugestii de îmbunătățire a oricăreia dintre foile de lucru sau contribuții de noi foi de lucru pentru proiecte, toate sunt foarte binevenite.",
+        "INTRO_4": "Examples of how to use these worksheets, and a suggested order for using these with a class, can be found in the <a href='/stories'>stories about what students learn</a>.",
 
         "TYPES": {
             "TITLE": "Recunoașterea:",

@@ -20,6 +20,7 @@
         "WORKSHEETS": "Arbetsblad",
         "PRETRAINED": "Pretrained",
         "NEWS": "Nyheter",
+        "STORIES": "Stories",
         "HELP": "Hjälp",
         "LOGIN": "Logga in",
         "LOGOUT": "Logga ut",
@@ -973,6 +974,7 @@
         "INTRO_1": "De här projekten är nedladdningsbara steg-för-steg-guider, med förklaringar och skärmdumpar i färg som elever kan följa.",
         "INTRO_2": "Varje projekt är en fristående aktivitet som är skriven för att räcka till en lektion. Det kommer att vägleda barn att skapa ett spel eller interaktivt projekt som demonstrerar ett verkligt användningsområde för artificiell intelligens och maskininlärning.",
         "INTRO_3": "Förslag till nya arbetsblad, förslag till förbättringar av något av arbetsbladen, eller bidrag med nya projektarbetsblad är väldigt välkomna.",
+        "INTRO_4": "Examples of how to use these worksheets, and a suggested order for using these with a class, can be found in the <a href='/stories'>stories about what students learn</a>.",
         "TYPES": {
             "TITLE": "Igenkänning av:",
             "ALL": "Alla projekttyper",

@@ -23,6 +23,7 @@
         "WORKSHEETS": "워크시트",
         "PRETRAINED": "학습된",
         "NEWS": "새소식",
+        "STORIES": "Stories",
         "HELP": "도움말",
         "LOGIN": "로그인",
         "LOGOUT": "로그아웃",
@@ -1000,6 +1001,7 @@
         "INTRO_1": "이 프로젝트는 다운로드가 가능한 단계별 가이드이며, 학생들이 따라할 수 있도록 스크린샷과 설명이 있습니다.",
         "INTRO_2": "각 프로젝트는 하나의 수업주제를 가지고 있으며, 학생들이 AI와 머신러닝을 사용하여 게임과 상호작용이 가능한 프로젝트를 만들 수 있습니다.",
         "INTRO_3": "새로운 워크시트에 대한 제안이나, 워크시트에 대한 의견, 그리고 새로운 워크시트 개발에 참여해주시길 바랍니다.",
+        "INTRO_4": "Examples of how to use these worksheets, and a suggested order for using these with a class, can be found in the <a href='/stories'>stories about what students learn</a>.",
 
         "TYPES": {
             "TITLE": "인식:",

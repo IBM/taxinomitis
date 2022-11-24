@@ -20,6 +20,7 @@
         "WORKSHEETS": "ワークシート",
         "PRETRAINED": "Pretrained",
         "NEWS": "ニュース",
+        "STORIES": "Stories",
         "HELP": "ヘルプ",
         "LOGIN": "ログイン",
         "LOGOUT": "ログアウト",
@@ -973,6 +974,7 @@
         "INTRO_1": "これらのプロジェクトは、生徒が追従できるようステップ毎の説明とカラーのスクリーンショット付きのガイド（ダウンロード可能、英語）を含みます。",
         "INTRO_2": "それぞれのプロジェクトは単発のプロジェクトで、一回のレッスンで完結するように作られており、実世界での人口知能や機械学習の利用され方をデモするインタラクティブなプロジェクトやゲームを子供達が作れるようにガイドしています。",
         "INTRO_3": "新しいワークシートの提案、既存のワークシートの改善、新しいプロジェクトのワークシートの提供等をお願い致します。",
+        "INTRO_4": "Examples of how to use these worksheets, and a suggested order for using these with a class, can be found in the <a href='/stories'>stories about what students learn</a>.",
         "TYPES": {
             "TITLE": "認識する:",
             "ALL": "全てのプロジェクトタイプ",

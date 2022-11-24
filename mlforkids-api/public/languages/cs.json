@@ -20,6 +20,7 @@
         "WORKSHEETS": "Cvičení",
         "PRETRAINED": "Pretrained",
         "NEWS": "Novinky",
+        "STORIES": "Stories",
         "HELP": "Nápověda",
         "LOGIN": "Příhlásit",
         "LOGOUT": "Odhlásit",
@@ -973,6 +974,7 @@
         "INTRO_1": "These projects are downloadable step-by-step guides, with explanations and colour screenshots for students to follow.",
         "INTRO_2": "Each project is a stand-alone activity, written to last for a single lesson, and will guide children to create a game or interactive project that demonstrates a real-world use of artificial intelligence and machine learning.",
         "INTRO_3": "Suggestions for new worksheets, suggestions of improvements to any of the worksheets, or contributions of new project worksheets, are all very welcome.",
+        "INTRO_4": "Examples of how to use these worksheets, and a suggested order for using these with a class, can be found in the <a href='/stories'>stories about what students learn</a>.",
         "TYPES": {
             "TITLE": "Recognising:",
             "ALL": "All project types",

@@ -20,6 +20,7 @@
         "WORKSHEETS": "Fogli di lavoro",
         "PRETRAINED": "Pretrained",
         "NEWS": "Novità",
+        "STORIES": "Stories",
         "HELP": "Aiuto",
         "LOGIN": "Accedi",
         "LOGOUT": "Esci",
@@ -973,6 +974,7 @@
         "INTRO_1": "Questi progetti sono guide passo-passo scaricabili, con spiegazioni e immagini che gli studenti devono seguire.",
         "INTRO_2": "Ogni progetto è un'attività a sé stante, scritta per durare una sola lezione, e guiderà i bambini a creare un gioco o un progetto interattivo che dimostri l'uso reale dell'intelligenza artificiale e dell'apprendimento automatico.",
         "INTRO_3": "Suggerimenti per nuove schede, suggerimenti per il miglioramento di una qualsiasi delle schede o contributi con nuove schede, sono tutti benvenuti.",
+        "INTRO_4": "Examples of how to use these worksheets, and a suggested order for using these with a class, can be found in the <a href='/stories'>stories about what students learn</a>.",
         "TYPES": {
             "TITLE": "Riconoscendo:",
             "ALL": "Tutti i tipi di progetto",

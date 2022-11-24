@@ -20,6 +20,7 @@
         "WORKSHEETS": "Arbeitsblätter",
         "PRETRAINED": "Pretrained",
         "NEWS": "Neuigkeiten",
+        "STORIES": "Stories",
         "HELP": "Hilfe",
         "LOGIN": "Einloggen",
         "LOGOUT": "Ausloggen",
@@ -973,6 +974,7 @@
         "INTRO_1": "Hier findest du Arbeitsblätter zum herunterladen auf Englisch. Auf den Arbeitsblättern sind verschiedene Machine Learning Projekte mit Schritt-für-Schritt Anleitungen, Beispielen und Screenshots, die deine Schüler befolgen können. Unterrichtsmaterialien auf Deutsch findest du auf <a href='https://appcamps.de/'>www.appcamps.de</a>",
         "INTRO_2": "Jedes Projekt ist eigenständig und für eine Unterrichtseinheit konzipiert. Das Ergebnis ist jeweils ein Spiel oder interaktives Projekt, das den realen Einsatz von künstlicher Intelligenz und maschinellem Lernen demonstriert.",
         "INTRO_3": "Vorschläge für neue Arbeitsblätter, Verbesserungsvorschläge für vorhandene Arbeitsblätter oder das Teilen eigener Arbeitsblätter sind sehr willkommen.",
+        "INTRO_4": "Examples of how to use these worksheets, and a suggested order for using these with a class, can be found in the <a href='/stories'>stories about what students learn</a>.",
         "TYPES": {
             "TITLE": "Erkennen:",
             "ALL": "Alle Arten von Projekten",
