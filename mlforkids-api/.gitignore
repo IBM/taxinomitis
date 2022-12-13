@@ -12,6 +12,7 @@ ops/cos-credentials.env
 ops/email-credentials.env
 ops/slack-credentials.env
 ops/openwhisk-credentials.env
+ops/spotify-credentials.env
 
 ops/previous-prod
 public/scratchx

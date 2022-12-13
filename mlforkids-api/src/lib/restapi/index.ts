@@ -15,6 +15,7 @@ import registerScratchApis from './scratch';
 import registerAppInventorApis from './appinventor';
 import registerWatsonApis from './watsonapis';
 import registerClassifierApis from './classifiers';
+import registerServicesApis from './services';
 import registerSessionUserApis from './sessionusers';
 import registerSiteAlertApis from './sitealerts';
 import * as URLS from './urls';
@@ -75,6 +76,7 @@ export default function setup(app: Express.Application): void {
         registerAppInventorApis(app);
         registerWatsonApis(app);
         registerClassifierApis(app);
+        registerServicesApis(app);
         registerSessionUserApis(app);
     }
 

@@ -82,5 +82,8 @@ export const SITEALERTS_STUDENT    = '/api/sitealerts/alerts/:classid/students/:
 export const SITEALERTS_TEACHER    = '/api/sitealerts/alerts/:classid/supervisors/:studentid';
 export const SITEALERTS_REFRESH    = '/api/sitealerts/actions/refresh';
 
+//
+// URLs for third-party services
+export const SPOTIFY_TOKEN         = '/api/services/spotify/token';
 
 // tslint:enable:max-line-length

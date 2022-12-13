@@ -45,3 +45,4 @@ echo "Selecting code engine project"
 ../../ops/codeengine-region-ussouth.sh
 echo "Updating app"
 update_app
+update_cleanup_job

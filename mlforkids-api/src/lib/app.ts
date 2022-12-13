@@ -10,6 +10,7 @@ import restapi from './restapi';
 import * as credentialscheck from './training/credentialscheck';
 import * as slack from './notifications/slack';
 import * as email from './notifications/email';
+import * as spotify from './spotify';
 import { confirmRequiredEnvironment } from './utils/env';
 import * as shutdown from './utils/shutdown';
 import * as env from './utils/env';
@@ -37,6 +38,9 @@ if (env.inMaintenanceMode()) {
 slack.init();
 // prepare SMTP pool for sending notification emails
 email.init();
+
+// setup Spotify auth header
+spotify.init();
 
 // connect to S3 object storage used to store images and sounds
 objectstore.init();
