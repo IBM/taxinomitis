@@ -29,4 +29,5 @@ before_script:
 
 script:
 - cd mlforkids-api
+- npm install
 - npm run build
