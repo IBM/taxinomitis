@@ -75,6 +75,29 @@
     white-space: pre-line;
 }
 
+.datasetdialog .datasetratio {
+    border: thin #3f51b5 solid;
+    background-color: #eee;
+    margin: 1.5em;
+    padding: 0.8em 0.8em 0;
+    font-size: 0.9em;
+}
+
+.datasetdialog .datasetratio .datasetinput {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 1em;
+}
+
+.datasetdialog .datasetratio .datasetinput .datasetinputlabel {
+    font-size: 0.8em;
+    max-width: 100px;
+    text-align: center;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
 
 /* *************************************/
 /*     ONE column     (vertical cards) */

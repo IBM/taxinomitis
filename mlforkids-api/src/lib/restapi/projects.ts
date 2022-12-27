@@ -93,6 +93,10 @@ async function createProject(req: auth.RequestWithUser, res: Express.Response) {
 
     let isImport = false;
 
+    // percentage of the training data that should be excluded for
+    //  use in testing
+    let testratio = 0;
+
     //
     // Quick sanity check that the request looks to have the right
     //  values in it.
@@ -102,6 +106,20 @@ async function createProject(req: auth.RequestWithUser, res: Express.Response) {
         // assume we're being asked to create a project
         //  based on a pre-existing set of training data
         isImport = true;
+
+        // how much of the dataset should be imported?
+        if (req.body.testratio) {
+            if (Number.isInteger(req.body.testratio) &&
+                req.body.testratio >= 0 &&
+                req.body.testratio <= 100)
+            {
+                testratio = req.body.testratio;
+            }
+            else {
+                return res.status(httpstatus.BAD_REQUEST)
+                        .send({ error : 'Test ratio must be an integer between 0 and 100' });
+            }
+        }
     }
     else {
         // otherwise assume we're creating a new empty project
@@ -162,7 +180,8 @@ async function createProject(req: auth.RequestWithUser, res: Express.Response) {
     try {
         let project;
         if (isImport) {
-            project = await datasets.importDataset(userid, classid, crowdsourced,
+            const opts = { crowdsourced, testratio };
+            project = await datasets.importDataset(userid, classid, opts,
                                                    req.body.type,
                                                    req.body.dataset);
         }

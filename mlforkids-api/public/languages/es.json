@@ -262,6 +262,7 @@
             "INTRO_3": "You will be able to make changes to the training data if you like, or you can go straight to training a machine learning model with it. "
         },
         "IMPORT": "Import",
+        "TESTING": "Do you want to use some of the data for testing?",
         "MORE": {
             "TITLE": "Other data sets",
             "SUMMARY": "What other data sets would you like to see?",
@@ -327,6 +328,24 @@
                 "SUMMARY": "Recognize Pokémon from pictures",
                 "DESCRIPTION": "Train a machine learning model to predict the type of a Pokémon based on a set of pictures of a hundred Pokémon. ",
                 "DETAILS": "This training dataset includes images of a selection of Pokémon, grouped by their type. It is a good starting set for training a machine learning model to predict the type of a Pokémon from a picture."
+            },
+            "ARGO": {
+                "TITLE": "Ocean data",
+                "SUMMARY": "Predict the location from ocean sensor data",
+                "DESCRIPTION": "Train a machine learning model to predict the location of ocean robots. ",
+                "DETAILS": "Argo is an international program that collects information from inside the ocean using a fleet of robotic instruments that drift with the ocean currents and move up and down between the surface and a mid-water level. Each instrument (float) spends almost all its life below the surface.\n\nSome floats fail to report back their location data. Train a machine learning model to predict which ocean the float data is likely to have been collected from.\n\n\nAttribution / References:\nForget, Gaël, 2016, \"MITprof_mar2016_argo0910.nc\", ECCO version 4 release 2: in situ and estimated profile data (MITprof data sets), https://doi.org/10.7910/DVN/EE3C40/DQBDDA, Harvard Dataverse, V1\nForget, G., Campin, J.-M., Heimbach, P., Hill, C. N., Ponte, R. M., and Wunsch, C.: ECCO version 4: an integrated framework for non-linear inverse modeling and global ocean state estimation, Geosci. Model Dev., 8, 3071–3104, https://doi.org/10.5194/gmd-8-3071-2015, 2015.\n\nPrepared by Dani Jones, British Antartic Survey, NERC, UKRI"
+            },
+            "FAKENEWS": {
+                "TITLE": "Fake news",
+                "SUMMARY": "Recognize fake news",
+                "DESCRIPTION": "Train a machine learning model to recognize the type of writing in fake news. ",
+                "DETAILS": "False and misleading news is more common as people turn to social media to get their news. Use this dataset to create a machine learning model that can try to distinguish when news is real or fake.\n\n\nAttribution: \nhttps://www.uvic.ca/ecs/ece/isot/datasets/fake-news/\n\nAcknowledgements:\nAhmed H, Traore I, Saad S. \"Detecting opinion spams and fake news using text classification\", Journal of Security and Privacy, Volume 1, Issue 1, Wiley, January/February 2018.\nAhmed H, Traore I, Saad S. (2017) \"Detection of Online Fake News Using N-Gram Analysis and Machine Learning Techniques\". In: Traore I., Woungang I., Awad A. (eds) Intelligent, Secure, and Dependable Systems in Distributed and Cloud Environments. ISDDC 2017. Lecture Notes in Computer Science, vol 10618. Springer, Cham (pp. 127-138)."
+            },
+            "STARS": {
+                "TITLE": "Star types",
+                "SUMMARY": "Learn to classify the types of stars",
+                "DESCRIPTION": "Train a machine learning model to predict the type of a star based on their attributes. ",
+                "DETAILS": "Stellar classification is when astronomers classify a star based on their spectral characteristics. Use this dataset to train a simple machine learning model that can predict some types of stars.\n\nThe 'temperature' field is in degrees Kelvin.\nThe 'radius' field gives the size of the star relative to the Sun.\nThe 'brightness' field gives the luminosity of the star relative to the Sun.\nThe 'colour' field gives the observable colour of the star.\n\nAttribution: \nhttps://www.kaggle.com/datasets/brsdincer/star-type-classification"
             }
         }
     },
@@ -591,6 +610,11 @@
             "RECOGNISED": "Identificado como  <strong>{{ testoutput }}</strong>",
             "STARTLISTENING": "Start listening",
             "STOPLISTENING": "Stop listening"
+        },
+        "TESTDATA": {
+            "TITLE": "Test data:",
+            "EXPLANATION": "You kept some of the data from the project template out of the training set, so that it can be used for testing. Click the button below to download a CSV file.",
+            "DOWNLOAD": "Download test data"
         },
         "QUIZ": {
             "TITLE": "Quiz time!",

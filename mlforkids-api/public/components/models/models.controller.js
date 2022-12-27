@@ -8,13 +8,20 @@
         'authService',
         'projectsService', 'trainingService', 'quizService',
         'soundTrainingService', 'imageTrainingService',
-        'modelService', 'utilService',
+        'modelService', 'utilService', 'storageService', 'downloadService',
         '$stateParams',
         '$scope',
         '$mdDialog', '$timeout', '$interval', '$q', '$document', '$state', 'loggerService'
     ];
 
-    function ModelsController(authService, projectsService, trainingService, quizService, soundTrainingService, imageTrainingService, modelService, utilService, $stateParams, $scope, $mdDialog, $timeout, $interval, $q, $document, $state, loggerService) {
+    function ModelsController(authService,
+        projectsService, trainingService, quizService,
+        soundTrainingService, imageTrainingService,
+        modelService, utilService, storageService, downloadService,
+        $stateParams,
+        $scope,
+        $mdDialog, $timeout, $interval, $q, $document, $state, loggerService)
+    {
 
         var vm = this;
         vm.authService = authService;
@@ -212,6 +219,10 @@
                 }
             })
             .then(function () {
+                if (storageService.getItem('testdata://' + $scope.project.id)) {
+                    $scope.project.hasTestData = true;
+                }
+
                 $scope.loading = false;
             })
             .catch(function (err) {
@@ -783,6 +794,26 @@
         vm.addConfirmedTrainingData = function (urlToTest) {
             $scope.testformData.testimageurl = urlToTest;
         };
+
+
+
+        function convertStringToArrayBuffer(str) {
+            var buf = new Uint8Array(str.length);
+            for (var i = 0; i < str.length; i++) {
+                buf[i] = str.charCodeAt(i);
+            }
+            return buf.buffer;
+        }
+
+        vm.downloadTestData = function (ev) {
+            ev.stopPropagation();
+            ev.preventDefault();
+
+            var dataToExportStr = storageService.getItem('testdata://' + $scope.project.id);
+            downloadService.downloadFile([ convertStringToArrayBuffer(dataToExportStr) ], 'text/csv', 'testdata-' + $scope.project.id + '.csv');
+        };
+
+
 
 
         $scope.$on("$destroy", function () {

@@ -574,7 +574,7 @@
                                 $scope.password = resp.password;
                             })
                             .catch(function (err) {
-                                loggerService.error(err);
+                                loggerService.error('[ml4kuser] failed to generate password', err);
                             });
                     };
 

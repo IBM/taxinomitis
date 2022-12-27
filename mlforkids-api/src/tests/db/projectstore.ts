@@ -681,39 +681,4 @@ describe('DB store', () => {
         });
 
     });
-
-
-    describe('updateProjectType', () => {
-
-        async function verifyProjectTypeUpdate(before: Objects.ProjectTypeLabel, after: Objects.ProjectTypeLabel) {
-            const userid = uuid();
-            const name = uuid();
-            const project = await store.storeProject(userid, TESTCLASS, before, name, 'en', [], false);
-            const scratchkey = await store.storeUntrainedScratchKey(project);
-
-            const scratchKeyInfo = await store.getScratchKey(scratchkey);
-            assert.strictEqual(scratchKeyInfo.type, before);
-
-            await store.updateProjectType(userid, TESTCLASS, project.id, before, after);
-
-            const updatedProject = await store.getProject(project.id);
-            assert(updatedProject);
-            assert.strictEqual(updatedProject.type, after);
-
-            const updatedScratchKeyInfo = await store.getScratchKey(scratchkey);
-            assert.strictEqual(updatedScratchKeyInfo.type, after);
-            assert(updatedScratchKeyInfo.updated.getTime() > scratchKeyInfo.updated.getTime());
-
-            await store.deleteEntireProject(userid, TESTCLASS, project);
-        }
-
-
-        it('should update Scratch keys when project types change to imgtfjs', () => {
-            return verifyProjectTypeUpdate('images', 'imgtfjs');
-        });
-        it('should update Scratch keys when project types change to images', () => {
-            return verifyProjectTypeUpdate('imgtfjs', 'images');
-        });
-
-    });
 });

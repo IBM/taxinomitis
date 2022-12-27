@@ -281,14 +281,11 @@
         $urlRouterProvider.otherwise('/404');
 
         jwtOptionsProvider.config({
-            tokenGetter: ['options', function (options) {
+            tokenGetter: ['options', 'storageService', function (options, storageService) {
                 if (options && options.url.substr(options.url.length - 5) == '.html') {
                     return null;
                 }
-
-                // window.localStorageObj is created in auth.service.js
-                //  It will be localStorage if available, or a local in-memory shim otherwise
-                return window.localStorageObj.getItem('id_token');
+                return storageService.getItem('id_token');
             }],
             unauthenticatedRedirector: ['authService', function (authService) {
                 authService.handleUnauthenticated();
@@ -301,7 +298,7 @@
             .useSanitizeValueStrategy('sanitizeParameters')
             .useStaticFilesLoader({
                 prefix: 'static/languages/',
-                suffix: '.json?v=53'
+                suffix: '.json?v=56'
             })
             .determinePreferredLanguage(function () {
                 var lang = navigator.userLanguage || navigator.language;

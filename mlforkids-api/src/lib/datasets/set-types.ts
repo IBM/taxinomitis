@@ -6,6 +6,18 @@ interface DatasetMetadata {
 }
 
 
+export interface DatasetProject extends dbtypes.Project {
+    testdata?: any[];
+}
+
+export interface ImportOptions {
+    /** true if the dataset should be imported as a class project */
+    readonly crowdsourced: boolean;
+    /** integer (0-100) that specifies what proportion of the dataset should be excluded from the training data and returned for use in testing */
+    readonly testratio: number;
+}
+
+
 //
 // ---
 //

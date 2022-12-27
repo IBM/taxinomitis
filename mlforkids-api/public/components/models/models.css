@@ -65,6 +65,16 @@
     border: thin black solid;
 }
 
+.trainingserversection.testdata {
+    margin-bottom: 0;
+}
+
+.trainingserversection.testdata .testexplanation {
+    padding: 1em;
+}
+
+
+
 @media(min-width: 500px) {
     .trainingserversection {
         margin: 2em 6em 6em 6em;
@@ -78,6 +88,10 @@
 
 .trainingserversection .trainbuttons {
     margin: 4em;
+}
+
+.trainingserversection.testdata .trainbuttons {
+    margin: 0 0 1em 4em;
 }
 
 .trainingserversection .modelinfotext {

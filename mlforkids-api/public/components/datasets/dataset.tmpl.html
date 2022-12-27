@@ -14,12 +14,29 @@
                 <md-card-content>
                     <div class="datasetdescription">{{dataset.description}}</div>
                     <div class="datasetdetails">{{dataset.details}}</div>
+                    <div class="datasetratio" ng-hide="dataset.template">
+                        <md-checkbox
+                            ng-model="showtestratio"
+                            class="md-primary">
+                            {{ 'DATASETS.TESTING' | translate }}
+                        </md-checkbox>
+                        <div class="datasetinput" ng-show="showtestratio">
+                            <div class="datasetinputlabel">
+                                Keep {{testratio}}% for testing
+                            </div>
+                            <md-slider class="md-primary" ng-model="testratio" min="0" max="100" step="1" style="flex-grow: 3;">
+                            </md-slider>
+                            <div class="datasetinputlabel">
+                                Use {{100 - testratio}}% for training
+                            </div>
+                        </div>
+                    </div>
                 </md-card-content>
             </div>
         </md-dialog-content>
         <md-dialog-actions layout="row">
             <span flex></span>
-            <md-button type="submit" class="md-raised md-primary" ng-click="confirm(dataset)" translate="DATASETS.IMPORT"></md-button>
+            <md-button type="submit" class="md-raised md-primary" ng-click="confirm()" translate="DATASETS.IMPORT"></md-button>
         </md-dialog-actions>
     </form>
 </md-dialog>

@@ -8,10 +8,11 @@
         'authService',
         'projectsService',
         'modelService',
-        '$stateParams', '$translate', '$mdDialog', 'loggerService'
+        'storageService',
+        '$stateParams', '$translate', '$mdDialog', 'downloadService', 'loggerService'
     ];
 
-    function ProjectsController(authService, projectsService, modelService, $stateParams, $translate, $mdDialog, loggerService) {
+    function ProjectsController(authService, projectsService, modelService, storageService, $stateParams, $translate, $mdDialog, downloadService, loggerService) {
 
         var vm = this;
         vm.authService = authService;
@@ -160,6 +161,9 @@
                             else if (project.type === 'imgtjfs') {
                                 modelService.deleteModel('images', project.id);
                             }
+
+                            // clear up test data stored on the browser
+                            storageService.removeItem('testdata://' + project.id);
                         })
                         .catch(function (err) {
                             loggerService.error('[ml4kprojects] Failed to delete project', err);

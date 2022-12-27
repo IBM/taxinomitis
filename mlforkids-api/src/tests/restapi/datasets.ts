@@ -123,6 +123,67 @@ describe('REST API - imported projects', () => {
         });
 
 
+        it('should hold out test data for an imported text project from a predefined dataset', () => {
+            const userid = uuid();
+
+            const url = '/api/classes/' + TESTCLASS + '/students/' + userid + '/projects';
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = TESTCLASS;
+
+            const type = 'text';
+
+            return request(testServer)
+                .post(url)
+                .send({ dataset : 'test-only-txt', type, testratio: 50 })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CREATED)
+                .then((resp) => {
+                    const body = resp.body;
+
+                    const id = body.id;
+                    delete body.id;
+
+                    const testdata = body.testdata;
+                    const firstTestRow = testdata.shift();
+                    assert.deepStrictEqual(firstTestRow, [ 'text', 'label' ]);
+                    assert.strictEqual(testdata.length, 4);
+                    testdata.forEach((item: any) => {
+                        assert.strictEqual(item.length, 2);
+                        assert.strictEqual(typeof item[0], 'string');
+                        assert(item[1] === 'compliment' || item[1] === 'insult');
+                    });
+                    delete body.testdata;
+
+                    assert.deepStrictEqual(body, {
+                        userid,
+                        classid: TESTCLASS,
+                        type,
+                        name: 'Test project',
+                        labels: ['compliment', 'insult'],
+                        language: 'en',
+                        numfields: 0,
+                        fields: [],
+                        isCrowdSourced: false,
+                    });
+
+                    return request(testServer)
+                        .get(url + '/' + id + '/training')
+                        .expect('Content-Type', /json/)
+                        .expect(httpstatus.OK);
+                })
+                .then((resp) => {
+                    const body = resp.body;
+                    assert.strictEqual(body.length, 3);
+                    body.forEach((item: any) => {
+                        assert(item.id);
+                        assert(item.textdata);
+                        assert(item.label === 'compliment' || item.label === 'insult');
+                    });
+                });
+        });
+
+
         it('should create a whole-class numbers project from a predefined dataset', () => {
             const userid = uuid();
 
@@ -287,6 +348,51 @@ describe('REST API - imported projects', () => {
                 .expect(httpstatus.FORBIDDEN);
         });
 
+        it('should handle requests to import datasets with a non-numeric test ratio', () => {
+            const userid = uuid();
+
+            const url = '/api/classes/' + TESTCLASS + '/students/' + userid + '/projects';
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = TESTCLASS;
+
+            const type = 'text';
+
+            return request(testServer)
+                .post(url)
+                .send({ dataset : 'test-only-txt', type, testratio : 'hello' })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then((resp) => {
+                    const body = resp.body;
+                    assert.deepStrictEqual(body, {
+                        error: 'Test ratio must be an integer between 0 and 100',
+                    });
+                });
+        });
+
+        it('should handle requests to import datasets with an invalid test ratio', () => {
+            const userid = uuid();
+
+            const url = '/api/classes/' + TESTCLASS + '/students/' + userid + '/projects';
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = TESTCLASS;
+
+            const type = 'text';
+
+            return request(testServer)
+                .post(url)
+                .send({ dataset : 'test-only-txt', type, testratio : -10 })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then((resp) => {
+                    const body = resp.body;
+                    assert.deepStrictEqual(body, {
+                        error: 'Test ratio must be an integer between 0 and 100',
+                    });
+                });
+        });
 
         it('should handle requests to import datasets without a type', () => {
             const studentId = uuid();

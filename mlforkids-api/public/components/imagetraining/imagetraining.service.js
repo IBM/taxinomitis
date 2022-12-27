@@ -37,8 +37,7 @@
                     }
                 })
                 .catch(function (err) {
-                    loggerService.error('[ml4kimages] failed to load tensorflow');
-                    loggerService.error(err);
+                    loggerService.error('[ml4kimages] failed to load tensorflow', err);
                     throw err;
                 });
         }

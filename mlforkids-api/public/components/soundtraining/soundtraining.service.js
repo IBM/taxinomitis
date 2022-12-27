@@ -44,8 +44,7 @@
                     loggerService.debug('[ml4ksound] permissions okay');
                 })
                 .catch(function (err) {
-                    loggerService.error('[ml4ksound] permissions check failed');
-                    loggerService.error(err);
+                    loggerService.error('[ml4ksound] permissions check failed', err);
 
                     if (err.name === 'NotAllowedError' || err.name === 'SecurityError') {
                         throw { status : 400, data : {
@@ -115,8 +114,7 @@
                     }
                 })
                 .catch(function (err) {
-                    loggerService.error('[ml4ksound] failed to load tensorflow');
-                    loggerService.error(err);
+                    loggerService.error('[ml4ksound] failed to load tensorflow', err);
                     throw err;
                 });
         }
