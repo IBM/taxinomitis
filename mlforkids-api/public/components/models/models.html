@@ -404,6 +404,18 @@
         </div>
     </div>
 
+    <div ng-if="project.hasTestData"
+         ng-hide="loading"
+         class="trainingserversection testdata">
+        <div><strong translate="MODELS.TESTDATA.TITLE"></strong></div>
+        <div class="testexplanation" translate="MODELS.TESTDATA.EXPLANATION"></div>
+        <button class="btn btn-secondary trainbuttons"
+                ng-click="vm.downloadTestData($event)">
+            <span class="glyphicon glyphicon-download-alt"> </span>
+            {{ 'MODELS.TESTDATA.DOWNLOAD' | translate }}
+        </button>
+    </div>
+
     <div ng-if="(models && models.length > 0) || trainingdatastatus === 'data'"
          ng-hide="(!owner && project.type !== 'imgtfjs' && project.type !== 'sounds') || loading"
          class="trainingserversection">

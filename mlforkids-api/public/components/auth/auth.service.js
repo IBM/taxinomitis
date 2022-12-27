@@ -5,7 +5,7 @@
         .service('authService', authService);
 
     var angDependencies = [
-        'authManager', 'loggerService',
+        'authManager', 'loggerService', 'storageService',
         '$q', '$http',
         '$mdDialog',
         '$rootScope',
@@ -19,7 +19,7 @@
 
     authService.$inject = angDependencies;
 
-    function authService(authManager, loggerService, $q, $http, $mdDialog, $rootScope, $window, $state, $timeout, lock) {
+    function authService(authManager, loggerService, storageService, $q, $http, $mdDialog, $rootScope, $window, $state, $timeout, lock) {
 
         var SESSION_USERS_CLASS = 'session-users';
 
@@ -41,9 +41,10 @@
         $rootScope.isTeacher = false;
         $rootScope.isAuthenticated = false;
 
-        confirmLocalStorage();
+        loggerService.debug('[ml4kauth] init');
+        storageService.confirmLocalStorage();
 
-        var userProfileStr = $window.localStorageObj.getItem('profile');
+        var userProfileStr = storageService.getItem('profile');
         var userProfile = null;
         if (userProfileStr) {
             userProfile = JSON.parse(userProfileStr);
@@ -85,7 +86,7 @@
                 // This can't be done for "Try it now" users, as those sessions
                 //  can't be renewed.
                 if (userProfile.tenant !== SESSION_USERS_CLASS) {
-                    var expiresAt = JSON.parse($window.localStorageObj.getItem('expires_at'));
+                    var expiresAt = JSON.parse(storageService.getItem('expires_at'));
                     var refreshTime = expiresAt - TEN_MINUTES_MILLISECS;
                     var timeToRefresh = refreshTime - (new Date().getTime());
                     if (timeToRefresh > 0) {
@@ -116,12 +117,10 @@
             if (lock) {
                 lock.checkSession({}, function (err, authres) {
                     if (err) {
-                        loggerService.error('[ml4kauth] Failed to renew login');
-                        loggerService.error(err);
+                        loggerService.error('[ml4kauth] Failed to renew login', err);
                     }
                     else if (authres) {
-                        loggerService.debug('[ml4kauth] Renewed login');
-                        loggerService.debug(authres);
+                        loggerService.debug('[ml4kauth] Renewed login', authres);
 
                         storeToken(authres);
 
@@ -187,11 +186,11 @@
             deferredProfile = $q.defer();
 
             loggerService.debug('[ml4kauth] Clearing stored token');
-            $window.localStorageObj.removeItem('access_token');
-            $window.localStorageObj.removeItem('id_token');
-            $window.localStorageObj.removeItem('expires_at');
-            $window.localStorageObj.removeItem('scopes');
-            $window.localStorageObj.removeItem('profile');
+            storageService.removeItem('access_token');
+            storageService.removeItem('id_token');
+            storageService.removeItem('expires_at');
+            storageService.removeItem('scopes');
+            storageService.removeItem('profile');
 
             authManager.unauthenticate();
 
@@ -211,10 +210,10 @@
                     .then(function () {
                         loggerService.debug('[ml4kauth] Deleted session user');
                         clearAuthData();
+                        storageService.clear();
                     })
                     .catch(function (err) {
-                        loggerService.error('[ml4kauth] Failed to delete session user');
-                        loggerService.error(err);
+                        loggerService.error('[ml4kauth] Failed to delete session user', err);
                     });
             }
             else {
@@ -230,10 +229,10 @@
 
             var scopes = authResult.scope || REQUESTED_SCOPES || '';
 
-            $window.localStorageObj.setItem('access_token', authResult.accessToken);
-            $window.localStorageObj.setItem('id_token', authResult.idToken);
-            $window.localStorageObj.setItem('expires_at', expiresAt);
-            $window.localStorageObj.setItem('scopes', JSON.stringify(scopes));
+            storageService.setItem('access_token', authResult.accessToken);
+            storageService.setItem('id_token', authResult.idToken);
+            storageService.setItem('expires_at', expiresAt);
+            storageService.setItem('scopes', JSON.stringify(scopes));
 
             authManager.authenticate();
         }
@@ -241,7 +240,7 @@
         function storeProfile(profile) {
             loggerService.debug('[ml4kauth] Storing profile');
 
-            $window.localStorageObj.setItem('profile', JSON.stringify(profile));
+            storageService.setItem('profile', JSON.stringify(profile));
             deferredProfile.resolve(profile);
 
             $rootScope.isTeacher = (profile.role === 'supervisor');
@@ -287,8 +286,7 @@
                         loggerService.debug('[ml4kauth] Retrieving user info');
                         lock.getUserInfo(authResult.accessToken, function (err, profile) {
                             if (err) {
-                                loggerService.error('[ml4kauth] lock auth failure');
-                                loggerService.error(err);
+                                loggerService.error('[ml4kauth] lock auth failure', err);
                                 return logout();
                             }
 
@@ -397,64 +395,12 @@
             if (userProfile) {
                 // Check whether the current time is past the
                 // access token's expiry time
-                var expiresAt = JSON.parse($window.localStorageObj.getItem('expires_at'));
+                var expiresAt = JSON.parse(storageService.getItem('expires_at'));
                 expired = (new Date().getTime() > expiresAt);
             }
             loggerService.debug('[ml4kauth] hasSessionExpired : ' + expired);
             return expired;
         }
-
-
-
-
-        function confirmLocalStorage() {
-            loggerService.debug('[ml4kauth] Confirming local storage is available');
-
-            // some browsers allow localStorage to be disabled
-            try {
-                $window.localStorageObj = $window.localStorage || {};
-            }
-            catch (err) {
-                loggerService.error('[ml4kauth] Failed to access local storage');
-                loggerService.error(err);
-
-                $window.localStorageObj = {};
-            }
-
-            // Safari, in Private Browsing Mode, looks like it supports localStorage but all calls to setItem
-            // throw QuotaExceededError. If it looks like localStorage isn't working, we use a local object
-            if (typeof $window.localStorageObj === 'object') {
-                try {
-                    loggerService.debug('[ml4kauth] Testing local storage');
-                    $window.localStorageObj.setItem('confirmLocalStorage', 1);
-                    $window.localStorageObj.removeItem('confirmLocalStorage');
-                }
-                catch (e) {
-                    loggerService.error('[ml4kauth] Failed local storage verification');
-                    loggerService.error(e);
-
-                    $window._tempLocalStorage = {};
-                    $window.localStorageObj.setItem = function (key, val) {
-                        $window._tempLocalStorage[key] = val;
-                    };
-                    $window.localStorageObj.getItem = function (key) {
-                        return $window._tempLocalStorage[key];
-                    };
-                    $window.localStorageObj.removeItem = function (key) {
-                        delete $window._tempLocalStorage[key];
-                    };
-                }
-            }
-            else {
-                loggerService.error('[ml4kauth] storage has unexpected type');
-                loggerService.error(typeof $window.localStorageObj);
-            }
-        }
-
-
-
-
-
 
 
         function switchToSessionUser(userinfo) {
@@ -464,13 +410,13 @@
             logout();
 
             loggerService.debug('[ml4kauth] Storing profile data');
-            $window.localStorageObj.setItem('access_token', userinfo.token);
-            $window.localStorageObj.setItem('id_token', userinfo.jwt);
+            storageService.setItem('access_token', userinfo.token);
+            storageService.setItem('id_token', userinfo.jwt);
 
             var expiryTime = JSON.stringify(new Date(userinfo.sessionExpiry).getTime());
-            $window.localStorageObj.setItem('expires_at', expiryTime);
+            storageService.setItem('expires_at', expiryTime);
 
-            $window.localStorageObj.setItem('scopes', 'openid email');
+            storageService.setItem('scopes', 'openid email');
 
             userProfile = {
                 tenant : SESSION_USERS_CLASS,
@@ -478,7 +424,7 @@
                 user_id : userinfo.id
             };
 
-            $window.localStorageObj.setItem('profile', JSON.stringify(userProfile));
+            storageService.setItem('profile', JSON.stringify(userProfile));
             deferredProfile.resolve(userProfile);
 
             $rootScope.isAuthenticated = true;
@@ -507,8 +453,7 @@
             loggerService.debug('[ml4kauth] Deleting session user');
             return $http.delete('/api/classes/' + SESSION_USERS_CLASS + '/sessionusers/' + userid)
                 .catch(function (err) {
-                    loggerService.error('[ml4kauth] Failed to delete session user');
-                    loggerService.error(err);
+                    loggerService.error('[ml4kauth] Failed to delete session user', err);
                 });
         }
 

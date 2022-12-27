@@ -8,11 +8,12 @@
             'authService',
             'projectsService',
             'loggerService',
+            'storageService',
             '$state', '$translate', '$mdDialog'
         ];
 
 
-    function DatasetsController(authService, projectsService, loggerService, $state, $translate, $mdDialog) {
+    function DatasetsController(authService, projectsService, loggerService, storageService, $state, $translate, $mdDialog) {
 
         var vm = this;
         vm.authService = authService;
@@ -56,7 +57,10 @@
                     'DATASETS.DATA.SONGLYRICS.TITLE', 'DATASETS.DATA.SONGLYRICS.SUMMARY', 'DATASETS.DATA.SONGLYRICS.DESCRIPTION', 'DATASETS.DATA.SONGLYRICS.DETAILS',
                     'DATASETS.DATA.HANDGESTURES.TITLE', 'DATASETS.DATA.HANDGESTURES.SUMMARY', 'DATASETS.DATA.HANDGESTURES.DESCRIPTION', 'DATASETS.DATA.HANDGESTURES.DETAILS',
                     'DATASETS.DATA.POKEMONSTATS.TITLE', 'DATASETS.DATA.POKEMONSTATS.SUMMARY', 'DATASETS.DATA.POKEMONSTATS.DESCRIPTION', 'DATASETS.DATA.POKEMONSTATS.DETAILS',
-                    'DATASETS.DATA.POKEMONIMAGES.TITLE', 'DATASETS.DATA.POKEMONIMAGES.SUMMARY', 'DATASETS.DATA.POKEMONIMAGES.DESCRIPTION', 'DATASETS.DATA.POKEMONIMAGES.DETAILS'
+                    'DATASETS.DATA.POKEMONIMAGES.TITLE', 'DATASETS.DATA.POKEMONIMAGES.SUMMARY', 'DATASETS.DATA.POKEMONIMAGES.DESCRIPTION', 'DATASETS.DATA.POKEMONIMAGES.DETAILS',
+                    'DATASETS.DATA.ARGO.TITLE', 'DATASETS.DATA.ARGO.SUMMARY', 'DATASETS.DATA.ARGO.DESCRIPTION', 'DATASETS.DATA.ARGO.DETAILS',
+                    'DATASETS.DATA.STARS.TITLE', 'DATASETS.DATA.STARS.SUMMARY', 'DATASETS.DATA.STARS.DESCRIPTION', 'DATASETS.DATA.STARS.DETAILS',
+                    'DATASETS.DATA.FAKENEWS.TITLE', 'DATASETS.DATA.FAKENEWS.SUMMARY', 'DATASETS.DATA.FAKENEWS.DESCRIPTION', 'DATASETS.DATA.FAKENEWS.DETAILS'
                 ]).then(function (translations) {
                     vm.datasets = [
                         {
@@ -102,7 +106,8 @@
                             description: translations['DATASETS.DATA.NOUGHTSANDCROSSES.DESCRIPTION'],
                             details: translations['DATASETS.DATA.NOUGHTSANDCROSSES.DETAILS'],
                             type: 'numbers',
-                            image: 'static/images/dataset-noughtsandcrosses.png'
+                            image: 'static/images/dataset-noughtsandcrosses.png',
+                            template: true
                         },
                         {
                             id: 'top-trumps',
@@ -111,7 +116,8 @@
                             description: translations['DATASETS.DATA.TOPTRUMPS.DESCRIPTION'],
                             details: translations['DATASETS.DATA.TOPTRUMPS.DETAILS'],
                             type: 'numbers',
-                            image: 'static/images/dataset-toptrumps.png'
+                            image: 'static/images/dataset-toptrumps.png',
+                            template: true
                         },
                         {
                             id: 'song-lyrics',
@@ -147,7 +153,35 @@
                             description: translations['DATASETS.DATA.HANDGESTURES.DESCRIPTION'],
                             details: translations['DATASETS.DATA.HANDGESTURES.DETAILS'],
                             type: 'numbers',
-                            image: 'static/images/dataset-handgestures.png'
+                            image: 'static/images/dataset-handgestures.png',
+                            template: true
+                        },
+                        {
+                            id: 'argo',
+                            title: translations['DATASETS.DATA.ARGO.TITLE'],
+                            summary: translations['DATASETS.DATA.ARGO.SUMMARY'],
+                            description: translations['DATASETS.DATA.ARGO.DESCRIPTION'],
+                            details: translations['DATASETS.DATA.ARGO.DETAILS'],
+                            type: 'numbers',
+                            image: 'static/images/dataset-argo.png'
+                        },
+                        {
+                            id: 'stars',
+                            title: translations['DATASETS.DATA.STARS.TITLE'],
+                            summary: translations['DATASETS.DATA.STARS.SUMMARY'],
+                            description: translations['DATASETS.DATA.STARS.DESCRIPTION'],
+                            details: translations['DATASETS.DATA.STARS.DETAILS'],
+                            type: 'numbers',
+                            image: 'static/images/dataset-stars.png'
+                        },
+                        {
+                            id: 'fake-news',
+                            title: translations['DATASETS.DATA.FAKENEWS.TITLE'],
+                            summary: translations['DATASETS.DATA.FAKENEWS.SUMMARY'],
+                            description: translations['DATASETS.DATA.FAKENEWS.DESCRIPTION'],
+                            details: translations['DATASETS.DATA.FAKENEWS.DETAILS'],
+                            type: 'text',
+                            image: 'static/images/dataset-fakenews.png'
                         }
                     ];
 
@@ -165,16 +199,23 @@
                 return;
             }
 
+            // default to previous behaviour of not holding
+            //  training data back for testing
+            var defaultTestRatio = 0;
+
             $mdDialog.show({
                 locals : {
-                    dataset : dataset
+                    dataset : dataset,
+                    testratio : defaultTestRatio
                 },
                 controller : function ($scope, locals) {
                     $scope.dataset = locals.dataset;
+                    $scope.testratio = locals.testratio;
                     $scope.hide = function() {
                         $mdDialog.hide();
                     };
                     $scope.confirm = function() {
+                        $scope.dataset.testratio = $scope.testratio;
                         $mdDialog.hide($scope.dataset);
                     };
                     $scope.cancel = function() {
@@ -196,6 +237,25 @@
         };
 
 
+        function storeTestdataAsCsv(project) {
+            try {
+                storageService.setItem(
+                    'testdata://' + project.id,
+                    project.testdata.map((row) => {
+                        return row.map((cell) => {
+                            if (typeof cell === 'string') {
+                                return '"' + cell.replaceAll('"', '""') + '"';
+                            }
+                            else {
+                                return cell;
+                            }
+                        }).join(',');
+                    }).join("\r\n"));
+            }
+            catch (err) {
+                loggerService.error('[ml4kds] Failed to store test data in local storage', err);
+            }
+        }
 
 
         vm.importProject = function (dataset) {
@@ -207,10 +267,21 @@
 
             vm.creating = true;
 
-            projectsService.createProject({ type : dataset.type, dataset : dataset.id },
+            var importRequest = {
+                type : dataset.type,
+                dataset : dataset.id,
+                testratio : dataset.testratio
+            };
+
+            projectsService.createProject(importRequest,
                                           vm.profile.user_id,
                                           vm.profile.tenant)
                 .then(function (created) {
+
+                    if (created.testdata) {
+                        storeTestdataAsCsv(created);
+                    }
+
                     $state.go('projects', { id : created.id });
                 })
                 .catch(function (err) {

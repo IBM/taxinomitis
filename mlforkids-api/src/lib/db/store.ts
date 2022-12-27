@@ -177,63 +177,6 @@ export async function updateProjectCrowdSourced(
 }
 
 
-export async function updateProjectType(
-    userid: string, classid: string, projectid: string,
-    oldtype: Objects.ProjectTypeLabel, newtype: Objects.ProjectTypeLabel,
-): Promise<void>
-{
-    const queryName = 'dbqn-update-projects-type';
-    const queryString = 'UPDATE projects ' +
-                        'SET typeid = $1 ' +
-                        'WHERE userid = $2 AND classid = $3 AND id = $4 AND typeid = $5';
-    const queryValues = [
-        dbobjects.getProjectTypeId(newtype),
-        userid, classid, projectid,
-        dbobjects.getProjectTypeId(oldtype),
-    ];
-
-    const response = await dbExecute(queryName, queryString, queryValues);
-    if (response.rowCount === 1) {
-        // success - update any related Scratch keys (if they exist)
-        return updateScratchKeyType(userid, classid, projectid, oldtype, newtype);
-    }
-
-    /* istanbul ignore else */
-    if (response.rowCount === 0) {
-        log.warn({ userid, classid, projectid, func : 'updateProjectType' },
-                 'Project not found');
-        throw new Error('Project not found');
-    }
-    else {
-        // id is a primary key, so an update can only affect 0 or 1 rows
-        log.error({
-            func : 'updateProjectType',
-            userid, classid, projectid,
-            response,
-        }, 'Unexpected response');
-        throw new Error('Unexpected response when updating project status');
-    }
-}
-
-function updateScratchKeyType(
-    userid: string, classid: string, projectid: string,
-    oldtype: Objects.ProjectTypeLabel, newtype: Objects.ProjectTypeLabel,
-): Promise<void>
-{
-    const queryName = 'dbqn-update-scratchkey-type';
-    const queryString = 'UPDATE scratchkeys ' +
-                        'SET projecttype = $1, updated = $2 ' +
-                        'WHERE userid = $3 AND classid = $4 AND projectid = $5 AND projecttype = $6';
-    const queryValues = [
-        newtype, new Date(),
-        userid, classid, projectid,
-        oldtype,
-    ];
-
-    return dbExecute(queryName, queryString, queryValues)
-        .then(() => { return; });
-}
-
 
 export async function getNumberProjectFields(
     userid: string, classid: string, projectid: string,

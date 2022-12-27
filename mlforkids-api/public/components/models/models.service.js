@@ -5,12 +5,12 @@
         .service('modelService', modelService);
 
     modelService.$inject = [
-        'loggerService',
+        'loggerService', 'storageService',
         '$window'
     ];
 
 
-    function modelService(loggerService, $window) {
+    function modelService(loggerService, storageService, $window) {
 
         function sortByConfidence(a, b) {
             if (a.confidence < b.confidence) {
@@ -136,11 +136,9 @@
 
         function isModelSavedInBrowser(modeltype, projectid) {
             try {
-                if ($window.localStorageObj) {
-                    var modelid = getModelDbLocation(modeltype, projectid);
-                    if ($window.localStorageObj.getItem(modelid)) {
-                        return true;
-                    }
+                var modelid = getModelDbLocation(modeltype, projectid);
+                if (storageService.getItem(modelid)) {
+                    return true;
                 }
             }
             catch (err) {
@@ -204,9 +202,7 @@
 
         function storeModelSavedDate(modelid) {
             try {
-                if ($window.localStorageObj) {
-                    $window.localStorageObj.setItem(modelid, Date.now());
-                }
+                storageService.setItem(modelid, Date.now());
             }
             catch (err) {
                 loggerService.error('[ml4kmodels] Failed to store model timestamp');
@@ -215,22 +211,18 @@
 
         function clearModelSavedDate(modelid) {
             try {
-                if ($window.localStorageObj) {
-                    $window.localStorageObj.removeItem(modelid);
-                }
+                storageService.removeItem(modelid);
             }
             catch (err) {
-                loggerService.error('[ml4kmodels] Failed to store model timestamp');
+                loggerService.error('[ml4kmodels] Failed to clear model timestamp');
             }
         }
 
         function getModelSavedDate(modelid) {
             try {
-                if ($window.localStorageObj) {
-                    var timestampStr = $window.localStorageObj.getItem(modelid);
-                    if (timestampStr) {
-                        return new Date(parseInt(timestampStr));
-                    }
+                var timestampStr = storageService.getItem(modelid);
+                if (timestampStr) {
+                    return new Date(parseInt(timestampStr));
                 }
             }
             catch (err) {

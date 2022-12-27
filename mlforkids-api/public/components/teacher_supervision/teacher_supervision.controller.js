@@ -78,8 +78,7 @@
                     }
                 })
                 .catch(function (err) {
-                    loggerService.error('[ml4ksupervise] failed to get projects list');
-                    loggerService.error(err);
+                    loggerService.error('[ml4ksupervise] failed to get projects list', err);
 
                     displayAlert('errors', err.status, err.data);
                 });
@@ -151,8 +150,7 @@
                             loggerService.debug('[ml4ksupervise] model deletion successful');
                         })
                         .catch(function (err) {
-                            loggerService.error('[ml4ksupervise] failed to delete model');
-                            loggerService.error(err);
+                            loggerService.error('[ml4ksupervise] failed to delete model', err);
 
                             displayAlert('errors', err.status, err.data);
                         });
@@ -190,8 +188,7 @@
                             });
                         })
                         .catch(function (err) {
-                            loggerService.error('[ml4ksupervise] failed to delete classifier');
-                            loggerService.error(err);
+                            loggerService.error('[ml4ksupervise] failed to delete classifier', err);
 
                             $scope.submittingDeleteRequest = false;
                             displayAlert('errors', err.status, err.data);

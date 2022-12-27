@@ -61,8 +61,10 @@ CREATE TABLE mlforkidsdb.numbersprojectsfields (
     projectid character varying(36) NOT NULL,
     name character varying(12) NOT NULL,
     fieldtype smallint NOT NULL,
-    choices character varying(50)
+    choices character varying(125)
 );
+-- update (27 Dec 2022)
+-- ALTER TABLE numbersprojectsfields ALTER COLUMN choices TYPE character varying(125);
 
 CREATE TABLE mlforkidsdb.numbertraining (
     id character(36) NOT NULL PRIMARY KEY,

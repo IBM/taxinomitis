@@ -76,8 +76,7 @@
                     computeLimit(type);
                 })
                 .catch(function (err) {
-                    loggerService.error('[ml4kapi] failed to get credentials (' + type + ')');
-                    loggerService.error(err);
+                    loggerService.error('[ml4kapi] failed to get credentials (' + type + ')', err);
 
                     vm.credentials.failed[type] = true;
                     vm.credentials.loading[type] = false;

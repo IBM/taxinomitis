@@ -4,10 +4,13 @@
         .module('app')
         .service('loggerService', loggerService);
 
-    loggerService.$inject = ['$log', '$location', '$rootScope', '$window'];
+    loggerService.$inject = [
+        'downloadService',
+        '$log', '$location', '$rootScope', '$window'
+    ];
 
 
-    function loggerService($log, $location, $rootScope, $window) {
+    function loggerService(downloadService, $log, $location, $rootScope, $window) {
 
         var logs = [];
 
@@ -41,18 +44,7 @@
             logs.push('\n[ml4klog] url parameters ');
             logs.push(JSON.stringify(urlParms));
 
-            var blob = new Blob(logs, { type: 'text/plain' });
-            if ($window.navigator.msSaveOrOpenBlob) {
-                $window.navigator.msSaveBlob(blob, 'mlforkids.log');
-            }
-            else {
-                var elem = document.createElement('a');
-                elem.href = $window.URL.createObjectURL(blob);
-                elem.download = 'mlforkids.log';
-                document.body.appendChild(elem);
-                elem.click();
-                document.body.removeChild(elem);
-            }
+            downloadService.downloadFile(logs, 'text/plain', 'mlforkids.log');
         }
 
         $log.debug('[ml4klog] Initialising logger service');

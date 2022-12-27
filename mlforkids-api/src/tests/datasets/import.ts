@@ -44,13 +44,13 @@ describe('Datasets import', () => {
         return store.disconnect();
     });
 
-
+    const DEFAULT_IMPORT = { crowdsourced: false, testratio :0 };
 
 
     describe('Errors', () => {
 
         it('should handle requests to import non-existent datasets', () => {
-            return datasets.importDataset(uuid(), TESTCLASS, false, 'text', 'not-a-real-dataset')
+            return datasets.importDataset(uuid(), TESTCLASS, DEFAULT_IMPORT, 'text', 'not-a-real-dataset')
                 .then(() => {
                     assert.fail('should not get here');
                 })
@@ -60,7 +60,7 @@ describe('Datasets import', () => {
         });
 
         it('should handle requests to import non-existent dataset types', () => {
-            return datasets.importDataset(uuid(), TESTCLASS, false,
+            return datasets.importDataset(uuid(), TESTCLASS, DEFAULT_IMPORT,
                                           '../../../' as dbtypes.ProjectTypeLabel, 'not-a-real-dataset')
                 .then(() => {
                     assert.fail('should not get here');
@@ -80,18 +80,24 @@ describe('Datasets import', () => {
             const prodDatasets: {[type: string]: string[]; } = {
                 numbers : [
                     'titanic',
+                    'argo',
+                    'phishing',
+                    'stars',
                 ],
                 text : [
                     'uk-newspaper-headlines',
+                    'song-lyrics',
+                    'fake-news',
                 ],
                 imgtfjs : [
                     'cats-and-dogs',
+                    'pokemon',
                 ],
             };
 
             for (const type of Object.keys(prodDatasets)) {
                 for (const dataset of prodDatasets[type]) {
-                    const project = await datasets.importDataset(user, TESTCLASS, false,
+                    const project = await datasets.importDataset(user, TESTCLASS, DEFAULT_IMPORT,
                                                                  type as dbtypes.ProjectTypeLabel,
                                                                  dataset);
                     await store.deleteEntireProject(user, TESTCLASS, project);
@@ -106,7 +112,7 @@ describe('Datasets import', () => {
         it('should import a text dataset', async () => {
             const user = uuid();
 
-            const project = await datasets.importDataset(user, TESTCLASS, false, 'text', 'test-only-txt');
+            const project = await datasets.importDataset(user, TESTCLASS, DEFAULT_IMPORT, 'text', 'test-only-txt');
 
             await verifyTestTextProject(project.id);
             await store.deleteEntireProject(user, TESTCLASS, project);
@@ -150,7 +156,7 @@ describe('Datasets import', () => {
         it('should import a numbers dataset', async () => {
             const user = uuid();
 
-            const project = await datasets.importDataset(user, TESTCLASS, false, 'numbers', 'test-only-num');
+            const project = await datasets.importDataset(user, TESTCLASS, DEFAULT_IMPORT, 'numbers', 'test-only-num');
 
             await verifyTestNumbersProject(project.id);
             await store.deleteEntireProject(user, TESTCLASS, project);
@@ -193,7 +199,7 @@ describe('Datasets import', () => {
         it('should import an images dataset', async () => {
             const user = uuid();
 
-            const project = await datasets.importDataset(user, TESTCLASS, false, 'imgtfjs', 'test-only-img');
+            const project = await datasets.importDataset(user, TESTCLASS, DEFAULT_IMPORT, 'imgtfjs', 'test-only-img');
 
             await verifyTestImagesProject(project.id);
             await store.deleteEntireProject(user, TESTCLASS, project);
@@ -239,5 +245,145 @@ describe('Datasets import', () => {
                        listitem.isstored === false;
             });
         }
+    });
+
+
+    describe('Holding out test data', () => {
+        it('should hold out the requested amount of text data for testing', async () => {
+            const TESTS = [
+                { ratio:  10, expectedtest :  28, expectedtrain : 250 },
+                { ratio:  20, expectedtest :  56, expectedtrain : 222 },
+                { ratio:  25, expectedtest :  70, expectedtrain : 208 },
+                { ratio:  50, expectedtest : 139, expectedtrain : 139 },
+                { ratio: 100, expectedtest : 278, expectedtrain :   0 },
+            ];
+            const expectedtotal = 278;
+
+            const user = uuid();
+
+            for (const test of TESTS) {
+                const project = await datasets.importDataset(user, TESTCLASS, { crowdsourced: false, testratio: test.ratio }, 'text', 'uk-newspaper-headlines');
+                const trainingdata = await store.getTextTraining(project.id, { limit: 1000, start: 0 });
+
+                assert(project.testdata);
+
+                const firstTestRow = project.testdata.shift();
+                assert.deepStrictEqual(firstTestRow, [ 'text', 'label' ]);
+
+                const total = project.testdata.length + trainingdata.length;
+
+                assert.strictEqual(project.testdata.length, test.expectedtest);
+                assert.strictEqual(trainingdata.length, test.expectedtrain);
+                assert.strictEqual(total, expectedtotal);
+
+                await store.deleteEntireProject(user, TESTCLASS, project);
+            }
+        });
+
+        it('should hold out the requested amount of image data for testing', async () => {
+            const TESTS = [
+                { ratio:  10, expectedtest :  4, expectedtrain : 36 },
+                { ratio:  20, expectedtest :  8, expectedtrain : 32 },
+                { ratio:  25, expectedtest : 10, expectedtrain : 30 },
+                { ratio:  50, expectedtest : 20, expectedtrain : 20 },
+                { ratio: 100, expectedtest : 40, expectedtrain :  0 },
+            ];
+            const expectedtotal = 40;
+
+            const user = uuid();
+
+            for (const test of TESTS) {
+                const project = await datasets.importDataset(user, TESTCLASS, { crowdsourced: false, testratio: test.ratio }, 'imgtfjs', 'cats-and-dogs');
+                const trainingdata = await store.getImageTraining(project.id, { limit: 1000, start: 0 });
+
+                assert(project.testdata);
+
+                const firstTestRow = project.testdata.shift();
+                assert.deepStrictEqual(firstTestRow, [ 'url', 'label' ]);
+
+                const total = project.testdata.length + trainingdata.length;
+
+                assert.strictEqual(project.testdata.length, test.expectedtest);
+                assert.strictEqual(trainingdata.length, test.expectedtrain);
+                assert.strictEqual(total, expectedtotal);
+
+                await store.deleteEntireProject(user, TESTCLASS, project);
+            }
+        });
+
+        it('should hold out the requested amount of numbers data for testing', async () => {
+            const TESTS = [
+                { ratio:  10, expectedtest :  35, expectedtrain : 315 },
+                { ratio:  20, expectedtest :  70, expectedtrain : 280 },
+                { ratio:  25, expectedtest :  88, expectedtrain : 262 },
+                { ratio:  50, expectedtest : 175, expectedtrain : 175 },
+                { ratio: 100, expectedtest : 350, expectedtrain :   0 },
+            ];
+            const expectedtotal = 350;
+
+            const user = uuid();
+
+            for (const test of TESTS) {
+                const project = await datasets.importDataset(user, TESTCLASS, { crowdsourced: false, testratio: test.ratio }, 'numbers', 'pokemon-stats');
+                const trainingdata = await store.getNumberTraining(project.id, { limit: 1000, start: 0 });
+
+                assert(project.testdata);
+
+                const firstTestRow = project.testdata.shift();
+                assert.deepStrictEqual(firstTestRow, [ 'height', 'weight', 'attack', 'defense', 'speed', 'hp', 'capture rate', 'label' ]);
+
+                const total = project.testdata.length + trainingdata.length;
+
+                assert.strictEqual(project.testdata.length, test.expectedtest);
+                assert.strictEqual(trainingdata.length, test.expectedtrain);
+                assert.strictEqual(total, expectedtotal);
+
+                await store.deleteEntireProject(user, TESTCLASS, project);
+            }
+        });
+
+        it('should return string labels for multi-choice test values', async () => {
+            const user = uuid();
+
+            const project = await datasets.importDataset(user, TESTCLASS, { crowdsourced: false, testratio: 90 }, 'numbers', 'test-only-num');
+            assert(project.testdata);
+
+            const firstTestRow = project.testdata.shift();
+            assert.deepStrictEqual(firstTestRow, [ 'count', 'size', 'age', 'colour', 'label' ]);
+
+            assert.strictEqual(project.testdata.length, 6);
+
+            for (const testdata of project.testdata) {
+                assert.strictEqual(typeof testdata[0], 'number');
+                assert.strictEqual(typeof testdata[1], 'string');
+                assert.strictEqual(typeof testdata[2], 'number');
+                assert.strictEqual(typeof testdata[3], 'string');
+                assert.strictEqual(typeof testdata[4], 'string');
+            }
+        });
+
+        it('should not overlap test and train data', async () => {
+            const user = uuid();
+
+            const project = await datasets.importDataset(user, TESTCLASS, { crowdsourced: false, testratio: 33 }, 'imgtfjs', 'test-only-img');
+            const trainingdata = await store.getImageTraining(project.id, { limit: 1000, start: 0 });
+
+            assert(project.testdata);
+
+            const firstTestRow = project.testdata.shift();
+            assert.deepStrictEqual(firstTestRow, [ 'url', 'label' ]);
+
+            const total = project.testdata.length + trainingdata.length;
+            assert.strictEqual(total, 9);
+
+            assert.strictEqual(project.testdata.length, 3);
+            assert.strictEqual(trainingdata.length, 6);
+
+            const trainingurls = trainingdata.map((itm) => itm.imageurl);
+            const testurls = project.testdata.map((itm) => itm[0]);
+
+            const hasOverlap = trainingurls.some((trainingurl) => testurls.includes(trainingurl));
+            assert.strictEqual(hasOverlap, false);
+        });
     });
 });
