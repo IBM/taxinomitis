@@ -76,9 +76,9 @@
 
             var localStorageAvailable = false;
 
-            if ($window.localStorage)
-            {
-                try {
+            try {
+                if ($window.localStorage)
+                {
                     loggerService.debug('[ml4kutils] Testing local storage');
                     $window.localStorage.setItem('confirmLocalStorage', 1);
                     $window.localStorage.removeItem('confirmLocalStorage');
@@ -86,10 +86,10 @@
                     loggerService.debug('[ml4kutils] Confirmed local storage available');
                     localStorageAvailable = true;
                 }
-                catch (e) {
-                    loggerService.error('[ml4kutils] Failed local storage verification');
-                    loggerService.error(e);
-                }
+            }
+            catch (e) {
+                loggerService.error('[ml4kutils] Failed local storage verification');
+                loggerService.error(e);
             }
 
             if (localStorageAvailable) {
