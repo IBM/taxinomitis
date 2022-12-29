@@ -4,7 +4,6 @@ import * as objectstore from '../objectstore';
 import * as DbObjects from '../db/db-types';
 import * as wikimedia from '../utils/wikimedia';
 import * as downloader from '../utils/download';
-import * as downloadAndZip from '../utils/downloadAndZip';
 import * as urlchecker from '../utils/urlchecker';
 import loggerSetup from '../utils/logger';
 
@@ -65,7 +64,25 @@ export async function getTrainingItemData(project: DbObjects.Project, id: string
 }
 
 
-function getImageStoreSpec(project: DbObjects.Project, trainingitem: DbObjects.ImageTraining): downloadAndZip.RetrieveFromStorage {
+export type ImageDownload = RetrieveFromStorage | DownloadFromWeb;
+
+interface RetrieveFromStorage {
+    readonly type: 'retrieve';
+    readonly spec: ObjectStorageSpec;
+}
+interface ObjectStorageSpec {
+    readonly objectid: string;
+    readonly projectid: string;
+    readonly userid: string;
+    readonly classid: string;
+}
+interface DownloadFromWeb {
+    readonly type: 'download';
+    readonly url: string;
+    readonly imageid: string;
+}
+
+function getImageStoreSpec(project: DbObjects.Project, trainingitem: DbObjects.ImageTraining): RetrieveFromStorage {
     return {
         type : 'retrieve',
         spec : {
@@ -78,7 +95,7 @@ function getImageStoreSpec(project: DbObjects.Project, trainingitem: DbObjects.I
 }
 
 
-export async function getImageDownloadSpec(imageid: string, imageurl: string): Promise<downloadAndZip.DownloadFromWeb> {
+export async function getImageDownloadSpec(imageid: string, imageurl: string): Promise<DownloadFromWeb> {
     if (wikimedia.isWikimedia(imageurl)) {
         try {
             const thumb = await wikimedia.getThumbnail(imageurl, 400);
@@ -99,7 +116,7 @@ export async function getImageDownloadSpec(imageid: string, imageurl: string): P
     }
     else {
         try {
-            const fromWeb: downloadAndZip.DownloadFromWeb = {
+            const fromWeb: DownloadFromWeb = {
                 type : 'download',
                 imageid,
                 url : urlchecker.check(imageurl),

@@ -1,11 +1,7 @@
 packages:
   mltraining-images:
-    version: 0.15
+    version: 0.16
     actions:
-      CreateZip:
-        function: dist/CreateZip.js
-        runtime: nodejs:16
-        web-export: true
       ResizeImage:
         function: dist/Resize.js
         runtime: nodejs:16
@@ -17,10 +13,6 @@ packages:
     apis:
       mltraining-images:
         api:
-          create-zip:
-            CreateZip:
-              method: POST
-              response: http
           resize-image:
             ResizeImage:
               method: GET

@@ -145,9 +145,11 @@ CREATE TABLE mlforkidsdb.tenants (
     maxusers smallint DEFAULT '8'::smallint NOT NULL,
     maxprojectsperuser smallint DEFAULT '3'::smallint NOT NULL,
     textclassifiersexpiry smallint DEFAULT '2'::smallint NOT NULL,
-    imageclassifiersexpiry smallint DEFAULT '1'::smallint NOT NULL,
     ismanaged smallint DEFAULT '2'::smallint NOT NULL
 );
+-- update (2 Jan 2023)
+-- ALTER TABLE tenants DROP COLUMN imageclassifiersexpiry;
+
 
 CREATE TABLE mlforkidsdb.texttraining (
     id character(36) NOT NULL PRIMARY KEY,

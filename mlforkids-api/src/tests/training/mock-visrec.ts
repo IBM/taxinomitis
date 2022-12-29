@@ -2,9 +2,9 @@ import * as assert from 'assert';
 import * as randomstring from 'randomstring';
 import { v1 as uuid } from 'uuid';
 import * as tmp from 'tmp';
+import { ImageDownload } from '../../lib/training/visualrecognition';
 
 import * as DbTypes from '../../lib/db/db-types';
-import * as downloadAndZip from '../../lib/utils/downloadAndZip';
 
 
 
@@ -166,7 +166,7 @@ export const store = {
 
 
 export const download = {
-    run : (locations: downloadAndZip.ImageDownload[]): Promise<string> => {
+    run : (locations: ImageDownload[]): Promise<string> => {
         return new Promise((resolve) => {
             for (const location of locations) {
                 if (location.type === 'download') {
