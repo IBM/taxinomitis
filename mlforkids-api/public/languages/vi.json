@@ -1,0 +1,279 @@
+{
+    "APP": {
+        "TITLE": "Học máy trí tuệ nhân tạo đối với trẻ em",
+
+        "BACK": "Quay lại",
+        "NEXT": "Tiếp tục",
+        "BACKTOPROJECT": "&lt; Quay lại dự án",
+        "BACKTOMODEL": "&lt; Quay lại mô hình",
+        "ERROR": "Lỗi:",
+        "WARNING": "Cảnh báo:",
+        "INFO": "Thông tin:",
+
+        "ADD": "Thêm",
+        "CANCEL": "Hủy",
+        "DELETE": "Xóa",
+        "EDIT": "Chỉnh sửa",
+        "TEST": "Kiểm tra",
+        "RESET": "Cài lại",
+
+        "ABOUT": "Về",
+        "TEACHER": "Giáo viên",
+        "PROJECTS": "Dự án",
+        "WORKSHEETS": "Bảng tính",
+        "PRETRAINED": "Đào tạo trước",
+        "NEWS": "Tin tức",
+        "STORIES": "Câu chuyện",
+        "HELP": "Trợ giúp",
+        "LOGIN": "Đăng nhập",
+        "LOGOUT": "Đăng xuất",
+
+        "BETA": "Bản Beta",
+        "INCOMPLETE": "Chưa hoàn thành!"
+    },
+    "ABOUT": {
+        "TITLE": "Học máy trí tuệ nhân tạo đối với trẻ em",
+        "IN6SECS": "Trong 6 giây...",
+        "IN20MINS": "Trong 20 phút...",
+        "WHAT": {
+            "TITLE": "Cái gì?",
+            "BODY" : "Công cụ miễn phí này giới thiệu về học máy bằng cách cung cấp các trải nghiệm có được qua trải nghiệm thực tế để đào tạo các hệ thống học máy và xây dựng mọi thứ với chúng. <br/><br/>Nó cung cấp một môi trường hướng dẫn dễ sử dụng cho việc đào tạo các mô hình học máy để nhận dạng văn bản, số, hình ảnh, hoặc âm thanh. <br/><br/>Điều này dựa trên những nỗ lực hiện có để giới thiệu và dạy lập trình cho trẻ em bằng cách thêm các mô hình này vào các nền tảng viết mã giáo dục <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a> and <a href='http://appinventor.mit.edu/' target='_blank'>App Inventor</a>, và giúp trẻ em tạo ra các dự án và xây dựng các trò chơi với các mô hình học máy mà chúng đào tạo. <br/><br/>Công cụ này lần đầu tiên được cung cấp vào năm 2017, và hiện đang được <a href='https://wakelet.com/wake/4d3680cb-2a11-49ab-9180-fcfeced48393' target='_blank'>được sử dụng bởi hàng ngàn trường học, câu lạc bộ lập trình và các gia đình trên khắp thế giới</a>. <br/><br/>Để tìm hiểu thêm, hãy xem:"
+        },
+        "WHY": {
+            "TITLE": "Vì sao?",
+            "BODY": "Học máy ở xung quanh chúng ta. Tất cả chúng ta đều sử dụng hệ thống học máy hàng ngày – chẳng hạn như bộ lọc thư rác, các hệ thống gợi ý, các dịch vụ dịch ngôn ngữ, hộp chat tự động và trợ lý kỹ thuật số, công cụ tìm kiếm và hệ thống phát hiện gian lận.<br/><br/>Nó sẽ sớm trở thành bình thường đối với các hệ thống học máy để điều khiển ô tô của chúng ta và giúp các bác sỹ chuẩn đoán điều trị bệnh cho chúng ta. <br/><br/>Điều quan trọng là trẻ em nhận thức được thế giới của chúng ta hoạt động như thế nào. Cách tốt nhất để hiểu các khả năng và các ý nghĩa là có thể xây dựng với công nghệ này cho chính họ. <br/><br/>Để tìm hiểu thêm, hãy đọc: <a target='_blank' class='btn btn-primary' href='http://dalelane.co.uk/blog/?p=3513'>'Giới thiệu học máy cho trẻ em'</a>"
+        },
+        "TECH": {
+            "TITLE": "Công nghệ",
+            "BODY": "Công cụ này hoàn toàn dựa trên web và không yêu cầu cài đặt hoặc thiết lập phức tạp để có thể sử dụng. <br/><br/>Nó được thiết kế cho trẻ em để sử dụng trong lớp học bởi các trường học, các nhóm tình nguyện viên viết mã, đồng thời cung cấp một trang quảng trị cho giáo viên hoặc trưởng nhóm để có thể quản lý và quản lý quyền truy cập cho học sinh của họ.<br/><br/>Nó được xây dựng bởi <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> using APIs from <a target='_blank' href='https://www.ibm.com/watson/developer/'>IBM Watson</a>.<br/><br/>Để có thêm chi tiết về việc thực hiện, bạn có thể xem <a target='_blank' href='https://github.com/IBM/taxinomitis/'>source code on GitHub</a>, hoặc đọc vài trong số <a target='_blank' href='http://dalelane.co.uk/blog/?tag=mlforkids-tech'>các bài đăng về công nghệ trên blog</a>. ",
+            "LOGIN": "Để bắt đầu: "
+        },
+        "PRETRAINED": {
+            "BODY": "Các mô hình đào tạo trước cũng được cung cấp cho sinh viên sử dụng trong các dự án của họ. Các mô hình nâng cao này làm cho các dự án mà nếu không có thể rất phức tạp để sinh viên tự đào tạo và cung cấp thông tin chi tiết thực hành hữu ích về một số điều khác mà học máy có thể thực hiện."
+        },
+        "FURTHER": {
+            "TITLE": "Học thêm",
+            "BODY": "Học máy trí tuệ nhân tạo đối với trẻ em là công cụ hữu ích để giới thiệu cho trẻ cách mà các hệ thống ML được đào tạo, cách mà chúng được sử dụng và một số ý nghĩa trong thế giới thực của các ứng dụng AI. <br/><br/>Để biết thêm tài nguyên giảng dạy và học tập, bao gồm giảng dạy nội bộ của hệ thống ML, vui lòng xem: "
+        }
+    },
+    "NEWS": {
+        "TITLE": "Tin tức",
+        "UPDATES": {
+            "TITLE": "Tin tức & Cập nhật",
+            "DESCRIPTION": "Tin tức và cập nhật từ @MLforKids"
+        },
+        "MENTIONS": {
+            "TITLE": "Đề cập & Truyền thông",
+            "DESCRIPTION": "Đang tải Mentions &amp; Phương tiện truyền thông from wakelet.com"
+        }
+    },
+    "LINKS": {
+        "TITLE": "Tài nguyên AI giáo dục cho trẻ em",
+        "INTRO": "Trang này là danh sách các công cụ và tài nguyên bổ sung để giải thích về trí tuệ nhân tạo cho trẻ em.",
+        "ECRAFT2LEARN": {
+            "BODY1": "<a href='http://users.ox.ac.uk/~oucs0030/' target='_blank'>Ken Kahn</a> Đã tạo tài nguyên để cho phép người mới bắt đầu tạo chương trình AI trong Snap! (Một môi trường lập trình trực quan tương tự như lập trình Scratch).",
+            "BODY2": "Trong khi tôi đã tập trung vào việc giải thích cách các hệ thống AI được đào tạo và hoạt động (và các ý nghĩa thực tế), eCraft2Learn có các tài nguyên tuyệt vời đi sâu vào cách các hệ thống ML thực sự hoạt động.",
+            "BODY3": "The <a href='https://ecraft2learn.github.io/ai/AI-Teacher-Guide/chapter-6.html' target='_blank'>neural net Tic Tac Toe project</a> đặc biệt hấp dẫn, cho phép học sinh thử nghiệm siêu tham số từ Snap ."
+        },
+        "STEMLEARNING": {
+            "BODY1": "Mô hình học Stem và Bộ Chiến lược kinh doanh, Năng lượng và Công Nghệ Vương Quốc Anh đã tạo ra các tài nguyên để giảng dạy các nguyên tắc của trí tuệ nhân tạo.",
+            "BODY2": "Những tài nguyên này bao gồm <em>Dự án học máy đối với trẻ em</em>, được bổ sung với các ghi chú giảng dạy, tài liệu thuyết trình, thẻ nhớ, và các hoạt động thực tế \"được gỡ bỏ\""
+        },
+        "RASPBERRYPI": {
+            "BODY1": "Ứng dụng Raspberry Pi Foundation cung cấp tài nguyên cho các câu lạc bộ viết mã, với các hướng dẫn từng bước cho nhiều dự án sang tạo.",
+            "BODY2": "Con đường học máy của họ bao gồm nhiều dự án từ <em>Học máy đối với trẻ em</em>."
+        },
+        "APPSFORGOOD": {
+            "BODY1": "Apps for Good là một tổ chức phi lợi nhuận có trụ sở tại Vương Quốc Anh, chuyên tạo ra các tài nguyên để giảng dạy các môn công nghệ, cung cấp miễn phí cho các trường học.",
+            "BODY2": "Khóa học học máy của họ sử dụng <em>học máy cho trẻ em</em>, và bổ sung cho khóa học này với một loạt các tài liệu như kế hoạch làm việc, giáo án, sách bài tập cho học sinh, tài liệu thuyết trình,…. Điều này giúp các trường học dễ dàng cung cấp các bài học ML đưa các bài tập lập trình vào ngữ cảnh."
+        },
+        "AIFAMILYCHALLENGE": {
+            "BODY1": "AI Family Challenge là một chương trình giáo dục AI thực hành miễn phí dành cho các gia đình. Họ sử dụng <em>Học máy cho trẻ em</em>, và bổ sung cho nó với rất nhiều các hỗ trợ khác, như là huấn luyện viên và cố vấn viên kỹ thuật, các bài học có sẵn và các videos.",
+            "BODY2": "Chương trình được dựa trên một cuộc thi thách thức trẻ em nghĩ ra ý tưởng dự án AI của riêng mình, với sự hỗ trợ của gia đình và cố vấn kỹ thuật."
+        },
+        "MAGENTADEMOS": {
+            "BODY1": "Trò chơi trực tuyến sử dụng các khía cạnh khác nhau của máy học, sử dụng TensorFlow.js"
+        },
+        "AIINSCHOOLS": {
+            "BODY1": "Chương trình AIinSchools cung cấp giáo án miễn phí để giáo viên giải thích AI cho học sinh lớp 9 (độ tuổi 13-14).",
+            "BODY2": "Nó bao gồm các hoạt động trong lớp học mà không dùng tới máy tính, và các hoạt động lập trình để đào tạo mạng lưới thần kinh GPUs chạy trên AWS."
+        },
+        "TEENSINAI": {
+            "BODY1": "Thanh thiếu niên AI sử dụng kết hợp các ý tưởng sang tạo bứt phá về lập trình, máy gia tốc và mô hình đào tạo chuyên sâu để hỗ trợ những người trẻ ở độ tuổi 12-18 để khám phá AI."
+        },
+        "AI4ALL": {
+            "BODY1": "AI4ALL điều hành các trại hè cho học sinh trung học ở Hoa Kỳ mà đưa ra giới thiệu kỹ thuật chi tiết tới AI."
+        },
+        "CALYPSO": {
+            "BODY1": "Học sinh với rô bốt có thể lập trình Cozmo có thể sử dụng khung lập trình Calypso để có thể trải nghiệm thực tế về AI bằng cách thử nghiệm các kỹ thuật như thị giác máy tính và nhận diện giọng nói."
+        },
+        "AIINABOX": {
+            "BODY1": "AI-in-a-Box là một gói robot, phụ kiện và tài nguyên giảng dạy. Bộ công cụ này có thể được sử dụng để dạy các dự án bao gồm các chủ đề như nhận dạng hình ảnh, nhận dạng khuôn mặt, tạo giọng nói và nhận dạng giọng nói."
+        },
+        "GOOGLEEXPERIMENTS": {
+            "BODY1": "Các thử nghiệm trực tuyến đơn giản để bắt đầu khám phá học máy, thông qua hình ảnh, hình vẽ, ngôn ngữ và âm nhạc."
+        },
+        "EXPLORINGCS": {
+            "BODY1": "Khám phá CS mang đến cho học sinh kiến thức và kỹ năng về AI đồng thời xem xét các tác động tới xã hội, đạo đức và luân lý.",
+            "BODY2": "Học sinh khám phá các ứng dụng thực tế hàng ngày của AI có tác động đến cuộc sống của họ. Họ thiết kế thành phố, nhà ở và trường học thông minh. Họ cũng học cách xây dựng, đào tạo và thử nghiệm hệ thống AI thông qua nền tảng NVIDIA và xem cách mà thông điệp của AI được truyền đạt."
+        },
+        "VIDEOS": {
+            "TITLE": "Videos",
+            "INTRO": "Tôi cũng thấy những video này hữu ích khi giới thiệu các khái niệm AI:"
+        }
+    },
+    "ERRORS": {
+        "PAGENOTFOUND": "Không tìm thấy trang",
+        "NOTLOGGEDIN": "Chưa đăng nhập",
+
+        "MISSINGPROJECTID": "Thiếu id dự án. Quay trở lại ",
+        "IFPERSISTENT": "Nếu điều này tiếp tục xảy ra, xin vui lòng",
+
+        "LETMEKNOW": "Hãy cho tôi biết"
+    },
+    "WELCOME": {
+        "TITLE": "Dạy máy tính chơi trò chơi",
+        "GET_STARTED": "Bắt đầu",
+        "LEARN_MORE": "Tìm hiểu thêm",
+        "ADMIN_LABEL": "Đi tới <strong>Trang quản trị của bạn</strong>",
+        "PROJECT_LABEL": "Đi tới <strong>Các dự án của bạn</strong>",
+        "STEP_1_TEXT": "Thu thập các ví dụ về những điều bạn muốn có thể nhận ra",
+        "STEP_2_TEXT": "Sử dụng các ví dụ để đào tạo một máy tính để có thể nhận ra chúng",
+        "STEP_3_TEXT": "Tạo một trò chơi trong Scratch sử dụng khả năng nhận dạng chúng của máy tính"
+    },
+    "LOGIN": {
+        "TITLE": "Hãy bắt đầu với học máy",
+        "WELCOME": "Chào mừng!  Thật tuyệt khi bạn quan tâm đến việc có một tài khoản để đăng nhập vào học máy cho trẻ em.",
+        "ALREADY_LOGGEDIN": "<strong>Thông tin: </strong> Đã đăng nhập rồi",
+        "ERROR": "<strong>Error:</strong> {{ tin nhắn }}",
+        "ERROR_HELP": "Nếu điều này tiếp tục xảy ra, vui lòng truy cập phần trợ giúp của chúng tôi",
+        "FIRST_TIME": "Lần đầu ở đây?",
+        "SIGN_UP": "Đăng ký",
+        "WHY_REGISTER": "Tại sao đăng ký?",
+        "WHY_REGISTER_INTRO_1": "<strong>Bạn không phải đăng ký hoặc tạo tài khoản</strong> để sử dụng học máy cho trẻ em, nhưng nếu bạn làm, nó sẽ mở khóa một vài chức năng của công cụ.",
+        "WHY_REGISTER_INTRO_2": "Lưới bên dưới giải thích sự khác biệt về những gì bạn có thể làm nếu nhấp vào \"Thử ngay bây giờ\" mà không cần đăng ký và những gì bạn có thể làm nếu tạo một tài khoản để đăng nhập bằng.",
+        "ALREADY_REGISTERED": "Đã đăng ký rồi?",
+        "LOGIN": "Đăng nhập",
+        "FORGOT_DETAILS": "Đã quên các chi tiết của bạn?",
+        "TRY_TITLE": "Thử mà không đăng ký",
+        "TRY_NOW": "Thử nó ngay bây giờ",
+        "WHO_YOU": "Bạn là ai?",
+        "TEACHER": "Phụ huynh, học sinh hay trưởng nhóm của câu lạc bộ viết mã",
+        "STUDENT": "Học sinh",
+        "FORGOT_TEXT": "Đã quên tên tài khoản hay mật khẩu của bạn? Không sao đâu - đôi khi tất cả chúng ta đều quên mọi thứ.",
+        "ARE_YOU_A_STUDENT": "Bạn là học sinh phải không?",
+        "ARE_YOU_A_STUDENT_INTRO_1": "Nếu lớp của bạn đã sử dụng công cụ này, hãy yêu cầu giáo viên hoặc trưởng nhóm lập trình tạo cho bạn một tài khoản.",
+        "ARE_YOU_A_STUDENT_INTRO_2": "Nếu lớp của bạn chưa sử dụng công cụ này, hãy yêu cầu giáo viên hoặc trưởng nhóm lập trình của bạn liên hệ.",
+        "RESET_STUDENT_PASSWORD_1": "Nếu bạn là học sinh, chúng tôi không có địa chỉ email của bạn để có thể gửi email đặt lại mật khẩu cho bạn.",
+        "RESET_STUDENT_PASSWORD_2": "Mặc dù vậy, đó không phải là vấn đề!",
+        "RESET_STUDENT_PASSWORD_3": "Chỉ cần hỏi giáo viên hoặc trưởng nhóm của bạn, người đầu tiên đăng ký cho bạn. Họ sẽ có thể đặt lại mật khẩu của bạn từ trang Quản trị của họ."
+    },
+    "SIGNUP": {
+        "TEACHER": {
+            "TITLE": "Bạn là giáo viên hay là trưởng nhóm của câu lạc bộ viết mã?",
+            "INFO1": "Nếu bạn muốn truy cập cho học sinh của mình, vui lòng tạo một tài khoản lớp bên dưới.",
+           "INFO2": " Có hai loại tài khoản lớp học - tùy thuộc vào người thiết lập nó."
+        },
+        "UNMANAGED": {
+            "TITLE": "Tạo một <strong>unmanaged</strong> tài khoản lớp học",
+            "INTRO": "Nếu bạn hài lòng với việc tự thiết lập và tự quản lý tài khoản lớp học, bạn có thể thực hiện ngay bây giờ!",
+            "LISTINTRO": "Bạn sẽ cần phải:",
+            "LIST_CREATEACCOUNT": "Tạo một tài khoản miễn phí trên IBM Cloud",
+            "LIST_CREATEAPIKEYS": "Tạo các khóa API cho các dịch vụ đám mây Watson cần thiết để đào tạo các mô hình học máy",
+            "LIST_ENTERAPIKEYS": "Nhập các khóa API vào công cụ học máy cho trẻ em",
+            "HELP": "Hướng dẫn từng bước (có ảnh chụp màn hình) có sẵn cho tất cả những điều này."
+        },
+        "MANAGED": {
+            "TITLE": "Tạo một <strong>managed</strong> tài khoản lớp học",
+            "INTRO": " Nếu bạn muốn Dale thiết lập tài khoản lớp học, hãy sử dụng nút bên dưới để gửi email kèm theo thông tin sau:",
+            "LIST_NUMBEROFSTUDENTS": "Khoảng bao nhiêu tài khoản học sinh bạn sẽ cần",
+            "LIST_NAMEOFSCHOOL": "Tên của trường hoặc nhóm mã hóa mà tài khoản dành cho",
+            "RESTRICTIONS": "Ưu đãi này chỉ dành cho các trường học và câu lạc bộ mã hóa học sinh phi lợi nhuận.",
+            "EMAIL": "Thư điện tử"
+        }
+    },
+    "PROJECTS": {
+        "TITLE": "Các dự án học máy của bạn",
+        "ADDNEWPROJECT": "Thêm một dự án mới",
+        "COPYTEMPLATE": "Sao chép mẫu",
+        "CREATEFIRSTPROJECT": " Nhấp vào nút 'dấu cộng' ở bên phải để tạo dự án đầu tiên của bạn.",
+        "RECOGNISING": "Công nhận",
+        "AS": "Như là",
+        "SHARE": "Chia sẻ",
+        "UNSHARE": "Hủy chia sẻ",
+        "WHOLE_CLASS_TITLE": "Dự án tìm kiếm nguồn lực từ đám đông",
+        "WHOLE_CLASS_NOTES": "Đây là một dự án của cả lớp. Tất cả học sinh trong lớp có thể sử dụng nó và thêm vào dữ liệu đào tạo."
+    },
+    "NEWPROJECT": {
+        "TITLE": "Bắt đầu dự án học máy mới",
+        "PROJECT_NAME": {
+            "TITLE": "Tên dự án",
+            "NOTES": "Đặt tên cho dự án của bạn để mô tả điều bạn sẽ cố gắng dạy cho máy tính nhận ra."
+        },
+        "WHOLE_CLASS_PROJECT": {
+            "TITLE": "Dự án toàn lớp học?",
+            "NOTES_1": "Đánh dấu vào đây nếu bạn muốn cả lớp có thể cùng nhau thực hiện dự án này.",
+            "NOTES_2": "Điều này hữu ích cho các dự án dạy tìm nguồn lực từ đám đông như một cách tiếp cận để đào tạo các dự án học máy."
+        },
+        "TYPES": {
+            "LABEL": "Công nhận",
+            "NOTES_1": "Bạn muốn dạy máy tính nhận biết loại đồ vật nào?",
+            "NOTES_2": "Đối với các từ, các câu hoặc các đoạn văn, hãy chọn \"text\"",
+            "NOTES_3": "Đối với ảnh, sơ đồ và hình ảnh, hãy chọn\"images\"",
+            "NOTES_4": "Đối với các bộ số hoặc nhiều lựa chọn, hãy chọn \"numbers\"",
+            "NOTES_5": "Đối với giọng nói và âm thanh, hãy chọn \"sounds\""
+        },
+        "LANGUAGE": {
+            "LABEL": "Ngôn ngữ",
+            "NOTES": "Văn bản trong dự án này sẽ là ngôn ngữ nào?"
+        },
+        "FIELDS": {
+            "TYPE": {
+                "TITLE": "Loại giá trị",
+                "NUMBER": "Số",
+                "MULTIPLE_CHOICE": "Nhiều lựa chọn"
+            },
+            "CHOICES": {
+                "TITLE": "Các lựa chọn:",
+                "LABEL": "Thêm một lựa chọn"
+            },
+            "NEWFIELD": {
+                "DESCRIBE_FIELD": "Đặt tên cho trường này để mô tả giá trị",
+                "MULTICHOICE": "Nếu nó có thể được mô tả là chọn từ một vài tùy chọn, hãy chọn \"nhiều lựa chọn\".",
+                "ADD_FIRST_FIELD": "Nhập một lựa chọn để sử dụng trong danh sách trắc nghiệm của bạn, rồi nhấn Enter.",
+                "ADD_ANOTHER_FIELD": "Nhập một lựa chọn khác để sử dụng trong danh sách trắc nghiệm của bạn, sau đó nhấn Enter."
+            },
+            "NEWVALUE": {
+                "ADD_FIRST_VALUE": "Bắt đầu mô tả các giá trị mà bạn sẽ đưa vào mỗi ví dụ để đào tạo máy tính bằng cách nhấp vào nút 'Thêm giá trị'.",
+                "VALUES_LIMIT": "Bạn không được phép có nhiều hơn 10 giá trị trong một dự án."
+            }
+        },
+        "CREATE": "Tạo",
+        "ERRORS": {
+            "REQUIRED": " Điều này là bắt buộc!",
+            "TOOLONG": "Nó quá dài!",
+            "EXCEEDLIMIT": "Bạn đã đạt đến giới hạn về số lượng dự án bạn có thể có. Bạn cần xóa một trong các dự án hiện tại của mình trước khi có thể tạo một dự án khác.",
+            "TRYITNOW": " Xin lỗi! Bạn chỉ có thể tạo một dự án tại một thời điểm nếu bạn sử dụng 'Thử ngay bây giờ'. Bạn cần xóa dự án hiện tại của mình trước khi có thể tạo dự án khác."
+        },
+        "WARNINGS": {
+            "MLCRED-TEXT-NOKEYS": " Vui lòng cho giáo viên của bạn biết rằng họ sẽ cần thêm một \"Watson Assistant API key\" đến lớp của bạn để cho phép bạn đào tạo mô hình máy học cho dự án mới của bạn",
+            "MLCRED-TEXT-INVALID": "Có thể đã xảy ra sự cố với các khóa API Đám mây của IBM, bạn sẽ cần đào tạo một mô hình máy học cho dự án mới của mình. Vui lòng yêu cầu giáo viên của bạn thử xác minh \"Các khóa API của Trợ lý Watson\" trong lớp học của bạn."
+        }
+    },
+    "DATASETS": {
+        "TITLE": "Sao chép mẫu dự án máy học",
+        "INTRO": {
+            "INTRO_1": "Bạn có thể tạo dự án máy học mới dựa trên một trong những mẫu này.",
+            "INTRO_2": "Mỗi cái bao gồm một bộ dữ liệu đào tạo đã được thu thập cho bạn để giúp bạn bắt đầu nhanh chóng. ",
+            "INTRO_3": "Bạn sẽ có thể thực hiện các thay đổi đối với dữ liệu đào tạo nếu muốn hoặc bạn có thể chuyển thẳng sang đào tạo một mô hình máy học với dữ liệu đó. "
+        },
+        "IMPORT": "Nhập",
+        "TESTING": "Bạn có muốn sử dụng một vài dữ liệu để kiểm tra không?",
+        "MORE": {
+            "TITLE": "Bộ dữ liệu khác",
+            "SUMMARY": "Bạn muốn xem những tập dữ liệu nào khác không?",
+            "DESCRIPTION": "Bạn có ý tưởng nào về tập dữ liệu mà bạn muốn xem ở đây không? Hay bạn có một bộ dữ liệu mà bạn muốn đóng góp? Vui lòng liên hệ!",
+            "MOREINFO": "Thêm..."
+        }
+    }
+}
