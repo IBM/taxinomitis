@@ -83,7 +83,7 @@
         <!-- machine learning model is ready to go -->
         <!-- ------------------------------------- -->
         <div ng-if="project.type === 'imgtfjs' || scratchkey.model">
-            <a target="_blank" class="btn btn-primary"
+            <a target="_blank" class="btn btn-default"
                href="{{ projecturls.appinventor }}"
                translate="APPINVENTOR.LAUNCH"></a>
         </div>
@@ -119,14 +119,22 @@
         </div>
         <div class="modelguidance">
             <div class="modelstatusdetail">
-                To add your machine learning model to your App Inventor project:
+                To add your machine learning model to your App Inventor project, use this button to download your project extension.
+            </div>
+            <div>
+                <a target="_blank" class="btn btn-primary"
+                    href="{{ appinventorurl }}">Download App Inventor extension</a>
+            </div>
+            <div class="modelstatusdetail">
+                To use this file in <a href="http://appinventor.mit.edu/">App Inventor</a>, you should:
                 <ol>
                     <li>Click on <strong>Import extension</strong></li>
-                    <li>Click on <strong>URL</strong></li>
-                    <li>Fill in the URL for your project: <br/><code>{{ appinventorurl }}</code></li>
+                    <li>Click on <strong>From my computer</strong></li>
+                    <li>Click on <strong>Choose file</strong> and select your extension file</li>
+                    <li>Click on <strong>Import</strong></li>
                 </ol>
             </div>
-            <img src="static/images/appinventor-import.png" alt="App Inventor"/>
+            <img src="static/images/appinventor-import-file.png" alt="App Inventor"/>
         </div>
 
     </div>
