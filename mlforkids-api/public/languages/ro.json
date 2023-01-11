@@ -142,7 +142,7 @@
         "STEP_3_TEXT": "Creează un joc în Scratch care utilizează capacitatea computerului de a le recunoaște"
     },
     "LOGIN": {
-        "TITLE": "Începeți cu machine learning",
+        "TITLE": "Începeți cu Machine Learning",
         "WELCOME": "Bine ați venit! Este minunat că vă interesează să aveți un cont de la care să vă conectați la Machine Learning for Kids.",
         "ALREADY_LOGGEDIN": "<strong>Info: </strong> Deja logat",
         "ERROR": "<strong>Eroare:</strong> {{ message }}",
@@ -252,8 +252,8 @@
         "ERRORS": {
             "REQUIRED": "Acest lucru este necesar!",
             "TOOLONG": "E prea lung!",
-            "EXCEEDLIMIT": "You've reached the limit for the number of projects you can have. You need to delete one of your current projects before you can create another.",
-            "TRYITNOW": "Sorry! You can only create one project at a time if you use 'Try it now'. You need to delete your current project before you can create another."
+            "EXCEEDLIMIT": "Ați atins limita pentru numărul de proiecte pe care le puteți avea. Trebuie să ștergeți unul dintre proiectele dvs. curente înainte de a putea crea altul.",
+            "TRYITNOW": "Îmi pare rău! Puteți crea doar un proiect la un moment dat dacă utilizați „Încercați-l acum”. Trebuie să ștergeți proiectul curent înainte de a putea crea altul."
         },
         "WARNINGS": {
             "MLCRED-TEXT-NOKEYS": "Te rog să informezi profesorul că va trebui să adauge o \"cheie Watson Assistant API\" la clasa ta pentru a vă permite să instruiți modelul de învățare automată pentru noul vostru proiect",
@@ -267,8 +267,8 @@
             "INTRO_2": "Fiecare include un set de date de instruire care au fost colectate pentru a te ajuta să începi rapid.",
             "INTRO_3": "Dacă dorești, vei putea face modificări la datele de antrenament sau poți merge direct la instruirea unui model de învățare automată cu acesta."
         },
-        "IMPORT": "Import",
-        "TESTING": "Do you want to use some of the data for testing?",
+        "IMPORT": "Importare",
+        "TESTING": "Doriți să utilizați unele dintre date pentru testare?",
         "MORE": {
             "TITLE": "Alte seturi de date",
             "SUMMARY": "Ce alte seturi de date ai dori să vezi?",
@@ -324,34 +324,34 @@
                 "DETAILS": "Acesta este un șablon (template) gol pentru a te ajuta să colectezi propriile date de antrenament. Pentru instrucțiuni despre modul de utilizare, descarcă „Gesturile mâinilor” din foi de lucru."
             },
             "POKEMONSTATS": {
-                "TITLE": "Pokémon statistics",
-                "SUMMARY": "Recognize Pokémon from their statistics",
-                "DESCRIPTION": "Train a machine learning model to predict the type of a Pokémon based on a collection of statistics about hundreds of Pokémon. ",
-                "DETAILS": "This training dataset includes attributes of a selection of Pokémon. \n\nThe 'height' field is the height of a Pokémon in metres. \nThe 'weight' field is the weight of a Pokémon in kilograms. \nThe 'attack' field is the attack strength of a level 100 Pokémon. \nThe 'defense' field is the defense strength of a level 100 Pokémon. \nThe 'speed' field is the speed rating of a level 100 Pokémon. \nThe 'HP' field is the hit point statistics for a Pokémon. \nThe 'capture rate' field is the catch rate for a Pokémon. Pokémon with higher catch rates are easier to capture than Pokémon with lower catch rates."
-            },
+                "TITLE": "Statistici Pokémon",
+                "SUMMARY": "Recunoaște Pokemon din statisticile lor",
+                "DESCRIPTION": "Antrenează un model de învățare automată pentru a prezice tipul unui Pokémon pe baza unei colecții de statistici despre sute de Pokémoni.",
+                "DETAILS": "Acest set de date de antrenament include atributele unei selecții de Pokémon. \n\nCâmpul „înălțime” este înălțimea unui Pokémon în metri. \nCâmpul „greutate” este greutatea unui Pokémon în kilograme. \nCâmpul „atac” este puterea de atac a unui Pokémon de nivel 100. \nCâmpul „apărare” este puterea de apărare a unui Pokémon de nivel 100. \nCâmpul „viteză” este evaluarea vitezei unui Pokémon de nivel 100. \nCâmpul „HP” reprezintă statisticile punctelor de lovitura pentru un Pokémon. \nCâmpul „rata de captură” este rata de captură pentru un Pokémon. Pokemonii cu rate mai mari de capturare sunt mai ușor de capturat decât pokemonii cu rate mai mici de capturare.”
+             },
             "POKEMONIMAGES": {
-                "TITLE": "Pokémon images",
-                "SUMMARY": "Recognize Pokémon from pictures",
-                "DESCRIPTION": "Train a machine learning model to predict the type of a Pokémon based on a set of pictures of a hundred Pokémon. ",
-                "DETAILS": "This training dataset includes images of a selection of Pokémon, grouped by their type. It is a good starting set for training a machine learning model to predict the type of a Pokémon from a picture."
+                "TITLE": "Pokemon imagini",
+                "SUMMARY": "Recunoașteți Pokémon dupa imagini",
+                "DESCRIPTION": "Antrenează un model de învățare automată pentru a prezice tipul unui Pokémon pe baza unui set de imagini cu o sută de Pokémon.",
+                "DETAILS": "Acest set de date de antrenament include imagini ale unei selecții de Pokemon, grupate după tipul lor. Este un set de început bun pentru antrenarea unui model de învățare automată pentru a prezice tipul unui Pokémon dintr-o imagine."
             },
             "ARGO": {
-                "TITLE": "Ocean data",
-                "SUMMARY": "Predict the location from ocean sensor data",
-                "DESCRIPTION": "Train a machine learning model to predict the location of ocean robots. ",
-                "DETAILS": "Argo is an international program that collects information from inside the ocean using a fleet of robotic instruments that drift with the ocean currents and move up and down between the surface and a mid-water level. Each instrument (float) spends almost all its life below the surface.\n\nSome floats fail to report back their location data. Train a machine learning model to predict which ocean the float data is likely to have been collected from.\n\n\nAttribution / References:\nForget, Gaël, 2016, \"MITprof_mar2016_argo0910.nc\", ECCO version 4 release 2: in situ and estimated profile data (MITprof data sets), https://doi.org/10.7910/DVN/EE3C40/DQBDDA, Harvard Dataverse, V1\nForget, G., Campin, J.-M., Heimbach, P., Hill, C. N., Ponte, R. M., and Wunsch, C.: ECCO version 4: an integrated framework for non-linear inverse modeling and global ocean state estimation, Geosci. Model Dev., 8, 3071–3104, https://doi.org/10.5194/gmd-8-3071-2015, 2015.\n\nPrepared by Dani Jones, British Antartic Survey, NERC, UKRI"
+                "TITLE": "Date oceanice",
+                "SUMMARY": "Preziceți locația din datele senzorului oceanic",
+                "DESCRIPTION": "Antrenează un model de învățare automată pentru a prezice locația roboților oceanici.",
+                "DETAILS": "Argo este un program internațional care colectează informații din interiorul oceanului folosind o flotă de instrumente robotizate care derivă odată cu curenții oceanici și se deplasează în sus și în jos între suprafață și un nivel mediu al apei. Fiecare instrument (plutitor) își petrece aproape toată viața sub suprafață.\n\nUnele plutitoare nu reușesc să raporteze datele despre locație. Antrenați un model de învățare automată pentru a prezice din ce ocean ar fi probabil să fi fost colectată datele plutitoare.\n\n\nAtribuire/Referințe:\nForget, Gaël, 2016, \"MITprof_mar2016_argo0910.nc\", ECCO versiunea 4 ediția 2: date de profil in situ și estimate (seturi de date MITprof), https://doi.org/10.7910/DVN/EE3C40/DQBDDA, Harvard Dataverse, V1\nForget, G., Campin, J.-M., Heimbach, P. , Hill, C. N., Ponte, R. M. și Wunsch, C.: ECCO versiunea 4: un cadru integrat pentru modelarea inversă neliniară și estimarea globală a stării oceanului, Geosci. Model Dev., 8, 3071–3104, https://doi.org/10.5194/gmd-8-3071-2015, 2015.\n\nPregătit de Dani Jones, British Antartic Survey, NERC, UKRI"
             },
             "FAKENEWS": {
-                "TITLE": "Fake news",
-                "SUMMARY": "Recognize fake news",
-                "DESCRIPTION": "Train a machine learning model to recognize the type of writing in fake news. ",
-                "DETAILS": "False and misleading news is more common as people turn to social media to get their news. Use this dataset to create a machine learning model that can try to distinguish when news is real or fake.\n\n\nAttribution: \nhttps://www.uvic.ca/ecs/ece/isot/datasets/fake-news/\n\nAcknowledgements:\nAhmed H, Traore I, Saad S. \"Detecting opinion spams and fake news using text classification\", Journal of Security and Privacy, Volume 1, Issue 1, Wiley, January/February 2018.\nAhmed H, Traore I, Saad S. (2017) \"Detection of Online Fake News Using N-Gram Analysis and Machine Learning Techniques\". In: Traore I., Woungang I., Awad A. (eds) Intelligent, Secure, and Dependable Systems in Distributed and Cloud Environments. ISDDC 2017. Lecture Notes in Computer Science, vol 10618. Springer, Cham (pp. 127-138)."
+                "TITLE": "Știri false",
+                "SUMMARY": "Recunoaştere fake news",
+                "DESCRIPTION": "Antrenați un model de învățare automată pentru a recunoaște tipul de scriere în știrile false.",
+                "DETAILS": "Știrile false și înșelătoare sunt mai frecvente pe măsură ce oamenii apelează la rețelele sociale pentru a-și obține știrile. Utilizați acest set de date pentru a crea un model de învățare automată care poate încerca să distingă când știrile sunt reale sau false.\n\n\nAtribuire: \nhttps://www.uvic.ca/ecs/ece/isot/datasets/fake-news /\n\nMulțumiri:\nAhmed H, Traore I, Saad S. \"Detectarea spam-urilor de opinie și a știrilor false folosind clasificarea textului\", Journal of Security and Privacy, volumul 1, numărul 1, Wiley, ianuarie/februarie 2018.\ nAhmed H, Traore I, Saad S. (2017) „Detecția știrilor false online folosind analiza N-Gram și tehnicile de învățare automată“. În: Traore I., Woungang I., Awad A. (eds) Intelligent, Secure, and Trustable Systems in Distributed and Cloud Environments. ISDDC 2017. Lecture Notes in Computer Science, vol. 10618. Springer, Cham (pp. 127-138)."
             },
             "STARS": {
-                "TITLE": "Star types",
-                "SUMMARY": "Learn to classify the types of stars",
-                "DESCRIPTION": "Train a machine learning model to predict the type of a star based on their attributes. ",
-                "DETAILS": "Stellar classification is when astronomers classify a star based on their spectral characteristics. Use this dataset to train a simple machine learning model that can predict some types of stars.\n\nThe 'temperature' field is in degrees Kelvin.\nThe 'radius' field gives the size of the star relative to the Sun.\nThe 'brightness' field gives the luminosity of the star relative to the Sun.\nThe 'colour' field gives the observable colour of the star.\n\nAttribution: \nhttps://www.kaggle.com/datasets/brsdincer/star-type-classification"
+                "TITLE": "Tipuri de stele",
+                "SUMMARY": "Învață să clasificăm tipurile de stele",
+                "DESCRIPTION": "Antrenează un model de învățare automată pentru a prezice tipul unei stele pe baza atributelor acestora.",
+                "DETAILS": "Clasificarea stelare este atunci când astronomii clasifică o stea pe baza caracteristicilor lor spectrale. Utilizați acest set de date pentru a antrena un model simplu de învățare automată care poate prezice anumite tipuri de stele.\n\nCâmpul „temperatură” este în grade Kelvin.\nCâmpul „rază” oferă dimensiunea stelei în raport cu Soarele.\n Câmpul „luminozitate” oferă luminozitatea stelei în raport cu Soarele.\nCâmpul „culoare” oferă culoarea observabilă a stelei.\n\nAtribuire: \nhttps://www.kaggle.com/datasets/brsdincer/star-type-classification"
             }
         }
     },
