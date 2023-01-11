@@ -66,7 +66,7 @@ describe('Utils - wikimedia', () => {
     const INVALID_URLS = [
         'https://something.com/mygreatpicture.jpg',
         'https://upload.wikimedia.org/wikipedia/commons/1/16/Maltese_kitten.jpeg',
-        'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png',
+        'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x91dp.png',
     ];
 
 });
