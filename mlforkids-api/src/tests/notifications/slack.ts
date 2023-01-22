@@ -12,12 +12,15 @@ describe('Notifications - Slack', () => {
 
     let slackEnv: string | undefined;
 
-    const expectedMessage = 'This is my message';
+    let expectedMessage = 'This is my message';
     const unsendableMessage = 'This message cannot be sent';
 
     let slackClientStub: sinon.SinonStub<any, any>;
+    let clock: sinon.SinonFakeTimers;
 
     before(() => {
+        clock = sinon.useFakeTimers({ now: Date.now(), shouldAdvanceTime: true });
+
         slackEnv = process.env.SLACK_WEBHOOK_URL;
 
         slackClientStub = sinon.stub(slackClient.IncomingWebhook.prototype, 'send')
@@ -66,13 +69,18 @@ describe('Notifications - Slack', () => {
         slack.close();
 
         slackClientStub.restore();
+
+        clock.restore();
+    });
+
+    beforeEach(() => {
+        expectedMessage = 'This is my message';
+        slackClientStub.resetHistory();
     });
 
 
     it('init without env var', () => {
         delete process.env.SLACK_WEBHOOK_URL;
-
-        slackClientStub.resetHistory();
 
         slack.init();
 
@@ -82,16 +90,12 @@ describe('Notifications - Slack', () => {
     });
 
     it('Send message before init', () => {
-        slackClientStub.resetHistory();
-
         slack.notify('This is my message which will not be sent', slack.SLACK_CHANNELS.CRITICAL_ERRORS);
 
         assert.strictEqual(slackClientStub.called, false);
     });
 
     it('Send message after init', () => {
-        slackClientStub.resetHistory();
-
         process.env.SLACK_WEBHOOK_URL = 'https://fake.com';
         slack.init();
 
@@ -100,9 +104,54 @@ describe('Notifications - Slack', () => {
         assert(slackClientStub.called);
     });
 
-    it('Send unsendable message', () => {
+    it('Avoids sending duplicate messages', () => {
+        process.env.SLACK_WEBHOOK_URL = 'https://fake.com';
+        slack.init();
+
+        slack.notify('This is my message', slack.SLACK_CHANNELS.CRITICAL_ERRORS);
+        slack.notify('This is my message', slack.SLACK_CHANNELS.CRITICAL_ERRORS);
+        slack.notify('This is my message', slack.SLACK_CHANNELS.CRITICAL_ERRORS);
+        slack.notify('This is my message', slack.SLACK_CHANNELS.CRITICAL_ERRORS);
+        slack.notify('This is my message', slack.SLACK_CHANNELS.CRITICAL_ERRORS);
+
+        assert(slackClientStub.calledOnce);
+    });
+
+    it('Avoids hiding different messages', () => {
+        process.env.SLACK_WEBHOOK_URL = 'https://fake.com';
+        slack.init();
+
+        slack.notify('This is my message', slack.SLACK_CHANNELS.CRITICAL_ERRORS);
+
+        expectedMessage = 'This is my different message';
+        slack.notify('This is my different message', slack.SLACK_CHANNELS.CRITICAL_ERRORS);
+
+        assert(slackClientStub.calledTwice);
+    });
+
+    it('Avoids holding onto messages for too long', () => {
+        process.env.SLACK_WEBHOOK_URL = 'https://fake.com';
+        slack.init();
+
+        slack.notify('This is my message', slack.SLACK_CHANNELS.CRITICAL_ERRORS);
+        assert(slackClientStub.calledOnce);
         slackClientStub.resetHistory();
 
+        slack.notify('This is my message', slack.SLACK_CHANNELS.CRITICAL_ERRORS);
+        slack.notify('This is my message', slack.SLACK_CHANNELS.CRITICAL_ERRORS);
+        slack.notify('This is my message', slack.SLACK_CHANNELS.CRITICAL_ERRORS);
+        slack.notify('This is my message', slack.SLACK_CHANNELS.CRITICAL_ERRORS);
+        assert(slackClientStub.notCalled);
+        slackClientStub.resetHistory();
+
+        clock.tick(1000 * 60 * 6);
+
+        expectedMessage = '(x 5) This is my message';
+        slack.notify('This is my message', slack.SLACK_CHANNELS.CRITICAL_ERRORS);
+        assert(slackClientStub.calledOnce);
+    });
+
+    it('Send unsendable message', () => {
         process.env.SLACK_WEBHOOK_URL = 'https://fake.com';
         slack.init();
 
