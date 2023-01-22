@@ -31,11 +31,12 @@ export const ERROR_MESSAGES = {
 
 
 
-export async function createSessionUser(): Promise<Objects.TemporaryUser>
+export async function createSessionUser(requestOrigin?: string): Promise<Objects.TemporaryUser>
 {
     // is the session class full?
     const currentClassSize = await store.countTemporaryUsers();
-    if (currentClassSize >= MAX_ALLOWED_USERS) {
+    const limit = requestOrigin === 'SA' ? 2000 : MAX_ALLOWED_USERS;
+    if (currentClassSize >= limit) {
         throw new Error(ERROR_MESSAGES.CLASS_FULL);
     }
 

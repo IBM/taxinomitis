@@ -19,7 +19,9 @@ const log = loggerSetup();
 
 function createSessionUser(req: Express.Request, res: Express.Response)
 {
-    sessionusers.createSessionUser()
+    const requestOrigin = req.header('cf-ipcountry');
+
+    sessionusers.createSessionUser(requestOrigin)
         .then((user) => {
             return res.status(httpstatus.CREATED).json({
                 id : user.id,
@@ -30,7 +32,7 @@ function createSessionUser(req: Express.Request, res: Express.Response)
         })
         .catch((err) => {
             log.error({ err }, 'Failed to create session user');
-            notifications.notify('Failed to create "Try it now" session : ' + err.message,
+            notifications.notify('Failed to create "Try it now" session for ' + requestOrigin + ' : ' + err.message,
                                  notifications.SLACK_CHANNELS.CRITICAL_ERRORS);
 
             if (err.message === sessionusers.ERROR_MESSAGES.CLASS_FULL) {
