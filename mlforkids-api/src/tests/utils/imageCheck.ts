@@ -7,17 +7,31 @@ import * as imageCheck from '../../lib/utils/imageCheck';
 
 describe('Utils - imageCheck', () => {
 
+    beforeEach(() => {
+        imageCheck.init();
+    });
+
     it('should handle multiple requests in parallel', () => {
         return Promise.all([
-            imageCheck.verifyImage(VALID_JPG, 10000000), imageCheck.verifyImage(VALID_PNG, 10000000),
-            imageCheck.verifyImage(VALID_JPG, 10000000), imageCheck.verifyImage(VALID_PNG, 10000000),
-            imageCheck.verifyImage(VALID_JPG, 10000000), imageCheck.verifyImage(VALID_PNG, 10000000),
-            imageCheck.verifyImage(VALID_JPG, 10000000), imageCheck.verifyImage(VALID_PNG, 10000000),
-            imageCheck.verifyImage(VALID_JPG, 10000000), imageCheck.verifyImage(VALID_PNG, 10000000),
-            imageCheck.verifyImage(VALID_JPG, 10000000), imageCheck.verifyImage(VALID_PNG, 10000000),
+            imageCheck.verifyImage(VALID_JPG + '?_mlk1', 10000000), imageCheck.verifyImage(VALID_PNG + '?_mlk1', 10000000),
+            imageCheck.verifyImage(VALID_JPG + '?_mlk2', 10000000), imageCheck.verifyImage(VALID_PNG + '?_mlk2', 10000000),
+            imageCheck.verifyImage(VALID_JPG + '?_mlk3', 10000000), imageCheck.verifyImage(VALID_PNG + '?_mlk3', 10000000),
+            imageCheck.verifyImage(VALID_JPG + '?_mlk4', 10000000), imageCheck.verifyImage(VALID_PNG + '?_mlk4', 10000000),
+            imageCheck.verifyImage(VALID_JPG + '?_mlk5', 10000000), imageCheck.verifyImage(VALID_PNG + '?_mlk5', 10000000),
+            imageCheck.verifyImage(VALID_JPG + '?_mlk6', 10000000), imageCheck.verifyImage(VALID_PNG + '?_mlk6', 10000000),
         ]);
     });
 
+    it('should use the cache for subsequent requests for an image', async () => {
+        await imageCheck.verifyImage(VALID_JPG, 10000000);
+        await imageCheck.verifyImage(VALID_PNG, 10000000);
+        await imageCheck.verifyImage(VALID_JPG, 10000000);
+        await imageCheck.verifyImage(VALID_PNG, 10000000);
+        await imageCheck.verifyImage(VALID_JPG, 10000000);
+        await imageCheck.verifyImage(VALID_PNG, 10000000);
+        await imageCheck.verifyImage(VALID_JPG, 10000000);
+        await imageCheck.verifyImage(VALID_PNG, 10000000);
+    });
 
     it('should verify a jpg', (done) => {
         imageCheck.verifyImage(VALID_JPG, 10000000).then(done);

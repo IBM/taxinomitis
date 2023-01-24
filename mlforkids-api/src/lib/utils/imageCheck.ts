@@ -1,6 +1,7 @@
 // core dependencies
 import * as fs from 'fs';
 // external dependencies
+import * as LRU from 'lru';
 import * as fileType from 'file-type';
 import * as tmp from 'tmp';
 import * as async from 'async';
@@ -14,7 +15,7 @@ import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
 
-type PossibleError = Error | null;
+type PossibleError = download.ML4KError | null;
 type IFilePathCallback = (err?: PossibleError, location?: string) => void;
 type IFileTypeCallback = (err?: PossibleError, filetype?: string) => void;
 type IFilePathTypeCallback = (err?: PossibleError, filetype?: string, location?: string) => void;
@@ -27,8 +28,39 @@ export const ERROR_PREFIXES = {
     INVALID_URL : 'Not a valid web address',
 };
 
+// to avoid repeatedly downloading the same images, this is a cache
+//  of previously verified URLs
+//
+// as some classes/groups will often give their students the same
+//  set of training images to use, making this a LRU cache will allow
+//  the first student in a class to actually cause images to be
+//  verified, and subsequent students to just reuse that first check
+let validImageUrlsCache = new LRU({
+    max: 500
+});
+
+export function init() {
+    // needed for tests to let us reset the cache
+    validImageUrlsCache = new LRU({
+        max: 500
+    });
+}
+
+
 
 export function verifyImage(url: string, maxAllowedSizeBytes: number): Promise<void> {
+    // if we have previously verified this image, assume that
+    //  it is still okay to use
+    const previousCheck = validImageUrlsCache.get(url);
+    if (previousCheck) {
+        if (previousCheck === true) {
+            return Promise.resolve();
+        }
+        else if (previousCheck instanceof Error) {
+            return Promise.reject(previousCheck);
+        }
+    }
+
     return new Promise((resolve, reject) => {
         let imageurl: string;
         try {
@@ -46,7 +78,7 @@ export function verifyImage(url: string, maxAllowedSizeBytes: number): Promise<v
                         log.error({ err, imageurl }, 'Failed to create tmp file');
                     }
 
-                    next(err, tmppath);
+                    next(err as download.ML4KError, tmppath);
                 });
             },
             (tmpFilePath: string, next: IFilePathCallback) => {
@@ -56,7 +88,7 @@ export function verifyImage(url: string, maxAllowedSizeBytes: number): Promise<v
                         log.warn({ err, tmpFilePath, imageurl }, 'Failed to download image file');
                     }
 
-                    next(err, tmpFilePath);
+                    next(err as download.ML4KError, tmpFilePath);
                 });
             },
             (tmpFilePath: string, next: IFilePathCallback) => {
@@ -64,14 +96,17 @@ export function verifyImage(url: string, maxAllowedSizeBytes: number): Promise<v
                 fs.stat(tmpFilePath, (err, stats: fs.Stats) => {
                     if (err) {
                         log.error({ err, imageurl }, 'Failed to check image file size');
-                        return next(err);
+                        return next(err as download.ML4KError);
                     }
 
                     if (stats.size > maxAllowedSizeBytes) {
-                        return next(new Error(ERROR_PREFIXES.TOO_BIG +
-                                              ' (' + filesize(stats.size) + ') ' +
-                                              'is too big. Please choose images smaller than ' +
-                                              filesize(maxAllowedSizeBytes)));
+                        const sizeError = new Error(ERROR_PREFIXES.TOO_BIG +
+                                                    ' (' + filesize(stats.size) + ') ' +
+                                                    'is too big. Please choose images smaller than ' +
+                                                    filesize(maxAllowedSizeBytes)) as download.ML4KError;
+                        sizeError.ml4k = true;
+                        validImageUrlsCache.set(url, sizeError);
+                        return next(sizeError);
                     }
                     return next(err, tmpFilePath);
                 });
@@ -93,14 +128,21 @@ export function verifyImage(url: string, maxAllowedSizeBytes: number): Promise<v
             }
 
             if (err) {
+                if (err.ml4k) {
+                    validImageUrlsCache.set(url, err);
+                }
                 return reject(err);
             }
 
             const isOkay = (fileTypeExt === 'jpg') || (fileTypeExt === 'png');
             if (!isOkay) {
-                return reject(new Error(ERROR_PREFIXES.BAD_TYPE + ' (' + fileTypeExt + '). ' +
-                                        'Only jpg and png images are supported.'));
+                const typeError = new Error(ERROR_PREFIXES.BAD_TYPE + ' (' + fileTypeExt + '). ' +
+                                            'Only jpg and png images are supported.');
+                validImageUrlsCache.set(url, typeError);
+                return reject(typeError);
             }
+
+            validImageUrlsCache.set(url, true);
             return resolve();
         });
     });

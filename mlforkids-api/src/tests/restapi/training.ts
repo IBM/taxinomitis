@@ -14,6 +14,7 @@ import * as express from 'express';
 import * as store from '../../lib/db/store';
 import * as limits from '../../lib/db/limits';
 import * as auth from '../../lib/restapi/auth';
+import * as imageCheck from '../../lib/utils/imageCheck';
 import * as visrec from '../../lib/training/visualrecognition';
 import testapiserver from './testserver';
 
@@ -70,6 +71,8 @@ describe('REST API - training', () => {
         nextAuth0UserId = 'userid';
         nextAuth0UserTenant = 'classid';
         nextAuth0UserRole = 'student';
+
+        imageCheck.init();
     });
 
 

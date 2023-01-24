@@ -58,6 +58,9 @@ interface CustomError extends Error {
     canReturn?: boolean;
     code?: string;
 }
+export interface ML4KError extends Error {
+    ml4k: boolean;
+}
 
 
 /**
@@ -160,6 +163,12 @@ function performFileDownload(url: string, targetFilePath: string, callback: IErr
 }
 
 
+function returnAsMl4kError(err: Error): ML4KError {
+    const modifyErr = err as ML4KError;
+    modifyErr.ml4k = true;
+    return modifyErr;
+}
+
 
 function recognizeCommonProblems(response: requestcore.Response, url: string): Error | undefined
 {
@@ -167,31 +176,31 @@ function recognizeCommonProblems(response: requestcore.Response, url: string): E
         if (response.statusCode === httpstatus.FORBIDDEN ||
             response.statusCode === httpstatus.UNAUTHORIZED)
         {
-            return new Error(safeGetHost(url) + ERRORS.DOWNLOAD_FORBIDDEN);
+            return returnAsMl4kError(new Error(safeGetHost(url) + ERRORS.DOWNLOAD_FORBIDDEN));
         }
         else if (response.statusCode === httpstatus.NOT_FOUND || response.statusCode === httpstatus.INTERNAL_SERVER_ERROR)
         {
-            return new Error(ERRORS.DOWNLOAD_FAIL + url);
+            return returnAsMl4kError(new Error(ERRORS.DOWNLOAD_FAIL + url));
         }
         else if (response.statusCode === httpstatus.TOO_MANY_REQUESTS)
         {
-            return new Error(safeGetHost(url) + ERRORS.DOWNLOAD_TOO_MANY_REQUESTS);
+            return returnAsMl4kError(new Error(safeGetHost(url) + ERRORS.DOWNLOAD_TOO_MANY_REQUESTS));
         }
 
         numErrors += 1;
         log.error({ statusCode : response.statusCode, url, numDownloads, numErrors }, 'Failed to request url');
-        return new Error(ERRORS.DOWNLOAD_FAIL + url);
+        return returnAsMl4kError(new Error(ERRORS.DOWNLOAD_FAIL + url));
     }
 
     if (downloadTooBig(response.headers)) {
-        return new Error(ERRORS.DOWNLOAD_TOO_BIG);
+        return returnAsMl4kError(new Error(ERRORS.DOWNLOAD_TOO_BIG));
     }
 
     if (response.headers['content-type'] &&
         response.headers['content-type'].startsWith('text/html') &&
         response.request.uri.href.startsWith('https://accounts.google.com/ServiceLogin?continue='))
     {
-        return new Error('Google' + ERRORS.DOWNLOAD_FORBIDDEN);
+        return returnAsMl4kError(new Error('Google' + ERRORS.DOWNLOAD_FORBIDDEN));
     }
 }
 
