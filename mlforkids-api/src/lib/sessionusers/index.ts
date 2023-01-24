@@ -20,6 +20,9 @@ const log = loggerSetup();
 
 export const CLASS_NAME = 'session-users';
 
+// once the class is full, how long we should wait before checking again
+const CHECK_WINDOW = 10 * 1000; // 10 seconds
+
 const SESSION_LIFESPAN = 4 * 60 * 60 * 1000; // 4 hours
 
 /** The number of users that can be created in this class. After this, the class is considered full.  */
@@ -29,14 +32,35 @@ export const ERROR_MESSAGES = {
     CLASS_FULL : 'Class full',
 };
 
+// timestamps that the session users class was last checked and found to be full
+let lastFullTimestampOther = 0;
+let lastFullTimestampSA = 0;
+
 
 
 export async function createSessionUser(requestOrigin?: string): Promise<Objects.TemporaryUser>
 {
+    const lastFullTimestamp = requestOrigin === 'SA' ? lastFullTimestampSA : lastFullTimestampOther;
+    if (lastFullTimestamp + CHECK_WINDOW > Date.now()) {
+        // assume that we are probably still full, to save the
+        //  unnecessary hit on the database
+        throw new Error(ERROR_MESSAGES.CLASS_FULL);
+    }
+
     // is the session class full?
     const currentClassSize = await store.countTemporaryUsers();
     const limit = requestOrigin === 'SA' ? 2000 : MAX_ALLOWED_USERS;
     if (currentClassSize >= limit) {
+        // record the current time so that we don't
+        //  need to check again too soon
+        if (requestOrigin === 'SA') {
+            lastFullTimestampSA = Date.now();
+        }
+        else {
+            lastFullTimestampOther = Date.now();
+        }
+
+        // report that the class is full
         throw new Error(ERROR_MESSAGES.CLASS_FULL);
     }
 

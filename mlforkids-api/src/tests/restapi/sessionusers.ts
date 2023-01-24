@@ -23,6 +23,8 @@ describe('REST API - session users', () => {
     let nextAuth0UserRole = 'student';
     let nextDecodedToken = {};
 
+    let clock: sinon.SinonFakeTimers;
+
     function authNoOp(
         req: Express.Request, res: Express.Response,
         next: (err?: Error) => void)
@@ -38,6 +40,8 @@ describe('REST API - session users', () => {
     }
 
     before(() => {
+        clock = sinon.useFakeTimers({ now: Date.now(), shouldAdvanceTime: true });
+
         authStub = sinon.stub(auth, 'authenticate').callsFake(authNoOp);
 
         testServer = testapiserver();
@@ -47,11 +51,18 @@ describe('REST API - session users', () => {
 
     after(() => {
         authStub.restore();
+        clock.restore();
 
         return store.disconnect();
     });
 
 
+    beforeEach(() => {
+        // advance 12 seconds, because we don't check
+        //  to see if a class is full more than once
+        //  every 10 seconds
+        clock.tick(1000 * 12);
+    });
 
 
 

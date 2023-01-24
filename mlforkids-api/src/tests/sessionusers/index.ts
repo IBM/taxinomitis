@@ -1,6 +1,6 @@
 /*eslint-env mocha */
 import * as assert from 'assert';
-
+import * as sinon from 'sinon';
 import * as store from '../../lib/db/store';
 import * as Objects from '../../lib/db/db-types';
 import * as sessionusers from '../../lib/sessionusers';
@@ -10,14 +10,25 @@ import * as sessionusers from '../../lib/sessionusers';
 
 describe('session users', () => {
 
+    let clock: sinon.SinonFakeTimers;
 
 
     before(async () => {
+        clock = sinon.useFakeTimers({ now: Date.now(), shouldAdvanceTime: true });
         await store.init();
         await store.testonly_resetSessionUsersStore();
     });
 
+    beforeEach(() => {
+        // advance 12 seconds, because we don't check
+        //  to see if a class is full more than once
+        //  every 10 seconds
+        clock.tick(1000 * 12);
+    });
+
     after(async () => {
+        clock.restore();
+
         return store.disconnect();
     });
 
