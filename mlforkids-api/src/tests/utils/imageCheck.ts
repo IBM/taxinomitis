@@ -25,12 +25,12 @@ describe('Utils - imageCheck', () => {
     it('should use the cache for subsequent requests for an image', async () => {
         await imageCheck.verifyImage(VALID_JPG, 10000000);
         await imageCheck.verifyImage(VALID_PNG, 10000000);
-        await imageCheck.verifyImage(VALID_JPG, 10000000);
-        await imageCheck.verifyImage(VALID_PNG, 10000000);
-        await imageCheck.verifyImage(VALID_JPG, 10000000);
-        await imageCheck.verifyImage(VALID_PNG, 10000000);
-        await imageCheck.verifyImage(VALID_JPG, 10000000);
-        await imageCheck.verifyImage(VALID_PNG, 10000000);
+        await imageCheck.verifyImage(VALID_JPG, 100);
+        await imageCheck.verifyImage(VALID_PNG, 100);
+        await imageCheck.verifyImage(VALID_JPG, 100);
+        await imageCheck.verifyImage(VALID_PNG, 100);
+        await imageCheck.verifyImage(VALID_JPG, 100);
+        await imageCheck.verifyImage(VALID_PNG, 100);
     });
 
     it('should verify a jpg', (done) => {

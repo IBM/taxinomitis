@@ -1,20 +1,21 @@
 // external dependencies
-import * as LRU from 'lru';
+import * as LRU from 'lru-cache';
 // internal dependencies
 import * as tokens from './tokens';
 import * as constants from '../utils/constants';
+import { BluemixToken } from './iam-types';
 
 
-let accessTokensCache: any;
+const accessTokensCache = new LRU({
+    max: 500,
+    // according to https://cloud.ibm.com/docs/iam?topic=iam-iamtoken_from_apikey#iamtoken_from_apikey
+    //  tokens are only valid for 1 hour
+    ttl: constants.ONE_HOUR,
+});
 
 
 export function init() {
-    accessTokensCache = new LRU({
-        max: 500,
-        // according to https://cloud.ibm.com/docs/iam?topic=iam-iamtoken_from_apikey#iamtoken_from_apikey
-        //  tokens are only valid for 1 hour
-        maxAge: constants.ONE_HOUR,
-    });
+    accessTokensCache.clear();
 }
 
 
@@ -34,7 +35,7 @@ export async function getToken(apikey: string): Promise<string>
 
 
 function getTokenFromCache(apikey: string): string | undefined {
-    const token = accessTokensCache.get(apikey);
+    const token = accessTokensCache.get(apikey) as BluemixToken;
     if (token && token.expiry_timestamp > Date.now()) {
         return token.access_token;
     }

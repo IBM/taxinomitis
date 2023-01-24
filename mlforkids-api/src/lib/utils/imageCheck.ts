@@ -1,7 +1,7 @@
 // core dependencies
 import * as fs from 'fs';
 // external dependencies
-import * as LRU from 'lru';
+import * as LRU from 'lru-cache';
 import * as fileType from 'file-type';
 import * as tmp from 'tmp';
 import * as async from 'async';
@@ -35,15 +35,13 @@ export const ERROR_PREFIXES = {
 //  set of training images to use, making this a LRU cache will allow
 //  the first student in a class to actually cause images to be
 //  verified, and subsequent students to just reuse that first check
-let validImageUrlsCache = new LRU({
+const validImageUrlsCache = new LRU({
     max: 500
 });
 
 export function init() {
     // needed for tests to let us reset the cache
-    validImageUrlsCache = new LRU({
-        max: 500
-    });
+    validImageUrlsCache.clear();
 }
 
 

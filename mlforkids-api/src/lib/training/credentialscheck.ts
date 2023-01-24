@@ -1,5 +1,5 @@
 // external dependencies
-import * as LRU from 'lru';
+import * as LRU from 'lru-cache';
 // local dependencies
 import * as Types from '../db/db-types';
 import * as TrainingTypes from './training-types';
@@ -10,15 +10,15 @@ import * as conversation from './conversation';
 
 
 
-let checkOutcomesCache: any;
+const checkOutcomesCache = new LRU({
+    max: 200,
+    ttl: constants.ONE_DAY_PLUS_A_BIT,
+});
 
 
 
 export function init() {
-    checkOutcomesCache = new LRU({
-        max: 200,
-        maxAge: constants.ONE_DAY_PLUS_A_BIT,
-    });
+    checkOutcomesCache.clear();
 }
 
 
