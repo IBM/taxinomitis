@@ -31,14 +31,15 @@ function createSessionUser(req: Express.Request, res: Express.Response)
             });
         })
         .catch((err) => {
-            log.error({ err }, 'Failed to create session user');
             notifications.notify('Failed to create "Try it now" session for ' + requestOrigin + ' : ' + err.message,
                                  notifications.SLACK_CHANNELS.CRITICAL_ERRORS);
 
             if (err.message === sessionusers.ERROR_MESSAGES.CLASS_FULL) {
+                log.debug({ err, requestOrigin }, 'Failed to create session user');
                 return res.status(httpstatus.PRECONDITION_FAILED).json({ error : err.message });
             }
             else {
+                log.error({ err, requestOrigin }, 'Unexpected failure to create session user');
                 return errors.unknownError(res, err);
             }
         });

@@ -186,7 +186,8 @@ gulp.task('crossdomain', function() {
 gulp.task('robotstxt', function() {
     return gulp.src([
         'public/static-files/robots.txt',
-        'public/static-files/sitemap.xml'
+        'public/static-files/sitemap.xml',
+        'public/images/favicon.ico'
     ]).pipe(gulp.dest('web/dynamic'));
 });
 
