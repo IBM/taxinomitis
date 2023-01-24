@@ -66,3 +66,9 @@ echo "Selecting code engine project"
 ../../ops/codeengine-region-ausyd.sh
 echo "Creating app"
 create_app
+
+echo "ME (EU-DE) deployment"
+echo "Selecting code engine project"
+../../ops/codeengine-region-me.sh
+echo "Creating app"
+create_app

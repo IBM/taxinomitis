@@ -122,6 +122,13 @@ echo "Creating app"
 ibmcloud ce secret create --name $DOCKER_IMAGE-numbers --from-env-file numbers-eu-credentials.env
 create_app
 
+echo "ME (EU-DE) deployment"
+echo "Selecting code engine project"
+../../ops/codeengine-region-me.sh
+echo "Creating app"
+ibmcloud ce secret create --name $DOCKER_IMAGE-numbers --from-env-file numbers-me-credentials.env
+create_app
+
 
 echo "US-SOUTH deployment"
 echo "Selecting code engine project"
