@@ -144,7 +144,7 @@ describe('Notifications - Slack', () => {
         assert(slackClientStub.notCalled);
         slackClientStub.resetHistory();
 
-        clock.tick(1000 * 60 * 16);
+        clock.tick(1000 * 60 * 6);
 
         expectedMessage = '(x 5) This is my message';
         slack.notify('This is my message', slack.SLACK_CHANNELS.CRITICAL_ERRORS);
