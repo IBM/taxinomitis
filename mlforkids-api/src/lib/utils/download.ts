@@ -173,6 +173,10 @@ function recognizeCommonProblems(response: requestcore.Response, url: string): E
         {
             return new Error(ERRORS.DOWNLOAD_FAIL + url);
         }
+        else if (response.statusCode === httpstatus.TOO_MANY_REQUESTS)
+        {
+            return new Error(safeGetHost(url) + ERRORS.DOWNLOAD_TOO_MANY_REQUESTS);
+        }
 
         numErrors += 1;
         log.error({ statusCode : response.statusCode, url, numDownloads, numErrors }, 'Failed to request url');
@@ -346,4 +350,5 @@ export const ERRORS = {
     DOWNLOAD_FILETYPE_UNSUPPORTED : 'Unsupported image file type',
     DOWNLOAD_FORBIDDEN : ' would not allow "Machine Learning for Kids" to use that image',
     DOWNLOAD_TOO_BIG : 'The image is too big to use. Please choose a different image.',
+    DOWNLOAD_TOO_MANY_REQUESTS : ' is receiving too many requests for images and has started refusing access.'
 };

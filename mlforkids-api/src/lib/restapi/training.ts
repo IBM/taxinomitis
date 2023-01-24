@@ -236,7 +236,8 @@ async function storeTraining(req: auth.RequestWithProject, res: Express.Response
             err.message.startsWith(imageCheck.ERROR_PREFIXES.BAD_TYPE) ||
             err.message.startsWith('Unable to download image from ') ||
             err.message.startsWith(imageCheck.ERROR_PREFIXES.TOO_BIG) ||
-            err.message.includes(imageDownload.ERRORS.DOWNLOAD_FORBIDDEN)
+            err.message.includes(imageDownload.ERRORS.DOWNLOAD_FORBIDDEN) ||
+            err.message.includes(imageDownload.ERRORS.DOWNLOAD_TOO_MANY_REQUESTS)
             ))
         {
             return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
