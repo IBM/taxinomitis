@@ -129,10 +129,13 @@ export function setupUI(app: express.Application): void {
     const tfjslocation: string = path.join(__dirname, '/../../../web/static/bower_components/tensorflow-models');
     app.use('/static/bower_components/tensorflow-models', compression(), addCorsHeaders, express.static(tfjslocation, { maxAge : constants.ONE_YEAR }));
 
-    for (const staticfile of [ '/crossdomain.xml', '/sitemap.xml', '/robots.txt' ]) {
+    for (const staticfile of [ '/crossdomain.xml', '/sitemap.xml', '/robots.txt', '/favicon.ico' ]) {
         const staticfilelocation: string = path.join(__dirname, '/../../../web/dynamic' + staticfile);
         app.use(staticfile, compression(), express.static(staticfilelocation, { maxAge : constants.ONE_YEAR }));
     }
+
+    const appleicon = path.join(__dirname, '/../../../web/static/images/apple-touch-icon.png');
+    app.use('/apple-touch-icon*png', compression(), express.static(appleicon, { maxAge : constants.ONE_YEAR }));
 
     const twittercardlocation: string = path.join(__dirname, '/../../../web/dynamic/twitter-card.html');
     app.use('/twitter-card.html', compression(), removeFrameBlockingHeaders, express.static(twittercardlocation, { maxAge : constants.ONE_YEAR }));

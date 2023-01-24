@@ -84,9 +84,7 @@ export function register404Handler(app: Express.Application) {
              res: Express.Response,
              next: (e?: Error) => void) =>   // eslint-disable-line no-unused-vars
     {
-        if (!common404Urls.includes(req.url)) {
-            log.info({ req, res }, '404');
-        }
+        log.info({ req, res }, '404');
 
         if (req.accepts('html')) {
             res.redirect('/#!/404');
@@ -96,12 +94,3 @@ export function register404Handler(app: Express.Application) {
         }
     });
 }
-
-
-// well-known URLs that clients often attempt to fetch, even
-//  though they don't exist on this site
-// 404's from these URLs don't suggest a problem
-const common404Urls = [
-    '/apple-touch-icon-120x120-precomposed.png',
-    '/apple-touch-icon-120x120.png',
-];
