@@ -1,18 +1,12 @@
 // external dependencies
-import * as requestcore from 'request';
 import * as request from 'request-promise';
 import * as requestErrors from 'request-promise/errors';
-import * as Agent from 'agentkeepalive';
 
 // local dependencies
 import loggerSetup from './logger';
 
 
 const log = loggerSetup();
-
-const httpsAgentKeepAlive = new Agent.HttpsAgent();
-const httpAgentKeepAlive = new Agent();
-
 
 export function isTimeoutErrorCode(code?: string): boolean {
     if (code) {
@@ -42,35 +36,17 @@ function isTimeoutError(err: requestErrors.RequestError): boolean {
     return false;
 }
 
-/**
- * Returns a modified version of the provided request options, to
- * override the default HTTP agent, replacing it with one that will
- * reuse connections.
- *
- * @param url - URL that the request is being made to, to allow the correct agent to be chosen
- * @param opts - request options (will not be modified)
- * @returns modified version of provided opts
- */
-function reuseConnections(url: string, opts: request.RequestPromiseOptions): request.RequestPromiseOptions {
-    return {
-        ...opts,
-        agent : url.startsWith('https') ? httpsAgentKeepAlive : httpAgentKeepAlive,
-    };
-}
-
 
 export function head(url: string, opts: request.RequestPromiseOptions) {
-    const optionsWithReuse = reuseConnections(url, opts);
-    return request.head(url, optionsWithReuse);
+    return request.head(url, opts);
 }
 
 export function get(url: string, opts: request.RequestPromiseOptions) {
-    const optionsWithReuse = reuseConnections(url, opts);
-    return request.get(url, optionsWithReuse)
+    return request.get(url, opts)
         .catch((err) => {
             if (isTimeoutError(err)) {
                 log.debug({ url, err, code : err.cause.code }, 'Retrying request after timeout');
-                return request.get(url, optionsWithReuse);
+                return request.get(url, opts);
             }
             else {
                 throw err;
@@ -79,12 +55,11 @@ export function get(url: string, opts: request.RequestPromiseOptions) {
 }
 
 export function post(url: string, opts: request.RequestPromiseOptions, retryOnTimeout: boolean) {
-    const optionsWithReuse = reuseConnections(url, opts);
-    return request.post(url, optionsWithReuse)
+    return request.post(url, opts)
         .catch((err) => {
             if (retryOnTimeout && isTimeoutError(err)) {
                 log.debug({ url, err, code : err.cause.code }, 'Retrying request after timeout');
-                return request.post(url, optionsWithReuse);
+                return request.post(url, opts);
             }
             else {
                 throw err;
@@ -93,14 +68,7 @@ export function post(url: string, opts: request.RequestPromiseOptions, retryOnTi
 }
 
 export function del(url: string, opts: request.RequestPromiseOptions) {
-    const optionsWithReuse = reuseConnections(url, opts);
-    return request.delete(url, optionsWithReuse);
+    return request.delete(url, opts);
 }
 
-export function getStreaming(opts: requestcore.UrlOptions) {
-    return requestcore.get({
-        ...opts,
-        agent : typeof opts.url === 'string' && opts.url.startsWith('https') ? httpsAgentKeepAlive : httpAgentKeepAlive,
-    });
-}
 

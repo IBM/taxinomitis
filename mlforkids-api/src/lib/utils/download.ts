@@ -136,7 +136,7 @@ function performFileDownload(url: string, targetFilePath: string, callback: IErr
         numDownloads += 1;
 
         const opts = { ...REQUEST_OPTIONS, url };
-        request.getStreaming(opts)
+        requestcore(opts)
             .on('response', (r) => {
                 // request doesn't emit errors for unsuccessful status codes
                 //  so we check for status codes that look like errors here
@@ -273,7 +273,7 @@ export function resize(
                                     //  original
                                     .toFile(targetFilePath, resolve);
 
-            request.getStreaming({ ...REQUEST_OPTIONS, url })
+            requestcore({ ...REQUEST_OPTIONS, url })
                 .on('error', (err) => {
                     log.warn({ err, url }, 'Download fail (request)');
                     resolve(new Error(ERRORS.DOWNLOAD_FAIL + url));
@@ -312,7 +312,7 @@ export function resizeUrl(url: string, width: number, height: number): Promise<B
                                     return resolve(buff);
                                 });
 
-        request.getStreaming({ ...REQUEST_OPTIONS, url })
+        requestcore({ ...REQUEST_OPTIONS, url })
             .on('error', (err) => {
                 log.warn({ err, url }, 'Download fail');
                 return reject(new Error(ERRORS.DOWNLOAD_FAIL + url));

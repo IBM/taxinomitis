@@ -1,7 +1,6 @@
 /*eslint-env mocha */
 
 import * as assert from 'assert';
-import { Agent } from 'http';
 import * as sinon from 'sinon';
 import * as coreReq from 'request';
 import * as request from 'request-promise';
@@ -25,8 +24,6 @@ describe('Training - numbers service (mocked)', () => {
 
     let goodProject: string;
     let missingProject: string;
-
-    const fakeAgent = sinon.match.any as unknown;
 
     before(() => {
         postStub = sinon.stub(request, 'post');
@@ -122,7 +119,6 @@ describe('Training - numbers service (mocked)', () => {
                     projectid : project.id,
                 },
                 json : true,
-                agent: fakeAgent as Agent,
             }));
 
             keys = await store.findScratchKeys(USERID, project.id, CLASSID);
@@ -249,8 +245,6 @@ describe('Training - numbers service (mocked)', () => {
 
             const expectedCall = sinon.match((call) => {
                 call.body.data = call.body.data.sort(sortFn);
-                assert(call.agent);
-                delete call.agent;
 
                 try {
                     assert.deepStrictEqual(call, {
@@ -328,7 +322,6 @@ describe('Training - numbers service (mocked)', () => {
                 },
                 json : true,
                 gzip : true,
-                agent: fakeAgent as Agent,
             }));
 
             await store.deleteEntireProject(USERID, CLASSID, project);
@@ -344,7 +337,6 @@ describe('Training - numbers service (mocked)', () => {
                     projectid : project.id,
                 },
                 json : true,
-                agent: fakeAgent as Agent,
             }));
 
             keys = await store.findScratchKeys(USERID, project.id, CLASSID);

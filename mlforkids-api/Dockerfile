@@ -2,7 +2,7 @@
 # build the app
 # ###############################################
 
-FROM node:16 AS builder
+FROM node:19 AS builder
 
 # don't run as root
 USER node
@@ -38,7 +38,7 @@ RUN ls -l /usr/src/build
 # prepare app image
 # ###############################################
 
-FROM node:16
+FROM node:19
 
 # don't run as root
 USER node
