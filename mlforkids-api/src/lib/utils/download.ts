@@ -6,6 +6,7 @@ import { pipeline } from 'node:stream';
 import * as httpstatus from 'http-status';
 import * as sharp from 'sharp';
 import got from 'got';
+import * as googleDns from 'mlforkids-google-dns';
 // local dependencies
 import loggerSetup from './logger';
 
@@ -23,7 +24,7 @@ sharp.concurrency(1);
 // standard options for downloading images
 const REQUEST_OPTIONS = {
     http2 : true,
-    dnsCache : true,
+    dnsCache : true, // replaced once googleDns module has loaded
     timeout : { request : 20000 },
     https : { rejectUnauthorized : false },
     decompress : true,
@@ -235,3 +236,14 @@ export const ERRORS = {
     DOWNLOAD_TOO_BIG : 'The image is too big to use. Please choose a different image.',
     DOWNLOAD_TOO_MANY_REQUESTS : ' is receiving too many requests for images and has started refusing access.'
 };
+
+
+log.debug('setting up alternate DNS cache');
+googleDns.getCacheableLookup()
+    .then((dnsCache: any) => {
+        REQUEST_OPTIONS.dnsCache = dnsCache;
+        log.info('using Google DNS for downloading images');
+    })
+    .catch((err: Error) => {
+        log.error({ err }, 'Unable to use Google DNS');
+    });
