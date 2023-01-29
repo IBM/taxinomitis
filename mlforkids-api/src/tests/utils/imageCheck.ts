@@ -11,6 +11,17 @@ describe('Utils - imageCheck', () => {
         imageCheck.init();
     });
 
+    it('should recognise Google Drive images', (done) => {
+        imageCheck.verifyImage('https://lh3.google.com/u/0/d/1Yh4OLcQwULakLDfjoX8LoVwbOVNkSVa4=w2624-h1476-iv1', 10000000)
+            .then(() => {
+                assert.fail('Should not accept that');
+            })
+            .catch((err) => {
+                assert.strictEqual(err.message, 'Google would not allow "Machine Learning for Kids" to use that image');
+                done();
+            });
+    });
+
     it('should handle multiple requests in parallel', () => {
         return Promise.all([
             imageCheck.verifyImage(VALID_JPG + '?_mlk1', 10000000), imageCheck.verifyImage(VALID_PNG + '?_mlk1', 10000000),

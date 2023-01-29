@@ -107,6 +107,7 @@
     "express-jwt": "6.1.2",
     "file-type": "16.5.4",
     "filesize": "9.0.11",
+    "got": "11.8.6",
     "helmet": "4.6.0",
     "http-range-parse": "1.0.0",
     "http-status": "1.6.2",

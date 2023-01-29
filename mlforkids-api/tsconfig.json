@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "target": "es2017",
+    "target": "es2022",
     "lib": [
-       "es7",
-       "dom"
+       "es2022"
     ],
+    "moduleResolution": "node",
     "module": "commonjs",
     "outDir": "dist",
     "alwaysStrict": true,
@@ -18,7 +18,8 @@
     "strictNullChecks": true,
     "noFallthroughCasesInSwitch": true,
     "resolveJsonModule": true,
-    "useUnknownInCatchVariables": false
+    "useUnknownInCatchVariables": false,
+    "forceConsistentCasingInFileNames": true
   },
   "compileOnSave": false,
   "include": [

@@ -209,7 +209,7 @@ describe('REST API - session users', () => {
 
     async function wait(seconds: number): Promise<{}> {
         return new Promise((resolve) => {
-            setTimeout(resolve, (seconds * 1000));
+            setTimeout(() => resolve({}), (seconds * 1000));
         });
     }
 });

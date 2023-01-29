@@ -1,26 +1,18 @@
 // core dependencies
 import * as fs from 'fs';
-import { IncomingHttpHeaders } from 'http';
+import { IncomingHttpHeaders, IncomingMessage } from 'http';
+import { pipeline } from 'node:stream';
 // external dependencies
-import * as requestcore from 'request';
 import * as httpstatus from 'http-status';
 import * as sharp from 'sharp';
-import * as probe from 'probe-image-size';
+import got from 'got';
 // local dependencies
-import * as request from './request';
 import loggerSetup from './logger';
 
 const log = loggerSetup();
 
 
-
-// number of times an image download has been attempted
-let numDownloads = 0;
-// number of failures to download an image
-let numErrors = 0;
-
-
-type IErrCallback = (err?: Error) => void;
+type IErrCallback = (err?: ML4KError) => void;
 
 
 // disable aggressive use of memory for caching
@@ -30,11 +22,11 @@ sharp.concurrency(1);
 
 // standard options for downloading images
 const REQUEST_OPTIONS = {
-    timeout : 20000,
-    rejectUnauthorized : false,
-    strictSSL : false,
-    gzip : true,
-    insecureHTTPParser : true,
+    http2 : true,
+    dnsCache : true,
+    timeout : { request : 20000 },
+    https : { rejectUnauthorized : false },
+    decompress : true,
     headers : {
         // identify source of the request
         //  partly as it's polite and good practice,
@@ -45,6 +37,7 @@ const REQUEST_OPTIONS = {
         // some servers block requests that don't include this
         'Accept-Language': '*',
     },
+    throwHttpErrors: false,
 };
 
 const RESIZE_OPTIONS = {
@@ -53,11 +46,6 @@ const RESIZE_OPTIONS = {
 } as sharp.ResizeOptions;
 
 
-
-interface CustomError extends Error {
-    canReturn?: boolean;
-    code?: string;
-}
 export interface ML4KError extends Error {
     ml4k: boolean;
 }
@@ -70,98 +58,50 @@ export interface ML4KError extends Error {
  * @param targetFilePath  - writes to
  */
 export function file(url: string, targetFilePath: string, callback: IErrCallback): void {
-    // first attempt
-    performFileDownload(url, targetFilePath, (err) => {
-        if (err) {
-            const reqError = err as CustomError;
-
-            // something went wrong - check if the problem is retriable
-            if (err.message && request.isTimeoutErrorCode(reqError.code || err.message)) {
-
-                // will retry after brief pause
-                log.debug({ url, code : err.message, numDownloads, numErrors }, 'Retrying download');
-                return setTimeout(() => {
-
-                    // second attempt
-                    performFileDownload(url, targetFilePath, (retryErr) => {
-                        if (retryErr) {
-                            // failed after second attempt
-                            return reportDownloadFailure(url, retryErr, callback);
-                        }
-
-                        // second attempt was successful
-                        log.debug({ url }, 'retrying seemed to help');
-                        callback();
-                    });
-                }, 500);
+    // local inner function used to avoid calling callback multiple times
+    let resolved = false;
+    function resolve(err?: ML4KError) {
+        if (resolved === false) {
+            resolved = true;
+            if (err) {
+                return reportDownloadFailure(url, err, callback);
             }
+            else {
+                return callback();
+            }
+        }
+    }
 
-            // problem does not look retriable - report failure immediately
-            return reportDownloadFailure(url, reqError, callback);
-        }
-        else {
-            // first attempt successful
-            callback();
-        }
+    // downloading from url
+    const readStream = got.stream(url, REQUEST_OPTIONS)
+        .on('response', (r: IncomingMessage) => {
+            const problem = recognizeCommonProblems(r, url);
+            if (problem) {
+                resolve(problem);
+                r.destroy();
+            }
+        });
+    // writing to file
+    const writeStream = fs.createWriteStream(targetFilePath);
+
+    // joining the two streams
+    pipeline(readStream, writeStream, (err) => {
+        resolve(err as ML4KError);
     });
 }
 
-function reportDownloadFailure(url: string, err: CustomError, callback: IErrCallback): void {
-    if (err.canReturn) {
-        log.debug({ err, url, numDownloads, numErrors }, 'download failure (for recognized reason)');
+
+
+function reportDownloadFailure(url: string, err: ML4KError, callback: IErrCallback): void {
+    if (err.ml4k) {
+        log.debug({ err, url }, 'download failure (for recognized reason)');
         callback(err);
     }
     else {
-        log.error({ err, url, numDownloads, numErrors }, 'download failure');
-        callback(new Error(ERRORS.DOWNLOAD_FAIL + url));
+        log.error({ err, url }, 'download failure');
+        callback(returnAsMl4kError(new Error(ERRORS.DOWNLOAD_FAIL + url)));
     }
 }
-
-function performFileDownload(url: string, targetFilePath: string, callback: IErrCallback): void {
-
-    // local inner function used to avoid calling callback multiple times
-    let resolved = false;
-    function resolve(err?: Error) {
-        if (resolved === false) {
-            resolved = true;
-            return callback(err);
-        }
-    }
-
-    const writeStream = fs.createWriteStream(targetFilePath)
-                            .on('error', resolve)
-                            .on('finish', resolve);
-
-    try {
-        numDownloads += 1;
-
-        const opts = { ...REQUEST_OPTIONS, url };
-        requestcore(opts)
-            .on('response', (r) => {
-                // request doesn't emit errors for unsuccessful status codes
-                //  so we check for status codes that look like errors here
-                const problem = recognizeCommonProblems(r, url);
-                if (problem) {
-                    const customErr = problem as CustomError;
-                    customErr.canReturn = true;
-
-                    resolve(customErr);
-                    return r.destroy();
-                }
-            })
-            .on('error', (err) => {
-                numErrors += 1;
-                log.debug({ err, url }, 'request get fail');
-                resolve(err);
-            })
-            .pipe(writeStream);
-    }
-    catch (err) {
-        log.debug({ err, url }, 'Failed to download file');
-        resolve(err);
-    }
-}
-
 
 function returnAsMl4kError(err: Error): ML4KError {
     const modifyErr = err as ML4KError;
@@ -170,9 +110,9 @@ function returnAsMl4kError(err: Error): ML4KError {
 }
 
 
-function recognizeCommonProblems(response: requestcore.Response, url: string): Error | undefined
+function recognizeCommonProblems(response: IncomingMessage, url: string): ML4KError | undefined
 {
-    if (response.statusCode >= 400) {
+    if (response.statusCode && response.statusCode >= 400) {
         if (response.statusCode === httpstatus.FORBIDDEN ||
             response.statusCode === httpstatus.UNAUTHORIZED)
         {
@@ -187,8 +127,7 @@ function recognizeCommonProblems(response: requestcore.Response, url: string): E
             return returnAsMl4kError(new Error(safeGetHost(url) + ERRORS.DOWNLOAD_TOO_MANY_REQUESTS));
         }
 
-        numErrors += 1;
-        log.error({ statusCode : response.statusCode, url, numDownloads, numErrors }, 'Failed to request url');
+        log.error({ statusCode : response.statusCode, url }, 'Failed to request url');
         return returnAsMl4kError(new Error(ERRORS.DOWNLOAD_FAIL + url));
     }
 
@@ -198,7 +137,7 @@ function recognizeCommonProblems(response: requestcore.Response, url: string): E
 
     if (response.headers['content-type'] &&
         response.headers['content-type'].startsWith('text/html') &&
-        response.request.uri.href.startsWith('https://accounts.google.com/ServiceLogin?continue='))
+        response.url && response.url.startsWith('https://accounts.google.com/'))
     {
         return returnAsMl4kError(new Error('Google' + ERRORS.DOWNLOAD_FORBIDDEN));
     }
@@ -231,71 +170,6 @@ export function downloadTooBig(headers: IncomingHttpHeaders): boolean {
 }
 
 
-
-
-/**
- * Downloads a file from the specified URL to the specified location on disk.
- *
- * @param url  - downloads from
- * @param width - width (in pixels) to resize the image to
- * @param height - height (in pixels) to resize the image to
- * @param targetFilePath  - writes to
- */
-export function resize(
-    url: string,
-    width: number, height: number,
-    targetFilePath: string,
-    callback: IErrCallback,
-): void
-{
-    // local inner function used to avoid calling callback multiple times
-    let resolved = false;
-    function resolve(err?: Error) {
-        if (resolved === false) {
-            resolved = true;
-            return callback(err);
-        }
-    }
-
-    probe(url, { rejectUnauthorized : false })
-        .then((imageinfo: any) => {
-            if (imageinfo.type !== 'jpg' && imageinfo.type !== 'jpeg' && imageinfo.type !== 'png') {
-                log.error({ imageinfo, url }, 'Unexpected file type');
-                throw new Error('Unsupported file type ' + imageinfo.type);
-            }
-
-            const shrinkStream = sharp()
-                                    // resize before writing to disk
-                                    .resize(width, height, RESIZE_OPTIONS)
-                                    .on('error', resolve)
-                                    // write to file using the same image
-                                    //  format (i.e. jpg vs png) as the
-                                    //  original
-                                    .toFile(targetFilePath, resolve);
-
-            requestcore({ ...REQUEST_OPTIONS, url })
-                .on('error', (err) => {
-                    log.warn({ err, url }, 'Download fail (request)');
-                    resolve(new Error(ERRORS.DOWNLOAD_FAIL + url));
-                })
-                .pipe(shrinkStream);
-        })
-        .catch ((err: any) => {
-            if (err.statusCode === httpstatus.NOT_FOUND || err.message === 'ETIMEDOUT') {
-                log.warn({ err, url }, 'Image could not be downloaded');
-            }
-            else if (err.statusCode === httpstatus.FORBIDDEN || err.statusCode === httpstatus.UNAUTHORIZED) {
-                log.warn({ err, url }, 'Image download was forbidden');
-                return resolve(new Error(safeGetHost(url) + ERRORS.DOWNLOAD_FORBIDDEN));
-            }
-            else {
-                log.error({ err, url }, 'Download fail (probe)');
-            }
-            resolve(new Error(ERRORS.DOWNLOAD_FAIL + url));
-        });
-}
-
-
 export function resizeUrl(url: string, width: number, height: number): Promise<Buffer> {
     return new Promise((resolve, reject) => {
         const shrinkStream = sharp()
@@ -312,7 +186,7 @@ export function resizeUrl(url: string, width: number, height: number): Promise<B
                                     return resolve(buff);
                                 });
 
-        requestcore({ ...REQUEST_OPTIONS, url })
+        got.stream(url, REQUEST_OPTIONS)
             .on('error', (err) => {
                 log.warn({ err, url }, 'Download fail');
                 return reject(new Error(ERRORS.DOWNLOAD_FAIL + url));
