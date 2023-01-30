@@ -2,7 +2,7 @@
 import { IncomingWebhook, IncomingWebhookResult } from '@slack/webhook';
 // local dependencies
 import * as env from '../utils/env';
-import { FIVE_MINUTES } from '../utils/constants';
+import { FIFTEEN_MINUTES } from '../utils/constants';
 import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
@@ -40,7 +40,7 @@ function isDuplicateMessage(text: string, channel: string): boolean {
 }
 
 function alreadySentRecently(): boolean {
-    return Date.now() < (lastMessage.firstSeen + FIVE_MINUTES);
+    return Date.now() < (lastMessage.firstSeen + FIFTEEN_MINUTES);
 }
 
 

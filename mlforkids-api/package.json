@@ -60,7 +60,7 @@
     "autoprefixer": "10.4.13",
     "clone": "2.1.2",
     "del": "6.1.1",
-    "eslint": "8.32.0",
+    "eslint": "8.33.0",
     "filecompare": "1.0.4",
     "gulp": "4.0.2",
     "gulp-autoprefixer": "8.0.0",
