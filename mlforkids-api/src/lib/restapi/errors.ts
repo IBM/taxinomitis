@@ -84,6 +84,10 @@ export function register404Handler(app: Express.Application) {
              res: Express.Response,
              next: (e?: Error) => void) =>   // eslint-disable-line no-unused-vars
     {
+        if (common404Urls.includes(req.url)) {
+            return notFound(res);
+        }
+
         log.info({ req, res }, '404');
 
         if (req.accepts('html')) {
@@ -94,3 +98,10 @@ export function register404Handler(app: Express.Application) {
         }
     });
 }
+
+// well-known URLs that clients often attempt to fetch, even
+//  though they don't exist on this site
+// 404's from these URLs don't suggest a problem
+const common404Urls = [
+    '/.well-known/assetlinks.json',
+];

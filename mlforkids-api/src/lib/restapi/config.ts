@@ -140,6 +140,13 @@ export function setupUI(app: express.Application): void {
     const twittercardlocation: string = path.join(__dirname, '/../../../web/dynamic/twitter-card.html');
     app.use('/twitter-card.html', compression(), removeFrameBlockingHeaders, express.static(twittercardlocation, { maxAge : constants.ONE_YEAR }));
 
+    app.get('/static/images/scratch3-sample-%7B%7B%20project.type%20%7D%7D.png', (req, res) => { res.redirect('/static/images/scratch3-sample-text.png'); });
+    app.get('/static/images/scratch3-recognise-label-%7B%7B%20project.type%20%7D%7D.png', (req, res) => { res.redirect('/static/images/scratch3-recognise-label-text.png'); });
+    app.get('/static/images/scratch3-recognise-confidence-%7B%7B%20project.type%20%7D%7D.png', (req, res) => { res.redirect('/static/images/scratch3-recognise-confidence-text.png'); });
+    app.get('/static/images/scratch3-sample-sounds.png', (req, res) => { res.redirect('/static/images/scratch3-sample-text.png'); });
+    app.get('/static/images/scratch3-recognise-label-sounds.png', (req, res) => { res.redirect('/static/images/scratch3-recognise-label-text.png'); });
+    app.get('/static/images/scratch3-recognise-confidence-sounds.png', (req, res) => { res.redirect('/static/images/scratch3-recognise-confidence-text.png'); });
+
     const uilocation: string = path.join(__dirname, '/../../../web/static');
     app.use('/static', compression(), express.static(uilocation, { maxAge : constants.ONE_YEAR }));
 

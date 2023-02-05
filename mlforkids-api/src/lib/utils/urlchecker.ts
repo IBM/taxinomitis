@@ -5,7 +5,7 @@ export function check(imageurl: string): string {
     //  validating that the URL is valid before we try
     //  and download anything from it
     const urlObj = new URL(imageurl);
-    if (!urlObj.protocol.startsWith('http')) {
+    if (urlObj.protocol !== 'https:' && urlObj.protocol !== 'http:') {
         throw new Error('Only http and https supported');
     }
 
