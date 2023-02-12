@@ -1545,6 +1545,14 @@
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pokemonimages.pdf"
             }
+        },
+        "ISPY": {
+            "TITLE": "I Spy",
+            "SUMMARY": "Use a computer that has been trained to recognize photos",
+            "DESCRIPTION": "Make a game in Scratch where you have to guess what the computer recognises.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-ispy.pdf"
+            }
         }
     },
     "TEACHER": {

@@ -194,7 +194,11 @@
             'WORKSHEETS.POKEMONIMAGES.TITLE', 'WORKSHEETS.POKEMONIMAGES.SUMMARY', 'WORKSHEETS.POKEMONIMAGES.DESCRIPTION',
             'WORKSHEETS.POKEMONIMAGES.WORKSHEET_1.URL',
             'WORKSHEETS.POKEMONSTATS.TITLE', 'WORKSHEETS.POKEMONSTATS.SUMMARY', 'WORKSHEETS.POKEMONSTATS.DESCRIPTION',
-            'WORKSHEETS.POKEMONSTATS.WORKSHEET_1.URL'
+            'WORKSHEETS.POKEMONSTATS.WORKSHEET_1.URL',
+
+            'WORKSHEETS.ISPY.TITLE', 'WORKSHEETS.ISPY.SUMMARY', 'WORKSHEETS.ISPY.DESCRIPTION',
+            'WORKSHEETS.ISPY.WORKSHEET_1.URL'
+
         ]).then(function (translations) {
             vm.worksheets = [
                 {
@@ -250,6 +254,21 @@
                         {
                             description : translations['WORKSHEETS.SMARTCLASSROOM.WORKSHEET_3.DESCRIPTION'],
                             worksheet : translations['WORKSHEETS.SMARTCLASSROOM.WORKSHEET_3.URL']
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.ISPY.TITLE'],
+                    summary : translations['WORKSHEETS.ISPY.SUMMARY'],
+                    description : translations['WORKSHEETS.ISPY.DESCRIPTION'],
+                    difficulty : 'Beginner',
+                    type : 'images',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-ispy.png',
+                    tags : [ 'image recognition', 'pretrained models' ],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.ISPY.WORKSHEET_1.URL']
                         }
                     ]
                 },
