@@ -16,6 +16,20 @@
         vm.loginstate = 'login';
         readFocusFromUrl();
 
+        vm.outOfOffice = function (ev) {
+             var confirm = $mdDialog.confirm()
+                             .title('Sorry! I am away until 5th June')
+                             .htmlContent('<div class="outofoffice">I am on vacation, so I won\'t be available to set up ' +
+                                                                     'new classes until I get back. </div>' +
+                                             '<div class="outofoffice">You can set up your own class while I\'m away if you ' +
+                                                                     'can\'t wait until I get back, or you can use "Try it now" to ' +
+                                                                     'use the site without registering in the meantime.</div>' +
+                                             '<div class="outofoffice">-- Dale</div>')
+                             .targetEvent(ev)
+                             .ok('OK');
+             $mdDialog.show(confirm)
+         };
+
         vm.sendEmail = function (ev) {
             var lang = $translate.use();
             if (lang === 'ar') {
