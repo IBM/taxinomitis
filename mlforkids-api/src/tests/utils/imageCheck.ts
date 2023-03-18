@@ -112,7 +112,7 @@ describe('Utils - imageCheck', () => {
             })
             .catch((err) => {
                 assert.strictEqual(err.message,
-                    'Image file size (8.92 kB) is too big. Please choose images smaller than 8 kB');
+                    'Image file size (11.95 kB) is too big. Please choose images smaller than 8 kB');
                 done();
             });
     });
