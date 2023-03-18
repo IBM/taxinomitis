@@ -10,11 +10,6 @@ ibmcloud target -r eu-de
 echo "creating code engine project (EU)"
 ibmcloud ce project create --no-select --name mlforkids-eu
 
-echo "selecting me region"
-ibmcloud target -r eu-de
-echo "creating code engine project (ME)"
-ibmcloud ce project create --no-select --name mlforkids-me
-
 echo "selecting au-syd region"
 ibmcloud target -r au-syd
 echo "creating code engine project (AU)"

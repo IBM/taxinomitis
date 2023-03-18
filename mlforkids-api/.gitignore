@@ -5,7 +5,6 @@ ops/prod-credentials.env
 ops/numbers-us-credentials.env
 ops/numbers-au-credentials.env
 ops/numbers-eu-credentials.env
-ops/numbers-me-credentials.env
 
 ops/postgresql-credentials.env
 ops/auth0-credentials.env
