@@ -73,9 +73,17 @@ gulp.task('twitter', function() {
 
 gulp.task('tensorflowjs', function() {
     return gulp.src([
+        'node_modules/@tensorflow/tfjs/dist/tf.js',
         'node_modules/@tensorflow/tfjs/dist/tf.min.js',
         'node_modules/@tensorflow/tfjs/dist/tf.min.js.map'
     ]).pipe(gulp.dest('web/static/bower_components/tensorflowjs'));
+});
+gulp.task('tensorflowjs4', function() {
+    return gulp.src([
+        'node_modules/@tensorflow/tfjs/dist/tf.js',
+        'node_modules/@tensorflow/tfjs/dist/tf.min.js',
+        'node_modules/@tensorflow/tfjs/dist/tf.min.js.map'
+    ]).pipe(gulp.dest('web/static/bower_components/tensorflowjs4'));
 });
 gulp.task('tensorflowposenet', function() {
     return gulp.src([
@@ -167,7 +175,7 @@ gulp.task('tensorflowhandposemodel', function() {
     ]).pipe(gulp.dest('web/static/bower_components/tensorflow-models/handpose'));
 });
 gulp.task('tfjs',
-    gulp.parallel('tensorflowjs',
+    gulp.parallel('tensorflowjs', 'tensorflowjs4',
         'tensorflowspeechcommands', 'tensorflowspeechcommands-scratch',
         'speechcommandsmodel', 'speechcommandsmodel-scratch',
         'tensorflowposenet', 'posenetmodel',
