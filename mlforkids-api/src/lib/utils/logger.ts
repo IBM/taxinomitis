@@ -1,6 +1,6 @@
 // global dependencies
 import * as bunyan from 'bunyan';
-import * as bunyanSlack from 'bunyan-slack';
+import bunyanSlack from 'bunyan-slack';
 // local dependencies
 import * as env from '../utils/env';
 
@@ -35,7 +35,7 @@ export default function getLogger(): bunyan {
             if (process.env[env.SLACK_WEBHOOK_URL]) {
                 // post errors to Slack so I get notified
                 const slackLogger = new bunyanSlack({
-                    webhook_url: process.env[env.SLACK_WEBHOOK_URL],
+                    webhookUrl: process.env[env.SLACK_WEBHOOK_URL],
                     channel: 'errors',
                     customFormatter: (record: any, levelName: string) => {
                         const fields = [
