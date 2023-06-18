@@ -131,7 +131,7 @@ gulp.task('speechcommandsmodel-scratch', function() {
 });
 gulp.task('tensorflowfacelandmarks', function() {
     return gulp.src([
-        'node_modules/@tensorflow-models/face-landmarks-detection/dist/face-landmarks-detection.min.js'
+        'node_modules/tensorflow-models-face-landmarks-detection/dist/face-landmarks-detection.min.js'
     ]).pipe(gulp.dest('web/static/bower_components/tensorflow-models/face-landmarks-detection'));
 });
 gulp.task('tensorflowfacemesh', function() {

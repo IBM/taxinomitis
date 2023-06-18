@@ -1,6 +1,6 @@
 // external dependencies
 import * as Express from 'express';
-import * as jwt from 'express-jwt';
+import { expressjwt, GetVerificationKey } from 'express-jwt';
 import * as jwksRsa from 'jwks-rsa';
 import jwtDecode from 'jwt-decode';
 import * as jsonwebtoken from 'jsonwebtoken';
@@ -49,17 +49,18 @@ export function generateJwt(payload: object): string {
 /**
  * Auth middleware for all normal users - who are authenticated by Auth0.
  */
-const auth0Authenticate = jwt({
+const auth0Authenticate = expressjwt({
     secret : jwksRsa.expressJwtSecret({
         cache : true,
         rateLimit : true,
         jwksRequestsPerMinute : 5,
         jwksUri : 'https://' + authvalues.DOMAIN + '/.well-known/jwks.json',
-    }),
+    }) as GetVerificationKey,
 
     // cf. https://github.com/auth0/express-jwt/issues/171#issuecomment-305876709
     // audience : process.env[env.AUTH0_AUDIENCE],
-    aud : authvalues.AUDIENCE,
+    // aud : authvalues.AUDIENCE,
+    audience : authvalues.AUDIENCE,
 
     issuer : 'https://' + authvalues.CUSTOM_DOMAIN + '/',
     algorithms : [ 'RS256' ],

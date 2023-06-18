@@ -1,7 +1,7 @@
 // core dependencies
 import * as fs from 'fs';
 // external dependencies
-import * as LRU from 'lru-cache';
+import { LRUCache as LRU } from 'lru-cache';
 import * as fileType from 'file-type';
 import * as tmp from 'tmp';
 import * as async from 'async';

@@ -1,8 +1,8 @@
 // external dependencies
 import * as bodyParser from 'body-parser';
 import * as Express from 'express';
-import * as helmet from 'helmet';
 import * as query from 'connect-query';
+import helmet from 'helmet';
 // local dependencies
 import registerBluemixApis from './bluemix';
 import registerUserApis from './users';

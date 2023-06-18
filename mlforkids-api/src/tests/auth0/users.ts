@@ -7,6 +7,9 @@ import * as authtypes from '../../lib/auth0/auth-types';
 import * as users from '../../lib/auth0/users';
 import * as auth0 from '../../lib/auth0/requests';
 import * as mocks from './requestmocks';
+import loggerSetup from '../../lib/utils/logger';
+
+const log = loggerSetup();
 
 
 describe('auth0 users', () => {
@@ -355,6 +358,7 @@ describe('auth0 users', () => {
             assert(verify);
             assert(verify.app_metadata);
             assert(verify.app_metadata.groups);
+            log.debug({ verify }, 'verify');
             assert.strictEqual(verify.app_metadata.groups.length, 3);
             assert.strictEqual(verify.app_metadata.groups[0], 'alpha');
             assert.strictEqual(verify.app_metadata.groups[1], 'beta');

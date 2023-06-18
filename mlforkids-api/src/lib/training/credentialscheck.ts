@@ -1,5 +1,5 @@
 // external dependencies
-import * as LRU from 'lru-cache';
+import { LRUCache as LRU } from 'lru-cache';
 // local dependencies
 import * as Types from '../db/db-types';
 import * as TrainingTypes from './training-types';
@@ -10,7 +10,7 @@ import * as conversation from './conversation';
 
 
 
-const checkOutcomesCache = new LRU({
+const checkOutcomesCache = new LRU<string, TrainingTypes.CredentialsSupportResponse>({
     max: 200,
     ttl: constants.ONE_DAY_PLUS_A_BIT,
 });

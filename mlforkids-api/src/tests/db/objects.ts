@@ -1058,7 +1058,8 @@ describe('DB objects', () => {
 
         it('should reject invalid error types', () => {
             try {
-                dbobjects.createKnownError(9, 'conv', 'objid');
+                const invalidError = 9 as TrainingObjects.KnownErrorCondition;
+                dbobjects.createKnownError(invalidError, 'conv', 'objid');
                 assert.fail('should not have reached here');
             }
             catch (err) {
