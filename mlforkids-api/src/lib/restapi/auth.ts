@@ -58,11 +58,13 @@ const JWT_OPTIONS = {
     }) as GetVerificationKey,
 
     // cf. https://github.com/auth0/express-jwt/issues/171#issuecomment-305876709
-    // audience : process.env[env.AUTH0_AUDIENCE],
+    // audience : authvalues.AUDIENCE,
     aud : authvalues.AUDIENCE,
 
     issuer : 'https://' + authvalues.CUSTOM_DOMAIN + '/',
     algorithms : [ 'RS256' ],
+
+    requestProperty : 'user',
 } as Params;
 const auth0Authenticate = expressjwt(JWT_OPTIONS);
 
