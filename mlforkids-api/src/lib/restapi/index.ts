@@ -2,7 +2,7 @@
 import * as bodyParser from 'body-parser';
 import * as Express from 'express';
 import * as query from 'connect-query';
-import helmet from 'helmet';
+// import helmet from 'helmet';
 // local dependencies
 import registerBluemixApis from './bluemix';
 import registerUserApis from './users';
@@ -36,13 +36,13 @@ export default function setup(app: Express.Application): void {
 
     // third-party middleware
     app.use(query());
-    app.use(helmet({
-        contentSecurityPolicy: {
-            // TODO : https://github.com/IBM/taxinomitis/issues/346 will remove this
-            reportOnly : true,
-            directives: serverConfig.CSP_DIRECTIVES,
-        },
-    }));
+    // app.use(helmet({
+    //     contentSecurityPolicy: {
+    //         // TODO : https://github.com/IBM/taxinomitis/issues/346 will remove this
+    //         reportOnly : true,
+    //         directives: serverConfig.CSP_DIRECTIVES,
+    //     },
+    // }));
 
     // UI setup
     serverConfig.setupUI(app);
