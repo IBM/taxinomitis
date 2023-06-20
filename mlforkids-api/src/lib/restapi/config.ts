@@ -45,6 +45,7 @@ export const CSP_DIRECTIVES = {
         'https://browser.sentry-cdn.com',
         // useful when running locally
         'https://machinelearningforkids.co.uk',
+        'https://scratch.machinelearningforkids.co.uk',
     ],
     frameSrc: ["'self'",
         // used in the News tab
