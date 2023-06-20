@@ -181,7 +181,7 @@
                             description: translations['DATASETS.DATA.FAKENEWS.DESCRIPTION'],
                             details: translations['DATASETS.DATA.FAKENEWS.DETAILS'],
                             type: 'text',
-                            image: 'static/images/dataset-fakenews.png'
+                            image: 'static/images/dataset-fakenews-upd.png'
                         }
                     ];
 
