@@ -2598,14 +2598,14 @@ export async function deleteEntireProject(userid: string, classid: string, proje
     case 'text': {
         const classifiers = await getConversationWorkspaces(project.id);
         const tenant = await getClassTenant(classid);
-        for (const classifier of classifiers) {
-            try {
-                await conversation.deleteClassifier(tenant, classifier);
+        const classifierResResults = await Promise.allSettled(
+            classifiers.map((classifier) => conversation.deleteClassifier(tenant, classifier))
+        );
+        classifierResResults.forEach((classifierResult) => {
+            if (classifierResult.status === "rejected"){
+                log.error({ err: classifierResult.reason, userid, classid, projectid : project.id }, 'Failed to delete Assistant workspace');
             }
-            catch (err) {
-                log.error({ err, userid, classid, projectid : project.id }, 'Failed to delete Assistant workspace');
-            }
-        }
+        });
         break;
     }
     case 'imgtfjs':
@@ -2638,17 +2638,17 @@ export async function deleteEntireProject(userid: string, classid: string, proje
         'DELETE FROM scratchkeys WHERE projectid = $1',
     ];
 
-    for (const deleteQuery of deleteQueries) {
-        await dbConnPool.query(deleteQuery, [ project.id ]);
-    }
+    await Promise.all(
+        deleteQueries.map((deleteQuery) => dbConnPool.query(deleteQuery, [ project.id ]))
+    );
 }
 
 
 export async function deleteEntireUser(userid: string, classid: string): Promise<void> {
     const projects = await getProjectsOwnedByUserId(userid, classid);
-    for (const project of projects) {
-        await deleteEntireProject(userid, classid, project);
-    }
+    await Promise.all(
+        projects.map((project) => deleteEntireProject(userid, classid, project))
+    );
 
     const deleteQueries = [
         'DELETE FROM projects WHERE userid = $1',
@@ -2657,9 +2657,9 @@ export async function deleteEntireUser(userid: string, classid: string): Promise
         'DELETE FROM scratchkeys WHERE userid = $1',
     ];
 
-    for (const deleteQuery of deleteQueries) {
-        await dbConnPool.query(deleteQuery, [ userid ]);
-    }
+    await Promise.all(
+        deleteQueries.map((deleteQuery) => dbConnPool.query(deleteQuery, [userid]))
+    );
 }
 
 
@@ -2668,7 +2668,7 @@ export async function deleteClassResources(classid: string): Promise<void> {
         'DELETE FROM bluemixcredentials WHERE classid = $1',
     ];
 
-    for (const deleteQuery of deleteQueries) {
-        await dbConnPool.query(deleteQuery, [ classid ]);
-    }
+    await Promise.all(
+        deleteQueries.map((deleteQuery) => dbConnPool.query(deleteQuery, [classid]))
+    );
 }

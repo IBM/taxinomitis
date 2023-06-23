@@ -101,8 +101,10 @@ async function createStudent(req: Express.Request, res: Express.Response) {
                    .json({ error : 'Invalid username. Use letters, numbers, hyphens and underscores, only.' });
     }
 
-    const numUsersInTenant = await auth0.countUsers(tenant);
-    const tenantPolicy = await store.getClassTenant(tenant);
+    const [numUsersInTenant, tenantPolicy] = await Promise.all([
+        auth0.countUsers(tenant),
+        store.getClassTenant(tenant)
+    ]);
 
     if (numUsersInTenant >= tenantPolicy.maxUsers) {
         return res.status(httpstatus.CONFLICT)
@@ -158,8 +160,10 @@ async function createStudents(req: Express.Request, res: Express.Response) {
         return res.status(httpstatus.BAD_REQUEST).json({ error : 'Missing required field "password"' });
     }
 
-    const numUsersInTenant = await auth0.countUsers(tenant);
-    const tenantPolicy = await store.getClassTenant(tenant);
+    const [numUsersInTenant, tenantPolicy] = await Promise.all([
+        auth0.countUsers(tenant),
+        store.getClassTenant(tenant)
+    ]);
     if (numUsersInTenant + req.body.number > tenantPolicy.maxUsers) {
         return res.status(httpstatus.CONFLICT)
                   .json({ error : 'That would exceed the number of students allowed in the class' });

@@ -143,8 +143,10 @@ async function deleteModel(req: auth.RequestWithProject, res: Express.Response) 
     try {
         switch (req.project.type) {
         case 'text': {
-            const tenant = await store.getClassTenant(classid);
-            const workspace = await store.getConversationWorkspace(projectid, modelid);
+            const [tenant, workspace] =await Promise.all([
+                store.getClassTenant(classid),
+                store.getConversationWorkspace(projectid, modelid)
+            ]);
             await conversation.deleteClassifier(tenant, workspace);
             return res.sendStatus(httpstatus.NO_CONTENT);
         }

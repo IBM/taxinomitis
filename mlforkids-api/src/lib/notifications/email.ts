@@ -102,8 +102,10 @@ async function sendEmailToUser(
     }
 
     const TEMPLATE_ROOT = templateinfo.root;
-    const templateText: string = await fileutils.read(TEMPLATE_ROOT + 'txt');
-    const templateHtml: string = await fileutils.read(TEMPLATE_ROOT + 'html');
+    const [templateText, templateHtml]: [string, string] = await Promise.all([
+        fileutils.read(TEMPLATE_ROOT + 'txt'),
+        fileutils.read(TEMPLATE_ROOT + 'html')
+    ]);
 
     const email: Mailer.Options = {
         subject : templateinfo.subject,

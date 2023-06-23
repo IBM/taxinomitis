@@ -145,8 +145,10 @@ async function createProject(req: auth.RequestWithUser, res: Express.Response) {
     //  project of this type
     //
 
-    const numProjects = await store.countProjectsByUserId(userid, classid);
-    const tenantPolicy = await store.getClassTenant(classid);
+    const [numProjects, tenantPolicy] = await Promise.all([
+        store.countProjectsByUserId(userid, classid),
+        store.getClassTenant(classid)
+    ]);
 
     if (numProjects >= tenantPolicy.maxProjectsPerUser) {
         return res.status(httpstatus.CONFLICT)
