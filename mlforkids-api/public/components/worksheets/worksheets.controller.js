@@ -117,10 +117,6 @@
             'WORKSHEETS.SCHOOLLIBRARY.WORKSHEET_1.URL',
             'WORKSHEETS.SCHOOLLIBRARY.TEACHERSNOTES_URL',
 
-            'WORKSHEETS.WHATTWITTERTHINKS.TITLE', 'WORKSHEETS.WHATTWITTERTHINKS.SUMMARY', 'WORKSHEETS.WHATTWITTERTHINKS.DESCRIPTION',
-            'WORKSHEETS.WHATTWITTERTHINKS.WORKSHEET_1.URL',
-            'WORKSHEETS.WHATTWITTERTHINKS.TEACHERSNOTES_URL',
-
             'WORKSHEETS.NOUGHTSANDCROSSES.TITLE', 'WORKSHEETS.NOUGHTSANDCROSSES.SUMMARY', 'WORKSHEETS.NOUGHTSANDCROSSES.DESCRIPTION',
             'WORKSHEETS.NOUGHTSANDCROSSES.WORKSHEET_1.DESCRIPTION', 'WORKSHEETS.NOUGHTSANDCROSSES.WORKSHEET_1.URL',
             'WORKSHEETS.NOUGHTSANDCROSSES.WORKSHEET_2.DESCRIPTION', 'WORKSHEETS.NOUGHTSANDCROSSES.WORKSHEET_2.URL',
@@ -775,22 +771,6 @@
                     downloads : [
                         {
                             worksheet : translations['WORKSHEETS.EXPLAINABILITY.WORKSHEET_1.URL']
-                        }
-                    ]
-                },
-                {
-                    title : translations['WORKSHEETS.WHATTWITTERTHINKS.TITLE'],
-                    summary : translations['WORKSHEETS.WHATTWITTERTHINKS.SUMMARY'],
-                    description : translations['WORKSHEETS.WHATTWITTERTHINKS.DESCRIPTION'],
-                    difficulty : 'Advanced',
-                    type : 'text',
-                    maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-whattwitterthinks.png',
-                    tags : [ 'sentiment analysis', 'social media analysis', 'supervised learning' ],
-                    teachersnotes : translations['WORKSHEETS.WHATTWITTERTHINKS.TEACHERSNOTES_URL'],
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.WHATTWITTERTHINKS.WORKSHEET_1.URL']
                         }
                     ]
                 },

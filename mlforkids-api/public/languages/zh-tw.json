@@ -1335,15 +1335,6 @@
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-schoollibrary.pdf"
             }
         },
-        "WHATTWITTERTHINKS": {
-            "TITLE": "推特的討論話題\b",
-            "SUMMARY": "教電腦來測量大家的想法",
-            "DESCRIPTION": "在Scratch中建立情緒分析工具來分析Twitter上的討論內容。",
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-whattwitterthinks.pdf",
-            "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-whattwitterthinks.pdf"
-            }
-        },
         "NOUGHTSANDCROSSES": {
             "TITLE": "戰無不勝",
             "SUMMARY": "教電腦如何玩遊戲",
@@ -1757,9 +1748,6 @@
         "SOUND_PROJECTS": {
             "mlforkids.sounds.startListening": "開始錄音",
             "mlforkids.sounds.stopListening": "停止錄音"
-        },
-        "TWITTER": {
-            "mlforkids.twitter.getrecenttweet": "取得有關[TOPIC]的[INDEX]最新推文"
         },
         "FACE": {
             "mlforkids.face.size": "[LANDMARK] 尺寸",

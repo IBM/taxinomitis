@@ -1335,15 +1335,6 @@
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-schoollibrary.pdf"
             }
         },
-        "WHATTWITTERTHINKS": {
-            "TITLE": "Ce crede Twitter?",
-            "SUMMARY": "Învață un computer să măsoare opinia publică",
-            "DESCRIPTION": "Creează un instrument de analiză a sentimentelor în Scratch pentru a analiza discuțiile pe Twitter.",
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-whattwitterthinks.pdf",
-            "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-whattwitterthinks.pdf"
-            }
-        },
         "NOUGHTSANDCROSSES": {
             "TITLE": "Noughts & Crosses (X si 0)",
             "SUMMARY": "Învață un computer să joace un joc",
@@ -1757,9 +1748,6 @@
         "SOUND_PROJECTS": {
             "mlforkids.sounds.startListening": "ascultă sunetul",
             "mlforkids.sounds.stopListening": "stop ascultare"
-        },
-        "TWITTER": {
-            "mlforkids.twitter.getrecenttweet": "ia [INDEX] al celui mai recent tweet despre [TOPIC]"
         },
         "FACE": {
             "mlforkids.face.size": "dimensiunea [LANDMARK]",

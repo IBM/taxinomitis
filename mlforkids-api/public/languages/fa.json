@@ -1296,15 +1296,6 @@
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-schoollibrary.pdf"
             }
         },
-        "WHATTWITTERTHINKS": {
-            "TITLE": "توییتر چه فکری می‌کند؟",
-            "SUMMARY": "آموزش رایانه برای سنجش افکار عمومی",
-            "DESCRIPTION": "برای تجزیه و تحلیل بحث در توییتر، یک ابزار تجزیه و تحلیل احساسات در اسکرچ ایجاد کنید.",
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-whattwitterthinks.pdf",
-            "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-whattwitterthinks.pdf"
-            }
-        },
         "NOUGHTSANDCROSSES": {
             "TITLE": "دوز",
             "SUMMARY": "به رایانه بازی کردن را آموزش دهید",
@@ -1680,9 +1671,6 @@
         "SOUND_PROJECTS": {
             "mlforkids.sounds.startListening": "گوش دادن را شروع کنید",
             "mlforkids.sounds.stopListening": "گوش دادن را متوقف کنید"
-        },
-        "TWITTER": {
-            "mlforkids.twitter.getrecenttweet": "دریافت آخرین توییت [INDEX] درباره [TOPIC]"
         },
         "FACE": {
             "mlforkids.face.size": "[LANDMARK] اندازه ",

@@ -1295,15 +1295,6 @@
             },
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-schoollibrary.pdf"
         },
-        "WHATTWITTERTHINKS": {
-            "TITLE": "¿Qué piensa Twitter?",
-            "SUMMARY": "Enseña a una computadora a medir la opiniónpública ",
-            "DESCRIPTION": "Crea una herramienta de análisis de sentieminto en  Scratch para analizar conversaciones en Twitter",
-            "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-whattwitterthinks-es.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-whattwitterthinks.pdf"
-        },
         "NOUGHTSANDCROSSES": {
             "TITLE": "Cara o cruz",
             "SUMMARY": "Enseña a una computadora a jugar a un juego ",
@@ -1679,9 +1670,6 @@
         "SOUND_PROJECTS": {
             "mlforkids.sounds.startListening": "start listening",
             "mlforkids.sounds.stopListening": "stop listening"
-        },
-        "TWITTER": {
-            "mlforkids.twitter.getrecenttweet": "get the [INDEX] most recent tweet about [TOPIC]"
         },
         "FACE": {
             "mlforkids.face.size": "size of [LANDMARK]",

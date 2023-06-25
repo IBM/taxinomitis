@@ -1295,15 +1295,6 @@
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-schoollibrary.pdf"
             }
         },
-        "WHATTWITTERTHINKS": {
-            "TITLE": "ما رأي تويتر؟",
-            "SUMMARY": "تعليم الكمبيوتر كيفية قياس الرأي العام",
-            "DESCRIPTION": "قم بإنشاء أداة تحليل المشاعر في Scratch لتحليل المناقشة على تويتر.",
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-whattwitterthinks.pdf",
-            "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-whattwitterthinks.pdf"
-            }
-        },
         "NOUGHTSANDCROSSES": {
             "TITLE": "إكس-أو",
             "SUMMARY": "تعليم الكمبيوتر كيفية لعب لعبة",
@@ -1681,9 +1672,6 @@
         "SOUND_PROJECTS": {
             "mlforkids.sounds.startListening": "ابدأ بالاستماع",
             "mlforkids.sounds.stopListening": "توقف عن الاستماع"
-        },
-        "TWITTER": {
-            "mlforkids.twitter.getrecenttweet": "الحصول على أحدث تغريدة [TWEET] حول [TOPIC]"
         },
         "FACE": {
             "mlforkids.face.size": "حجم [LANDMARK]",

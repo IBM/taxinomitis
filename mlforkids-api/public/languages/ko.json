@@ -1335,15 +1335,6 @@
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-schoollibrary.pdf"
             }
         },
-        "WHATTWITTERTHINKS": {
-            "TITLE": "트위터는 어떻게 생각하나요?",
-            "SUMMARY": "대중의 의견을 알아차리도록 컴퓨터를 가르쳐봐요.",
-            "DESCRIPTION": "트위터의 의견들을 분석할 수 있는 감정 분석 도구를 스크래치에서 만들어봐요.",
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-whattwitterthinks.pdf",
-            "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-whattwitterthinks.pdf"
-            }
-        },
         "NOUGHTSANDCROSSES": {
             "TITLE": "동그라미 & 엑스 게임",
             "SUMMARY": "게임을 하기 위해 컴퓨터를 가르쳐봐요.",
@@ -1758,9 +1749,6 @@
         "SOUND_PROJECTS": {
             "mlforkids.sounds.startListening": "듣기 시작",
             "mlforkids.sounds.stopListening": "듣기 멈춤"
-        },
-        "TWITTER": {
-            "mlforkids.twitter.getrecenttweet": "[TOPIC] (와)과 관련된 가장 최근 트윗 [INDEX] 개 가져오기"
         },
         "FACE": {
             "mlforkids.face.size": "[LANDMARK] 의 크기 [SOURCE]",

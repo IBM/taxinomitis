@@ -1295,15 +1295,6 @@
             },
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-schoollibrary.pdf"
         },
-        "WHATTWITTERTHINKS": {
-            "TITLE": "Beth yw barn Twitter?",
-            "SUMMARY": "Dysgu cyfrifiadur i fesur barn y cyhoedd",
-            "DESCRIPTION": "Creu teclyn dadansoddi teimladau yn Scratch i ddadansoddi trafodaeth ar Twitter.",
-            "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-whattwitterthinks.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-whattwitterthinks.pdf"
-        },
         "NOUGHTSANDCROSSES": {
             "TITLE": "Cylchoedd a Chroesau",
             "SUMMARY": "Dysgu cyfrifiadur i chwarae gêm",
@@ -1679,9 +1670,6 @@
         "SOUND_PROJECTS": {
             "mlforkids.sounds.startListening": "dechrau gwrando",
             "mlforkids.sounds.stopListening": "stopio gwrando"
-        },
-        "TWITTER": {
-            "mlforkids.twitter.getrecenttweet": "canfod [INDEX] trydariad mwyaf diweddar am [TOPIC]"
         },
         "FACE": {
             "mlforkids.face.size": "maint o [LANDMARK]",

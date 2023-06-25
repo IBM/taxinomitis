@@ -78,7 +78,7 @@ Web authentication is handled through Auth0. The `login.machinelearningforkids.c
 ---
 ## Where third-party APIs are accessed
 
-Data from third-party services (Twitter and Wikipedia) is made available in Scratch through **mlforkids-proxies**. *This is an nginx proxy, and is described in more detail in a blog post on [using nginx for caching API proxies](https://dalelane.co.uk/blog/?p=3646).*
+Data from third-party services (Spotify and Wikipedia) is made available in Scratch through **mlforkids-proxies**. *This is an nginx proxy, and is described in more detail in a blog post on [using nginx for caching API proxies](https://dalelane.co.uk/blog/?p=3646).*
 
 ![deployment components](./docs/05-third-party.png)
 

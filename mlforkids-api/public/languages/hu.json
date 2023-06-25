@@ -1334,15 +1334,6 @@
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-schoollibrary.pdf"
             }
         },
-        "WHATTWITTERTHINKS": {
-            "TITLE": "Mit gondol a Twitter?",
-            "SUMMARY": "Tanítsd meg a számítógépet a közvélemény mérésére",
-            "DESCRIPTION": "Készíts egy érzékeny elemző rendszert Scratch-ben, ami a Twitter csevegéseket elemzi.",
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-whattwitterthinks.pdf",
-            "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-whattwitterthinks.pdf"
-            }
-        },
         "NOUGHTSANDCROSSES": {
             "TITLE": "Amőba",
             "SUMMARY": "Tanítsd meg a számítógépet játszani.",
@@ -1757,9 +1748,6 @@
         "SOUND_PROJECTS": {
             "mlforkids.sounds.startListening": "kezd el hallgatni",
             "mlforkids.sounds.stopListening": "hagyd abba a hallgatást"
-        },
-        "TWITTER": {
-            "mlforkids.twitter.getrecenttweet": "menj a leggyakoribb [INDEX] bejegyzéshez az alábbi témáról [TOPIC]"
         },
         "FACE": {
             "mlforkids.face.size": "mérete [LANDMARK]",

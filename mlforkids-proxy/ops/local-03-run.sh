@@ -15,7 +15,6 @@ DEVHOST=ml-for-kids-local.net
 
 echo "running image at http://$DEVHOST:$PORT"
 docker run --rm \
-    --env TWITTER_BEARER_TOKEN=notabearertoken \
     --env HOSTNAME=$DEVHOST \
     --env PORT=$PORT \
     -p $PORT:$PORT \

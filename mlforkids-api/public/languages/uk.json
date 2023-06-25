@@ -1295,15 +1295,6 @@
       },
       "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-schoollibrary.pdf"
     },
-    "WHATTWITTERTHINKS": {
-      "TITLE": "Що думає Twitter?",
-      "SUMMARY": "Навчити комп’ютер вимірювати громадську думку",
-      "DESCRIPTION": "Створіть інструмент аналізу настроїв у Scratch для аналізу обговорень у Twitter.",
-      "WORKSHEET_1": {
-        "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-whattwitterthinks.pdf"
-      },
-      "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-whattwitterthinks.pdf"
-    },
     "NOUGHTSANDCROSSES": {
       "TITLE": "Хрестики-нулики",
       "SUMMARY": "Навчити комп'ютер грати в гру",
@@ -1679,9 +1670,6 @@
     "SOUND_PROJECTS": {
       "mlforkids.sounds.startListening": "почніть слухати",
       "mlforkids.sounds.stopListening": "припинити слухати"
-    },
-    "TWITTER": {
-      "mlforkids.twitter.getrecenttweet": "отримати [INDEX] останні твітти про [TOPIC]"
     },
     "FACE": {
       "mlforkids.face.size": "розмір [LANDMARK] on [SOURCE]",
