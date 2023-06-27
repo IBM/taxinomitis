@@ -71,6 +71,25 @@
                 <img class="makeicon" src="static/images/screenshot-python.jpg"/>
             </div>
         </div>
+        <div class="make" ng-if="project.type === 'text' || project.type === 'numbers'">
+            <div class="makecard">
+                <div class="info">
+                    <div class="title" translate="PROJECT.EDUBLOCKS.TITLE"></div>
+                    <div class="description" translate="MAKES.EDUBLOCKS"></div>
+                </div>
+                <div class="image">
+                    <img class="makeicon" src="static/images/logo-edublocks.png"/>
+                </div>
+            </div>
+            <div class="makebutton">
+                <button type="button" class="btn btn-primary"
+                        ui-sref="mlproject_edublocks({ projectId : projectId, userId : userId })"
+                        translate="PROJECT.EDUBLOCKS.TITLE"></button>
+            </div>
+            <div class="screenshot">
+                <img class="makeicon" src="static/images/screenshot-edublocks.jpg"/>
+            </div>
+        </div>
         <div class="make" ng-hide="project.type === 'sounds'">
             <div class="makecard">
                 <div class="info">
