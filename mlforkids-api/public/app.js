@@ -193,6 +193,12 @@
                 templateUrl: 'static/components/pythonlocal/python.html',
                 controllerAs: 'vm'
             })
+            .state('mlproject_edublocks', {
+                url: '/mlproject/:userId/:projectId/edublocks',
+                controller: 'EdublocksController',
+                templateUrl: 'static/components/edublocks/edublocks.html',
+                controllerAs: 'vm'
+            })
             .state('mlproject_appinventor', {
                 url: '/mlproject/:userId/:projectId/appinventor',
                 controller: 'AppInventorController',

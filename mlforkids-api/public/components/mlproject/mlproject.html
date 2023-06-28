@@ -35,10 +35,12 @@
         </div>
         <div class="mlprojectmenuexpanded">
             <div class="mlprojectmenutitle" translate="PROJECT.MAKES.TITLE"></div>
+            <div class="mlprojectmenudescription" translate="PROJECT.MAKES.BODY_WITHEDUBLOCKS"
+                 ng-if="!project || project.type === 'text' || project.type === 'numbers'"></div>
             <div class="mlprojectmenudescription" translate="PROJECT.MAKES.BODY_SCRATCHONLY"
                  ng-if="!project || project.type === 'sounds'"></div>
             <div class="mlprojectmenudescription" translate="PROJECT.MAKES.BODY"
-                 ng-if="project && project.type !== 'sounds'"></div>
+                 ng-if="project && project.type !== 'sounds' && project.type !== 'text' && project.type !== 'numbers'"></div>
             <div class="mlprojectmenubutton">
                 <button type="button" class="btn btn-primary"
                         ui-sref="mlproject_makes({ projectId : projectId, userId : userId })"
