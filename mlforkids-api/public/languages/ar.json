@@ -361,6 +361,7 @@
         "MAKES": {
             "TITLE": "صنع",
             "BODY": "استخدم نموذج تعلم الآلة الذي دربته لإنشاء لعبة أو تطبيق ، في Scratch أو في Python",
+            "BODY_SCRATCHPYTHONAPPINV": "Use the machine learning model you've trained to make a game or app, in Scratch, Python, or App Inventor",
             "BODY_SCRATCHONLY": "Use the machine learning model you've trained to make a game or app in Scratch"
         },
         "SCRATCH": {
@@ -378,6 +379,10 @@
         "SCRATCH3": {
             "TITLE": "Scratch 3",
             "BODY": "استخدم نموذج تعلم الآلة الخاص بك في الإصدار الجديد من Scratch"
+        },
+        "EDUBLOCKS": {
+            "TITLE": "EduBlocks",
+            "BODY": "Write Python using a drag and drop coding tool"
         }
     },
     "TRAINING": {
@@ -910,7 +915,8 @@
         "TITLE": "اصنع شيئًا باستخدام نموذج تعلم الآلة",
         "SCRATCH3": "استخدم الإصدار الجديد من  Scratch",
         "PYTHON": "اكتب رمز Python لاستخدام نموذج تعلم الآلة",
-        "APPINVENTOR": "إنشاء تطبيق  لهاتفك الجوال أو جهازك اللوحي"
+        "APPINVENTOR": "إنشاء تطبيق  لهاتفك الجوال أو جهازك اللوحي",
+        "EDUBLOCKS": "Write Python using a drag and drop coding tool"
     },
     "PYTHON": {
         "TITLE": "استخدام تعلم الآلة في Python",
@@ -958,6 +964,14 @@
                 "INTRO": "إذا كنت ترغب في <span class='strongemphasis'>إضافة أمثلة تدريبية </span>إلى مشروع تعلم الآلة لديك ، يمكنك استخدام وظيفة<code> مخزن الأرقام </code>."
             }
         }
+    },
+    "EDUBLOCKS": {
+        "TITLE": "Coding in EduBlocks",
+        "TIP": "Tip: You have to click on <span class='pythonreplhighlight'>Clone</span> to start editing your own copy of the code",
+        "NOTREADY": "Your project isn't ready to be used in EduBlocks yet.",
+        "NOMODEL": "You haven't trained a machine learning model yet.",
+        "GO": "Go to EduBlocks",
+        "LAUNCH": "Open EduBlocks"
     },
     "APPINVENTOR": {
         "TITLE": "استخدام تعلم الآلة في App Inventor",

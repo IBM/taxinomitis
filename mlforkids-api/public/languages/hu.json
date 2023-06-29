@@ -366,6 +366,7 @@
         "MAKES": {
             "TITLE": "Készítés",
             "BODY": "Használd a modellt, amit már betanítottál, arra, hogy egy játékot, vagy appot készíts Scratch-ben, Python-ban, vagy App Inventor-ban",
+            "BODY_SCRATCHPYTHONAPPINV": "Use the machine learning model you've trained to make a game or app, in Scratch, Python, or App Inventor",
             "BODY_SCRATCHONLY": "Használd a modellt, amit már betanítottál, arra, hogy egy játékot készíts Scratch-ben"
         },
         "SCRATCH": {
@@ -383,6 +384,10 @@
         "SCRATCH3": {
             "TITLE": "Scratch 3",
             "BODY": "Használd a modelledet a Scratch legújabb verziójában"
+        },
+        "EDUBLOCKS": {
+            "TITLE": "EduBlocks",
+            "BODY": "Write Python using a drag and drop coding tool"
         }
     },
     "TRAINING": {
@@ -918,7 +923,8 @@
         "TITLE": "Készíts valamit a gépi tanulási modelleddel",
         "SCRATCH3": "Használd a Scratch új verzióját",
         "PYTHON": "Írj egy Python kódot, és használd a gépi tanulási modelledet.",
-        "APPINVENTOR": "Készíts egy mobilapplikációt a telefonodra vagy a tabletedre"
+        "APPINVENTOR": "Készíts egy mobilapplikációt a telefonodra vagy a tabletedre",
+        "EDUBLOCKS": "Write Python using a drag and drop coding tool"
     },
     "PYTHON": {
         "TITLE": "A gépi tanulás használata Python-ban",
@@ -975,6 +981,14 @@
                 "INTRO": "Ha <span class='strongemphasis'>tanítási adatot szeretnél hozzáadni</span> a gépi tanulási projekthez, használhatod a <code>storeNumbers</code> funkciót."
             }
         }
+    },
+    "EDUBLOCKS": {
+        "TITLE": "Coding in EduBlocks",
+        "TIP": "Tip: You have to click on <span class='pythonreplhighlight'>Clone</span> to start editing your own copy of the code",
+        "NOTREADY": "Your project isn't ready to be used in EduBlocks yet.",
+        "NOMODEL": "You haven't trained a machine learning model yet.",
+        "GO": "Go to EduBlocks",
+        "LAUNCH": "Open EduBlocks"
     },
     "APPINVENTOR": {
         "TITLE": "A gépi tanulás használata App Inventor-ban",

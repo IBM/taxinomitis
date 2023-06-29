@@ -366,8 +366,8 @@
         },
         "MAKES": {
             "TITLE": "Make",
-            "BODY": "Use the machine learning model you've trained to make a game or app, in Scratch, Python or App Inventor",
-            "BODY_WITHEDUBLOCKS": "Use the machine learning model you've trained to make a game or app, in Scratch, Python, EduBlocks or App Inventor",
+            "BODY": "Use the machine learning model you've trained to make a game or app, in Scratch, Python, EduBlocks, or App Inventor",
+            "BODY_SCRATCHPYTHONAPPINV": "Use the machine learning model you've trained to make a game or app, in Scratch, Python, or App Inventor",
             "BODY_SCRATCHONLY": "Use the machine learning model you've trained to make a game or app in Scratch"
         },
         "SCRATCH": {

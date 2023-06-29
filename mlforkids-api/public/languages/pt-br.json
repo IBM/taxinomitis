@@ -361,6 +361,7 @@
         "MAKES": {
             "TITLE": "Faça",
             "BODY": "Use o modelo de aprendizado de máquina que você treinou para fazer um jogo ou aplicativo, em Scratch ou em Python",
+            "BODY_SCRATCHPYTHONAPPINV": "Use the machine learning model you've trained to make a game or app, in Scratch, Python, or App Inventor",
             "BODY_SCRATCHONLY": "Use o modelo de aprendizado de máquina que você treinou para fazer um jogo ou aplicativo, em Scratch"
         },
         "SCRATCH": {
@@ -378,6 +379,10 @@
         "SCRATCH3": {
             "TITLE": "Scratch 3",
             "BODY": "Use o seu modelo de aprendizado de máquina na nova versão do Scratch"
+        },
+        "EDUBLOCKS": {
+            "TITLE": "EduBlocks",
+            "BODY": "Write Python using a drag and drop coding tool"
         }
     },
     "TRAINING": {
@@ -910,7 +915,8 @@
         "TITLE": "Faça alguma coisa com seu modelo de aprendizado de máquina",
         "SCRATCH3": "Use a nova versão do Scratch",
         "PYTHON": "Escreva um código em Python para usar o seu modelo de aprendizado de máquina",
-        "APPINVENTOR": "Faça um aplicativo para o seu celular ou tablet"
+        "APPINVENTOR": "Faça um aplicativo para o seu celular ou tablet",
+        "EDUBLOCKS": "Write Python using a drag and drop coding tool"
     },
     "PYTHON": {
         "TITLE": "Usando aprendizado de máquina em Python",
@@ -958,6 +964,14 @@
                 "INTRO": "If you want to <span class='strongemphasis'>add training examples</span> to your machine learning project, you can use the <code>storeNumbers</code> function."
             }
         }
+    },
+    "EDUBLOCKS": {
+        "TITLE": "Coding in EduBlocks",
+        "TIP": "Tip: You have to click on <span class='pythonreplhighlight'>Clone</span> to start editing your own copy of the code",
+        "NOTREADY": "Your project isn't ready to be used in EduBlocks yet.",
+        "NOMODEL": "You haven't trained a machine learning model yet.",
+        "GO": "Go to EduBlocks",
+        "LAUNCH": "Open EduBlocks"
     },
     "APPINVENTOR": {
         "TITLE": "Usando aprendizado de máquina no App Inventor",

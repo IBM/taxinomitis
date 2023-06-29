@@ -361,6 +361,7 @@
         "MAKES": {
             "TITLE": "Υλοποίηση",
             "BODY": "Χρησιμοποίησε το μοντέλο μηχανικής μάθησης που έχεις εκπαιδεύσει για να δημιουργήσεις ένα παιχνίδι ή μια εφαρμογή, στο Scratch ή στην Python",
+            "BODY_SCRATCHPYTHONAPPINV": "Use the machine learning model you've trained to make a game or app, in Scratch, Python, or App Inventor",
             "BODY_SCRATCHONLY": "Χρησιμοποίησε το μοντέλο μηχανικής μάθησης που έχεις εκπαιδεύσει για να δημιουργήσεις ένα παιχνίδι ή μια εφαρμογή, στο Scratch"
         },
         "SCRATCH": {
@@ -378,6 +379,10 @@
         "SCRATCH3": {
             "TITLE": "Scratch 3",
             "BODY": "Χρησιμοποίησε το μοντέλο σου μηχανικής μάθησης στη νέα έκδοση του Scratch"
+        },
+        "EDUBLOCKS": {
+            "TITLE": "EduBlocks",
+            "BODY": "Write Python using a drag and drop coding tool"
         }
     },
     "TRAINING": {
@@ -910,7 +915,8 @@
         "TITLE": "Φτιάξε κάτι με το μοντέλο σου",
         "SCRATCH3": "Χρησιμοποίησε τη νέα έκδοση του Scratch",
         "PYTHON": "Γράψε κώδικα Python για να χρησιμοποιήσεις το μοντέλο σου",
-        "APPINVENTOR": "Φτιάξε μια εφαρμογή για το κινητό σου τηλέφωνο ή το tablet"
+        "APPINVENTOR": "Φτιάξε μια εφαρμογή για το κινητό σου τηλέφωνο ή το tablet",
+        "EDUBLOCKS": "Write Python using a drag and drop coding tool"
     },
     "PYTHON": {
         "TITLE": "Χρησιμοποιώντας μηχανική μάθηση στην Python",
@@ -958,6 +964,14 @@
                 "INTRO": "If you want to <span class='strongemphasis'>add training examples</span> to your machine learning project, you can use the <code>storeNumbers</code> function."
             }
         }
+    },
+    "EDUBLOCKS": {
+        "TITLE": "Coding in EduBlocks",
+        "TIP": "Tip: You have to click on <span class='pythonreplhighlight'>Clone</span> to start editing your own copy of the code",
+        "NOTREADY": "Your project isn't ready to be used in EduBlocks yet.",
+        "NOMODEL": "You haven't trained a machine learning model yet.",
+        "GO": "Go to EduBlocks",
+        "LAUNCH": "Open EduBlocks"
     },
     "APPINVENTOR": {
         "TITLE": "Χρησιμοποιώντας μηχανική μάθηση στο App Inventor",

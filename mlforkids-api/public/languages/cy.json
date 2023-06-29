@@ -361,6 +361,7 @@
         "MAKES": {
             "TITLE": "Creu",
             "BODY": "Defnyddiwch y model dysgu peiriant rydych chi wedi'i hyfforddi i wneud gêm neu ap, yn Scratch neu yn Python",
+            "BODY_SCRATCHPYTHONAPPINV": "Use the machine learning model you've trained to make a game or app, in Scratch, Python, or App Inventor",
             "BODY_SCRATCHONLY": "Defnyddiwch y model dysgu peiriant rydych chi wedi'i hyfforddi i wneud gêm neu ap, yn Scratch"
         },
         "SCRATCH": {
@@ -378,6 +379,10 @@
         "SCRATCH3": {
             "TITLE": "Scratch 3",
             "BODY": "Defnyddiwch eich model dysgu peiriant mewn fersiwn newydd o Scratch"
+        },
+        "EDUBLOCKS": {
+            "TITLE": "EduBlocks",
+            "BODY": "Write Python using a drag and drop coding tool"
         }
     },
     "TRAINING": {
@@ -910,7 +915,8 @@
         "TITLE": "Creu rywbeth gyda'ch model dysgu peiriant",
         "SCRATCH3": "Defnyddio fersiwn newydd o Scratch",
         "PYTHON": "Ysgrifennwch god Python i ddefnyddio'ch model dysgu peiriant",
-        "APPINVENTOR": "Creu ap symudol ar gyfer eich ffôn neu dabled"
+        "APPINVENTOR": "Creu ap symudol ar gyfer eich ffôn neu dabled",
+        "EDUBLOCKS": "Write Python using a drag and drop coding tool"
     },
     "PYTHON": {
         "TITLE": "Defnyddio dysgu peiriant yn Python",
@@ -958,6 +964,14 @@
                 "INTRO": "Os ydych chi am <span class='strongemphasis'>ychwanegu enghreifftiau hyfforddi</span> at eich prosiect dysgu peiriant, gallwch ddefnyddio'r ffwythiant <code>storeNumbers</code>."
             }
         }
+    },
+    "EDUBLOCKS": {
+        "TITLE": "Coding in EduBlocks",
+        "TIP": "Tip: You have to click on <span class='pythonreplhighlight'>Clone</span> to start editing your own copy of the code",
+        "NOTREADY": "Your project isn't ready to be used in EduBlocks yet.",
+        "NOMODEL": "You haven't trained a machine learning model yet.",
+        "GO": "Go to EduBlocks",
+        "LAUNCH": "Open EduBlocks"
     },
     "APPINVENTOR": {
         "TITLE": "Defnyddio dysgu peiriant yn App Inventor",

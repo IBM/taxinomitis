@@ -367,6 +367,7 @@
         "MAKES": {
             "TITLE": "成果應用",
             "BODY": "在Scratch或Python中使用你訓練好的機器學習模型來製作遊戲或應用程式",
+            "BODY_SCRATCHPYTHONAPPINV": "Use the machine learning model you've trained to make a game or app, in Scratch, Python, or App Inventor",
             "BODY_SCRATCHONLY": "使用你訓練好的機器學習模型來製作Scratch的遊戲或應用。"
         },
         "SCRATCH": {
@@ -384,6 +385,10 @@
         "SCRATCH3": {
             "TITLE": "Scratch 3",
             "BODY": "在新版本的Scratch中使用你的機器學習模型"
+        },
+        "EDUBLOCKS": {
+            "TITLE": "EduBlocks",
+            "BODY": "Write Python using a drag and drop coding tool"
         }
     },
     "TRAINING": {
@@ -919,7 +924,8 @@
         "TITLE": "使用你的機器學習模型製作一些作品吧",
         "SCRATCH3": "使用新版的Scratch進行創作",
         "PYTHON": "寫一些Python程式碼來使用你的機器學習模型",
-        "APPINVENTOR": "製作一個手機APP給你的手機或平板使用"
+        "APPINVENTOR": "製作一個手機APP給你的手機或平板使用",
+        "EDUBLOCKS": "Write Python using a drag and drop coding tool"
     },
     "PYTHON": {
         "TITLE": "在Python中使用機器學習",
@@ -976,6 +982,14 @@
                 "INTRO": "如果你想要<span class='strongemphasis'>新增訓練的資料</span>到你的機器學習專案中，你可以使用<code>storeNumbers</code>函式"
             }
         }
+    },
+    "EDUBLOCKS": {
+        "TITLE": "Coding in EduBlocks",
+        "TIP": "Tip: You have to click on <span class='pythonreplhighlight'>Clone</span> to start editing your own copy of the code",
+        "NOTREADY": "Your project isn't ready to be used in EduBlocks yet.",
+        "NOMODEL": "You haven't trained a machine learning model yet.",
+        "GO": "Go to EduBlocks",
+        "LAUNCH": "Open EduBlocks"
     },
     "APPINVENTOR": {
         "TITLE": "在App Inventor中使用機器學習",

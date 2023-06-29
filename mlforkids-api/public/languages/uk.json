@@ -361,6 +361,7 @@
     "MAKES": {
       "TITLE": "Створити",
       "BODY": "Використовуйте модель машинного навчання, яку ви навчили, щоб створити гру чи програму в Scratch, App Inventor або Python",
+      "BODY_SCRATCHPYTHONAPPINV": "Use the machine learning model you've trained to make a game or app, in Scratch, Python, or App Inventor",
       "BODY_SCRATCHONLY": "Використовуйте модель машинного навчання, яку ви навчили, щоб створити гру чи програму в Scratch"
     },
     "SCRATCH": {
@@ -378,6 +379,10 @@
     "SCRATCH3": {
       "TITLE": "Scratch 3",
       "BODY": "Використовуйте свою модель машинного навчання в новій версії Scratch"
+    },
+    "EDUBLOCKS": {
+      "TITLE": "EduBlocks",
+      "BODY": "Write Python using a drag and drop coding tool"
     }
   },
   "TRAINING": {
@@ -910,7 +915,8 @@
     "TITLE": "Створіть щось за допомогою моделі машинного навчання",
     "SCRATCH3": "Використовуйте свою модель машинного навчання в Scratch",
     "PYTHON": "Напишіть код Python для використання вашої моделі машинного навчання",
-    "APPINVENTOR": "Створіть мобільний додаток для свого телефону чи планшета"
+    "APPINVENTOR": "Створіть мобільний додаток для свого телефону чи планшета",
+    "EDUBLOCKS": "Write Python using a drag and drop coding tool"
   },
   "PYTHON": {
     "TITLE": "Використання машинного навчання в Python",
@@ -958,6 +964,14 @@
         "INTRO": "Якщо ви хочете <span class='strongemphasis'>додати навчальні приклади</span> до свого проекту машинного навчання, ви можете скористатися функцією <code>storeNumbers</code>."
       }
     }
+  },
+  "EDUBLOCKS": {
+    "TITLE": "Coding in EduBlocks",
+    "TIP": "Tip: You have to click on <span class='pythonreplhighlight'>Clone</span> to start editing your own copy of the code",
+    "NOTREADY": "Your project isn't ready to be used in EduBlocks yet.",
+    "NOMODEL": "You haven't trained a machine learning model yet.",
+    "GO": "Go to EduBlocks",
+    "LAUNCH": "Open EduBlocks"
   },
   "APPINVENTOR": {
     "TITLE": "Використання машинного навчання в App Inventor",
