@@ -304,8 +304,6 @@ function concatAndMinifiyWebJs (isForProd) {
     if (process.env.DEPLOYMENT === 'machinelearningforkids.co.uk') {
         if (isForProd) {
             additionalVariables = [
-                // google analytics support
-                'public/prod-analytics.js',
                 // sentry alerting support
                 'public/prod-sentry.js',
                 // uses prod auth0 environment

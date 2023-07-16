@@ -1977,7 +1977,6 @@
             "Q4-A-6": "모든 계정에 대해 저장되는 일반 정보",
             "Q4-A-7": "아이들을 위한 머신러닝의 사용자 관리는 서드파티 서비스 인 <a href='https://auth0.com/'>Auth0</a>를 사용합니다. 그들은 아이들을 위한 머신러닝에 마지막으로 로그인 한 IP 주소와 사용한 브라우저 유형을 저장합니다. 그 이유는 알지 못하지만 그 정보를 볼 수 있습니다.",
             "Q4-A-8": "웹 브라우저에서 발생하는 오류는 서드파티 서비스인 <a href='https://sentry.io/'> Sentry </a>를 사용하여 캡처됩니다. 문제가 발생하면, 사용자 이름, IP 주소, 사용하고 있는 브라우저 유형 및 잘못된 점에 대한 기술적 설명을 포함하여 오류에 대한 정보를 캡처합니다.",
-            "Q4-A-9": "<a href='https://www.google.com/analytics/'> Google Analytics </a>를 사용하여 얼마나 많은 사람들이 아이들을 위한 머신러닝 사이트에 방문하는지 알고 있습니다. 지리적 위치 및 브라우저 유형과 같은 정보는 캡처되지만 이것은 익명의 통합 방식으로 표시됩니다.",
 
             "Q5": "What happens to training data created by students?",
             "Q5-A-1": "A step in all machine learning projects that students make using this site is to create or collect training examples. For text projects, this can mean typing in short text passages. For image projects, this can means drawing pictures onto an on-screen canvas or taking photos using the webcam. For numbers projects, this means typing in sets of numbers",

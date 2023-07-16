@@ -38,9 +38,6 @@ export const CSP_DIRECTIVES = {
         'https://www.youtube.com',
         // used to embed video in the Worksheets tab
         'https://player.vimeo.com',
-        // used for analytics
-        'https://www.google-analytics.com',
-        'https://www.googletagmanager.com',
         // used for error capturing
         'https://browser.sentry-cdn.com',
         // useful when running locally
@@ -67,8 +64,6 @@ export const CSP_DIRECTIVES = {
         'https://ton.twimg.com',
         'https://platform.twitter.com',
         'https://syndication.twitter.com',
-        // used for analytics
-        'https://www.google-analytics.com',
         // used for various things, including training data thumbnails
         'data:', 'blob:',
         // used for training data, which can be used from any site
@@ -83,8 +78,6 @@ export const CSP_DIRECTIVES = {
         'data:',
     ],
     connectSrc: ["'self'",
-        // used for analytics
-        'https://www.google-analytics.com',
         // used for error capturing
         '*.sentry.io',
     ],
