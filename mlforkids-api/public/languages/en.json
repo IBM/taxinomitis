@@ -1559,6 +1559,14 @@
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-ispy.pdf"
             }
+        },
+        "CARPOOL": {
+            "TITLE": "Carpool Cheats",
+            "SUMMARY": "Teach a computer to recognize a car without passengers",
+            "DESCRIPTION": "Make a game in Scratch where you make a traffic camera to catch carpool cheats.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carpoolcheats.pdf"
+            }
         }
     },
     "TEACHER": {

@@ -193,8 +193,10 @@
             'WORKSHEETS.POKEMONSTATS.WORKSHEET_1.URL',
 
             'WORKSHEETS.ISPY.TITLE', 'WORKSHEETS.ISPY.SUMMARY', 'WORKSHEETS.ISPY.DESCRIPTION',
-            'WORKSHEETS.ISPY.WORKSHEET_1.URL'
+            'WORKSHEETS.ISPY.WORKSHEET_1.URL',
 
+            'WORKSHEETS.CARPOOL.TITLE', 'WORKSHEETS.CARPOOL.SUMMARY', 'WORKSHEETS.CARPOOL.DESCRIPTION',
+            'WORKSHEETS.CARPOOL.WORKSHEET_1.URL'
         ]).then(function (translations) {
             vm.worksheets = [
                 {
@@ -343,6 +345,21 @@
                     downloads : [
                         {
                             worksheet : translations['WORKSHEETS.QUIZSHOW.WORKSHEET_1.URL']
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.CARPOOL.TITLE'],
+                    summary : translations['WORKSHEETS.CARPOOL.SUMMARY'],
+                    description : translations['WORKSHEETS.CARPOOL.DESCRIPTION'],
+                    difficulty : 'Beginner',
+                    type : 'images',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-carpoolcheats.png',
+                    tags : [ 'image classification', 'supervised learning' ],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.CARPOOL.WORKSHEET_1.URL']
                         }
                     ]
                 },
