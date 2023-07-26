@@ -37,7 +37,7 @@
         },
         "WHY": {
             "TITLE": "Varför?",
-            "BODY": "Maskininlärning finns överallt omkring oss. Alla använder vi maskininlärningssystem varje dag; som t.ex. skräpfilter, rekommendationsmotorer, översättningstjänster, chat-botar och digitala assistenter, sökmotorer och system för att upptäcka bedrägeri.<br/><br/> Det kommer inom kort att vara normalt att maskininlärningssystem kör våra bilar, och hjälper läkare att diagnosticera och behandla sjukdomar. <br/><br/>Det är viktigt att barn är medvetna om hur vår värld fungerar. Det bästa sättet att förstå möjligheterna och riskerna är att vara förmögna att bygga med denna teknologin själva. <br/><br/>För att lära dig mer, läs: <a target='_blank' class='btn btn-primary' href='http://dalelane.co.uk/blog/?p=3513'>'Introducing Machine Learning to kids'</a>"
+            "BODY": "Maskininlärning finns överallt omkring oss. Alla använder vi maskininlärningssystem varje dag; som t.ex. skräpfilter, rekommendationsmotorer, översättningstjänster, chat-botar och digitala assistenter, sökmotorer och system för att upptäcka bedrägeri.<br/><br/> Det kommer inom kort att vara normalt att maskininlärningssystem kör våra bilar, och hjälper läkare att diagnosticera och behandla sjukdomar. <br/><br/>Det är viktigt att barn är medvetna om hur vår värld fungerar. Det bästa sättet att förstå möjligheterna och riskerna är att vara förmögna att bygga med denna teknologin själva. <br/><br/>För att lära dig mer, läs: <a target='_blank' class='btn btn-primary' href='https://youtu.be/m6dyCRS8EmI'>'Education in the age of AI'</a>"
         },
         "TECH": {
             "TITLE": "Teknik",
