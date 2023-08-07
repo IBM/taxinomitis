@@ -1,0 +1,20 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres:12
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
+      - ./mlforkids-api/sql/postgresql.sql:/docker-entrypoint-initdb.d/mlforkids-api/sql/postgresql.sql
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydatabase
+    entrypoint: ["sh", "/docker-entrypoint-initdb.d/init-db.sh"]
+
+volumes:
+  postgres_data:

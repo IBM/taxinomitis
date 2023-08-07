@@ -5,6 +5,7 @@
     "start": "node dist/lib/app.js",
     "build": "./node_modules/.bin/gulp build",
     "build_notest": "./node_modules/.bin/gulp compile web",
+    "dev": "dotenv -- node ./node_modules/.bin/gulp compile web",
     "test": "./node_modules/.bin/gulp test",
     "lint": "./node_modules/.bin/eslint .",
     "coverage": "gulp compile test",
