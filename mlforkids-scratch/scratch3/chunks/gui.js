@@ -87,14 +87,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// import analytics from '../lib/analytics';
 
 
-
-
-
-// Register "base" page view
-// analytics.pageview('/');
 
 var appTarget = document.createElement('div');
 appTarget.className = _index_css__WEBPACK_IMPORTED_MODULE_9___default.a.app;

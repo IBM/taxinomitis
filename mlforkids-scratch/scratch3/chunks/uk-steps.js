@@ -4,10 +4,12 @@
 /*!**********************************************************!*\
   !*** ./src/lib/libraries/decks/steps/add-effects.uk.png ***!
   \**********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/96edc964e2954ef3166a77f87a6cc045.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/c2b62dd36325a596856e0e8e8f12cac2.png");
 
 /***/ }),
 
@@ -15,10 +17,12 @@ module.exports = __webpack_require__.p + "static/assets/96edc964e2954ef3166a77f8
 /*!***********************************************************!*\
   !*** ./src/lib/libraries/decks/steps/add-variable.uk.gif ***!
   \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/bd2d7b2437946f1add631d2a55997b2f.gif";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/9ef84817963eb1f9198aff088a68f8d8.gif");
 
 /***/ }),
 
@@ -26,10 +30,12 @@ module.exports = __webpack_require__.p + "static/assets/bd2d7b2437946f1add631d2a
 /*!*********************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/animate-char-add-sound.uk.png ***!
   \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/7bd01b358fbe4512260286183d477685.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/67e12e4addaa47e94517d5e9e7161d57.png");
 
 /***/ }),
 
@@ -37,10 +43,12 @@ module.exports = __webpack_require__.p + "static/assets/7bd01b358fbe451226028618
 /*!************************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/animate-char-change-color.uk.png ***!
   \************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/de056df8d895f6eb4e1992bc43c0c5e3.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/61b84a2068c6d3fd01031d8156208a5e.png");
 
 /***/ }),
 
@@ -48,10 +56,12 @@ module.exports = __webpack_require__.p + "static/assets/de056df8d895f6eb4e1992bc
 /*!****************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/animate-char-jump.uk.png ***!
   \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/64764c0e8dd11a31d0141c93ccb48a70.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/1d90dc1580d27bd11dcd82a8cd4d321f.png");
 
 /***/ }),
 
@@ -59,10 +69,12 @@ module.exports = __webpack_require__.p + "static/assets/64764c0e8dd11a31d0141c93
 /*!****************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/animate-char-move.uk.png ***!
   \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/9c2e8fc66ddf257858ee277af88a7e45.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/b13242ce4e564333bc64fa1b3b3089ca.png");
 
 /***/ }),
 
@@ -70,10 +82,12 @@ module.exports = __webpack_require__.p + "static/assets/9c2e8fc66ddf257858ee277a
 /*!*************************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/animate-char-say-something.uk.png ***!
   \*************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/e28586864d5b4f6d48afbf833f8e0ec2.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/f78323ce212db4530d2deb9e52d90a02.png");
 
 /***/ }),
 
@@ -81,10 +95,12 @@ module.exports = __webpack_require__.p + "static/assets/e28586864d5b4f6d48afbf83
 /*!****************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/animate-char-talk.uk.png ***!
   \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/2b0b532fda25919c2ea7ff2129ae9271.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/35efc518753dbf20c1f4c8f6ca79cee4.png");
 
 /***/ }),
 
@@ -92,10 +108,12 @@ module.exports = __webpack_require__.p + "static/assets/2b0b532fda25919c2ea7ff21
 /*!**********************************************************!*\
   !*** ./src/lib/libraries/decks/steps/change-size.uk.png ***!
   \**********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/0b0662d4fa04471ec5b47ffd617bf5d3.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/6eb9e5aa59a00c67e4dec32ab36bc90d.png");
 
 /***/ }),
 
@@ -103,10 +121,12 @@ module.exports = __webpack_require__.p + "static/assets/0b0662d4fa04471ec5b47ffd
 /*!**********************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/chase-game-change-score.uk.png ***!
   \**********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/24609c50afb138ad00a7027f23265783.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/8f71a0fc2644eb75722cef486ec6c077.png");
 
 /***/ }),
 
@@ -114,10 +134,12 @@ module.exports = __webpack_require__.p + "static/assets/24609c50afb138ad00a7027f
 /*!***********************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/chase-game-move-randomly.uk.png ***!
   \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/d96fb43b5556759fae6433eecb5215cd.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/32fa532448286324ea7a938392260cab.png");
 
 /***/ }),
 
@@ -125,10 +147,12 @@ module.exports = __webpack_require__.p + "static/assets/d96fb43b5556759fae6433ee
 /*!********************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/chase-game-play-sound.uk.png ***!
   \********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/421e794b57e9d8a55f61dea8acbaf122.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/44e78658bfe342cea23b55ac5930fa6e.png");
 
 /***/ }),
 
@@ -136,10 +160,12 @@ module.exports = __webpack_require__.p + "static/assets/421e794b57e9d8a55f61dea8
 /*!********************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/chase-game-right-left.uk.png ***!
   \********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/80c7503180eff7feac884ffc8dc49dcf.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/d465de61c073d5e2321df79580a1302f.png");
 
 /***/ }),
 
@@ -147,10 +173,12 @@ module.exports = __webpack_require__.p + "static/assets/80c7503180eff7feac884ffc
 /*!*****************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/chase-game-up-down.uk.png ***!
   \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/53feb95d87a0cabdba0602df4b2c7abd.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/2a0f55e01995c7d0db45c723edad39ab.png");
 
 /***/ }),
 
@@ -158,10 +186,12 @@ module.exports = __webpack_require__.p + "static/assets/53feb95d87a0cabdba0602df
 /*!**********************************************************!*\
   !*** ./src/lib/libraries/decks/steps/cn-backdrop.uk.png ***!
   \**********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/69e164fac0cca66c053ecb31c9c2aa64.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/36fecbf6f94b7141558366f777874b11.png");
 
 /***/ }),
 
@@ -169,10 +199,12 @@ module.exports = __webpack_require__.p + "static/assets/69e164fac0cca66c053ecb31
 /*!*********************************************************!*\
   !*** ./src/lib/libraries/decks/steps/cn-collect.uk.png ***!
   \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/a318b0c2bc41661e56b5dbb614ccd0f5.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/8b1a3f57febc62ad1c1de5fd77f3471b.png");
 
 /***/ }),
 
@@ -180,10 +212,12 @@ module.exports = __webpack_require__.p + "static/assets/a318b0c2bc41661e56b5dbb6
 /*!*******************************************************!*\
   !*** ./src/lib/libraries/decks/steps/cn-glide.uk.png ***!
   \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/93241021a13aa20da27f50e661016310.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/4dbf193f124d15ee779a593562372981.png");
 
 /***/ }),
 
@@ -191,10 +225,12 @@ module.exports = __webpack_require__.p + "static/assets/93241021a13aa20da27f50e6
 /*!*****************************************************!*\
   !*** ./src/lib/libraries/decks/steps/cn-say.uk.png ***!
   \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/236f257f6b85917b5ba65dc9e4bb75df.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/15ca248321936da071f7b72ef46c5ed6.png");
 
 /***/ }),
 
@@ -202,10 +238,12 @@ module.exports = __webpack_require__.p + "static/assets/236f257f6b85917b5ba65dc9
 /*!*******************************************************!*\
   !*** ./src/lib/libraries/decks/steps/cn-score.uk.png ***!
   \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/ef9ad7d985162ed527aca819ad691267.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/a1ed27d1faabcd9c18fe23ad9461bbd1.png");
 
 /***/ }),
 
@@ -213,10 +251,12 @@ module.exports = __webpack_require__.p + "static/assets/ef9ad7d985162ed527aca819
 /*!****************************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/code-cartoon-01-say-something.uk.png ***!
   \****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/91f2e12fe429965b5b219f289cf6aa31.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/4f768bc7501b6e41972810bac44676f3.png");
 
 /***/ }),
 
@@ -224,10 +264,12 @@ module.exports = __webpack_require__.p + "static/assets/91f2e12fe429965b5b219f28
 /*!**********************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/code-cartoon-02-animate.uk.png ***!
   \**********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/721b68b3daef0cdc09dd1c06bab83334.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/c2d1f725c9540846e64f765efa6325b6.png");
 
 /***/ }),
 
@@ -235,10 +277,12 @@ module.exports = __webpack_require__.p + "static/assets/721b68b3daef0cdc09dd1c06
 /*!*****************************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/code-cartoon-04-use-minus-sign.uk.png ***!
   \*****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/0e92716afebebbcf027802e341220ca0.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/d0d19bfa3f22f3e8be98a9666a900236.png");
 
 /***/ }),
 
@@ -246,10 +290,12 @@ module.exports = __webpack_require__.p + "static/assets/0e92716afebebbcf027802e3
 /*!**************************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/code-cartoon-05-grow-shrink.uk.png ***!
   \**************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/642fb2f987bf8b54f176af13746c04cb.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/25616ca76e37bde7719f5df00624c979.png");
 
 /***/ }),
 
@@ -257,10 +303,12 @@ module.exports = __webpack_require__.p + "static/assets/642fb2f987bf8b54f176af13
 /*!*******************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/code-cartoon-07-jump.uk.png ***!
   \*******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/ae564de8d4f7ca1a034180221227e91b.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/7a4e715caf9b0bf93446b1ea0024cd0e.png");
 
 /***/ }),
 
@@ -268,10 +316,12 @@ module.exports = __webpack_require__.p + "static/assets/ae564de8d4f7ca1a03418022
 /*!****************************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/code-cartoon-08-change-scenes.uk.png ***!
   \****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/edf5571fc769a213bbbac59c1d03340f.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/cdc165a11ee3a7808097a17a335a1fa6.png");
 
 /***/ }),
 
@@ -279,10 +329,12 @@ module.exports = __webpack_require__.p + "static/assets/edf5571fc769a213bbbac59c
 /*!***************************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/code-cartoon-09-glide-around.uk.png ***!
   \***************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/7d3dd7098c7f0f16ebd370cfeb1161e9.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/a20d77e0206232c0092b8cb9763fc50e.png");
 
 /***/ }),
 
@@ -290,10 +342,12 @@ module.exports = __webpack_require__.p + "static/assets/7d3dd7098c7f0f16ebd370cf
 /*!******************************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/code-cartoon-10-change-costumes.uk.png ***!
   \******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/6b4c7434da0f872e47f75f8b90b1c81d.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/a7a2bbd749eb8129ffed26bfd663fb3a.png");
 
 /***/ }),
 
@@ -301,10 +355,12 @@ module.exports = __webpack_require__.p + "static/assets/6b4c7434da0f872e47f75f8b
 /*!***************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/fly-flying-heart.uk.png ***!
   \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/4bfa4db4f366febfd0a820b1655623dc.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/daacb273e5303b34cb4fb4e163763365.png");
 
 /***/ }),
 
@@ -312,10 +368,12 @@ module.exports = __webpack_require__.p + "static/assets/4bfa4db4f366febfd0a820b1
 /*!*************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/fly-keep-score.uk.png ***!
   \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/b1efa4237175d3c78052aa209a7ded25.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/c2663b19382495ae0b1b6e4bfcb347e7.png");
 
 /***/ }),
 
@@ -323,10 +381,12 @@ module.exports = __webpack_require__.p + "static/assets/b1efa4237175d3c78052aa20
 /*!*******************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/fly-make-interactive.uk.png ***!
   \*******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/a89ad1d0754a6ca305a1011dad503c96.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/3d0a9d9970181e24e02900289c3b04bb.png");
 
 /***/ }),
 
@@ -334,10 +394,12 @@ module.exports = __webpack_require__.p + "static/assets/a89ad1d0754a6ca305a1011d
 /*!***************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/fly-move-scenery.uk.png ***!
   \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/82b7f01c0e0f7966c9a2bb4c1bcc6298.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/7a531faa0e924927c9f6d2e223b399e2.png");
 
 /***/ }),
 
@@ -345,10 +407,12 @@ module.exports = __webpack_require__.p + "static/assets/82b7f01c0e0f7966c9a2bb4c
 /*!****************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/fly-say-something.uk.png ***!
   \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/30a425e0a95db6048c84483c5cced06d.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/a2ac05b3e06bad0cb5ad9f3ff530601f.png");
 
 /***/ }),
 
@@ -356,10 +420,12 @@ module.exports = __webpack_require__.p + "static/assets/30a425e0a95db6048c84483c
 /*!*****************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/fly-switch-costume.uk.png ***!
   \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/7fcbbbf879415d8bd7703b7560c08c28.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/be40023f687cc767e594a1d9a65dea50.png");
 
 /***/ }),
 
@@ -367,10 +433,12 @@ module.exports = __webpack_require__.p + "static/assets/7fcbbbf879415d8bd7703b75
 /*!**************************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/glide-around-back-and-forth.uk.png ***!
   \**************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/ae64635916e1ddc8b0ac6bfd73c5cdf1.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/24e8c822c499c86cc6e5edaf5fe96631.png");
 
 /***/ }),
 
@@ -378,10 +446,12 @@ module.exports = __webpack_require__.p + "static/assets/ae64635916e1ddc8b0ac6bfd
 /*!*****************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/glide-around-point.uk.png ***!
   \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/faef218a10693525eaa087f8c26fe2aa.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/e9c87bbd1d7774180c66a27d6ba65506.png");
 
 /***/ }),
 
@@ -389,10 +459,12 @@ module.exports = __webpack_require__.p + "static/assets/faef218a10693525eaa087f8
 /*!********************************************************!*\
   !*** ./src/lib/libraries/decks/steps/hide-show.uk.png ***!
   \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/40d59a6d36dd479f7934cc35c3f6f795.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/8cc90b64879f7b4ced1f7922b466b48a.png");
 
 /***/ }),
 
@@ -400,10 +472,12 @@ module.exports = __webpack_require__.p + "static/assets/40d59a6d36dd479f7934cc35
 /*!**********************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/imagine-change-costumes.uk.png ***!
   \**********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/e35418134f3ccf0992dae078ad213084.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/05490c47911bb50d3ef8e6ca363ee50f.png");
 
 /***/ }),
 
@@ -411,10 +485,12 @@ module.exports = __webpack_require__.p + "static/assets/e35418134f3ccf0992dae078
 /*!*******************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/imagine-choose-sound.uk.png ***!
   \*******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/2946d5a288356584985cf180be715a9a.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/82ef4148a604d1ef92937b86d8eb74da.png");
 
 /***/ }),
 
@@ -422,10 +498,12 @@ module.exports = __webpack_require__.p + "static/assets/2946d5a288356584985cf180
 /*!***********************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/imagine-click-green-flag.uk.png ***!
   \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/6f8099642bca2cac1893f944dd47d330.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/100789a628b417e1f94a1a959e7c4c5e.png");
 
 /***/ }),
 
@@ -433,10 +511,12 @@ module.exports = __webpack_require__.p + "static/assets/6f8099642bca2cac1893f944
 /*!*****************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/imagine-fly-around.uk.png ***!
   \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/6522710dad0e4d577f33e159dc0207ef.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/ae22d013dc18b5308f6ea2ab4cb30c75.png");
 
 /***/ }),
 
@@ -444,10 +524,12 @@ module.exports = __webpack_require__.p + "static/assets/6522710dad0e4d577f33e159
 /*!*********************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/imagine-glide-to-point.uk.png ***!
   \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/17a70f3f8ca6b0bb83834780b30d12d6.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/c38d6fbd153a8159459f0789723a1fca.png");
 
 /***/ }),
 
@@ -455,10 +537,12 @@ module.exports = __webpack_require__.p + "static/assets/17a70f3f8ca6b0bb83834780
 /*!******************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/imagine-grow-shrink.uk.png ***!
   \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/dbd143918003892a87ae09758a5243e4.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/b2ed9bba4db08fd9e09e7605505fae3d.png");
 
 /***/ }),
 
@@ -466,10 +550,12 @@ module.exports = __webpack_require__.p + "static/assets/dbd143918003892a87ae0975
 /*!*****************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/imagine-left-right.uk.png ***!
   \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/40bdb123f50c303bc8471cf1b50e52a5.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/84d8745fc1a66f4b5164a6cc00b63fbb.png");
 
 /***/ }),
 
@@ -477,10 +563,12 @@ module.exports = __webpack_require__.p + "static/assets/40bdb123f50c303bc8471cf1
 /*!*********************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/imagine-record-a-sound.uk.gif ***!
   \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/140a12db35626907175324712db456a7.gif";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/f918745e272b030fd3b4ab246525855f.gif");
 
 /***/ }),
 
@@ -488,10 +576,12 @@ module.exports = __webpack_require__.p + "static/assets/140a12db3562690717532471
 /*!***********************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/imagine-switch-backdrops.uk.png ***!
   \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/58f20bb3e3aa666fb36a27ba5a0f746f.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/6875a243f888cefa12827a7e5290fd7e.png");
 
 /***/ }),
 
@@ -499,10 +589,12 @@ module.exports = __webpack_require__.p + "static/assets/58f20bb3e3aa666fb36a27ba
 /*!*************************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/imagine-type-what-you-want.uk.png ***!
   \*************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/70a73e9b3fadba285a6d68db9a91cbb3.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/0be7eae64e9220e4241f5c9f49fb9906.png");
 
 /***/ }),
 
@@ -510,10 +602,12 @@ module.exports = __webpack_require__.p + "static/assets/70a73e9b3fadba285a6d68db
 /*!**************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/imagine-up-down.uk.png ***!
   \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/439cddb83c09b2be056ed9587a26ccf6.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/759075d1ea57860d2e920436d1a5d060.png");
 
 /***/ }),
 
@@ -521,10 +615,12 @@ module.exports = __webpack_require__.p + "static/assets/439cddb83c09b2be056ed958
 /*!***********************************************************!*\
   !*** ./src/lib/libraries/decks/steps/intro-1-move.uk.gif ***!
   \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/9a2b4738446648557be6ffc033a6985e.gif";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/d7948b6bddcc0ee8d9ba0688f0c84ee9.gif");
 
 /***/ }),
 
@@ -532,10 +628,12 @@ module.exports = __webpack_require__.p + "static/assets/9a2b4738446648557be6ffc0
 /*!**********************************************************!*\
   !*** ./src/lib/libraries/decks/steps/intro-2-say.uk.gif ***!
   \**********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/e54636902d4b5c31f52aa582c0bac0f0.gif";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/92796921e3fe375332bbb98a511b446c.gif");
 
 /***/ }),
 
@@ -543,10 +641,12 @@ module.exports = __webpack_require__.p + "static/assets/e54636902d4b5c31f52aa582
 /*!*****************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/intro-3-green-flag.uk.gif ***!
   \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/7a564b316d8659a75be31b3bde89ba34.gif";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/fcfc6bb44275aace4f50f9b7d2059838.gif");
 
 /***/ }),
 
@@ -554,10 +654,12 @@ module.exports = __webpack_require__.p + "static/assets/7a564b316d8659a75be31b3b
 /*!*************************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/move-arrow-keys-left-right.uk.png ***!
   \*************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/277cf108a773b6a4aa2c3b73c33d8227.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/da5cc6c5ffafff1cbe3ccad3fb52419a.png");
 
 /***/ }),
 
@@ -565,10 +667,12 @@ module.exports = __webpack_require__.p + "static/assets/277cf108a773b6a4aa2c3b73
 /*!**********************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/move-arrow-keys-up-down.uk.png ***!
   \**********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/10a6d6ad8a07826fa2cfa3f251619ba2.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/4d3bd2d50c411daf1b69f6a2abbeaa1f.png");
 
 /***/ }),
 
@@ -576,10 +680,12 @@ module.exports = __webpack_require__.p + "static/assets/10a6d6ad8a07826fa2cfa3f2
 /*!**************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/music-make-beat.uk.png ***!
   \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/8075fd8604b9a5ba15f5ff83abf61357.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/ca4a0af1ce8f5a5445d4fefc25df4964.png");
 
 /***/ }),
 
@@ -587,10 +693,12 @@ module.exports = __webpack_require__.p + "static/assets/8075fd8604b9a5ba15f5ff83
 /*!*****************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/music-make-beatbox.uk.png ***!
   \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/c6a87046d9f91f59c572d486f146a05f.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/5790e46ed839b5f97c7ac7f4afe0b906.png");
 
 /***/ }),
 
@@ -598,10 +706,12 @@ module.exports = __webpack_require__.p + "static/assets/c6a87046d9f91f59c572d486
 /*!**************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/music-make-song.uk.png ***!
   \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/82be34b98c2cdc3b0a96e05484ccbc2b.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/4397ec21e30601694cda35c60a577c00.png");
 
 /***/ }),
 
@@ -609,10 +719,12 @@ module.exports = __webpack_require__.p + "static/assets/82be34b98c2cdc3b0a96e054
 /*!***************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/music-play-sound.uk.png ***!
   \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/d527a686da1975e039bf23e523bf1987.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/eafa48a95ef8e5b61f07dbf4b97843bd.png");
 
 /***/ }),
 
@@ -620,10 +732,12 @@ module.exports = __webpack_require__.p + "static/assets/d527a686da1975e039bf23e5
 /*!****************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/name-change-color.uk.png ***!
   \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/d0705bad64076830636cdca02585a718.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/2af8f9f4d939c2e5fdf55d84375fb352.png");
 
 /***/ }),
 
@@ -631,10 +745,12 @@ module.exports = __webpack_require__.p + "static/assets/d0705bad64076830636cdca0
 /*!********************************************************!*\
   !*** ./src/lib/libraries/decks/steps/name-grow.uk.png ***!
   \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/edd3014da582ab3635dca5a05669a3f9.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/241c5c6dbcc388e1746ecf26771372cd.png");
 
 /***/ }),
 
@@ -642,10 +758,12 @@ module.exports = __webpack_require__.p + "static/assets/edd3014da582ab3635dca5a0
 /*!**************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/name-play-sound.uk.png ***!
   \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/237bf42c437b2886b3e3097b078d6369.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/78ba3646e91d1a2dde1040c7b882b238.png");
 
 /***/ }),
 
@@ -653,10 +771,12 @@ module.exports = __webpack_require__.p + "static/assets/237bf42c437b2886b3e3097b
 /*!********************************************************!*\
   !*** ./src/lib/libraries/decks/steps/name-spin.uk.png ***!
   \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/0eab6235a1e9d8ff5beb1ecd80559ff5.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/cdd10e97053d817c52bdd0c73c7d1e64.png");
 
 /***/ }),
 
@@ -664,10 +784,12 @@ module.exports = __webpack_require__.p + "static/assets/0eab6235a1e9d8ff5beb1ecd
 /*!********************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/pong-add-code-to-ball.uk.png ***!
   \********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/ef4b2066ab53d4f2b3e8fc62709f9014.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/0457d08835830b40f792cd941a22ed7f.png");
 
 /***/ }),
 
@@ -675,10 +797,12 @@ module.exports = __webpack_require__.p + "static/assets/ef4b2066ab53d4f2b3e8fc62
 /*!*****************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/pong-bounce-around.uk.png ***!
   \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/06f3b7203e7424adb8a255f708d690b1.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/24673d5a468ba3eb3a2024afb9260770.png");
 
 /***/ }),
 
@@ -686,10 +810,12 @@ module.exports = __webpack_require__.p + "static/assets/06f3b7203e7424adb8a255f7
 /*!****************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/pong-choose-score.uk.png ***!
   \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/8bdce73195bf475057ff606ab3f6fffb.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/b66623c9c293f3d487b50391e0e092a0.png");
 
 /***/ }),
 
@@ -697,10 +823,12 @@ module.exports = __webpack_require__.p + "static/assets/8bdce73195bf475057ff606a
 /*!*************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/pong-game-over.uk.png ***!
   \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/340f5a3d6ae326f22b9707104adf6bb9.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/b2c17b03d4cf9948eb78fb6fbb61a338.png");
 
 /***/ }),
 
@@ -708,10 +836,12 @@ module.exports = __webpack_require__.p + "static/assets/340f5a3d6ae326f22b970710
 /*!***********************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/pong-insert-change-score.uk.png ***!
   \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/874e7dd6003137b73a9fbbdc7e34a27d.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/83b356f35dd8ff1d98b4a796ef4815d0.png");
 
 /***/ }),
 
@@ -719,10 +849,12 @@ module.exports = __webpack_require__.p + "static/assets/874e7dd6003137b73a9fbbdc
 /*!*******************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/pong-move-the-paddle.uk.png ***!
   \*******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/d2c646eaa2c55f306468b28d7cedd554.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/48c134ac3e3fc101318d347fc54c2721.png");
 
 /***/ }),
 
@@ -730,10 +862,12 @@ module.exports = __webpack_require__.p + "static/assets/d2c646eaa2c55f306468b28d
 /*!***************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/pong-reset-score.uk.png ***!
   \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/0bf5e11621789f54a2ffbd7df4876ab2.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/cd8bb013a1565fcfa36f4e938c1dd3e0.png");
 
 /***/ }),
 
@@ -741,10 +875,12 @@ module.exports = __webpack_require__.p + "static/assets/0bf5e11621789f54a2ffbd7d
 /*!********************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/pop-game-change-color.uk.png ***!
   \********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/2ccece2ca30002d265c673e1445b59c2.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/4adebae762a8dceb8584bca3cbeb4514.png");
 
 /***/ }),
 
@@ -752,10 +888,12 @@ module.exports = __webpack_require__.p + "static/assets/2ccece2ca30002d265c673e1
 /*!********************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/pop-game-change-score.uk.png ***!
   \********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/f6156ddbd0164c7960a2d4c4f96f7342.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/fe4173d0f411d877294923b704a5b8f4.png");
 
 /***/ }),
 
@@ -763,10 +901,12 @@ module.exports = __webpack_require__.p + "static/assets/f6156ddbd0164c7960a2d4c4
 /*!******************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/pop-game-play-sound.uk.png ***!
   \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/b526b27033d326971504252c8a64799f.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/02cc2daed2464e8e28007431b857db46.png");
 
 /***/ }),
 
@@ -774,10 +914,12 @@ module.exports = __webpack_require__.p + "static/assets/b526b27033d326971504252c
 /*!***********************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/pop-game-random-position.uk.png ***!
   \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/ff604ee848c4601eed6cdba13c6b461f.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/29e0823f71e711ac17e08dd881ba0df4.png");
 
 /***/ }),
 
@@ -785,10 +927,12 @@ module.exports = __webpack_require__.p + "static/assets/ff604ee848c4601eed6cdba1
 /*!*******************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/pop-game-reset-score.uk.png ***!
   \*******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/c5849636045196cf49c2a738e7a002a5.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/dbc51a7dda0a8919c5b0105444f4612b.png");
 
 /***/ }),
 
@@ -796,10 +940,12 @@ module.exports = __webpack_require__.p + "static/assets/c5849636045196cf49c2a738
 /*!**************************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/record-a-sound-choose-sound.uk.png ***!
   \**************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/d78173077f3d3114ca769ae1b6671098.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/a6150d2399c3dfbd57e6827a85efec7c.png");
 
 /***/ }),
 
@@ -807,10 +953,12 @@ module.exports = __webpack_require__.p + "static/assets/d78173077f3d3114ca769ae1
 /*!**************************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/record-a-sound-click-record.uk.png ***!
   \**************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/ebfac3f168323b5a72aa7562064b5e4c.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/3d226e638179df14ea114e8053cf0fa2.png");
 
 /***/ }),
 
@@ -818,10 +966,12 @@ module.exports = __webpack_require__.p + "static/assets/ebfac3f168323b5a72aa7562
 /*!*****************************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/record-a-sound-play-your-sound.uk.png ***!
   \*****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/e02b47da60ad2adf5b94b2633fe859c3.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/35c6c45d0aedb1289002dd1606a93efc.png");
 
 /***/ }),
 
@@ -829,10 +979,12 @@ module.exports = __webpack_require__.p + "static/assets/e02b47da60ad2adf5b94b263
 /*!*********************************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/record-a-sound-press-record-button.uk.png ***!
   \*********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/c73b30a718ff08201d4e75846d14d97c.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/c0c2ef3549fb174de4a78d7fe6858932.png");
 
 /***/ }),
 
@@ -840,10 +992,12 @@ module.exports = __webpack_require__.p + "static/assets/c73b30a718ff08201d4e7584
 /*!************************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/record-a-sound-sounds-tab.uk.png ***!
   \************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/e71dba2ccaa69d866c3a022104e7bfad.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/69c95ec93d5523cffe83f5171cf23a56.png");
 
 /***/ }),
 
@@ -851,10 +1005,12 @@ module.exports = __webpack_require__.p + "static/assets/e71dba2ccaa69d866c3a0221
 /*!*******************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/speech-add-extension.uk.gif ***!
   \*******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/173e52e04ff6f2036add0558812948e6.gif";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/0d35c31d738bd318ce1ee693047f346f.gif");
 
 /***/ }),
 
@@ -862,10 +1018,12 @@ module.exports = __webpack_require__.p + "static/assets/173e52e04ff6f2036add0558
 /*!******************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/speech-change-color.uk.png ***!
   \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/0d34c80e3919306cb722380e920cffac.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/cffe531d6cf719e6ac62afed3543eaa3.png");
 
 /***/ }),
 
@@ -873,10 +1031,12 @@ module.exports = __webpack_require__.p + "static/assets/0d34c80e3919306cb722380e
 /*!*****************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/speech-grow-shrink.uk.png ***!
   \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/85ba8d8493db6a87cd9b0010cfe09400.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/344ce96fc7f3f9383d0e1ee86c2cc07f.png");
 
 /***/ }),
 
@@ -884,10 +1044,12 @@ module.exports = __webpack_require__.p + "static/assets/85ba8d8493db6a87cd9b0010
 /*!*****************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/speech-move-around.uk.png ***!
   \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/7a6a5c794d6fe77611613ddfdf905506.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/954e0d72548823e8fe61319c910a8e36.png");
 
 /***/ }),
 
@@ -895,10 +1057,12 @@ module.exports = __webpack_require__.p + "static/assets/7a6a5c794d6fe77611613ddf
 /*!*******************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/speech-say-something.uk.png ***!
   \*******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/063892ef24eec57459ee932cec7e12e5.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/a4581128d36b9b4c6c77197d6c686a0e.png");
 
 /***/ }),
 
@@ -906,10 +1070,12 @@ module.exports = __webpack_require__.p + "static/assets/063892ef24eec57459ee932c
 /*!***************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/speech-set-voice.uk.png ***!
   \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/738a69d73a36644e21fc17a00b1bf3c8.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/94dc155e150b9d7166183e4dc2b8d082.png");
 
 /***/ }),
 
@@ -917,10 +1083,12 @@ module.exports = __webpack_require__.p + "static/assets/738a69d73a36644e21fc17a0
 /*!**********************************************************!*\
   !*** ./src/lib/libraries/decks/steps/speech-song.uk.png ***!
   \**********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/3aec74140126f59247a5513ff0541125.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/ac5fb1690cd3f9dc7ca7cd5f23a54617.png");
 
 /***/ }),
 
@@ -928,10 +1096,12 @@ module.exports = __webpack_require__.p + "static/assets/3aec74140126f59247a5513f
 /*!**********************************************************!*\
   !*** ./src/lib/libraries/decks/steps/speech-spin.uk.png ***!
   \**********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/7e9fd4a23990a7a8f94c59c2671ecd62.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/bad2da46f583d39a5cb2d0456583490c.png");
 
 /***/ }),
 
@@ -939,10 +1109,12 @@ module.exports = __webpack_require__.p + "static/assets/7e9fd4a23990a7a8f94c59c2
 /*!**********************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/spin-point-in-direction.uk.png ***!
   \**********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/7bb02f9c6e8c77206d09ff672bfaf9ec.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/3cc1be3962195faf0f99889bb3c61345.png");
 
 /***/ }),
 
@@ -950,10 +1122,12 @@ module.exports = __webpack_require__.p + "static/assets/7bb02f9c6e8c77206d09ff67
 /*!********************************************************!*\
   !*** ./src/lib/libraries/decks/steps/spin-turn.uk.png ***!
   \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/30739a9d6fe024c005411f96dfbdfcd1.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/42f705bdc78f0372899fa9f46ef10056.png");
 
 /***/ }),
 
@@ -961,10 +1135,12 @@ module.exports = __webpack_require__.p + "static/assets/30739a9d6fe024c005411f96
 /*!*****************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/story-conversation.uk.png ***!
   \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/8c07dca0e3f9f9c84b2fd70f4f1fbff9.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/d23d2d17b64104cc14c928a930a4164b.png");
 
 /***/ }),
 
@@ -972,10 +1148,12 @@ module.exports = __webpack_require__.p + "static/assets/8c07dca0e3f9f9c84b2fd70f
 /*!*********************************************************!*\
   !*** ./src/lib/libraries/decks/steps/story-flip.uk.gif ***!
   \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/7da192543f5921c1d541937198c0afa9.gif";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/b93c90b8d8c60e4a519e5eeadbf53bd7.gif");
 
 /***/ }),
 
@@ -983,10 +1161,12 @@ module.exports = __webpack_require__.p + "static/assets/7da192543f5921c1d5419371
 /*!*******************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/story-hide-character.uk.png ***!
   \*******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/315a5675d1738c029b0f55817c249627.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/28f7efe11961de668aca1825c07c597f.png");
 
 /***/ }),
 
@@ -994,10 +1174,12 @@ module.exports = __webpack_require__.p + "static/assets/315a5675d1738c029b0f5581
 /*!******************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/story-say-something.uk.png ***!
   \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/14ff0e9e964d43617c7298df4b888d10.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/6114af00b78d5012e98964ce7e9ee2fe.png");
 
 /***/ }),
 
@@ -1005,10 +1187,12 @@ module.exports = __webpack_require__.p + "static/assets/14ff0e9e964d43617c7298df
 /*!*******************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/story-show-character.uk.png ***!
   \*******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/0aed289656b9305b500b0e3efe867a5a.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/ca85d0fd606c86eef984449449c754ee.png");
 
 /***/ }),
 
@@ -1016,10 +1200,12 @@ module.exports = __webpack_require__.p + "static/assets/0aed289656b9305b500b0e3e
 /*!********************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/story-switch-backdrop.uk.png ***!
   \********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/adb3d064c06ba450a7c6da5ca21c7527.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/e97779f20b45a270a3e39429d7f3a0ef.png");
 
 /***/ }),
 
@@ -1027,10 +1213,12 @@ module.exports = __webpack_require__.p + "static/assets/adb3d064c06ba450a7c6da5c
 /*!**************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/switch-costumes.uk.png ***!
   \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/a23ddf472c2139e0c0361f74eb4da16e.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/3cdf316f1ee50d96742ef50324c07aaa.png");
 
 /***/ }),
 
@@ -1038,10 +1226,12 @@ module.exports = __webpack_require__.p + "static/assets/a23ddf472c2139e0c0361f74
 /*!**********************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/talking-11-choose-sound.uk.gif ***!
   \**********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/c019f6ed0fc028c1f003f1fb6eecaf8e.gif";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/4bd411c9fb061c709025660864a1f188.gif");
 
 /***/ }),
 
@@ -1049,10 +1239,12 @@ module.exports = __webpack_require__.p + "static/assets/c019f6ed0fc028c1f003f1fb
 /*!*********************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/talking-12-dance-moves.uk.png ***!
   \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/d3c86f1466ceed6f4ebd972e49e9c348.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/c2b9300e984e719399390f8e66d8195c.png");
 
 /***/ }),
 
@@ -1060,10 +1252,12 @@ module.exports = __webpack_require__.p + "static/assets/d3c86f1466ceed6f4ebd972e
 /*!************************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/talking-13-ask-and-answer.uk.png ***!
   \************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/1c78a936bf640a0c11b21af1330d15df.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/e6ca21000cc8ec57d150919252bfbaf3.png");
 
 /***/ }),
 
@@ -1071,10 +1265,12 @@ module.exports = __webpack_require__.p + "static/assets/1c78a936bf640a0c11b21af1
 /*!**********************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/talking-3-say-something.uk.png ***!
   \**********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/5ae26aa80ec6d5f2e99aa90ee1a3a5cd.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/38c159a9bc485d41bb0f878ebba5a519.png");
 
 /***/ }),
 
@@ -1082,10 +1278,12 @@ module.exports = __webpack_require__.p + "static/assets/5ae26aa80ec6d5f2e99aa90e
 /*!************************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/talking-5-switch-backdrop.uk.png ***!
   \************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/181b5fac890880865e9131cde17e3d49.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/51dd331c9bca2be33a1eb72eae97b7f8.png");
 
 /***/ }),
 
@@ -1093,10 +1291,12 @@ module.exports = __webpack_require__.p + "static/assets/181b5fac890880865e9131cd
 /*!********************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/talking-7-move-around.uk.png ***!
   \********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/8c6be33fc9a8eadffa880c9fe0ca6340.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/8caadeda9da229fe0c523c4a71620c7b.png");
 
 /***/ }),
 
@@ -1104,10 +1304,12 @@ module.exports = __webpack_require__.p + "static/assets/8c6be33fc9a8eadffa880c9f
 /*!****************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/talking-9-animate.uk.png ***!
   \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/d04305129eadebdbd60bbbcefd876177.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/7205a80d8353561badb5558d51803bbb.png");
 
 /***/ }),
 
@@ -1115,10 +1317,12 @@ module.exports = __webpack_require__.p + "static/assets/d04305129eadebdbd60bbbce
 /*!******************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/video-add-extension.uk.gif ***!
   \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/797c3df806ec50cd823c2e44d8671144.gif";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/dcd6ad9c5d4ec9aeb13d9d9fe2589f67.gif");
 
 /***/ }),
 
@@ -1126,10 +1330,12 @@ module.exports = __webpack_require__.p + "static/assets/797c3df806ec50cd823c2e44
 /*!************************************************************!*\
   !*** ./src/lib/libraries/decks/steps/video-animate.uk.png ***!
   \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/3cac0342b766442b1fbc630983c13950.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/cdfae6c99d7226bbafcd29fdb418179d.png");
 
 /***/ }),
 
@@ -1137,10 +1343,12 @@ module.exports = __webpack_require__.p + "static/assets/3cac0342b766442b1fbc6309
 /*!********************************************************!*\
   !*** ./src/lib/libraries/decks/steps/video-pet.uk.png ***!
   \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/2737cd28da062447446bc93240e17270.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/b8b3efe075e282da47423b56f8a1fcd1.png");
 
 /***/ }),
 
@@ -1148,10 +1356,12 @@ module.exports = __webpack_require__.p + "static/assets/2737cd28da062447446bc932
 /*!********************************************************!*\
   !*** ./src/lib/libraries/decks/steps/video-pop.uk.png ***!
   \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/d1893578e9f1038e5b70b19465f7b58b.png";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "static/assets/21481583a923ad98dbb259e3d4fff38d.png");
 
 /***/ }),
 
@@ -1166,295 +1376,150 @@ module.exports = __webpack_require__.p + "static/assets/d1893578e9f1038e5b70b194
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ukImages", function() { return ukImages; });
 /* harmony import */ var _steps_intro_1_move_uk_gif__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./steps/intro-1-move.uk.gif */ "./src/lib/libraries/decks/steps/intro-1-move.uk.gif");
-/* harmony import */ var _steps_intro_1_move_uk_gif__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_steps_intro_1_move_uk_gif__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _steps_intro_2_say_uk_gif__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./steps/intro-2-say.uk.gif */ "./src/lib/libraries/decks/steps/intro-2-say.uk.gif");
-/* harmony import */ var _steps_intro_2_say_uk_gif__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_steps_intro_2_say_uk_gif__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _steps_intro_3_green_flag_uk_gif__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./steps/intro-3-green-flag.uk.gif */ "./src/lib/libraries/decks/steps/intro-3-green-flag.uk.gif");
-/* harmony import */ var _steps_intro_3_green_flag_uk_gif__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_steps_intro_3_green_flag_uk_gif__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _steps_speech_add_extension_uk_gif__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./steps/speech-add-extension.uk.gif */ "./src/lib/libraries/decks/steps/speech-add-extension.uk.gif");
-/* harmony import */ var _steps_speech_add_extension_uk_gif__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_steps_speech_add_extension_uk_gif__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _steps_speech_say_something_uk_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./steps/speech-say-something.uk.png */ "./src/lib/libraries/decks/steps/speech-say-something.uk.png");
-/* harmony import */ var _steps_speech_say_something_uk_png__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_steps_speech_say_something_uk_png__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _steps_speech_set_voice_uk_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./steps/speech-set-voice.uk.png */ "./src/lib/libraries/decks/steps/speech-set-voice.uk.png");
-/* harmony import */ var _steps_speech_set_voice_uk_png__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_steps_speech_set_voice_uk_png__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _steps_speech_move_around_uk_png__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./steps/speech-move-around.uk.png */ "./src/lib/libraries/decks/steps/speech-move-around.uk.png");
-/* harmony import */ var _steps_speech_move_around_uk_png__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_steps_speech_move_around_uk_png__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _steps_pick_backdrop_LTR_gif__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./steps/pick-backdrop.LTR.gif */ "./src/lib/libraries/decks/steps/pick-backdrop.LTR.gif");
-/* harmony import */ var _steps_pick_backdrop_LTR_gif__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_steps_pick_backdrop_LTR_gif__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var _steps_speech_add_sprite_LTR_gif__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./steps/speech-add-sprite.LTR.gif */ "./src/lib/libraries/decks/steps/speech-add-sprite.LTR.gif");
-/* harmony import */ var _steps_speech_add_sprite_LTR_gif__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_steps_speech_add_sprite_LTR_gif__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var _steps_speech_song_uk_png__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./steps/speech-song.uk.png */ "./src/lib/libraries/decks/steps/speech-song.uk.png");
-/* harmony import */ var _steps_speech_song_uk_png__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_steps_speech_song_uk_png__WEBPACK_IMPORTED_MODULE_9__);
 /* harmony import */ var _steps_speech_change_color_uk_png__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./steps/speech-change-color.uk.png */ "./src/lib/libraries/decks/steps/speech-change-color.uk.png");
-/* harmony import */ var _steps_speech_change_color_uk_png__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_steps_speech_change_color_uk_png__WEBPACK_IMPORTED_MODULE_10__);
 /* harmony import */ var _steps_speech_spin_uk_png__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./steps/speech-spin.uk.png */ "./src/lib/libraries/decks/steps/speech-spin.uk.png");
-/* harmony import */ var _steps_speech_spin_uk_png__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_steps_speech_spin_uk_png__WEBPACK_IMPORTED_MODULE_11__);
 /* harmony import */ var _steps_speech_grow_shrink_uk_png__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./steps/speech-grow-shrink.uk.png */ "./src/lib/libraries/decks/steps/speech-grow-shrink.uk.png");
-/* harmony import */ var _steps_speech_grow_shrink_uk_png__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_steps_speech_grow_shrink_uk_png__WEBPACK_IMPORTED_MODULE_12__);
 /* harmony import */ var _steps_cn_show_character_LTR_gif__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./steps/cn-show-character.LTR.gif */ "./src/lib/libraries/decks/steps/cn-show-character.LTR.gif");
-/* harmony import */ var _steps_cn_show_character_LTR_gif__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_steps_cn_show_character_LTR_gif__WEBPACK_IMPORTED_MODULE_13__);
 /* harmony import */ var _steps_cn_say_uk_png__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./steps/cn-say.uk.png */ "./src/lib/libraries/decks/steps/cn-say.uk.png");
-/* harmony import */ var _steps_cn_say_uk_png__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_steps_cn_say_uk_png__WEBPACK_IMPORTED_MODULE_14__);
 /* harmony import */ var _steps_cn_glide_uk_png__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./steps/cn-glide.uk.png */ "./src/lib/libraries/decks/steps/cn-glide.uk.png");
-/* harmony import */ var _steps_cn_glide_uk_png__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(_steps_cn_glide_uk_png__WEBPACK_IMPORTED_MODULE_15__);
 /* harmony import */ var _steps_cn_pick_sprite_LTR_gif__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./steps/cn-pick-sprite.LTR.gif */ "./src/lib/libraries/decks/steps/cn-pick-sprite.LTR.gif");
-/* harmony import */ var _steps_cn_pick_sprite_LTR_gif__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_steps_cn_pick_sprite_LTR_gif__WEBPACK_IMPORTED_MODULE_16__);
 /* harmony import */ var _steps_cn_collect_uk_png__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./steps/cn-collect.uk.png */ "./src/lib/libraries/decks/steps/cn-collect.uk.png");
-/* harmony import */ var _steps_cn_collect_uk_png__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(_steps_cn_collect_uk_png__WEBPACK_IMPORTED_MODULE_17__);
 /* harmony import */ var _steps_add_variable_uk_gif__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./steps/add-variable.uk.gif */ "./src/lib/libraries/decks/steps/add-variable.uk.gif");
-/* harmony import */ var _steps_add_variable_uk_gif__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(_steps_add_variable_uk_gif__WEBPACK_IMPORTED_MODULE_18__);
 /* harmony import */ var _steps_cn_score_uk_png__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./steps/cn-score.uk.png */ "./src/lib/libraries/decks/steps/cn-score.uk.png");
-/* harmony import */ var _steps_cn_score_uk_png__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(_steps_cn_score_uk_png__WEBPACK_IMPORTED_MODULE_19__);
 /* harmony import */ var _steps_cn_backdrop_uk_png__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./steps/cn-backdrop.uk.png */ "./src/lib/libraries/decks/steps/cn-backdrop.uk.png");
-/* harmony import */ var _steps_cn_backdrop_uk_png__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(_steps_cn_backdrop_uk_png__WEBPACK_IMPORTED_MODULE_20__);
 /* harmony import */ var _steps_add_sprite_LTR_gif__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./steps/add-sprite.LTR.gif */ "./src/lib/libraries/decks/steps/add-sprite.LTR.gif");
-/* harmony import */ var _steps_add_sprite_LTR_gif__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(_steps_add_sprite_LTR_gif__WEBPACK_IMPORTED_MODULE_21__);
 /* harmony import */ var _steps_name_pick_letter_LTR_gif__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./steps/name-pick-letter.LTR.gif */ "./src/lib/libraries/decks/steps/name-pick-letter.LTR.gif");
-/* harmony import */ var _steps_name_pick_letter_LTR_gif__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(_steps_name_pick_letter_LTR_gif__WEBPACK_IMPORTED_MODULE_22__);
 /* harmony import */ var _steps_name_play_sound_uk_png__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./steps/name-play-sound.uk.png */ "./src/lib/libraries/decks/steps/name-play-sound.uk.png");
-/* harmony import */ var _steps_name_play_sound_uk_png__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(_steps_name_play_sound_uk_png__WEBPACK_IMPORTED_MODULE_23__);
 /* harmony import */ var _steps_name_pick_letter2_LTR_gif__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./steps/name-pick-letter2.LTR.gif */ "./src/lib/libraries/decks/steps/name-pick-letter2.LTR.gif");
-/* harmony import */ var _steps_name_pick_letter2_LTR_gif__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(_steps_name_pick_letter2_LTR_gif__WEBPACK_IMPORTED_MODULE_24__);
 /* harmony import */ var _steps_name_change_color_uk_png__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./steps/name-change-color.uk.png */ "./src/lib/libraries/decks/steps/name-change-color.uk.png");
-/* harmony import */ var _steps_name_change_color_uk_png__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(_steps_name_change_color_uk_png__WEBPACK_IMPORTED_MODULE_25__);
 /* harmony import */ var _steps_name_spin_uk_png__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./steps/name-spin.uk.png */ "./src/lib/libraries/decks/steps/name-spin.uk.png");
-/* harmony import */ var _steps_name_spin_uk_png__WEBPACK_IMPORTED_MODULE_26___default = /*#__PURE__*/__webpack_require__.n(_steps_name_spin_uk_png__WEBPACK_IMPORTED_MODULE_26__);
 /* harmony import */ var _steps_name_grow_uk_png__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./steps/name-grow.uk.png */ "./src/lib/libraries/decks/steps/name-grow.uk.png");
-/* harmony import */ var _steps_name_grow_uk_png__WEBPACK_IMPORTED_MODULE_27___default = /*#__PURE__*/__webpack_require__.n(_steps_name_grow_uk_png__WEBPACK_IMPORTED_MODULE_27__);
 /* harmony import */ var _steps_music_pick_instrument_LTR_gif__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./steps/music-pick-instrument.LTR.gif */ "./src/lib/libraries/decks/steps/music-pick-instrument.LTR.gif");
-/* harmony import */ var _steps_music_pick_instrument_LTR_gif__WEBPACK_IMPORTED_MODULE_28___default = /*#__PURE__*/__webpack_require__.n(_steps_music_pick_instrument_LTR_gif__WEBPACK_IMPORTED_MODULE_28__);
 /* harmony import */ var _steps_music_play_sound_uk_png__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./steps/music-play-sound.uk.png */ "./src/lib/libraries/decks/steps/music-play-sound.uk.png");
-/* harmony import */ var _steps_music_play_sound_uk_png__WEBPACK_IMPORTED_MODULE_29___default = /*#__PURE__*/__webpack_require__.n(_steps_music_play_sound_uk_png__WEBPACK_IMPORTED_MODULE_29__);
 /* harmony import */ var _steps_music_make_song_uk_png__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./steps/music-make-song.uk.png */ "./src/lib/libraries/decks/steps/music-make-song.uk.png");
-/* harmony import */ var _steps_music_make_song_uk_png__WEBPACK_IMPORTED_MODULE_30___default = /*#__PURE__*/__webpack_require__.n(_steps_music_make_song_uk_png__WEBPACK_IMPORTED_MODULE_30__);
 /* harmony import */ var _steps_music_make_beat_uk_png__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./steps/music-make-beat.uk.png */ "./src/lib/libraries/decks/steps/music-make-beat.uk.png");
-/* harmony import */ var _steps_music_make_beat_uk_png__WEBPACK_IMPORTED_MODULE_31___default = /*#__PURE__*/__webpack_require__.n(_steps_music_make_beat_uk_png__WEBPACK_IMPORTED_MODULE_31__);
 /* harmony import */ var _steps_music_make_beatbox_uk_png__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./steps/music-make-beatbox.uk.png */ "./src/lib/libraries/decks/steps/music-make-beatbox.uk.png");
-/* harmony import */ var _steps_music_make_beatbox_uk_png__WEBPACK_IMPORTED_MODULE_32___default = /*#__PURE__*/__webpack_require__.n(_steps_music_make_beatbox_uk_png__WEBPACK_IMPORTED_MODULE_32__);
 /* harmony import */ var _steps_chase_game_add_backdrop_LTR_gif__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./steps/chase-game-add-backdrop.LTR.gif */ "./src/lib/libraries/decks/steps/chase-game-add-backdrop.LTR.gif");
-/* harmony import */ var _steps_chase_game_add_backdrop_LTR_gif__WEBPACK_IMPORTED_MODULE_33___default = /*#__PURE__*/__webpack_require__.n(_steps_chase_game_add_backdrop_LTR_gif__WEBPACK_IMPORTED_MODULE_33__);
 /* harmony import */ var _steps_chase_game_add_sprite1_LTR_gif__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./steps/chase-game-add-sprite1.LTR.gif */ "./src/lib/libraries/decks/steps/chase-game-add-sprite1.LTR.gif");
-/* harmony import */ var _steps_chase_game_add_sprite1_LTR_gif__WEBPACK_IMPORTED_MODULE_34___default = /*#__PURE__*/__webpack_require__.n(_steps_chase_game_add_sprite1_LTR_gif__WEBPACK_IMPORTED_MODULE_34__);
 /* harmony import */ var _steps_chase_game_right_left_uk_png__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./steps/chase-game-right-left.uk.png */ "./src/lib/libraries/decks/steps/chase-game-right-left.uk.png");
-/* harmony import */ var _steps_chase_game_right_left_uk_png__WEBPACK_IMPORTED_MODULE_35___default = /*#__PURE__*/__webpack_require__.n(_steps_chase_game_right_left_uk_png__WEBPACK_IMPORTED_MODULE_35__);
 /* harmony import */ var _steps_chase_game_up_down_uk_png__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./steps/chase-game-up-down.uk.png */ "./src/lib/libraries/decks/steps/chase-game-up-down.uk.png");
-/* harmony import */ var _steps_chase_game_up_down_uk_png__WEBPACK_IMPORTED_MODULE_36___default = /*#__PURE__*/__webpack_require__.n(_steps_chase_game_up_down_uk_png__WEBPACK_IMPORTED_MODULE_36__);
 /* harmony import */ var _steps_chase_game_add_sprite2_LTR_gif__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./steps/chase-game-add-sprite2.LTR.gif */ "./src/lib/libraries/decks/steps/chase-game-add-sprite2.LTR.gif");
-/* harmony import */ var _steps_chase_game_add_sprite2_LTR_gif__WEBPACK_IMPORTED_MODULE_37___default = /*#__PURE__*/__webpack_require__.n(_steps_chase_game_add_sprite2_LTR_gif__WEBPACK_IMPORTED_MODULE_37__);
 /* harmony import */ var _steps_chase_game_move_randomly_uk_png__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./steps/chase-game-move-randomly.uk.png */ "./src/lib/libraries/decks/steps/chase-game-move-randomly.uk.png");
-/* harmony import */ var _steps_chase_game_move_randomly_uk_png__WEBPACK_IMPORTED_MODULE_38___default = /*#__PURE__*/__webpack_require__.n(_steps_chase_game_move_randomly_uk_png__WEBPACK_IMPORTED_MODULE_38__);
 /* harmony import */ var _steps_chase_game_play_sound_uk_png__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./steps/chase-game-play-sound.uk.png */ "./src/lib/libraries/decks/steps/chase-game-play-sound.uk.png");
-/* harmony import */ var _steps_chase_game_play_sound_uk_png__WEBPACK_IMPORTED_MODULE_39___default = /*#__PURE__*/__webpack_require__.n(_steps_chase_game_play_sound_uk_png__WEBPACK_IMPORTED_MODULE_39__);
 /* harmony import */ var _steps_chase_game_change_score_uk_png__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./steps/chase-game-change-score.uk.png */ "./src/lib/libraries/decks/steps/chase-game-change-score.uk.png");
-/* harmony import */ var _steps_chase_game_change_score_uk_png__WEBPACK_IMPORTED_MODULE_40___default = /*#__PURE__*/__webpack_require__.n(_steps_chase_game_change_score_uk_png__WEBPACK_IMPORTED_MODULE_40__);
 /* harmony import */ var _steps_pop_game_pick_sprite_LTR_gif__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./steps/pop-game-pick-sprite.LTR.gif */ "./src/lib/libraries/decks/steps/pop-game-pick-sprite.LTR.gif");
-/* harmony import */ var _steps_pop_game_pick_sprite_LTR_gif__WEBPACK_IMPORTED_MODULE_41___default = /*#__PURE__*/__webpack_require__.n(_steps_pop_game_pick_sprite_LTR_gif__WEBPACK_IMPORTED_MODULE_41__);
 /* harmony import */ var _steps_pop_game_play_sound_uk_png__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./steps/pop-game-play-sound.uk.png */ "./src/lib/libraries/decks/steps/pop-game-play-sound.uk.png");
-/* harmony import */ var _steps_pop_game_play_sound_uk_png__WEBPACK_IMPORTED_MODULE_42___default = /*#__PURE__*/__webpack_require__.n(_steps_pop_game_play_sound_uk_png__WEBPACK_IMPORTED_MODULE_42__);
 /* harmony import */ var _steps_pop_game_change_score_uk_png__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./steps/pop-game-change-score.uk.png */ "./src/lib/libraries/decks/steps/pop-game-change-score.uk.png");
-/* harmony import */ var _steps_pop_game_change_score_uk_png__WEBPACK_IMPORTED_MODULE_43___default = /*#__PURE__*/__webpack_require__.n(_steps_pop_game_change_score_uk_png__WEBPACK_IMPORTED_MODULE_43__);
 /* harmony import */ var _steps_pop_game_random_position_uk_png__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./steps/pop-game-random-position.uk.png */ "./src/lib/libraries/decks/steps/pop-game-random-position.uk.png");
-/* harmony import */ var _steps_pop_game_random_position_uk_png__WEBPACK_IMPORTED_MODULE_44___default = /*#__PURE__*/__webpack_require__.n(_steps_pop_game_random_position_uk_png__WEBPACK_IMPORTED_MODULE_44__);
 /* harmony import */ var _steps_pop_game_change_color_uk_png__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./steps/pop-game-change-color.uk.png */ "./src/lib/libraries/decks/steps/pop-game-change-color.uk.png");
-/* harmony import */ var _steps_pop_game_change_color_uk_png__WEBPACK_IMPORTED_MODULE_45___default = /*#__PURE__*/__webpack_require__.n(_steps_pop_game_change_color_uk_png__WEBPACK_IMPORTED_MODULE_45__);
 /* harmony import */ var _steps_pop_game_reset_score_uk_png__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./steps/pop-game-reset-score.uk.png */ "./src/lib/libraries/decks/steps/pop-game-reset-score.uk.png");
-/* harmony import */ var _steps_pop_game_reset_score_uk_png__WEBPACK_IMPORTED_MODULE_46___default = /*#__PURE__*/__webpack_require__.n(_steps_pop_game_reset_score_uk_png__WEBPACK_IMPORTED_MODULE_46__);
 /* harmony import */ var _steps_animate_char_pick_sprite_LTR_gif__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./steps/animate-char-pick-sprite.LTR.gif */ "./src/lib/libraries/decks/steps/animate-char-pick-sprite.LTR.gif");
-/* harmony import */ var _steps_animate_char_pick_sprite_LTR_gif__WEBPACK_IMPORTED_MODULE_47___default = /*#__PURE__*/__webpack_require__.n(_steps_animate_char_pick_sprite_LTR_gif__WEBPACK_IMPORTED_MODULE_47__);
 /* harmony import */ var _steps_animate_char_say_something_uk_png__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./steps/animate-char-say-something.uk.png */ "./src/lib/libraries/decks/steps/animate-char-say-something.uk.png");
-/* harmony import */ var _steps_animate_char_say_something_uk_png__WEBPACK_IMPORTED_MODULE_48___default = /*#__PURE__*/__webpack_require__.n(_steps_animate_char_say_something_uk_png__WEBPACK_IMPORTED_MODULE_48__);
 /* harmony import */ var _steps_animate_char_add_sound_uk_png__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./steps/animate-char-add-sound.uk.png */ "./src/lib/libraries/decks/steps/animate-char-add-sound.uk.png");
-/* harmony import */ var _steps_animate_char_add_sound_uk_png__WEBPACK_IMPORTED_MODULE_49___default = /*#__PURE__*/__webpack_require__.n(_steps_animate_char_add_sound_uk_png__WEBPACK_IMPORTED_MODULE_49__);
 /* harmony import */ var _steps_animate_char_talk_uk_png__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./steps/animate-char-talk.uk.png */ "./src/lib/libraries/decks/steps/animate-char-talk.uk.png");
-/* harmony import */ var _steps_animate_char_talk_uk_png__WEBPACK_IMPORTED_MODULE_50___default = /*#__PURE__*/__webpack_require__.n(_steps_animate_char_talk_uk_png__WEBPACK_IMPORTED_MODULE_50__);
 /* harmony import */ var _steps_animate_char_move_uk_png__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./steps/animate-char-move.uk.png */ "./src/lib/libraries/decks/steps/animate-char-move.uk.png");
-/* harmony import */ var _steps_animate_char_move_uk_png__WEBPACK_IMPORTED_MODULE_51___default = /*#__PURE__*/__webpack_require__.n(_steps_animate_char_move_uk_png__WEBPACK_IMPORTED_MODULE_51__);
 /* harmony import */ var _steps_animate_char_jump_uk_png__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ./steps/animate-char-jump.uk.png */ "./src/lib/libraries/decks/steps/animate-char-jump.uk.png");
-/* harmony import */ var _steps_animate_char_jump_uk_png__WEBPACK_IMPORTED_MODULE_52___default = /*#__PURE__*/__webpack_require__.n(_steps_animate_char_jump_uk_png__WEBPACK_IMPORTED_MODULE_52__);
 /* harmony import */ var _steps_animate_char_change_color_uk_png__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! ./steps/animate-char-change-color.uk.png */ "./src/lib/libraries/decks/steps/animate-char-change-color.uk.png");
-/* harmony import */ var _steps_animate_char_change_color_uk_png__WEBPACK_IMPORTED_MODULE_53___default = /*#__PURE__*/__webpack_require__.n(_steps_animate_char_change_color_uk_png__WEBPACK_IMPORTED_MODULE_53__);
 /* harmony import */ var _steps_story_pick_backdrop_LTR_gif__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! ./steps/story-pick-backdrop.LTR.gif */ "./src/lib/libraries/decks/steps/story-pick-backdrop.LTR.gif");
-/* harmony import */ var _steps_story_pick_backdrop_LTR_gif__WEBPACK_IMPORTED_MODULE_54___default = /*#__PURE__*/__webpack_require__.n(_steps_story_pick_backdrop_LTR_gif__WEBPACK_IMPORTED_MODULE_54__);
 /* harmony import */ var _steps_story_pick_sprite_LTR_gif__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(/*! ./steps/story-pick-sprite.LTR.gif */ "./src/lib/libraries/decks/steps/story-pick-sprite.LTR.gif");
-/* harmony import */ var _steps_story_pick_sprite_LTR_gif__WEBPACK_IMPORTED_MODULE_55___default = /*#__PURE__*/__webpack_require__.n(_steps_story_pick_sprite_LTR_gif__WEBPACK_IMPORTED_MODULE_55__);
 /* harmony import */ var _steps_story_say_something_uk_png__WEBPACK_IMPORTED_MODULE_56__ = __webpack_require__(/*! ./steps/story-say-something.uk.png */ "./src/lib/libraries/decks/steps/story-say-something.uk.png");
-/* harmony import */ var _steps_story_say_something_uk_png__WEBPACK_IMPORTED_MODULE_56___default = /*#__PURE__*/__webpack_require__.n(_steps_story_say_something_uk_png__WEBPACK_IMPORTED_MODULE_56__);
 /* harmony import */ var _steps_story_pick_sprite2_LTR_gif__WEBPACK_IMPORTED_MODULE_57__ = __webpack_require__(/*! ./steps/story-pick-sprite2.LTR.gif */ "./src/lib/libraries/decks/steps/story-pick-sprite2.LTR.gif");
-/* harmony import */ var _steps_story_pick_sprite2_LTR_gif__WEBPACK_IMPORTED_MODULE_57___default = /*#__PURE__*/__webpack_require__.n(_steps_story_pick_sprite2_LTR_gif__WEBPACK_IMPORTED_MODULE_57__);
 /* harmony import */ var _steps_story_flip_uk_gif__WEBPACK_IMPORTED_MODULE_58__ = __webpack_require__(/*! ./steps/story-flip.uk.gif */ "./src/lib/libraries/decks/steps/story-flip.uk.gif");
-/* harmony import */ var _steps_story_flip_uk_gif__WEBPACK_IMPORTED_MODULE_58___default = /*#__PURE__*/__webpack_require__.n(_steps_story_flip_uk_gif__WEBPACK_IMPORTED_MODULE_58__);
 /* harmony import */ var _steps_story_conversation_uk_png__WEBPACK_IMPORTED_MODULE_59__ = __webpack_require__(/*! ./steps/story-conversation.uk.png */ "./src/lib/libraries/decks/steps/story-conversation.uk.png");
-/* harmony import */ var _steps_story_conversation_uk_png__WEBPACK_IMPORTED_MODULE_59___default = /*#__PURE__*/__webpack_require__.n(_steps_story_conversation_uk_png__WEBPACK_IMPORTED_MODULE_59__);
 /* harmony import */ var _steps_story_pick_backdrop2_LTR_gif__WEBPACK_IMPORTED_MODULE_60__ = __webpack_require__(/*! ./steps/story-pick-backdrop2.LTR.gif */ "./src/lib/libraries/decks/steps/story-pick-backdrop2.LTR.gif");
-/* harmony import */ var _steps_story_pick_backdrop2_LTR_gif__WEBPACK_IMPORTED_MODULE_60___default = /*#__PURE__*/__webpack_require__.n(_steps_story_pick_backdrop2_LTR_gif__WEBPACK_IMPORTED_MODULE_60__);
 /* harmony import */ var _steps_story_switch_backdrop_uk_png__WEBPACK_IMPORTED_MODULE_61__ = __webpack_require__(/*! ./steps/story-switch-backdrop.uk.png */ "./src/lib/libraries/decks/steps/story-switch-backdrop.uk.png");
-/* harmony import */ var _steps_story_switch_backdrop_uk_png__WEBPACK_IMPORTED_MODULE_61___default = /*#__PURE__*/__webpack_require__.n(_steps_story_switch_backdrop_uk_png__WEBPACK_IMPORTED_MODULE_61__);
 /* harmony import */ var _steps_story_hide_character_uk_png__WEBPACK_IMPORTED_MODULE_62__ = __webpack_require__(/*! ./steps/story-hide-character.uk.png */ "./src/lib/libraries/decks/steps/story-hide-character.uk.png");
-/* harmony import */ var _steps_story_hide_character_uk_png__WEBPACK_IMPORTED_MODULE_62___default = /*#__PURE__*/__webpack_require__.n(_steps_story_hide_character_uk_png__WEBPACK_IMPORTED_MODULE_62__);
 /* harmony import */ var _steps_story_show_character_uk_png__WEBPACK_IMPORTED_MODULE_63__ = __webpack_require__(/*! ./steps/story-show-character.uk.png */ "./src/lib/libraries/decks/steps/story-show-character.uk.png");
-/* harmony import */ var _steps_story_show_character_uk_png__WEBPACK_IMPORTED_MODULE_63___default = /*#__PURE__*/__webpack_require__.n(_steps_story_show_character_uk_png__WEBPACK_IMPORTED_MODULE_63__);
 /* harmony import */ var _steps_video_add_extension_uk_gif__WEBPACK_IMPORTED_MODULE_64__ = __webpack_require__(/*! ./steps/video-add-extension.uk.gif */ "./src/lib/libraries/decks/steps/video-add-extension.uk.gif");
-/* harmony import */ var _steps_video_add_extension_uk_gif__WEBPACK_IMPORTED_MODULE_64___default = /*#__PURE__*/__webpack_require__.n(_steps_video_add_extension_uk_gif__WEBPACK_IMPORTED_MODULE_64__);
 /* harmony import */ var _steps_video_pet_uk_png__WEBPACK_IMPORTED_MODULE_65__ = __webpack_require__(/*! ./steps/video-pet.uk.png */ "./src/lib/libraries/decks/steps/video-pet.uk.png");
-/* harmony import */ var _steps_video_pet_uk_png__WEBPACK_IMPORTED_MODULE_65___default = /*#__PURE__*/__webpack_require__.n(_steps_video_pet_uk_png__WEBPACK_IMPORTED_MODULE_65__);
 /* harmony import */ var _steps_video_animate_uk_png__WEBPACK_IMPORTED_MODULE_66__ = __webpack_require__(/*! ./steps/video-animate.uk.png */ "./src/lib/libraries/decks/steps/video-animate.uk.png");
-/* harmony import */ var _steps_video_animate_uk_png__WEBPACK_IMPORTED_MODULE_66___default = /*#__PURE__*/__webpack_require__.n(_steps_video_animate_uk_png__WEBPACK_IMPORTED_MODULE_66__);
 /* harmony import */ var _steps_video_pop_uk_png__WEBPACK_IMPORTED_MODULE_67__ = __webpack_require__(/*! ./steps/video-pop.uk.png */ "./src/lib/libraries/decks/steps/video-pop.uk.png");
-/* harmony import */ var _steps_video_pop_uk_png__WEBPACK_IMPORTED_MODULE_67___default = /*#__PURE__*/__webpack_require__.n(_steps_video_pop_uk_png__WEBPACK_IMPORTED_MODULE_67__);
 /* harmony import */ var _steps_fly_choose_backdrop_LTR_gif__WEBPACK_IMPORTED_MODULE_68__ = __webpack_require__(/*! ./steps/fly-choose-backdrop.LTR.gif */ "./src/lib/libraries/decks/steps/fly-choose-backdrop.LTR.gif");
-/* harmony import */ var _steps_fly_choose_backdrop_LTR_gif__WEBPACK_IMPORTED_MODULE_68___default = /*#__PURE__*/__webpack_require__.n(_steps_fly_choose_backdrop_LTR_gif__WEBPACK_IMPORTED_MODULE_68__);
 /* harmony import */ var _steps_fly_choose_character_LTR_png__WEBPACK_IMPORTED_MODULE_69__ = __webpack_require__(/*! ./steps/fly-choose-character.LTR.png */ "./src/lib/libraries/decks/steps/fly-choose-character.LTR.png");
-/* harmony import */ var _steps_fly_choose_character_LTR_png__WEBPACK_IMPORTED_MODULE_69___default = /*#__PURE__*/__webpack_require__.n(_steps_fly_choose_character_LTR_png__WEBPACK_IMPORTED_MODULE_69__);
 /* harmony import */ var _steps_fly_say_something_uk_png__WEBPACK_IMPORTED_MODULE_70__ = __webpack_require__(/*! ./steps/fly-say-something.uk.png */ "./src/lib/libraries/decks/steps/fly-say-something.uk.png");
-/* harmony import */ var _steps_fly_say_something_uk_png__WEBPACK_IMPORTED_MODULE_70___default = /*#__PURE__*/__webpack_require__.n(_steps_fly_say_something_uk_png__WEBPACK_IMPORTED_MODULE_70__);
 /* harmony import */ var _steps_fly_make_interactive_uk_png__WEBPACK_IMPORTED_MODULE_71__ = __webpack_require__(/*! ./steps/fly-make-interactive.uk.png */ "./src/lib/libraries/decks/steps/fly-make-interactive.uk.png");
-/* harmony import */ var _steps_fly_make_interactive_uk_png__WEBPACK_IMPORTED_MODULE_71___default = /*#__PURE__*/__webpack_require__.n(_steps_fly_make_interactive_uk_png__WEBPACK_IMPORTED_MODULE_71__);
 /* harmony import */ var _steps_fly_object_to_collect_LTR_png__WEBPACK_IMPORTED_MODULE_72__ = __webpack_require__(/*! ./steps/fly-object-to-collect.LTR.png */ "./src/lib/libraries/decks/steps/fly-object-to-collect.LTR.png");
-/* harmony import */ var _steps_fly_object_to_collect_LTR_png__WEBPACK_IMPORTED_MODULE_72___default = /*#__PURE__*/__webpack_require__.n(_steps_fly_object_to_collect_LTR_png__WEBPACK_IMPORTED_MODULE_72__);
 /* harmony import */ var _steps_fly_flying_heart_uk_png__WEBPACK_IMPORTED_MODULE_73__ = __webpack_require__(/*! ./steps/fly-flying-heart.uk.png */ "./src/lib/libraries/decks/steps/fly-flying-heart.uk.png");
-/* harmony import */ var _steps_fly_flying_heart_uk_png__WEBPACK_IMPORTED_MODULE_73___default = /*#__PURE__*/__webpack_require__.n(_steps_fly_flying_heart_uk_png__WEBPACK_IMPORTED_MODULE_73__);
 /* harmony import */ var _steps_fly_select_flyer_LTR_png__WEBPACK_IMPORTED_MODULE_74__ = __webpack_require__(/*! ./steps/fly-select-flyer.LTR.png */ "./src/lib/libraries/decks/steps/fly-select-flyer.LTR.png");
-/* harmony import */ var _steps_fly_select_flyer_LTR_png__WEBPACK_IMPORTED_MODULE_74___default = /*#__PURE__*/__webpack_require__.n(_steps_fly_select_flyer_LTR_png__WEBPACK_IMPORTED_MODULE_74__);
 /* harmony import */ var _steps_fly_keep_score_uk_png__WEBPACK_IMPORTED_MODULE_75__ = __webpack_require__(/*! ./steps/fly-keep-score.uk.png */ "./src/lib/libraries/decks/steps/fly-keep-score.uk.png");
-/* harmony import */ var _steps_fly_keep_score_uk_png__WEBPACK_IMPORTED_MODULE_75___default = /*#__PURE__*/__webpack_require__.n(_steps_fly_keep_score_uk_png__WEBPACK_IMPORTED_MODULE_75__);
 /* harmony import */ var _steps_fly_choose_scenery_LTR_gif__WEBPACK_IMPORTED_MODULE_76__ = __webpack_require__(/*! ./steps/fly-choose-scenery.LTR.gif */ "./src/lib/libraries/decks/steps/fly-choose-scenery.LTR.gif");
-/* harmony import */ var _steps_fly_choose_scenery_LTR_gif__WEBPACK_IMPORTED_MODULE_76___default = /*#__PURE__*/__webpack_require__.n(_steps_fly_choose_scenery_LTR_gif__WEBPACK_IMPORTED_MODULE_76__);
 /* harmony import */ var _steps_fly_move_scenery_uk_png__WEBPACK_IMPORTED_MODULE_77__ = __webpack_require__(/*! ./steps/fly-move-scenery.uk.png */ "./src/lib/libraries/decks/steps/fly-move-scenery.uk.png");
-/* harmony import */ var _steps_fly_move_scenery_uk_png__WEBPACK_IMPORTED_MODULE_77___default = /*#__PURE__*/__webpack_require__.n(_steps_fly_move_scenery_uk_png__WEBPACK_IMPORTED_MODULE_77__);
 /* harmony import */ var _steps_fly_switch_costume_uk_png__WEBPACK_IMPORTED_MODULE_78__ = __webpack_require__(/*! ./steps/fly-switch-costume.uk.png */ "./src/lib/libraries/decks/steps/fly-switch-costume.uk.png");
-/* harmony import */ var _steps_fly_switch_costume_uk_png__WEBPACK_IMPORTED_MODULE_78___default = /*#__PURE__*/__webpack_require__.n(_steps_fly_switch_costume_uk_png__WEBPACK_IMPORTED_MODULE_78__);
 /* harmony import */ var _steps_pong_add_backdrop_LTR_png__WEBPACK_IMPORTED_MODULE_79__ = __webpack_require__(/*! ./steps/pong-add-backdrop.LTR.png */ "./src/lib/libraries/decks/steps/pong-add-backdrop.LTR.png");
-/* harmony import */ var _steps_pong_add_backdrop_LTR_png__WEBPACK_IMPORTED_MODULE_79___default = /*#__PURE__*/__webpack_require__.n(_steps_pong_add_backdrop_LTR_png__WEBPACK_IMPORTED_MODULE_79__);
 /* harmony import */ var _steps_pong_add_ball_sprite_LTR_png__WEBPACK_IMPORTED_MODULE_80__ = __webpack_require__(/*! ./steps/pong-add-ball-sprite.LTR.png */ "./src/lib/libraries/decks/steps/pong-add-ball-sprite.LTR.png");
-/* harmony import */ var _steps_pong_add_ball_sprite_LTR_png__WEBPACK_IMPORTED_MODULE_80___default = /*#__PURE__*/__webpack_require__.n(_steps_pong_add_ball_sprite_LTR_png__WEBPACK_IMPORTED_MODULE_80__);
 /* harmony import */ var _steps_pong_bounce_around_uk_png__WEBPACK_IMPORTED_MODULE_81__ = __webpack_require__(/*! ./steps/pong-bounce-around.uk.png */ "./src/lib/libraries/decks/steps/pong-bounce-around.uk.png");
-/* harmony import */ var _steps_pong_bounce_around_uk_png__WEBPACK_IMPORTED_MODULE_81___default = /*#__PURE__*/__webpack_require__.n(_steps_pong_bounce_around_uk_png__WEBPACK_IMPORTED_MODULE_81__);
 /* harmony import */ var _steps_pong_add_a_paddle_LTR_gif__WEBPACK_IMPORTED_MODULE_82__ = __webpack_require__(/*! ./steps/pong-add-a-paddle.LTR.gif */ "./src/lib/libraries/decks/steps/pong-add-a-paddle.LTR.gif");
-/* harmony import */ var _steps_pong_add_a_paddle_LTR_gif__WEBPACK_IMPORTED_MODULE_82___default = /*#__PURE__*/__webpack_require__.n(_steps_pong_add_a_paddle_LTR_gif__WEBPACK_IMPORTED_MODULE_82__);
 /* harmony import */ var _steps_pong_move_the_paddle_uk_png__WEBPACK_IMPORTED_MODULE_83__ = __webpack_require__(/*! ./steps/pong-move-the-paddle.uk.png */ "./src/lib/libraries/decks/steps/pong-move-the-paddle.uk.png");
-/* harmony import */ var _steps_pong_move_the_paddle_uk_png__WEBPACK_IMPORTED_MODULE_83___default = /*#__PURE__*/__webpack_require__.n(_steps_pong_move_the_paddle_uk_png__WEBPACK_IMPORTED_MODULE_83__);
 /* harmony import */ var _steps_pong_select_ball_LTR_png__WEBPACK_IMPORTED_MODULE_84__ = __webpack_require__(/*! ./steps/pong-select-ball.LTR.png */ "./src/lib/libraries/decks/steps/pong-select-ball.LTR.png");
-/* harmony import */ var _steps_pong_select_ball_LTR_png__WEBPACK_IMPORTED_MODULE_84___default = /*#__PURE__*/__webpack_require__.n(_steps_pong_select_ball_LTR_png__WEBPACK_IMPORTED_MODULE_84__);
 /* harmony import */ var _steps_pong_add_code_to_ball_uk_png__WEBPACK_IMPORTED_MODULE_85__ = __webpack_require__(/*! ./steps/pong-add-code-to-ball.uk.png */ "./src/lib/libraries/decks/steps/pong-add-code-to-ball.uk.png");
-/* harmony import */ var _steps_pong_add_code_to_ball_uk_png__WEBPACK_IMPORTED_MODULE_85___default = /*#__PURE__*/__webpack_require__.n(_steps_pong_add_code_to_ball_uk_png__WEBPACK_IMPORTED_MODULE_85__);
 /* harmony import */ var _steps_pong_choose_score_uk_png__WEBPACK_IMPORTED_MODULE_86__ = __webpack_require__(/*! ./steps/pong-choose-score.uk.png */ "./src/lib/libraries/decks/steps/pong-choose-score.uk.png");
-/* harmony import */ var _steps_pong_choose_score_uk_png__WEBPACK_IMPORTED_MODULE_86___default = /*#__PURE__*/__webpack_require__.n(_steps_pong_choose_score_uk_png__WEBPACK_IMPORTED_MODULE_86__);
 /* harmony import */ var _steps_pong_insert_change_score_uk_png__WEBPACK_IMPORTED_MODULE_87__ = __webpack_require__(/*! ./steps/pong-insert-change-score.uk.png */ "./src/lib/libraries/decks/steps/pong-insert-change-score.uk.png");
-/* harmony import */ var _steps_pong_insert_change_score_uk_png__WEBPACK_IMPORTED_MODULE_87___default = /*#__PURE__*/__webpack_require__.n(_steps_pong_insert_change_score_uk_png__WEBPACK_IMPORTED_MODULE_87__);
 /* harmony import */ var _steps_pong_reset_score_uk_png__WEBPACK_IMPORTED_MODULE_88__ = __webpack_require__(/*! ./steps/pong-reset-score.uk.png */ "./src/lib/libraries/decks/steps/pong-reset-score.uk.png");
-/* harmony import */ var _steps_pong_reset_score_uk_png__WEBPACK_IMPORTED_MODULE_88___default = /*#__PURE__*/__webpack_require__.n(_steps_pong_reset_score_uk_png__WEBPACK_IMPORTED_MODULE_88__);
 /* harmony import */ var _steps_pong_add_line_LTR_gif__WEBPACK_IMPORTED_MODULE_89__ = __webpack_require__(/*! ./steps/pong-add-line.LTR.gif */ "./src/lib/libraries/decks/steps/pong-add-line.LTR.gif");
-/* harmony import */ var _steps_pong_add_line_LTR_gif__WEBPACK_IMPORTED_MODULE_89___default = /*#__PURE__*/__webpack_require__.n(_steps_pong_add_line_LTR_gif__WEBPACK_IMPORTED_MODULE_89__);
 /* harmony import */ var _steps_pong_game_over_uk_png__WEBPACK_IMPORTED_MODULE_90__ = __webpack_require__(/*! ./steps/pong-game-over.uk.png */ "./src/lib/libraries/decks/steps/pong-game-over.uk.png");
-/* harmony import */ var _steps_pong_game_over_uk_png__WEBPACK_IMPORTED_MODULE_90___default = /*#__PURE__*/__webpack_require__.n(_steps_pong_game_over_uk_png__WEBPACK_IMPORTED_MODULE_90__);
 /* harmony import */ var _steps_imagine_type_what_you_want_uk_png__WEBPACK_IMPORTED_MODULE_91__ = __webpack_require__(/*! ./steps/imagine-type-what-you-want.uk.png */ "./src/lib/libraries/decks/steps/imagine-type-what-you-want.uk.png");
-/* harmony import */ var _steps_imagine_type_what_you_want_uk_png__WEBPACK_IMPORTED_MODULE_91___default = /*#__PURE__*/__webpack_require__.n(_steps_imagine_type_what_you_want_uk_png__WEBPACK_IMPORTED_MODULE_91__);
 /* harmony import */ var _steps_imagine_click_green_flag_uk_png__WEBPACK_IMPORTED_MODULE_92__ = __webpack_require__(/*! ./steps/imagine-click-green-flag.uk.png */ "./src/lib/libraries/decks/steps/imagine-click-green-flag.uk.png");
-/* harmony import */ var _steps_imagine_click_green_flag_uk_png__WEBPACK_IMPORTED_MODULE_92___default = /*#__PURE__*/__webpack_require__.n(_steps_imagine_click_green_flag_uk_png__WEBPACK_IMPORTED_MODULE_92__);
 /* harmony import */ var _steps_imagine_choose_backdrop_LTR_png__WEBPACK_IMPORTED_MODULE_93__ = __webpack_require__(/*! ./steps/imagine-choose-backdrop.LTR.png */ "./src/lib/libraries/decks/steps/imagine-choose-backdrop.LTR.png");
-/* harmony import */ var _steps_imagine_choose_backdrop_LTR_png__WEBPACK_IMPORTED_MODULE_93___default = /*#__PURE__*/__webpack_require__.n(_steps_imagine_choose_backdrop_LTR_png__WEBPACK_IMPORTED_MODULE_93__);
 /* harmony import */ var _steps_imagine_choose_any_sprite_LTR_png__WEBPACK_IMPORTED_MODULE_94__ = __webpack_require__(/*! ./steps/imagine-choose-any-sprite.LTR.png */ "./src/lib/libraries/decks/steps/imagine-choose-any-sprite.LTR.png");
-/* harmony import */ var _steps_imagine_choose_any_sprite_LTR_png__WEBPACK_IMPORTED_MODULE_94___default = /*#__PURE__*/__webpack_require__.n(_steps_imagine_choose_any_sprite_LTR_png__WEBPACK_IMPORTED_MODULE_94__);
 /* harmony import */ var _steps_imagine_fly_around_uk_png__WEBPACK_IMPORTED_MODULE_95__ = __webpack_require__(/*! ./steps/imagine-fly-around.uk.png */ "./src/lib/libraries/decks/steps/imagine-fly-around.uk.png");
-/* harmony import */ var _steps_imagine_fly_around_uk_png__WEBPACK_IMPORTED_MODULE_95___default = /*#__PURE__*/__webpack_require__.n(_steps_imagine_fly_around_uk_png__WEBPACK_IMPORTED_MODULE_95__);
 /* harmony import */ var _steps_imagine_choose_another_sprite_LTR_png__WEBPACK_IMPORTED_MODULE_96__ = __webpack_require__(/*! ./steps/imagine-choose-another-sprite.LTR.png */ "./src/lib/libraries/decks/steps/imagine-choose-another-sprite.LTR.png");
-/* harmony import */ var _steps_imagine_choose_another_sprite_LTR_png__WEBPACK_IMPORTED_MODULE_96___default = /*#__PURE__*/__webpack_require__.n(_steps_imagine_choose_another_sprite_LTR_png__WEBPACK_IMPORTED_MODULE_96__);
 /* harmony import */ var _steps_imagine_left_right_uk_png__WEBPACK_IMPORTED_MODULE_97__ = __webpack_require__(/*! ./steps/imagine-left-right.uk.png */ "./src/lib/libraries/decks/steps/imagine-left-right.uk.png");
-/* harmony import */ var _steps_imagine_left_right_uk_png__WEBPACK_IMPORTED_MODULE_97___default = /*#__PURE__*/__webpack_require__.n(_steps_imagine_left_right_uk_png__WEBPACK_IMPORTED_MODULE_97__);
 /* harmony import */ var _steps_imagine_up_down_uk_png__WEBPACK_IMPORTED_MODULE_98__ = __webpack_require__(/*! ./steps/imagine-up-down.uk.png */ "./src/lib/libraries/decks/steps/imagine-up-down.uk.png");
-/* harmony import */ var _steps_imagine_up_down_uk_png__WEBPACK_IMPORTED_MODULE_98___default = /*#__PURE__*/__webpack_require__.n(_steps_imagine_up_down_uk_png__WEBPACK_IMPORTED_MODULE_98__);
 /* harmony import */ var _steps_imagine_change_costumes_uk_png__WEBPACK_IMPORTED_MODULE_99__ = __webpack_require__(/*! ./steps/imagine-change-costumes.uk.png */ "./src/lib/libraries/decks/steps/imagine-change-costumes.uk.png");
-/* harmony import */ var _steps_imagine_change_costumes_uk_png__WEBPACK_IMPORTED_MODULE_99___default = /*#__PURE__*/__webpack_require__.n(_steps_imagine_change_costumes_uk_png__WEBPACK_IMPORTED_MODULE_99__);
 /* harmony import */ var _steps_imagine_glide_to_point_uk_png__WEBPACK_IMPORTED_MODULE_100__ = __webpack_require__(/*! ./steps/imagine-glide-to-point.uk.png */ "./src/lib/libraries/decks/steps/imagine-glide-to-point.uk.png");
-/* harmony import */ var _steps_imagine_glide_to_point_uk_png__WEBPACK_IMPORTED_MODULE_100___default = /*#__PURE__*/__webpack_require__.n(_steps_imagine_glide_to_point_uk_png__WEBPACK_IMPORTED_MODULE_100__);
 /* harmony import */ var _steps_imagine_grow_shrink_uk_png__WEBPACK_IMPORTED_MODULE_101__ = __webpack_require__(/*! ./steps/imagine-grow-shrink.uk.png */ "./src/lib/libraries/decks/steps/imagine-grow-shrink.uk.png");
-/* harmony import */ var _steps_imagine_grow_shrink_uk_png__WEBPACK_IMPORTED_MODULE_101___default = /*#__PURE__*/__webpack_require__.n(_steps_imagine_grow_shrink_uk_png__WEBPACK_IMPORTED_MODULE_101__);
 /* harmony import */ var _steps_imagine_choose_another_backdrop_LTR_png__WEBPACK_IMPORTED_MODULE_102__ = __webpack_require__(/*! ./steps/imagine-choose-another-backdrop.LTR.png */ "./src/lib/libraries/decks/steps/imagine-choose-another-backdrop.LTR.png");
-/* harmony import */ var _steps_imagine_choose_another_backdrop_LTR_png__WEBPACK_IMPORTED_MODULE_102___default = /*#__PURE__*/__webpack_require__.n(_steps_imagine_choose_another_backdrop_LTR_png__WEBPACK_IMPORTED_MODULE_102__);
 /* harmony import */ var _steps_imagine_switch_backdrops_uk_png__WEBPACK_IMPORTED_MODULE_103__ = __webpack_require__(/*! ./steps/imagine-switch-backdrops.uk.png */ "./src/lib/libraries/decks/steps/imagine-switch-backdrops.uk.png");
-/* harmony import */ var _steps_imagine_switch_backdrops_uk_png__WEBPACK_IMPORTED_MODULE_103___default = /*#__PURE__*/__webpack_require__.n(_steps_imagine_switch_backdrops_uk_png__WEBPACK_IMPORTED_MODULE_103__);
 /* harmony import */ var _steps_imagine_record_a_sound_uk_gif__WEBPACK_IMPORTED_MODULE_104__ = __webpack_require__(/*! ./steps/imagine-record-a-sound.uk.gif */ "./src/lib/libraries/decks/steps/imagine-record-a-sound.uk.gif");
-/* harmony import */ var _steps_imagine_record_a_sound_uk_gif__WEBPACK_IMPORTED_MODULE_104___default = /*#__PURE__*/__webpack_require__.n(_steps_imagine_record_a_sound_uk_gif__WEBPACK_IMPORTED_MODULE_104__);
 /* harmony import */ var _steps_imagine_choose_sound_uk_png__WEBPACK_IMPORTED_MODULE_105__ = __webpack_require__(/*! ./steps/imagine-choose-sound.uk.png */ "./src/lib/libraries/decks/steps/imagine-choose-sound.uk.png");
-/* harmony import */ var _steps_imagine_choose_sound_uk_png__WEBPACK_IMPORTED_MODULE_105___default = /*#__PURE__*/__webpack_require__.n(_steps_imagine_choose_sound_uk_png__WEBPACK_IMPORTED_MODULE_105__);
 /* harmony import */ var _steps_add_backdrop_LTR_png__WEBPACK_IMPORTED_MODULE_106__ = __webpack_require__(/*! ./steps/add-backdrop.LTR.png */ "./src/lib/libraries/decks/steps/add-backdrop.LTR.png");
-/* harmony import */ var _steps_add_backdrop_LTR_png__WEBPACK_IMPORTED_MODULE_106___default = /*#__PURE__*/__webpack_require__.n(_steps_add_backdrop_LTR_png__WEBPACK_IMPORTED_MODULE_106__);
 /* harmony import */ var _steps_add_effects_uk_png__WEBPACK_IMPORTED_MODULE_107__ = __webpack_require__(/*! ./steps/add-effects.uk.png */ "./src/lib/libraries/decks/steps/add-effects.uk.png");
-/* harmony import */ var _steps_add_effects_uk_png__WEBPACK_IMPORTED_MODULE_107___default = /*#__PURE__*/__webpack_require__.n(_steps_add_effects_uk_png__WEBPACK_IMPORTED_MODULE_107__);
 /* harmony import */ var _steps_hide_show_uk_png__WEBPACK_IMPORTED_MODULE_108__ = __webpack_require__(/*! ./steps/hide-show.uk.png */ "./src/lib/libraries/decks/steps/hide-show.uk.png");
-/* harmony import */ var _steps_hide_show_uk_png__WEBPACK_IMPORTED_MODULE_108___default = /*#__PURE__*/__webpack_require__.n(_steps_hide_show_uk_png__WEBPACK_IMPORTED_MODULE_108__);
 /* harmony import */ var _steps_switch_costumes_uk_png__WEBPACK_IMPORTED_MODULE_109__ = __webpack_require__(/*! ./steps/switch-costumes.uk.png */ "./src/lib/libraries/decks/steps/switch-costumes.uk.png");
-/* harmony import */ var _steps_switch_costumes_uk_png__WEBPACK_IMPORTED_MODULE_109___default = /*#__PURE__*/__webpack_require__.n(_steps_switch_costumes_uk_png__WEBPACK_IMPORTED_MODULE_109__);
 /* harmony import */ var _steps_change_size_uk_png__WEBPACK_IMPORTED_MODULE_110__ = __webpack_require__(/*! ./steps/change-size.uk.png */ "./src/lib/libraries/decks/steps/change-size.uk.png");
-/* harmony import */ var _steps_change_size_uk_png__WEBPACK_IMPORTED_MODULE_110___default = /*#__PURE__*/__webpack_require__.n(_steps_change_size_uk_png__WEBPACK_IMPORTED_MODULE_110__);
 /* harmony import */ var _steps_spin_turn_uk_png__WEBPACK_IMPORTED_MODULE_111__ = __webpack_require__(/*! ./steps/spin-turn.uk.png */ "./src/lib/libraries/decks/steps/spin-turn.uk.png");
-/* harmony import */ var _steps_spin_turn_uk_png__WEBPACK_IMPORTED_MODULE_111___default = /*#__PURE__*/__webpack_require__.n(_steps_spin_turn_uk_png__WEBPACK_IMPORTED_MODULE_111__);
 /* harmony import */ var _steps_spin_point_in_direction_uk_png__WEBPACK_IMPORTED_MODULE_112__ = __webpack_require__(/*! ./steps/spin-point-in-direction.uk.png */ "./src/lib/libraries/decks/steps/spin-point-in-direction.uk.png");
-/* harmony import */ var _steps_spin_point_in_direction_uk_png__WEBPACK_IMPORTED_MODULE_112___default = /*#__PURE__*/__webpack_require__.n(_steps_spin_point_in_direction_uk_png__WEBPACK_IMPORTED_MODULE_112__);
 /* harmony import */ var _steps_record_a_sound_sounds_tab_uk_png__WEBPACK_IMPORTED_MODULE_113__ = __webpack_require__(/*! ./steps/record-a-sound-sounds-tab.uk.png */ "./src/lib/libraries/decks/steps/record-a-sound-sounds-tab.uk.png");
-/* harmony import */ var _steps_record_a_sound_sounds_tab_uk_png__WEBPACK_IMPORTED_MODULE_113___default = /*#__PURE__*/__webpack_require__.n(_steps_record_a_sound_sounds_tab_uk_png__WEBPACK_IMPORTED_MODULE_113__);
 /* harmony import */ var _steps_record_a_sound_click_record_uk_png__WEBPACK_IMPORTED_MODULE_114__ = __webpack_require__(/*! ./steps/record-a-sound-click-record.uk.png */ "./src/lib/libraries/decks/steps/record-a-sound-click-record.uk.png");
-/* harmony import */ var _steps_record_a_sound_click_record_uk_png__WEBPACK_IMPORTED_MODULE_114___default = /*#__PURE__*/__webpack_require__.n(_steps_record_a_sound_click_record_uk_png__WEBPACK_IMPORTED_MODULE_114__);
 /* harmony import */ var _steps_record_a_sound_press_record_button_uk_png__WEBPACK_IMPORTED_MODULE_115__ = __webpack_require__(/*! ./steps/record-a-sound-press-record-button.uk.png */ "./src/lib/libraries/decks/steps/record-a-sound-press-record-button.uk.png");
-/* harmony import */ var _steps_record_a_sound_press_record_button_uk_png__WEBPACK_IMPORTED_MODULE_115___default = /*#__PURE__*/__webpack_require__.n(_steps_record_a_sound_press_record_button_uk_png__WEBPACK_IMPORTED_MODULE_115__);
 /* harmony import */ var _steps_record_a_sound_choose_sound_uk_png__WEBPACK_IMPORTED_MODULE_116__ = __webpack_require__(/*! ./steps/record-a-sound-choose-sound.uk.png */ "./src/lib/libraries/decks/steps/record-a-sound-choose-sound.uk.png");
-/* harmony import */ var _steps_record_a_sound_choose_sound_uk_png__WEBPACK_IMPORTED_MODULE_116___default = /*#__PURE__*/__webpack_require__.n(_steps_record_a_sound_choose_sound_uk_png__WEBPACK_IMPORTED_MODULE_116__);
 /* harmony import */ var _steps_record_a_sound_play_your_sound_uk_png__WEBPACK_IMPORTED_MODULE_117__ = __webpack_require__(/*! ./steps/record-a-sound-play-your-sound.uk.png */ "./src/lib/libraries/decks/steps/record-a-sound-play-your-sound.uk.png");
-/* harmony import */ var _steps_record_a_sound_play_your_sound_uk_png__WEBPACK_IMPORTED_MODULE_117___default = /*#__PURE__*/__webpack_require__.n(_steps_record_a_sound_play_your_sound_uk_png__WEBPACK_IMPORTED_MODULE_117__);
 /* harmony import */ var _steps_move_arrow_keys_left_right_uk_png__WEBPACK_IMPORTED_MODULE_118__ = __webpack_require__(/*! ./steps/move-arrow-keys-left-right.uk.png */ "./src/lib/libraries/decks/steps/move-arrow-keys-left-right.uk.png");
-/* harmony import */ var _steps_move_arrow_keys_left_right_uk_png__WEBPACK_IMPORTED_MODULE_118___default = /*#__PURE__*/__webpack_require__.n(_steps_move_arrow_keys_left_right_uk_png__WEBPACK_IMPORTED_MODULE_118__);
 /* harmony import */ var _steps_move_arrow_keys_up_down_uk_png__WEBPACK_IMPORTED_MODULE_119__ = __webpack_require__(/*! ./steps/move-arrow-keys-up-down.uk.png */ "./src/lib/libraries/decks/steps/move-arrow-keys-up-down.uk.png");
-/* harmony import */ var _steps_move_arrow_keys_up_down_uk_png__WEBPACK_IMPORTED_MODULE_119___default = /*#__PURE__*/__webpack_require__.n(_steps_move_arrow_keys_up_down_uk_png__WEBPACK_IMPORTED_MODULE_119__);
 /* harmony import */ var _steps_glide_around_back_and_forth_uk_png__WEBPACK_IMPORTED_MODULE_120__ = __webpack_require__(/*! ./steps/glide-around-back-and-forth.uk.png */ "./src/lib/libraries/decks/steps/glide-around-back-and-forth.uk.png");
-/* harmony import */ var _steps_glide_around_back_and_forth_uk_png__WEBPACK_IMPORTED_MODULE_120___default = /*#__PURE__*/__webpack_require__.n(_steps_glide_around_back_and_forth_uk_png__WEBPACK_IMPORTED_MODULE_120__);
 /* harmony import */ var _steps_glide_around_point_uk_png__WEBPACK_IMPORTED_MODULE_121__ = __webpack_require__(/*! ./steps/glide-around-point.uk.png */ "./src/lib/libraries/decks/steps/glide-around-point.uk.png");
-/* harmony import */ var _steps_glide_around_point_uk_png__WEBPACK_IMPORTED_MODULE_121___default = /*#__PURE__*/__webpack_require__.n(_steps_glide_around_point_uk_png__WEBPACK_IMPORTED_MODULE_121__);
 /* harmony import */ var _steps_code_cartoon_01_say_something_uk_png__WEBPACK_IMPORTED_MODULE_122__ = __webpack_require__(/*! ./steps/code-cartoon-01-say-something.uk.png */ "./src/lib/libraries/decks/steps/code-cartoon-01-say-something.uk.png");
-/* harmony import */ var _steps_code_cartoon_01_say_something_uk_png__WEBPACK_IMPORTED_MODULE_122___default = /*#__PURE__*/__webpack_require__.n(_steps_code_cartoon_01_say_something_uk_png__WEBPACK_IMPORTED_MODULE_122__);
 /* harmony import */ var _steps_code_cartoon_02_animate_uk_png__WEBPACK_IMPORTED_MODULE_123__ = __webpack_require__(/*! ./steps/code-cartoon-02-animate.uk.png */ "./src/lib/libraries/decks/steps/code-cartoon-02-animate.uk.png");
-/* harmony import */ var _steps_code_cartoon_02_animate_uk_png__WEBPACK_IMPORTED_MODULE_123___default = /*#__PURE__*/__webpack_require__.n(_steps_code_cartoon_02_animate_uk_png__WEBPACK_IMPORTED_MODULE_123__);
 /* harmony import */ var _steps_code_cartoon_03_select_different_character_LTR_png__WEBPACK_IMPORTED_MODULE_124__ = __webpack_require__(/*! ./steps/code-cartoon-03-select-different-character.LTR.png */ "./src/lib/libraries/decks/steps/code-cartoon-03-select-different-character.LTR.png");
-/* harmony import */ var _steps_code_cartoon_03_select_different_character_LTR_png__WEBPACK_IMPORTED_MODULE_124___default = /*#__PURE__*/__webpack_require__.n(_steps_code_cartoon_03_select_different_character_LTR_png__WEBPACK_IMPORTED_MODULE_124__);
 /* harmony import */ var _steps_code_cartoon_04_use_minus_sign_uk_png__WEBPACK_IMPORTED_MODULE_125__ = __webpack_require__(/*! ./steps/code-cartoon-04-use-minus-sign.uk.png */ "./src/lib/libraries/decks/steps/code-cartoon-04-use-minus-sign.uk.png");
-/* harmony import */ var _steps_code_cartoon_04_use_minus_sign_uk_png__WEBPACK_IMPORTED_MODULE_125___default = /*#__PURE__*/__webpack_require__.n(_steps_code_cartoon_04_use_minus_sign_uk_png__WEBPACK_IMPORTED_MODULE_125__);
 /* harmony import */ var _steps_code_cartoon_05_grow_shrink_uk_png__WEBPACK_IMPORTED_MODULE_126__ = __webpack_require__(/*! ./steps/code-cartoon-05-grow-shrink.uk.png */ "./src/lib/libraries/decks/steps/code-cartoon-05-grow-shrink.uk.png");
-/* harmony import */ var _steps_code_cartoon_05_grow_shrink_uk_png__WEBPACK_IMPORTED_MODULE_126___default = /*#__PURE__*/__webpack_require__.n(_steps_code_cartoon_05_grow_shrink_uk_png__WEBPACK_IMPORTED_MODULE_126__);
 /* harmony import */ var _steps_code_cartoon_06_select_another_different_character_LTR_png__WEBPACK_IMPORTED_MODULE_127__ = __webpack_require__(/*! ./steps/code-cartoon-06-select-another-different-character.LTR.png */ "./src/lib/libraries/decks/steps/code-cartoon-06-select-another-different-character.LTR.png");
-/* harmony import */ var _steps_code_cartoon_06_select_another_different_character_LTR_png__WEBPACK_IMPORTED_MODULE_127___default = /*#__PURE__*/__webpack_require__.n(_steps_code_cartoon_06_select_another_different_character_LTR_png__WEBPACK_IMPORTED_MODULE_127__);
 /* harmony import */ var _steps_code_cartoon_07_jump_uk_png__WEBPACK_IMPORTED_MODULE_128__ = __webpack_require__(/*! ./steps/code-cartoon-07-jump.uk.png */ "./src/lib/libraries/decks/steps/code-cartoon-07-jump.uk.png");
-/* harmony import */ var _steps_code_cartoon_07_jump_uk_png__WEBPACK_IMPORTED_MODULE_128___default = /*#__PURE__*/__webpack_require__.n(_steps_code_cartoon_07_jump_uk_png__WEBPACK_IMPORTED_MODULE_128__);
 /* harmony import */ var _steps_code_cartoon_08_change_scenes_uk_png__WEBPACK_IMPORTED_MODULE_129__ = __webpack_require__(/*! ./steps/code-cartoon-08-change-scenes.uk.png */ "./src/lib/libraries/decks/steps/code-cartoon-08-change-scenes.uk.png");
-/* harmony import */ var _steps_code_cartoon_08_change_scenes_uk_png__WEBPACK_IMPORTED_MODULE_129___default = /*#__PURE__*/__webpack_require__.n(_steps_code_cartoon_08_change_scenes_uk_png__WEBPACK_IMPORTED_MODULE_129__);
 /* harmony import */ var _steps_code_cartoon_09_glide_around_uk_png__WEBPACK_IMPORTED_MODULE_130__ = __webpack_require__(/*! ./steps/code-cartoon-09-glide-around.uk.png */ "./src/lib/libraries/decks/steps/code-cartoon-09-glide-around.uk.png");
-/* harmony import */ var _steps_code_cartoon_09_glide_around_uk_png__WEBPACK_IMPORTED_MODULE_130___default = /*#__PURE__*/__webpack_require__.n(_steps_code_cartoon_09_glide_around_uk_png__WEBPACK_IMPORTED_MODULE_130__);
 /* harmony import */ var _steps_code_cartoon_10_change_costumes_uk_png__WEBPACK_IMPORTED_MODULE_131__ = __webpack_require__(/*! ./steps/code-cartoon-10-change-costumes.uk.png */ "./src/lib/libraries/decks/steps/code-cartoon-10-change-costumes.uk.png");
-/* harmony import */ var _steps_code_cartoon_10_change_costumes_uk_png__WEBPACK_IMPORTED_MODULE_131___default = /*#__PURE__*/__webpack_require__.n(_steps_code_cartoon_10_change_costumes_uk_png__WEBPACK_IMPORTED_MODULE_131__);
 /* harmony import */ var _steps_code_cartoon_11_choose_more_characters_LTR_png__WEBPACK_IMPORTED_MODULE_132__ = __webpack_require__(/*! ./steps/code-cartoon-11-choose-more-characters.LTR.png */ "./src/lib/libraries/decks/steps/code-cartoon-11-choose-more-characters.LTR.png");
-/* harmony import */ var _steps_code_cartoon_11_choose_more_characters_LTR_png__WEBPACK_IMPORTED_MODULE_132___default = /*#__PURE__*/__webpack_require__.n(_steps_code_cartoon_11_choose_more_characters_LTR_png__WEBPACK_IMPORTED_MODULE_132__);
 /* harmony import */ var _steps_talking_2_choose_sprite_LTR_png__WEBPACK_IMPORTED_MODULE_133__ = __webpack_require__(/*! ./steps/talking-2-choose-sprite.LTR.png */ "./src/lib/libraries/decks/steps/talking-2-choose-sprite.LTR.png");
-/* harmony import */ var _steps_talking_2_choose_sprite_LTR_png__WEBPACK_IMPORTED_MODULE_133___default = /*#__PURE__*/__webpack_require__.n(_steps_talking_2_choose_sprite_LTR_png__WEBPACK_IMPORTED_MODULE_133__);
 /* harmony import */ var _steps_talking_3_say_something_uk_png__WEBPACK_IMPORTED_MODULE_134__ = __webpack_require__(/*! ./steps/talking-3-say-something.uk.png */ "./src/lib/libraries/decks/steps/talking-3-say-something.uk.png");
-/* harmony import */ var _steps_talking_3_say_something_uk_png__WEBPACK_IMPORTED_MODULE_134___default = /*#__PURE__*/__webpack_require__.n(_steps_talking_3_say_something_uk_png__WEBPACK_IMPORTED_MODULE_134__);
 /* harmony import */ var _steps_talking_4_choose_backdrop_LTR_png__WEBPACK_IMPORTED_MODULE_135__ = __webpack_require__(/*! ./steps/talking-4-choose-backdrop.LTR.png */ "./src/lib/libraries/decks/steps/talking-4-choose-backdrop.LTR.png");
-/* harmony import */ var _steps_talking_4_choose_backdrop_LTR_png__WEBPACK_IMPORTED_MODULE_135___default = /*#__PURE__*/__webpack_require__.n(_steps_talking_4_choose_backdrop_LTR_png__WEBPACK_IMPORTED_MODULE_135__);
 /* harmony import */ var _steps_talking_5_switch_backdrop_uk_png__WEBPACK_IMPORTED_MODULE_136__ = __webpack_require__(/*! ./steps/talking-5-switch-backdrop.uk.png */ "./src/lib/libraries/decks/steps/talking-5-switch-backdrop.uk.png");
-/* harmony import */ var _steps_talking_5_switch_backdrop_uk_png__WEBPACK_IMPORTED_MODULE_136___default = /*#__PURE__*/__webpack_require__.n(_steps_talking_5_switch_backdrop_uk_png__WEBPACK_IMPORTED_MODULE_136__);
 /* harmony import */ var _steps_talking_6_choose_another_sprite_LTR_png__WEBPACK_IMPORTED_MODULE_137__ = __webpack_require__(/*! ./steps/talking-6-choose-another-sprite.LTR.png */ "./src/lib/libraries/decks/steps/talking-6-choose-another-sprite.LTR.png");
-/* harmony import */ var _steps_talking_6_choose_another_sprite_LTR_png__WEBPACK_IMPORTED_MODULE_137___default = /*#__PURE__*/__webpack_require__.n(_steps_talking_6_choose_another_sprite_LTR_png__WEBPACK_IMPORTED_MODULE_137__);
 /* harmony import */ var _steps_talking_7_move_around_uk_png__WEBPACK_IMPORTED_MODULE_138__ = __webpack_require__(/*! ./steps/talking-7-move-around.uk.png */ "./src/lib/libraries/decks/steps/talking-7-move-around.uk.png");
-/* harmony import */ var _steps_talking_7_move_around_uk_png__WEBPACK_IMPORTED_MODULE_138___default = /*#__PURE__*/__webpack_require__.n(_steps_talking_7_move_around_uk_png__WEBPACK_IMPORTED_MODULE_138__);
 /* harmony import */ var _steps_talking_8_choose_another_backdrop_LTR_png__WEBPACK_IMPORTED_MODULE_139__ = __webpack_require__(/*! ./steps/talking-8-choose-another-backdrop.LTR.png */ "./src/lib/libraries/decks/steps/talking-8-choose-another-backdrop.LTR.png");
-/* harmony import */ var _steps_talking_8_choose_another_backdrop_LTR_png__WEBPACK_IMPORTED_MODULE_139___default = /*#__PURE__*/__webpack_require__.n(_steps_talking_8_choose_another_backdrop_LTR_png__WEBPACK_IMPORTED_MODULE_139__);
 /* harmony import */ var _steps_talking_9_animate_uk_png__WEBPACK_IMPORTED_MODULE_140__ = __webpack_require__(/*! ./steps/talking-9-animate.uk.png */ "./src/lib/libraries/decks/steps/talking-9-animate.uk.png");
-/* harmony import */ var _steps_talking_9_animate_uk_png__WEBPACK_IMPORTED_MODULE_140___default = /*#__PURE__*/__webpack_require__.n(_steps_talking_9_animate_uk_png__WEBPACK_IMPORTED_MODULE_140__);
 /* harmony import */ var _steps_talking_10_choose_third_backdrop_LTR_png__WEBPACK_IMPORTED_MODULE_141__ = __webpack_require__(/*! ./steps/talking-10-choose-third-backdrop.LTR.png */ "./src/lib/libraries/decks/steps/talking-10-choose-third-backdrop.LTR.png");
-/* harmony import */ var _steps_talking_10_choose_third_backdrop_LTR_png__WEBPACK_IMPORTED_MODULE_141___default = /*#__PURE__*/__webpack_require__.n(_steps_talking_10_choose_third_backdrop_LTR_png__WEBPACK_IMPORTED_MODULE_141__);
 /* harmony import */ var _steps_talking_11_choose_sound_uk_gif__WEBPACK_IMPORTED_MODULE_142__ = __webpack_require__(/*! ./steps/talking-11-choose-sound.uk.gif */ "./src/lib/libraries/decks/steps/talking-11-choose-sound.uk.gif");
-/* harmony import */ var _steps_talking_11_choose_sound_uk_gif__WEBPACK_IMPORTED_MODULE_142___default = /*#__PURE__*/__webpack_require__.n(_steps_talking_11_choose_sound_uk_gif__WEBPACK_IMPORTED_MODULE_142__);
 /* harmony import */ var _steps_talking_12_dance_moves_uk_png__WEBPACK_IMPORTED_MODULE_143__ = __webpack_require__(/*! ./steps/talking-12-dance-moves.uk.png */ "./src/lib/libraries/decks/steps/talking-12-dance-moves.uk.png");
-/* harmony import */ var _steps_talking_12_dance_moves_uk_png__WEBPACK_IMPORTED_MODULE_143___default = /*#__PURE__*/__webpack_require__.n(_steps_talking_12_dance_moves_uk_png__WEBPACK_IMPORTED_MODULE_143__);
 /* harmony import */ var _steps_talking_13_ask_and_answer_uk_png__WEBPACK_IMPORTED_MODULE_144__ = __webpack_require__(/*! ./steps/talking-13-ask-and-answer.uk.png */ "./src/lib/libraries/decks/steps/talking-13-ask-and-answer.uk.png");
-/* harmony import */ var _steps_talking_13_ask_and_answer_uk_png__WEBPACK_IMPORTED_MODULE_144___default = /*#__PURE__*/__webpack_require__.n(_steps_talking_13_ask_and_answer_uk_png__WEBPACK_IMPORTED_MODULE_144__);
 // Intro
 
 
@@ -1657,181 +1722,181 @@ __webpack_require__.r(__webpack_exports__);
 
 var ukImages = {
   // Intro
-  introMove: _steps_intro_1_move_uk_gif__WEBPACK_IMPORTED_MODULE_0___default.a,
-  introSay: _steps_intro_2_say_uk_gif__WEBPACK_IMPORTED_MODULE_1___default.a,
-  introGreenFlag: _steps_intro_3_green_flag_uk_gif__WEBPACK_IMPORTED_MODULE_2___default.a,
+  introMove: _steps_intro_1_move_uk_gif__WEBPACK_IMPORTED_MODULE_0__["default"],
+  introSay: _steps_intro_2_say_uk_gif__WEBPACK_IMPORTED_MODULE_1__["default"],
+  introGreenFlag: _steps_intro_3_green_flag_uk_gif__WEBPACK_IMPORTED_MODULE_2__["default"],
   // Text to Speech
-  speechAddExtension: _steps_speech_add_extension_uk_gif__WEBPACK_IMPORTED_MODULE_3___default.a,
-  speechSaySomething: _steps_speech_say_something_uk_png__WEBPACK_IMPORTED_MODULE_4___default.a,
-  speechSetVoice: _steps_speech_set_voice_uk_png__WEBPACK_IMPORTED_MODULE_5___default.a,
-  speechMoveAround: _steps_speech_move_around_uk_png__WEBPACK_IMPORTED_MODULE_6___default.a,
-  speechAddBackdrop: _steps_pick_backdrop_LTR_gif__WEBPACK_IMPORTED_MODULE_7___default.a,
-  speechAddSprite: _steps_speech_add_sprite_LTR_gif__WEBPACK_IMPORTED_MODULE_8___default.a,
-  speechSong: _steps_speech_song_uk_png__WEBPACK_IMPORTED_MODULE_9___default.a,
-  speechChangeColor: _steps_speech_change_color_uk_png__WEBPACK_IMPORTED_MODULE_10___default.a,
-  speechSpin: _steps_speech_spin_uk_png__WEBPACK_IMPORTED_MODULE_11___default.a,
-  speechGrowShrink: _steps_speech_grow_shrink_uk_png__WEBPACK_IMPORTED_MODULE_12___default.a,
+  speechAddExtension: _steps_speech_add_extension_uk_gif__WEBPACK_IMPORTED_MODULE_3__["default"],
+  speechSaySomething: _steps_speech_say_something_uk_png__WEBPACK_IMPORTED_MODULE_4__["default"],
+  speechSetVoice: _steps_speech_set_voice_uk_png__WEBPACK_IMPORTED_MODULE_5__["default"],
+  speechMoveAround: _steps_speech_move_around_uk_png__WEBPACK_IMPORTED_MODULE_6__["default"],
+  speechAddBackdrop: _steps_pick_backdrop_LTR_gif__WEBPACK_IMPORTED_MODULE_7__["default"],
+  speechAddSprite: _steps_speech_add_sprite_LTR_gif__WEBPACK_IMPORTED_MODULE_8__["default"],
+  speechSong: _steps_speech_song_uk_png__WEBPACK_IMPORTED_MODULE_9__["default"],
+  speechChangeColor: _steps_speech_change_color_uk_png__WEBPACK_IMPORTED_MODULE_10__["default"],
+  speechSpin: _steps_speech_spin_uk_png__WEBPACK_IMPORTED_MODULE_11__["default"],
+  speechGrowShrink: _steps_speech_grow_shrink_uk_png__WEBPACK_IMPORTED_MODULE_12__["default"],
   // Cartoon Network
-  cnShowCharacter: _steps_cn_show_character_LTR_gif__WEBPACK_IMPORTED_MODULE_13___default.a,
-  cnSay: _steps_cn_say_uk_png__WEBPACK_IMPORTED_MODULE_14___default.a,
-  cnGlide: _steps_cn_glide_uk_png__WEBPACK_IMPORTED_MODULE_15___default.a,
-  cnPickSprite: _steps_cn_pick_sprite_LTR_gif__WEBPACK_IMPORTED_MODULE_16___default.a,
-  cnCollect: _steps_cn_collect_uk_png__WEBPACK_IMPORTED_MODULE_17___default.a,
-  cnVariable: _steps_add_variable_uk_gif__WEBPACK_IMPORTED_MODULE_18___default.a,
-  cnScore: _steps_cn_score_uk_png__WEBPACK_IMPORTED_MODULE_19___default.a,
-  cnBackdrop: _steps_cn_backdrop_uk_png__WEBPACK_IMPORTED_MODULE_20___default.a,
+  cnShowCharacter: _steps_cn_show_character_LTR_gif__WEBPACK_IMPORTED_MODULE_13__["default"],
+  cnSay: _steps_cn_say_uk_png__WEBPACK_IMPORTED_MODULE_14__["default"],
+  cnGlide: _steps_cn_glide_uk_png__WEBPACK_IMPORTED_MODULE_15__["default"],
+  cnPickSprite: _steps_cn_pick_sprite_LTR_gif__WEBPACK_IMPORTED_MODULE_16__["default"],
+  cnCollect: _steps_cn_collect_uk_png__WEBPACK_IMPORTED_MODULE_17__["default"],
+  cnVariable: _steps_add_variable_uk_gif__WEBPACK_IMPORTED_MODULE_18__["default"],
+  cnScore: _steps_cn_score_uk_png__WEBPACK_IMPORTED_MODULE_19__["default"],
+  cnBackdrop: _steps_cn_backdrop_uk_png__WEBPACK_IMPORTED_MODULE_20__["default"],
   // Add sprite
-  addSprite: _steps_add_sprite_LTR_gif__WEBPACK_IMPORTED_MODULE_21___default.a,
+  addSprite: _steps_add_sprite_LTR_gif__WEBPACK_IMPORTED_MODULE_21__["default"],
   // Animate a name
-  namePickLetter: _steps_name_pick_letter_LTR_gif__WEBPACK_IMPORTED_MODULE_22___default.a,
-  namePlaySound: _steps_name_play_sound_uk_png__WEBPACK_IMPORTED_MODULE_23___default.a,
-  namePickLetter2: _steps_name_pick_letter2_LTR_gif__WEBPACK_IMPORTED_MODULE_24___default.a,
-  nameChangeColor: _steps_name_change_color_uk_png__WEBPACK_IMPORTED_MODULE_25___default.a,
-  nameSpin: _steps_name_spin_uk_png__WEBPACK_IMPORTED_MODULE_26___default.a,
-  nameGrow: _steps_name_grow_uk_png__WEBPACK_IMPORTED_MODULE_27___default.a,
+  namePickLetter: _steps_name_pick_letter_LTR_gif__WEBPACK_IMPORTED_MODULE_22__["default"],
+  namePlaySound: _steps_name_play_sound_uk_png__WEBPACK_IMPORTED_MODULE_23__["default"],
+  namePickLetter2: _steps_name_pick_letter2_LTR_gif__WEBPACK_IMPORTED_MODULE_24__["default"],
+  nameChangeColor: _steps_name_change_color_uk_png__WEBPACK_IMPORTED_MODULE_25__["default"],
+  nameSpin: _steps_name_spin_uk_png__WEBPACK_IMPORTED_MODULE_26__["default"],
+  nameGrow: _steps_name_grow_uk_png__WEBPACK_IMPORTED_MODULE_27__["default"],
   // Make-Music
-  musicPickInstrument: _steps_music_pick_instrument_LTR_gif__WEBPACK_IMPORTED_MODULE_28___default.a,
-  musicPlaySound: _steps_music_play_sound_uk_png__WEBPACK_IMPORTED_MODULE_29___default.a,
-  musicMakeSong: _steps_music_make_song_uk_png__WEBPACK_IMPORTED_MODULE_30___default.a,
-  musicMakeBeat: _steps_music_make_beat_uk_png__WEBPACK_IMPORTED_MODULE_31___default.a,
-  musicMakeBeatbox: _steps_music_make_beatbox_uk_png__WEBPACK_IMPORTED_MODULE_32___default.a,
+  musicPickInstrument: _steps_music_pick_instrument_LTR_gif__WEBPACK_IMPORTED_MODULE_28__["default"],
+  musicPlaySound: _steps_music_play_sound_uk_png__WEBPACK_IMPORTED_MODULE_29__["default"],
+  musicMakeSong: _steps_music_make_song_uk_png__WEBPACK_IMPORTED_MODULE_30__["default"],
+  musicMakeBeat: _steps_music_make_beat_uk_png__WEBPACK_IMPORTED_MODULE_31__["default"],
+  musicMakeBeatbox: _steps_music_make_beatbox_uk_png__WEBPACK_IMPORTED_MODULE_32__["default"],
   // Chase-Game
-  chaseGameAddBackdrop: _steps_chase_game_add_backdrop_LTR_gif__WEBPACK_IMPORTED_MODULE_33___default.a,
-  chaseGameAddSprite1: _steps_chase_game_add_sprite1_LTR_gif__WEBPACK_IMPORTED_MODULE_34___default.a,
-  chaseGameRightLeft: _steps_chase_game_right_left_uk_png__WEBPACK_IMPORTED_MODULE_35___default.a,
-  chaseGameUpDown: _steps_chase_game_up_down_uk_png__WEBPACK_IMPORTED_MODULE_36___default.a,
-  chaseGameAddSprite2: _steps_chase_game_add_sprite2_LTR_gif__WEBPACK_IMPORTED_MODULE_37___default.a,
-  chaseGameMoveRandomly: _steps_chase_game_move_randomly_uk_png__WEBPACK_IMPORTED_MODULE_38___default.a,
-  chaseGamePlaySound: _steps_chase_game_play_sound_uk_png__WEBPACK_IMPORTED_MODULE_39___default.a,
-  chaseGameAddVariable: _steps_add_variable_uk_gif__WEBPACK_IMPORTED_MODULE_18___default.a,
-  chaseGameChangeScore: _steps_chase_game_change_score_uk_png__WEBPACK_IMPORTED_MODULE_40___default.a,
+  chaseGameAddBackdrop: _steps_chase_game_add_backdrop_LTR_gif__WEBPACK_IMPORTED_MODULE_33__["default"],
+  chaseGameAddSprite1: _steps_chase_game_add_sprite1_LTR_gif__WEBPACK_IMPORTED_MODULE_34__["default"],
+  chaseGameRightLeft: _steps_chase_game_right_left_uk_png__WEBPACK_IMPORTED_MODULE_35__["default"],
+  chaseGameUpDown: _steps_chase_game_up_down_uk_png__WEBPACK_IMPORTED_MODULE_36__["default"],
+  chaseGameAddSprite2: _steps_chase_game_add_sprite2_LTR_gif__WEBPACK_IMPORTED_MODULE_37__["default"],
+  chaseGameMoveRandomly: _steps_chase_game_move_randomly_uk_png__WEBPACK_IMPORTED_MODULE_38__["default"],
+  chaseGamePlaySound: _steps_chase_game_play_sound_uk_png__WEBPACK_IMPORTED_MODULE_39__["default"],
+  chaseGameAddVariable: _steps_add_variable_uk_gif__WEBPACK_IMPORTED_MODULE_18__["default"],
+  chaseGameChangeScore: _steps_chase_game_change_score_uk_png__WEBPACK_IMPORTED_MODULE_40__["default"],
   // Make-A-Pop/Clicker Game
-  popGamePickSprite: _steps_pop_game_pick_sprite_LTR_gif__WEBPACK_IMPORTED_MODULE_41___default.a,
-  popGamePlaySound: _steps_pop_game_play_sound_uk_png__WEBPACK_IMPORTED_MODULE_42___default.a,
-  popGameAddScore: _steps_add_variable_uk_gif__WEBPACK_IMPORTED_MODULE_18___default.a,
-  popGameChangeScore: _steps_pop_game_change_score_uk_png__WEBPACK_IMPORTED_MODULE_43___default.a,
-  popGameRandomPosition: _steps_pop_game_random_position_uk_png__WEBPACK_IMPORTED_MODULE_44___default.a,
-  popGameChangeColor: _steps_pop_game_change_color_uk_png__WEBPACK_IMPORTED_MODULE_45___default.a,
-  popGameResetScore: _steps_pop_game_reset_score_uk_png__WEBPACK_IMPORTED_MODULE_46___default.a,
+  popGamePickSprite: _steps_pop_game_pick_sprite_LTR_gif__WEBPACK_IMPORTED_MODULE_41__["default"],
+  popGamePlaySound: _steps_pop_game_play_sound_uk_png__WEBPACK_IMPORTED_MODULE_42__["default"],
+  popGameAddScore: _steps_add_variable_uk_gif__WEBPACK_IMPORTED_MODULE_18__["default"],
+  popGameChangeScore: _steps_pop_game_change_score_uk_png__WEBPACK_IMPORTED_MODULE_43__["default"],
+  popGameRandomPosition: _steps_pop_game_random_position_uk_png__WEBPACK_IMPORTED_MODULE_44__["default"],
+  popGameChangeColor: _steps_pop_game_change_color_uk_png__WEBPACK_IMPORTED_MODULE_45__["default"],
+  popGameResetScore: _steps_pop_game_reset_score_uk_png__WEBPACK_IMPORTED_MODULE_46__["default"],
   // Animate A Character
-  animateCharPickBackdrop: _steps_pick_backdrop_LTR_gif__WEBPACK_IMPORTED_MODULE_7___default.a,
-  animateCharPickSprite: _steps_animate_char_pick_sprite_LTR_gif__WEBPACK_IMPORTED_MODULE_47___default.a,
-  animateCharSaySomething: _steps_animate_char_say_something_uk_png__WEBPACK_IMPORTED_MODULE_48___default.a,
-  animateCharAddSound: _steps_animate_char_add_sound_uk_png__WEBPACK_IMPORTED_MODULE_49___default.a,
-  animateCharTalk: _steps_animate_char_talk_uk_png__WEBPACK_IMPORTED_MODULE_50___default.a,
-  animateCharMove: _steps_animate_char_move_uk_png__WEBPACK_IMPORTED_MODULE_51___default.a,
-  animateCharJump: _steps_animate_char_jump_uk_png__WEBPACK_IMPORTED_MODULE_52___default.a,
-  animateCharChangeColor: _steps_animate_char_change_color_uk_png__WEBPACK_IMPORTED_MODULE_53___default.a,
+  animateCharPickBackdrop: _steps_pick_backdrop_LTR_gif__WEBPACK_IMPORTED_MODULE_7__["default"],
+  animateCharPickSprite: _steps_animate_char_pick_sprite_LTR_gif__WEBPACK_IMPORTED_MODULE_47__["default"],
+  animateCharSaySomething: _steps_animate_char_say_something_uk_png__WEBPACK_IMPORTED_MODULE_48__["default"],
+  animateCharAddSound: _steps_animate_char_add_sound_uk_png__WEBPACK_IMPORTED_MODULE_49__["default"],
+  animateCharTalk: _steps_animate_char_talk_uk_png__WEBPACK_IMPORTED_MODULE_50__["default"],
+  animateCharMove: _steps_animate_char_move_uk_png__WEBPACK_IMPORTED_MODULE_51__["default"],
+  animateCharJump: _steps_animate_char_jump_uk_png__WEBPACK_IMPORTED_MODULE_52__["default"],
+  animateCharChangeColor: _steps_animate_char_change_color_uk_png__WEBPACK_IMPORTED_MODULE_53__["default"],
   // Tell A Story
-  storyPickBackdrop: _steps_story_pick_backdrop_LTR_gif__WEBPACK_IMPORTED_MODULE_54___default.a,
-  storyPickSprite: _steps_story_pick_sprite_LTR_gif__WEBPACK_IMPORTED_MODULE_55___default.a,
-  storySaySomething: _steps_story_say_something_uk_png__WEBPACK_IMPORTED_MODULE_56___default.a,
-  storyPickSprite2: _steps_story_pick_sprite2_LTR_gif__WEBPACK_IMPORTED_MODULE_57___default.a,
-  storyFlip: _steps_story_flip_uk_gif__WEBPACK_IMPORTED_MODULE_58___default.a,
-  storyConversation: _steps_story_conversation_uk_png__WEBPACK_IMPORTED_MODULE_59___default.a,
-  storyPickBackdrop2: _steps_story_pick_backdrop2_LTR_gif__WEBPACK_IMPORTED_MODULE_60___default.a,
-  storySwitchBackdrop: _steps_story_switch_backdrop_uk_png__WEBPACK_IMPORTED_MODULE_61___default.a,
-  storyHideCharacter: _steps_story_hide_character_uk_png__WEBPACK_IMPORTED_MODULE_62___default.a,
-  storyShowCharacter: _steps_story_show_character_uk_png__WEBPACK_IMPORTED_MODULE_63___default.a,
+  storyPickBackdrop: _steps_story_pick_backdrop_LTR_gif__WEBPACK_IMPORTED_MODULE_54__["default"],
+  storyPickSprite: _steps_story_pick_sprite_LTR_gif__WEBPACK_IMPORTED_MODULE_55__["default"],
+  storySaySomething: _steps_story_say_something_uk_png__WEBPACK_IMPORTED_MODULE_56__["default"],
+  storyPickSprite2: _steps_story_pick_sprite2_LTR_gif__WEBPACK_IMPORTED_MODULE_57__["default"],
+  storyFlip: _steps_story_flip_uk_gif__WEBPACK_IMPORTED_MODULE_58__["default"],
+  storyConversation: _steps_story_conversation_uk_png__WEBPACK_IMPORTED_MODULE_59__["default"],
+  storyPickBackdrop2: _steps_story_pick_backdrop2_LTR_gif__WEBPACK_IMPORTED_MODULE_60__["default"],
+  storySwitchBackdrop: _steps_story_switch_backdrop_uk_png__WEBPACK_IMPORTED_MODULE_61__["default"],
+  storyHideCharacter: _steps_story_hide_character_uk_png__WEBPACK_IMPORTED_MODULE_62__["default"],
+  storyShowCharacter: _steps_story_show_character_uk_png__WEBPACK_IMPORTED_MODULE_63__["default"],
   // Video Sensing
-  videoAddExtension: _steps_video_add_extension_uk_gif__WEBPACK_IMPORTED_MODULE_64___default.a,
-  videoPet: _steps_video_pet_uk_png__WEBPACK_IMPORTED_MODULE_65___default.a,
-  videoAnimate: _steps_video_animate_uk_png__WEBPACK_IMPORTED_MODULE_66___default.a,
-  videoPop: _steps_video_pop_uk_png__WEBPACK_IMPORTED_MODULE_67___default.a,
+  videoAddExtension: _steps_video_add_extension_uk_gif__WEBPACK_IMPORTED_MODULE_64__["default"],
+  videoPet: _steps_video_pet_uk_png__WEBPACK_IMPORTED_MODULE_65__["default"],
+  videoAnimate: _steps_video_animate_uk_png__WEBPACK_IMPORTED_MODULE_66__["default"],
+  videoPop: _steps_video_pop_uk_png__WEBPACK_IMPORTED_MODULE_67__["default"],
   // Make it Fly
-  flyChooseBackdrop: _steps_fly_choose_backdrop_LTR_gif__WEBPACK_IMPORTED_MODULE_68___default.a,
-  flyChooseCharacter: _steps_fly_choose_character_LTR_png__WEBPACK_IMPORTED_MODULE_69___default.a,
-  flySaySomething: _steps_fly_say_something_uk_png__WEBPACK_IMPORTED_MODULE_70___default.a,
-  flyMoveArrows: _steps_fly_make_interactive_uk_png__WEBPACK_IMPORTED_MODULE_71___default.a,
-  flyChooseObject: _steps_fly_object_to_collect_LTR_png__WEBPACK_IMPORTED_MODULE_72___default.a,
-  flyFlyingObject: _steps_fly_flying_heart_uk_png__WEBPACK_IMPORTED_MODULE_73___default.a,
-  flySelectFlyingSprite: _steps_fly_select_flyer_LTR_png__WEBPACK_IMPORTED_MODULE_74___default.a,
-  flyAddScore: _steps_add_variable_uk_gif__WEBPACK_IMPORTED_MODULE_18___default.a,
-  flyKeepScore: _steps_fly_keep_score_uk_png__WEBPACK_IMPORTED_MODULE_75___default.a,
-  flyAddScenery: _steps_fly_choose_scenery_LTR_gif__WEBPACK_IMPORTED_MODULE_76___default.a,
-  flyMoveScenery: _steps_fly_move_scenery_uk_png__WEBPACK_IMPORTED_MODULE_77___default.a,
-  flySwitchLooks: _steps_fly_switch_costume_uk_png__WEBPACK_IMPORTED_MODULE_78___default.a,
+  flyChooseBackdrop: _steps_fly_choose_backdrop_LTR_gif__WEBPACK_IMPORTED_MODULE_68__["default"],
+  flyChooseCharacter: _steps_fly_choose_character_LTR_png__WEBPACK_IMPORTED_MODULE_69__["default"],
+  flySaySomething: _steps_fly_say_something_uk_png__WEBPACK_IMPORTED_MODULE_70__["default"],
+  flyMoveArrows: _steps_fly_make_interactive_uk_png__WEBPACK_IMPORTED_MODULE_71__["default"],
+  flyChooseObject: _steps_fly_object_to_collect_LTR_png__WEBPACK_IMPORTED_MODULE_72__["default"],
+  flyFlyingObject: _steps_fly_flying_heart_uk_png__WEBPACK_IMPORTED_MODULE_73__["default"],
+  flySelectFlyingSprite: _steps_fly_select_flyer_LTR_png__WEBPACK_IMPORTED_MODULE_74__["default"],
+  flyAddScore: _steps_add_variable_uk_gif__WEBPACK_IMPORTED_MODULE_18__["default"],
+  flyKeepScore: _steps_fly_keep_score_uk_png__WEBPACK_IMPORTED_MODULE_75__["default"],
+  flyAddScenery: _steps_fly_choose_scenery_LTR_gif__WEBPACK_IMPORTED_MODULE_76__["default"],
+  flyMoveScenery: _steps_fly_move_scenery_uk_png__WEBPACK_IMPORTED_MODULE_77__["default"],
+  flySwitchLooks: _steps_fly_switch_costume_uk_png__WEBPACK_IMPORTED_MODULE_78__["default"],
   // Pong
-  pongAddBackdrop: _steps_pong_add_backdrop_LTR_png__WEBPACK_IMPORTED_MODULE_79___default.a,
-  pongAddBallSprite: _steps_pong_add_ball_sprite_LTR_png__WEBPACK_IMPORTED_MODULE_80___default.a,
-  pongBounceAround: _steps_pong_bounce_around_uk_png__WEBPACK_IMPORTED_MODULE_81___default.a,
-  pongAddPaddle: _steps_pong_add_a_paddle_LTR_gif__WEBPACK_IMPORTED_MODULE_82___default.a,
-  pongMoveThePaddle: _steps_pong_move_the_paddle_uk_png__WEBPACK_IMPORTED_MODULE_83___default.a,
-  pongSelectBallSprite: _steps_pong_select_ball_LTR_png__WEBPACK_IMPORTED_MODULE_84___default.a,
-  pongAddMoreCodeToBall: _steps_pong_add_code_to_ball_uk_png__WEBPACK_IMPORTED_MODULE_85___default.a,
-  pongAddAScore: _steps_add_variable_uk_gif__WEBPACK_IMPORTED_MODULE_18___default.a,
-  pongChooseScoreFromMenu: _steps_pong_choose_score_uk_png__WEBPACK_IMPORTED_MODULE_86___default.a,
-  pongInsertChangeScoreBlock: _steps_pong_insert_change_score_uk_png__WEBPACK_IMPORTED_MODULE_87___default.a,
-  pongResetScore: _steps_pong_reset_score_uk_png__WEBPACK_IMPORTED_MODULE_88___default.a,
-  pongAddLineSprite: _steps_pong_add_line_LTR_gif__WEBPACK_IMPORTED_MODULE_89___default.a,
-  pongGameOver: _steps_pong_game_over_uk_png__WEBPACK_IMPORTED_MODULE_90___default.a,
+  pongAddBackdrop: _steps_pong_add_backdrop_LTR_png__WEBPACK_IMPORTED_MODULE_79__["default"],
+  pongAddBallSprite: _steps_pong_add_ball_sprite_LTR_png__WEBPACK_IMPORTED_MODULE_80__["default"],
+  pongBounceAround: _steps_pong_bounce_around_uk_png__WEBPACK_IMPORTED_MODULE_81__["default"],
+  pongAddPaddle: _steps_pong_add_a_paddle_LTR_gif__WEBPACK_IMPORTED_MODULE_82__["default"],
+  pongMoveThePaddle: _steps_pong_move_the_paddle_uk_png__WEBPACK_IMPORTED_MODULE_83__["default"],
+  pongSelectBallSprite: _steps_pong_select_ball_LTR_png__WEBPACK_IMPORTED_MODULE_84__["default"],
+  pongAddMoreCodeToBall: _steps_pong_add_code_to_ball_uk_png__WEBPACK_IMPORTED_MODULE_85__["default"],
+  pongAddAScore: _steps_add_variable_uk_gif__WEBPACK_IMPORTED_MODULE_18__["default"],
+  pongChooseScoreFromMenu: _steps_pong_choose_score_uk_png__WEBPACK_IMPORTED_MODULE_86__["default"],
+  pongInsertChangeScoreBlock: _steps_pong_insert_change_score_uk_png__WEBPACK_IMPORTED_MODULE_87__["default"],
+  pongResetScore: _steps_pong_reset_score_uk_png__WEBPACK_IMPORTED_MODULE_88__["default"],
+  pongAddLineSprite: _steps_pong_add_line_LTR_gif__WEBPACK_IMPORTED_MODULE_89__["default"],
+  pongGameOver: _steps_pong_game_over_uk_png__WEBPACK_IMPORTED_MODULE_90__["default"],
   // Imagine a World
-  imagineTypeWhatYouWant: _steps_imagine_type_what_you_want_uk_png__WEBPACK_IMPORTED_MODULE_91___default.a,
-  imagineClickGreenFlag: _steps_imagine_click_green_flag_uk_png__WEBPACK_IMPORTED_MODULE_92___default.a,
-  imagineChooseBackdrop: _steps_imagine_choose_backdrop_LTR_png__WEBPACK_IMPORTED_MODULE_93___default.a,
-  imagineChooseSprite: _steps_imagine_choose_any_sprite_LTR_png__WEBPACK_IMPORTED_MODULE_94___default.a,
-  imagineFlyAround: _steps_imagine_fly_around_uk_png__WEBPACK_IMPORTED_MODULE_95___default.a,
-  imagineChooseAnotherSprite: _steps_imagine_choose_another_sprite_LTR_png__WEBPACK_IMPORTED_MODULE_96___default.a,
-  imagineLeftRight: _steps_imagine_left_right_uk_png__WEBPACK_IMPORTED_MODULE_97___default.a,
-  imagineUpDown: _steps_imagine_up_down_uk_png__WEBPACK_IMPORTED_MODULE_98___default.a,
-  imagineChangeCostumes: _steps_imagine_change_costumes_uk_png__WEBPACK_IMPORTED_MODULE_99___default.a,
-  imagineGlideToPoint: _steps_imagine_glide_to_point_uk_png__WEBPACK_IMPORTED_MODULE_100___default.a,
-  imagineGrowShrink: _steps_imagine_grow_shrink_uk_png__WEBPACK_IMPORTED_MODULE_101___default.a,
-  imagineChooseAnotherBackdrop: _steps_imagine_choose_another_backdrop_LTR_png__WEBPACK_IMPORTED_MODULE_102___default.a,
-  imagineSwitchBackdrops: _steps_imagine_switch_backdrops_uk_png__WEBPACK_IMPORTED_MODULE_103___default.a,
-  imagineRecordASound: _steps_imagine_record_a_sound_uk_gif__WEBPACK_IMPORTED_MODULE_104___default.a,
-  imagineChooseSound: _steps_imagine_choose_sound_uk_png__WEBPACK_IMPORTED_MODULE_105___default.a,
+  imagineTypeWhatYouWant: _steps_imagine_type_what_you_want_uk_png__WEBPACK_IMPORTED_MODULE_91__["default"],
+  imagineClickGreenFlag: _steps_imagine_click_green_flag_uk_png__WEBPACK_IMPORTED_MODULE_92__["default"],
+  imagineChooseBackdrop: _steps_imagine_choose_backdrop_LTR_png__WEBPACK_IMPORTED_MODULE_93__["default"],
+  imagineChooseSprite: _steps_imagine_choose_any_sprite_LTR_png__WEBPACK_IMPORTED_MODULE_94__["default"],
+  imagineFlyAround: _steps_imagine_fly_around_uk_png__WEBPACK_IMPORTED_MODULE_95__["default"],
+  imagineChooseAnotherSprite: _steps_imagine_choose_another_sprite_LTR_png__WEBPACK_IMPORTED_MODULE_96__["default"],
+  imagineLeftRight: _steps_imagine_left_right_uk_png__WEBPACK_IMPORTED_MODULE_97__["default"],
+  imagineUpDown: _steps_imagine_up_down_uk_png__WEBPACK_IMPORTED_MODULE_98__["default"],
+  imagineChangeCostumes: _steps_imagine_change_costumes_uk_png__WEBPACK_IMPORTED_MODULE_99__["default"],
+  imagineGlideToPoint: _steps_imagine_glide_to_point_uk_png__WEBPACK_IMPORTED_MODULE_100__["default"],
+  imagineGrowShrink: _steps_imagine_grow_shrink_uk_png__WEBPACK_IMPORTED_MODULE_101__["default"],
+  imagineChooseAnotherBackdrop: _steps_imagine_choose_another_backdrop_LTR_png__WEBPACK_IMPORTED_MODULE_102__["default"],
+  imagineSwitchBackdrops: _steps_imagine_switch_backdrops_uk_png__WEBPACK_IMPORTED_MODULE_103__["default"],
+  imagineRecordASound: _steps_imagine_record_a_sound_uk_gif__WEBPACK_IMPORTED_MODULE_104__["default"],
+  imagineChooseSound: _steps_imagine_choose_sound_uk_png__WEBPACK_IMPORTED_MODULE_105__["default"],
   // Add a Backdrop
-  addBackdrop: _steps_add_backdrop_LTR_png__WEBPACK_IMPORTED_MODULE_106___default.a,
+  addBackdrop: _steps_add_backdrop_LTR_png__WEBPACK_IMPORTED_MODULE_106__["default"],
   // Add Effects
-  addEffects: _steps_add_effects_uk_png__WEBPACK_IMPORTED_MODULE_107___default.a,
+  addEffects: _steps_add_effects_uk_png__WEBPACK_IMPORTED_MODULE_107__["default"],
   // Hide and Show
-  hideAndShow: _steps_hide_show_uk_png__WEBPACK_IMPORTED_MODULE_108___default.a,
+  hideAndShow: _steps_hide_show_uk_png__WEBPACK_IMPORTED_MODULE_108__["default"],
   // Switch Costumes
-  switchCostumes: _steps_switch_costumes_uk_png__WEBPACK_IMPORTED_MODULE_109___default.a,
+  switchCostumes: _steps_switch_costumes_uk_png__WEBPACK_IMPORTED_MODULE_109__["default"],
   // Change Size
-  changeSize: _steps_change_size_uk_png__WEBPACK_IMPORTED_MODULE_110___default.a,
+  changeSize: _steps_change_size_uk_png__WEBPACK_IMPORTED_MODULE_110__["default"],
   // Spin
-  spinTurn: _steps_spin_turn_uk_png__WEBPACK_IMPORTED_MODULE_111___default.a,
-  spinPointInDirection: _steps_spin_point_in_direction_uk_png__WEBPACK_IMPORTED_MODULE_112___default.a,
+  spinTurn: _steps_spin_turn_uk_png__WEBPACK_IMPORTED_MODULE_111__["default"],
+  spinPointInDirection: _steps_spin_point_in_direction_uk_png__WEBPACK_IMPORTED_MODULE_112__["default"],
   // Record a Sound
-  recordASoundSoundsTab: _steps_record_a_sound_sounds_tab_uk_png__WEBPACK_IMPORTED_MODULE_113___default.a,
-  recordASoundClickRecord: _steps_record_a_sound_click_record_uk_png__WEBPACK_IMPORTED_MODULE_114___default.a,
-  recordASoundPressRecordButton: _steps_record_a_sound_press_record_button_uk_png__WEBPACK_IMPORTED_MODULE_115___default.a,
-  recordASoundChooseSound: _steps_record_a_sound_choose_sound_uk_png__WEBPACK_IMPORTED_MODULE_116___default.a,
-  recordASoundPlayYourSound: _steps_record_a_sound_play_your_sound_uk_png__WEBPACK_IMPORTED_MODULE_117___default.a,
+  recordASoundSoundsTab: _steps_record_a_sound_sounds_tab_uk_png__WEBPACK_IMPORTED_MODULE_113__["default"],
+  recordASoundClickRecord: _steps_record_a_sound_click_record_uk_png__WEBPACK_IMPORTED_MODULE_114__["default"],
+  recordASoundPressRecordButton: _steps_record_a_sound_press_record_button_uk_png__WEBPACK_IMPORTED_MODULE_115__["default"],
+  recordASoundChooseSound: _steps_record_a_sound_choose_sound_uk_png__WEBPACK_IMPORTED_MODULE_116__["default"],
+  recordASoundPlayYourSound: _steps_record_a_sound_play_your_sound_uk_png__WEBPACK_IMPORTED_MODULE_117__["default"],
   // Use Arrow Keys
-  moveArrowKeysLeftRight: _steps_move_arrow_keys_left_right_uk_png__WEBPACK_IMPORTED_MODULE_118___default.a,
-  moveArrowKeysUpDown: _steps_move_arrow_keys_up_down_uk_png__WEBPACK_IMPORTED_MODULE_119___default.a,
+  moveArrowKeysLeftRight: _steps_move_arrow_keys_left_right_uk_png__WEBPACK_IMPORTED_MODULE_118__["default"],
+  moveArrowKeysUpDown: _steps_move_arrow_keys_up_down_uk_png__WEBPACK_IMPORTED_MODULE_119__["default"],
   // Glide Around
-  glideAroundBackAndForth: _steps_glide_around_back_and_forth_uk_png__WEBPACK_IMPORTED_MODULE_120___default.a,
-  glideAroundPoint: _steps_glide_around_point_uk_png__WEBPACK_IMPORTED_MODULE_121___default.a,
+  glideAroundBackAndForth: _steps_glide_around_back_and_forth_uk_png__WEBPACK_IMPORTED_MODULE_120__["default"],
+  glideAroundPoint: _steps_glide_around_point_uk_png__WEBPACK_IMPORTED_MODULE_121__["default"],
   // Code a Cartoon
-  codeCartoonSaySomething: _steps_code_cartoon_01_say_something_uk_png__WEBPACK_IMPORTED_MODULE_122___default.a,
-  codeCartoonAnimate: _steps_code_cartoon_02_animate_uk_png__WEBPACK_IMPORTED_MODULE_123___default.a,
-  codeCartoonSelectDifferentCharacter: _steps_code_cartoon_03_select_different_character_LTR_png__WEBPACK_IMPORTED_MODULE_124___default.a,
-  codeCartoonUseMinusSign: _steps_code_cartoon_04_use_minus_sign_uk_png__WEBPACK_IMPORTED_MODULE_125___default.a,
-  codeCartoonGrowShrink: _steps_code_cartoon_05_grow_shrink_uk_png__WEBPACK_IMPORTED_MODULE_126___default.a,
-  codeCartoonSelectDifferentCharacter2: _steps_code_cartoon_06_select_another_different_character_LTR_png__WEBPACK_IMPORTED_MODULE_127___default.a,
-  codeCartoonJump: _steps_code_cartoon_07_jump_uk_png__WEBPACK_IMPORTED_MODULE_128___default.a,
-  codeCartoonChangeScenes: _steps_code_cartoon_08_change_scenes_uk_png__WEBPACK_IMPORTED_MODULE_129___default.a,
-  codeCartoonGlideAround: _steps_code_cartoon_09_glide_around_uk_png__WEBPACK_IMPORTED_MODULE_130___default.a,
-  codeCartoonChangeCostumes: _steps_code_cartoon_10_change_costumes_uk_png__WEBPACK_IMPORTED_MODULE_131___default.a,
-  codeCartoonChooseMoreCharacters: _steps_code_cartoon_11_choose_more_characters_LTR_png__WEBPACK_IMPORTED_MODULE_132___default.a,
+  codeCartoonSaySomething: _steps_code_cartoon_01_say_something_uk_png__WEBPACK_IMPORTED_MODULE_122__["default"],
+  codeCartoonAnimate: _steps_code_cartoon_02_animate_uk_png__WEBPACK_IMPORTED_MODULE_123__["default"],
+  codeCartoonSelectDifferentCharacter: _steps_code_cartoon_03_select_different_character_LTR_png__WEBPACK_IMPORTED_MODULE_124__["default"],
+  codeCartoonUseMinusSign: _steps_code_cartoon_04_use_minus_sign_uk_png__WEBPACK_IMPORTED_MODULE_125__["default"],
+  codeCartoonGrowShrink: _steps_code_cartoon_05_grow_shrink_uk_png__WEBPACK_IMPORTED_MODULE_126__["default"],
+  codeCartoonSelectDifferentCharacter2: _steps_code_cartoon_06_select_another_different_character_LTR_png__WEBPACK_IMPORTED_MODULE_127__["default"],
+  codeCartoonJump: _steps_code_cartoon_07_jump_uk_png__WEBPACK_IMPORTED_MODULE_128__["default"],
+  codeCartoonChangeScenes: _steps_code_cartoon_08_change_scenes_uk_png__WEBPACK_IMPORTED_MODULE_129__["default"],
+  codeCartoonGlideAround: _steps_code_cartoon_09_glide_around_uk_png__WEBPACK_IMPORTED_MODULE_130__["default"],
+  codeCartoonChangeCostumes: _steps_code_cartoon_10_change_costumes_uk_png__WEBPACK_IMPORTED_MODULE_131__["default"],
+  codeCartoonChooseMoreCharacters: _steps_code_cartoon_11_choose_more_characters_LTR_png__WEBPACK_IMPORTED_MODULE_132__["default"],
   // Talking Tales
-  talesAddExtension: _steps_speech_add_extension_uk_gif__WEBPACK_IMPORTED_MODULE_3___default.a,
-  talesChooseSprite: _steps_talking_2_choose_sprite_LTR_png__WEBPACK_IMPORTED_MODULE_133___default.a,
-  talesSaySomething: _steps_talking_3_say_something_uk_png__WEBPACK_IMPORTED_MODULE_134___default.a,
-  talesAskAnswer: _steps_talking_13_ask_and_answer_uk_png__WEBPACK_IMPORTED_MODULE_144___default.a,
-  talesChooseBackdrop: _steps_talking_4_choose_backdrop_LTR_png__WEBPACK_IMPORTED_MODULE_135___default.a,
-  talesSwitchBackdrop: _steps_talking_5_switch_backdrop_uk_png__WEBPACK_IMPORTED_MODULE_136___default.a,
-  talesChooseAnotherSprite: _steps_talking_6_choose_another_sprite_LTR_png__WEBPACK_IMPORTED_MODULE_137___default.a,
-  talesMoveAround: _steps_talking_7_move_around_uk_png__WEBPACK_IMPORTED_MODULE_138___default.a,
-  talesChooseAnotherBackdrop: _steps_talking_8_choose_another_backdrop_LTR_png__WEBPACK_IMPORTED_MODULE_139___default.a,
-  talesAnimateTalking: _steps_talking_9_animate_uk_png__WEBPACK_IMPORTED_MODULE_140___default.a,
-  talesChooseThirdBackdrop: _steps_talking_10_choose_third_backdrop_LTR_png__WEBPACK_IMPORTED_MODULE_141___default.a,
-  talesChooseSound: _steps_talking_11_choose_sound_uk_gif__WEBPACK_IMPORTED_MODULE_142___default.a,
-  talesDanceMoves: _steps_talking_12_dance_moves_uk_png__WEBPACK_IMPORTED_MODULE_143___default.a
+  talesAddExtension: _steps_speech_add_extension_uk_gif__WEBPACK_IMPORTED_MODULE_3__["default"],
+  talesChooseSprite: _steps_talking_2_choose_sprite_LTR_png__WEBPACK_IMPORTED_MODULE_133__["default"],
+  talesSaySomething: _steps_talking_3_say_something_uk_png__WEBPACK_IMPORTED_MODULE_134__["default"],
+  talesAskAnswer: _steps_talking_13_ask_and_answer_uk_png__WEBPACK_IMPORTED_MODULE_144__["default"],
+  talesChooseBackdrop: _steps_talking_4_choose_backdrop_LTR_png__WEBPACK_IMPORTED_MODULE_135__["default"],
+  talesSwitchBackdrop: _steps_talking_5_switch_backdrop_uk_png__WEBPACK_IMPORTED_MODULE_136__["default"],
+  talesChooseAnotherSprite: _steps_talking_6_choose_another_sprite_LTR_png__WEBPACK_IMPORTED_MODULE_137__["default"],
+  talesMoveAround: _steps_talking_7_move_around_uk_png__WEBPACK_IMPORTED_MODULE_138__["default"],
+  talesChooseAnotherBackdrop: _steps_talking_8_choose_another_backdrop_LTR_png__WEBPACK_IMPORTED_MODULE_139__["default"],
+  talesAnimateTalking: _steps_talking_9_animate_uk_png__WEBPACK_IMPORTED_MODULE_140__["default"],
+  talesChooseThirdBackdrop: _steps_talking_10_choose_third_backdrop_LTR_png__WEBPACK_IMPORTED_MODULE_141__["default"],
+  talesChooseSound: _steps_talking_11_choose_sound_uk_gif__WEBPACK_IMPORTED_MODULE_142__["default"],
+  talesDanceMoves: _steps_talking_12_dance_moves_uk_png__WEBPACK_IMPORTED_MODULE_143__["default"]
 };
 
 

@@ -1734,26 +1734,27 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
         var xs;
         var ys;
         var _loop = function _loop() {
-          var trainingdataitem = trainingdata[i];
-          var labelIdx = _this5.PROJECTS[projectid].modelClasses.indexOf(trainingdataitem.metadata.label);
-          var xval = _this5.baseModel.predict(trainingdataitem.data);
-          var yval = tf.tidy(function () {
-            return tf.oneHot(tf.tensor1d([labelIdx]).toInt(), that.PROJECTS[projectid].modelNumClasses);
-          });
-          if (i === 0) {
-            xs = xval;
-            ys = yval;
-          } else {
-            oldxs = xs;
-            oldys = ys;
-            xs = oldxs.concat(xval, 0);
-            ys = oldys.concat(yval, 0);
-            oldxs.dispose();
-            oldys.dispose();
-          }
-        };
+            var trainingdataitem = trainingdata[i];
+            var labelIdx = _this5.PROJECTS[projectid].modelClasses.indexOf(trainingdataitem.metadata.label);
+            var xval = _this5.baseModel.predict(trainingdataitem.data);
+            var yval = tf.tidy(function () {
+              return tf.oneHot(tf.tensor1d([labelIdx]).toInt(), that.PROJECTS[projectid].modelNumClasses);
+            });
+            if (i === 0) {
+              xs = xval;
+              ys = yval;
+            } else {
+              oldxs = xs;
+              oldys = ys;
+              xs = oldxs.concat(xval, 0);
+              ys = oldys.concat(yval, 0);
+              oldxs.dispose();
+              oldys.dispose();
+            }
+          },
+          oldxs,
+          oldys;
         for (var i = 0; i < trainingdata.length; i++) {
-          var oldxs, oldys;
           _loop();
         }
         var epochs = 10;
