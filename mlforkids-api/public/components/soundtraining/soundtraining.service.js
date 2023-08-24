@@ -349,7 +349,7 @@
             return modelService.loadModel(MODELTYPE, projectid, transferRecognizer)
                 .then(function (resp) {
                     if (resp) {
-                        transferRecognizer.words = labels;
+                        transferRecognizer.words = Array.from(labels).sort();
                         modelStatus = {
                             classifierid : projectid,
                             status : 'Available',
