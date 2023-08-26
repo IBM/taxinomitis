@@ -282,6 +282,12 @@
                 "DESCRIPTION": "يُستخدم تدريب نموذج تعلم الآلة للتعرف على صور القطط والكلاب كمقدمة بسيطة جيدة للتعرف على الصور.",
                 "DETAILS": "مجموعة بيانات التدريب هذه من Wikimedia Commons هي مجموعة جيدة للانطلاق لبناء بيانات التدريب الخاصة بك لصور الحيوانات"
             },
+            "ORGANICWASTE": {
+                "TITLE": "Organic waste",
+                "SUMMARY": "Sorting waste items",
+                "DESCRIPTION": "Training a machine learning model to recognise if an item can be placed in a biodegradable bin is a way to highlight how image recognition can help.",
+                "DETAILS": "Attribution: Sashaank Sekar https://www.kaggle.com/datasets/techsash/waste-classification-data"
+            },
             "UKNEWSPAPERS": {
                 "TITLE": "عناوين الصحف البريطانية",
                 "SUMMARY": "التعرف على استخدام اللغة في العناوين",

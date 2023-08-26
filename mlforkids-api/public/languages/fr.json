@@ -282,6 +282,12 @@
                 "DESCRIPTION": "Entraîner un modèle d'apprentissage machine à reconnaître des photos de chats et de chiens est une bonne introduction simple à la reconnaissance d'images.",
                 "DETAILS": "Ce jeu de données comportant des photos de Wikimedia Commons est un bon point de départ pour construire vos propres données d'entraînement de reconnaissance des photos d'animaux"
             },
+            "ORGANICWASTE": {
+                "TITLE": "Organic waste",
+                "SUMMARY": "Sorting waste items",
+                "DESCRIPTION": "Training a machine learning model to recognise if an item can be placed in a biodegradable bin is a way to highlight how image recognition can help.",
+                "DETAILS": "Attribution: Sashaank Sekar https://www.kaggle.com/datasets/techsash/waste-classification-data"
+            },
             "UKNEWSPAPERS": {
                 "TITLE": "Les titres des journaux britanniques",
                 "SUMMARY": "Reconnaître l'utilisation du vocabulaire dans les titres des journaux",

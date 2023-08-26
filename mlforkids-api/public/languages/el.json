@@ -282,6 +282,12 @@
                 "DESCRIPTION": "Η εκπαίδευση ενός μοντέλου μηχανικής μάθησης για να αναγνωρίζει φωτογραφίες γατών και των σκυλιών είναι μια καλή, απλή εισαγωγή στην αναγνώριση εικόνας.",
                 "DETAILS": "Αυτή η συλλογή φωτογραφιών από το Wikimedia Commons είναι μια καλή εκκίνηση για να χτίσεις τη δική σου συλλογή δεδομένων εκπαίδευσης με φωτογραφίες ζώων"
             },
+            "ORGANICWASTE": {
+                "TITLE": "Organic waste",
+                "SUMMARY": "Sorting waste items",
+                "DESCRIPTION": "Training a machine learning model to recognise if an item can be placed in a biodegradable bin is a way to highlight how image recognition can help.",
+                "DETAILS": "Attribution: Sashaank Sekar https://www.kaggle.com/datasets/techsash/waste-classification-data"
+            },
             "UKNEWSPAPERS": {
                 "TITLE": "Τίτλοι Βρετανικών Εφημερίδων",
                 "SUMMARY": "Αναγνώριση της χρήσης της γλώσσας σε τίτλους εφημερίδων",

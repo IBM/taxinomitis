@@ -287,6 +287,12 @@
                 "DESCRIPTION": "Ez a gépi tanulási modell, amely a macskák és kutyák fényképeinek felismerésére lett betanítva, jó és egyszerű bevezetés a képfelismerésbe.",
                 "DETAILS": "Ez a Wikimedia Commons fotóiból álló tanítási adatbázis jó kiindulási készlet az állatfotókból készült saját tanítási adatok összeállításához"
             },
+            "ORGANICWASTE": {
+                "TITLE": "Organic waste",
+                "SUMMARY": "Sorting waste items",
+                "DESCRIPTION": "Training a machine learning model to recognise if an item can be placed in a biodegradable bin is a way to highlight how image recognition can help.",
+                "DETAILS": "Attribution: Sashaank Sekar https://www.kaggle.com/datasets/techsash/waste-classification-data"
+            },
             "UKNEWSPAPERS": {
                 "TITLE": "UK újságcímek",
                 "SUMMARY": "Ismerd fel a főcímek nyelvhasználatát.",

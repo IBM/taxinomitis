@@ -51,6 +51,7 @@
                     'DATASETS.DATA.TITANIC.TITLE', 'DATASETS.DATA.TITANIC.SUMMARY', 'DATASETS.DATA.TITANIC.DESCRIPTION', 'DATASETS.DATA.TITANIC.DETAILS',
                     'DATASETS.DATA.UKNEWSPAPERS.TITLE', 'DATASETS.DATA.UKNEWSPAPERS.SUMMARY', 'DATASETS.DATA.UKNEWSPAPERS.DESCRIPTION', 'DATASETS.DATA.UKNEWSPAPERS.DETAILS',
                     'DATASETS.DATA.CATSANDDOGS.TITLE', 'DATASETS.DATA.CATSANDDOGS.SUMMARY', 'DATASETS.DATA.CATSANDDOGS.DESCRIPTION', 'DATASETS.DATA.CATSANDDOGS.DETAILS',
+                    'DATASETS.DATA.ORGANICWASTE.TITLE', 'DATASETS.DATA.ORGANICWASTE.SUMMARY', 'DATASETS.DATA.ORGANICWASTE.DESCRIPTION', 'DATASETS.DATA.ORGANICWASTE.DETAILS',
                     'DATASETS.DATA.PHISHING.TITLE', 'DATASETS.DATA.PHISHING.SUMMARY', 'DATASETS.DATA.PHISHING.DESCRIPTION', 'DATASETS.DATA.PHISHING.DETAILS',
                     'WORKSHEETS.NOUGHTSANDCROSSES.TITLE', 'DATASETS.DATA.NOUGHTSANDCROSSES.SUMMARY', 'DATASETS.DATA.NOUGHTSANDCROSSES.DESCRIPTION', 'DATASETS.DATA.NOUGHTSANDCROSSES.DETAILS',
                     'DATASETS.DATA.TOPTRUMPS.TITLE', 'DATASETS.DATA.TOPTRUMPS.SUMMARY', 'DATASETS.DATA.TOPTRUMPS.DESCRIPTION', 'DATASETS.DATA.TOPTRUMPS.DETAILS',
@@ -89,6 +90,15 @@
                             details: translations['DATASETS.DATA.CATSANDDOGS.DETAILS'],
                             type: 'imgtfjs',
                             image: 'static/images/dataset-catsanddogs.png'
+                        },
+                        {
+                            id: 'organic-waste',
+                            title: translations['DATASETS.DATA.ORGANICWASTE.TITLE'],
+                            summary: translations['DATASETS.DATA.ORGANICWASTE.SUMMARY'],
+                            description: translations['DATASETS.DATA.ORGANICWASTE.DESCRIPTION'],
+                            details: translations['DATASETS.DATA.ORGANICWASTE.DETAILS'],
+                            type: 'imgtfjs',
+                            image: 'static/images/dataset-organicwaste.png'
                         },
                         {
                             id: 'phishing',

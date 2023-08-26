@@ -288,6 +288,12 @@
                 "DESCRIPTION": "Training a machine learning model to recognise photos of cats and dogs is a good simple introduction to image recognition.",
                 "DETAILS": "This training dataset of photos from Wikimedia Commons is a good starting set for building your own training data of animal photos"
             },
+            "ORGANICWASTE": {
+                "TITLE": "Organic waste",
+                "SUMMARY": "Sorting waste items",
+                "DESCRIPTION": "Training a machine learning model to recognise if an item can be placed in a biodegradable bin is a way to highlight how image recognition can help.",
+                "DETAILS": "Attribution: Sashaank Sekar https://www.kaggle.com/datasets/techsash/waste-classification-data"
+            },
             "UKNEWSPAPERS": {
                 "TITLE": "UK Newspaper Headlines",
                 "SUMMARY": "Recognize the use of language in headlines",

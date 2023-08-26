@@ -288,6 +288,12 @@
                 "DESCRIPTION": "訓練機器學習模型讓它可以辨識貓咪或是小狗，是關於影像辨識很好的說明作品",
                 "DETAILS": "使用「 Wikimedia Commons」的照片作為訓練資料集的圖片，讓你有好的開始來建立自己的動物圖片訓練資料"
             },
+            "ORGANICWASTE": {
+                "TITLE": "Organic waste",
+                "SUMMARY": "Sorting waste items",
+                "DESCRIPTION": "Training a machine learning model to recognise if an item can be placed in a biodegradable bin is a way to highlight how image recognition can help.",
+                "DETAILS": "Attribution: Sashaank Sekar https://www.kaggle.com/datasets/techsash/waste-classification-data"
+            },
             "UKNEWSPAPERS": {
                 "TITLE": "英國報紙的頭條",
                 "SUMMARY": "辨識新聞頭條的用字遣詞",

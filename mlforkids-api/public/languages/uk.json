@@ -282,6 +282,12 @@
         "DESCRIPTION": "Навчання моделі машинного навчання розпізнаванню фотографій котів і собак є хорошим простим вступом до розпізнавання зображень.",
         "DETAILS": "Цей навчальний набір фотографій із Wikimedia Commons є хорошим початковим набором для створення власних навчальних даних фотографій тварин"
       },
+      "ORGANICWASTE": {
+        "TITLE": "Organic waste",
+        "SUMMARY": "Sorting waste items",
+        "DESCRIPTION": "Training a machine learning model to recognise if an item can be placed in a biodegradable bin is a way to highlight how image recognition can help.",
+        "DETAILS": "Attribution: Sashaank Sekar https://www.kaggle.com/datasets/techsash/waste-classification-data"
+      },
       "UKNEWSPAPERS": {
         "TITLE": "Заголовки газет Великобританії",
         "SUMMARY": "Розпізнайте використання мови в заголовках",

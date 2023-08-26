@@ -288,6 +288,12 @@
                 "DESCRIPTION": "Instruirea unui model de învățare automată pentru a recunoaște fotografiile cu pisici și câini este o bună introducere simplă a recunoașterii imaginilor.",
                 "DETAILS": "Acest set de date de antrenament cu fotografii din Wikimedia Commons este un set bun de pornire pentru construirea propriilor date de antrenament cu fotografii cu animale."
             },
+            "ORGANICWASTE": {
+                "TITLE": "Organic waste",
+                "SUMMARY": "Sorting waste items",
+                "DESCRIPTION": "Training a machine learning model to recognise if an item can be placed in a biodegradable bin is a way to highlight how image recognition can help.",
+                "DETAILS": "Attribution: Sashaank Sekar https://www.kaggle.com/datasets/techsash/waste-classification-data"
+            },
             "UKNEWSPAPERS": {
                 "TITLE": "Titluri de ziare din Marea Britanie",
                 "SUMMARY": "Recunoașteți utilizarea limbajului în titluri",

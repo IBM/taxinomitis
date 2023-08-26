@@ -282,6 +282,12 @@
                 "DESCRIPTION": "Mae hyfforddi model dysgu peiriant i adnabod lluniau o gathod a chŵn yn gyflwyniad syml da i adnabod delweddau.",
                 "DETAILS": "Mae'r set ddata hyfforddi hon o luniau o Wikimedia Commons yn set gychwyn dda ar gyfer adeiladu eich data hyfforddi eich hun o luniau anifeiliaid"
             },
+            "ORGANICWASTE": {
+                "TITLE": "Organic waste",
+                "SUMMARY": "Sorting waste items",
+                "DESCRIPTION": "Training a machine learning model to recognise if an item can be placed in a biodegradable bin is a way to highlight how image recognition can help.",
+                "DETAILS": "Attribution: Sashaank Sekar https://www.kaggle.com/datasets/techsash/waste-classification-data"
+            },
             "UKNEWSPAPERS": {
                 "TITLE": "Penawdau Papur Newydd y DU",
                 "SUMMARY": "Cydnabod y defnydd o iaith mewn penawdau",

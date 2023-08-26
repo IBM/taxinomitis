@@ -288,6 +288,12 @@
                 "DESCRIPTION": "고양이와 개 사진을 인식하는 머신러닝 모델 교육은 이미지 인식을 소개하기에 좋은 예제입니다.",
                 "DETAILS": "Wikimedia Commons의 이미지 훈련 데이터 세트는 동물 사진의 훈련 데이터를 구축하기에 적절합니다."
             },
+            "ORGANICWASTE": {
+                "TITLE": "Organic waste",
+                "SUMMARY": "Sorting waste items",
+                "DESCRIPTION": "Training a machine learning model to recognise if an item can be placed in a biodegradable bin is a way to highlight how image recognition can help.",
+                "DETAILS": "Attribution: Sashaank Sekar https://www.kaggle.com/datasets/techsash/waste-classification-data"
+            },
             "UKNEWSPAPERS": {
                 "TITLE": "영국 신문의 헤드라인",
                 "SUMMARY": "신문 헤드라인에서의 문체 인식",
