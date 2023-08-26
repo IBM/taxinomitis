@@ -76,18 +76,11 @@ gulp.task('tensorflowjs', function() {
         'node_modules/@tensorflow/tfjs/dist/tf.js',
         'node_modules/@tensorflow/tfjs/dist/tf.min.js',
         'node_modules/@tensorflow/tfjs/dist/tf.min.js.map'
-    ]).pipe(gulp.dest('web/static/bower_components/tensorflowjs'));
-});
-gulp.task('tensorflowjs4', function() {
-    return gulp.src([
-        'node_modules/@tensorflow/tfjs/dist/tf.js',
-        'node_modules/@tensorflow/tfjs/dist/tf.min.js',
-        'node_modules/@tensorflow/tfjs/dist/tf.min.js.map'
-    ]).pipe(gulp.dest('web/static/bower_components/tensorflowjs4'));
+    ]).pipe(gulp.dest('web/static/bower_components/tfjs'));
 });
 gulp.task('tensorflowposenet', function() {
     return gulp.src([
-        'node_modules/@tensorflow-models/posenet/dist/posenet.min.js'
+        'node_modules/tensorflow-models-posenet-no-dependencies/dist/posenet.min.js'
     ]).pipe(gulp.dest('web/static/bower_components/tensorflow-models/posenet'));
 });
 gulp.task('posenetmodel', function() {
@@ -101,12 +94,12 @@ gulp.task('posenetmodel', function() {
 });
 gulp.task('tensorflowspeechcommands', function() {
     return gulp.src([
-        'node_modules/@tensorflow-models/speech-commands/dist/speech-commands.min.js'
+        'node_modules/tensorflow-models-speech-commands/dist/speech-commands.min.js'
     ]).pipe(gulp.dest('web/static/bower_components/tensorflow-models/speech-commands'));
 });
 gulp.task('tensorflowspeechcommands-scratch', function() {
     return gulp.src([
-        'node_modules/@tensorflow-models/speech-commands/dist/speech-commands.min.js'
+        'node_modules/tensorflow-models-speech-commands/dist/speech-commands.min.js'
     ]).pipe(gulp.dest('web/static/bower_components/tensorflow-models/speech-commands-scratch'));
 });
 gulp.task('speechcommandsmodel', function() {
@@ -171,11 +164,11 @@ gulp.task('imagerecognitionmodel-scratch', function() {
 
 gulp.task('tensorflowhandposemodel', function() {
     return gulp.src([
-        'node_modules/@tensorflow-models/handpose/dist/handpose.min.js'
+        'node_modules/tensorflow-models-handpose/dist/handpose.min.js'
     ]).pipe(gulp.dest('web/static/bower_components/tensorflow-models/handpose'));
 });
 gulp.task('tfjs',
-    gulp.parallel('tensorflowjs', 'tensorflowjs4',
+    gulp.parallel('tensorflowjs',
         'tensorflowspeechcommands', 'tensorflowspeechcommands-scratch',
         'speechcommandsmodel', 'speechcommandsmodel-scratch',
         'tensorflowposenet', 'posenetmodel',
