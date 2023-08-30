@@ -32,7 +32,7 @@
         "IN6SECS": "Za 6 sekund...",
         "IN20MINS": "Za 20 minut...",
         "WHAT": {
-            "TITLE": "Cože?",
+            "TITLE": "Co?",
             "BODY": "Tento bezplatný nástroj představuje strojové učení tím, že poskytuje praktické zkušenosti s trénováním systémů strojového učení a vytvářením věcí s jejich pomocí. <br/><br/>Poskytuje snadno použitelné prostředí s průvodcem pro trénování modelů strojového učení k rozpoznávání textu, čísel, obrázků nebo zvuků. <br/><br/>Navazuje na dosavadní snahy o představení a výuku programování pro děti tím, že tyto modely přidává do výukových kódovacích platforem <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a> a <a href='http://appinventor.mit.edu/' target='_blank'>App Inventor</a> a pomáhá dětem vytvářet projekty a stavět hry s modely strojového učení, které trénují. <br/><br/>Nástroj byl poprvé zpřístupněn v roce 2017 a nyní jej <a href='https://wakelet.com/wake/4d3680cb-2a11-49ab-9180-fcfeced48393' target='_blank'>využívají tisíce škol, kódovacích klubů a rodin po celém světě</a>. <br/><br/>Chcete-li se dozvědět více, podívejte se na:"
         },
         "WHY": {
@@ -351,7 +351,7 @@
     },
     "PROJECT": {
         "TRAIN": {
-            "TITLE": "Vlak",
+            "TITLE": "Trénovat",
             "BODY": "Shromážděte příklady toho, co má počítač rozpoznat"
         },
         "LEARNANDTEST": {
@@ -542,20 +542,20 @@
             "OFFERQUIZ": "Nebo si můžete vyzkoušet níže uvedený kvíz o strojovém učení a ověřit si, co jste se naučili.",
             "FAIL": "Níže je uvedena chybová zpráva ze školicího počítače. Pokud vám to dává smysl, zkuste problém odstranit. V opačném případě by možná stálo za to zkusit to znovu pro případ, že se jednalo pouze o náhodnou chybu.",
             "IDLE": {
-                "NOLABELS": "Dalším krokem je přechod na stránku <a href='{{ urls.train }}'>Vlak</a>. Přidejte několik štítků pro každou z věcí, které chcete počítač naučit rozpoznávat.",
+                "NOLABELS": "Dalším krokem je přechod na stránku <a href='{{ urls.train }}'>Trénovat</a>. Přidejte několik štítků pro každou z věcí, které chcete počítač naučit rozpoznávat.",
                 "ONELABEL": {
                     "EXPLANATION": "Uvedli jste pouze jednu věc, kterou má počítač rozpoznat: {{ label }}",
                     "ISTHATALL": "Je to jediná věc, kterou má počítač rozpoznat?",
-                    "NO": "<strong>Ne?</strong><br/>Vraťte se na stránku <a href='{{ urls.train }}'>Vlak</a>.<br/>Přidejte další štítky pro každou z věcí, které chcete počítač naučit rozpoznávat.<br/><br/>",
-                    "YES": "<strong>Ano?</strong><br/>Nejdříve musíte udělat ještě trochu práce.<br/>Aby se počítač naučil rozpoznávat \"{{ štítek }}\", musíte mu dát nějaké příklady věcí, které nejsou {{ štítek }}.<br/>Vraťte se na stránku <a href='{{ urls.train }}'>Vlak</a> a vytvořte nový štítek pro příklady věcí, které nejsou {{ štítek }}. Můžete ho nazvat \"ne-{{ štítek }}\"."
+                    "NO": "<strong>Ne?</strong><br/>Vraťte se na stránku <a href='{{ urls.train }}'>Trénovat</a>.<br/>Přidejte další štítky pro každou z věcí, které chcete počítač naučit rozpoznávat.<br/><br/>",
+                    "YES": "<strong>Ano?</strong><br/>Nejdříve musíte udělat ještě trochu práce.<br/>Aby se počítač naučil rozpoznávat \"{{ štítek }}\", musíte mu dát nějaké příklady věcí, které nejsou {{ štítek }}.<br/>Vraťte se na stránku <a href='{{ urls.train }}'>Trénovat</a> a vytvořte nový štítek pro příklady věcí, které nejsou {{ štítek }}. Můžete ho nazvat \"ne-{{ štítek }}\"."
                 },
                 "LABELS": {
-                    "NO_DATA": "Dalším krokem je přechod na stránku <a href='{{ urls.train }}'>Vlak</a>. Přidejte příklady pro jednotlivé štítky.",
+                    "NO_DATA": "Dalším krokem je přechod na stránku <a href='{{ urls.train }}'>Trénovat</a>. Přidejte příklady pro jednotlivé štítky.",
                     "MORE_DATA": {
                         "KEEP_GOING": "Pokračujte!",
                         "MORE_EXAMPLES": {
-                            "YOU": "Vraťte se na stránku <a href='{{ urls.train }}'>Vlak</a> a shromážděte další příklady pro každou ze značek.",
-                            "CLASS": "Požádejte třídu, aby se vrátila na stránku s <a href='{{ urls.train }}'>vlakem</a> a shromáždila další příklady pro každou z těchto značek."
+                            "YOU": "Vraťte se na stránku <a href='{{ urls.train }}'>Trénovat</a> a shromážděte další příklady pro každou ze značek.",
+                            "CLASS": "Požádejte třídu, aby se vrátila na stránku <a href='{{ urls.train }}'>Trénovat</a> a shromáždila další příklady pro každou z těchto značek."
                         },
                         "MORE_IS_BETTER": "Čím více jich získáte, tím lépe by se měl naučit, ale potřebujete alespoň {{ minimumExamples }} příkladů od každého z nich jako absolutní minimum."
                     },
@@ -566,8 +566,8 @@
                             "INDIVIDUAL": "Kliknutím na tlačítko níže začnete trénovat model strojového učení pomocí dosud shromážděných příkladů"
                         },
                         "MORE_EXAMPLES": {
-                            "CROWDSOURCED": "(Nebo požádejte třídu, aby se vrátila na stránku <a href='{{ urls.train }}'>Vlak</a>, pokud chcete, aby nejprve shromáždila další příklady.)",
-                            "INDIVIDUAL": "(Nebo se vraťte na stránku <a href='{{ urls.train }}'>Vlak</a>, pokud chcete nejprve shromáždit další příklady.)"
+                            "CROWDSOURCED": "(Nebo požádejte třídu, aby se vrátila na stránku <a href='{{ urls.train }}'>Trénovat</a>, pokud chcete, aby nejprve shromáždila další příklady.)",
+                            "INDIVIDUAL": "(Nebo se vraťte na stránku <a href='{{ urls.train }}'>Trénovat</a>, pokud chcete nejprve shromáždit další příklady.)"
                         },
                         "WAITING_FOR_TEACHER": "Čekáte, až učitel zahájí výuku na počítači."
                     }
@@ -583,8 +583,8 @@
                 "SCRATCH": "Pokud se zdá, že se počítač naučil rozpoznávat věci správně, můžete přejít do programu Scratch a použít to, co se počítač naučil, k vytvoření hry!",
                 "ADDITIONAL_TRAINING": {
                     "MORE_EXAMPLES": {
-                        "CROWDSOURCED": "Pokud se počítač v mnoha věcech mýlí, může se vaše třída vrátit na stránku s <a href='{{ urls.train }}'>vlakem</a> a shromáždit další příklady.",
-                        "INDIVIDUAL": "Pokud se počítač v mnoha věcech mýlí, můžete se vrátit na stránku <a href='{{ urls.train }}'>vlaku</a> a shromáždit další příklady"
+                        "CROWDSOURCED": "Pokud se počítač v mnoha věcech mýlí, může se vaše třída vrátit na stránku s <a href='{{ urls.train }}'>Trénovatem</a> a shromáždit další příklady.",
+                        "INDIVIDUAL": "Pokud se počítač v mnoha věcech mýlí, můžete se vrátit na stránku <a href='{{ urls.train }}'>Trénovat</a> a shromáždit další příklady"
                     },
                     "RETRAIN": {
                         "YOU": "Jakmile to uděláte, klikněte na tlačítko níže a vytrénujte nový model strojového učení a zjistěte, jaký je rozdíl díky dalším příkladům!",
@@ -595,7 +595,7 @@
         },
         "TRAINING": {
             "TITLE": "Informace ze školicího počítače:",
-            "STARTED": "Model zahájil školení na:",
+            "STARTED": "Trénování modelu začalo v:",
             "STATUS": "Aktuální stav modelu:",
             "DETAIL": "Detail:",
             "DELETION": "Model bude automaticky odstraněn po:",
@@ -1747,7 +1747,7 @@
             "Q4-A-4": "projekty <strong>obrázků</strong> lze trénovat pouze na počítači."
         },
         "SCRATCH": {
-            "TITLE": "Problémy s poškrábáním",
+            "TITLE": "Problémy se Scratchem",
             "Q1": "Nevím, jak zprovoznit Scratch 2",
             "Q1-A-1": "Starší verze programu Scratch, Scratch 2, potřebuje ke své práci Adobe Flash, takže musíte používat operační systém a webový prohlížeč, který umí pracovat s Flashem.",
             "Q1-A-2": "Pokud si nejste jisti, jak povolit Flash, můžete <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-scratchx.pdf'>si stáhnout dokument s několika tipy pro zprovoznění aplikace Scratch</a>. Nebo můžete místo toho použít novou verzi programu Scratch, Scratch 3.",
