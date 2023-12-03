@@ -282,6 +282,12 @@
                 "DESCRIPTION": "Trénování modelu strojového učení pro rozpoznávání fotografií koček a psů je dobrým jednoduchým úvodem do rozpoznávání obrazu.",
                 "DETAILS": "Tato tréninková sada fotografií z Wikimedia Commons je dobrou výchozí sadou pro vytvoření vlastních tréninkových dat fotografií zvířat"
             },
+            "ORGANICWASTE": {
+                "TITLE": "Organic waste",
+                "SUMMARY": "Sorting waste items",
+                "DESCRIPTION": "Training a machine learning model to recognise if an item can be placed in a biodegradable bin is a way to highlight how image recognition can help.",
+                "DETAILS": "Attribution: Sashaank Sekar https://www.kaggle.com/datasets/techsash/waste-classification-data"
+            },
             "UKNEWSPAPERS": {
                 "TITLE": "Novinové titulky ve Spojeném království",
                 "SUMMARY": "Rozpoznat použití jazyka v titulcích",
@@ -1520,6 +1526,14 @@
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-ispy.pdf"
             }
+        },
+        "CARPOOL": {
+            "TITLE": "Carpool Cheats",
+            "SUMMARY": "Teach a computer to recognize a car without passengers",
+            "DESCRIPTION": "Make a game in Scratch where you make a traffic camera to catch carpool cheats.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carpoolcheats.pdf"
+            }
         }
     },
     "TEACHER": {
@@ -1873,7 +1887,6 @@
             "Q4-A-6": "Obecné informace uložené o všech účtech",
             "Q4-A-7": "Správa uživatelů pro službu Machine Learning for Kids je implementována pomocí služby třetí strany <a href='https://auth0.com/'>Auth0</a>. Ta ukládá IP adresu, ze které jste se naposledy přihlásili do služby Machine Learning for Kids, a typ použitého prohlížeče. Nikdy jsem nenašel důvod, proč to používat, ale je to uloženo, kdybych to chtěl hledat.",
             "Q4-A-8": "Chyby, které se vyskytnou ve webovém prohlížeči, jsou zachyceny pomocí služby třetí strany <a href='https://sentry.io/'>Sentry</a>. Pokud se něco pokazí, zachytí informace o chybě, včetně vašeho uživatelského jména, IP adresy, typu používaného prohlížeče a technického popisu toho, co se pokazilo.",
-            "Q4-A-9": "Používám službu <a href='https://www.google.com/analytics/'>Google Analytics</a>, abych věděl, kolik uživatelů denně navštíví stránku Machine Learning for Kids. Přestože zachycuje informace, jako je zeměpisná poloha a typ prohlížeče, zobrazují se mi vždy pouze v anonymizované souhrnné podobě.",
             "Q5": "Co se děje se školicími daty vytvořenými studenty?",
             "Q5-A-1": "Krokem ve všech projektech strojového učení, které studenti vytvářejí pomocí této stránky, je vytvoření nebo shromáždění trénovacích příkladů. U textových projektů to může znamenat zadávání krátkých textových pasáží. U obrazových projektů to může znamenat kreslení obrázků na plátno na obrazovce nebo fotografování pomocí webové kamery. U projektů týkajících se čísel to znamená psaní sad čísel.",
             "Q5-A-2": "Všechny tyto tréninkové příklady jsou uloženy v <a href='https://www.ibm.com/cloud/databases-for-postgresql'>databázi PostgreSQL hostované v IBM Cloud</a> v Dallasu ve Spojených státech. Jako správce databáze mám přístup ke všem těmto výukovým příkladům pro všechny studentské projekty, nepoužívám je však k jiným účelům než k tomu, abych studentům umožnil přístup k jejich vlastním projektům a práci na nich. Výcviková data nezveřejňuji (ani veřejně, ani jednotlivcům či třetím stranám), ani je jinak nesdílím, s dvěma výjimkami, kdy je předávám rozhraní IBM Watson API popsaným níže.",
