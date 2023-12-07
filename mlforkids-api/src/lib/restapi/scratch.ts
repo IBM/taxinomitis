@@ -502,7 +502,10 @@ async function trainNewClassifier(req: Express.Request, res: Express.Response) {
 
 
 const CORS_CONFIG = {
-    origin: /machinelearningforkids\.co\.uk$/,
+    origin: [
+        /machinelearningforkids\.co\.uk$/,
+        /app\.edublocks\.org$/,
+    ],
 };
 
 function doNothing(req: Express.Request, res: Express.Response, next: Express.NextFunction) {
