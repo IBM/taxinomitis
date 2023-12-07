@@ -80,7 +80,7 @@ gulp.task('tensorflowjs', function() {
 });
 gulp.task('tensorflowposenet', function() {
     return gulp.src([
-        'node_modules/tensorflow-models-posenet-no-dependencies/dist/posenet.min.js'
+        'node_modules/tensorflow-models-posenet/dist/posenet.min.js'
     ]).pipe(gulp.dest('web/static/bower_components/tensorflow-models/posenet'));
 });
 gulp.task('posenetmodel', function() {
