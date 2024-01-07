@@ -7,10 +7,11 @@
     imageTrainingService.$inject = [
         '$q', '$location',
         'trainingService', 'modelService',
+        'browserStorageService',
         'utilService', 'loggerService'
     ];
 
-    function imageTrainingService($q, $location, trainingService, modelService, utilService, loggerService) {
+    function imageTrainingService($q, $location, trainingService, modelService, browserStorageService, utilService, loggerService) {
 
         var transferModel;
         var baseModel;
@@ -166,10 +167,15 @@
 
 
         function getImageData(projectid, userid, tenantid, traininginfo) {
-            return trainingService.getTrainingItem(projectid, userid, tenantid, traininginfo.id)
-                .then(function (imgdata) {
-                    return getTensorForImageData(imgdata, traininginfo);
-                });
+            if (browserStorageService.idIsLocal(projectid)) {
+                return getTensorForImageData(traininginfo.imagedata, traininginfo);
+            }
+            else {
+                return trainingService.getTrainingItem(projectid, userid, tenantid, traininginfo.id)
+                    .then(function (imgdata) {
+                        return getTensorForImageData(imgdata, traininginfo);
+                    });
+            }
         }
 
 

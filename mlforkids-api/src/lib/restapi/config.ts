@@ -29,6 +29,7 @@ export const CSP_DIRECTIVES = {
         'http://cdn.auth0.com',
         'https://cdn.auth0.com',
         'https://cdn.eu.auth0.com',
+        'https://dalelane.eu.auth0.com',
         // used to embed links in the News tab
         'http://embed-assets.wakelet.com',
         // used to embed tweets in the News tab
@@ -40,6 +41,8 @@ export const CSP_DIRECTIVES = {
         'https://player.vimeo.com',
         // used for error capturing
         'https://browser.sentry-cdn.com',
+        // used for analytics
+        'https://scripts.withcabin.com/hello.js',
         // useful when running locally
         'https://machinelearningforkids.co.uk',
         'https://scratch.machinelearningforkids.co.uk',
@@ -80,6 +83,8 @@ export const CSP_DIRECTIVES = {
     connectSrc: ["'self'",
         // used for error capturing
         '*.sentry.io',
+        // used for analytics
+        'https://ping.withcabin.com',
     ],
 };
 
@@ -133,6 +138,9 @@ export function setupUI(app: express.Application): void {
 
     const twittercardlocation: string = path.join(__dirname, '/../../../web/dynamic/twitter-card.html');
     app.use('/twitter-card.html', compression(), removeFrameBlockingHeaders, express.static(twittercardlocation, { maxAge : constants.ONE_YEAR }));
+
+    const storageiframe: string = path.join(__dirname, '/../../../web/dynamic/storage.html');
+    app.use('/storage.html', compression(), removeFrameBlockingHeaders, express.static(storageiframe, { maxAge : constants.ONE_WEEK }));
 
     app.get('/static/images/scratch3-sample-%7B%7B%20project.type%20%7D%7D.png', (req, res) => { res.redirect('/static/images/scratch3-sample-text.png'); });
     app.get('/static/images/scratch3-recognise-label-%7B%7B%20project.type%20%7D%7D.png', (req, res) => { res.redirect('/static/images/scratch3-recognise-label-text.png'); });

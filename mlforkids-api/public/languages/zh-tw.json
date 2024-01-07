@@ -202,7 +202,9 @@
         "SHARE": "分享",
         "UNSHARE": "未分享",
         "WHOLE_CLASS_TITLE": "團體合作的專案",
-        "WHOLE_CLASS_NOTES": "這是可以全班一起使用的專案。所有你班級裡的學生皆可使用並新增訓練資料集"
+        "WHOLE_CLASS_NOTES": "這是可以全班一起使用的專案。所有你班級裡的學生皆可使用並新增訓練資料集",
+        "CLOUD_STORAGE_TITLE": "Cloud project",
+        "CLOUD_STORAGE_NOTES": "Training data for this project is stored in the cloud. This project can be accessed from any computer."
     },
     "NEWPROJECT": {
         "TITLE": "開始一個新的機器學習專案",
@@ -214,6 +216,14 @@
             "TITLE": "全班的專案？",
             "NOTES_1": "如果你希望全班可以一起合作這個專案，此複選框請打勾",
             "NOTES_2": "這對於需要群眾分工的專案非常有幫助"
+        },
+        "STORAGE": {
+            "LABEL": "Storage",
+            "LOCAL": "In your web browser",
+            "CLOUD": "In the cloud",
+            "NOTES_1": "Where do you want to store this project?",
+            "NOTES_2": "Storing in your web browser has no limits on how big your project can be (available for image and sounds projects)",
+            "NOTES_3": "Storing in the cloud will let you access the project from any computer"
         },
         "TYPES": {
             "LABEL": "辨識",
@@ -1837,26 +1847,23 @@
             "Q4-A-1": "<strong>text</strong> projects can only be trained in the cloud.",
             "Q4-A-2": "<strong>numbers</strong> projects can only be trained in the cloud.",
             "Q4-A-3": "<strong>sounds</strong> projects can only be trained on your computer.",
-            "Q4-A-4": "<strong>images</strong> projects can be trained on your computer, or (if you have access to Watson Visual Recognition) in the cloud."
+            "Q4-A-4": "<strong>images</strong> projects can be trained on your computer, or (if you have access to Watson Visual Recognition) in the cloud.",
+
+            "Q5": "What difference does it make where a project is stored?",
+            "Q5-A-1": "A summary of the differences is shown below:",
+            "Q5-A-LIMITS": "How much a student can store",
+            "Q5-A-UNLIMITED": "Unlimited",
+            "Q5-A-LIMITED": "Limits apply",
+            "Q5-A-NUMBER_OF_PROJECTS": "Number of projects",
+            "Q5-A-TRAINING_DATA": "Amount of training data in a project"
         },
 
         "SCRATCH": {
             "TITLE": "Scratch的常見問題",
 
-            "Q1": "我不知道如何讓Scratch2正常運作",
-            "Q1-A-1": "Scratch2與更舊的版本需要Adobe Flash才能執行，因此你需要使用可以和Flash一起使用的作業系統與網路瀏覽器。",
-            "Q1-A-2": "如果你不確定如何啟用Flash，那麼可以<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-scratchx.pdf'>下載文件說明，其中包含一些讓Scratch正常運作的提示</a>。 或者，您可以改用新版的Scratch3。",
-
             "Q2": "Scratch中的「載入專案」與「儲存專案」選單無法運作",
             "Q2-A-1": "如果你在macOS上使用Safari，並且Scratch選單的「檔案  -&gt; 載入專案」和「檔案 -&gt; 儲存專案」選單無法正常運作，則可能是你在安全模式下運行。",
             "Q2-A-2": "<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>請依照這裡的指示操作</a>，來檢查與解決這問題",
-
-            "Q3": "Scratch2中的機器學習分類器積木已無法使用",
-            "Q3-A-1": "有時候，你的機器學習模型的Scratch積木可能會失去與伺服器的連線。 發生這種情況時，他們將停止回傳執行結果。",
-            "Q3-A-2": "您可以透過「擴充積木」面板中的彩色狀態燈檢查是否發生了這種情況。",
-            "Q3-A-3": "如果Scratch機器學習積木旁邊的狀態指示燈為紅色，則通常表示有問題。 它可能是暫時性的問題， 嘗試儲存你的專案（使用「檔案」-&gt; 「儲存專案」），然後重新整理瀏覽器頁面。 如果頁面重新整理後狀態指示燈變為綠色，則可以載入專案（使用「檔案」-&gt; 「載入專案」）以從上次中斷的地方繼續使用。",
-            "Q3-A-4": "重新整理頁面後，如果狀態指示燈仍然為紅色，則代表機器學習模型可能存在問題。 嘗試前往專案的「學習 &amp; 測試」頁面，在該頁面上可以找到有關模型的任何錯誤消息。",
-            "Q3-A-5": "如果Scratch的機器學習積木旁邊的狀態指示燈為綠色，則代表積木正在運作。 如果沒有收到預期的響應，請嘗試前往「學習 &amp; 測試」頁面，並檢查模型回傳的結果。",
 
             "Q5": "我可以使用任何版本的Scratch嗎？",
             "Q5-A-1": "你需要使用兒童機器學習網站提供的Scratch版本。 您可以透過點擊專案頁面上的Scratch或Scratch 3按鈕來開啟它們。",
@@ -1995,7 +2002,6 @@
             "Q5-A-1": "學生使用此網站進行的所有機器學習項目中的一個步驟是建立或收集訓練範例。 對於文字專案，這可能代表著輸入簡短的文字段落。 對於圖片專案，這可能代表著將圖片繪製到螢幕畫布上或使用網絡攝像頭拍照。 對於數字專案，這意味著輸入數字集合",
             "Q5-A-2": "所有這些訓練範例都儲存在位於美國達拉斯的<a href='https://www.ibm.com/cloud/databases-for-postgresql'>IBM Cloud上託管的MySQL數據庫中</a>。 身為數據庫管理員，我可以訪問全部學生專案中所有訓練範例，但是除了讓學生能夠進入和使用自己的專案之外，我沒有將其用於其他任何目的。 我不會公開（公開地或個人或第三方）訓練數據，除了將數據提交給下面描述的兩個IBM Watson之外。",
             "Q5-A-3": "文字專案的機器學習模型是使用<a href='https://www.ibm.com/cloud/watson-assistant/'>IBM Watson Assistant</a>雲端服務建立的，這意味著當學生訓練模型時，他們輸入的訓練範例的副本將<a href='https://cloud.ibm.com/apidocs/assistant#create-workspace'>提交給IBM Watson</a>。 （此雲端服務的位置是教師在<a href='https://machinelearningforkids.co.uk/apikeys-guide'>建立API密碼</a>時選擇的位置。）IBM Watson不會將這些訓練範例用於任何其他目的。 這是因為如<a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>Watson文件</a>中所述，「兒童機器學習」<a href='https://cloud.ibm.com/apidocs/assistant#data-collection'>要求退出</a>IBM正在用於改進服務的學生訓練範例。",
-            "Q5-A-4": "文字專案的機器學習模型是使用<a href='https://www.ibm.com/watson/services/visual-recognition/'>IBM Visual Recognition</a>雲端服務建立的，這意味著當學生訓練模型時，他們輸入的訓練範例的副本將<a href='https://cloud.ibm.com/apidocs/visual-recognition#create-a-classifier'>提交給IBM Watson</a>。 （此雲端服務的位置是教師在<a href='https://machinelearningforkids.co.uk/apikeys-guide'>建立API密碼</a>時選擇的位置。）IBM Watson不會將這些訓練範例用於任何其他目的。 這是因為如<a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>Watson文件</a>中所述，「兒童機器學習」<a href='https://cloud.ibm.com/apidocs/visual-recognition#data-collection'>要求退出</a>IBM正在用於改進服務的學生訓練範例。",
             "Q5-A-5": "IBM Watson提供了一些<a href='https://cloud.ibm.com/docs/services/assistant?topic=assistant-information-security#information-security-gdpr-wa'>與其服務共享訓練數據的通用規範</a>，這些規範也適用於在「機器學習為兒童」中建立和收集的訓練數據。 具體來說，應勸告學生不要在收集的示例中使用包括個人身份的訊息。"
         }
     },

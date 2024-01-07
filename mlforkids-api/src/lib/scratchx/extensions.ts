@@ -18,24 +18,16 @@ Mustache.templateCache = undefined;
 
 const ROOT_URL = process.env[env.AUTH0_CALLBACK_URL];
 
-function escapeProjectName(name: string, version: 2 | 3): string {
-    if (version === 3) {
-        // Scratch 3 needs HTML encoding (e.g. '&lt;') as special
-        //  characters (e.g. '<') will prevent extensions from
-        //  loading
-        return name.replace(/[&<>]/g, ' ')
-                    .replace(/[']/g, '\\\'');
-    }
-    else {
-        // Scratch 2 displays the string as-is
-        return name.replace(/'/g, '\\\'');
-    }
+function escapeProjectName(name: string): string {
+    // Scratch 3 needs HTML encoding (e.g. '&lt;') as special
+    //  characters (e.g. '<') will prevent extensions from
+    //  loading
+    return name.replace(/[&<>]/g, ' ')
+                .replace(/[']/g, '\\\'');
 }
 
-async function getTextExtension(scratchkey: Types.ScratchKey, project: Types.Project, version: 2 | 3): Promise<string> {
-    const template: string = await fileutils.read(
-        version === 3 ? './resources/scratch3-text-classify.js' :
-                        './resources/scratchx-text-classify.js');
+async function getTextExtension(scratchkey: Types.ScratchKey, project: Types.Project): Promise<string> {
+    const template: string = await fileutils.read('./resources/scratch3-text-classify.js');
 
     Mustache.parse(template);
     const rendered = Mustache.render(template, {
@@ -46,7 +38,7 @@ async function getTextExtension(scratchkey: Types.ScratchKey, project: Types.Pro
         storeurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/train',
         modelurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/models',
 
-        projectname : escapeProjectName(scratchkey.name, version),
+        projectname : escapeProjectName(scratchkey.name),
         labels : project.labels.map((name, idx) => {
             return { name, idx };
         }),
@@ -56,30 +48,25 @@ async function getTextExtension(scratchkey: Types.ScratchKey, project: Types.Pro
     return rendered;
 }
 
-async function getImagesExtension(scratchkey: Types.ScratchKey, project: Types.Project,
-                                  version: 2 | 3): Promise<string>
+
+async function getImagesTfjsExtensionLocalData(projectid: string, projectname: string, labels: string[]): Promise<string>
 {
-    const template: string = await fileutils.read(
-        version === 3 ? './resources/scratch3-images-classify.js' :
-                        './resources/scratchx-images-classify.js');
+    const template: string = await fileutils.read('./resources/scratch3-imgtfjs-classify.js');
 
     Mustache.parse(template);
     const rendered = Mustache.render(template, {
-        projectid : project.id.replace(/-/g, ''),
+        projectid : projectid,
 
-        statusurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/status',
-        classifyurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/classify',
-        storeurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/train',
-
-        projectname : escapeProjectName(scratchkey.name, version),
-        labels : project.labels.map((name, idx) => {
+        projectname : escapeProjectName(projectname),
+        labels : labels.map((name, idx) => {
             return { name, idx };
         }),
 
-        firstlabel : project.labels.length > 0 ? project.labels[0] : '',
+        firstlabel : labels.length > 0 ? labels[0] : '',
     });
     return rendered;
 }
+
 
 async function getImagesTfjsExtension(scratchkey: Types.ScratchKey, project: Types.Project): Promise<string>
 {
@@ -93,7 +80,7 @@ async function getImagesTfjsExtension(scratchkey: Types.ScratchKey, project: Typ
         classifyurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/classify',
         storeurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/train',
 
-        projectname : escapeProjectName(scratchkey.name, 3),
+        projectname : escapeProjectName(scratchkey.name),
         labels : project.labels.map((name, idx) => {
             return { name, idx };
         }),
@@ -103,8 +90,7 @@ async function getImagesTfjsExtension(scratchkey: Types.ScratchKey, project: Typ
     return rendered;
 }
 
-async function getNumbersExtension(scratchkey: Types.ScratchKey, project: Types.Project,
-                                   version: 2 | 3): Promise<string>
+async function getNumbersExtension(scratchkey: Types.ScratchKey, project: Types.Project): Promise<string>
 {
     const allChoices = [];
     if (project.fields) {
@@ -119,9 +105,7 @@ async function getNumbersExtension(scratchkey: Types.ScratchKey, project: Types.
         }
     }
 
-    const template: string = await fileutils.read(
-        version === 3 ? './resources/scratch3-numbers-classify.js' :
-                        './resources/scratchx-numbers-classify.js');
+    const template: string = await fileutils.read('./resources/scratch3-numbers-classify.js');
 
     Mustache.parse(template);
     const rendered = Mustache.render(template, {
@@ -132,7 +116,7 @@ async function getNumbersExtension(scratchkey: Types.ScratchKey, project: Types.
         storeurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/train',
         modelurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/models',
 
-        projectname : escapeProjectName(scratchkey.name, version),
+        projectname : escapeProjectName(scratchkey.name),
 
         labels : project.labels.map((name, idx) => {
             return { name, idx };
@@ -162,12 +146,28 @@ async function getNumbersExtension(scratchkey: Types.ScratchKey, project: Types.
 }
 
 
-async function getSoundExtension(scratchkey: Types.ScratchKey, project: Types.Project,
-                                 version: 2 | 3): Promise<string>
+async function getSoundExtensionLocalData(projectid: string, projectname: string, labels: string[]): Promise<string>
 {
-    const template: string = await fileutils.read(
-        version === 3 ? './resources/scratch3-sound-classify.js' :
-                        './resources/scratchx-sound-classify.js');
+    const template: string = await fileutils.read('./resources/scratch3-sound-classify.js');
+
+    Mustache.parse(template);
+    const rendered = Mustache.render(template, {
+        projectid : projectid,
+
+        projectname : escapeProjectName(projectname),
+        labels : labels.filter((name) => name !== sound.BACKGROUND_NOISE).map((name, idx) => {
+            return { name, idx };
+        }),
+
+        firstlabel : labels.length > 0 ? labels[0] : '',
+    });
+    return rendered;
+}
+
+
+async function getSoundExtension(scratchkey: Types.ScratchKey, project: Types.Project): Promise<string>
+{
+    const template: string = await fileutils.read('./resources/scratch3-sound-classify.js');
 
     Mustache.parse(template);
     const rendered = Mustache.render(template, {
@@ -175,7 +175,7 @@ async function getSoundExtension(scratchkey: Types.ScratchKey, project: Types.Pr
 
         storeurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/train',
 
-        projectname : escapeProjectName(scratchkey.name, version),
+        projectname : escapeProjectName(scratchkey.name),
         labels : project.labels.filter((name) => name !== sound.BACKGROUND_NOISE).map((name, idx) => {
             return { name, idx };
         }),
@@ -191,24 +191,39 @@ async function getSoundExtension(scratchkey: Types.ScratchKey, project: Types.Pr
 export function getScratchxExtension(
     scratchkey: Types.ScratchKey,
     project: Types.Project,
-    version: 2 | 3,
 ): Promise<string>
 {
     switch (scratchkey.type) {
-    case 'text':
-        return getTextExtension(scratchkey, project, version);
-    case 'images':
-        return getImagesExtension(scratchkey, project, version);
-    case 'imgtfjs':
-        return getImagesTfjsExtension(scratchkey, project);
-    case 'numbers':
-        return getNumbersExtension(scratchkey, project, version);
-    case 'sounds':
-        return getSoundExtension(scratchkey, project, version);
+        case 'text':
+            return getTextExtension(scratchkey, project);
+        case 'imgtfjs':
+            return getImagesTfjsExtension(scratchkey, project);
+        case 'numbers':
+            return getNumbersExtension(scratchkey, project);
+        case 'sounds':
+            return getSoundExtension(scratchkey, project);
+        default:
+            return Promise.resolve('');
     }
 }
 
 
+export function getScratchxExtensionLocalData(
+    projecttype: Types.ProjectTypeLabel,
+    projectid: string,
+    projectname: string,
+    labels: string[],
+): Promise<string>
+{
+    switch (projecttype) {
+        case 'imgtfjs':
+            return getImagesTfjsExtensionLocalData(projectid, projectname, labels);
+        case 'sounds':
+            return getSoundExtensionLocalData(projectid, projectname, labels);
+        default:
+            return Promise.resolve('');
+    }
+}
 
 
 export async function getScratchTfjsExtension(scratchkey: string): Promise<string> {
@@ -224,7 +239,7 @@ export async function getScratchTfjsExtension(scratchkey: string): Promise<strin
     Mustache.parse(template);
     const rendered = Mustache.render(template, {
         projectid   : modelinfo.id,
-        projectname : metadata && metadata.modelName ? escapeProjectName(metadata.modelName, 3) : 'ML model',
+        projectname : metadata && metadata.modelName ? escapeProjectName(metadata.modelName) : 'ML model',
         labels      : metadata && metadata.labels ? metadata.labels.map((name, idx) => {
             return { name, idx };
         }) : [],

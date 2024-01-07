@@ -18,10 +18,20 @@ class MachineLearningSound {
 
         mlForKidsListenEvents = {};
 
+        {{^storeurl}}
+        postMessage({
+            mlforkidsstorage : {
+                command : 'init'
+            }
+        });
+        {{/storeurl}}
+
+
         var encodedProjectData = JSON.stringify({
             // labels needed to unpack saved models
             labels : this._labels,
-            projectid : '{{{projectid}}}'
+            projectid : '{{{projectid}}}',
+            storage: {{#storeurl}}'cloud'{{/storeurl}}{{^storeurl}}'local'{{/storeurl}}
         });
         postMessage({
             mlforkidssound : {
@@ -114,6 +124,7 @@ class MachineLearningSound {
     }
 
 
+    {{#storeurl}}
     trainNewModel () {
         if (this.listening) {
             this.stopListening();
@@ -160,6 +171,26 @@ class MachineLearningSound {
                 }
             });
     }
+    {{/storeurl}}
+    {{^storeurl}}
+    trainNewModel () {
+        if (this.listening) {
+            this.stopListening();
+        }
+
+        this.modelReady = false;
+        this.training = true;
+
+        postMessage({
+            mlforkidssound : {
+                command : 'trainlocal',
+                data : {
+                    projectid : '{{{projectid}}}'
+                }
+            }
+        });
+    }
+    {{/storeurl}}
 
 
     checkModelStatus({ STATUS }) {

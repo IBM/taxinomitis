@@ -324,7 +324,7 @@
 
 
         vm.createModel = function (ev, project) {
-            loggerService.debug('[ml4kmodels] creating model');
+            loggerService.debug('[ml4kmodels] creating model', { user : $scope.userId });
 
             // prepare the first question for displaying while
             //  the training is running

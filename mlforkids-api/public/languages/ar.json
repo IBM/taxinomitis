@@ -196,7 +196,9 @@
         "SHARE": "مشاركة",
         "UNSHARE": "إلغاء المشاركة",
         "WHOLE_CLASS_TITLE": "مشروع حشد المصادر",
-        "WHOLE_CLASS_NOTES": "هذا مشروع الصف بأكلمه. يمكن لجميع الطلاب في صفك استخدامه وإضافته إلى بيانات التدريب."
+        "WHOLE_CLASS_NOTES": "هذا مشروع الصف بأكلمه. يمكن لجميع الطلاب في صفك استخدامه وإضافته إلى بيانات التدريب.",
+        "CLOUD_STORAGE_TITLE": "Cloud project",
+        "CLOUD_STORAGE_NOTES": "Training data for this project is stored in the cloud. This project can be accessed from any computer."
     },
     "NEWPROJECT": {
         "TITLE": "بدء مشروع جديد لتعلم الآلة",
@@ -208,6 +210,14 @@
             "TITLE": "مشروع كامل الصف؟",
             "NOTES_1": "ضع علامة على هذا إذا كنت تريد أن يتمكن الصف بأكمله من العمل في هذا المشروع معًا.",
             "NOTES_2": "هذا مفيد للمشروعات التي تعلم حشد المصادر كنهج لتدريب مشاريع تعلم الآلة."
+        },
+        "STORAGE": {
+            "LABEL": "Storage",
+            "LOCAL": "In your web browser",
+            "CLOUD": "In the cloud",
+            "NOTES_1": "Where do you want to store this project?",
+            "NOTES_2": "Storing in your web browser has no limits on how big your project can be (available for image and sounds projects)",
+            "NOTES_3": "Storing in the cloud will let you access the project from any computer"
         },
         "TYPES": {
             "LABEL": "تمييز ",
@@ -1758,22 +1768,21 @@
             "Q4-A-1": "<strong>text</strong> projects can only be trained in the cloud.",
             "Q4-A-2": "<strong>numbers</strong> projects can only be trained in the cloud.",
             "Q4-A-3": "<strong>sounds</strong> projects can only be trained on your computer.",
-            "Q4-A-4": "<strong>images</strong> projects can be trained on your computer, or (if you have access to Watson Visual Recognition) in the cloud."
+            "Q4-A-4": "<strong>images</strong> projects can be trained on your computer, or (if you have access to Watson Visual Recognition) in the cloud.",
+
+            "Q5": "What difference does it make where a project is stored?",
+            "Q5-A-1": "A summary of the differences is shown below:",
+            "Q5-A-LIMITS": "How much a student can store",
+            "Q5-A-UNLIMITED": "Unlimited",
+            "Q5-A-LIMITED": "Limits apply",
+            "Q5-A-NUMBER_OF_PROJECTS": "Number of projects",
+            "Q5-A-TRAINING_DATA": "Amount of training data in a project"
         },
         "SCRATCH": {
             "TITLE": "مشاكل Scratch",
-            "Q1": "لا أعرف كيف أجعل Scratch 2 يعمل",
-            "Q1-A-1": "يحتاج الإصدار القديم من Scratch، Scratch 2 إلى Adobe Flash للعمل ، لذا يجب أن تستخدم نظام تشغيل ومتصفح ويب يمكن أن يعمل مع Flash.",
-            "Q1-A-2": "إذا لم تكن متأكدًا من كيفية تمكين Flash ، فيمكنك <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-scratchx.pdf'>تنزيل مستند يحتوي على بعض النصائح لتشغيل Scratch</a>. أو يمكنك استخدام الإصدار الجديد من Scratch ، Scratch 3 ، بدلاً من ذلك.",
             "Q2": "لا تعمل قوائم \"تحميل المشروع\" و \"حفظ المشروع\" في Scratch ",
             "Q2-A-1": "إذا كنت تستخدم Safari على macOS وقوائم سكراتش \"File -&gt; Load Project\" and \"File -&gt; Save Project\"  القوائم لا تعمل ، ربما أنك تعمل في الوضع الآمن.",
             "Q2-A-2": "<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>اتبع التعليمات هنا</a>لمعرفة كيفية التحقق من ذلك وإصلاحه.",
-            "Q3": "توقف لبنات مصنف تعلم الآلة في Scratch 2 عن العمل",
-            "Q3-A-1": "من حين لآخر ، يمكن أن تفقد لبنات Scratch لنموذج تعلم الآلة الخاص بك الاتصال بالخادم. عندما يحدث هذا ، سيتوقفون عن إرجاع النتائج.",
-            "Q3-A-2": "يمكنك التحقق مما إذا حدث هذا باستخدام ضوء STATUS الملون في لوحة \"لبنات إضافية\".",
-            "Q3-A-3": "إذا كان ضوء STATUS بجوار لبنات Scratch تعلم الآلة الخاص بك باللون الأحمر ، فهذا يعني عادةً أن هناك خطأ ما. قد تكون مشكلة مؤقتة.حاول حفظ مشروعك (باستخدام 'File' -&gt; 'حفظ المشروع')، ثم قم بتحديث صفحة المتصفح. إذا تحول ضوء STATUS إلى اللون الأخضر بعد إعادة تحميل الصفحة ، فيمكنك تحميل مشروعك (باستخدام 'File' -&gt; 'تحميل المشروع')  لالتقاط المكان الذي تركته.",
-            "Q3-A-4": "إذا كان ضوء STATUS لا يزال أحمر بعد إعادة تحميل الصفحة ، فربما يكون هناك خطأ في نموذج تعلم الآلة. حاول الانتقال إلى صفحة \"تعلم وamp; اختبر \" للمشروع ، حيث يمكن العثور على أي رسائل خطأ حول نموذجك.",
-            "Q3-A-5": "إذا كان ضوء STATUS الموجود بجوار لبنات Scratch  تعلم الآلة الخاصة بك باللون الأخضر ، فيجب أن تعمل لبنات. إذا لم تحصل على الردود التي تتوقعها منهم ، فجرّب الانتقال إلى صفحة \"تعلم وamp; اختبر \" والتحقق من النتائج التي يرجعها نموذجك.",
             "Q5": "هل يمكنني استخدام أي إصدار من Scratch؟",
             "Q5-A-1": "تحتاج إلى استخدام إصدارات Scratch التي يوفرها موقع تعلم الآلة للأطفال. يمكن إطلاقها بالنقر فوق زر Scratch أو \"Scratch 3\" من صفحة مشروعك.",
             "Q6": "يعمل Scratch 3 فقط على حفظ المشاريع في مجلد \"التنزيلات\"",
@@ -1891,7 +1900,6 @@
             "Q5-A-1": "من الخطوات في جميع مشاريع تعلم الآلة التي يقوم بها الطلاب باستخدام هذا الموقع إنشاء أو جمع أمثلة تدريبية. بالنسبة للمشروعات النصية ، قد يعني هذا كتابة مقاطع نصية قصيرة. بالنسبة لمشاريع الصور ، يمكن أن يعني ذلك رسم الصور على لوحة عرض على الشاشة أو التقاط صور باستخدام كاميرا الويب. بالنسبة لمشاريع الأرقام ، هذا يعني الكتابة في مجموعات من الأرقام.",
             "Q5-A-2": "يتم تخزين كل أمثلة التدريب هذه في قاعدة بيانات <a href='https://www.ibm.com/cloud/databases-for-postgresql'>PostgreSQL مستضافة على IBM Cloud </a>،في دالاس بالولايات المتحدة. بصفتي مسؤول قاعدة البيانات ، لدي إمكانية الوصول إلى كل هذه الأمثلة التدريبية لجميع مشروعات الطلاب ، ولكني لا أستخدمها لأي أغراض أخرى بخلاف تمكين الطلاب من الوصول إلى مشروعاتهم الخاصة والعمل عليها. لا أنشر بيانات التدريب (سواء بشكل علني أو للأفراد أو أطراف ثالثة) أو مشاركتها بأي طريقة أخرى ، مع الاستثناءين من إرسالها إلى واجهات برمجة تطبيقات IBM Watson APIs الموضحة في الأسفل.",
             "Q5-A-3": "يتم إنشاء نماذج تعلم الآلة للمشروعات النصية باستخدام الخدمة السحابية<a href='https://www.ibm.com/cloud/watson-assistant/'> IBM Watson Assistant </a>، مما يعني أنه عندما يقوم الطلاب بتدريب نموذج ، سيتم إرسال نسخة من أمثلة التدريب التي أدخلوها إلى <a href='https://cloud.ibm.com/apidocs/assistant#create-workspace'>IBM Watson</a>. (موقع هذه الخدمة السحابية هو شيء يختاره المعلمون عند <a href='https://machinelearningforkids.co.uk/apikeys-guide'>إنشاء مفاتيح API</a>.) لا يستخدم IBM Watson أمثلة التدريب هذه لأي أغراض أخرى. وذلك لأن تعلم الآلة للأطفال <a href='https://cloud.ibm.com/apidocs/assistant#data-collection'>يطلب إلغاء الاشتراك</a> في أمثلة تدريب الطلاب التي تستخدمها IBM لتحسين الخدمة ، كما هو <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>موضح في وثائق Watson</a>.",
-            "Q5-A-4": "يتم إنشاء نماذج تعلم الآلة لمشاريع الصور باستخدام الخدمة السحابية <a href='https://www.ibm.com/watson/services/visual-recognition/'>IBM Visual Recognition </a> ، مما يعني أنه عندما يقوم الطلاب بتدريب نموذج ، سيتم تحميل نسخة من صور التدريب الخاصة بهم إلى <a href='https://cloud.ibm.com/apidocs/visual-recognition#create-a-classifier'>IBM Watson</a>. (موقع هذه الخدمة السحابية هو شيء يختاره المعلمون عند <a href='https://machinelearningforkids.co.uk/apikeys-guide'>إنشاء مفاتيح API </a>.) لا يستخدم IBM Watson أمثلة التدريب هذه لأي أغراض أخرى. وذلك لأن تعلم الآلة للأطفال<a href='https://cloud.ibm.com/apidocs/visual-recognition#data-collection'> يطلب إلغاء الاشتراك</a> في أمثلة تدريب الطلاب التي تستخدمها IBM لتحسين الخدمة ، كما هو <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>موضح في وثائق Watson</a>.",
             "Q5-A-5": "يقدم IBM Watson بعض <a href='https://cloud.ibm.com/docs/services/assistant?topic=assistant-information-security#information-security-gdpr-wa'>الإرشادات العامة لمشاركة بيانات التدريب مع خدماتهم</a> ، والتي تنطبق أيضًا على بيانات التدريب التي تم إنشاؤها وجمعها في تعلم الآلة للأطفال. على وجه التحديد ، ينبغي نصح الطلاب بعدم تضمين معلومات التعريف الشخصية في الأمثلة التي يجمعونها."
         }
     },

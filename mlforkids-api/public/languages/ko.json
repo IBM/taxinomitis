@@ -202,7 +202,9 @@
         "SHARE": "Share",
         "UNSHARE": "Un-share",
         "WHOLE_CLASS_TITLE": "Crowd-sourced project",
-        "WHOLE_CLASS_NOTES": "This is a whole-class project. All students in your class can use it and add to the training data."
+        "WHOLE_CLASS_NOTES": "This is a whole-class project. All students in your class can use it and add to the training data.",
+        "CLOUD_STORAGE_TITLE": "Cloud project",
+        "CLOUD_STORAGE_NOTES": "Training data for this project is stored in the cloud. This project can be accessed from any computer."
     },
     "NEWPROJECT": {
         "TITLE": "새로운 머신러닝 프로젝트를 시작해봅시다",
@@ -214,6 +216,14 @@
             "TITLE": "모든 학생을 위한 프로젝트입니까?",
             "NOTES_1": "이 프로젝트를 여러분 클래스의 모든 학생이 함께하기를 원한다면 이 버튼을 클릭하세요",
             "NOTES_2": "이것은 많은 학생에게 머신러닝을 가르치기에 유용한 방법입니다"
+        },
+        "STORAGE": {
+            "LABEL": "Storage",
+            "LOCAL": "In your web browser",
+            "CLOUD": "In the cloud",
+            "NOTES_1": "Where do you want to store this project?",
+            "NOTES_2": "Storing in your web browser has no limits on how big your project can be (available for image and sounds projects)",
+            "NOTES_3": "Storing in the cloud will let you access the project from any computer"
         },
         "TYPES": {
             "LABEL": "인식",
@@ -1838,26 +1848,23 @@
             "Q4-A-1": "<strong>텍스트</strong> 프로젝트는 클라우드에서만 학습할 수 있습니다.",
             "Q4-A-2": "<strong>숫자</strong> 프로젝트는 클라우드에서만 학습할 수 있습니다.",
             "Q4-A-3": "<strong>소리</strong> 프로젝트는 자신의 컴퓨터에서만 학습할 수 있습니다.",
-            "Q4-A-4": "<strong>이미지</strong> 프로젝트는 자신의 컴퓨터에서만 학습할 수 있습니다."
+            "Q4-A-4": "<strong>이미지</strong> 프로젝트는 자신의 컴퓨터에서만 학습할 수 있습니다.",
+
+            "Q5": "What difference does it make where a project is stored?",
+            "Q5-A-1": "A summary of the differences is shown below:",
+            "Q5-A-LIMITS": "How much a student can store",
+            "Q5-A-UNLIMITED": "Unlimited",
+            "Q5-A-LIMITED": "Limits apply",
+            "Q5-A-NUMBER_OF_PROJECTS": "Number of projects",
+            "Q5-A-TRAINING_DATA": "Amount of training data in a project"
         },
 
         "SCRATCH": {
             "TITLE": "스크래치 문제",
 
-            "Q1": "스크래치를 어떻게 하는지 모릅니다",
-            "Q1-A-1": "아이들을 위한 머신러닝은 스크래치를 사용합니다. 스크래치 2는 Adobe Flash가 필요하므로 Flash로 작업할 수 있는 운영 체제와 웹 브라우저를 사용하여야 합니다(아이패드는 사용할 수 없어요).",
-            "Q1-A-2": "플래시를 활성화하는 방법에 대해 잘 모르는 경우 <a href = 'https : //github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/ machinelearningforkids-scratchx.pdf '> 스크래치 작업을 위한 팁을 포함한 문서를 다운로드하세요.",
-
             "Q2": "\"프로젝트 열기\"나 \"프로젝트 저장\" 메뉴가 작동하지 않습니다",
             "Q2-A-1": "macOS의 사파리 브라우저에서 스크래치 메뉴의 \"File -&gt; 프로젝트 불러오기\" 와 \"File -&gt; 프로젝트 저장\" 가 작동하지 않는다면, 아마 세이프 모드에서 실행중일 수 있습니다.",
             "Q2-A-2": "이 문제를 해결하기 위해 <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>사용 설명서</a>를 살펴보세요.",
-
-            "Q3": "스크래치에서 머신러닝 블록이 작동하지 않습니다",
-            "Q3-A-1": "때때로 컴퓨터 학습 모델의 스크래치 블록 서버와 연결이 끊길 수 있습니다. 이렇게 되면 결과를 반환하지 않습니다.",
-            "Q3-A-2": "\"추가 블럭\"팔레트에서 상태 표시등을 사용하여이 문제가 발생했는지 여부를 확인할 수 있습니다.",
-            "Q3-A-3": "스크래치 블록을 학습하는 머신 옆의 상태 표시등이 빨간색이면 일반적으로 이상이 있음을 나타냅니다. 일시적인 문제 일 수 있습니다. '파일' -&gt; '프로젝트 저장'을 사용하여 프로젝트를 저장한 다음 브라우저 페이지를 새로 고침하십시오. 페이지가 다시 로드된 후 상태 표시등이 녹색으로 바뀌면 '파일' -&gt; '프로젝트 불러오기'를 사용하여 프로젝트를 가져와서 중단한 부분부터 시작할 수 있습니다",
-            "Q3-A-4": "페이지를 새로고침 한 후에도 상태 표시등이 여전히 빨간색이면 머신러닝 모델에 문제가 있을 수 있습니다. \"학습 & amp; 테스트\" 페이지에서 모델에 대한 오류 메시지를 찾을 수 있습니다.",
-            "Q3-A-5": "스크래치 블록을 학습하는 머신 옆의 상태 표시등이 녹색이면 블록이 작동해야합니다. 예상한 답을 얻지 못하면 \"학습 및 테스트\"페이지로 이동하여 모델의 결과를 확인하십시오.",
 
             "Q5": "모든 버전의 스크래치를 사용할 수 있습니까?",
             "Q5-A-1": "아이들을 위한 머신러닝 사이트에서 제공하는 스크래치 버전을 사용해야합니다. 프로젝트 페이지에서 스크래치 3(또는 스크래치 2) 버튼을 클릭하면 시작할 수 있습니다.",
@@ -1996,7 +2003,6 @@
             "Q5-A-1": "A step in all machine learning projects that students make using this site is to create or collect training examples. For text projects, this can mean typing in short text passages. For image projects, this can means drawing pictures onto an on-screen canvas or taking photos using the webcam. For numbers projects, this means typing in sets of numbers",
             "Q5-A-2": "이러한 모든 학습 예제들은 미국 달라스의 <a href='https://www.ibm.com/cloud/databases-for-postgresql'>IBM 클라우드에 호스팅된 PostgreSQL 데이터베이스</a>에 저장됩니다. 데이터베이스 관리자로서 저는 모든 학습 예제에 접근할 수 있찌만 학생들이 자신의 프로젝트에 접근하고 작업할 수 있도록 하는 것외에 다른 목적으로 사용하지 않습니다. 아래 설명된 IBM Watson API에 제출하는 두 가지 예외를 제외하고 학습 데이터를 공개하거나(공적으로, 개인 혹은 제3자에게) 공유하지 않습니다.",
             "Q5-A-3": "Machine learning models for text projects are created using the <a href='https://www.ibm.com/cloud/watson-assistant/'>IBM Watson Assistant</a> cloud service, which means when students train a model, a copy of the training examples that they have entered will be <a href='https://cloud.ibm.com/apidocs/assistant#create-workspace'>submitted to IBM Watson</a>. (The location of this cloud service is something that teachers choose when <a href='https://machinelearningforkids.co.uk/apikeys-guide'>creating API keys</a>.) IBM Watson does not use these training examples for any other purposes. This is because Machine Learning for Kids <a href='https://cloud.ibm.com/apidocs/assistant#data-collection'>requests an opt-out</a> for student training examples being used by IBM to improve the service, as <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>described in the Watson documentation</a>.",
-            "Q5-A-4": "Machine learning models for images projects are created using the <a href='https://www.ibm.com/watson/services/visual-recognition/'>IBM Visual Recognition</a> cloud service, which means when students train a model, a copy of their training images will be <a href='https://cloud.ibm.com/apidocs/visual-recognition#create-a-classifier'>uploaded to IBM Watson</a>. (The location of this cloud service is something that teachers choose when <a href='https://machinelearningforkids.co.uk/apikeys-guide'>creating API keys</a>.) IBM Watson does not use these training examples for any other purposes. This is because Machine Learning for Kids <a href='https://cloud.ibm.com/apidocs/visual-recognition#data-collection'>requests an opt-out</a> for student training examples being used by IBM to improve the service, as <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>described in the Watson documentation</a>.",
             "Q5-A-5": "IBM Watson provides some <a href='https://cloud.ibm.com/docs/services/assistant?topic=assistant-information-security#information-security-gdpr-wa'>general guidance for sharing training data with their services</a>, which also apply to training data created and collected in Machine Learning for Kids. Specifically, students should be advised not to include personally identifiable information in the examples that they collect."
         }
     },

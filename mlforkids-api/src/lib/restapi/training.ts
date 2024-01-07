@@ -223,33 +223,72 @@ async function storeTraining(req: auth.RequestWithProject, res: Express.Response
         res.status(httpstatus.CREATED).json(training);
     }
     catch (err) {
-        if (err.message && typeof err.message === 'string' &&
-            (
-            err.message === 'Text exceeds maximum allowed length (1024 characters)' ||
-            err.message === 'Empty text is not allowed' ||
-            err.message === 'Number of data items exceeded maximum' ||
-            err.message === 'Data contains non-numeric items' ||
-            err.message === 'Number is too small' ||
-            err.message === 'Number is too big' ||
-            err.message === 'Missing required attributes' ||
-            err.message === imageCheck.ERROR_PREFIXES.INVALID_URL ||
-            err.message.startsWith(imageCheck.ERROR_PREFIXES.BAD_TYPE) ||
-            err.message.startsWith('Unable to download image from ') ||
-            err.message.startsWith(imageCheck.ERROR_PREFIXES.TOO_BIG) ||
-            err.message.includes(imageDownload.ERRORS.DOWNLOAD_FORBIDDEN) ||
-            err.message.includes(imageDownload.ERRORS.DOWNLOAD_TOO_MANY_REQUESTS)
-            ))
-        {
-            return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
-        }
-        else if (err.message === 'Project already has maximum allowed amount of training data') {
-            return res.status(httpstatus.CONFLICT).json({ error : err.message });
-        }
-
-        errors.unknownError(res, err);
+        returnTrainingDataError(err, res);
     }
 }
 
+
+async function prepareTrainingImage(req: Express.Request, res: Express.Response) {
+    try {
+        const imageurl = req.query.imageurl as string;
+        const label = req.query.label;
+        const option = req.query.option;
+
+        if (!imageurl) {
+            return errors.missingData(res);
+        }
+
+        if (option === 'prepare') {
+            const downloadSpec = await visrec.getImageDownloadSpec('imageid', imageurl);
+            const imageData = await visrec.downloadImageForTraining(downloadSpec.url);
+
+            res.set(headers.CACHE_1YEAR);
+            res.send(imageData);
+        }
+        else if (option === 'check') {
+            await imageCheck.verifyImage(imageurl, visrec.getMaxImageFileSize());
+
+            res.set(headers.CACHE_1YEAR);
+            res.json({
+                imageurl, label,
+                isstored : false,
+            });
+        }
+        else {
+            return errors.missingData(res);
+        }
+    }
+    catch (err) {
+        returnTrainingDataError(err, res);
+    }
+}
+
+function returnTrainingDataError(err: any, res: Express.Response) {
+    if (err.message && typeof err.message === 'string' &&
+        (
+        err.message === 'Text exceeds maximum allowed length (1024 characters)' ||
+        err.message === 'Empty text is not allowed' ||
+        err.message === 'Number of data items exceeded maximum' ||
+        err.message === 'Data contains non-numeric items' ||
+        err.message === 'Number is too small' ||
+        err.message === 'Number is too big' ||
+        err.message === 'Missing required attributes' ||
+        err.message === imageCheck.ERROR_PREFIXES.INVALID_URL ||
+        err.message.startsWith(imageCheck.ERROR_PREFIXES.BAD_TYPE) ||
+        err.message.startsWith('Unable to download image from ') ||
+        err.message.startsWith(imageCheck.ERROR_PREFIXES.TOO_BIG) ||
+        err.message.includes(imageDownload.ERRORS.DOWNLOAD_FORBIDDEN) ||
+        err.message.includes(imageDownload.ERRORS.DOWNLOAD_TOO_MANY_REQUESTS)
+        ))
+    {
+        return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
+    }
+    else if (err.message === 'Project already has maximum allowed amount of training data') {
+        return res.status(httpstatus.CONFLICT).json({ error : err.message });
+    }
+
+    errors.unknownError(res, err);
+}
 
 
 export default function registerApis(app: Express.Application) {
@@ -280,6 +319,12 @@ export default function registerApis(app: Express.Application) {
             auth.verifyProjectAccess,
             // @ts-ignore
             getTrainingItem);
+
+    app.get(urls.PREPARE_IMAGES,
+            auth.authenticate,
+            auth.checkValidUser,
+            // @ts-ignore
+            prepareTrainingImage);
 
     app.delete(urls.TRAININGITEM,
                auth.authenticate,

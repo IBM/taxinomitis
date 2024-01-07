@@ -201,7 +201,9 @@
         "SHARE": "Megoszt",
         "UNSHARE": "Megosztást visszavon",
         "WHOLE_CLASS_TITLE": "Közösségi fejlesztésű projekt",
-        "WHOLE_CLASS_NOTES": "Ez egy egész osztályos közös projekt. Minden diák a teremben fel tudja használni, és a projektjeihez adni."
+        "WHOLE_CLASS_NOTES": "Ez egy egész osztályos közös projekt. Minden diák a teremben fel tudja használni, és a projektjeihez adni.",
+        "CLOUD_STORAGE_TITLE": "Cloud project",
+        "CLOUD_STORAGE_NOTES": "Training data for this project is stored in the cloud. This project can be accessed from any computer."
     },
     "NEWPROJECT": {
         "TITLE": "Új Gépi Tanulás projekt kezdése",
@@ -213,6 +215,14 @@
             "TITLE": "Egész osztályos projekt?",
             "NOTES_1": "Válaszd ezt, ha azt szeretnéd, hogy az egész osztály együtt dolgozhasson ezen a projekten.",
             "NOTES_2": "Ez olyan projekteknél hasznos, amelyek a csoportos alkotást preferálják a gépi tanulási projektek tanításának megközelítéseként."
+        },
+        "STORAGE": {
+            "LABEL": "Storage",
+            "LOCAL": "In your web browser",
+            "CLOUD": "In the cloud",
+            "NOTES_1": "Where do you want to store this project?",
+            "NOTES_2": "Storing in your web browser has no limits on how big your project can be (available for image and sounds projects)",
+            "NOTES_3": "Storing in the cloud will let you access the project from any computer"
         },
         "TYPES": {
             "LABEL": "Ismerje fel:",
@@ -1837,27 +1847,23 @@
             "Q4-A-1": "<strong>szöveg</strong> projekteket csak a felhőben tudsz tanítani.",
             "Q4-A-2": "<strong>számok</strong> projekteket csak a felhőben tudsz tanítani.",
             "Q4-A-3": "<strong>hang</strong> projekteket csak a számítógépen tudsz tanítani.",
-            "Q4-A-4": "<strong>képi</strong> projekteket a számítógépen és a felhőben is tudsz tanítani (ha tudsz csatlakozni a Watson Vizuális Felismeréshez)."
+            "Q4-A-4": "<strong>képi</strong> projekteket csak a számítógépen tudsz tanítani.",
 
+            "Q5": "What difference does it make where a project is stored?",
+            "Q5-A-1": "A summary of the differences is shown below:",
+            "Q5-A-LIMITS": "How much a student can store",
+            "Q5-A-UNLIMITED": "Unlimited",
+            "Q5-A-LIMITED": "Limits apply",
+            "Q5-A-NUMBER_OF_PROJECTS": "Number of projects",
+            "Q5-A-TRAINING_DATA": "Amount of training data in a project"
         },
 
         "SCRATCH": {
             "TITLE": "Problémák a Scratch-csel",
 
-            "Q1": "Nem tudom hogyan működik a Scratch 2",
-            "Q1-A-1": "A SCRATCH régebbi változata a Scratch 2 Adobe Flash-t igényel, tehát egy olyan operációs rendszerre és böngészőre van szükséged, ami képes a flasht futtatni.",
-            "Q1-A-2": "Ha nem vagy biztos a használatában, letölthetsz<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-scratchx.pdf'>dokumentumokat tippekkel</a>. Vagy használhatod az új verziót, a Scratch 3-t helyette.",
-
             "Q2": "A \"Projekt betöltés\" és a \"Projekt mentése\" menük nem működnek.",
             "Q2-A-1": "Ha Safari-t használsz  macOS-on és a Scratch menük \"File -&gt; Projekt betöltése\" és a \"File -&gt; Projekt mentése\" menük nem működnek, lehet, hogy biztonsági módban futtatod.",
             "Q2-A-2": "<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>kövesd az utasításokat</a> for how to check and fix this.",
-
-            "Q3": "A gépi tanulási osztályozó blokkok Scratch 2-ben leálltak",
-            "Q3-A-1": "Esetenként a gépi tanulási modell Scratch blokkjai megszakíthatják a kapcsolatot a szerverrel. Amikor ez megtörténik, leállítják az eredmények visszaadását.",
-            "Q3-A-2": "Ellenőrizheted, hogy mi történt a színes állapotjelző segítségével \"Több Blok\" palettán.",
-            "Q3-A-3": "Ha a gépi tanulási Scratch blokkok melletti állapotjelző lámpa pirosan világít, az általában azt jelenti, hogy valami nincs rendben. Lehet, hogy átmeneti probléma. Próbáld meg menteni a projektedet (használd a 'File' -&gt; 'Projekt mentése'), utána frissítsd a böngészőt. Ha az állapotjelző lámpa zöldre vált az oldal újratöltése után, betöltheti a projektet (használd a 'File' -&gt; 'Projekt betöltése') utána folytasd, ahol abbahagytad.",
-            "Q3-A-4": "Ha az állapotjelző lámpa az oldal újratöltése után is pirosan világít, akkor valószínűleg valami nincs rendben a gépi tanulási modellel. Nyisd meg a projekt \"Tanulás és tesztelés\" oldalt, ahol a modellel kapcsolatos hibaüzenetek megtalálhatók.",
-            "Q3-A-5": "Ha a gépi tanulási Scratch blokkok melletti állapotjelző fény zölden világít, akkor a blokkoknak működniük kell. Ha nem azt a választ kapod, amit vársz, próbáld meg a \"Tanítás &amp; Tesztelés\" oldalt, és ellenőrizd a modelled által adott válaszokat.",
 
             "Q5": "Használhatom az új Scratch verziót?",
             "Q5-A-1": "Azt a Scratch verziót kell használnod, amit támogat a Machine Learning for Kids oldal. Elindíthatók a projektoldaladon a Scratch, vagy a Scratch 3 gombokra kattintva.",
@@ -1996,7 +2002,6 @@
             "Q5-A-1": "Minden gépi tanulási projektben, amelyet a diákok ezen a webhelyen hajtanak végre, egy fontos lépés a tanítási példák létrehozása vagy összegyűjtése. Szöveges projekteknél ez rövid szövegrészek beírását jelentheti. Képprojektek esetén ez azt jelentheti, hogy képeket rajzol a képernyőn megjelenő vászonra, vagy fényképeket készít a webkamera segítségével. Számprojektek esetén ez számkészletek beírását jelenti.",
             "Q5-A-2": "Mindezek a tanítási példák a <a href='https://www.ibm.com/cloud/databases-for-postgresql'>Az IBM Cloudon tárolt PostgreSQL adatbázis</a> az Egyesült Államokban, Dallasban. Adatbázis-adminisztrátorként minden diák projekthez hozzáférek, és azok tanítási példáihoz, de nem használom más célra, csak arra, hogy lehetővé tegyem a diákok számára, hogy hozzáférjenek saját projektjeikhez, és dolgozhassanak azokon. Nem teszem közzé a tanítási adatokat (sem nyilvánosan, sem magánszemélyek, sem harmadik felek számára), és nem osztom meg más módon, az alábbiakban ismertetett két kivétellel, az IBM Watson API-khoz való benyújtás kivételével.",
             "Q5-A-3": "A szöveges projektek gépi tanulási modelljeit az alábbi módon készítik <a href='https://www.ibm.com/cloud/watson-assistant/'>IBM Watson Assistant</a> felhőszolgáltatás, ami azt jelenti, hogy amikor a tanulók modellt tanítanak, az általuk beírt tanítási példák másolata lesz <a href='https://cloud.ibm.com/apidocs/assistant#create-workspace'>benyújtva az IBM Watsonnak</a>. (A felhőszolgáltatás helyét a tanárok választják meg, mikor <a href='https://machinelearningforkids.co.uk/apikeys-guide'>API kulcsokat generálnak</a>.) Az IBM Watson ezeket a tanítási példákat semmilyen más célra nem használja. Ez azért van, mert a Machine Learning for Kids <a href='https://cloud.ibm.com/apidocs/assistant#data-collection'>leiratkozást kér</a> az IBM által a szolgáltatás fejlesztésére használt diák tanítási példákhoz, mint <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>a Watson documentációban le van írva</a>.",
-            "Q5-A-4": "A képiprojektek gépi tanulási modelljeit az alábbi módon készítik <a href='https://www.ibm.com/watson/services/visual-recognition/'>IBM Vizuális Felsimerő</a> felhőszolgáltatás, ami azt jelenti, hogy amikor a tanulók modellt tanítanak, az általuk beírt tanítási példák <a href='https://cloud.ibm.com/apidocs/visual-recognition#create-a-classifier'>IBM Watson-hoz vannak feltöltve</a>. (A felhőszolgáltatás helyét a tanárok választják meg, mikor <a href='https://machinelearningforkids.co.uk/apikeys-guide'> API kulcsokat generálnak</a>.) Az IBM Watson ezeket a tanítási példákat semmilyen más célra nem használja. Ez azért van, mert a Machine Learning for Kids <a href='https://cloud.ibm.com/apidocs/visual-recognition#data-collection'>rleiratkozást kér</a> az IBM által a szolgáltatás fejlesztésére használt diák tanítási példákhoz, mint <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>a Watson documentációban le van írva</a>.",
             "Q5-A-5": "IBM Watson nyújt néhány <a href='https://cloud.ibm.com/docs/services/assistant?topic=assistant-information-security#information-security-gdpr-wa'>általános útmutatást a tanítási adatok megosztásához</a>, amelyek a Machine Learning for Kids programban létrehozott és összegyűjtött tanítási adatokra is vonatkoznak. Konkrétan fel kell hívni a tanulók figyelmét arra, hogy az általuk gyűjtött példákban ne szerepeljenek személyazonosításra alkalmas adatok."
         }
     },

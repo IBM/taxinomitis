@@ -196,7 +196,9 @@
         "SHARE": "Share",
         "UNSHARE": "Un-share",
         "WHOLE_CLASS_TITLE": "Crowd-sourced project",
-        "WHOLE_CLASS_NOTES": "This is a whole-class project. All students in your class can use it and add to the training data."
+        "WHOLE_CLASS_NOTES": "This is a whole-class project. All students in your class can use it and add to the training data.",
+        "CLOUD_STORAGE_TITLE": "Cloud project",
+        "CLOUD_STORAGE_NOTES": "Training data for this project is stored in the cloud. This project can be accessed from any computer."
     },
     "NEWPROJECT": {
         "TITLE": "Starte ein neues Machine-Learning-Projekt",
@@ -208,6 +210,14 @@
             "TITLE": "Klassenprojekt?",
             "NOTES_1": "Wähle diese Option, wenn du möchtest, dass die gesamte Klasse zusammen an dem Projekt arbeiten kann.",
             "NOTES_2": "Das ist zum Beispiel hilfreich, um \"Croud Sourcing\" als eine Methode, um Machine-Learning-Modelle zu trainieren, einzuführen."
+        },
+        "STORAGE": {
+            "LABEL": "Storage",
+            "LOCAL": "In your web browser",
+            "CLOUD": "In the cloud",
+            "NOTES_1": "Where do you want to store this project?",
+            "NOTES_2": "Storing in your web browser has no limits on how big your project can be (available for image and sounds projects)",
+            "NOTES_3": "Storing in the cloud will let you access the project from any computer"
         },
         "TYPES": {
             "LABEL": "Erkenne",
@@ -1756,22 +1766,21 @@
             "Q4-A-1": "<strong>text</strong> projects can only be trained in the cloud.",
             "Q4-A-2": "<strong>numbers</strong> projects can only be trained in the cloud.",
             "Q4-A-3": "<strong>sounds</strong> projects can only be trained on your computer.",
-            "Q4-A-4": "<strong>images</strong> projects can be trained on your computer, or (if you have access to Watson Visual Recognition) in the cloud."
+            "Q4-A-4": "<strong>images</strong> projects can only be trained on your computer.",
+
+            "Q5": "What difference does it make where a project is stored?",
+            "Q5-A-1": "A summary of the differences is shown below:",
+            "Q5-A-LIMITS": "How much a student can store",
+            "Q5-A-UNLIMITED": "Unlimited",
+            "Q5-A-LIMITED": "Limits apply",
+            "Q5-A-NUMBER_OF_PROJECTS": "Number of projects",
+            "Q5-A-TRAINING_DATA": "Amount of training data in a project"
         },
         "SCRATCH": {
             "TITLE": "Probleme mit Scratch",
-            "Q1": "Ich weiß nicht, wie ich Scratch 2 zum Laufen kriege",
-            "Q1-A-1": "Die alte Version von Scratch, Scratch 2, benötigt den Adobe Flash Player. Verwende ein Betriebssystem und Browser auf dem Flash installiert ist.",
-            "Q1-A-2": "Wenn du nicht weißt, wie du Flash aktivieren kannst, kannst du            <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-scratchx.pdf'>diese PDF (Englisch) mit Tipps zu Scratch herunterladen</a>. Alternativ kannst du die neue Version von Scratch, Scratch 3.0, verwenden.",
             "Q2": "Die Menüpunkte \"Projekt laden\" und \"Projekt speichern\" in Scratch funktionieren nicht",
             "Q2-A-1": "Wenn du Safari auf macOS verwendest und die Scratch-Menüpunkte \"Datei -&gt; Projekt laden\" und \"Datei -&gt; Projekt speichern\" nicht funktionieren, kann es sein, dass du im Inkognito-Modus surfst.",
             "Q2-A-2": "<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>Folge diesen Instruktionen (Englisch)</a>, um das Problem zu beheben.",
-            "Q3": "Die Machine Learning Blöcke in Scratch funktionieren nicht",
-            "Q3-A-1": "Manchmal verlieren die Scratch Blöcke für das maschinelle Lernen die Verbindung zum Server. Wenn das passiert, liefern Sie kein Ergebnis mehr.",
-            "Q3-A-2": "Im Bereich \"Weitere Blöcke\" kannst du am farbigen Statuslicht erkennen, ob das der Fall ist.",
-            "Q3-A-3": "Wenn das Statuslicht neben den Machine Learning Blöcken in Scratch rot ist, läuft etwas schief. Es kann ein temporäres Problem sein.Versuche dein Projekt zu speichern ('Datei' -&gt; 'Projekt speichern') und lade die Browserseite neu. Wenn das Statuslicht nach dem Neuladen grün ist, lade dein Projekt hoch ('Datei' -&gt; 'Projekt laden'), um da weiterzumachen, wo du aufgehört hast.",
-            "Q3-A-4": "Wenn das Statuslicht rot bleibt, stimmt vielleicht etwas mit dem Machine Learning Model nicht. Gehe auf die \"Lernen &amp; Testen\"-Seite. Dort werden Fehlermeldungen für das Machine Learning Model angezeigt.",
-            "Q3-A-5": "Wenn das Statuslicht bei den Machine Learning Blöcken in Scratch grün leuchtet, sollten die Blöcke auch funktionieren. Wenn du andere Ergebnisse als erwartet erhältst, gehe zurück auf die \"Lernen &amp; Testen\"-Seite und prüfe welche Ergebnisse das Model ausgibt.",
             "Q5": "Kann ich eine beliebige Scratch Version verwenden?",
             "Q5-A-1": "Nein. Du musst die Scratch-Version auf der Machine Learning for Kids Seite verwenden. Du kannst Scratch öffnen, indem du in einem Projekt auf den Scratch (oder 'Scratch 3') -Button klickst.",
             "Q6": "Scratch 3 speichert Projekte nur im 'Downloads' Ordner",
@@ -1889,7 +1898,6 @@
             "Q5-A-1": "Einen Schritt, den jeder Schüler in allen Machine Learning Projekten macht, wenn er diese Seite benutzt, ist, Trainingsbeispiele zu erstellen oder zu sammeln. Für Textprojekte kann es bedeuten kurze Textpassagen einzutippen. Für Bildprojekte kann es bedeuten Bilder auf einer Bildschirmzeichenfläche zu malen oder Fotos über die Webcam aufzunehmen. Für Zahlenprojekte bedeutet es Zahlensets einzutippen.",
             "Q5-A-2": "All diese Trainingsdaten werden in einer <a href='https://www.ibm.com/cloud/databases-for-postgresql'>PostgreSQL Datenbank in einer IBM Cloud</a> in Dallas in den Vereinigten Staaten aufbewahrt. Da ich der Datenbankadministrator bin, habe ich Zugriff auf all diese Trainingsdaten für alle Schülerprojekte, jedoch benutze ich es nicht für einen anderen Zweck als Schülern zu ermöglichen Zugriff auf ihr eigenes Projekt zu haben und an ihrem Projekt arbeiten zu können. Ich veröffentlich keine Trainingsdaten (weder an die Öffentlichkeit, an Individuen, noch an Dritte) oder teile sie anderweitig, mit den zwei Ausnahmen es an IBM Watson APIs zu senden, wie unten beschrieben wird.",
             "Q5-A-3": "Machine Learning Modelle für Textprojekte werden erstellt mit Hilfe des <a href='https://www.ibm.com/cloud/watson-assistant/'>IBM Watson Assistant</a> Cloud Service, was bedeutet, dass wenn Schüler ein Modell trainieren, eine Kopie von den Trainingsdaten, die sie eingetragen haben, an <a href='https://cloud.ibm.com/apidocs/assistant#create-workspace'>den IBM Watson Assistenten Cloud Service gesendet werden</a>. (Der Ort des Cloud Services ist etwas, das die Lehrer wählen, wenn sie API-Schlüssel erstellen.) IBM Watson benutzt diese Trainingsdaten nicht für anderweitige Zwecke. Der Grund dafür ist, dass Machine Learning für Kinder eine Auswahl von Trainingsdaten von Schülern, die von IBM benutzt werden, benötigt, um den Service zu verbessern, <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>wie in der Watson Dokumentation beschrieben wird</a>.",
-            "Q5-A-4": "Machine Learning Modelle für Bilderprojekte werden erstellt, indem man die IBM Visualerkennung nutzt. Dies bedeutet, dass, wenn Schüler ein Modell trainieren, eine Kopie von ihren Trainingsbildern zu IBM Watson hochgeladen wird. (Der Ort des Cloud Services ist etwas, das die Lehrer wählen, wenn sie API-Schlüssel erstellen.) IBM Watson benutzt diese Trainingsdaten für keine anderen Zwecke. Der Grund dafür ist, dass Machine Learning für Kinder eine Auswahl von Trainingsdaten von Schülern, die von IBM benutzt werden, benötigt, um den Service zu verbessern, <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>wie in der Watson Dokumentation beschrieben wird</a>.",
             "Q5-A-5": "IBM Watson bietet <a href='https://cloud.ibm.com/docs/services/assistant?topic=assistant-information-security#information-security-gdpr-wa'>eine allgemeine Anleitung wie Trainingsdaten mit ihrem Service geteilt werden</a>, was auch für die Trainingsdaten, die von Machine Learning für Kinder erstellt und gesammelt werden, gilt. Insbesondere sollte Schüler geraten werden nicht persönliche Details von Wiedererkennungswert in den Beispielen, die sie sammeln, preiszugeben."
         }
     },

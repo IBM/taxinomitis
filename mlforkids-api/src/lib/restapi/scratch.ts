@@ -385,7 +385,28 @@ async function storeTrainingData(req: Express.Request, res: Express.Response) {
 
 
 
-async function getExtension(req: Express.Request, res: Express.Response, version: 2 | 3) {
+async function getScratch3ExtensionLocalData(req: Express.Request, res: Express.Response) {
+    const projecttype = req.params.projecttype as Types.ProjectTypeLabel;
+    const projectid = req.params.projectid;
+    const projectname = req.params.projectname;
+    const labelslist = req.params.labelslist;
+
+    try {
+        const extension = await extensions.getScratchxExtensionLocalData(projecttype, projectid, projectname, labelslist.split(','));
+
+        return res.set('Content-Type', 'application/javascript')
+                  .set(headers.NO_CACHE)
+                  .send(extension);
+    }
+    catch (err) {
+        log.error({ err }, 'Failed to generate extension');
+        errors.unknownError(res, err);
+    }
+}
+
+
+
+async function getScratch3Extension(req: Express.Request, res: Express.Response) {
     const apikey = req.params.scratchkey;
 
     try {
@@ -399,7 +420,7 @@ async function getExtension(req: Express.Request, res: Express.Response, version
             project.fields = await store.getNumberProjectFields(project.userid, project.classid, project.id);
         }
 
-        const extension = await extensions.getScratchxExtension(scratchKey, project, version);
+        const extension = await extensions.getScratchxExtension(scratchKey, project);
         return res.set('Content-Type', 'application/javascript')
                   .set(headers.NO_CACHE)
                   .send(extension);
@@ -415,12 +436,6 @@ async function getExtension(req: Express.Request, res: Express.Response, version
 }
 
 
-function getScratchxExtension(req: Express.Request, res: Express.Response) {
-    getExtension(req, res, 2);
-}
-function getScratch3Extension(req: Express.Request, res: Express.Response) {
-    getExtension(req, res, 3);
-}
 
 
 function handleTfjsException(err: any, res: Express.Response) {
@@ -533,8 +548,8 @@ export default function registerApis(app: Express.Application) {
 
     app.post(urls.SCRATCHTFJS_EXTENSIONS, cors(CORS_CONFIG), generateTfjsExtension);
 
-    app.get(urls.SCRATCHKEY_EXTENSION, cors(CORS_CONFIG), getScratchxExtension);
     app.get(urls.SCRATCH3_EXTENSION, cors(CORS_CONFIG), getScratch3Extension);
+    app.get(urls.SCRATCH3_EXTENSION_LOCAL, cors(CORS_CONFIG), getScratch3ExtensionLocalData);
     app.get(urls.SCRATCHTFJS_EXTENSION, cors(CORS_CONFIG), getTfjsExtension);
     app.get(urls.SCRATCHKEY_STATUS, cors(CORS_CONFIG), getScratchxStatus);
 }

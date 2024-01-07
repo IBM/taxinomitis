@@ -473,7 +473,7 @@
             </table>
         </div>
 
-        <button ng-if="!loading && status !== 'training' && trainingdatastatus === 'data' && (owner || project.type === 'imgtfjs')"
+        <button ng-if="!loading && status !== 'training' && trainingdatastatus === 'data' && (owner || project.type === 'imgtfjs' || project.type === 'sounds')"
                 class="btn btn-primary trainbuttons"
                 ng-click="vm.createModel($event, project)"
                 ng-disabled="submittingTrainingRequest || submittingDeleteRequest"

@@ -131,7 +131,7 @@
         function getModelDbLocation(modeltype, projectid) {
             return 'indexeddb://ml4k-models-' +
                    modeltype + '-' +
-                   projectid.replace(/-/g, '');
+                   projectid.toString().replace(/-/g, '');
         }
 
         function isModelSavedInBrowser(modeltype, projectid) {

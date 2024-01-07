@@ -5,10 +5,11 @@
         .service('projectsService', projectsService);
 
     projectsService.$inject = [
-        '$q', '$http'
+        '$http', '$q',
+        'browserStorageService'
     ];
 
-    function projectsService($q, $http) {
+    function projectsService($http, $q, browserStorageService) {
 
         function getClassProjects(profile) {
             return $http.get('/api/classes/' + profile.tenant + '/projects')
@@ -18,17 +19,25 @@
         }
 
         function getProjects(profile) {
-            return $http.get('/api/classes/' + profile.tenant + '/students/' + profile.user_id + '/projects')
-                .then(function (resp) {
-                    return resp.data;
-                });
+            return $q.all({
+                cloud : $http.get('/api/classes/' + profile.tenant + '/students/' + profile.user_id + '/projects'),
+                local : browserStorageService.getProjects(profile.user_id)
+            })
+            .then(function (responses) {
+                return responses.cloud.data.concat(responses.local);
+            });
         }
 
         function getProject(projectid, userid, tenant) {
-            return $http.get('/api/classes/' + tenant + '/students/' + userid + '/projects/' + projectid)
-                .then(function (resp) {
-                    return resp.data;
-                });
+            if (browserStorageService.idIsLocal(projectid)) {
+                return browserStorageService.getProject(projectid);
+            }
+            else {
+                return $http.get('/api/classes/' + tenant + '/students/' + userid + '/projects/' + projectid)
+                    .then(function (resp) {
+                        return resp.data;
+                    });
+            }
         }
 
         function getFields(projectid, userid, tenant) {
@@ -39,47 +48,74 @@
         }
 
         function getLabels(projectid, userid, tenant) {
-            return $http.get('/api/classes/' + tenant + '/students/' + userid + '/projects/' + projectid + '/labels')
-                .then(function (resp) {
-                    return resp.data;
-                });
+            if (browserStorageService.idIsLocal(projectid)) {
+                return browserStorageService.getLabelCounts(projectid);
+            }
+            else {
+                return $http.get('/api/classes/' + tenant + '/students/' + userid + '/projects/' + projectid + '/labels')
+                    .then(function (resp) {
+                        return resp.data;
+                    });
+            }
         }
 
         function addLabelToProject(projectid, userid, tenant, newlabel) {
-            return $http.patch('/api/classes/' + tenant + '/students/' + userid + '/projects/' + projectid, [
-                    {
-                        op : 'add',
-                        path : '/labels',
-                        value : newlabel
-                    }
-                ])
-                .then(function (resp) {
-                    return resp.data;
-                });
+            if (browserStorageService.idIsLocal(projectid)) {
+                return browserStorageService.addLabel(projectid, newlabel);
+            }
+            else {
+                return $http.patch('/api/classes/' + tenant + '/students/' + userid + '/projects/' + projectid, [
+                        {
+                            op : 'add',
+                            path : '/labels',
+                            value : newlabel
+                        }
+                    ])
+                    .then(function (resp) {
+                        return resp.data;
+                    });
+            }
         }
 
         function removeLabelFromProject(projectid, userid, tenant, label) {
-            return $http.patch('/api/classes/' + tenant + '/students/' + userid + '/projects/' + projectid, [
-                    {
-                        op : 'remove',
-                        path : '/labels',
-                        value : label
-                    }
-                ])
-                .then(function (resp) {
-                    return resp.data;
-                });
+            if (browserStorageService.idIsLocal(projectid)) {
+                return browserStorageService.deleteLabel(projectid, label);
+            }
+            else {
+                return $http.patch('/api/classes/' + tenant + '/students/' + userid + '/projects/' + projectid, [
+                        {
+                            op : 'remove',
+                            path : '/labels',
+                            value : label
+                        }
+                    ])
+                    .then(function (resp) {
+                        return resp.data;
+                    });
+            }
         }
 
         function deleteProject(project, userid, tenant) {
-            return $http.delete('/api/classes/' + tenant + '/students/' + userid + '/projects/' + project.id);
+            if (project.storage === 'local') {
+                return browserStorageService.deleteProject(project.id);
+            }
+            else {
+                return $http.delete('/api/classes/' + tenant + '/students/' + userid + '/projects/' + project.id);
+            }
         }
 
         function createProject(projectAttrs, userid, tenant) {
-            return $http.post('/api/classes/' + tenant + '/students/' + userid + '/projects', projectAttrs)
-                .then(function (resp) {
-                    return resp.data;
-                });
+            if (projectAttrs.storage === 'local') {
+                projectAttrs.userid = userid;
+                projectAttrs.classid = tenant;
+                return browserStorageService.addProject(projectAttrs);
+            }
+            else {
+                return $http.post('/api/classes/' + tenant + '/students/' + userid + '/projects', projectAttrs)
+                    .then(function (resp) {
+                        return resp.data;
+                    });
+            }
         }
 
         function checkProjectCredentials(tenant, type) {

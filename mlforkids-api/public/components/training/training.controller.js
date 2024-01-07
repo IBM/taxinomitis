@@ -278,7 +278,7 @@
                 });
 
                 placeholder = {
-                    id : placeholderId++,
+                    id : 'placeholder_' + (placeholderId++),
                     label : label,
                     projectid : $scope.projectId,
                     textdata : data,
@@ -289,7 +289,7 @@
                 data = getNumberValues(resp);
 
                 placeholder = {
-                    id : placeholderId++,
+                    id : 'placeholder_' + (placeholderId++),
                     label : label,
                     projectid : $scope.projectId,
                     numberdata : data,
@@ -304,7 +304,7 @@
                 });
 
                 placeholder = {
-                    id : placeholderId++,
+                    id : 'placeholder_' + (placeholderId++),
                     label : label,
                     projectid : $scope.projectId,
                     imageurl : data,
@@ -321,7 +321,7 @@
                 //  waste time checking
 
                 placeholder = {
-                    id : placeholderId++,
+                    id : 'placeholder_' + (placeholderId++),
                     label : label,
                     projectid : $scope.projectId,
                     audiodata : data,
@@ -341,7 +341,7 @@
             $scope.training[label].push(placeholder);
 
             loggerService.debug('[ml4ktraining] storing training data');
-            storeTrainingDataFn($scope.projectId, $scope.userId, vm.profile.tenant, data, label)
+            storeTrainingDataFn($scope.projectId, $scope.userId, vm.profile.tenant, $scope.project.type, $scope.project.storage, data, label)
                 .then(function (newitem) {
                     placeholder.isPlaceholder = false;
                     placeholder.id = newitem.id;
@@ -424,6 +424,11 @@
                             }
 
                             refreshLabelsSummary();
+
+                            // refresh view
+                            if ($scope.project.storage === 'local') {
+                                $scope.$apply();
+                            }
                         })
                         .catch(function (err) {
                             if (errorSuggestsProjectDeleted(err)) {
@@ -575,7 +580,7 @@
             .then(
                 function (resp) {
                     var placeholder = {
-                        id : placeholderId++,
+                        id : 'placeholder_' + (placeholderId++),
                         label : label,
                         projectid: $scope.projectId,
                         imageurl : URL.createObjectURL(resp),
@@ -589,6 +594,8 @@
                         .then(function (newitem) {
                             placeholder.isPlaceholder = false;
                             placeholder.id = newitem.id;
+
+                            URL.revokeObjectURL(placeholder.imageurl);
 
                             scrollToNewItem(newitem.id);
                         })
@@ -649,7 +656,7 @@
             .then(
                 function (resp) {
                     var placeholder = {
-                        id : placeholderId++,
+                        id : 'placeholder_' + (placeholderId++),
                         label : label,
                         projectid: $scope.projectId,
                         imageurl : URL.createObjectURL(resp),
@@ -662,6 +669,8 @@
                         .then(function (newitem) {
                             placeholder.isPlaceholder = false;
                             placeholder.id = newitem.id;
+
+                            URL.revokeObjectURL(placeholder.imageurl);
 
                             scrollToNewItem(newitem.id);
                         })
@@ -753,8 +762,13 @@
         function scrollToNewItem(itemId) {
             $timeout(function () {
                 var newItem = document.getElementById(itemId);
-                var itemContainer = newItem.parentElement;
-                angular.element(itemContainer).duScrollToElementAnimated(angular.element(newItem));
+                if (newItem) {
+                    var itemContainer = newItem.parentElement;
+                    angular.element(itemContainer).duScrollToElementAnimated(angular.element(newItem));
+                }
+                else {
+                    loggerService.error('[ml4ktraining] unable to scroll to new item', itemId);
+                }
             }, 0);
         }
 

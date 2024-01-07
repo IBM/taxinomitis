@@ -57,7 +57,8 @@
                         <span class="mlprojectlabels">{{ project.labelsSummary }}</span>
                     </span>
                 </div>
-                <div class="mlprojectcrowd" ng-if="project.isCrowdSourced" ng-click="vm.displayCrowdSourcedInfo($event)"> </div>
+                <div class="mlprojecticon mlprojectcrowd" ng-if="project.isCrowdSourced"      ng-click="vm.displayCrowdSourcedInfo($event)"> </div>
+                <div class="mlprojecticon mlprojectcloud" ng-if="project.storage !== 'local'" ng-click="vm.displayCloudInfo($event)"> </div>
             </div>
             <div class="mlprojectdelete">
                 <button type="button"
