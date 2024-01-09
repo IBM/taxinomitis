@@ -7,7 +7,8 @@ import * as sitealerts from './site-alerts';
 import * as Objects from './db-types';
 import * as TrainingObjects from '../training/training-types';
 import * as ObjectStoreTypes from '../objectstore/types';
-
+import { CLASS_NAME as SESSION_USERS_CLASSID } from '../sessionusers';
+import { TWELVE_HOURS, THREE_MONTHS } from '../utils/constants';
 
 
 // -----------------------------------------------------------------------------
@@ -100,6 +101,57 @@ export function createProject(
     };
 }
 
+
+function getLocalProjectExpiry(classid: string): Date {
+    const expiry = classid === SESSION_USERS_CLASSID ?
+        TWELVE_HOURS :
+        THREE_MONTHS;
+    return new Date(Date.now() + expiry);
+}
+
+export function createLocalProject(
+    userid: string, classid: string,
+    type: string,
+): Objects.LocalProjectDbRow
+{
+    if (projects.typeLabels.indexOf(type) === -1) {
+        throw new Error('Invalid project type ' + type);
+    }
+
+    if (userid === undefined || userid === '' ||
+        classid === undefined || classid === '')
+    {
+        throw new Error('Missing required attributes');
+    }
+
+    const projectid = uuid();
+
+    if (type !== 'text') {
+        throw new Error('Local projects not supported for non-text projects');
+    }
+
+    return {
+        id : projectid,
+        userid,
+        classid,
+        typeid : getProjectTypeId(type),
+        expiry : getLocalProjectExpiry(classid),
+    };
+}
+
+export function updateLocalProject(project: Objects.LocalProject): Objects.LocalProject
+{
+    return {
+        id : project.id,
+        userid : project.userid,
+        classid : project.classid,
+        type : project.type,
+        name : 'local',
+        expiry : getLocalProjectExpiry(project.classid),
+    };
+}
+
+
 function containsDuplicateNames(fields: Objects.NumbersProjectFieldSummary[]): boolean {
     const names: { [key: string]: boolean } = {};
     return fields.some((field) => {
@@ -138,6 +190,17 @@ export function getProjectFromDbRow(row: Objects.ProjectDbRow): Objects.Project 
         numfields : row.numfields ? row.numfields : 0,
         fields : row.fields ? row.fields.map(getNumbersProjectFieldSummaryFromDbRow) : [],
         isCrowdSourced : row.iscrowdsourced,
+    };
+}
+
+export function getLocalProjectFromDbRow(row: Objects.LocalProjectDbRow): Objects.LocalProject {
+    return {
+        id : row.id,
+        userid : row.userid,
+        classid : row.classid,
+        type : projects.typesById[row.typeid].label,
+        name : 'local',
+        expiry : row.expiry,
     };
 }
 
@@ -663,7 +726,7 @@ export function createBluemixCredentialsPool(
 export function createConversationWorkspace(
     classifierInfo: TrainingObjects.ConversationWorkspace,
     credentialsInfo: TrainingObjects.BluemixCredentials,
-    project: Objects.Project,
+    project: Objects.Project | Objects.LocalProject,
 ): TrainingObjects.ClassifierDbRow
 {
     return {

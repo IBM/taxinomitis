@@ -63,8 +63,6 @@ async function getTraining(req: auth.RequestWithProject, res: Express.Response) 
             training = await store.getNumberTraining(req.project.id, options);
             break;
         case 'images':
-            training = await store.getImageTraining(req.project.id, options);
-            break;
         case 'imgtfjs':
             training = await store.getImageTraining(req.project.id, options);
             break;
@@ -208,9 +206,6 @@ async function storeTraining(req: auth.RequestWithProject, res: Express.Response
             training = await store.storeNumberTraining(req.project.id, req.project.isCrowdSourced, data, label);
             break;
         case 'images':
-            await imageCheck.verifyImage(data, visrec.getMaxImageFileSize());
-            training = await store.storeImageTraining(req.project.id, data, label, false);
-            break;
         case 'imgtfjs':
             await imageCheck.verifyImage(data, visrec.getMaxImageFileSize());
             training = await store.storeImageTraining(req.project.id, data, label, false);

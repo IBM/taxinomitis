@@ -95,6 +95,15 @@ CREATE TABLE mlforkidsdb.projects (
     fields character varying(500)
 );
 
+-- update (8 Jan 2024) - new table
+CREATE TABLE mlforkidsdb.localprojects (
+    id character varying(36) NOT NULL PRIMARY KEY,
+    userid character varying(36) NOT NULL,
+    classid character varying(36) NOT NULL,
+    typeid smallint NOT NULL,
+    expiry timestamp with time zone NOT NULL
+);
+
 CREATE TABLE mlforkidsdb.scratchkeys (
     id character(72) NOT NULL PRIMARY KEY,
     projectname character varying(36) NOT NULL,
@@ -177,6 +186,9 @@ CREATE INDEX soundtraining_getsoundtraining ON mlforkidsdb.soundtraining USING b
 CREATE INDEX soundtraining_gettraininglabels ON mlforkidsdb.soundtraining USING btree (projectid);
 CREATE INDEX texttraining_gettraininglabels ON mlforkidsdb.texttraining USING btree (projectid);
 CREATE INDEX texttraining_renametexttraining ON mlforkidsdb.texttraining USING btree (projectid, label);
+-- update (8 Jan 2024) - new indexes
+CREATE INDEX localprojects_getprojectsbyuserid ON mlforkidsdb.localprojects USING btree (userid);
+CREATE INDEX localprojects_getprojectsbyclassid ON mlforkidsdb.localprojects USING btree (classid);
 
 ALTER DATABASE mlforkidsdb SET search_path to mlforkidsdb;
 

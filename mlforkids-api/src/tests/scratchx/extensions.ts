@@ -252,36 +252,6 @@ describe('Scratchx - status', () => {
         // });
 
 
-        it('should create a images classify extension', async () => {
-            const key: Types.ScratchKey = {
-                id : uuid(),
-                name : 'TEST',
-                type : 'images',
-                projectid : uuid(),
-                classifierid : uuid(),
-                updated : new Date(),
-            };
-            const proj: Types.Project = {
-                id : uuid(),
-                type : 'images',
-                name : 'TEST',
-                language : 'en',
-                userid : uuid(),
-                classid : uuid(),
-                labels : [ 'LABEL NUMBER ONE', 'SECOND LABEL', 'THIRD LABEL' ],
-                numfields : 0,
-                isCrowdSourced : false,
-            };
-
-            const extension = await extensions.getScratchxExtension(key, proj);
-            assert(extension.indexOf('/api/scratch/' + key.id + '/classify') > 0);
-            assert(extension.indexOf('return_label_0 () {') > 0);
-            assert(extension.indexOf('return_label_1 () {') > 0);
-            assert(extension.indexOf('return_label_2 () {') > 0);
-            assert(extension.indexOf('return_label_3 () {') === -1);
-        });
-
-
         it('should create a imgtfjs classify extension', async () => {
             const key: Types.ScratchKey = {
                 id : uuid(),

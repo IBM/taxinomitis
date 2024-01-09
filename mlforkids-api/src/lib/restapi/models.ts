@@ -10,7 +10,6 @@ import * as conversation from '../training/conversation';
 import * as visualrec from '../training/visualrecognition';
 import * as numbers from '../training/numbers';
 import * as textmodels from '../training/describetext';
-import * as notifications from '../notifications/slack';
 import * as download from '../utils/download';
 import * as urls from './urls';
 import * as errors from './errors';
@@ -79,41 +78,7 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
             return res.status(httpstatus.CREATED).json(returnConversationWorkspace(model));
         }
         catch (err) {
-            if (err.message === conversation.ERROR_MESSAGES.INSUFFICIENT_API_KEYS) {
-                return res.status(httpstatus.CONFLICT).send({ code : 'MLMOD01', error : err.message });
-            }
-            else if (err.message === conversation.ERROR_MESSAGES.POOL_EXHAUSTED) {
-                log.error({ err }, 'Managed classes have exhausted the pool of Watson Assistant keys');
-                notifications.notify('Exhausted managed pool of Watson Assistant keys',
-                                     notifications.SLACK_CHANNELS.CRITICAL_ERRORS);
-                return res.status(httpstatus.CONFLICT).send({ code : 'MLMOD15', error : err.message });
-            }
-            else if (err.message === conversation.ERROR_MESSAGES.API_KEY_RATE_LIMIT) {
-                return res.status(httpstatus.TOO_MANY_REQUESTS).send({ code : 'MLMOD02', error : err.message });
-            }
-            else if (err.message === conversation.ERROR_MESSAGES.MODEL_NOT_FOUND) {
-                return res.status(httpstatus.NOT_FOUND)
-                          .send({ code : 'MLMOD03', error : err.message + ' Please try again' });
-            }
-            else if (err.statusCode === httpstatus.UNAUTHORIZED) {
-                return res.status(httpstatus.CONFLICT)
-                        .send({
-                            code : 'MLMOD04',
-                            error : 'The Watson credentials being used by your class were rejected. ' +
-                                    'Please let your teacher or group leader know.',
-                        });
-            }
-            else if (err.message === 'Unexpected response when retrieving service credentials') {
-                return res.status(httpstatus.CONFLICT)
-                    .send({
-                        code : 'MLMOD05',
-                        error : 'No Watson credentials have been set up for training text projects. ' +
-                                'Please let your teacher or group leader know.',
-                    });
-            }
-            else {
-                return errors.unknownError(res, err);
-            }
+            return errors.watsonAssistantModelCreationFailure(res, err);
         }
     }
     case 'numbers': {
@@ -153,15 +118,13 @@ async function deleteModel(req: auth.RequestWithProject, res: Express.Response) 
             return res.sendStatus(httpstatus.NO_CONTENT);
         }
         case 'sounds':
-            return errors.notFound(res);
         case 'imgtfjs':
         case 'images':
             return errors.notFound(res);
         }
     }
     catch (err) {
-        if (err.message === 'Unexpected response when retrieving conversation workspace details' ||
-            err.message === 'Unexpected response when retrieving image classifier details')
+        if (err.message === 'Unexpected response when retrieving conversation workspace details')
         {
             return errors.notFound(res);
         }
@@ -256,15 +219,6 @@ async function testModel(req: Express.Request, res: Express.Response) {
         }
     }
     catch (err) {
-        if (err.message === conversation.ERROR_MESSAGES.MODEL_NOT_FOUND) {
-            return res.status(httpstatus.NOT_FOUND).send({ error : err.message + ' Refresh the page' });
-        }
-        if (err.message === conversation.ERROR_MESSAGES.TEXT_TOO_LONG) {
-            return res.status(httpstatus.BAD_REQUEST).send({ error : err.message });
-        }
-        if (err.message === 'Unexpected response when retrieving the service credentials') {
-            return errors.notFound(res);
-        }
         if ((type === 'images' || type === 'numbers') &&
             err.statusCode === 400)
         {
@@ -278,16 +232,11 @@ async function testModel(req: Express.Request, res: Express.Response) {
             return res.status(httpstatus.BAD_REQUEST)
                     .send({ error : 'The test image is a type that cannot be used' });
         }
-        if (err.message === conversation.ERROR_MESSAGES.SERVICE_ERROR) {
-            return res.status(httpstatus.SERVICE_UNAVAILABLE).send({ error : err.message });
-        }
         if (err.message === visualrec.ERROR_MESSAGES.INVALID_URL) {
             return res.status(httpstatus.BAD_REQUEST)
                     .send({ error : 'The test image address is not a valid web address' });
         }
-
-        log.error({ err, body : req.body }, 'Test error');
-        return errors.unknownError(res, err);
+        return errors.watsonAssistantModelTestFailure(res, err);
     }
 }
 

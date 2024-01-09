@@ -7,6 +7,7 @@ import helmet from 'helmet';
 import registerBluemixApis from './bluemix';
 import registerUserApis from './users';
 import registerProjectApis from './projects';
+import registerLocalProjectApis from './localprojects';
 import registerTrainingApis from './training';
 import registerImageApis from './images';
 import registerSoundApis from './sounds';
@@ -72,6 +73,7 @@ export default function setup(app: Express.Application): void {
         registerBluemixApis(app);
         registerUserApis(app);
         registerProjectApis(app);
+        registerLocalProjectApis(app);
         registerTrainingApis(app);
         registerImageApis(app);
         registerSoundApis(app);

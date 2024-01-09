@@ -43,6 +43,13 @@ export const MODELTEST             = '/api/classes/:classid/students/:studentid/
 export const PROJECT_CROWDSOURCED  = '/api/classes/:classid/students/:studentid/projects/:projectid/iscrowdsourced';
 // Scratch key for a project
 export const SCRATCHKEYS           = '/api/classes/:classid/students/:studentid/projects/:projectid/scratchkeys';
+// local project APIs
+export const LOCALPROJECTS         = '/api/classes/:classid/students/:studentid/localprojects';
+export const LOCALPROJECT          = '/api/classes/:classid/students/:studentid/localprojects/:projectid';
+export const LOCALSCRATCHKEYS      = '/api/classes/:classid/students/:studentid/localprojects/:projectid/scratchkeys';
+export const LOCALMODELS           = '/api/classes/:classid/students/:studentid/localprojects/:projectid/models';
+export const LOCALMODEL            = '/api/classes/:classid/students/:studentid/localprojects/:projectid/models/:modelid';
+export const LOCALMODELTEST        = '/api/classes/:classid/students/:studentid/localprojects/:projectid/models/:modelid/label';
 
 //
 // URLS supporting browser-storage projects

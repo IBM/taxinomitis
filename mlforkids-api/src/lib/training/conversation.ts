@@ -40,9 +40,18 @@ export async function trainClassifier(
     project: DbObjects.Project,
 ): Promise<TrainingObjects.ConversationWorkspace>
 {
-    let workspace: TrainingObjects.ConversationWorkspace;
-
     const training = await getTraining(project);
+
+    return trainClassifierForProject(project, training);
+}
+
+
+export async function trainClassifierForProject(
+    project: DbObjects.Project | DbObjects.LocalProject,
+    training: TrainingObjects.ConversationTrainingData,
+): Promise<TrainingObjects.ConversationWorkspace>
+{
+    let workspace: TrainingObjects.ConversationWorkspace;
 
     // determine when the Conversation workspace should be deleted
     const tenantPolicy = await store.getClassTenant(project.classid);
@@ -73,9 +82,8 @@ export async function trainClassifier(
 
 
 
-
 async function createWorkspace(
-    project: DbObjects.Project,
+    project: DbObjects.Project | DbObjects.LocalProject,
     credentialsPool: TrainingObjects.BluemixCredentials[],
     training: TrainingObjects.ConversationTrainingData,
     tenantPolicy: DbObjects.ClassTenant,
@@ -221,7 +229,7 @@ async function createWorkspace(
 
 
 async function updateWorkspace(
-    project: DbObjects.Project,
+    project: DbObjects.Project | DbObjects.LocalProject,
     credentials: TrainingObjects.BluemixCredentials,
     workspace: TrainingObjects.ConversationWorkspace,
     training: TrainingObjects.ConversationTrainingData,
@@ -471,12 +479,30 @@ async function getTraining(project: DbObjects.Project): Promise<TrainingObjects.
 
 
 
+export function validateTraining(obj: TrainingObjects.ConversationTrainingData): boolean
+{
+    return obj &&
+           !!obj.name &&
+           obj.language &&
+           obj.intents && Array.isArray(obj.intents) && obj.intents.every(validateIntent) &&
+           obj.entities && Array.isArray(obj.entities) &&
+           obj.dialog_nodes && Array.isArray(obj.dialog_nodes);
+}
+
+function validateIntent(obj: TrainingObjects.ConversationIntent): boolean
+{
+    return obj &&
+           !!obj.intent &&
+           obj.examples.every((example) => {
+               return typeof example.text === 'string';
+           });
+}
 
 
 
 
 async function submitTrainingToConversation(
-    project: DbObjects.Project,
+    project: DbObjects.Project | DbObjects.LocalProject,
     credentials: TrainingObjects.BluemixCredentials,
     url: string,
     training: TrainingObjects.ConversationTrainingData,

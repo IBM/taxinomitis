@@ -2,6 +2,8 @@
 import * as Express from 'express';
 import * as httpstatus from 'http-status';
 // local dependencies
+import * as conversation from '../training/conversation';
+import * as notifications from '../notifications/slack';
 import loggerSetup from '../utils/logger';
 const log = loggerSetup();
 
@@ -29,6 +31,59 @@ export function notImplemented(res: Express.Response) {
 }
 export function siteInMaintenanceMode(req: Express.Request, res: Express.Response) {
     return res.status(httpstatus.SERVICE_UNAVAILABLE).json({ error : 'Site is temporarily down for maintenance' });
+}
+export function watsonAssistantModelCreationFailure(res: Express.Response, err: NodeJS.ErrnoException | any) {
+    if (err.message === conversation.ERROR_MESSAGES.INSUFFICIENT_API_KEYS) {
+        return res.status(httpstatus.CONFLICT).send({ code : 'MLMOD01', error : err.message });
+    }
+    else if (err.message === conversation.ERROR_MESSAGES.POOL_EXHAUSTED) {
+        log.error({ err }, 'Managed classes have exhausted the pool of Watson Assistant keys');
+        notifications.notify('Exhausted managed pool of Watson Assistant keys',
+                             notifications.SLACK_CHANNELS.CRITICAL_ERRORS);
+        return res.status(httpstatus.CONFLICT).send({ code : 'MLMOD15', error : err.message });
+    }
+    else if (err.message === conversation.ERROR_MESSAGES.API_KEY_RATE_LIMIT) {
+        return res.status(httpstatus.TOO_MANY_REQUESTS).send({ code : 'MLMOD02', error : err.message });
+    }
+    else if (err.message === conversation.ERROR_MESSAGES.MODEL_NOT_FOUND) {
+        return res.status(httpstatus.NOT_FOUND)
+                  .send({ code : 'MLMOD03', error : err.message + ' Please try again' });
+    }
+    else if (err.statusCode === httpstatus.UNAUTHORIZED) {
+        return res.status(httpstatus.CONFLICT)
+                .send({
+                    code : 'MLMOD04',
+                    error : 'The Watson credentials being used by your class were rejected. ' +
+                            'Please let your teacher or group leader know.',
+                });
+    }
+    else if (err.message === 'Unexpected response when retrieving service credentials') {
+        return res.status(httpstatus.CONFLICT)
+            .send({
+                code : 'MLMOD05',
+                error : 'No Watson credentials have been set up for training text projects. ' +
+                        'Please let your teacher or group leader know.',
+            });
+    }
+    else {
+        return unknownError(res, err);
+    }
+}
+export function watsonAssistantModelTestFailure(res: Express.Response, err: NodeJS.ErrnoException | any) {
+    if (err.message === conversation.ERROR_MESSAGES.MODEL_NOT_FOUND) {
+        return res.status(httpstatus.NOT_FOUND).send({ error : err.message + ' Refresh the page' });
+    }
+    if (err.message === conversation.ERROR_MESSAGES.TEXT_TOO_LONG) {
+        return res.status(httpstatus.BAD_REQUEST).send({ error : err.message });
+    }
+    if (err.message === 'Unexpected response when retrieving the service credentials') {
+        return notFound(res);
+    }
+    if (err.message === conversation.ERROR_MESSAGES.SERVICE_ERROR) {
+        return res.status(httpstatus.SERVICE_UNAVAILABLE).send({ error : err.message });
+    }
+    log.error({ err }, 'Test error');
+    return unknownError(res, err);
 }
 export function unknownError(res: Express.Response, err: NodeJS.ErrnoException | any) {
     if (err && err.sqlState) {

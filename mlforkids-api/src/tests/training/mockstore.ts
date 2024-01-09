@@ -112,7 +112,7 @@ export function getImageTrainingByLabel(projectid: string, label: string, option
 
 export function storeConversationWorkspace(
     credentials: TrainingTypes.BluemixCredentials,
-    project: DbTypes.Project,
+    project: DbTypes.Project | DbTypes.LocalProject,
     classifier: TrainingTypes.ConversationWorkspace,
 ): Promise<TrainingTypes.ConversationWorkspace>
 {
