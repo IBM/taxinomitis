@@ -16,6 +16,13 @@
         $scope.projectId = $stateParams.projectId;
         $scope.userId = $stateParams.userId;
 
+        $scope.makes = {
+            scratch: true,
+            appinventor: true,
+            python: true,
+            edublocks: false
+        };
+
         authService.getProfileDeferred()
             .then(function (profile) {
                 vm.profile = profile;
@@ -25,6 +32,7 @@
             })
             .then(function (project) {
                 $scope.project = project;
+                $scope.makes = projectsService.supportedMakes(project);
             })
             .catch(function (err) {
                 $scope.failure = {

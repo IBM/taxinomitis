@@ -222,7 +222,7 @@
             "LOCAL": "In your web browser",
             "CLOUD": "In the cloud",
             "NOTES_1": "Where do you want to store this project?",
-            "NOTES_2": "Storing in your web browser has no limits on how big your project can be (available for image and sounds projects)",
+            "NOTES_2": "Storing in your web browser has no limits on how big your project can be (not available for numbers projects)",
             "NOTES_3": "Storing in the cloud will let you access the project from any computer"
         },
         "TYPES": {
@@ -1845,13 +1845,17 @@
             "TITLE": "Project questions",
 
             "Q4": "Which machine learning models are trained on your computer, and which are trained in the cloud?",
-            "Q4-A-1": "<strong>text</strong> projects can only be trained in the cloud.",
-            "Q4-A-2": "<strong>numbers</strong> projects can only be trained in the cloud.",
-            "Q4-A-3": "<strong>sounds</strong> projects can only be trained on your computer.",
-            "Q4-A-4": "<strong>images</strong> projects can only be trained on your computer.",
+            "Q4-A-0": "You cannot choose where machine learning models are trained and stored. This is decided by Machine Learning for Kids based on the type of project.",
+            "Q4-A-1": "<strong>text</strong> projects are trained in the cloud.",
+            "Q4-A-2": "<strong>numbers</strong> projects are trained in the cloud.",
+            "Q4-A-3": "<strong>sounds</strong> projects are trained on your computer.",
+            "Q4-A-4": "<strong>images</strong> projects are trained on your computer.",
 
             "Q5": "What difference does it make where a project is stored?",
-            "Q5-A-1": "A summary of the differences is shown below:",
+            "Q5-A-0": "You can choose where to store the training data for your machine learning project. You can store your training examples:",
+            "Q5-A-1": "on your own computer (<strong>in your web browser</strong>), or",
+            "Q5-A-2": "<strong>in the cloud</strong> (on the Machine Learning for Kids servers)",
+            "Q5-A-3": "A summary of the differences is shown below:",
             "Q5-A-LIMITS": "How much a student can store",
             "Q5-A-UNLIMITED": "Unlimited",
             "Q5-A-LIMITED": "Limits apply",

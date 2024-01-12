@@ -8,11 +8,10 @@
         'authService',
         'projectsService',
         'modelService',
-        'storageService',
-        '$stateParams', '$translate', '$mdDialog', '$scope', 'loggerService'
+        '$stateParams', '$translate', '$mdDialog', '$scope', 'cleanupService', 'loggerService'
     ];
 
-    function ProjectsController(authService, projectsService, modelService, storageService, $stateParams, $translate, $mdDialog, $scope, loggerService) {
+    function ProjectsController(authService, projectsService, modelService, $stateParams, $translate, $mdDialog, $scope, cleanupService, loggerService) {
 
         var vm = this;
         vm.authService = authService;
@@ -155,16 +154,8 @@
                                 refreshProjectsList(vm.profile);
                             }
 
-                            // clear up models stored on the browser
-                            if (project.type === 'sounds') {
-                                modelService.deleteModel('sounds', project.id);
-                            }
-                            else if (project.type === 'imgtjfs') {
-                                modelService.deleteModel('images', project.id);
-                            }
-
-                            // clear up test data stored on the browser
-                            storageService.removeItem('testdata://' + project.id);
+                            // delete local data associated with the project
+                            cleanupService.deleteProject(project);
 
                             // refresh view
                             if (project.storage === 'local') {

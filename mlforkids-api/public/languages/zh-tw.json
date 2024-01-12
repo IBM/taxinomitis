@@ -222,7 +222,7 @@
             "LOCAL": "In your web browser",
             "CLOUD": "In the cloud",
             "NOTES_1": "Where do you want to store this project?",
-            "NOTES_2": "Storing in your web browser has no limits on how big your project can be (available for image and sounds projects)",
+            "NOTES_2": "Storing in your web browser has no limits on how big your project can be (not available for numbers projects)",
             "NOTES_3": "Storing in the cloud will let you access the project from any computer"
         },
         "TYPES": {
@@ -1844,9 +1844,9 @@
             "TITLE": "專案問題",
 
             "Q4": "Which machine learning models are trained on your computer, and which are trained in the cloud?",
-            "Q4-A-1": "<strong>text</strong> projects can only be trained in the cloud.",
-            "Q4-A-2": "<strong>numbers</strong> projects can only be trained in the cloud.",
-            "Q4-A-3": "<strong>sounds</strong> projects can only be trained on your computer.",
+            "Q4-A-1": "<strong>text</strong> projects are trained in the cloud.",
+            "Q4-A-2": "<strong>numbers</strong> projects are trained in the cloud.",
+            "Q4-A-3": "<strong>sounds</strong> projects are trained on your computer.",
             "Q4-A-4": "<strong>images</strong> projects can be trained on your computer, or (if you have access to Watson Visual Recognition) in the cloud.",
 
             "Q5": "What difference does it make where a project is stored?",

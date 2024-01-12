@@ -665,6 +665,7 @@
 
                     $scope.training[label].push(placeholder);
 
+                    loggerService.debug('[ml4ktraining] uploading canvas data');
                     trainingService.uploadImage($scope.project.id, $scope.userId, vm.profile.tenant, resp, label)
                         .then(function (newitem) {
                             placeholder.isPlaceholder = false;
@@ -761,7 +762,7 @@
 
         function scrollToNewItem(itemId) {
             $timeout(function () {
-                var newItem = document.getElementById(itemId);
+                var newItem = document.getElementById(itemId.toString());
                 if (newItem) {
                     var itemContainer = newItem.parentElement;
                     angular.element(itemContainer).duScrollToElementAnimated(angular.element(newItem));

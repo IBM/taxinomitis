@@ -259,7 +259,7 @@
         <!--                                          -->
         <!--            displayed for all projects    -->
         <!-- ---------------------------------------- -->
-        <div class="newprojectrow" ng-show="projectType">
+        <div class="newprojectrow" ng-show="projectType && projectType !== 'numbers' && isLocalSupported">
             <md-input-container class="newprojectform">
                 <label translate="NEWPROJECT.STORAGE.LABEL"></label>
                 <md-select ng-required="true"
@@ -267,8 +267,8 @@
                            ng-disabled="creating"
                            ng-focus="vm.focused = 'storage'"
                            class="newprojecttype">
-                    <md-option value="local" translate="NEWPROJECT.STORAGE.LOCAL" ng-selected="projectType === 'imgtfjs' || projectType === 'sounds'" ng-show="projectType === 'imgtfjs' || projectType === 'sounds'"></md-option>
-                    <md-option value="cloud" translate="NEWPROJECT.STORAGE.CLOUD" ng-selected="projectType !== 'imgtfjs' && projectType !== 'sounds'"></md-option>
+                    <md-option value="local" translate="NEWPROJECT.STORAGE.LOCAL" ng-selected="isLocalSupported && projectType !== 'numbers'"></md-option>
+                    <md-option value="cloud" translate="NEWPROJECT.STORAGE.CLOUD" ng-selected="!isLocalSupported || projectType === 'numbers'"></md-option>
                 </md-select>
             </md-input-container>
             <div class="well newprojecthelp" ng-if="vm.focused === 'storage'">

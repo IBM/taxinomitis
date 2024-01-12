@@ -5,10 +5,16 @@
         .service('browserStorageService', browserStorageService);
 
     browserStorageService.$inject = [
-        'loggerService'
+        'loggerService',
+        'cleanupService'
     ];
 
-    function browserStorageService(loggerService) {
+    function browserStorageService(loggerService, cleanupService) {
+
+        const SUPPORTED_UNKNOWN = 0;
+        const SUPPORTED_OK = 1;
+        const SUPPORTED_NO = -1;
+        let supported = SUPPORTED_UNKNOWN;
 
         let projectsDbHandle;
         const PROJECTS_DB_NAME = 'mlforkidsLocalProjects';
@@ -17,6 +23,32 @@
         const trainingDataDatabases = {};
         const TRAINING_DB_NAME_PREFIX = 'mlforkidsProject';
         const TRAINING_TABLE = 'training';
+
+
+        //-----------------------------------------------------------
+        //  check if indexedDB is working
+        //-----------------------------------------------------------
+        loggerService.debug('[ml4kstorage] verifying browser storage');
+        window.indexedDB.open('mlforkids', 1).onupgradeneeded = function(evt) {
+            const db = evt.target.result;
+            const objectStore = db.createObjectStore('mlforkids', { autoIncrement: true });
+            try {
+                objectStore.put(new Blob());
+                supported = SUPPORTED_OK;
+                loggerService.debug('[ml4kstorage] browser storage verified');
+            }
+            catch (error) {
+                loggerService.error('[ml4kstorage] IndexedDB not supported', error);
+                supported = SUPPORTED_NO;
+            }
+            finally {
+                db.close();
+                window.indexedDB.deleteDatabase('mlforkids');
+            }
+        };
+        function isSupported() {
+            return supported === SUPPORTED_OK;
+        }
 
 
         //-----------------------------------------------------------
@@ -44,7 +76,8 @@
 
         function initProjectsDatabase (event) {
             loggerService.debug('[ml4kstorage] initProjectsDatabase');
-            event.target.result.createObjectStore(PROJECTS_TABLE, { keyPath: 'id', autoIncrement: true });
+            const table = event.target.result.createObjectStore(PROJECTS_TABLE, { keyPath: 'id', autoIncrement: true });
+            table.createIndex('classid', 'classid', { unique: false });
         }
         function initTrainingDatabase (event) {
             loggerService.debug('[ml4kstorage] initTrainingDatabase');
@@ -114,8 +147,38 @@
         //  PROJECTS database
         //-----------------------------------------------------------
 
+        async function deleteSessionUserProjects() {
+            loggerService.debug('[ml4kstorage] deleteSessionUserProjects');
+
+            await requiresProjectsDatabase();
+
+            const projectTransaction = projectsDbHandle.transaction([ PROJECTS_TABLE ], 'readwrite');
+            const projectsTable = projectTransaction.objectStore(PROJECTS_TABLE);
+            projectsTable.index('classid').openCursor(IDBKeyRange.only('session-users')).onsuccess = function (event) {
+                const cursor = event.target.result;
+                if (cursor) {
+                    // delete any local data for this project
+                    cleanupService.deleteProject(cursor.value);
+
+                    // delete the training data database
+                    window.indexedDB.deleteDatabase(TRAINING_DB_NAME_PREFIX + cursor.value.id);
+                    delete trainingDataDatabases[cursor.value.id];
+
+                    // delete the project itself
+                    projectsTable.delete(cursor.primaryKey);
+
+                    // move to the next project
+                    cursor.continue();
+                }
+            };
+        }
+
+
         async function getProjects(userid) {
             loggerService.debug('[ml4kstorage] getProjects');
+            if (isSupported === SUPPORTED_NO) {
+                return Promise.resolve([]);
+            }
 
             await requiresProjectsDatabase();
 
@@ -356,6 +419,7 @@
 
 
         return {
+            isSupported,
             idIsLocal,
 
             getProjects,
@@ -370,7 +434,9 @@
             addTrainingData,
             deleteTrainingData,
             getLabelCounts,
-            getTrainingDataByLabel
+            getTrainingDataByLabel,
+
+            deleteSessionUserProjects
         };
     }
 })();

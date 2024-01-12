@@ -510,6 +510,20 @@ export async function getLocalProject(id: string): Promise<Objects.LocalProject 
 }
 
 
+export async function getExpiredLocalProjects(options: Objects.PagingOptions): Promise<Objects.LocalProject[]>
+{
+    const queryName = 'dbqn-select-localprojects-expired';
+    const queryString = 'SELECT id, userid, classid, ' +
+                            'typeid, expiry ' +
+                        'FROM localprojects ' +
+                        'WHERE expiry < $1 ' +
+                        'LIMIT $2 OFFSET $3';
+    const queryValues = [ new Date(), options.limit, options.start ];
+
+    const response = await dbExecute(queryName, queryString, queryValues);
+    return response.rows.map(dbobjects.getLocalProjectFromDbRow);
+}
+
 
 
 

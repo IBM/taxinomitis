@@ -392,7 +392,7 @@
             </table>
             <input ng-if="project.type === 'text' || project.type === 'numbers'" type="submit" class="btn btn-primary describetextmodelbutton" value="{{ 'APP.TEST' | translate }}" ng-disabled="testform.$invalid">
             <div ng-if="project.type === 'numbers'" class="btn btn-default describemodelbuttons" ui-sref="mlproject_model_describe({ projectId : projectId, userId : userId, modelId : projectId })">Describe your model!</div>
-            <div ng-if="project.type === 'text'" class="btn btn-default describemodelbuttons" ui-sref="mlproject_text_model_describe({ projectId : projectId, userId : userId, modelId : projectId })">Describe your model!  <span class="badge">beta</span></div>
+            <div ng-if="project.type === 'text' && project.storage !== 'local'" class="btn btn-default describemodelbuttons" ui-sref="mlproject_text_model_describe({ projectId : projectId, userId : userId, modelId : projectId })">Describe your model!  <span class="badge">beta</span></div>
             <div ng-if="project.type === 'sounds'" class="describetextmodelbutton">
                 <button ng-disabled="listening"  ng-click="vm.startListening()" class="btn btn-primary" translate="MODELS.TESTING.STARTLISTENING"></button>
                 <button ng-disabled="!listening" ng-click="vm.stopListening()" class="btn btn-primary" translate="MODELS.TESTING.STOPLISTENING"></button>

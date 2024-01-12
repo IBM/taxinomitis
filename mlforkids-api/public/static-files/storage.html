@@ -105,21 +105,6 @@
         //  PROJECTS database
         //-----------------------------------------------------------
 
-        async function getProjects() {
-            console.log('[ml4kstorage] getProjects');
-
-            await requiresProjectsDatabase();
-
-            const transaction = projectsDbHandle.transaction([ PROJECTS_TABLE ], 'readonly');
-            const request = transaction.objectStore(PROJECTS_TABLE).getAll();
-
-            return promisifyIndexedDbRequest(request)
-                .then(function (event) {
-                    return event.target.result;
-                });
-        }
-
-
         async function getProject(projectId) {
             console.log('[ml4kstorage] getProject', projectId);
 
@@ -134,95 +119,6 @@
                 });
         }
 
-
-        async function addProject(projectInfo) {
-            console.log('[ml4kstorage] addProject', projectInfo);
-
-            await requiresProjectsDatabase();
-
-            if (!projectInfo.labels) {
-                projectInfo.labels = [];
-            }
-
-            const transaction = projectsDbHandle.transaction([ PROJECTS_TABLE ], 'readwrite');
-            const request = transaction.objectStore(PROJECTS_TABLE).add(projectInfo);
-
-            return promisifyIndexedDbRequest(request)
-                .then(function (event) {
-                    projectInfo.id = event.target.result;
-                    return projectInfo;
-                });
-        }
-
-
-        async function deleteProject(projectId) {
-            console.log('[ml4kstorage] deleteProject');
-
-            await requiresProjectsDatabase();
-
-            const transaction = projectsDbHandle.transaction([ PROJECTS_TABLE ], 'readwrite');
-            const request = transaction.objectStore(PROJECTS_TABLE).delete(requiresIntegerId(projectId));
-
-            window.indexedDB.deleteDatabase(TRAINING_DB_NAME_PREFIX + projectId);
-            delete trainingDataDatabases[projectId];
-
-            return promisifyIndexedDbRequest(request).then(noop);
-        }
-
-
-        async function addLabel(projectId, newlabel) {
-            console.log('[ml4kstorage] addLabel');
-
-            await requiresProjectsDatabase();
-
-            const transaction = projectsDbHandle.transaction([ PROJECTS_TABLE ], 'readwrite');
-            const projectsTable = transaction.objectStore(PROJECTS_TABLE);
-            const readRequest = projectsTable.get(requiresIntegerId(projectId));
-            const readEvent = await promisifyIndexedDbRequest(readRequest);
-            const projectObject = requiresResult(readEvent);
-
-            if (!projectObject.labels.includes(newlabel)) {
-                projectObject.labels.push(newlabel);
-
-                const updateRequest = projectsTable.put(projectObject);
-                await promisifyIndexedDbRequest(updateRequest);
-            }
-
-            return projectObject.labels;
-        }
-
-
-        async function deleteLabel(projectId, removedlabel) {
-            console.log('[ml4kstorage] deleteLabel');
-
-            await requiresProjectsDatabase();
-            await requiresTrainingDatabase(projectId);
-
-            // -- update project definition
-            const projectTransaction = projectsDbHandle.transaction([ PROJECTS_TABLE ], 'readwrite');
-            const projectsTable = projectTransaction.objectStore(PROJECTS_TABLE);
-            const readRequest = projectsTable.get(requiresIntegerId(projectId));
-            const readEvent = await promisifyIndexedDbRequest(readRequest);
-            const projectObject = requiresResult(readEvent);
-            projectObject.labels = projectObject.labels.filter(function (label) {
-                return label !== removedlabel;
-            });
-            const updateRequest = projectsTable.put(projectObject);
-            await promisifyIndexedDbRequest(updateRequest);
-
-            // -- update training data items
-            const trainingTransaction = trainingDataDatabases[projectId].transaction([ TRAINING_TABLE ], 'readwrite');
-            const trainingTable = trainingTransaction.objectStore(TRAINING_TABLE);
-            trainingTable.index('label').openCursor(IDBKeyRange.only(removedlabel)).onsuccess = function (event) {
-                const cursor = event.target.result;
-                if (cursor) {
-                    trainingTable.delete(cursor.primaryKey);
-                    cursor.continue();
-                }
-            };
-
-            return projectObject.labels;
-        }
 
 
         //-----------------------------------------------------------
@@ -275,26 +171,6 @@
         }
 
 
-        async function deleteTrainingData(projectId, trainingDataId) {
-            console.log('[ml4kstorage] deleteTrainingData');
-
-            await requiresTrainingDatabase(projectId);
-
-            const transaction = trainingDataDatabases[projectId].transaction([ TRAINING_TABLE ], 'readwrite');
-            const request = transaction.objectStore(TRAINING_TABLE).delete(requiresIntegerId(trainingDataId));
-
-            return promisifyIndexedDbRequest(request).then(noop);
-        }
-
-
-        function attemptTrainingDataUpdate(projectId, trainingData) {
-            console.log('[ml4kstorage] attemptTrainingDataUpdate');
-
-            trainingDataDatabases[projectId]
-                .transaction([ TRAINING_TABLE ], 'readwrite')
-                .objectStore(TRAINING_TABLE)
-                .put(trainingData);
-        }
 
 
         async function getLabelCounts(projectId) {
@@ -352,17 +228,10 @@
 
         const mlforkidsDataFunctions = {
             idIsLocal,
-            getProjects,
             getProject,
-            addProject,
-            deleteProject,
-            addLabel,
-            deleteLabel,
             getTrainingData,
             getTrainingDataItem,
             addTrainingData,
-            deleteTrainingData,
-            attemptTrainingDataUpdate,
             getLabelCounts,
             getTrainingDataByLabel
         };

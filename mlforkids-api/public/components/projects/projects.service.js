@@ -148,6 +148,61 @@
         }
 
 
+        function supportedMakes (project) {
+            if (project.type === 'text') {
+                return {
+                    scratch : true,
+                    appinventor : true,
+                    edublocks : true,
+                    python : true
+                };
+            }
+            else if (project.type === 'numbers') {
+                return {
+                    scratch : true,
+                    appinventor : true,
+                    edublocks : true,
+                    python : true
+                };
+            }
+            else if (project.type === 'sounds') {
+                return {
+                    scratch : true,
+
+                    appinventor : false,
+                    edublocks : false,
+                    python : false
+                };
+            }
+            else if (project.type === 'imgtfjs') {
+                if (project.storage === 'local') {
+                    return {
+                        scratch : true,
+                        appinventor : false,
+                        edublocks : false,
+                        python : false
+                    };
+                }
+                else {
+                    return {
+                        scratch : true,
+                        appinventor : true,
+                        edublocks : false,
+                        python : true
+                    };
+                }
+            }
+            else {
+                return {
+                    scratch : false,
+                    appinventor : false,
+                    edublocks : false,
+                    python : false
+                };
+            }
+        }
+
+
         return {
             getProject : getProject,
             getProjects : getProjects,
@@ -164,7 +219,9 @@
 
             checkProjectCredentials : checkProjectCredentials,
 
-            shareProject : shareProject
+            shareProject : shareProject,
+
+            supportedMakes : supportedMakes
         };
     }
 })();

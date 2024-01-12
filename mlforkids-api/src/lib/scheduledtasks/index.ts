@@ -1,5 +1,6 @@
 // local dependencies
 import * as conversation from '../training/conversation';
+import * as expirer from '../db/expirer';
 import * as sessionusers from '../sessionusers';
 import * as pendingjobs from '../pendingjobs/runner';
 import loggerSetup from '../utils/logger';
@@ -15,6 +16,10 @@ export function run(): Promise<void> {
         .then(() => {
             log.info('deleting data from S3 object storage that is no longer needed');
             return pendingjobs.run();
+        })
+        .then(() => {
+            log.info('deleting unused local project references');
+            return expirer.deleteExpiredProjects();
         })
         .then(() => {
             log.info('deleting expired Watson Assistant workspaces');

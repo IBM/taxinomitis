@@ -5,11 +5,12 @@
         .controller('LoginController', LoginController);
 
     LoginController.$inject = [
-        'authService', 'loggerService', '$location', '$stateParams',
-        '$document', '$scope', '$timeout', '$state', '$translate', '$mdDialog'
+        'authService', 'loggerService', 'browserStorageService',
+        '$location', '$stateParams', '$document', '$scope',
+        '$timeout', '$state', '$translate', '$mdDialog'
     ];
 
-    function LoginController(authService, loggerService, $location, $stateParams, $document, $scope, $timeout, $state, $translate, $mdDialog) {
+    function LoginController(authService, loggerService, browserStorageService, $location, $stateParams, $document, $scope, $timeout, $state, $translate, $mdDialog) {
         var vm = this;
         vm.authService = authService;
 
@@ -40,6 +41,11 @@
 
             authService.createSessionUser()
                 .then(function (/* newUser */) {
+                    // can't rely on session users to log out,
+                    //  so we clean up after the last session user
+                    //  when the next one logs in
+                    browserStorageService.deleteSessionUserProjects();
+
                     $timeout(function () {
                         $state.go('projects');
                     });

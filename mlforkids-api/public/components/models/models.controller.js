@@ -830,7 +830,7 @@
                 }
                 soundTrainingService.reset();
             }
-            else if ($scope.project && $scope.project.type === 'imgtjfs'){
+            else if ($scope.project && $scope.project.type === 'imgtfjs'){
                 imageTrainingService.reset();
             }
         });

@@ -5,13 +5,13 @@
         .controller('NewProjectController', NewProjectController);
 
     NewProjectController.$inject = [
-        'authService', 'projectsService',
+        'authService', 'projectsService', 'browserStorageService',
         'loggerService',
         '$state', '$rootScope', '$scope', '$translate'
     ];
 
 
-    function NewProjectController(authService, projectsService, loggerService, $state, $rootScope, $scope, $translate) {
+    function NewProjectController(authService, projectsService, browserStorageService, loggerService, $state, $rootScope, $scope, $translate) {
 
         var vm = this;
         vm.authService = authService;
@@ -168,5 +168,8 @@
                     $scope.creating = false;
                 });
         };
+
+
+        $scope.isLocalSupported = browserStorageService.isSupported();
     }
 }());
