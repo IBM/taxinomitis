@@ -145,7 +145,7 @@
                     loggerService.debug('[ml4ksupervise] submitting model deletion request');
 
                     project.hasModel = false;
-                    trainingService.deleteModel(project.id, project.userid, project.classid, project.classifierId)
+                    trainingService.deleteModel(project, project.userid, project.classid, project.classifierId)
                         .then(function () {
                             loggerService.debug('[ml4ksupervise] model deletion successful');
                         })

@@ -97,6 +97,10 @@
 
         function deleteProject(project, userid, tenant) {
             if (project.storage === 'local') {
+                if (project.cloudid) {
+                    $http.delete('/api/classes/' + tenant + '/students/' + userid + '/localprojects/' + project.cloudid);
+                }
+
                 return browserStorageService.deleteProject(project.id);
             }
             else {
@@ -116,6 +120,14 @@
                         return resp.data;
                     });
             }
+        }
+
+        function createLocalProject(projectAttrs, userid, tenant) {
+            return $http.post('/api/classes/' + tenant + '/students/' + userid + '/localprojects', projectAttrs)
+                .then(function (resp) {
+                    const cloudref = resp.data;
+                    return browserStorageService.addCloudRefToProject(projectAttrs.id, cloudref.id);
+                });
         }
 
         function checkProjectCredentials(tenant, type) {
@@ -210,6 +222,7 @@
 
             deleteProject : deleteProject,
             createProject : createProject,
+            createLocalProject : createLocalProject,
 
             getFields : getFields,
             getLabels : getLabels,

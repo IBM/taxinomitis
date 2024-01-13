@@ -65,7 +65,7 @@
                 loggerService.debug('[ml4kdesc] project', project);
                 $scope.project = project;
                 loggerService.debug('[ml4kdesc] getting ML models');
-                return trainingService.getModels($scope.projectId, $scope.userId, vm.profile.tenant);
+                return trainingService.getModels(project, $scope.userId, vm.profile.tenant);
             })
             .then(function (models) {
                 loggerService.debug('[ml4kdesc] models', models);

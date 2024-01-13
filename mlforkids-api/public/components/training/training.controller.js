@@ -356,6 +356,10 @@
                         }
                     }
 
+                    if ($scope.project.storage === 'local') {
+                        $scope.$apply();
+                    }
+
                     scrollToNewItem(newitem.id);
                 })
                 .catch(function (err) {

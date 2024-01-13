@@ -135,27 +135,31 @@
             }
         }
 
-        function getModels(projectid, userid, tenant) {
-            if (browserStorageService.idIsLocal(projectid)) {
-                return Promise.resolve([]);
+        function getModels(project, userid, tenant) {
+            var url;
+            if (project.storage === 'local') {
+                url = '/api/classes/' + tenant +
+                        '/students/' + userid +
+                        '/localprojects/' + project.cloudid +
+                        '/models';
             }
             else {
-                var url = '/api/classes/' + tenant +
-                            '/students/' + userid +
-                            '/projects/' + projectid +
-                            '/models';
-
-                return $http.get(url).then(function (resp) {
-                    var models = resp.data;
-                    if (models) {
-                        var now = new Date();
-                        for (var i = 0; i < models.length; i++) {
-                            models[i].lastPollTime = now;
-                        }
-                    }
-                    return models;
-                });
+                url = '/api/classes/' + tenant +
+                        '/students/' + userid +
+                        '/projects/' + project.id +
+                        '/models';
             }
+
+            return $http.get(url).then(function (resp) {
+                var models = resp.data;
+                if (models) {
+                    var now = new Date();
+                    for (var i = 0; i < models.length; i++) {
+                        models[i].lastPollTime = now;
+                    }
+                }
+                return models;
+            });
         }
 
         function getModel(projectid, userid, tenant, modelid, timestamp) {
@@ -182,12 +186,42 @@
             });
         }
 
-        function testModel(projectid, userid, tenant, modelid, credsid, testdata) {
-            var url = '/api/classes/' + tenant +
+        // for a local project, the training data isn't stored
+        //  on the server so needs to be provided with each
+        //  model creation request
+        function newLocalProjectModel(project) {
+            var url = '/api/classes/' + project.classid +
+                        '/students/' + project.userid +
+                        '/localprojects/' + project.cloudid +
+                        '/models';
+
+            return browserStorageService.getTrainingForWatsonAssistant(project)
+                .then(function (training) {
+                    return $http.post(url, { training }, { timeout : 180000 });
+                })
+                .then(function (resp) {
+                    resp.data.lastPollTime = new Date();
+                    return resp.data;
+                });
+        }
+
+
+        function testModel(project, userid, tenant, modelid, credsid, testdata) {
+            var url;
+            if (project.storage === 'local') {
+                url = '/api/classes/' + tenant +
                         '/students/' + userid +
-                        '/projects/' + projectid +
+                        '/localprojects/' + project.cloudid +
                         '/models/' + modelid +
                         '/label';
+            }
+            else {
+                url = '/api/classes/' + tenant +
+                        '/students/' + userid +
+                        '/projects/' + project.id +
+                        '/models/' + modelid +
+                        '/label';
+            }
             testdata.credentialsid = credsid;
 
             return $http.post(url, testdata)
@@ -217,12 +251,20 @@
                 });
         }
 
-        function deleteModel(projectid, userid, tenant, modelid) {
-            var url = '/api/classes/' + tenant +
+        function deleteModel(project, userid, tenant, modelid) {
+            var url;
+            if (project.storage === 'local') {
+                url = '/api/classes/' + tenant +
                         '/students/' + userid +
-                        '/projects/' + projectid +
+                        '/localprojects/' + project.cloudid +
                         '/models/' + modelid;
-
+            }
+            else {
+                url = '/api/classes/' + tenant +
+                        '/students/' + userid +
+                        '/projects/' + project.id +
+                        '/models/' + modelid;
+            }
             return $http.delete(url);
         }
 
@@ -320,6 +362,7 @@
             getModels : getModels,
             getModel : getModel,
             newModel : newModel,
+            newLocalProjectModel : newLocalProjectModel,
             testModel : testModel,
             testModelPrep : testModelPrep,
             deleteModel : deleteModel,

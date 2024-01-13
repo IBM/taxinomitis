@@ -232,6 +232,26 @@
         }
 
 
+        async function addCloudRefToProject(localProjectId, cloudProjectId) {
+            loggerService.debug('[ml4kstorage] addLabel');
+
+            await requiresProjectsDatabase();
+
+            const transaction = projectsDbHandle.transaction([ PROJECTS_TABLE ], 'readwrite');
+            const projectsTable = transaction.objectStore(PROJECTS_TABLE);
+            const readRequest = projectsTable.get(requiresIntegerId(localProjectId));
+            const readEvent = await promisifyIndexedDbRequest(readRequest);
+            const projectObject = requiresResult(readEvent);
+
+            projectObject.cloudid = cloudProjectId;
+
+            const updateRequest = projectsTable.put(projectObject);
+            await promisifyIndexedDbRequest(updateRequest);
+
+            return projectObject;
+        }
+
+
         async function deleteProject(projectId) {
             loggerService.debug('[ml4kstorage] deleteProject');
 
@@ -412,6 +432,37 @@
         }
 
 
+        async function getTrainingForWatsonAssistant(project) {
+            loggerService.debug('[ml4kstorage] getTrainingForWatsonAssistant');
+
+            const trainingByLabel = {};
+
+            const allTraining = await getTrainingData(project.id);
+            for (const item of allTraining) {
+                const label = item.label;
+                const text = item.textdata;
+
+                if (!(label in trainingByLabel)) {
+                    trainingByLabel[label] = {
+                        intent : label.replace(/\s/g, '_'),
+                        examples : []
+                    };
+                }
+                trainingByLabel[label].examples.push({ text });
+            }
+
+            return {
+                name : project.name,
+                language : project.language ? project.language : 'en',
+                intents : Object.values(trainingByLabel),
+                dialog_nodes : [],
+                counterexamples: [],
+                entities : [],
+                metadata : {
+                    createdby : 'machinelearningforkids',
+                },
+            };
+        }
 
 
 
@@ -425,6 +476,7 @@
             getProjects,
             getProject,
             addProject,
+            addCloudRefToProject,
             deleteProject,
             addLabel,
             deleteLabel,
@@ -435,6 +487,7 @@
             deleteTrainingData,
             getLabelCounts,
             getTrainingDataByLabel,
+            getTrainingForWatsonAssistant,
 
             deleteSessionUserProjects
         };
