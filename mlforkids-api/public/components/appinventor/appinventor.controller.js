@@ -42,7 +42,7 @@
 
                 loggerService.debug('[ml4kappinv] Getting Scratch API keys');
 
-                return scratchkeysService.getScratchKeys($stateParams.projectId, $stateParams.userId, vm.profile.tenant);
+                return scratchkeysService.getScratchKeys(project, $stateParams.userId, vm.profile.tenant);
             })
             .then(function (resp) {
                 loggerService.debug('[ml4kappinv] scratchkey', resp);

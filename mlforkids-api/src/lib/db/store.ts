@@ -429,11 +429,13 @@ export async function deleteProjectsByClassId(classid: string): Promise<void>
 export async function storeLocalProject(
     userid: string, classid: string,
     type: Objects.ProjectTypeLabel,
+    name: string,
+    labels: string[],
 ): Promise<Objects.LocalProject>
 {
     let obj: Objects.LocalProjectDbRow;
     try {
-        obj = dbobjects.createLocalProject(userid, classid, type);
+        obj = dbobjects.createLocalProject(userid, classid, type, name, labels);
     }
     catch (err) {
         err.statusCode = 400;
@@ -442,13 +444,15 @@ export async function storeLocalProject(
 
     const insertProjectName = 'dbqn-insert-localprojects';
     const insertProjectQry: string = 'INSERT INTO localprojects ' +
-        '(id, userid, classid, typeid, expiry) ' +
-        'VALUES ($1, $2, $3, $4, $5)';
+        '(id, userid, classid, typeid, expiry, name, labels) ' +
+        'VALUES ($1, $2, $3, $4, $5, $6, $7)';
     const insertProjectValues = [
         obj.id,
         obj.userid, obj.classid,
         obj.typeid,
         obj.expiry,
+        obj.name,
+        obj.labels,
     ];
 
     const insertResponse = await dbExecute(insertProjectName, insertProjectQry, insertProjectValues);
@@ -467,10 +471,10 @@ export async function updateLocalProject(project: Objects.LocalProject): Promise
 
     const queryName = 'dbqn-update-localprojects';
     const queryString = 'UPDATE localprojects ' +
-                             'SET expiry = $1 ' +
-                             'WHERE id = $2 AND userid = $3 AND classid = $4';
+                             'SET expiry = $1, labels = $2 ' +
+                             'WHERE id = $3 AND userid = $4 AND classid = $5';
     const queryValues = [
-        updated.expiry,
+        updated.expiry, updated.labels,
         updated.id, updated.userid, updated.classid,
     ];
 
@@ -486,7 +490,8 @@ export async function getLocalProject(id: string): Promise<Objects.LocalProject 
 {
     const queryName = 'dbqn-select-localprojects-id';
     const queryString = 'SELECT id, userid, classid, ' +
-                            'typeid, expiry ' +
+                            'typeid, expiry, ' +
+                            'name, labels ' +
                         'FROM localprojects ' +
                         'WHERE id = $1';
     const queryValues = [ id ];
@@ -514,7 +519,8 @@ export async function getExpiredLocalProjects(options: Objects.PagingOptions): P
 {
     const queryName = 'dbqn-select-localprojects-expired';
     const queryString = 'SELECT id, userid, classid, ' +
-                            'typeid, expiry ' +
+                            'typeid, expiry, ' +
+                            'name, labels ' +
                         'FROM localprojects ' +
                         'WHERE expiry < $1 ' +
                         'LIMIT $2 OFFSET $3';

@@ -27,11 +27,11 @@ class MachineLearningSound {
         {{/storeurl}}
 
 
+        {{#storeurl}}
         var encodedProjectData = JSON.stringify({
             // labels needed to unpack saved models
             labels : this._labels,
-            projectid : '{{{projectid}}}',
-            storage: {{#storeurl}}'cloud'{{/storeurl}}{{^storeurl}}'local'{{/storeurl}}
+            projectid : '{{{projectid}}}'
         });
         postMessage({
             mlforkidssound : {
@@ -39,6 +39,16 @@ class MachineLearningSound {
                 data : encodedProjectData
             }
         });
+        {{/storeurl}}
+        {{^storeurl}}
+        postMessage({
+            mlforkidssound : {
+                command : 'initlocal',
+                data : '{{{projectid}}}'
+            }
+        });
+        {{/storeurl}}
+
         var that = this;
         addEventListener('message', function (evt) {
             that.receiveListenEvents(evt, that);

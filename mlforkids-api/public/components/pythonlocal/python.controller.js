@@ -54,7 +54,7 @@
                 .then(function (fields) {
                     $scope.fields = fields;
 
-                    return scratchkeysService.getScratchKeys($scope.project.id, $scope.userId, vm.profile.tenant);
+                    return scratchkeysService.getScratchKeys($scope.project, $scope.userId, vm.profile.tenant);
                 })
                 .then(function (resp) {
                     if (resp) {

@@ -489,6 +489,13 @@ export function validateTraining(obj: TrainingObjects.ConversationTrainingData):
            obj.dialog_nodes && Array.isArray(obj.dialog_nodes);
 }
 
+export function getLabelNamesFromTraining(obj: TrainingObjects.ConversationTrainingData): string[]
+{
+    return obj.intents.map((intentObj) => {
+        return intentObj.intent;
+    });
+}
+
 function validateIntent(obj: TrainingObjects.ConversationIntent): boolean
 {
     return obj &&

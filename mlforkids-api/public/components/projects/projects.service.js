@@ -59,12 +59,58 @@
             }
         }
 
-        function addLabelToProject(projectid, userid, tenant, newlabel) {
-            if (browserStorageService.idIsLocal(projectid)) {
-                return browserStorageService.addLabel(projectid, newlabel);
+
+        function submitLocalProjectLabels(project, newlabels) {
+            return $http.put('/api/classes/' + project.classid + '/students/' + project.userid + '/localprojects/' + project.cloudid, { labels : newlabels })
+                .then(function (resp) {
+                    return resp.data.labels;
+                })
+                .catch(function (err) {
+                    if (err.status === 404) {
+                        // cloud reference for this project has expired - remove
+                        browserStorageService.addCloudRefToProject(project.id, null);
+                    }
+                    return newlabels;
+                });
+        }
+
+
+        function updateLocalProjectLabels(project, newlabels) {
+            if (project.type === 'text') {
+                // TEXT PROJECTS - labels are stored in the cloud to enable Scratch extensions
+
+                if (project.cloudid) {
+                    // PROJECT ALREADY STORED IN THE CLOUD
+                    //  update with new set of labels
+                    return submitLocalProjectLabels(project, newlabels);
+                }
+                else {
+                    // PROJECT NOT YET STORED IN CLOUD
+                    //  wait until we need to create a Scratch extension
+                    return Promise.resolve(newlabels);
+
+                    // project.labels = newlabels;
+                    // return createLocalProject(project, project.userid, project.classid)
+                    //     .then(function (storedproject) {
+                    //         return storedproject.labels;
+                    //     });
+                }
             }
             else {
-                return $http.patch('/api/classes/' + tenant + '/students/' + userid + '/projects/' + projectid, [
+                return Promise.resolve(newlabels);
+            }
+        }
+
+
+        function addLabelToProject(project, userid, tenant, newlabel) {
+            if (project.storage === 'local') {
+                return browserStorageService.addLabel(project.id, newlabel)
+                    .then(function (newlabels) {
+                        return updateLocalProjectLabels(project, newlabels);
+                    });
+            }
+            else {
+                return $http.patch('/api/classes/' + tenant + '/students/' + userid + '/projects/' + project.id, [
                         {
                             op : 'add',
                             path : '/labels',
@@ -77,12 +123,15 @@
             }
         }
 
-        function removeLabelFromProject(projectid, userid, tenant, label) {
-            if (browserStorageService.idIsLocal(projectid)) {
-                return browserStorageService.deleteLabel(projectid, label);
+        function removeLabelFromProject(project, userid, tenant, label) {
+            if (project.storage === 'local') {
+                return browserStorageService.deleteLabel(project.id, label)
+                    .then(function (newlabels) {
+                        return updateLocalProjectLabels(project, newlabels);
+                    });
             }
             else {
-                return $http.patch('/api/classes/' + tenant + '/students/' + userid + '/projects/' + projectid, [
+                return $http.patch('/api/classes/' + tenant + '/students/' + userid + '/projects/' + project.id, [
                         {
                             op : 'remove',
                             path : '/labels',

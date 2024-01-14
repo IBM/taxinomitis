@@ -418,7 +418,7 @@
             .then(
                 function (newlabel) {
                     loggerService.debug('[ml4ktraining] adding a new label', newlabel);
-                    projectsService.addLabelToProject($scope.projectId, $scope.userId, vm.profile.tenant, newlabel)
+                    projectsService.addLabelToProject($scope.project, $scope.userId, vm.profile.tenant, newlabel)
                         .then(function (labels) {
                             $scope.project.labels = labels;
                             for (var i = 0; i < labels.length; i++) {
@@ -473,7 +473,7 @@
 
                     refreshLabelsSummary();
 
-                    projectsService.removeLabelFromProject($scope.projectId, $scope.userId, vm.profile.tenant, label)
+                    projectsService.removeLabelFromProject($scope.project, $scope.userId, vm.profile.tenant, label)
                         .catch(function (err) {
                             displayAlert('errors', err.status, err.data);
                         });
@@ -676,6 +676,10 @@
                             placeholder.id = newitem.id;
 
                             URL.revokeObjectURL(placeholder.imageurl);
+
+                            if ($scope.project.storage === 'local') {
+                                $scope.$apply();
+                            }
 
                             scrollToNewItem(newitem.id);
                         })

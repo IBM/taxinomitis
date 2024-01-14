@@ -101,6 +101,8 @@ CREATE TABLE mlforkidsdb.localprojects (
     userid character varying(36) NOT NULL,
     classid character varying(36) NOT NULL,
     typeid smallint NOT NULL,
+    name character varying(36) NOT NULL,
+    labels character varying(500) NOT NULL,
     expiry timestamp with time zone NOT NULL
 );
 

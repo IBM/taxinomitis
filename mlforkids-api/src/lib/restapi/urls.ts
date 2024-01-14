@@ -69,10 +69,11 @@ export const SCRATCHKEY_IMAGE      = '/api/scratch/:scratchkey/images/api/classe
 export const SCRATCHKEY_CLASSIFY   = '/api/scratch/:scratchkey/classify';
 export const SCRATCHKEY_STATUS     = '/api/scratch/:scratchkey/status';
 export const SCRATCHKEY_MODEL      = '/api/scratch/:scratchkey/models';
+export const SCRATCHKEY_MODEL_LOCAL= '/api/scratch/:scratchkey/local/models';
 export const SCRATCH3_EXTENSION    = '/api/scratch/:scratchkey/extension3.js';
 export const SCRATCHTFJS_EXTENSION = '/api/scratch/:scratchkey/extensiontfjs.js';
 export const SCRATCHTFJS_EXTENSIONS = '/api/scratchtfjs/extensions';
-export const SCRATCH3_EXTENSION_LOCAL = '/api/scratch/:scratchkey/local/:projecttype/:projectid/:projectname/:labelslist/extension3.js';
+export const SCRATCH3_EXTENSION_LOCAL = '/api/scratch/:scratchkey/local/:projecttype/extension3.js';
 
 //
 // URLs about App Inventor

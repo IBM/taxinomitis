@@ -166,11 +166,32 @@
             return promisifyIndexedDbRequest(request)
                 .then(function (event) {
                     trainingObject.id = event.target.result;
+
+                    addLabel(projectId, trainingObject.label);
+
                     return trainingObject;
                 });
         }
 
 
+        async function addLabel(projectId, newlabel) {
+            console.log('[ml4kstorage] addLabel');
+
+            await requiresProjectsDatabase();
+
+            const transaction = projectsDbHandle.transaction([ PROJECTS_TABLE ], 'readwrite');
+            const projectsTable = transaction.objectStore(PROJECTS_TABLE);
+            const readRequest = projectsTable.get(requiresIntegerId(projectId));
+            const readEvent = await promisifyIndexedDbRequest(readRequest);
+            const projectObject = requiresResult(readEvent);
+
+            if (!projectObject.labels.includes(newlabel)) {
+                projectObject.labels.push(newlabel);
+
+                const updateRequest = projectsTable.put(projectObject);
+                await promisifyIndexedDbRequest(updateRequest);
+            }
+        }
 
 
         async function getLabelCounts(projectId) {
@@ -237,8 +258,7 @@
         };
 
         const ALLOWED_ORIGINS = [
-            'https://scratch.machinelearningforkids.co.uk',
-            'http://localhost:8000'
+            'https://scratch.machinelearningforkids.co.uk'
         ];
         window.addEventListener('message', function (event) {
             if (!ALLOWED_ORIGINS.includes(event.origin)) {

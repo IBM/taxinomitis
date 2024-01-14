@@ -8,7 +8,7 @@ import * as Objects from './db-types';
 import * as TrainingObjects from '../training/training-types';
 import * as ObjectStoreTypes from '../objectstore/types';
 import { CLASS_NAME as SESSION_USERS_CLASSID } from '../sessionusers';
-import { TWELVE_HOURS, THREE_MONTHS } from '../utils/constants';
+import { TWELVE_HOURS, TWO_MONTHS } from '../utils/constants';
 
 
 // -----------------------------------------------------------------------------
@@ -105,13 +105,15 @@ export function createProject(
 function getLocalProjectExpiry(classid: string): Date {
     const expiry = classid === SESSION_USERS_CLASSID ?
         TWELVE_HOURS :
-        THREE_MONTHS;
+        TWO_MONTHS;
     return new Date(Date.now() + expiry);
 }
 
 export function createLocalProject(
     userid: string, classid: string,
     type: string,
+    name: string,
+    labels: string[],
 ): Objects.LocalProjectDbRow
 {
     if (projects.typeLabels.indexOf(type) === -1) {
@@ -119,7 +121,8 @@ export function createLocalProject(
     }
 
     if (userid === undefined || userid === '' ||
-        classid === undefined || classid === '')
+        classid === undefined || classid === '' ||
+        name === undefined || !Array.isArray(labels))
     {
         throw new Error('Missing required attributes');
     }
@@ -135,18 +138,21 @@ export function createLocalProject(
         userid,
         classid,
         typeid : getProjectTypeId(type),
+        name,
+        labels : getLabelListFromArray(labels),
         expiry : getLocalProjectExpiry(classid),
     };
 }
 
-export function updateLocalProject(project: Objects.LocalProject): Objects.LocalProject
+export function updateLocalProject(project: Objects.LocalProject): Objects.LocalProjectDbRow
 {
     return {
         id : project.id,
         userid : project.userid,
         classid : project.classid,
-        type : project.type,
-        name : 'local',
+        typeid : getProjectTypeId(project.type),
+        name : project.name,
+        labels : getLabelListFromArray(project.labels),
         expiry : getLocalProjectExpiry(project.classid),
     };
 }
@@ -199,7 +205,8 @@ export function getLocalProjectFromDbRow(row: Objects.LocalProjectDbRow): Object
         userid : row.userid,
         classid : row.classid,
         type : projects.typesById[row.typeid].label,
-        name : 'local',
+        name : row.name,
+        labels : getLabelsFromList(row.labels),
         expiry : row.expiry,
     };
 }

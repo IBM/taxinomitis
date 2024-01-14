@@ -18,11 +18,16 @@ const log = loggerSetup();
 
 
 async function createLocalProject(req: auth.RequestWithUser, res: Express.Response) {
+    // path params
     const classid: string = req.params.classid;
     const userid: string = req.params.studentid;
+    // payload params
+    const type: Objects.ProjectTypeLabel = req.body.type;
+    const name: string = req.body.name;
+    const labels: string[] = req.body.labels;
 
     try {
-        const project = await store.storeLocalProject(userid, classid, req.body.type);
+        const project = await store.storeLocalProject(userid, classid, type, name, labels);
         return res.status(httpstatus.CREATED).json(project);
     }
     catch (err) {
@@ -30,6 +35,26 @@ async function createLocalProject(req: auth.RequestWithUser, res: Express.Respon
             return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
         }
         log.error({ err, func : 'createLocalProject', request : req.body }, 'Server error');
+        errors.unknownError(res, err);
+    }
+}
+
+
+
+async function updateLocalProject(req: auth.RequestWithLocalProject, res: Express.Response) {
+    try {
+        const project = req.project;
+        // only property we let clients update is the list of labels
+        project.labels = req.body.labels;
+
+        await store.updateLocalProject(project);
+        return res.status(httpstatus.OK).json(project);
+    }
+    catch (err) {
+        if (err.statusCode === httpstatus.BAD_REQUEST) {
+            return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
+        }
+        log.error({ err, func : 'updateLocalProject', request : req.body }, 'Server error');
         errors.unknownError(res, err);
     }
 }
@@ -67,7 +92,9 @@ async function newLocalProjectModel(req: auth.RequestWithLocalProject, res: Expr
         res.status(httpstatus.CREATED).json(returnConversationWorkspace(model));
 
         // lazily (after returning response to the user) update
-        //  the expiry date for the project
+        //  the expiry date and labels for the project
+        const updatedProject = req.project;
+        updatedProject.labels = conversation.getLabelNamesFromTraining(req.body.training);
         store.updateLocalProject(req.project);
     }
     catch (err) {
@@ -212,6 +239,13 @@ export default function registerApis(app: Express.Application) {
              auth.checkValidUser,
              // @ts-ignore
              createLocalProject);
+
+    app.put(urls.LOCALPROJECT,
+            auth.authenticate,
+            auth.checkValidUser,
+            auth.verifyLocalProjectAuth,
+            // @ts-ignore
+            updateLocalProject);
 
     app.delete(urls.LOCALPROJECT,
                auth.authenticate,

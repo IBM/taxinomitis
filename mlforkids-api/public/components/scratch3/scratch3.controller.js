@@ -43,9 +43,9 @@
                     $scope.projecturls.train = '/#!/mlproject/' + $scope.project.userid + '/' + $scope.project.id + '/training';
                     $scope.projecturls.learnandtest = '/#!/mlproject/' + $scope.project.userid + '/' + $scope.project.id + '/models';
 
-                    if (!browserStorageService.idIsLocal(project.id)) {
+                    if (project.type === 'text' || project.storage !== 'local') {
                         loggerService.debug('[ml4kscratch3] getting scratch key');
-                        return scratchkeysService.getScratchKeys(project.id, $scope.userId, vm.profile.tenant);
+                        return scratchkeysService.getScratchKeys(project, $scope.userId, vm.profile.tenant);
                     }
                 })
                 .then(function (resp) {
@@ -59,6 +59,10 @@
                                                   '/api/scratch/' +
                                                   scratchkey.id +
                                                   '/extension3.js';
+
+                        if ($scope.project.storage === 'local') {
+                            scratchkey.extensionurl += encodeURIComponent('?projectid=' + $scope.project.id);
+                        }
                     }
                     else {
                         scratchkey = {
@@ -67,11 +71,14 @@
                             type: $scope.project.type,
                             extensionurl: window.location.origin +
                                           '/api/scratch/localproject/local/' +
-                                            $scope.project.type + '/' +
-                                            $scope.project.id + '/' +
-                                            encodeURIComponent($scope.project.name) + '/' +
-                                            encodeURIComponent($scope.project.labels.join(',')) + '/' +
-                                            'extension3.js'
+                                            $scope.project.type +
+                                            '/extension3.js' +
+                                            encodeURIComponent(
+                                                '?' +
+                                                    'projectid=' + $scope.project.id + '&' +
+                                                    'projectname=' + $scope.project.name + '&' +
+                                                    'labelslist=' + $scope.project.labels.join(',')
+                                            )
                         };
                     }
 

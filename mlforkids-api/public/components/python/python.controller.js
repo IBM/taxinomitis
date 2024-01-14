@@ -55,7 +55,7 @@
                     $scope.fields = fields;
 
                     loggerService.debug('[ml4kpython] getting Scratch key');
-                    return scratchkeysService.getScratchKeys($scope.project.id, $scope.userId, vm.profile.tenant);
+                    return scratchkeysService.getScratchKeys($scope.project, $scope.userId, vm.profile.tenant);
                 })
                 .then(function (resp) {
                     if (resp) {

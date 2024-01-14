@@ -26,6 +26,30 @@ function escapeProjectName(name: string): string {
                 .replace(/[']/g, '\\\'');
 }
 
+
+async function getTextExtensionLocalData(scratchkey: Types.ScratchKey, project: Types.LocalProject, browserProjectId: string): Promise<string> {
+    const template: string = await fileutils.read('./resources/scratch3-text-classify.js');
+
+    Mustache.parse(template);
+    const rendered = Mustache.render(template, {
+        projectid : browserProjectId.replace(/-/g, ''),
+
+        statusurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/status',
+        classifyurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/classify',
+        modelurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/models',
+        trainurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/local/models',
+
+        projectname : escapeProjectName(scratchkey.name),
+        labels : project.labels.map((name, idx) => {
+            return { name, idx };
+        }),
+
+        firstlabel : project.labels.length > 0 ? project.labels[0] : '',
+    });
+    return rendered;
+}
+
+
 async function getTextExtension(scratchkey: Types.ScratchKey, project: Types.Project): Promise<string> {
     const template: string = await fileutils.read('./resources/scratch3-text-classify.js');
 
@@ -205,6 +229,19 @@ export function getScratchxExtension(
         default:
             return Promise.resolve('');
     }
+}
+
+export function getHybridScratchxExtension(
+    scratchkey: Types.ScratchKey,
+    project: Types.LocalProject,
+    localid: string,
+): Promise<string>
+{
+    if (scratchkey.type !== 'text') {
+        throw new Error('Unexpected Scratch key type');
+    }
+
+    return getTextExtensionLocalData(scratchkey, project, localid);
 }
 
 

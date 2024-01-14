@@ -27,6 +27,7 @@ class MachineLearningImagesTfjs {
         {{/storeurl}}
 
 
+        {{#storeurl}}
         var encodedProjectData = JSON.stringify({
             labels : this._labels.items,
             projectid : '{{{projectid}}}',
@@ -38,6 +39,16 @@ class MachineLearningImagesTfjs {
                 data : encodedProjectData
             }
         });
+        {{/storeurl}}
+        {{^storeurl}}
+        postMessage({
+            mlforkidsimage : {
+                command : 'initlocal',
+                data : '{{{projectid}}}'
+            }
+        });
+        {{/storeurl}}
+
         var that = this;
         addEventListener('message', function (evt) {
             that.receiveListenEvents(evt, that);

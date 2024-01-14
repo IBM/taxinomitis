@@ -30,17 +30,20 @@ export interface ProjectDbRow {
 
 export interface LocalProject {
     readonly id: string;
-    readonly name: 'local';
+    readonly name: string;
     readonly userid: string;
     readonly classid: string;
     readonly type: ProjectTypeLabel;
+    labels: string[];
     expiry: Date;
 }
 export interface LocalProjectDbRow {
     readonly id: string;
+    readonly name: string;
     readonly userid: string;
     readonly classid: string;
     readonly typeid: number;
+    readonly labels: string;
     readonly expiry: Date;
 }
 

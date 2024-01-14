@@ -154,7 +154,7 @@ describe('REST API - local projects', () => {
         it('should only support text projects for local projects', () => {
             return request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/student/localprojects')
-                .send({ type : 'imgtfjs' })
+                .send({ type : 'imgtfjs', name : 'invalid type', labels : [] })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
                 .then((res) => {
@@ -180,12 +180,14 @@ describe('REST API - local projects', () => {
         it('should create long expiry times for regular classes', () => {
             return request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/student/localprojects')
-                .send({ type : 'text' })
+                .send({ type : 'text', name : 'expiry check', labels : [ 'one', 'two' ] })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.CREATED)
                 .then((res) => {
                     const body = res.body;
                     assert(body.id);
+                    assert.strictEqual(body.name, 'expiry check');
+                    assert.deepStrictEqual(body.labels, [ 'one', 'two' ]);
 
                     const eightydays = 6912000000;
                     assert(new Date(body.expiry).getTime() > (Date.now() + eightydays));
@@ -210,12 +212,14 @@ describe('REST API - local projects', () => {
             let projectid: string;
             return request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/userid/localprojects')
-                .send({ type : 'text' })
+                .send({ type : 'text', name : 'delete me', labels : [] })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.CREATED)
                 .then((res) => {
                     const body = res.body;
                     assert(body.id);
+                    assert.strictEqual(body.name, 'delete me');
+                    assert.deepStrictEqual(body.labels, []);
                     projectid = body.id;
                     return request(testServer)
                         .del('/api/classes/' + TESTCLASS + '/students/userid/localprojects/' + projectid)
@@ -254,17 +258,19 @@ describe('REST API - local projects', () => {
     };
 
     describe('newLocalProjectModel', () => {
-        it('should reset project expiry after new models', () => {
+        it('should update project expiry and labels after new models', () => {
             let projectid: string;
             let expiry: Date;
             return request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/userid/localprojects')
-                .send({ type : 'text' })
+                .send({ type : 'text', name : 'update this project', labels : [ 'this' ] })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.CREATED)
                 .then((res) => {
                     const body = res.body;
                     assert(body.id);
+                    assert.strictEqual(body.name, 'update this project');
+                    assert.deepStrictEqual(body.labels, [ 'this' ]);
                     projectid = body.id;
                     expiry = new Date(body.expiry);
                     return store.getLocalProject(projectid);
@@ -290,6 +296,57 @@ describe('REST API - local projects', () => {
                 .then((proj) => {
                     assert(proj);
                     assert(proj.expiry.getTime() > expiry.getTime());
+                    assert.deepStrictEqual(proj.labels, [ 'this', 'that' ]);
+                });
+        });
+    });
+
+    describe('updateLocalProject', () => {
+        it('should return not-found for unknown projects', () => {
+            return request(testServer)
+                .put('/api/classes/' + TESTCLASS + '/students/userid/localprojects/' + 'UNKNOWN')
+                .send({ labels : [ 'this', 'that', 'the other' ] })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.NOT_FOUND)
+                .then((res) => {
+                    assert.deepStrictEqual(res.body, { error : 'Not found' });
+                });
+        });
+
+        it('should update project expiry and labels after project updates', () => {
+            let projectid: string;
+            let expiry: Date;
+            return request(testServer)
+                .post('/api/classes/' + TESTCLASS + '/students/userid/localprojects')
+                .send({ type : 'text', name : 'updating this project', labels : [ 'this' ] })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CREATED)
+                .then((res) => {
+                    const body = res.body;
+                    assert(body.id);
+                    assert.strictEqual(body.name, 'updating this project');
+                    assert.deepStrictEqual(body.labels, [ 'this' ]);
+                    projectid = body.id;
+                    expiry = new Date(body.expiry);
+                    return store.getLocalProject(projectid);
+                })
+                .then((proj) => {
+                    assert(proj);
+                    assert.strictEqual(proj.expiry.getTime(), expiry.getTime());
+
+                    return request(testServer)
+                        .put('/api/classes/' + TESTCLASS + '/students/userid/localprojects/' + projectid)
+                        .send({ labels : [ 'this', 'that', 'the other' ] })
+                        .expect('Content-Type', /json/)
+                        .expect(httpstatus.OK);
+                })
+                .then(() => {
+                    return store.getLocalProject(projectid);
+                })
+                .then((proj) => {
+                    assert(proj);
+                    assert(proj.expiry.getTime() > expiry.getTime());
+                    assert.deepStrictEqual(proj.labels, [ 'this', 'that', 'the other' ]);
                 });
         });
     });
@@ -309,7 +366,7 @@ describe('REST API - local projects', () => {
 
             const createProject = await request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/userid/localprojects')
-                .send({ type : 'text' })
+                .send({ type : 'text', name : 'model tester', labels : [ 'this', 'that' ] })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.CREATED);
             const projectBody = createProject.body;
@@ -358,7 +415,7 @@ describe('REST API - local projects', () => {
         it('should return the same scratch key each time', async () => {
             const createProject = await request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/userid/localprojects')
-                .send({ type : 'text' })
+                .send({ type : 'text', name : 'reuse me', labels : [] })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.CREATED);
             const projectBody = createProject.body;

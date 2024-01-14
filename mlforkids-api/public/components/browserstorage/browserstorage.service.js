@@ -161,8 +161,8 @@
                     cleanupService.deleteProject(cursor.value);
 
                     // delete the training data database
-                    window.indexedDB.deleteDatabase(TRAINING_DB_NAME_PREFIX + cursor.value.id);
                     delete trainingDataDatabases[cursor.value.id];
+                    window.indexedDB.deleteDatabase(TRAINING_DB_NAME_PREFIX + cursor.value.id);
 
                     // delete the project itself
                     projectsTable.delete(cursor.primaryKey);
@@ -233,7 +233,7 @@
 
 
         async function addCloudRefToProject(localProjectId, cloudProjectId) {
-            loggerService.debug('[ml4kstorage] addLabel');
+            loggerService.debug('[ml4kstorage] addCloudRefToProject');
 
             await requiresProjectsDatabase();
 
