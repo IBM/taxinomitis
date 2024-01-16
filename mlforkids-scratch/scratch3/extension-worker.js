@@ -1720,7 +1720,7 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
   }, {
     key: "_getModelDbLocation",
     value: function _getModelDbLocation(projectid) {
-      return 'indexeddb://ml4k-models-images-' + projectid.replaceAll('-', '');
+      return 'indexeddb://ml4k-models-images-' + projectid.toString().replaceAll('-', '');
     }
   }, {
     key: "_loadModel",
@@ -2174,7 +2174,7 @@ var ML4KidsSoundTraining = /*#__PURE__*/function () {
   }, {
     key: "_getModelDbLocation",
     value: function _getModelDbLocation(projectid) {
-      return 'indexeddb://ml4k-models-sounds-' + projectid.replaceAll('-', '');
+      return 'indexeddb://ml4k-models-sounds-' + projectid.toString().replaceAll('-', '');
     }
   }, {
     key: "_saveModel",

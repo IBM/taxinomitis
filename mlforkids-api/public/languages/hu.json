@@ -221,8 +221,8 @@
             "LOCAL": "In your web browser",
             "CLOUD": "In the cloud",
             "NOTES_1": "Where do you want to store this project?",
-            "NOTES_2": "Storing in your web browser has no limits on how big your project can be (not available for numbers projects)",
-            "NOTES_3": "Storing in the cloud will let you access the project from any computer"
+            "NOTES_2": "Storing in your web browser removes limits on how big your project can be.",
+            "NOTES_3": "Storing in the cloud will let you access the project from any computer."
         },
         "TYPES": {
             "LABEL": "Ismerje fel:",

@@ -294,9 +294,9 @@
         }
 
 
-        function uploadImage(projectid, userid, tenant, imgdata, label) {
-            if (browserStorageService.idIsLocal(projectid)) {
-                return browserStorageService.addTrainingData(projectid, {
+        function uploadImage(project, userid, tenant, imgdata, label) {
+            if (project.storage === 'local') {
+                return browserStorageService.addTrainingData(project.id, {
                     imagedata: imgdata,
                     isstored: true,
                     label: label
@@ -309,7 +309,7 @@
             else {
                 var url = '/api/classes/' + tenant +
                             '/students/' + userid +
-                            '/projects/' + projectid +
+                            '/projects/' + project.id +
                             '/images';
 
                 var data = new FormData();

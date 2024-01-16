@@ -594,12 +594,16 @@
                     $scope.training[label].push(placeholder);
 
                     loggerService.debug('[ml4ktraining] uploading webcam data');
-                    trainingService.uploadImage($scope.project.id, $scope.userId, vm.profile.tenant, resp, label)
+                    trainingService.uploadImage($scope.project, $scope.userId, vm.profile.tenant, resp, label)
                         .then(function (newitem) {
                             placeholder.isPlaceholder = false;
                             placeholder.id = newitem.id;
 
                             URL.revokeObjectURL(placeholder.imageurl);
+
+                            if ($scope.project.storage === 'local') {
+                                $scope.$apply();
+                            }
 
                             scrollToNewItem(newitem.id);
                         })
@@ -670,7 +674,7 @@
                     $scope.training[label].push(placeholder);
 
                     loggerService.debug('[ml4ktraining] uploading canvas data');
-                    trainingService.uploadImage($scope.project.id, $scope.userId, vm.profile.tenant, resp, label)
+                    trainingService.uploadImage($scope.project, $scope.userId, vm.profile.tenant, resp, label)
                         .then(function (newitem) {
                             placeholder.isPlaceholder = false;
                             placeholder.id = newitem.id;

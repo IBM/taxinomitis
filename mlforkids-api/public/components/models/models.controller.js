@@ -164,7 +164,7 @@
                 $scope.project = project;
 
                 return $q.all({
-                    labels : projectsService.getLabels($scope.projectId, $scope.userId, vm.profile.tenant),
+                    labels : projectsService.getLabels($scope.project, $scope.userId, vm.profile.tenant),
                     models : trainingService.getModels(project, $scope.userId, vm.profile.tenant)
                 });
             })

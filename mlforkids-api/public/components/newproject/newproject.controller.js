@@ -170,6 +170,10 @@
         };
 
 
-        $scope.isLocalSupported = browserStorageService.isSupported();
+        browserStorageService.isSupported()
+            .then(function (supported) {
+                $scope.isLocalSupported = (supported === 1);
+                loggerService.debug('[ml4kproj] Local projects support', $scope.isLocalSupported);
+            });
     }
 }());

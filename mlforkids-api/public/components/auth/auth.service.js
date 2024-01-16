@@ -5,7 +5,7 @@
         .service('authService', authService);
 
     var angDependencies = [
-        'authManager', 'loggerService', 'storageService',
+        'authManager', 'loggerService', 'storageService', 'browserStorageService',
         '$q', '$http',
         '$mdDialog',
         '$rootScope',
@@ -19,7 +19,7 @@
 
     authService.$inject = angDependencies;
 
-    function authService(authManager, loggerService, storageService, $q, $http, $mdDialog, $rootScope, $window, $state, $timeout, lock) {
+    function authService(authManager, loggerService, storageService, browserStorageService, $q, $http, $mdDialog, $rootScope, $window, $state, $timeout, lock) {
 
         var SESSION_USERS_CLASS = 'session-users';
 
@@ -211,6 +211,8 @@
                         loggerService.debug('[ml4kauth] Deleted session user');
                         clearAuthData();
                         storageService.clear();
+
+                        browserStorageService.deleteSessionUserProjects();
                     })
                     .catch(function (err) {
                         loggerService.error('[ml4kauth] Failed to delete session user', err);

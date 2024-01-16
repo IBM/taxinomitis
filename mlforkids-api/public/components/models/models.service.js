@@ -162,6 +162,8 @@
             else if (!retried) {
                 return utilService.loadTensorFlow()
                     .then(function () {
+                        // if tensorflow is failing to load, use a 'retried' flag
+                        //  to stop us infinitely attempting to load it
                         return deleteModel(modeltype, projectid, true);
                     });
             }

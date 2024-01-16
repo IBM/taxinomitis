@@ -47,12 +47,12 @@
                 });
         }
 
-        function getLabels(projectid, userid, tenant) {
-            if (browserStorageService.idIsLocal(projectid)) {
-                return browserStorageService.getLabelCounts(projectid);
+        function getLabels(project, userid, tenant) {
+            if (project.storage === 'local') {
+                return browserStorageService.getLabelCounts(project.id);
             }
             else {
-                return $http.get('/api/classes/' + tenant + '/students/' + userid + '/projects/' + projectid + '/labels')
+                return $http.get('/api/classes/' + tenant + '/students/' + userid + '/projects/' + project.id + '/labels')
                     .then(function (resp) {
                         return resp.data;
                     });
