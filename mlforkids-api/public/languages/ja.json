@@ -1779,7 +1779,8 @@
             "Q5-A-UNLIMITED": "Unlimited",
             "Q5-A-LIMITED": "Limits apply",
             "Q5-A-NUMBER_OF_PROJECTS": "Number of projects",
-            "Q5-A-TRAINING_DATA": "Amount of training data in a project"
+            "Q5-A-TRAINING_DATA": "Amount of training data in a project",
+            "Q5-A-4": "(Numbers projects cannot be stored in your web browser. They only be stored in the cloud.)"
         },
         "SCRATCH": {
             "TITLE": "Scratch の問題",
