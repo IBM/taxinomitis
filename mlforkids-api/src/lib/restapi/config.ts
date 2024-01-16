@@ -100,8 +100,8 @@ const ALLOWED_CORS_ORIGINS = [
     // requests from Scratch
     'https://scratch.machinelearningforkids.co.uk',
 
-    // 'http://ml-for-kids-local.net:3000',
-    // 'http://ml-for-kids-local.net:9000',
+    'http://ml-for-kids-local.net:3000',
+    'http://ml-for-kids-local.net:9000',
     // 'http://localhost:3000',
     // 'http://localhost:9000',
 ];
