@@ -1783,9 +1783,6 @@
         },
         "SCRATCH": {
             "TITLE": "Problemas no Scratch",
-            "Q2": "Os menus \"Load Project\" e \"Save Project\" no Scratch não funcionam",
-            "Q2-A-1": "Se você estiver usando o Safari no MacOS e os menus do Scratch \"File -&gt; Load Project\" e \"File -&gt; Save Project\" não estão funcionando, pode ser que você esteja executando no Modo de segurança.",
-            "Q2-A-2": "<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>Siga as instruções aqui</a> para instruções de como verificar e consertar isso.",
             "Q5": "Posso usar qualquer versão do Scratch?",
             "Q5-A-1": "Você precisa usar a versão do Scratch que é fornecida pelo site Machine Learning for Kids. Ele pode ser iniciado clicando no botão Scratch (ou 'Scratch 3') da sua página de projeto.",
             "Q6": "O Scratch 3 só salva projetos na pasta 'Downloads'",

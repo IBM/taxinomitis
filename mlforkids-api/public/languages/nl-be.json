@@ -1783,9 +1783,6 @@
         },
         "SCRATCH": {
             "TITLE": "Scratch problemen",
-            "Q2": "De \"Laad Project\" en \"Save Project\" menus in Scratch werken niet",
-            "Q2-A-1": "Als je Safari gebruikt op macOS en de Scratch menu’s  \"Bestand -&gt; Laad Project\" en \"Bestand -&gt; Save Project\" werken niet, kan het zijn dat je je browser runt in veilige modus.",
-            "Q2-A-2": "<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>Volg deze instructies</a> om dit na te kijken en op te lossen.",
             "Q5": "Kan ik elke versie van Scratch gebruiken?",
             "Q5-A-1": "Je moet gebruik maken van een Scratch versie die aangeboden wordt door de Machine Learning voor Kids site. Deze kunnen opgestart worden door te klikken op de Scratch of Scratch 3 knoppen op je projectpagina.",
             "Q6": "Scratch 3 slaat alleen projecten op in de 'Downloads' map",

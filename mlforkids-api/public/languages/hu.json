@@ -1865,10 +1865,6 @@
         "SCRATCH": {
             "TITLE": "Problémák a Scratch-csel",
 
-            "Q2": "A \"Projekt betöltés\" és a \"Projekt mentése\" menük nem működnek.",
-            "Q2-A-1": "Ha Safari-t használsz  macOS-on és a Scratch menük \"File -&gt; Projekt betöltése\" és a \"File -&gt; Projekt mentése\" menük nem működnek, lehet, hogy biztonsági módban futtatod.",
-            "Q2-A-2": "<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>kövesd az utasításokat</a> for how to check and fix this.",
-
             "Q5": "Használhatom az új Scratch verziót?",
             "Q5-A-1": "Azt a Scratch verziót kell használnod, amit támogat a Machine Learning for Kids oldal. Elindíthatók a projektoldaladon a Scratch, vagy a Scratch 3 gombokra kattintva.",
 

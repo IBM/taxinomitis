@@ -1785,9 +1785,6 @@
         },
         "SCRATCH": {
             "TITLE": "مشاكل Scratch",
-            "Q2": "لا تعمل قوائم \"تحميل المشروع\" و \"حفظ المشروع\" في Scratch ",
-            "Q2-A-1": "إذا كنت تستخدم Safari على macOS وقوائم سكراتش \"File -&gt; Load Project\" and \"File -&gt; Save Project\"  القوائم لا تعمل ، ربما أنك تعمل في الوضع الآمن.",
-            "Q2-A-2": "<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>اتبع التعليمات هنا</a>لمعرفة كيفية التحقق من ذلك وإصلاحه.",
             "Q5": "هل يمكنني استخدام أي إصدار من Scratch؟",
             "Q5-A-1": "تحتاج إلى استخدام إصدارات Scratch التي يوفرها موقع تعلم الآلة للأطفال. يمكن إطلاقها بالنقر فوق زر Scratch أو \"Scratch 3\" من صفحة مشروعك.",
             "Q6": "يعمل Scratch 3 فقط على حفظ المشاريع في مجلد \"التنزيلات\"",

@@ -1783,9 +1783,6 @@
         },
         "SCRATCH": {
             "TITLE": "Scratch の問題",
-            "Q2": "The Scratch内の \"Load Project\" と \"Save Project\" メニューが動作しない。",
-            "Q2-A-1": "もし、MacOS上でSafariを利用していて、Scratchのメニュー \"File -&gt; Load Project\" と \"File -&gt; Save Project\" メニューが動作しない場合、もしかするとSafe Modeで動作させている可能性があります。",
-            "Q2-A-2": "どうのようにチェックして問題解決するかは、<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>ここにある手順に従ってください。</a>",
             "Q5": "どのバージョンのScratchでも使えますか？",
             "Q5-A-1": "このサイトが提供しているScratchのバージョンを利用する必要があります。Scratchをクリックすることで自動的に起動されます。又は、あなたのプロジェクトページから'Scratch 3'を選択することで起動します。",
             "Q6": "Scratch 3 がプロジェクトを 'Downloads' フォルダーにのみ保存する",

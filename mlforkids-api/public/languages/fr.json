@@ -1783,9 +1783,6 @@
         },
         "SCRATCH": {
             "TITLE": "Problèmes avec Scratch",
-            "Q2": "Les menus \"Charger un projet\" et \"Enregistrer un projet\" ne fonctionnent pas dans Scratch",
-            "Q2-A-1": "Si vous utilisez Safari sous MacOS et que les menus \"Fichier -&gt ; Charger projet\" et \"Fichier -&gt ; Enregistrer projet\" ne fonctionnent pas, c'est peut-être que vous êtes en mode sans échec.",
-            "Q2-A-2": "<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>Suivez les instructions ici </a> pour savoir comment vérifier et corriger ce problème..",
             "Q5": "Puis-je utiliser n'importe quelle version de Scratch ?",
             "Q5-A-1": "Vous devez utiliser les versions de Scratch qui sont fournies par le site 'Machine Learning for Kids'. Ils peuvent être lancés en cliquant sur les boutons 'Scratch' ou 'Scratch 3' de la page de votre projet.",
             "Q6": "Scratch 3 n'enregistre les projets que dans le dossier 'Téléchargements'.",

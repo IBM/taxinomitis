@@ -1783,9 +1783,6 @@
         },
         "SCRATCH": {
             "TITLE": "Problemau Scratch",
-            "Q2": "Nid yw'r dewislenni \"Llwytho Prosiect\" a \"Cadw Prosiect\" yn Scratch yn gweithio",
-            "Q2-A-1": "Os ydych chi'n defnyddio Safari ar macOS a nid yw'r dewislenni \"Ffeil -&gt; Llwytho Prosiect\" a \"Ffeil -&gt; Cadw Prosiect\" yn gweithio, efallai eich bod yn rhedeg yn Safe Mode.",
-            "Q2-A-2": "<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>Dilynwch y cyfarwyddiadau yma</a> am sut i wirio a thrwsio hyn.",
             "Q5": "A allaf ddefnyddio unrhyw fersiwn o Scratch?",
             "Q5-A-1": "Mae angen i chi ddefnyddio'r fersiynau o Scratch a ddarperir gan y wefan Machine Learning for Kids. Gellir eu lansio trwy glicio ar y botymau Scratch, neu 'Scratch 3', o'ch tudalen prosiect.",
             "Q6": "Nid yw Scratch 3 ond yn arbed prosiectau i'r ffolder 'Lawrlwytho'",

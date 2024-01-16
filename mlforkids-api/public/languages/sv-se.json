@@ -1783,9 +1783,6 @@
         },
         "SCRATCH": {
             "TITLE": "Frågor om Scratch",
-            "Q2": "\"Ladda projekt\"- och \"Spara projekt\"-menyerna i Scratch fungerar inte",
-            "Q2-A-1": "Om du använder Safari på macOS och Scratch-menyerna \"Arkiv -&gt; Ladda projekt\" och \"Arkiv -&gt; Spara projekt\" inte fungerar, kan det bero på att du kör i säkert läge",
-            "Q2-A-2": "<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>Följ instruktionerna här</a> för att se hur du kollar och fixar detta.",
             "Q5": "Kan jag använda vilken version av Scratch som helst?",
             "Q5-A-1": "Du måste använda Scratch-versionen som är tillgänglig på webbsidan Maskininlärning för barn. Den kan startas genom att klicka på Scratch-knappen (eller Scratch 3-knappen) från din projektsida.",
             "Q6": "Scratch 3 is only saving projects to the 'Downloads' folder",

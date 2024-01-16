@@ -1865,10 +1865,6 @@
         "SCRATCH": {
             "TITLE": "Scratch的常見問題",
 
-            "Q2": "Scratch中的「載入專案」與「儲存專案」選單無法運作",
-            "Q2-A-1": "如果你在macOS上使用Safari，並且Scratch選單的「檔案  -&gt; 載入專案」和「檔案 -&gt; 儲存專案」選單無法正常運作，則可能是你在安全模式下運行。",
-            "Q2-A-2": "<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>請依照這裡的指示操作</a>，來檢查與解決這問題",
-
             "Q5": "我可以使用任何版本的Scratch嗎？",
             "Q5-A-1": "你需要使用兒童機器學習網站提供的Scratch版本。 您可以透過點擊專案頁面上的Scratch或Scratch 3按鈕來開啟它們。",
 

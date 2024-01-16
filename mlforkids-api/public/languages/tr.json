@@ -1783,9 +1783,6 @@
         },
         "SCRATCH": {
             "TITLE": "Scratch sorunları",
-            "Q2": "Scratch'teki \"Proje Yükle\" ve \"Projeyi Kaydet\" menüleri çalışmıyor",
-            "Q2-A-1": "macOS'de Safari'yi kullanıyorsanız ve Scratch menüleri \"Dosya -&gt; Proje Yükle\" ve \"Dosya -&gt; Projeyi Kaydet\" çalışmıyorsa, bunun nedeni Güvenli Mod'da çalıştırmanız olabilir.",
-            "Q2-A-2": "Nasıl kontrol edebileceğiniz ve düzeltebileceğiniz hakkında bilgi için <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>buradaki yönergeleri izleyin</a>.",
             "Q5": "Herhangi bir Scratch sürümü kullanabilir miyim?",
             "Q5-A-1": "Çocuklar İçin Makine Öğrenimi sitesinin sağladığı Scratch sürümünü kullanmanız gerekir. Proje sayfanızdan Scratch (veya 'Scratch 3') düğmesini tıklatarak başlatabilirsiniz.",
             "Q6": "Scratch 3 is only saving projects to the 'Downloads' folder",

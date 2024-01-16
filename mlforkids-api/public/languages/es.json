@@ -1783,9 +1783,6 @@
         },
         "SCRATCH": {
             "TITLE": "Problemas con Scratch ",
-            "Q2": "Los menús de Scratch\"Cargar proyecto\" y  \"Guardar proyecto\" no funcionan",
-            "Q2-A-1": "Si estás usando Safari en  macOS y no funcionan los menús\"File -&gt; Cargar Proyecto \" y\"File -&gt; Guardar proyecto\" puede que lo estés ejecutanto en modo seguro..",
-            "Q2-A-2": "<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>Aquí tienes las instruccionesFollow the instructions here</a> para comprobar y arreglar este problema.",
             "Q5": "¿Puedo usar cualquier version de Scratch?",
             "Q5-A-1": "Tienes que usar las versions de Scratch que se indican en Machine Learning for Kids. Puedes lanzarla haciendo click sobre los botones  Scratch, o 'Scratch 3', de la página del proyecto.",
             "Q6": "Scratch 3 sólo guarda los proyectos en la carpeta  'Descargas' ",

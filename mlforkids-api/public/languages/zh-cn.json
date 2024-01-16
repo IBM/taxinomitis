@@ -1783,9 +1783,6 @@
         },
         "SCRATCH": {
             "TITLE": "划痕问题",
-            "Q2": "在\"加载项目\"和\"保存项目\"的耐擦伤菜单不工作",
-            "Q2-A-1": "如果你在MacOS使用Safari和划痕菜单\"文件- ＆GT; 加载项目\"和\"文件 - ＆gt; 保存项目\"菜单不起作用,可能是您在安全模式下运行。",
-            "Q2-A-2": " <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>按照此处的说明进行操作/ a>如何检查和修复此问题。",
             "Q5": "我可以使用任何版本的Scratch吗？",
             "Q5-A-1": "您需要使用由儿童机器学习站点提供的Scratch版本。可以通过单击项目页面中的Scratch（或'Scratch 3'）按钮来启动它。",
             "Q6": "Scratch 3 is only saving projects to the 'Downloads' folder",

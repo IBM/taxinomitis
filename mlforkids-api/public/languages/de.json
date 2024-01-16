@@ -1783,9 +1783,6 @@
         },
         "SCRATCH": {
             "TITLE": "Probleme mit Scratch",
-            "Q2": "Die Menüpunkte \"Projekt laden\" und \"Projekt speichern\" in Scratch funktionieren nicht",
-            "Q2-A-1": "Wenn du Safari auf macOS verwendest und die Scratch-Menüpunkte \"Datei -&gt; Projekt laden\" und \"Datei -&gt; Projekt speichern\" nicht funktionieren, kann es sein, dass du im Inkognito-Modus surfst.",
-            "Q2-A-2": "<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>Folge diesen Instruktionen (Englisch)</a>, um das Problem zu beheben.",
             "Q5": "Kann ich eine beliebige Scratch Version verwenden?",
             "Q5-A-1": "Nein. Du musst die Scratch-Version auf der Machine Learning for Kids Seite verwenden. Du kannst Scratch öffnen, indem du in einem Projekt auf den Scratch (oder 'Scratch 3') -Button klickst.",
             "Q6": "Scratch 3 speichert Projekte nur im 'Downloads' Ordner",

@@ -1784,9 +1784,6 @@
         },
         "SCRATCH": {
             "TITLE": "Problémy se Scratchem",
-            "Q2": "Nabídky \"Načíst projekt\" a \"Uložit projekt\" v aplikaci Scratch nefungují",
-            "Q2-A-1": "Pokud používáte Safari v systému macOS a nabídky Scratch \"Soubor -&gt; Načíst projekt\" a \"Soubor -&gt; Uložit projekt\" nefungují, je možné, že pracujete v nouzovém režimu.",
-            "Q2-A-2": "Postup pro kontrolu a opravu naleznete <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>zde</a>.",
             "Q5": "Mohu použít jakoukoli verzi Scratche?",
             "Q5-A-1": "Musíte používat verze programu Scratch, které poskytuje stránka Machine Learning for Kids. Spustíte je kliknutím na tlačítka Scratch nebo \"Scratch 3\" na stránce projektu.",
             "Q6": "Scratch 3 ukládá projekty pouze do složky \"Downloads\"",
