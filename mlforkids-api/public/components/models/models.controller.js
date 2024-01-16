@@ -343,7 +343,7 @@
 
 
         vm.createModel = function (ev, project) {
-            loggerService.debug('[ml4kmodels] creating model', { user : $scope.userId });
+            loggerService.debug('[ml4kmodels] creating model');
 
             // prepare the first question for displaying while
             //  the training is running
@@ -362,7 +362,7 @@
             else if ($scope.project.type === 'numbers') {
                 modelFnPromise = trainingService.newModel($scope.projectId, $scope.userId, vm.profile.tenant);
             }
-            else {
+            else { // $scope.project.type === 'text'
                 modelFnPromise = trainTextProject(project);
             }
 

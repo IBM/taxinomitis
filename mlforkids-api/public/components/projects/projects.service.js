@@ -69,6 +69,7 @@
                     if (err.status === 404) {
                         // cloud reference for this project has expired - remove
                         browserStorageService.addCloudRefToProject(project.id, null);
+                        delete project.cloudid;
                     }
                     return newlabels;
                 });

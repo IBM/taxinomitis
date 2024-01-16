@@ -172,6 +172,7 @@
                     if (project.storage === 'local' && project.type === 'text') {
                         // cloud reference for this project has expired - remove
                         browserStorageService.addCloudRefToProject(project.id, null);
+                        delete project.cloudid;
                         return [];
                     }
                     throw err;
@@ -218,6 +219,14 @@
                 .then(function (resp) {
                     resp.data.lastPollTime = new Date();
                     return resp.data;
+                })
+                .catch(function (err) {
+                    if (err.status === 404) {
+                        // cloud reference for this project has expired - remove
+                        browserStorageService.addCloudRefToProject(project.id, null);
+                        delete project.cloudid;
+                    }
+                    throw err;
                 });
         }
 
