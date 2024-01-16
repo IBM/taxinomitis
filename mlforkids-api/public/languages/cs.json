@@ -196,7 +196,9 @@
         "SHARE": "Sdílet",
         "UNSHARE": "Zrušení sdílení",
         "WHOLE_CLASS_TITLE": "Crowd-sourced projekt",
-        "WHOLE_CLASS_NOTES": "Jedná se o projekt pro celou třídu. Všichni žáci ve třídě jej mohou používat a doplňovat tréninková data."
+        "WHOLE_CLASS_NOTES": "Jedná se o projekt pro celou třídu. Všichni žáci ve třídě jej mohou používat a doplňovat tréninková data.",
+        "CLOUD_STORAGE_TITLE": "Cloud project",
+        "CLOUD_STORAGE_NOTES": "Training data for this project is stored in the cloud. This project can be accessed from any computer."
     },
     "NEWPROJECT": {
         "TITLE": "Zahájení nového projektu strojového učení",
@@ -208,6 +210,14 @@
             "TITLE": "Projekt pro celou třídu?",
             "NOTES_1": "Zaškrtněte tuto možnost, pokud chcete, aby na tomto projektu mohla pracovat celá třída společně.",
             "NOTES_2": "To je užitečné pro projekty, které učí crowd-sourcing jako přístup k trénování projektů strojového učení."
+        },
+        "STORAGE": {
+            "LABEL": "Storage",
+            "LOCAL": "In your web browser",
+            "CLOUD": "In the cloud",
+            "NOTES_1": "Where do you want to store this project?",
+            "NOTES_2": "Storing in your web browser removes limits on how big your project can be.",
+            "NOTES_3": "Storing in the cloud will let you access the project from any computer."
         },
         "TYPES": {
             "LABEL": "Rozpoznání",
@@ -1755,25 +1765,26 @@
         "PROJECTS": {
             "TITLE": "Otázky k projektu",
             "Q4": "Které modely strojového učení jsou trénovány na vašem počítači a které v cloudu?",
-            "Q4-A-1": "<strong>textové</strong> projekty lze trénovat pouze v cloudu.",
-            "Q4-A-2": "projekty s <strong>čísly</strong> lze školit pouze v cloudu.",
-            "Q4-A-3": "<strong>zvukové</strong> projekty lze trénovat pouze na počítači.",
-            "Q4-A-4": "projekty <strong>obrázků</strong> lze trénovat pouze na počítači."
+            "Q4-A-0": "You cannot choose where machine learning models are trained and stored. This is decided by Machine Learning for Kids based on the type of project.",
+            "Q4-A-1": "<strong>text</strong> projects are trained in the cloud.",
+            "Q4-A-2": "<strong>numbers</strong> projects are trained in the cloud.",
+            "Q4-A-3": "<strong>sounds</strong> projects are trained on your computer.",
+            "Q4-A-4": "<strong>images</strong> projects are trained on your computer.",
+
+            "Q5": "What difference does it make where a project is stored?",
+            "Q5-A-0": "You can choose where to store the training data for your machine learning project. You can store your training examples:",
+            "Q5-A-1": "on your own computer (<strong>in your web browser</strong>), or",
+            "Q5-A-2": "<strong>in the cloud</strong> (on the Machine Learning for Kids servers)",
+            "Q5-A-3": "A summary of the differences is shown below:",
+            "Q5-A-LIMITS": "How much a student can store",
+            "Q5-A-UNLIMITED": "Unlimited",
+            "Q5-A-LIMITED": "Limits apply",
+            "Q5-A-NUMBER_OF_PROJECTS": "Number of projects",
+            "Q5-A-TRAINING_DATA": "Amount of training data in a project",
+            "Q5-A-4": "(Numbers projects cannot be stored in your web browser. They only be stored in the cloud.)"
         },
         "SCRATCH": {
             "TITLE": "Problémy se Scratchem",
-            "Q1": "Nevím, jak zprovoznit Scratch 2",
-            "Q1-A-1": "Starší verze programu Scratch, Scratch 2, potřebuje ke své práci Adobe Flash, takže musíte používat operační systém a webový prohlížeč, který umí pracovat s Flashem.",
-            "Q1-A-2": "Pokud si nejste jisti, jak povolit Flash, můžete <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-scratchx.pdf'>si stáhnout dokument s několika tipy pro zprovoznění aplikace Scratch</a>. Nebo můžete místo toho použít novou verzi programu Scratch, Scratch 3.",
-            "Q2": "Nabídky \"Načíst projekt\" a \"Uložit projekt\" v aplikaci Scratch nefungují",
-            "Q2-A-1": "Pokud používáte Safari v systému macOS a nabídky Scratch \"Soubor -&gt; Načíst projekt\" a \"Soubor -&gt; Uložit projekt\" nefungují, je možné, že pracujete v nouzovém režimu.",
-            "Q2-A-2": "Postup pro kontrolu a opravu naleznete <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>zde</a>.",
-            "Q3": "Bloky klasifikátoru strojového učení v aplikaci Scratch 2 přestaly fungovat",
-            "Q3-A-1": "Občas se může stát, že bloky Scratch pro váš model strojového učení ztratí spojení se serverem. V takovém případě přestanou vracet výsledky.",
-            "Q3-A-2": "Zda se tak stalo, můžete zkontrolovat pomocí barevné kontrolky stavu v paletě \"Další bloky\".",
-            "Q3-A-3": "Pokud je stavová kontrolka vedle bloků strojového učení Scratch červená, obvykle to znamená, že je něco špatně. Může se jednat o dočasný problém. Zkuste projekt uložit (pomocí \"Soubor\" -&gt; \"Uložit projekt\") a poté obnovte stránku prohlížeče. Pokud se po opětovném načtení stránky stavová kontrolka rozsvítí zeleně, můžete svůj projekt načíst (pomocí 'File' -&gt; 'Load Project') a pokračovat tam, kde jste skončili.",
-            "Q3-A-4": "Pokud je stavová kontrolka po opětovném načtení stránky stále červená, je pravděpodobně něco v nepořádku s modelem strojového učení. Zkuste přejít na stránku \"Učení a testování\" projektu, kde lze nalézt všechna chybová hlášení o vašem modelu.",
-            "Q3-A-5": "Pokud je stavová kontrolka vedle bloků strojového učení Scratch zelená, měly by bloky fungovat. Pokud od nich nedostáváte očekávané odpovědi, zkuste přejít na stránku \"Learn &amp; Test\" a zkontrolovat, jaké výsledky váš model vrací.",
             "Q5": "Mohu použít jakoukoli verzi Scratche?",
             "Q5-A-1": "Musíte používat verze programu Scratch, které poskytuje stránka Machine Learning for Kids. Spustíte je kliknutím na tlačítka Scratch nebo \"Scratch 3\" na stránce projektu.",
             "Q6": "Scratch 3 ukládá projekty pouze do složky \"Downloads\"",
@@ -1891,7 +1902,6 @@
             "Q5-A-1": "Krokem ve všech projektech strojového učení, které studenti vytvářejí pomocí této stránky, je vytvoření nebo shromáždění trénovacích příkladů. U textových projektů to může znamenat zadávání krátkých textových pasáží. U obrazových projektů to může znamenat kreslení obrázků na plátno na obrazovce nebo fotografování pomocí webové kamery. U projektů týkajících se čísel to znamená psaní sad čísel.",
             "Q5-A-2": "Všechny tyto tréninkové příklady jsou uloženy v <a href='https://www.ibm.com/cloud/databases-for-postgresql'>databázi PostgreSQL hostované v IBM Cloud</a> v Dallasu ve Spojených státech. Jako správce databáze mám přístup ke všem těmto výukovým příkladům pro všechny studentské projekty, nepoužívám je však k jiným účelům než k tomu, abych studentům umožnil přístup k jejich vlastním projektům a práci na nich. Výcviková data nezveřejňuji (ani veřejně, ani jednotlivcům či třetím stranám), ani je jinak nesdílím, s dvěma výjimkami, kdy je předávám rozhraní IBM Watson API popsaným níže.",
             "Q5-A-3": "Modely strojového učení pro textové projekty se vytvářejí pomocí cloudové služby <a href='https://www.ibm.com/cloud/watson-assistant/'>IBM Watson Assistant</a>, což znamená, že když studenti trénují model, kopie zadaných trénovacích příkladů se <a href='https://cloud.ibm.com/apidocs/assistant#create-workspace'>odešle do IBM Watson</a>. (Umístění této cloudové služby si učitelé zvolí při <a href='https://machinelearningforkids.co.uk/apikeys-guide'>vytváření klíčů API</a>.) IBM Watson tyto tréninkové příklady nepoužívá k žádným jiným účelům. Je to proto, že služba Machine Learning for Kids <a href='https://cloud.ibm.com/apidocs/assistant#data-collection'>žádá o výjimku pro</a> tréninkové příklady studentů, které společnost IBM používá ke zlepšení služby, jak je <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>popsáno v dokumentaci služby Watson</a>.",
-            "Q5-A-4": "Modely strojového učení pro projekty týkající se obrázků se vytvářejí pomocí cloudové služby <a href='https://www.ibm.com/watson/services/visual-recognition/'>IBM Visual Recognition</a>, což znamená, že když studenti trénují model, kopie jejich tréninkových obrázků se <a href='https://cloud.ibm.com/apidocs/visual-recognition#create-a-classifier'>nahraje do IBM Watson</a>. (Umístění této cloudové služby si učitelé zvolí při <a href='https://machinelearningforkids.co.uk/apikeys-guide'>vytváření klíčů API</a>.) IBM Watson tyto tréninkové příklady nepoužívá k žádným jiným účelům. Je to proto, že služba Machine Learning for Kids <a href='https://cloud.ibm.com/apidocs/visual-recognition#data-collection'>žádá o výjimku pro</a> použití tréninkových příkladů studentů společností IBM ke zlepšení služby, jak je <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>popsáno v dokumentaci služby Watson</a>.",
             "Q5-A-5": "Společnost IBM Watson poskytuje některé <a href='https://cloud.ibm.com/docs/services/assistant?topic=assistant-information-security#information-security-gdpr-wa'>obecné pokyny pro sdílení tréninkových dat se svými službami</a>, které se vztahují i na tréninková data vytvořená a shromážděná v aplikaci Machine Learning for Kids. Konkrétně by studenti měli být upozorněni na to, aby v příkladech, které shromažďují, neuváděli informace umožňující osobní identifikaci."
         }
     },

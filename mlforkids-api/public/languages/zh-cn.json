@@ -196,7 +196,9 @@
         "SHARE": "Share",
         "UNSHARE": "Un-share",
         "WHOLE_CLASS_TITLE": "Crowd-sourced project",
-        "WHOLE_CLASS_NOTES": "This is a whole-class project. All students in your class can use it and add to the training data."
+        "WHOLE_CLASS_NOTES": "This is a whole-class project. All students in your class can use it and add to the training data.",
+        "CLOUD_STORAGE_TITLE": "Cloud project",
+        "CLOUD_STORAGE_NOTES": "Training data for this project is stored in the cloud. This project can be accessed from any computer."
     },
     "NEWPROJECT": {
         "TITLE": "开始一个新的机器学习项目",
@@ -208,6 +210,14 @@
             "TITLE": "全班项目？",
             "NOTES_1": "如果您希望全班同学能够共同完成此项目,请勾选此项。",
             "NOTES_2": "这对于教授众包作为培训机器学习项目的方法的项目非常有用。"
+        },
+        "STORAGE": {
+            "LABEL": "Storage",
+            "LOCAL": "In your web browser",
+            "CLOUD": "In the cloud",
+            "NOTES_1": "Where do you want to store this project?",
+            "NOTES_2": "Storing in your web browser removes limits on how big your project can be.",
+            "NOTES_3": "Storing in the cloud will let you access the project from any computer."
         },
         "TYPES": {
             "LABEL": "识别",
@@ -1754,25 +1764,26 @@
             "TITLE": "Project questions",
 
             "Q4": "Which machine learning models are trained on your computer, and which are trained in the cloud?",
-            "Q4-A-1": "<strong>text</strong> projects can only be trained in the cloud.",
-            "Q4-A-2": "<strong>numbers</strong> projects can only be trained in the cloud.",
-            "Q4-A-3": "<strong>sounds</strong> projects can only be trained on your computer.",
-            "Q4-A-4": "<strong>images</strong> projects can be trained on your computer, or (if you have access to Watson Visual Recognition) in the cloud."
+            "Q4-A-0": "You cannot choose where machine learning models are trained and stored. This is decided by Machine Learning for Kids based on the type of project.",
+            "Q4-A-1": "<strong>text</strong> projects are trained in the cloud.",
+            "Q4-A-2": "<strong>numbers</strong> projects are trained in the cloud.",
+            "Q4-A-3": "<strong>sounds</strong> projects are trained on your computer.",
+            "Q4-A-4": "<strong>images</strong> projects are trained on your computer.",
+
+            "Q5": "What difference does it make where a project is stored?",
+            "Q5-A-0": "You can choose where to store the training data for your machine learning project. You can store your training examples:",
+            "Q5-A-1": "on your own computer (<strong>in your web browser</strong>), or",
+            "Q5-A-2": "<strong>in the cloud</strong> (on the Machine Learning for Kids servers)",
+            "Q5-A-3": "A summary of the differences is shown below:",
+            "Q5-A-LIMITS": "How much a student can store",
+            "Q5-A-UNLIMITED": "Unlimited",
+            "Q5-A-LIMITED": "Limits apply",
+            "Q5-A-NUMBER_OF_PROJECTS": "Number of projects",
+            "Q5-A-TRAINING_DATA": "Amount of training data in a project",
+            "Q5-A-4": "(Numbers projects cannot be stored in your web browser. They only be stored in the cloud.)"
         },
         "SCRATCH": {
             "TITLE": "划痕问题",
-            "Q1": "我不知道如何让Scratch工作",
-            "Q1-A-1": "儿童机器学习使用Scratch 2. Scratch需要Adobe Flash才能工作,所以你需要使用可以使用Flash的操作系统和网络浏览器（这意味着现在不需要iPad）对不起）。",
-            "Q1-A-2": "如果你不确定如何启用Flash,你可以<a href ='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-scratchx.pdf'>下载一份文档,其中包含一些让Scratch正常工作的技巧</a>。",
-            "Q2": "在\"加载项目\"和\"保存项目\"的耐擦伤菜单不工作",
-            "Q2-A-1": "如果你在MacOS使用Safari和划痕菜单\"文件- ＆GT; 加载项目\"和\"文件 - ＆gt; 保存项目\"菜单不起作用,可能是您在安全模式下运行。",
-            "Q2-A-2": " <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>按照此处的说明进行操作/ a>如何检查和修复此问题。",
-            "Q3": " Scratch中的机器学习分类器块不起作用",
-            "Q3-A-1": "偶尔,机器学习模型的Scratch块可能会丢失与服务器的连接。当发生这种情况时,它们将停止返回结果。",
-            "Q3-A-2": "您可以使用\"更多块\"调色板中的彩色状态指示灯检查是否发生了这种情况。",
-            "Q3-A-3": "如果机器学习划痕块旁边的状态指示灯为红色,通常表示出现问题。这可能是暂时性问题。尝试保存项目（使用'文件' - ＆gt;'保存项目'）,然后刷新浏览器页面。如果状态指示灯在页面重新加载后变为绿色,您可以加载项目（使用'文件' - ＆gt;'加载项目'）来拾取您离开的位置。",
-            "Q3-A-4": "如果重新加载页面后状态指示灯仍为红色,那么机器学习模型可能出现问题。请尝试进入\"学习与安装\"。测试\"页面的项目,这是在你的模型中的任何错误信息都可以找到。",
-            "Q3-A-5": "如果机器学习划痕块旁边的状态指示灯为绿色,那么块应该正常工作。如果您没有得到他们期望的响应,请尝试转到\"学习\" ＆安培; 测试\"页面并检查模型返回的结果。",
             "Q5": "我可以使用任何版本的Scratch吗？",
             "Q5-A-1": "您需要使用由儿童机器学习站点提供的Scratch版本。可以通过单击项目页面中的Scratch（或'Scratch 3'）按钮来启动它。",
             "Q6": "Scratch 3 is only saving projects to the 'Downloads' folder",
@@ -1890,7 +1901,6 @@
             "Q5-A-1": "A step in all machine learning projects that students make using this site is to create or collect training examples. For text projects, this can mean typing in short text passages. For image projects, this can means drawing pictures onto an on-screen canvas or taking photos using the webcam. For numbers projects, this means typing in sets of numbers",
             "Q5-A-2": "All of these training examples are stored in a <a href='https://www.ibm.com/cloud/databases-for-postgresql'>PostgreSQL database hosted on IBM Cloud</a>, in Dallas in the United States. As the database administrator, I have access to all of these training examples for all student projects, however I do not use it for any other purposes other than enabling students to access and work on their own projects. I do not publish the training data (either publicly or to individuals or third parties) or otherwise share it, with the two exceptions of submitting it to IBM Watson APIs described below.",
             "Q5-A-3": "Machine learning models for text projects are created using the <a href='https://www.ibm.com/cloud/watson-assistant/'>IBM Watson Assistant</a> cloud service, which means when students train a model, a copy of the training examples that they have entered will be <a href='https://cloud.ibm.com/apidocs/assistant#create-workspace'>submitted to IBM Watson</a>. (The location of this cloud service is something that teachers choose when <a href='https://machinelearningforkids.co.uk/apikeys-guide'>creating API keys</a>.) IBM Watson does not use these training examples for any other purposes. This is because Machine Learning for Kids <a href='https://cloud.ibm.com/apidocs/assistant#data-collection'>requests an opt-out</a> for student training examples being used by IBM to improve the service, as <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>described in the Watson documentation</a>.",
-            "Q5-A-4": "Machine learning models for images projects are created using the <a href='https://www.ibm.com/watson/services/visual-recognition/'>IBM Visual Recognition</a> cloud service, which means when students train a model, a copy of their training images will be <a href='https://cloud.ibm.com/apidocs/visual-recognition#create-a-classifier'>uploaded to IBM Watson</a>. (The location of this cloud service is something that teachers choose when <a href='https://machinelearningforkids.co.uk/apikeys-guide'>creating API keys</a>.) IBM Watson does not use these training examples for any other purposes. This is because Machine Learning for Kids <a href='https://cloud.ibm.com/apidocs/visual-recognition#data-collection'>requests an opt-out</a> for student training examples being used by IBM to improve the service, as <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>described in the Watson documentation</a>.",
             "Q5-A-5": "IBM Watson provides some <a href='https://cloud.ibm.com/docs/services/assistant?topic=assistant-information-security#information-security-gdpr-wa'>general guidance for sharing training data with their services</a>, which also apply to training data created and collected in Machine Learning for Kids. Specifically, students should be advised not to include personally identifiable information in the examples that they collect."
         }
     },

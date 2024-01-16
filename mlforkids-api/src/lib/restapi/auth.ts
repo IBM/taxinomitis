@@ -13,6 +13,9 @@ import * as sessionusers from '../sessionusers';
 import * as Objects from '../db/db-types';
 
 
+export interface RequestWithLocalProject extends Express.Request {
+    project: Objects.LocalProject;
+}
 export interface RequestWithProject extends Express.Request {
     project: Objects.Project;
 }
@@ -309,6 +312,50 @@ async function verifyProjectAuth(
         return next(err);
     }
 }
+
+
+export async function verifyLocalProjectAuth(
+    req: Express.Request,
+    res: Express.Response,
+    next: (e?: Error) => void,
+)
+{
+    const classid: string = req.params.classid;
+    const userid: string = req.params.studentid;
+    const projectid: string = req.params.projectid;
+
+    const reqWithUser = req as RequestWithUser;
+
+    try {
+        const project = await store.getLocalProject(projectid);
+
+        if (!project) {
+            // attempt to access non-existent project
+            return errors.notFound(res);
+        }
+        if (project.classid !== classid) {
+            // attempt to access a project from another class/tenant
+            return errors.forbidden(res);
+        }
+
+        const isOwner = reqWithUser.user &&
+                        (project.userid === reqWithUser.user.sub) &&
+                        (project.userid === userid);
+        if (!isOwner) {
+            // attempt to access a project from another user
+            return errors.forbidden(res);
+        }
+
+        const modifiedRequest: RequestWithLocalProject = req as RequestWithLocalProject;
+        modifiedRequest.project = project;
+
+        next();
+    }
+    catch (err) {
+        return next(err);
+    }
+}
+
 
 
 /**

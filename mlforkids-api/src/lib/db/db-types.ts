@@ -28,6 +28,25 @@ export interface ProjectDbRow {
     readonly iscrowdsourced: boolean;
 }
 
+export interface LocalProject {
+    readonly id: string;
+    readonly name: string;
+    readonly userid: string;
+    readonly classid: string;
+    readonly type: ProjectTypeLabel;
+    labels: string[];
+    expiry: Date;
+}
+export interface LocalProjectDbRow {
+    readonly id: string;
+    readonly name: string;
+    readonly userid: string;
+    readonly classid: string;
+    readonly typeid: number;
+    readonly labels: string;
+    readonly expiry: Date;
+}
+
 export type ProjectTypeLabel = 'text' | 'numbers' | 'images' | 'sounds' | 'imgtfjs';
 
 export const MAX_LABEL_LENGTH = 30;

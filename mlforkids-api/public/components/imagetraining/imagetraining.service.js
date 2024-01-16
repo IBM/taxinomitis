@@ -7,10 +7,11 @@
     imageTrainingService.$inject = [
         '$q', '$location',
         'trainingService', 'modelService',
+        'browserStorageService',
         'utilService', 'loggerService'
     ];
 
-    function imageTrainingService($q, $location, trainingService, modelService, utilService, loggerService) {
+    function imageTrainingService($q, $location, trainingService, modelService, browserStorageService, utilService, loggerService) {
 
         var transferModel;
         var baseModel;
@@ -165,20 +166,10 @@
         }
 
 
-        function getImageData(projectid, userid, tenantid, traininginfo) {
-            return trainingService.getTrainingItem(projectid, userid, tenantid, traininginfo.id)
-                .then(function (imgdata) {
-                    return getTensorForImageData(imgdata, traininginfo);
-                });
-        }
-
-
-        function getTrainingData(projectid, userid, tenantid) {
+        function getTrainingData(projectid, userid, tenantid, getImageDataFn) {
             return trainingService.getTraining(projectid, userid, tenantid)
                 .then(function (traininginfo) {
-                    return $q.all(traininginfo.map(function (trainingitem) {
-                        return getImageData(projectid, userid, tenantid, trainingitem);
-                    }));
+                    return $q.all(traininginfo.map(getImageDataFn));
                 });
         }
 
@@ -197,8 +188,27 @@
                 transferModel = prepareTransferLearningModel(baseModel, modelNumClasses);
             }
 
+            let getImageDataFn;
+            if (browserStorageService.idIsLocal(projectid)) {
+                // with local storage, the image data is already stored in the browser
+                //  so we just need to use it to create a tensor
+                getImageDataFn = (trainingInfoObj) => {
+                    return getTensorForImageData(trainingInfoObj.imagedata, trainingInfoObj);
+                };
+            }
+            else {
+                // with cloud storage, we need to retrieve the image data first, and
+                //  then use it to create a tensor
+                getImageDataFn = (trainingInfoObj) => {
+                    return trainingService.getTrainingItem(projectid, userid, tenantid, trainingInfoObj.id)
+                        .then(function (imgdata) {
+                            return getTensorForImageData(imgdata, trainingInfoObj);
+                        });
+                };
+            }
+
             loggerService.debug('[ml4kimages] getting training data');
-            return getTrainingData(projectid, userid, tenantid)
+            return getTrainingData(projectid, userid, tenantid, getImageDataFn)
                 .then(function (trainingdata) {
                     loggerService.debug('[ml4kimages] retrieved training data');
 

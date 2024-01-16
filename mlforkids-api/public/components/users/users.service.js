@@ -5,11 +5,11 @@
         .service('usersService', usersService);
 
     usersService.$inject = [
-        '$q', '$http'
+        '$http'
     ];
 
 
-    function usersService($q, $http) {
+    function usersService($http) {
 
         function returnData(resp) {
             return resp.data;

@@ -8,7 +8,7 @@ import * as TrainingTypes from '../training/training-types';
 
 
 
-async function createTextKey(project: Types.Project): Promise<ScratchTypes.Key> {
+async function createTextKey(project: Types.Project | Types.LocalProject): Promise<ScratchTypes.Key> {
     const textClassifiers = await store.getConversationWorkspaces(project.id);
 
     if (textClassifiers.length === 0) {
@@ -37,7 +37,7 @@ async function createImagesKey(project: Types.Project): Promise<ScratchTypes.Key
 }
 
 
-async function createNumbersKey(project: Types.Project): Promise<ScratchTypes.Key> {
+async function createNumbersKey(project: Types.Project | Types.LocalProject): Promise<ScratchTypes.Key> {
     const numClassifiers = await store.getNumbersClassifiers(project.id);
 
     if (numClassifiers.length === 0) {
@@ -101,5 +101,24 @@ export async function createKey(projectid: string): Promise<ScratchTypes.Key>
         return createSoundKey(project);
     case 'imgtfjs':
         return createImagesTfjsKey(project);
+    }
+}
+
+export async function createLocalKey(localprojectid: string): Promise<ScratchTypes.Key>
+{
+    const project = await store.getLocalProject(localprojectid);
+
+    if (!project) {
+        throw new Error('Project not found');
+    }
+
+    switch (project.type) {
+    case 'text':
+        return createTextKey(project);
+    // future-proofing - not using this yet
+    case 'numbers':
+        return createNumbersKey(project);
+    default:
+        throw new Error('Scratch keys unsupported for project type');
     }
 }

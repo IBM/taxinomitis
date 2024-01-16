@@ -13,7 +13,7 @@ const log = loggerSetup();
 
 
 
-function chooseLabelsAtRandom(project: Types.Project): TrainingTypes.Classification[] {
+function chooseLabelsAtRandom(project: Types.Project | Types.LocalProject): TrainingTypes.Classification[] {
     const confidence = Math.round((1 / project.labels.length) * 100);
     return _.shuffle(project.labels).map((label) => {
         return {
@@ -48,7 +48,10 @@ async function classifyText(key: Types.ScratchKey, text: string): Promise<Traini
     }
     else {
         // we don't have a Conversation workspace yet, so we resort to random
-        const project = await store.getProject(key.projectid);
+        let project: Types.Project | Types.LocalProject | undefined = await store.getProject(key.projectid);
+        if (!project) {
+            project = await store.getLocalProject(key.projectid);
+        }
         if (!project) {
             throw new Error('Project not found');
         }

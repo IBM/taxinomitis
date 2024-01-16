@@ -196,7 +196,9 @@
         "SHARE": "اشتراک گذاری ",
         "UNSHARE": "لغو اشتراک گذاری ",
         "WHOLE_CLASS_TITLE": "پروژه جمع‌سپاری",
-        "WHOLE_CLASS_NOTES": ".این یک پروژه تمام کلاس است. همه دانش آموزان کلاس شما می‌توانند از آن استفاده کنند و به داده های آموزشی اضافه کنند"
+        "WHOLE_CLASS_NOTES": ".این یک پروژه تمام کلاس است. همه دانش آموزان کلاس شما می‌توانند از آن استفاده کنند و به داده های آموزشی اضافه کنند",
+        "CLOUD_STORAGE_TITLE": "Cloud project",
+        "CLOUD_STORAGE_NOTES": "Training data for this project is stored in the cloud. This project can be accessed from any computer."
     },
     "NEWPROJECT": {
         "TITLE": ".یک پروژه جدید یادگیری ماشین را شروع کنید ",
@@ -208,6 +210,14 @@
             "TITLE": "پروژه کل کلاس؟",
             "NOTES_1": "اگر می خواهید کل کلاس شما بتوانید روی این پروژه با هم کار کنید، این را علامت بزنید.",
             "NOTES_2": "این برای پروژه‌هایی که جمع‌سپاری را به عنوان رویکردی برای آموزش پروژه‌های یادگیری ماشین آموزش می‌دهند مفید است."
+        },
+        "STORAGE": {
+            "LABEL": "Storage",
+            "LOCAL": "In your web browser",
+            "CLOUD": "In the cloud",
+            "NOTES_1": "Where do you want to store this project?",
+            "NOTES_2": "Storing in your web browser removes limits on how big your project can be.",
+            "NOTES_3": "Storing in the cloud will let you access the project from any computer."
         },
         "TYPES": {
             "LABEL": "تشخیص",
@@ -1755,25 +1765,26 @@
         "PROJECTS": {
             "TITLE": "سوالات پروژه",
             "Q4": "کدام مدل‌های یادگیری ماشین در رایانه شما آموزش داده می‌شوند و کدام‌ها در فضای ابری آموزش داده می‌شوند؟",
-            "Q4-A-1": "پروژه‌های <strong>متن</strong>  را فقط می‌توان در فضای ابری آموزش داد.",
-            "Q4-A-2": "پروژه‌های <strong>اعداد</strong> را فقط می‌توان در فضای ابری آموزش داد.",
-            "Q4-A-3": "پروژه‌های <strong>صدا</strong> را فقط می‌توان در فضای ابری آموزش داد.",
-            "Q4-A-4": "پروژه‌های <strong>تصاویر</strong> را فقط می‌توان در فضای ابری آموزش داد."
+            "Q4-A-0": "You cannot choose where machine learning models are trained and stored. This is decided by Machine Learning for Kids based on the type of project.",
+            "Q4-A-1": "<strong>text</strong> projects are trained in the cloud.",
+            "Q4-A-2": "<strong>numbers</strong> projects are trained in the cloud.",
+            "Q4-A-3": "<strong>sounds</strong> projects are trained on your computer.",
+            "Q4-A-4": "<strong>images</strong> projects are trained on your computer.",
+
+            "Q5": "What difference does it make where a project is stored?",
+            "Q5-A-0": "You can choose where to store the training data for your machine learning project. You can store your training examples:",
+            "Q5-A-1": "on your own computer (<strong>in your web browser</strong>), or",
+            "Q5-A-2": "<strong>in the cloud</strong> (on the Machine Learning for Kids servers)",
+            "Q5-A-3": "A summary of the differences is shown below:",
+            "Q5-A-LIMITS": "How much a student can store",
+            "Q5-A-UNLIMITED": "Unlimited",
+            "Q5-A-LIMITED": "Limits apply",
+            "Q5-A-NUMBER_OF_PROJECTS": "Number of projects",
+            "Q5-A-TRAINING_DATA": "Amount of training data in a project",
+            "Q5-A-4": "(Numbers projects cannot be stored in your web browser. They only be stored in the cloud.)"
         },
         "SCRATCH": {
             "TITLE": "مسائل مربوط به اسکرچ",
-            "Q1": "نمی دانم چگونه می‌توان اسکرچ 2 را به کار انداخت",
-            "Q1-A-1": "نسخه قدیمی اسکرچ، اسکرچ 2، برای کار کردن به ادوبی فلش نیاز دارد، بنابراین باید از یک سیستم عامل و یک مرورگر وب استفاده کنید که بتواند با فلش کار کند.",
-            "Q1-A-2": "اگر در مورد نحوه فعال کردن Flash مطمئن نیستید، می‌توانید <a\nhref='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-scratchx.pdf'> دانلود کنید سندی که حاوی نکاتی برای شروع کار Scratch</a>. یا می‌توانید به جای آن از نسخه جدید اسکرچ یعنی اسکرچ 3 استفاده کنید.",
-            "Q2": "منوهای \"بارگیری پروژه\" و \" ذخیره پروژه \" در اسکرچ کار نمی‌کنند",
-            "Q2-A-1": "اگر از مروگر Safari در macOS استفاده می‌کنید و منوهای \"File -> Load Project\" and \"File -> Save Project\"  کار نمی‌کنند، ممکن به سبب کار در حالت Safe Mode باشد.",
-            "Q2-A-2": "<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'> دستورالعمل‌های اینجا را دنبال کنید </a> برای نحوه بررسی و اصلاح آن.",
-            "Q3": "بلوک‌های طبقه‌بندی‌کننده یادگیری ماشین در اسکرچ  2 دیگر کار نمی‌کنند.",
-            "Q3-A-1": "گاهی اوقات، بلوک‌های اسکرچ برای مدل یادگیری ماشین شما ممکن است اتصال به سرور را از دست بدهند. زمانی که این اتفاق بیفتد، دیگر نتایج را باز نمی‌گردانند.",
-            "Q3-A-2": "می‌توانید با استفاده از چراغ وضعیت رنگی در پالت \" بلوک های بیشتر \" بررسی کنید که آیا این اتفاق افتاده است.",
-            "Q3-A-3": "اگر چراغ وضعیت در کنار بلوک‌های اسکرچ یادگیری ماشین شما قرمز باشد، معمولاً به این معنی است که مشکلی وجود دارد. ممکن است مشکل موقتی باشد. تلاش کنید پروژه خود را ذخیره کنید (با استفاده از 'File' -> 'ذخیره پروژه')، سپس صفحه مرورگر را بازخوانی کنید. اگر پس از بارگیری مجدد صفحه، چراغ وضعیت سبز شد، می‌توانید پروژه خود را بارگیری کنید (با استفاده از 'File' -> 'بارگذاری پروژه')  تا از جایی که کار را متوقف کرده اید ادامه دهید.",
-            "Q3-A-4": "اگر چراغ وضعیت پس از بارگیری مجدد صفحه همچنان قرمز است، احتمالاً مشکلی در مدل یادگیری ماشین وجود دارد. سعی کنید به صفحه \" تست و یادگیری \" پروژه بروید، جایی که هر پیام خطایی در مورد مدل شما قابل مشاهده است.",
-            "Q3-A-5": "اگر چراغ وضعیت در کنار بلوک‌های اسکرچ یادگیری ماشین سبز است، بلوک‌ها باید کار کنند. اگر پاسخ‌هایی را که از آنها انتظار دارید دریافت نمی‌کنید، سعی کنید به صفحه \"یادگیری و تست\" بروید و بررسی کنید که مدل شما چه نتایجی را نشان می‌دهد.",
             "Q5": "آیا می‌توانم از هر نسخه ای از اسکرچ استفاده کنم؟",
             "Q5-A-1": "شما باید از نسخه های استخراج که توسط سایت یادگیری ماشین برای کودکان ارائه شده است استفاده کنید. آنها را می‌توان با کلیک کردن روی دکمه های اسکرچ یا  \" اسکرچ3 \" از صفحه پروژه خود راه اندازی کرد.",
             "Q6": "اسکرچ 3 فقط پروژه‌ها را در پوشه \"دانلودها\" ذخیره می‌کند",
@@ -1891,7 +1902,6 @@
             "Q5-A-1": "یک مرحله در تمامی پروژه‌های یادگیری ماشین که دانش آموزان با استفاده از این سایت انجام می دهند ایجاد یا جمع آوری داده های تمرینی است. در پروژه‌های متنی، این می‌تواند به معنای تایپ متن کوتاه باشد. برای پروژه‌های تصویری، این می‌تواند به معنای کشیدن تصاویر بر روی بوم روی صفحه یا گرفتن عکس با استفاده از وب کم باشد. برای پروژه‌های اعداد، این به معنای تایپ مجموعه ای از اعداد است.",
             "Q5-A-2": "همه این نمونه‌های آموزشی در <a href='https://www.ibm.com/cloud/databases-for-postgresql'> در پایگاه داده PostgreSQL که بر روی فضای ابری آی بی ام </a>، در دالاس در ایالات متحده میزبانی شده است، ذخیره می‌شوند. من به‌عنوان مدیر پایگاه داده، به همه این نمونه‌های آموزشی برای همه پروژه‌های دانشجویی دسترسی دارم، با این حال از آن برای هیچ هدف دیگری غیر از اینکه دانش‌آموزان را قادر می‌سازم به پروژه‌های خود دسترسی داشته باشند و روی آنها کار کنند، استفاده نمی‌کنم. من داده‌های آموزشی را منتشر نمی‌کنم (چه به صورت عمومی یا برای افراد یا اشخاص ثالث) و یا به‌طور دیگری آن‌ها را به اشتراک نمی‌گذارم، به استثنای دو مورد استثنای ارسال آن به APIهای واتسون آی بی ام که در زیر توضیح داده شده است.",
             "Q5-A-3": "مدل‌های یادگیری ماشین پروژه‌های متنی با استفاده از <a href='https://www.ibm.com/cloud/watson-assistant/'> سرویس ابری تشخیص بصری آی بی ام  </a> ایجاد می‌شوند، و وقتی دانش آموزان مدلی را آموزش می دهند، رونوشتی از تصاویر آموزشی آنها روی واتسون آی بی ام بارگزاری می‌شود.<a href='https://cloud.ibm.com/apidocs/assistant#create-workspace'>IBM Watson</a>. (مکان این سرویس ابری چیزی است که معلمان هنگام ایجاد انتخاب می‌کنند.) <a href='https://machinelearningforkids.co.uk/apikeys-guide'> کلیدهای API </a>.) انتخاب می‌کنند واتسون آی بی ام از این نمونه‌های آموزشی برای اهداف دیگر استفاده نمی‌کند. همانطور که در مستندات واتسون توضیح داده شده است، این به این دلیل است که یادگیری ماشین برای کودکان <a href='https://cloud.ibm.com/apidocs/assistant#data-collection'> درخواست انصراف </a> از نمونه‌های آموزشی دانش‌آموزی می‌کند که توسط آی بی ام برای بهبود خدمات استفاده می‌شود.<a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'> همانطور که در مستندات واتسون توضیح داده شده است</a>.",
-            "Q5-A-4": "مدل‌های یادگیری ماشین پروژه‌های تصویری با استفاده از <a href='https://www.ibm.com/cloud/watson-assistant/'> سرویس ابری تشخیص بصری آی بی ام  </a> ایجاد می‌شوند، و وقتی دانش آموزان مدلی را آموزش می دهند، رونوشتی از تصاویر آموزشی آنها روی واتسون آی بی ام بارگزاری می‌شود.<a href='https://cloud.ibm.com/apidocs/assistant#create-workspace'>IBM Watson</a>. (مکان این سرویس ابری چیزی است که معلمان هنگام ایجاد انتخاب می‌کنند.) <a href='https://machinelearningforkids.co.uk/apikeys-guide'> کلیدهای API </a>.) انتخاب می‌کنند واتسون آی بی ام از این نمونه‌های آموزشی برای اهداف دیگر استفاده نمی‌کند. همانطور که در مستندات واتسون توضیح داده شده است، این به این دلیل است که یادگیری ماشین برای کودکان <a href='https://cloud.ibm.com/apidocs/assistant#data-collection'> درخواست انصراف </a> از نمونه‌های آموزشی دانش‌آموزی می‌کند که توسط آی بی ام برای بهبود خدمات استفاده می‌شود.<a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'> همانطور که در مستندات واتسون توضیح داده شده است</a>.",
             "Q5-A-5": "واتسون آ بی ام <ahref='https://cloud.ibm.com/docs/services/assistant?topic=assistant-information-security#information-security-gdpr-wa'> راهنمای عمومی برای اشتراک گزاری داده های تمرینی به همراه خدمات ارائه می‌کند </a> که در مورد داده های آموزشی ایجاد و جمع آوری شده در یادگیری ماشین برای کودکان نیز اعمال می‌شود. به طور خاص، باید به دانش‌آموزان توصیه شود که در نمونه‌هایی که جمع‌آوری می‌کنند، اطلاعات هویتی شخصی را وارد نکنند."
         }
     },

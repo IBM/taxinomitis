@@ -202,7 +202,9 @@
         "SHARE": "Chia sẻ",
         "UNSHARE": "Hủy chia sẻ",
         "WHOLE_CLASS_TITLE": "Dự án tìm kiếm nguồn lực từ đám đông",
-        "WHOLE_CLASS_NOTES": "Đây là một dự án của cả lớp. Tất cả học sinh trong lớp có thể sử dụng nó và thêm vào dữ liệu đào tạo."
+        "WHOLE_CLASS_NOTES": "Đây là một dự án của cả lớp. Tất cả học sinh trong lớp có thể sử dụng nó và thêm vào dữ liệu đào tạo.",
+        "CLOUD_STORAGE_TITLE": "Cloud project",
+        "CLOUD_STORAGE_NOTES": "Training data for this project is stored in the cloud. This project can be accessed from any computer."
     },
     "NEWPROJECT": {
         "TITLE": "Bắt đầu dự án học máy mới",
@@ -214,6 +216,14 @@
             "TITLE": "Dự án toàn lớp học?",
             "NOTES_1": "Đánh dấu vào đây nếu bạn muốn cả lớp có thể cùng nhau thực hiện dự án này.",
             "NOTES_2": "Điều này hữu ích cho các dự án dạy tìm nguồn lực từ đám đông như một cách tiếp cận để đào tạo các dự án học máy."
+        },
+        "STORAGE": {
+            "LABEL": "Storage",
+            "LOCAL": "In your web browser",
+            "CLOUD": "In the cloud",
+            "NOTES_1": "Where do you want to store this project?",
+            "NOTES_2": "Storing in your web browser removes limits on how big your project can be.",
+            "NOTES_3": "Storing in the cloud will let you access the project from any computer."
         },
         "TYPES": {
             "LABEL": "Công nhận",

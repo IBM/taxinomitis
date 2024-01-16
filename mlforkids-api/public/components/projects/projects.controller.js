@@ -8,11 +8,10 @@
         'authService',
         'projectsService',
         'modelService',
-        'storageService',
-        '$stateParams', '$translate', '$mdDialog', 'downloadService', 'loggerService'
+        '$stateParams', '$translate', '$mdDialog', '$scope', 'cleanupService', 'loggerService'
     ];
 
-    function ProjectsController(authService, projectsService, modelService, storageService, $stateParams, $translate, $mdDialog, downloadService, loggerService) {
+    function ProjectsController(authService, projectsService, modelService, $stateParams, $translate, $mdDialog, $scope, cleanupService, loggerService) {
 
         var vm = this;
         vm.authService = authService;
@@ -41,7 +40,8 @@
         $translate([
             'NEWPROJECT.WARNINGS.MLCRED-TEXT-NOKEYS',
             'NEWPROJECT.WARNINGS.MLCRED-TEXT-INVALID',
-            'PROJECTS.WHOLE_CLASS_TITLE', 'PROJECTS.WHOLE_CLASS_NOTES'
+            'PROJECTS.WHOLE_CLASS_TITLE', 'PROJECTS.WHOLE_CLASS_NOTES',
+            'PROJECTS.CLOUD_STORAGE_TITLE', 'PROJECTS.CLOUD_STORAGE_NOTES'
         ]).then(function (translations) {
             translatedStrings = translations;
         });
@@ -154,16 +154,13 @@
                                 refreshProjectsList(vm.profile);
                             }
 
-                            // clear up models stored on the browser
-                            if (project.type === 'sounds') {
-                                modelService.deleteModel('sounds', project.id);
-                            }
-                            else if (project.type === 'imgtjfs') {
-                                modelService.deleteModel('images', project.id);
-                            }
+                            // delete local data associated with the project
+                            cleanupService.deleteProject(project);
 
-                            // clear up test data stored on the browser
-                            storageService.removeItem('testdata://' + project.id);
+                            // refresh view
+                            if (project.storage === 'local') {
+                                $scope.$apply();
+                            }
                         })
                         .catch(function (err) {
                             loggerService.error('[ml4kprojects] Failed to delete project', err);
@@ -207,6 +204,21 @@
                   .title(translatedStrings['PROJECTS.WHOLE_CLASS_TITLE'])
                   .textContent(translatedStrings['PROJECTS.WHOLE_CLASS_NOTES'])
                   .ariaLabel(translatedStrings['PROJECTS.WHOLE_CLASS_TITLE'])
+                  .ok('OK')
+                  .targetEvent(ev)
+              );
+        };
+
+        vm.displayCloudInfo = function (ev) {
+            ev.stopPropagation();
+            ev.preventDefault();
+
+            $mdDialog.show(
+                $mdDialog.alert()
+                  .clickOutsideToClose(true)
+                  .title(translatedStrings['PROJECTS.CLOUD_STORAGE_TITLE'])
+                  .textContent(translatedStrings['PROJECTS.CLOUD_STORAGE_NOTES'])
+                  .ariaLabel(translatedStrings['PROJECTS.CLOUD_STORAGE_TITLE'])
                   .ok('OK')
                   .targetEvent(ev)
               );

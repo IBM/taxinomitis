@@ -8,7 +8,7 @@ const minify = require('gulp-uglify');
 const template = require('gulp-template');
 const autoprefixer = require('gulp-autoprefixer');
 const rename = require('gulp-rename');
-const ngAnnotate = require('gulp-ng-annotate');
+const ngAnnotate = require('gulp-ng-annotate-patched');
 const sourcemaps = require('gulp-sourcemaps');
 const download = require('gulp-download2');
 const jsonminify = require('gulp-jsonminify');
@@ -70,6 +70,10 @@ gulp.task('boweroverrides', gulp.parallel('custombootstrap', 'customangularmater
 gulp.task('twitter', function() {
     return gulp.src('public/static-files/twitter-card.html').pipe(gulp.dest('web/dynamic'));
 });
+gulp.task('storageiframe', function() {
+    return gulp.src('public/static-files/storage.html').pipe(gulp.dest('web/dynamic'));
+});
+
 
 gulp.task('tensorflowjs', function() {
     return gulp.src([
@@ -251,7 +255,7 @@ function prepareHtml (isForProd) {
 gulp.task('html', () => {
     return prepareHtml(false);
 });
-gulp.task('prodhtml', gulp.series('twitter', () => {
+gulp.task('prodhtml', gulp.series('twitter', 'storageiframe', () => {
     return prepareHtml(true);
 }));
 

@@ -138,14 +138,21 @@
     width: 80px;
 }
 
-.mlprojectdetails .mlprojectcrowd {
+.mlprojectdetails .mlprojecticon {
     background-color: white;
     height: 28px;
     width: 28px;
     background-size: contain;
-    background-image: url('./../../static/images/group.png');
     border: thin #333 solid;
     float: right;
+}
+
+.mlprojectdetails .mlprojectcrowd {
+    background-image: url('./../../static/images/group.png');
+}
+
+.mlprojectdetails .mlprojectcloud {
+    background-image: url('./../../static/images/cloud.png');
 }
 
 .mlprojectssharebutton {

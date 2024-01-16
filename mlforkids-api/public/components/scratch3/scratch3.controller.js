@@ -6,12 +6,14 @@
 
         Scratch3Controller.$inject = [
             'authService',
-            'modelService', 'projectsService', 'scratchkeysService', 'loggerService',
+            'modelService', 'projectsService', 'scratchkeysService',
+            'browserStorageService',
+            'loggerService',
             '$stateParams',
             '$scope'
         ];
 
-        function Scratch3Controller(authService, modelService, projectsService, scratchkeysService, loggerService, $stateParams, $scope) {
+        function Scratch3Controller(authService, modelService, projectsService, scratchkeysService, browserStorageService, loggerService, $stateParams, $scope) {
 
             var vm = this;
             vm.authService = authService;
@@ -41,18 +43,46 @@
                     $scope.projecturls.train = '/#!/mlproject/' + $scope.project.userid + '/' + $scope.project.id + '/training';
                     $scope.projecturls.learnandtest = '/#!/mlproject/' + $scope.project.userid + '/' + $scope.project.id + '/models';
 
-                    loggerService.debug('[ml4kscratch3] getting scratch key');
-                    return scratchkeysService.getScratchKeys(project.id, $scope.userId, vm.profile.tenant);
+                    if (project.type === 'text' || project.storage !== 'local') {
+                        loggerService.debug('[ml4kscratch3] getting scratch key');
+                        return scratchkeysService.getScratchKeys(project, $scope.userId, vm.profile.tenant);
+                    }
                 })
                 .then(function (resp) {
-                    loggerService.debug('[ml4kscratch3] scratch key', resp);
+                    var scratchkey;
+                    if (resp) {
+                        loggerService.debug('[ml4kscratch3] scratch key', resp);
 
-                    var scratchkey = resp[0];
+                        scratchkey = resp[0];
 
-                    scratchkey.extensionurl = window.location.origin +
-                                              '/api/scratch/' +
-                                              scratchkey.id +
-                                              '/extension3.js'
+                        scratchkey.extensionurl = window.location.origin +
+                                                  '/api/scratch/' +
+                                                  scratchkey.id +
+                                                  '/extension3.js';
+
+                        if ($scope.project.storage === 'local') {
+                            scratchkey.extensionurl += encodeURIComponent('?projectid=' + $scope.project.id);
+                        }
+                    }
+                    else {
+                        scratchkey = {
+                            id: $scope.project.id,
+                            name: $scope.project.name,
+                            type: $scope.project.type,
+                            extensionurl: window.location.origin +
+                                          '/api/scratch/localproject/local/' +
+                                            $scope.project.type +
+                                            '/extension3.js' +
+                                            encodeURIComponent(
+                                                '?' +
+                                                    'projectid=' + $scope.project.id + '&' +
+                                                    'projectname=' + $scope.project.name + '&' +
+                                                    'labelslist=' + $scope.project.labels.join(',')
+                                            )
+                        };
+                    }
+
+
 
                     if ($scope.project.type === 'sounds' && modelService.isModelSavedInBrowser('sounds', $scope.project.id)) {
                         scratchkey.model = 'placeholder';

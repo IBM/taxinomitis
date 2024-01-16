@@ -43,6 +43,17 @@ export const MODELTEST             = '/api/classes/:classid/students/:studentid/
 export const PROJECT_CROWDSOURCED  = '/api/classes/:classid/students/:studentid/projects/:projectid/iscrowdsourced';
 // Scratch key for a project
 export const SCRATCHKEYS           = '/api/classes/:classid/students/:studentid/projects/:projectid/scratchkeys';
+// local project APIs
+export const LOCALPROJECTS         = '/api/classes/:classid/students/:studentid/localprojects';
+export const LOCALPROJECT          = '/api/classes/:classid/students/:studentid/localprojects/:projectid';
+export const LOCALSCRATCHKEYS      = '/api/classes/:classid/students/:studentid/localprojects/:projectid/scratchkeys';
+export const LOCALMODELS           = '/api/classes/:classid/students/:studentid/localprojects/:projectid/models';
+export const LOCALMODEL            = '/api/classes/:classid/students/:studentid/localprojects/:projectid/models/:modelid';
+export const LOCALMODELTEST        = '/api/classes/:classid/students/:studentid/localprojects/:projectid/models/:modelid/label';
+
+//
+// URLS supporting browser-storage projects
+export const PREPARE_IMAGES        = '/api/classes/:classid/students/:studentid/training/images';
 
 //
 // URLs about training data hosting
@@ -58,10 +69,11 @@ export const SCRATCHKEY_IMAGE      = '/api/scratch/:scratchkey/images/api/classe
 export const SCRATCHKEY_CLASSIFY   = '/api/scratch/:scratchkey/classify';
 export const SCRATCHKEY_STATUS     = '/api/scratch/:scratchkey/status';
 export const SCRATCHKEY_MODEL      = '/api/scratch/:scratchkey/models';
-export const SCRATCHKEY_EXTENSION  = '/api/scratch/:scratchkey/extension.js';
+export const SCRATCHKEY_MODEL_LOCAL= '/api/scratch/:scratchkey/local/models';
 export const SCRATCH3_EXTENSION    = '/api/scratch/:scratchkey/extension3.js';
 export const SCRATCHTFJS_EXTENSION = '/api/scratch/:scratchkey/extensiontfjs.js';
 export const SCRATCHTFJS_EXTENSIONS = '/api/scratchtfjs/extensions';
+export const SCRATCH3_EXTENSION_LOCAL = '/api/scratch/:scratchkey/local/:projecttype/extension3.js';
 
 //
 // URLs about App Inventor

@@ -664,17 +664,6 @@ describe('REST API - scratch keys', () => {
         });
 
 
-        it('should handle Scratchx extension requests for unknown Scratch keys', async () => {
-            return request(testServer)
-                .get('/api/scratch/' + 'THIS-DOES-NOT-EXIST' + '/extension.js')
-                .expect(httpstatus.NOT_FOUND)
-                .then(async (res) => {
-                    const body: string = res.body;
-                    assert.deepStrictEqual(body, { error : 'Scratch key not found' });
-                });
-        });
-
-
         it('should handle Scratch 3 extension requests for unknown Scratch keys', async () => {
             return request(testServer)
                 .get('/api/scratch/' + 'THIS-DOES-NOT-EXIST' + '/extension3.js')
@@ -685,34 +674,6 @@ describe('REST API - scratch keys', () => {
                 });
         });
 
-
-        it('should build a working Scratchx extension', async () => {
-            const userid = uuid();
-
-            const project = await store.storeProject(userid, TESTCLASS, 'text', 'dummyproject', 'en', [], false);
-            await store.addLabelToProject(userid, TESTCLASS, project.id, 'LABEL NUMBER ONE');
-            await store.addLabelToProject(userid, TESTCLASS, project.id, 'SECOND LABEL');
-
-            const keyId = await store.storeUntrainedScratchKey(project);
-
-            return request(testServer)
-                .get('/api/scratch/' + keyId + '/extension.js')
-                .expect(httpstatus.OK)
-                .then(async (res) => {
-                    const body: string = res.text;
-
-                    assert(body.startsWith('(function(ext) {'));
-                    assert(body.indexOf('/api/scratch/' + keyId + '/status') > 0);
-                    assert(body.indexOf('/api/scratch/' + keyId + '/classify') > 0);
-                    assert(body.indexOf('ext.return_label_0 = function () {') > 0);
-                    assert(body.indexOf('ext.return_label_1 = function () {') > 0);
-                    assert(body.indexOf('ext.return_label_2 = function () {') === -1);
-                    assert(body.indexOf('[ \'r\', \'LABEL_NUMBER_ONE\', \'return_label_0\'],') > 0);
-                    assert(body.indexOf('[ \'r\', \'SECOND_LABEL\', \'return_label_1\'],') > 0);
-
-                    await store.deleteEntireProject(userid, TESTCLASS, project);
-                });
-        });
 
 
         it('should build a working Scratch 3 extension', async () => {

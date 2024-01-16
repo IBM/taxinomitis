@@ -5,12 +5,11 @@
         .service('modelService', modelService);
 
     modelService.$inject = [
-        'loggerService', 'storageService',
-        '$window'
+        'loggerService', 'storageService', 'utilService'
     ];
 
 
-    function modelService(loggerService, storageService, $window) {
+    function modelService(loggerService, storageService, utilService) {
 
         function sortByConfidence(a, b) {
             if (a.confidence < b.confidence) {
@@ -131,7 +130,7 @@
         function getModelDbLocation(modeltype, projectid) {
             return 'indexeddb://ml4k-models-' +
                    modeltype + '-' +
-                   projectid.replace(/-/g, '');
+                   projectid.toString().replace(/-/g, '');
         }
 
         function isModelSavedInBrowser(modeltype, projectid) {
@@ -147,7 +146,7 @@
             return false;
         }
 
-        function deleteModel(modeltype, projectid) {
+        function deleteModel(modeltype, projectid, retried) {
             loggerService.debug('[ml4kmodels] deleting stored model', projectid);
             var savelocation = getModelDbLocation(modeltype, projectid);
             if (typeof tf !== 'undefined') {
@@ -160,8 +159,16 @@
                         loggerService.debug('[ml4kmodels] model could not be deleted', err);
                     });
             }
+            else if (!retried) {
+                return utilService.loadTensorFlow()
+                    .then(function () {
+                        // if tensorflow is failing to load, use a 'retried' flag
+                        //  to stop us infinitely attempting to load it
+                        return deleteModel(modeltype, projectid, true);
+                    });
+            }
             else {
-                loggerService.debug('[ml4kmodels] tensorflow not loaded - skipping model deletion');
+                loggerService.debug('[ml4kmodels] tensorflow not loaded - skipping');
                 return Promise.resolve();
             }
         }

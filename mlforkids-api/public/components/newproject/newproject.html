@@ -255,6 +255,33 @@
 
 
         <!-- ---------------------------------------- -->
+        <!--   STORAGE                                -->
+        <!--                                          -->
+        <!--            displayed for all projects    -->
+        <!-- ---------------------------------------- -->
+        <div class="newprojectrow" ng-show="projectType && projectType !== 'numbers' && isLocalSupported">
+            <md-input-container class="newprojectform">
+                <label translate="NEWPROJECT.STORAGE.LABEL"></label>
+                <md-select ng-required="true"
+                           ng-model="projectStorage"
+                           ng-disabled="creating"
+                           ng-focus="vm.focused = 'storage'"
+                           class="newprojecttype">
+                    <md-option value="local" translate="NEWPROJECT.STORAGE.LOCAL" ng-selected="isLocalSupported && projectType !== 'numbers'"></md-option>
+                    <md-option value="cloud" translate="NEWPROJECT.STORAGE.CLOUD" ng-selected="!isLocalSupported || projectType === 'numbers'"></md-option>
+                </md-select>
+            </md-input-container>
+            <div class="well newprojecthelp" ng-if="vm.focused === 'storage'">
+                <div class="helpfirstline" translate="NEWPROJECT.STORAGE.NOTES_1"></div>
+                <div translate="NEWPROJECT.STORAGE.NOTES_2"></div>
+                <div translate="NEWPROJECT.STORAGE.NOTES_3"></div>
+                <div>(See "<a ui-sref="help">{{ 'HELP.PROJECTS.Q5' | translate }}</a>")</div>
+            </div>
+        </div>
+
+
+
+        <!-- ---------------------------------------- -->
         <!--   FOOTER buttons                         -->
         <!--                                          -->
         <!--            displayed for all projects    -->
@@ -264,7 +291,7 @@
             <md-button
                 class="md-raised md-primary"
                 ng-disabled="creating || newProject.$invalid || isInvalid(projectType)"
-                ng-click="vm.confirm({ name : projectName, type : projectType, fields : vm.fields, language : language, isCrowdSourced : (isTeacher && crowdSourced) ? true : false })"
+                ng-click="vm.confirm({ name : projectName, type : projectType, storage : projectStorage, fields : vm.fields, language : language, isCrowdSourced : (isTeacher && crowdSourced) ? true : false })"
                 translate="NEWPROJECT.CREATE">
             </md-button>
             <md-button ui-sref="projects" translate="APP.CANCEL"></md-button>

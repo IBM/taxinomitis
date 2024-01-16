@@ -422,6 +422,119 @@ export async function deleteProjectsByClassId(classid: string): Promise<void>
 
 // -----------------------------------------------------------------------------
 //
+// LOCAL PROJECTS
+//
+// -----------------------------------------------------------------------------
+
+export async function storeLocalProject(
+    userid: string, classid: string,
+    type: Objects.ProjectTypeLabel,
+    name: string,
+    labels: string[],
+): Promise<Objects.LocalProject>
+{
+    let obj: Objects.LocalProjectDbRow;
+    try {
+        obj = dbobjects.createLocalProject(userid, classid, type, name, labels);
+    }
+    catch (err) {
+        err.statusCode = 400;
+        throw err;
+    }
+
+    const insertProjectName = 'dbqn-insert-localprojects';
+    const insertProjectQry: string = 'INSERT INTO localprojects ' +
+        '(id, userid, classid, typeid, expiry, name, labels) ' +
+        'VALUES ($1, $2, $3, $4, $5, $6, $7)';
+    const insertProjectValues = [
+        obj.id,
+        obj.userid, obj.classid,
+        obj.typeid,
+        obj.expiry,
+        obj.name,
+        obj.labels,
+    ];
+
+    const insertResponse = await dbExecute(insertProjectName, insertProjectQry, insertProjectValues);
+    if (insertResponse.rowCount !== 1) {
+        log.error({ insertResponse }, 'Failed to store local project info');
+        throw new Error('Failed to store local project');
+    }
+
+    return dbobjects.getLocalProjectFromDbRow(obj);
+}
+
+
+export async function updateLocalProject(project: Objects.LocalProject): Promise<void>
+{
+    const updated = dbobjects.updateLocalProject(project);
+
+    const queryName = 'dbqn-update-localprojects';
+    const queryString = 'UPDATE localprojects ' +
+                             'SET expiry = $1, labels = $2 ' +
+                             'WHERE id = $3 AND userid = $4 AND classid = $5';
+    const queryValues = [
+        updated.expiry, updated.labels,
+        updated.id, updated.userid, updated.classid,
+    ];
+
+    const response = await dbExecute(queryName, queryString, queryValues);
+    if (response.rowCount !== 1) {
+        log.error({ project }, 'Failed to update local project');
+        throw new Error('Local project not updated');
+    }
+}
+
+
+export async function getLocalProject(id: string): Promise<Objects.LocalProject | undefined>
+{
+    const queryName = 'dbqn-select-localprojects-id';
+    const queryString = 'SELECT id, userid, classid, ' +
+                            'typeid, expiry, ' +
+                            'name, labels ' +
+                        'FROM localprojects ' +
+                        'WHERE id = $1';
+    const queryValues = [ id ];
+
+    const resp = await dbExecute(queryName, queryString, queryValues);
+    const rows = resp.rows;
+    if (rows.length === 1) {
+        return dbobjects.getLocalProjectFromDbRow(rows[0]);
+    }
+
+    /* istanbul ignore else */
+    if (rows.length === 0) {
+        log.warn({ id, func : 'getLocalProject' }, 'Local project not found');
+    }
+    else {
+        /* istanbul ignore next */
+        // id is a PRIMARY key, so the DB should only ever return 0 or 1 rows
+        log.error({ rows, id, func : 'getLocalProject' }, 'Local project not found');
+    }
+    return;
+}
+
+
+export async function getExpiredLocalProjects(options: Objects.PagingOptions): Promise<Objects.LocalProject[]>
+{
+    const queryName = 'dbqn-select-localprojects-expired';
+    const queryString = 'SELECT id, userid, classid, ' +
+                            'typeid, expiry, ' +
+                            'name, labels ' +
+                        'FROM localprojects ' +
+                        'WHERE expiry < $1 ' +
+                        'LIMIT $2 OFFSET $3';
+    const queryValues = [ new Date(), options.limit, options.start ];
+
+    const response = await dbExecute(queryName, queryString, queryValues);
+    return response.rows.map(dbobjects.getLocalProjectFromDbRow);
+}
+
+
+
+
+// -----------------------------------------------------------------------------
+//
 // TRAINING DATA
 //
 // -----------------------------------------------------------------------------
@@ -433,7 +546,6 @@ function getDbTable(type: Objects.ProjectTypeLabel): string {
     case 'numbers':
         return 'numbertraining';
     case 'images':
-        return 'imagetraining';
     case 'imgtfjs':
         return 'imagetraining';
     case 'sounds':
@@ -1578,7 +1690,7 @@ export async function countConversationWorkspaces(classid: string): Promise<numb
 
 export async function storeConversationWorkspace(
     credentials: TrainingObjects.BluemixCredentials,
-    project: Objects.Project,
+    project: Objects.Project | Objects.LocalProject,
     workspace: TrainingObjects.ConversationWorkspace,
 ): Promise<TrainingObjects.ConversationWorkspace>
 {
@@ -1758,7 +1870,7 @@ export async function getClassifierByBluemixId(classifierid: string):
 //
 // -----------------------------------------------------------------------------
 
-export async function storeUntrainedScratchKey(project: Objects.Project): Promise<string>
+export async function storeUntrainedScratchKey(project: Objects.Project | Objects.LocalProject): Promise<string>
 {
     const obj = dbobjects.createUntrainedScratchKey(project.name, project.type, project.id);
 
@@ -1828,7 +1940,7 @@ export function removeCredentialsFromScratchKeys(credentials: TrainingObjects.Bl
  * @returns the ScratchKey ID - whether created or updated
  */
 export async function storeOrUpdateScratchKey(
-    project: Objects.Project,
+    project: Objects.Project | Objects.LocalProject,
     credentials: TrainingObjects.BluemixCredentials,
     classifierid: string, timestamp: Date,
 ): Promise<string>
@@ -1854,7 +1966,7 @@ export async function storeOrUpdateScratchKey(
  * @returns the created scratchkey ID
  */
 export async function storeScratchKey(
-    project: Objects.Project,
+    project: Objects.Project | Objects.LocalProject,
     credentials: TrainingObjects.BluemixCredentials,
     classifierid: string, timestamp: Date,
 ): Promise<string>
@@ -1929,7 +2041,7 @@ async function updateScratchKey(
 
 
 export async function updateScratchKeyTimestamp(
-    project: Objects.Project,
+    project: Objects.Project | Objects.LocalProject,
     timestamp: Date,
 ): Promise<void>
 {
@@ -2593,7 +2705,7 @@ export async function getLatestSiteAlert(): Promise<Objects.SiteAlert | undefine
 // -----------------------------------------------------------------------------
 
 
-export async function deleteEntireProject(userid: string, classid: string, project: Objects.Project): Promise<void> {
+export async function deleteEntireProject(userid: string, classid: string, project: Objects.Project | Objects.LocalProject): Promise<void> {
     switch (project.type) {
     case 'text': {
         const classifiers = await getConversationWorkspaces(project.id);
@@ -2628,6 +2740,7 @@ export async function deleteEntireProject(userid: string, classid: string, proje
 
     const deleteQueries = [
         'DELETE FROM projects WHERE id = $1',
+        'DELETE FROM localprojects WHERE id = $1',
         'DELETE FROM numbersprojectsfields WHERE projectid = $1',
         'DELETE FROM texttraining WHERE projectid = $1',
         'DELETE FROM numbertraining WHERE projectid = $1',
@@ -2652,6 +2765,7 @@ export async function deleteEntireUser(userid: string, classid: string): Promise
 
     const deleteQueries = [
         'DELETE FROM projects WHERE userid = $1',
+        'DELETE FROM localprojects WHERE userid = $1',
         'DELETE FROM bluemixclassifiers WHERE userid = $1',
         'DELETE FROM taxinoclassifiers WHERE userid = $1',
         'DELETE FROM scratchkeys WHERE userid = $1',

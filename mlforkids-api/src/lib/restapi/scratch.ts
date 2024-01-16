@@ -385,21 +385,55 @@ async function storeTrainingData(req: Express.Request, res: Express.Response) {
 
 
 
-async function getExtension(req: Express.Request, res: Express.Response, version: 2 | 3) {
-    const apikey = req.params.scratchkey;
+async function getScratch3ExtensionLocalData(req: Express.Request, res: Express.Response) {
+    const projecttype = req.params.projecttype as Types.ProjectTypeLabel;
 
+    const projectid = req.query.projectid as string;
+    const projectname = req.query.projectname as string;
+    const labelslist = req.query.labelslist ? req.query.labelslist as string : '';
+    if (!projectid || !projectname) {
+        return errors.missingData(res);
+    }
+
+    try {
+        const extension = await extensions.getScratchxExtensionLocalData(projecttype, projectid, projectname, labelslist.split(','));
+
+        return res.set('Content-Type', 'application/javascript')
+                  .set(headers.NO_CACHE)
+                  .send(extension);
+    }
+    catch (err) {
+        log.error({ err }, 'Failed to generate extension');
+        errors.unknownError(res, err);
+    }
+}
+
+
+
+async function getScratch3Extension(req: Express.Request, res: Express.Response) {
+    const apikey = req.params.scratchkey;
+    let extension: string;
     try {
         const scratchKey = await store.getScratchKey(apikey);
         const project = await store.getProject(scratchKey.projectid);
-        if (!project) {
-            return errors.notFound(res);
+        if (project) {
+            if (project.type === 'numbers') {
+                project.fields = await store.getNumberProjectFields(project.userid, project.classid, project.id);
+            }
+
+            extension = await extensions.getScratchxExtension(scratchKey, project);
+        }
+        else {
+            const localProject = await store.getLocalProject(scratchKey.projectid);
+            if (!localProject) {
+                return errors.notFound(res);
+            }
+
+            const browserProjectId = req.query.projectid ? req.query.projectid.toString() : scratchKey.projectid;
+
+            extension = await extensions.getHybridScratchxExtension(scratchKey, localProject, browserProjectId);
         }
 
-        if (project.type === 'numbers') {
-            project.fields = await store.getNumberProjectFields(project.userid, project.classid, project.id);
-        }
-
-        const extension = await extensions.getScratchxExtension(scratchKey, project, version);
         return res.set('Content-Type', 'application/javascript')
                   .set(headers.NO_CACHE)
                   .send(extension);
@@ -415,12 +449,6 @@ async function getExtension(req: Express.Request, res: Express.Response, version
 }
 
 
-function getScratchxExtension(req: Express.Request, res: Express.Response) {
-    getExtension(req, res, 2);
-}
-function getScratch3Extension(req: Express.Request, res: Express.Response) {
-    getExtension(req, res, 3);
-}
 
 
 function handleTfjsException(err: any, res: Express.Response) {
@@ -500,11 +528,39 @@ async function trainNewClassifier(req: Express.Request, res: Express.Response) {
 }
 
 
+async function trainNewClassifierLocalProject(req: Express.Request, res: Express.Response) {
+    const apikey = req.params.scratchkey;
+
+    if (!conversation.validateTraining(req.body.training)) {
+        return errors.missingData(res);
+    }
+
+    try {
+        const scratchKey = await store.getScratchKey(apikey);
+        const classifierStatus = await models.trainModelLocalProject(scratchKey, req.body.training);
+
+        return res.set(headers.NO_CACHE).jsonp(classifierStatus);
+    }
+    catch (err) {
+        if (err.message === 'Only text models can be trained using a Scratch key') {
+            return res.status(httpstatus.NOT_IMPLEMENTED).json({ error : err.message });
+        }
+
+        log.error({ err, agent : req.header('X-User-Agent') }, 'Train error');
+        errors.unknownError(res, err);
+    }
+}
+
+
 
 const CORS_CONFIG = {
     origin: [
         /machinelearningforkids\.co\.uk$/,
         /app\.edublocks\.org$/,
+        // /localhost:3000$/,
+        // /localhost:9000$/,
+        // /ml-for-kids-local\.net:3000$/,
+        // /ml-for-kids-local\.net:9000$/,
     ],
 };
 
@@ -526,6 +582,7 @@ export default function registerApis(app: Express.Application) {
     app.get(urls.SCRATCHKEY_CLASSIFY, cors(CORS_CONFIG), classifyWithScratchKey);
     app.post(urls.SCRATCHKEY_CLASSIFY, cors(CORS_CONFIG), postClassifyWithScratchKey);
     app.post(urls.SCRATCHKEY_MODEL, cors(CORS_CONFIG), trainNewClassifier);
+    app.post(urls.SCRATCHKEY_MODEL_LOCAL, cors(CORS_CONFIG), trainNewClassifierLocalProject);
 
     app.get(urls.SCRATCHKEY_TRAIN, cors(CORS_CONFIG), getTrainingData);
     app.get(urls.SCRATCHKEY_IMAGE, cors(CORS_CONFIG), getImageTrainingDataItem);
@@ -533,8 +590,8 @@ export default function registerApis(app: Express.Application) {
 
     app.post(urls.SCRATCHTFJS_EXTENSIONS, cors(CORS_CONFIG), generateTfjsExtension);
 
-    app.get(urls.SCRATCHKEY_EXTENSION, cors(CORS_CONFIG), getScratchxExtension);
     app.get(urls.SCRATCH3_EXTENSION, cors(CORS_CONFIG), getScratch3Extension);
+    app.get(urls.SCRATCH3_EXTENSION_LOCAL, cors(CORS_CONFIG), getScratch3ExtensionLocalData);
     app.get(urls.SCRATCHTFJS_EXTENSION, cors(CORS_CONFIG), getTfjsExtension);
     app.get(urls.SCRATCHKEY_STATUS, cors(CORS_CONFIG), getScratchxStatus);
 }

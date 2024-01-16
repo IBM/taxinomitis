@@ -169,12 +169,6 @@
                 templateUrl: 'static/components/makes/makes.html',
                 controllerAs: 'vm'
             })
-            .state('mlproject_scratch', {
-                url: '/mlproject/:userId/:projectId/scratch',
-                controller: 'ScratchController',
-                templateUrl: 'static/components/scratch/scratch.html',
-                controllerAs: 'vm'
-            })
             .state('mlproject_scratch3', {
                 url: '/mlproject/:userId/:projectId/scratch3',
                 controller: 'Scratch3Controller',
@@ -304,7 +298,7 @@
             .useSanitizeValueStrategy('sanitizeParameters')
             .useStaticFilesLoader({
                 prefix: 'static/languages/',
-                suffix: '.json?v=116'
+                suffix: '.json?v=117'
             })
             .determinePreferredLanguage(function () {
                 var lang = navigator.userLanguage || navigator.language;

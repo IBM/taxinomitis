@@ -102,7 +102,7 @@
                 })
                 .then(function () {
                     loggerService.debug('[ml4ksound] loading speech-commands');
-                    return utilService.loadScript('/static/bower_components/tensorflow-models/speech-commands/speech-commands.min.js?v=116');
+                    return utilService.loadScript('/static/bower_components/tensorflow-models/speech-commands/speech-commands.min.js?v=117');
                 })
                 .then(function () {
                     loggerService.debug('[ml4ksound] loaded speech-commands', speechCommands.version);
@@ -148,7 +148,7 @@
                 })
                 .then(function () {
                     loggerService.debug('[ml4ksound] creating transfer learning recognizer');
-                    transferRecognizer = baseRecognizer.createTransfer(mlprojectid);
+                    transferRecognizer = baseRecognizer.createTransfer('project-' + projectid);
 
                     var modelInfo = transferRecognizer.modelInputShape();
                     loggerService.debug('[ml4ksound] model info', modelInfo);

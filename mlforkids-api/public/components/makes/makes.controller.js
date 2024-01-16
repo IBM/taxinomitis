@@ -27,6 +27,7 @@
             })
             .then(function (project) {
                 $scope.project = project;
+                $scope.makes = projectsService.supportedMakes(project);
                 $scope.loading = false;
             })
             .catch(function (err) {

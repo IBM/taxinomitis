@@ -6,11 +6,10 @@
 
     storageService.$inject = [
         'loggerService',
-        '$window',
-        '$q'
+        '$window'
     ];
 
-    function storageService(loggerService, $window, $q) {
+    function storageService(loggerService, $window) {
 
         var clearFn;
         var setItemFn;

@@ -33,12 +33,12 @@ describe('Training - Conversation', () => {
     let countStoreStub: sinon.SinonStub<[DbTypes.Project], Promise<{ [label: string]: number; }>>;
     let getConversationWorkspacesStub: sinon.SinonStub<[string], Promise<TrainingTypes.ConversationWorkspace[]>>;
     let getStoreStub: sinon.SinonStub<[string, string, DbTypes.PagingOptions], Promise<string[]>>;
-    let storeStoreStub: sinon.SinonStub<[TrainingTypes.BluemixCredentials, DbTypes.Project, TrainingTypes.ConversationWorkspace], Promise<TrainingTypes.ConversationWorkspace>>;
+    let storeStoreStub: sinon.SinonStub<[TrainingTypes.BluemixCredentials, DbTypes.Project | DbTypes.LocalProject, TrainingTypes.ConversationWorkspace], Promise<TrainingTypes.ConversationWorkspace>>;
     let updateConversationStub: sinon.SinonStub<[TrainingTypes.ConversationWorkspace], Promise<void>>;
     let deleteStoreStub: sinon.SinonStub<[string], Promise<void>>;
-    let storeScratchKeyStub: sinon.SinonStub<[DbTypes.Project, TrainingTypes.BluemixCredentials, string, Date], Promise<string>>;
+    let storeScratchKeyStub: sinon.SinonStub<[DbTypes.Project | DbTypes.LocalProject, TrainingTypes.BluemixCredentials, string, Date], Promise<string>>;
     let resetExpiredScratchKeyStub: sinon.SinonStub<[string, DbTypes.ProjectTypeLabel], Promise<void>>;
-    let updateScratchKeyTimestampStub: sinon.SinonStub<[DbTypes.Project, Date], Promise<void>>;
+    let updateScratchKeyTimestampStub: sinon.SinonStub<[DbTypes.Project | DbTypes.LocalProject, Date], Promise<void>>;
     let getClassStub: sinon.SinonStub<[string], Promise<DbTypes.ClassTenant>>;
 
 

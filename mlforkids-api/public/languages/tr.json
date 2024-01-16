@@ -196,7 +196,9 @@
         "SHARE": "Share",
         "UNSHARE": "Un-share",
         "WHOLE_CLASS_TITLE": "Crowd-sourced project",
-        "WHOLE_CLASS_NOTES": "This is a whole-class project. All students in your class can use it and add to the training data."
+        "WHOLE_CLASS_NOTES": "This is a whole-class project. All students in your class can use it and add to the training data.",
+        "CLOUD_STORAGE_TITLE": "Cloud project",
+        "CLOUD_STORAGE_NOTES": "Training data for this project is stored in the cloud. This project can be accessed from any computer."
     },
     "NEWPROJECT": {
         "TITLE": "Start a new machine learning project",
@@ -208,6 +210,14 @@
             "TITLE": "Whole-class project?",
             "NOTES_1": "Tick this if you want your whole class to be able to work on this project together.",
             "NOTES_2": "This is useful for projects that teach crowd-sourcing as an approach to training machine learning projects."
+        },
+        "STORAGE": {
+            "LABEL": "Storage",
+            "LOCAL": "In your web browser",
+            "CLOUD": "In the cloud",
+            "NOTES_1": "Where do you want to store this project?",
+            "NOTES_2": "Storing in your web browser removes limits on how big your project can be.",
+            "NOTES_3": "Storing in the cloud will let you access the project from any computer."
         },
         "TYPES": {
             "LABEL": "Recognising",
@@ -1752,26 +1762,28 @@
         },
         "PROJECTS": {
             "TITLE": "Project questions",
+
             "Q4": "Which machine learning models are trained on your computer, and which are trained in the cloud?",
-            "Q4-A-1": "<strong>text</strong> projects can only be trained in the cloud.",
-            "Q4-A-2": "<strong>numbers</strong> projects can only be trained in the cloud.",
-            "Q4-A-3": "<strong>sounds</strong> projects can only be trained on your computer.",
-            "Q4-A-4": "<strong>images</strong> projects can be trained on your computer, or (if you have access to Watson Visual Recognition) in the cloud."
+            "Q4-A-0": "You cannot choose where machine learning models are trained and stored. This is decided by Machine Learning for Kids based on the type of project.",
+            "Q4-A-1": "<strong>text</strong> projects are trained in the cloud.",
+            "Q4-A-2": "<strong>numbers</strong> projects are trained in the cloud.",
+            "Q4-A-3": "<strong>sounds</strong> projects are trained on your computer.",
+            "Q4-A-4": "<strong>images</strong> projects are trained on your computer.",
+
+            "Q5": "What difference does it make where a project is stored?",
+            "Q5-A-0": "You can choose where to store the training data for your machine learning project. You can store your training examples:",
+            "Q5-A-1": "on your own computer (<strong>in your web browser</strong>), or",
+            "Q5-A-2": "<strong>in the cloud</strong> (on the Machine Learning for Kids servers)",
+            "Q5-A-3": "A summary of the differences is shown below:",
+            "Q5-A-LIMITS": "How much a student can store",
+            "Q5-A-UNLIMITED": "Unlimited",
+            "Q5-A-LIMITED": "Limits apply",
+            "Q5-A-NUMBER_OF_PROJECTS": "Number of projects",
+            "Q5-A-TRAINING_DATA": "Amount of training data in a project",
+            "Q5-A-4": "(Numbers projects cannot be stored in your web browser. They only be stored in the cloud.)"
         },
         "SCRATCH": {
             "TITLE": "Scratch sorunları",
-            "Q1": "Scratch'i nasıl çalıştıracağımı bilmiyorum",
-            "Q1-A-1": "Çocuklar İçin Makine Öğrenimi, Scratch 2'yi kullanır. Scratch'in çalışması için Adobe Flash gereklidir, bu nedenle Flash ile çalışabilen bir işletim sistemi ve web tarayıcısı kullanılabiliyor olmanız gerekir (üzgünüz ama bu, şimdilik iPad’lerin kullanılamayacağı anlamına geliyor).",
-            "Q1-A-2": "Flash'ı nasıl etkinleştireceğinizden emin değilseniz, <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-scratchx.pdf'>Scratch'i çalıştırmaya yönelik bazı ipuçlarının yer aldığı bir belgeyi karşıdan yükleyebilirsiniz</a>.",
-            "Q2": "Scratch'teki \"Proje Yükle\" ve \"Projeyi Kaydet\" menüleri çalışmıyor",
-            "Q2-A-1": "macOS'de Safari'yi kullanıyorsanız ve Scratch menüleri \"Dosya -&gt; Proje Yükle\" ve \"Dosya -&gt; Projeyi Kaydet\" çalışmıyorsa, bunun nedeni Güvenli Mod'da çalıştırmanız olabilir.",
-            "Q2-A-2": "Nasıl kontrol edebileceğiniz ve düzeltebileceğiniz hakkında bilgi için <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>buradaki yönergeleri izleyin</a>.",
-            "Q3": "Scratch'teki makine öğrenimi sınıflandırma blokları çalışmıyor",
-            "Q3-A-1": "Makine öğrenimi modeliniz için Scratch blokları ile sunucu bağlantısı bazen kopabilir. Bu durumda sonuç getirmeyi durdurur.",
-            "Q3-A-2": "\"Diğer bloklar\" bölmesindeki renkli durum ışığını kullanarak bunu kontrol edebilirsiniz.",
-            "Q3-A-3": "Makine öğrenimi Scratch bloklarınızın yanındaki durum ışığı kırmızı yanıyorsa, genellikle yolunda gitmeyen bir şeyler olduğu anlamına gelir. Bu geçici bir sorun olabilir. Projeyi kaydetmeyi deneyin ('Dosya' -&gt; 'Projeyi Kaydet' menüsünü kullanarak), ardından tarayıcı sayfasını yenileyin. Sayfa yeniden yüklendikten sonra durum ışığı yeşile dönerse, bıraktığınız yerden devam etmek için projenizi yükleyebilirsiniz ('Dosya' -&gt; 'Proje Yükle' menüsünü kullanarak).",
-            "Q3-A-4": "Sayfa yeniden yüklendikten sonra durum ışığı hala kırmızıysa, muhtemelen makine öğrenimi modeliyle ilgili bir hata vardır. Proje için \"Öğrenme ve Test\" sayfasına gidin, burada modeliniz hakkında hata iletilerini bulabilirsiniz.",
-            "Q3-A-5": "Makine öğrenimi Scratch blokları yanındaki durum ışığı yeşilse, bloklar çalışıyor demektir. Beklediğiniz yanıtları almıyorsanız, \"Öğrenme ve Test\" sayfasına gitmeyi ve modelinizin getirdiği sonuçları kontrol etmeyi deneyin.",
             "Q5": "Herhangi bir Scratch sürümü kullanabilir miyim?",
             "Q5-A-1": "Çocuklar İçin Makine Öğrenimi sitesinin sağladığı Scratch sürümünü kullanmanız gerekir. Proje sayfanızdan Scratch (veya 'Scratch 3') düğmesini tıklatarak başlatabilirsiniz.",
             "Q6": "Scratch 3 is only saving projects to the 'Downloads' folder",
@@ -1889,7 +1901,6 @@
             "Q5-A-1": "A step in all machine learning projects that students make using this site is to create or collect training examples. For text projects, this can mean typing in short text passages. For image projects, this can means drawing pictures onto an on-screen canvas or taking photos using the webcam. For numbers projects, this means typing in sets of numbers",
             "Q5-A-2": "All of these training examples are stored in a <a href='https://www.ibm.com/cloud/databases-for-postgresql'>PostgreSQL database hosted on IBM Cloud</a>, in Dallas in the United States. As the database administrator, I have access to all of these training examples for all student projects, however I do not use it for any other purposes other than enabling students to access and work on their own projects. I do not publish the training data (either publicly or to individuals or third parties) or otherwise share it, with the two exceptions of submitting it to IBM Watson APIs described below.",
             "Q5-A-3": "Machine learning models for text projects are created using the <a href='https://www.ibm.com/cloud/watson-assistant/'>IBM Watson Assistant</a> cloud service, which means when students train a model, a copy of the training examples that they have entered will be <a href='https://cloud.ibm.com/apidocs/assistant#create-workspace'>submitted to IBM Watson</a>. (The location of this cloud service is something that teachers choose when <a href='https://machinelearningforkids.co.uk/apikeys-guide'>creating API keys</a>.) IBM Watson does not use these training examples for any other purposes. This is because Machine Learning for Kids <a href='https://cloud.ibm.com/apidocs/assistant#data-collection'>requests an opt-out</a> for student training examples being used by IBM to improve the service, as <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>described in the Watson documentation</a>.",
-            "Q5-A-4": "Machine learning models for images projects are created using the <a href='https://www.ibm.com/watson/services/visual-recognition/'>IBM Visual Recognition</a> cloud service, which means when students train a model, a copy of their training images will be <a href='https://cloud.ibm.com/apidocs/visual-recognition#create-a-classifier'>uploaded to IBM Watson</a>. (The location of this cloud service is something that teachers choose when <a href='https://machinelearningforkids.co.uk/apikeys-guide'>creating API keys</a>.) IBM Watson does not use these training examples for any other purposes. This is because Machine Learning for Kids <a href='https://cloud.ibm.com/apidocs/visual-recognition#data-collection'>requests an opt-out</a> for student training examples being used by IBM to improve the service, as <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>described in the Watson documentation</a>.",
             "Q5-A-5": "IBM Watson provides some <a href='https://cloud.ibm.com/docs/services/assistant?topic=assistant-information-security#information-security-gdpr-wa'>general guidance for sharing training data with their services</a>, which also apply to training data created and collected in Machine Learning for Kids. Specifically, students should be advised not to include personally identifiable information in the examples that they collect."
         }
     },

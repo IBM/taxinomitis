@@ -18,11 +18,18 @@ class MachineLearningImagesTfjs {
         this.modelReady = false;
         this.modelError = false;
 
+        postMessage({
+            mlforkidsstorage : {
+                command : 'init'
+            }
+        });
 
 
+        {{#storeurl}}
         var encodedProjectData = JSON.stringify({
             labels : this._labels.items,
-            projectid : '{{{projectid}}}'
+            projectid : '{{{projectid}}}',
+            storage: {{#storeurl}}'cloud'{{/storeurl}}{{^storeurl}}'local'{{/storeurl}}
         });
         postMessage({
             mlforkidsimage : {
@@ -30,6 +37,16 @@ class MachineLearningImagesTfjs {
                 data : encodedProjectData
             }
         });
+        {{/storeurl}}
+        {{^storeurl}}
+        postMessage({
+            mlforkidsimage : {
+                command : 'initlocal',
+                data : '{{{projectid}}}'
+            }
+        });
+        {{/storeurl}}
+
         var that = this;
         addEventListener('message', function (evt) {
             that.receiveListenEvents(evt, that);
@@ -200,6 +217,7 @@ class MachineLearningImagesTfjs {
             return;
         }
 
+        {{#storeurl}}
         var url = new URL('{{{ storeurl }}}');
 
         var options = {
@@ -234,6 +252,19 @@ class MachineLearningImagesTfjs {
                     }
                 }
             });
+        {{/storeurl}}
+        {{^storeurl}}
+        postMessage({
+            mlforkidsstorage : {
+                command : 'storeimage',
+                data : {
+                    projectid : '{{{projectid}}}',
+                    image : TEXT,
+                    label : LABEL
+                }
+            }
+        });
+        {{/storeurl}}
     }
 
 
@@ -259,6 +290,14 @@ class MachineLearningImagesTfjs {
 
                 // to avoid the user needing to do this, we'll
                 //  try to train a model automatically
+                that.trainNewModel();
+            }
+            else if (that && msg.data.mlforkidsimage === 'modelretrain')
+            {
+                console.log('model was retrained outside of Scratch');
+
+                // to keep the performance in Scratch at a similar
+                //  level, we'll try to train a model automatically
                 that.trainNewModel();
             }
             else if (that && msg.data.mlforkidsimage === 'classifyresponse')
@@ -337,7 +376,7 @@ class MachineLearningImagesTfjs {
     }
 
 
-
+    {{#storeurl}}
     trainNewModel () {
         if (this.training) {
             console.log('already training');
@@ -373,7 +412,6 @@ class MachineLearningImagesTfjs {
             });
     }
 
-
     _getTrainingImageData (metadata) {
         var that = this;
         return fetch(metadata.imageurl)
@@ -394,7 +432,6 @@ class MachineLearningImagesTfjs {
                 that.modelError = true;
             });
     }
-
 
     _getTrainingData() {
         var urlstr = '{{{ storeurl }}}?proxy=true';
@@ -424,8 +461,27 @@ class MachineLearningImagesTfjs {
                 }));
             });
     }
+    {{/storeurl}}
+    {{^storeurl}}
+    trainNewModel () {
+        if (this.training) {
+            console.log('already training');
+            return;
+        }
 
+        this.modelReady = false;
+        this.training = true;
 
+        postMessage({
+            mlforkidsimage : {
+                command : 'trainlocal',
+                data : {
+                    projectid : '{{{projectid}}}'
+                }
+            }
+        });
+    }
+    {{/storeurl}}
 
 }
 

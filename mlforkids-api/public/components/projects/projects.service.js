@@ -5,10 +5,11 @@
         .service('projectsService', projectsService);
 
     projectsService.$inject = [
-        '$q', '$http'
+        '$http', '$q',
+        'browserStorageService'
     ];
 
-    function projectsService($q, $http) {
+    function projectsService($http, $q, browserStorageService) {
 
         function getClassProjects(profile) {
             return $http.get('/api/classes/' + profile.tenant + '/projects')
@@ -18,17 +19,25 @@
         }
 
         function getProjects(profile) {
-            return $http.get('/api/classes/' + profile.tenant + '/students/' + profile.user_id + '/projects')
-                .then(function (resp) {
-                    return resp.data;
-                });
+            return $q.all({
+                cloud : $http.get('/api/classes/' + profile.tenant + '/students/' + profile.user_id + '/projects'),
+                local : browserStorageService.getProjects(profile.user_id)
+            })
+            .then(function (responses) {
+                return responses.cloud.data.concat(responses.local);
+            });
         }
 
         function getProject(projectid, userid, tenant) {
-            return $http.get('/api/classes/' + tenant + '/students/' + userid + '/projects/' + projectid)
-                .then(function (resp) {
-                    return resp.data;
-                });
+            if (browserStorageService.idIsLocal(projectid)) {
+                return browserStorageService.getProject(projectid);
+            }
+            else {
+                return $http.get('/api/classes/' + tenant + '/students/' + userid + '/projects/' + projectid)
+                    .then(function (resp) {
+                        return resp.data;
+                    });
+            }
         }
 
         function getFields(projectid, userid, tenant) {
@@ -38,47 +47,136 @@
                 });
         }
 
-        function getLabels(projectid, userid, tenant) {
-            return $http.get('/api/classes/' + tenant + '/students/' + userid + '/projects/' + projectid + '/labels')
+        function getLabels(project, userid, tenant) {
+            if (project.storage === 'local') {
+                return browserStorageService.getLabelCounts(project.id);
+            }
+            else {
+                return $http.get('/api/classes/' + tenant + '/students/' + userid + '/projects/' + project.id + '/labels')
+                    .then(function (resp) {
+                        return resp.data;
+                    });
+            }
+        }
+
+
+        function submitLocalProjectLabels(project, newlabels) {
+            return $http.put('/api/classes/' + project.classid + '/students/' + project.userid + '/localprojects/' + project.cloudid, { labels : newlabels })
                 .then(function (resp) {
-                    return resp.data;
+                    return resp.data.labels;
+                })
+                .catch(function (err) {
+                    if (err.status === 404) {
+                        // cloud reference for this project has expired - remove
+                        browserStorageService.addCloudRefToProject(project.id, null);
+                        delete project.cloudid;
+                    }
+                    return newlabels;
                 });
         }
 
-        function addLabelToProject(projectid, userid, tenant, newlabel) {
-            return $http.patch('/api/classes/' + tenant + '/students/' + userid + '/projects/' + projectid, [
-                    {
-                        op : 'add',
-                        path : '/labels',
-                        value : newlabel
-                    }
-                ])
-                .then(function (resp) {
-                    return resp.data;
-                });
+
+        function updateLocalProjectLabels(project, newlabels) {
+            if (project.type === 'text') {
+                // TEXT PROJECTS - labels are stored in the cloud to enable Scratch extensions
+
+                if (project.cloudid) {
+                    // PROJECT ALREADY STORED IN THE CLOUD
+                    //  update with new set of labels
+                    return submitLocalProjectLabels(project, newlabels);
+                }
+                else {
+                    // PROJECT NOT YET STORED IN CLOUD
+                    //  wait until we need to create a Scratch extension
+                    return Promise.resolve(newlabels);
+
+                    // project.labels = newlabels;
+                    // return createLocalProject(project, project.userid, project.classid)
+                    //     .then(function (storedproject) {
+                    //         return storedproject.labels;
+                    //     });
+                }
+            }
+            else {
+                return Promise.resolve(newlabels);
+            }
         }
 
-        function removeLabelFromProject(projectid, userid, tenant, label) {
-            return $http.patch('/api/classes/' + tenant + '/students/' + userid + '/projects/' + projectid, [
-                    {
-                        op : 'remove',
-                        path : '/labels',
-                        value : label
-                    }
-                ])
-                .then(function (resp) {
-                    return resp.data;
-                });
+
+        function addLabelToProject(project, userid, tenant, newlabel) {
+            if (project.storage === 'local') {
+                return browserStorageService.addLabel(project.id, newlabel)
+                    .then(function (newlabels) {
+                        return updateLocalProjectLabels(project, newlabels);
+                    });
+            }
+            else {
+                return $http.patch('/api/classes/' + tenant + '/students/' + userid + '/projects/' + project.id, [
+                        {
+                            op : 'add',
+                            path : '/labels',
+                            value : newlabel
+                        }
+                    ])
+                    .then(function (resp) {
+                        return resp.data;
+                    });
+            }
+        }
+
+        function removeLabelFromProject(project, userid, tenant, label) {
+            if (project.storage === 'local') {
+                return browserStorageService.deleteLabel(project.id, label)
+                    .then(function (newlabels) {
+                        return updateLocalProjectLabels(project, newlabels);
+                    });
+            }
+            else {
+                return $http.patch('/api/classes/' + tenant + '/students/' + userid + '/projects/' + project.id, [
+                        {
+                            op : 'remove',
+                            path : '/labels',
+                            value : label
+                        }
+                    ])
+                    .then(function (resp) {
+                        return resp.data;
+                    });
+            }
         }
 
         function deleteProject(project, userid, tenant) {
-            return $http.delete('/api/classes/' + tenant + '/students/' + userid + '/projects/' + project.id);
+            if (project.storage === 'local') {
+                if (project.cloudid) {
+                    $http.delete('/api/classes/' + tenant + '/students/' + userid + '/localprojects/' + project.cloudid);
+                }
+
+                return browserStorageService.deleteProject(project.id);
+            }
+            else {
+                return $http.delete('/api/classes/' + tenant + '/students/' + userid + '/projects/' + project.id);
+            }
         }
 
         function createProject(projectAttrs, userid, tenant) {
-            return $http.post('/api/classes/' + tenant + '/students/' + userid + '/projects', projectAttrs)
+            if (projectAttrs.storage === 'local') {
+                projectAttrs.userid = userid;
+                projectAttrs.classid = tenant;
+                return browserStorageService.addProject(projectAttrs);
+            }
+            else {
+                return $http.post('/api/classes/' + tenant + '/students/' + userid + '/projects', projectAttrs)
+                    .then(function (resp) {
+                        return resp.data;
+                    });
+            }
+        }
+
+        function createLocalProject(projectAttrs, userid, tenant) {
+            return $http.post('/api/classes/' + tenant + '/students/' + userid + '/localprojects', projectAttrs)
                 .then(function (resp) {
-                    return resp.data;
+                    const cloudref = resp.data;
+                    return browserStorageService.addCloudRefToProject(projectAttrs.id, cloudref.id);
                 });
         }
 
@@ -112,6 +210,61 @@
         }
 
 
+        function supportedMakes (project) {
+            if (project.type === 'text') {
+                return {
+                    scratch : true,
+                    appinventor : true,
+                    edublocks : true,
+                    python : true
+                };
+            }
+            else if (project.type === 'numbers') {
+                return {
+                    scratch : true,
+                    appinventor : true,
+                    edublocks : true,
+                    python : true
+                };
+            }
+            else if (project.type === 'sounds') {
+                return {
+                    scratch : true,
+
+                    appinventor : false,
+                    edublocks : false,
+                    python : false
+                };
+            }
+            else if (project.type === 'imgtfjs') {
+                if (project.storage === 'local') {
+                    return {
+                        scratch : true,
+                        appinventor : false,
+                        edublocks : false,
+                        python : false
+                    };
+                }
+                else {
+                    return {
+                        scratch : true,
+                        appinventor : true,
+                        edublocks : false,
+                        python : true
+                    };
+                }
+            }
+            else {
+                return {
+                    scratch : false,
+                    appinventor : false,
+                    edublocks : false,
+                    python : false
+                };
+            }
+        }
+
+
         return {
             getProject : getProject,
             getProjects : getProjects,
@@ -119,6 +272,7 @@
 
             deleteProject : deleteProject,
             createProject : createProject,
+            createLocalProject : createLocalProject,
 
             getFields : getFields,
             getLabels : getLabels,
@@ -128,7 +282,9 @@
 
             checkProjectCredentials : checkProjectCredentials,
 
-            shareProject : shareProject
+            shareProject : shareProject,
+
+            supportedMakes : supportedMakes
         };
     }
 })();

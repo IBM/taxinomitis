@@ -158,21 +158,22 @@
         authService.getProfileDeferred()
             .then(function (profile) {
                 vm.profile = profile;
+                return projectsService.getProject($scope.projectId, $scope.userId, vm.profile.tenant);
+            })
+            .then(function (project) {
+                $scope.project = project;
 
                 return $q.all({
-                    project : projectsService.getProject($scope.projectId, $scope.userId, vm.profile.tenant),
-                    labels : projectsService.getLabels($scope.projectId, $scope.userId, vm.profile.tenant),
-                    models : trainingService.getModels($scope.projectId, $scope.userId, vm.profile.tenant)
+                    labels : projectsService.getLabels($scope.project, $scope.userId, vm.profile.tenant),
+                    models : trainingService.getModels(project, $scope.userId, vm.profile.tenant)
                 });
             })
             .then(function (values) {
-                $scope.project = values.project;
-
                 $scope.owner = (vm.profile.user_id === $scope.project.userid);
 
                 $scope.projecturls.train = '/#!/mlproject/' + $scope.project.userid + '/' + $scope.project.id + '/training';
 
-                if (values.project.type === 'sounds') {
+                if ($scope.project.type === 'sounds') {
                     $scope.minimumExamples = 'eight';
                 }
                 $scope.models = values.models;
@@ -309,7 +310,7 @@
                 modelFnPromise = soundTrainingService.getModels();
             }
             else {
-                modelFnPromise = trainingService.getModels($scope.projectId, $scope.userId, vm.profile.tenant);
+                modelFnPromise = trainingService.getModels($scope.project, $scope.userId, vm.profile.tenant);
             }
             return modelFnPromise.then(function (models) {
                 loggerService.debug('[ml4kmodels] models info', models);
@@ -321,6 +322,24 @@
             });
         }
 
+
+        function trainTextProject (project) {
+            if (project.storage === 'local') {
+                if (project.cloudid) {
+                    return trainingService.newLocalProjectModel(project);
+                }
+                else {
+                    return projectsService.createLocalProject(project, $scope.userId, vm.profile.tenant)
+                        .then(function (cloudproject) {
+                            $scope.project = cloudproject;
+                            return trainingService.newLocalProjectModel(cloudproject);
+                        });
+                }
+            }
+            else {
+                return trainingService.newModel(project.id, $scope.userId, vm.profile.tenant);
+            }
+        }
 
 
         vm.createModel = function (ev, project) {
@@ -340,8 +359,11 @@
             else if ($scope.project.type === 'sounds') {
                 modelFnPromise = soundTrainingService.newModel(project.id, $scope.userId, vm.profile.tenant)
             }
-            else {
+            else if ($scope.project.type === 'numbers') {
                 modelFnPromise = trainingService.newModel($scope.projectId, $scope.userId, vm.profile.tenant);
+            }
+            else { // $scope.project.type === 'text'
+                modelFnPromise = trainTextProject(project);
             }
 
             modelFnPromise.then(function (newmodel) {
@@ -499,7 +521,7 @@
                     });
             }
             else {
-                testFnPromise = trainingService.testModel(project.id,
+                testFnPromise = trainingService.testModel(project,
                     $scope.userId, vm.profile.tenant,
                     $scope.models[0].classifierid, $scope.models[0].credentialsid,
                     testdata);
@@ -543,7 +565,7 @@
             }
             else {
                 var classifierid = model.classifierid;
-                modelFnPromise = trainingService.deleteModel(project.id, $scope.userId, vm.profile.tenant, classifierid);
+                modelFnPromise = trainingService.deleteModel(project, $scope.userId, vm.profile.tenant, classifierid);
             }
 
             modelFnPromise.then(function () {
@@ -830,7 +852,7 @@
                 }
                 soundTrainingService.reset();
             }
-            else if ($scope.project && $scope.project.type === 'imgtjfs'){
+            else if ($scope.project && $scope.project.type === 'imgtfjs'){
                 imageTrainingService.reset();
             }
         });

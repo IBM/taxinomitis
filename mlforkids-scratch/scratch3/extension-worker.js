@@ -808,6 +808,7 @@ var log = __webpack_require__(/*! ../util/log */ "./node_modules/scratch-vm/src/
 var mlforkidsSound = __webpack_require__(/*! ../mlforkids-components/sound */ "./node_modules/scratch-vm/src/mlforkids-components/sound/index.js");
 var mlforkidsImages = __webpack_require__(/*! ../mlforkids-components/images */ "./node_modules/scratch-vm/src/mlforkids-components/images/index.js");
 var mlforkidsTensorFlow = __webpack_require__(/*! ../mlforkids-components/tensorflow */ "./node_modules/scratch-vm/src/mlforkids-components/tensorflow/index.js");
+var mlforkidsStorage = __webpack_require__(/*! ../mlforkids-components/storage */ "./node_modules/scratch-vm/src/mlforkids-components/storage/index.js");
 
 /**
  * @typedef {object} DispatchCallMessage - a message to the dispatch system representing a service method call
@@ -1050,11 +1051,26 @@ var SharedDispatch = /*#__PURE__*/function () {
       } else if (message.mlforkidssound) {
         if (message.mlforkidssound.command === 'init') {
           if (!this.mlforkidsSoundSupport) {
-            this.mlforkidsSoundSupport = new mlforkidsSound();
+            this.mlforkidsSoundSupport = new mlforkidsSound(this.mlforkidsStorageSupport);
           }
           this.mlforkidsSoundSupport.init(message.mlforkidssound.data, worker);
+        } else if (message.mlforkidssound.command === 'initlocal') {
+          if (!this.mlforkidsSoundSupport) {
+            this.mlforkidsSoundSupport = new mlforkidsSound(this.mlforkidsStorageSupport);
+          }
+          return this.mlforkidsStorageSupport.getProject(message.mlforkidssound.data).then(function (projectinfo) {
+            projectinfo.projectid = message.mlforkidssound.data;
+            _this2.mlforkidsSoundSupport.init(projectinfo, worker);
+          }).catch(function (err) {
+            console.log('[mlforkids] failed to load project', err);
+            worker.postMessage({
+              mlforkidssound: 'modelfailed'
+            });
+          });
         } else if (message.mlforkidssound.command === 'train') {
           this.mlforkidsSoundSupport.trainNewModel(message.mlforkidssound.data, worker);
+        } else if (message.mlforkidssound.command === 'trainlocal') {
+          this.mlforkidsSoundSupport.trainNewModelLocal(message.mlforkidssound.data, worker);
         } else if (message.mlforkidssound.command === 'listen') {
           this.mlforkidsSoundSupport.startListening(worker);
         } else if (message.mlforkidssound.command === 'stoplisten') {
@@ -1063,15 +1079,66 @@ var SharedDispatch = /*#__PURE__*/function () {
       } else if (message.mlforkidsimage) {
         if (message.mlforkidsimage.command === 'init') {
           if (!this.mlforkidsImageSupport) {
-            this.mlforkidsImageSupport = new mlforkidsImages();
+            this.mlforkidsImageSupport = new mlforkidsImages(this.mlforkidsStorageSupport);
           }
           this.mlforkidsImageSupport.init().then(function () {
             _this2.mlforkidsImageSupport.initProject(message.mlforkidsimage.data, worker);
+          });
+        } else if (message.mlforkidsimage.command === 'initlocal') {
+          if (!this.mlforkidsImageSupport) {
+            this.mlforkidsImageSupport = new mlforkidsImages(this.mlforkidsStorageSupport);
+          }
+          this.mlforkidsImageSupport.init().then(function () {
+            return _this2.mlforkidsStorageSupport.getProject(message.mlforkidsimage.data);
+          }).then(function (projectinfo) {
+            projectinfo.projectid = message.mlforkidsimage.data;
+            _this2.mlforkidsImageSupport.initProject(projectinfo, worker);
+          }).catch(function (err) {
+            console.log('[mlforkids] failed to load project', err);
+            worker.postMessage({
+              mlforkidsimage: 'modelfailed',
+              data: {
+                projectid: message.mlforkidsimage.data
+              }
+            });
           });
         } else if (message.mlforkidsimage.command === 'classify') {
           this.mlforkidsImageSupport.classifyImageData(message.mlforkidsimage.data, worker);
         } else if (message.mlforkidsimage.command === 'train') {
           this.mlforkidsImageSupport.trainNewModel(message.mlforkidsimage.data, worker);
+        } else if (message.mlforkidsimage.command === 'trainlocal') {
+          this.mlforkidsImageSupport.trainNewModelLocal(message.mlforkidsimage.data, worker);
+        }
+      } else if (message.mlforkidsstorage) {
+        if (message.mlforkidsstorage.command === 'init') {
+          if (!this.mlforkidsStorageSupport) {
+            this.mlforkidsStorageSupport = new mlforkidsStorage();
+          }
+        } else if (message.mlforkidsstorage.command === 'storeimage') {
+          this.mlforkidsStorageSupport.storeBase64EncodedImage(message.mlforkidsstorage.data.projectid, message.mlforkidsstorage.data.label, message.mlforkidsstorage.data.image);
+        } else if (message.mlforkidsstorage.command === 'storetext') {
+          this.mlforkidsStorageSupport.addTrainingData(message.mlforkidsstorage.data.projectid, {
+            textdata: message.mlforkidsstorage.data.textdata,
+            label: message.mlforkidsstorage.data.label
+          });
+        } else if (message.mlforkidsstorage.command === 'textwatson') {
+          this.mlforkidsStorageSupport.getProject(message.mlforkidsstorage.data.projectid).then(function (projectinfo) {
+            return _this2.mlforkidsStorageSupport.getTrainingForWatsonAssistant(projectinfo);
+          }).then(function (training) {
+            worker.postMessage({
+              mlforkidsstorage: 'textwatson',
+              projectid: message.mlforkidsstorage.data.projectid,
+              data: training
+            });
+          });
+        } else if (message.mlforkidsstorage.command === 'trainingdata') {
+          this.mlforkidsStorageSupport.getTrainingData(message.mlforkidsstorage.data.projectid).then(function (training) {
+            worker.postMessage({
+              mlforkidsstorage: 'trainingdata',
+              projectid: message.mlforkidsstorage.data.projectid,
+              data: training
+            });
+          });
         }
       } else if (message.mlforkidstensorflow) {
         if (message.mlforkidstensorflow.command === 'init') {
@@ -1152,13 +1219,13 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 var SharedDispatch = __webpack_require__(/*! ./shared-dispatch */ "./node_modules/scratch-vm/src/dispatch/shared-dispatch.js");
 var log = __webpack_require__(/*! ../util/log */ "./node_modules/scratch-vm/src/util/log.js");
 
@@ -1171,11 +1238,10 @@ var log = __webpack_require__(/*! ../util/log */ "./node_modules/scratch-vm/src/
  */
 var WorkerDispatch = /*#__PURE__*/function (_SharedDispatch) {
   _inherits(WorkerDispatch, _SharedDispatch);
-  var _super = _createSuper(WorkerDispatch);
   function WorkerDispatch() {
     var _this;
     _classCallCheck(this, WorkerDispatch);
-    _this = _super.call(this);
+    _this = _callSuper(this, WorkerDispatch);
 
     /**
      * This promise will be resolved when we have successfully connected to central dispatch.
@@ -1449,10 +1515,11 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
   //   TRAINED - ML model ready for use
   //   ERROR - something went wrong
 
-  function ML4KidsImageTraining() {
+  function ML4KidsImageTraining(storageSupport) {
     _classCallCheck(this, ML4KidsImageTraining);
     this.PROJECTS = {};
     this.state = 'INIT';
+    this._storageSupport = storageSupport;
   }
 
   // safe to call this multiple times, including calling it before the first call has completed
@@ -1495,7 +1562,7 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
     value: function initProject(encprojectdata, worker) {
       var _this2 = this;
       console.log('[mlforkids] ML4KidsImageTraining init');
-      var projectData = JSON.parse(encprojectdata);
+      var projectData = typeof encprojectdata === 'string' ? JSON.parse(encprojectdata) : encprojectdata;
       var projectid = projectData.projectid;
       this.PROJECTS[projectid] = {};
       this.PROJECTS[projectid].state = 'INIT';
@@ -1523,7 +1590,7 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
             }
           });
         }
-        _this2._watchForNewModels(projectid);
+        _this2._watchForNewModels(projectid, worker);
       }).catch(function (err) {
         console.log('[mlforkids] ML4KidsImageTraining failed init', err);
         _this2.PROJECTS[projectid].state = 'ERROR';
@@ -1653,7 +1720,7 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
   }, {
     key: "_getModelDbLocation",
     value: function _getModelDbLocation(projectid) {
-      return 'indexeddb://ml4k-models-images-' + projectid.replaceAll('-', '');
+      return 'indexeddb://ml4k-models-images-' + projectid.toString().replaceAll('-', '');
     }
   }, {
     key: "_loadModel",
@@ -1691,33 +1758,71 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
     }
   }, {
     key: "_watchForNewModels",
-    value: function _watchForNewModels(projectid) {
-      var _this4 = this;
+    value: function _watchForNewModels(projectid, worker) {
       if (!this.PROJECTS[projectid].modelWatcher) {
         console.log('[mlforkids] ML4KidsImageTraining listening for model updates', projectid);
         this.PROJECTS[projectid].modelWatcher = true;
         var modellocation = this._getModelDbLocation(projectid);
-        window.addEventListener('storage', function (evt) {
-          if (evt.key === modellocation) {
-            console.log('[mlforkids] ML4KidsImageTraining new model is available');
-            return _this4._loadModel(projectid).then(function (updated) {
-              if (updated) {
-                _this4.PROJECTS[projectid].transferModel = updated;
-                _this4.PROJECTS[projectid].state = 'TRAINED';
-                _this4.PROJECTS[projectid].usingRestoredModel = true;
-                console.log('[mlforkids] ML4KidsImageTraining using updated model');
-              } else {
-                console.log('[mlforkids] ML4KidsImageTraining failed to load updated model, continuing with previous model');
-              }
-            });
-          }
+        this._storageSupport.registerForModelStorageUpdates(modellocation, function () {
+          console.log('[mlforkids] ML4KidsImageTraining new model was trained');
+          worker.postMessage({
+            mlforkidsimage: 'modelretrain',
+            data: {
+              projectid: projectid
+            }
+          });
         });
       }
     }
   }, {
+    key: "_getLocalImageData",
+    value: function _getLocalImageData(projectid, trainingdataid) {
+      var storedTrainingItem;
+      return this._storageSupport.getTrainingDataItem(projectid, trainingdataid).then(function (trainingitem) {
+        storedTrainingItem = trainingitem;
+        if (!storedTrainingItem.imagedata) {
+          var url = new URL('https://machinelearningforkids.co.uk/api/classes/' + tenant + '/students/' + userid + '/training/images');
+          url.search = new URLSearchParams({
+            imageurl: trainingitem.imageurl,
+            label: trainingitem.label,
+            option: 'prepare'
+          });
+          return fetch(url);
+        }
+      }).then(function (resp) {
+        if (storedTrainingItem.imagedata) {
+          return storedTrainingItem.imagedata;
+        }
+        return resp.arrayBuffer();
+      }).then(function (imgdata) {
+        return {
+          imgdata: imgdata,
+          metadata: storedTrainingItem
+        };
+      });
+    }
+  }, {
+    key: "trainNewModelLocal",
+    value: function trainNewModelLocal(projectinfo, worker) {
+      var projectid = projectinfo.projectid;
+      var that = this;
+      return this._storageSupport.getTrainingData(projectid).then(function (trainingitems) {
+        var data = {
+          projectid: projectid,
+          trainingdata: trainingitems.map(function (trainingitem) {
+            return {
+              metadata: trainingitem,
+              imgdata: trainingitem.imagedata
+            };
+          })
+        };
+        that.trainNewModel(data, worker);
+      });
+    }
+  }, {
     key: "trainNewModel",
     value: function trainNewModel(data, worker) {
-      var _this5 = this;
+      var _this4 = this;
       var projectid = data.projectid;
       if (this.state !== 'READY') {
         console.log('[mlforkids] ML4KidsImageTraining not ready to train a new ML model - state : ' + this.state);
@@ -1738,8 +1843,8 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
         var ys;
         var _loop = function _loop() {
             var trainingdataitem = trainingdata[i];
-            var labelIdx = _this5.PROJECTS[projectid].modelClasses.indexOf(trainingdataitem.metadata.label);
-            var xval = _this5.baseModel.predict(trainingdataitem.data);
+            var labelIdx = that.PROJECTS[projectid].modelClasses.indexOf(trainingdataitem.metadata.label);
+            var xval = that.baseModel.predict(trainingdataitem.data);
             var yval = tf.tidy(function () {
               return tf.oneHot(tf.tensor1d([labelIdx]).toInt(), that.PROJECTS[projectid].modelNumClasses);
             });
@@ -1764,7 +1869,7 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
         if (trainingdata.length > 55) {
           epochs = 15;
         }
-        _this5.PROJECTS[projectid].transferModel.fit(xs, ys, {
+        that.PROJECTS[projectid].transferModel.fit(xs, ys, {
           batchSize: 10,
           epochs: epochs,
           callbacks: {
@@ -1787,7 +1892,7 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
         });
       }).catch(function (err) {
         console.log('[mlforkids] ML4KidsImageTraining failed to train model', err);
-        _this5.PROJECTS[projectid].state = 'ERROR';
+        _this4.PROJECTS[projectid].state = 'ERROR';
         worker.postMessage({
           mlforkidsimage: 'modelfailed',
           data: {
@@ -1852,10 +1957,11 @@ var ML4KidsSoundTraining = /*#__PURE__*/function () {
   //   LISTENING - ML model being used
   //   ERROR - something went wrong
 
-  function ML4KidsSoundTraining() {
+  function ML4KidsSoundTraining(storageSupport) {
     _classCallCheck(this, ML4KidsSoundTraining);
     this.state = 'INIT';
     this.usingRestoredModel = false;
+    this._storageSupport = storageSupport;
   }
   _createClass(ML4KidsSoundTraining, [{
     key: "init",
@@ -1863,15 +1969,22 @@ var ML4KidsSoundTraining = /*#__PURE__*/function () {
       var _this = this;
       // TODO this will break if there are multiple sound extensions open in Scratch - use multi-project approach from image-support class
 
-      if (encprojectdata[0] === '{') {
-        // additional info for using indexeddb to store/load models
-        var projectData = JSON.parse(encprojectdata);
-        this.mlprojectid = projectData.projectid;
-        this.mlprojectlabels = projectData.labels;
-        this.mlprojectlabels.unshift('_background_noise_');
+      if (typeof encprojectdata === 'string') {
+        if (encprojectdata[0] === '{') {
+          // additional info for using indexeddb to store/load models
+          var projectData = JSON.parse(encprojectdata);
+          this.mlprojectid = projectData.projectid;
+          this.mlprojectlabels = projectData.labels;
+          this.mlprojectlabels.unshift('_background_noise_');
+        } else {
+          // project id only means new models can be created only
+          this.mlprojectid = encprojectdata;
+        }
       } else {
-        // project id only means new models can be created only
-        this.mlprojectid = encprojectdata;
+        // additional info for using indexeddb to store/load models
+        this.mlprojectid = encprojectdata.projectid;
+        this.mlprojectlabels = encprojectdata.labels;
+        this.mlprojectlabels.unshift('_background_noise_');
       }
       tf.enableProdMode();
       this.stopListening = this.stopListening.bind(this);
@@ -1887,7 +2000,7 @@ var ML4KidsSoundTraining = /*#__PURE__*/function () {
     key: "loadSpeechCommands",
     value: function loadSpeechCommands() {
       var scriptid = 'mlforkids-script-speechcommands';
-      var scripturl = 'https://machinelearningforkids.co.uk' + '/static/bower_components' + '/tensorflow-models/speech-commands-scratch' + '/speech-commands.min.js?v=116';
+      var scripturl = 'https://machinelearningforkids.co.uk' + '/static/bower_components' + '/tensorflow-models/speech-commands-scratch' + '/speech-commands.min.js?v=117';
       return new Promise(function (resolve, reject) {
         if (document.getElementById(scriptid)) {
           return resolve();
@@ -1928,7 +2041,7 @@ var ML4KidsSoundTraining = /*#__PURE__*/function () {
       var baseRecognizer = speechCommands.create('BROWSER_FFT', vocab, modelJson, metadataJson);
       return baseRecognizer.ensureModelLoaded().then(function () {
         console.log('[mlforkids] Creating transfer learning model');
-        _this2.transferRecognizer = baseRecognizer.createTransfer(_this2.mlprojectid);
+        _this2.transferRecognizer = baseRecognizer.createTransfer('project-' + _this2.mlprojectid);
         var modelInfo = _this2.transferRecognizer.modelInputShape();
         _this2.transferModelInfo = {
           numFrames: modelInfo[1],
@@ -1945,6 +2058,15 @@ var ML4KidsSoundTraining = /*#__PURE__*/function () {
             mlforkidssound: 'modelfailed'
           });
         }
+      });
+    }
+  }, {
+    key: "trainNewModelLocal",
+    value: function trainNewModelLocal(projectinfo, worker) {
+      var projectid = projectinfo.projectid;
+      var that = this;
+      return this._storageSupport.getTrainingData(projectid).then(function (data) {
+        return that.trainNewModel(data, worker);
       });
     }
   }, {
@@ -2052,7 +2174,7 @@ var ML4KidsSoundTraining = /*#__PURE__*/function () {
   }, {
     key: "_getModelDbLocation",
     value: function _getModelDbLocation(projectid) {
-      return 'indexeddb://ml4k-models-sounds-' + projectid.replaceAll('-', '');
+      return 'indexeddb://ml4k-models-sounds-' + projectid.toString().replaceAll('-', '');
     }
   }, {
     key: "_saveModel",
@@ -2130,6 +2252,164 @@ var ML4KidsSoundTraining = /*#__PURE__*/function () {
   return ML4KidsSoundTraining;
 }();
 module.exports = ML4KidsSoundTraining;
+
+/***/ }),
+
+/***/ "./node_modules/scratch-vm/src/mlforkids-components/storage/index.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/scratch-vm/src/mlforkids-components/storage/index.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+var ML4KidsLocalStorage = /*#__PURE__*/function () {
+  function ML4KidsLocalStorage() {
+    _classCallCheck(this, ML4KidsLocalStorage);
+    this.ml4kStorageIFrameHost = 'https://machinelearningforkids.co.uk';
+    this.ml4kStorageInflightRequests = {};
+    this.ml4kNextStorageRequestId = 1;
+    var _that = this;
+    window.addEventListener('message', function (event) {
+      if (event.origin !== _that.ml4kStorageIFrameHost) {
+        return;
+      }
+      var inflightRequest = _that.ml4kStorageInflightRequests[event.data.correlId];
+      if (inflightRequest) {
+        if (inflightRequest.callback) {
+          // callback function - can be called multiple times
+          inflightRequest.callback();
+        } else {
+          // persisted promise - called once only then deleted
+          if (event.data.output) {
+            inflightRequest.resolve(event.data.output);
+          } else {
+            inflightRequest.reject(event.data.err);
+          }
+          delete _that.ml4kStorageInflightRequests[event.data.correlId];
+        }
+      }
+    });
+  }
+  _createClass(ML4KidsLocalStorage, [{
+    key: "_submitMl4kStorageRequest",
+    value: function _submitMl4kStorageRequest(functionName, requestArgs) {
+      var correlId = this.ml4kNextStorageRequestId++;
+      var message = {
+        correlId: correlId,
+        fn: functionName,
+        args: requestArgs
+      };
+      var _that = this;
+      var inflightRequest = new Promise(function (resolve, reject) {
+        _that.ml4kStorageInflightRequests[correlId] = {
+          resolve: resolve,
+          reject: reject
+        };
+      });
+      document.getElementById('mlforkids-data-worker').contentWindow.postMessage(message, this.ml4kStorageIFrameHost);
+      return inflightRequest;
+    }
+  }, {
+    key: "getProjects",
+    value: function getProjects() {
+      return this._submitMl4kStorageRequest('getProjects', []);
+    }
+  }, {
+    key: "getProject",
+    value: function getProject(projectid) {
+      return this._submitMl4kStorageRequest('getProject', [projectid]);
+    }
+  }, {
+    key: "getTrainingData",
+    value: function getTrainingData(projectid) {
+      return this._submitMl4kStorageRequest('getTrainingData', [projectid]);
+    }
+  }, {
+    key: "addTrainingData",
+    value: function addTrainingData(projectid, trainingobject) {
+      return this._submitMl4kStorageRequest('addTrainingData', [projectid, trainingobject]);
+    }
+  }, {
+    key: "getTrainingForWatsonAssistant",
+    value: function getTrainingForWatsonAssistant(project) {
+      return this.getTrainingData(project.id).then(function (allTraining) {
+        var trainingByLabel = {};
+        var _iterator = _createForOfIteratorHelper(allTraining),
+          _step;
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var item = _step.value;
+            var label = item.label;
+            var text = item.textdata;
+            if (!(label in trainingByLabel)) {
+              trainingByLabel[label] = {
+                intent: label.replace(/\s/g, '_'),
+                examples: []
+              };
+            }
+            trainingByLabel[label].examples.push({
+              text: text
+            });
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
+        return {
+          name: project.name,
+          language: project.language ? project.language : 'en',
+          intents: Object.values(trainingByLabel),
+          dialog_nodes: [],
+          counterexamples: [],
+          entities: [],
+          metadata: {
+            createdby: 'machinelearningforkids'
+          }
+        };
+      });
+    }
+  }, {
+    key: "storeBase64EncodedImage",
+    value: function storeBase64EncodedImage(projectid, label, b64imgdata) {
+      var _that = this;
+      return fetch("data:image/jpeg;base64,".concat(b64imgdata)).then(function (converted) {
+        return converted.blob();
+      }).then(function (imagedata) {
+        _that.addTrainingData(projectid, {
+          imagedata: imagedata,
+          label: label,
+          isstored: true
+        });
+      });
+    }
+  }, {
+    key: "registerForModelStorageUpdates",
+    value: function registerForModelStorageUpdates(modelid, callback) {
+      var correlId = this.ml4kNextStorageRequestId++;
+      var message = {
+        correlId: correlId,
+        fn: 'registerForModelStorageUpdates',
+        args: [modelid]
+      };
+      this.ml4kStorageInflightRequests[correlId] = {
+        callback: callback
+      };
+      document.getElementById('mlforkids-data-worker').contentWindow.postMessage(message, this.ml4kStorageIFrameHost);
+    }
+  }]);
+  return ML4KidsLocalStorage;
+}();
+module.exports = ML4KidsLocalStorage;
 
 /***/ }),
 

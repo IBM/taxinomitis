@@ -14,6 +14,24 @@ class MachineLearningText {
         ];
 
         this._icon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4gwIFCspuPG7bgAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAAElUlEQVRIx62WW2xUVRSGv73PmTOdmZbS9AYtlEsGW8qlKlqjhhjEK6gxGhJBn3zQBB9QMcREjEaCjRofeBKNkHgJRX3AiNGIpAmKgSYNkIgIba20FAq9wXTazsw5c/byoS1Q2mnHwHrZOefstf6z/rXWv7cigy17fX9ubNjd46VNuZCdKaWwtBqqnpO/5sDbDw1OtsfO5Oz7xooNe8t2v3Lf/GhpLkYgYClCQRsRQaEQhOGUj28MCsWJ9su88UXToDFiZYprZ/5d8I2RqrIZVM/JB+DTX1vY3dDKQMLDGGFmxOG952p4tKYMgMFUGhHMVCzYWbLFhh2HcWxNY93jbN17grKZYTY+dhu1b/7M0eZe3lm3PKs40wJqrfjkl2YsrejoGeKZjw4RcmyOtfXT1NaHbwxfHmrj7mghhXnBmwdUQMPJi9Q9fwcdPUMcae7h4/2n2LR2MauWzqLrchm2VtT/cZZX1yyeFlBPt0GApRUzqdt3ki1fH6OyPJ+XH6mkbzDFSzuPUBstpK17kNqFhRiRW5PhpViS2mgRyysK+KGpk0tXEjxQXcrcwggtF+P8cylOUV4QlUUNs8qwIOwQG3LZtLaKo809hByLYMCiqjyfXQdb2dfYgW+ya75pAY0Rtm+4nd/PdLOroZXK8hnkhQLsPHCG8/3D3F9VzD2Liti+vgY3bW6e0jFbsaCQU+di1FQUYFuKlVUl9MZTXIwlyI84aKWQWzEWY7b12WX8eKyTbd/9CQiptCEvFODddcu5t7I42zCZAdNGo1D0D7n0xVMYEVZWlfDTWw/ijVIXsBWW0qQ8n17PEBtyQYGRzMnamWunyA0F5IUdh9FajevasVXGuuqqFAqOZWGmIFfFG9f9jVJVN/aPQgjZPkpN4iwu7+s6QtpDTTIMnmcm7XZfpNEGM5yz8DV0uCLjWIx7Tg+QPL0NY8ET8xZQEAxmcWxBXzJJfXPLsA2CzilFO8WIpEEplBW+jjxB/ASIjHyzZ4ysQEEwSHEoB4BEOo1SIz6O1mg1PnMjI4UdqaFycDv34PX+Bgih6m3oUMVoRoMkTm5G/BRWbpRgdPPEegvsPn2aVNonEgjw5Px5lEUiUwy+uDjzXkQ5BVi5UbyehmsHcew4yikBhJxFW8C4E4Mo2LhkCUaE9YuiGcFuUBoB4xIoWkW6++DVt+65egLFq8F4iPEyBvJGhTs9jYBPGAvlFKGcQtLdB1HhCsRPoMPzuVU2UUu1Q6BkNW7X97jnvyFQ8jDKDv/vwJ4xHO7qyka8DYFZT2ES7fj9jThz14Pxx099FmZEaI0NZKJUY5IXEONiEufQkSiB0jWIPwRo/EQ7gmCG29GhuZMC9CeTiMCVVAoFpHx/ihrqAF7nXiQdJ9XxFTqvmsDspxEvhnhXSJ39HKU07r87CS35cNJsPvvrFDmWxbctrVfFoiIvNwOgcQlGNzNBM3JmAxC5c9e1XvYGxinIyFgott61YgLl18ueugaoMMkLoLM8qdJxGFWNvmQyq3uMAnqTSTQoG2U3JZo/iCNZXhKUQlthjDHUN7cgIlm6KRWy7eP/AR5T4+fuc4K4AAAAAElFTkSuQmCC';
+
+        {{^storeurl}}
+        addEventListener('message', this.receiveListenEvents);
+
+        postMessage({
+            mlforkidsstorage : {
+                command : 'init'
+            }
+        });
+        postMessage({
+            mlforkidsstorage : {
+                command : 'trainingdata',
+                data : {
+                    projectid : '{{{projectid}}}'
+                }
+            }
+        });
+        {{/storeurl}}
     }
 
 
@@ -154,6 +172,7 @@ class MachineLearningText {
     addTraining({ TEXT, LABEL }) {
         var txt = cleanUpText(TEXT, 1024);
 
+        {{#storeurl}}
         var url = new URL('{{{ storeurl }}}');
 
         var options = {
@@ -189,6 +208,19 @@ class MachineLearningText {
                     }
                 }
             });
+        {{/storeurl}}
+        {{^storeurl}}
+        postMessage({
+            mlforkidsstorage : {
+                command : 'storetext',
+                data : {
+                    projectid : '{{{projectid}}}',
+                    textdata : txt,
+                    label : LABEL
+                }
+            }
+        });
+        {{/storeurl}}
     }
 
 
@@ -201,12 +233,24 @@ class MachineLearningText {
             return;
         }
 
+        {{#storeurl}}
         return trainNewClassifier()
             .then((responseJson) => {
                 if (responseJson) {
                     console.log(responseJson);
                 }
             });
+        {{/storeurl}}
+        {{^storeurl}}
+        postMessage({
+            mlforkidsstorage : {
+                command : 'textwatson',
+                data : {
+                    projectid : '{{{projectid}}}'
+                }
+            }
+        });
+        {{/storeurl}}
     }
 
 
@@ -224,11 +268,35 @@ class MachineLearningText {
                 }
             });
     }
+
+
+    {{^storeurl}}
+    receiveListenEvents (msg) {
+        if (msg && msg.data && msg.data.mlforkidsstorage && msg.data.projectid === '{{{projectid}}}')
+        {
+            if (msg.data.mlforkidsstorage === 'textwatson') {
+                console.log('received training data for training a model', msg.data.data);
+                trainNewClassifier(msg.data.data);
+            }
+            else if (msg.data.mlforkidsstorage === 'trainingdata') {
+                console.log('received training data for comparing with test data', msg.data.data);
+                const existingTrainingText = new Set();
+                if (msg.data.data) {
+                    for (var j = 0; j < msg.data.data.length; j++) {
+                        existingTrainingText.add(msg.data.data[j].textdata);
+                    }
+                }
+                trainingCache = existingTrainingText;
+            }
+        }
+    }
+    {{/storeurl}}
 }
 
 
 
 var trainingCache = new Set();
+{{#storeurl}}
 getTrainingDataItems()
     .then((t) => {
         trainingCache = t;
@@ -236,6 +304,7 @@ getTrainingDataItems()
     .catch((err) => {
         console.log('failed to get training data', err);
     });
+{{/storeurl}}
 
 
 
@@ -294,9 +363,9 @@ function lastModelTrainedRecently() {
 function nowAsString() {
     return new Date().toISOString();
 }
-// returns true if the provided timestamp is within the last 10 seconds
+// returns true if the provided timestamp is within the last 20 seconds
 function veryRecently(timestamp) {
-    return (timestamp + TEN_SECONDS) > Date.now();
+    return (timestamp + TWENTY_SECONDS) > Date.now();
 }
 
 
@@ -373,7 +442,7 @@ function getTextClassificationResponse(text, cacheKey, valueToReturn, callback) 
     // protect against kids putting the ML block inside a forever
     //  loop making too many requests too quickly
     // this throttling means we won't try and classify the same
-    //  string more than once every 10 seconds
+    //  string more than once every 20 seconds
     if (cached && cached.fetched && veryRecently(cached.fetched)) {
         return callback(cached[valueToReturn]);
     }
@@ -420,11 +489,12 @@ var trainingModel = false;
 
 
 // make an XHR request to train a new ML model
-function trainNewClassifier() {
+function trainNewClassifier({{^storeurl}}trainingdata{{/storeurl}}) {
     trainingModel = true;
     lastStatusCheck = Date.now();
     lastModelTrain = Date.now();
 
+    {{#storeurl}}
     var url = new URL('{{{ modelurl }}}');
     var options = {
         headers : {
@@ -434,6 +504,20 @@ function trainNewClassifier() {
         },
         method : 'POST'
     };
+    {{/storeurl}}
+    {{^storeurl}}
+    var url = new URL('{{{ trainurl }}}');
+    var options = {
+        headers : {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'X-User-Agent': 'mlforkids-scratch3-text'
+        },
+        method : 'POST',
+        body : JSON.stringify({ training : trainingdata })
+    };
+    {{/storeurl}}
+
 
     return fetch(url, options)
         .then((response) => {
@@ -584,7 +668,7 @@ function cleanUpText(str, maxlength) {
     }
 }
 
-
+{{#storeurl}}
 function getTrainingDataItems() {
     var url = new URL('{{{ storeurl }}}');
     var options = {
@@ -612,6 +696,8 @@ function getTrainingDataItems() {
             return existingTrainingText;
         });
 }
+{{/storeurl}}
+
 
 
 Scratch.extensions.register(new MachineLearningText());

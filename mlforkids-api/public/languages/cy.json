@@ -196,7 +196,9 @@
         "SHARE": "Rhannu",
         "UNSHARE": "Dad-rannu",
         "WHOLE_CLASS_TITLE": "Prosiect o ffynonellau torf",
-        "WHOLE_CLASS_NOTES": "Mae hwn yn brosiect dosbarth cyfan. Gall pob myfyriwr yn eich dosbarth ei ddefnyddio ac ychwanegu at y data hyfforddi."
+        "WHOLE_CLASS_NOTES": "Mae hwn yn brosiect dosbarth cyfan. Gall pob myfyriwr yn eich dosbarth ei ddefnyddio ac ychwanegu at y data hyfforddi.",
+        "CLOUD_STORAGE_TITLE": "Cloud project",
+        "CLOUD_STORAGE_NOTES": "Training data for this project is stored in the cloud. This project can be accessed from any computer."
     },
     "NEWPROJECT": {
         "TITLE": "Dechrau prosiect dysgu peiriant newydd",
@@ -208,6 +210,14 @@
             "TITLE": "Prosiect dosbarth cyfan?",
             "NOTES_1": "Ticiwch hwn os ydych chi am i'ch dosbarth cyfan allu gweithio ar y prosiect hwn gyda'ch gilydd.",
             "NOTES_2": "Mae hyn yn ddefnyddiol ar gyfer prosiectau sy'n dysgu cyrchu torf fel dull o hyfforddi prosiectau dysgu peiriant."
+        },
+        "STORAGE": {
+            "LABEL": "Storage",
+            "LOCAL": "In your web browser",
+            "CLOUD": "In the cloud",
+            "NOTES_1": "Where do you want to store this project?",
+            "NOTES_2": "Storing in your web browser removes limits on how big your project can be.",
+            "NOTES_3": "Storing in the cloud will let you access the project from any computer."
         },
         "TYPES": {
             "LABEL": "Cydnabod",
@@ -1752,26 +1762,28 @@
         },
         "PROJECTS": {
             "TITLE": "Project questions",
+
             "Q4": "Which machine learning models are trained on your computer, and which are trained in the cloud?",
-            "Q4-A-1": "<strong>text</strong> projects can only be trained in the cloud.",
-            "Q4-A-2": "<strong>numbers</strong> projects can only be trained in the cloud.",
-            "Q4-A-3": "<strong>sounds</strong> projects can only be trained on your computer.",
-            "Q4-A-4": "<strong>images</strong> projects can be trained on your computer, or (if you have access to Watson Visual Recognition) in the cloud."
+            "Q4-A-0": "You cannot choose where machine learning models are trained and stored. This is decided by Machine Learning for Kids based on the type of project.",
+            "Q4-A-1": "<strong>text</strong> projects are trained in the cloud.",
+            "Q4-A-2": "<strong>numbers</strong> projects are trained in the cloud.",
+            "Q4-A-3": "<strong>sounds</strong> projects are trained on your computer.",
+            "Q4-A-4": "<strong>images</strong> projects are trained on your computer.",
+
+            "Q5": "What difference does it make where a project is stored?",
+            "Q5-A-0": "You can choose where to store the training data for your machine learning project. You can store your training examples:",
+            "Q5-A-1": "on your own computer (<strong>in your web browser</strong>), or",
+            "Q5-A-2": "<strong>in the cloud</strong> (on the Machine Learning for Kids servers)",
+            "Q5-A-3": "A summary of the differences is shown below:",
+            "Q5-A-LIMITS": "How much a student can store",
+            "Q5-A-UNLIMITED": "Unlimited",
+            "Q5-A-LIMITED": "Limits apply",
+            "Q5-A-NUMBER_OF_PROJECTS": "Number of projects",
+            "Q5-A-TRAINING_DATA": "Amount of training data in a project",
+            "Q5-A-4": "(Numbers projects cannot be stored in your web browser. They only be stored in the cloud.)"
         },
         "SCRATCH": {
             "TITLE": "Problemau Scratch",
-            "Q1": "Nid wyf yn gwybod sut i gael Scratch 2 i weithio",
-            "Q1-A-1": "Mae angen Adobe Flash ar yr hen fersiwn o Scratch, Scratch 2, felly mae'n rhaid i chi fod yn defnyddio system weithredu a porwr gwe a all weithio gyda Flash.",
-            "Q1-A-2": "Os nad ydych yn siŵr sut i alluogi Flash, gallwch            <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-scratchx.pdf'>lawrlwytho dogfen gyda rhai awgrymiadau ar gyfer cael Scratch i weithio</a>. Neu gallwch ddefnyddio'r fersiwn newydd o Scratch, Scratch 3, yn lle.",
-            "Q2": "Nid yw'r dewislenni \"Llwytho Prosiect\" a \"Cadw Prosiect\" yn Scratch yn gweithio",
-            "Q2-A-1": "Os ydych chi'n defnyddio Safari ar macOS a nid yw'r dewislenni \"Ffeil -&gt; Llwytho Prosiect\" a \"Ffeil -&gt; Cadw Prosiect\" yn gweithio, efallai eich bod yn rhedeg yn Safe Mode.",
-            "Q2-A-2": "<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>Dilynwch y cyfarwyddiadau yma</a> am sut i wirio a thrwsio hyn.",
-            "Q3": "Stopiodd blociau dosbarthwyr dysgu peiriant yn Scratch 2 weithio",
-            "Q3-A-1": "Weithiau, gall y blociau Scratch ar gyfer eich model dysgu peiriant golli'r cysylltiad â'r gweinydd. Pan fydd hyn yn digwydd, byddant yn rhoi'r gorau i ddychwelyd canlyniadau.",
-            "Q3-A-2": "Gallwch wirio a yw hyn wedi digwydd gan ddefnyddio'r golau statws lliw yn y palet \"Mwy o flociau\".",
-            "Q3-A-3": "Os yw'r golau statws wrth ymyl eich peiriant yn dysgu blociau Scratch yn goch, mae hynny fel arfer yn golygu bod rhywbeth o'i le. Efallai ei bod yn broblem dros dro. Ceisiwch arbed eich prosiect (gan ddefnyddio 'Ffeil' -&gt; 'Cadw Prosiect'), yna adnewyddwch dudalen y porwr. Os yw'r golau statws yn mynd yn wyrdd ar ôl i'r dudalen ail-lwytho, gallwch chi lwytho'ch prosiect (gan ddefnyddio 'Ffeil' -&gt; 'Llwytho Prosiect') i barhau o le wnaethoch chi adael.",
-            "Q3-A-4": "Os yw'r golau statws yn dal yn goch ar ôl ail-lwytho'r dudalen, yna mae'n debyg bod rhywbeth o'i le ar y model dysgu peiriant. Ceisiwch fynd i'r dudalen \"Dysgu a Phrofi\" ar gyfer y prosiect, a dyna lle gellir dod o hyd i unrhyw negeseuon gwall am eich model.",
-            "Q3-A-5": "Os yw'r golau statws wrth ymyl eich peiriant yn dysgu blociau Scratch yn wyrdd, yna dylai'r blociau fod yn gweithio. Os nad ydych chi'n cael yr ymatebion rydych chi'n eu disgwyl ganddyn nhw, ceisiwch fynd i'r dudalen \"Dysgu a Phrofi\" a gwirio pa ganlyniadau y mae eich model yn eu dychwelyd.",
             "Q5": "A allaf ddefnyddio unrhyw fersiwn o Scratch?",
             "Q5-A-1": "Mae angen i chi ddefnyddio'r fersiynau o Scratch a ddarperir gan y wefan Machine Learning for Kids. Gellir eu lansio trwy glicio ar y botymau Scratch, neu 'Scratch 3', o'ch tudalen prosiect.",
             "Q6": "Nid yw Scratch 3 ond yn arbed prosiectau i'r ffolder 'Lawrlwytho'",
@@ -1889,7 +1901,6 @@
             "Q5-A-1": "Cam ym mhob prosiect dysgu peiriant y mae myfyrwyr yn ei wneud gan ddefnyddio'r wefan hon yw creu neu gasglu enghreifftiau hyfforddi. Ar gyfer prosiectau testun, gall hyn olygu teipio darnau testun byr. Ar gyfer prosiectau delwedd, gall hyn olygu tynnu lluniau ar gynfas ar y sgrin neu dynnu lluniau gan ddefnyddio'r we-gamera. Ar gyfer prosiectau rhifau, mae hyn yn golygu teipio setiau o rifau.",
             "Q5-A-2": "Mae'r holl enghreifftiau hyfforddi hyn yn cael eu storio mewn <a href='https://www.ibm.com/cloud/databases-for-postgresql'>cronfa data PostgreSQL ar IBM Cloud</a>, yn Dallas yn yr Unol Daleithiau. Fel gweinyddwr y gronfa ddata, mae gen i fynediad at yr holl enghreifftiau hyfforddi hyn ar gyfer pob prosiect myfyriwr, fodd bynnag, nid wyf yn ei ddefnyddio at unrhyw ddibenion eraill heblaw galluogi myfyrwyr i gyrchu a gweithio ar eu prosiectau eu hunain. Nid wyf yn cyhoeddi'r data hyfforddi (naill ai'n gyhoeddus nac i unigolion na thrydydd partïon) nac yn ei rannu fel arall, gyda'r ddau eithriad o'i gyflwyno i IBM Watson APIs a ddisgrifir isod.",
             "Q5-A-3": "Mae modelau dysgu peiriant ar gyfer prosiectau testun yn cael eu creu gan ddefnyddio'r gwasanaeth <a href='https://www.ibm.com/cloud/watson-assistant/'>IBM Watson Assistant</a> Cloud, sy'n golygu pan fydd myfyrwyr yn hyfforddi model, bydd copi o'r enghreifftiau hyfforddi y maent wedi'u nodi <a href='https://cloud.ibm.com/apidocs/assistant#create-workspace'>a gyflwynwyd i IBM Watson</a>. (Mae lleoliad y gwasanaeth cwmwl hwn yn rhywbeth y mae athrawon yn ei ddewis pryd <a href='https://machinelearningforkids.co.uk/apikeys-guide'>creu allweddi API</a>.) Nid yw IBM Watson yn defnyddio'r enghreifftiau hyfforddi hyn at unrhyw ddibenion eraill. Mae hyn oherwydd mae Dysgu Peiriant i Blant <a href='https://cloud.ibm.com/apidocs/assistant#data-collection'>yn gofyn am optio allan</a> ar gyfer enghreifftiau hyfforddi myfyrwyr sy'n cael eu defnyddio gan IBM i wella'r gwasanaeth, fel <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>y disgrifir yn nogfennaeth Watson</a>.",
-            "Q5-A-4": "Mae modelau dysgu peiriant ar gyfer prosiectau delweddau yn cael eu creu gan ddefnyddio'r gwasanaeth <a href='https://www.ibm.com/watson/services/visual-recognition/'>IBM Visual Recognition</a> cloud, sy'n golygu pan fydd myfyrwyr yn hyfforddi model, bydd copi o'u delweddau hyfforddi yn cael ei <a href='https://cloud.ibm.com/apidocs/visual-recognition#create-a-classifier'>uwchlwytho i IBM Watson</a>. (Mae lleoliad y gwasanaeth cwmwl hwn yn rhywbeth y mae athrawon yn ei ddewis wrth <a href='https://machinelearningforkids.co.uk/apikeys-guide'>creu allweddi API</a>.) Nid yw IBM Watson yn defnyddio'r enghreifftiau hyfforddi hyn at unrhyw ddibenion eraill. Mae hyn oherwydd mae Dysgu Peiriant i Blant yn <a href='https://cloud.ibm.com/apidocs/visual-recognition#data-collection'>yn gofyn am optio allan</a> ar gyfer enghreifftiau hyfforddi myfyrwyr sy'n cael eu defnyddio gan IBM i wella'r gwasanaeth, fel <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>y disgrifir yn nogfennaeth Watson</a>.",
             "Q5-A-5": "Mae IBM Watson yn darparu rhywfaint <a href='https://cloud.ibm.com/docs/services/assistant?topic=assistant-information-security#information-security-gdpr-wa'>o ganllawiau cyffredinol ar gyfer rhannu data hyfforddi â'u gwasanaethau</a>,sydd hefyd yn berthnasol i ddata hyfforddi a grëwyd ac a gasglwyd yn Dysgu Peiriant i Blant. Yn benodol, dylid cynghori myfyrwyr i beidio â chynnwys gwybodaeth bersonol adnabyddadwy yn yr enghreifftiau y maent yn eu casglu."
         }
     },

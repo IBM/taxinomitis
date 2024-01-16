@@ -7,6 +7,7 @@ import * as sinon from 'sinon';
 import * as express from 'express';
 
 import * as store from '../../lib/db/store';
+import * as objectstore from '../../lib/objectstore';
 import * as limits from '../../lib/db/limits';
 import * as auth from '../../lib/restapi/auth';
 import testapiserver from './testserver';
@@ -63,6 +64,7 @@ describe('REST API - sound training', () => {
         authStub = sinon.stub(auth, 'authenticate').callsFake(authNoOp);
 
         await store.init();
+        objectstore.init();
 
         testServer = testapiserver();
     });
