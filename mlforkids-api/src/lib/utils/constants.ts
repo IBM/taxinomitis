@@ -1,6 +1,5 @@
 
 export const ONE_YEAR = 31536000000;
-export const THREE_MONTHS = 7257600000;
 export const TWO_MONTHS = 4838400000;
 export const ONE_WEEK = 604800000;
 export const ONE_DAY_PLUS_A_BIT = 86820000;

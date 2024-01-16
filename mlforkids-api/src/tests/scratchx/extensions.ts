@@ -9,43 +9,6 @@ describe('Scratchx - status', () => {
 
     describe('text projects', () => {
 
-        // it('should create a text classify extension', async () => {
-        //     const key: Types.ScratchKey = {
-        //         id : uuid(),
-        //         name : 'TEST',
-        //         type : 'text',
-        //         projectid : uuid(),
-        //         classifierid : uuid(),
-        //         updated : new Date(),
-        //     };
-        //     const proj: Types.Project = {
-        //         id : uuid(),
-        //         type : 'text',
-        //         name : 'TEST',
-        //         language : 'en',
-        //         userid : uuid(),
-        //         classid : uuid(),
-        //         labels : [ 'LABEL NUMBER ONE', 'SECOND LABEL' ],
-        //         numfields : 0,
-        //         isCrowdSourced : false,
-        //     };
-
-        //     const extension = await extensions.getScratchxExtension(key, proj, 2);
-
-        //     assert(extension.indexOf('/api/scratch/' + key.id + '/status') > 0);
-        //     assert(extension.indexOf('/api/scratch/' + key.id + '/classify') > 0);
-        //     assert(extension.indexOf('ext.return_label_0 = function () {') > 0);
-        //     assert(extension.indexOf('ext.return_label_1 = function () {') > 0);
-        //     assert(extension.indexOf('ext.return_label_2 = function () {') === -1);
-        //     assert(extension.indexOf('[ \'r\', \'LABEL NUMBER ONE\', \'return_label_0\'],') > 0);
-        //     assert(extension.indexOf('[ \'r\', \'SECOND LABEL\', \'return_label_1\'],') > 0);
-        //     assert(extension.indexOf(
-        //         '[ \'R\', \'recognise text %s (label)\', \'text_classification_label\', \'text\' ]') > 0);
-        //     assert(extension.indexOf(
-        //         '[ \'R\', \'recognise text %s (confidence)\', \'text_classification_confidence\', \'text\' ]') > 0);
-        // });
-
-
         it('should create a text classify extension for Scratch 3', async () => {
             const key: Types.ScratchKey = {
                 id : uuid(),
@@ -78,46 +41,6 @@ describe('Scratchx - status', () => {
         });
 
 
-        // it('should handle apostrophes in project names', async () => {
-        //     const key: Types.ScratchKey = {
-        //         id : uuid(),
-        //         name : "This is Dale's test",
-        //         type : 'text',
-        //         projectid : uuid(),
-        //         classifierid : uuid(),
-        //         updated : new Date(),
-        //     };
-        //     const proj: Types.Project = {
-        //         id : uuid(),
-        //         type : 'text',
-        //         name : "This is Dale's test",
-        //         language : 'en',
-        //         userid : uuid(),
-        //         classid : uuid(),
-        //         labels : [ 'LABEL NUMBER ONE', 'SECOND LABEL', 'THIRD' ],
-        //         numfields : 0,
-        //         isCrowdSourced : false,
-        //     };
-
-        //     const extension = await extensions.getScratchxExtension(key, proj, 2);
-
-        //     assert(extension.indexOf('/api/scratch/' + key.id + '/status') > 0);
-        //     assert(extension.indexOf('/api/scratch/' + key.id + '/classify') > 0);
-        //     assert(extension.indexOf('ext.return_label_0 = function () {') > 0);
-        //     assert(extension.indexOf('ext.return_label_1 = function () {') > 0);
-        //     assert(extension.indexOf('ext.return_label_2 = function () {') > 0);
-        //     assert(extension.indexOf('ext.return_label_3 = function () {') === -1);
-        //     assert(extension.indexOf('[ \'r\', \'LABEL NUMBER ONE\', \'return_label_0\'],') > 0);
-        //     assert(extension.indexOf('[ \'r\', \'SECOND LABEL\', \'return_label_1\'],') > 0);
-        //     assert(extension.indexOf('[ \'r\', \'THIRD\', \'return_label_2\'],') > 0);
-        //     assert(extension.indexOf(
-        //         '[ \'R\', \'recognise text %s (label)\', \'text_classification_label\', \'text\' ]') > 0);
-        //     assert(extension.indexOf(
-        //         '[ \'R\', \'recognise text %s (confidence)\', \'text_classification_confidence\', \'text\' ]') > 0);
-
-        //     assert(extension.indexOf("ScratchExtensions.register('This is Dale\\'s test', descriptor, ext)") > 0);
-        // });
-
         it('should handle apostrophes in project names for Scratch 3', async () => {
             const key: Types.ScratchKey = {
                 id : uuid(),
@@ -147,110 +70,65 @@ describe('Scratchx - status', () => {
 
     describe('numbers projects', () => {
 
-        // it('should create a numbers classify extension', async () => {
-        //     const key: Types.ScratchKey = {
-        //         id : uuid(),
-        //         name : 'TEST',
-        //         type : 'numbers',
-        //         projectid : uuid(),
-        //         classifierid : uuid(),
-        //         updated : new Date(),
-        //     };
-        //     const proj: Types.Project = {
-        //         id : uuid(),
-        //         type : 'numbers',
-        //         name : 'TEST',
-        //         userid : uuid(),
-        //         classid : uuid(),
-        //         language : 'en',
-        //         labels : [ 'left', 'middle', 'right' ],
-        //         numfields : 6,
-        //         fields : [
-        //             { name : 'alpha', type : 'number' }, { name : 'beta', type : 'number' },
-        //             { name : 'gamma', type : 'number' }, { name : 'delta', type : 'number' },
-        //             { name : 'omega', type : 'multichoice', choices : [ 'AAAA', 'BBBB', 'CCCC' ] },
-        //             { name : 'dupey', type : 'multichoice', choices : [ 'new', 'BBBB', 'hiding' ] },
-        //         ],
-        //         isCrowdSourced : false,
-        //     };
+        it('should create a numbers classify extension', async () => {
+            const key: Types.ScratchKey = {
+                id : uuid(),
+                name : 'TEST',
+                type : 'numbers',
+                projectid : uuid(),
+                classifierid : uuid(),
+                updated : new Date(),
+            };
+            const proj: Types.Project = {
+                id : uuid(),
+                type : 'numbers',
+                name : 'TEST',
+                userid : uuid(),
+                classid : uuid(),
+                language : 'en',
+                labels : [ 'left', 'middle', 'right' ],
+                numfields : 6,
+                fields : [
+                    { name : 'alpha', type : 'number' }, { name : 'beta', type : 'number' },
+                    { name : 'gamma', type : 'number' }, { name : 'delta', type : 'number' },
+                    { name : 'omega', type : 'multichoice', choices : [ 'AAAA', 'BBBB', 'CCCC' ] },
+                    { name : 'dupey', type : 'multichoice', choices : [ 'new', 'BBBB', 'hiding' ] },
+                ],
+                isCrowdSourced : false,
+            };
 
-        //     const extension = await extensions.getScratchxExtension(key, proj, 2);
+            const extension = await extensions.getScratchxExtension(key, proj);
 
-        //     assert(extension.indexOf('/api/scratch/' + key.id + '/status') > 0);
-        //     assert(extension.indexOf('/api/scratch/' + key.id + '/classify') > 0);
-
-        //     assert(extension.indexOf('ext.return_label_0 = function () {') > 0);
-        //     assert(extension.indexOf('ext.return_label_1 = function () {') > 0);
-        //     assert(extension.indexOf('ext.return_label_2 = function () {') > 0);
-        //     assert(extension.indexOf('ext.return_label_3 = function () {') === -1);
-        //     assert(extension.indexOf('[ \'r\', \'left\', \'return_label_0\'],') > 0);
-        //     assert(extension.indexOf('[ \'r\', \'middle\', \'return_label_1\'],') > 0);
-        //     assert(extension.indexOf('[ \'r\', \'right\', \'return_label_2\'],') > 0);
-
-        //     assert(extension.indexOf('ext.return_choice_0 = function () {') > 0);
-        //     assert(extension.indexOf('ext.return_choice_1 = function () {') > 0);
-        //     assert(extension.indexOf('ext.return_choice_2 = function () {') > 0);
-        //     assert(extension.indexOf('ext.return_choice_3 = function () {') > 0);
-        //     assert(extension.indexOf('ext.return_choice_4 = function () {') > 0);
-        //     assert(extension.indexOf('ext.return_choice_5 = function () {') === -1);
-        //     assert(extension.indexOf('[ \'r\', \'AAAA\', \'return_choice_0\'],') > 0);
-        //     assert(extension.indexOf('[ \'r\', \'BBBB\', \'return_choice_1\'],') > 0);
-        //     assert(extension.indexOf('[ \'r\', \'CCCC\', \'return_choice_2\'],') > 0);
-        //     assert(extension.indexOf('[ \'r\', \'new\', \'return_choice_3\'],') > 0);
-        //     assert(extension.indexOf('[ \'r\', \'hiding\', \'return_choice_4\'],') > 0);
-
-        //     assert(extension.indexOf(
-        //         '[ \'R\', ' +
-        //         '\'recognise numbers alpha %n beta %n gamma %n delta %n omega %s dupey %s  (label)\', ' +
-        //         '\'numbers_classification_label\' ]') > 0);
-        //     assert(extension.indexOf(
-        //         '[ \'R\', ' +
-        //         '\'recognise numbers alpha %n beta %n gamma %n delta %n omega %s dupey %s  (confidence)\', ' +
-        //         '\'numbers_classification_confidence\' ]') > 0);
-        // });
+            assert(extension.indexOf('/api/scratch/' + key.id + '/models') > 0);
+            assert(extension.indexOf('/api/scratch/' + key.id + '/classify') > 0);
+            assert(extension.indexOf('opcode: \'return_label_0\'') > 0);
+            assert(extension.indexOf('opcode: \'return_label_1\'') > 0);
+            assert(extension.indexOf('opcode: \'return_label_2\'') > 0);
+            assert(extension.indexOf('opcode: \'return_label_3\'') === -1);
+            assert(extension.indexOf('return \'left\';') > 0);
+            assert(extension.indexOf('return \'middle\';') > 0);
+            assert(extension.indexOf('return \'right\';') > 0);
+            assert(extension.indexOf('return_choice_0 () {') > 0);
+            assert(extension.indexOf('return_choice_1 () {') > 0);
+            assert(extension.indexOf('return_choice_2 () {') > 0);
+            assert(extension.indexOf('return_choice_3 () {') > 0);
+            assert(extension.indexOf('return_choice_4 () {') > 0);
+            assert(extension.indexOf('return_choice_5 () {') === -1);
+            assert(extension.indexOf('return \'AAAA\';') > 0);
+            assert(extension.indexOf('return \'BBBB\';') > 0);
+            assert(extension.indexOf('return \'CCCC\';') > 0);
+            assert(extension.indexOf('return \'new\';') > 0);
+            assert(extension.indexOf('return \'hiding\';') > 0);
+            assert(extension.includes('recognise numbers  alpha[FIELD0]  beta[FIELD1]  gamma[FIELD2]  delta[FIELD3]  omega[FIELD4]  dupey[FIELD5]  (label)'));
+            assert(extension.includes('recognise numbers  alpha[FIELD0]  beta[FIELD1]  gamma[FIELD2]  delta[FIELD3]  omega[FIELD4]  dupey[FIELD5]  (confidence)'));
+            assert(extension.includes('add training data  alpha[FIELD0]  beta[FIELD1]  gamma[FIELD2]  delta[FIELD3]  omega[FIELD4]  dupey[FIELD5]  is [LABEL]'));
+        });
     });
 
 
 
 
     describe('images projects', () => {
-
-        // it('should create a images classify extension', async () => {
-        //     const key: Types.ScratchKey = {
-        //         id : uuid(),
-        //         name : 'TEST',
-        //         type : 'images',
-        //         projectid : uuid(),
-        //         classifierid : uuid(),
-        //         updated : new Date(),
-        //     };
-        //     const proj: Types.Project = {
-        //         id : uuid(),
-        //         type : 'images',
-        //         name : 'TEST',
-        //         language : 'en',
-        //         userid : uuid(),
-        //         classid : uuid(),
-        //         labels : [ 'LABEL NUMBER ONE', 'SECOND LABEL', 'THIRD LABEL' ],
-        //         numfields : 0,
-        //         isCrowdSourced : false,
-        //     };
-
-        //     const extension = await extensions.getScratchxExtension(key, proj, 2);
-
-        //     assert(extension.indexOf('/api/scratch/' + key.id + '/status') > 0);
-        //     assert(extension.indexOf('/api/scratch/' + key.id + '/classify') > 0);
-        //     assert(extension.indexOf('ext.return_label_0 = function () {') > 0);
-        //     assert(extension.indexOf('ext.return_label_1 = function () {') > 0);
-        //     assert(extension.indexOf('ext.return_label_2 = function () {') > 0);
-        //     assert(extension.indexOf('ext.return_label_3 = function () {') === -1);
-        //     assert(extension.indexOf('[ \'r\', \'LABEL NUMBER ONE\', \'return_label_0\'],') > 0);
-        //     assert(extension.indexOf('[ \'r\', \'SECOND LABEL\', \'return_label_1\'],') > 0);
-        //     assert(extension.indexOf('[ \'r\', \'THIRD LABEL\', \'return_label_2\'],') > 0);
-        //     assert(extension.indexOf(
-        //         '[ \'R\', \'recognise image %s (label)\', \'image_classification_label\', \'image\' ]') > 0);
-        // });
-
 
         it('should create a imgtfjs classify extension', async () => {
             const key: Types.ScratchKey = {

@@ -115,6 +115,7 @@ export async function createLocalKey(localprojectid: string): Promise<ScratchTyp
     switch (project.type) {
     case 'text':
         return createTextKey(project);
+    // future-proofing - not using this yet
     case 'numbers':
         return createNumbersKey(project);
     default:
