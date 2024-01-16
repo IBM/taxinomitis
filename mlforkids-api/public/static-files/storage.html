@@ -14,14 +14,6 @@
         //  common functions
         //-----------------------------------------------------------
 
-        // cloud projects use uuid IDs
-        // local projects use (auto-incrementing) integer IDs
-        function idIsLocal(id) {
-            return parseInt(id, 10).toString() === id.toString();
-        }
-
-
-
         function promisifyIndexedDbRequest (request) {
             return new Promise(function (resolve, reject) {
                 request.onsuccess = resolve;
@@ -248,7 +240,6 @@
         //-----------------------------------------------------------
 
         const mlforkidsDataFunctions = {
-            idIsLocal,
             getProject,
             getTrainingData,
             getTrainingDataItem,
