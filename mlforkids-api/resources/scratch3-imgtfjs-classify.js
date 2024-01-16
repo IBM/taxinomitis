@@ -18,13 +18,11 @@ class MachineLearningImagesTfjs {
         this.modelReady = false;
         this.modelError = false;
 
-        {{^storeurl}}
         postMessage({
             mlforkidsstorage : {
                 command : 'init'
             }
         });
-        {{/storeurl}}
 
 
         {{#storeurl}}

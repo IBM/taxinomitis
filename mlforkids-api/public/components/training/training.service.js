@@ -138,6 +138,13 @@
         function getModels(project, userid, tenant) {
             var url;
             if (project.storage === 'local') {
+                if (project.type !== 'text') {
+                    return Promise.resolve([]);
+                }
+                else if (!project.cloudid) {
+                    return Promise.resolve([]);
+                }
+
                 url = '/api/classes/' + tenant +
                         '/students/' + userid +
                         '/localprojects/' + project.cloudid +
@@ -150,16 +157,25 @@
                         '/models';
             }
 
-            return $http.get(url).then(function (resp) {
-                var models = resp.data;
-                if (models) {
-                    var now = new Date();
-                    for (var i = 0; i < models.length; i++) {
-                        models[i].lastPollTime = now;
+            return $http.get(url)
+                .then(function (resp) {
+                    var models = resp.data;
+                    if (models) {
+                        var now = new Date();
+                        for (var i = 0; i < models.length; i++) {
+                            models[i].lastPollTime = now;
+                        }
                     }
-                }
-                return models;
-            });
+                    return models;
+                })
+                .catch(function (err) {
+                    if (project.storage === 'local' && project.type === 'text') {
+                        // cloud reference for this project has expired - remove
+                        browserStorageService.addCloudRefToProject(project.id, null);
+                        return [];
+                    }
+                    throw err;
+                });
         }
 
         function getModel(projectid, userid, tenant, modelid, timestamp) {

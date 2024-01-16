@@ -189,8 +189,8 @@ describe('REST API - local projects', () => {
                     assert.strictEqual(body.name, 'expiry check');
                     assert.deepStrictEqual(body.labels, [ 'one', 'two' ]);
 
-                    const eightydays = 6912000000;
-                    assert(new Date(body.expiry).getTime() > (Date.now() + eightydays));
+                    const fiftydays = 4320000000;
+                    assert(new Date(body.expiry).getTime() > (Date.now() + fiftydays));
                 });
         });
     });

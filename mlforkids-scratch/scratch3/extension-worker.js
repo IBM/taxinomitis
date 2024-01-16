@@ -1061,6 +1061,11 @@ var SharedDispatch = /*#__PURE__*/function () {
           return this.mlforkidsStorageSupport.getProject(message.mlforkidssound.data).then(function (projectinfo) {
             projectinfo.projectid = message.mlforkidssound.data;
             _this2.mlforkidsSoundSupport.init(projectinfo, worker);
+          }).catch(function (err) {
+            console.log('[mlforkids] failed to load project', err);
+            worker.postMessage({
+              mlforkidssound: 'modelfailed'
+            });
           });
         } else if (message.mlforkidssound.command === 'train') {
           this.mlforkidsSoundSupport.trainNewModel(message.mlforkidssound.data, worker);
@@ -1088,6 +1093,14 @@ var SharedDispatch = /*#__PURE__*/function () {
           }).then(function (projectinfo) {
             projectinfo.projectid = message.mlforkidsimage.data;
             _this2.mlforkidsImageSupport.initProject(projectinfo, worker);
+          }).catch(function (err) {
+            console.log('[mlforkids] failed to load project', err);
+            worker.postMessage({
+              mlforkidsimage: 'modelfailed',
+              data: {
+                projectid: message.mlforkidsimage.data
+              }
+            });
           });
         } else if (message.mlforkidsimage.command === 'classify') {
           this.mlforkidsImageSupport.classifyImageData(message.mlforkidsimage.data, worker);

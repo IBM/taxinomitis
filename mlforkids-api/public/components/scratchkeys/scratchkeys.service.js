@@ -6,10 +6,11 @@
 
     scratchkeysService.$inject = [
         '$http',
-        'projectsService'
+        'projectsService',
+        'browserStorageService'
     ];
 
-    function scratchkeysService($http, projectsService) {
+    function scratchkeysService($http, projectsService, browserStorageService) {
 
         function get(project, userid, tenant) {
             var url;
@@ -28,6 +29,13 @@
             return $http.get(url)
                 .then(function (resp) {
                     return resp.data;
+                })
+                .catch(function (err) {
+                    if (project.storage === 'local' && project.type === 'text') {
+                        // cloud reference for this project has expired - remove
+                        browserStorageService.addCloudRefToProject(project.id, null);
+                    }
+                    throw err;
                 });
         }
 
