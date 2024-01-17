@@ -298,7 +298,7 @@
             .useSanitizeValueStrategy('sanitizeParameters')
             .useStaticFilesLoader({
                 prefix: 'static/languages/',
-                suffix: '.json?v=119'
+                suffix: '.json?v=120'
             })
             .determinePreferredLanguage(function () {
                 var lang = navigator.userLanguage || navigator.language;

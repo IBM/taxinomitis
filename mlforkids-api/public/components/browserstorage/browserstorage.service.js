@@ -30,11 +30,12 @@
         //  check if indexedDB is working
         //-----------------------------------------------------------
         loggerService.debug('[ml4kstorage] verifying browser storage');
+        const CHECK_ID = 'mlforkids-check-' + Date.now();
         try {
-            window.indexedDB.open('mlforkids', 1).onupgradeneeded = function(evt) {
+            window.indexedDB.open(CHECK_ID, 1).onupgradeneeded = function(evt) {
                 const db = evt.target.result;
-                const objectStore = db.createObjectStore('mlforkids', { autoIncrement: true });
                 try {
+                    const objectStore = db.createObjectStore('mlforkids', { autoIncrement: true });
                     objectStore.put(new Blob());
                     supported = SUPPORTED_OK;
                     loggerService.debug('[ml4kstorage] browser storage verified');
@@ -45,7 +46,7 @@
                 }
                 finally {
                     db.close();
-                    window.indexedDB.deleteDatabase('mlforkids');
+                    window.indexedDB.deleteDatabase(CHECK_ID);
                 }
             };
         }
