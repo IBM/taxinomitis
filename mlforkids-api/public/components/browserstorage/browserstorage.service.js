@@ -30,23 +30,29 @@
         //  check if indexedDB is working
         //-----------------------------------------------------------
         loggerService.debug('[ml4kstorage] verifying browser storage');
-        window.indexedDB.open('mlforkids', 1).onupgradeneeded = function(evt) {
-            const db = evt.target.result;
-            const objectStore = db.createObjectStore('mlforkids', { autoIncrement: true });
-            try {
-                objectStore.put(new Blob());
-                supported = SUPPORTED_OK;
-                loggerService.debug('[ml4kstorage] browser storage verified');
-            }
-            catch (error) {
-                loggerService.error('[ml4kstorage] IndexedDB not supported', error);
-                supported = SUPPORTED_NO;
-            }
-            finally {
-                db.close();
-                window.indexedDB.deleteDatabase('mlforkids');
-            }
-        };
+        try {
+            window.indexedDB.open('mlforkids', 1).onupgradeneeded = function(evt) {
+                const db = evt.target.result;
+                const objectStore = db.createObjectStore('mlforkids', { autoIncrement: true });
+                try {
+                    objectStore.put(new Blob());
+                    supported = SUPPORTED_OK;
+                    loggerService.debug('[ml4kstorage] browser storage verified');
+                }
+                catch (error) {
+                    loggerService.error('[ml4kstorage] IndexedDB not supported', error);
+                    supported = SUPPORTED_NO;
+                }
+                finally {
+                    db.close();
+                    window.indexedDB.deleteDatabase('mlforkids');
+                }
+            };
+        }
+        catch (err) {
+            loggerService.error('[ml4kstorage] unable to verify browser storage', err);
+            supported = SUPPORTED_NO;
+        }
         function isSupported() {
             if (supported === SUPPORTED_UNKNOWN) {
                 // race condition if refreshing the New Projects wizard - can
