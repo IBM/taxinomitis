@@ -169,7 +169,13 @@
         async function deleteSessionUserProjects() {
             loggerService.debug('[ml4kstorage] deleteSessionUserProjects');
 
-            await requiresProjectsDatabase();
+            try {
+                await requiresProjectsDatabase();
+            }
+            catch (err) {
+                loggerService.error('[ml4kstorage] unable to get projects database. exiting.', err);
+                return;
+            }
 
             const projectTransaction = projectsDbHandle.transaction([ PROJECTS_TABLE ], 'readwrite');
             const projectsTable = projectTransaction.objectStore(PROJECTS_TABLE);
@@ -199,7 +205,13 @@
                 return Promise.resolve([]);
             }
 
-            await requiresProjectsDatabase();
+            try {
+                await requiresProjectsDatabase();
+            }
+            catch (err) {
+                loggerService.error('[ml4kstorage] unable to get projects database.', err);
+                return [];
+            }
 
             const transaction = projectsDbHandle.transaction([ PROJECTS_TABLE ], 'readonly');
             const request = transaction.objectStore(PROJECTS_TABLE).getAll();
