@@ -45,8 +45,15 @@
                     supported = SUPPORTED_NO;
                 }
                 finally {
-                    db.close();
-                    window.indexedDB.deleteDatabase(CHECK_ID);
+                    try {
+                        if (db) {
+                            db.close();
+                        }
+                        window.indexedDB.deleteDatabase(CHECK_ID);
+                    }
+                    catch (cleanuperr) {
+                        loggerService.error('[ml4kstorage] failed to clean up storage verification assets', cleanuperr);
+                    }
                 }
             };
         }
