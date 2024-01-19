@@ -357,7 +357,7 @@
                     }
 
                     if ($scope.project.storage === 'local') {
-                        $scope.$apply();
+                        attemptRefresh();
                     }
 
                     scrollToNewItem(newitem.id);
@@ -375,6 +375,17 @@
                     }
                 });
         };
+
+
+
+        function attemptRefresh() {
+            try {
+                $scope.$apply();
+            }
+            catch (refreshErr) {
+                loggerService.debug('[ml4ktraining] unable to refresh', refreshErr);
+            }
+        }
 
 
         function errorSuggestsProjectDeleted(err) {
@@ -431,7 +442,7 @@
 
                             // refresh view
                             if ($scope.project.storage === 'local') {
-                                $scope.$apply();
+                                attemptRefresh();
                             }
                         })
                         .catch(function (err) {
@@ -602,7 +613,7 @@
                             URL.revokeObjectURL(placeholder.imageurl);
 
                             if ($scope.project.storage === 'local') {
-                                $scope.$apply();
+                                attemptRefresh();
                             }
 
                             scrollToNewItem(newitem.id);
@@ -682,7 +693,7 @@
                             URL.revokeObjectURL(placeholder.imageurl);
 
                             if ($scope.project.storage === 'local') {
-                                $scope.$apply();
+                                attemptRefresh();
                             }
 
                             scrollToNewItem(newitem.id);
