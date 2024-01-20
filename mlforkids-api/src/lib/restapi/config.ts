@@ -82,7 +82,7 @@ export const CSP_DIRECTIVES = {
     ],
     connectSrc: ["'self'",
         // used for error capturing
-        '*.sentry.io',
+        'https://sentry.io',
         // used for analytics
         'https://ping.withcabin.com',
     ],
