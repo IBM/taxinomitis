@@ -152,23 +152,6 @@ export interface ClassifierSummary {
 
 
 
-
-
-
-export enum KnownErrorCondition {
-    UnmanagedBluemixClassifier = 1,
-    BadBluemixCredentials = 2,
-}
-
-export interface KnownError {
-    readonly id: string;
-    readonly type: KnownErrorCondition;
-    readonly servicetype: BluemixServiceType;
-    readonly objid: string;
-}
-
-
-
 export type CredentialsSupportCode = 'MLCRED-OK' |           // everything okay
                                      'MLCRED-NUM' |          // no need for credentials for numbers projects
                                      'MLCRED-SOUND' |        // no need for credentials for sound projects

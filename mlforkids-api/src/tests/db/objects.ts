@@ -1030,47 +1030,6 @@ describe('DB objects', () => {
 
 
 
-    describe('getKnownErrorFromDbRow', () => {
-
-        it('should get data from DB records', () => {
-            assert.deepStrictEqual(dbobjects.getKnownErrorFromDbRow({
-                id : '001', type : 1, servicetype : 'conv', objid : 'abc',
-            }), {
-                id : '001', type : 1, servicetype : 'conv', objid : 'abc',
-            });
-        });
-
-    });
-
-
-    describe('createKnownError', () => {
-
-        it('should reject invalid service types', () => {
-            try {
-                dbobjects.createKnownError(1, 'wrong' as TrainingObjects.BluemixServiceType, 'objid');
-                assert.fail('should not have reached here');
-            }
-            catch (err) {
-                assert(err);
-                assert.strictEqual(err.message, 'Unexpected service type');
-            }
-        });
-
-        it('should reject invalid error types', () => {
-            try {
-                const invalidError = 9 as TrainingObjects.KnownErrorCondition;
-                dbobjects.createKnownError(invalidError, 'conv', 'objid');
-                assert.fail('should not have reached here');
-            }
-            catch (err) {
-                assert(err);
-                assert.strictEqual(err.message, 'Unexpected error type');
-            }
-        });
-
-    });
-
-
     describe('setClassTenantExpiries', () => {
 
         const emptyUnknown: unknown = null;

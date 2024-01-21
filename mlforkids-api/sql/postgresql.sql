@@ -47,12 +47,9 @@ CREATE TABLE mlforkidsdb.imagetraining (
     isstored boolean DEFAULT false
 );
 
-CREATE TABLE mlforkidsdb.knownsyserrors (
-    id character(36) NOT NULL PRIMARY KEY,
-    type smallint NOT NULL,
-    servicetype character varying(8) NOT NULL,
-    objid character varying(50) NOT NULL
-);
+-- update (21 Jan 2024)
+-- DROP TABLE knownsyserrors;
+-- DROP TABLE notificationoptouts;
 
 CREATE TABLE mlforkidsdb.numbersprojectsfields (
     id character(36) NOT NULL PRIMARY KEY,

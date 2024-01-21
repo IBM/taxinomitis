@@ -2144,67 +2144,6 @@ export async function deleteScratchKeysByProjectId(projectid: string): Promise<v
 }
 
 
-// -----------------------------------------------------------------------------
-//
-// KNOWN SYSTEM ERRORS
-//
-// -----------------------------------------------------------------------------
-
-export async function getAllKnownErrors(): Promise<TrainingObjects.KnownError[]>
-{
-    const queryName = 'dbqn-select-knownsyserrors';
-    const queryString = 'SELECT * FROM knownsyserrors';
-    const queryValues: any[] = [];
-
-    const response = await dbExecute(queryName, queryString, queryValues);
-    return response.rows.map(dbobjects.getKnownErrorFromDbRow);
-}
-
-export async function storeNewKnownError(
-    type: TrainingObjects.KnownErrorCondition,
-    service: TrainingObjects.BluemixServiceType,
-    objectid: string,
-): Promise<TrainingObjects.KnownError>
-{
-    const knownError = dbobjects.createKnownError(type, service, objectid);
-
-    const queryName = 'dbqn-insert-knownsyserrors';
-    const queryString = 'INSERT INTO knownsyserrors ' +
-        '(id, type, servicetype, objid) ' +
-        'VALUES ($1, $2, $3, $4)';
-    const queryValues = [ knownError.id, knownError.type, knownError.servicetype, knownError.objid ];
-
-    const response = await dbExecute(queryName, queryString, queryValues);
-    if (response.rowCount !== 1) {
-        log.error({ response, queryValues, knownError }, 'Failed to store known error');
-        throw new Error('Failed to store known error');
-    }
-
-    return knownError;
-}
-
-
-// only used for unit tests
-export function deleteAllKnownErrors(): Promise<void>
-{
-    // ensure this function is only used in tests, so we don't
-    //  accidentally trash a production database table
-    /* istanbul ignore else */
-    if (process.env.POSTGRESQLHOST === 'localhost' || process.env.POSTGRESQLHOST === 'host.docker.internal') {
-        const queryName = 'dbqn-delete-knownsyserrors-all';
-        const queryString = 'DELETE FROM knownsyserrors';
-        const queryValues: any[] = [];
-
-        return dbExecute(queryName, queryString, queryValues)
-            .then(() => { return; });
-    }
-    else {
-        log.error('deleteAllKnownErrors called on production system');
-        return Promise.resolve();
-    }
-}
-
-
 
 // -----------------------------------------------------------------------------
 //

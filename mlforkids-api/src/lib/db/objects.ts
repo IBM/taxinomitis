@@ -885,45 +885,6 @@ export function getScratchKeyFromDbRow(row: Objects.ScratchKeyDbRow): Objects.Sc
 }
 
 
-// -----------------------------------------------------------------------------
-//
-// KNOWN SYSTEM ERRORS
-//
-// -----------------------------------------------------------------------------
-
-export function getKnownErrorFromDbRow(row: TrainingObjects.KnownError): TrainingObjects.KnownError {
-    return {
-        id : row.id,
-        type : row.type,
-        servicetype : row.servicetype,
-        objid : row.objid,
-    };
-}
-
-export function createKnownError(
-    type: TrainingObjects.KnownErrorCondition,
-    servicetype: TrainingObjects.BluemixServiceType,
-    objid: string): TrainingObjects.KnownError
-{
-    if (servicetype !== 'conv') {
-        throw new Error('Unexpected service type');
-    }
-    if (type !== TrainingObjects.KnownErrorCondition.BadBluemixCredentials &&
-        type !== TrainingObjects.KnownErrorCondition.UnmanagedBluemixClassifier)
-    {
-        throw new Error('Unexpected error type');
-    }
-    if (!objid || objid.trim().length === 0 || objid.length > 50) {
-        throw new Error('Bad object id');
-    }
-
-    return {
-        id : uuid(),
-        type, servicetype, objid,
-    };
-}
-
-
 
 // -----------------------------------------------------------------------------
 //
