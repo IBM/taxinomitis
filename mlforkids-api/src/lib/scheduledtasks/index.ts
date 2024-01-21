@@ -26,6 +26,10 @@ export function run(): Promise<void> {
             return conversation.cleanupExpiredClassifiers();
         })
         .then(() => {
+            log.info('deleting orphaned Watson Assistant workspaces owned by the platform');
+            return conversation.cleanupOrphanedBluemixClassifiers();
+        })
+        .then(() => {
             log.info('cleanup complete');
         });
 }

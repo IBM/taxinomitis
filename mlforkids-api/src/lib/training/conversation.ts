@@ -908,3 +908,60 @@ export interface LegacyTrainingRequest extends TrainingRequest, LegacyConvReques
 export interface NewTrainingRequest extends TrainingRequest, NewConvRequest {}
 export interface LegacyTestRequest extends TestRequest, LegacyConvRequest {}
 export interface NewTestRequest extends TestRequest, NewConvRequest {}
+
+
+
+
+async function getBluemixCredentialsToCheckForOrphans(): Promise<TrainingObjects.BluemixCredentials[]> {
+    const poolCreds = await store.getBluemixCredentialsPoolBatch('conv');
+
+    const sessionUsersClass = await store.getClassTenant('session-users');
+    const sessionUserCreds = await store.getBluemixCredentials(sessionUsersClass, 'conv');
+
+    return poolCreds.concat(sessionUserCreds);
+}
+
+
+
+export async function cleanupOrphanedBluemixClassifiers() {
+    log.info('removing orphaned bluemix classifiers');
+    try {
+        const allCreds = await getBluemixCredentialsToCheckForOrphans();
+
+        let found = 0;
+        let orphaned = 0;
+        let deleted = 0;
+        for (const creds of allCreds) {
+            const bluemixClassifiers = await getTextClassifiers(creds);
+
+            for (const bluemixClassifier of bluemixClassifiers) {
+                log.trace({ bluemixClassifier }, 'reviewing');
+
+                const dbClassifier = await store.getClassifierByBluemixId(bluemixClassifier.id);
+                if (dbClassifier && dbClassifier.id) {
+                    // db record found - nothing more to do - this is good
+                    found += 1;
+                }
+                else {
+                    // found an orphan!
+                    log.debug({ bluemixClassifier }, 'orphaned classifier');
+                    orphaned += 1;
+
+                    try {
+                        await deleteClassifierFromBluemix(bluemixClassifier.credentials, bluemixClassifier.id);
+                        deleted += 1;
+                    }
+                    catch (err) {
+                        log.error({ err }, 'failed to delete classifier');
+                    }
+                }
+            }
+        }
+
+        log.info({ found, orphaned, deleted, credentials: allCreds.length },
+                 'completed cleanup');
+    }
+    catch (err) {
+        log.error({ err }, 'failed to cleanup orphaned classifiers');
+    }
+}

@@ -330,10 +330,15 @@ export async function getProject(id: string): Promise<Objects.Project | undefine
 /**
  * Fetches projects that the specified user owns.
  *
- * This list should only include projects created by the specified user
+ * This list should only include projects created by the specified user.
+ * It includes both local project references, and full cloud projects.
  */
-export async function getProjectsOwnedByUserId(userid: string, classid: string): Promise<Objects.Project[]>
+export async function getProjectsOwnedByUserId(userid: string, classid: string): Promise<Array<Objects.Project | Objects.LocalProject>>
 {
+    const allProjects: Array<Objects.Project | Objects.LocalProject> = [];
+
+    const queryValues = [ classid, userid ];
+
     const queryName = 'dbqn-select-projects-userid';
     const queryString = 'SELECT id, userid, classid, ' +
                             'typeid, name, language, ' +
@@ -341,10 +346,23 @@ export async function getProjectsOwnedByUserId(userid: string, classid: string):
                             'iscrowdsourced ' +
                         'FROM projects ' +
                         'WHERE classid = $1 AND userid = $2';
-    const queryValues = [ classid, userid ];
-
     const resp = await dbExecute(queryName, queryString, queryValues);
-    return resp.rows.map(dbobjects.getProjectFromDbRow);
+    resp.rows.forEach((row) => {
+        allProjects.push(dbobjects.getProjectFromDbRow(row));
+    });
+
+    const localQueryName = 'dbqn-select-localprojects-userid';
+    const localQueryString = 'SELECT id, userid, classid, ' +
+                                'typeid, expiry, ' +
+                                'name, labels ' +
+                             'FROM localprojects ' +
+                             'WHERE classid = $1 AND userid = $2';
+    const localResp = await dbExecute(localQueryName, localQueryString, queryValues);
+    localResp.rows.forEach((row) => {
+        allProjects.push(dbobjects.getLocalProjectFromDbRow(row));
+    });
+
+    return allProjects;
 }
 
 /**

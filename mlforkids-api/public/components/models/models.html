@@ -465,7 +465,7 @@
                                 ng-disabled="submittingDeleteRequest">
                             {{ (model.status === 'Training' ? 'MODELS.CANCEL' : 'MODELS.DELETE') | translate }}
                         </button>
-                        <div ng-if="project.type === 'text' && model.status === 'Training'" class="btn btn-default describemodelbuttons" ui-sref="mlproject_text_model_describe({ projectId : projectId, userId : userId, modelId : projectId })">Describe your model!  <span class="badge">beta</span></div>
+                        <div ng-if="project.type === 'text' && model.status === 'Training' && project.storage !== 'local'" class="btn btn-default describemodelbuttons" ui-sref="mlproject_text_model_describe({ projectId : projectId, userId : userId, modelId : projectId })">Describe your model!  <span class="badge">beta</span></div>
 
                         <md-progress-circular class="progressindicator" ng-if="submittingDeleteRequest" md-mode="indeterminate"></md-progress-circular>
                     </td>
