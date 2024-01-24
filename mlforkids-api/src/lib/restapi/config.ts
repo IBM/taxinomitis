@@ -129,7 +129,7 @@ export function setupUI(app: express.Application): void {
     const tfjslocation: string = path.join(__dirname, '/../../../web/static/bower_components/tensorflow-models');
     app.use('/static/bower_components/tensorflow-models', compression(), addCorsHeaders, express.static(tfjslocation, { maxAge : constants.ONE_YEAR }));
 
-    for (const staticfile of [ '/crossdomain.xml', '/sitemap.xml', '/robots.txt', '/favicon.ico' ]) {
+    for (const staticfile of [ '/sitemap.xml', '/robots.txt', '/favicon.ico' ]) {
         const staticfilelocation: string = path.join(__dirname, '/../../../web/dynamic' + staticfile);
         app.use(staticfile, compression(), express.static(staticfilelocation, { maxAge : constants.ONE_YEAR }));
     }

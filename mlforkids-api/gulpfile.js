@@ -184,10 +184,6 @@ gulp.task('scratchblocks', function() {
     return gulp.src('public/third-party/scratchblocks-v3.1-min.js').pipe(gulp.dest('web/static'));
 });
 
-gulp.task('crossdomain', function() {
-    return gulp.src('public/static-files/crossdomain.xml').pipe(gulp.dest('web/dynamic'));
-});
-
 gulp.task('robotstxt', function() {
     return gulp.src([
         'public/static-files/robots.txt',
@@ -202,22 +198,14 @@ gulp.task('stories', function() {
     ]).pipe(gulp.dest('web/static/stories'));
 });
 
-gulp.task('scratchxinstall', gulp.series('crossdomain', function() {
-    return gulp.src([
-        'public/scratchx/**',
-        'public/scratch-components/help-scratch2*',
-        'public/scratch-components/help-scratch.css'
-    ]).pipe(gulp.dest('web/scratchx'));
-}));
-
-gulp.task('scratch3install', gulp.series('crossdomain', function() {
+gulp.task('scratch3install', function() {
     return gulp.src([
         'public/scratch3/**',
         'public/scratch-components/help-scratch3*',
         'public/scratch-components/help-scratch.css',
         'public/scratch-components/teachablemachinepose.html'
     ]).pipe(gulp.dest('web/scratch3'));
-}));
+});
 
 gulp.task('compile', () => {
     let errors = false;
@@ -346,7 +334,7 @@ gulp.task('test', () => {
         .pipe(mocha(mochaOptions));
 });
 
-gulp.task('scratch', gulp.parallel('scratchxinstall', 'scratch3install', 'scratchblocks'));
+gulp.task('scratch', gulp.parallel('scratch3install', 'scratchblocks'));
 
 gulp.task('web',
     gulp.series(
