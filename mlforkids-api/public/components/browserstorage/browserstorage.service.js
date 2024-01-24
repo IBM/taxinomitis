@@ -306,10 +306,21 @@
         }
 
 
+        // update labels to meet WA requirements
+        const INVALID_LABEL_NAME_CHARS = /[^\w.]/g;
+        const MAX_LABEL_LENGTH = 30;
+        function sanitizeLabel(proposedlabel) {
+            return proposedlabel
+                .replace(INVALID_LABEL_NAME_CHARS, '_')
+                .substring(0, MAX_LABEL_LENGTH);
+        }
+
         async function addLabel(projectId, newlabel) {
             loggerService.debug('[ml4kstorage] addLabel');
 
             await requiresProjectsDatabase();
+
+            const label = sanitizeLabel(newlabel);
 
             const transaction = projectsDbHandle.transaction([ PROJECTS_TABLE ], 'readwrite');
             const projectsTable = transaction.objectStore(PROJECTS_TABLE);
@@ -317,8 +328,8 @@
             const readEvent = await promisifyIndexedDbRequest(readRequest);
             const projectObject = requiresResult(readEvent);
 
-            if (!projectObject.labels.includes(newlabel)) {
-                projectObject.labels.push(newlabel);
+            if (!projectObject.labels.includes(label)) {
+                projectObject.labels.push(label);
 
                 const updateRequest = projectsTable.put(projectObject);
                 await promisifyIndexedDbRequest(updateRequest);
