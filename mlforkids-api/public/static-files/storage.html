@@ -250,6 +250,11 @@
 
         const ALLOWED_ORIGINS = [
             'https://scratch.machinelearningforkids.co.uk'
+
+            // 'http://ml-for-kids-local.net:3000',
+            // 'http://ml-for-kids-local.net:9000',
+            // 'http://localhost:3000',
+            // 'http://localhost:9000'
         ];
         window.addEventListener('message', function (event) {
             if (!ALLOWED_ORIGINS.includes(event.origin)) {
