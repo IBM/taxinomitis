@@ -62,7 +62,7 @@
             </div>
             <div class="mlprojectdelete">
                 <button type="button"
-                        ng-if="isTeacher && !project.isCrowdSourced && !project.isPlaceholder"
+                        ng-if="isTeacher && !project.isCrowdSourced && !project.isPlaceholder && project.storage !== 'local'"
                         class="btn btn-info mlprojectssharebutton"
                         ng-click="vm.shareProject($event, project, true)"
                         translate="PROJECTS.SHARE"></button>

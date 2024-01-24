@@ -27,7 +27,7 @@
         <!--                                          -->
         <!--            displayed for teachers only   -->
         <!-- ---------------------------------------- -->
-        <div class="newprojectrow" ng-show="isTeacher">
+        <div class="newprojectrow" ng-show="isTeacher && projectStorage == 'cloud'">
             <md-input-container class="newprojectform">
                 <md-checkbox
                        ng-model="crowdSourced"
@@ -291,7 +291,7 @@
             <md-button
                 class="md-raised md-primary"
                 ng-disabled="creating || newProject.$invalid || isInvalid(projectType)"
-                ng-click="vm.confirm({ name : projectName, type : projectType, storage : projectStorage, fields : vm.fields, language : language, isCrowdSourced : (isTeacher && crowdSourced) ? true : false })"
+                ng-click="vm.confirm({ name : projectName, type : projectType, storage : projectStorage, fields : vm.fields, language : language, isCrowdSourced : (isTeacher && crowdSourced && projectStorage === 'cloud') ? true : false })"
                 translate="NEWPROJECT.CREATE">
             </md-button>
             <md-button ui-sref="projects" translate="APP.CANCEL"></md-button>
