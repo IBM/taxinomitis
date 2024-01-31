@@ -320,7 +320,13 @@
 
             await requiresProjectsDatabase();
 
-            const label = sanitizeLabel(newlabel);
+            let label = newlabel;
+            try {
+                label = sanitizeLabel(newlabel);
+            }
+            catch (labelErr) {
+                loggerService.error('[ml4kstorage] Failed to sanitize label, leaving as-is');
+            }
 
             const transaction = projectsDbHandle.transaction([ PROJECTS_TABLE ], 'readwrite');
             const projectsTable = transaction.objectStore(PROJECTS_TABLE);
