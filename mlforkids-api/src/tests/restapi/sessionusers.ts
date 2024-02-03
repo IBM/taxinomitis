@@ -29,7 +29,6 @@ describe('REST API - session users', () => {
         req: Express.Request, res: Express.Response,
         next: (err?: Error) => void)
     {
-        // @ts-ignore
         req.user = {
             'sub' : nextAuth0UserId,
             'https://machinelearningforkids.co.uk/api/role' : nextAuth0UserRole,
@@ -207,9 +206,9 @@ describe('REST API - session users', () => {
         }
     }
 
-    async function wait(seconds: number): Promise<{}> {
+    async function wait(seconds: number): Promise<void> {
         return new Promise((resolve) => {
-            setTimeout(() => resolve({}), (seconds * 1000));
+            setTimeout(() => resolve(), (seconds * 1000));
         });
     }
 });

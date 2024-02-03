@@ -321,7 +321,7 @@ export default function registerApis(app: Express.Application) {
         auth.checkValidUser,
         auth.requireSupervisor,
         auth.ensureUnmanagedTenant,
-        // @ts-ignore
+        // @ts-expect-error custom middleware not understood by linter
         getCredentials);
 
     app.get(urls.BLUEMIX_CREDENTIAL,
@@ -329,7 +329,7 @@ export default function registerApis(app: Express.Application) {
         auth.checkValidUser,
         auth.requireSupervisor,
         auth.ensureUnmanagedTenant,
-        // @ts-ignore
+        // @ts-expect-error custom middleware not understood by linter
         verifyCredentials);
 
     app.delete(urls.BLUEMIX_CREDENTIAL,
@@ -337,7 +337,7 @@ export default function registerApis(app: Express.Application) {
         auth.checkValidUser,
         auth.requireSupervisor,
         auth.ensureUnmanagedTenant,
-        // @ts-ignore
+        // @ts-expect-error custom middleware not understood by linter
         deleteCredentials);
 
     app.patch(urls.BLUEMIX_CREDENTIAL,

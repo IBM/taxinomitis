@@ -237,55 +237,55 @@ export default function registerApis(app: Express.Application) {
     app.post(urls.LOCALPROJECTS,
              auth.authenticate,
              auth.checkValidUser,
-             // @ts-ignore
+             // @ts-expect-error custom middleware not understood by linter
              createLocalProject);
 
     app.put(urls.LOCALPROJECT,
             auth.authenticate,
             auth.checkValidUser,
             auth.verifyLocalProjectAuth,
-            // @ts-ignore
+            // @ts-expect-error custom middleware not understood by linter
             updateLocalProject);
 
     app.delete(urls.LOCALPROJECT,
                auth.authenticate,
                auth.checkValidUser,
                auth.verifyLocalProjectAuth,
-               // @ts-ignore
+               // @ts-expect-error custom middleware not understood by linter
                deleteLocalProject);
 
     app.post(urls.LOCALMODELS,
              auth.authenticate,
              auth.checkValidUser,
              auth.verifyLocalProjectAuth,
-             // @ts-ignore
+             // @ts-expect-error custom middleware not understood by linter
              newLocalProjectModel);
 
     app.get(urls.LOCALMODELS,
             auth.authenticate,
             auth.checkValidUser,
             auth.verifyLocalProjectAuth,
-            // @ts-ignore
+            // @ts-expect-error custom middleware not understood by linter
             getLocalProjectModels);
 
     app.post(urls.LOCALMODELTEST,
              auth.authenticate,
              auth.checkValidUser,
              auth.verifyLocalProjectAuth,
-             // @ts-ignore
+             // @ts-expect-error custom middleware not understood by linter
              testLocalProjectModel);
 
     app.delete(urls.LOCALMODEL,
                auth.authenticate,
                auth.checkValidUser,
                auth.verifyLocalProjectAuth,
-               // @ts-ignore
+               // @ts-expect-error custom middleware not understood by linter
                deleteLocalProjectModel);
 
     app.get(urls.LOCALSCRATCHKEYS,
             auth.authenticate,
             auth.checkValidUser,
             auth.verifyLocalProjectAuth,
-            // @ts-ignore
+            // @ts-expect-error custom middleware not understood by linter
             getLocalProjectScratchKeys);
 }

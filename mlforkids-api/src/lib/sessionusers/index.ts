@@ -49,7 +49,7 @@ export async function createSessionUser(requestOrigin?: string): Promise<Objects
 
     // is the session class full?
     const currentClassSize = await store.countTemporaryUsers();
-    const limit = requestOrigin === 'SA' ? 2000 : MAX_ALLOWED_USERS;
+    const limit = requestOrigin === 'SA' ? 1200 : MAX_ALLOWED_USERS;
     if (currentClassSize >= limit) {
         // record the current time so that we don't
         //  need to check again too soon

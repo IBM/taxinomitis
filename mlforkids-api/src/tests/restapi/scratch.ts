@@ -1190,7 +1190,7 @@ describe('REST API - scratch keys', () => {
                 project, storedCredentials,
                 conversationWorkspace.workspace_id, conversationWorkspace.created);
 
-            // @ts-ignore
+            // @ts-expect-error TODO
             const conversationStub = sinon.stub(requestPromise, 'post').callsFake(mockClassifier);
 
             conversationStub.resetHistory();
@@ -1262,7 +1262,7 @@ describe('REST API - scratch keys', () => {
                 project, storedCredentials,
                 conversationWorkspace.workspace_id, conversationWorkspace.created);
 
-            // @ts-ignore
+            // @ts-expect-error TODO
             const conversationStub = sinon.stub(requestPromise, 'post').callsFake(mockClassifier);
 
             const callbackFunctionName = 'cb';
@@ -1351,7 +1351,7 @@ describe('REST API - scratch keys', () => {
                 project, storedCredentials,
                 conversationWorkspace.workspace_id, conversationWorkspace.created);
 
-            // @ts-ignore
+            // @ts-expect-error TODO
             const conversationStub = sinon.stub(requestPromise, 'post').callsFake(mockClassifier);
 
             return request(testServer)
@@ -1409,7 +1409,6 @@ describe('REST API - scratch keys', () => {
                 project, storedCredentials,
                 workspace.workspace_id, workspace.created);
 
-            // @ts-ignore
             const conversationStub = sinon.stub(requestPromise, 'post').callsFake(brokenClassifier);
 
             const callbackFunctionName = 'cb';

@@ -36,7 +36,7 @@ export default function registerApis(app: Express.Application) {
              auth.authenticate,
              auth.checkValidUser,
              auth.verifyProjectAccess,
-             // @ts-ignore
+             // @ts-expect-error custom middleware not understood by linter
              handleUpload);
 }
 

@@ -248,28 +248,28 @@ export default function registerApis(app: Express.Application) {
             auth.authenticate,
             auth.checkValidUser,
             auth.verifyProjectAccess,
-            // @ts-ignore
+            // @ts-expect-error custom middleware not understood by linter
             getModels);
 
     app.post(urls.MODELS,
              auth.authenticate,
              auth.checkValidUser,
              auth.verifyProjectOwner,
-             // @ts-ignore
+             // @ts-expect-error custom middleware not understood by linter
              newModel);
 
     app.get(urls.MODEL,
             auth.authenticate,
             auth.checkValidUser,
             auth.verifyProjectAccess,
-            // @ts-ignore
+            // @ts-expect-error custom middleware not understood by linter
             describeModel);
 
     app.delete(urls.MODEL,
                auth.authenticate,
                auth.checkValidUser,
                auth.verifyProjectOwnerOrTeacher,
-               // @ts-ignore
+               // @ts-expect-error custom middleware not understood by linter
                deleteModel);
 
     app.post(urls.MODELTEST,

@@ -76,7 +76,7 @@ describe('REST API - local projects', () => {
             });
         });
 
-        conversationStubTrainClassifierStub.callsFake((project: DbTypes.LocalProject, training: Types.ConversationTrainingData) => {
+        conversationStubTrainClassifierStub.callsFake((project: DbTypes.LocalProject /*, training: Types.ConversationTrainingData*/) => {
             const workspace: Types.ConversationWorkspace = {
                 id : uuid(),
                 workspace_id : 'NEW-CREATED',

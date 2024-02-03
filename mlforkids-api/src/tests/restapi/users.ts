@@ -34,7 +34,6 @@ describe('REST API - users', () => {
         req: Express.Request, res: Express.Response,
         next: (err?: Error) => void)
     {
-        // @ts-ignore
         req.user = {
             'sub' : 'userid',
             'https://machinelearningforkids.co.uk/api/role' : 'supervisor',

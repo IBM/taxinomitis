@@ -1,12 +1,9 @@
 const gulp = require('gulp');
 const bower = require('gulp-bower');
-const mocha = require('gulp-mocha');
 const ts = require('gulp-typescript');
 const cleanCSS = require('gulp-clean-css');
 const concat = require('gulp-concat');
 const minify = require('gulp-uglify');
-const template = require('gulp-template');
-const autoprefixer = require('gulp-autoprefixer');
 const rename = require('gulp-rename');
 const ngAnnotate = require('gulp-ng-annotate-patched');
 const sourcemaps = require('gulp-sourcemaps');
@@ -234,10 +231,14 @@ function prepareHtml (isForProd) {
         options.AFTER_USE_IN_PROD_ONLY = '-->';
     }
 
-    return gulp.src('public/index.html')
-            .pipe(template(options))
-            .pipe(htmlminify(htmlMinifyOptions))
-            .pipe(gulp.dest('web/dynamic'));
+    return import('gulp-template')
+        .then((module) => {
+            const template = module.default;
+            return gulp.src('public/index.html')
+                    .pipe(template(options))
+                    .pipe(htmlminify(htmlMinifyOptions))
+                    .pipe(gulp.dest('web/dynamic'));
+        });
 }
 
 gulp.task('html', () => {
@@ -249,18 +250,26 @@ gulp.task('prodhtml', gulp.series('twitter', 'storageiframe', () => {
 
 
 gulp.task('css', gulp.series('html', () => {
-    return gulp.src(paths.css)
-            .pipe(cleanCSS())
-            .pipe(autoprefixer())
-            .pipe(concat('style.min.css'))
-            .pipe(gulp.dest('web/static'));
+    return import ('gulp-autoprefixer')
+        .then((module) => {
+            autoprefixer = module.default;
+            return gulp.src(paths.css)
+                    .pipe(cleanCSS())
+                    .pipe(autoprefixer())
+                    .pipe(concat('style.min.css'))
+                    .pipe(gulp.dest('web/static'));
+        });
 }));
 
 gulp.task('jsapp', () => {
-    return gulp.src('public/app.js')
-            .pipe(template({ DEPLOYMENT }))
-            .pipe(rename('app.js'))
-            .pipe(gulp.dest('web/static'));
+    return import('gulp-template')
+        .then((module) => {
+            const template = module.default;
+            return gulp.src('public/app.js')
+                    .pipe(template({ DEPLOYMENT }))
+                    .pipe(rename('app.js'))
+                    .pipe(gulp.dest('web/static'));
+        });
 });
 
 gulp.task('angularcomponents', gulp.series('jsapp', () => {
@@ -330,8 +339,12 @@ gulp.task('test', () => {
         timeout : 60000
     };
 
-    return gulp.src(paths.jstest)
-        .pipe(mocha(mochaOptions));
+    return import('gulp-mocha')
+        .then((module) => {
+            const mocha = module.default;
+            return gulp.src(paths.jstest)
+                    .pipe(mocha(mochaOptions));
+        });
 });
 
 gulp.task('scratch', gulp.parallel('scratch3install', 'scratchblocks'));

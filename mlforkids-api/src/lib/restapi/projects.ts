@@ -457,14 +457,14 @@ export default function registerApis(app: Express.Application) {
     app.post(urls.PROJECTS,
             auth.authenticate,
             auth.checkValidUser,
-            // @ts-ignore
+            // @ts-expect-error custom middleware not understood by linter
             createProject);
 
     app.get(urls.PROJECT,
             auth.authenticate,
             auth.checkValidUser,
             auth.verifyProjectAccessOrTeacher,
-            // @ts-ignore
+            // @ts-expect-error custom middleware not understood by linter
             getProject);
 
     app.get(urls.FIELDS,
@@ -476,7 +476,7 @@ export default function registerApis(app: Express.Application) {
             auth.authenticate,
             auth.checkValidUser,
             auth.verifyProjectOwner,
-            // @ts-ignore
+            // @ts-expect-error custom middleware not understood by linter
             deleteProject);
 
     app.patch(urls.PROJECT,
@@ -490,6 +490,6 @@ export default function registerApis(app: Express.Application) {
             auth.checkValidUser,
             auth.requireSupervisor,
             auth.verifyProjectOwner,
-            // @ts-ignore
+            // @ts-expect-error custom middleware not understood by linter
             shareProject);
 }

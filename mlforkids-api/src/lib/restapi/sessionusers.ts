@@ -91,7 +91,7 @@ export default function registerApis(app: Express.Application) {
     app.delete(urls.SESSION_USER,
         auth.authenticate,
         auth.checkValidUser,
-        // @ts-ignore
+        // @ts-expect-error custom middleware not understood by linter
         deleteSessionUser);
 
 }

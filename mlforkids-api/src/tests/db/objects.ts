@@ -12,11 +12,11 @@ import * as TrainingObjects from '../../lib/training/training-types';
 
 describe('DB objects', () => {
 
-    // @ts-ignore need to check for values that might be undefined at runtime
+    // @ts-expect-error need to check for values that might be undefined at runtime
     const UNDEFINED_STRING: string = undefined;
-    // @ts-ignore need to check for values that might be undefined at runtime
+    // @ts-expect-error need to check for values that might be undefined at runtime
     const UNDEFINED_NUMBERS: number[] = undefined;
-    // @ts-ignore need to check for values that might be undefined at runtime
+    // @ts-expect-error need to check for values that might be undefined at runtime
     const UNDEFINED_LANG: Objects.TextProjectLanguage = undefined;
 
 

@@ -93,9 +93,9 @@ describe('REST API - scratchkey models', () => {
             }
         };
 
-        // @ts-ignore
+        // @ts-expect-error TODO
         numbersTrainingServicePostStub = sinon.stub(requestPromise, 'post').callsFake(stubbedRequestPost);
-        // @ts-ignore
+        // @ts-expect-error TODO
         numbersTrainingServiceDeleteStub = sinon.stub(requestPromise, 'delete').callsFake(stubbedRequestDelete);
 
         proxyquire('../../lib/scratchx/models', {

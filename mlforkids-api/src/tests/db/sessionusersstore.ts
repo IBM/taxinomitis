@@ -22,9 +22,9 @@ describe('temporary users store', () => {
     });
 
 
-    async function wait(seconds: number): Promise<{}> {
+    async function wait(seconds: number): Promise<void> {
         return new Promise((resolve) => {
-            setTimeout(() => resolve({}), (seconds * ONE_SECOND));
+            setTimeout(() => resolve(), (seconds * ONE_SECOND));
         });
     }
 

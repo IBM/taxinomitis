@@ -151,7 +151,7 @@ export default function registerApis(app: Express.Application) {
             //  they're automatically deleted by scheduled jobs. So they shouldn't
             //  need to call this.
             auth.ensureUnmanagedTenant,
-            // @ts-ignore
+            // @ts-expect-error custom middleware not understood by linter
             getUnmanagedClassifiers);
 
     app.delete(urls.BLUEMIX_CLASSIFIER,
@@ -167,6 +167,6 @@ export default function registerApis(app: Express.Application) {
                //  tool, as they don't have access to the Bluemix credentials / API keys
                //  to be able to do that.
                auth.ensureUnmanagedTenant,
-               // @ts-ignore
+               // @ts-expect-error custom middleware not understood by linter
                deleteBluemixClassifier);
 }

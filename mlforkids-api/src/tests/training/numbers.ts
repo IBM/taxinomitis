@@ -39,7 +39,7 @@ import * as numbers from '../../lib/training/numbers';
 
             try {
                 await numbers.testClassifier(USERID, CLASSID, new Date(), project.id,
-                    [1, 204040404040404040404040404040404040404040404040404040404040404040404040404040000000000000, 3]);
+                    [1, 204000000000000000000000000000000000000000000000000000000000000000000000000000000000000000, 3]);
                 assert.fail('should not have allowed this');
             }
             catch (err) {

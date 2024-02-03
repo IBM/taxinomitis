@@ -11,7 +11,7 @@ import * as env from '../utils/env';
 //  as all Scratch extensions ever generated are kept in memory
 // doing this disables the cache to avoid the memory leak
 // cf. https://github.com/janl/mustache.js/blob/master/CHANGELOG.md#400--16-january-2020
-// @ts-ignore
+// @ts-expect-error workaround for mustache issue
 Mustache.templateCache = undefined;
 
 

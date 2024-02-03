@@ -18,7 +18,7 @@ describe('Scratchx - keys', () => {
 
 
     before(() => {
-        // @ts-ignore
+        // @ts-expect-error TODO
         numbersTrainingServiceDeleteStub = sinon.stub(requestPromise, 'delete').callsFake(stubbedRequestDelete);
 
         return store.init();

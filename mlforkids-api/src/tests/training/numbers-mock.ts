@@ -29,7 +29,7 @@ describe('Training - numbers service (mocked)', () => {
         postStub = sinon.stub(request, 'post');
         postStub.withArgs(sinon.match(/.*models/), sinon.match.any).callsFake(mockNumbers.createClassifier);
         postStub.withArgs(sinon.match(/.*classify/), sinon.match.any).callsFake(mockNumbers.testClassifier);
-        // @ts-ignore
+        // @ts-expect-error TODO
         deleteStub = sinon.stub(request, 'delete').callsFake(mockNumbers.deleteClassifier);
 
         return store.init();
@@ -63,7 +63,7 @@ describe('Training - numbers service (mocked)', () => {
 
             try {
                 await numbers.testClassifier(USERID, CLASSID, new Date(), project.id,
-                    [1, 204040404040404040404040404040404040404040404040404040404040404040404040404040000000000000, 3]);
+                    [1, 204000000000000000000000000000000000000000000000000000000000000000000000000000000000000000, 3]);
                 assert.fail('should not have allowed this');
             }
             catch (err) {
@@ -350,7 +350,7 @@ describe('Training - numbers service (mocked)', () => {
         createClassifier : (url: string, opts: numbers.NumbersApiRequestPayloadClassifierItem) => {
             if (opts.body.projectid === goodProject) {
                 return Promise.resolve({
-                    time : 0.0009050369262695312,
+                    time : 0.000905036926269531,
                     items : opts.body.data.length,
                 });
             }

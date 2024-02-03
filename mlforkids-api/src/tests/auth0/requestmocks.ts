@@ -30,7 +30,7 @@ export const getOauthToken = {
 
 
 export const getUser = {
-    johndoe : (token: string, userid: string) => { // eslint-disable-line no-unused-vars
+    johndoe : (/*token: string, userid: string*/) => {
         const user: unknown = {
             email: 'bobbyball@do-not-require-emailaddresses-for-students.com',
             username: 'bobbyball',
@@ -65,10 +65,10 @@ export const getUser = {
 };
 
 export const getUsers = {
-    empty : (token: string, tenant: string) => { // eslint-disable-line no-unused-vars
+    empty : (/*token: string, tenant: string*/) => {
         return Promise.resolve([]);
     },
-    single : (token: string, tenant: string): Promise<Objects.User[]> => { // eslint-disable-line no-unused-vars
+    single : (/*token: string, tenant: string*/): Promise<Objects.User[]> => {
         const role: Objects.UserRole = 'student';
         return Promise.resolve([
             {
@@ -102,13 +102,13 @@ export const getUsers = {
             },
         ]);
     },
-    error : (token: string, tenant: string) => { // eslint-disable-line no-unused-vars
+    error : (/*token: string, tenant: string*/) => {
         throw new Error('Failed to get users');
     },
 };
 
 
-export const getUserCounts = (token: string, tenant: string) => { // eslint-disable-line no-unused-vars
+export const getUserCounts = (/*token: string, tenant: string*/) => {
     return Promise.resolve({
         start : 0,
         limit : 50,
@@ -143,13 +143,13 @@ export const createUser = {
 };
 
 export const deleteUser = {
-    good : (token: string, userid: string) => { // eslint-disable-line no-unused-vars
+    good : (/*token: string, userid: string*/) => {
         return Promise.resolve();
     },
 };
 
 export const modifyUser = {
-    good : (token: string, userid: string, modifications: object) => { // eslint-disable-line no-unused-vars
+    good : (token: string, userid: string /*, modifications: object*/) => {
         const placeholder: unknown = {
             email: 'bobbyball@do-not-require-emailaddresses-for-students.com',
             username: 'bobbyball',

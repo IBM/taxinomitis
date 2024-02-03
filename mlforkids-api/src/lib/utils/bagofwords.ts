@@ -37,7 +37,7 @@ function getWordCounts(texts: string[]): WordCount[] {
     const allWords = countAllWords(texts);
     const allCounts: WordCount[] = [];
     for (const word in allWords) {
-        if (allWords.hasOwnProperty(word)) {
+        if (Object.prototype.hasOwnProperty.call(allWords, word)) {
             allCounts.push({ word, count: allWords[word] });
         }
     }

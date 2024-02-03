@@ -137,7 +137,7 @@ export function registerErrorHandling(app: Express.Application) {
 export function register404Handler(app: Express.Application) {
     app.use((req: Express.Request,
              res: Express.Response,
-             next: (e?: Error) => void) =>   // eslint-disable-line no-unused-vars
+             /*next: (e?: Error) => void*/) =>
     {
         if (common404Urls.includes(req.url)) {
             return notFound(res);

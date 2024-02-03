@@ -155,18 +155,18 @@ describe('REST API - text training for managed pool classes', () => {
         checkUserStub = sinon.stub(auth, 'checkValidUser').callsFake(authNoOp);
         requireSupervisorStub = sinon.stub(auth, 'requireSupervisor').callsFake(authNoOp);
 
-        // @ts-ignore
+        // @ts-expect-error TODO
         getStub = sinon.stub(requestPromise, 'get');
-        // @ts-ignore
+        // @ts-expect-error TODO
         getStub.withArgs(sinon.match(/https:\/\/gateway.watsonplatform.net\/conversation\/api\/v1\/workspaces\/.*/), sinon.match.any).callsFake(getClassifier);
         getStub.callThrough();
 
-        // @ts-ignore
+        // @ts-expect-error TODO
         createStub = sinon.stub(requestPromise, 'post');
-        // @ts-ignore
+        // @ts-expect-error TODO
         createStub.withArgs(sinon.match('https://gateway.watsonplatform.net/conversation/api/v1/workspaces'), sinon.match.any).callsFake(createClassifier);
 
-        // @ts-ignore
+        // @ts-expect-error TODO
         deleteStub = sinon.stub(requestPromise, 'delete').callsFake(deleteClassifier);
 
         await store.init();

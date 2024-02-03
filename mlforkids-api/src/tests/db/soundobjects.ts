@@ -10,9 +10,9 @@ import * as Objects from '../../lib/db/db-types';
 
 describe('DB objects - sound', () => {
 
-    // @ts-ignore need to check for values that might be undefined at runtime
+    // @ts-expect-error need to check for values that might be undefined at runtime
     const UNDEFINED_STRING: string = undefined;
-    // @ts-ignore need to check for values that might be invalid at runtime
+    // @ts-expect-error need to check for values that might be invalid at runtime
     const INVALID_STRING: string = 123;
 
     const EXPECTED_KEYS = ['id', 'label', 'audiourl', 'projectid'].sort();

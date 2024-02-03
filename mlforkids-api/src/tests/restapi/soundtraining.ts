@@ -54,7 +54,6 @@ describe('REST API - sound training', () => {
         req: Express.Request, res: Express.Response,
         next: (err?: Error) => void)
     {
-        // @ts-ignore
         req.user = { ...nextUser };
         next();
     }

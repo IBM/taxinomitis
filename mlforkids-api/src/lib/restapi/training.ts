@@ -291,47 +291,46 @@ export default function registerApis(app: Express.Application) {
             auth.authenticate,
             auth.checkValidUser,
             auth.verifyProjectAccessOrTeacher,
-            // @ts-ignore
+            // @ts-expect-error custom middleware not understood by linter
             getTraining);
 
     app.get(urls.LABELS,
             auth.authenticate,
             auth.checkValidUser,
             auth.verifyProjectAccessOrTeacher,
-            // @ts-ignore
+            // @ts-expect-error custom middleware not understood by linter
             getLabels);
 
     app.put(urls.LABELS,
             auth.authenticate,
             auth.checkValidUser,
             auth.verifyProjectOwner,
-            // @ts-ignore
+            // @ts-expect-error custom middleware not understood by linter
             editLabel);
 
     app.get(urls.TRAININGITEM,
             auth.authenticate,
             auth.checkValidUser,
             auth.verifyProjectAccess,
-            // @ts-ignore
+            // @ts-expect-error custom middleware not understood by linter
             getTrainingItem);
 
     app.get(urls.PREPARE_IMAGES,
             auth.authenticate,
             auth.checkValidUser,
-            // @ts-ignore
             prepareTrainingImage);
 
     app.delete(urls.TRAININGITEM,
                auth.authenticate,
                auth.checkValidUser,
                auth.verifyProjectAccess,
-               // @ts-ignore
+               // @ts-expect-error custom middleware not understood by linter
                deleteTraining);
 
     app.post(urls.TRAININGITEMS,
              auth.authenticate,
              auth.checkValidUser,
              auth.verifyProjectAccess,
-             // @ts-ignore
+             // @ts-expect-error custom middleware not understood by linter
              storeTraining);
 }

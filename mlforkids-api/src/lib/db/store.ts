@@ -27,7 +27,7 @@ export async function disconnect() {
     log.info('Disconnecting client from DB');
     if (dbConnPool) {
         await postgresql.disconnect();
-        // @ts-ignore
+        // @ts-expect-error Assume that init/disconnect will be called to avoid checking for undefined in every method
         dbConnPool = undefined;
     }
 }

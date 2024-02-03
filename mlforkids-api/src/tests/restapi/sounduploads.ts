@@ -227,7 +227,7 @@ describe('REST API - sound uploads', () => {
 
             const numbers: number[] = [];
             for (let i = 0; i < MAX_AUDIO_POINTS; i++) {
-                numbers.push(1234567890.01234567890123456789);
+                numbers.push(1234567890.0123456);
             }
 
             return request(testServer)

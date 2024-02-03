@@ -45,7 +45,7 @@ const NUM_IMAGES_TRAINING_MASSIVE: { [label: string]: number } = {
     rock : 20000, paper : 25000,
 };
 
-export function countTrainingByLabel(project: DbTypes.Project): Promise<{}> {
+export function countTrainingByLabel(project: DbTypes.Project): Promise<{ [label: string]: number }> {
     if (project.id === 'projectbob' || project.id === 'existingprojectid') {
         return new Promise((resolve) => resolve(NUM_TRAINING_PER_LABEL));
     }

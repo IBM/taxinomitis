@@ -32,7 +32,7 @@ describe('Datasets import', () => {
             }
         };
         numbersTrainingServiceDeleteStub = sinon.stub(requestPromise, 'delete')
-                                            // @ts-ignore
+                                            // @ts-expect-error TODO
                                             .callsFake(stubbedRequestDelete);
 
         return store.deleteProjectsByClassId(TESTCLASS);

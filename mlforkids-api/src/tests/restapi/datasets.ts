@@ -31,7 +31,6 @@ describe('REST API - imported projects', () => {
         req: Express.Request, res: Express.Response,
         next: (err?: Error) => void)
     {
-        // @ts-ignore
         req.user = {
             'sub' : nextAuth0UserId,
             'https://machinelearningforkids.co.uk/api/role' : nextAuth0UserRole,

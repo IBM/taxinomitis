@@ -57,9 +57,9 @@ describe('REST API - training', () => {
         checkUserStub = sinon.stub(auth, 'checkValidUser').callsFake(authNoOp);
         requireSupervisorStub = sinon.stub(auth, 'requireSupervisor').callsFake(authNoOp);
 
-        // @ts-ignore
+        // @ts-expect-error TODO
         numbersTrainingServicePostStub = sinon.stub(requestPromise, 'post').callsFake(stubbedRequestPost);
-        // @ts-ignore
+        // @ts-expect-error TODO
         numbersTrainingServiceDeleteStub = sinon.stub(requestPromise, 'delete').callsFake(stubbedRequestDelete);
 
         await store.init();
