@@ -192,6 +192,7 @@
         "COPYTEMPLATE": "Copio'r templed",
         "CREATEFIRSTPROJECT": "Cliciwch y botwm 'plws' ar y dde i greu eich prosiect cyntaf.",
         "RECOGNISING": "Cydnabod",
+        "PREDICTING": "Predicting",
         "AS": "fel",
         "SHARE": "Rhannu",
         "UNSHARE": "Dad-rannu",
@@ -220,12 +221,14 @@
             "NOTES_3": "Storing in the cloud will let you access the project from any computer."
         },
         "TYPES": {
+            "TYPELABEL": "Project Type",
             "LABEL": "Cydnabod",
             "NOTES_1": "Pa fath o beth ydych chi am ddysgu i'r cyfrifiadur ei gydnabod?",
             "NOTES_2": "Ar gyfer geiriau, brawddegau neu baragraffau, dewiswch \"text\"",
             "NOTES_3": "Ar gyfer lluniau, a diagramau, dewiswch \"images\"",
             "NOTES_4": "Ar gyfer setiau o rifau neu aml-ddewisiadau, dewiswch \"rhifau\"",
-            "NOTES_5": "Ar gyfer lleisiau a synau, dewiswch \"synau\""
+            "NOTES_5": "Ar gyfer lleisiau a synau, dewiswch \"synau\"",
+            "NOTES_6": "To predict numbers, choose \"predicting numbers\""
         },
         "LANGUAGE": {
             "LABEL": "Iaith",
@@ -368,11 +371,13 @@
     "PROJECT": {
         "TRAIN": {
             "TITLE": "Hyfforddi",
-            "BODY": "Casglwch enghreifftiau o'r hyn rydych chi am i'r cyfrifiadur ei gydnabod"
+            "BODY": "Casglwch enghreifftiau o'r hyn rydych chi am i'r cyfrifiadur ei gydnabod",
+            "REGRESSION": "Collect examples of what you want the computer to predict"
         },
         "LEARNANDTEST": {
             "TITLE": "Dysgu a Profi",
-            "BODY": "Defnyddiwch yr enghreifftiau i hyfforddi'r cyfrifiadur i adnabod"
+            "BODY": "Defnyddiwch yr enghreifftiau i hyfforddi'r cyfrifiadur i adnabod",
+            "REGRESSION": "Use the examples to train the computer to make predictions"
         },
         "MAKES": {
             "TITLE": "Creu",
@@ -404,6 +409,7 @@
     "TRAINING": {
         "TITLE": "Hyfforddi",
         "ADDLABEL": "Ychwanegu label newydd",
+        "ADDCOLUMN": "Add new column",
         "CREATEFIRSTLABEL": "Cliciwch ar y botwm 'plws' ar y dde i ychwanegu'ch bwced cyntaf.",
         "CROWDSOURCEDEMPTY": "Adnewyddwch y dudalen hon ar ôl i'ch athro greu'r bwcedi hyfforddi.",
         "ADDEXAMPLE": "Ychwanegwch enghraifft",
@@ -414,6 +420,10 @@
         "NEWLABEL": {
             "INTRO": "Rhowch label newydd i gydnabod",
             "ERROR": "Defnyddiwch lythrennau a rhifau mewn labeli yn unig"
+        },
+        "NEWCOLUMN": {
+            "INTRO": "Enter name for a new column",
+            "ERROR": "Only use letters and numbers in column names"
         },
         "NEWEXAMPLE": {
             "INTRO": "Rhowch enghraifft o",
@@ -427,7 +437,13 @@
             "WEBCAMFAIL": "Sori! Nid oeddem yn gallu cael gwe-gamera i weithio i chi.",
             "WEBCAMERROR": "Y neges a gawsom gan eich porwr gwe oedd:"
         },
-        "BACKGROUNDNOISE": "Bydd casglu enghreifftiau o sŵn cefndir yn helpu'r cyfrifiadur i ddysgu adnabod eich synau"
+        "BACKGROUNDNOISE": "Bydd casglu enghreifftiau o sŵn cefndir yn helpu'r cyfrifiadur i ddysgu adnabod eich synau",
+        "REGRESSION": {
+            "NOOUTPUTCOLS": "Tick the column(s) that you want your machine learning model to predict values for.",
+            "NOTRAINING": "Add training examples from Scratch or by uploading a CSV file.",
+            "NOCOLUMNS": "Add columns to use for this project.",
+            "ONECOLUMN": "You need at least two columns to have input and output."
+        }
     },
     "MODELS": {
         "TITLE": "Modelau dysgu peiriant",
@@ -466,7 +482,8 @@
                     "TEXT": "Rydych chi wedi hyfforddi model dysgu peiriant i gydnabod pryd mae testun yn ",
                     "IMAGES": "Rydych chi wedi hyfforddi model dysgu peiriant i gydnabod pryd mae delwedd yn  ",
                     "NUMBERS": "Rydych chi wedi hyfforddi model dysgu peiriant i gydnabod pryd mae rhifau yn ",
-                    "SOUNDS": "Rydych chi wedi hyfforddi model dysgu peiriant i gydnabod pryd mae synau yn "
+                    "SOUNDS": "Rydych chi wedi hyfforddi model dysgu peiriant i gydnabod pryd mae synau yn ",
+                    "REGRESSION": "You have trained a machine learning model to predict the values of "
                 },
                 "CREATED": {
                     "TEACHER": "Creodd eich athro'r model ar ",
@@ -525,7 +542,8 @@
                         "TEXT": "Dywedasoch eich bod am gasglu enghreifftiau o destun er mwyn i gyfrifiadur gydnabod pryd mae testun yn ",
                         "IMAGES": "Dywedasoch eich bod am gasglu enghreifftiau o ddelweddau ar gyfer cyfrifiadur i'w cydnabod pan fydd delweddau yn ",
                         "NUMBERS": "Dywedasoch eich bod am gasglu enghreifftiau o rifau ar gyfer cyfrifiadur i gydnabod pryd mae rhifau yn ",
-                        "SOUNDS": "Dywedasoch eich bod am gasglu enghreifftiau o synau i gyfrifiadur eu hadnabod pan fydd synau yn "
+                        "SOUNDS": "Dywedasoch eich bod am gasglu enghreifftiau o synau i gyfrifiadur eu hadnabod pan fydd synau yn ",
+                        "REGRESSION" : "You said that you want to collect examples of numbers for a computer to predict the value of "
                     }
                 },
                 "NOEXAMPLES": {
@@ -543,7 +561,8 @@
                         "TEXT": "Rydych wedi casglu enghreifftiau o destun i gyfrifiadur ei ddefnyddio i adnabod pryd mae testun yn ",
                         "IMAGES": "Rydych wedi casglu enghreifftiau o ddelweddau i gyfrifiadur eu defnyddio i adnabod pryd mae delweddau yn ",
                         "NUMBERS": "Rydych wedi casglu enghreifftiau o rifau i gyfrifiadur eu defnyddio i adnabod pryd mae rhifau yn ",
-                        "SOUNDS": "Rydych wedi casglu enghreifftiau o synau i gyfrifiadur eu defnyddio i adnabod pryd mae synau yn "
+                        "SOUNDS": "Rydych wedi casglu enghreifftiau o synau i gyfrifiadur eu defnyddio i adnabod pryd mae synau yn ",
+                        "REGRESSION" : "You have collected examples of numbers for a computer to use to predict the value of "
                     },
                     "COLLECTED": {
                         "CLASS": "Maent wedi casglu: ",
@@ -567,6 +586,7 @@
                 },
                 "LABELS": {
                     "NO_DATA": "Y cam nesaf yw mynd i'r dudalen <a href='{{ urls.train }}'>Hyfforddi</a>. Ychwanegwch enghreifftiau ar gyfer pob un o'r labeli.",
+                    "NO_DATA_REGRESSION" : "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Add examples of numbers.",
                     "MORE_DATA": {
                         "KEEP_GOING": "Dal ati!",
                         "MORE_EXAMPLES": {
@@ -594,9 +614,11 @@
                     "TEXT": "Rhowch gynnig ar brofi'r model dysgu peiriant isod. Rhowch enghraifft o destun isod, na wnaethoch chi ei gynnwys yn yr enghreifftiau roeddech chi'n eu defnyddio i'w hyfforddi. Bydd yn dweud wrthych beth y mae'n ei gydnabod, a pha mor hyderus ydyw yn hynny.",
                     "IMAGES": "Rhowch gynnig ar brofi'r model dysgu peiriant isod. Rhowch ddelwedd enghreifftiol isod, na wnaethoch chi ei chynnwys yn yr enghreifftiau roeddech chi'n eu defnyddio i'w hyfforddi. Bydd yn dweud wrthych beth y mae'n ei gydnabod, a pha mor hyderus ydyw yn hynny.",
                     "NUMBERS": "Rhowch gynnig ar brofi'r model dysgu peiriant isod. Rhowch enghraifft o'r rhifau isod, na wnaethoch chi eu cynnwys yn yr enghreifftiau roeddech chi'n arfer eu hyfforddi. Bydd yn dweud wrthych beth y mae'n ei gydnabod, a pha mor hyderus ydyw yn hynny.",
-                    "SOUNDS": "Rhowch gynnig ar brofi'r model dysgu peiriant isod. Cliciwch y botwm 'Dechreuwch wrando'. Os yw'ch model dysgu peiriant yn cydnabod unrhyw synau, bydd yn dweud wrthych beth mae'n ei gydnabod, a pha mor hyderus ydyw yn hynny."
+                    "SOUNDS": "Rhowch gynnig ar brofi'r model dysgu peiriant isod. Cliciwch y botwm 'Dechreuwch wrando'. Os yw'ch model dysgu peiriant yn cydnabod unrhyw synau, bydd yn dweud wrthych beth mae'n ei gydnabod, a pha mor hyderus ydyw yn hynny.",
+                    "REGRESSION" : "Try testing the machine learning model below. Enter an example of numbers below, that you didn't include in the examples you used to train it. It will tell you what it predicts the output should be."
                 },
                 "SCRATCH": "Os yw'n ymddangos bod y cyfrifiadur wedi dysgu adnabod pethau'n gywir, yna gallwch fynd i Scratch a defnyddio'r hyn y mae'r cyfrifiadur wedi'i ddysgu i wneud gêm!",
+                "SCRATCH_REGRESSION" : "If the computer seems to have learned to predict things correctly, then you can go to Scratch and use what the computer has learned to make a game!",
                 "ADDITIONAL_TRAINING": {
                     "MORE_EXAMPLES": {
                         "CROWDSOURCED": "Os yw'r cyfrifiadur yn cael gormod o bethau'n anghywir, efallai y bydd eich dosbarth eisiau mynd yn ôl i'r dudalen <a href='{{ urls.train }}'>Hyfforddi</a> a chasglu mwy o enghreifftiau.",
@@ -623,12 +645,14 @@
                 "TEXT": "Ceisiwch roi rhywfaint o destun i mewn i weld sut mae'n cael ei gydnabod yn seiliedig ar eich hyfforddiant.",
                 "IMAGES": "Ceisiwch roi delwedd i mewn i weld sut mae'n cael ei chydnabod yn seiliedig ar eich hyfforddiant.",
                 "NUMBERS": "Ceisiwch roi rhai rhifau i mewn i weld sut mae'n cael ei gydnabod yn seiliedig ar eich hyfforddiant.",
-                "SOUNDS": "Ceisiwch wneud sain i weld sut mae'n cael ei gydnabod yn seiliedig ar eich hyfforddiant"
+                "SOUNDS": "Ceisiwch wneud sain i weld sut mae'n cael ei gydnabod yn seiliedig ar eich hyfforddiant",
+                "REGRESSION": "Try putting in some numbers to see the prediction based on your training."
             },
             "WEBCAM": "Profi gyda <strong>gwe-gamera</strong>",
             "DRAWING": "Profi gan <strong>llunio</strong>",
             "WWW": "Profi gyda <strong>www</strong>",
             "RECOGNISED": "Cydnabyddir fel <strong>{{ testoutput }}</strong>",
+            "PREDICTION": "Prediction:",
             "STARTLISTENING": "Dechreuwch wrando",
             "STOPLISTENING": "Stopiwch wrando"
         },
@@ -1006,6 +1030,7 @@
         "MORE_BLOCKS": "Bydd eich prosiect yn ychwanegu'r blociau hyn at y tab <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>Mwy o flociau</span> yn Sgriptiau.",
         "MORE_BLOCKS_3": "Bydd eich prosiect yn ychwanegu'r blociau hyn at Scratch.",
         "EXPLAIN_RECOGNISE_LABEL": "Rhowch {{ type }} yn y mewnbwn ar gyfer hyn, a bydd yn dychwelyd y label y mae eich model dysgu peiriant yn ei gydnabod fel.",
+        "EXPLAIN_PREDICT": "Put input numbers in this, and it will return a prediction of the output number.",
         "EXPLAIN_RECOGNISE_CONFIDENCE": "Bydd hyn yn dychwelyd pa mor hyderus yw'ch model dysgu peiriant ei fod yn cydnabod y math o {{ type }}. (Fel rhif rhwng 0 - 100).",
         "EXPLAIN_LABELS": "Mae'r blociau hyn yn cynrychioli'r labeli rydych chi wedi'u creu yn eich prosiect, felly gallwch chi ddefnyddio eu henwau yn eich sgriptiau.",
         "EXPLAIN_COSTUMEIMAGE": "Mae'r bloc hwn yn y palet Edrychiad ar gyfer Cipluniau a bydd yn dychwelyd delwedd y wisg a ddewiswyd ar hyn o bryd.",
@@ -1037,7 +1062,8 @@
             "IMAGES": "delweddau",
             "NUMBERS": "rhifau",
             "SOUNDS": "synau",
-            "FACES": "gwynebau"
+            "FACES": "gwynebau",
+            "REGRESSION": "predicting numbers"
         },
         "LEVELS": {
             "TITLE": "Lefel:",

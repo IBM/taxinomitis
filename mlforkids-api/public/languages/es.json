@@ -192,6 +192,7 @@
         "COPYTEMPLATE": "Copiar plantilla",
         "CREATEFIRSTPROJECT": "Haz clic en el botón 'más' a la izquierda para crear tu primer proyecto.",
         "RECOGNISING": "Reconociendo",
+        "PREDICTING": "Predicting",
         "AS": "como",
         "SHARE": "Compartir",
         "UNSHARE": "Dejar de compartir",
@@ -220,12 +221,14 @@
             "NOTES_3": "Storing in the cloud will let you access the project from any computer."
         },
         "TYPES": {
+            "TYPELABEL": "Project Type",
             "LABEL": "Reconociendo",
             "NOTES_1": "¿Qué tipo de cosas quieres enseñar a la computadora a reconocer?",
             "NOTES_2": "Para palabras, oraciones o párrafos, elige \"texto\"",
             "NOTES_3": "Para fotos, diagramas e imágenes, elige \"imágenes\"",
             "NOTES_4": "Para conjuntos de números u opciones múltiples, elija \"números\"",
-            "NOTES_5": "Para voces y sonidos, choose \"sonidos\""
+            "NOTES_5": "Para voces y sonidos, choose \"sonidos\"",
+            "NOTES_6": "To predict numbers, choose \"predicting numbers\""
         },
         "LANGUAGE": {
             "LABEL": "Idioma",
@@ -368,11 +371,13 @@
     "PROJECT": {
         "TRAIN": {
             "TITLE": "Entrenar",
-            "BODY": "Introduce ejemplos de lo que quieres que la computadora identifique"
+            "BODY": "Introduce ejemplos de lo que quieres que la computadora identifique",
+            "REGRESSION": "Collect examples of what you want the computer to predict"
         },
         "LEARNANDTEST": {
             "TITLE": "Aprender &amp; Probar",
-            "BODY": "Usa los ejemplos para entrenar la computadora a reconocer"
+            "BODY": "Usa los ejemplos para entrenar la computadora a reconocer",
+            "REGRESSION": "Use the examples to train the computer to make predictions"
         },
         "MAKES": {
             "TITLE": "Crea",
@@ -404,6 +409,7 @@
     "TRAINING": {
         "TITLE": "Entrenamiento",
         "ADDLABEL": "Añadir etiqueta",
+        "ADDCOLUMN": "Add new column",
         "CREATEFIRSTLABEL": "Haz click sobre el botón  'plus' a la derecho para aádir tu primer contenedor",
         "CROWDSOURCEDEMPTY": "Refresca la página una vez tu profesor ha creado los contenedores de entrenamiento.",
         "ADDEXAMPLE": "Añade un ejemplo. ",
@@ -414,6 +420,10 @@
         "NEWLABEL": {
             "INTRO": "Añade una nueva etiqueta. ",
             "ERROR": "Usa solo letras y números en las etiquetas. "
+        },
+        "NEWCOLUMN": {
+            "INTRO": "Enter name for a new column",
+            "ERROR": "Only use letters and numbers in column names"
         },
         "NEWEXAMPLE": {
             "INTRO": "Añade un ejemplo de  ",
@@ -427,7 +437,13 @@
             "WEBCAMFAIL": "¡Lo sentimos!, la cámara web no funciona. .",
             "WEBCAMERROR": "El mensaje de error del navegador es:"
         },
-        "BACKGROUNDNOISE": "Collecting examples of background noise will help the computer to learn to recognize your sounds"
+        "BACKGROUNDNOISE": "Collecting examples of background noise will help the computer to learn to recognize your sounds",
+        "REGRESSION": {
+            "NOOUTPUTCOLS": "Tick the column(s) that you want your machine learning model to predict values for.",
+            "NOTRAINING": "Add training examples from Scratch or by uploading a CSV file.",
+            "NOCOLUMNS": "Add columns to use for this project.",
+            "ONECOLUMN": "You need at least two columns to have input and output."
+        }
     },
     "MODELS": {
         "TITLE": "Modelos de aprendizaje automático",
@@ -466,7 +482,8 @@
                     "TEXT": "Has entrenado un modelo de aprendizaje automático para reconocer cuando un texto es ",
                     "IMAGES": "Has entrenado un modelo de aprendizaje automático para reconocer cuando una imagen es ",
                     "NUMBERS": "Has entrenado un modelo de aprendizaje automático para reconocer cuando un número es ",
-                    "SOUNDS": "You have trained a machine learning model to recognise when sounds are "
+                    "SOUNDS": "You have trained a machine learning model to recognise when sounds are ",
+                    "REGRESSION": "You have trained a machine learning model to predict the values of "
                 },
                 "CREATED": {
                     "TEACHER": "Tu profesor ha creado el modelo el  ",
@@ -525,7 +542,8 @@
                         "TEXT": "Has elegido añadir ejemplos de texto para que la computadora reconozca cuando un texto es ",
                         "IMAGES": "Has elegido añadir ejemplos de imágenes para que la computadora reconozca cuando un texto es ",
                         "NUMBERS": "Has elegido añadir ejemplos de números para que la computadora reconozca cuando un texto es ",
-                        "SOUNDS": "You said that you want to collect examples of sounds for a computer to recognise when sounds are "
+                        "SOUNDS": "You said that you want to collect examples of sounds for a computer to recognise when sounds are ",
+                        "REGRESSION" : "You said that you want to collect examples of numbers for a computer to predict the value of "
                     }
                 },
                 "NOEXAMPLES": {
@@ -543,7 +561,8 @@
                         "TEXT": "Has añadido ejemplos de texto para que la computadora aprenda a reconocer cuando un texto es ",
                         "IMAGES": "Has añadido ejemplos de imágenes para que la computadora aprenda a reconocer cuando una imagen es ",
                         "NUMBERS": "Has añadido ejemplos de números para que la computadora aprenda a reconocer cuando un número es ",
-                        "SOUNDS": "You have collected examples of sounds for a computer to use to recognise when sounds are "
+                        "SOUNDS": "You have collected examples of sounds for a computer to use to recognise when sounds are ",
+                        "REGRESSION" : "You have collected examples of numbers for a computer to use to predict the value of "
                     },
                     "COLLECTED": {
                         "CLASS": "Han agregado: ",
@@ -567,6 +586,7 @@
                 },
                 "LABELS": {
                     "NO_DATA": "A continuación va a la página  <a href='{{ urls.train }}'>Entrenar</a>. Añade ejemplos para cada etiqueta. .",
+                    "NO_DATA_REGRESSION" : "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Add examples of numbers.",
                     "MORE_DATA": {
                         "KEEP_GOING": "¡Seguimos!",
                         "MORE_EXAMPLES": {
@@ -594,9 +614,11 @@
                     "TEXT": "Comprueba cómo funciona el modelo. Introduce un texto que no hayas usado en el entrenamiento. Te indicará cómo lo identifica y la fiabilidad de la respuesta. ",
                     "IMAGES": "Comprueba cómo funciona el modelo. Introduce una imagen que no hayas usado en el entrenamiento. Te indicará cómo lo identifica y la fiabilidad de la respuesta..",
                     "NUMBERS": "Comprueba cómo funciona el modelo. Introduce un número que no hayas usado en el entrenamiento. Te indicará cómo lo identifica y la fiabilidad de la respuesta..",
-                    "SOUNDS": "Try testing the machine learning model below. Click the 'Start listening' button. If your machine learning model recognises any sounds, it will tell you what it recognises it as, and how confident it is in that."
+                    "SOUNDS": "Try testing the machine learning model below. Click the 'Start listening' button. If your machine learning model recognises any sounds, it will tell you what it recognises it as, and how confident it is in that.",
+                    "REGRESSION" : "Try testing the machine learning model below. Enter an example of numbers below, that you didn't include in the examples you used to train it. It will tell you what it predicts the output should be."
                 },
                 "SCRATCH": "Si la computadora ha aprendido correctamente, puedes ir Scratch  y usar lo que ha aprendido para crear un juego.!",
+                "SCRATCH_REGRESSION" : "If the computer seems to have learned to predict things correctly, then you can go to Scratch and use what the computer has learned to make a game!",
                 "ADDITIONAL_TRAINING": {
                     "MORE_EXAMPLES": {
                         "CROWDSOURCED": "Si la computadora falla demasiado, la clase debería volver a la página <a href='{{ urls.train }}'>Entrenar</a> y añadir más ejemplos.",
@@ -623,12 +645,14 @@
                 "TEXT": "Añade texto para ver cómo lo identifica tras el entrenamiento.",
                 "IMAGES": "Añade una imagen para ver cómo la identifica tras el entrenamiento.",
                 "NUMBERS": "Añade un número para ver cómo lo identifica tras el entrenamiento.",
-                "SOUNDS": "Try making a sound to see how it is recognised based on your training"
+                "SOUNDS": "Try making a sound to see how it is recognised based on your training",
+                "REGRESSION": "Try putting in some numbers to see the prediction based on your training."
             },
             "WEBCAM": "Prueba con <strong>webcam</strong>",
             "DRAWING": "Prueba con  <strong>un dibujo</strong>",
             "WWW": "Prueba con <strong>www</strong>",
             "RECOGNISED": "Identificado como  <strong>{{ testoutput }}</strong>",
+            "PREDICTION": "Prediction:",
             "STARTLISTENING": "Start listening",
             "STOPLISTENING": "Stop listening"
         },
@@ -1006,6 +1030,7 @@
         "MORE_BLOCKS": "Tu Proyecto añadirá estos bloques en la columna <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>Más bloques</span> de Scripts.",
         "MORE_BLOCKS_3": "Your project will add these blocks to Scratch.",
         "EXPLAIN_RECOGNISE_LABEL": "Añade {{ type }} en el camplo de entrada y te devolverá la etiqueta con la que la reconoce tu modelo de aprendizaje automático..",
+        "EXPLAIN_PREDICT": "Put input numbers in this, and it will return a prediction of the output number.",
         "EXPLAIN_RECOGNISE_CONFIDENCE": "Indicador de la fiabilidad con la que tu modelo de aprendizaje automático reconoce el tipo de f {{ type }}. (Número de  0 - 100).",
         "EXPLAIN_LABELS": "Estos bloques representan las etiquetas que has creado en tu Proyecto, puedes usar estos nombres en tus scripts..",
         "EXPLAIN_COSTUMEIMAGE": "Este bloque está en la paleta  de aspectos de la herramienta Sprites y devuelve la imagen del skin seleccionado .",
@@ -1037,7 +1062,8 @@
             "IMAGES": "imágenes",
             "NUMBERS": "números",
             "SOUNDS": "sonidos",
-            "FACES": "faces"
+            "FACES": "faces",
+            "REGRESSION": "predicting numbers"
         },
         "LEVELS": {
             "TITLE": "Nivel de dificultad:",

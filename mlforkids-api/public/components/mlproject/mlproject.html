@@ -17,7 +17,8 @@
     <div class="menucontainer">
         <div class="mlprojectmenu">
             <div class="mlprojectmenutitle" translate="PROJECT.TRAIN.TITLE"></div>
-            <div class="mlprojectmenudescription" translate="PROJECT.TRAIN.BODY"></div>
+            <div class="mlprojectmenudescription" translate="PROJECT.TRAIN.BODY"       ng-hide="project.type === 'regression'"></div>
+            <div class="mlprojectmenudescription" translate="PROJECT.TRAIN.REGRESSION" ng-if="project.type === 'regression'"></div>
             <div class="mlprojectmenubutton">
                 <button type="button" class="btn btn-primary"
                         ui-sref="mlproject_training({ projectId : projectId, userId : userId })"
@@ -26,7 +27,8 @@
         </div>
         <div class="mlprojectmenu">
             <div class="mlprojectmenutitle" translate="PROJECT.LEARNANDTEST.TITLE"></div>
-            <div class="mlprojectmenudescription">{{ 'PROJECT.LEARNANDTEST.BODY' | translate }} {{ project.type === 'imgtfjs' ? 'images' : project.type }}</div>
+            <div class="mlprojectmenudescription" ng-hide="project.type === 'regression'">{{ 'PROJECT.LEARNANDTEST.BODY' | translate }} {{ project.type === 'imgtfjs' ? 'images' : project.type }}</div>
+            <div class="mlprojectmenudescription" ng-if="project.type === 'regression'" translate="PROJECT.LEARNANDTEST.REGRESSION"></div>
             <div class="mlprojectmenubutton">
                 <button type="button" class="btn btn-primary"
                         ui-sref="mlproject_models({ projectId : projectId, userId : userId })"

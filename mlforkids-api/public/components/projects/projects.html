@@ -47,14 +47,20 @@
                  ng-class="{ 'mlprojecthighlight' : vm.highlightId === project.id }">
                 <div class="mlprojecttitle">{{ project.name }}</div>
                 <div class="mlprojectdescription">
-                    {{ 'PROJECTS.RECOGNISING' | translate }}
+                    <span ng-hide="project.type === 'regression'" translate="PROJECTS.RECOGNISING"></span>
+                    <span ng-if="project.type === 'regression'">Predicting</span>
                     <span class="mlprojecttype" ng-if="project.type === 'text'" translate="WORKSHEETS.TYPES.TEXT"></span>
                     <span class="mlprojecttype" ng-if="project.type === 'imgtfjs'" translate="WORKSHEETS.TYPES.IMAGES"></span>
                     <span class="mlprojecttype" ng-if="project.type === 'numbers'" translate="WORKSHEETS.TYPES.NUMBERS"></span>
                     <span class="mlprojecttype" ng-if="project.type === 'sounds'" translate="WORKSHEETS.TYPES.SOUNDS"></span>
-                    <span ng-if="project.labelsSummary">
+                    <span ng-if="project.labelsSummary" ng-hide="project.type === 'regression'">
                         {{ 'PROJECTS.AS' | translate }}
+                    </span>
+                    <span ng-if="project.labelsSummary">
                         <span class="mlprojectlabels">{{ project.labelsSummary }}</span>
+                    </span>
+                    <span ng-if="project.columnsSummary">
+                        {{ project.columnsSummary }}
                     </span>
                 </div>
                 <div class="mlprojecticon mlprojectcrowd" ng-if="project.isCrowdSourced"      ng-click="vm.displayCrowdSourcedInfo($event)"> </div>

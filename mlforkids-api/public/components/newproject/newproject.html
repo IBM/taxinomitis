@@ -77,16 +77,17 @@
         <!-- ---------------------------------------- -->
         <div class="newprojectrow">
             <md-input-container class="newprojectform">
-                <label translate="NEWPROJECT.TYPES.LABEL"></label>
+                <label translate="NEWPROJECT.TYPES.TYPELABEL"></label>
                 <md-select ng-required="true"
                            ng-model="projectType"
                            ng-disabled="creating"
                            ng-focus="vm.focused = 'type'"
                            class="newprojecttype">
-                    <md-option value="text"    translate="WORKSHEETS.TYPES.TEXT"></md-option>
-                    <md-option value="imgtfjs" translate="WORKSHEETS.TYPES.IMAGES"></md-option>
-                    <md-option value="numbers" translate="WORKSHEETS.TYPES.NUMBERS"></md-option>
-                    <md-option value="sounds"  translate="WORKSHEETS.TYPES.SOUNDS"></md-option>
+                    <md-option value="text"   >{{ 'NEWPROJECT.TYPES.LABEL' | translate }} {{ 'WORKSHEETS.TYPES.TEXT'    | translate }}</md-option>
+                    <md-option value="imgtfjs">{{ 'NEWPROJECT.TYPES.LABEL' | translate }} {{ 'WORKSHEETS.TYPES.IMAGES'  | translate }}</md-option>
+                    <md-option value="numbers">{{ 'NEWPROJECT.TYPES.LABEL' | translate }} {{ 'WORKSHEETS.TYPES.NUMBERS' | translate }}</md-option>
+                    <md-option value="sounds" >{{ 'NEWPROJECT.TYPES.LABEL' | translate }} {{ 'WORKSHEETS.TYPES.SOUNDS'  | translate }}</md-option>
+                    <md-option value="regression" ng-if="isLocalSupported && regressionShow">{{ 'WORKSHEETS.TYPES.REGRESSION' | translate }} <span class="badge">beta</span></md-option>
                 </md-select>
             </md-input-container>
             <div class="well newprojecthelp"
@@ -96,6 +97,7 @@
                 <div translate="NEWPROJECT.TYPES.NOTES_3"></div>
                 <div translate="NEWPROJECT.TYPES.NOTES_4"></div>
                 <div translate="NEWPROJECT.TYPES.NOTES_5"></div>
+                <div translate="NEWPROJECT.TYPES.NOTES_6" ng-if="regressionShow"></div>
             </div>
         </div>
 
@@ -268,7 +270,7 @@
                            ng-focus="vm.focused = 'storage'"
                            class="newprojecttype">
                     <md-option value="local" translate="NEWPROJECT.STORAGE.LOCAL" ng-selected="isLocalSupported && projectType !== 'numbers'"></md-option>
-                    <md-option value="cloud" translate="NEWPROJECT.STORAGE.CLOUD" ng-selected="!isLocalSupported || projectType === 'numbers'"></md-option>
+                    <md-option value="cloud" translate="NEWPROJECT.STORAGE.CLOUD" ng-selected="!isLocalSupported || projectType === 'numbers'" ng-hide="isLocalSupported"></md-option>
                 </md-select>
             </md-input-container>
             <div class="well newprojecthelp" ng-if="vm.focused === 'storage'">

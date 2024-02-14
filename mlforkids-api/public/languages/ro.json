@@ -198,6 +198,7 @@
         "COPYTEMPLATE": "Copiază șablonul",
         "CREATEFIRSTPROJECT": "Fă clic pe butonul „plus” din dreapta pentru a crea primul tău proiect.",
         "RECOGNISING": "Recunoscând",
+        "PREDICTING": "Predicting",
         "AS": "precum",
         "SHARE": "Partajează",
         "UNSHARE": "Anulează partajarea",
@@ -226,12 +227,14 @@
             "NOTES_3": "Storing in the cloud will let you access the project from any computer."
         },
         "TYPES": {
+            "TYPELABEL": "Project Type",
             "LABEL": "Recunoaștere",
             "NOTES_1": "Ce tip de lucru dorești să înveți computerul să recunoască?",
             "NOTES_2": "Pentru cuvinte, propoziții sau paragrafe, alege \"text\"",
             "NOTES_3": "Pentru fotografii, diagrame și imagini, alege \"imagini\"",
             "NOTES_4": "Pentru seturi de numere sau opțiuni multiple, alege \"numere\"",
-            "NOTES_5": "Pentru voci și sunete, alege \"sunete\""
+            "NOTES_5": "Pentru voci și sunete, alege \"sunete\"",
+            "NOTES_6": "To predict numbers, choose \"predicting numbers\""
         },
         "LANGUAGE": {
             "LABEL": "Limba",
@@ -374,11 +377,13 @@
     "PROJECT": {
         "TRAIN": {
             "TITLE": "Instruiește",
-            "BODY": "Colectează exemple legate de ceea ce dorești să recunoască computerul"
+            "BODY": "Colectează exemple legate de ceea ce dorești să recunoască computerul",
+            "REGRESSION": "Collect examples of what you want the computer to predict"
         },
         "LEARNANDTEST": {
             "TITLE": "Învață &amp; Testează",
-            "BODY": "Utilizează exemplele pentru a instrui computerul să recunoască"
+            "BODY": "Utilizează exemplele pentru a instrui computerul să recunoască",
+            "REGRESSION": "Use the examples to train the computer to make predictions"
         },
         "MAKES": {
             "TITLE": "Creează",
@@ -410,6 +415,7 @@
     "TRAINING": {
         "TITLE": "Instruire (Training)",
         "ADDLABEL": "Adaugă o etichetă nouă",
+        "ADDCOLUMN": "Add new column",
         "CREATEFIRSTLABEL": "Fă clic pe butonul „plus” din dreapta pentru a adăuga primul _bucket_.",
         "CROWDSOURCEDEMPTY": "Dă refresh aceastei pagini după ce profesorul tău a creat _bucket-ul_.",
         "ADDEXAMPLE": "Adaugă exemplu",
@@ -420,6 +426,10 @@
         "NEWLABEL": {
             "INTRO": "Introdu o etichetă nouă pentru a recunoaște",
             "ERROR": "Folosește numai litere și cifre în etichete"
+        },
+        "NEWCOLUMN": {
+            "INTRO": "Enter name for a new column",
+            "ERROR": "Only use letters and numbers in column names"
         },
         "NEWEXAMPLE": {
             "INTRO": "Introdu un exemplu al unei ",
@@ -433,7 +443,13 @@
             "WEBCAMFAIL": "Ne pare rău! Nu am reușit să obținem o cameră web care să funcționeze pentru tine.",
             "WEBCAMERROR": "Mesajul primit de la browserul tău web a fost:"
         },
-        "BACKGROUNDNOISE": "Colectarea de exemple de zgomot de fundal va ajuta computerul să învețe să îți recunoască sunetele"
+        "BACKGROUNDNOISE": "Colectarea de exemple de zgomot de fundal va ajuta computerul să învețe să îți recunoască sunetele",
+        "REGRESSION": {
+            "NOOUTPUTCOLS": "Tick the column(s) that you want your machine learning model to predict values for.",
+            "NOTRAINING": "Add training examples from Scratch or by uploading a CSV file.",
+            "NOCOLUMNS": "Add columns to use for this project.",
+            "ONECOLUMN": "You need at least two columns to have input and output."
+        }
     },
     "MODELS": {
         "TITLE": "Modele de învățare automată",
@@ -473,7 +489,8 @@
                     "TEXT" : "Ai instruit un model de învățare automată pentru a recunoaște când textul este ",
                     "IMAGES" : "Ai instruit un model de învățare automată pentru a recunoaște când imaginile sunt ",
                     "NUMBERS" : "Ai instruit un model de învățare automată pentru a recunoaște când numerele sunt ",
-                    "SOUNDS" : "Ai instruit un model de învățare automată pentru a recunoaște când sunetele sunt "
+                    "SOUNDS" : "Ai instruit un model de învățare automată pentru a recunoaște când sunetele sunt ",
+                    "REGRESSION": "You have trained a machine learning model to predict the values of "
                 },
                 "CREATED" : {
                     "TEACHER" : "Profesorul tău a creat modelul pe ",
@@ -532,7 +549,8 @@
                         "TEXT" : "Ai spus că dorești să colectezi exemple de text pentru ca un computer să le recunoască când textul este ",
                         "IMAGES" : "Ai spus că dorești să colectezi exemple de imagini pentru ca un computer să le recunoască când imaginile sunt ",
                         "NUMBERS" : "Ai spus că dorești să colectezi exemple de numere pentru ca un computer să le recunoască când numerele sunt ",
-                        "SOUNDS" : "Ai spus că dorești să colectezi exemple de sunete pentru ca un computer să le recunoască când sunetele sunt "
+                        "SOUNDS" : "Ai spus că dorești să colectezi exemple de sunete pentru ca un computer să le recunoască când sunetele sunt ",
+                        "REGRESSION" : "You said that you want to collect examples of numbers for a computer to predict the value of "
                     }
                 },
                 "NOEXAMPLES" : {
@@ -550,7 +568,8 @@
                         "TEXT" : "Ai adunat exemple de text pe care un computer să le poată utiliza pentru a le recunoaște când textul este ",
                         "IMAGES" : "Ai adunat exemple de imagini pe care un computer să le poată utiliza pentru a recunoaște când imaginile sunt ",
                         "NUMBERS" : "Ai adunat exemple de numere pe care un computer să le poată utiliza pentru a recunoaște când numerele sunt ",
-                        "SOUNDS" : "Ai adunat exemple de sunete pe care un computer să le poată folosi pentru a recunoaște când sunetele sunt "
+                        "SOUNDS" : "Ai adunat exemple de sunete pe care un computer să le poată folosi pentru a recunoaște când sunetele sunt ",
+                        "REGRESSION" : "You have collected examples of numbers for a computer to use to predict the value of "
                     },
                     "COLLECTED" : {
                         "CLASS" : "Au colectat: ",
@@ -575,6 +594,7 @@
                 },
                 "LABELS" : {
                     "NO_DATA" : "Următorul pas este să accesezi pagina <a href='{{ urls.train }}'>Instruire</a>. Adaugă exemple pentru fiecare dintre etichete.",
+                    "NO_DATA_REGRESSION" : "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Add examples of numbers.",
                     "MORE_DATA" : {
                         "KEEP_GOING": "Continuă!",
                         "MORE_EXAMPLES" : {
@@ -602,9 +622,11 @@
                     "TEXT" : "Încearcă să testezi modelul de învățare automată de mai jos. Introdu mai jos un exemplu de text pe care nu l-ai inclus în exemplele pe care le-ai folosit pentru a-l instrui. Îți va spune cum îl recunoaște și cât de încrezător este în asta.",
                     "IMAGES" : "Încearcă să testezi modelul de învățare automată de mai jos. Introdu mai jos o fotografie pe care nu ai inclus-o în exemplele pe care le-ai folosit pentru a-l instrui. Îți va spune cum îl recunoaște și cât de încrezător este în asta.",
                     "NUMBERS" : "Încearcă să testezi modelul de învățare automată de mai jos. Introdu mai jos un exemplu de număr pe care nu l-ai inclus în exemplele pe care le-ai folosit pentru a-l instrui. Îți va spune cum îl recunoaște și cât de încrezător este în asta.",
-                    "SOUNDS" : "Încearcă să testezi modelul de învățare automată de mai jos. Fă clic pe butonul „Începe să asculți”. Dacă modelul tău de învățare automată recunoaște sunete, acesta îți va spune cum îl recunoaște și cât de încrezător este în asta."
+                    "SOUNDS" : "Încearcă să testezi modelul de învățare automată de mai jos. Fă clic pe butonul „Începe să asculți”. Dacă modelul tău de învățare automată recunoaște sunete, acesta îți va spune cum îl recunoaște și cât de încrezător este în asta.",
+                    "REGRESSION" : "Try testing the machine learning model below. Enter an example of numbers below, that you didn't include in the examples you used to train it. It will tell you what it predicts the output should be."
                 },
                 "SCRATCH" : "Dacă computerul pare să fi învățat să recunoască lucrurile corect, atunci poți merge la Scratch și utiliza ceea ce a învățat computerul pentru a crea un joc!",
+                "SCRATCH_REGRESSION" : "If the computer seems to have learned to predict things correctly, then you can go to Scratch and use what the computer has learned to make a game!",
                 "ADDITIONAL_TRAINING" : {
                     "MORE_EXAMPLES" : {
                         "CROWDSOURCED" : "Dacă computerul greșește prea multe lucruri, clasa ta ar putea dori să revină la pagina <a href='{{ urls.train }}'>Instruiește</a> să coleacteze mai multe exemple.",
@@ -631,12 +653,14 @@
                 "TEXT": "Încearcă să introduci un text pentru a vedea cum este recunoscut pe baza antrenamentului tău.",
                 "IMAGES": "Încearcă să introduci o imagine pentru a vedea cum este recunoscută pe baza antrenamentului tău.",
                 "NUMBERS": "Încearcă să introduci câteva numere pentru a vedea cum este recunoscut pe baza antrenamentului tău.",
-                "SOUNDS": "Încearcă să scoți un sunet pentru a vedea cum este recunoscut pe baza antrenamentului tău."
+                "SOUNDS": "Încearcă să scoți un sunet pentru a vedea cum este recunoscut pe baza antrenamentului tău.",
+                "REGRESSION": "Try putting in some numbers to see the prediction based on your training."
             },
             "WEBCAM": "Testează cu <strong>o cameră web</strong>",
             "DRAWING": "Testează cu <strong>un desen</strong>",
             "WWW": "Testează cu <strong>www</strong>",
             "RECOGNISED": "Recunoscut ca <strong>{{ testoutput }}</strong>",
+            "PREDICTION": "Prediction:",
             "STARTLISTENING": "Începe să asculți”",
             "STOPLISTENING": "Stop ascultare"
         },
@@ -1031,6 +1055,7 @@
         "MORE_BLOCKS": "Proiectul tău va adăuga aceste blocuri la <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>Mai multe blocuri</span> în Script-uri.",
         "MORE_BLOCKS_3": "Proiectul tău va adăuga aceste blocuri în Scratch.",
         "EXPLAIN_RECOGNISE_LABEL": "Introduceți {{ type }} datele pentru acest lucru și va returna eticheta pe care o recunoaște modelul tău de învățare automată.",
+        "EXPLAIN_PREDICT": "Put input numbers in this, and it will return a prediction of the output number.",
         "EXPLAIN_RECOGNISE_CONFIDENCE": "Acest lucru va returna cât de sigur este modelul tău de învățare automată că recunoaște tipul de {{ type }}. (Printr-un număr de la 0 - 100).",
         "EXPLAIN_LABELS": "Aceste blocuri reprezintă etichetele pe care le-ai creat în proiectul tău, astfel încât să le poți folosi numele în script-uri.",
         "EXPLAIN_COSTUMEIMAGE": "Acest bloc se află în paleta Aspect pentru Personaje și va returna imaginea costumului selectat în prezent.",
@@ -1067,7 +1092,8 @@
             "IMAGES": "imagini",
             "NUMBERS": "numere",
             "SOUNDS": "sunete",
-            "FACES": "fețe"
+            "FACES": "fețe",
+            "REGRESSION": "predicting numbers"
         },
 
         "LEVELS": {

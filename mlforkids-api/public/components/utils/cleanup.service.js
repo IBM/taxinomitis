@@ -24,6 +24,9 @@
             else if (project.type === 'imgtfjs') {
                 modelService.deleteModel('images', project.id);
             }
+            else if (project.type === 'regression') {
+                modelService.deleteModel('regression', project.id);
+            }
 
             // clear up any test data stored on the browser
             storageService.removeItem('testdata://' + project.id);

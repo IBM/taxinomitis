@@ -62,7 +62,12 @@ gulp.task('customangularmaterial', function() {
                 .pipe(cleanCSS())
                 .pipe(gulp.dest('web/static/bower_components/angular-material'));
 });
-gulp.task('boweroverrides', gulp.parallel('custombootstrap', 'customangularmaterial'));
+gulp.task('papaparse', function() {
+    return gulp.src([
+        'node_modules/papaparse/papaparse.min.js'
+    ]).pipe(gulp.dest('web/static/bower_components/papaparse'));
+});
+gulp.task('boweroverrides', gulp.parallel('custombootstrap', 'customangularmaterial', 'papaparse'));
 
 gulp.task('twitter', function() {
     return gulp.src('public/static-files/twitter-card.html').pipe(gulp.dest('web/dynamic'));

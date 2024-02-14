@@ -48,7 +48,7 @@
         }
 
 
-        function generateProjectSummary(labels) {
+        function generateProjectSummary(labels, joinWord) {
             if (labels.length > 0) {
                 var summary = '';
                 switch (labels.length) {
@@ -56,16 +56,16 @@
                         summary = labels[0];
                         break;
                     case 2:
-                        summary = labels[0] + ' or ' + labels[1];
+                        summary = labels[0] + joinWord + labels[1];
                         break;
                     case 3:
                         summary = labels[0] + ', ' +
-                                  labels[1] + ' or ' +
+                                  labels[1] + joinWord +
                                   labels[2];
                         break;
                     default:
                         summary = labels[0] + ', ' +
-                                  labels[1] + ' or ' +
+                                  labels[1] + joinWord +
                                   (labels.length - 2) + ' other classes';
                         break;
                 }
@@ -108,15 +108,26 @@
                 trainingdatastatus = 'no_data';
             }
             else {
-                if (insufficient_data > 1 ||
-                    insufficient_data === labelslist.length ||
-                    labelslist.length < 2 ||
-                    (projectType === 'sounds' && insufficient_data > 0))
-                {
-                    trainingdatastatus = 'insufficient_data';
+                if (projectType === 'regression') {
+                    if (trainingDataCountsByLabel.data < 10)
+                    {
+                        trainingdatastatus = 'insufficient_data';
+                    }
+                    else {
+                        trainingdatastatus = 'data';
+                    }
                 }
                 else {
-                    trainingdatastatus = 'data';
+                    if (insufficient_data > 1 ||
+                        insufficient_data === labelslist.length ||
+                        labelslist.length < 2 ||
+                        (projectType === 'sounds' && insufficient_data > 0))
+                    {
+                        trainingdatastatus = 'insufficient_data';
+                    }
+                    else {
+                        trainingdatastatus = 'data';
+                    }
                 }
             }
 

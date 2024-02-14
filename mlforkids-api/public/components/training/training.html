@@ -10,7 +10,8 @@
     <div class="jumbotron training">
         <h2 class="text-center" ng-if="!project" translate="TRAINING.TITLE"></h2>
         <div class="mlprojectdescription" ng-if="project">
-            {{ 'PROJECTS.RECOGNISING' | translate }}
+            <span ng-hide="project.type === 'regression'" translate="PROJECTS.RECOGNISING"></span>
+            <span ng-if="project.type === 'regression'" translate="PROJECTS.PREDICTING"></span>
             <span class="mlprojecttype"
                   ng-if="project.type === 'text'"
                   translate="WORKSHEETS.TYPES.TEXT"></span>
@@ -23,9 +24,12 @@
             <span class="mlprojecttype"
                   ng-if="project.type === 'numbers'"
                   translate="WORKSHEETS.TYPES.NUMBERS"></span>
+            <span ng-if="project.labelsSummary" ng-hide="project.type === 'regression'" translate="PROJECTS.AS"></span>
             <span ng-if="project.labelsSummary">
-                {{ 'PROJECTS.AS' | translate }}
                 <span class="mlprojectlabels">{{ project.labelsSummary }}</span>
+            </span>
+            <span ng-if="columnsSummary">
+                {{ columnsSummary }}
             </span>
         </div>
     </div>
@@ -46,7 +50,7 @@
     <div ng-if="projectId && !project" class="loading"> </div>
 
     <div ng-if="project">
-        <div class="newlabelbuttons" ng-hide="reviewing">
+        <div class="newlabelbuttons" ng-hide="reviewing || project.type === 'regression'">
             <div class="newlabelbutton" ng-click="vm.addLabel($event)" ng-hide="crowdSourced">
                 <div class="newlabelicon">+</div>
                 <div class="newlabellabel" translate="TRAINING.ADDLABEL"></div>
@@ -61,7 +65,7 @@
                  translate="TRAINING.CROWDSOURCEDEMPTY"></div>
         </div>
 
-        <div class="trainingbuckets">
+        <div class="trainingbuckets" ng-hide="project.type == 'regression'">
             <div class="trainingbucket" ng-repeat="label in project.labels">
                 <div class="trainingbucketheader">
                     <span class="trainingbucketlabel">{{ label === '_background_noise_' ? 'background noise' : label }}</span>
@@ -163,7 +167,47 @@
                 <div class="trainingcountlabel" ng-if="training[label].length > 0">{{ training[label].length }}</div>
             </div>
         </div>
+        <div class="trainingbuckets regression" ng-if="project.type === 'regression'">
+            <div class="trainingbucket">
+                <div class="trainingbucketheader">
+                    <span class="trainingbucketlabel">examples</span>
+                </div>
+                <mldatatable
+                    class="trainingbucketitems"
+                    on-delete-item="vm.deleteRegressionItem"
+                    mode="regressionmode" set-mode="vm.setRegressionMode"
+                    project="project" training="training"></mldatatable>
+                <div class="newexamplesbuttonbar" ng-hide="regressionmode === 'selectcolumns'">
+                    <div class="btn newexamplebutton" ng-click="vm.setRegressionMode('selectcolumns')" ng-if="project.columns.length > 1">
+                        <div class="buttonicon glyphicon glyphicon-check"></div>
+                        <div class="newexamplelabel">Change output column(s)</div>
+                    </div>
+                    <div class="btn newexamplebutton" ng-if="training.length === 0" ng-click="vm.addRegressionColumn($event)">
+                        <div class="buttonicon glyphicon glyphicon-pencil"></div>
+                        <div class="newexamplelabel">Add column</div>
+                    </div>
+                    <label class="btn newexamplebutton" for="regression-file-upload" ng-hide="project.columns.length === 1">
+                        <div class="buttonicon glyphicon glyphicon-open-file"></div>
+                        <div class="newexamplelabel">Upload CSV</div>
+                    </label>
+                    <div class="btn newexamplebutton" ng-if="training.length > 0" ng-click="downloadTrainingData($event)">
+                        <div class="buttonicon glyphicon glyphicon-save-file"></div>
+                        <div class="newexamplelabel">Download CSV</div>
+                    </div>
+                    <div class="btn newexamplebutton" ng-if="training.length > 0" ng-click="vm.deleteAllRegression($event)">
+                        <div class="buttonicon glyphicon glyphicon-remove"></div>
+                        <div class="newexamplelabel">Delete all</div>
+                    </div>
 
+                    <input id="regression-file-upload"
+                        type="file"
+                        accept=".csv"
+                        style="display: none;"
+                        onchange="angular.element(this).scope().uploadTrainingData(event)"/>
+                </div>
+                <div class="trainingcountlabel">{{ training.length }}</div>
+            </div>
+        </div>
     </div>
 
     <div ng-if="!projectId" class="alert alert-danger pageheadermsg">

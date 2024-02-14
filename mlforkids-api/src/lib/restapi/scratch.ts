@@ -386,17 +386,26 @@ async function storeTrainingData(req: Express.Request, res: Express.Response) {
 
 
 async function getScratch3ExtensionLocalData(req: Express.Request, res: Express.Response) {
-    const projecttype = req.params.projecttype as Types.ProjectTypeLabel;
+    const projecttype = req.params.projecttype as Types.LocalProjectTypeLabel;
 
     const projectid = req.query.projectid as string;
     const projectname = req.query.projectname as string;
     const labelslist = req.query.labelslist ? req.query.labelslist as string : '';
+    const columnsQueryString = req.query.columns ? req.query.columns as string : '[]';
     if (!projectid || !projectname) {
         return errors.missingData(res);
     }
 
     try {
-        const extension = await extensions.getScratchxExtensionLocalData(projecttype, projectid, projectname, labelslist.split(','));
+        let columns: Array<{ label: string, output: boolean}> = [];
+        if (projecttype === 'regression' &&
+            columnsQueryString &&
+            columnsQueryString.startsWith('[') && columnsQueryString.endsWith(']'))
+        {
+            columns = JSON.parse(columnsQueryString);
+        }
+
+        const extension = await extensions.getScratchxExtensionLocalData(projecttype, projectid, projectname, labelslist.split(','), columns);
 
         return res.set('Content-Type', 'application/javascript')
                   .set(headers.NO_CACHE)

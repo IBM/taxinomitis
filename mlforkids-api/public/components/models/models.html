@@ -68,6 +68,8 @@
                                                    translate="MODELS.WHATHAVEYOUDONE.TRAINING.INDIVIDUAL.NUMBERS"></div>
                     <div class="modelstatusdetail" ng-if="!project.isCrowdSourced && project.type === 'sounds'"
                                                    translate="MODELS.WHATHAVEYOUDONE.TRAINING.INDIVIDUAL.SOUNDS"></div>
+                    <div class="modelstatusdetail" ng-if="project.type === 'regression'"
+                                                   translate="MODELS.WHATHAVEYOUDONE.TRAINING.INDIVIDUAL.NUMBERS"></div>
                     <div class="modelstatusdetail">
                         {{ 'MODELS.WHATHAVEYOUDONE.TRAINING.SINCE' | translate }}
                         {{ models[0].updated | date : 'fullDate' }}
@@ -98,6 +100,8 @@
                               translate="MODELS.WHATHAVEYOUDONE.READY.INDIVIDUAL.NUMBERS"></span>
                         <span ng-if="!project.isCrowdSourced && project.type === 'sounds'"
                               translate="MODELS.WHATHAVEYOUDONE.READY.INDIVIDUAL.SOUNDS"></span>
+                        <span ng-if="project.type === 'regression'"
+                              translate="MODELS.WHATHAVEYOUDONE.READY.INDIVIDUAL.REGRESSION"></span>
                         {{ projectSummary }}.
                     </div>
                     <div class="modelstatusdetail">
@@ -148,6 +152,8 @@
                                                    translate="MODELS.WHATHAVEYOUDONE.ERROR.INDIVIDUAL.NUMBERS"></div>
                     <div class="modelstatusdetail" ng-if="!project.isCrowdSourced && project.type === 'sounds'"
                                                    translate="MODELS.WHATHAVEYOUDONE.ERROR.INDIVIDUAL.SOUNDS"></div>
+                    <div class="modelstatusdetail" ng-if="project.type === 'regression'"
+                                                   translate="MODELS.WHATHAVEYOUDONE.ERROR.INDIVIDUAL.NUMBERS"></div>
                     <div class="modelstatusdetail" translate="MODELS.WHATHAVEYOUDONE.FAIL"></div>
                 </div>
 
@@ -192,6 +198,8 @@
                                   translate="MODELS.WHATHAVEYOUDONE.IDLE.NODATA.INDIVIDUAL.NUMBERS"></span>
                             <span ng-if="!project.isCrowdSourced && project.type === 'sounds'"
                                   translate="MODELS.WHATHAVEYOUDONE.IDLE.NODATA.INDIVIDUAL.SOUNDS"></span>
+                            <span ng-if="project.type === 'regression'"
+                                  translate="MODELS.WHATHAVEYOUDONE.IDLE.NODATA.INDIVIDUAL.REGRESSION"></span>
                             {{ projectSummary }}.
                         </div>
                         <div class="modelstatusdetail" ng-if="project.isCrowdSourced"
@@ -217,6 +225,8 @@
                                   translate="MODELS.WHATHAVEYOUDONE.IDLE.DATA.INDIVIDUAL.NUMBERS"></span>
                             <span ng-if="!project.isCrowdSourced && project.type === 'sounds'"
                                   translate="MODELS.WHATHAVEYOUDONE.IDLE.DATA.INDIVIDUAL.SOUNDS"></span>
+                            <span ng-if="project.type === 'regression'"
+                                  translate="MODELS.WHATHAVEYOUDONE.IDLE.DATA.INDIVIDUAL.REGRESSION"></span>
                             {{ projectSummary }}.
                         </div>
                         <div class="modelstatusdetail">
@@ -262,7 +272,9 @@
                     <div class="modelstatusdetail" ng-if="project.type === 'imgtfjs'" translate="MODELS.WHATSNEXT.READY.TEST.IMAGES"></div>
                     <div class="modelstatusdetail" ng-if="project.type === 'numbers'" translate="MODELS.WHATSNEXT.READY.TEST.NUMBERS"></div>
                     <div class="modelstatusdetail" ng-if="project.type === 'sounds'" translate="MODELS.WHATSNEXT.READY.TEST.SOUNDS"></div>
-                    <div class="modelstatusdetail" translate="MODELS.WHATSNEXT.READY.SCRATCH"></div>
+                    <div class="modelstatusdetail" ng-if="project.type === 'regression'" translate="MODELS.WHATSNEXT.READY.TEST.REGRESSION"></div>
+                    <div class="modelstatusdetail" ng-hide="project.type === 'regression'" translate="MODELS.WHATSNEXT.READY.SCRATCH"></div>
+                    <div class="modelstatusdetail" ng-if="project.type === 'regression'" translate="MODELS.WHATSNEXT.READY.SCRATCH_REGRESSION"></div>
                     <div class="modelstatusdetail" ng-if="project.isCrowdSourced" translate="MODELS.WHATSNEXT.READY.ADDITIONAL_TRAINING.MORE_EXAMPLES.CROWDSOURCED" translate-values='{ urls : projecturls }'></div>
                     <div class="modelstatusdetail" ng-hide="project.isCrowdSourced" translate="MODELS.WHATSNEXT.READY.ADDITIONAL_TRAINING.MORE_EXAMPLES.INDIVIDUAL" translate-values='{ urls : projecturls }'></div>
                     <div class="modelstatusdetail" ng-if="owner" translate="MODELS.WHATSNEXT.READY.ADDITIONAL_TRAINING.RETRAIN.YOU"></div>
@@ -298,8 +310,10 @@
                         </div>
                     </div>
                     <div ng-if="project.labels.length > 1">
-                        <div ng-if="trainingdatastatus === 'no_data'" class="modelstatusdetail" translate-values='{ urls : projecturls }'
+                        <div ng-if="trainingdatastatus === 'no_data' && project.type !== 'regression'" class="modelstatusdetail" translate-values='{ urls : projecturls }'
                              translate="MODELS.WHATSNEXT.IDLE.LABELS.NO_DATA"></div>
+                        <div ng-if="trainingdatastatus === 'no_data' && project.type === 'regression'" class="modelstatusdetail" translate-values='{ urls : projecturls }'
+                             translate="MODELS.WHATSNEXT.IDLE.LABELS.NO_DATA_REGRESSION"></div>
                         <div ng-if="trainingdatastatus === 'insufficient_data'">
                             <div class="modelstatusdetail" translate="MODELS.WHATSNEXT.IDLE.LABELS.MORE_DATA.KEEP_GOING"></div>
                             <div class="modelstatusdetail" ng-if="owner" translate="MODELS.WHATSNEXT.IDLE.LABELS.MORE_DATA.MORE_EXAMPLES.YOU" translate-values='{ urls : projecturls }'></div>
@@ -322,12 +336,12 @@
         </div>
     </div>
 
-
     <div ng-if="status === 'ready'" ng-hide="loading" class="trainingserversection">
         <div class="modelinfotext" ng-if="project.type === 'text'" translate="MODELS.TESTING.INTRO.TEXT" ></div>
         <div class="modelinfotext" ng-if="project.type === 'imgtfjs'" translate="MODELS.TESTING.INTRO.IMAGES" ></div>
         <div class="modelinfotext" ng-if="project.type === 'numbers'" translate="MODELS.TESTING.INTRO.NUMBERS" ></div>
         <div class="modelinfotext" ng-if="project.type === 'sounds'" translate="MODELS.TESTING.INTRO.SOUNDS" ></div>
+        <div class="modelinfotext" ng-if="project.type === 'regression'" translate="MODELS.TESTING.INTRO.REGRESSION" ></div>
         <form name="testform" ng-submit="vm.testModel($event, testform, project)">
             <input ng-if="project.type === 'text'"
                    class="testtext"
@@ -390,7 +404,21 @@
                     </td>
                 </tr>
             </table>
-            <input ng-if="project.type === 'text' || project.type === 'numbers'" type="submit" class="btn btn-primary describetextmodelbutton" value="{{ 'APP.TEST' | translate }}" ng-disabled="testform.$invalid">
+
+            <table ng-if="project.type === 'regression'" class="testnumbers">
+                <tr ng-repeat="field in project.columns | filter: { output: false }">
+                    <td class="testnumberfield">{{ field.label }}</td>
+                    <td>
+                        <input type="text"
+                               ng-if="field.type === 'number'"
+                               ng-pattern="/^-?[0-9]+(?:\.[0-9]*)?$/"
+                               ng-model="testformData[field.label]"
+                               ng-required="true">
+                    </td>
+                </tr>
+            </table>
+
+            <input ng-if="project.type === 'text' || project.type === 'numbers' || project.type === 'regression'" type="submit" class="btn btn-primary describetextmodelbutton" value="{{ 'APP.TEST' | translate }}" ng-disabled="testform.$invalid">
             <div ng-if="project.type === 'numbers'" class="btn btn-default describemodelbuttons" ui-sref="mlproject_model_describe({ projectId : projectId, userId : userId, modelId : projectId })">Describe your model!</div>
             <div ng-if="project.type === 'text' && project.storage !== 'local'" class="btn btn-default describemodelbuttons" ui-sref="mlproject_text_model_describe({ projectId : projectId, userId : userId, modelId : projectId })">Describe your model!  <span class="badge">beta</span></div>
             <div ng-if="project.type === 'sounds'" class="describetextmodelbutton">
@@ -399,7 +427,20 @@
             </div>
         </form>
         <div class="testoutput" ng-if="testoutput">
-            <div translate="MODELS.TESTING.RECOGNISED" translate-values='{ testoutput : testoutput }'></div>
+            <div ng-hide="project.type === 'regression'" translate="MODELS.TESTING.RECOGNISED" translate-values='{ testoutput : testoutput }'></div>
+            <div ng-if="project.type === 'regression'" translate="MODELS.TESTING.PREDICTION" class="answerconfirm"></div>
+            <table ng-if="project.type === 'regression'" class="testnumbers">
+                <tr ng-repeat="field in project.columns | filter: { output: true }">
+                    <td class="testnumberfield">{{ field.label }}</td>
+                    <td>
+                        <input type="text"
+                               ng-if="field.type === 'number'"
+                               ng-pattern="/^-?[0-9]+(?:\.[0-9]*)?$/"
+                               ng-model="testoutput[field.label]"
+                               readonly>
+                    </td>
+                </tr>
+            </table>
             <div> {{ testoutput_explanation }} </div>
         </div>
     </div>

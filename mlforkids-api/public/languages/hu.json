@@ -197,6 +197,7 @@
         "COPYTEMPLATE": "Minta másolása",
         "CREATEFIRSTPROJECT": "Kattints a 'plusz' gombra a jobb oldalon, és hozd létre az első projekted.",
         "RECOGNISING": "Felismerés",
+        "PREDICTING": "Predicting",
         "AS": "mint",
         "SHARE": "Megoszt",
         "UNSHARE": "Megosztást visszavon",
@@ -225,12 +226,14 @@
             "NOTES_3": "Storing in the cloud will let you access the project from any computer."
         },
         "TYPES": {
+            "TYPELABEL": "Project Type",
             "LABEL": "Ismerje fel:",
             "NOTES_1": "Milyen típusú dolgot szeretnél megtanítani a számítógéppel, hogy felismerje",
             "NOTES_2": "Szavak, mondatok, bekezdések felismerésére, kattints a  \"szövegre\"",
             "NOTES_3": "Képek, diagrammok, fotók felismerésére válaszd a \"képeket\"",
             "NOTES_4": "Számsorok, vagy többszörös választós tesztekre válaszd \"számokat\"",
-            "NOTES_5": "Hangok, zajok felismerésére válaszd a \"hangokat\""
+            "NOTES_5": "Hangok, zajok felismerésére válaszd a \"hangokat\"",
+            "NOTES_6": "To predict numbers, choose \"predicting numbers\""
         },
         "LANGUAGE": {
             "LABEL": "Nyelv",
@@ -373,11 +376,13 @@
     "PROJECT": {
         "TRAIN": {
             "TITLE": "Tanítás",
-            "BODY": "Gyűjts példákat, amiket szeretnél, hogy a számítógép felismerjen."
+            "BODY": "Gyűjts példákat, amiket szeretnél, hogy a számítógép felismerjen.",
+            "REGRESSION": "Collect examples of what you want the computer to predict"
         },
         "LEARNANDTEST": {
             "TITLE": "Tanítsd majd &amp; Teszteld",
-            "BODY": "Használd fel a példákat, annak érdekében, hogy megtanítsd a számítógépet a felismerésre"
+            "BODY": "Használd fel a példákat, annak érdekében, hogy megtanítsd a számítógépet a felismerésre",
+            "REGRESSION": "Use the examples to train the computer to make predictions"
         },
         "MAKES": {
             "TITLE": "Készítés",
@@ -409,6 +414,7 @@
     "TRAINING": {
         "TITLE": "Tanítás",
         "ADDLABEL": "Adj hozzá új címkét.",
+        "ADDCOLUMN": "Add new column",
         "CREATEFIRSTLABEL": "Klikkelj a 'plusz' gombra jobb oldalt, és add meg az első kategóriádat.",
         "CROWDSOURCEDEMPTY": "Frissítsd ezt az oldalt, miután a tanárod készített egy új kategóriát.",
         "ADDEXAMPLE": "Adj hozzá egy példát",
@@ -419,6 +425,10 @@
         "NEWLABEL": {
             "INTRO": "Írj be új címkét, hogy felismerje",
             "ERROR": "Csak betűket és számokat használj a cimkékben"
+        },
+        "NEWCOLUMN": {
+            "INTRO": "Enter name for a new column",
+            "ERROR": "Only use letters and numbers in column names"
         },
         "NEWEXAMPLE": {
             "INTRO": "Adj meg egy példát ",
@@ -432,7 +442,13 @@
             "WEBCAMFAIL": "Elnézést! Nem férünk hozzá a webkamerádhoz.",
             "WEBCAMERROR": "Az üzenet, amit a böngésződ küldött nekünk, az volt, hogy:"
         },
-        "BACKGROUNDNOISE": "A háttérzajok összegyűjtése abban segíti a számítógépet, hogy megtanulja felismerni a hangokat."
+        "BACKGROUNDNOISE": "A háttérzajok összegyűjtése abban segíti a számítógépet, hogy megtanulja felismerni a hangokat.",
+        "REGRESSION": {
+            "NOOUTPUTCOLS": "Tick the column(s) that you want your machine learning model to predict values for.",
+            "NOTRAINING": "Add training examples from Scratch or by uploading a CSV file.",
+            "NOCOLUMNS": "Add columns to use for this project.",
+            "ONECOLUMN": "You need at least two columns to have input and output."
+        }
     },
     "MODELS": {
         "TITLE": "Gépi tanulási modellek",
@@ -472,7 +488,8 @@
                     "TEXT" : "Megtanítottad a modellt, hogy felismerje, amikor a szöveg",
                     "IMAGES" : "Megtanítottad a modellt, hogy felismerje, amikor a képek",
                     "NUMBERS" : "Megtanítottad a modellt, hogy felismerje, amikor a számok",
-                    "SOUNDS" : "Megtanítottad a modellt, hogy felismerje, amikor a hangok"
+                    "SOUNDS" : "Megtanítottad a modellt, hogy felismerje, amikor a hangok",
+                    "REGRESSION": "You have trained a machine learning model to predict the values of "
                 },
                 "CREATED" : {
                     "TEACHER" : "A tanárod készített egy modellt a  ",
@@ -531,7 +548,8 @@
                         "TEXT" : "Azt mondtad, hogy szöveges példákat akarsz gyűjteni, hogy a számítógép felismerje, amikor a szöveg ",
                         "IMAGES" : "Azt mondtad, hogy képekre akarsz példákat  gyűjteni, hogy a számítógép felismerje, amikor a képek ",
                         "NUMBERS" : "Azt mondtad, hogy számokra akarsz példákat  gyűjteni, hogy a számítógép felismerje, amikor a számok ",
-                        "SOUNDS" : "Azt mondtad, hogy hangokra akarsz példákat  gyűjteni, hogy a számítógép felismerje, amikor a hangok "
+                        "SOUNDS" : "Azt mondtad, hogy hangokra akarsz példákat  gyűjteni, hogy a számítógép felismerje, amikor a hangok ",
+                        "REGRESSION" : "You said that you want to collect examples of numbers for a computer to predict the value of "
                     }
                 },
                 "NOEXAMPLES" : {
@@ -549,7 +567,8 @@
                         "TEXT" : "Szöveges példákat gyűjtöttél, azért, hogy a számítógép felismerje, amikor a szöveg ",
                         "IMAGES" : "Képekre gyűjtöttél példákat, azért, hogy a számítógép felismerje, amikor a képek ",
                         "NUMBERS" : "Számokra gyűjtöttél példákat, azért, hogy a számítógép felismerje, amikor a számok ",
-                        "SOUNDS" : "Hangokra gyűjtöttél példákat, azért, hogy a számítógép felismerje, amikor a hangok "
+                        "SOUNDS" : "Hangokra gyűjtöttél példákat, azért, hogy a számítógép felismerje, amikor a hangok ",
+                        "REGRESSION" : "You have collected examples of numbers for a computer to use to predict the value of "
                     },
                     "COLLECTED" : {
                         "CLASS" : "Ezt gyűjtötték: ",
@@ -574,6 +593,7 @@
                 },
                 "LABELS" : {
                     "NO_DATA" : "Következő lépésként menj a <a href='{{ urls.train }}'>Tanítás</a> oldalra. Adj példákat minden kategóriához.",
+                    "NO_DATA_REGRESSION" : "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Add examples of numbers.",
                     "MORE_DATA" : {
                         "KEEP_GOING": "Folytasd!",
                         "MORE_EXAMPLES" : {
@@ -601,9 +621,11 @@
                     "TEXT" : "Próbáld meg lent tesztelni a gépi tanulási modellt. Gépelj be egy szöveget, amit a példákban nem tanítottál meg. Meg fogja mondani, hogy mit ismer fel, és hány százalékra biztos benne.",
                     "IMAGES" : "Próbáld meg lent tesztelni a gépi tanulási modellt. Mutass neki egy képet lent, amit a példákban nem tanítottál meg. Meg fogja mondani, hogy mit ismer fel, és hány százalékra biztos benne.",
                     "NUMBERS" : "Próbáld meg lent tesztelni a gépi tanulási modellt. Mutass neki számokat Mutass egy példát számokra lent, amit nem alkalmaztál a  betanításhoz használt példák során. A gép azt is megmondja, hogy minek ismeri fel, és mennyire biztos ebben.",
-                    "SOUNDS" : "Próbáld meg lent tesztelni a gépi tanulási modellt. Kattints a 'kezdd a hallgatást' gombra. Ha a gépi tanulási rendszered bármilyen hangot felismer, megmondja mit ismer fel, és mennyire biztos benne."
+                    "SOUNDS" : "Próbáld meg lent tesztelni a gépi tanulási modellt. Kattints a 'kezdd a hallgatást' gombra. Ha a gépi tanulási rendszered bármilyen hangot felismer, megmondja mit ismer fel, és mennyire biztos benne.",
+                    "REGRESSION" : "Try testing the machine learning model below. Enter an example of numbers below, that you didn't include in the examples you used to train it. It will tell you what it predicts the output should be."
                 },
                 "SCRATCH" : "Ha úgy tűnik, hogy a számítógép ezeket helyesen megtanulta, és korrektül felismeri a dolgokat, akkor áttérhetsz a Scratch programozás részére, hogy készíts egy játékot!",
+                "SCRATCH_REGRESSION" : "If the computer seems to have learned to predict things correctly, then you can go to Scratch and use what the computer has learned to make a game!",
                 "ADDITIONAL_TRAINING" : {
                     "MORE_EXAMPLES" : {
                         "CROWDSOURCED" : "Ha a számítógép túl sok hibát követ el, az osztályodnak célszerű visszatérnie a <a href='{{ urls.train }}'>Tanítás</a> oldalra, és még több példát gyűjteni.",
@@ -630,12 +652,14 @@
                 "TEXT": "Próbáld meg szöveget beilleszteni, hogy meglásd, hogyan ismeri fel a rendszer a tanításod alapján.",
                 "IMAGES": "Próbálj meg képeket mutatni, hogy meglásd, hogyan ismeri fel a rendszer a tanításod alapján.",
                 "NUMBERS": "Próbálj meg számokat beadni, hogy meglásd, hogyan ismeri fel a rendszer a tanításod alapján.",
-                "SOUNDS": "Próbálj meg hangot beadni, hogy meglásd, hogyan ismeri fel a rendszer a tanításod alapján."
+                "SOUNDS": "Próbálj meg hangot beadni, hogy meglásd, hogyan ismeri fel a rendszer a tanításod alapján.",
+                "REGRESSION": "Try putting in some numbers to see the prediction based on your training."
             },
             "WEBCAM": "Teszteld a  <strong>webkamerával</strong>",
             "DRAWING": "Teszteld <strong>rajzolással</strong>",
             "WWW": "Teszteld <strong>webbel</strong>",
             "RECOGNISED": "Ismerd fel, mint <strong>{{ testoutput }}</strong>",
+            "PREDICTION": "Prediction:",
             "STARTLISTENING": "Kezdd el a hallgatást",
             "STOPLISTENING": "Fejezd be a hallgatást"
         },
@@ -1030,6 +1054,7 @@
         "MORE_BLOCKS": "A projekted hozzá fogja adni a blokkokat <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>Több Blokk</span> lapon a Scriptben.",
         "MORE_BLOCKS_3": "A projekted hozzá fogja adni ezeket a blokkokat a Scratch-hez.",
         "EXPLAIN_RECOGNISE_LABEL": "Tegyél {{ type }} képeket a bemenetbe, és a rendszer azt a címkét adja vissza, amelyen a gépi tanulási modell felismeri.",
+        "EXPLAIN_PREDICT": "Put input numbers in this, and it will return a prediction of the output number.",
         "EXPLAIN_RECOGNISE_CONFIDENCE": "Ez visszajelzi, hogy a gépi tanulási modell mennyire biztos abban, hogy felismeri a képek típusát.{{ type }}. (Ez egy szám 0 - 100-ig).",
         "EXPLAIN_LABELS": "Ezek a blokkok a projektben létrehozott címkéket képviselik, így a nevüket használhatod a szkriptekben.",
         "EXPLAIN_COSTUMEIMAGE": "Ez a blokk a Sprites Looks palettáján található, és az aktuálisan kiválasztott jelmez képét adja vissza.",
@@ -1066,7 +1091,8 @@
             "IMAGES": "képeket",
             "NUMBERS": "számokat",
             "SOUNDS": "hangokat",
-            "FACES": "arcokat"
+            "FACES": "arcokat",
+            "REGRESSION": "predicting numbers"
         },
 
         "LEVELS": {

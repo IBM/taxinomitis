@@ -7,7 +7,7 @@
     ModelsController.$inject = [
         'authService',
         'projectsService', 'trainingService', 'quizService',
-        'soundTrainingService', 'imageTrainingService',
+        'soundTrainingService', 'imageTrainingService', 'regressionTrainingService',
         'modelService', 'utilService', 'storageService', 'downloadService',
         '$stateParams',
         '$scope',
@@ -16,7 +16,7 @@
 
     function ModelsController(authService,
         projectsService, trainingService, quizService,
-        soundTrainingService, imageTrainingService,
+        soundTrainingService, imageTrainingService, regressionTrainingService,
         modelService, utilService, storageService, downloadService,
         $stateParams,
         $scope,
@@ -177,46 +177,37 @@
                     $scope.minimumExamples = 'eight';
                 }
                 $scope.models = values.models;
-                $scope.projectSummary = modelService.generateProjectSummary($scope.project.labels);
+                if ($scope.project.type === 'regression') {
+                    $scope.minimumExamples = 'ten';
+
+                    var projectColumns = $scope.project.columns || [ { label : 'something', output : true } ];
+                    var outputColNames = projectColumns
+                        .filter(c => c.output)
+                        .map(c => c.label);
+                    $scope.projectSummary = modelService.generateProjectSummary(outputColNames, ' and ');
+                }
+                else {
+                    $scope.projectSummary = modelService.generateProjectSummary($scope.project.labels, ' or ');
+                }
 
                 var trainingReview = modelService.reviewTrainingData(values.labels, $scope.project.type);
                 $scope.trainingcounts = trainingReview.counts;
                 $scope.trainingdatastatus = trainingReview.status;
 
                 $scope.status = modelService.getStatus($scope.models);
+                loggerService.debug('[ml4kmodels] project status', $scope.status);
 
                 if ($scope.project.type === 'numbers') {
-                    return projectsService.getFields($scope.projectId, $scope.userId, vm.profile.tenant);
+                    return setupNumberProject();
                 }
                 else if ($scope.project.type === 'sounds') {
-                    $scope.listening = false;
-                    var loadSavedModel = true;
-                    return soundTrainingService.initSoundSupport($scope.project.id, $scope.project.labels, loadSavedModel)
-                        .then(function (loaded) {
-                            if (loaded) {
-                                fetchModels();
-                            }
-                        });
+                    return setupSoundsProject();
                 }
                 else if ($scope.project.type === 'imgtfjs') {
-                    if ($scope.project.labels.length > 0) {
-                        return imageTrainingService.initImageSupport($scope.project.id, $scope.project.labels)
-                            .then(function (loaded) {
-                                if (loaded) {
-                                    fetchModels();
-                                }
-                            });
-                    }
+                    return setupImagesProject();
                 }
-            })
-            .then(function (fields) {
-                $scope.project.fields = fields;
-
-                if ($scope.project.type === 'imgtfjs') {
-                    // for image projects, we need to inject the dependencies for the
-                    //  webcam and canvas controls
-                    loggerService.debug('[ml4kmodels] fetching image project dependencies');
-                    return utilService.loadImageProjectSupport();
+                else if ($scope.project.type === 'regression') {
+                    return setupRegressionProject();
                 }
             })
             .then(function () {
@@ -232,6 +223,47 @@
             });
 
 
+        function setupNumberProject () {
+            return projectsService.getFields($scope.projectId, $scope.userId, vm.profile.tenant)
+                .then(function (fields) {
+                    $scope.project.fields = fields;
+                });
+        }
+        function setupImagesProject () {
+            if ($scope.project.labels.length > 0) {
+                return imageTrainingService.initImageSupport($scope.project.id, $scope.project.labels)
+                    .then(function (loaded) {
+                        if (loaded) {
+                            fetchModels();
+                        }
+                        // for image projects, we need to inject the dependencies for the
+                        //  webcam and canvas controls
+                        loggerService.debug('[ml4kmodels] fetching image project dependencies');
+                        return utilService.loadImageProjectSupport();
+                    });
+            }
+        }
+        function setupSoundsProject () {
+            $scope.listening = false;
+            var loadSavedModel = true;
+            return soundTrainingService.initSoundSupport($scope.project.id, $scope.project.labels, loadSavedModel)
+                .then(function (loaded) {
+                    if (loaded) {
+                        fetchModels();
+                    }
+                });
+        }
+        function setupRegressionProject () {
+            $scope.project.labels = [ 'input', 'output' ];
+            return regressionTrainingService.initRegressionSupport($scope.project)
+                .then(function (loaded) {
+                    if (loaded) {
+                        fetchModels();
+                    }
+                });
+        }
+
+
         var timer = null;
 
         function stopRefreshing() {
@@ -243,7 +275,7 @@
         }
 
         function getRefreshInterval() {
-            if ($scope.project.type === 'sounds' || $scope.project.type === 'imgtfjs') {
+            if ($scope.project.type === 'sounds' || $scope.project.type === 'imgtfjs' || $scope.project.type === 'regression') {
                 return 2000;
             }
             if ($scope.project.type === 'text') {
@@ -309,6 +341,9 @@
             else if ($scope.project.type === 'sounds') {
                 modelFnPromise = soundTrainingService.getModels();
             }
+            else if ($scope.project.type === 'regression') {
+                modelFnPromise = regressionTrainingService.getModels();
+            }
             else {
                 modelFnPromise = trainingService.getModels($scope.project, $scope.userId, vm.profile.tenant);
             }
@@ -362,8 +397,11 @@
             else if ($scope.project.type === 'numbers') {
                 modelFnPromise = trainingService.newModel($scope.projectId, $scope.userId, vm.profile.tenant);
             }
-            else { // $scope.project.type === 'text'
+            else if ($scope.project.type === 'text') {
                 modelFnPromise = trainTextProject(project);
+            }
+            else { // $scope.project.type === 'regression') {
+                modelFnPromise = regressionTrainingService.newModel(project);
             }
 
             modelFnPromise.then(function (newmodel) {
@@ -501,6 +539,19 @@
                     return $scope.testformData[field.name];
                 });
             }
+            else if (project.type === 'regression') {
+                testdata.regression = {};
+                project.columns
+                    .filter(function (col) { return !col.output; })
+                    .forEach(function (col) {
+                        if (col.type === 'number') {
+                            testdata.regression[col.label] = parseFloat($scope.testformData[col.label]);
+                        }
+                        // else {
+                        //     // TODO other types
+                        // }
+                    });
+            }
             else if (project.type === 'sounds') {
                 return;
             }
@@ -520,6 +571,9 @@
                         return imageTrainingService.testBase64ImageData(imgdata);
                     });
             }
+            else if (project.type === 'regression') {
+                testFnPromise = regressionTrainingService.testModel(project, testdata.regression);
+            }
             else {
                 testFnPromise = trainingService.testModel(project,
                     $scope.userId, vm.profile.tenant,
@@ -531,8 +585,15 @@
                     loggerService.debug('[ml4kmodels] test response', resp);
 
                     if (resp && resp.length > 0) {
-                        $scope.testoutput = resp[0].class_name;
-                        $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
+                        if (project.type === 'regression') {
+                            $scope.$apply(function () {
+                                $scope.testoutput = resp[0];
+                            });
+                        }
+                        else {
+                            $scope.testoutput = resp[0].class_name;
+                            $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
+                        }
                     }
                     else {
                         $scope.testoutput = 'Unknown';
@@ -563,6 +624,9 @@
             else if (project.type === 'sounds') {
                 modelFnPromise = soundTrainingService.deleteModel(project.id);
             }
+            else if (project.type === 'regression') {
+                modelFnPromise = regressionTrainingService.deleteModel(project.id);
+            }
             else {
                 var classifierid = model.classifierid;
                 modelFnPromise = trainingService.deleteModel(project, $scope.userId, vm.profile.tenant, classifierid);
@@ -572,7 +636,7 @@
                     $scope.models = [];
                     $scope.status = modelService.getStatus($scope.models);
 
-                    if ($scope.status === 'training' || project.type === 'imgtfjs' || project.type === 'sounds') {
+                    if ($scope.status === 'training' || project.type === 'imgtfjs' || project.type === 'sounds' || project.type === 'regression') {
                         refreshModels();
                     }
                     else {

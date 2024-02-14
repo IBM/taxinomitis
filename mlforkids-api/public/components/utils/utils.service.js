@@ -5,10 +5,10 @@
         .service('utilService', utilService);
 
     utilService.$inject = [
-        '$q'
+        '$q', 'loggerService'
     ];
 
-    function utilService($q) {
+    function utilService($q, loggerService) {
 
         function loadScript(url) {
             return $q(function (resolve, reject) {
@@ -17,6 +17,8 @@
                     resolve();
                 }
                 else {
+                    loggerService.debug('[ml4kutils] loading script', url);
+
                     var scriptObj = document.createElement('script');
                     scriptObj.id = id;
                     scriptObj.type = 'text/javascript';

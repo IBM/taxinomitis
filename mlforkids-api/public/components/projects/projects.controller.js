@@ -94,13 +94,26 @@
                     for (var i = 0; i < vm.projects.length; i++) {
                         var project = vm.projects[i];
 
-                        var labels = project.type === 'sounds' ?
-                            project.labels.filter(function (label) {
-                                return label !== '_background_noise_';
-                            }) :
-                            project.labels;
+                        if (project.type === 'regression') {
+                            var projectColumns = project.columns || [];
+                            var columns = projectColumns
+                                .filter(col => col.output)
+                                .map(col => col.label);
+                            project.labelsSummary = modelService.generateProjectSummary(columns, ' and ') || 'something';
+                            var numInputs = projectColumns.length - columns.length;
+                            if (numInputs > 0) {
+                                project.columnsSummary = ' from ' + numInputs + ' input values';
+                            }
+                        }
+                        else {
+                            var labels = project.type === 'sounds' ?
+                                project.labels.filter(function (label) {
+                                    return label !== '_background_noise_';
+                                }) :
+                                project.labels;
 
-                        project.labelsSummary = modelService.generateProjectSummary(labels);
+                            project.labelsSummary = modelService.generateProjectSummary(labels, ' or ');
+                        }
 
                         if (vm.highlightId === project.id) {
                             checkApiKeys(profile, project);

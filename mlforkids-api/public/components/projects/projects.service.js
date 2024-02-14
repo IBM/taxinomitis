@@ -49,6 +49,12 @@
 
         function getLabels(project, userid, tenant) {
             if (project.storage === 'local') {
+                if (project.type === 'regression') {
+                    return browserStorageService.countTrainingData(project.id)
+                        .then(function (count) {
+                            return { data : count }
+                        });
+                }
                 return browserStorageService.getLabelCounts(project.id);
             }
             else {
@@ -144,6 +150,17 @@
                     });
             }
         }
+
+
+        function addMetadataToProject(project, key, value) {
+            if (project.storage === 'local') {
+                return browserStorageService.addMetadataToProject(project.id, key, value);
+            }
+            else {
+                return Promise.reject(new Error('Unexpected project type'));
+            }
+        }
+
 
         function deleteProject(project, userid, tenant) {
             if (project.storage === 'local') {
@@ -254,6 +271,14 @@
                     };
                 }
             }
+            else if (project.type === 'regression') {
+                return {
+                    scratch : true,
+                    appinventor : false,
+                    edublocks : false,
+                    python : false
+                };
+            }
             else {
                 return {
                     scratch : false,
@@ -279,6 +304,7 @@
 
             addLabelToProject : addLabelToProject,
             removeLabelFromProject : removeLabelFromProject,
+            addMetadataToProject : addMetadataToProject,
 
             checkProjectCredentials : checkProjectCredentials,
 

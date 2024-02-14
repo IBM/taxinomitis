@@ -1,0 +1,59 @@
+table.mldatatable {
+    width: 100%;
+}
+
+table.mldatatable > thead > tr {
+    border-bottom: thick white solid;
+}
+
+table.mldatatable > thead > tr > th {
+    text-align: center;
+    padding-right: 5px;
+    border-right: thin grey solid;
+    font-weight: normal;
+}
+
+table.mldatatable > thead > tr > th > div.tablecollabel {
+    text-align: right;
+}
+
+table.mldatatable > thead > tr > th > div.tablecollabel .sortbutton {
+    font-size: 0.8em;
+}
+
+table.mldatatable > thead > tr > th.spacing {
+    padding: 10px;
+    border-top: none;
+    border-bottom: none;
+}
+
+table.mldatatable .deleteitemcell {
+    visibility: hidden;
+}
+
+table.mldatatable tr:hover .deleteitemcell {
+    visibility: visible;
+}
+
+table.mldatatable td.deleteitemcell span.deletetext {
+    color: #CC8080;
+    font-size: smaller;
+    cursor: pointer;
+    padding: 0 0 0.3em 0;
+}
+
+table.mldatatable td.trainingbucketitem {
+    text-align: right;
+    float: none;
+    border-bottom: medium white solid;
+}
+
+table.mldatatable td.trainingbucketitem.inputcol {
+    font-size: 1.05em;
+}
+
+table.mldatatable td.trainingbucketitem.outputcol {
+    background-color: white;
+    color: #006400;
+}
+

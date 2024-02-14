@@ -192,6 +192,7 @@
         "COPYTEMPLATE": "Copy template",
         "CREATEFIRSTPROJECT": "最初のプロジェクトを作成するには右の 'プラス' ボタンをクリックしてください。",
         "RECOGNISING": "認識対象:",
+        "PREDICTING": "Predicting",
         "AS": "として",
         "SHARE": "Share",
         "UNSHARE": "Un-share",
@@ -220,12 +221,14 @@
             "NOTES_3": "Storing in the cloud will let you access the project from any computer."
         },
         "TYPES": {
+            "TYPELABEL": "Project Type",
             "LABEL": "認識させる",
             "NOTES_1": "どんなタイプの情報をコンピュータに認識させたいですか?",
             "NOTES_2": "単語、文章、パラグラフは、\"文字列\"を選んでください。",
             "NOTES_3": "写真、図、図形は、\"画像\"を選んでください。",
             "NOTES_4": "数字のあつまりや、複数選択肢は、\"数値\"を選択してください。",
-            "NOTES_5": "音声は、\"音声\"を選択してください。"
+            "NOTES_5": "音声は、\"音声\"を選択してください。",
+            "NOTES_6": "To predict numbers, choose \"predicting numbers\""
         },
         "LANGUAGE": {
             "LABEL": "使用言語",
@@ -368,11 +371,13 @@
     "PROJECT": {
         "TRAIN": {
             "TITLE": "トレーニング",
-            "BODY": "コンピューターに認識させたい例を収集してください。"
+            "BODY": "コンピューターに認識させたい例を収集してください。",
+            "REGRESSION": "Collect examples of what you want the computer to predict"
         },
         "LEARNANDTEST": {
             "TITLE": "学習 &amp; テスト",
-            "BODY": "例を使ってコンピューターが認識できるようにトレーニングします。"
+            "BODY": "例を使ってコンピューターが認識できるようにトレーニングします。",
+            "REGRESSION": "Use the examples to train the computer to make predictions"
         },
         "MAKES": {
             "TITLE": "プログラム作成",
@@ -404,6 +409,7 @@
     "TRAINING": {
         "TITLE": "トレーニング",
         "ADDLABEL": "新しいラベルを追加",
+        "ADDCOLUMN": "Add new column",
         "CREATEFIRSTLABEL": "最初のグループを追加するには、右側にある 'plus' ボタンをクリックしてください。",
         "CROWDSOURCEDEMPTY": "先生がトレーニング用のグループを作成後に、このページをリフレッシュしてください。",
         "ADDEXAMPLE": "例を追加",
@@ -414,6 +420,10 @@
         "NEWLABEL": {
             "INTRO": "認識する新しいラベルを入力してください。",
             "ERROR": "ラベルは英数字のみ利用できます。"
+        },
+        "NEWCOLUMN": {
+            "INTRO": "Enter name for a new column",
+            "ERROR": "Only use letters and numbers in column names"
         },
         "NEWEXAMPLE": {
             "INTRO": "例を入力してください。",
@@ -427,7 +437,13 @@
             "WEBCAMFAIL": "失礼! webcamが動作するようにできません。",
             "WEBCAMERROR": "あなたのWebブラウザから受け取ったメッセージは、:"
         },
-        "BACKGROUNDNOISE": "バックグラウンド ノイズの例を収集することは、コンピュータがあなたの音声を正しく認識することを助けます。"
+        "BACKGROUNDNOISE": "バックグラウンド ノイズの例を収集することは、コンピュータがあなたの音声を正しく認識することを助けます。",
+        "REGRESSION": {
+            "NOOUTPUTCOLS": "Tick the column(s) that you want your machine learning model to predict values for.",
+            "NOTRAINING": "Add training examples from Scratch or by uploading a CSV file.",
+            "NOCOLUMNS": "Add columns to use for this project.",
+            "ONECOLUMN": "You need at least two columns to have input and output."
+        }
     },
     "MODELS": {
         "TITLE": "機械学習モデル",
@@ -466,7 +482,8 @@
                     "TEXT": "あなたは、文字列を認識するように機械学習モデルをトレーニングしました。認識する文字列は、",
                     "IMAGES": "あなたは、画像を認識するように機械学習モデルをトレーニングしました。認識する画像は、",
                     "NUMBERS": "あなたのクラスは、数値を認識するように機械学習モデルをトレーニングしました。認識する数値は、",
-                    "SOUNDS": "Yあなたのクラスは、音声を認識するように機械学習モデルをトレーニングしました。認識する音声は、"
+                    "SOUNDS": "Yあなたのクラスは、音声を認識するように機械学習モデルをトレーニングしました。認識する音声は、",
+                    "REGRESSION": "You have trained a machine learning model to predict the values of "
                 },
                 "CREATED": {
                     "TEACHER": "あなたの先生が、作成したモデルは、",
@@ -525,7 +542,8 @@
                         "TEXT": "あなたは、文字列が以下の時に、コンピューターが認識できるようにするために、文字列の例を集めたいと言いました。",
                         "IMAGES": "あなたは、画像が以下の時に、コンピューターが認識できるようにするために、画像の例を集めたいと言いました。",
                         "NUMBERS": "あなたは、数値が以下の時に、コンピューターが認識できるようにするために、数値の例を集めたいと言いました。",
-                        "SOUNDS": "あなたは、音声が以下の時に、コンピューターが認識できるようにするために、音声の例を集めたいと言いました。"
+                        "SOUNDS": "あなたは、音声が以下の時に、コンピューターが認識できるようにするために、音声の例を集めたいと言いました。",
+                        "REGRESSION" : "You said that you want to collect examples of numbers for a computer to predict the value of "
                     }
                 },
                 "NOEXAMPLES": {
@@ -543,7 +561,8 @@
                         "TEXT": "あなたは、文字列が以下の時に、コンピューターが認識できるように、文字列の例を収集しました。",
                         "IMAGES": "あなたは、画像が以下の時に、コンピューターが認識できるように、画像の例を収集しました。",
                         "NUMBERS": "あなたは、数値が以下の時に、コンピューターが認識できるように、数値の例を収集しました。",
-                        "SOUNDS": "あなたは、音声が以下の時に、コンピューターが認識できるように、音声の例を収集しました。"
+                        "SOUNDS": "あなたは、音声が以下の時に、コンピューターが認識できるように、音声の例を収集しました。",
+                        "REGRESSION" : "You have collected examples of numbers for a computer to use to predict the value of "
                     },
                     "COLLECTED": {
                         "CLASS": "収集済み: ",
@@ -567,6 +586,7 @@
                 },
                 "LABELS": {
                     "NO_DATA": "次のステップは、<a href='{{ urls.train }}'>Train</a>　ページに行き、それぞれのラベルの例を追加してください。",
+                    "NO_DATA_REGRESSION" : "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Add examples of numbers.",
                     "MORE_DATA": {
                         "KEEP_GOING": "続けてください。",
                         "MORE_EXAMPLES": {
@@ -594,9 +614,11 @@
                     "TEXT": "機械学習モデルをテストしてみましょう。トレーニング用の例で使っていない文字列の例を以下に入れてください。どのように認識したかと、どの程度その回答に自信があるかを示します。",
                     "IMAGES": "機械学習モデルをテストしてみましょう。トレーニング用の例で使っていない画像の例を以下に入れてください。どのように認識したかと、どの程度その回答に自信があるかを示します。",
                     "NUMBERS": "機械学習モデルをテストしてみましょう。トレーニング用の例で使っていない数値の例を以下に入れてください。どのように認識したかと、どの程度その回答に自信があるかを示します。",
-                    "SOUNDS": "機械学習モデルをテストしてみましょう。トレーニング用の例で使っていない音声の例を以下に入れてください。どのように認識したかと、どの程度その回答に自信があるかを示します。"
+                    "SOUNDS": "機械学習モデルをテストしてみましょう。トレーニング用の例で使っていない音声の例を以下に入れてください。どのように認識したかと、どの程度その回答に自信があるかを示します。",
+                    "REGRESSION" : "Try testing the machine learning model below. Enter an example of numbers below, that you didn't include in the examples you used to train it. It will tell you what it predicts the output should be."
                 },
                 "SCRATCH": "もし、コンピュータが正しく認識できるように学習したようであれば、Scratch に行ってコンピュータが学習したことをゲームを作るのに使いましょう。",
+                "SCRATCH_REGRESSION" : "If the computer seems to have learned to predict things correctly, then you can go to Scratch and use what the computer has learned to make a game!",
                 "ADDITIONAL_TRAINING": {
                     "MORE_EXAMPLES": {
                         "CROWDSOURCED": "もし、コンピュータが沢山間違えるようなら、あなたのクラスは、<a href='{{ urls.train }}'>Train</a> ページに戻って、もっと例を追加したいかもしれません。",
@@ -623,12 +645,14 @@
                 "TEXT": "トレーニングの結果、どのように認識されるのか文字列を入れて試しましょう。",
                 "IMAGES": "トレーニングの結果、どのように認識されるのか画像を入れて試しましょう。",
                 "NUMBERS": "トレーニングの結果、どのように認識されるのか数値を入れて試しましょう。",
-                "SOUNDS": "トレーニングの結果、どのように認識されるのか音声を入れて試しましょう。"
+                "SOUNDS": "トレーニングの結果、どのように認識されるのか音声を入れて試しましょう。",
+                "REGRESSION": "Try putting in some numbers to see the prediction based on your training."
             },
             "WEBCAM": "<strong>webcam</strong>で試す。",
             "DRAWING": "<strong>描いて</strong>試す",
             "WWW": "<strong>www</strong>で試す",
             "RECOGNISED": "<strong>{{ testoutput }}</strong>と認識しました。",
+            "PREDICTION": "Prediction:",
             "STARTLISTENING": "聞いてみよう",
             "STOPLISTENING": "聞くのを停止"
         },
@@ -1006,6 +1030,7 @@
         "MORE_BLOCKS": "あなたのプロジェクトのスクリプトの<span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>More Blocks</span> タブにこれらのブロックが追加されます。",
         "MORE_BLOCKS_3": "Your project will add these blocks to Scratch.",
         "EXPLAIN_RECOGNISE_LABEL": "{{ type }} を入力してください。機械学習モデルが認識したラベルを返します。",
+        "EXPLAIN_PREDICT": "Put input numbers in this, and it will return a prediction of the output number.",
         "EXPLAIN_RECOGNISE_CONFIDENCE": "機械学習モデルが 認識した{{ type }}のタイプにどの程度確信をもっているかも(0から100の数字で）返します。",
         "EXPLAIN_LABELS": "これらのブロックは、あなたがプロジェクトの中で作成したラベルをあなたがスクリプトの中で使えるように示します。",
         "EXPLAIN_COSTUMEIMAGE": "このブロックは、スクリプトのための「見た目」パレットに入っており、現在選択されているコスチュームの画像を返します。",
@@ -1037,7 +1062,8 @@
             "IMAGES": "画像",
             "NUMBERS": "数値",
             "SOUNDS": "音声",
-            "FACES": "faces"
+            "FACES": "faces",
+            "REGRESSION": "predicting numbers"
         },
         "LEVELS": {
             "TITLE": "難易度:",
