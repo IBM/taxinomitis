@@ -807,6 +807,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 var log = __webpack_require__(/*! ../util/log */ "./node_modules/scratch-vm/src/util/log.js");
 var mlforkidsSound = __webpack_require__(/*! ../mlforkids-components/sound */ "./node_modules/scratch-vm/src/mlforkids-components/sound/index.js");
 var mlforkidsImages = __webpack_require__(/*! ../mlforkids-components/images */ "./node_modules/scratch-vm/src/mlforkids-components/images/index.js");
+var mlforkidsRegression = __webpack_require__(/*! ../mlforkids-components/regression */ "./node_modules/scratch-vm/src/mlforkids-components/regression/index.js");
 var mlforkidsTensorFlow = __webpack_require__(/*! ../mlforkids-components/tensorflow */ "./node_modules/scratch-vm/src/mlforkids-components/tensorflow/index.js");
 var mlforkidsStorage = __webpack_require__(/*! ../mlforkids-components/storage */ "./node_modules/scratch-vm/src/mlforkids-components/storage/index.js");
 
@@ -1109,6 +1110,30 @@ var SharedDispatch = /*#__PURE__*/function () {
         } else if (message.mlforkidsimage.command === 'trainlocal') {
           this.mlforkidsImageSupport.trainNewModelLocal(message.mlforkidsimage.data, worker);
         }
+      } else if (message.mlforkidsregression) {
+        if (message.mlforkidsregression.command === 'init') {
+          if (!this.mlforkidsRegressionSupport) {
+            this.mlforkidsRegressionSupport = new mlforkidsRegression(this.mlforkidsStorageSupport);
+          }
+          this.mlforkidsRegressionSupport.init().then(function () {
+            return _this2.mlforkidsStorageSupport.getProject(message.mlforkidsregression.data);
+          }).then(function (projectinfo) {
+            projectinfo.projectid = message.mlforkidsregression.data;
+            _this2.mlforkidsRegressionSupport.initProject(projectinfo, worker);
+          }).catch(function (err) {
+            console.log('[mlforkids] failed to load project', err);
+            worker.postMessage({
+              mlforkidsimage: 'modelfailed',
+              data: {
+                projectid: message.mlforkidsregression.data
+              }
+            });
+          });
+        } else if (message.mlforkidsregression.command === 'train') {
+          this.mlforkidsRegressionSupport.trainNewModel(message.mlforkidsregression.data, worker);
+        } else if (message.mlforkidsregression.command === 'predict') {
+          this.mlforkidsRegressionSupport.predict(message.mlforkidsregression.data, worker);
+        }
       } else if (message.mlforkidsstorage) {
         if (message.mlforkidsstorage.command === 'init') {
           if (!this.mlforkidsStorageSupport) {
@@ -1121,6 +1146,8 @@ var SharedDispatch = /*#__PURE__*/function () {
             textdata: message.mlforkidsstorage.data.textdata,
             label: message.mlforkidsstorage.data.label
           });
+        } else if (message.mlforkidsstorage.command === 'storeregression') {
+          this.mlforkidsStorageSupport.addTrainingData(message.mlforkidsstorage.data.projectid, message.mlforkidsstorage.data.values);
         } else if (message.mlforkidsstorage.command === 'textwatson') {
           this.mlforkidsStorageSupport.getProject(message.mlforkidsstorage.data.projectid).then(function (projectinfo) {
             return _this2.mlforkidsStorageSupport.getTrainingForWatsonAssistant(projectinfo);
@@ -1935,6 +1962,303 @@ module.exports = ML4KidsImageTraining;
 
 /***/ }),
 
+/***/ "./node_modules/scratch-vm/src/mlforkids-components/regression/index.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/scratch-vm/src/mlforkids-components/regression/index.js ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+var ML4KidsRegressionTraining = /*#__PURE__*/function () {
+  function ML4KidsRegressionTraining(storageSupport) {
+    _classCallCheck(this, ML4KidsRegressionTraining);
+    this.PROJECTS = {};
+    this.state = 'INIT';
+    this._storageSupport = storageSupport;
+  }
+  _createClass(ML4KidsRegressionTraining, [{
+    key: "init",
+    value: function init() {
+      var _this = this;
+      if (!this.initPromise) {
+        this.initPromise = new Promise(function (resolve) {
+          tf.enableProdMode();
+          _this.state = 'READY';
+          resolve();
+        });
+      }
+      return this.initPromise;
+    }
+  }, {
+    key: "initProject",
+    value: function initProject(project, worker) {
+      var _this2 = this;
+      this.PROJECTS[project.id] = {
+        state: 'INIT',
+        project: project
+      };
+      return this._loadModel(project.id).then(function (loaded) {
+        if (loaded) {
+          _this2.PROJECTS[project.id].state = 'TRAINED';
+          worker.postMessage({
+            mlforkidsregression: 'modelready',
+            data: {
+              projectid: project.id
+            }
+          });
+        } else {
+          _this2.PROJECTS[project.id].state = 'READY';
+          worker.postMessage({
+            mlforkidsregression: 'modelinit',
+            data: {
+              projectid: project.id
+            }
+          });
+        }
+        _this2._watchForNewModels(project.id, worker);
+      }).catch(function (err) {
+        console.log('[mlforkids] ML4KidsRegressionTraining failed init', err);
+        _this2.PROJECTS[projectid].state = 'ERROR';
+        worker.postMessage({
+          mlforkidsregression: 'modelfailed',
+          data: {
+            projectid: project.id
+          }
+        });
+      });
+    }
+  }, {
+    key: "trainNewModel",
+    value: function trainNewModel(projectid, worker) {
+      var _this3 = this;
+      if (this.PROJECTS[projectid].state === 'TRAINING') {
+        console.log('[mlforkids] ML4KidsRegressionTraining training in progress for this model');
+        return;
+      }
+      console.log('[mlforkids] ML4KidsRegressionTraining training new model');
+      this.PROJECTS[projectid].state = 'TRAINING';
+      var that = this;
+      return this._storageSupport.getTrainingData(projectid).then(function (training) {
+        var project = that.PROJECTS[projectid].project;
+
+        // separate out columns into input and output values
+        var inputColumns = project.columns.filter(function (col) {
+          return col.output === false;
+        }).map(function (col) {
+          return col.label;
+        });
+        var targetColumns = project.columns.filter(function (col) {
+          return col.output === true;
+        }).map(function (col) {
+          return col.label;
+        });
+
+        // turn array of JSON objects into array of raw numbers
+        var inputFeatures = [];
+        var targetFeatures = [];
+        var _loop = function _loop() {
+          var trainingitem = training[i];
+          inputFeatures.push(inputColumns.map(function (col) {
+            return trainingitem[col];
+          }));
+          targetFeatures.push(targetColumns.map(function (col) {
+            return trainingitem[col];
+          }));
+        };
+        for (var i = 0; i < training.length; i++) {
+          _loop();
+        }
+
+        // normalize the input
+        var inputFeaturesTensor = tf.tensor2d(inputFeatures);
+        var mean = inputFeaturesTensor.mean(0);
+        var standardDeviation = inputFeaturesTensor.sub(mean).square().mean(0).sqrt();
+        that.PROJECTS[projectid].normalization = {
+          mean: mean,
+          standardDeviation: standardDeviation
+        };
+        var normalisedInputFeatures = inputFeaturesTensor.sub(that.PROJECTS[projectid].normalization.mean).div(that.PROJECTS[projectid].normalization.standardDeviation);
+
+        // TODO store the normalization?
+
+        // create the model
+        that.PROJECTS[projectid].model = that._defineModel(inputColumns.length, targetColumns.length);
+
+        // train the model
+        that.PROJECTS[projectid].model.fit(normalisedInputFeatures, tf.tensor2d(targetFeatures), {
+          batchSize: 40,
+          epochs: 200,
+          validationSplit: 0.2,
+          callbacks: {
+            onEpochEnd: function onEpochEnd(epoch, logs) {
+              console.log('[mlforkids] ML4KidsRegressionTraining epoch ' + epoch + ' loss ' + logs.loss);
+            },
+            onTrainEnd: function onTrainEnd() {
+              console.log('[mlforkids] ML4KidsRegressionTraining training complete');
+              that._saveModel(projectid);
+              that.PROJECTS[projectid].state = 'TRAINED';
+              worker.postMessage({
+                mlforkidsregression: 'modelready',
+                data: {
+                  projectid: projectid
+                }
+              });
+            }
+          }
+        });
+      }).catch(function (err) {
+        console.log('[mlforkids] ML4KidsRegressionTraining failed to train model', err);
+        _this3.PROJECTS[projectid].state = 'ERROR';
+        worker.postMessage({
+          mlforkidsregression: 'modelfailed',
+          data: {
+            projectid: projectid
+          }
+        });
+      });
+    }
+  }, {
+    key: "predict",
+    value: function predict(requestdata, worker) {
+      var requestid = requestdata.requestid;
+      var projectid = requestdata.projectid;
+      var project = this.PROJECTS[projectid].project;
+      var normalization = this.PROJECTS[projectid].normalization;
+      var testdata = requestdata.data;
+      var testTensor = tf.tidy(function () {
+        var inputValues = project.columns.filter(function (col) {
+          return col.output === false;
+        }).map(function (col) {
+          return testdata[col.label];
+        });
+        var inputTensor = tf.tensor2d([inputValues]);
+        var normalisedInputValues = inputTensor.sub(normalization.mean).div(normalization.standardDeviation);
+        return normalisedInputValues;
+      });
+      var modelOutput = this.PROJECTS[projectid].model.predict(testTensor);
+      modelOutput.data().then(function (output) {
+        var targetColumns = project.columns.filter(function (col) {
+          return col.output === true;
+        });
+        if (output.length !== targetColumns.length) {
+          loggerService.error('[ml4kregress] unexpected output from model', output);
+          throw new Error('Unexpected output from model');
+        }
+        var labelledOutput = {};
+        targetColumns.forEach(function (col, idx) {
+          labelledOutput[col.label] = output[idx];
+        });
+        worker.postMessage({
+          mlforkidsregression: 'classifyresponse',
+          data: {
+            projectid: projectid,
+            requestid: requestid,
+            prediction: labelledOutput
+          }
+        });
+      }).catch(function (err) {
+        console.log('[mlforkids] ML4KidsRegressionTraining failed to run test', err);
+        // TODO
+      });
+    }
+  }, {
+    key: "_defineModel",
+    value: function _defineModel(numInputFeatures, numOutputLabels) {
+      var regressionModel = tf.sequential();
+      regressionModel.add(tf.layers.dense({
+        inputShape: [numInputFeatures],
+        units: 50,
+        activation: 'sigmoid',
+        kernelInitializer: 'leCunNormal'
+      }));
+      regressionModel.add(tf.layers.dense({
+        units: 50,
+        activation: 'sigmoid',
+        kernelInitializer: 'leCunNormal'
+      }));
+      regressionModel.add(tf.layers.dense({
+        units: numOutputLabels
+      }));
+      regressionModel.compile({
+        optimizer: tf.train.sgd(0.01),
+        loss: 'meanSquaredError'
+      });
+      return regressionModel;
+    }
+  }, {
+    key: "_getModelDbLocation",
+    value: function _getModelDbLocation(projectid) {
+      return 'indexeddb://ml4k-models-regression-' + projectid.toString().replaceAll('-', '');
+    }
+  }, {
+    key: "_loadModel",
+    value: function _loadModel(projectid) {
+      var _this4 = this;
+      console.log('[mlforkids] ML4KidsRegressionTraining loading model from browser storage');
+      var loaded = false;
+      if (this.PROJECTS[projectid].project.normalization) {
+        var savelocation = this._getModelDbLocation(projectid);
+        return tf.loadLayersModel(savelocation).then(function (storedModelInfo) {
+          // TODO compare model with project info to check size is consistent
+          if (storedModelInfo) {
+            _this4.PROJECTS[projectid].normalization = {
+              mean: tf.tensor(_this4.PROJECTS[projectid].project.normalization.mean),
+              standardDeviation: tf.tensor(_this4.PROJECTS[projectid].project.normalization.standardDeviation)
+            };
+            _this4.PROJECTS[projectid].model = storedModelInfo.output;
+            loaded = true;
+          }
+          return loaded;
+        }).catch(function (err) {
+          console.log('[mlforkids] ML4KidsRegressionTraining failed to load model from storage', err);
+          return loaded;
+        });
+      } else {
+        return Promise.resolve(loaded);
+      }
+    }
+  }, {
+    key: "_saveModel",
+    value: function _saveModel(projectid) {
+      console.log('[mlforkids] ML4KidsRegressionTraining saving model to browser storage');
+      var savelocation = this._getModelDbLocation(projectid);
+      return this.PROJECTS[projectid].model.save(savelocation).then(function (results) {
+        console.log('[mlforkids] ML4KidsRegressionTraining saved model', savelocation, results);
+      }).catch(function (err) {
+        console.log('[mlforkids] ML4KidsRegressionTraining failed to save model', err);
+      });
+    }
+  }, {
+    key: "_watchForNewModels",
+    value: function _watchForNewModels(projectid, worker) {
+      if (!this.PROJECTS[projectid].modelWatcher) {
+        console.log('[mlforkids] ML4KidsRegressionTraining listening for model updates', projectid);
+        this.PROJECTS[projectid].modelWatcher = true;
+        var modellocation = this._getModelDbLocation(projectid);
+        this._storageSupport.registerForModelStorageUpdates(modellocation, function () {
+          console.log('[mlforkids] ML4KidsRegressionTraining new model was trained');
+          worker.postMessage({
+            mlforkidsregression: 'modelretrain',
+            data: {
+              projectid: projectid.toString()
+            }
+          });
+        });
+      }
+    }
+  }]);
+  return ML4KidsRegressionTraining;
+}();
+module.exports = ML4KidsRegressionTraining;
+
+/***/ }),
+
 /***/ "./node_modules/scratch-vm/src/mlforkids-components/sound/index.js":
 /*!*************************************************************************!*\
   !*** ./node_modules/scratch-vm/src/mlforkids-components/sound/index.js ***!
@@ -2275,13 +2599,31 @@ var ML4KidsLocalStorage = /*#__PURE__*/function () {
   function ML4KidsLocalStorage() {
     _classCallCheck(this, ML4KidsLocalStorage);
     this.ml4kStorageIFrameHost = 'https://machinelearningforkids.co.uk';
+    this.ml4kStorageIFrameWindow = document.getElementById('mlforkids-data-worker').contentWindow;
     this.ml4kStorageInflightRequests = {};
     this.ml4kNextStorageRequestId = 1;
+
+    // this.ml4kStorageReady = false;
+    // this.ml4kPendingRequests = [];
+
     var _that = this;
     window.addEventListener('message', function (event) {
       if (event.origin !== _that.ml4kStorageIFrameHost) {
         return;
       }
+      // else if (event.data.command === 'request-storage-access') {
+      //     window.dispatchEvent(new Event('mlforkids-request-storage-access'));
+      // }
+      // else if (event.data.command === 'storage-access-verified') {
+      //     _that.ml4kStorageReady = true;
+      //     console.log('TODO : worked - hide the banner');
+
+      //     while (_that.ml4kPendingRequests.length > 0) {
+      //         const pendingMessage = _that.ml4kPendingRequests.shift();
+      //         _that.ml4kStorageIFrameWindow.postMessage(pendingMessage, _that.ml4kStorageIFrameHost);
+      //     }
+      // }
+      // else {
       var inflightRequest = _that.ml4kStorageInflightRequests[event.data.correlId];
       if (inflightRequest) {
         if (inflightRequest.callback) {
@@ -2297,7 +2639,13 @@ var ML4KidsLocalStorage = /*#__PURE__*/function () {
           delete _that.ml4kStorageInflightRequests[event.data.correlId];
         }
       }
+      // }
     });
+
+    // document.getElementById('mlforkids-request-storage-access').addEventListener('click', function () {
+    //     _that.ml4kStorageIFrameWindow.postMessage({ fn : 'requestStorageAccess' }, _that.ml4kStorageIFrameHost);
+    // });
+    // this.ml4kStorageIFrameWindow.postMessage({ fn : 'verifyStorageAccess' }, this.ml4kStorageIFrameHost);
   }
   _createClass(ML4KidsLocalStorage, [{
     key: "_submitMl4kStorageRequest",
@@ -2315,7 +2663,16 @@ var ML4KidsLocalStorage = /*#__PURE__*/function () {
           reject: reject
         };
       });
-      document.getElementById('mlforkids-data-worker').contentWindow.postMessage(message, this.ml4kStorageIFrameHost);
+
+      // if (this.ml4kStorageReady) {
+      //     // send immediately
+      this.ml4kStorageIFrameWindow.postMessage(message, this.ml4kStorageIFrameHost);
+      // }
+      // else {
+      //     // queue until user has granted storage access
+      //     this.ml4kPendingRequests.push(message);
+      // }
+
       return inflightRequest;
     }
   }, {
@@ -2404,7 +2761,7 @@ var ML4KidsLocalStorage = /*#__PURE__*/function () {
       this.ml4kStorageInflightRequests[correlId] = {
         callback: callback
       };
-      document.getElementById('mlforkids-data-worker').contentWindow.postMessage(message, this.ml4kStorageIFrameHost);
+      this.ml4kStorageIFrameWindow.postMessage(message, this.ml4kStorageIFrameHost);
     }
   }]);
   return ML4KidsLocalStorage;

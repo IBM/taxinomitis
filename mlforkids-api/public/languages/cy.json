@@ -1922,7 +1922,7 @@
         "HOWTO": {
             "TITLE": "Sut i ddefnyddio",
             "INTRO": "Cliciwch ar y botwm i fynd i Scratch.",
-            "HOW_1": "Ewch i'r fersiwn o <a href='https://scratch.machinelearningforkids.co.uk'>Scratch 3</a> ar gael o Dysgu Peiriant i Blant.",
+            "HOW_1": "Ewch i'r fersiwn o <a href='https://machinelearningforkids.co.uk/scratch/'>Scratch 3</a> ar gael o Dysgu Peiriant i Blant.",
             "HOW_2": "Mae modelau wedi'u hyfforddi ymlaen llaw ar gael gan y panel Estyniadau. Cliciwch ar y botwm estyniadau glas yng ngwaelod chwith y ffenestr Scratch i ddod o hyd iddyn nhw, yna cliciwch ar yr un rydych chi am ei ychwanegu at eich prosiect.",
             "HOW_3": "Bydd y blociau ar gyfer y model wedi'i hyfforddi ymlaen llaw yn cael eu hychwanegu at flwch offer Scratch."
         },

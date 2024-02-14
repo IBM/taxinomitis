@@ -6,7 +6,15 @@ addEventListener('fetch', event => {
 async function handle(request) {
   const url = new URL(request.url);
   if (url.hostname === 'machinelearningforkids.co.uk') {
-    return handleGeoSteeredRequest(request, 'mlforkids-api.');
+    if (url.pathname.startsWith('/scratch/')) {
+      return handleGeoSteeredRequest(request, 'mlforkids-scratch.', url.pathname.substring(8));
+    }
+    else if (url.pathname === '/scratch/' || url.pathname === '/scratch') {
+      return handleGeoSteeredRequest(request, 'mlforkids-scratch.', '/index.html');
+    }
+    else {
+      return handleGeoSteeredRequest(request, 'mlforkids-api.');
+    }
   } else if (url.hostname === 'scratch.machinelearningforkids.co.uk') {
     return handleGeoSteeredRequest(request, 'mlforkids-scratch.');
   } else if (url.hostname === 'proxy.machinelearningforkids.co.uk') {
@@ -63,12 +71,12 @@ function getOrigins(request) {
 }
 
 
-async function handleGeoSteeredRequest(request, routePrefix) {
+async function handleGeoSteeredRequest(request, routePrefix, customPath) {
   const targetOrigins = getOrigins(request);
 
   let response = null;
   for (const targetHost of targetOrigins) {
-      response = await forwardRequest(request, routePrefix + targetHost);
+      response = await forwardRequest(request, routePrefix + targetHost, customPath);
 
       if (response.status < 500) {
           // request successfully handled by the target - return the response
@@ -80,10 +88,13 @@ async function handleGeoSteeredRequest(request, routePrefix) {
 }
 
 
-function forwardRequest(request, targetHost) {
+function forwardRequest(request, targetHost, customPath) {
   const newUrl = new URL(request.url);
   newUrl.hostname = targetHost;
   newUrl.protocol = 'https:';
+  if (customPath) {
+    newUrl.pathname = customPath;
+  }
 
   const newRequest = new Request(request);
   // newRequest.headers.set('X-Forwarded-Host', request.url.hostname);
