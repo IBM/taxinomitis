@@ -1,6 +1,7 @@
+dist: jammy
 language: node_js
 node_js:
-- "16"
+- "20"
 
 env:
   global:
@@ -12,15 +13,15 @@ env:
     - DEPLOYMENT=travis
 
 addons:
-  postgresql: "12"
+  postgresql: "14"
   apt:
     packages:
-    - postgresql-12
-    - postgresql-client-12
+    - postgresql-14
+    - postgresql-client-14
 
 before_script:
-- sudo cp /etc/postgresql/10/main/pg_hba.conf /etc/postgresql/12/main/pg_hba.conf
-- sudo pg_ctlcluster 12 main restart
+- sudo cp /etc/postgresql/10/main/pg_hba.conf /etc/postgresql/14/main/pg_hba.conf
+- sudo pg_ctlcluster 14 main restart
 - sh -c 'until pg_isready -p 5433; do echo "Waiting for the postgresql server..."; sleep 2; done'
 - psql -U postgres -p 5433 -c "CREATE USER ml4k WITH PASSWORD 'testdbpwd' LOGIN;"
 - psql -U postgres -p 5433 -c "CREATE DATABASE mlforkidsdb OWNER ml4k;"
