@@ -2024,7 +2024,7 @@
         "HOWTO": {
             "TITLE": "如何使用",
             "INTRO": "點擊按鈕進入Scratch",
-            "HOW_1": "選擇兒童機器學習可使用的版本<a href='https://scratch.machinelearningforkids.co.uk'>Scratch 3</a>",
+            "HOW_1": "選擇兒童機器學習可使用的版本<a href='https://machinelearningforkids.co.uk/scratch/'>Scratch 3</a>",
             "HOW_2": "在「擴充功能」面板中可以取得預先訓練好的模型。 點擊Scratch視窗左下角的藍色擴展按鈕並找到它們，然後點擊要添加到專案中的擴充功能。",
             "HOW_3": "預先訓練模型的積木將會添加到Scratch工具箱中。"
         },

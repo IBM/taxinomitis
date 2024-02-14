@@ -2024,7 +2024,7 @@
         "HOWTO": {
             "TITLE": "Cum se folosește",
             "INTRO": "Faceți clic pe buton pentru a merge la Scratch.",
-            "HOW_1": "Accesați versiunea de <a href='https://scratch.machinelearningforkids.co.uk'>Scratch 3</a> disponibila de la Machine Learning for Kids.",
+            "HOW_1": "Accesați versiunea de <a href='https://machinelearningforkids.co.uk/scratch/'>Scratch 3</a> disponibila de la Machine Learning for Kids.",
             "HOW_2": "Modelele pre-instruite sunt disponibile din panoul Extensii. Faceți clic pe butonul albastru de extensii din partea stângă jos a ferestrei Scratch pentru a le găsi, apoi faceți clic pe cel pe care doriți să îl adăugați la proiect.",
             "HOW_3": "Blocurile pentru modelul pre-antrenat vor fi adăugate în caseta de instrumente Scratch."
         },

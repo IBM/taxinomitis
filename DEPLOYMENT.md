@@ -38,7 +38,7 @@ An instance of [Cloud Internet Services](https://www.ibm.com/cloud/cloud-interne
 | **url**                              | **routed to**     | **notes** |
 | ------------------------------------ | ----------------- | --------- |
 | login.machinelearningforkids.co.uk   | _Auth0_           | see [Where users are authenticated](#where-users-are-authenticated) |
-| scratch.machinelearningforkids.co.uk | mlforkids-scratch | *caching means most requests are  served immediately from Cloud Internet Services layer* |
+| machinelearningforkids.co.uk/scratch | mlforkids-scratch | *caching means most requests are  served immediately from Cloud Internet Services layer* |
 | proxy.machinelearningforkids.co.uk   | mlforkids-proxies |
 | machinelearningforkids.co.uk         | mlforkids-api     |
 

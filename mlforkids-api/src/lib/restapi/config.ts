@@ -1,6 +1,5 @@
 // external dependencies
 import * as express from 'express';
-import * as httpstatus from 'http-status';
 import * as path from 'path';
 import * as compression from 'compression';
 // local dependencies
@@ -118,13 +117,6 @@ function removeFrameBlockingHeaders(req: express.Request, res: express.Response,
 }
 
 
-function redirectToNewScratchSubdomain(req: express.Request, res: express.Response): void {
-    const newUrl = 'https://scratch.machinelearningforkids.co.uk' +
-        (req.query.url ? '?url=' + req.query.url : '');
-    res.redirect(httpstatus.MOVED_PERMANENTLY, newUrl);
-}
-
-
 export function setupUI(app: express.Application): void {
     const tfjslocation: string = path.join(__dirname, '/../../../web/static/bower_components/tensorflow-models');
     app.use('/static/bower_components/tensorflow-models', compression(), addCorsHeaders, express.static(tfjslocation, { maxAge : constants.ONE_YEAR }));
@@ -152,14 +144,6 @@ export function setupUI(app: express.Application): void {
 
     const uilocation: string = path.join(__dirname, '/../../../web/static');
     app.use('/static', compression(), express.static(uilocation, { maxAge : constants.ONE_YEAR }));
-
-    // Scratch has moved - leave a redirect for students who have the old location bookmarked!
-    // const scratch3location: string = path.join(__dirname, '/../../../web/scratch3');
-    // app.use('/scratch3', compression(), express.static(scratch3location, { maxAge : constants.ONE_WEEK }));
-    app.get('/scratch3', redirectToNewScratchSubdomain);
-    app.get('/scratch3/*', redirectToNewScratchSubdomain);
-    // never actually a URL, but a likely typo
-    app.get('/scratch', redirectToNewScratchSubdomain);
 
     app.get('/about', (req, res) => { res.redirect('/#!/about'); });
     app.get('/projects', (req, res) => { res.redirect('/#!/projects'); });

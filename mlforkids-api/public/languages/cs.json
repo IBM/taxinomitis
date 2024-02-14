@@ -1923,7 +1923,7 @@
         "HOWTO": {
             "TITLE": "Jak používat",
             "INTRO": "Kliknutím na tlačítko přejdete do aplikace Scratch.",
-            "HOW_1": "Přejděte na verzi <a href='https://scratch.machinelearningforkids.co.uk'>Scratch 3</a>, která je k dispozici na stránkách Machine Learning for Kids.",
+            "HOW_1": "Přejděte na verzi <a href='https://machinelearningforkids.co.uk/scratch/'>Scratch 3</a>, která je k dispozici na stránkách Machine Learning for Kids.",
             "HOW_2": "Předem natrénované modely jsou k dispozici na panelu Rozšíření. Kliknutím na modré tlačítko Extensions (Rozšíření) v levém dolním rohu okna Scratch je vyhledejte a poté klikněte na to, které chcete přidat do svého projektu.",
             "HOW_3": "Bloky pro předtrénovaný model budou přidány do sady nástrojů Scratch."
         },
