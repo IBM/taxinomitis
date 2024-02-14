@@ -102,7 +102,7 @@
                 })
                 .then(function () {
                     loggerService.debug('[ml4ksound] loading speech-commands');
-                    return utilService.loadScript('/static/bower_components/tensorflow-models/speech-commands/speech-commands.min.js?v=128');
+                    return utilService.loadScript('/static/bower_components/tensorflow-models/speech-commands/speech-commands.min.js?v=129');
                 })
                 .then(function () {
                     loggerService.debug('[ml4ksound] loaded speech-commands', speechCommands.version);
