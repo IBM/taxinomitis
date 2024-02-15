@@ -9,19 +9,14 @@ async function handle(request) {
     if (url.pathname.startsWith('/scratch/')) {
       return handleGeoSteeredRequest(request, 'mlforkids-scratch.', url.pathname.substring(8));
     }
-    else if (url.pathname === '/scratch/' || url.pathname === '/scratch') {
-      return handleGeoSteeredRequest(request, 'mlforkids-scratch.', '/index.html');
-    }
     else {
       return handleGeoSteeredRequest(request, 'mlforkids-api.');
     }
-  } else if (url.hostname === 'scratch.machinelearningforkids.co.uk') {
-    return handleGeoSteeredRequest(request, 'mlforkids-scratch.');
   } else if (url.hostname === 'proxy.machinelearningforkids.co.uk') {
     return handleGeoSteeredRequest(request, 'mlforkids-proxy.');
   } else {
     // should never get here - only triggers for the above
-    //  three hostnames should be registered
+    //  two hostnames should be registered
     return fetch(request)
   }
 }
