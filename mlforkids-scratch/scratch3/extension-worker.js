@@ -1792,7 +1792,7 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
         this.PROJECTS[projectid].modelWatcher = true;
         var modellocation = this._getModelDbLocation(projectid);
         this._storageSupport.registerForModelStorageUpdates(modellocation, function () {
-          console.log('[mlforkids] ML4KidsImageTraining new model was trained');
+          console.log('[mlforkids] ML4KidsImageTraining new model was trained outside of Scratch');
           return _this4._loadModel(projectid).then(function (model) {
             if (model) {
               _this4.PROJECTS[projectid].transferModel = model;
@@ -1805,6 +1805,8 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
                 }
               });
             } else {
+              // we weren't able to load the model
+              //  it may have been deleted outside of Scratch
               _this4.PROJECTS[projectid].state = 'ERROR';
               worker.postMessage({
                 mlforkidsimage: 'modelfailed',
