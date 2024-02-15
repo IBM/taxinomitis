@@ -558,9 +558,7 @@ const CORS_CONFIG = {
         /machinelearningforkids\.co\.uk$/,
         /app\.edublocks\.org$/,
         // /localhost:3000$/,
-        // /localhost:9000$/,
         // /ml-for-kids-local\.net:3000$/,
-        // /ml-for-kids-local\.net:9000$/,
     ],
 };
 

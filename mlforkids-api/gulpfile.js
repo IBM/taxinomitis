@@ -67,9 +67,6 @@ gulp.task('boweroverrides', gulp.parallel('custombootstrap', 'customangularmater
 gulp.task('twitter', function() {
     return gulp.src('public/static-files/twitter-card.html').pipe(gulp.dest('web/dynamic'));
 });
-gulp.task('storageiframe', function() {
-    return gulp.src('public/static-files/storage.html').pipe(gulp.dest('web/dynamic'));
-});
 
 
 gulp.task('tensorflowjs', function() {
@@ -244,7 +241,7 @@ function prepareHtml (isForProd) {
 gulp.task('html', () => {
     return prepareHtml(false);
 });
-gulp.task('prodhtml', gulp.series('twitter', 'storageiframe', () => {
+gulp.task('prodhtml', gulp.series('twitter', () => {
     return prepareHtml(true);
 }));
 

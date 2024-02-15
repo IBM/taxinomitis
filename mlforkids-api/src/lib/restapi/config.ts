@@ -100,9 +100,7 @@ const ALLOWED_CORS_ORIGINS = [
     'https://scratch.machinelearningforkids.co.uk',
 
     'http://ml-for-kids-local.net:3000',
-    'http://ml-for-kids-local.net:9000',
     // 'http://localhost:3000',
-    // 'http://localhost:9000',
 ];
 function addCorsHeaders(req: express.Request, res: express.Response, next: express.NextFunction): void {
     if (ALLOWED_CORS_ORIGINS.includes(req.headers.origin || '')) {
@@ -131,9 +129,6 @@ export function setupUI(app: express.Application): void {
 
     const twittercardlocation: string = path.join(__dirname, '/../../../web/dynamic/twitter-card.html');
     app.use('/twitter-card.html', compression(), removeFrameBlockingHeaders, express.static(twittercardlocation, { maxAge : constants.ONE_YEAR }));
-
-    const storageiframe: string = path.join(__dirname, '/../../../web/dynamic/storage.html');
-    app.use('/storage.html', compression(), removeFrameBlockingHeaders, express.static(storageiframe, { maxAge : constants.ONE_WEEK }));
 
     app.get('/static/images/scratch3-sample-%7B%7B%20project.type%20%7D%7D.png', (req, res) => { res.redirect('/static/images/scratch3-sample-text.png'); });
     app.get('/static/images/scratch3-recognise-label-%7B%7B%20project.type%20%7D%7D.png', (req, res) => { res.redirect('/static/images/scratch3-recognise-label-text.png'); });

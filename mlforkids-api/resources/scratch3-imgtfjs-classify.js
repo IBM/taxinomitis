@@ -292,14 +292,6 @@ class MachineLearningImagesTfjs {
                 //  try to train a model automatically
                 that.trainNewModel();
             }
-            else if (that && msg.data.mlforkidsimage === 'modelretrain')
-            {
-                console.log('model was retrained outside of Scratch');
-
-                // to keep the performance in Scratch at a similar
-                //  level, we'll try to train a model automatically
-                that.trainNewModel();
-            }
             else if (that && msg.data.mlforkidsimage === 'classifyresponse')
             {
                 var callbackFn = that.classifyRequests[msg.data.data.requestid];

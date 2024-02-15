@@ -210,6 +210,11 @@ class MachineLearningText {
             });
         {{/storeurl}}
         {{^storeurl}}
+        if (trainingCache.has(txt)) {
+            console.log('duplicate - ignoring');
+            return;
+        }
+
         postMessage({
             mlforkidsstorage : {
                 command : 'storetext',

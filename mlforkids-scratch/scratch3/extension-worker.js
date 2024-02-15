@@ -1786,16 +1786,32 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
   }, {
     key: "_watchForNewModels",
     value: function _watchForNewModels(projectid, worker) {
+      var _this4 = this;
       if (!this.PROJECTS[projectid].modelWatcher) {
         console.log('[mlforkids] ML4KidsImageTraining listening for model updates', projectid);
         this.PROJECTS[projectid].modelWatcher = true;
         var modellocation = this._getModelDbLocation(projectid);
         this._storageSupport.registerForModelStorageUpdates(modellocation, function () {
           console.log('[mlforkids] ML4KidsImageTraining new model was trained');
-          worker.postMessage({
-            mlforkidsimage: 'modelretrain',
-            data: {
-              projectid: projectid
+          return _this4._loadModel(projectid).then(function (model) {
+            if (model) {
+              _this4.PROJECTS[projectid].transferModel = model;
+              _this4.PROJECTS[projectid].state = 'TRAINED';
+              _this4.PROJECTS[projectid].usingRestoredModel = true;
+              worker.postMessage({
+                mlforkidsimage: 'modelready',
+                data: {
+                  projectid: projectid
+                }
+              });
+            } else {
+              _this4.PROJECTS[projectid].state = 'ERROR';
+              worker.postMessage({
+                mlforkidsimage: 'modelfailed',
+                data: {
+                  projectid: projectid
+                }
+              });
             }
           });
         });
@@ -1849,7 +1865,7 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
   }, {
     key: "trainNewModel",
     value: function trainNewModel(data, worker) {
-      var _this4 = this;
+      var _this5 = this;
       var projectid = data.projectid;
       if (this.state !== 'READY') {
         console.log('[mlforkids] ML4KidsImageTraining not ready to train a new ML model - state : ' + this.state);
@@ -1857,6 +1873,10 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
       }
       if (this.PROJECTS[projectid].state === 'TRAINING') {
         console.log('[mlforkids] ML4KidsImageTraining training in progress for this model');
+        return;
+      }
+      if (data.trainingdata.length < 5) {
+        console.log('[mlforkids] ML4KidsImageTraining insufficient training examples for a new model');
         return;
       }
       console.log('[mlforkids] ML4KidsImageTraining training new model');
@@ -1919,7 +1939,7 @@ var ML4KidsImageTraining = /*#__PURE__*/function () {
         });
       }).catch(function (err) {
         console.log('[mlforkids] ML4KidsImageTraining failed to train model', err);
-        _this4.PROJECTS[projectid].state = 'ERROR';
+        _this5.PROJECTS[projectid].state = 'ERROR';
         worker.postMessage({
           mlforkidsimage: 'modelfailed',
           data: {
@@ -2243,12 +2263,11 @@ var ML4KidsRegressionTraining = /*#__PURE__*/function () {
         var modellocation = this._getModelDbLocation(projectid);
         this._storageSupport.registerForModelStorageUpdates(modellocation, function () {
           console.log('[mlforkids] ML4KidsRegressionTraining new model was trained');
-          worker.postMessage({
-            mlforkidsregression: 'modelretrain',
-            data: {
-              projectid: projectid.toString()
-            }
-          });
+
+          // worker.postMessage({
+          //     mlforkidsregression: 'modelretrain',
+          //     data: { projectid : projectid.toString() }
+          // });
         });
       }
     }
@@ -2590,6 +2609,9 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw new Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw new Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
@@ -2598,103 +2620,274 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 var ML4KidsLocalStorage = /*#__PURE__*/function () {
   function ML4KidsLocalStorage() {
     _classCallCheck(this, ML4KidsLocalStorage);
-    this.ml4kStorageIFrameHost = 'https://machinelearningforkids.co.uk';
-    this.ml4kStorageIFrameWindow = document.getElementById('mlforkids-data-worker').contentWindow;
-    this.ml4kStorageInflightRequests = {};
-    this.ml4kNextStorageRequestId = 1;
-
-    // this.ml4kStorageReady = false;
-    // this.ml4kPendingRequests = [];
-
-    var _that = this;
-    window.addEventListener('message', function (event) {
-      if (event.origin !== _that.ml4kStorageIFrameHost) {
-        return;
-      }
-      // else if (event.data.command === 'request-storage-access') {
-      //     window.dispatchEvent(new Event('mlforkids-request-storage-access'));
-      // }
-      // else if (event.data.command === 'storage-access-verified') {
-      //     _that.ml4kStorageReady = true;
-      //     console.log('TODO : worked - hide the banner');
-
-      //     while (_that.ml4kPendingRequests.length > 0) {
-      //         const pendingMessage = _that.ml4kPendingRequests.shift();
-      //         _that.ml4kStorageIFrameWindow.postMessage(pendingMessage, _that.ml4kStorageIFrameHost);
-      //     }
-      // }
-      // else {
-      var inflightRequest = _that.ml4kStorageInflightRequests[event.data.correlId];
-      if (inflightRequest) {
-        if (inflightRequest.callback) {
-          // callback function - can be called multiple times
-          inflightRequest.callback();
-        } else {
-          // persisted promise - called once only then deleted
-          if (event.data.output) {
-            inflightRequest.resolve(event.data.output);
-          } else {
-            inflightRequest.reject(event.data.err);
-          }
-          delete _that.ml4kStorageInflightRequests[event.data.correlId];
-        }
-      }
-      // }
-    });
-
-    // document.getElementById('mlforkids-request-storage-access').addEventListener('click', function () {
-    //     _that.ml4kStorageIFrameWindow.postMessage({ fn : 'requestStorageAccess' }, _that.ml4kStorageIFrameHost);
-    // });
-    // this.ml4kStorageIFrameWindow.postMessage({ fn : 'verifyStorageAccess' }, this.ml4kStorageIFrameHost);
+    // this.projectsDbHandle;
+    this.PROJECTS_DB_NAME = 'mlforkidsLocalProjects';
+    this.PROJECTS_TABLE = 'projects';
+    this.trainingDataDatabases = {};
+    this.TRAINING_DB_NAME_PREFIX = 'mlforkidsProject';
+    this.TRAINING_TABLE = 'training';
   }
+
+  //-----------------------------------------------------------
+  //  common functions
+  //-----------------------------------------------------------
   _createClass(ML4KidsLocalStorage, [{
-    key: "_submitMl4kStorageRequest",
-    value: function _submitMl4kStorageRequest(functionName, requestArgs) {
-      var correlId = this.ml4kNextStorageRequestId++;
-      var message = {
-        correlId: correlId,
-        fn: functionName,
-        args: requestArgs
-      };
-      var _that = this;
-      var inflightRequest = new Promise(function (resolve, reject) {
-        _that.ml4kStorageInflightRequests[correlId] = {
-          resolve: resolve,
-          reject: reject
-        };
+    key: "promisifyIndexedDbRequest",
+    value: function promisifyIndexedDbRequest(request) {
+      return new Promise(function (resolve, reject) {
+        request.onsuccess = resolve;
+        request.onerror = reject;
       });
-
-      // if (this.ml4kStorageReady) {
-      //     // send immediately
-      this.ml4kStorageIFrameWindow.postMessage(message, this.ml4kStorageIFrameHost);
-      // }
-      // else {
-      //     // queue until user has granted storage access
-      //     this.ml4kPendingRequests.push(message);
-      // }
-
-      return inflightRequest;
     }
   }, {
-    key: "getProjects",
-    value: function getProjects() {
-      return this._submitMl4kStorageRequest('getProjects', []);
+    key: "noop",
+    value: function noop() {}
+  }, {
+    key: "initProjectsDatabase",
+    value: function initProjectsDatabase(event) {
+      console.log('[ml4kstorage] initProjectsDatabase');
+      event.target.result.createObjectStore(this.PROJECTS_TABLE, {
+        keyPath: 'id',
+        autoIncrement: true
+      });
     }
+  }, {
+    key: "initTrainingDatabase",
+    value: function initTrainingDatabase(event) {
+      console.log('[ml4kstorage] initTrainingDatabase');
+      var table = event.target.result.createObjectStore(this.TRAINING_TABLE, {
+        keyPath: 'id',
+        autoIncrement: true
+      });
+      table.createIndex('label', 'label', {
+        unique: false
+      });
+    }
+  }, {
+    key: "getProjectsDatabase",
+    value: function getProjectsDatabase() {
+      console.log('[ml4kstorage] getProjectsDatabase');
+      var request = window.indexedDB.open(this.PROJECTS_DB_NAME);
+      request.onupgradeneeded = this.initProjectsDatabase;
+      return this.promisifyIndexedDbRequest(request).then(function (event) {
+        return event.target.result;
+      });
+    }
+  }, {
+    key: "getTrainingDatabase",
+    value: function getTrainingDatabase(projectId) {
+      console.log('[ml4kstorage] getTrainingDatabase');
+      var request = window.indexedDB.open(this.TRAINING_DB_NAME_PREFIX + projectId);
+      request.onupgradeneeded = this.initTrainingDatabase;
+      return this.promisifyIndexedDbRequest(request).then(function (event) {
+        return event.target.result;
+      });
+    }
+  }, {
+    key: "requiresProjectsDatabase",
+    value: function () {
+      var _requiresProjectsDatabase = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              if (this.projectsDbHandle) {
+                _context.next = 4;
+                break;
+              }
+              _context.next = 3;
+              return this.getProjectsDatabase();
+            case 3:
+              this.projectsDbHandle = _context.sent;
+            case 4:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, this);
+      }));
+      function requiresProjectsDatabase() {
+        return _requiresProjectsDatabase.apply(this, arguments);
+      }
+      return requiresProjectsDatabase;
+    }()
+  }, {
+    key: "requiresTrainingDatabase",
+    value: function () {
+      var _requiresTrainingDatabase = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(projectId) {
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              if (this.trainingDataDatabases[projectId]) {
+                _context2.next = 4;
+                break;
+              }
+              _context2.next = 3;
+              return this.getTrainingDatabase(projectId);
+            case 3:
+              this.trainingDataDatabases[projectId] = _context2.sent;
+            case 4:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2, this);
+      }));
+      function requiresTrainingDatabase(_x) {
+        return _requiresTrainingDatabase.apply(this, arguments);
+      }
+      return requiresTrainingDatabase;
+    }()
+  }, {
+    key: "requiresResult",
+    value: function requiresResult(event) {
+      if (event && event.target && event.target.result) {
+        return event.target.result;
+      }
+      var notFoundErr = new Error('not found');
+      notFoundErr.status = 404;
+      notFoundErr.data = {
+        error: 'not found'
+      };
+      throw notFoundErr;
+    }
+  }, {
+    key: "requiresIntegerId",
+    value: function requiresIntegerId(id) {
+      return parseInt(id, 10);
+    }
+
+    //-----------------------------------------------------------
+    //  PROJECTS database
+    //-----------------------------------------------------------
   }, {
     key: "getProject",
-    value: function getProject(projectid) {
-      return this._submitMl4kStorageRequest('getProject', [projectid]);
-    }
+    value: function () {
+      var _getProject = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(projectId) {
+        var _this = this;
+        var transaction, request;
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              console.log('[ml4kstorage] getProject', projectId);
+              _context3.next = 3;
+              return this.requiresProjectsDatabase();
+            case 3:
+              transaction = this.projectsDbHandle.transaction([this.PROJECTS_TABLE], 'readonly');
+              request = transaction.objectStore(this.PROJECTS_TABLE).get(this.requiresIntegerId(projectId));
+              return _context3.abrupt("return", this.promisifyIndexedDbRequest(request).then(function (event) {
+                return _this.requiresResult(event);
+              }));
+            case 6:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3, this);
+      }));
+      function getProject(_x2) {
+        return _getProject.apply(this, arguments);
+      }
+      return getProject;
+    }() //-----------------------------------------------------------
+    //  TRAINING DATA store
+    //-----------------------------------------------------------
   }, {
     key: "getTrainingData",
-    value: function getTrainingData(projectid) {
-      return this._submitMl4kStorageRequest('getTrainingData', [projectid]);
-    }
+    value: function () {
+      var _getTrainingData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(projectId) {
+        var transaction, request;
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
+            case 0:
+              console.log('[ml4kstorage] getTrainingData', projectId);
+              _context4.next = 3;
+              return this.requiresTrainingDatabase(projectId);
+            case 3:
+              transaction = this.trainingDataDatabases[projectId].transaction([this.TRAINING_TABLE], 'readonly');
+              request = transaction.objectStore(this.TRAINING_TABLE).getAll();
+              return _context4.abrupt("return", this.promisifyIndexedDbRequest(request).then(function (event) {
+                return event.target.result;
+              }));
+            case 6:
+            case "end":
+              return _context4.stop();
+          }
+        }, _callee4, this);
+      }));
+      function getTrainingData(_x3) {
+        return _getTrainingData.apply(this, arguments);
+      }
+      return getTrainingData;
+    }()
   }, {
     key: "addTrainingData",
-    value: function addTrainingData(projectid, trainingobject) {
-      return this._submitMl4kStorageRequest('addTrainingData', [projectid, trainingobject]);
-    }
+    value: function () {
+      var _addTrainingData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(projectId, trainingObject) {
+        var _this2 = this;
+        var transaction, request;
+        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
+            case 0:
+              console.log('[ml4kstorage] addTrainingData');
+              _context5.next = 3;
+              return this.requiresTrainingDatabase(projectId);
+            case 3:
+              transaction = this.trainingDataDatabases[projectId].transaction([this.TRAINING_TABLE], 'readwrite');
+              request = transaction.objectStore(this.TRAINING_TABLE).add(trainingObject);
+              return _context5.abrupt("return", this.promisifyIndexedDbRequest(request).then(function (event) {
+                trainingObject.id = event.target.result;
+                if (trainingObject.label) {
+                  _this2.addLabel(projectId, trainingObject.label);
+                }
+                return trainingObject;
+              }));
+            case 6:
+            case "end":
+              return _context5.stop();
+          }
+        }, _callee5, this);
+      }));
+      function addTrainingData(_x4, _x5) {
+        return _addTrainingData.apply(this, arguments);
+      }
+      return addTrainingData;
+    }()
+  }, {
+    key: "addLabel",
+    value: function () {
+      var _addLabel = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(projectId, newlabel) {
+        var transaction, projectsTable, readRequest, readEvent, projectObject, updateRequest;
+        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
+            case 0:
+              console.log('[ml4kstorage] addLabel');
+              _context6.next = 3;
+              return this.requiresProjectsDatabase();
+            case 3:
+              transaction = this.projectsDbHandle.transaction([this.PROJECTS_TABLE], 'readwrite');
+              projectsTable = transaction.objectStore(this.PROJECTS_TABLE);
+              readRequest = projectsTable.get(this.requiresIntegerId(projectId));
+              _context6.next = 8;
+              return this.promisifyIndexedDbRequest(readRequest);
+            case 8:
+              readEvent = _context6.sent;
+              projectObject = this.requiresResult(readEvent);
+              if (projectObject.labels.includes(newlabel)) {
+                _context6.next = 15;
+                break;
+              }
+              projectObject.labels.push(newlabel);
+              updateRequest = projectsTable.put(projectObject);
+              _context6.next = 15;
+              return this.promisifyIndexedDbRequest(updateRequest);
+            case 15:
+            case "end":
+              return _context6.stop();
+          }
+        }, _callee6, this);
+      }));
+      function addLabel(_x6, _x7) {
+        return _addLabel.apply(this, arguments);
+      }
+      return addLabel;
+    }()
   }, {
     key: "getTrainingForWatsonAssistant",
     value: function getTrainingForWatsonAssistant(project) {
@@ -2752,16 +2945,11 @@ var ML4KidsLocalStorage = /*#__PURE__*/function () {
   }, {
     key: "registerForModelStorageUpdates",
     value: function registerForModelStorageUpdates(modelid, callback) {
-      var correlId = this.ml4kNextStorageRequestId++;
-      var message = {
-        correlId: correlId,
-        fn: 'registerForModelStorageUpdates',
-        args: [modelid]
-      };
-      this.ml4kStorageInflightRequests[correlId] = {
-        callback: callback
-      };
-      this.ml4kStorageIFrameWindow.postMessage(message, this.ml4kStorageIFrameHost);
+      window.addEventListener('storage', function (evt) {
+        if (evt.key === modelid) {
+          callback();
+        }
+      });
     }
   }]);
   return ML4KidsLocalStorage;
