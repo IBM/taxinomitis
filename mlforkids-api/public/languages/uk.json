@@ -192,6 +192,7 @@
     "COPYTEMPLATE": "Копіювати шаблон",
     "CREATEFIRSTPROJECT": "Натисніть кнопку плюс праворуч, щоб створити свій перший проект.",
     "RECOGNISING": "Розпізнавання",
+    "PREDICTING": "Predicting",
     "AS": "як",
     "SHARE": "Поділитися",
     "UNSHARE": "Скасувати спільний доступ",
@@ -220,12 +221,14 @@
       "NOTES_3": "Storing in the cloud will let you access the project from any computer."
     },
     "TYPES": {
+      "TYPELABEL": "Project Type",
       "LABEL": "Розпізнавання",
       "NOTES_1": "Які типи даних ви хочете навчити комп'ютер розпізнавати?",
       "NOTES_2": "Для слів, речень або абзаців виберіть «текст»",
       "NOTES_3": "Для фотографій, схем і малюнків виберіть «зображення»",
       "NOTES_4": "Для наборів чисел або кількох варіантів виберіть «числа»",
-      "NOTES_5": "Для голосів і звуків виберіть «звуки»"
+      "NOTES_5": "Для голосів і звуків виберіть «звуки»",
+      "NOTES_6": "To predict numbers, choose \"predicting numbers\""
     },
     "LANGUAGE": {
       "LABEL": "Мова",
@@ -368,11 +371,13 @@
   "PROJECT": {
     "TRAIN": {
       "TITLE": "Навчити",
-      "BODY": "Зберіть приклади того, що ви хочете, щоб комп'ютер розпізнав"
+      "BODY": "Зберіть приклади того, що ви хочете, щоб комп'ютер розпізнав",
+      "REGRESSION": "Collect examples of what you want the computer to predict"
     },
     "LEARNANDTEST": {
       "TITLE": "Дізнатися та перевірити",
-      "BODY": "Використовуйте приклади, щоб навчити комп'ютер розпізнавати"
+      "BODY": "Використовуйте приклади, щоб навчити комп'ютер розпізнавати",
+      "REGRESSION": "Use the examples to train the computer to make predictions"
     },
     "MAKES": {
       "TITLE": "Створити",
@@ -404,6 +409,7 @@
   "TRAINING": {
     "TITLE": "Навчання",
     "ADDLABEL": "Додати нову мітку",
+    "ADDCOLUMN": "Add new column",
     "CREATEFIRSTLABEL": "Натисніть кнопку «плюс» праворуч, щоб додати своє перше відро.",
     "CROWDSOURCEDEMPTY": "Оновіть цю сторінку після того, як ваш викладач створить навчальні сегменти.",
     "ADDEXAMPLE": "Додати приклад",
@@ -414,6 +420,10 @@
     "NEWLABEL": {
       "INTRO": "Введіть нову мітку для розпізнавання",
       "ERROR": "У мітках використовуйте лише літери та цифри"
+    },
+    "NEWCOLUMN": {
+      "INTRO": "Enter name for a new column",
+      "ERROR": "Only use letters and numbers in column names"
     },
     "NEWEXAMPLE": {
       "INTRO": "Введіть приклад ",
@@ -427,7 +437,13 @@
       "WEBCAMFAIL": "Вибачте! Нам не вдалося змусити веб-камеру працювати.",
       "WEBCAMERROR": "Повідомлення, яке ми отримали від вашого веб-браузеру:"
     },
-    "BACKGROUNDNOISE": "Збір прикладів фонового шуму допоможе комп’ютеру навчитися розпізнавати ваші звуки"
+    "BACKGROUNDNOISE": "Збір прикладів фонового шуму допоможе комп’ютеру навчитися розпізнавати ваші звуки",
+    "REGRESSION": {
+        "NOOUTPUTCOLS": "Tick the column(s) that you want your machine learning model to predict values for.",
+        "NOTRAINING": "Add training examples from Scratch or by uploading a CSV file.",
+        "NOCOLUMNS": "Add columns to use for this project.",
+        "ONECOLUMN": "You need at least two columns to have input and output."
+    }
   },
   "MODELS": {
     "TITLE": "Моделі машинного навчання",
@@ -466,7 +482,8 @@
           "TEXT": "Ви навчили модель машинного навчання розпізнавати текст ",
           "IMAGES": "Ви навчили модель машинного навчання розпізнавати зображення ",
           "NUMBERS": "Ви навчили модель машинного навчання розпізнавати числа ",
-          "SOUNDS": "Ви навчили модель машинного навчання розпізнавати звуки "
+          "SOUNDS": "Ви навчили модель машинного навчання розпізнавати звуки ",
+          "REGRESSION": "You have trained a machine learning model to predict the values of "
         },
         "CREATED": {
           "TEACHER": "Ваш учитель створив модель на ",
@@ -525,7 +542,8 @@
             "TEXT": "Ви сказали, що хочете зібрати приклади тексту, щоб комп'ютер міг розпізнавати текст ",
             "IMAGES": "Ви сказали, що хочете зібрати приклади зображень, щоб комп’ютер міг їх розпізнавати ",
             "NUMBERS": "Ви сказали, що хочете зібрати приклади чисел, щоб комп’ютер міг розпізнавати, коли числа є ",
-            "SOUNDS": "Ви сказали, що хочете зібрати приклади звуків, щоб комп'ютер міг розпізнавати звуки "
+            "SOUNDS": "Ви сказали, що хочете зібрати приклади звуків, щоб комп'ютер міг розпізнавати звуки ",
+            "REGRESSION" : "You said that you want to collect examples of numbers for a computer to predict the value of "
           }
         },
         "NOEXAMPLES": {
@@ -543,7 +561,8 @@
             "TEXT": "Ви зібрали приклади тексту для комп'ютера, щоб розпізнавати текст ",
             "IMAGES": "Ви зібрали приклади зображень, які комп’ютер використовує для розпізнавання зображень ",
             "NUMBERS": "Ви зібрали приклади чисел, які комп'ютер використовує для розпізнавання чисел ",
-            "SOUNDS": "Ви зібрали приклади звуків, які комп'ютер використовує для розпізнавання звуків "
+            "SOUNDS": "Ви зібрали приклади звуків, які комп'ютер використовує для розпізнавання звуків ",
+            "REGRESSION" : "You have collected examples of numbers for a computer to use to predict the value of "
           },
           "COLLECTED": {
             "CLASS": "Вони зібрали:",
@@ -567,6 +586,7 @@
         },
         "LABELS": {
           "NO_DATA": "Наступним кроком є перехід на сторінку <a href='{{ urls.train }}'>Навчити</a> page. Додайте приклади для кожної з міток.",
+          "NO_DATA_REGRESSION" : "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Add examples of numbers.",
           "MORE_DATA": {
             "KEEP_GOING": "Продовжуйте!",
             "MORE_EXAMPLES": {
@@ -594,9 +614,11 @@
           "TEXT": "Спробуйте перевірити модель машинного навчання нижче. Введіть приклад тексту нижче, який ви не включили в приклади, які використовували для навчання. Він скаже вам, що він розпізнає як і наскільки він впевнений у цьому.",
           "IMAGES": "Спробуйте перевірити модель машинного навчання нижче. Введіть нижче приклад зображення, яке ви не включили в приклади, які використовували для навчання. Воно розповість вам, як вона її розпізнає та наскільки вона впевнена це.",
           "NUMBERS": "Спробуйте перевірити модель машинного навчання нижче. Введіть нижче приклад чисел, які ви не включили в приклади, які використовували для навчання. Це покаже вам, що вона розпізнає як і наскільки впевнено це у цьому.",
-          "SOUNDS": "Спробуйте протестувати модель машинного навчання нижче. Натисніть кнопку «Почати прослуховування». Якщо ваша модель машинного навчання розпізнає будь-які звуки, вона повідомить вам, що саме вона розпізнає та наскільки впевнена в цьому."
+          "SOUNDS": "Спробуйте протестувати модель машинного навчання нижче. Натисніть кнопку «Почати прослуховування». Якщо ваша модель машинного навчання розпізнає будь-які звуки, вона повідомить вам, що саме вона розпізнає та наскільки впевнена в цьому.",
+          "REGRESSION" : "Try testing the machine learning model below. Enter an example of numbers below, that you didn't include in the examples you used to train it. It will tell you what it predicts the output should be."
         },
         "SCRATCH": "Якщо комп'ютер, здається, навчився розпізнавати речі правильно, тоді ви можете перейти до Scratch і використовувати те, що комп'ютер навчився, щоб створити гру!",
+        "SCRATCH_REGRESSION" : "If the computer seems to have learned to predict things correctly, then you can go to Scratch and use what the computer has learned to make a game!",
         "ADDITIONAL_TRAINING": {
           "MORE_EXAMPLES": {
             "CROWDSOURCED": "Якщо комп’ютер забагато помиляється, можливо, ваш клас захоче повернутися на сторінку <a href='{{ urls.train }}'>Навчити</a> і зібрати ще декілька прикладів.",
@@ -623,12 +645,14 @@
         "TEXT": "Спробуйте ввести текст, щоб побачити, як він розпізнається на основі вашого навчання.",
         "IMAGES": "Спробуйте додати зображення, щоб побачити, як воно розпізнається на основі вашого навчання.",
         "NUMBERS": "Спробуйте ввести кілька цифр, щоб побачити, як це розпізнається на основі вашого навчання.",
-        "SOUNDS": "Спробуйте видати звук, щоб побачити, як він розпізнається на основі вашого навчання"
+        "SOUNDS": "Спробуйте видати звук, щоб побачити, як він розпізнається на основі вашого навчання",
+        "REGRESSION": "Try putting in some numbers to see the prediction based on your training."
       },
       "WEBCAM": "Тестувати за допомогою <strong>веб-камери</strong>",
       "DRAWING": "Тестувати за допомогою <strong>малювання</strong>",
       "WWW": "Тестувати за допомогою <strong>www</strong>",
       "RECOGNISED": "Розпізнано як  <strong>{{ testoutput }}</strong>",
+      "PREDICTION": "Prediction:",
       "STARTLISTENING": "Почати слухати",
       "STOPLISTENING": "Припинити слухати"
     },
@@ -1006,6 +1030,7 @@
     "MORE_BLOCKS": "Ваш проект додасть ці блоки до <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>Більше блоків</span> у сценаріях.",
     "MORE_BLOCKS_3": "Ваш проект додасть ці блоки до Scratch.",
     "EXPLAIN_RECOGNISE_LABEL": "Вставте {{ type }} у вхідні дані для цього, і він поверне мітку, яку розпізнає ваша модель машинного навчання.",
+    "EXPLAIN_PREDICT": "Put input numbers in this, and it will return a prediction of the output number.",
     "EXPLAIN_RECOGNISE_CONFIDENCE": "Це поверне, наскільки впевнено ваша модель машинного навчання розпізнає тип {{ type }}. (Як число від 0 до 100).",
     "EXPLAIN_LABELS": "Ці блоки представляють мітки, які ви створили у своєму проекті, тому ви можете використовувати їх імена у своїх сценаріях.",
     "EXPLAIN_COSTUMEIMAGE": "Цей блок знаходиться в панелі Спрайти і повертає зображення поточного вибраного костюма.",
@@ -1037,7 +1062,8 @@
       "IMAGES": "зображення",
       "NUMBERS": "числа",
       "SOUNDS": "звуки",
-      "FACES": "обличчя"
+      "FACES": "обличчя",
+      "REGRESSION": "predicting numbers"
     },
     "LEVELS": {
       "TITLE": "Складність:",

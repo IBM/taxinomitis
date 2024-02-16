@@ -41,7 +41,7 @@
                     return browserStorageService.addTrainingData(projectid, trainingObject);
                 }
                 else {
-                    console.error('unexpected project type', projecttype);
+                    throw new Error('unexpected project type');
                 }
             }
             else {
@@ -57,6 +57,17 @@
             }
         }
 
+
+        function bulkAddTrainingData(project, data) {
+            if (project.storage !== 'local' || project.type !== 'regression') {
+                throw new Error('unexpected project type');
+            }
+            else {
+                return browserStorageService.bulkAddTrainingData(project.id, data);
+            }
+        }
+
+
         function deleteTrainingData(projectid, userid, tenant, trainingdataid) {
             if (browserStorageService.idIsLocal(projectid)) {
                 return browserStorageService.deleteTrainingData(projectid, trainingdataid);
@@ -70,6 +81,17 @@
                 return $http.delete(url);
             }
         }
+
+
+        function clearTrainingData(project) {
+            if (project.storage !== 'local' || project.type !== 'regression') {
+                throw new Error('unexpected project type');
+            }
+            else {
+                return browserStorageService.clearTrainingData(project.id);
+            }
+        }
+
 
         function getTraining(projectid, userid, tenant) {
             if (browserStorageService.idIsLocal(projectid)) {
@@ -376,6 +398,7 @@
 
         return {
             newTrainingData : newTrainingData,
+            bulkAddTrainingData : bulkAddTrainingData,
             uploadImage : uploadImage,
 
             uploadSound : uploadSound,
@@ -384,6 +407,7 @@
             getTraining : getTraining,
             getTrainingItem : getTrainingItem,
             deleteTrainingData : deleteTrainingData,
+            clearTrainingData : clearTrainingData,
             getModels : getModels,
             getModel : getModel,
             newModel : newModel,

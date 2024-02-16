@@ -192,6 +192,7 @@
         "COPYTEMPLATE": "Kopírování šablony",
         "CREATEFIRSTPROJECT": "Kliknutím na tlačítko \"plus\" vpravo vytvoříte svůj první projekt.",
         "RECOGNISING": "Rozpoznání",
+        "PREDICTING": "Predicting",
         "AS": "jako",
         "SHARE": "Sdílet",
         "UNSHARE": "Zrušení sdílení",
@@ -220,12 +221,14 @@
             "NOTES_3": "Storing in the cloud will let you access the project from any computer."
         },
         "TYPES": {
+            "TYPELABEL": "Project Type",
             "LABEL": "Rozpoznání",
             "NOTES_1": "Jaký typ věcí chcete počítač naučit rozpoznávat?",
             "NOTES_2": "Pro slova, věty nebo odstavce vyberte možnost \"text\"",
             "NOTES_3": "Pro fotografie, schémata a obrázky zvolte \"obrázky\"",
             "NOTES_4": "Pro sady čísel nebo více možností vyberte možnost \"čísla\"",
-            "NOTES_5": "Pro hlasy a zvuky vyberte možnost \"zvuky\""
+            "NOTES_5": "Pro hlasy a zvuky vyberte možnost \"zvuky\"",
+            "NOTES_6": "To predict numbers, choose \"predicting numbers\""
         },
         "LANGUAGE": {
             "LABEL": "Jazyk",
@@ -368,11 +371,13 @@
     "PROJECT": {
         "TRAIN": {
             "TITLE": "Trénovat",
-            "BODY": "Shromážděte příklady toho, co má počítač rozpoznat"
+            "BODY": "Shromážděte příklady toho, co má počítač rozpoznat",
+            "REGRESSION": "Collect examples of what you want the computer to predict"
         },
         "LEARNANDTEST": {
             "TITLE": "Naučte se a otestujte",
-            "BODY": "Pomocí příkladů naučte počítač rozpoznávat"
+            "BODY": "Pomocí příkladů naučte počítač rozpoznávat",
+            "REGRESSION": "Use the examples to train the computer to make predictions"
         },
         "MAKES": {
             "TITLE": "Vytvořte",
@@ -404,6 +409,7 @@
     "TRAINING": {
         "TITLE": "Školení",
         "ADDLABEL": "Přidání nového štítku",
+        "ADDCOLUMN": "Add new column",
         "CREATEFIRSTLABEL": "Kliknutím na tlačítko \"plus\" vpravo přidáte první kbelík.",
         "CROWDSOURCEDEMPTY": "Po vytvoření výukových kbelíků učitelem tuto stránku obnovte.",
         "ADDEXAMPLE": "Přidat příklad",
@@ -414,6 +420,10 @@
         "NEWLABEL": {
             "INTRO": "Zadejte nový štítek, který chcete rozpoznat",
             "ERROR": "Na štítcích používejte pouze písmena a číslice"
+        },
+        "NEWCOLUMN": {
+            "INTRO": "Enter name for a new column",
+            "ERROR": "Only use letters and numbers in column names"
         },
         "NEWEXAMPLE": {
             "INTRO": "Zadejte příklad ",
@@ -427,7 +437,13 @@
             "WEBCAMFAIL": "Omlouváme se! Webovou kameru se nám nepodařilo zprovoznit.",
             "WEBCAMERROR": "Zpráva, kterou jsme obdrželi z vašeho webového prohlížeče, byla:"
         },
-        "BACKGROUNDNOISE": "Shromažďování příkladů hluku v pozadí pomůže počítači naučit se rozpoznávat vaše zvuky"
+        "BACKGROUNDNOISE": "Shromažďování příkladů hluku v pozadí pomůže počítači naučit se rozpoznávat vaše zvuky",
+        "REGRESSION": {
+            "NOOUTPUTCOLS": "Tick the column(s) that you want your machine learning model to predict values for.",
+            "NOTRAINING": "Add training examples from Scratch or by uploading a CSV file.",
+            "NOCOLUMNS": "Add columns to use for this project.",
+            "ONECOLUMN": "You need at least two columns to have input and output."
+        }
     },
     "MODELS": {
         "TITLE": "Modely strojového učení",
@@ -466,7 +482,8 @@
                     "TEXT": "Vytrénovali jste model strojového učení, který rozpozná, kdy je text ",
                     "IMAGES": "Vytrénovali jste model strojového učení, který rozpozná, kdy jsou obrázky ",
                     "NUMBERS": "Vytrénovali jste model strojového učení, který rozpozná, kdy jsou čísla ",
-                    "SOUNDS": "Vytrénovali jste model strojového učení, který rozpozná, kdy jsou zvuky "
+                    "SOUNDS": "Vytrénovali jste model strojového učení, který rozpozná, kdy jsou zvuky ",
+                    "REGRESSION": "You have trained a machine learning model to predict the values of "
                 },
                 "CREATED": {
                     "TEACHER": "Váš učitel vytvořil model na ",
@@ -525,7 +542,8 @@
                         "TEXT": "Řekl jste, že chcete shromáždit příklady textu, aby počítač rozpoznal, kdy je text ",
                         "IMAGES": "Řekl jste, že chcete shromáždit příklady obrázků, aby počítač rozpoznal, kdy jsou obrázky ",
                         "NUMBERS": "Řekl jste, že chcete shromáždit příklady čísel, aby počítač rozpoznal, kdy jsou čísla ",
-                        "SOUNDS": "Řekli jste, že chcete shromáždit příklady zvuků, aby počítač rozpoznal, kdy jsou zvuky "
+                        "SOUNDS": "Řekli jste, že chcete shromáždit příklady zvuků, aby počítač rozpoznal, kdy jsou zvuky ",
+                        "REGRESSION" : "You said that you want to collect examples of numbers for a computer to predict the value of "
                     }
                 },
                 "NOEXAMPLES": {
@@ -543,7 +561,8 @@
                         "TEXT": "Shromáždili jste příklady textů, které má počítač použít k rozpoznání, kdy je text ",
                         "IMAGES": "Shromáždili jste příklady obrázků, podle kterých počítač rozpozná, kdy se jedná o obrázky ",
                         "NUMBERS": "Shromáždili jste příklady čísel, podle kterých počítač rozpozná, kdy jsou čísla ",
-                        "SOUNDS": "Shromáždili jste příklady zvuků, které počítač používá k rozpoznávání zvuků "
+                        "SOUNDS": "Shromáždili jste příklady zvuků, které počítač používá k rozpoznávání zvuků ",
+                        "REGRESSION" : "You have collected examples of numbers for a computer to use to predict the value of "
                     },
                     "COLLECTED": {
                         "CLASS": "Shromáždili: ",
@@ -567,6 +586,7 @@
                 },
                 "LABELS": {
                     "NO_DATA": "Dalším krokem je přechod na stránku <a href='{{ urls.train }}'>Trénovat</a>. Přidejte příklady pro jednotlivé štítky.",
+                    "NO_DATA_REGRESSION" : "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Add examples of numbers.",
                     "MORE_DATA": {
                         "KEEP_GOING": "Pokračujte!",
                         "MORE_EXAMPLES": {
@@ -594,9 +614,11 @@
                     "TEXT": "Vyzkoušejte níže uvedený model strojového učení. Níže zadejte příklad textu, který jste nezahrnuli do příkladů použitých k jeho trénování. Model vám řekne, jako co jej rozpozná a jak moc si je tím jistý.",
                     "IMAGES": "Vyzkoušejte níže uvedený model strojového učení. Níže zadejte příklad obrázku, který jste nezahrnuli do příkladů použitých k jeho trénování. Model vám řekne, jako co jej rozpozná a jak moc si je tím jistý.",
                     "NUMBERS": "Vyzkoušejte níže uvedený model strojového učení. Níže zadejte příklad čísel, která jste nezahrnuli do příkladů použitých k jeho trénování. Model vám řekne, jako co jej rozpozná a jak moc si je tím jistý.",
-                    "SOUNDS": "Vyzkoušejte níže uvedený model strojového učení. Klikněte na tlačítko \"Začít poslouchat\". Pokud váš model strojového učení rozpozná nějaký zvuk, sdělí vám, jaký zvuk rozpoznal a jak si je tím jistý."
+                    "SOUNDS": "Vyzkoušejte níže uvedený model strojového učení. Klikněte na tlačítko \"Začít poslouchat\". Pokud váš model strojového učení rozpozná nějaký zvuk, sdělí vám, jaký zvuk rozpoznal a jak si je tím jistý.",
+                    "REGRESSION" : "Try testing the machine learning model below. Enter an example of numbers below, that you didn't include in the examples you used to train it. It will tell you what it predicts the output should be."
                 },
                 "SCRATCH": "Pokud se zdá, že se počítač naučil rozpoznávat věci správně, můžete přejít do programu Scratch a použít to, co se počítač naučil, k vytvoření hry!",
+                "SCRATCH_REGRESSION" : "If the computer seems to have learned to predict things correctly, then you can go to Scratch and use what the computer has learned to make a game!",
                 "ADDITIONAL_TRAINING": {
                     "MORE_EXAMPLES": {
                         "CROWDSOURCED": "Pokud se počítač v mnoha věcech mýlí, může se vaše třída vrátit na stránku s <a href='{{ urls.train }}'>Trénovatem</a> a shromáždit další příklady.",
@@ -623,12 +645,14 @@
                 "TEXT": "Zkuste vložit nějaký text a zjistěte, jak je rozpoznán na základě vašeho školení.",
                 "IMAGES": "Zkuste vložit obrázek a zjistěte, jak je rozpoznán na základě vašeho školení.",
                 "NUMBERS": "Zkuste zadat nějaká čísla, abyste zjistili, jak je rozpoznán na základě vašeho tréninku.",
-                "SOUNDS": "Zkuste vydat zvuk a zjistěte, jak je rozpoznán na základě vašeho tréninku"
+                "SOUNDS": "Zkuste vydat zvuk a zjistěte, jak je rozpoznán na základě vašeho tréninku",
+                "REGRESSION": "Try putting in some numbers to see the prediction based on your training."
             },
             "WEBCAM": "Test s <strong>webovou kamerou</strong>",
             "DRAWING": "Zkouška <strong>kreslením</strong>",
             "WWW": "Test s <strong>www</strong>",
             "RECOGNISED": "Rozpoznáno jako <strong>{{ testoutput }}</strong>",
+            "PREDICTION": "Prediction:",
             "STARTLISTENING": "Začněte poslouchat",
             "STOPLISTENING": "Přestaňte poslouchat"
         },
@@ -1006,6 +1030,7 @@
         "MORE_BLOCKS": "Váš projekt přidá tyto bloky na kartu <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>Další bloky</span> v části Skripty.",
         "MORE_BLOCKS_3": "Váš projekt přidá tyto bloky do Scratche.",
         "EXPLAIN_RECOGNISE_LABEL": "Vložte do vstupu {{ typ }} a vrátí se štítek, který váš model strojového učení rozpozná.",
+        "EXPLAIN_PREDICT": "Put input numbers in this, and it will return a prediction of the output number.",
         "EXPLAIN_RECOGNISE_CONFIDENCE": "Tato hodnota vrátí, s jakou jistotou váš model strojového učení rozpozná typ {{ typ }}. (Jako číslo od 0 do 100).",
         "EXPLAIN_LABELS": "Tyto bloky představují štítky, které jste vytvořili ve svém projektu, takže jejich názvy můžete používat ve svých skriptech.",
         "EXPLAIN_COSTUMEIMAGE": "Tento blok se nachází v paletě Vzhledy pro sprity a vrátí obrázek aktuálně vybraného kostýmu.",
@@ -1037,7 +1062,8 @@
             "IMAGES": "obrázky",
             "NUMBERS": "čísla",
             "SOUNDS": "zvuky",
-            "FACES": "tváře"
+            "FACES": "tváře",
+            "REGRESSION": "predicting numbers"
         },
         "LEVELS": {
             "TITLE": "Obtížnost:",

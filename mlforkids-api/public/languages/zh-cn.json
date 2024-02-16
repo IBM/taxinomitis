@@ -192,6 +192,7 @@
         "COPYTEMPLATE": "Copy template",
         "CREATEFIRSTPROJECT": "点击右边的'加号'按钮创建你的第一个项目。",
         "RECOGNISING": "识别",
+        "PREDICTING": "Predicting",
         "AS": "as",
         "SHARE": "Share",
         "UNSHARE": "Un-share",
@@ -220,12 +221,14 @@
             "NOTES_3": "Storing in the cloud will let you access the project from any computer."
         },
         "TYPES": {
+            "TYPELABEL": "Project Type",
             "LABEL": "识别",
             "NOTES_1": "你想教电脑识别什么类型的东西？",
             "NOTES_2": "对于单词,句子或段落,请选择\" text \" ",
             "NOTES_3": "对于照片,图表和图片,请选择\" images \" ",
             "NOTES_4": "对于数字组或多个选项,请选择\"数字\" ",
-            "NOTES_5": "For voices and sounds, choose \"sounds\""
+            "NOTES_5": "For voices and sounds, choose \"sounds\"",
+            "NOTES_6": "To predict numbers, choose \"predicting numbers\""
         },
         "LANGUAGE": {
             "LABEL": "语言",
@@ -368,11 +371,13 @@
     "PROJECT": {
         "TRAIN": {
             "TITLE": "训练",
-            "BODY": "收集您希望计算机识别的示例。"
+            "BODY": "收集您希望计算机识别的示例。",
+            "REGRESSION": "Collect examples of what you want the computer to predict"
         },
         "LEARNANDTEST": {
             "TITLE": "学习和测试",
-            "BODY": "使用示例训练计算机识别"
+            "BODY": "使用示例训练计算机识别",
+            "REGRESSION": "Use the examples to train the computer to make predictions"
         },
         "MAKES": {
             "TITLE": "Make",
@@ -404,6 +409,7 @@
     "TRAINING": {
         "TITLE": "训练",
         "ADDLABEL": "添加新标签",
+        "ADDCOLUMN": "Add new column",
         "CREATEFIRSTLABEL": "点击右边的'加号'按钮添加你的第一个训练集。",
         "CROWDSOURCEDEMPTY": "在您的老师创建培训桶之后刷新此页面。",
         "ADDEXAMPLE": "添加示例",
@@ -414,6 +420,10 @@
         "NEWLABEL": {
             "INTRO": "输入要识别的新标签",
             "ERROR": "仅在标签中使用字母和数字"
+        },
+        "NEWCOLUMN": {
+            "INTRO": "Enter name for a new column",
+            "ERROR": "Only use letters and numbers in column names"
         },
         "NEWEXAMPLE": {
             "INTRO": "输入一个例子",
@@ -427,7 +437,13 @@
             "WEBCAMFAIL": "抱歉！我们无法让网络摄像头为您工作。",
             "WEBCAMERROR": "我们从您的网络浏览器收到的消息是: "
         },
-        "BACKGROUNDNOISE": "Collecting examples of background noise will help the computer to learn to recognize your sounds"
+        "BACKGROUNDNOISE": "Collecting examples of background noise will help the computer to learn to recognize your sounds",
+        "REGRESSION": {
+            "NOOUTPUTCOLS": "Tick the column(s) that you want your machine learning model to predict values for.",
+            "NOTRAINING": "Add training examples from Scratch or by uploading a CSV file.",
+            "NOCOLUMNS": "Add columns to use for this project.",
+            "ONECOLUMN": "You need at least two columns to have input and output."
+        }
     },
     "MODELS": {
         "TITLE": "机器学习模型",
@@ -466,7 +482,8 @@
                     "TEXT": "您已经培训了一种机器学习模型来识别文本的时间",
                     "IMAGES": "你已经训练了一个机器学习模型来识别图像是什么时候",
                     "NUMBERS": "您已经培训了一种机器学习模型来识别数字是什么时候",
-                    "SOUNDS": "You have trained a machine learning model to recognise when sounds are "
+                    "SOUNDS": "You have trained a machine learning model to recognise when sounds are ",
+                    "REGRESSION": "You have trained a machine learning model to predict the values of "
                 },
                 "CREATED": {
                     "TEACHER": "你的老师创造了模型",
@@ -525,7 +542,8 @@
                         "TEXT": "您说要收集计算机文本的示例,以便识别文本的时间",
                         "IMAGES": "你说你要收集图像的例子,让计算机识别图像的时间",
                         "NUMBERS": "你说你要收集计算机数字的例子来识别数字是什么时候",
-                        "SOUNDS": "You said that you want to collect examples of sounds for a computer to recognise when sounds are "
+                        "SOUNDS": "You said that you want to collect examples of sounds for a computer to recognise when sounds are ",
+                        "REGRESSION" : "You said that you want to collect examples of numbers for a computer to predict the value of "
                     }
                 },
                 "NOEXAMPLES": {
@@ -543,7 +561,8 @@
                         "TEXT": "您收集了计算机用于识别文本的文本示例",
                         "IMAGES": "您已经收集了计算机用于识别图像的图像示例",
                         "NUMBERS": "您已收集计算机的数字示例,用于识别数字何时",
-                        "SOUNDS": "You have collected examples of sounds for a computer to use to recognise when sounds are "
+                        "SOUNDS": "You have collected examples of sounds for a computer to use to recognise when sounds are ",
+                        "REGRESSION" : "You have collected examples of numbers for a computer to use to predict the value of "
                     },
                     "COLLECTED": {
                         "CLASS": "他们收集了: ",
@@ -567,6 +586,7 @@
                 },
                 "LABELS": {
                     "NO_DATA": "下一步是转到<strong>训练</strong>页面。为每个标签添加示例。",
+                    "NO_DATA_REGRESSION" : "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Add examples of numbers.",
                     "MORE_DATA": {
                         "KEEP_GOING": "继续！",
                         "MORE_EXAMPLES": {
@@ -594,9 +614,11 @@
                     "TEXT": "尝试测试下面的机器学习模型。输入一个下面的文本示例,您没有在用于训练它的示例中包含这些文本。它会告诉您它识别它的内容,以及它对这个文本识别的信心",
                     "IMAGES": "尝试测试下面的机器学习模型。在下面输入一个示例图片,您没有在用于训练它的示例中包含这些图片。它会告诉您它识别它的内容,以及它对这个图片识别的信心。",
                     "NUMBERS": "尝试测试下面的机器学习模型。输入一个下面的数字示例,您没有在用于训练它的示例中包含这些数字。它会告诉您它识别它的内容,以及它对这个数字识别的信心",
-                    "SOUNDS": "Try testing the machine learning model below. Click the 'Start listening' button. If your machine learning model recognises any sounds, it will tell you what it recognises it as, and how confident it is in that."
+                    "SOUNDS": "Try testing the machine learning model below. Click the 'Start listening' button. If your machine learning model recognises any sounds, it will tell you what it recognises it as, and how confident it is in that.",
+                    "REGRESSION" : "Try testing the machine learning model below. Enter an example of numbers below, that you didn't include in the examples you used to train it. It will tell you what it predicts the output should be."
                 },
                 "SCRATCH": "如果计算机似乎已经学会正确识别事物,那么你可以去Scratch并使用计算机学到的东西制作游戏！",
+                "SCRATCH_REGRESSION" : "If the computer seems to have learned to predict things correctly, then you can go to Scratch and use what the computer has learned to make a game!",
                 "ADDITIONAL_TRAINING": {
                     "MORE_EXAMPLES": {
                         "CROWDSOURCED": "如果计算机出现太多问题,您的班级可能会想回到<strong>培训</strong>页面并收集更多示例。",
@@ -623,12 +645,14 @@
                 "TEXT": "尝试根据您的训练添加一些文字以了解它是如何识别的。",
                 "IMAGES": "尝试根据您的训练设置图像以查看其识别方式。",
                 "NUMBERS": "尝试输入一些数字,看看它是如何根据你的训练得到认可的。",
-                "SOUNDS": "Try making a sound to see how it is recognised based on your training"
+                "SOUNDS": "Try making a sound to see how it is recognised based on your training",
+                "REGRESSION": "Try putting in some numbers to see the prediction based on your training."
             },
             "WEBCAM": "使用<strong>摄像头</strong>进行测试",
             "DRAWING": "通过<strong>绘图</strong>进行测试",
             "WWW": "用<strong> www </strong>进行测试",
             "RECOGNISED": "被认可为<strong> {{testoutput}} </strong> ",
+            "PREDICTION": "Prediction:",
             "STARTLISTENING": "Start listening",
             "STOPLISTENING": "Stop listening"
         },
@@ -1006,6 +1030,7 @@
         "MORE_BLOCKS": "您的项目会将这些块添加到脚本中 <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>More Blocks</span> .",
         "MORE_BLOCKS_3": "Your project will add these blocks to Scratch.",
         "EXPLAIN_RECOGNISE_LABEL": "将{{type}}放入此输入中，它将返回您的机器学习模型识别为的标签。",
+        "EXPLAIN_PREDICT": "Put input numbers in this, and it will return a prediction of the output number.",
         "EXPLAIN_RECOGNISE_CONFIDENCE": "这将返回您的机器学习模型对于识别{{type}}类型的信心。（作为0到100之间的数字）。",
         "EXPLAIN_LABELS": "这些块代表您在项目中创建的标签，因此您可以在脚本中使用它们的名称。",
         "EXPLAIN_COSTUMEIMAGE": "此块位于Sprites的Looks调色板中，并将返回当前所选主题的图像。",
@@ -1037,7 +1062,8 @@
             "IMAGES": "图像",
             "NUMBERS": "数字",
             "SOUNDS": "sounds",
-            "FACES": "faces"
+            "FACES": "faces",
+            "REGRESSION": "predicting numbers"
         },
         "LEVELS": {
             "TITLE": "难度: ",

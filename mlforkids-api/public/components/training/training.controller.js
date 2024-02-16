@@ -8,7 +8,7 @@
         'authService',
         'projectsService', 'trainingService', 'modelService',
         'soundTrainingService',
-        'utilService',
+        'utilService', 'csvService', 'downloadService',
         'loggerService',
         '$stateParams',
         '$scope',
@@ -18,7 +18,7 @@
         '$q'
     ];
 
-    function TrainingController(authService, projectsService, trainingService, modelService, soundTrainingService, utilService, loggerService, $stateParams, $scope, $mdDialog, $state, $timeout, $q) {
+    function TrainingController(authService, projectsService, trainingService, modelService, soundTrainingService, utilService, csvService, downloadService, loggerService, $stateParams, $scope, $mdDialog, $state, $timeout, $q) {
 
         var vm = this;
         vm.authService = authService;
@@ -127,46 +127,67 @@
                 return trainingService.getTraining($scope.projectId, $scope.userId, vm.profile.tenant);
             })
             .then(function (training) {
-                // all the training data items will be returned in one list
-                //  so they need to be sorted into the different buckets now
-                for (var trainingitemIdx in training) {
-                    var trainingitem = training[trainingitemIdx];
+                if ($scope.project.type === 'regression') {
+                    $scope.training = training;
+                    $scope.regressionmode = 'init';
 
-                    var label = trainingitem.label;
+                    $scope.$watch('project.columns', function (columns, previous) {
+                        refreshLabelsSummary();
 
-                    if (label in $scope.training === false) {
-                        // This shouldn't happen - it means that we got some training data
-                        //  for a label that isn't known to the project.
-                        //
-                        // It means the page state is out of date (e.g. the label was created
-                        //  after the page was first loaded from another instance of the page)
-                        //  which is a super unlikely race condition, but we avoid the possible
-                        //  error by creating a new bucket with this new label
-                        $scope.training[label] = [];
-                    }
+                        if (columns && !angular.equals(columns, previous)) {
+                            projectsService.addMetadataToProject($scope.project, 'columns', columns)
+                                .catch (function (err) {
+                                    displayAlert('errors', 500, err);
+                                });
+                            modelService.deleteModel($scope.project.type, $scope.project.id)
+                                .catch (function (err) {
+                                    loggerService.error('[ml4ktraining] failed to delete model', err);
+                                });
+                        }
+                    }, true);
+                }
+                else {
+                    // all the training data items will be returned in one list
+                    //  so they need to be sorted into the different buckets now
+                    for (var trainingitemIdx in training) {
+                        var trainingitem = training[trainingitemIdx];
 
-                    $scope.training[label].push(trainingitem);
+                        var label = trainingitem.label;
 
-                    // if this is a text project...
-                    //          trainingitem has the complete data - nothing left to do
-                    // if this is a numbers project...
-                    //          trainingitem has the complete data - nothing left to do
-                    // if this is an images project...
-                    //          trainingitem has the URL for the image, but the browser will fetch it
-                    //              for us automatically when we put it in the img src attribute
-                    //              so nothing left to do in code here, but there will be another
-                    //              network request before the image appears in the UI
-                    // if this is a sounds project...
-                    //          trainingitem has the URL for the sound spectogram, but we need to
-                    //              explicitly fetch it now (the page will display a loading icon
-                    //              until we get it)
+                        if (label in $scope.training === false) {
+                            // This shouldn't happen - it means that we got some training data
+                            //  for a label that isn't known to the project.
+                            //
+                            // It means the page state is out of date (e.g. the label was created
+                            //  after the page was first loaded from another instance of the page)
+                            //  which is a super unlikely race condition, but we avoid the possible
+                            //  error by creating a new bucket with this new label
+                            $scope.training[label] = [];
+                        }
+
+                        $scope.training[label].push(trainingitem);
+
+                        // if this is a text project...
+                        //          trainingitem has the complete data - nothing left to do
+                        // if this is a numbers project...
+                        //          trainingitem has the complete data - nothing left to do
+                        // if this is an images project...
+                        //          trainingitem has the URL for the image, but the browser will fetch it
+                        //              for us automatically when we put it in the img src attribute
+                        //              so nothing left to do in code here, but there will be another
+                        //              network request before the image appears in the UI
+                        // if this is a sounds project...
+                        //          trainingitem has the URL for the sound spectogram, but we need to
+                        //              explicitly fetch it now (the page will display a loading icon
+                        //              until we get it)
 
 
 
-                    if ($scope.project.type === 'sounds') {
-                        // this will modify 'trainingitem' to add a 'audiodata' attribute
-                        //  (but not immediately as it'll need to make an XHR request to get it)
-                        trainingService.getSoundData(trainingitem);
+                        if ($scope.project.type === 'sounds') {
+                            // this will modify 'trainingitem' to add a 'audiodata' attribute
+                            //  (but not immediately as it'll need to make an XHR request to get it)
+                            trainingService.getSoundData(trainingitem);
+                        }
                     }
                 }
 
@@ -187,7 +208,18 @@
                     }) :
                     $scope.project.labels;
 
-                summary = modelService.generateProjectSummary(labels) || '';
+                summary = modelService.generateProjectSummary(labels, ' or ') || '';
+            }
+            else if ($scope.project.type === 'regression') {
+                var projectColumns = $scope.project.columns || [];
+                var columns = projectColumns
+                    .filter(col => col.output)
+                    .map(col => col.label);
+                summary = modelService.generateProjectSummary(columns, ' and ') || 'something';
+                var numInputs = projectColumns.length - columns.length;
+                if (numInputs) {
+                    $scope.columnsSummary = ' from ' + numInputs + ' input values';
+                }
             }
             $scope.project.labelsSummary = summary;
         }
@@ -580,7 +612,7 @@
                                 resolve(blob);
                             }, 'image/jpeg');
                         });
-                    };
+                    }
 
                 },
                 templateUrl : 'static/components/training/webcam.tmpl.html',
@@ -657,7 +689,7 @@
                                 resolve(blob);
                             }, 'image/jpeg');
                         });
-                    };
+                    }
                 },
                 templateUrl : 'static/components/training/canvas.tmpl.html',
                 targetEvent : ev,
@@ -769,6 +801,118 @@
             );
         };
 
+
+        $scope.downloadTrainingData = function (ev) {
+            csvService.exportFile($scope.training, $scope.project.columns.map(c => c.label))
+                .then(function (csvstring) {
+                    downloadService.downloadFile([ csvstring ], 'text/csv', 'training-' + $scope.project.id + '.csv');
+                })
+                .catch(function (err) {
+                    displayAlert('errors', 500, err);
+                });
+        };
+
+        $scope.uploadTrainingData = function (ev) {
+            var files = ev.currentTarget.files;
+            if (files && files.length === 1) {
+                var file = ev.currentTarget.files[0];
+                csvService.parseFile(file)
+                    .then(function (results) {
+                        if ($scope.project.columns && $scope.project.columns.length > 0) {
+
+                            // pre-existing columns - check they match
+                            if (!angular.equals(results.meta.fields, $scope.project.columns.map(c => c.label)))
+                            {
+                                throw new Error('The columns in the CSV file do not match the columns you have in this project');
+                            }
+                        }
+                        else {
+
+                            // no pre-existing columns - use columns from CSV
+                            $scope.project.columns = results.meta.fields.map(function (columnName) {
+                                const column = {
+                                    label: columnName,
+                                    output: false
+                                };
+
+                                if (results.data.length > 0) {
+                                    column.type = typeof results.data[0][columnName];
+                                }
+                                else {
+                                    // TODO other types?
+                                    column.type = 'number';
+                                }
+
+                                return column;
+                            });
+                        }
+
+                        return trainingService.bulkAddTrainingData($scope.project, results.data);
+                    })
+                    .then(function (stored) {
+                        $scope.training = $scope.training.concat(stored);
+                    })
+                    .catch(function (err) {
+                        displayAlert('errors', 400, err);
+                    });
+            }
+        };
+
+        vm.addRegressionColumn = function (ev) {
+            $mdDialog.show({
+                controller : function ($scope, $mdDialog) {
+                    $scope.hide = function () {
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function () {
+                        $mdDialog.cancel();
+                    };
+                    $scope.confirm = function (resp) {
+                        $mdDialog.hide(resp);
+                    };
+                },
+                templateUrl : 'static/components/training/newcolumn.tmpl.html',
+                targetEvent : ev,
+                clickOutsideToClose : true
+            })
+            .then(
+                function (newlabel) {
+                    loggerService.debug('[ml4ktraining] adding a new column', newlabel);
+                    if (!$scope.project.columns) {
+                        $scope.project.columns = [];
+                    }
+                    $scope.project.columns.push({
+                        label: newlabel,
+                        output: false,
+                        type : 'number'
+                    });
+                },
+                function() {
+                    // cancelled. do nothing
+                }
+            );
+        };
+
+        vm.deleteAllRegression = function (ev) {
+            // TODO ask for confirmation?
+            $scope.training = [];
+            trainingService.clearTrainingData($scope.project);
+        };
+
+        vm.deleteRegressionItem = function (item) {
+            var idx = $scope.training.indexOf(item);
+            if (idx > -1) {
+                $scope.training.splice(idx, 1);
+                trainingService.deleteTrainingData($scope.projectId, $scope.userId, vm.profile.tenant, item.id)
+                    .catch(function (err) {
+                        displayAlert('errors', err.status, err.data);
+                    });
+            }
+        };
+
+        vm.setRegressionMode = function (mode) {
+            $scope.regressionmode = mode;
+        };
 
         function scrollToNewItem(itemId, retried) {
             $scope.$applyAsync(function () {

@@ -192,6 +192,7 @@
         "COPYTEMPLATE": "Copy template",
         "CREATEFIRSTPROJECT": "Click the 'plus' button on the right to create your first project.",
         "RECOGNISING": "හඳුනාගැනීම",
+        "PREDICTING": "Predicting",
         "AS": "as",
         "SHARE": "බෙදා ගන්න",
         "UNSHARE": "Un-share",
@@ -220,12 +221,14 @@
             "NOTES_3": "Storing in the cloud will let you access the project from any computer."
         },
         "TYPES": {
+            "TYPELABEL": "Project Type",
             "LABEL": "හදුනාගැනීම",
             "NOTES_1": "ඔබට පරිගණකය පුහුණු කළ යුත්තේ කුමන ආකාරයේ දේවල් හදුනාගැනීමටද?",
             "NOTES_2": "වචන, වාක්‍ය හෝ ඡේද සදහා \"text\" තෝරන්න",
             "NOTES_3": "ඡායාරූප, රූපසටහන් හා පින්තූර සදහා \"images\" තෝරන්න",
             "NOTES_4": "ඉලක්කම් වල එකතූන් හෝ බහුවරණ සදහා \"numbers\" තෝරන්න",
-            "NOTES_5": "For voices and sounds, choose \"sounds\""
+            "NOTES_5": "For voices and sounds, choose \"sounds\"",
+            "NOTES_6": "To predict numbers, choose \"predicting numbers\""
         },
         "LANGUAGE": {
             "LABEL": "භාෂාව",
@@ -368,11 +371,13 @@
     "PROJECT": {
         "TRAIN": {
             "TITLE": "පුරුදු කරවන්න",
-            "BODY": "ඔබට පරිගණකයට හදුනා ගැනීමට අවශ්‍ය දේවල්වල උදාහරණ එකතු කරන්න."
+            "BODY": "ඔබට පරිගණකයට හදුනා ගැනීමට අවශ්‍ය දේවල්වල උදාහරණ එකතු කරන්න.",
+            "REGRESSION": "Collect examples of what you want the computer to predict"
         },
         "LEARNANDTEST": {
             "TITLE": "ඉගෙනගැනීම හා පරික්ෂා කිරීම",
-            "BODY": "පරිගණකයට හදුනාගැනීමට පුහුණු කිරීමට ඒ උදාහරණ භාවිත කරන්න"
+            "BODY": "පරිගණකයට හදුනාගැනීමට පුහුණු කිරීමට ඒ උදාහරණ භාවිත කරන්න",
+            "REGRESSION": "Use the examples to train the computer to make predictions"
         },
         "MAKES": {
             "TITLE": "හදන්න",
@@ -404,6 +409,7 @@
     "TRAINING": {
         "TITLE": "පුහුණුව",
         "ADDLABEL": "අලුත් label එකක් එකතු කරන්න",
+        "ADDCOLUMN": "Add new column",
         "CREATEFIRSTLABEL": "Click on the 'ධන' බොත්තම මත ඔබා ඔබේ පළමු bucket එක add කරන්න.",
         "CROWDSOURCEDEMPTY": "ඔබේ ගුරුවරයා training bucket සෑදීමෙන් අනතුරුව මෙම පිටුව refresh කරන්න.",
         "ADDEXAMPLE": "උදාහරණයක් එක්කරන්න",
@@ -414,6 +420,10 @@
         "NEWLABEL": {
             "INTRO": "හදුනාගැනීමට අලුත් label එකක් එක්කරන්න",
             "ERROR": "lable එකක අකුරු සහ ඉලක්කම් පමණක් භාවිත කරන්න"
+        },
+        "NEWCOLUMN": {
+            "INTRO": "Enter name for a new column",
+            "ERROR": "Only use letters and numbers in column names"
         },
         "NEWEXAMPLE": {
             "INTRO": "උදාහරණයක් එක්කරන්න ",
@@ -427,7 +437,13 @@
             "WEBCAMFAIL": "සමාවන්න! ඔබවෙනුවෙන් කටයුතු කළහැකි වෙබ් කැමරාවක් අපට සොයාගත නොහැක.",
             "WEBCAMERROR": "ඔබේ වෙබ් කැමරාවෙන් අපට ලැබුනු පණිවිඩය වනුයේ:"
         },
-        "BACKGROUNDNOISE": "Collecting examples of background noise will help the computer to learn to recognize your sounds"
+        "BACKGROUNDNOISE": "Collecting examples of background noise will help the computer to learn to recognize your sounds",
+        "REGRESSION": {
+            "NOOUTPUTCOLS": "Tick the column(s) that you want your machine learning model to predict values for.",
+            "NOTRAINING": "Add training examples from Scratch or by uploading a CSV file.",
+            "NOCOLUMNS": "Add columns to use for this project.",
+            "ONECOLUMN": "You need at least two columns to have input and output."
+        }
     },
     "MODELS": {
         "TITLE": "Machine learning ආක්‍රුතු",
@@ -466,7 +482,8 @@
                     "TEXT": "text පහත ආකාර වූ විට හඳුනාගැනීමට ඔබ machine learning ආකෘතියක් පුහුණු කර ඇත ",
                     "IMAGES": "images පහත ආකාර වූ විට හඳුනාගැනීමට ඔබ machine learning ආකෘතියක් පුහුණු කර ඇත ",
                     "NUMBERS": "ඉලක්කම් පහත ආකාර වූ විට හඳුනාගැනීමට ඔබ machine learning ආකෘතියක් පුහුණු කර ඇත ",
-                    "SOUNDS": "You have trained a machine learning model to recognise when sounds are "
+                    "SOUNDS": "You have trained a machine learning model to recognise when sounds are ",
+                    "REGRESSION": "You have trained a machine learning model to predict the values of "
                 },
                 "CREATED": {
                     "TEACHER": "ඔබේ ගුරුවරයා තැනූ ආකෘතිය වනුයේ ",
@@ -525,7 +542,8 @@
                         "TEXT": "ඔබ පවසා ඇත්තේ text පහත ආකාර වූ විට පරිගණකයට හදුනා ගැනීම සදහා උදාහරණ අවශ්‍යව ඇති බවය ",
                         "IMAGES": "ඔබ පවසා ඇත්තේ images පහත ආකාර වූ විට පරිගණකයට හදුනා ගැනීම සදහා උදාහරණ අවශ්‍යව ඇති බවය ",
                         "NUMBERS": "ඔබ පවසා ඇත්තේ numbers පහත ආකාර වූ විට පරිගණකයට හදුනා ගැනීම සදහා උදාහරණ අවශ්‍යව ඇති බවය  ",
-                        "SOUNDS": "You said that you want to collect examples of sounds for a computer to recognise when sounds are "
+                        "SOUNDS": "You said that you want to collect examples of sounds for a computer to recognise when sounds are ",
+                        "REGRESSION" : "You said that you want to collect examples of numbers for a computer to predict the value of "
                     }
                 },
                 "NOEXAMPLES": {
@@ -543,7 +561,8 @@
                         "TEXT": "You have collected examples of text for a computer to use to recognise when text is ",
                         "IMAGES": "You have collected examples of images for a computer to use to recognise when images are ",
                         "NUMBERS": "You have collected examples of numbers for a computer to use to recognise when numbers are ",
-                        "SOUNDS": "You have collected examples of sounds for a computer to use to recognise when sounds are "
+                        "SOUNDS": "You have collected examples of sounds for a computer to use to recognise when sounds are ",
+                        "REGRESSION" : "You have collected examples of numbers for a computer to use to predict the value of "
                     },
                     "COLLECTED": {
                         "CLASS": "ඔවුන් එකතු කර ඇත්තේ: ",
@@ -567,6 +586,7 @@
                 },
                 "LABELS": {
                     "NO_DATA": "මීළඟ පියවර වන්නේ  <a href='{{ urls.train }}'>පුහුණු පිටුවට</a> ගොස් . එක් එක් ලේබලය සඳහා උදාහරණ එක් කිරීමයි.",
+                    "NO_DATA_REGRESSION" : "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Add examples of numbers.",
                     "MORE_DATA": {
                         "KEEP_GOING": "තවත් ඉදිරියටම යන්න!",
                         "MORE_EXAMPLES": {
@@ -594,9 +614,11 @@
                     "TEXT": "Try testing the machine learning model below. Enter an example of text below, that you didn't include in the examples you used to train it. It will tell you what it recognises it as, and how confident it is in that.",
                     "IMAGES": "Try testing the machine learning model below. Enter an example image below, that you didn't include in the examples you used to train it. It will tell you what it recognises it as, and how confident it is in that.",
                     "NUMBERS": "Try testing the machine learning model below. Enter an example of numbers below, that you didn't include in the examples you used to train it. It will tell you what it recognises it as, and how confident it is in that.",
-                    "SOUNDS": "Try testing the machine learning model below. Click the 'Start listening' button. If your machine learning model recognises any sounds, it will tell you what it recognises it as, and how confident it is in that."
+                    "SOUNDS": "Try testing the machine learning model below. Click the 'Start listening' button. If your machine learning model recognises any sounds, it will tell you what it recognises it as, and how confident it is in that.",
+                    "REGRESSION" : "Try testing the machine learning model below. Enter an example of numbers below, that you didn't include in the examples you used to train it. It will tell you what it predicts the output should be."
                 },
                 "SCRATCH": "If the computer seems to have learned to recognise things correctly, then you can go to Scratch and use what the computer has learned to make a game!",
+                "SCRATCH_REGRESSION" : "If the computer seems to have learned to predict things correctly, then you can go to Scratch and use what the computer has learned to make a game!",
                 "ADDITIONAL_TRAINING": {
                     "MORE_EXAMPLES": {
                         "CROWDSOURCED": "If the computer is getting too many things wrong, your class might want to go back to the <a href='{{ urls.train }}'>Train</a> page and collect some more examples.",
@@ -623,12 +645,14 @@
                 "TEXT": "Try putting in some text to see how it is recognised based on your training.",
                 "IMAGES": "Try putting in an image to see how it is recognised based on your training.",
                 "NUMBERS": "Try putting in some numbers to see how it is recognised based on your training.",
-                "SOUNDS": "Try making a sound to see how it is recognised based on your training"
+                "SOUNDS": "Try making a sound to see how it is recognised based on your training",
+                "REGRESSION": "Try putting in some numbers to see the prediction based on your training."
             },
             "WEBCAM": "Test with <strong>webcam</strong>",
             "DRAWING": "Test by <strong>drawing</strong>",
             "WWW": "Test with <strong>www</strong>",
             "RECOGNISED": "Recognised as  <strong>{{ testoutput }}</strong>",
+            "PREDICTION": "Prediction:",
             "STARTLISTENING": "Start listening",
             "STOPLISTENING": "Stop listening"
         },
@@ -1006,6 +1030,7 @@
         "MORE_BLOCKS": "Your project will add these blocks to the <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>More Blocks</span> tab in Scripts.",
         "MORE_BLOCKS_3": "Your project will add these blocks to Scratch.",
         "EXPLAIN_RECOGNISE_LABEL": "Put {{ type }} in the input for this, and it will return the label that your machine learning model recognises it as.",
+        "EXPLAIN_PREDICT": "Put input numbers in this, and it will return a prediction of the output number.",
         "EXPLAIN_RECOGNISE_CONFIDENCE": "This will return how confident your machine learning model is that it recognises the type of {{ type }}. (As a number from 0 - 100).",
         "EXPLAIN_LABELS": "These blocks represent the labels you've created in your project, so you can use their names in your scripts.",
         "EXPLAIN_COSTUMEIMAGE": "This block is in the Looks palette for Sprites and will return the image of the currently selected costume.",
@@ -1037,7 +1062,8 @@
             "IMAGES": "images",
             "NUMBERS": "numbers",
             "SOUNDS": "sounds",
-            "FACES": "faces"
+            "FACES": "faces",
+            "REGRESSION": "predicting numbers"
         },
         "LEVELS": {
             "TITLE": "Difficulty:",

@@ -210,6 +210,44 @@ async function getSoundExtension(scratchkey: Types.ScratchKey, project: Types.Pr
 }
 
 
+async function getRegressionExtensionLocalData(projectid: string, projectname: string, columns: { label: string, output: boolean}[]): Promise<string>
+{
+    const template: string = await fileutils.read('./resources/scratch3-regression-classify.js');
+
+    const inputColumns: { label: string, output: boolean}[] = [];
+    const outputColumns: { label: string, output: boolean}[] = [];
+    for (const column of columns) {
+        if (column.output) {
+            outputColumns.push(column);
+        }
+        else {
+            inputColumns.push(column);
+        }
+    }
+
+    Mustache.parse(template);
+    const rendered = Mustache.render(template, {
+        projectid : projectid,
+
+        projectname : escapeProjectName(projectname),
+
+        inputcolumns : inputColumns.map((col, idx) => {
+            return {
+                name : col.label,
+                idx,
+            };
+        }),
+        outputcolumns : outputColumns.map((col, idx) => {
+            return {
+                name : col.label,
+                idx,
+            };
+        })
+    });
+    return rendered;
+}
+
+
 
 
 export function getScratchxExtension(
@@ -246,10 +284,11 @@ export function getHybridScratchxExtension(
 
 
 export function getScratchxExtensionLocalData(
-    projecttype: Types.ProjectTypeLabel,
+    projecttype: Types.LocalProjectTypeLabel,
     projectid: string,
     projectname: string,
     labels: string[],
+    columns: { label: string, output: boolean}[]
 ): Promise<string>
 {
     switch (projecttype) {
@@ -257,6 +296,8 @@ export function getScratchxExtensionLocalData(
             return getImagesTfjsExtensionLocalData(projectid, projectname, labels);
         case 'sounds':
             return getSoundExtensionLocalData(projectid, projectname, labels);
+        case 'regression':
+            return getRegressionExtensionLocalData(projectid, projectname, columns);
         default:
             return Promise.resolve('');
     }

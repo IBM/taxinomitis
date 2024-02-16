@@ -1,0 +1,56 @@
+<div ng-if="!project.columns || project.columns.length === 0"
+    class="alert alert-info pageheadermsg page-header-alert-info"
+    translate="TRAINING.REGRESSION.NOCOLUMNS"></div>
+<div ng-if="project.columns && project.columns.length === 1"
+    class="alert alert-info pageheadermsg page-header-alert-info"
+    translate="TRAINING.REGRESSION.ONECOLUMN"></div>
+<div ng-if="project.columns && project.columns.length > 1 && (mode === 'selectcolumns' || project.columns.filter(isOutputColumn).length === 0)"
+    class="alert alert-info pageheadermsg page-header-alert-info"
+    translate="TRAINING.REGRESSION.NOOUTPUTCOLS"></div>
+<div ng-if="project.columns && project.columns.length > 1 && mode !== 'selectcolumns' && project.columns.filter(isOutputColumn).length > 0 && training.length === 0"
+    class="alert alert-info pageheadermsg page-header-alert-info"
+    translate="TRAINING.REGRESSION.NOTRAINING"></div>
+
+<table class="mldatatable">
+    <thead>
+        <tr>
+            <th ng-repeat="col in project.columns | filter: { output: false }">
+                <div class="tablecollabel">
+                    {{ col.label }}
+                </div>
+                <div class="tablecollabel">
+                    <span ng-click="sort('\'' + col.label + '\'', 'asc')"  class="sortbutton glyphicon glyphicon-chevron-up"></span>
+                    <span ng-click="sort('\'' + col.label + '\'', 'desc')" class="sortbutton glyphicon glyphicon-chevron-down"></span>
+                </div>
+                <md-checkbox
+                    ng-model="col.output"
+                    ng-if="mode === 'selectcolumns' || project.columns.filter(isOutputColumn).length === 0"
+                    ng-change="setMode('init')"></md-checkbox>
+            </th>
+            <th class="spacing"> &nbsp; </th>
+            <th ng-repeat="col in project.columns | filter: { output: true }">
+                <div class="tablecollabel">
+                    {{ col.label }}
+                </div>
+                <div class="tablecollabel">
+                    <span ng-click="sort('\'' + col.label + '\'', 'asc')"  class="sortbutton glyphicon glyphicon-chevron-up"></span>
+                    <span ng-click="sort('\'' + col.label + '\'', 'desc')" class="sortbutton glyphicon glyphicon-chevron-down"></span>
+                </div>
+                <md-checkbox
+                    ng-model="col.output"
+                    ng-if="mode === 'selectcolumns' || project.columns.filter(isOutputColumn).length === 0"
+                    ng-change="setMode('init')"></md-checkbox>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="trainingrow in training | orderBy: sortCol">
+            <td ng-repeat="col in project.columns | filter: { output: false }"
+                class="trainingbucketitem inputcol">{{ trainingrow[col.label] }}</td>
+            <td> &nbsp; </td>
+            <td ng-repeat="col in project.columns | filter: { output: true }"
+                class="trainingbucketitem outputcol">{{ trainingrow[col.label] }}</td>
+            <td class="deleteitemcell"><span class="glyphicon glyphicon-remove-circle deletetext" ng-click="onDeleteItem(trainingrow)"></span></td>
+        </tr>
+    </tbody>
+</table>

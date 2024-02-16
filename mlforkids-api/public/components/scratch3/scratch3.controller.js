@@ -65,6 +65,17 @@
                         }
                     }
                     else {
+                        var additionalQuery = '';
+                        if ($scope.project.type === 'regression' && $scope.project.columns) {
+                            $scope.project.labels = [ 'input', 'output' ];
+                            additionalQuery = 'columns=' + JSON.stringify($scope.project.columns.map(function (c) {
+                                return {
+                                    label: c.label,
+                                    output: c.output
+                                };
+                            }));
+                        }
+
                         scratchkey = {
                             id: $scope.project.id,
                             name: $scope.project.name,
@@ -77,7 +88,8 @@
                                                 '?' +
                                                     'projectid=' + $scope.project.id + '&' +
                                                     'projectname=' + $scope.project.name + '&' +
-                                                    'labelslist=' + $scope.project.labels.join(',')
+                                                    'labelslist=' + $scope.project.labels.join(',') + '&' +
+                                                    additionalQuery
                                             )
                         };
                     }
@@ -88,6 +100,9 @@
                         scratchkey.model = 'placeholder';
                     }
                     else if ($scope.project.type === 'imgtfjs' && modelService.isModelSavedInBrowser('images', $scope.project.id)) {
+                        scratchkey.model = 'placeholder';
+                    }
+                    else if ($scope.project.type === 'regression' && modelService.isModelSavedInBrowser('regression', $scope.project.id)) {
                         scratchkey.model = 'placeholder';
                     }
 

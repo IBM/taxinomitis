@@ -289,3 +289,21 @@ video.webcam-live {
     font-size: 1.2em;
     padding: 1em;
 }
+
+
+
+.trainingbuckets.regression {
+    height: calc(100vh - 170px);
+}
+.trainingbuckets.regression > .trainingbucket {
+    max-width: 100%;
+}
+
+.newexamplesbuttonbar > .newexamplebutton > .buttonicon {
+    font-size: 1.5em;
+    font-weight: bold;
+    float: left;
+    line-height: 30px;
+    margin-right: 10px;
+    margin-left: 5px;
+}

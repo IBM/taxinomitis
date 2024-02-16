@@ -192,6 +192,7 @@
         "COPYTEMPLATE": "الگو را کپی کنید",
         "CREATEFIRSTPROJECT": "برای ایجاد اولین پروژه خود روی دکمه \"plus\" در سمت راست کلیک کنید.",
         "RECOGNISING": "تشخیص",
+        "PREDICTING": "Predicting",
         "AS": "مانند",
         "SHARE": "اشتراک گذاری ",
         "UNSHARE": "لغو اشتراک گذاری ",
@@ -220,12 +221,14 @@
             "NOTES_3": "Storing in the cloud will let you access the project from any computer."
         },
         "TYPES": {
+            "TYPELABEL": "Project Type",
             "LABEL": "تشخیص",
             "NOTES_1": "چه نوع چیزهایی را می خواهید به رایانه یاد دهید که تشخیص دهد؟",
             "NOTES_2": "برای کلمات، جملات یا پاراگراف ها، \"متن\" را انتخاب کنید.",
             "NOTES_3": "برای عکس‌ها، نمودارها و تصاویر، \"تصاویر\" را انتخاب کنید ",
             "NOTES_4": "برای مجموعه‌ای از اعداد یا چندین گزینه، \"اعداد\" را انتخاب کنید",
-            "NOTES_5": "برای صداها، \"صداها\" را انتخاب کنید"
+            "NOTES_5": "برای صداها، \"صداها\" را انتخاب کنید",
+            "NOTES_6": "To predict numbers, choose \"predicting numbers\""
         },
         "LANGUAGE": {
             "LABEL": "زبان ",
@@ -368,11 +371,13 @@
     "PROJECT": {
         "TRAIN": {
             "TITLE": "آموزش دادن",
-            "BODY": "نمونه‌هایی از مواردی را که می خواهید رایانه تشخیص دهد، جمع آوری کنید"
+            "BODY": "نمونه‌هایی از مواردی را که می خواهید رایانه تشخیص دهد، جمع آوری کنید",
+            "REGRESSION": "Collect examples of what you want the computer to predict"
         },
         "LEARNANDTEST": {
             "TITLE": " محک زدن & amp;یادگیری",
-            "BODY": "از مثال ها برای آموزش تشخیص به رایانه استفاده کنید"
+            "BODY": "از مثال ها برای آموزش تشخیص به رایانه استفاده کنید",
+            "REGRESSION": "Use the examples to train the computer to make predictions"
         },
         "MAKES": {
             "TITLE": "بسازید ",
@@ -404,6 +409,7 @@
     "TRAINING": {
         "TITLE": "آموزش",
         "ADDLABEL": "برچسب جدید اضافه کنید ",
+        "ADDCOLUMN": "Add new column",
         "CREATEFIRSTLABEL": "برای افزودن اولین پروژه خود، روی دکمه 'plus'در سمت راست کلیک کنید.",
         "CROWDSOURCEDEMPTY": ".این صفحه را پس از ایجاد پروژه‌های آموزشی توسط معلم خود راه اندازی مجدد کنید",
         "ADDEXAMPLE": "مثالی را اضافه کنید",
@@ -414,6 +420,10 @@
         "NEWLABEL": {
             "INTRO": "برچسب جدید را برای تشخیص وارد کنید ",
             "ERROR": "در برچسب ها فقط از حروف و اعداد استفاده کنید"
+        },
+        "NEWCOLUMN": {
+            "INTRO": "Enter name for a new column",
+            "ERROR": "Only use letters and numbers in column names"
         },
         "NEWEXAMPLE": {
             "INTRO": "نمونه ای را وارد کنید",
@@ -427,7 +437,13 @@
             "WEBCAMFAIL": ".متاسفیم! ما نتوانستیم وب کم را برای شما راه بیندازیم",
             "WEBCAMERROR": ":پیامی که از مرورگر وب شما دریافت کردیم این بود"
         },
-        "BACKGROUNDNOISE": ".جمع آوری نمونه از نویز پس زمینه به کامپیوتر کمک می‌کند تا صداهای شما را تشخیص دهد"
+        "BACKGROUNDNOISE": ".جمع آوری نمونه از نویز پس زمینه به کامپیوتر کمک می‌کند تا صداهای شما را تشخیص دهد",
+        "REGRESSION": {
+            "NOOUTPUTCOLS": "Tick the column(s) that you want your machine learning model to predict values for.",
+            "NOTRAINING": "Add training examples from Scratch or by uploading a CSV file.",
+            "NOCOLUMNS": "Add columns to use for this project.",
+            "ONECOLUMN": "You need at least two columns to have input and output."
+        }
     },
     "MODELS": {
         "TITLE": "مدل‌های یادگیری ماشین",
@@ -466,7 +482,8 @@
                     "TEXT": "شما یک مدل یادگیری ماشین را آموزش داده اید تا تشخیص دهد متن چه زمانی است",
                     "IMAGES": "شما یک مدل یادگیری ماشین را آموزش داده اید تا تشخیص دهد تصاویر چه زمانی هستند",
                     "NUMBERS": "شما یک مدل یادگیری ماشین را آموزش داده اید تا تشخیص دهد اعداد چه زمانی هستند",
-                    "SOUNDS": "شما یک مدل یادگیری ماشین آموزش داده اید که تشخیص دهد صداها چه زمانی هستند"
+                    "SOUNDS": "شما یک مدل یادگیری ماشین آموزش داده اید که تشخیص دهد صداها چه زمانی هستند",
+                    "REGRESSION": "You have trained a machine learning model to predict the values of "
                 },
                 "CREATED": {
                     "TEACHER": "معلم شما این مدل را ایجاد کرده است ",
@@ -525,7 +542,8 @@
                         "TEXT": "شما گفتید که می‌خواهید نمونه‌هایی از متن را برای رایانه جمع‌آوری کنید تا تشخیص دهد که متن چیست",
                         "IMAGES": "شما گفتید که می خواهید نمونه‌هایی از تصاویر را برای رایانه جمع آوری کنید تا تصاویر را تشخیص دهد ",
                         "NUMBERS": "شما گفتید که می خواهید نمونه‌هایی از اعداد را جمع آوری کنید تا رایانه اعداد تشخیص دهد ",
-                        "SOUNDS": "شما گفتید که می‌خواهید نمونه‌هایی از صداها را جمع‌آوری کنید تا رایانه صداها تشخیص دهد "
+                        "SOUNDS": "شما گفتید که می‌خواهید نمونه‌هایی از صداها را جمع‌آوری کنید تا رایانه صداها تشخیص دهد ",
+                        "REGRESSION" : "You said that you want to collect examples of numbers for a computer to predict the value of "
                     }
                 },
                 "NOEXAMPLES": {
@@ -543,7 +561,8 @@
                         "TEXT": "شما متن هایی را برای تشخیص رایانه جمع آوری کرده اید",
                         "IMAGES": "شما تصاویری را برای تشخیص رایانه جمع آوری کرده اید",
                         "NUMBERS": "شما اعدادی را برای تشخیص رایانه جمع آوری کرده اید",
-                        "SOUNDS": "شما صداهایی را برای تشخیص رایانه جمع آوری کرده اید"
+                        "SOUNDS": "شما صداهایی را برای تشخیص رایانه جمع آوری کرده اید",
+                        "REGRESSION" : "You have collected examples of numbers for a computer to use to predict the value of "
                     },
                     "COLLECTED": {
                         "CLASS": ":آنها جمع آوری کرده اند",
@@ -567,6 +586,7 @@
                 },
                 "LABELS": {
                     "NO_DATA": "مرحله بعدی رفتن به صفحه <a href='{{ urls.train }}'>آموزش</a> است. برای هر یک از برچسب ها مثال اضافه کنید.",
+                    "NO_DATA_REGRESSION" : "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Add examples of numbers.",
                     "MORE_DATA": {
                         "KEEP_GOING": "!ادامه دهید",
                         "MORE_EXAMPLES": {
@@ -594,9 +614,11 @@
                     "TEXT": "مدل یادگیری ماشین زیر را امتحان کنید. متنی که در یادگیری ماشین استفاده نشده را وارد کنید. به شما می گوید که آن را به عنوان چه چیزی تشخیص می‌دهد و چقدر به آن .اطمینان دارد",
                     "IMAGES": "مدل یادگیری ماشین زیر را امتحان کنید. تصویری که در یادگیری ماشین استفاده نشده را وارد کنید. به شما می گوید که آن را به عنوان چه چیزی تشخیص می‌دهد و چقدر به آن اطمینان دارد.",
                     "NUMBERS": "مدل یادگیری ماشین زیر را امتحان کنید. عددی  که در یادگیری ماشین استفاده نشده را وارد کنید. به شما می گوید که آن را به عنوان چه چیزی تشخیص می‌دهد و چقدر به آن اطمینان دارد.",
-                    "SOUNDS": "مدل یادگیری ماشین زیر را امتحان کنید. روی دکمه \"شروع گوش دادن\" کلیک کنید. اگر مدل یادگیری ماشین شما صدا را تشخیص دهد، به شما می گوید که آن را به عنوان چه چیزی تشخیص می‌دهد و تا چه اندازه به آن اطمینان دارد."
+                    "SOUNDS": "مدل یادگیری ماشین زیر را امتحان کنید. روی دکمه \"شروع گوش دادن\" کلیک کنید. اگر مدل یادگیری ماشین شما صدا را تشخیص دهد، به شما می گوید که آن را به عنوان چه چیزی تشخیص می‌دهد و تا چه اندازه به آن اطمینان دارد.",
+                    "REGRESSION" : "Try testing the machine learning model below. Enter an example of numbers below, that you didn't include in the examples you used to train it. It will tell you what it predicts the output should be."
                 },
                 "SCRATCH": "اگر به نظر می رسد رایانه اشیا را به درستی تشخیص داده است، می‌توانید به اسکرچ بروید و از آموخته های رایانه برای ساخت یک بازی استفاده کنید!",
+                "SCRATCH_REGRESSION" : "If the computer seems to have learned to predict things correctly, then you can go to Scratch and use what the computer has learned to make a game!",
                 "ADDITIONAL_TRAINING": {
                     "MORE_EXAMPLES": {
                         "CROWDSOURCED": "اگر رایانه اشتباه زیادی دارد، کلاس شما ممکن است بخواهد به صفحه <a\nhref='{{ urls.train }}'>آموزش </a> برگردد و چند نمونه دیگر را جمع آوری کند.",
@@ -623,12 +645,14 @@
                 "TEXT": "سعی کنید متنی را در آن قرار دهید تا ببینید که چگونه بر اساس آموزش شما تشخیص داده می‌شود.",
                 "IMAGES": "سعی کنید تصویری را در آن قرار دهید تا ببینید که چگونه بر اساس آموزش شما تشخیص داده می‌شود.",
                 "NUMBERS": "سعی کنید اعدادی را در آن قرار دهید تا ببینید که چگونه بر اساس آموزش شما تشخیص داده می‌شود.",
-                "SOUNDS": "سعی کنید صدایی را در آن قرار دهید تا ببینید که چگونه بر اساس آموزش شما تشخیص داده می‌شود."
+                "SOUNDS": "سعی کنید صدایی را در آن قرار دهید تا ببینید که چگونه بر اساس آموزش شما تشخیص داده می‌شود.",
+                "REGRESSION": "Try putting in some numbers to see the prediction based on your training."
             },
             "WEBCAM": " تست کنید با <strong>وب کم</strong> با ",
             "DRAWING": "با <strong>نقاشی</strong> تست کنید ",
             "WWW": "با <strong>www</strong> تست کنید ",
             "RECOGNISED": "به عنوان <strong>{{ testoutput }}</strong> شناخته شد",
+            "PREDICTION": "Prediction:",
             "STARTLISTENING": "شروع به گوش دادن کنید",
             "STOPLISTENING": "گوش دادن را متوقف کنید"
         },
@@ -1006,6 +1030,7 @@
         "MORE_BLOCKS": "پروژه شما این بلوک ها را به <span style='background-color: purple; رنگ سفید؛ padding-left: 7px; padding-right: 7px; white-space: nowrap;'>بیشتر بلوک ها</span> تب در اسکریپت.",
         "MORE_BLOCKS_3": ".پروژه شما این بلوک ها را به اسکرچ اضافه می‌کند",
         "EXPLAIN_RECOGNISE_LABEL": "برای این کار، {{ type }} را در ورودی قرار دهید، و برچسبی را که مدل یادگیری ماشین شما آن را تشخیص می‌دهد، برمی‌گرداند.",
+        "EXPLAIN_PREDICT": "Put input numbers in this, and it will return a prediction of the output number.",
         "EXPLAIN_RECOGNISE_CONFIDENCE": "این نشان می‌دهد که مدل یادگیری ماشین شما چقدر مطمئن است که نوع {{ type }} را تشخیص می‌دهد. (به صورت عددی از 0 - 100).",
         "EXPLAIN_LABELS": "این بلوک ها نشان دهنده برچسب هایی هستند که در پروژه خود ایجاد کرده اید، بنابراین می‌توانید از نام آنها در اسکریپت های خود استفاده کنید.",
         "EXPLAIN_COSTUMEIMAGE": "این بلوک در پالت Looks for Sprites قرار دارد و تصویر لباس انتخابی فعلی را برمی‌گرداند.",
@@ -1037,7 +1062,8 @@
             "IMAGES": "تصاویر",
             "NUMBERS": "اعداد",
             "SOUNDS": "صداها",
-            "FACES": "چهره ها"
+            "FACES": "چهره ها",
+            "REGRESSION": "predicting numbers"
         },
         "LEVELS": {
             "TITLE": ":سختی",

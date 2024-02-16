@@ -192,6 +192,7 @@
         "COPYTEMPLATE": "نسخ القالب ",
         "CREATEFIRSTPROJECT": "انقر فوق زر \"زائد\" على اليمين لإنشاء مشروعك الأول.",
         "RECOGNISING": "تمييز ",
+        "PREDICTING": "Predicting",
         "AS": "مثل",
         "SHARE": "مشاركة",
         "UNSHARE": "إلغاء المشاركة",
@@ -220,12 +221,14 @@
             "NOTES_3": "Storing in the cloud will let you access the project from any computer."
         },
         "TYPES": {
+            "TYPELABEL": "Project Type",
             "LABEL": "تمييز ",
             "NOTES_1": "ما نوع الشيء الذي تريد تعليم الكمبيوتر أن يتعرف عليه؟",
             "NOTES_2": "للكلمات أو الجمل أو الفقرات ، اختر \"نص\"",
             "NOTES_3": "للصور والرسوم البيانية والرسوم ، اختر \"صور\"",
             "NOTES_4": "لمجموعات من الأرقام أو الخيارات المتعددة ، اختر \"أرقام\"",
-            "NOTES_5": "للأصوات، اختر \"الأصوات\""
+            "NOTES_5": "للأصوات، اختر \"الأصوات\"",
+            "NOTES_6": "To predict numbers, choose \"predicting numbers\""
         },
         "LANGUAGE": {
             "LABEL": "اللغة ",
@@ -368,11 +371,13 @@
     "PROJECT": {
         "TRAIN": {
             "TITLE": "تدريب",
-            "BODY": "اجمع أمثلة على ما تريد للكمبيوتر أن يتعرف عليه "
+            "BODY": "اجمع أمثلة على ما تريد للكمبيوتر أن يتعرف عليه ",
+            "REGRESSION": "Collect examples of what you want the computer to predict"
         },
         "LEARNANDTEST": {
             "TITLE": "تعلم وamp; اختبر  ",
-            "BODY": "استخدم الأمثلة لتدريب الكمبيوتر على التعرف"
+            "BODY": "استخدم الأمثلة لتدريب الكمبيوتر على التعرف",
+            "REGRESSION": "Use the examples to train the computer to make predictions"
         },
         "MAKES": {
             "TITLE": "صنع",
@@ -404,6 +409,7 @@
     "TRAINING": {
         "TITLE": "تدريب",
         "ADDLABEL": "أضف تسمية جديدة",
+        "ADDCOLUMN": "Add new column",
         "CREATEFIRSTLABEL": "انقر على زر \"زائد\" على اليمين لإضافة أول مجموعة.",
         "CROWDSOURCEDEMPTY": "قم بتحديث هذه الصفحة بعد قيام معلمك بإنشاء مجموعات التدريب.",
         "ADDEXAMPLE": "إضافة مثال",
@@ -414,6 +420,10 @@
         "NEWLABEL": {
             "INTRO": "أدخل تسمية جديدة للتعرف عليها",
             "ERROR": "استخدم الأحرف والأرقام فقط في التسميات"
+        },
+        "NEWCOLUMN": {
+            "INTRO": "Enter name for a new column",
+            "ERROR": "Only use letters and numbers in column names"
         },
         "NEWEXAMPLE": {
             "INTRO": "أدخل مثالاً على",
@@ -427,7 +437,13 @@
             "WEBCAMFAIL": "المعذرة! لم نتمكن من الحصول على كاميرا ويب للعمل معك.",
             "WEBCAMERROR": "الرسالة التي وصلتنا من متصفح الويب الخاص بك كانت:"
         },
-        "BACKGROUNDNOISE": "سيساعد جمع أمثلة لضوضاء الخلفية على تعلم الكمبيوتر  التعرف على أصواتك"
+        "BACKGROUNDNOISE": "سيساعد جمع أمثلة لضوضاء الخلفية على تعلم الكمبيوتر  التعرف على أصواتك",
+        "REGRESSION": {
+            "NOOUTPUTCOLS": "Tick the column(s) that you want your machine learning model to predict values for.",
+            "NOTRAINING": "Add training examples from Scratch or by uploading a CSV file.",
+            "NOCOLUMNS": "Add columns to use for this project.",
+            "ONECOLUMN": "You need at least two columns to have input and output."
+        }
     },
     "MODELS": {
         "TITLE": "نماذج تعلم الآلة",
@@ -466,7 +482,8 @@
                     "TEXT": "لقد درَّبت نموذج تعلم الآلة للتعرف عندما تكون النصوص",
                     "IMAGES": "لقد درَّبت نموذج تعلم الآلة للتعرف عندما تكون الصور",
                     "NUMBERS": "لقد درَّبت نموذج تعلم الآلة للتعرف عندما تكون الأرقام",
-                    "SOUNDS": "لقد درَّبت نموذج تعلم الآلة للتعرف عندما تكون الأصوات "
+                    "SOUNDS": "لقد درَّبت نموذج تعلم الآلة للتعرف عندما تكون الأصوات ",
+                    "REGRESSION": "You have trained a machine learning model to predict the values of "
                 },
                 "CREATED": {
                     "TEACHER": "قام معلمك بإنشاء النموذج في",
@@ -525,7 +542,8 @@
                         "TEXT": "قلت إنك تريد جمع أمثلة من النصوص ليعرفها الكمبيوتر عندما تكون النصوص",
                         "IMAGES": "قلت إنك تريد جمع أمثلة من الصور ليعرفها الكمبيوتر عندما تكون الصور",
                         "NUMBERS": "قلت إنك تريد جمع أمثلة من الأرقام ليعرفها الكمبيوتر عندما تكون الأرقام",
-                        "SOUNDS": "قلت إنك تريد جمع أمثلة من الأصوات ليعرفها الكمبيوتر عندما تكون الأصوات"
+                        "SOUNDS": "قلت إنك تريد جمع أمثلة من الأصوات ليعرفها الكمبيوتر عندما تكون الأصوات",
+                        "REGRESSION" : "You said that you want to collect examples of numbers for a computer to predict the value of "
                     }
                 },
                 "NOEXAMPLES": {
@@ -543,7 +561,8 @@
                         "TEXT": "لقد جمعت أمثلة من نصوص ليستخدمها الكمبيوتر للتعرف عندما تكون النصوص",
                         "IMAGES": "لقد جمعت أمثلة من الصور ليستخدمها الكمبيوتر للتعرف عندما تكون الصور",
                         "NUMBERS": "لقد جمعت أمثلة من الأرقام ليستخدمها الكمبيوتر للتعرف عندما تكون الأرقام",
-                        "SOUNDS": "لقد جمعت أمثلة من الأصوات ليستخدمها الكمبيوتر للتعرف عندما تكون الأصوات"
+                        "SOUNDS": "لقد جمعت أمثلة من الأصوات ليستخدمها الكمبيوتر للتعرف عندما تكون الأصوات",
+                        "REGRESSION" : "You have collected examples of numbers for a computer to use to predict the value of "
                     },
                     "COLLECTED": {
                         "CLASS": "لقد قاموا بجمع: ",
@@ -567,6 +586,7 @@
                 },
                 "LABELS": {
                     "NO_DATA": "الخطوة التالية هي الذهاب إلى صفحة <a href='{{ urls.train }}'>التدريب</a>. أضف أمثلة لكل من التسميات.",
+                    "NO_DATA_REGRESSION" : "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Add examples of numbers.",
                     "MORE_DATA": {
                         "KEEP_GOING": "استمر!",
                         "MORE_EXAMPLES": {
@@ -594,9 +614,11 @@
                     "TEXT": "حاول اختبار نموذج تعلُّم الآلة في الأسفل. أدخل مثالاً لنص في الأسفل لم تقم بتضمينه في الأمثلة التي استخدمتها لتدريبه. سيخبرك ما يعرفه، ومدى ثقته في ذلك.",
                     "IMAGES": "حاول اختبار نموذج تعلُّم الآلة في الأسفل. أدخل مثالاً لصورة في الأسفل لم تقم بتضمينها في الأمثلة التي استخدمتها لتدريبه. سيخبرك ما يعرفه، ومدى ثقته في ذلك.",
                     "NUMBERS": "حاول اختبار نموذج تعلُّم الآلة في الأسفل. أدخل مثالاً لأرقام في الأسفل لم تقم بتضمينها في الأمثلة التي استخدمتها لتدريبه. سيخبرك ما يعرفه، ومدى ثقته في ذلك.",
-                    "SOUNDS": "حاول اختبار نموذج تعلُّم الآلة أدناه. انقر فوق الزر \"بدء الاستماع\". إذا كان نموذج التعلم الآلي الخاص بك يتعرف على أي أصوات ، فسوف يخبرك بما يتعرف عليه ، ومدى ثقته في ذلك."
+                    "SOUNDS": "حاول اختبار نموذج تعلُّم الآلة أدناه. انقر فوق الزر \"بدء الاستماع\". إذا كان نموذج التعلم الآلي الخاص بك يتعرف على أي أصوات ، فسوف يخبرك بما يتعرف عليه ، ومدى ثقته في ذلك.",
+                    "REGRESSION" : "Try testing the machine learning model below. Enter an example of numbers below, that you didn't include in the examples you used to train it. It will tell you what it predicts the output should be."
                 },
                 "SCRATCH": "إذا بدا أن الكمبيوتر قد تعلم كيفية التعرف على الأشياء بشكل صحيح ، فيمكنك الانتقال إلى Scratch واستخدام ما تعلمه الكمبيوتر لإنشاء لعبة!",
+                "SCRATCH_REGRESSION" : "If the computer seems to have learned to predict things correctly, then you can go to Scratch and use what the computer has learned to make a game!",
                 "ADDITIONAL_TRAINING": {
                     "MORE_EXAMPLES": {
                         "CROWDSOURCED": "إذا كان الكمبيوتر يعاني من العديد من الأشياء الخاطئة ، فقد يرغب الصف في العودة إلى صفحة<a href='{{ urls.train }}'> التدريب</a> وجمع المزيد من الأمثلة.",
@@ -623,12 +645,14 @@
                 "TEXT": "حاول إدخال بعض النصوص لمعرفة كيفية التعرف عليها بناءً على تدريبك.",
                 "IMAGES": "حاول إدخال بعض الصور لمعرفة كيفية التعرف عليها بناءً على تدريبك.",
                 "NUMBERS": "حاول إدخال بعض الأرقام لمعرفة كيفية التعرف عليها بناءً على تدريبك.",
-                "SOUNDS": "حاول إدخال بعض الأصوات لمعرفة كيفية التعرف عليها بناءً على تدريبك."
+                "SOUNDS": "حاول إدخال بعض الأصوات لمعرفة كيفية التعرف عليها بناءً على تدريبك.",
+                "REGRESSION": "Try putting in some numbers to see the prediction based on your training."
             },
             "WEBCAM": "اختبار باستخدام <strong>كاميرا الويب</strong>",
             "DRAWING": "اختبار باستخدام<strong>الرسم</strong>",
             "WWW": "اختبار باستخدام<strong>www</strong>",
             "RECOGNISED": "معروف بأنه <strong>{{testoutput}}</strong>",
+            "PREDICTION": "Prediction:",
             "STARTLISTENING": "ابدأ بالاستماع",
             "STOPLISTENING": "توقف عن الاستماع"
         },
@@ -1006,6 +1030,7 @@
         "MORE_BLOCKS": "سيضيف مشروعك هذه لبنات إلى علامة التبويب<span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>لبنات إضافية</span>في المقاطع البرمجية.",
         "MORE_BLOCKS_3": "سيضيف مشروعك هذه لبنات إلى Scratch.",
         "EXPLAIN_RECOGNISE_LABEL": "ضع {{type}} في حقل الإدخال لهذا ، وسيعيد نموذج تعلم الآلة الخاص بك التسمية التي تعرف عليها .",
+        "EXPLAIN_PREDICT": "Put input numbers in this, and it will return a prediction of the output number.",
         "EXPLAIN_RECOGNISE_CONFIDENCE": "سيؤدي ذلك إلى إظهار مدى ثقة نموذج تعلم الآلة في أنه يتعرف على نوع {{type}}. (كرقم من 0 - 100).",
         "EXPLAIN_LABELS": "تمثل هذه لبنات التسميات التي قمت بإنشائها في مشروعك، بحيث يمكنك استخدام أسمائها في المقاطع البرمجية الخاصة بك.",
         "EXPLAIN_COSTUMEIMAGE": "هذه لبنة موجودة في لوحة المظاهر للأشباح وستعيد صورة المظهر المختار حاليًا.",
@@ -1037,7 +1062,8 @@
             "IMAGES": "صور",
             "NUMBERS": "أرقام",
             "SOUNDS": "أصوات",
-            "FACES": "وجوه"
+            "FACES": "وجوه",
+            "REGRESSION": "predicting numbers"
         },
         "LEVELS": {
             "TITLE": "المستوى:",

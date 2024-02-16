@@ -48,6 +48,7 @@ export interface LocalProjectDbRow {
 }
 
 export type ProjectTypeLabel = 'text' | 'numbers' | 'images' | 'sounds' | 'imgtfjs';
+export type LocalProjectTypeLabel = ProjectTypeLabel | 'regression';
 
 export const MAX_LABEL_LENGTH = 30;
 

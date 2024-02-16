@@ -192,6 +192,7 @@
         "COPYTEMPLATE": "Copy template",
         "CREATEFIRSTPROJECT": "Klik op de 'plus' knop rechts om je eerste project te creëren.",
         "RECOGNISING": "Herkennen",
+        "PREDICTING": "Predicting",
         "AS": "als",
         "SHARE": "Share",
         "UNSHARE": "Un-share",
@@ -220,12 +221,14 @@
             "NOTES_3": "Storing in the cloud will let you access the project from any computer."
         },
         "TYPES": {
+            "TYPELABEL": "Project Type",
             "LABEL": "Herkenning",
             "NOTES_1": "Welk type data wil je de computer leren om te herkennen?",
             "NOTES_2": "Voor woorden, zinnen of paragrafen, kies \"tekst\"",
             "NOTES_3": "Voor foto's, diagrammen en figuren, kies \"afbeelding\"",
             "NOTES_4": "Voor groepen van cijfers of meerkeuzes, kies \"getal\"",
-            "NOTES_5": "For voices and sounds, choose \"sounds\""
+            "NOTES_5": "For voices and sounds, choose \"sounds\"",
+            "NOTES_6": "To predict numbers, choose \"predicting numbers\""
         },
         "LANGUAGE": {
             "LABEL": "Taal",
@@ -368,11 +371,13 @@
     "PROJECT": {
         "TRAIN": {
             "TITLE": "Train",
-            "BODY": "Verzamel voorbeelden van wat je wilt dat de computer herkent"
+            "BODY": "Verzamel voorbeelden van wat je wilt dat de computer herkent",
+            "REGRESSION": "Collect examples of what you want the computer to predict"
         },
         "LEARNANDTEST": {
             "TITLE": "Leer &amp; Test",
-            "BODY": "Gebruik de voorbeelden om de computer te trainen om te herkennen "
+            "BODY": "Gebruik de voorbeelden om de computer te trainen om te herkennen ",
+            "REGRESSION": "Use the examples to train the computer to make predictions"
         },
         "MAKES": {
             "TITLE": "Maak",
@@ -404,6 +409,7 @@
     "TRAINING": {
         "TITLE": "Training",
         "ADDLABEL": "Voeg een nieuw label toe",
+        "ADDCOLUMN": "Add new column",
         "CREATEFIRSTLABEL": "Klik op de 'plus' knop rechts om een eerste emmer toe te voegen.",
         "CROWDSOURCEDEMPTY": "Refresh de pagina nadat je leerkracht de training emmers heeft gemaakt.",
         "ADDEXAMPLE": "Voeg een voorbeeld toe",
@@ -414,6 +420,10 @@
         "NEWLABEL": {
             "INTRO": "Voeg een nieuw label toe om te herkennen",
             "ERROR": "Gebruik alleen letters en cijfers in de labels"
+        },
+        "NEWCOLUMN": {
+            "INTRO": "Enter name for a new column",
+            "ERROR": "Only use letters and numbers in column names"
         },
         "NEWEXAMPLE": {
             "INTRO": "Geef een voorbeeld in van ",
@@ -427,7 +437,13 @@
             "WEBCAMFAIL": "Sorry! We kregen geen toegang tot je webcam.",
             "WEBCAMERROR": "Het bericht dat we kregen van je webbrowser was: "
         },
-        "BACKGROUNDNOISE": "Collecting examples of background noise will help the computer to learn to recognize your sounds"
+        "BACKGROUNDNOISE": "Collecting examples of background noise will help the computer to learn to recognize your sounds",
+        "REGRESSION": {
+            "NOOUTPUTCOLS": "Tick the column(s) that you want your machine learning model to predict values for.",
+            "NOTRAINING": "Add training examples from Scratch or by uploading a CSV file.",
+            "NOCOLUMNS": "Add columns to use for this project.",
+            "ONECOLUMN": "You need at least two columns to have input and output."
+        }
     },
     "MODELS": {
         "TITLE": "Machine learning modellen",
@@ -466,7 +482,8 @@
                     "TEXT": "Je hebt een machine learning model getraind om te herkennen wanneer tekst gelijk is aan",
                     "IMAGES": "Je hebt een machine learning model getraind om te herkennen wanneer afbeeldingen gelijk zijn aan",
                     "NUMBERS": "Je hebt een machine learning model getraind om te herkennen wanneer getallen gelijk zijn aan ",
-                    "SOUNDS": "You have trained a machine learning model to recognise when sounds are "
+                    "SOUNDS": "You have trained a machine learning model to recognise when sounds are ",
+                    "REGRESSION": "You have trained a machine learning model to predict the values of "
                 },
                 "CREATED": {
                     "TEACHER": "Je leerkracht creëerde een model om ",
@@ -525,7 +542,8 @@
                         "TEXT": "Je zei zei dat je tekstvoorbeelden wilde verzamelen om te herkennen wanneer de tekst gelijk is aan ",
                         "IMAGES": "Je zei dat je voorbeelden van afbeeldingen wilde verzamelen om te herkennen wanneer de afbeeldingen gelijk zijn aan ",
                         "NUMBERS": "Je zei dat je voorbeelden van getallen wilde verzamelen om te herkennen wanneer getallen gelijk zijn aan  ",
-                        "SOUNDS": "You said that you want to collect examples of sounds for a computer to recognise when sounds are "
+                        "SOUNDS": "You said that you want to collect examples of sounds for a computer to recognise when sounds are ",
+                        "REGRESSION" : "You said that you want to collect examples of numbers for a computer to predict the value of "
                     }
                 },
                 "NOEXAMPLES": {
@@ -543,7 +561,8 @@
                         "TEXT": "Je hebt tekstvoorbeelden verzameld voor de computer om te herkennen wanneer de tekst gelijk is aan ",
                         "IMAGES": "Je hebt voorbeelden van afbeeldingen verzameld voor de computer om te herkennen wanneer de afbeeldingen gelijk zijn aan ",
                         "NUMBERS": "Je hebt voorbeelden van getallen verzameld voor de computer om te herkennen wanneer de getallen gelijk zijn aan ",
-                        "SOUNDS": "You have collected examples of sounds for a computer to use to recognise when sounds are "
+                        "SOUNDS": "You have collected examples of sounds for a computer to use to recognise when sounds are ",
+                        "REGRESSION" : "You have collected examples of numbers for a computer to use to predict the value of "
                     },
                     "COLLECTED": {
                         "CLASS": "De klas heeft verzameld: ",
@@ -567,6 +586,7 @@
                 },
                 "LABELS": {
                     "NO_DATA": "De volgende stap is naar de <a href='{{ urls.train }}'>Training</a> pagina gaan. Voeg meer voorbeelden toe voor elk van de labels.",
+                    "NO_DATA_REGRESSION" : "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Add examples of numbers.",
                     "MORE_DATA": {
                         "KEEP_GOING": "Ga zo door!",
                         "MORE_EXAMPLES": {
@@ -594,9 +614,11 @@
                     "TEXT": "Probeer het machine learning model hieronder te testen. Geef een voorbeeldtekst in die niet in de gebruikte voorbeelden van de training zat. Het zal je vertellen wat het herkent en hoe zeker het is dat het juist is.",
                     "IMAGES": "Probeer het onderstaande machine learning model. Vul hieronder een voorbeeldafbeelding in die je niet gebruikte om het model te trainen. Het zal je vertellen wat het herkent en hoe zeker het daarvan is. ",
                     "NUMBERS": "Probeer het onderstaande machine learning model. Vul enkele voorbeeldgetallen hieronder in die je niet gebruikte om het model te trainen. Het zal je vertellen wat het herkent en hoe zeker het daarvan is.",
-                    "SOUNDS": "Try testing the machine learning model below. Click the 'Start listening' button. If your machine learning model recognises any sounds, it will tell you what it recognises it as, and how confident it is in that."
+                    "SOUNDS": "Try testing the machine learning model below. Click the 'Start listening' button. If your machine learning model recognises any sounds, it will tell you what it recognises it as, and how confident it is in that.",
+                    "REGRESSION" : "Try testing the machine learning model below. Enter an example of numbers below, that you didn't include in the examples you used to train it. It will tell you what it predicts the output should be."
                 },
                 "SCRATCH": "Als het erop lijkt dat de computer heeft geleerd om dingen correct te herkennen, ga dan naar Scratch en gebruik wat de computer heeft geleerd om een spel te maken!",
+                "SCRATCH_REGRESSION" : "If the computer seems to have learned to predict things correctly, then you can go to Scratch and use what the computer has learned to make a game!",
                 "ADDITIONAL_TRAINING": {
                     "MORE_EXAMPLES": {
                         "CROWDSOURCED": "Als de computer teveel fouten maakt, zou je klas misschien terug willen gaan naar de <a href='{{ urls.train }}'>Training</a> pagina om wat meer voorbeelden te verzamelen.",
@@ -623,12 +645,14 @@
                 "TEXT": "Probeer wat tekst in te geven om te zien hoe het wordt herkend op basis van de training.",
                 "IMAGES": "Probeer een afbeelding in te geven om te zien hoe het wordt herkend op basis van de training.",
                 "NUMBERS": "Probeer om een aantal getallen in te geven om te zien hoe ze herkend worden op basis van de training.",
-                "SOUNDS": "Try making a sound to see how it is recognised based on your training"
+                "SOUNDS": "Try making a sound to see how it is recognised based on your training",
+                "REGRESSION": "Try putting in some numbers to see the prediction based on your training."
             },
             "WEBCAM": "Test met <strong>webcam</strong>",
             "DRAWING": "Test door <strong>te tekenen</strong>",
             "WWW": "Test met <strong>www</strong>",
             "RECOGNISED": "Herkend als  <strong>{{ testoutput }}</strong>",
+            "PREDICTION": "Prediction:",
             "STARTLISTENING": "Start listening",
             "STOPLISTENING": "Stop listening"
         },
@@ -1006,6 +1030,7 @@
         "MORE_BLOCKS": "Je project zal deze blokken toevoegen aan de <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>Meer blokken</span> sectie in Scripts.",
         "MORE_BLOCKS_3": "Your project will add these blocks to Scratch.",
         "EXPLAIN_RECOGNISE_LABEL": "Plaats een {{ type }} in de input van deze blok en het zal een label teruggeven hoe het machine learning model deze input herkent.",
+        "EXPLAIN_PREDICT": "Put input numbers in this, and it will return a prediction of the output number.",
         "EXPLAIN_RECOGNISE_CONFIDENCE": "Deze blok zal teruggeven hoe zeker het machine learning model is dat het de {{ type }} juist herkend. (een getal tussen 0 - 100).",
         "EXPLAIN_LABELS": "Deze blokken stellen de labels voor die je in je project hebt aangemaakt, zodat je hun naam kan gebruiken in je scripts.",
         "EXPLAIN_COSTUMEIMAGE": "Deze blok bevindt zich in het Uiterlijk palet voor Sprites en geeft de afbeelding van het momenteel geselecteerde kostuum terug.",
@@ -1037,7 +1062,8 @@
             "IMAGES": "afbeeldingen",
             "NUMBERS": "getallen",
             "SOUNDS": "sounds",
-            "FACES": "faces"
+            "FACES": "faces",
+            "REGRESSION": "predicting numbers"
         },
         "LEVELS": {
             "TITLE": "Moeilijkheid:",

@@ -271,18 +271,23 @@
         }
 
 
-        async function addCloudRefToProject(localProjectId, cloudProjectId) {
-            loggerService.debug('[ml4kstorage] addCloudRefToProject');
+        function addCloudRefToProject(localProjectId, cloudProjectId) {
+            return addProjectMetadata(localProjectId, 'cloudid', cloudProjectId);
+        }
+
+
+        async function addMetadataToProject(projectid, key, value) {
+            loggerService.debug('[ml4kstorage] addProjectMetadata');
 
             await requiresProjectsDatabase();
 
             const transaction = projectsDbHandle.transaction([ PROJECTS_TABLE ], 'readwrite');
             const projectsTable = transaction.objectStore(PROJECTS_TABLE);
-            const readRequest = projectsTable.get(requiresIntegerId(localProjectId));
+            const readRequest = projectsTable.get(requiresIntegerId(projectid));
             const readEvent = await promisifyIndexedDbRequest(readRequest);
             const projectObject = requiresResult(readEvent);
 
-            projectObject.cloudid = cloudProjectId;
+            projectObject[key] = value;
 
             const updateRequest = projectsTable.put(projectObject);
             await promisifyIndexedDbRequest(updateRequest);
@@ -397,6 +402,21 @@
         }
 
 
+        async function countTrainingData(projectId) {
+            loggerService.debug('[ml4kstorage] countTrainingData', projectId);
+
+            await requiresTrainingDatabase(projectId);
+
+            const transaction = trainingDataDatabases[projectId].transaction([ TRAINING_TABLE ], 'readonly');
+            const request = transaction.objectStore(TRAINING_TABLE).count();
+
+            return promisifyIndexedDbRequest(request)
+                .then(function (event) {
+                    return event.target.result;
+                });
+        }
+
+
         async function getTrainingDataItem(projectId, trainingDataId) {
             loggerService.debug('[ml4kstorage] getTrainingDataItem');
 
@@ -428,6 +448,46 @@
         }
 
 
+        async function bulkAddTrainingData(projectId, trainingObjects) {
+            loggerService.debug('[ml4kstorage] bulkAddTrainingData');
+
+            await requiresTrainingDatabase(projectId);
+
+            const transaction = trainingDataDatabases[projectId].transaction([ TRAINING_TABLE ], 'readwrite');
+            const trainingTable = transaction.objectStore(TRAINING_TABLE)
+
+            return new Promise(function (resolve, reject) {
+                const numObjects = trainingObjects.length;
+                var added = 0;
+                var error;
+                for (let i = 0; i < numObjects; i++) {
+                    const trainingObject = trainingObjects[i];
+
+                    const request = trainingTable.add(trainingObject);
+                    request.onsuccess = function (event) {
+                        added += 1;
+                        trainingObject.id = event.target.result;
+                        if (added === numObjects) {
+                            if (error) {
+                                return reject(error);
+                            }
+                            else {
+                                return resolve(trainingObjects);
+                            }
+                        }
+                    };
+                    request.onerror = function (err) {
+                        error = err;
+                        added += 1;
+                        if (added === numObjects) {
+                            return reject(error);
+                        }
+                    };
+                }
+            });
+        }
+
+
         async function deleteTrainingData(projectId, trainingDataId) {
             loggerService.debug('[ml4kstorage] deleteTrainingData');
 
@@ -437,6 +497,18 @@
             const request = transaction.objectStore(TRAINING_TABLE).delete(requiresIntegerId(trainingDataId));
 
             return promisifyIndexedDbRequest(request).then(noop);
+        }
+
+
+        async function clearTrainingData(projectId) {
+            loggerService.debug('[ml4kstorage] clearTrainingData');
+
+            await requiresTrainingDatabase(projectId);
+
+            const transaction = trainingDataDatabases[projectId].transaction([ TRAINING_TABLE ], 'readwrite');
+            const request = transaction.objectStore(TRAINING_TABLE).clear();
+
+            return promisifyIndexedDbRequest(request);
         }
 
 
@@ -533,14 +605,18 @@
             getProject,
             addProject,
             addCloudRefToProject,
+            addMetadataToProject,
             deleteProject,
             addLabel,
             deleteLabel,
 
             getTrainingData,
+            countTrainingData,
             getTrainingDataItem,
             addTrainingData,
+            bulkAddTrainingData,
             deleteTrainingData,
+            clearTrainingData,
             getLabelCounts,
             getTrainingDataByLabel,
             getTrainingForWatsonAssistant,

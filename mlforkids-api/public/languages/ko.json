@@ -198,6 +198,7 @@
         "COPYTEMPLATE": "Copy template",
         "CREATEFIRSTPROJECT": "'추가' 버튼을 클릭하여 여러분의 첫 번째 프로젝트를 만들어 보세요",
         "RECOGNISING": "인식",
+        "PREDICTING": "Predicting",
         "AS": "as",
         "SHARE": "Share",
         "UNSHARE": "Un-share",
@@ -226,12 +227,14 @@
             "NOTES_3": "Storing in the cloud will let you access the project from any computer."
         },
         "TYPES": {
+            "TYPELABEL": "Project Type",
             "LABEL": "인식",
             "NOTES_1": "컴퓨터가 어떤 방식으로 인식하도록 할지 선택해봅시다",
             "NOTES_2": "글자, 문장을 인식하도록 한다면 \"문자(text)\"를 선택하세요",
             "NOTES_3": "사진, 다이어그램 등을 인식하도록 원한다면 \"이미지(images)\"를 선택하세요",
             "NOTES_4": "숫자 등을 인식하도록 원한다면 \"숫자(numbers)\"를 선택하세요",
-            "NOTES_5": "다양한 소리나 목소리를 인식하도록 원한다면 \"사운드(sounds)\"를 "
+            "NOTES_5": "다양한 소리나 목소리를 인식하도록 원한다면 \"사운드(sounds)\"를 ",
+            "NOTES_6": "To predict numbers, choose \"predicting numbers\""
         },
         "LANGUAGE": {
             "LABEL": "언어",
@@ -374,11 +377,13 @@
     "PROJECT": {
         "TRAIN": {
             "TITLE": "훈련",
-            "BODY": "컴퓨터가 훈련할 수 있도록 다양한 데이터를 준비하세요."
+            "BODY": "컴퓨터가 훈련할 수 있도록 다양한 데이터를 준비하세요.",
+            "REGRESSION": "Collect examples of what you want the computer to predict"
         },
         "LEARNANDTEST": {
             "TITLE": "학습 &amp; 평가",
-            "BODY": "데이터를 사용하여 컴퓨터를 학습시키세요."
+            "BODY": "데이터를 사용하여 컴퓨터를 학습시키세요.",
+            "REGRESSION": "Use the examples to train the computer to make predictions"
         },
         "MAKES": {
             "TITLE": "만들기",
@@ -410,6 +415,7 @@
     "TRAINING": {
         "TITLE": "훈련",
         "ADDLABEL": "새로운 레이블 추가",
+        "ADDCOLUMN": "Add new column",
         "CREATEFIRSTLABEL": "'추가' 버튼을 클릭하여 당신의 첫번째 바구니를 만드세요.",
         "CROWDSOURCEDEMPTY": "선생님이 새로운 바구니를 만든 다음 페이지를 새로고침하세요.",
         "ADDEXAMPLE": "데이터 추가",
@@ -420,6 +426,10 @@
         "NEWLABEL": {
             "INTRO": "새로운 레이블을 추가하세요.",
             "ERROR": "레이블 이름은 숫자와 문자로만 작성하세요."
+        },
+        "NEWCOLUMN": {
+            "INTRO": "Enter name for a new column",
+            "ERROR": "Only use letters and numbers in column names"
         },
         "NEWEXAMPLE": {
             "INTRO": "새로운 데이터를 추가하세요.",
@@ -433,7 +443,13 @@
             "WEBCAMFAIL": "이런! 웹캠이 연결되었나요?",
             "WEBCAMERROR": "웹 브라우저에서 가져온 메세지: "
         },
-        "BACKGROUNDNOISE": "주변 소음 수집은 컴퓨터가 여러분의 소리를 인식하는데 도움이 됩니다."
+        "BACKGROUNDNOISE": "주변 소음 수집은 컴퓨터가 여러분의 소리를 인식하는데 도움이 됩니다.",
+        "REGRESSION": {
+            "NOOUTPUTCOLS": "Tick the column(s) that you want your machine learning model to predict values for.",
+            "NOTRAINING": "Add training examples from Scratch or by uploading a CSV file.",
+            "NOCOLUMNS": "Add columns to use for this project.",
+            "ONECOLUMN": "You need at least two columns to have input and output."
+        }
     },
     "MODELS": {
         "TITLE": "머신 러닝 모델",
@@ -473,7 +489,8 @@
                     "TEXT" : "여러분의 머신러닝 모델이 완성되었으며, 다음을 인식할 수 있습니다: ",
                     "IMAGES" : "여러분의 머신러닝 모델이 완성되었으며, 다음을 인식할 수 있습니다: ",
                     "NUMBERS" : "여러분의 머신러닝 모델이 완성되었으며, 다음을 인식할 수 있습니다: ",
-                    "SOUNDS" : "여러분의 머신러닝 모델이 완성되었으며, 다음을 인식할 수 있습니다:  "
+                    "SOUNDS" : "여러분의 머신러닝 모델이 완성되었으며, 다음을 인식할 수 있습니다:  ",
+                    "REGRESSION": "You have trained a machine learning model to predict the values of "
                 },
                 "CREATED" : {
                     "TEACHER" : "여러분의 선생님이 인공지능 모델을 만든 시각: ",
@@ -532,7 +549,8 @@
                         "TEXT" : "다음의 문자를 컴퓨터가 인식하기 위해 여러분은 데이터를 추가해야합니다: ",
                         "IMAGES" : "다음의 그림을 컴퓨터가 인식하기 위해 여러분은 데이터를 추가해야합니다: ",
                         "NUMBERS" : "다음의 숫자를 컴퓨터가 인식하기 위해 여러분은 데이터를 추가해야합니다: ",
-                        "SOUNDS" : "다음의 사운드를 컴퓨터가 인식하기 위해 여러분은 데이터를 추가해야합니다: "
+                        "SOUNDS" : "다음의 사운드를 컴퓨터가 인식하기 위해 여러분은 데이터를 추가해야합니다: ",
+                        "REGRESSION" : "You said that you want to collect examples of numbers for a computer to predict the value of "
                     }
                 },
                 "NOEXAMPLES" : {
@@ -550,7 +568,8 @@
                         "TEXT" : "다음의 문자를 컴퓨터가 인식하기 위해 여러분은 데이터를 모았습니다.",
                         "IMAGES" : "다음의 그림를 컴퓨터가 인식하기 위해 여러분은 데이터를 모았습니다.",
                         "NUMBERS" : "다음의 숫자를 컴퓨터가 인식하기 위해 여러분은 데이터를 모았습니다.",
-                        "SOUNDS" : "다음의 를 컴퓨터가 인식하기 위해 여러분은 데이터를 모았습니다."
+                        "SOUNDS" : "다음의 를 컴퓨터가 인식하기 위해 여러분은 데이터를 모았습니다.",
+                        "REGRESSION" : "You have collected examples of numbers for a computer to use to predict the value of "
                     },
                     "COLLECTED" : {
                         "CLASS" : "반 친구들이 수집한 데이터: ",
@@ -575,6 +594,7 @@
                 },
                 "LABELS" : {
                     "NO_DATA" : "다음 단계는 <a href='{{ urls.train }}'>훈련</a> 페이지로 이동해서 각각의 레이블에 데이터를 추가하는 것입니다.",
+                    "NO_DATA_REGRESSION" : "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Add examples of numbers.",
                     "MORE_DATA" : {
                         "KEEP_GOING": "계속하세요",
                         "MORE_EXAMPLES" : {
@@ -602,9 +622,11 @@
                     "TEXT" : "아래의 머신러닝 모델을 테스트 해보세요. 훈련에 사용한 예문에 포함시키지 않은 텍스트 예제를 입력하십시오. 이것이 어떻게 인식되는지, 어느 정도 정확한지 알려줍니다.",
                     "IMAGES" : "아래의 머신러닝 모델을 테스트 해보세요. 훈련에 사용한 예문에 포함시키지 않은 이미지 예제를 입력하십시오. 이것이 어떻게 인식되는지, 어느 정도 정확한지 알려줍니다.",
                     "NUMBERS" : "아래의 머신러닝 모델을 테스트 해보세요. 훈련에 사용한 예문에 포함시키지 않은 숫자 예제를 입력하십시오. 이것이 어떻게 인식되는지, 어느 정도 정확한지 알려줍니다.",
-                    "SOUNDS" : "아래의 머신러닝 모델을 테스트 해보세요. 훈련에 사용한 예문에 포함시키지 않은 사운드 예제를 입력하십시오. 이것이 어떻게 인식되는지, 어느 정도 정확한지 알려줍니다."
+                    "SOUNDS" : "아래의 머신러닝 모델을 테스트 해보세요. 훈련에 사용한 예문에 포함시키지 않은 사운드 예제를 입력하십시오. 이것이 어떻게 인식되는지, 어느 정도 정확한지 알려줍니다.",
+                    "REGRESSION" : "Try testing the machine learning model below. Enter an example of numbers below, that you didn't include in the examples you used to train it. It will tell you what it predicts the output should be."
                 },
                 "SCRATCH" : "컴퓨터가 사물을 올바르게 인식하는 법을 배웠다면, 스크래치를 사용해서 컴퓨터가 배운 것을 게임에 사용해봅시다!",
+                "SCRATCH_REGRESSION" : "If the computer seems to have learned to predict things correctly, then you can go to Scratch and use what the computer has learned to make a game!",
                 "ADDITIONAL_TRAINING" : {
                     "MORE_EXAMPLES" : {
                         "CROWDSOURCED" : "컴퓨터가 많은 실수를 한다면 <a href='{{ urls.train }}'>훈련</a>페이지로 가서 더 많은 예제 데이터를 모아봅시다.",
@@ -631,12 +653,14 @@
                 "TEXT": "여러분의 모델이 잘 학습되었는지 확인하기 위해 문자를 넣어보세요.",
                 "IMAGES": "여러분의 모델이 잘 학습되었는지 확인하기 위해 이미지를 넣어보세요.",
                 "NUMBERS": "여러분의 모델이 잘 학습되었는지 확인하기 위해 숫자를 넣어보세요.",
-                "SOUNDS": "여러분의 모델이 잘 학습되었는지 확인하기 위해 사운드를 넣어보세요."
+                "SOUNDS": "여러분의 모델이 잘 학습되었는지 확인하기 위해 사운드를 넣어보세요.",
+                "REGRESSION": "Try putting in some numbers to see the prediction based on your training."
             },
             "WEBCAM": "<strong>웹캠</strong>으로 테스트하기",
             "DRAWING": "<strong>그림 그리기</strong>로 테스트하기",
             "WWW": "<strong>인터넷 자료</strong>로 테스트하기",
             "RECOGNISED": "<strong>{{ testoutput }}</strong>(으)로 인식되었습니다.",
+            "PREDICTION": "Prediction:",
             "STARTLISTENING": "듣기 시작",
             "STOPLISTENING": "듣기 "
         },
@@ -1031,6 +1055,7 @@
         "MORE_BLOCKS": "<span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>More Blocks</span> 탭에 다음의 블록이 추가됩니다.",
         "MORE_BLOCKS_3": "Your project will add these blocks to Scratch.",
         "EXPLAIN_RECOGNISE_LABEL": "{{ type }} 칸에 값을 입력하면 여러분의 머신러닝 모델이 무엇을 인식하였는지를 알려줍니다.",
+        "EXPLAIN_PREDICT": "Put input numbers in this, and it will return a prediction of the output number.",
         "EXPLAIN_RECOGNISE_CONFIDENCE": "여러분의 머신러닝 모델이 {{ type }}를 인식한 값의 정확도를 알려줍니다(0 - 100 사이의 값으로 나타냅니다).",
         "EXPLAIN_LABELS": "여러분이 프로젝트에서 만든 레이블을 나타냅니다. 여러분은 스크래치에서 이 블록을 사용할 수 있습니다.",
         "EXPLAIN_COSTUMEIMAGE": "이 블록은 모양 팔레트에 있으며, 현재 실행창에 나타난 모양을 가져옵니다.",
@@ -1067,7 +1092,8 @@
             "IMAGES": "이미지",
             "NUMBERS": "숫자",
             "SOUNDS": "소리",
-            "FACES": "faces"
+            "FACES": "faces",
+            "REGRESSION": "predicting numbers"
         },
 
         "LEVELS": {

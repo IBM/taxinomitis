@@ -87,17 +87,18 @@
             <div>
                 <img src="static/images/scratch3-recognise-label-{{ project.type }}.png">
             </div>
-            <div class="modelstatusdetail" translate="SCRATCH.EXPLAIN_RECOGNISE_LABEL" translate-values='{ "type" : project.type === "imgtfjs" ? "images" : project.type }'></div>
-            <div>
+            <div class="modelstatusdetail" ng-hide="project.type === 'regression'" translate="SCRATCH.EXPLAIN_RECOGNISE_LABEL" translate-values='{ "type" : project.type === "imgtfjs" ? "images" : project.type }'></div>
+            <div class="modelstatusdetail" ng-if="project.type === 'regression'" translate="SCRATCH.EXPLAIN_PREDICT"></div>
+            <div ng-hide="project.type === 'regression'">
                 <img src="static/images/scratch3-recognise-confidence-{{ project.type }}.png">
             </div>
-            <div class="modelstatusdetail" translate="SCRATCH.EXPLAIN_RECOGNISE_CONFIDENCE" translate-values='{ "type" : project.type === "imgtfjs" ? "images" : project.type }'></div>
-            <div>
+            <div class="modelstatusdetail" ng-hide="project.type === 'regression'" translate="SCRATCH.EXPLAIN_RECOGNISE_CONFIDENCE" translate-values='{ "type" : project.type === "imgtfjs" ? "images" : project.type }'></div>
+            <div ng-hide="project.type === 'regression'">
                 <img src="static/images/scratch3-label.png">
             </div>
-            <div class="modelstatusdetail" translate="SCRATCH.EXPLAIN_LABELS"></div>
-            <div class="modelstatusdetail"><strong translate="SCRATCH.SAMPLE_SCRIPT"></strong></div>
-            <div>
+            <div class="modelstatusdetail" ng-hide="project.type === 'regression'" translate="SCRATCH.EXPLAIN_LABELS"></div>
+            <div class="modelstatusdetail" ng-hide="project.type === 'regression'" ><strong translate="SCRATCH.SAMPLE_SCRIPT"></strong></div>
+            <div ng-hide="project.type === 'regression'">
                 <img src="static/images/scratch3-sample-{{ project.type }}.png">
             </div>
             <div style="padding: 0; margin: 10px 0 0 0" ng-hide="project.type === 'imgtfjs'">
