@@ -261,16 +261,20 @@
                         epochs : 100,
                         callback: {
                             onEpochEnd: function (epoch) {
-                                // epochs are zero-indexed
-                                modelStatus.progress = epoch + 1;
+                                if (modelStatus) {
+                                    // epochs are zero-indexed
+                                    modelStatus.progress = epoch + 1;
+                                }
                             }
                         }
                     }).then(function() {
-                        modelStatus.status = 'Available';
-                        modelStatus.progress = 100;
-                        usingRestoredModel = false;
+                        if (modelStatus) {
+                            modelStatus.status = 'Available';
+                            modelStatus.progress = 100;
+                            usingRestoredModel = false;
 
-                        return saveModel(projectid);
+                            return saveModel(projectid);
+                        }
                     });
 
                     loggerService.debug('[ml4ksound] returning interim status');
@@ -279,8 +283,10 @@
                 .catch(function (err) {
                     loggerService.error('[ml4ksound] model training failure', err);
 
-                    modelStatus.status = 'Failed';
-                    modelStatus.updated = new Date();
+                    if (modelStatus) {
+                        modelStatus.status = 'Failed';
+                        modelStatus.updated = new Date();
+                    }
 
                     return modelStatus;
                 });
