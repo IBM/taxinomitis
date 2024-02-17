@@ -229,6 +229,10 @@
                     return event.target.result.filter(function (project) {
                         return project.userid === userid;
                     });
+                })
+                .catch(function (err) {
+                    loggerService.error('[ml4kstorage] unable to get local projects info.', err);
+                    return [];
                 });
         }
 
