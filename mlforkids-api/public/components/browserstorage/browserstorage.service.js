@@ -272,7 +272,7 @@
 
 
         function addCloudRefToProject(localProjectId, cloudProjectId) {
-            return addProjectMetadata(localProjectId, 'cloudid', cloudProjectId);
+            return addMetadataToProject(localProjectId, 'cloudid', cloudProjectId);
         }
 
 
