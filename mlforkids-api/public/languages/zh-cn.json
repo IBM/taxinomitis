@@ -413,6 +413,7 @@
         "CREATEFIRSTLABEL": "点击右边的'加号'按钮添加你的第一个训练集。",
         "CROWDSOURCEDEMPTY": "在您的老师创建培训桶之后刷新此页面。",
         "ADDEXAMPLE": "添加示例",
+        "ADDFROMFILE": "Add file",
         "ADDURL": " www ",
         "ADDWEBCAM": "摄像头",
         "ADDDRAWING": "画画",

@@ -413,6 +413,7 @@
         "CREATEFIRSTLABEL": "最初のグループを追加するには、右側にある 'plus' ボタンをクリックしてください。",
         "CROWDSOURCEDEMPTY": "先生がトレーニング用のグループを作成後に、このページをリフレッシュしてください。",
         "ADDEXAMPLE": "例を追加",
+        "ADDFROMFILE": "Add file",
         "ADDURL": "www",
         "ADDWEBCAM": "webcam",
         "ADDDRAWING": "描画",

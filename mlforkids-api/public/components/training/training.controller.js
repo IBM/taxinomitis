@@ -802,59 +802,94 @@
         };
 
 
-        $scope.downloadTrainingData = function (ev) {
-            csvService.exportFile($scope.training, $scope.project.columns.map(c => c.label))
-                .then(function (csvstring) {
-                    downloadService.downloadFile([ csvstring ], 'text/csv', 'training-' + $scope.project.id + '.csv');
-                })
-                .catch(function (err) {
-                    displayAlert('errors', 500, err);
-                });
+        $scope.downloadTrainingData = function (ev, label) {
+            loggerService.debug('[ml4ktraining] downloading training data to file');
+            if ($scope.project.type === 'text') {
+                downloadService.downloadFile(
+                    $scope.training[label].map(i => i.textdata + '\n'),
+                    'text/plain', label + '.txt');
+            }
+            else if ($scope.project.type === 'regression') {
+                csvService.exportFile($scope.training, $scope.project.columns.map(c => c.label))
+                    .then(function (csvstring) {
+                        downloadService.downloadFile([ csvstring ], 'text/csv', 'training-' + $scope.project.id + '.csv');
+                    })
+                    .catch(function (err) {
+                        displayAlert('errors', 500, err);
+                    });
+            }
         };
 
-        $scope.uploadTrainingData = function (ev) {
+        $scope.uploadTrainingData = function (ev, elem) {
+            loggerService.debug('[ml4ktraining] uploading training data from file');
             var files = ev.currentTarget.files;
             if (files && files.length === 1) {
                 var file = ev.currentTarget.files[0];
-                csvService.parseFile(file)
-                    .then(function (results) {
-                        if ($scope.project.columns && $scope.project.columns.length > 0) {
+                if ($scope.project.type === 'regression') {
+                    csvService.parseFile(file)
+                        .then(function (results) {
+                            if ($scope.project.columns && $scope.project.columns.length > 0) {
 
-                            // pre-existing columns - check they match
-                            if (!angular.equals(results.meta.fields, $scope.project.columns.map(c => c.label)))
-                            {
-                                throw new Error('The columns in the CSV file do not match the columns you have in this project');
+                                // pre-existing columns - check they match
+                                if (!angular.equals(results.meta.fields, $scope.project.columns.map(c => c.label)))
+                                {
+                                    throw new Error('The columns in the CSV file do not match the columns you have in this project');
+                                }
                             }
-                        }
-                        else {
+                            else {
 
-                            // no pre-existing columns - use columns from CSV
-                            $scope.project.columns = results.meta.fields.map(function (columnName) {
-                                const column = {
-                                    label: columnName,
-                                    output: false
-                                };
+                                // no pre-existing columns - use columns from CSV
+                                $scope.project.columns = results.meta.fields.map(function (columnName) {
+                                    const column = {
+                                        label: columnName,
+                                        output: false
+                                    };
 
-                                if (results.data.length > 0) {
-                                    column.type = typeof results.data[0][columnName];
-                                }
-                                else {
-                                    // TODO other types?
-                                    column.type = 'number';
-                                }
+                                    if (results.data.length > 0) {
+                                        column.type = typeof results.data[0][columnName];
+                                    }
+                                    else {
+                                        // TODO other types?
+                                        column.type = 'number';
+                                    }
 
-                                return column;
+                                    return column;
+                                });
+                            }
+
+                            return trainingService.bulkAddTrainingData($scope.project, results.data);
+                        })
+                        .then(function (stored) {
+                            $scope.training = $scope.training.concat(stored);
+                        })
+                        .catch(function (err) {
+                            displayAlert('errors', 400, err);
+                        });
+                }
+                else if ($scope.project.type === 'text') {
+                    const label = elem.dataset.label;
+
+                    const txtfilereader = new FileReader();
+                    txtfilereader.readAsText(file);
+                    txtfilereader.onload = function () {
+                        trainingService.bulkAddTrainingData($scope.project,
+                                    txtfilereader.result
+                                        .split(/[\r\n]+/)
+                                        .map(function (line) {
+                                            return { label, textdata : line };
+                                        }))
+                            .then(function (newitems) {
+                                $scope.training[label] = $scope.training[label].concat(newitems);
+                                attemptRefresh();
+                            })
+                            .catch(function (err) {
+                                displayAlert('errors', 500, err);
                             });
-                        }
-
-                        return trainingService.bulkAddTrainingData($scope.project, results.data);
-                    })
-                    .then(function (stored) {
-                        $scope.training = $scope.training.concat(stored);
-                    })
-                    .catch(function (err) {
-                        displayAlert('errors', 400, err);
-                    });
+                    };
+                    txtfilereader.onerror = function () {
+                        displayAlert('errors', 500, txtfilereader.error);
+                    };
+                }
             }
         };
 

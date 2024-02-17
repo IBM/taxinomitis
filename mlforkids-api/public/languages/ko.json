@@ -419,6 +419,7 @@
         "CREATEFIRSTLABEL": "'추가' 버튼을 클릭하여 당신의 첫번째 바구니를 만드세요.",
         "CROWDSOURCEDEMPTY": "선생님이 새로운 바구니를 만든 다음 페이지를 새로고침하세요.",
         "ADDEXAMPLE": "데이터 추가",
+        "ADDFROMFILE": "Add file",
         "ADDURL": "웹",
         "ADDWEBCAM": "웹캠",
         "ADDDRAWING": "그리기",

@@ -413,6 +413,7 @@
         "CREATEFIRSTLABEL": "Click on the 'plus' button on the right to add your first bucket.",
         "CROWDSOURCEDEMPTY": "Refresh this page after your teacher has created the training buckets.",
         "ADDEXAMPLE": "Add example",
+        "ADDFROMFILE": "Add file",
         "ADDURL": "www",
         "ADDWEBCAM": "webcam",
         "ADDDRAWING": "draw",

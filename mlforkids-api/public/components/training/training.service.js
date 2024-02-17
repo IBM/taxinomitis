@@ -59,11 +59,24 @@
 
 
         function bulkAddTrainingData(project, data) {
-            if (project.storage !== 'local' || project.type !== 'regression') {
+            if (project.storage !== 'local') {
                 throw new Error('unexpected project type');
             }
             else {
-                return browserStorageService.bulkAddTrainingData(project.id, data);
+                if (project.type === 'text') {
+                    return browserStorageService.bulkAddTrainingData(project.id, data.map(function (item) {
+                        return {
+                            textdata : item.textdata.replace(INVALID_TEXT_CHARS, ' '),
+                            label : item.label
+                        };
+                    }));
+                }
+                else if (project.type === 'regression') {
+                    return browserStorageService.bulkAddTrainingData(project.id, data);
+                }
+                else {
+                    throw new Error('unexpected project type');
+                }
             }
         }
 

@@ -307,3 +307,10 @@ video.webcam-live {
     margin-right: 10px;
     margin-left: 5px;
 }
+.newexamplesbuttonbar > .newexamplebutton > .buttonicon.thin {
+    font-size: 1.1em;
+    line-height: 16px;
+    padding-top: 3px;
+    text-wrap: nowrap;
+    overflow-x: scroll;
+}

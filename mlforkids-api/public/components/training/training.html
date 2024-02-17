@@ -138,6 +138,20 @@
                         <div class="newexampleicon">+</div>
                         <div class="newexamplelabel" translate="TRAINING.ADDEXAMPLE"></div>
                     </div>
+                    <label class="btn newexamplebutton" for="text-file-upload-{{$index}}" ng-if="project.type === 'text' && project.storage === 'local'">
+                        <div class="thin buttonicon glyphicon glyphicon-open-file"></div>
+                        <div class="newexamplelabel" translate="TRAINING.ADDFROMFILE"></div>
+                    </label>
+                    <input id="text-file-upload-{{$index}}" ng-if="project.type === 'text' && project.storage === 'local'"
+                        type="file"
+                        accept=".txt"
+                        style="display: none;"
+                        data-label="{{ label }}"
+                        onchange="angular.element(this).scope().uploadTrainingData(event, this)"/>
+                    <div class="btn newexamplebutton" ng-if="project.type === 'text' && training[label].length > 0 " ng-click="downloadTrainingData($event, label)">
+                        <div class="thin buttonicon glyphicon glyphicon-save-file"></div>
+                        <div class="newexamplelabel" translate="WORKSHEETS.DOWNLOAD"></div>
+                    </div>
                     <div class="btn newexamplebutton" ng-click="vm.addTrainingData($event, label)" ng-if="project.type === 'imgtfjs'">
                         <div class="newexamplelabel">
                             &nbsp;

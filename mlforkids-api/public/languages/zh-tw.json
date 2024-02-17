@@ -419,6 +419,7 @@
         "CREATEFIRSTLABEL": "點擊右方「＋」按鈕，建立你的第一個資料類別",
         "CROWDSOURCEDEMPTY": "你的老師新增訓練用的資料類別後，請重新整理這個頁面",
         "ADDEXAMPLE": "加入測試範例",
+        "ADDFROMFILE": "Add file",
         "ADDURL": "網址",
         "ADDWEBCAM": "視訊攝影機",
         "ADDDRAWING": "繪畫",
