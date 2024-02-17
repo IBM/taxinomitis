@@ -173,6 +173,17 @@
                             {{ 'TRAINING.ADDDRAWING' | translate }}
                         </div>
                     </div>
+                    <label class="btn newexamplebutton" for="image-file-upload-{{$index}}" ng-if="project.type === 'imgtfjs' && project.storage === 'local'">
+                        <div class="thin buttonicon glyphicon glyphicon-open-file"></div>
+                        <div class="newexamplelabel">file</div>
+                    </label>
+                    <input id="image-file-upload-{{$index}}" ng-if="project.type === 'imgtfjs' && project.storage === 'local'"
+                        type="file"
+                        accept=".jpeg,.jpg,.png"
+                        multiple
+                        style="display: none;"
+                        data-label="{{ label }}"
+                        onchange="angular.element(this).scope().uploadTrainingData(event, this)"/>
                     <div class="btn newexamplebutton" ng-click="vm.useMicrophone($event, label)" ng-if="project.type === 'sounds'" ng-disabled="loadingtraining">
                         <div class="newexampleicon">+</div>
                         <div class="newexamplelabel" translate="TRAINING.ADDEXAMPLE"></div>

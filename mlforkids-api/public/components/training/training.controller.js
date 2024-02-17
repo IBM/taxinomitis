@@ -523,6 +523,54 @@
         };
 
 
+
+        function getDataFromImage(imagesource, format) {
+            return $q(function (resolve) {
+                // --- calculate dimensions of the image
+                var MAX_SIZE = 224;
+                var width = imagesource.width;
+                var height = imagesource.height;
+                if (width > height) {
+                    if (width > MAX_SIZE) {
+                        height = height * (MAX_SIZE / width);
+                        width = MAX_SIZE;
+                    }
+                }
+                else if (height > MAX_SIZE) {
+                    width = width * (MAX_SIZE / height);
+                    height = MAX_SIZE;
+                }
+
+                // --- resize the image
+                var hiddenCanvas = document.createElement('canvas');
+                hiddenCanvas.width = width;
+                hiddenCanvas.height = height;
+                var ctx = hiddenCanvas.getContext('2d');
+                ctx.drawImage(imagesource, 0, 0, width, height);
+
+                // --- get resized image data
+                hiddenCanvas.toBlob(function (output) {
+                    resolve(output);
+                }, format);
+            });
+        }
+
+        vm.addImageFile = function (file, label, scrollto) {
+            var imageFileReader = new FileReader();
+            imageFileReader.readAsDataURL(file);
+            imageFileReader.onloadend = function() {
+                var resizedImg = document.createElement("img");
+                resizedImg.onload = function () {
+                    getDataFromImage(resizedImg)
+                        .then(function (data) {
+                            vm.addImageData(data, label, scrollto);
+                        });
+                };
+                resizedImg.src = imageFileReader.result;
+            };
+        };
+
+
         vm.useWebcam = function (ev, label) {
             $mdDialog.show({
                 locals : {
@@ -546,7 +594,7 @@
                         $mdDialog.cancel();
                     };
                     $scope.confirm = function() {
-                        getWebcamData()
+                        getDataFromImage($scope.channel.video, 'image/jpeg')
                             .then(function (imagedata) {
                                 $mdDialog.hide(imagedata);
                             });
@@ -591,29 +639,6 @@
                             }, 0, false);
                         }
                     };
-
-
-                    function getWebcamData() {
-                        loggerService.debug('[ml4ktraining] getting webcam data');
-
-                        var hiddenCanvas = document.createElement('canvas');
-                        hiddenCanvas.width = $scope.channel.video.width;
-                        hiddenCanvas.height = $scope.channel.video.height;
-
-                        loggerService.debug('[ml4ktraining] writing to hidden canvas');
-                        var ctx = hiddenCanvas.getContext('2d');
-                        ctx.drawImage($scope.channel.video,
-                            0, 0,
-                            $scope.channel.video.width, $scope.channel.video.height);
-
-                        return $q(function(resolve, reject) {
-                            loggerService.debug('[ml4ktraining] extracting blob data');
-                            hiddenCanvas.toBlob(function (blob) {
-                                resolve(blob);
-                            }, 'image/jpeg');
-                        });
-                    }
-
                 },
                 templateUrl : 'static/components/training/webcam.tmpl.html',
                 targetEvent : ev,
@@ -621,41 +646,13 @@
             })
             .then(
                 function (resp) {
-                    var placeholder = {
-                        id : 'placeholder_' + (placeholderId++),
-                        label : label,
-                        projectid: $scope.projectId,
-                        imageurl : URL.createObjectURL(resp),
-                        isPlaceholder : true
-                    };
-
-                    $scope.training[label].push(placeholder);
-
-                    loggerService.debug('[ml4ktraining] uploading webcam data');
-                    trainingService.uploadImage($scope.project, $scope.userId, vm.profile.tenant, resp, label)
-                        .then(function (newitem) {
-                            placeholder.isPlaceholder = false;
-                            placeholder.id = newitem.id;
-
-                            URL.revokeObjectURL(placeholder.imageurl);
-
-                            scrollToNewItem(newitem.id);
-                        })
-                        .catch(function (err) {
-                            displayAlert('errors', err.status, err.data);
-
-                            var idxToRemove = findTrainingIndex(label, placeholder.id);
-                            if (idxToRemove !== -1) {
-                                $scope.training[label].splice(idxToRemove, 1);
-                            }
-                        });
+                    vm.addImageData(resp, label, true);
                 },
                 function() {
                     // cancelled. do nothing
                 }
             );
         };
-
 
 
         vm.useCanvas = function (ev, label) {
@@ -676,20 +673,11 @@
                         $mdDialog.cancel();
                     };
                     $scope.confirm = function() {
-                        getCanvasData()
+                        getDataFromImage($scope.canvas, 'image/jpeg')
                             .then(function (imagedata) {
                                 $mdDialog.hide(imagedata);
                             });
                     };
-
-
-                    function getCanvasData() {
-                        return $q(function(resolve, reject) {
-                            $scope.canvas.toBlob(function (blob) {
-                                resolve(blob);
-                            }, 'image/jpeg');
-                        });
-                    }
                 },
                 templateUrl : 'static/components/training/canvas.tmpl.html',
                 targetEvent : ev,
@@ -697,39 +685,48 @@
             })
             .then(
                 function (resp) {
-                    var placeholder = {
-                        id : 'placeholder_' + (placeholderId++),
-                        label : label,
-                        projectid: $scope.projectId,
-                        imageurl : URL.createObjectURL(resp),
-                        isPlaceholder : true
-                    };
-
-                    $scope.training[label].push(placeholder);
-
-                    loggerService.debug('[ml4ktraining] uploading canvas data');
-                    trainingService.uploadImage($scope.project, $scope.userId, vm.profile.tenant, resp, label)
-                        .then(function (newitem) {
-                            placeholder.isPlaceholder = false;
-                            placeholder.id = newitem.id;
-
-                            URL.revokeObjectURL(placeholder.imageurl);
-
-                            scrollToNewItem(newitem.id);
-                        })
-                        .catch(function (err) {
-                            displayAlert('errors', err.status, err.data);
-
-                            var idxToRemove = findTrainingIndex(label, placeholder.id);
-                            if (idxToRemove !== -1) {
-                                $scope.training[label].splice(idxToRemove, 1);
-                            }
-                        });
+                    vm.addImageData(resp, label, true);
                 },
                 function() {
                     // cancelled. do nothing
                 }
             );
+        };
+
+
+        vm.addImageData = function (imagedata, label, scrollto) {
+            var placeholder = {
+                id : 'placeholder_' + (placeholderId++),
+                label : label,
+                projectid: $scope.projectId,
+                imageurl : URL.createObjectURL(imagedata),
+                isPlaceholder : true
+            };
+
+            $scope.training[label].push(placeholder);
+
+            loggerService.debug('[ml4ktraining] adding image data');
+            trainingService.uploadImage($scope.project, $scope.userId, vm.profile.tenant, imagedata, label)
+                .then(function (newitem) {
+                    placeholder.isPlaceholder = false;
+                    placeholder.id = newitem.id;
+
+                    if (scrollto) {
+                       scrollToNewItem(newitem.id);
+                    }
+
+                    $timeout(function () {
+                        URL.revokeObjectURL(placeholder.imageurl);
+                    }, 10000);
+                })
+                .catch(function (err) {
+                    displayAlert('errors', err.status, err.data);
+
+                    var idxToRemove = findTrainingIndex(label, placeholder.id);
+                    if (idxToRemove !== -1) {
+                        $scope.training[label].splice(idxToRemove, 1);
+                    }
+                });
         };
 
 
@@ -823,7 +820,7 @@
         $scope.uploadTrainingData = function (ev, elem) {
             loggerService.debug('[ml4ktraining] uploading training data from file');
             var files = ev.currentTarget.files;
-            if (files && files.length === 1) {
+            if (files && files.length > 0) {
                 var file = ev.currentTarget.files[0];
                 if ($scope.project.type === 'regression') {
                     csvService.parseFile(file)
@@ -889,6 +886,13 @@
                     txtfilereader.onerror = function () {
                         displayAlert('errors', 500, txtfilereader.error);
                     };
+                }
+                else if ($scope.project.type === 'imgtfjs') {
+                    const label = elem.dataset.label;
+                    for (var i = 0; i < ev.currentTarget.files.length; i++) {
+                        var lastfile = i === (ev.currentTarget.files.length - 1);
+                        vm.addImageFile(ev.currentTarget.files[i], label, lastfile);
+                    }
                 }
             }
         };

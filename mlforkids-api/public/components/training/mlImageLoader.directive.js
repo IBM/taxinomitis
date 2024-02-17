@@ -105,11 +105,30 @@
                 evt.preventDefault();
             }
 
+            // only allow files for local storage
+            var allowFiles = scope.$parent.project.storage === 'local';
             if (evt.dataTransfer &&
                 evt.dataTransfer.types && evt.dataTransfer.types.length === 1 && evt.dataTransfer.types[0] === 'Files')
             {
-                maybeReportError(scope, 'You can\'t upload pictures from your computer. Use pictures that are already online, by dragging them from another web page');
-                return false;
+                if (allowFiles) {
+                    for (var fileIdx = 0; fileIdx < evt.dataTransfer.files.length; fileIdx++) {
+                        var droppedFile = evt.dataTransfer.files[fileIdx];
+
+                        if ([ 'image/jpeg', 'image/png' ].includes(droppedFile.type)) {
+                            scope.getController().addImageFile(droppedFile, label,
+                                fileIdx === (evt.dataTransfer.files.length - 1));
+                        }
+                        else {
+                            console.log('dropped file type ' + droppedFile.type);
+                            reportInvalidImageType(scope);
+                        }
+                    }
+                    return false;
+                }
+                else {
+                    maybeReportError(scope, 'You can\'t upload pictures from your computer. Use pictures that are already online, by dragging them from another web page');
+                    return false;
+                }
             }
 
             var data;
