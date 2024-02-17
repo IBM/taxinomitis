@@ -1,6 +1,5 @@
 // external dependencies
 import * as Express from 'express';
-import * as cors from 'cors';
 // local dependencies
 import * as spotify from '../spotify';
 import * as urls from './urls';
@@ -25,11 +24,7 @@ async function getSpotifyToken(req: Express.Request, res: Express.Response) {
 }
 
 
-const CORS_CONFIG = {
-    origin: /machinelearningforkids\.co\.uk$/,
-};
-
-
 export default function registerApis(app: Express.Application) {
-    app.get(urls.SPOTIFY_TOKEN, cors(CORS_CONFIG), getSpotifyToken);
+    app.get(urls.SPOTIFY_TOKEN,
+            getSpotifyToken);
 }

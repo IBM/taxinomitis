@@ -44,7 +44,6 @@ export const CSP_DIRECTIVES = {
         'https://scripts.withcabin.com/hello.js',
         // useful when running locally
         'https://machinelearningforkids.co.uk',
-        'https://scratch.machinelearningforkids.co.uk',
     ],
     frameSrc: ["'self'",
         // used in the News tab
@@ -94,21 +93,6 @@ if (process.env.AUTH0_CUSTOM_DOMAIN) {
 }
 
 
-
-const ALLOWED_CORS_ORIGINS = [
-    // requests from Scratch
-    'https://scratch.machinelearningforkids.co.uk',
-
-    'http://ml-for-kids-local.net:3000',
-    // 'http://localhost:3000',
-];
-function addCorsHeaders(req: express.Request, res: express.Response, next: express.NextFunction): void {
-    if (ALLOWED_CORS_ORIGINS.includes(req.headers.origin || '')) {
-        res.header('Access-Control-Allow-Origin', req.headers.origin);
-        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    }
-    next();
-}
 function removeFrameBlockingHeaders(req: express.Request, res: express.Response, next: express.NextFunction): void {
     res.removeHeader('x-frame-options');
     next();
@@ -117,7 +101,7 @@ function removeFrameBlockingHeaders(req: express.Request, res: express.Response,
 
 export function setupUI(app: express.Application): void {
     const tfjslocation: string = path.join(__dirname, '/../../../web/static/bower_components/tensorflow-models');
-    app.use('/static/bower_components/tensorflow-models', compression(), addCorsHeaders, express.static(tfjslocation, { maxAge : constants.ONE_YEAR }));
+    app.use('/static/bower_components/tensorflow-models', compression(), express.static(tfjslocation, { maxAge : constants.ONE_YEAR }));
 
     for (const staticfile of [ '/sitemap.xml', '/robots.txt', '/favicon.ico' ]) {
         const staticfilelocation: string = path.join(__dirname, '/../../../web/dynamic' + staticfile);

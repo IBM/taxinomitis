@@ -47,15 +47,5 @@ describe('REST API - Security', () => {
                     assert.strictEqual(res.header['access-control-allow-headers'], undefined);
                 });
         });
-
-        it('should allow CORS for local development access to TensorFlow', () => {
-            return request(testServer)
-                .get('/static/bower_components/tensorflow-models/speech-commands/model.json')
-                .set('origin', 'http://ml-for-kids-local.net:3000')
-                .expect('Content-Type', /json/)
-                .expect(httpStatus.OK)
-                .expect('access-control-allow-origin', 'http://ml-for-kids-local.net:3000')
-                .expect('access-control-allow-headers', 'Origin, X-Requested-With, Content-Type, Accept');
-        });
     });
 });
