@@ -281,7 +281,7 @@
 
 
         async function addMetadataToProject(projectid, key, value) {
-            loggerService.debug('[ml4kstorage] addProjectMetadata');
+            loggerService.debug('[ml4kstorage] addMetadataToProject', arguments);
 
             await requiresProjectsDatabase();
 
