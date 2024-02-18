@@ -86,9 +86,17 @@ async function newLocalProjectModel(req: auth.RequestWithLocalProject, res: Expr
     if (!conversation.validateTraining(req.body.training)) {
         return errors.missingData(res);
     }
+    let training: TrainingTypes.ConversationTrainingData;
+    try {
+        training = conversation.sanitizeTraining(req.body.training);
+    }
+    catch (err) {
+        log.error({ err, func : 'newLocalProjectModel' }, 'Failed to parse training data');
+        return errors.missingData(res);
+    }
 
     try {
-        const model = await conversation.trainClassifierForProject(req.project, req.body.training);
+        const model = await conversation.trainClassifierForProject(req.project, training);
         res.status(httpstatus.CREATED).json(returnConversationWorkspace(model));
 
         // lazily (after returning response to the user) update

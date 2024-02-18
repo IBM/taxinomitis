@@ -171,6 +171,9 @@ class MachineLearningText {
 
     addTraining({ TEXT, LABEL }) {
         var txt = cleanUpText(TEXT, 1024);
+        if (txt.length === 0) {
+            return;
+        }
 
         {{#storeurl}}
         var url = new URL('{{{ storeurl }}}');

@@ -489,6 +489,33 @@ export function validateTraining(obj: TrainingObjects.ConversationTrainingData):
            obj.dialog_nodes && Array.isArray(obj.dialog_nodes);
 }
 
+export function sanitizeTraining(obj:TrainingObjects.ConversationTrainingData): TrainingObjects.ConversationTrainingData
+{
+    // https://cloud.ibm.com/apidocs/assistant-v1#createworkspace
+    return {
+        name : obj.name.replace(/[\t\n]/g, '_').substring(64),
+        language : obj.language,
+        intents : obj.intents.map((origintent) => {
+            return {
+                intent : origintent.intent.replace(/[^A-Za-z0-9_\-.]/g, '_').substring(0, 128),
+                examples : origintent.examples
+                    .map((example) => {
+                        return {
+                            text : example.text.replace(/[\t\n]/g, ' ').trim()
+                        };
+                    })
+                    .filter(example => example.text.length > 0)
+            };
+        }),
+        dialog_nodes : [],
+        counterexamples : [],
+        entities : [],
+        metadata : {
+            createdby: 'machinelearningforkids',
+        }
+    };
+}
+
 export function getLabelNamesFromTraining(obj: TrainingObjects.ConversationTrainingData): string[]
 {
     return obj.intents.map((intentObj) => {
