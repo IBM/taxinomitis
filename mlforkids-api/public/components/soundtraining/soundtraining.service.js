@@ -257,25 +257,35 @@
                 .then(function () {
                     loggerService.debug('[ml4ksound] starting transfer learning');
 
-                    transferRecognizer.train({
-                        epochs : 100,
-                        callback: {
-                            onEpochEnd: function (epoch) {
-                                if (modelStatus) {
-                                    // epochs are zero-indexed
-                                    modelStatus.progress = epoch + 1;
+                    transferRecognizer
+                        .train({
+                            epochs : 100,
+                            callback: {
+                                onEpochEnd: function (epoch) {
+                                    if (modelStatus) {
+                                        // epochs are zero-indexed
+                                        modelStatus.progress = epoch + 1;
+                                    }
                                 }
                             }
-                        }
-                    }).then(function() {
-                        if (modelStatus) {
-                            modelStatus.status = 'Available';
-                            modelStatus.progress = 100;
-                            usingRestoredModel = false;
+                        })
+                        .then(function () {
+                            if (modelStatus) {
+                                modelStatus.status = 'Available';
+                                modelStatus.progress = 100;
+                                usingRestoredModel = false;
 
-                            return saveModel(projectid);
-                        }
-                    });
+                                return saveModel(projectid);
+                            }
+                        })
+                        .catch(function (err) {
+                            loggerService.error('[ml4ksound] model training failure', err);
+
+                            if (modelStatus) {
+                                modelStatus.status = 'Failed';
+                                modelStatus.updated = new Date();
+                            }
+                        });
 
                     loggerService.debug('[ml4ksound] returning interim status');
                     return modelStatus;
