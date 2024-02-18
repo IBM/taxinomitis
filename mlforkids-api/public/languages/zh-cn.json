@@ -418,6 +418,7 @@
         "ADDWEBCAM": "摄像头",
         "ADDDRAWING": "画画",
         "DRAGIMAGES": "从其他浏览器窗口拖动图片并将其放在这里",
+        "DRAGIMAGESLOCAL": "Drag pictures from files or other browser windows and drop them here",
         "NEWLABEL": {
             "INTRO": "输入要识别的新标签",
             "ERROR": "仅在标签中使用字母和数字"

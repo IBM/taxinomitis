@@ -424,6 +424,7 @@
         "ADDWEBCAM": "視訊攝影機",
         "ADDDRAWING": "繪畫",
         "DRAGIMAGES": "將圖片從其他瀏覽器頁面拖移至此處",
+        "DRAGIMAGESLOCAL": "Drag pictures from files or other browser windows and drop them here",
         "NEWLABEL": {
             "INTRO": "輸入新標籤來辨識",
             "ERROR": "標籤中只能使用數字跟文字"

@@ -418,6 +418,7 @@
         "ADDWEBCAM": "වෙබ් කැමරා",
         "ADDDRAWING": "අදින්න",
         "DRAGIMAGES": "වෙනත් browser window එකකින් පින්තූර drag කරගෙන විත් මෙහි drop කරන්න",
+        "DRAGIMAGESLOCAL": "Drag pictures from files or other browser windows and drop them here",
         "NEWLABEL": {
             "INTRO": "හදුනාගැනීමට අලුත් label එකක් එක්කරන්න",
             "ERROR": "lable එකක අකුරු සහ ඉලක්කම් පමණක් භාවිත කරන්න"

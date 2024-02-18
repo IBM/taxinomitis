@@ -418,6 +418,7 @@
         "ADDWEBCAM": "webcam",
         "ADDDRAWING": "Dibujo",
         "DRAGIMAGES": "Arrastra imágenes desde otras ventanas del navegador y déjalas aqui. ",
+        "DRAGIMAGESLOCAL": "Drag pictures from files or other browser windows and drop them here",
         "NEWLABEL": {
             "INTRO": "Añade una nueva etiqueta. ",
             "ERROR": "Usa solo letras y números en las etiquetas. "

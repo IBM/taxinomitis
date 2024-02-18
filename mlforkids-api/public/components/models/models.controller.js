@@ -8,7 +8,7 @@
         'authService',
         'projectsService', 'trainingService', 'quizService',
         'soundTrainingService', 'imageTrainingService', 'regressionTrainingService',
-        'modelService', 'utilService', 'storageService', 'downloadService',
+        'modelService', 'utilService', 'storageService', 'downloadService', 'imageToolsService',
         '$stateParams',
         '$scope',
         '$mdDialog', '$timeout', '$interval', '$q', '$document', '$state', 'loggerService'
@@ -17,7 +17,7 @@
     function ModelsController(authService,
         projectsService, trainingService, quizService,
         soundTrainingService, imageTrainingService, regressionTrainingService,
-        modelService, utilService, storageService, downloadService,
+        modelService, utilService, storageService, downloadService, imageToolsService,
         $stateParams,
         $scope,
         $mdDialog, $timeout, $interval, $q, $document, $state, loggerService)
@@ -660,38 +660,7 @@
 
 
 
-        function getCanvasData(canvasElement) {
-            loggerService.debug('[ml4kmodels] getting canvas data for testing');
-            var hiddenCanvas = document.createElement('canvas');
-            hiddenCanvas.width = 224;
-            hiddenCanvas.height = 224;
 
-            loggerService.debug('[ml4ktraining] writing to hidden canvas');
-            var ctx = hiddenCanvas.getContext('2d');
-            ctx.drawImage(canvasElement,
-                0, 0,
-                canvasElement.width, canvasElement.height,
-                0, 0, 224, 224);
-
-            return hiddenCanvas;
-        }
-        function getWebcamData(videoElement) {
-            loggerService.debug('[ml4kmodels] getting webcam data for testing');
-
-            var targetWidth = 224;
-            var targetHeight = 224;
-
-            var hiddenCanvas = document.createElement('canvas');
-            hiddenCanvas.width = targetWidth;
-            hiddenCanvas.height = targetHeight;
-
-            var ctx = hiddenCanvas.getContext('2d');
-            ctx.drawImage(videoElement,
-                0, 0, videoElement.videoWidth, videoElement.videoHeight,
-                0, 0, targetWidth, targetHeight);
-
-            return hiddenCanvas;
-        }
 
         vm.testUsingCanvas = function (ev) {
             loggerService.debug('[ml4kmodels] testUsingCanvas');
@@ -710,7 +679,7 @@
                         $mdDialog.cancel();
                     };
                     $scope.confirm = function() {
-                        $mdDialog.hide(getCanvasData($scope.canvas));
+                        $mdDialog.hide(imageToolsService.resizeImageElement($scope.canvas));
                     };
                 },
                 templateUrl : 'static/components/models/canvas.tmpl.html',
@@ -723,23 +692,8 @@
                     $scope.testoutput_explanation = "";
 
                     imageTrainingService.testCanvas(canvasimagedata)
-                        .then(function (resp) {
-                            loggerService.debug('[ml4kmodels] prediction', resp);
-                            $timeout(function () {
-                                if (resp && resp.length > 0) {
-                                    $scope.testoutput = resp[0].class_name;
-                                    $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
-                                }
-                                else {
-                                    $scope.testoutput = 'Unknown';
-                                    $scope.testoutput_explanation = "Test value could not be recognised";
-                                }
-                            }, 0);
-                        })
-                        .catch(function (err) {
-                            var errId = displayAlert('errors', err.status, err.data);
-                            scrollToNewItem('errors' + errId);
-                        });
+                        .then(displayTestResult)
+                        .catch(displayTestError);
                 },
                 function() {
                     // cancelled. do nothing
@@ -768,7 +722,7 @@
                         $mdDialog.cancel();
                     };
                     $scope.confirm = function() {
-                        $mdDialog.hide(getWebcamData($scope.channel.video));
+                        $mdDialog.hide(imageToolsService.resizeImageElement($scope.channel.video));
                     };
 
                     $scope.onWebcamSuccess = function () {
@@ -820,22 +774,8 @@
                     $scope.testoutput_explanation = "";
 
                     imageTrainingService.testCanvas(webcamimagecanvas)
-                        .then(function (resp) {
-                            $timeout(function() {
-                                if (resp && resp.length > 0) {
-                                    $scope.testoutput = resp[0].class_name;
-                                    $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
-                                }
-                                else {
-                                    $scope.testoutput = 'Unknown';
-                                    $scope.testoutput_explanation = "Test value could not be recognised";
-                                }
-                            }, 0);
-                        })
-                        .catch(function (err) {
-                            var errId = displayAlert('errors', err.status, err.data);
-                            scrollToNewItem('errors' + errId);
-                        });
+                        .then(displayTestResult)
+                        .catch(displayTestError);
                 },
                 function() {
                     // cancelled. do nothing
@@ -843,6 +783,25 @@
                 }
             );
         };
+
+
+        function displayTestResult(resp) {
+            loggerService.debug('[ml4kmodels] prediction', resp);
+            $timeout(function () {
+                if (resp && resp.length > 0) {
+                    $scope.testoutput = resp[0].class_name;
+                    $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
+                }
+                else {
+                    $scope.testoutput = 'Unknown';
+                    $scope.testoutput_explanation = "Test value could not be recognised";
+                }
+            }, 0);
+        }
+        function displayTestError(err) {
+            var errId = displayAlert('errors', err.status, err.data);
+            scrollToNewItem('errors' + errId);
+        }
 
 
         vm.startListening = function () {
@@ -881,6 +840,13 @@
             $scope.testformData.testimageurl = urlToTest;
         };
 
+        // a file has been dropped onto the test textbox for images
+        vm.addImageFile = function (file) {
+            imageToolsService.getDataFromFile(file)
+                .then(imageTrainingService.testBase64ImageData)
+                .then(displayTestResult)
+                .catch(displayTestError);
+        };
 
 
         function convertStringToArrayBuffer(str) {

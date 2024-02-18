@@ -418,6 +418,7 @@
     "ADDWEBCAM": "веб-камера",
     "ADDDRAWING": "малювати",
     "DRAGIMAGES": "Перетягніть зображення з інших вікон браузера та розмітіть їх сюди",
+    "DRAGIMAGESLOCAL": "Drag pictures from files or other browser windows and drop them here",
     "NEWLABEL": {
       "INTRO": "Введіть нову мітку для розпізнавання",
       "ERROR": "У мітках використовуйте лише літери та цифри"

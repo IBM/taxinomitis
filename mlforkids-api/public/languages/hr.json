@@ -418,6 +418,7 @@
         "ADDWEBCAM": "webcam",
         "ADDDRAWING": "draw",
         "DRAGIMAGES": "Drag pictures from other browser windows and drop them here",
+        "DRAGIMAGESLOCAL": "Drag pictures from files or other browser windows and drop them here",
         "NEWLABEL": {
             "INTRO": "Enter new label to recognise",
             "ERROR": "Only use letters and numbers in labels"

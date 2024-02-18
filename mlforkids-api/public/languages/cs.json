@@ -418,6 +418,7 @@
         "ADDWEBCAM": "webová kamera",
         "ADDDRAWING": "kreslit",
         "DRAGIMAGES": "Přetáhněte obrázky z jiných oken prohlížeče a přeneste je sem",
+        "DRAGIMAGESLOCAL": "Drag pictures from files or other browser windows and drop them here",
         "NEWLABEL": {
             "INTRO": "Zadejte nový štítek, který chcete rozpoznat",
             "ERROR": "Na štítcích používejte pouze písmena a číslice"

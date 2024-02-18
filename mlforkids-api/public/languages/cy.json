@@ -418,6 +418,7 @@
         "ADDWEBCAM": "gwe-gamera",
         "ADDDRAWING": "llunio",
         "DRAGIMAGES": "Llusgwch luniau o ffenestri porwr eraill a'u gollwng yma",
+        "DRAGIMAGESLOCAL": "Drag pictures from files or other browser windows and drop them here",
         "NEWLABEL": {
             "INTRO": "Rhowch label newydd i gydnabod",
             "ERROR": "Defnyddiwch lythrennau a rhifau mewn labeli yn unig"

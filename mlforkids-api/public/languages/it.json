@@ -418,6 +418,7 @@
         "ADDWEBCAM": "webcam",
         "ADDDRAWING": "disegno",
         "DRAGIMAGES": "Trascina le immagini da altre finestre del browser e rilasciale qui",
+        "DRAGIMAGESLOCAL": "Drag pictures from files or other browser windows and drop them here",
         "NEWLABEL": {
             "INTRO": "Inserisci la nuova etichetta da riconoscere",
             "ERROR": "Utilizzare solo lettere e numeri nelle etichette"

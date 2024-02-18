@@ -418,6 +418,7 @@
         "ADDWEBCAM": "وبکم",
         "ADDDRAWING": "طراحی",
         "DRAGIMAGES": "تصاویر را از سایر پنجره های مرورگر بکشید و آنها را اینجا رها کنید ",
+        "DRAGIMAGESLOCAL": "Drag pictures from files or other browser windows and drop them here",
         "NEWLABEL": {
             "INTRO": "برچسب جدید را برای تشخیص وارد کنید ",
             "ERROR": "در برچسب ها فقط از حروف و اعداد استفاده کنید"

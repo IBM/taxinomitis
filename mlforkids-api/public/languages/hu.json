@@ -423,6 +423,7 @@
         "ADDWEBCAM": "webkamera",
         "ADDDRAWING": "rajzolás",
         "DRAGIMAGES": "Húzz és dobj ide egy képet a böngészőből ide",
+        "DRAGIMAGESLOCAL": "Drag pictures from files or other browser windows and drop them here",
         "NEWLABEL": {
             "INTRO": "Írj be új címkét, hogy felismerje",
             "ERROR": "Csak betűket és számokat használj a cimkékben"

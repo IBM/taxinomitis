@@ -418,6 +418,7 @@
         "ADDWEBCAM": "كاميرا ويب",
         "ADDDRAWING": "رسم",
         "DRAGIMAGES": "اسحب الصور من نوافذ المتصفح الأخرى وضعها هنا",
+        "DRAGIMAGESLOCAL": "Drag pictures from files or other browser windows and drop them here",
         "NEWLABEL": {
             "INTRO": "أدخل تسمية جديدة للتعرف عليها",
             "ERROR": "استخدم الأحرف والأرقام فقط في التسميات"

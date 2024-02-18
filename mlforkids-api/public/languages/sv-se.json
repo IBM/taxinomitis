@@ -418,6 +418,7 @@
         "ADDWEBCAM": "webbkamera",
         "ADDDRAWING": "rita",
         "DRAGIMAGES": "Dra bilder från ett annat webbläsarfönster och släpp dem här",
+        "DRAGIMAGESLOCAL": "Drag pictures from files or other browser windows and drop them here",
         "NEWLABEL": {
             "INTRO": "Skriv en ny etikett att känna igen",
             "ERROR": "Använd endast bokstäver och siffror i etiketter"

@@ -418,6 +418,7 @@
         "ADDWEBCAM": "webcam",
         "ADDDRAWING": "teken",
         "DRAGIMAGES": "Sleep afbeeldingen van andere browservensters en plaats ze hier",
+        "DRAGIMAGESLOCAL": "Drag pictures from files or other browser windows and drop them here",
         "NEWLABEL": {
             "INTRO": "Voeg een nieuw label toe om te herkennen",
             "ERROR": "Gebruik alleen letters en cijfers in de labels"

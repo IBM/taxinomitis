@@ -418,6 +418,7 @@
         "ADDWEBCAM": "веб-камера",
         "ADDDRAWING": "нарисовать",
         "DRAGIMAGES": "Перетащите картинки из других окон и поместите их сюда",
+        "DRAGIMAGESLOCAL": "Drag pictures from files or other browser windows and drop them here",
         "NEWLABEL": {
             "INTRO": "Введите новую метку для распознавания",
             "ERROR": "Используйте только буквы и цифры в метках"

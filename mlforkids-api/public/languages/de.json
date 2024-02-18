@@ -418,6 +418,7 @@
         "ADDWEBCAM": "Webcam",
         "ADDDRAWING": "Zeichnen",
         "DRAGIMAGES": "Ziehe Bilder aus einem anderen Browserfenster hier hinein und lege sie ab ('Drag and Drop')",
+        "DRAGIMAGESLOCAL": "Drag pictures from files or other browser windows and drop them here",
         "NEWLABEL": {
             "INTRO": "Erstelle eine neue Kategorie (\"Label\")",
             "ERROR": "Verwende nur Buchstaben und Zahlen für Kategorienamen"

@@ -424,6 +424,7 @@
         "ADDWEBCAM": "cameră web",
         "ADDDRAWING": "desenează",
         "DRAGIMAGES": "Trage imagini din alte ferestre ale browserului și plasează-le aici",
+        "DRAGIMAGESLOCAL": "Drag pictures from files or other browser windows and drop them here",
         "NEWLABEL": {
             "INTRO": "Introdu o etichetă nouă pentru a recunoaște",
             "ERROR": "Folosește numai litere și cifre în etichete"

@@ -418,6 +418,7 @@
         "ADDWEBCAM": "web kamerası",
         "ADDDRAWING": "çizim",
         "DRAGIMAGES": "Diğer tarayıcı pencerelerinden fotoğrafları sürükleyip buraya bırakın",
+        "DRAGIMAGESLOCAL": "Drag pictures from files or other browser windows and drop them here",
         "NEWLABEL": {
             "INTRO": "Tanıma için yeni etiket girin",
             "ERROR": "Etiketlerde yalnızca harf ve rakam kullanın"

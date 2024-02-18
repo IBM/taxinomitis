@@ -418,6 +418,7 @@
         "ADDWEBCAM": "webcam",
         "ADDDRAWING": "σχεδίαση",
         "DRAGIMAGES": "Σύρε εικόνες από άλλα παράθυρα του προγράμματος περιήγησης και άφησέ τις εδώ",
+        "DRAGIMAGESLOCAL": "Drag pictures from files or other browser windows and drop them here",
         "NEWLABEL": {
             "INTRO": "Πληκτρολόγησε μια νέα ετικέτα για αναγνώριση",
             "ERROR": "Χρησιμοποίησε μόνο γράμματα και αριθμούς στις ετικέτες"

@@ -424,6 +424,7 @@
         "ADDWEBCAM": "웹캠",
         "ADDDRAWING": "그리기",
         "DRAGIMAGES": "사진을 드래그하여 가져오세요.",
+        "DRAGIMAGESLOCAL": "Drag pictures from files or other browser windows and drop them here",
         "NEWLABEL": {
             "INTRO": "새로운 레이블을 추가하세요.",
             "ERROR": "레이블 이름은 숫자와 문자로만 작성하세요."

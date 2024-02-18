@@ -418,6 +418,7 @@
         "ADDWEBCAM": "webcam",
         "ADDDRAWING": "desenhar",
         "DRAGIMAGES": "Arraste imagens de outras janelas do navegador de solte-as aqui",
+        "DRAGIMAGESLOCAL": "Drag pictures from files or other browser windows and drop them here",
         "NEWLABEL": {
             "INTRO": "Insira um novo rótulo para reconhecer",
             "ERROR": "Use apenas letras e números nos ‘rótulos’"

@@ -8,7 +8,7 @@
         'authService',
         'projectsService', 'trainingService', 'modelService',
         'soundTrainingService',
-        'utilService', 'csvService', 'downloadService',
+        'utilService', 'csvService', 'downloadService', 'imageToolsService',
         'loggerService',
         '$stateParams',
         '$scope',
@@ -18,7 +18,7 @@
         '$q'
     ];
 
-    function TrainingController(authService, projectsService, trainingService, modelService, soundTrainingService, utilService, csvService, downloadService, loggerService, $stateParams, $scope, $mdDialog, $state, $timeout, $q) {
+    function TrainingController(authService, projectsService, trainingService, modelService, soundTrainingService, utilService, csvService, downloadService, imageToolsService, loggerService, $stateParams, $scope, $mdDialog, $state, $timeout, $q) {
 
         var vm = this;
         vm.authService = authService;
@@ -524,50 +524,13 @@
 
 
 
-        function getDataFromImage(imagesource, format) {
-            return $q(function (resolve) {
-                // --- calculate dimensions of the image
-                var MAX_SIZE = 224;
-                var width = imagesource.width;
-                var height = imagesource.height;
-                if (width > height) {
-                    if (width > MAX_SIZE) {
-                        height = height * (MAX_SIZE / width);
-                        width = MAX_SIZE;
-                    }
-                }
-                else if (height > MAX_SIZE) {
-                    width = width * (MAX_SIZE / height);
-                    height = MAX_SIZE;
-                }
 
-                // --- resize the image
-                var hiddenCanvas = document.createElement('canvas');
-                hiddenCanvas.width = width;
-                hiddenCanvas.height = height;
-                var ctx = hiddenCanvas.getContext('2d');
-                ctx.drawImage(imagesource, 0, 0, width, height);
-
-                // --- get resized image data
-                hiddenCanvas.toBlob(function (output) {
-                    resolve(output);
-                }, format);
-            });
-        }
 
         vm.addImageFile = function (file, label, scrollto) {
-            var imageFileReader = new FileReader();
-            imageFileReader.readAsDataURL(file);
-            imageFileReader.onloadend = function() {
-                var resizedImg = document.createElement("img");
-                resizedImg.onload = function () {
-                    getDataFromImage(resizedImg)
-                        .then(function (data) {
-                            vm.addImageData(data, label, scrollto);
-                        });
-                };
-                resizedImg.src = imageFileReader.result;
-            };
+            imageToolsService.getDataFromFile(file)
+                .then(function (data) {
+                    vm.addImageData(data, label, scrollto);
+                });
         };
 
 
@@ -594,7 +557,7 @@
                         $mdDialog.cancel();
                     };
                     $scope.confirm = function() {
-                        getDataFromImage($scope.channel.video, 'image/jpeg')
+                        imageToolsService.getDataFromImageSource($scope.channel.video, 'image/jpeg')
                             .then(function (imagedata) {
                                 $mdDialog.hide(imagedata);
                             });
@@ -673,7 +636,7 @@
                         $mdDialog.cancel();
                     };
                     $scope.confirm = function() {
-                        getDataFromImage($scope.canvas, 'image/jpeg')
+                        imageToolsService.getDataFromImageSource($scope.canvas, 'image/jpeg')
                             .then(function (imagedata) {
                                 $mdDialog.hide(imagedata);
                             });

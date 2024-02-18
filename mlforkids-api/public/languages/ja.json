@@ -418,6 +418,7 @@
         "ADDWEBCAM": "webcam",
         "ADDDRAWING": "描画",
         "DRAGIMAGES": "画像をブラウザの他画面からドラッグし、ここに落としてください。",
+        "DRAGIMAGESLOCAL": "Drag pictures from files or other browser windows and drop them here",
         "NEWLABEL": {
             "INTRO": "認識する新しいラベルを入力してください。",
             "ERROR": "ラベルは英数字のみ利用できます。"
