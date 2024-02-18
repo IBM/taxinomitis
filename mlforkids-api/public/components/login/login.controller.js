@@ -44,8 +44,9 @@
                     // can't rely on session users to log out,
                     //  so we clean up after the last session user
                     //  when the next one logs in
-                    browserStorageService.deleteSessionUserProjects();
-
+                    return attemptSessionUserCleanup();
+                })
+                .then(function () {
                     $timeout(function () {
                         $state.go('projects');
                     });
@@ -67,6 +68,13 @@
         };
 
 
+        function attemptSessionUserCleanup () {
+            return browserStorageService.deleteSessionUserProjects()
+                .catch(function (err) {
+                    loggerService.error('[ml4klogin] failed to cleanup session user resources');
+                    return;
+                });
+        }
 
 
         function getErrorMessage (errObj) {
