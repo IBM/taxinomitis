@@ -137,6 +137,7 @@ export function setupUI(app: express.Application): void {
     app.get('/book', (req, res) => { res.redirect('/#!/book'); });
 
     app.get('/scratch', (req, res) => { res.redirect('/scratch/'); });
+    app.get('/scratch3', (req, res) => { res.redirect('/scratch/'); });
 
     const stories = [
         'ml-hasnt-replaced-coding',
