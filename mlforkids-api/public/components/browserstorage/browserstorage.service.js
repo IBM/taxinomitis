@@ -540,30 +540,6 @@
         }
 
 
-        async function getTrainingDataByLabel(projectId, label) {
-            loggerService.debug('[ml4kstorage] getTrainingDataByLabel');
-
-            await requiresTrainingDatabase(projectId);
-
-            const trainingTransaction = trainingDataDatabases[projectId].transaction([ TRAINING_TABLE ], 'readonly');
-            const trainingTable = trainingTransaction.objectStore(TRAINING_TABLE);
-
-            return new Promise(function (resolve, reject) {
-                const trainingItems = [];
-                trainingTable.index('label').openCursor(IDBKeyRange.only(label)).onsuccess = function (event) {
-                    const cursor = event.target.result;
-                    if (cursor) {
-                        trainingItems.push(cursor.value);
-                        cursor.continue();
-                    }
-                    else {
-                        resolve(trainingItems);
-                    }
-                };
-            });
-        }
-
-
         async function getTrainingForWatsonAssistant(project) {
             loggerService.debug('[ml4kstorage] getTrainingForWatsonAssistant');
 
@@ -622,7 +598,6 @@
             deleteTrainingData,
             clearTrainingData,
             getLabelCounts,
-            getTrainingDataByLabel,
             getTrainingForWatsonAssistant,
 
             deleteSessionUserProjects
