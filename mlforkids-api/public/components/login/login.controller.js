@@ -71,7 +71,7 @@
         function attemptSessionUserCleanup () {
             return browserStorageService.deleteSessionUserProjects()
                 .catch(function (err) {
-                    loggerService.error('[ml4klogin] failed to cleanup session user resources');
+                    loggerService.error('[ml4klogin] failed to cleanup session user resources', err);
                     return;
                 });
         }
