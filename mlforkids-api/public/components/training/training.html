@@ -148,7 +148,7 @@
                         style="display: none;"
                         data-label="{{ label }}"
                         onchange="angular.element(this).scope().uploadTrainingData(event, this)"/>
-                    <div class="btn newexamplebutton" ng-if="project.type === 'text' && training[label].length > 0 " ng-click="downloadTrainingData($event, label)">
+                    <div class="btn newexamplebutton" ng-if="(project.type === 'text' || project.type === 'numbers') && training[label].length > 0 " ng-click="downloadTrainingData($event, label)">
                         <div class="thin buttonicon glyphicon glyphicon-save-file"></div>
                         <div class="newexamplelabel" translate="WORKSHEETS.DOWNLOAD"></div>
                     </div>

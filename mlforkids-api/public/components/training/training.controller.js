@@ -769,6 +769,27 @@
                     $scope.training[label].map(i => i.textdata + '\n'),
                     'text/plain', label + '.txt');
             }
+            else if ($scope.project.type === 'numbers') {
+                const exported = $scope.training[label].map((values) => {
+                    const item = {};
+                    $scope.project.fields.forEach((field, idx) => {
+                        if (field.type === 'multichoice') {
+                            item[field.name] = field.choices[values.numberdata[idx]];
+                        }
+                        else {
+                            item[field.name] = values.numberdata[idx];
+                        }
+                    });
+                    return item;
+                });
+                csvService.exportFile(exported, $scope.projectfieldnames)
+                    .then(function (csvstring) {
+                        downloadService.downloadFile([ csvstring ], 'text/csv', label + '.csv');
+                    })
+                    .catch(function (err) {
+                        displayAlert('errors', 500, err);
+                    });
+            }
             else if ($scope.project.type === 'regression') {
                 csvService.exportFile($scope.training, $scope.project.columns.map(c => c.label))
                     .then(function (csvstring) {
