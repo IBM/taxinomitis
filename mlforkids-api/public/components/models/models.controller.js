@@ -247,9 +247,14 @@
             $scope.listening = false;
             var loadSavedModel = true;
             return soundTrainingService.initSoundSupport($scope.project.id, $scope.project.labels, loadSavedModel)
-                .then(function (loaded) {
-                    if (loaded) {
-                        fetchModels();
+                .then(function (outcome) {
+                    if (outcome) {
+                        if (outcome.loaded) {
+                            fetchModels();
+                        }
+                        if (outcome.warning) {
+                            displayAlert('warnings', 500, outcome.warning);
+                        }
                     }
                 });
         }

@@ -101,8 +101,11 @@
                     loggerService.debug('[ml4ktraining] setting up sound model support');
                     var loadSavedModel = false; // only using sound support to collect training examples
                     return soundTrainingService.initSoundSupport(project.id, project.labels, loadSavedModel)
-                        .then(function () {
+                        .then(function (outcome) {
                             $scope.soundModelInfo = soundTrainingService.getModelInfo();
+                            if (outcome && outcome.warning) {
+                                displayAlert('warnings', 500, outcome.warning);
+                            }
                         });
                 }
                 else if (project.type === 'imgtfjs') {
@@ -741,9 +744,13 @@
                                         $scope.recording = false;
                                     });
                             })
-                            .catch(function () {
+                            .catch(function (err) {
                                 clearInterval(progressInterval);
-                                $scope.recording = false;
+                                $scope.$apply(
+                                    function() {
+                                        $scope.recording = false;
+                                        displayAlert('errors', 500, err);
+                                    });
                             });
                     };
                 },

@@ -161,6 +161,19 @@
                     if (loadModelIfAvailable) {
                         return loadModel(mlprojectid, mlprojectlabels);
                     }
+                })
+                .then(function (loaded) {
+                    const outcome = {};
+                    if (loaded) {
+                        outcome.loaded = loaded;
+                    }
+                    if (navigator.userAgent.toLowerCase().includes('firefox')) {
+                        outcome.warning = {
+                            message : 'Firefox users have reported problems using sound models, so if you have problems please try a different browser'
+                        };
+                    }
+
+                    return outcome;
                 });
         }
 
