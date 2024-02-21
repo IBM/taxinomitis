@@ -283,11 +283,11 @@ class MachineLearningText {
         if (msg && msg.data && msg.data.mlforkidsstorage && msg.data.projectid === '{{{projectid}}}')
         {
             if (msg.data.mlforkidsstorage === 'textwatson') {
-                console.log('received training data for training a model', msg.data.data);
+                console.log('received training data for training a model');
                 trainNewClassifier(msg.data.data);
             }
             else if (msg.data.mlforkidsstorage === 'trainingdata') {
-                console.log('received training data for comparing with test data', msg.data.data);
+                console.log('received training data for comparing with test data');
                 const existingTrainingText = new Set();
                 if (msg.data.data) {
                     for (var j = 0; j < msg.data.data.length; j++) {

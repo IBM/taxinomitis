@@ -153,7 +153,7 @@
             if (!trainingDataDatabases[projectId]) {
                 trainingDataDatabases[projectId] = await getTrainingDatabase(projectId);
                 trainingDataDatabases[projectId].onclose = () => {
-                    loggerService.debug('[ml4kstorage] training database closed');
+                    loggerService.debug('[ml4kstorage] training database closed', projectId);
                     delete trainingDataDatabases[projectId];
                 };
             }
@@ -464,6 +464,11 @@
             return promisifyIndexedDbRequest(request)
                 .then(function (event) {
                     trainingObject.id = event.target.result;
+
+                    if (trainingObject.label) {
+                        addLabel(projectId, trainingObject.label);
+                    }
+
                     return trainingObject;
                 });
         }
