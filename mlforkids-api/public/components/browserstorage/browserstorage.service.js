@@ -96,9 +96,12 @@
                 request.onerror = reject;
             });
         }
-
-
-        function noop() {}
+        function promisifyIndexedDbTransaction (transaction) {
+            return new Promise(function (resolve, reject) {
+                transaction.oncomplete = resolve;
+                transaction.onerror = reject;
+            });
+        }
 
 
         function initProjectsDatabase (event) {
@@ -140,11 +143,19 @@
         async function requiresProjectsDatabase() {
             if (!projectsDbHandle) {
                 projectsDbHandle = await getProjectsDatabase();
+                projectsDbHandle.onclose = () => {
+                    loggerService.debug('[ml4kstorage] projects database closed');
+                    projectsDbHandle = null;
+                };
             }
         }
         async function requiresTrainingDatabase(projectId) {
             if (!trainingDataDatabases[projectId]) {
                 trainingDataDatabases[projectId] = await getTrainingDatabase(projectId);
+                trainingDataDatabases[projectId].onclose = () => {
+                    loggerService.debug('[ml4kstorage] training database closed');
+                    delete trainingDataDatabases[projectId];
+                };
             }
         }
 
@@ -185,25 +196,31 @@
                 return;
             }
 
-            const projectTransaction = projectsDbHandle.transaction([ PROJECTS_TABLE ], 'readwrite');
-            const projectsTable = projectTransaction.objectStore(PROJECTS_TABLE);
-            projectsTable.index('classid').openCursor(IDBKeyRange.only('session-users')).onsuccess = function (event) {
-                const cursor = event.target.result;
-                if (cursor) {
-                    // delete any local data for this project
-                    cleanupService.deleteProject(cursor.value);
+            return new Promise(function (resolve) {
+                const projectTransaction = projectsDbHandle.transaction([ PROJECTS_TABLE ], 'readwrite');
+                const projectsTable = projectTransaction.objectStore(PROJECTS_TABLE);
+                projectsTable.index('classid').openCursor(IDBKeyRange.only('session-users')).onsuccess = function (event) {
+                    const cursor = event.target.result;
+                    if (cursor) {
+                        // delete any local data for this project
+                        cleanupService.deleteProject(cursor.value);
 
-                    // delete the training data database
-                    delete trainingDataDatabases[cursor.value.id];
-                    window.indexedDB.deleteDatabase(TRAINING_DB_NAME_PREFIX + cursor.value.id);
+                        // delete the training data database
+                        delete trainingDataDatabases[cursor.value.id];
+                        window.indexedDB.deleteDatabase(TRAINING_DB_NAME_PREFIX + cursor.value.id);
 
-                    // delete the project itself
-                    projectsTable.delete(cursor.primaryKey);
+                        // delete the project itself
+                        projectsTable.delete(cursor.primaryKey);
 
-                    // move to the next project
-                    cursor.continue();
-                }
-            };
+                        // move to the next project
+                        cursor.continue();
+                    }
+                    else {
+                        // nothing left to delete
+                        resolve();
+                    }
+                };
+            });
         }
 
 
@@ -306,12 +323,12 @@
             await requiresProjectsDatabase();
 
             const transaction = projectsDbHandle.transaction([ PROJECTS_TABLE ], 'readwrite');
-            const request = transaction.objectStore(PROJECTS_TABLE).delete(requiresIntegerId(projectId));
+            transaction.objectStore(PROJECTS_TABLE).delete(requiresIntegerId(projectId));
 
             window.indexedDB.deleteDatabase(TRAINING_DB_NAME_PREFIX + projectId);
             delete trainingDataDatabases[projectId];
 
-            return promisifyIndexedDbRequest(request).then(noop);
+            return promisifyIndexedDbTransaction(transaction);
         }
 
 
@@ -498,9 +515,9 @@
             await requiresTrainingDatabase(projectId);
 
             const transaction = trainingDataDatabases[projectId].transaction([ TRAINING_TABLE ], 'readwrite');
-            const request = transaction.objectStore(TRAINING_TABLE).delete(requiresIntegerId(trainingDataId));
+            transaction.objectStore(TRAINING_TABLE).delete(requiresIntegerId(trainingDataId));
 
-            return promisifyIndexedDbRequest(request).then(noop);
+            return promisifyIndexedDbTransaction(transaction);
         }
 
 
@@ -510,9 +527,9 @@
             await requiresTrainingDatabase(projectId);
 
             const transaction = trainingDataDatabases[projectId].transaction([ TRAINING_TABLE ], 'readwrite');
-            const request = transaction.objectStore(TRAINING_TABLE).clear();
+            transaction.objectStore(TRAINING_TABLE).clear();
 
-            return promisifyIndexedDbRequest(request);
+            return promisifyIndexedDbTransaction(transaction);
         }
 
 
