@@ -2642,9 +2642,6 @@ var ML4KidsLocalStorage = /*#__PURE__*/function () {
       });
     }
   }, {
-    key: "noop",
-    value: function noop() {}
-  }, {
     key: "initProjectsDatabase",
     value: function initProjectsDatabase(event) {
       console.log('[ml4kstorage] initProjectsDatabase');
@@ -2689,18 +2686,23 @@ var ML4KidsLocalStorage = /*#__PURE__*/function () {
     key: "requiresProjectsDatabase",
     value: function () {
       var _requiresProjectsDatabase = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var _this = this;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
               if (this.projectsDbHandle) {
-                _context.next = 4;
+                _context.next = 5;
                 break;
               }
               _context.next = 3;
               return this.getProjectsDatabase();
             case 3:
               this.projectsDbHandle = _context.sent;
-            case 4:
+              this.projectsDbHandle.onclose = function () {
+                console.log('[ml4kstorage] projects database closed');
+                delete _this.projectsDbHandle;
+              };
+            case 5:
             case "end":
               return _context.stop();
           }
@@ -2715,18 +2717,23 @@ var ML4KidsLocalStorage = /*#__PURE__*/function () {
     key: "requiresTrainingDatabase",
     value: function () {
       var _requiresTrainingDatabase = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(projectId) {
+        var _this2 = this;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
               if (this.trainingDataDatabases[projectId]) {
-                _context2.next = 4;
+                _context2.next = 5;
                 break;
               }
               _context2.next = 3;
               return this.getTrainingDatabase(projectId);
             case 3:
               this.trainingDataDatabases[projectId] = _context2.sent;
-            case 4:
+              this.trainingDataDatabases[projectId].onclose = function () {
+                console.log('[ml4kstorage] training database closed', projectId);
+                delete _this2.trainingDataDatabases[projectId];
+              };
+            case 5:
             case "end":
               return _context2.stop();
           }
@@ -2763,7 +2770,7 @@ var ML4KidsLocalStorage = /*#__PURE__*/function () {
     key: "getProject",
     value: function () {
       var _getProject = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(projectId) {
-        var _this = this;
+        var _this3 = this;
         var transaction, request;
         return _regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) switch (_context3.prev = _context3.next) {
@@ -2775,7 +2782,7 @@ var ML4KidsLocalStorage = /*#__PURE__*/function () {
               transaction = this.projectsDbHandle.transaction([this.PROJECTS_TABLE], 'readonly');
               request = transaction.objectStore(this.PROJECTS_TABLE).get(this.requiresIntegerId(projectId));
               return _context3.abrupt("return", this.promisifyIndexedDbRequest(request).then(function (event) {
-                return _this.requiresResult(event);
+                return _this3.requiresResult(event);
               }));
             case 6:
             case "end":
@@ -2822,7 +2829,7 @@ var ML4KidsLocalStorage = /*#__PURE__*/function () {
     key: "addTrainingData",
     value: function () {
       var _addTrainingData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(projectId, trainingObject) {
-        var _this2 = this;
+        var _this4 = this;
         var transaction, request;
         return _regeneratorRuntime().wrap(function _callee5$(_context5) {
           while (1) switch (_context5.prev = _context5.next) {
@@ -2836,7 +2843,7 @@ var ML4KidsLocalStorage = /*#__PURE__*/function () {
               return _context5.abrupt("return", this.promisifyIndexedDbRequest(request).then(function (event) {
                 trainingObject.id = event.target.result;
                 if (trainingObject.label) {
-                  _this2.addLabel(projectId, trainingObject.label);
+                  _this4.addLabel(projectId, trainingObject.label);
                 }
                 return trainingObject;
               }));
@@ -2850,12 +2857,17 @@ var ML4KidsLocalStorage = /*#__PURE__*/function () {
         return _addTrainingData.apply(this, arguments);
       }
       return addTrainingData;
-    }()
+    }() // update labels to meet WA requirements
+  }, {
+    key: "sanitizeLabel",
+    value: function sanitizeLabel(proposedlabel) {
+      return proposedlabel.replace(/[^\w.]/g, '_').substring(0, 30);
+    }
   }, {
     key: "addLabel",
     value: function () {
       var _addLabel = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(projectId, newlabel) {
-        var transaction, projectsTable, readRequest, readEvent, projectObject, updateRequest;
+        var label, transaction, projectsTable, readRequest, readEvent, projectObject, updateRequest;
         return _regeneratorRuntime().wrap(function _callee6$(_context6) {
           while (1) switch (_context6.prev = _context6.next) {
             case 0:
@@ -2863,23 +2875,29 @@ var ML4KidsLocalStorage = /*#__PURE__*/function () {
               _context6.next = 3;
               return this.requiresProjectsDatabase();
             case 3:
+              label = newlabel;
+              try {
+                label = this.sanitizeLabel(newlabel);
+              } catch (labelErr) {
+                console.error('[ml4kstorage] Failed to sanitize label, leaving as-is');
+              }
               transaction = this.projectsDbHandle.transaction([this.PROJECTS_TABLE], 'readwrite');
               projectsTable = transaction.objectStore(this.PROJECTS_TABLE);
               readRequest = projectsTable.get(this.requiresIntegerId(projectId));
-              _context6.next = 8;
+              _context6.next = 10;
               return this.promisifyIndexedDbRequest(readRequest);
-            case 8:
+            case 10:
               readEvent = _context6.sent;
               projectObject = this.requiresResult(readEvent);
-              if (projectObject.labels.includes(newlabel)) {
-                _context6.next = 15;
+              if (projectObject.labels.includes(label)) {
+                _context6.next = 17;
                 break;
               }
-              projectObject.labels.push(newlabel);
+              projectObject.labels.push(label);
               updateRequest = projectsTable.put(projectObject);
-              _context6.next = 15;
+              _context6.next = 17;
               return this.promisifyIndexedDbRequest(updateRequest);
-            case 15:
+            case 17:
             case "end":
               return _context6.stop();
           }
