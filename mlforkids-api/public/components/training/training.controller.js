@@ -863,6 +863,8 @@
                         trainingService.bulkAddTrainingData($scope.project,
                                     txtfilereader.result
                                         .split(/[\r\n]+/)
+                                        .map(line => line.trim())
+                                        .filter(line => line.length > 0)
                                         .map(function (line) {
                                             return { label, textdata : line };
                                         }))
