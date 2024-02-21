@@ -269,8 +269,9 @@
                            ng-disabled="creating"
                            ng-focus="vm.focused = 'storage'"
                            class="newprojecttype">
-                    <md-option value="local" translate="NEWPROJECT.STORAGE.LOCAL" ng-selected="isLocalSupported && projectType !== 'numbers'"></md-option>
-                    <md-option value="cloud" translate="NEWPROJECT.STORAGE.CLOUD" ng-selected="!isLocalSupported || projectType === 'numbers'" ng-hide="projectType === 'regression'"></md-option>
+                    <md-option ng-selected></md-option>
+                    <md-option value="local" translate="NEWPROJECT.STORAGE.LOCAL"></md-option>
+                    <md-option value="cloud" translate="NEWPROJECT.STORAGE.CLOUD" ng-hide="projectType === 'regression'"></md-option>
                 </md-select>
             </md-input-container>
             <div class="well newprojecthelp" ng-if="vm.focused === 'storage'">
