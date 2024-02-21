@@ -406,7 +406,7 @@
             </table>
 
             <table ng-if="project.type === 'regression'" class="testnumbers">
-                <tr ng-repeat="field in project.columns | filter: { output: false }">
+                <tr ng-repeat="field in project.columns | filter: { output: false, type: 'number' }">
                     <td class="testnumberfield">{{ field.label }}</td>
                     <td>
                         <input type="text"

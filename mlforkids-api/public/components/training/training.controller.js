@@ -838,7 +838,7 @@
                                     }
                                     else {
                                         // TODO other types?
-                                        column.type = 'number';
+                                        column.type = 'unknown';
                                     }
 
                                     return column;

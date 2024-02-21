@@ -24,6 +24,7 @@
                 </div>
                 <md-checkbox
                     ng-model="col.output"
+                    ng-hide="col.type !== 'number'"
                     ng-if="mode === 'selectcolumns' || project.columns.filter(isOutputColumn).length === 0"
                     ng-change="setMode('init')"></md-checkbox>
             </th>
@@ -38,6 +39,7 @@
                 </div>
                 <md-checkbox
                     ng-model="col.output"
+                    ng-hide="col.type !== 'number'"
                     ng-if="mode === 'selectcolumns' || project.columns.filter(isOutputColumn).length === 0"
                     ng-change="setMode('init')"></md-checkbox>
             </th>

@@ -149,11 +149,12 @@
             return browserStorageService.getTrainingData(project.id)
                 .then(function (training) {
                     // separate out columns into input and output values
+                    //  keep only numeric columns (for now)
                     const inputColumns = project.columns
-                        .filter(function (col) { return col.output === false; })
+                        .filter(function (col) { return col.type === 'number' && col.output === false; })
                         .map(function (col) { return col.label; });
                     const targetColumns = project.columns
-                        .filter(function (col) { return col.output === true; })
+                        .filter(function (col) { return col.type === 'number' && col.output === true; })
                         .map(function (col) { return col.label; });
 
                     // turn array of JSON objects into array of raw numbers
@@ -231,7 +232,7 @@
         function testModel (project, testdata) {
             var testTensor = tf.tidy(function () {
                 const inputValues = project.columns
-                    .filter(function (col) { return col.output === false; })
+                    .filter(function (col) { return col.type === 'number' && col.output === false; })
                     .map(function (col) {
                         return testdata[col.label];
                     });
@@ -245,7 +246,7 @@
             return modelOutput.data()
                 .then(function (output) {
                     const targetColumns = project.columns
-                        .filter(function (col) { return col.output === true; });
+                        .filter(function (col) { return col.type === 'number' && col.output === true; });
 
                     if (output.length !== targetColumns.length) {
                         loggerService.error('[ml4kregress] unexpected output from model', output);
