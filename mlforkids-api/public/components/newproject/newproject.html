@@ -239,7 +239,7 @@
                       aria-hidden="true"></span>
             </div>
         </div>
-        <div class="newprojectrow" ng-show="projectType === 'numbers'">
+        <div class="newprojectrow" ng-show="projectType === 'numbers'" style="margin-bottom: 2em;">
             <div class="newprojectform">
                 <md-button
                     class="md-raised md-primary"
@@ -261,7 +261,7 @@
         <!--                                          -->
         <!--            displayed for all projects    -->
         <!-- ---------------------------------------- -->
-        <div class="newprojectrow" ng-show="projectType && projectType !== 'numbers' && isLocalSupported">
+        <div class="newprojectrow">
             <md-input-container class="newprojectform">
                 <label translate="NEWPROJECT.STORAGE.LABEL"></label>
                 <md-select ng-required="true"
@@ -270,8 +270,11 @@
                            ng-focus="vm.focused = 'storage'"
                            class="newprojecttype">
                     <md-option ng-selected></md-option>
-                    <md-option value="local" translate="NEWPROJECT.STORAGE.LOCAL"></md-option>
-                    <md-option value="cloud" translate="NEWPROJECT.STORAGE.CLOUD" ng-hide="projectType === 'regression'"></md-option>
+                    <md-option value="local" translate="NEWPROJECT.STORAGE.LOCAL"
+                        ng-if="isLocalSupported"
+                        ng-hide="projectType === 'numbers'"></md-option>
+                    <md-option value="cloud" translate="NEWPROJECT.STORAGE.CLOUD"
+                        ng-hide="projectType === 'regression'"></md-option>
                 </md-select>
             </md-input-container>
             <div class="well newprojecthelp" ng-if="vm.focused === 'storage'">

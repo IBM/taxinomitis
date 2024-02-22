@@ -143,6 +143,17 @@
                 delete projectSpec.fields;
             }
 
+            if (projectSpec.type === 'numbers' && projectSpec.storage === 'local') {
+                displayAlert('errors', 400, { message : 'Projects for recognizing numbers cannot be stored in your web browser' });
+                $scope.creating = false;
+                return;
+            }
+            if (projectSpec.type === 'regression' && projectSpec.storage === 'cloud') {
+                displayAlert('errors', 400, { message : 'Projects for predicting numbers cannot be stored in the cloud' });
+                $scope.creating = false;
+                return;
+            }
+
             loggerService.debug('[ml4kproj] Creating new project', projectSpec);
 
             projectsService.createProject(projectSpec, vm.profile.user_id, vm.profile.tenant)
