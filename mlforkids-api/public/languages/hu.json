@@ -1088,6 +1088,7 @@
             "ALL": "Összes projekttípus",
 
             "PREFIX": "Tanítsd meg a számítógépet, hogy felismerje a ",
+            "PREFIXREGRESSION": "Train a computer to predict ",
 
             "TEXT": "szöveget",
             "IMAGES": "képeket",
@@ -1595,6 +1596,14 @@
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pokemonimages.pdf"
             }
         },
+        "ISPY": {
+            "TITLE": "I Spy",
+            "SUMMARY": "Use a computer that has been trained to recognize photos",
+            "DESCRIPTION": "Make a game in Scratch where you have to guess what the computer recognises.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-ispy.pdf"
+            }
+        },
         "CARPOOL": {
             "TITLE": "Carpool Cheats",
             "SUMMARY": "Teach a computer to recognize a car without passengers",
@@ -1603,12 +1612,12 @@
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carpoolcheats.pdf"
             }
         },
-        "ISPY": {
-            "TITLE": "I Spy",
-            "SUMMARY": "Use a computer that has been trained to recognize photos",
-            "DESCRIPTION": "Make a game in Scratch where you have to guess what the computer recognises.",
+        "CATCHTHEBALL": {
+            "TITLE": "Catch the ball",
+            "SUMMARY": "Teach a computer to predict where a ball will land",
+            "DESCRIPTION": "Make a game in Scratch where you predict where a bouncing ball will go before it moves.",
             "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-ispy.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-catchtheball.pdf"
             }
         }
     },
@@ -1873,10 +1882,11 @@
 
             "Q4": "Mely modelleket tanítottad a számítógépeden és melyeket a felhőben?",
             "Q4-A-0": "You cannot choose where machine learning models are trained and stored. This is decided by Machine Learning for Kids based on the type of project.",
-            "Q4-A-1": "<strong>text</strong> projects are trained in the cloud.",
-            "Q4-A-2": "<strong>numbers</strong> projects are trained in the cloud.",
-            "Q4-A-3": "<strong>sounds</strong> projects are trained on your computer.",
-            "Q4-A-4": "<strong>images</strong> projects are trained on your computer.",
+            "Q4-A-1": "<strong>recognising text</strong> projects are trained in the cloud.",
+            "Q4-A-2": "<strong>recognising numbers</strong> projects are trained in the cloud.",
+            "Q4-A-3": "<strong>recognising sounds</strong> projects are trained on your computer.",
+            "Q4-A-4": "<strong>recognising images</strong> projects are trained on your computer.",
+            "Q4-A-5": "<strong>predicting numbers</strong> projects are trained on your computer.",
 
             "Q5": "What difference does it make where a project is stored?",
             "Q5-A-0": "You can choose where to store the training data for your machine learning project. You can store your training examples:",
@@ -1985,6 +1995,7 @@
 
             "CREATE_ACCOUNT": "Készíts egy fiókot",
             "TRAINMODELS": "Tanítsd a gépi tanulási modellt, hogy felismerje...",
+            "TRAINREGRESSIONMODELS": "Train machine learning models to predict...",
             "PRETRAINED_MODELS": "Használd az előre tanított gépi tanulási modellt",
             "TENSORFLOW_MODELS": "Használj TensorFlow - val támogatott modellt",
             "SCRATCH_ONLY": "(csak a Scratch-ből használható)",

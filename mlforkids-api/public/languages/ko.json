@@ -1089,6 +1089,7 @@
             "ALL": "모든 프로젝트",
 
             "PREFIX": "인식을 위한 컴퓨터 훈련",
+            "PREFIXREGRESSION": "Train a computer to predict ",
 
             "TEXT": "텍스트",
             "IMAGES": "이미지",
@@ -1596,6 +1597,14 @@
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pokemonimages.pdf"
             }
         },
+        "ISPY": {
+            "TITLE": "I Spy",
+            "SUMMARY": "Use a computer that has been trained to recognize photos",
+            "DESCRIPTION": "Make a game in Scratch where you have to guess what the computer recognises.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-ispy.pdf"
+            }
+        },
         "CARPOOL": {
             "TITLE": "Carpool Cheats",
             "SUMMARY": "Teach a computer to recognize a car without passengers",
@@ -1604,12 +1613,12 @@
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carpoolcheats.pdf"
             }
         },
-        "ISPY": {
-            "TITLE": "I Spy",
-            "SUMMARY": "Use a computer that has been trained to recognize photos",
-            "DESCRIPTION": "Make a game in Scratch where you have to guess what the computer recognises.",
+        "CATCHTHEBALL": {
+            "TITLE": "Catch the ball",
+            "SUMMARY": "Teach a computer to predict where a ball will land",
+            "DESCRIPTION": "Make a game in Scratch where you predict where a bouncing ball will go before it moves.",
             "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-ispy.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-catchtheball.pdf"
             }
         }
     },
@@ -1874,10 +1883,11 @@
 
             "Q4": "어떤 러닝머신 모델이 내 컴퓨터에서 학습하였고, 어떤 모델이 클라우드에서 학습하였나요?",
             "Q4-A-0": "You cannot choose where machine learning models are trained and stored. This is decided by Machine Learning for Kids based on the type of project.",
-            "Q4-A-1": "<strong>text</strong> projects are trained in the cloud.",
-            "Q4-A-2": "<strong>numbers</strong> projects are trained in the cloud.",
-            "Q4-A-3": "<strong>sounds</strong> projects are trained on your computer.",
-            "Q4-A-4": "<strong>images</strong> projects are trained on your computer.",
+            "Q4-A-1": "<strong>recognising text</strong> projects are trained in the cloud.",
+            "Q4-A-2": "<strong>recognising numbers</strong> projects are trained in the cloud.",
+            "Q4-A-3": "<strong>recognising sounds</strong> projects are trained on your computer.",
+            "Q4-A-4": "<strong>recognising images</strong> projects are trained on your computer.",
+            "Q4-A-5": "<strong>predicting numbers</strong> projects are trained on your computer.",
 
             "Q5": "What difference does it make where a project is stored?",
             "Q5-A-0": "You can choose where to store the training data for your machine learning project. You can store your training examples:",
@@ -1986,6 +1996,7 @@
 
             "CREATE_ACCOUNT": "계정 만들기",
             "TRAINMODELS": "인식을 위한 머신러닝 모델 훈련시키기",
+            "TRAINREGRESSIONMODELS": "Train machine learning models to predict...",
             "PRETRAINED_MODELS": "Use pre-trained machine learning models",
             "TENSORFLOW_MODELS": "자신의 TensorFlow 모델을 사용하세요",
             "SCRATCH_ONLY": "(Scratch에서만 사용하세요)",

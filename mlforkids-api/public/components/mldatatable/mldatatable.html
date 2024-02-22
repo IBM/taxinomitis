@@ -11,7 +11,7 @@
     class="alert alert-info pageheadermsg page-header-alert-info"
     translate="TRAINING.REGRESSION.NOTRAINING"></div>
 
-<table class="mldatatable">
+<table class="mldatatable" ng-if="training.length > 0 || project.columns.length > 0">
     <thead>
         <tr>
             <th ng-repeat="col in project.columns | filter: { output: false }">

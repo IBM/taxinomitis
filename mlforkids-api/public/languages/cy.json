@@ -1060,6 +1060,7 @@
             "TITLE": "Cydnabod:",
             "ALL": "Pob math o brosiect",
             "PREFIX": "Hyfforddwch gyfrifiadur i adnabod ",
+            "PREFIXREGRESSION": "Train a computer to predict ",
             "TEXT": "testun",
             "IMAGES": "delweddau",
             "NUMBERS": "rhifau",
@@ -1571,6 +1572,14 @@
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-ispy.pdf"
             }
+        },
+        "CATCHTHEBALL": {
+            "TITLE": "Catch the ball",
+            "SUMMARY": "Teach a computer to predict where a ball will land",
+            "DESCRIPTION": "Make a game in Scratch where you predict where a bouncing ball will go before it moves.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-catchtheball.pdf"
+            }
         }
     },
     "TEACHER": {
@@ -1793,10 +1802,11 @@
 
             "Q4": "Which machine learning models are trained on your computer, and which are trained in the cloud?",
             "Q4-A-0": "You cannot choose where machine learning models are trained and stored. This is decided by Machine Learning for Kids based on the type of project.",
-            "Q4-A-1": "<strong>text</strong> projects are trained in the cloud.",
-            "Q4-A-2": "<strong>numbers</strong> projects are trained in the cloud.",
-            "Q4-A-3": "<strong>sounds</strong> projects are trained on your computer.",
-            "Q4-A-4": "<strong>images</strong> projects are trained on your computer.",
+            "Q4-A-1": "<strong>recognising text</strong> projects are trained in the cloud.",
+            "Q4-A-2": "<strong>recognising numbers</strong> projects are trained in the cloud.",
+            "Q4-A-3": "<strong>recognising sounds</strong> projects are trained on your computer.",
+            "Q4-A-4": "<strong>recognising images</strong> projects are trained on your computer.",
+            "Q4-A-5": "<strong>predicting numbers</strong> projects are trained on your computer.",
 
             "Q5": "What difference does it make where a project is stored?",
             "Q5-A-0": "You can choose where to store the training data for your machine learning project. You can store your training examples:",
@@ -1887,6 +1897,7 @@
             "Q1-A-3": "Dangosir crynodeb o'r gwahaniaethau isod:",
             "CREATE_ACCOUNT": "Creu cyfrif",
             "TRAINMODELS": "Hyfforddi modelau dysgu peiriant i gydnabod ...",
+            "TRAINREGRESSIONMODELS": "Train machine learning models to predict...",
             "PRETRAINED_MODELS": "Defnyddiwch fodelau dysgu peiriant wedi'u hyfforddi ymlaen llaw",
             "TENSORFLOW_MODELS": "Use hosted TensorFlow models",
             "SCRATCH_ONLY": "(use from Scratch only)",

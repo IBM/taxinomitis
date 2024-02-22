@@ -129,35 +129,24 @@
         <script type="text/javascript" src="/static/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
         <script type="text/javascript" src="/static/bower_components/angular-timeago/dist/angular-timeago.min.js"></script>
 
-        <!-- the minified version doesn't close the webcam properly -->
-        <!-- can't be added dynamically as the angular component that depends on it needs it there at load time -->
         <script type="text/javascript" src="/static/bower_components/webcam/app/scripts/webcam.js"></script>
 
-        <script type="text/javascript" src="/static/bower_components/auth0-lock/build/lock.min.js?v=143"></script>
-        <script type="text/javascript" src="/static/bower_components/angular-lock/dist/angular-lock.min.js?v=143"></script>
-        <script type="text/javascript" src="/static/bower_components/auth0.js/dist/auth0.min.js?v=143"></script>
+        <script type="text/javascript" src="/static/bower_components/auth0-lock/build/lock.min.js?v=144"></script>
+        <script type="text/javascript" src="/static/bower_components/angular-lock/dist/angular-lock.min.js?v=144"></script>
+        <script type="text/javascript" src="/static/bower_components/auth0.js/dist/auth0.min.js?v=144"></script>
         <script type="text/javascript" src="/static/bower_components/angular-jwt/dist/angular-jwt.min.js"></script>
-
-        <!-- now added dynamically when needed using public/components/utils/utils.service.js -->
-        <!-- <script type="text/javascript" src="/static/bower_components/blueimp-canvas-to-blob/js/canvas-to-blob.min.js"></script> -->
 
         <%= USE_IN_PROD_ONLY %>
         <script src="https://browser.sentry-cdn.com/7.101.1/bundle.min.js" crossorigin="anonymous"></script>
         <%= AFTER_USE_IN_PROD_ONLY %>
 
-        <script type="text/javascript" src="/static/app.js?v=143"></script>
-        <script type="text/javascript" src="/static/mlapp.min.js?v=143"></script>
+        <script type="text/javascript" src="/static/app.js?v=144"></script>
+        <script type="text/javascript" src="/static/mlapp.min.js?v=144"></script>
 
-        <link href="/static/style.min.css?v=143" rel="stylesheet" />
+        <link href="/static/style.min.css?v=144" rel="stylesheet" />
 
-        <!-- pregenerated default theme to avoid browsers having to generate it on every page load -->
-        <!--  cf. https://material.angularjs.org/latest/performance/internet-explorer              -->
         <link href="/static/bower_components/angular-material/angular-material.theme.min.css" rel="stylesheet" media="print" onload="this.media='all'; this.onload=null;">
 
-        <!-- now added dynamically when needed using public/components/utils/utils.service.js -->
-        <!-- <script async src="/static/scratchblocks-v3.1-min.js"></script> -->
-
-        <!-- site analytics -->
         <script async defer src="https://scripts.withcabin.com/hello.js"></script>
     </body>
 </html>

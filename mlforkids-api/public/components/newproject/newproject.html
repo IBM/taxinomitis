@@ -87,7 +87,7 @@
                     <md-option value="imgtfjs">{{ 'NEWPROJECT.TYPES.LABEL' | translate }} {{ 'WORKSHEETS.TYPES.IMAGES'  | translate }}</md-option>
                     <md-option value="numbers">{{ 'NEWPROJECT.TYPES.LABEL' | translate }} {{ 'WORKSHEETS.TYPES.NUMBERS' | translate }}</md-option>
                     <md-option value="sounds" >{{ 'NEWPROJECT.TYPES.LABEL' | translate }} {{ 'WORKSHEETS.TYPES.SOUNDS'  | translate }}</md-option>
-                    <md-option value="regression" ng-if="isLocalSupported && regressionShow">{{ 'WORKSHEETS.TYPES.REGRESSION' | translate }} <span class="badge">beta</span></md-option>
+                    <md-option value="regression" ng-if="isLocalSupported">{{ 'WORKSHEETS.TYPES.REGRESSION' | translate }} <span class="badge">beta</span></md-option>
                 </md-select>
             </md-input-container>
             <div class="well newprojecthelp"
@@ -97,7 +97,7 @@
                 <div translate="NEWPROJECT.TYPES.NOTES_3"></div>
                 <div translate="NEWPROJECT.TYPES.NOTES_4"></div>
                 <div translate="NEWPROJECT.TYPES.NOTES_5"></div>
-                <div translate="NEWPROJECT.TYPES.NOTES_6" ng-if="regressionShow"></div>
+                <div translate="NEWPROJECT.TYPES.NOTES_6"></div>
             </div>
         </div>
 

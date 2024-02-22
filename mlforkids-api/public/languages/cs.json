@@ -1060,6 +1060,7 @@
             "TITLE": "Rozpoznávání:",
             "ALL": "Všechny typy projektů",
             "PREFIX": "Trénink počítače na rozpoznávání ",
+            "PREFIXREGRESSION": "Train a computer to predict ",
             "TEXT": "text",
             "IMAGES": "obrázky",
             "NUMBERS": "čísla",
@@ -1572,6 +1573,14 @@
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carpoolcheats.pdf"
             }
+        },
+        "CATCHTHEBALL": {
+            "TITLE": "Catch the ball",
+            "SUMMARY": "Teach a computer to predict where a ball will land",
+            "DESCRIPTION": "Make a game in Scratch where you predict where a bouncing ball will go before it moves.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-catchtheball.pdf"
+            }
         }
     },
     "TEACHER": {
@@ -1794,10 +1803,11 @@
             "TITLE": "Otázky k projektu",
             "Q4": "Které modely strojového učení jsou trénovány na vašem počítači a které v cloudu?",
             "Q4-A-0": "You cannot choose where machine learning models are trained and stored. This is decided by Machine Learning for Kids based on the type of project.",
-            "Q4-A-1": "<strong>text</strong> projects are trained in the cloud.",
-            "Q4-A-2": "<strong>numbers</strong> projects are trained in the cloud.",
-            "Q4-A-3": "<strong>sounds</strong> projects are trained on your computer.",
-            "Q4-A-4": "<strong>images</strong> projects are trained on your computer.",
+            "Q4-A-1": "<strong>recognising text</strong> projects are trained in the cloud.",
+            "Q4-A-2": "<strong>recognising numbers</strong> projects are trained in the cloud.",
+            "Q4-A-3": "<strong>recognising sounds</strong> projects are trained on your computer.",
+            "Q4-A-4": "<strong>recognising images</strong> projects are trained on your computer.",
+            "Q4-A-5": "<strong>predicting numbers</strong> projects are trained on your computer.",
 
             "Q5": "What difference does it make where a project is stored?",
             "Q5-A-0": "You can choose where to store the training data for your machine learning project. You can store your training examples:",
@@ -1888,6 +1898,7 @@
             "Q1-A-3": "Níže je uveden přehled rozdílů:",
             "CREATE_ACCOUNT": "Vytvoření účtu",
             "TRAINMODELS": "Trénujte modely strojového učení k rozpoznávání...",
+            "TRAINREGRESSIONMODELS": "Train machine learning models to predict...",
             "PRETRAINED_MODELS": "Použití předtrénovaných modelů strojového učení",
             "TENSORFLOW_MODELS": "Použití hostovaných modelů TensorFlow",
             "SCRATCH_ONLY": "(použít pouze z aplikace Scratch)",

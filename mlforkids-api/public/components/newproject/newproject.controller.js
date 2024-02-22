@@ -84,12 +84,6 @@
         authService.getProfileDeferred()
             .then(function (profile) {
                 vm.profile = profile;
-
-                // TODO remove this when regression is ready to launch
-                $scope.regressionShow = [
-                    '01e8b244-8df1-4f94-93a3-8a7addfc8ea6',
-                    'demo'
-                ].includes(profile.tenant);
             })
             .catch(function (err) {
                 displayAlert('errors', err.status, err.data);

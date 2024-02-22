@@ -2259,17 +2259,14 @@ var ML4KidsRegressionTraining = /*#__PURE__*/function () {
   }, {
     key: "_watchForNewModels",
     value: function _watchForNewModels(projectid, worker) {
+      var _this5 = this;
       if (!this.PROJECTS[projectid].modelWatcher) {
         console.log('[mlforkids] ML4KidsRegressionTraining listening for model updates', projectid);
         this.PROJECTS[projectid].modelWatcher = true;
         var modellocation = this._getModelDbLocation(projectid);
         this._storageSupport.registerForModelStorageUpdates(modellocation, function () {
           console.log('[mlforkids] ML4KidsRegressionTraining new model was trained');
-
-          // worker.postMessage({
-          //     mlforkidsregression: 'modelretrain',
-          //     data: { projectid : projectid.toString() }
-          // });
+          _this5.trainNewModel(projectid, worker);
         });
       }
     }

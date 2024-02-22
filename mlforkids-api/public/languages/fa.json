@@ -1060,6 +1060,7 @@
             "TITLE": ":تشخیص",
             "ALL": "انواع پروژه‌ها",
             "PREFIX": "کامپیوتر را برای تشخیص آموزش دهید",
+            "PREFIXREGRESSION": "Train a computer to predict ",
             "TEXT": "متن",
             "IMAGES": "تصاویر",
             "NUMBERS": "اعداد",
@@ -1557,6 +1558,14 @@
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pokemonimages.pdf"
             }
         },
+        "ISPY": {
+            "TITLE": "I Spy",
+            "SUMMARY": "Use a computer that has been trained to recognize photos",
+            "DESCRIPTION": "Make a game in Scratch where you have to guess what the computer recognises.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-ispy.pdf"
+            }
+        },
         "CARPOOL": {
             "TITLE": "Carpool Cheats",
             "SUMMARY": "Teach a computer to recognize a car without passengers",
@@ -1565,12 +1574,12 @@
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carpoolcheats.pdf"
             }
         },
-        "ISPY": {
-            "TITLE": "I Spy",
-            "SUMMARY": "Use a computer that has been trained to recognize photos",
-            "DESCRIPTION": "Make a game in Scratch where you have to guess what the computer recognises.",
+        "CATCHTHEBALL": {
+            "TITLE": "Catch the ball",
+            "SUMMARY": "Teach a computer to predict where a ball will land",
+            "DESCRIPTION": "Make a game in Scratch where you predict where a bouncing ball will go before it moves.",
             "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-ispy.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-catchtheball.pdf"
             }
         }
     },
@@ -1794,10 +1803,11 @@
             "TITLE": "سوالات پروژه",
             "Q4": "کدام مدل‌های یادگیری ماشین در رایانه شما آموزش داده می‌شوند و کدام‌ها در فضای ابری آموزش داده می‌شوند؟",
             "Q4-A-0": "You cannot choose where machine learning models are trained and stored. This is decided by Machine Learning for Kids based on the type of project.",
-            "Q4-A-1": "<strong>text</strong> projects are trained in the cloud.",
-            "Q4-A-2": "<strong>numbers</strong> projects are trained in the cloud.",
-            "Q4-A-3": "<strong>sounds</strong> projects are trained on your computer.",
-            "Q4-A-4": "<strong>images</strong> projects are trained on your computer.",
+            "Q4-A-1": "<strong>recognising text</strong> projects are trained in the cloud.",
+            "Q4-A-2": "<strong>recognising numbers</strong> projects are trained in the cloud.",
+            "Q4-A-3": "<strong>recognising sounds</strong> projects are trained on your computer.",
+            "Q4-A-4": "<strong>recognising images</strong> projects are trained on your computer.",
+            "Q4-A-5": "<strong>predicting numbers</strong> projects are trained on your computer.",
 
             "Q5": "What difference does it make where a project is stored?",
             "Q5-A-0": "You can choose where to store the training data for your machine learning project. You can store your training examples:",
@@ -1888,6 +1898,7 @@
             "Q1-A-3": ":خلاصه ای از این تفاوت ها در زیر نشان داده شده است",
             "CREATE_ACCOUNT": "ایجاد یک حساب کاربری",
             "TRAINMODELS": "...آموزش مدل‌های یادگیری ماشین برای تشخیص",
+            "TRAINREGRESSIONMODELS": "Train machine learning models to predict...",
             "PRETRAINED_MODELS": "از مدل‌های یادگیری ماشین از قبل آموزش دیده استفاده کنید",
             "TENSORFLOW_MODELS": "از مدل‌های میزبانی تنسورفلو استفاده کنید",
             "SCRATCH_ONLY": "(فقط از اسکرچ استفاده کنید)",

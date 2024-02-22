@@ -196,7 +196,11 @@
             'WORKSHEETS.ISPY.WORKSHEET_1.URL',
 
             'WORKSHEETS.CARPOOL.TITLE', 'WORKSHEETS.CARPOOL.SUMMARY', 'WORKSHEETS.CARPOOL.DESCRIPTION',
-            'WORKSHEETS.CARPOOL.WORKSHEET_1.URL'
+            'WORKSHEETS.CARPOOL.WORKSHEET_1.URL',
+
+            'WORKSHEETS.CATCHTHEBALL.TITLE', 'WORKSHEETS.CATCHTHEBALL.SUMMARY', 'WORKSHEETS.CATCHTHEBALL.DESCRIPTION',
+            'WORKSHEETS.CATCHTHEBALL.WORKSHEET_1.URL'
+
         ]).then(function (translations) {
             vm.worksheets = [
                 {
@@ -408,6 +412,21 @@
                     downloads : [
                         {
                             worksheet : translations['WORKSHEETS.MAILMANMAX.WORKSHEET_1.URL']
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.CATCHTHEBALL.TITLE'],
+                    summary : translations['WORKSHEETS.CATCHTHEBALL.SUMMARY'],
+                    description : translations['WORKSHEETS.CATCHTHEBALL.DESCRIPTION'],
+                    difficulty : 'Beginner',
+                    type : 'regression',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-catchtheball.png',
+                    tags : [ 'regression' ],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.CATCHTHEBALL.WORKSHEET_1.URL']
                         }
                     ]
                 },
@@ -799,7 +818,7 @@
                     type : 'numbers',
                     maketypes : [ 'python' ],
                     image : 'static/images/project-noughtsandcrosses.png',
-                    tags : [ 'decision tree learning', 'reinforcement learning', 'categorical data' ],
+                    tags : [ 'decision tree learning', 'categorical data' ],
                     teachersnotes : translations['WORKSHEETS.NOUGHTSANDCROSSES.TEACHERSNOTES_URL'],
                     downloads : [
                         {
@@ -815,7 +834,7 @@
                     type : 'numbers',
                     maketypes : [ 'scratch3' ],
                     image : 'static/images/project-toptrumps.png',
-                    tags : [ 'decision tree learning', 'reinforcement learning', 'categorical data' ],
+                    tags : [ 'decision tree learning', 'categorical data' ],
                     teachersnotes : translations['WORKSHEETS.TOPTRUMPS.TEACHERSNOTES_URL'],
                     downloads : [
                         {
