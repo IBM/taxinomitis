@@ -41,7 +41,9 @@
             'NEWPROJECT.WARNINGS.MLCRED-TEXT-NOKEYS',
             'NEWPROJECT.WARNINGS.MLCRED-TEXT-INVALID',
             'PROJECTS.WHOLE_CLASS_TITLE', 'PROJECTS.WHOLE_CLASS_NOTES',
-            'PROJECTS.CLOUD_STORAGE_TITLE', 'PROJECTS.CLOUD_STORAGE_NOTES'
+            'PROJECTS.CLOUD_STORAGE_TITLE', 'PROJECTS.CLOUD_STORAGE_NOTES',
+            'PROJECTS.LOCAL_STORAGE_TITLE', 'PROJECTS.LOCAL_STORAGE_NOTES',
+            'HELP.PROJECTS.Q5'
         ]).then(function (translations) {
             translatedStrings = translations;
         });
@@ -222,16 +224,27 @@
               );
         };
 
-        vm.displayCloudInfo = function (ev) {
+        vm.displayProjectTypeInfo = function (ev, type) {
             ev.stopPropagation();
             ev.preventDefault();
+
+            let title;
+            let notes = '<p>(See "<a href="/help">' + translatedStrings['HELP.PROJECTS.Q5'] + '</a>")</p>';
+            if (type === 'local') {
+                title = translatedStrings['PROJECTS.LOCAL_STORAGE_TITLE'];
+                notes = '<div><p>' + translatedStrings['PROJECTS.LOCAL_STORAGE_NOTES'] + '</p>' + notes + '</div>';
+            }
+            else {
+                title = translatedStrings['PROJECTS.CLOUD_STORAGE_TITLE'];
+                notes = '<div><p>' + translatedStrings['PROJECTS.CLOUD_STORAGE_NOTES'] + '</p>' + notes + '</div>';
+            }
 
             $mdDialog.show(
                 $mdDialog.alert()
                   .clickOutsideToClose(true)
-                  .title(translatedStrings['PROJECTS.CLOUD_STORAGE_TITLE'])
-                  .textContent(translatedStrings['PROJECTS.CLOUD_STORAGE_NOTES'])
-                  .ariaLabel(translatedStrings['PROJECTS.CLOUD_STORAGE_TITLE'])
+                  .title(title)
+                  .htmlContent(notes)
+                  .ariaLabel(title)
                   .ok('OK')
                   .targetEvent(ev)
               );

@@ -205,7 +205,9 @@
         "WHOLE_CLASS_TITLE": "Dự án tìm kiếm nguồn lực từ đám đông",
         "WHOLE_CLASS_NOTES": "Đây là một dự án của cả lớp. Tất cả học sinh trong lớp có thể sử dụng nó và thêm vào dữ liệu đào tạo.",
         "CLOUD_STORAGE_TITLE": "Cloud project",
-        "CLOUD_STORAGE_NOTES": "Training data for this project is stored in the cloud. This project can be accessed from any computer."
+        "CLOUD_STORAGE_NOTES": "Your training data for this project is stored in the cloud. This project can be accessed from any computer.",
+        "LOCAL_STORAGE_TITLE": "Local project",
+        "LOCAL_STORAGE_NOTES": "Your training data for this project is stored on your computer. This project can only be accessed from this web browser."
     },
     "NEWPROJECT": {
         "TITLE": "Bắt đầu dự án học máy mới",
@@ -224,7 +226,8 @@
             "CLOUD": "In the cloud",
             "NOTES_1": "Where do you want to store this project?",
             "NOTES_2": "Storing in your web browser removes limits on how big your project can be.",
-            "NOTES_3": "Storing in the cloud will let you access the project from any computer."
+            "NOTES_3": "Storing in the cloud will let you access the project from any computer.",
+            "PROMPT": "Please choose where you would like to store your project"
         },
         "TYPES": {
             "TYPELABEL": "Project Type",

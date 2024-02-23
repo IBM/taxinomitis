@@ -64,7 +64,8 @@
                     </span>
                 </div>
                 <div class="mlprojecticon mlprojectcrowd" ng-if="project.isCrowdSourced"      ng-click="vm.displayCrowdSourcedInfo($event)"> </div>
-                <div class="mlprojecticon mlprojectcloud" ng-if="project.storage !== 'local'" ng-click="vm.displayCloudInfo($event)"> </div>
+                <div class="mlprojecticon mlprojectcloud" ng-if="project.storage !== 'local'" ng-click="vm.displayProjectTypeInfo($event, 'cloud')"> </div>
+                <div class="mlprojecticon mlprojectlocal" ng-if="project.storage === 'local'" ng-click="vm.displayProjectTypeInfo($event, 'local')"> </div>
             </div>
             <div class="mlprojectdelete">
                 <button type="button"

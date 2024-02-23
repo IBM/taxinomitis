@@ -145,6 +145,7 @@
     background-size: contain;
     border: thin #333 solid;
     float: right;
+    margin-top: -30px;
 }
 
 .mlprojectdetails .mlprojectcrowd {
@@ -153,6 +154,10 @@
 
 .mlprojectdetails .mlprojectcloud {
     background-image: url('./../../static/images/cloud.png');
+}
+
+.mlprojectdetails .mlprojectlocal {
+    background-image: url('./../../static/images/local.png');
 }
 
 .mlprojectssharebutton {
