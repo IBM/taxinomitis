@@ -1,7 +1,7 @@
 if (Sentry) {
     Sentry.init({
         dsn: 'https://b4bbe1a8fbce473cb9eb089652848a1e@sentry.io/202347',
-        release: '147',
+        release: '148',
         // https://docs.sentry.io/platforms/javascript/configuration/filtering/#decluttering-sentry
         ignoreErrors: [
             "top.GLOBALS",
@@ -18,6 +18,7 @@ if (Sentry) {
             "bmi_SafeAddOnload",
             "EBCallBackMessageReceived",
             "conduitPage",
+            "Cannot redefine property: googletag"
         ],
         denyUrls: [
             /graph\.facebook\.com/i,

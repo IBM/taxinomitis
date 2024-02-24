@@ -52,17 +52,6 @@
             "BODY": "Machine Learning for Kids é uma ferramenta útil para introdução de como sistemas de Aprendizagem de máquina são treinados, como são utilizados e alguns conceitos de aplicações reais de I.A. <br/><br/>Para recursos adicionais de ensino e aprendizado, incluindo ensinando sobre os fundamento de Aprendizagem de máquina, veja: "
         }
     },
-    "NEWS": {
-        "TITLE": "Notícias",
-        "UPDATES": {
-            "TITLE": "Notícias & Updates",
-            "DESCRIPTION": "Notícias e updates de @MLforKids"
-        },
-        "MENTIONS": {
-            "TITLE": "Menções & Mídia",
-            "DESCRIPTION": "carregando Menções &amp; Mídia de wakelet.com"
-        }
-    },
     "LINKS": {
         "TITLE": "Recursos educacionais de I.A. para crianças",
         "INTRO": "Esta página é uma lista de ferramentas e recursos adicionais para introduzir a Inteligência Artificial para crianças.",

@@ -56,17 +56,6 @@
             "BODY": "Học máy trí tuệ nhân tạo đối với trẻ em là công cụ hữu ích để giới thiệu cho trẻ cách mà các hệ thống ML được đào tạo, cách mà chúng được sử dụng và một số ý nghĩa trong thế giới thực của các ứng dụng AI. <br/><br/>Để biết thêm tài nguyên giảng dạy và học tập, bao gồm giảng dạy nội bộ của hệ thống ML, vui lòng xem: "
         }
     },
-    "NEWS": {
-        "TITLE": "Tin tức",
-        "UPDATES": {
-            "TITLE": "Tin tức & Cập nhật",
-            "DESCRIPTION": "Tin tức và cập nhật từ @MLforKids"
-        },
-        "MENTIONS": {
-            "TITLE": "Đề cập & Truyền thông",
-            "DESCRIPTION": "Đang tải Mentions &amp; Phương tiện truyền thông from wakelet.com"
-        }
-    },
     "LINKS": {
         "TITLE": "Tài nguyên AI giáo dục cho trẻ em",
         "INTRO": "Trang này là danh sách các công cụ và tài nguyên bổ sung để giải thích về trí tuệ nhân tạo cho trẻ em.",

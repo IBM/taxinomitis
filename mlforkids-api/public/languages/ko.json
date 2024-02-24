@@ -56,17 +56,6 @@
             "BODY": "Machine Learning for Kids는 머신러닝 시스템의 교육 방법, 사용 방법 및 AI 응용 프로그램의 실제 효과를 학생들에게 소개하는 데 유용한 도구입니다. <br/><br/>머신러닝 시스템 교육을 포함한 교수학습자료는 다음을 참조하십시오. "
         }
     },
-    "NEWS": {
-        "TITLE": "새소식",
-        "UPDATES": {
-            "TITLE": "뉴스 & 새소식",
-            "DESCRIPTION": "@MLforKids의 새소식과 업데이트"
-        },
-        "MENTIONS": {
-            "TITLE": "알림",
-            "DESCRIPTION": "wakelet.com의 알림"
-        }
-    },
     "LINKS": {
         "TITLE": "아이들을 위한 인공지능 교육 자료",
         "INTRO": "이 페이지는 어린이에게 인공 지능을 소개하기 위한 추가 도구 및 리소스 목록입니다.",

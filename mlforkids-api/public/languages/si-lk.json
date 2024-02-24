@@ -52,17 +52,6 @@
             "BODY": "Machine Learning for Kids is a useful tool for introducing children to how ML systems are trained, how they are used, and some of the real-world implications of AI applications. <br/><br/>For additional teaching and learning resources, including teaching the internals of ML systems, please see: "
         }
     },
-    "NEWS": {
-        "TITLE": "පුවත්",
-        "UPDATES": {
-            "TITLE": "පුවත් සහ යාවත්කාලීන වීම්",
-            "DESCRIPTION": "පොඩ්ඩන්ට Machine Learning වෙතින් පුවත් සහ යාවත්කාලීන වීම්"
-        },
-        "MENTIONS": {
-            "TITLE": "සඳහන් කිරීම් සහ මාධ්‍යය",
-            "DESCRIPTION": "loading Mentions &amp; Media from wakelet.com"
-        }
-    },
     "LINKS": {
         "TITLE": "ළමුන් සඳහා කෘතිම බුද්ධිය ආශ්‍රිත අධ්‍යාපනික සම්පත්",
         "INTRO": "This page is a list of further tools and resources for introducing children to artificial intelligence.",

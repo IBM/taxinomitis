@@ -518,7 +518,8 @@
                 class="btn btn-primary trainbuttons"
                 ng-click="vm.createModel($event, project)"
                 ng-disabled="submittingTrainingRequest || submittingDeleteRequest"
-                translate="MODELS.TRAIN"></button>
+                translate="MODELS.TRAIN"
+                aria-label="Train new machine learning model"></button>
 
         <md-progress-circular class="progressindicator" ng-if="submittingTrainingRequest" md-mode="indeterminate"></md-progress-circular>
     </div>

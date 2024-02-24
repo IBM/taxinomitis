@@ -52,17 +52,6 @@
             "BODY": "L'apprentissage machine pour les enfants est un outil utile pour présenter aux enfants comment les systèmes de machine learning sont formés, comment ils sont utilisés, et certaines des implications du monde réel des applications de l'IA. <br/><br/>Pour des ressources d'enseignement et d'apprentissage supplémentaires, y compris l'enseignement des processus internes des systèmes de ML, veuillez consulter "
         }
     },
-    "NEWS": {
-        "TITLE": "Nouvelles",
-        "UPDATES": {
-            "TITLE": "Nouvelles & Mise à jour",
-            "DESCRIPTION": "Nouvelles et mise à jour de la part de @MLforKids"
-        },
-        "MENTIONS": {
-            "TITLE": "Mentions & Média",
-            "DESCRIPTION": "charge les Mentions &amp; Media depuis wakelet.com"
-        }
-    },
     "LINKS": {
         "TITLE": "Ressources éducatives en matière d'IA pour les enfants",
         "INTRO": "Cette page est une liste d'autres outils et de ressources pour initier les enfants à l'intelligence artificielle.",

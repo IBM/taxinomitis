@@ -8,7 +8,7 @@
     <p class="small"><em><a href="https://github.com/IBM/taxinomitis-docs/blob/master/README.md#contributions" translate="WORKSHEETS.INTRO_3"></a></em></p>
 </div>
 <div class="worksheetfilters">
-    <md-select ng-model="projecttype" class="filter">
+    <md-select ng-model="projecttype" class="filter" aria-label="Filter by type of machine learning model">
         <md-option value="ALL" translate="WORKSHEETS.TYPES.ALL"></md-option>
         <md-option value="text">{{ 'WORKSHEETS.TYPES.PREFIX' | translate }} <strong translate="WORKSHEETS.TYPES.TEXT"></strong></md-option>
         <md-option value="images">{{ 'WORKSHEETS.TYPES.PREFIX' | translate }} <strong translate="WORKSHEETS.TYPES.IMAGES"></strong></md-option>
@@ -17,13 +17,13 @@
         <md-option value="faces">{{ 'WORKSHEETS.TYPES.PREFIX' | translate }} <strong translate="WORKSHEETS.TYPES.FACES"></strong></md-option>
         <md-option value="regression">{{ 'WORKSHEETS.TYPES.PREFIXREGRESSION' | translate }} <strong translate="WORKSHEETS.TYPES.NUMBERS"></strong></md-option>
     </md-select>
-    <md-select ng-model="projectdifficulty" class="filter">
+    <md-select ng-model="projectdifficulty" class="filter" aria-label="Filter by project difficulty">
         <md-option value="ALL" translate="WORKSHEETS.LEVELS.ALL"></md-option>
         <md-option value="Beginner"><strong translate="WORKSHEETS.LEVELS.BEGINNER"></strong></md-option>
         <md-option value="Intermediate"><strong translate="WORKSHEETS.LEVELS.INTERMEDIATE"></strong></md-option>
         <md-option value="Advanced"><strong translate="WORKSHEETS.LEVELS.ADVANCED"></strong></md-option>
     </md-select>
-    <md-select ng-model="projectmaketype" class="filter">
+    <md-select ng-model="projectmaketype" class="filter" aria-label="Filter by project type">
         <md-option value="ALL" translate="WORKSHEETS.MAKETYPES.ALL"></md-option>
         <md-option value="scratch"><strong translate="WORKSHEETS.MAKETYPES.SCRATCH"></strong></md-option>
         <md-option value="python"><strong translate="WORKSHEETS.MAKETYPES.PYTHON"></strong></md-option>

@@ -196,30 +196,41 @@
                 return;
             }
 
-            return new Promise(function (resolve) {
-                const projectTransaction = projectsDbHandle.transaction([ PROJECTS_TABLE ], 'readwrite');
-                const projectsTable = projectTransaction.objectStore(PROJECTS_TABLE);
-                projectsTable.index('classid').openCursor(IDBKeyRange.only('session-users')).onsuccess = function (event) {
-                    const cursor = event.target.result;
-                    if (cursor) {
-                        // delete any local data for this project
-                        cleanupService.deleteProject(cursor.value);
+            return new Promise(function (resolve, reject) {
+                try {
+                    const projectTransaction = projectsDbHandle.transaction([ PROJECTS_TABLE ], 'readwrite');
+                    const projectsTable = projectTransaction.objectStore(PROJECTS_TABLE);
+                    const request = projectsTable.index('classid').openCursor(IDBKeyRange.only('session-users'));
+                    request.onsuccess = function (event) {
+                        const cursor = event.target.result;
+                        if (cursor) {
+                            // delete any local data for this project
+                            cleanupService.deleteProject(cursor.value);
 
-                        // delete the training data database
-                        delete trainingDataDatabases[cursor.value.id];
-                        window.indexedDB.deleteDatabase(TRAINING_DB_NAME_PREFIX + cursor.value.id);
+                            // delete the training data database
+                            delete trainingDataDatabases[cursor.value.id];
+                            window.indexedDB.deleteDatabase(TRAINING_DB_NAME_PREFIX + cursor.value.id);
 
-                        // delete the project itself
-                        projectsTable.delete(cursor.primaryKey);
+                            // delete the project itself
+                            projectsTable.delete(cursor.primaryKey);
 
-                        // move to the next project
-                        cursor.continue();
-                    }
-                    else {
-                        // nothing left to delete
-                        resolve();
-                    }
-                };
+                            // move to the next project
+                            cursor.continue();
+                        }
+                        else {
+                            // nothing left to delete
+                            resolve();
+                        }
+                    };
+                    request.onerror = function (err) {
+                        loggerService.error('[ml4kstorage] failed to get cursor.', err);
+                        reject(err);
+                    };
+                }
+                catch (err) {
+                    loggerService.error('[ml4kstorage] failed to run session user cleanup.', err);
+                    reject(err);
+                }
             });
         }
 

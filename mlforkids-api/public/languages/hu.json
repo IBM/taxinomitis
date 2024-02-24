@@ -56,17 +56,6 @@
             "BODY": "A Gépi Tanulás Gyerekeknek hasznos eszköz arra, hogy a diákok megtapasztalják a Gépi tanulási rendszerek tanítását, használatát, illetve a mesterséges intelligencia által vezérelt applikációk belső világát.<br/><br/>További forrásokért, beleértve a tanári kézikönyvet is, kattints: "
         }
     },
-    "NEWS": {
-        "TITLE": "Hírek",
-        "UPDATES": {
-            "TITLE": "Hírek és Frissítések",
-            "DESCRIPTION": "Hírek és friss információk @MLforKids"
-        },
-        "MENTIONS": {
-            "TITLE": "Hivatkozások és médiamegjelenések",
-            "DESCRIPTION": "hivatkozások betöltése &amp; Media from wakelet.com"
-        }
-    },
     "LINKS": {
         "TITLE": "Oktatási célú mesterséges intelligencia anyagok gyerekeknek",
         "INTRO": "Ez az oldal további - a mesterséges intelligenciát bemutató - eszközöket és forrásokat tartalmaz.",

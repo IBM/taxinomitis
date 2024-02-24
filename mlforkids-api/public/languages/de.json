@@ -52,17 +52,6 @@
             "BODY": "Machine Learning for Kids ist eine nützliche Plattform, um Kinder an das Trainieren und den Nutzen von ML-Systemen heranzuführen und ihnen ein paar reale Anwendungen für Künstliche Intelligenz näher zu bringen. <br/><br/>Für weiteres Lehr- und Lernmaterial, wie die Kernbausteine eines ML-Systems, bitte hier schauen:"
         }
     },
-    "NEWS": {
-        "TITLE": "Neuigkeiten",
-        "UPDATES": {
-            "TITLE": "Neuigkeiten & Updates",
-            "DESCRIPTION": "Neuigkeiten und Updates von @MLforKids"
-        },
-        "MENTIONS": {
-            "TITLE": "Erwähnungen & Presse",
-            "DESCRIPTION": "Lade Erwähnungen &amp; Presse von wakelet.com"
-        }
-    },
     "LINKS": {
         "TITLE": "Quellen (auf Englisch) für Kinder zum Nachlesen über künstliche Intelligenz",
         "INTRO": "Diese Seite besteht aus einer Liste weiterer Werkzeuge und Quellen, um Kinder an künstliche Intelligenz heranzuführen.",

@@ -52,10 +52,6 @@
                 url: '/about',
                 templateUrl: 'static/components/about/about.html'
             })
-            .state('news', {
-                url: '/news',
-                templateUrl: 'static/components/news/news.html'
-            })
             .state('help', {
                 url: '/help',
                 templateUrl: 'static/components/help/help.html'
@@ -298,7 +294,7 @@
             .useSanitizeValueStrategy('sanitizeParameters')
             .useStaticFilesLoader({
                 prefix: 'static/languages/',
-                suffix: '.json?v=147'
+                suffix: '.json?v=148'
             })
             .determinePreferredLanguage(function () {
                 var lang = navigator.userLanguage || navigator.language;

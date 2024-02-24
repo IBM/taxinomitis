@@ -27,8 +27,8 @@
         </md-dialog-content>
         <md-dialog-actions layout="row">
             <span flex></span>
-            <md-button type="submit" class="md-raised md-primary" ng-disabled="newTextTrainingData.$invalid" translate="APP.ADD"></md-button>
-            <md-button ng-click="cancel()" translate="APP.CANCEL"></md-button>
+            <md-button type="submit" class="md-raised md-primary" ng-disabled="newTextTrainingData.$invalid" translate="APP.ADD" aria-label="Add new training example"></md-button>
+            <md-button ng-click="cancel()" translate="APP.CANCEL" aria-label="Cancel"></md-button>
         </md-dialog-actions>
     </form>
     <form ng-cloak name="newNumbersTrainingData" ng-hide="project.type !== 'numbers'">
@@ -63,8 +63,8 @@
         </md-dialog-content>
         <md-dialog-actions layout="row">
             <span flex></span>
-            <md-button type="submit" class="md-raised md-primary" ng-disabled="newNumbersTrainingData.$invalid" ng-click="confirm(values)" translate="APP.ADD"></md-button>
-            <md-button ng-click="cancel()" translate="APP.CANCEL"></md-button>
+            <md-button type="submit" class="md-raised md-primary" ng-disabled="newNumbersTrainingData.$invalid" ng-click="confirm(values)" translate="APP.ADD" aria-label="Add new training example"></md-button>
+            <md-button ng-click="cancel()" translate="APP.CANCEL" aria-label="Cancel"></md-button>
         </md-dialog-actions>
     </form>
     <form ng-cloak name="newImagesTrainingData" ng-hide="project.type !== 'imgtfjs'" ng-submit="confirm(example)">
@@ -89,8 +89,8 @@
         </md-dialog-content>
         <md-dialog-actions layout="row">
             <span flex></span>
-            <md-button type="submit" class="md-raised md-primary" ng-disabled="newImagesTrainingData.$invalid" ng-click="confirm(example)" translate="APP.ADD"></md-button>
-            <md-button ng-click="cancel()" translate="APP.CANCEL"></md-button>
+            <md-button type="submit" class="md-raised md-primary" ng-disabled="newImagesTrainingData.$invalid" ng-click="confirm(example)" translate="APP.ADD" aria-label="Add new training example"></md-button>
+            <md-button ng-click="cancel()" translate="APP.CANCEL" aria-label="Cancel"></md-button>
         </md-dialog-actions>
     </form>
     <form ng-cloak name="newSoundsTrainingData" ng-hide="project.type !== 'sounds'">
@@ -110,8 +110,8 @@
         </md-dialog-content>
         <md-dialog-actions layout="row">
             <span flex></span>
-            <md-button type="submit" class="md-raised md-primary" ng-disabled="!example" ng-click="confirm(example)" translate="APP.ADD"></md-button>
-            <md-button ng-click="cancel()" translate="APP.CANCEL"></md-button>
+            <md-button type="submit" class="md-raised md-primary" ng-disabled="!example" ng-click="confirm(example)" translate="APP.ADD" aria-label="Add new training example"></md-button>
+            <md-button ng-click="cancel()" translate="APP.CANCEL" aria-label="Cancel"></md-button>
         </md-dialog-actions>
     </form>
 </md-dialog>

@@ -52,17 +52,6 @@
             "BODY": "Machine Learning for Kids is een handig hulpmiddel om kinderen kennis te laten maken met ML systemen en hoe deze worden getraind en gebruikt en wat de invloed is van AI-systemen in het dagelijkse leven. <br/><br/>Voor aanvullende leermiddelen, onder andere over de interne opbouw van ML-systemen, kan je terecht op: "
         }
     },
-    "NEWS": {
-        "TITLE": "Nieuws",
-        "UPDATES": {
-            "TITLE": "Nieuws en updates",
-            "DESCRIPTION": "Nieuws en updates van @MLforKids"
-        },
-        "MENTIONS": {
-            "TITLE": "Vermeldingen & Media",
-            "DESCRIPTION": "laden vermeldingen &amp; media van wakelet.com"
-        }
-    },
     "LINKS": {
         "TITLE": "Educational AI resources for children",
         "INTRO": "This page is a list of further tools and resources for introducing children to artificial intelligence.",

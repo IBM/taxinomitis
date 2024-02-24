@@ -22,10 +22,10 @@
     </md-dialog-content>
     <md-dialog-actions layout="row">
         <span flex></span>
-        <md-button type="submit" class="md-raised md-primary" ng-disabled="webcamerror" ng-click="confirm()">
+        <md-button type="submit" class="md-raised md-primary" ng-disabled="webcamerror" ng-click="confirm()" aria-label="Test">
             <span class="glyphicon glyphicon-camera"></span>
             <span translate="APP.TEST"></span>
         </md-button>
-        <md-button ng-click="cancel()" translate="APP.CANCEL"></md-button>
+        <md-button ng-click="cancel()" translate="APP.CANCEL" aria-label="Cancel"></md-button>
     </md-dialog-actions>
 </md-dialog>

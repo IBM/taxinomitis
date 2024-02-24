@@ -52,17 +52,6 @@
             "BODY": "Mae Dysgu Peiriant i Blant yn adnodd defnyddiol ar gyfer cyflwyno plant i sut mae systemau DP yn cael eu hyfforddi, sut maen nhw'n cael eu defnyddio, a rhai o oblygiadau'r byd go iawn o gymwysiadau AI. <br/><br/> Am adnoddau addysgu a dysgu ychwanegol, gan gynnwys addysgu systemau mewnol DP, gweler:"
         }
     },
-    "NEWS": {
-        "TITLE": "Newyddion",
-        "UPDATES": {
-            "TITLE": "Newyddion a Diweddariadau",
-            "DESCRIPTION": "Newyddion a diweddariadau o @MLforKids"
-        },
-        "MENTIONS": {
-            "TITLE": "Crybwylliadau a Cyfryngau",
-            "DESCRIPTION": "Yn llwytho crybwylliadau a Cyfryngau o wakelet.com"
-        }
-    },
     "LINKS": {
         "TITLE": "Adnoddau AI addysgol i blant",
         "INTRO": "Mae'r dudalen hon yn rhestr o offer ac adnoddau pellach ar gyfer egluro deallusrwydd artiffisial i blant.",

@@ -56,17 +56,6 @@
             "BODY": "「兒童機器學習」是一個好用的工具，用來向孩子介紹如何訓練以及使用機器學習系統，還有一些AI應用程式在現實世界中的含義"
         }
     },
-    "NEWS": {
-        "TITLE": "新聞",
-        "UPDATES": {
-            "TITLE": "新聞與更新資訊",
-            "DESCRIPTION": "來自 @MLforKids的新聞與更新資訊"
-        },
-        "MENTIONS": {
-            "TITLE": "提及與媒體",
-            "DESCRIPTION": "載入來自 wakelet.com的提及與 &amp; 媒體資訊"
-        }
-    },
     "LINKS": {
         "TITLE": "兒童的AI教育資源",
         "INTRO": "此頁面是用來向兒童解釋人工智慧的延伸工具和資源的清單",

@@ -52,17 +52,6 @@
             "BODY": "Strojové učení pro děti je užitečný nástroj, který dětem přiblíží, jak se systémy ML trénují, jak se používají a jaké jsou některé reálné důsledky aplikací umělé inteligence. <br/><br/>Další výukové a vzdělávací zdroje, včetně výuky vnitřních principů systémů ML, naleznete zde: "
         }
     },
-    "NEWS": {
-        "TITLE": "Zprávy",
-        "UPDATES": {
-            "TITLE": "Novinky a aktualizace",
-            "DESCRIPTION": "Novinky a aktualizace z @MLforKids"
-        },
-        "MENTIONS": {
-            "TITLE": "Zmínky a média",
-            "DESCRIPTION": "načítání Zmínky a média z wakelet.com"
-        }
-    },
     "LINKS": {
         "TITLE": "Vzdělávací zdroje AI pro děti",
         "INTRO": "Na této stránce naleznete seznam dalších nástrojů a zdrojů pro vysvětlení umělé inteligence dětem.",

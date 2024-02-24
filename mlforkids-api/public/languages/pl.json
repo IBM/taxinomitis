@@ -52,17 +52,6 @@
             "BODY": "Machine Learning for Kids jest użytecznym narzędziem do wprowadzenia dzieci w sposób, w jaki szkolone są systemy ML, w jaki sposób są one wykorzystywane i niektóre z realnych implikacji zastosowań AI. <br/><br/>Dodatkowe materiały dydaktyczne i dydaktyczne, w tym materiały dydaktyczne dotyczące wewnętrznych aspektów systemów ML, można znaleźć na stronie internetowej: "
         }
     },
-    "NEWS": {
-        "TITLE": "Nowiny",
-        "UPDATES": {
-            "TITLE": "Nowości i Aktualizacje",
-            "DESCRIPTION": "Nowości i aktualizacje z @MLforKids"
-        },
-        "MENTIONS": {
-            "TITLE": "Wzmianki i Media",
-            "DESCRIPTION": "loading Mentions &amp; Media from wakelet.com"
-        }
-    },
     "LINKS": {
         "TITLE": "Zasoby edukacyjne Sztucznej Inteligencji dla dzieci",
         "INTRO": "Ta strona jest listą dalszych narzędzi i zasobów służących wyjaśnianiu sztucznej inteligencji dzieciom.",

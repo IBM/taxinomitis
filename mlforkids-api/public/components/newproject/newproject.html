@@ -299,12 +299,13 @@
         <div class="newprojectrow">
             <span flex></span>
             <md-button
+                aria-label="Create project"
                 class="md-raised md-primary"
                 ng-disabled="creating || newProject.$invalid || isInvalid(projectType)"
                 ng-click="vm.confirm({ name : projectName, type : projectType, storage : projectStorage, fields : vm.fields, language : language, isCrowdSourced : (isTeacher && crowdSourced && projectStorage === 'cloud') ? true : false })"
                 translate="NEWPROJECT.CREATE">
             </md-button>
-            <md-button ui-sref="projects" translate="APP.CANCEL"></md-button>
+            <md-button ui-sref="projects" translate="APP.CANCEL" aria-label="Cancel"></md-button>
         </div>
 
     </form>
