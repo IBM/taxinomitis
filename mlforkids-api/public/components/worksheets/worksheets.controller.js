@@ -727,7 +727,7 @@
                     description : translations['WORKSHEETS.JUDGEABOOK.DESCRIPTION'],
                     difficulty : 'Intermediate',
                     type : 'images',
-                    maketypes : [ 'scratch3', 'appinventor' ],
+                    maketypes : [ 'scratch3' ],
                     image : 'static/images/project-judgeabook.png',
                     tags : [ 'image classification', 'supervised learning' ],
                     teachersnotes : translations['WORKSHEETS.JUDGEABOOK.TEACHERSNOTES_URL'],
@@ -739,10 +739,6 @@
                         {
                             description : translations['WORKSHEETS.JUDGEABOOK.WORKSHEET_2.DESCRIPTION'],
                             worksheet : translations['WORKSHEETS.JUDGEABOOK.WORKSHEET_2.URL']
-                        },
-                        {
-                            description : translations['WORKSHEETS.JUDGEABOOK.WORKSHEET_3.DESCRIPTION'],
-                            worksheet : translations['WORKSHEETS.JUDGEABOOK.WORKSHEET_3.URL']
                         }
                     ]
                 },
@@ -855,22 +851,6 @@
                     downloads : [
                         {
                             worksheet : translations['WORKSHEETS.HEADLINETESTING.WORKSHEET_1.URL']
-                        }
-                    ]
-                },
-                {
-                    title : translations['WORKSHEETS.FINDIT.TITLE'],
-                    summary : translations['WORKSHEETS.FINDIT.SUMMARY'],
-                    description : translations['WORKSHEETS.FINDIT.DESCRIPTION'],
-                    difficulty : 'Advanced',
-                    type : 'images',
-                    maketypes : [ 'appinventor' ],
-                    image : 'static/images/project-findit.png',
-                    tags : [ 'image classification', 'supervised learning' ],
-                    teachersnotes : translations['WORKSHEETS.FINDIT.TEACHERSNOTES_URL'],
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.FINDIT.WORKSHEET_1.URL']
                         }
                     ]
                 },

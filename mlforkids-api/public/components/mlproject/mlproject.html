@@ -38,11 +38,11 @@
         <div class="mlprojectmenuexpanded">
             <div class="mlprojectmenutitle" translate="PROJECT.MAKES.TITLE"></div>
             <div class="mlprojectmenudescription" translate="PROJECT.MAKES.BODY_SCRATCHPYTHONAPPINV"
-                 ng-if="makes.scratch && makes.python && makes.appinventor && !makes.edublocks"></div>
+                 ng-if="makes.scratch && makes.python && !makes.edublocks"></div>
             <div class="mlprojectmenudescription" translate="PROJECT.MAKES.BODY_SCRATCHONLY"
-                 ng-if="makes.scratch && !makes.python && !makes.appinventor && !makes.edublocks"></div>
+                 ng-if="makes.scratch && !makes.python && !makes.edublocks"></div>
             <div class="mlprojectmenudescription" translate="PROJECT.MAKES.BODY"
-                 ng-if="makes.scratch && makes.python && makes.appinventor && makes.edublocks"></div>
+                 ng-if="makes.scratch && makes.python && makes.edublocks"></div>
             <div class="mlprojectmenubutton">
                 <button type="button" class="btn btn-primary"
                         ui-sref="mlproject_makes({ projectId : projectId, userId : userId })"

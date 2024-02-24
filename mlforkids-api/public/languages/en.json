@@ -37,7 +37,7 @@
         "IN20MINS": "In 20 minutes...",
         "WHAT": {
             "TITLE": "What?",
-            "BODY" : "This free tool introduces machine learning by providing hands-on experiences for training machine learning systems and building things with them. <br/><br/>It provides an easy-to-use guided environment for training machine learning models to recognise text, numbers, images, or sounds. <br/><br/>This builds on existing efforts to introduce and teach coding to children, by adding these models to educational coding platforms <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a> and <a href='http://appinventor.mit.edu/' target='_blank'>App Inventor</a>, and helping children create projects and build games with the machine learning models they train. <br/><br/>The tool was first made available in 2017, and is now being <a href='https://wakelet.com/wake/4d3680cb-2a11-49ab-9180-fcfeced48393' target='_blank'>used by thousands of schools, code clubs, and families around the world</a>. <br/><br/>To learn more, look at:"
+            "BODY" : "This free tool introduces machine learning by providing hands-on experiences for training machine learning systems and building things with them. <br/><br/>It provides an easy-to-use guided environment for training machine learning models to recognise text, numbers, images, or sounds. <br/><br/>This builds on existing efforts to introduce and teach coding to children, by adding these models to educational coding platforms <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a> and <a href='https://edublocks.org' target='_blank'>EduBlocks</a>, and helping children create projects and build games with the machine learning models they train. <br/><br/>The tool was first made available in 2017, and is now being <a href='https://wakelet.com/wake/4d3680cb-2a11-49ab-9180-fcfeced48393' target='_blank'>used by thousands of schools, code clubs, and families around the world</a>. <br/><br/>To learn more, look at:"
         },
         "WHY": {
             "TITLE": "Why?",
@@ -379,8 +379,8 @@
         },
         "MAKES": {
             "TITLE": "Make",
-            "BODY": "Use the machine learning model you've trained to make a game or app, in Scratch, Python, EduBlocks, or App Inventor",
-            "BODY_SCRATCHPYTHONAPPINV": "Use the machine learning model you've trained to make a game or app, in Scratch, Python, or App Inventor",
+            "BODY": "Use the machine learning model you've trained to make a game or app, in Scratch, Python, or EduBlocks",
+            "BODY_SCRATCHPYTHONAPPINV": "Use the machine learning model you've trained to make a game or app, in Scratch or Python",
             "BODY_SCRATCHONLY": "Use the machine learning model you've trained to make a game or app in Scratch"
         },
         "SCRATCH": {

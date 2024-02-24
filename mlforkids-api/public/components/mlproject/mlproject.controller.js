@@ -18,7 +18,6 @@
 
         $scope.makes = {
             scratch: true,
-            appinventor: true,
             python: true,
             edublocks: false
         };
