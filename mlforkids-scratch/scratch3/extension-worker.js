@@ -2086,12 +2086,27 @@ var ML4KidsRegressionTraining = /*#__PURE__*/function () {
         var targetFeatures = [];
         var _loop = function _loop() {
           var trainingitem = training[i];
-          inputFeatures.push(inputColumns.map(function (col) {
-            return trainingitem[col];
-          }));
-          targetFeatures.push(targetColumns.map(function (col) {
-            return trainingitem[col];
-          }));
+          var skip = false;
+          var inputFeature = inputColumns.map(function (col) {
+            var num = trainingitem[col];
+            if (isNaN(num)) {
+              skip = true;
+            }
+            return num;
+          });
+          var targetFeature = targetColumns.map(function (col) {
+            var num = trainingitem[col];
+            if (isNaN(num)) {
+              skip = true;
+            }
+            return num;
+          });
+          if (skip) {
+            console.log('[mlforkids] skipping non-numeric training data', trainingitem);
+          } else {
+            inputFeatures.push(inputFeature);
+            targetFeatures.push(targetFeature);
+          }
         };
         for (var i = 0; i < training.length; i++) {
           _loop();

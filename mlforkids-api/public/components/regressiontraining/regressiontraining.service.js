@@ -162,8 +162,30 @@
                     const targetFeatures = [];
                     for (let i = 0; i < training.length; i++) {
                         const trainingitem = training[i];
-                        inputFeatures.push(inputColumns.map(function (col) { return trainingitem[col]; }));
-                        targetFeatures.push(targetColumns.map(function (col) { return trainingitem[col]; }));
+                        let skip = false;
+
+                        const inputFeature = inputColumns.map(function (col) {
+                            const num = trainingitem[col];
+                            if (isNaN(num)) {
+                                skip = true;
+                            }
+                            return num;
+                        });
+                        const targetFeature = targetColumns.map(function (col) {
+                            const num = trainingitem[col];
+                            if (isNaN(num)) {
+                                skip = true;
+                            }
+                            return num;
+                        });
+
+                        if (skip) {
+                            loggerService.error('[ml4kregress] skipping non-numeric training data', trainingitem);
+                        }
+                        else {
+                            inputFeatures.push(inputFeature);
+                            targetFeatures.push(targetFeature);
+                        }
                     }
 
                     // normalize the input
