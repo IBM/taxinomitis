@@ -113,13 +113,14 @@
                     <div class="modelstatusdetail">
                         <span ng-if="project.isCrowdSourced" translate="MODELS.WHATHAVEYOUDONE.READY.TRAINING.CLASS"></span>
                         <span ng-hide="project.isCrowdSourced" translate="MODELS.WHATHAVEYOUDONE.READY.TRAINING.YOU"></span>
-                        <ul>
+                        <ul ng-hide="project.type === 'regression'">
                             <li ng-repeat="training in trainingcounts">
                                 {{ training.count }}
-                                examples of
+                                example<span ng-if="training.count !== 1">s</span> of
                                 {{ training.label }}<span ng-if="!$last">, </span>
                             </li>
                         </ul>
+                        <span ng-if="project.type === 'regression'">{{ trainingcounts[0].count }} examples of data</span>
                     </div>
                 </div>
 
@@ -207,7 +208,18 @@
                         <div class="modelstatusdetail" ng-hide="project.isCrowdSourced"
                                                        translate="MODELS.WHATHAVEYOUDONE.IDLE.NOEXAMPLES.YOU"></div>
                     </div>
-                    <div ng-if="project.labels.length > 0 && trainingdatastatus !== 'no_data'">
+                    <div ng-if="trainingdatastatus === 'no_output_columns'">
+                        <div class="modelstatusdetail">
+                            <span ng-if="project.type === 'regression'"
+                                  translate="MODELS.WHATHAVEYOUDONE.IDLE.DATA.INDIVIDUAL.REGRESSION"></span>
+                            something.
+                        </div>
+                        <div class="modelstatusdetail">
+                            <span translate="MODELS.WHATHAVEYOUDONE.IDLE.DATA.COLLECTED.YOU"></span>
+                            <span ng-if="project.type === 'regression'">{{ trainingcounts[0].count }} examples of data</span>
+                        </div>
+                    </div>
+                    <div ng-if="project.labels.length > 0 && trainingdatastatus !== 'no_data' && trainingdatastatus !== 'no_output_columns'">
                         <div class="modelstatusdetail">
                             <span ng-if="project.isCrowdSourced && project.type === 'text'"
                                   translate="MODELS.WHATHAVEYOUDONE.IDLE.DATA.CROWDSOURCED.TEXT"></span>
@@ -232,13 +244,14 @@
                         <div class="modelstatusdetail">
                             <span ng-if="project.isCrowdSourced" translate="MODELS.WHATHAVEYOUDONE.IDLE.DATA.COLLECTED.CLASS"></span>
                             <span ng-hide="project.isCrowdSourced" translate="MODELS.WHATHAVEYOUDONE.IDLE.DATA.COLLECTED.YOU"></span>
-                            <ul>
+                            <ul ng-hide="project.type === 'regression'">
                                 <li ng-repeat="training in trainingcounts">
                                     {{ training.count }}
                                     example<span ng-if="training.count !== 1">s</span> of
                                     {{ training.label }}<span ng-if="!$last">, </span>
                                 </li>
                             </ul>
+                            <span ng-if="project.type === 'regression'">{{ trainingcounts[0].count }} examples of data</span>
                         </div>
                     </div>
                 </div>
@@ -314,6 +327,8 @@
                              translate="MODELS.WHATSNEXT.IDLE.LABELS.NO_DATA"></div>
                         <div ng-if="trainingdatastatus === 'no_data' && project.type === 'regression'" class="modelstatusdetail" translate-values='{ urls : projecturls }'
                              translate="MODELS.WHATSNEXT.IDLE.LABELS.NO_DATA_REGRESSION"></div>
+                        <div ng-if="trainingdatastatus === 'no_output_columns' && project.type === 'regression'" class="modelstatusdetail" translate-values='{ urls : projecturls }'
+                             translate="MODELS.WHATSNEXT.IDLE.LABELS.NO_OUTPUT_COLUMNS"></div>
                         <div ng-if="trainingdatastatus === 'insufficient_data'">
                             <div class="modelstatusdetail" translate="MODELS.WHATSNEXT.IDLE.LABELS.MORE_DATA.KEEP_GOING"></div>
                             <div class="modelstatusdetail" ng-if="owner" translate="MODELS.WHATSNEXT.IDLE.LABELS.MORE_DATA.MORE_EXAMPLES.YOU" translate-values='{ urls : projecturls }'></div>

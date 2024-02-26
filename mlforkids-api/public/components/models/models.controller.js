@@ -184,7 +184,12 @@
                     var outputColNames = projectColumns
                         .filter(c => c.output)
                         .map(c => c.label);
-                    $scope.projectSummary = modelService.generateProjectSummary(outputColNames, ' and ');
+                    if (outputColNames.length === 0) {
+                        $scope.projectSummary = 'something';
+                    }
+                    else {
+                        $scope.projectSummary = modelService.generateProjectSummary(outputColNames, ' and ');
+                    }
                 }
                 else {
                     $scope.projectSummary = modelService.generateProjectSummary($scope.project.labels, ' or ');

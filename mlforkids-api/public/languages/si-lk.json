@@ -581,6 +581,7 @@
                 "LABELS": {
                     "NO_DATA": "මීළඟ පියවර වන්නේ  <a href='{{ urls.train }}'>පුහුණු පිටුවට</a> ගොස් . එක් එක් ලේබලය සඳහා උදාහරණ එක් කිරීමයි.",
                     "NO_DATA_REGRESSION" : "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Add examples of numbers.",
+                    "NO_OUTPUT_COLUMNS": "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Choose which value(s) you want the computer to learn to predict, by marking them as output columns.",
                     "MORE_DATA": {
                         "KEEP_GOING": "තවත් ඉදිරියටම යන්න!",
                         "MORE_EXAMPLES": {

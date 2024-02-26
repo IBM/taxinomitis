@@ -581,6 +581,7 @@
                 "LABELS": {
                     "NO_DATA": "L'étape suivante est d'aller à la page d'<a href='{{ urls.train}}'>Entraînement</a>. Ajoutez des exemples pour chacune des étiquettes.",
                     "NO_DATA_REGRESSION" : "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Add examples of numbers.",
+                    "NO_OUTPUT_COLUMNS": "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Choose which value(s) you want the computer to learn to predict, by marking them as output columns.",
                     "MORE_DATA": {
                         "KEEP_GOING": "Continuez d'avancer !",
                         "MORE_EXAMPLES": {

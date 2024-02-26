@@ -113,8 +113,12 @@
                     {
                         trainingdatastatus = 'insufficient_data';
                     }
-                    else {
+                    else if (trainingDataCountsByLabel.outputcolumns > 0)
+                    {
                         trainingdatastatus = 'data';
+                    }
+                    else {
+                        trainingdatastatus = 'no_output_columns';
                     }
                 }
                 else {

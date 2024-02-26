@@ -52,7 +52,11 @@
                 if (project.type === 'regression') {
                     return browserStorageService.countTrainingData(project.id)
                         .then(function (count) {
-                            return { data : count }
+                            let outputcolumns = 0;
+                            if (project.columns) {
+                                outputcolumns = project.columns.filter(p => p.output).length;
+                            }
+                            return { data : count, outputcolumns };
                         });
                 }
                 return browserStorageService.getLabelCounts(project.id);
