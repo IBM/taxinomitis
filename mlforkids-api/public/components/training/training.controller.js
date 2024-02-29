@@ -865,6 +865,7 @@
                                         .split(/[\r\n]+/)
                                         .map(line => line.trim())
                                         .filter(line => line.length > 0)
+                                        .reduce((acc, cur) => acc.includes(cur) ? acc : [...acc, cur], [])
                                         .map(function (line) {
                                             return { label, textdata : line };
                                         }))

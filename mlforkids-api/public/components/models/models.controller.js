@@ -906,6 +906,25 @@
         }
 
 
+        function scrollToNewItem(itemId, retried) {
+            $scope.$applyAsync(function () {
+                var newItem = document.getElementById(itemId.toString());
+                if (newItem) {
+                    var itemContainer = newItem.parentElement;
+                    angular.element(itemContainer).duScrollToElementAnimated(angular.element(newItem));
+                }
+                else if (!retried) {
+                    $timeout(function () {
+                        scrollToNewItem(itemId, true);
+                    }, 0);
+                }
+                else {
+                    loggerService.error('[ml4kmodels] unable to scroll to new item', itemId);
+                }
+            });
+        }
+
+
 
         $scope.getController = function() {
             return vm;

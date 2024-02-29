@@ -2925,6 +2925,7 @@ var ML4KidsLocalStorage = /*#__PURE__*/function () {
     value: function getTrainingForWatsonAssistant(project) {
       return this.getTrainingData(project.id).then(function (allTraining) {
         var trainingByLabel = {};
+        var duplicatesCheck = {};
         var _iterator = _createForOfIteratorHelper(allTraining),
           _step;
         try {
@@ -2938,9 +2939,15 @@ var ML4KidsLocalStorage = /*#__PURE__*/function () {
                 examples: []
               };
             }
-            trainingByLabel[label].examples.push({
-              text: text
-            });
+            if (!(label in duplicatesCheck)) {
+              duplicatesCheck[label] = [];
+            }
+            if (!duplicatesCheck[label].includes(text)) {
+              trainingByLabel[label].examples.push({
+                text: text
+              });
+              duplicatesCheck[label].push(text);
+            }
           }
         } catch (err) {
           _iterator.e(err);

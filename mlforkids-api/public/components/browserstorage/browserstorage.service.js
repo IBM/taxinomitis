@@ -576,9 +576,11 @@
         async function getTrainingForWatsonAssistant(project) {
             loggerService.debug('[ml4kstorage] getTrainingForWatsonAssistant');
 
-            const trainingByLabel = {};
-
             const allTraining = await getTrainingData(project.id);
+
+            const trainingByLabel = {};
+            const duplicatesCheck = {};
+
             for (const item of allTraining) {
                 const label = item.label;
                 const text = item.textdata;
@@ -589,7 +591,14 @@
                         examples : []
                     };
                 }
-                trainingByLabel[label].examples.push({ text });
+                if (!(label in duplicatesCheck)) {
+                    duplicatesCheck[label] = [];
+                }
+
+                if (!duplicatesCheck[label].includes(text)) {
+                    trainingByLabel[label].examples.push({ text });
+                    duplicatesCheck[label].push(text);
+                }
             }
 
             return {
