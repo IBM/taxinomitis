@@ -20,15 +20,15 @@
         "WORKSHEETS": "Plan de travail",
         "PRETRAINED": "Pré-entraîné",
         "NEWS": "Nouvelles",
-        "STORIES": "Stories",
+        "STORIES": "Histoires",
         "HELP": "Aide",
         "LOGIN": "Connexion",
         "LOGOUT": "Déconnexion",
-        "BETA": "Béta",
+        "BETA": "Beta",
         "INCOMPLETE": "Incomplète !"
     },
     "ABOUT": {
-        "TITLE": "Machine learning for Kids",
+        "TITLE": "Machine learning for kids",
         "IN6SECS": "En 6 secondes...",
         "IN20MINS": "En 20 minutes...",
         "WHAT": {
@@ -37,7 +37,7 @@
         },
         "WHY": {
             "TITLE": "Pourquoi ?",
-            "BODY": "L'apprentissage machine est utilisé partout autour de nous. Nous utilisons tous des systèmes d'apprentissage automatique tous les jours - tels que les filtres anti-spam, les moteurs de recommandation, les services de traduction, les robots de discussion et les assistants numériques, les moteurs de recherche et les systèmes de détection des fraudes. <br/><br/>Il sera bientôt normal que les systèmes d'apprentissage automatique conduisent nos voitures et aident les médecins à poser un diagnostic et à traiter nos maladies ou encore les enseignants à mieux individualiser les activités d'apprentissage. <br/><br/>Il est important que les enfants soient conscients du fonctionnement de notre monde. La meilleure façon de comprendre les capacités et les implications de cette technologie est d'être capable, par eux-mêmes, de construire des solutions avec cette technologie <br/><br/>Pour en savoir plus, lisez : <a target='_blank' class='btn btn-primary' href='https://docs.google.com/document/d/e/2PACX-1vTdjsEzD48UhRfAHO75YyQPr8wXs2Htyc9IrzbKUGF7ZsOPGNhPaLFV1dBTfd_YtMvkhUe-_y69hX2H/pub'>'Le Machine Learning pour les enfants'</a>"
+            "BODY": "L’apprentissage automatique est partout autour de nous. Nous utilisons tous quotidiennement des systèmes d'apprentissage automatique, tels que des filtres anti-spam, des moteurs de recommandation, des services de traduction, des chatbots et des assistants numériques, des moteurs de recherche et des systèmes de détection de fraude.<br/><br/>Il sera bientôt normal que les systèmes d’apprentissage automatique pilotent nos voitures et aident les médecins à diagnostiquer et traiter nos maladies.<br/><br/>Il est important que les enfants sachent comment fonctionne notre monde. La meilleure façon de comprendre les capacités et les implications est d’être capable de construire soi-même avec cette technologie. <br/><br/> Pour en apprendre plus, regarder <a target='_blank' class='btn btn-primary' href='https://youtu.be/m6dyCRS8EmI'>\"L'éducation à l'ère de l'IA\"</a>"
         },
         "TECH": {
             "TITLE": "Technologie",
@@ -45,7 +45,7 @@
             "LOGIN": "Pour démarrer : "
         },
         "PRETRAINED": {
-            "BODY": "Des modèles pré-entraînés sont également fournis aux élèves pour qu'ils les utilisent dans leurs projets. Ces modèles avancés permettent de réaliser des projets qui, autrement, seraient trop complexes pour que les élèves entraînent le modèle par eux-mêmes, et fournissent des aperçus pratiques utiles sur certaines des autres possibilités de l'apprentissage automatique."
+            "BODY": "Des modèles pré-entraînés sont également fournis pour que les élèves puissent les utiliser dans leurs projets. Ces modèles avancés permettent de réaliser des projets qui seraient autrement trop complexes pour que les élèves les entraînent eux-mêmes, et donnent un aperçu pratique utile de certaines des autres possibilités offertes par l'apprentissage automatique."
         },
         "FURTHER": {
             "TITLE": "Pour aller plus loin...",
@@ -62,7 +62,7 @@
         },
         "STEMLEARNING": {
             "BODY1": "STEM Learning et le ministère britannique du commerce, de l'énergie et de la stratégie industrielle ont créé des ressources pour enseigner les principes de l'intelligence artificielle.",
-            "BODY2": "Ces ressources comprennent des projets <em>Machine Learning for Kids</em>, complétés par des notes pédagogiques, du matériel de présentation, des fiches d'information et des activités pratiques débranchées."
+            "BODY2": "Ces ressources comprennent les projets <em>Machine Learning for Kids</em>, complétés par des notes pédagogiques, des supports de présentation, des cartes d'aide et des activités pratiques \"débranchées\"."
         },
         "RASPBERRYPI": {
             "BODY1": "La Fondation Raspberry Pi fournit des ressources aux Clubs d’informatique et de codage, avec des instructions étape par étape pour une variété de projets créatifs.",
@@ -90,7 +90,7 @@
             "BODY1": "AI4ALL organise des camps d'été pour les lycéens aux États-Unis qui donnent une introduction technique détaillée à l'IA."
         },
         "CALYPSO": {
-            "BODY1": "Les élèves équipés de robots Cozmo programmables peuvent utiliser l'environnement de programmation Calypso pour expérimenter concrètement l'IA en utilisant des techniques comme la vision par ordinateur et la reconnaissance vocale."
+            "BODY1": "Les étudiants équipés de robots Cozmo programmables peuvent utiliser l'environnement de programmation Calypso pour expérimenter concrètement l'IA en utilisant des techniques comme la vision par ordinateur et la reconnaissance vocale."
         },
         "AIINABOX": {
             "BODY1": "AI-in-a-Box est un ensemble de robots, d'accessoires et de ressources pédagogiques. Le kit peut être utilisé pour enseigner des projets qui couvrent des sujets comme la reconnaissance visuelle, la reconnaissance faciale, la génération de la parole et la reconnaissance vocale."
@@ -99,8 +99,8 @@
             "BODY1": "Des expériences simples en ligne pour commencer à explorer l'apprentissage machine, à travers des images, des dessins, le langage et la musique."
         },
         "EXPLORINGCS": {
-            "BODY1": "Exploring CS gives students AI knowledge and skills while considering social, moral and ethical impacts.",
-            "BODY2": "They explore practical daily applications of AI that impact their lives.  Students design smart cities, homes and schools.  They also learn to build, train and test an AI system through an NVIDIA platform and look at how the message of AI is communicated."
+            "BODY1": "L'exploration des sciences informatiques permet aux élèves d'acquérir des connaissances et des compétences en matière d'intelligence artificielle tout en tenant compte des impacts sociaux, moraux et éthiques.",
+            "BODY2": "Ils explorent les applications pratiques quotidiennes de l'IA qui ont un impact sur leur vie. Les élèves conçoivent des villes, des maisons et des écoles intelligentes. Ils apprennent également à construire, entraîner et tester un système d'IA via une plateforme NVIDIA et se penchent sur la manière dont le message de l'IA est transmis."
         },
         "VIDEOS": {
             "TITLE": "Vidéos",
@@ -115,7 +115,7 @@
         "LETMEKNOW": "faites le moi savoir"
     },
     "WELCOME": {
-        "TITLE": "Apprendre à l'ordinateur comment jouer",
+        "TITLE": "Apprendre à un ordinateur à jouer à un jeu",
         "GET_STARTED": "Démarrez",
         "LEARN_MORE": "En savoir plus",
         "ADMIN_LABEL": "Aller à la page d'<strong>Administration</strong>",
@@ -169,7 +169,7 @@
         "MANAGED": {
             "TITLE": "Créer un compte de classe <strong> géré </strong>",
             "INTRO": "Si vous souhaitez que Dale configure le compte de classe, utilisez le bouton ci-dessous pour envoyer un courrier électronique en anglais avec les informations suivantes :",
-            "LIST_NUMBEROFSTUDENTS": "De combien de comptes élèves aurez vous besoin approximativement",
+            "LIST_NUMBEROFSTUDENTS": "De combien de comptes étudiants aurez vous besoin approximativement",
             "LIST_NAMEOFSCHOOL": "Le nom de l'école ou du groupe de codage auquel le compte est destiné",
             "RESTRICTIONS": "Cette offre est réservée aux écoles et aux clubs de codage d'élèves à but non lucratif.",
             "EMAIL": "Votre adresse de courriel"
@@ -181,13 +181,13 @@
         "COPYTEMPLATE": "Copier le modèle",
         "CREATEFIRSTPROJECT": "Cliquez sur le bouton 'plus' à droite pour créer votre premier projet.",
         "RECOGNISING": "Reconnaissance",
-        "PREDICTING": "Predicting",
+        "PREDICTING": "Prédiction",
         "AS": "comme",
         "SHARE": "Partager",
         "UNSHARE": "Ne pas partager",
         "WHOLE_CLASS_TITLE": "Projet réalisé par un groupe",
         "WHOLE_CLASS_NOTES": "Il s'agit d'un projet de grande envergure. Tous les élèves de votre classe peuvent l'utiliser et compléter les données d'entraînement.",
-        "CLOUD_STORAGE_TITLE": "Cloud project",
+        "CLOUD_STORAGE_TITLE": "Projet d'architecture en nuage",
         "CLOUD_STORAGE_NOTES": "Your training data for this project is stored in the cloud. This project can be accessed from any computer.",
         "LOCAL_STORAGE_TITLE": "Local project",
         "LOCAL_STORAGE_NOTES": "Your training data for this project is stored on your computer. This project can only be accessed from this web browser."
@@ -204,23 +204,23 @@
             "NOTES_2": "Ceci est utile pour les projets qui enseignent le travail collaboratif (crowd-sourcing) en tant qu'approche de formation pour les projets d'apprentissage machine."
         },
         "STORAGE": {
-            "LABEL": "Storage",
-            "LOCAL": "In your web browser",
-            "CLOUD": "In the cloud",
-            "NOTES_1": "Where do you want to store this project?",
-            "NOTES_2": "Storing in your web browser removes limits on how big your project can be.",
-            "NOTES_3": "Storing in the cloud will let you access the project from any computer.",
+            "LABEL": "Stockage",
+            "LOCAL": "Dans votre navigateur web",
+            "CLOUD": "Dans le nuage",
+            "NOTES_1": "Où souhaitez-vous stocker ce projet ?",
+            "NOTES_2": "Le stockage dans votre navigateur web ne limite pas la taille de votre projet.",
+            "NOTES_3": "Le stockage dans le nuage vous permettra d'accéder au projet à partir de n'importe quel ordinateur.",
             "PROMPT": "Please choose where you would like to store your project"
         },
         "TYPES": {
-            "TYPELABEL": "Project Type",
-            "LABEL": "Reconnaissance",
-            "NOTES_1": "Quel type de chose voulez-vous apprendre à l'ordinateur à reconnaître ?",
-            "NOTES_2": "Pour les mots, les phrases ou les paragraphes, choisissez \"text\"",
-            "NOTES_3": "Pour les photos, les diagrammes et les images, sélectionnez \"images\"",
-            "NOTES_4": "Pour les ensembles de nombres ou les choix multiples, sélectionnez \"numbers\"",
-            "NOTES_5": "Pour la voix et les sons, sélectionnez \"sounds\"",
-            "NOTES_6": "To predict numbers, choose \"predicting numbers\""
+            "TYPELABEL": "Type de projet",
+            "LABEL": "reconnaissance",
+            "NOTES_1": " Que voulez-vous apprendre à l'ordinateur à faire ?",
+            "NOTES_2": "Pour reconnaître des mots, des phrases ou des paragraphes, choisissez \"reconnaître du texte\"",
+            "NOTES_3": "Pour reconnaître des photos, des diagrammes ou des images, choisissez \"reconnaître des images\"",
+            "NOTES_4": "Pour reconnaître des séries de nombres ou des choix multiples, choisissez \"reconnaître les nombres\"",
+            "NOTES_5": "Pour reconnaître les voix ou les sons, choisissez \"reconnaître les sons\"",
+            "NOTES_6": "Pour prédire des nombres, choisissez \"prédire des nombres\""
         },
         "LANGUAGE": {
             "LABEL": "Langue",
@@ -251,12 +251,12 @@
         "ERRORS": {
             "REQUIRED": "Ceci est nécessaire !",
             "TOOLONG": "C'est trop long !",
-            "EXCEEDLIMIT": "You've reached the limit for the number of projects you can have. You need to delete one of your current projects before you can create another.",
-            "TRYITNOW": "Sorry! You can only create one project at a time if you use 'Try it now'. You need to delete your current project before you can create another."
+            "EXCEEDLIMIT": "Vous avez atteint la limite du nombre de projets que vous pouvez avoir. Vous devez supprimer l'un de vos projets actuels avant de pouvoir en créer un autre.",
+            "TRYITNOW": "Désolé, mais vous ne pouvez créer qu'un seul projet à la fois. Vous ne pouvez créer qu'un seul projet à la fois si vous utilisez la fonction \"Essayer maintenant\". Vous devez supprimer votre projet actuel avant de pouvoir en créer un autre."
         },
         "WARNINGS": {
             "MLCRED-TEXT-NOKEYS": "Veuillez informer votre enseignant qu'il devra ajouter une \"Watson Assistant API key\"  à votre classe pour vous permettre de former le modèle d'apprentissage machine pour votre nouveau projet",
-            "MLCRED-TEXT-INVALID": "Il se peut qu'il y ait un problème avec les clés de l'API IBM Cloud ; vous devrez entraîner un modèle d'apprentissage machine pour votre nouveau projet. Veuillez demander à votre professeur d'essayer de vérifier les \"Watson Assistant API keys\" » dans votre classe."
+            "MLCRED-TEXT-INVALID": "Il se peut qu'il y ait un problème avec les clés de l'API IBM Cloud ; vous devrez entraîner un modèle d'apprentissage machine pour votre nouveau projet. Veuillez demander à votre professeur d'essayer de vérifier les \"Watson Assistant API keys\"» dans votre classe."
         }
     },
     "DATASETS": {
@@ -267,7 +267,7 @@
             "INTRO_3": "Vous pourrez apporter des modifications aux données d'entraînement si vous le souhaitez, ou vous pourrez passer directement à l'entraînement d'un modèle d'apprentissage machine avec celui-ci. "
         },
         "IMPORT": "Importer",
-        "TESTING": "Do you want to use some of the data for testing?",
+        "TESTING": "Souhaitez-vous utiliser une partie des données à des fins de test ?",
         "MORE": {
             "TITLE": "Autres jeux de données",
             "SUMMARY": "Quels autres jeux de données aimeriez-vous voir ?",
@@ -288,10 +288,10 @@
                 "DETAILS": "Ce jeu de données comportant des photos de Wikimedia Commons est un bon point de départ pour construire vos propres données d'entraînement de reconnaissance des photos d'animaux"
             },
             "ORGANICWASTE": {
-                "TITLE": "Organic waste",
-                "SUMMARY": "Sorting waste items",
-                "DESCRIPTION": "Training a machine learning model to recognise if an item can be placed in a biodegradable bin is a way to highlight how image recognition can help.",
-                "DETAILS": "Attribution: Sashaank Sekar https://www.kaggle.com/datasets/techsash/waste-classification-data"
+                "TITLE": "Déchets organiques",
+                "SUMMARY": "Trier les déchets",
+                "DESCRIPTION": "L'entraînement d'un modèle d'apprentissage automatique pour déterminer si un objet peut être placé dans une poubelle biodégradable est un moyen de mettre en évidence l'utilité de la reconnaissance d'images.",
+                "DETAILS": "Attribution : Sashaank Sekar -> https://www.kaggle.com/datasets/techsash/waste-classification-data"
             },
             "UKNEWSPAPERS": {
                 "TITLE": "Les titres des journaux britanniques",
@@ -308,7 +308,7 @@
             "NOUGHTSANDCROSSES": {
                 "SUMMARY": "Apprendre à jouer à un jeu",
                 "DESCRIPTION": "Entraîner un modèle d'apprentissage machine à jouer aux Morpions, en rassemblant des exemples de coups que l'ordinateur peut utiliser pour apprendre à prédire le meilleur coup à faire ensuite.",
-                "DETAILS": "Il s'agit d'un modèle vide pour vous aider à collecter vos propres données de formation. Pour savoir comment l'utiliser, téléchargez \" Morpions\" à partir des feuilles de travail"
+                "DETAILS": "Il s'agit d'un modèle vide pour vous aider à collecter vos propres données de formation. Pour savoir comment l'utiliser, téléchargez \"Morpions\" à partir des feuilles de travail"
             },
             "TOPTRUMPS": {
                 "TITLE": "Les meilleurs atouts de Rois et Reines",
@@ -323,40 +323,40 @@
                 "DETAILS": "Cet ensemble de données de formation comprend 140 lignes de paroles de chansons - la moitié provenant de chansons pour enfants et l'autre moitié de chansons du Top 40. Il s'agit d'un bon ensemble de départ pour former un modèle d'apprentissage machine à reconnaître les différents usages de la langue."
             },
             "HANDGESTURES": {
-                "TITLE": "Gestes de la main",
-                "SUMMARY": "Reconnaître les gestes de la main à partir de la position des doigts",
-                "DESCRIPTION": "Entraînez un modèle d'apprentissage machine à reconnaître les différents gestes de la main, en recueillant des exemples de la position de vos doigts.",
-                "DETAILS": "Il s'agit d'un modèle vide pour vous aider à collecter vos propres données de formation. Pour savoir comment l'utiliser, téléchargez 'Gestes des mains' à partir des fiches de travail."
+                "TITLE": "Gestes des mains",
+                "SUMMARY": " Reconnaître les gestes de la main à partir de la position des doigts",
+                "DESCRIPTION": "Entraînez un modèle d'apprentissage automatique à reconnaître les différents gestes de la main, en recueillant des exemples de positions de vos doigts.",
+                "DETAILS": "Il s'agit d'un modèle vide destiné à vous aider à collecter vos propres données d'entraînement. Pour savoir comment l'utiliser, téléchargez \"Gestes de la main\" à partir de Worksheets."
             },
             "POKEMONSTATS": {
-                "TITLE": "Pokémon statistics",
-                "SUMMARY": "Recognize Pokémon from their statistics",
-                "DESCRIPTION": "Train a machine learning model to predict the type of a Pokémon based on a collection of statistics about hundreds of Pokémon. ",
-                "DETAILS": "This training dataset includes attributes of a selection of Pokémon. \n\nThe 'height' field is the height of a Pokémon in metres. \nThe 'weight' field is the weight of a Pokémon in kilograms. \nThe 'attack' field is the attack strength of a level 100 Pokémon. \nThe 'defense' field is the defense strength of a level 100 Pokémon. \nThe 'speed' field is the speed rating of a level 100 Pokémon. \nThe 'HP' field is the hit point statistics for a Pokémon. \nThe 'capture rate' field is the catch rate for a Pokémon. Pokémon with higher catch rates are easier to capture than Pokémon with lower catch rates."
+                "TITLE": "Statistiques Pokémon",
+                "SUMMARY": "Reconnaître les Pokémon à partir de leurs statistiques",
+                "DESCRIPTION": "Entraînez un modèle d'apprentissage automatique pour prédire le type d'un Pokémon à partir d'une collection de statistiques sur des centaines de Pokémon. ",
+                "DETAILS": "Ce jeu de données d'entraînement comprend les attributs d'une sélection de Pokémon. \n\nLe champ \" hauteur \" correspond à la taille d'un Pokémon en mètres.\nLe champ \"poids\" est le poids d'un Pokémon en kilogrammes.\nLe champ \"attaque\" est la force d'attaque d'un Pokémon de niveau 100.\nLe champ \"défense\" est la force de défense d'un Pokémon de niveau 100.\nLe champ \"vitesse\" correspond à la vitesse d'un Pokémon de niveau 100.\nLe champ \" HP \" est la statistique des points de vie d'un Pokémon.\nLe champ \"taux de capture\" correspond au taux de capture d'un Pokémon. Les Pokémon ayant un taux de capture élevé sont plus faciles à capturer que les Pokémon ayant un taux de capture plus faible."
             },
             "POKEMONIMAGES": {
-                "TITLE": "Pokémon images",
-                "SUMMARY": "Recognize Pokémon from pictures",
+                "TITLE": "Images de Pokémon",
+                "SUMMARY": "Reconnaître des Pokémon à partir d'images",
                 "DESCRIPTION": "Train a machine learning model to predict the type of a Pokémon based on a set of pictures of a hundred Pokémon. ",
                 "DETAILS": "This training dataset includes images of a selection of Pokémon, grouped by their type. It is a good starting set for training a machine learning model to predict the type of a Pokémon from a picture."
             },
             "ARGO": {
-                "TITLE": "Ocean data",
-                "SUMMARY": "Predict the location from ocean sensor data",
-                "DESCRIPTION": "Train a machine learning model to predict the location of ocean robots. ",
-                "DETAILS": "Argo is an international program that collects information from inside the ocean using a fleet of robotic instruments that drift with the ocean currents and move up and down between the surface and a mid-water level. Each instrument (float) spends almost all its life below the surface.\n\nSome floats fail to report back their location data. Train a machine learning model to predict which ocean the float data is likely to have been collected from.\n\n\nAttribution / References:\nForget, Gaël, 2016, \"MITprof_mar2016_argo0910.nc\", ECCO version 4 release 2: in situ and estimated profile data (MITprof data sets), https://doi.org/10.7910/DVN/EE3C40/DQBDDA, Harvard Dataverse, V1\nForget, G., Campin, J.-M., Heimbach, P., Hill, C. N., Ponte, R. M., and Wunsch, C.: ECCO version 4: an integrated framework for non-linear inverse modeling and global ocean state estimation, Geosci. Model Dev., 8, 3071–3104, https://doi.org/10.5194/gmd-8-3071-2015, 2015.\n\nPrepared by Dani Jones, British Antartic Survey, NERC, UKRI"
+                "TITLE": "Données relatives aux océans",
+                "SUMMARY": "Prédire l’emplacement en utilisant les données des capteurs dans l’océan",
+                "DESCRIPTION": "Entraîne un modèle d’apprentissage automatique pour prédire l’emplacement des robots dans l’océan.",
+                "DETAILS": "Argo est un programme international qui recueille de informations dans l’océan à l’aide d’instruments robotisés qui dérivent au gré des courants océaniques et qui montent et descendent entre la surface de l’eau et la mi-profondeur. Chaque instrument (flotteur) passe presque toute sa vie sous la surface.\n\nCertains flotteurs ne transmettent pas leurs données de localisation. Entraîne un modèle d’apprentissage automatique pour prédire de quel océan les données du flotteur sont susceptibles d’avoir été recueillies.\n\n\nAttribution :\nDan(i) Jones. (2023). DanJonesOcean/argo-for-KS3: First release (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.7506881"
             },
             "FAKENEWS": {
-                "TITLE": "Fake news",
-                "SUMMARY": "Recognize fake news",
-                "DESCRIPTION": "Train a machine learning model to recognize the type of writing in fake news. ",
-                "DETAILS": "False and misleading news is more common as people turn to social media to get their news. Use this dataset to create a machine learning model that can try to distinguish when news is real or fake.\n\n\nAttribution: \nhttps://www.uvic.ca/ecs/ece/isot/datasets/fake-news/\n\nAcknowledgements:\nAhmed H, Traore I, Saad S. \"Detecting opinion spams and fake news using text classification\", Journal of Security and Privacy, Volume 1, Issue 1, Wiley, January/February 2018.\nAhmed H, Traore I, Saad S. (2017) \"Detection of Online Fake News Using N-Gram Analysis and Machine Learning Techniques\". In: Traore I., Woungang I., Awad A. (eds) Intelligent, Secure, and Dependable Systems in Distributed and Cloud Environments. ISDDC 2017. Lecture Notes in Computer Science, vol 10618. Springer, Cham (pp. 127-138)."
+                "TITLE": "Fausses nouvelles",
+                "SUMMARY": "Reconnaître les fausses nouvelles",
+                "DESCRIPTION": "Entraîne un modèle d’apprentissage automatique pour qu’il puisse reconnaître le type d’écriture utilisée dans les fausses nouvelles.",
+                "DETAILS": "Les fausses nouvelles et les nouvelles trompeuses sont de plus en plus courantes au fur et à mesure que les gens se tournent vers les médias sociaux pour obtenir leurs informations. Utilise cet ensemble de données pour créer un modèle d’apprentissage automatique qui tente de déterminer si une nouvelle est réelle ou fausse.\n\n\nAttribution : \nhttps://www.uvic.ca/ecs/ece/isot/datasets/fake-news/\n\nRemerciements:\nAhmed H, Traore I, Saad S. \"Detecting opinion spams and fake news using text classification\", Journal of Security and Privacy, Volume 1, Issue 1, Wiley, January/February 2018.\nAhmed H, Traore I, Saad S. (2017) \"Detection of Online Fake News Using N-Gram Analysis and Machine Learning Techniques\". In: Traore I., Woungang I., Awad A. (eds) Intelligent, Secure, and Dependable Systems in Distributed and Cloud Environments. ISDDC 2017. Lecture Notes in Computer Science, vol 10618. Springer, Cham (pp. 127-138)."
             },
             "STARS": {
-                "TITLE": "Star types",
-                "SUMMARY": "Learn to classify the types of stars",
-                "DESCRIPTION": "Train a machine learning model to predict the type of a star based on their attributes. ",
-                "DETAILS": "Stellar classification is when astronomers classify a star based on their spectral characteristics. Use this dataset to train a simple machine learning model that can predict some types of stars.\n\nThe 'temperature' field is in degrees Kelvin.\nThe 'radius' field gives the size of the star relative to the Sun.\nThe 'brightness' field gives the luminosity of the star relative to the Sun.\nThe 'colour' field gives the observable colour of the star.\n\nAttribution: \nhttps://www.kaggle.com/datasets/brsdincer/star-type-classification"
+                "TITLE": "Types d’étoiles",
+                "SUMMARY": "Apprendre à classer les types d’étoiles",
+                "DESCRIPTION": "Entraîne un modèle d’apprentissage automatique pour prédire le type d’étoile en fonction de ses attributs.",
+                "DETAILS": "Pour les astronomes, la classification des étoiles consiste à les classer selon leurs caractéristiques spectrales. Utilise cet ensemble de données pour entraîner un modèle d’apprentissage automatique simple capable de prédire certains types d’étoiles.\n\nLe champ « Température » est exprimé en degrés Kelvin.\nLe champ « Rayon » fournit la taille de l’étoile relativement à celle du Soleil.\nLe champ « Luminosité » fournit la luminosité de l’étoile relativement à celle du Soleil.\nLe champ « Couleur » fournit la couleur observable de l’étoile.\n\nAttribution : \nhttps://www.kaggle.com/datasets/brsdincer/star-type-classification"
             }
         }
     },
@@ -1004,7 +1004,7 @@
         "TITLE": "Coding in EduBlocks",
         "TIP": "Tip: You have to click on <span class='pythonreplhighlight'>Clone</span> to start editing your own copy of the code",
         "NOTREADY": "Your project isn't ready to be used in EduBlocks yet.",
-        "NOMODEL": "You haven't trained a machine learning model yet.",
+        "NOMODEL": "Vous n'avez pas encore entraîné un modèle d'apprentissage machine.",
         "GO": "Go to EduBlocks",
         "LAUNCH": "Open EduBlocks"
     },
@@ -1029,8 +1029,8 @@
         "EXPLAIN_RECOGNISE_CONFIDENCE": "Cela retournera une indice de confiance de la machine pour la reconnaissance proposée de {{ type }}. (un nombre entre 0 - 100).",
         "EXPLAIN_LABELS": "Ces blocs représentent les étiquettes que vous avez créées dans votre projet, vous pouvez donc utiliser leurs noms dans vos scripts.",
         "EXPLAIN_COSTUMEIMAGE": "Ce bloc se trouve dans la palette Recherches pour Sprites et renvoie l'image du costume actuellement sélectionné.",
-        "EXPLAIN_ADD_TRAINING": "Utilisez ceci pour ajouter un nouvel exemple à vos données d'entraînement. (Les données d'entraînement ont un effet seulement après que vous ayez entraîné un modèle d'apprentissage machine avec elles)",
-        "EXPLAIN_TRAIN_MODEL": "Utilisez ceci pour entraîner un nouveau modèle d'apprentissage machine",
+        "EXPLAIN_ADD_TRAINING": "Utilisez ceci pour ajouter un nouvel exemple à vos données d'entraînement. (Les données d'entraînement ont un effet seulement après que vous ayez formé un modèle d'apprentissage machine avec elles)",
+        "EXPLAIN_TRAIN_MODEL": "Utilisez ceci pour former un nouveau modèle d'apprentissage machine",
         "EXPLAIN_IS_MODEL_READY": "Le modèle d'apprentissage machine prendra une minute avant d'être prêt à l'emploi. Vous pouvez utiliser ces blocs pour attendre qu'il soit prêt.",
         "SAMPLE_SCRIPT": "Cela signifie que vous pouvez faire quelque chose comme ça :",
         "SAMPLE_SCREENSHOT": "Cela devrait ressembler à quelque chose comme ceci - sauf avec le nom de votre projet.",
@@ -1046,7 +1046,7 @@
     "WORKSHEETS": {
         "TITLE": "Projets d'apprentissage machine",
         "INTRO_1": "Ces projets sont des guides téléchargeables étape par étape, avec des explications et des captures d'écran en couleur que les élèves peuvent suivre.",
-        "INTRO_2": "Chaque projet est une activité autonome, écrite pour durer une seule séance, et guidera les jeunes pour créer un jeu ou un projet interactif qui démontre une utilisation réelle de l'intelligence artificielle et de l'apprentissage automatique.",
+        "INTRO_2": "Chaque projet est une activité autonome, écrite pour durer une seule leçon, et guidera les jeunes pour créer un jeu ou un projet interactif qui démontre une utilisation réelle de l'intelligence artificielle et de l'apprentissage automatique.",
         "INTRO_3": "Les suggestions de nouvelles feuilles de travail, les suggestions d'améliorations à apporter à l'une ou l'autre des feuilles de travail, ou les contributions de nouvelles feuilles de travail de projet, sont toutes les bienvenues.",
         "INTRO_4": "Examples of how to use these worksheets, and a suggested order for using these with a class, can be found in the <a href='/stories'>stories about what students learn</a>.",
         "TYPES": {
@@ -1204,7 +1204,7 @@
             "DESCRIPTION": "Entraînez l'ordinateur pour qu'il soit capable de trier les photos en groupes.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-carorcup-fr.pdf",
             "WORKSHEET_1": {
-                "DESCRIPTION": "Version individuelle du projet, où chaque élève forme son propre modèle d'apprentissage machine de manière indépendante",
+                "DESCRIPTION": "Version individuelle du projet, où chaque élève entraîne son propre modèle d'apprentissage machine de manière indépendante",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup.pdf"
             },
             "WORKSHEET_2": {
@@ -1215,7 +1215,7 @@
         "FACELOCK": {
             "TITLE": "Débloquer son téléphone avec son visage",
             "SUMMARY": "Apprendre à un ordinateur à reconnaître les visages",
-            "DESCRIPTION": "Faites un téléphone dans Scratch qui se déverrouille uniquement s'il reconnaît votre visage.",
+            "DESCRIPTION": "Faites un téléphone dans Scratch qui se déverrouille s'il reconnaît votre visage.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-facelock.pdf"
             },
@@ -1224,7 +1224,7 @@
         "JOURNEYTOSCHOOL": {
             "TITLE": "Aller à l'école",
             "SUMMARY": "Apprendre à un ordinateur à faire des prédictions",
-            "DESCRIPTION": "Entraînez l'ordinateur pour qu'il soit capable de prédire comment vous vous rendrez à l'école le matin.",
+            "DESCRIPTION": "Entraînez l'ordinateur pour être capable de prédire comment vous vous rendrez à l'école le matin.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-journeytoschool-fr.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-journeytoschool.pdf"
@@ -1536,7 +1536,7 @@
             }
         },
         "POKEMONSTATS": {
-            "TITLE": "Pokémon statistics",
+            "TITLE": "Statistiques Pokémon",
             "SUMMARY": "Teach a computer to recognize patterns in sets of numbers",
             "DESCRIPTION": "Make a project in Scratch that predicts the type of Pokémon from their size and fighting stats.",
             "WORKSHEET_1": {
@@ -1544,7 +1544,7 @@
             }
         },
         "POKEMONIMAGES": {
-            "TITLE": "Pokémon images",
+            "TITLE": "Images de Pokémon",
             "SUMMARY": "Teach a computer to recognize pictures",
             "DESCRIPTION": "Make a project in Scratch that predicts the type of Pokémon from how it looks",
             "WORKSHEET_1": {
@@ -1805,7 +1805,7 @@
             "Q5-A-0": "You can choose where to store the training data for your machine learning project. You can store your training examples:",
             "Q5-A-1": "on your own computer (<strong>in your web browser</strong>), or",
             "Q5-A-2": "<strong>in the cloud</strong> (on the Machine Learning for Kids servers)",
-            "Q5-A-3": "A summary of the differences is shown below:",
+            "Q5-A-3": "Un résumé des différences est présenté ci-dessous :",
             "Q5-A-LIMITS": "How much a student can store",
             "Q5-A-UNLIMITED": "Unlimited",
             "Q5-A-LIMITED": "Limits apply",
