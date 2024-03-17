@@ -353,6 +353,7 @@
                 "DETAILS": "Argo is an international program that collects information from inside the ocean using a fleet of robotic instruments that drift with the ocean currents and move up and down between the surface and a mid-water level. Each instrument (float) spends almost all its life below the surface.\n\nSome floats fail to report back their location data. Train a machine learning model to predict which ocean the float data is likely to have been collected from.\n\n\nAttribution:\nDan(i) Jones. (2023). DanJonesOcean/argo-for-KS3: First release (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.7506881"
             },
             "FAKENEWS": {
+                "ID": "fake-news",
                 "TITLE": "Fake news",
                 "SUMMARY": "Recognize fake news",
                 "DESCRIPTION": "Train a machine learning model to recognize the type of writing in fake news. ",

@@ -61,7 +61,7 @@
                     'DATASETS.DATA.POKEMONIMAGES.TITLE', 'DATASETS.DATA.POKEMONIMAGES.SUMMARY', 'DATASETS.DATA.POKEMONIMAGES.DESCRIPTION', 'DATASETS.DATA.POKEMONIMAGES.DETAILS',
                     'DATASETS.DATA.ARGO.TITLE', 'DATASETS.DATA.ARGO.SUMMARY', 'DATASETS.DATA.ARGO.DESCRIPTION', 'DATASETS.DATA.ARGO.DETAILS',
                     'DATASETS.DATA.STARS.TITLE', 'DATASETS.DATA.STARS.SUMMARY', 'DATASETS.DATA.STARS.DESCRIPTION', 'DATASETS.DATA.STARS.DETAILS',
-                    'DATASETS.DATA.FAKENEWS.TITLE', 'DATASETS.DATA.FAKENEWS.SUMMARY', 'DATASETS.DATA.FAKENEWS.DESCRIPTION', 'DATASETS.DATA.FAKENEWS.DETAILS'
+                    'DATASETS.DATA.FAKENEWS.ID', 'DATASETS.DATA.FAKENEWS.TITLE', 'DATASETS.DATA.FAKENEWS.SUMMARY', 'DATASETS.DATA.FAKENEWS.DESCRIPTION', 'DATASETS.DATA.FAKENEWS.DETAILS'
                 ]).then(function (translations) {
                     vm.datasets = [
                         {
@@ -185,7 +185,7 @@
                             image: 'static/images/dataset-stars.png'
                         },
                         {
-                            id: 'fake-news',
+                            id: translations['DATASETS.DATA.FAKENEWS.ID'],
                             title: translations['DATASETS.DATA.FAKENEWS.TITLE'],
                             summary: translations['DATASETS.DATA.FAKENEWS.SUMMARY'],
                             description: translations['DATASETS.DATA.FAKENEWS.DESCRIPTION'],

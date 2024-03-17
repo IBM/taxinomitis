@@ -353,6 +353,7 @@
                 "DETAILS": "Argo este un program internațional care colectează informații din interiorul oceanului folosind o flotă de instrumente robotizate care derivă odată cu curenții oceanici și se deplasează în sus și în jos între suprafață și un nivel mediu al apei. Fiecare instrument (plutitor) își petrece aproape toată viața sub suprafață.\n\nUnele plutitoare nu reușesc să raporteze datele despre locație. Antrenați un model de învățare automată pentru a prezice din ce ocean ar fi probabil să fi fost colectată datele plutitoare.\n\n\nAtribuire/Referințe:\nForget, Gaël, 2016, \"MITprof_mar2016_argo0910.nc\", ECCO versiunea 4 ediția 2: date de profil in situ și estimate (seturi de date MITprof), https://doi.org/10.7910/DVN/EE3C40/DQBDDA, Harvard Dataverse, V1\nForget, G., Campin, J.-M., Heimbach, P. , Hill, C. N., Ponte, R. M. și Wunsch, C.: ECCO versiunea 4: un cadru integrat pentru modelarea inversă neliniară și estimarea globală a stării oceanului, Geosci. Model Dev., 8, 3071–3104, https://doi.org/10.5194/gmd-8-3071-2015, 2015.\n\nPregătit de Dani Jones, British Antartic Survey, NERC, UKRI"
             },
             "FAKENEWS": {
+                "ID": "fake-news-ro",
                 "TITLE": "Știri false",
                 "SUMMARY": "Recunoaştere fake news",
                 "DESCRIPTION": "Antrenați un model de învățare automată pentru a recunoaște tipul de scriere în știrile false.",

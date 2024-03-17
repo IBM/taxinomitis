@@ -347,6 +347,7 @@
                 "DETAILS": "Argo est un programme international qui recueille de informations dans l’océan à l’aide d’instruments robotisés qui dérivent au gré des courants océaniques et qui montent et descendent entre la surface de l’eau et la mi-profondeur. Chaque instrument (flotteur) passe presque toute sa vie sous la surface.\n\nCertains flotteurs ne transmettent pas leurs données de localisation. Entraîne un modèle d’apprentissage automatique pour prédire de quel océan les données du flotteur sont susceptibles d’avoir été recueillies.\n\n\nAttribution :\nDan(i) Jones. (2023). DanJonesOcean/argo-for-KS3: First release (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.7506881"
             },
             "FAKENEWS": {
+                "ID": "fake-news-fr",
                 "TITLE": "Fausses nouvelles",
                 "SUMMARY": "Reconnaître les fausses nouvelles",
                 "DESCRIPTION": "Entraîne un modèle d’apprentissage automatique pour qu’il puisse reconnaître le type d’écriture utilisée dans les fausses nouvelles.",
