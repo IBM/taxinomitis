@@ -1041,7 +1041,7 @@ export function getDefaultClassTenant(classid: string, projectTypes?: Objects.Pr
         id : classid,
         supportedProjectTypes : projectTypes ? projectTypes : [ 'text', 'imgtfjs', 'numbers', 'sounds' ],
         tenantType : Objects.ClassTenantType.UnManaged,
-        maxUsers : 30,
+        maxUsers : 31,
         maxProjectsPerUser : 3,
         textClassifierExpiry : 24,
     };

@@ -1140,7 +1140,7 @@ describe('DB objects', () => {
                 id : 'testing',
                 projecttypes : 'text,imgtfjs,numbers,sounds',
                 ismanaged : 0,
-                maxusers : 30,
+                maxusers : 31,
                 maxprojectsperuser : 3,
                 textclassifiersexpiry : 24,
             });

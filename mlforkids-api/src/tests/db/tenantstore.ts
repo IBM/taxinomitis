@@ -58,7 +58,7 @@ describe('DB store - tenants', () => {
             id,
             supportedProjectTypes : ['text', 'imgtfjs', 'numbers', 'sounds'],
             tenantType : Types.ClassTenantType.UnManaged,
-            maxUsers : 30,
+            maxUsers : 31,
             maxProjectsPerUser : 3,
             textClassifierExpiry : 100,
         });
@@ -76,7 +76,7 @@ describe('DB store - tenants', () => {
             id,
             supportedProjectTypes : ['text', 'imgtfjs', 'numbers', 'sounds'],
             tenantType : Types.ClassTenantType.UnManaged,
-            maxUsers : 30,
+            maxUsers : 31,
             maxProjectsPerUser : 3,
             textClassifierExpiry : 6,
         });
@@ -86,7 +86,7 @@ describe('DB store - tenants', () => {
             id,
             supportedProjectTypes : ['text', 'imgtfjs', 'numbers', 'sounds'],
             tenantType : Types.ClassTenantType.UnManaged,
-            maxUsers : 30,
+            maxUsers : 31,
             maxProjectsPerUser : 3,
             textClassifierExpiry : 6,
         });
@@ -96,7 +96,7 @@ describe('DB store - tenants', () => {
             id,
             supportedProjectTypes : ['text', 'imgtfjs', 'numbers', 'sounds'],
             tenantType : Types.ClassTenantType.UnManaged,
-            maxUsers : 30,
+            maxUsers : 31,
             maxProjectsPerUser : 3,
             textClassifierExpiry : 12,
         });
@@ -106,7 +106,7 @@ describe('DB store - tenants', () => {
             id,
             supportedProjectTypes : ['text', 'imgtfjs', 'numbers', 'sounds'],
             tenantType : Types.ClassTenantType.UnManaged,
-            maxUsers : 30,
+            maxUsers : 31,
             maxProjectsPerUser : 3,
             textClassifierExpiry : 12,
         });
@@ -118,7 +118,7 @@ describe('DB store - tenants', () => {
             id,
             supportedProjectTypes : ['text', 'imgtfjs', 'numbers', 'sounds'],
             tenantType : Types.ClassTenantType.UnManaged,
-            maxUsers : 30,
+            maxUsers : 31,
             maxProjectsPerUser : 3,
             textClassifierExpiry : 24,
         });
