@@ -863,7 +863,7 @@
                         trainingService.bulkAddTrainingData($scope.project,
                                     txtfilereader.result
                                         .split(/[\r\n]+/)
-                                        .map(line => line.trim())
+                                        .map(line => line.substring(0, 1024).trim())
                                         .filter(line => line.length > 0)
                                         .reduce((acc, cur) => acc.includes(cur) ? acc : [...acc, cur], [])
                                         .map(function (line) {

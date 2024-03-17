@@ -583,7 +583,7 @@
 
             for (const item of allTraining) {
                 const label = item.label;
-                const text = item.textdata;
+                const text = item.textdata.substring(0, 1024);
 
                 if (!(label in trainingByLabel)) {
                     trainingByLabel[label] = {
