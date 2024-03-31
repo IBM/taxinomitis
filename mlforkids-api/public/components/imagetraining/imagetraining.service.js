@@ -156,7 +156,8 @@
                                     .sub(1);
                     });
 
-                    loggerService.debug('[ml4kimages] tensor image data ' + imgmetadata.id + ' ' +
+                    const imgid = imgmetadata ? imgmetadata.id : 'test';
+                    loggerService.debug('[ml4kimages] tensor image data ' + imgid + ' ' +
                         imageData.size + ' (' + imageData.dtype + ')');
 
                     resolve({ metadata : imgmetadata, data : imageData });
