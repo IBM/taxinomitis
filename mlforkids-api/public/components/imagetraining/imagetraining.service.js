@@ -156,6 +156,9 @@
                                     .sub(1);
                     });
 
+                    loggerService.debug('[ml4kimages] tensor image data ' + imgmetadata.id + ' ' +
+                        imageData.size + ' (' + imageData.dtype + ')');
+
                     resolve({ metadata : imgmetadata, data : imageData });
 
                     URL.revokeObjectURL(imgDataBlob);
@@ -176,6 +179,8 @@
 
         function newModel(projectid, userid, tenantid) {
             loggerService.debug('[ml4kimages] creating new ML model');
+            loggerService.debug('[ml4kimages] tf backend', tf.getBackend());
+            loggerService.debug('[ml4kimages] tf precision', tf.ENV.getBool('WEBGL_RENDER_FLOAT32_ENABLED'));
 
             modelStatus = {
                 classifierid : projectid,
@@ -200,8 +205,10 @@
                 // with cloud storage, we need to retrieve the image data first, and
                 //  then use it to create a tensor
                 getImageDataFn = (trainingInfoObj) => {
+                    loggerService.debug('[ml4kimages] training image metadata', trainingInfoObj);
                     return trainingService.getTrainingItem(projectid, userid, tenantid, trainingInfoObj.id)
                         .then(function (imgdata) {
+                            loggerService.debug('[ml4kimages] retrieved image data ' + trainingInfoObj.id + ' ' + imgdata.byteLength + ' bytes');
                             return getTensorForImageData(imgdata, trainingInfoObj);
                         });
                 };
