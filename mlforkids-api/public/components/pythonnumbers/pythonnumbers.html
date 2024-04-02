@@ -1,0 +1,114 @@
+<div ng-if="!isAuthenticated">
+    <div class="alert alert-warning pageheadermsg">
+        <strong translate="ERRORS.NOTLOGGEDIN"></strong>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" ng-click="vm.authService.login()" translate="APP.LOGIN"></button>
+    </div>
+</div>
+
+<div ng-if="isAuthenticated && !projectId" class="alert alert-danger pageheadermsg">
+    <strong translate="APP.ERROR"></strong> <span translate="ERRORS.MISSINGPROJECTID"></span> <a ui-sref="projects" translate="APP.PROJECTS"></a>
+</div>
+
+<div ng-if="failure" class="alert alert-danger pageheadermsg" role="alert">
+    <strong translate="APP.ERROR"></strong> {{ failure.message }}<br/>
+    <em ng-if="failure.status >= 500"><span translate="ERRORS.IFPERSISTENT"></span> <a ui-sref="help" translate="ERRORS.LETMEKNOW"></a></em>
+</div>
+
+<div ng-if="isAuthenticated && projectId">
+    <div class="jumbotron">
+        <h2 class="text-center" translate="PYTHON.TITLE"></h2>
+    </div>
+    <div class="backbutton">
+        <a ui-sref="mlproject({ projectId : projectId, userId : userId  })" translate="APP.BACKTOPROJECT"></a>
+    </div>
+
+    <div ng-if="loading" class="loading"> </div>
+
+    <div ng-if="!loading && project && project.labels.length <= 1 && !expiredModel" class="modelguidancecontainer">
+        <div class="modelguidance">
+            <div class="modelstatusdetail" translate="PYTHON.NOTREADY"></div>
+            <div class="modelstatusdetail">
+                Go to the <a ui-sref="mlproject_models({ projectId : projectId, userId : userId })" translate="PROJECT.LEARNANDTEST.TITLE"></a>
+                page for some tips on what to do next.
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="!loading && project && project.labels.length > 1 && !modelSource && !expiredModel" style="margin: 2em;">
+        <div class="alert alert-info" role="alert" translate="PYTHON.NOMODEL"></div>
+        <div ng-if="project.type !== 'text'">
+            You can <strong><a href="" ui-sref="mlproject_models({ projectId : projectId, userId : userId })">train one now</a></strong> and then come back to start your Python project.
+        </div>
+    </div>
+
+    <div ng-if="!loading && expiredModel" style="margin: 2em;">
+        <div class="alert alert-info" role="alert" translate="PYTHON.EXPIRED"></div>
+        <div ng-if="project.type !== 'text'">
+            You can <strong><a href="" ui-sref="mlproject_models({ projectId : projectId, userId : userId })">train a new model now</a></strong> and then come back to start your Python project.
+        </div>
+    </div>
+
+    <div class="modelguidancecontainer" ng-if="!loading && modelSource && project && project.labels.length > 1">
+        <div class="modelguidance">
+            <div class="modelstatusdetail">
+                You can use this code to submit numbers to your machine learning model.
+            </div>
+            <div class="modelstatusdetail" ng-if="project.type==='numbers'">
+                Enter the numbers below:
+            </div>
+            <div class="modelstatusdetail" ng-if="project.type==='numbers'">
+                <div ng-repeat="field in fields track by $index">
+                    {{ field.name }} :
+                    <input ng-if="field.type === 'number'"
+                           type="number"
+                           ng-model="testdata.fields[$index]"
+                           ng-init="testdata.fields[$index] = 0"></input>
+                    <select ng-if="field.type === 'multichoice'"
+                            ng-model="testdata.fields[$index]"
+                            ng-options="value for value in field.choices"
+                            ng-init="testdata.fields[$index] = field.choices[0]"
+                            style="height: 24px">
+                    </select>
+                </div>
+            </div>
+            <div class="modelstatusdetail">
+                Running this will print something like:
+            </div>
+            <div class="modelstatusdetail"><pre>$ python yourscript.py
+result: '{{ project.labels[0] }}' with 81% confidence</pre></div>
+        </div>
+        <div class="modelguidance" style="flex: 3">
+<div class="pythoncodebox"><pre class="pythoncode"><span class="pythonfunc">from</span> <span class="pythonimport">mlforkidsnumbers</span> <span class="pythonfunc">import</span> <span class="pythonimport">MLforKidsNumbers</span>
+
+model <span class="pythonop">=</span> <span class="pythonfuncname">MLforKidsNumbers</span>(&quot;{{ modelSource }}&quot;)
+
+<span class="pythoncomments"># CHANGE THIS to something you want your</span>
+<span class="pythoncomments"># machine learning model to classify</span>
+testvalue <span class="pythonop">=</span> {<div ng-repeat="field in testdata.fields track by $index">    "{{ fields[$index].name }}" <span class="pythonop">:</span> <span style="background-color: #fff0f0"><strong><span ng-if="fields[$index].type === 'multichoice'">"</span>{{ field ? field : 0 }}<span ng-if="fields[$index].type === 'multichoice'">"</span></strong></span>,</div>}
+
+response <span class="pythonop">=</span> model<span class="pythonop">.</span>classify(testvalue)
+top_match <span class="pythonop">=</span> response[<span class="pythonint">0</span>]
+
+label <span class="pythonop">=</span> top_match[&quot;class_name&quot;]
+confidence <span class="pythonop">=</span> top_match[&quot;confidence&quot;]
+
+<span class="pythoncomments"># CHANGE THIS to do something different with the result</span>
+<span class="pythonfunc">print</span> (&quot;result: &#39;%s&#39; with %d%% confidence&quot; <span class="pythonop">%</span> (label, confidence))
+</pre></div>
+        </div>
+        <div class="modelguidance" style="min-width: 300px">
+            <div class="modelstatusdetail" style="font-size: 1em; padding-bottom: 0;">
+                To use this code, you need to:
+                <ul style="margin-bottom: 0; padding-left: 20px;">
+                    <li>Use Python 3</li>
+                    <li>Download this <a href="https://raw.githubusercontent.com/IBM/taxinomitis/master/resources/mlforkids-numbers-requirements.txt">list of other Python modules you need</a></li>
+                    <li>Install the other Python modules by running <br/><code>pip3 install -r mlforkids-numbers-requirements.txt</code></li>
+                    <li>Download <a href="https://raw.githubusercontent.com/IBM/taxinomitis/master/resources/mlforkidsnumbers.py">mlforkidsnumbers.py</a> to the folder where you will run your Python code</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -26,11 +26,7 @@
 
     <div ng-if="projectId && !project" class="loading"> </div>
 
-    <div ng-if="project && project.type === 'sounds'" class="modelguidancecontainer">
-        <div class="modelguidance" translate="PYTHON.NOSOUND"></div>
-    </div>
-
-    <div ng-if="project && project.labels.length <= 1 && project.type !== 'sounds'" class="modelguidancecontainer">
+    <div ng-if="project && project.labels.length <= 1" class="modelguidancecontainer">
         <div class="modelguidance">
             <div class="modelstatusdetail" translate="PYTHON.NOTREADY"></div>
             <div class="modelstatusdetail">
@@ -40,7 +36,7 @@
         </div>
     </div>
 
-    <div class="modelguidancecontainer" ng-if="scratchkey && project && project.labels.length > 1 && project.type !== 'sounds'">
+    <div class="modelguidancecontainer" ng-if="scratchkey && project && project.labels.length > 1">
         <div class="modelguidance" style="flex: 2">
             <div class="modelstatusdetail" translate="PYTHON.MODE.INTRO"></div>
             <div class="modelstatusdetail" translate="PYTHON.MODE.BROWSER"></div>
@@ -48,22 +44,13 @@
         </div>
         <div class="modelguidance">
             <div class="modelstatusdetail">
-                <a ng-if="project.type === 'text'"
-                    target="_blank" class="btn btn-primary"
+                <a target="_blank" class="btn btn-primary"
                     ng-click="openReplLink('https://repl.it/@mlforkids/TextMLTemplate', $event)"
-                    translate="PYTHON.LAUNCH"></a>
-                <a ng-if="project.type === 'images'"
-                    target="_blank" class="btn btn-primary"
-                    ng-click="openReplLink('https://repl.it/@mlforkids/ImagesMLTemplate', $event)"
-                    translate="PYTHON.LAUNCH"></a>
-                <a ng-if="project.type === 'numbers'"
-                    target="_blank" class="btn btn-primary"
-                    ng-click="openReplLink('https://repl.it/@mlforkids/NumbersMLTemplate', $event)"
                     translate="PYTHON.LAUNCH"></a>
             </div>
             <div class="modelstatusdetail">
                 <button type="button" class="btn btn-default"
-                    ui-sref="mlproject_python_local({ projectId : projectId, userId : userId })"
+                    ui-sref="mlproject_python_text({ projectId : projectId, userId : userId })"
                     translate="PYTHON.LOCAL"></button>
             </div>
         </div>
@@ -74,7 +61,7 @@
     <!--  Add API key to template                          -->
     <!-- ************************************************* -->
 
-    <div class="modelguidancecontainer" ng-if="scratchkey && project && project.labels.length > 1 && project.type !== 'sounds'">
+    <div class="modelguidancecontainer" ng-if="scratchkey && project && project.labels.length > 1">
         <div class="modelguidance">
             <div class="modelstatusdetail" translate="PYTHON.APIKEY_INSTRUCTION"></div>
             <div class="modelstatusdetail"><em translate="PYTHON.APIKEY_WARNING"></em></div>
@@ -92,8 +79,7 @@
     <!--  Classify test data                               -->
     <!-- ************************************************* -->
 
-    <!-- text -->
-    <div class="modelguidancecontainer" ng-if="scratchkey && project && project.labels.length > 1 && project.type === 'text'">
+    <div class="modelguidancecontainer" ng-if="scratchkey && project && project.labels.length > 1">
         <div class="modelguidance">
             <div class="modelstatusdetail" translate="PYTHON.RECOGNIZE.TEXT.INTRO"></div>
             <div class="modelstatusdetail" translate="PYTHON.RECOGNIZE.INSTRUCTION"></div>
@@ -104,59 +90,11 @@
         </div>
     </div>
 
-    <!-- images -->
-    <div class="modelguidancecontainer" ng-if="scratchkey && project && project.labels.length > 1 && project.type === 'images'">
-        <div class="modelguidance">
-            <div class="modelstatusdetail" translate="PYTHON.RECOGNIZE.IMAGES.INTRO"></div>
-            <div class="modelstatusdetail" translate="PYTHON.RECOGNIZE.INSTRUCTION"></div>
-        </div>
-        <div class="modelguidance" style="flex: 2">
-            <div translate="PYTHON.RECOGNIZE.IMAGES.REPLACE"></div>
-            <div class="pythoncodebox"><pre class="pythoncode">imageurl <span class="pythonop">=</span> &quot;<b>https://upload.wikimedia.org/wikipedia/commons/f/f8/This_is_the_photo_of_Arthur_Samuel.jpg?download</b>&quot;</pre></div>
-        </div>
-    </div>
-
-    <!-- numbers -->
-    <div class="modelguidancecontainer" ng-if="scratchkey && project && project.labels.length > 1 && project.type === 'numbers'">
-        <div class="modelguidance">
-            <div class="modelstatusdetail" translate="PYTHON.RECOGNIZE.NUMBERS.INTRO"></div>
-            <div class="modelstatusdetail" translate="PYTHON.RECOGNIZE.INSTRUCTION"></div>
-            <div class="modelstatusdetail">
-                <div ng-repeat="field in fields track by $index">
-                    {{ field.name }} :
-                    <input ng-if="field.type === 'number'"
-                        type="number"
-                        ng-model="testdata.fields[$index]"
-                        ng-init="testdata.fields[$index] = 0"></input>
-                    <select ng-if="field.type === 'multichoice'"
-                            ng-model="testdata.fields[$index]"
-                            ng-options="value for value in field.choices"
-                            ng-init="testdata.fields[$index] = field.choices[0]"
-                            style="height: 24px">
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="modelguidance" style="flex: 2">
-            <div translate="PYTHON.REPLACE_THIS"></div>
-            <div class="pythoncodebox" style="margin-bottom: 10px;"><pre class="pythoncode"><span class="pythoncomments"># CHANGE THIS to the data that you want your </span>
-<span class="pythoncomments"># machine learning model to classify</span>
-test_data <span class="pythonop">=</span> <b>[ ]</b></pre></div>
-            <div translate="PYTHON.WITH_THIS"></div>
-            <div class="pythoncodebox" style="margin-bottom: 10px;"><pre class="pythoncode"><span class="pythoncomments"># CHANGE THIS to the data that you want your </span>
-<span class="pythoncomments"># machine learning model to classify</span>
-<div ng-repeat="field in testdata.fields track by $index">data{{ $index + 1 }} <span class="pythonop">=</span> <span style="background-color: #fff0f0"><strong><span ng-if="fields[$index].type === 'multichoice'">"</span>{{ field ? field : 0 }}<span ng-if="fields[$index].type === 'multichoice'">"</span></strong></span></div>
-test_data <span class="pythonop">=</span> [ <span ng-repeat="field in testdata.fields track by $index">data{{ $index + 1 }}<span ng-show="!$last">,</span> </span>]</pre></div>
-        </div>
-    </div>
-
-
     <!-- ************************************************* -->
     <!--  Store training data                              -->
     <!-- ************************************************* -->
 
-    <!-- text -->
-    <div class="modelguidancecontainer" ng-if="scratchkey && project && project.labels.length > 1 && project.type === 'text'">
+    <div class="modelguidancecontainer" ng-if="scratchkey && project && project.labels.length > 1">
         <div class="modelguidance">
             <div class="modelstatusdetail" translate="PYTHON.STORE.TEXT.INTRO"></div>
             <div class="modelstatusdetail" translate="PYTHON.STORE.INSTRUCTION"></div>
@@ -194,62 +132,6 @@ training_label <span class="pythonop">=</span> &quot;<b>{{ testdata.label }}</b>
 
 <span class="pythoncomments"># remove the comment on the next line to use this </span>
 <span class="pythonfunc">storeText</span>(API_KEY, training_text, training_label)</pre></div>
-        </div>
-    </div>
-
-    <!-- numbers -->
-    <div class="modelguidancecontainer" ng-if="scratchkey && project && project.labels.length > 1 && project.type === 'numbers'">
-        <div class="modelguidance">
-            <div class="modelstatusdetail" translate="PYTHON.STORE.NUMBERS.INTRO"></div>
-            <div class="modelstatusdetail" translate="PYTHON.STORE.INSTRUCTION"></div>
-            <div class="modelstatusdetail" translate="PYTHON.STORE.ADD"></div>
-            <div class="modelstatusdetail">
-                <div ng-repeat="field in fields track by $index">
-                    {{ field.name }} :
-                    <input ng-if="field.type === 'number'"
-                        type="number"
-                        ng-model="testdata.storefields[$index]"
-                        ng-init="testdata.storefields[$index] = 0"></input>
-                    <select ng-if="field.type === 'multichoice'"
-                            ng-model="testdata.storefields[$index]"
-                            ng-options="value for value in field.choices"
-                            ng-init="testdata.storefields[$index] = field.choices[0]"
-                            style="height: 24px">
-                    </select>
-                </div>
-            </div>
-            <div class="modelstatusdetail">
-                Label for the data:
-                <select ng-model="testdata.label" style="padding-left: 1em; padding-right: 1em; width: 80%;" >
-                    <option ng-repeat="label in project.labels" value="{{ label }}">{{label}}</option>
-                </select>
-            </div>
-            <div class="modelstatusdetail"><em translate="PYTHON.UNCOMMENT"></em></div>
-        </div>
-        <div class="modelguidance" style="flex: 2">
-            <div translate="PYTHON.REPLACE_THIS"></div>
-            <div class="pythoncodebox" style="margin-bottom: 10px;"><pre class="pythoncode"><span class="pythoncomments"># CHANGE THIS to the data that you want to add </span>
-<span class="pythoncomments"># to your project training data</span>
-training_data <span class="pythonop">=</span> <b>[ ]</b>
-
-<span class="pythoncomments"># CHANGE THIS to the training bucket to add the</span>
-<span class="pythoncomments"># training example to</span>
-training_label <span class="pythonop">=</span> &quot;<b>Label</b>&quot;
-
-<span class="pythoncomments"># remove the comment on the next line to use this </span>
-<span class="pythoncomments"># storeNumbers(API_KEY, training_data, training_label)</span></pre></div>
-            <div translate="PYTHON.WITH_THIS"></div>
-            <div class="pythoncodebox"><pre class="pythoncode"><span class="pythoncomments"># CHANGE THIS to the data that you want to add </span>
-<span class="pythoncomments"># to your project training data</span>
-<div ng-repeat="field in testdata.storefields track by $index">data{{ $index + 1 }} <span class="pythonop">=</span> <span style="background-color: #fff0f0"><strong><span ng-if="fields[$index].type === 'multichoice'">"</span>{{ field ? field : 0 }}<span ng-if="fields[$index].type === 'multichoice'">"</span></strong></span></div>
-training_data <span class="pythonop">=</span> [ <span ng-repeat="field in testdata.storefields track by $index">data{{ $index + 1 }}<span ng-show="!$last">,</span> </span>]
-
-<span class="pythoncomments"># CHANGE THIS to the training bucket to add the</span>
-<span class="pythoncomments"># training example to</span>
-training_label <span class="pythonop">=</span> &quot;<b>{{ testdata.label }}</b>&quot;
-
-<span class="pythoncomments"># remove the comment on the next line to use this </span>
-<span class="pythonfunc">storeNumbers</span>(API_KEY, training_data, training_label)</pre></div>
         </div>
     </div>
 </div>

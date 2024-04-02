@@ -17,9 +17,6 @@
             $scope.testdata = {
                 text      : 'The text that you want to test',
                 storetext : 'The text that you want to store',
-                imagefile : 'my-test-image.jpg',
-                imageurl  : 'https://www.site-on-the-internet.com/image.jpg',
-                fields    : [],
                 label     : 'label'
             };
 
@@ -39,20 +36,14 @@
                 })
                 .then(function (project) {
                     $scope.project = project;
+
+                    if (project && project.type !== 'text') {
+                        throw new Error('This page is intended for text projects only');
+                    }
+
                     if (project.labels && project.labels.length > 0) {
                         $scope.testdata.label = project.labels[0];
                     }
-
-                    if (project.type === 'numbers') {
-                        loggerService.debug('[ml4kpython] getting project fields');
-                        return projectsService.getFields($scope.projectId, $scope.userId, vm.profile.tenant);
-                    }
-                    else {
-                        return;
-                    }
-                })
-                .then(function (fields) {
-                    $scope.fields = fields;
 
                     loggerService.debug('[ml4kpython] getting Scratch key');
                     return scratchkeysService.getScratchKeys($scope.project, $scope.userId, vm.profile.tenant);

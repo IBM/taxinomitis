@@ -30,10 +30,6 @@ function returnConversationWorkspace(classifier: Types.ConversationWorkspace) {
         status : classifier.status,
     };
 }
-function returnNumberClassifier(classifier: Types.NumbersClassifier) {
-    classifier.updated = classifier.created;
-    return classifier;
-}
 
 
 
@@ -55,8 +51,7 @@ async function getModels(req: auth.RequestWithProject, res: Express.Response) {
         classifiers = [];
         break;
     case 'numbers':
-        classifiers = await store.getNumbersClassifiers(projectid);
-        classifiers = classifiers.map(returnNumberClassifier);
+        classifiers = [];
         break;
     case 'sounds':
         classifiers = [];
@@ -83,8 +78,8 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
     }
     case 'numbers': {
         try {
-            const model = await numbers.trainClassifier(req.project);
-            return res.status(httpstatus.CREATED).json(returnNumberClassifier(model));
+            const model = await numbers.trainClassifierCloudProject(req.project);
+            return res.status(httpstatus.CREATED).json(model);
         }
         catch (err) {
             return errors.unknownError(res, err);
@@ -101,7 +96,6 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
 
 async function deleteModel(req: auth.RequestWithProject, res: Express.Response) {
     const classid = req.params.classid;
-    const userid = req.params.studentid;
     const projectid = req.params.projectid;
     const modelid = req.params.modelid;
 
@@ -113,10 +107,7 @@ async function deleteModel(req: auth.RequestWithProject, res: Express.Response) 
             await conversation.deleteClassifier(tenant, workspace);
             return res.sendStatus(httpstatus.NO_CONTENT);
         }
-        case 'numbers': {
-            await numbers.deleteClassifier(userid, classid, projectid);
-            return res.sendStatus(httpstatus.NO_CONTENT);
-        }
+        case 'numbers':
         case 'sounds':
         case 'imgtfjs':
         case 'images':
@@ -136,16 +127,7 @@ async function deleteModel(req: auth.RequestWithProject, res: Express.Response) 
 
 async function describeModel(req: auth.RequestWithProject, res: Express.Response) {
     try {
-        if (req.project.type === 'numbers') {
-            const classifierInfo = await numbers.getModelVisualisation(req.project);
-
-            // computing the visualisation data is super expensive
-            //  so ask browsers to cache it forever
-            res.set(headers.CACHE_1YEAR);
-
-            return res.json(classifierInfo);
-        }
-        else if (req.project.type === 'text') {
+        if (req.project.type === 'text') {
             const classifierInfo = await textmodels.getModelVisualisation(req.project);
 
             // computing this analysis is quite expensiive, so
@@ -167,7 +149,6 @@ async function describeModel(req: auth.RequestWithProject, res: Express.Response
 
 async function testModel(req: Express.Request, res: Express.Response) {
     const classid = req.params.classid;
-    const userid = req.params.studentid;
     const projectid = req.params.projectid;
     const modelid = req.params.modelid;
     const type = req.body.type;
@@ -188,13 +169,7 @@ async function testModel(req: Express.Request, res: Express.Response) {
             return res.json(classes);
         }
         else if (type === 'numbers') {
-            const numberdata = req.body.numbers;
-            if (!numberdata || numberdata.length === 0) {
-                return errors.missingData(res);
-            }
-
-            const classes = await numbers.testClassifier(userid, classid, requestTimestamp, projectid, numberdata);
-            return res.json(classes);
+            return errors.notImplemented(res);
         }
         else if (type === 'imgtfjs' || type === 'images') {
             // this behaves slightly differently - the API endpoint returns data

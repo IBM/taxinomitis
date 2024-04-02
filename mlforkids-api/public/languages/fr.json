@@ -786,7 +786,7 @@
             "EXPL_6": "La valeur <strong>valeur</strong> indiquée dans chaque case vous indique combien d'exemples de vos données d'entraînement ont réussi le test indiqué en haut (en suivant la flèche de gauche) et combien d'exemples n'ont pas réussi le test indiqué en haut (en suivant la flèche de droite)."
         },
         "ERRORS": {
-            "NUMBERSONLY": "Seuls les modèles d'apprentissage machine pour les projets sur les nombres peuvent être décrits"
+
         }
     },
     "DESCRIBETEXTMODEL": {
@@ -958,6 +958,7 @@
         "TITLE": "Utilisation de l'apprentissage machine avec Python",
         "NOTREADY": "Votre projet n'est pas encore prêt à être utilisé avec Python.",
         "NOMODEL": "Vous n'avez pas encore entraîné un modèle d'apprentissage machine.",
+        "EXPIRED": "Your model is no longer available on the model server.",
         "NOSOUND": "Python ne peut pas être utilisé avec des projets sonores.",
         "LAUNCH": "Lancer Python dans le navigateur",
         "LOCAL": "Copiez le code à exécuter sur votre ordinateur",
@@ -1811,8 +1812,7 @@
             "Q5-A-UNLIMITED": "Unlimited",
             "Q5-A-LIMITED": "Limits apply",
             "Q5-A-NUMBER_OF_PROJECTS": "Number of projects",
-            "Q5-A-TRAINING_DATA": "Amount of training data in a project",
-            "Q5-A-4": "(Numbers projects cannot be stored in your web browser. They can only be stored in the cloud.)"
+            "Q5-A-TRAINING_DATA": "Amount of training data in a project"
         },
         "SCRATCH": {
             "TITLE": "Problèmes avec Scratch",

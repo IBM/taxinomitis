@@ -4,6 +4,7 @@ import * as path from 'path';
 import * as compression from 'compression';
 // local dependencies
 import * as constants from '../utils/constants';
+import * as env from '../utils/env';
 
 
 export const CSP_DIRECTIVES = {
@@ -83,7 +84,7 @@ export const CSP_DIRECTIVES = {
         'https://sentry.io',
         // used for analytics
         'https://ping.withcabin.com',
-    ],
+    ].concat(env.getNumbersServiceHostUrls()), // used for numbers service
 };
 
 if (process.env.AUTH0_CUSTOM_DOMAIN) {

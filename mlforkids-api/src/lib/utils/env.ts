@@ -21,6 +21,7 @@ export const POSTGRESQLCERT = 'POSTGRESQLCERT';
 export const NUMBERS_SERVICE = 'NUMBERS_SERVICE';
 export const NUMBERS_SERVICE_USER = 'NUMBERS_SERVICE_USER';
 export const NUMBERS_SERVICE_PASS = 'NUMBERS_SERVICE_PASS';
+export const NUMBERS_SERVICE_HOSTS = 'NUMBERS_SERVICE_HOSTS';
 export const SLACK_WEBHOOK_URL = 'SLACK_WEBHOOK_URL';
 export const SITE_HOST_URL = 'SITE_HOST_URL';
 export const SMTP_HOST = 'SMTP_HOST';
@@ -45,7 +46,7 @@ const PROD = [
     AUTH0_CALLBACK_URL, AUTH0_API_CLIENTID, AUTH0_API_CLIENTSECRET,
     AUTH0_AUDIENCE,
     POSTGRESQLHOST, POSTGRESQLPORT, POSTGRESQLUSER, POSTGRESQLPASSWORD, POSTGRESQLDATABASE,
-    NUMBERS_SERVICE, NUMBERS_SERVICE_USER, NUMBERS_SERVICE_PASS,
+    NUMBERS_SERVICE, NUMBERS_SERVICE_USER, NUMBERS_SERVICE_PASS, NUMBERS_SERVICE_HOSTS,
     SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_REPLY_TO,
     // optional - not required for prod
     // SLACK_WEBHOOK_URL,
@@ -79,6 +80,14 @@ export function getSiteHostUrl() {
         return process.env[SITE_HOST_URL];
     }
     return 'http://localhost:' + getPortNumber();
+}
+
+
+export function getNumbersServiceHostUrls(): string[] {
+    if (process.env[NUMBERS_SERVICE_HOSTS]) {
+        return process.env[NUMBERS_SERVICE_HOSTS].split(',').map((item) => { return item.trim(); });
+    }
+    return [];
 }
 
 export function getPortNumber(): number {

@@ -102,7 +102,7 @@
                 })
                 .then(function () {
                     loggerService.debug('[ml4ksound] loading speech-commands');
-                    return utilService.loadScript('/static/bower_components/tensorflow-models/speech-commands/speech-commands.min.js?v=155');
+                    return utilService.loadScript('/static/bower_components/tensorflow-models/speech-commands/speech-commands.min.js?v=156');
                 })
                 .then(function () {
                     loggerService.debug('[ml4ksound] loaded speech-commands', speechCommands.version);
@@ -203,6 +203,7 @@
                 // models restored from indexeddb don't have the base layers needed
                 //  to train a new model, so we need to start from scratch
                 loggerService.debug('[ml4ksound] Setting up new transfer learning model');
+                // missing parameters here, so this will depend on reusing previous values
                 return initSoundSupport();
             }
             else {
@@ -227,6 +228,8 @@
 
         function newModel(projectid, userid, tenantid) {
             loggerService.debug('[ml4ksound] creating new ML model');
+            loggerService.debug('[ml4ksound] tf backend', tf.getBackend());
+            loggerService.debug('[ml4ksound] tf precision', tf.ENV.getBool('WEBGL_RENDER_FLOAT32_ENABLED'));
 
             modelStatus = {
                 classifierid : projectid,

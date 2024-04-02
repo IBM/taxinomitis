@@ -120,6 +120,7 @@ export interface NumbersClassifierDbRow {
 export type NumbersStatus = 'Failed' | 'Available';
 
 
+export type CsvString = string;
 
 export interface Classification {
     readonly class_name: string;

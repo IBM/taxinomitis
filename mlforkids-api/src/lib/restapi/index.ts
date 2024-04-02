@@ -33,9 +33,8 @@ const log = loggerSetup();
  * Sets up all of the REST API endpoints.
  */
 export default function setup(app: Express.Application): void {
-    log.info('Setting up REST API');
-
     // third-party middleware
+    log.info('Setting up REST API rules');
     app.use(query());
     app.use(helmet({
         contentSecurityPolicy: {
@@ -50,20 +49,25 @@ export default function setup(app: Express.Application): void {
     }));
 
     // UI setup
+    log.info('Setting up UI hosting');
     serverConfig.setupUI(app);
 
     // body types
+    log.info('Applying custom API limitations');
     app.use(URLS.LOCALMODELS, bodyParser.json({ limit : '4mb' }));
     app.use(URLS.SCRATCHKEY_CLASSIFY, bodyParser.json({ limit : '3mb' }));
     app.use(URLS.SOUNDS, bodyParser.json({ limit : '400kb' }));
     app.use(URLS.TRAININGITEMS, bodyParser.json({ limit : '400kb' }));
     app.use(URLS.ROOT, bodyParser.json({ limit : '100kb' }));
 
+    log.info('Registering API endpoint handlers');
+
     // site alerts are used even if the site is in maintenance mode
     registerSiteAlertApis(app);
 
     if (env.inMaintenanceMode()) {
         // return an error for all APIs
+        log.info('Site is in maintenance mode');
         app.get(URLS.ALL_APIS, errors.siteInMaintenanceMode);
         app.post(URLS.ALL_APIS, errors.siteInMaintenanceMode);
         app.patch(URLS.ALL_APIS, errors.siteInMaintenanceMode);
@@ -88,6 +92,7 @@ export default function setup(app: Express.Application): void {
     }
 
     // error handling
+    log.info('Registering API error handlers');
     errors.registerErrorHandling(app);
     errors.register404Handler(app);
 }

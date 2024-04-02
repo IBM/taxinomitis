@@ -2,11 +2,9 @@
 import * as assert from 'assert';
 import { v1 as uuid } from 'uuid';
 import * as randomstring from 'randomstring';
-import * as sinon from 'sinon';
 
 import * as store from '../../lib/db/store';
 import * as Objects from '../../lib/db/db-types';
-import * as numbers from '../../lib/training/numbers';
 
 
 const TESTCLASS = 'UNIQUECLASSID';
@@ -14,26 +12,15 @@ const TESTCLASS = 'UNIQUECLASSID';
 
 describe('DB store', () => {
 
-    let numbersStubDeleteClassifierStub: sinon.SinonStub<any, any>;
-
     before(() => {
-        numbersStubDeleteClassifierStub = sinon.stub(numbers, 'deleteClassifier')
-            .callsFake((user: string, classid: string, project: string) => {
-                assert(user);
-                assert(classid);
-                assert(project);
-                return Promise.resolve();
+        return store.init()
+            .then(() => {
+                return store.deleteProjectsByClassId(TESTCLASS);
             });
-
-        return store.init();
-    });
-    before(() => {
-        return store.deleteProjectsByClassId(TESTCLASS);
     });
 
     after(async () => {
         await store.deleteProjectsByClassId(TESTCLASS);
-        numbersStubDeleteClassifierStub.restore();
         return store.disconnect();
     });
 

@@ -18,12 +18,18 @@ class MachineLearningImagesTfjs {
         this.modelReady = false;
         this.modelError = false;
 
+
+        var that = this;
+        addEventListener('message', function (evt) {
+            that.receiveListenEvents(evt, that);
+        });
+
+
         postMessage({
             mlforkidsstorage : {
                 command : 'init'
             }
         });
-
 
         {{#storeurl}}
         var encodedProjectData = JSON.stringify({
@@ -47,11 +53,6 @@ class MachineLearningImagesTfjs {
         });
         {{/storeurl}}
 
-        var that = this;
-        addEventListener('message', function (evt) {
-            that.receiveListenEvents(evt, that);
-        });
-
 
         // the number of times that the 'recognise image' block has been used
         // incorrectly (this will be reset when the Help page is displayed)
@@ -60,7 +61,6 @@ class MachineLearningImagesTfjs {
         // the number of times that the 'recognise image' block should be used
         // incorrectly before the Help page is shown
         this.MAX_INCORRECT_USES = 2;
-
 
 
         this.nextClassifyRequest = 1;

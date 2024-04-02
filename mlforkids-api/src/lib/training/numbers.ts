@@ -1,5 +1,6 @@
 // external dependencies
 import * as httpStatus from 'http-status';
+import { unparse } from 'papaparse';
 // local dependencies
 import * as store from '../db/store';
 import * as Objects from '../db/db-types';
@@ -13,379 +14,201 @@ const log = loggerSetup();
 
 
 
-
-
-
-export async function trainClassifier(
-    project: Objects.Project,
-): Promise<TrainingObjects.NumbersClassifier>
+export async function trainClassifierCloudProject(project: Objects.Project): Promise<NumbersApiResponsePayloadClassifierItem>
 {
-    let status: TrainingObjects.NumbersStatus;
+    const training = await store.getNumberTraining(project.id, { start: 0, limit: 3000 });
+    const fieldsinfo = await store.getNumberProjectFields(project.userid, project.classid, project.id);
 
-    try {
-        // create a new classifier
-        const data = await fetchTraining(project);
-        if (data.length === 0) {
-            // no training data available to train a classifier
-            return {
-                created : new Date(),
-                status: 'Failed',
-                classifierid : '',
-            };
-        }
-
-        await submitTraining(project.classid, project.userid, project.id, data);
-
-        status = 'Available';
-    }
-    catch (err) {
-        status = 'Failed';
-    }
-
-    // misusing the Bluemix creds structure to store what we need
-    //  to use the numbers service
-    const credentials: TrainingObjects.BluemixCredentials = {
-        servicetype: 'num',
-        id: 'NOTUSED',
-        url: 'tenantid=' + project.classid + '&' +
-             'studentid=' + project.userid + '&' +
-             'projectid=' + project.id,
-        username: project.userid,
-        password: project.classid,
-        classid : project.classid,
-        credstype : 'unknown',
-    };
-
-    // write details about the new classifier to the DB
-    const storedClassifier = await store.storeNumbersClassifier(project.userid, project.classid, project.id, status);
-    if (status === 'Available') {
-        const classifierid = project.id;
-        await store.storeOrUpdateScratchKey(project, credentials, classifierid, storedClassifier.created);
-    }
-
-    return storedClassifier;
+    return trainClassifier(project, training, fieldsinfo);
 }
 
 
 
-export async function testClassifier(
-    studentid: string, tenantid: string,
-    classifierTimestamp: Date, projectid: string,
-    data: any[],
-): Promise<TrainingObjects.Classification[]>
+export function trainClassifier(
+    project: Objects.Project,
+    training: Objects.NumberTraining[],
+    fieldsInfo: Objects.NumbersProjectField[],
+): Promise<NumbersApiResponsePayloadClassifierItem>
 {
-    const fieldsInfo = await store.getNumberProjectFields(studentid, tenantid, projectid);
-
-    const req: NumbersApiRequestPayloadTestItem = {
-        auth : {
-            user : process.env[env.NUMBERS_SERVICE_USER],
-            pass : process.env[env.NUMBERS_SERVICE_PASS],
-        },
-        body : {
-            tenantid, studentid, projectid,
-            data : prepareDataObject(fieldsInfo, data),
-        },
-        json : true,
-        gzip : true,
-    };
-    const url = process.env[env.NUMBERS_SERVICE] + '/api/classify';
-
-    let body: { [classname: string]: number };
-    try {
-        body = await request.post(url, req, true);
-    }
-    catch (err) {
-        if (err.statusCode === httpStatus.NOT_FOUND) {
-            // no ML model found, so try to train one now
-            //  and then try the call again
-            const project = await store.getProject(projectid);
-            if (!project) {
-                throw new Error('Project not found');
-            }
-
-            const classifier = await trainClassifier(project);
-            if (classifier.status === 'Available') {
-                body = await request.post(url, req, true);
+    return createTensorflowCsv(project, training, fieldsInfo)
+        .then((csvData) => {
+            return submitTraining(project.id, csvData);
+        })
+        .catch((err) => {
+            log.error({ err, project }, 'Failed to train classifier');
+            if (isTrainingErrorPayload(err)) {
+                slack.notify('Failed to train number classifier', slack.SLACK_CHANNELS.TRAINING_ERRORS);
+                return err;
             }
             else {
-                log.error({ classifier, projectid }, 'Failed to create missing classifier for test');
-                throw new Error('Failed to create classifier');
-            }
-        }
-        else if (err.statusCode === httpStatus.INTERNAL_SERVER_ERROR &&
-                 err.message.includes("Input contains NaN, infinity or a value too large for dtype('float32')"))
-        {
-            log.error({ err, data }, 'Value provided outside of valid range?');
-            throw err;
-        }
-        else {
-            throw err;
-        }
-    }
-    return Object.keys(body)
-            .map((key) => {
+                let errormessage = err.message;
+                if (errormessage.includes('ECONNREFUSED')) {
+                    errormessage = 'Failed to contact model training server';
+                }
+
                 return {
-                    class_name : key,
-                    confidence : body[key],
-                    classifierTimestamp,
+                    key : project.id,
+                    status : 'Failed',
+                    error : {
+                        message : errormessage,
+                    },
                 };
-            })
-            .sort(confidenceSort);
+            }
+        });
+}
+
+
+function isTrainingErrorPayload(obj: any): boolean {
+    return obj.status &&
+           obj.error &&
+           obj.error.message;
 }
 
 
 
-export async function deleteClassifier(studentid: string, tenantid: string, projectid: string): Promise<void>
-{
-    const req: NumbersApiDeleteClassifierRequest = {
-        auth : {
-            user : process.env[env.NUMBERS_SERVICE_USER],
-            pass : process.env[env.NUMBERS_SERVICE_PASS],
-        },
-        qs : { tenantid, studentid, projectid },
-        json : true,
-    };
-
-    const url = process.env[env.NUMBERS_SERVICE] + '/api/models';
-    await request.del(url, req);
-}
-
-
-
-
-function confidenceSort(a: TrainingObjects.Classification, b: TrainingObjects.Classification): number {
-    return b.confidence - a.confidence;
-}
-
-
-
-async function submitTraining(
-    tenantid: string, studentid: string, projectid: string, data: any[][],
-): Promise<void>
+function submitTraining(
+    projectid: string, csvfile: TrainingObjects.CsvString,
+): Promise<NumbersApiResponsePayloadClassifierItem>
 {
     const req: NumbersApiRequestPayloadClassifierItem = {
         auth : {
             user : process.env[env.NUMBERS_SERVICE_USER],
             pass : process.env[env.NUMBERS_SERVICE_PASS],
         },
-        body : {
-            tenantid, studentid, projectid, data,
+        formData : {
+            csvfile : {
+                value : csvfile,
+                options : {
+                    filename : 'training.csv',
+                    contentType : 'text/csv',
+                },
+            },
         },
         json : true,
         gzip : true,
     };
 
-    const url = process.env[env.NUMBERS_SERVICE] + '/api/models';
+    const url = process.env[env.NUMBERS_SERVICE] + '/model-requests/' + projectid;
 
-    try {
-        await request.post(url, req, true);
-    }
-    catch (err) {
-        log.error({ req, err, tenantid, projectid }, 'Failed to train numbers classifier');
+    const DO_NOT_RETRY = false;
 
-        // The full error object will include information about the
-        //  internal numbers service which we don't want to return
-        //  to clients/users.
-        throw new Error('Failed to train classifier');
-    }
+    return request.post(url, req, DO_NOT_RETRY);
 }
 
 
-function prepareDataObject(
-    fields: Objects.NumbersProjectField[],
-    dataitems: number[],
-): { [fieldname: string]: string | number }
+
+async function createTensorflowCsv(
+    project: Objects.Project,
+    training: Objects.NumberTraining[],
+    fieldsInfo: Objects.NumbersProjectField[],
+): Promise<TrainingObjects.CsvString>
 {
-    const trainingObj: { [fieldname: string]: string | number } = {};
-
-    fields.forEach((field, fieldPos) => {
-        const num = dataitems[fieldPos];
-        if (field.type === 'multichoice' && field.choices[num]) {
-            trainingObj[field.name] = field.choices[num];
-        }
-        else {
-            if (num < -3.4028235e+38) {
-                const tooSmall = new Error('Value (' + num + ') is too small') as any;
-                tooSmall.statusCode = httpStatus.BAD_REQUEST;
-                throw tooSmall;
-            }
-            if (num > 3.4028235e+38) {
-                const tooBig = new Error('Value (' + num + ') is too big') as any;
-                tooBig.statusCode = httpStatus.BAD_REQUEST;
-                throw tooBig;
-            }
-            trainingObj[field.name] = num;
-        }
-    });
-
-    return trainingObj;
-}
-
-
-
-
-async function fetchTraining(project: Objects.Project): Promise<any[][]> {
-    const count = await store.countTraining('numbers', project.id);
-    const training = await store.getNumberTraining(project.id, {
-        start: 0, limit: count,
-    });
-    const fieldsInfo = await store.getNumberProjectFields(project.userid, project.classid, project.id);
-
-    return training.filter((item) => item.label && project.labels.includes(item.label))
-                   .map((item) => {
-                       return [
-                           prepareDataObject(fieldsInfo, item.numberdata),
-                           item.label,
-                       ];
-                   });
-}
-
-
-
-async function getVisualisationFromModelServer(project: Objects.Project): Promise<NumbersModelDescriptionResponse> {
-    const req: NumbersModelDescriptionRequest = {
-        auth : {
-            user : process.env[env.NUMBERS_SERVICE_USER],
-            pass : process.env[env.NUMBERS_SERVICE_PASS],
-        },
-        qs : {
-            tenantid : project.classid,
-            studentid : project.userid,
-            projectid : project.id,
-            formats : 'dot,svg',
-        },
-        json : true,
-        timeout: 60000,
-    };
-
-    const url = process.env[env.NUMBERS_SERVICE] + '/api/models';
-
-    let response: NumbersModelDescriptionResponse;
-    try {
-        response = await request.get(url, req);
+    if (training.length === 0) {
+        const insufficientData = new Error('More training data needed to train a model') as any;
+        insufficientData.statusCode = httpStatus.BAD_REQUEST;
+        throw insufficientData;
     }
-    catch (err) {
-        if (err.statusCode === httpStatus.NOT_FOUND) {
-            const classifier = await trainClassifier(project);
-            if (classifier.status === 'Available') {
-                response = await request.get(url, req);
-            }
-            else {
-                log.error({ classifier, projectid : project.id }, 'Failed to create missing classifier for viz');
-                throw new Error('Failed to create classifier');
-            }
-        }
-        else {
-            log.error({ err, url, project }, 'Failed to get visualisation');
-            slack.notify('Numbers visualisation failure', slack.SLACK_CHANNELS.CRITICAL_ERRORS);
-            throw err;
+
+    const inflatedTraining = training
+        .filter((item) => item.label && project.labels.includes(item.label))
+        .map((item) => {
+            const trainingItem: { [key: string]: string | number } = {
+                mlforkids_outcome_label : item.label as string,
+            };
+
+            fieldsInfo.forEach((field, idx) => {
+                const num = item.numberdata[idx];
+
+                if (field.type === 'multichoice' && field.choices[num]) {
+                    trainingItem[field.name] = field.choices[num];
+                }
+                else {
+                    if (num < -3.4028235e+38) {
+                        const tooSmall = new Error('Value (' + num + ') is too small') as any;
+                        tooSmall.statusCode = httpStatus.BAD_REQUEST;
+                        throw tooSmall;
+                    }
+                    if (num > 3.4028235e+38) {
+                        const tooBig = new Error('Value (' + num + ') is too big') as any;
+                        tooBig.statusCode = httpStatus.BAD_REQUEST;
+                        throw tooBig;
+                    }
+                    trainingItem[field.name] = num;
+                }
+            });
+
+            return trainingItem;
+        });
+
+    const fieldNames = fieldsInfo.map((field) => field.name);
+    fieldNames.push('mlforkids_outcome_label');
+
+    return unparse(inflatedTraining, {
+        columns: fieldNames,
+        quotes: false,
+        delimiter: ',',
+        header: true,
+    });
+}
+
+
+function isString(item: any): boolean {
+    return typeof item === 'string';
+}
+function isNumber(item: any): boolean {
+    return typeof item === 'number';
+}
+export function isNumbersProjectFieldSummary(item: any): boolean {
+    return item &&
+           item.name && typeof item.name === 'string' &&
+           item.type && (item.type === 'number' || item.type === 'multichoice') &&
+           (item.type === 'number' || (item.choices && Array.isArray(item.choices)));
+}
+function isNumberTraining(item: any): boolean {
+    return item &&
+           item.numberdata &&
+                Array.isArray(item.numberdata) &&
+                item.numberdata.every(isNumber) &&
+           item.label && typeof item.label === 'string';
+}
+
+
+export function validateLocalProjectTrainingRequest(input: any, userid: string): { project: Objects.Project, training: Objects.NumberTraining[] } {
+    if (!input) {
+        throw new Error('No data provided');
+    }
+
+    if (input.project &&
+        input.project.labels &&
+            Array.isArray(input.project.labels) &&
+            input.project.labels.every(isString) &&
+        input.project.fields &&
+            Array.isArray(input.project.fields) &&
+            input.project.fields.every(isNumbersProjectFieldSummary))
+    {
+        // valid project
+
+        // replace the id if it isn't something that we can rely on as unique
+        if (typeof input.project.id !== 'string') {
+            input.project.id = userid + '-' + input.project.id;
         }
     }
-    return response;
+    else {
+        throw new Error('Missing required project info');
+    }
+
+    if (input.training &&
+            Array.isArray(input.training) &&
+            input.training.every(isNumberTraining))
+    {
+        // valid training
+    }
+    else {
+        throw new Error('Missing required training info');
+    }
+
+    return input;
 }
-
-export function getModelVisualisation(project: Objects.Project): Promise<NumbersModelDescriptionResponse> {
-    return getVisualisationFromModelServer(project);
-}
-
-
-
-
-
-
-// ---------------------------------------
-// OpenWhisk has a 128k limit on request payloads
-//
-//  This is causing requests to the describe-model function (which has to include
-//  a copy of the training data) to fail with larger training data sets.
-//
-//  These functions are a quick and dirty compression algorithm to flatten some of
-//  the duplicate data in the request.
-//
-//  I think this will get most student projects under the limit but I need a better
-//  long-term plan for large projects.
-
-export interface UncompressedTrainingData {
-    examples: any[];
-    labels: string[];
-    formats: string[];
-}
-
-export interface CompressedTrainingData {
-    examples: any[][];
-    examplesKey: string[];
-    labels: number[];
-    labelsKey: string[];
-    formats: string[];
-}
-
-export function compress(obj: UncompressedTrainingData): CompressedTrainingData {
-    const compressed: CompressedTrainingData = {
-        examplesKey : Object.keys(obj.examples[0]),
-        examples : obj.examples.map((example) => {
-            return Object.values(example);
-        }),
-        labelsKey : [],
-        formats : obj.formats,
-        labels : [],
-    };
-    compressed.labels = obj.labels.map((label) => {
-        let idx = compressed.labelsKey.indexOf(label);
-        if (idx === -1) {
-            idx = (compressed.labelsKey.push(label)) - 1;
-        }
-        return idx;
-    });
-
-    return compressed;
-}
-
-// this function is only needed for testing, as it's the Python implementation of
-//  the OpenWhisk action that actually needs to do the decompress
-export function decompress(obj: CompressedTrainingData): UncompressedTrainingData {
-    return {
-        examples : obj.examples.map((examplekey) => {
-            const example: any = {};
-            for (let idx = 0; idx < obj.examplesKey.length; idx++) {
-                const key = obj.examplesKey[idx];
-                example[key] = examplekey[idx];
-            }
-            return example;
-        }),
-        labels : obj.labels.map((labelkey) => {
-            return obj.labelsKey[labelkey];
-        }),
-        formats : obj.formats,
-    };
-}
-
-// ---------------------------------------
-
-
-
-
-export interface NumbersModelDescriptionRequest {
-    readonly auth: {
-        readonly user: string | undefined;
-        readonly pass: string | undefined;
-    };
-    readonly qs: {
-        readonly tenantid: string;
-        readonly studentid: string;
-        readonly projectid: string;
-        readonly formats: string;
-    };
-    readonly json: true;
-    readonly timeout: number;
-}
-
-export interface NumbersModelDescriptionResponse {
-    readonly vocabulary: { [fieldname: string]: number };
-    readonly svg?: string;
-    readonly png?: string;
-    readonly dot?: string;
-}
-
 
 
 
@@ -394,41 +217,30 @@ export interface NumbersApiRequestPayloadClassifierItem {
         readonly user: string | undefined;
         readonly pass: string | undefined;
     };
-    readonly body: {
-        readonly tenantid: string;
-        readonly studentid: string;
-        readonly projectid: string;
-        readonly data: any[][];
+    readonly formData: {
+        readonly csvfile: {
+            readonly value : TrainingObjects.CsvString;
+            readonly options : {
+                readonly filename : 'training.csv';
+                readonly contentType : 'text/csv';
+            };
+        };
     };
     readonly json: true;
     readonly gzip: true;
 }
-
-export interface NumbersApiRequestPayloadTestItem {
-    readonly auth: {
-        readonly user: string | undefined;
-        readonly pass: string | undefined;
+export interface NumbersApiResponsePayloadClassifierItem {
+    readonly key : string;
+    readonly status : 'error' | 'training' | 'ready';
+    readonly urls : undefined | {
+        readonly status : string;
+        readonly model : string;
+        readonly viz : string;
     };
-    readonly body: {
-        readonly tenantid: string;
-        readonly studentid: string;
-        readonly projectid: string;
-        readonly data: { [fieldname: string]: string | number };
+    readonly lastupdate : string;
+    readonly error : undefined | {
+        readonly message : string;
+        readonly stack : string;
     };
-    readonly json: true;
-    readonly gzip: true;
-}
-
-export interface NumbersApiDeleteClassifierRequest {
-    readonly auth: {
-        readonly user: string | undefined;
-        readonly pass: string | undefined;
-    };
-    readonly qs: {
-        readonly tenantid: string;
-        readonly studentid: string;
-        readonly projectid: string;
-    };
-    readonly json: true;
 }
 

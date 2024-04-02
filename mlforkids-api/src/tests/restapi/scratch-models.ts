@@ -217,11 +217,10 @@ describe('REST API - scratchkey models', () => {
             .expect('Content-Type', /json/)
             .expect(httpstatus.OK)
             .then(async (res) => {
-                assert.deepStrictEqual(res.body, {
-                    status : 2,
-                    msg : 'Ready',
-                    type : typelabel,
-                });
+                assert.strictEqual(project.id, res.body.key);
+                assert.strictEqual('Training', res.body.status);
+                assert(res.body.lastupdate);
+                assert(res.body.urls);
 
                 await store.deleteEntireUser(userid, TESTCLASS);
             });

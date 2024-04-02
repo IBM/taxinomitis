@@ -356,6 +356,28 @@ export async function verifyLocalProjectAuth(
     }
 }
 
+export async function verifyLocalModelsAuth(
+    req: Express.Request,
+    res: Express.Response,
+    next: (e?: Error) => void,
+)
+{
+    const userid: string = req.params.studentid;
+
+    const reqWithUser = req as RequestWithUser;
+    try {
+        if (userid !== reqWithUser.user.sub) {
+            // attempt to access a project from another user
+            return errors.forbidden(res);
+        }
+
+        next();
+    }
+    catch (err) {
+        return next(err);
+    }
+}
+
 
 
 /**

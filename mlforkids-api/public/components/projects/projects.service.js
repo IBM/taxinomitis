@@ -40,11 +40,16 @@
             }
         }
 
-        function getFields(projectid, userid, tenant) {
-            return $http.get('/api/classes/' + tenant + '/students/' + userid + '/projects/' + projectid + '/fields')
-                .then(function (resp) {
-                    return resp.data;
-                });
+        function getFields(project, userid, tenant) {
+            if (project.storage === 'local') {
+                return Promise.resolve(project.fields);
+            }
+            else {
+                return $http.get('/api/classes/' + tenant + '/students/' + userid + '/projects/' + project.id + '/fields')
+                    .then(function (resp) {
+                        return resp.data;
+                    });
+            }
         }
 
         function getLabels(project, userid, tenant) {
@@ -168,7 +173,7 @@
 
         function deleteProject(project, userid, tenant) {
             if (project.storage === 'local') {
-                if (project.cloudid) {
+                if (project.type === 'text' && project.cloudid) {
                     $http.delete('/api/classes/' + tenant + '/students/' + userid + '/localprojects/' + project.cloudid);
                 }
 
@@ -236,13 +241,14 @@
                 return {
                     scratch : true,
                     edublocks : true,
-                    python : true
+                    python : true,
+                    appinventor : true
                 };
             }
             else if (project.type === 'numbers') {
                 return {
                     scratch : true,
-                    edublocks : true,
+                    edublocks : false,
                     python : true
                 };
             }
@@ -265,7 +271,8 @@
                     return {
                         scratch : true,
                         edublocks : false,
-                        python : true
+                        python : true,
+                        appinventor : true
                     };
                 }
             }

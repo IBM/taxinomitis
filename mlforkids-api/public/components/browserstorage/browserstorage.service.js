@@ -7,10 +7,10 @@
     browserStorageService.$inject = [
         'loggerService',
         'cleanupService',
-        '$timeout'
+        '$timeout', '$http'
     ];
 
-    function browserStorageService(loggerService, cleanupService, $timeout) {
+    function browserStorageService(loggerService, cleanupService, $timeout, $http) {
 
         const SUPPORTED_UNKNOWN = 0;
         const SUPPORTED_OK = 1;
@@ -24,6 +24,10 @@
         const trainingDataDatabases = {};
         const TRAINING_DB_NAME_PREFIX = 'mlforkidsProject';
         const TRAINING_TABLE = 'training';
+
+        let assetsDbHandle;
+        const ASSETS_DB_NAME = 'mlforkidsAssets';
+        const ASSETS_TABLE = 'assets';
 
 
         //-----------------------------------------------------------
@@ -114,6 +118,10 @@
             const table = event.target.result.createObjectStore(TRAINING_TABLE, { keyPath: 'id', autoIncrement: true });
             table.createIndex('label', 'label', { unique: false });
         }
+        function initAssetsDatabase (event) {
+            loggerService.debug('[ml4kstorage] initAssetsDatabase');
+            event.target.result.createObjectStore(ASSETS_TABLE);
+        }
 
 
         function getProjectsDatabase() {
@@ -138,6 +146,17 @@
                     return event.target.result;
                 });
         }
+        function getAssetsDatabase() {
+            loggerService.debug('[ml4kstorage] getAssetsDatabase');
+
+            const request = window.indexedDB.open(ASSETS_DB_NAME);
+            request.onupgradeneeded = initAssetsDatabase;
+
+            return promisifyIndexedDbRequest(request)
+                .then(function (event) {
+                    return event.target.result;
+                });
+        }
 
 
         async function requiresProjectsDatabase() {
@@ -155,6 +174,15 @@
                 trainingDataDatabases[projectId].onclose = () => {
                     loggerService.debug('[ml4kstorage] training database closed', projectId);
                     delete trainingDataDatabases[projectId];
+                };
+            }
+        }
+        async function requiresAssetsDatabase() {
+            if (!assetsDbHandle) {
+                assetsDbHandle = await getAssetsDatabase();
+                assetsDbHandle.onclose = () => {
+                    loggerService.debug('[ml4kstorage] assets database closed');
+                    assetsDbHandle = null;
                 };
             }
         }
@@ -565,7 +593,9 @@
 
                 const trainingdata = projectdata[1];
                 for (const trainingitem of trainingdata) {
-                    labels[trainingitem.label] += 1;
+                    if (trainingitem.label in labels) {
+                        labels[trainingitem.label] += 1;
+                    }
                 }
 
                 return labels;
@@ -616,7 +646,46 @@
 
 
 
+        //-----------------------------------------------------------
+        //  ASSETS database
+        //-----------------------------------------------------------
 
+        async function storeAsset(id, url) {
+            loggerService.debug('[ml4kstorage] storeAsset', id);
+
+            await requiresAssetsDatabase();
+
+            const resp = await $http.get(url, { responseType : 'blob' });
+            const zipdata = resp.data;
+
+            const transaction = assetsDbHandle.transaction([ ASSETS_TABLE ], 'readwrite');
+            const request = transaction.objectStore(ASSETS_TABLE).put(zipdata, id);
+            return promisifyIndexedDbRequest(request);
+        }
+
+        async function retrieveAsset(id) {
+            loggerService.debug('[ml4kstorage] retrieveAsset', id);
+
+            await requiresAssetsDatabase();
+
+            const transaction = assetsDbHandle.transaction([ ASSETS_TABLE ], 'readonly');
+            const request = transaction.objectStore(ASSETS_TABLE).get(id);
+            return promisifyIndexedDbRequest(request)
+                .then(function (event) {
+                    return requiresResult(event);
+                });
+        }
+
+        async function deleteAsset(id) {
+            loggerService.debug('[ml4kstorage] deleteAsset', id);
+
+            await requiresAssetsDatabase();
+
+            const transaction = assetsDbHandle.transaction([ ASSETS_TABLE ], 'readwrite');
+            transaction.objectStore(ASSETS_TABLE).delete(id);
+
+            return promisifyIndexedDbTransaction(transaction);
+        }
 
 
         return {
@@ -642,7 +711,11 @@
             getLabelCounts,
             getTrainingForWatsonAssistant,
 
-            deleteSessionUserProjects
+            deleteSessionUserProjects,
+
+            storeAsset,
+            retrieveAsset,
+            deleteAsset
         };
     }
 })();

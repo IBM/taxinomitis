@@ -58,13 +58,17 @@
                 </div>
             </div>
             <div class="makebutton">
-                <button ng-hide="project.type === 'imgtfjs'"
+                <button ng-if="project.type === 'text'"
                         type="button" class="btn btn-primary"
                         ui-sref="mlproject_python({ projectId : projectId, userId : userId })"
                         translate="PROJECT.PYTHON.TITLE"></button>
                 <button ng-if="project.type === 'imgtfjs'"
                         type="button" class="btn btn-primary"
-                        ui-sref="mlproject_python_local({ projectId : projectId, userId : userId })"
+                        ui-sref="mlproject_python_images({ projectId : projectId, userId : userId })"
+                        translate="PROJECT.PYTHON.TITLE"></button>
+                <button ng-if="project.type === 'numbers'"
+                        type="button" class="btn btn-primary"
+                        ui-sref="mlproject_python_numbers({ projectId : projectId, userId : userId })"
                         translate="PROJECT.PYTHON.TITLE"></button>
             </div>
             <div class="screenshot">

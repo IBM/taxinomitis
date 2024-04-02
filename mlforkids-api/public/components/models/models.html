@@ -33,6 +33,9 @@
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <strong translate="APP.WARNING"></strong> {{ warning.message }}
     </div>
+    <div ng-if="models[0].warning" class="alert alert-warning pageheadermsg" role="alert">
+        <strong translate="APP.WARNING"></strong> Your model could not be stored. Models are normally saved in the browser, but your web browser would not allow this. <br/>The most likely reason is that you are using a web browser in a secure or private mode. You can use your machine learning model, but it will be lost when you leave this page.
+    </div>
 
 
     <div ng-if="loading" class="loading"> </div>

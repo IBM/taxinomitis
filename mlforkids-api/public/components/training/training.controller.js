@@ -86,7 +86,7 @@
                 if (project.type === 'numbers') {
                     // for numbers projects we need the fields to populate the drop-downs for new values
                     loggerService.debug('[ml4ktraining] getting project fields');
-                    return projectsService.getFields($scope.projectId, $scope.userId, vm.profile.tenant)
+                    return projectsService.getFields($scope.project, $scope.userId, vm.profile.tenant)
                         .then(function (fields) {
                             $scope.project.fields = fields;
                             $scope.projectfieldnames = fields.map(function (field) {
@@ -231,7 +231,12 @@
         function getNumberValues(obj) {
             var fields = $scope.projectfieldnames ? $scope.projectfieldnames : Object.keys(obj);
             return fields.map(function (key) {
-                return obj[key];
+                if (obj[key].includes('.')) {
+                    return parseFloat(obj[key]);
+                }
+                else {
+                    return parseInt(obj[key]);
+                }
             });
         }
 
@@ -849,6 +854,24 @@
                         })
                         .then(function (stored) {
                             $scope.training = $scope.training.concat(stored);
+                        })
+                        .catch(function (err) {
+                            displayAlert('errors', 400, err);
+                        });
+                }
+                else if ($scope.project.type === 'numbers') {
+                    const label = elem.dataset.label;
+                    csvService.parseFile(file)
+                        .then(function (results) {
+                            // pre-existing fields - check they match
+                            if (!angular.equals(results.meta.fields, $scope.project.fields.map(c => c.name)))
+                            {
+                                throw new Error('The columns in the CSV file do not match the fields you have in this project');
+                            }
+                            return trainingService.bulkAddTrainingData($scope.project, { label, numbers : results.data });
+                        })
+                        .then(function (stored) {
+                            $scope.training[label] = $scope.training[label].concat(stored);
                         })
                         .catch(function (err) {
                             displayAlert('errors', 400, err);

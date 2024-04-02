@@ -45,7 +45,7 @@
 
                     if (project.type === 'numbers') {
                         loggerService.debug('[ml4kedublocks] getting project fields');
-                        return projectsService.getFields($scope.projectId, $scope.userId, vm.profile.tenant);
+                        return projectsService.getFields($scope.project, $scope.userId, vm.profile.tenant);
                     }
                     else {
                         return;

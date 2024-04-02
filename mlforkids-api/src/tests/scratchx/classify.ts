@@ -280,23 +280,7 @@ describe('Scratchx - classify', () => {
 
     describe('numbers projects', () => {
 
-        let requestPostStub: sinon.SinonStub<any, any>;
-
-        before(() => {
-            requestPostStub = sinon.stub(request, 'post');
-            requestPostStub.callsFake(() => {
-                log.debug('Calling the mock numbers API');
-                return Promise.resolve({
-                    label_name_1 : 86,
-                    label_name_2 : 90,
-                });
-            });
-        });
-        after(() => {
-            requestPostStub.restore();
-        });
-
-        it('should require numbers', async () => {
+        it('should reject classify requests', async () => {
             const key: Types.ScratchKey = {
                 id : uuid(),
                 name : 'TEST',
@@ -306,95 +290,12 @@ describe('Scratchx - classify', () => {
             };
 
             try {
-                await classifier.classify(key, []);
+                await classifier.classify(key, '  ');
                 assert.fail('Should not reach here');
             }
             catch (err) {
-                assert.strictEqual(err.message, 'Missing data');
+                assert.strictEqual(err.message, 'Classification for this project is only available in the browser');
             }
-        });
-
-
-        it('should require a real project', async () => {
-            const key: Types.ScratchKey = {
-                id : uuid(),
-                name : 'TEST',
-                type : 'numbers',
-                projectid : uuid(),
-                updated : new Date(),
-            };
-
-            try {
-                await classifier.classify(key, ['123']);
-                assert.fail('Should not reach here');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Project not found');
-            }
-        });
-
-
-        it('should return random classes for projects without classifiers', async () => {
-            const userid = uuid();
-            const project = await store.storeProject(userid, TESTCLASS, 'numbers', 'test project', 'en', [
-                { name : 'size', type : 'number' },
-            ], false);
-            await store.addLabelToProject(userid, TESTCLASS, project.id, 'fruit');
-            await store.addLabelToProject(userid, TESTCLASS, project.id, 'vegetable');
-
-            const key: Types.ScratchKey = {
-                id : uuid(),
-                name : 'TEST',
-                type : 'numbers',
-                projectid : project.id,
-                updated : new Date(),
-            };
-
-            const classifications = await classifier.classify(key, ['123']);
-            assert.strictEqual(classifications.length, 2);
-            for (const classification of classifications) {
-                assert(classification.random);
-                assert.strictEqual(classification.confidence, 50);
-            }
-        });
-
-
-
-        it('should return classes for projects with classifiers', async () => {
-            const userid = uuid();
-            const project = await store.storeProject(userid, TESTCLASS, 'numbers', 'test project', 'en', [
-                { name : 'a', type : 'number' },
-            ], false);
-
-            await store.addLabelToProject(userid, TESTCLASS, project.id, 'label_name_1');
-            await store.addLabelToProject(userid, TESTCLASS, project.id, 'label_name_1');
-
-            const ts = new Date();
-            ts.setMilliseconds(0);
-
-            const key: Types.ScratchKey = {
-                id : uuid(),
-                name : 'TEST',
-                type : 'numbers',
-                projectid : project.id,
-                classifierid : 'good',
-                credentials : {
-                    id : uuid(),
-                    username : 'user',
-                    password : 'pass',
-                    servicetype : 'conv',
-                    url : 'url',
-                    classid : TESTCLASS,
-                    credstype : 'unknown',
-                },
-                updated : ts,
-            };
-
-            const classifications = await classifier.classify(key, ['123']);
-            assert.deepStrictEqual(classifications, [
-                { class_name: 'label_name_2', confidence: 90, classifierTimestamp : ts },
-                { class_name: 'label_name_1', confidence: 86, classifierTimestamp : ts },
-            ]);
         });
     });
 });

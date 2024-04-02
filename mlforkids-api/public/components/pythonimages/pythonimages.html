@@ -1,0 +1,98 @@
+<div ng-if="!isAuthenticated">
+    <div class="alert alert-warning pageheadermsg">
+        <strong translate="ERRORS.NOTLOGGEDIN"></strong>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" ng-click="vm.authService.login()" translate="APP.LOGIN"></button>
+    </div>
+</div>
+
+<div ng-if="isAuthenticated && !projectId" class="alert alert-danger pageheadermsg">
+    <strong translate="APP.ERROR"></strong> <span translate="ERRORS.MISSINGPROJECTID"></span> <a ui-sref="projects" translate="APP.PROJECTS"></a>
+</div>
+
+<div ng-if="failure" class="alert alert-danger pageheadermsg" role="alert">
+    <strong translate="APP.ERROR"></strong> {{ failure.message }}<br/>
+    <em ng-if="failure.status >= 500"><span translate="ERRORS.IFPERSISTENT"></span> <a ui-sref="help" translate="ERRORS.LETMEKNOW"></a></em>
+</div>
+
+<div ng-if="isAuthenticated && projectId">
+    <div class="jumbotron">
+        <h2 class="text-center" translate="PYTHON.TITLE"></h2>
+    </div>
+    <div class="backbutton">
+        <a ui-sref="mlproject({ projectId : projectId, userId : userId  })" translate="APP.BACKTOPROJECT"></a>
+    </div>
+
+    <div ng-if="projectId && !project" class="loading"> </div>
+
+    <div ng-if="project && project.labels.length <= 1" class="modelguidancecontainer">
+        <div class="modelguidance">
+            <div class="modelstatusdetail" translate="PYTHON.NOTREADY"></div>
+            <div class="modelstatusdetail">
+                Go to the <a ui-sref="mlproject_models({ projectId : projectId, userId : userId })" translate="PROJECT.LEARNANDTEST.TITLE"></a>
+                page for some tips on what to do next.
+            </div>
+        </div>
+    </div>
+
+    <div class="modelguidancecontainer" ng-if="scratchkey && project && project.labels.length > 1">
+        <div class="modelguidance">
+            <div class="modelstatusdetail">
+                You can use this code to
+                submit an image file that you have on your computer
+                to the machine learning model that you've trained.
+            </div>
+            <div class="modelstatusdetail">
+                Enter the name of your image file: <input style="padding-left: 1em; padding-right: 1em; width: 80%;" ng-model="testdata.imagefile"></input>
+            </div>
+            <div class="modelstatusdetail">
+                Running this will print something like:
+            </div>
+        </div>
+        <div class="modelguidance" style="flex: 3">
+            <div class="pythoncodebox" style="min-width: 350px;">
+<pre class="pythoncode"><span class="pythonfunc">from</span> mlforkids <span class="pythonfunc">import</span> <span class="pythonimport">MLforKidsImageProject</span>
+
+<span class="pythoncomments"># treat this key like a password and keep it secret!</span>
+key <span class="pythonop">=</span> &quot;{{ scratchkey.id }}&quot;
+
+<span class="pythoncomments"># this will train your model and might take a little while</span>
+myproject <span class="pythonop">=</span> <span class="pythonfunc">MLforKidsImageProject</span>(key)
+myproject.train_model()
+
+<span class="pythoncomments"># CHANGE THIS to the image file you want to recognize</span>
+demo <span class="pythonop">=</span> myproject.prediction(<span style="background-color: #fff0f0;">&quot;<strong>{{ testdata.imagefile }}</strong>&quot;</span>)
+
+label <span class="pythonop">=</span> demo[&quot;class_name&quot;]
+confidence <span class="pythonop">=</span> demo[&quot;confidence&quot;]
+
+<span class="pythoncomments"># CHANGE THIS to do something different with the result</span>
+<span class="pythonfunc">print</span> (&quot;result: &#39;<span style="background-color: #eeeeee">%s</span>&#39; with <span style="background-color: #eeeeee">%d%%</span> confidence&quot; <span class="pythonop">%</span> (label, confidence))</pre>
+            </div>
+        </div>
+        <div class="modelguidance" style="min-width: 300px">
+            <div class="modelstatusdetail" style="font-size: 1em; padding-bottom: 0;">
+                To use this code, you need to:
+                <ul style="margin-bottom: 0; padding-left: 20px;">
+                    <li>Use Python 3</li>
+                    <li>Download this <a href="https://raw.githubusercontent.com/IBM/taxinomitis/master/resources/mlforkids-images-requirements.txt">list of other Python modules you need</a></li>
+                    <li>Install the other Python modules by running <br/><code>pip3 install -r mlforkids-images-requirements.txt</code></li>
+                    <li>Download <a href="https://raw.githubusercontent.com/IBM/taxinomitis/master/resources/mlforkidsimages.py">mlforkidsimages.py</a> to the folder where you will run your Python code</li>
+                </ul>
+            </div>
+        </div>
+        <div class="modelguidance" style="flex-basis: 100%">
+            <div class="modelstatusdetail">
+                If you know how to use it, your API key for this project is:
+            </div>
+            <div class="modelstatusdetail">
+                <div class="pythoncodebox"><pre class="pythoncode">{{ scratchkey.id }}</pre></div>
+            </div>
+            <div class="modelstatusdetail">
+                <em>Treat it like a password and make sure that you keep it secret!</em>
+            </div>
+        </div>
+    </div>
+</div>
+

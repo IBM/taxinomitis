@@ -5,7 +5,7 @@ import * as extensions from '../../lib/scratchx/extensions';
 import * as Types from '../../lib/db/db-types';
 
 
-describe('Scratchx - status', () => {
+describe('Scratchx - extensions', () => {
 
     describe('text projects', () => {
 
@@ -100,7 +100,6 @@ describe('Scratchx - status', () => {
             const extension = await extensions.getScratchxExtension(key, proj);
 
             assert(extension.indexOf('/api/scratch/' + key.id + '/models') > 0);
-            assert(extension.indexOf('/api/scratch/' + key.id + '/classify') > 0);
             assert(extension.indexOf('opcode: \'return_label_0\'') > 0);
             assert(extension.indexOf('opcode: \'return_label_1\'') > 0);
             assert(extension.indexOf('opcode: \'return_label_2\'') > 0);

@@ -1,0 +1,1001 @@
+address type,url length,shortening,includes @,port number,domain age,redirects,domain reg,mlforkids_outcome_label
+IP addr,is 54-75,no,no,standard,< 6 month,<= 4,expiring,phishing
+DNS name,<54 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,<54 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,not,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,older,<= 4,not,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,<54 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+IP addr,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,not,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,not,phishing
+DNS name,>75 chars,no,yes,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,<54 chars,yes,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,<54 chars,yes,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+IP addr,is 54-75,no,yes,non-std,< 6 month,> 4,not,phishing
+DNS name,>75 chars,no,yes,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,is 54-75,no,yes,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+IP addr,is 54-75,no,yes,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,yes,no,standard,older,> 4,not,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+IP addr,<54 chars,no,no,standard,< 6 month,<= 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,yes,yes,standard,< 6 month,> 4,not,phishing
+IP addr,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,yes,no,standard,older,<= 4,not,phishing
+DNS name,<54 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,not,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,yes,no,standard,older,<= 4,not,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,older,<= 4,not,phishing
+IP addr,<54 chars,no,yes,standard,< 6 month,<= 4,expiring,phishing
+IP addr,is 54-75,yes,yes,standard,< 6 month,> 4,not,phishing
+DNS name,is 54-75,no,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,not,phishing
+DNS name,is 54-75,no,no,standard,older,<= 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,not,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,yes,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,older,<= 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,<= 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,is 54-75,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,<54 chars,yes,no,standard,older,<= 4,not,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,<54 chars,no,no,non-std,< 6 month,<= 4,expiring,phishing
+IP addr,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,not,phishing
+IP addr,<54 chars,no,yes,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,yes,no,non-std,< 6 month,> 4,expiring,phishing
+IP addr,is 54-75,no,no,standard,older,<= 4,expiring,phishing
+IP addr,<54 chars,no,yes,non-std,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+IP addr,<54 chars,no,no,standard,< 6 month,<= 4,expiring,phishing
+DNS name,is 54-75,no,yes,standard,< 6 month,> 4,not,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,<54 chars,no,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,older,<= 4,not,phishing
+DNS name,is 54-75,no,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,is 54-75,no,yes,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,older,<= 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,<54 chars,no,yes,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,phishing
+DNS name,is 54-75,no,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,not,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,not,phishing
+IP addr,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,yes,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,expiring,phishing
+IP addr,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+IP addr,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+IP addr,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,yes,standard,< 6 month,<= 4,expiring,phishing
+DNS name,is 54-75,no,yes,standard,older,<= 4,not,phishing
+DNS name,>75 chars,no,yes,non-std,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,non-std,< 6 month,> 4,expiring,phishing
+IP addr,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,<54 chars,no,yes,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,not,phishing
+DNS name,>75 chars,no,yes,standard,older,> 4,expiring,phishing
+DNS name,>75 chars,no,yes,standard,older,> 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,yes,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+IP addr,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,expiring,phishing
+IP addr,<54 chars,no,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,yes,standard,< 6 month,> 4,not,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+IP addr,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,expiring,phishing
+IP addr,<54 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,older,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,older,<= 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,yes,standard,older,<= 4,expiring,phishing
+IP addr,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,yes,no,standard,older,<= 4,not,phishing
+DNS name,is 54-75,no,no,standard,older,<= 4,not,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,phishing
+IP addr,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+IP addr,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+IP addr,<54 chars,no,no,standard,< 6 month,<= 4,expiring,phishing
+DNS name,is 54-75,no,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+IP addr,is 54-75,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,is 54-75,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,yes,no,standard,older,<= 4,not,phishing
+DNS name,is 54-75,no,no,standard,older,<= 4,not,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,not,phishing
+DNS name,is 54-75,yes,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,older,<= 4,expiring,phishing
+DNS name,<54 chars,yes,no,standard,older,<= 4,not,phishing
+DNS name,>75 chars,no,yes,standard,older,<= 4,expiring,phishing
+DNS name,is 54-75,no,yes,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,<54 chars,yes,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,older,> 4,expiring,phishing
+IP addr,>75 chars,no,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,<54 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,<54 chars,yes,no,standard,older,<= 4,not,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,yes,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,phishing
+IP addr,is 54-75,yes,no,non-std,< 6 month,> 4,not,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,<54 chars,yes,no,standard,older,<= 4,not,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,yes,no,standard,older,> 4,not,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,phishing
+IP addr,<54 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,is 54-75,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,<= 4,expiring,phishing
+IP addr,is 54-75,no,yes,non-std,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,yes,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,older,<= 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,<54 chars,yes,no,standard,older,> 4,not,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,<= 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,> 4,not,phishing
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,yes,standard,older,<= 4,not,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,<54 chars,yes,no,standard,< 6 month,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,<54 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,is 54-75,no,yes,standard,older,> 4,expiring,phishing
+DNS name,<54 chars,yes,no,standard,< 6 month,<= 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,older,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,older,> 4,expiring,phishing
+DNS name,<54 chars,yes,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,older,<= 4,expiring,phishing
+DNS name,is 54-75,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,yes,standard,older,<= 4,not,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,phishing
+IP addr,<54 chars,no,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,older,<= 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+IP addr,<54 chars,no,yes,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,not,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,older,> 4,expiring,phishing
+DNS name,is 54-75,no,yes,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,> 4,not,phishing
+DNS name,<54 chars,no,no,standard,older,> 4,not,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,not,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+IP addr,>75 chars,no,no,non-std,< 6 month,<= 4,expiring,phishing
+IP addr,is 54-75,yes,yes,non-std,< 6 month,> 4,not,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+IP addr,<54 chars,yes,yes,standard,< 6 month,> 4,not,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+IP addr,<54 chars,no,no,standard,< 6 month,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,<= 4,expiring,phishing
+DNS name,<54 chars,no,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,not,phishing
+IP addr,<54 chars,no,yes,standard,< 6 month,<= 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,phishing
+IP addr,is 54-75,yes,yes,non-std,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,<= 4,expiring,phishing
+IP addr,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,yes,standard,older,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,not,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,<54 chars,yes,no,standard,older,<= 4,not,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,yes,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+IP addr,<54 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,older,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,<= 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,is 54-75,no,no,non-std,< 6 month,<= 4,expiring,phishing
+IP addr,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,phishing
+IP addr,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,older,> 4,expiring,phishing
+DNS name,<54 chars,yes,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,older,<= 4,expiring,phishing
+IP addr,<54 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,>75 chars,no,yes,standard,< 6 month,> 4,not,phishing
+IP addr,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+IP addr,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+IP addr,<54 chars,no,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,yes,no,standard,older,> 4,not,phishing
+IP addr,<54 chars,no,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,not,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,not,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,<= 4,not,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,<54 chars,no,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,older,> 4,not,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,older,> 4,expiring,phishing
+DNS name,is 54-75,no,no,non-std,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,older,<= 4,not,phishing
+DNS name,>75 chars,no,no,standard,older,> 4,expiring,phishing
+DNS name,is 54-75,no,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,<54 chars,yes,no,standard,< 6 month,> 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,non-std,< 6 month,> 4,expiring,phishing
+IP addr,is 54-75,yes,yes,standard,< 6 month,> 4,expiring,phishing
+IP addr,is 54-75,no,no,standard,older,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,expiring,phishing
+IP addr,>75 chars,no,no,non-std,< 6 month,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,phishing
+DNS name,>75 chars,no,no,standard,older,<= 4,expiring,phishing
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,is 54-75,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,>75 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,not,safe
+DNS name,<54 chars,no,no,standard,older,> 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,is 54-75,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,>75 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,is 54-75,no,no,standard,older,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,is 54-75,no,no,standard,< 6 month,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,is 54-75,no,no,standard,older,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,is 54-75,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,is 54-75,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,not,safe
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,safe
+DNS name,>75 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,is 54-75,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,is 54-75,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,not,safe
+DNS name,<54 chars,no,no,standard,older,> 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,is 54-75,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,is 54-75,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,is 54-75,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,not,safe
+DNS name,<54 chars,no,no,standard,older,> 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,is 54-75,no,no,standard,older,<= 4,not,safe
+DNS name,is 54-75,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,>75 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,> 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,is 54-75,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,is 54-75,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,> 4,not,safe
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,is 54-75,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,> 4,not,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,safe
+DNS name,is 54-75,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,is 54-75,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,is 54-75,no,no,standard,older,> 4,not,safe
+DNS name,is 54-75,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,is 54-75,no,no,standard,older,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,is 54-75,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,safe
+DNS name,is 54-75,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,is 54-75,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,> 4,not,safe
+DNS name,is 54-75,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,not,safe
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,is 54-75,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,> 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,> 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,not,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,is 54-75,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,not,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,is 54-75,no,no,standard,< 6 month,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,> 4,not,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,is 54-75,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,not,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,is 54-75,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,>75 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,> 4,not,safe
+DNS name,is 54-75,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,safe
+DNS name,>75 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,is 54-75,no,no,standard,older,<= 4,expiring,safe
+DNS name,is 54-75,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,not,safe
+DNS name,is 54-75,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,is 54-75,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,is 54-75,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,> 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,is 54-75,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,> 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,< 6 month,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,not,safe
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,< 6 month,> 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,not,safe
+DNS name,is 54-75,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,not,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,<= 4,expiring,safe
+DNS name,<54 chars,no,no,standard,older,> 4,expiring,safe
