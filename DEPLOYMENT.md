@@ -15,14 +15,13 @@ An (almost) complete set of components that makes up the Machine Learning for Ki
 
 ![deployment components](./docs/01-components.png)
 
-| **Component**         | **Source code**                              | **Docker image**                                                                  | **Language** | **Deployment approach** | **Purpose** |
-| --------------------- | -------------------------------------------- | --------------------------------------------------------------------------------- | ------------ | ----------------------- | ----------- |
-| mlforkids-api         | [`./mlforkids-api`](./mlforkids-api)         | [dalelane/mlforkids-api](https://hub.docker.com/r/dalelane/mlforkids-api)         | Node.js      | k8s Deployment (in Code Engine) | Main website and API              |
-| mlforkids-numbers     | [`./mlforkids-numbers`](./mlforkids-numbers) | [dalelane/mlforkids-numbers](https://hub.docker.com/r/dalelane/mlforkids-numbers) | Python       | k8s Deployment (in Code Engine) | Creates ML models and visualisations for numbers projects |
-| mlforkids-scratch     | [`./mlforkids-scratch`](./mlforkids-scratch) | [dalelane/mlforkids-scratch](https://hub.docker.com/r/dalelane/mlforkids-scratch) | nginx        | k8s Deployment (in Code Engine) | Hosts static parts of website that don't change frequently (i.e. Scratch fork) |
-| mlforkids-proxy       | [`./mlforkids-proxy`](./mlforkids-proxy)     | [dalelane/mlforkids-proxy](https://hub.docker.com/r/dalelane/mlforkids-proxy)     | nginx        | k8s Deployment (in Code Engine) | Proxies requests from Scratch to external third-party APIs |
-| mlforkids-images      | [`./mlforkids-images`](./mlforkids-images)   | n/a                                                                               | Node.js      | OpenWhisk Function      | Image pre-processing (e.g. resizing, converting, etc.) |
-| mlforkids-api-cleanup | [`./mlforkids-api`](./mlforkids-api)         | [dalelane/mlforkids-api](https://hub.docker.com/r/dalelane/mlforkids-api)         | Node.js      | k8s Job (in Code Engine) | Periodic job (cron triggered every hour) to cleanup redundant data in Cloud Object Storage, and delete expired users and Watson Assistant workspaces |
+| **Component**         | **Source code**                                    | **Docker image**                                                                        | **Language** | **Deployment approach** | **Purpose** |
+| --------------------- | -------------------------------------------------- | --------------------------------------------------------------------------------------- | ------------ | ----------------------- | ----------- |
+| mlforkids-api         | [`./mlforkids-api`](./mlforkids-api)               | [dalelane/mlforkids-api](https://hub.docker.com/r/dalelane/mlforkids-api)               | Node.js      | k8s Deployment (in Code Engine) | Main website and API              |
+| mlforkids-newnumbers  | [`./mlforkids-newnumbers`](./mlforkids-newnumbers) | [dalelane/mlforkids-newnumbers](https://hub.docker.com/r/dalelane/mlforkids-newnumbers) | Python       | k8s Deployment (in Code Engine) | Creates ML models and visualisations for numbers projects |
+| mlforkids-scratch     | [`./mlforkids-scratch`](./mlforkids-scratch)       | [dalelane/mlforkids-scratch](https://hub.docker.com/r/dalelane/mlforkids-scratch)       | nginx        | k8s Deployment (in Code Engine) | Hosts static parts of website that don't change frequently (i.e. Scratch fork) |
+| mlforkids-proxy       | [`./mlforkids-proxy`](./mlforkids-proxy)           | [dalelane/mlforkids-proxy](https://hub.docker.com/r/dalelane/mlforkids-proxy)           | nginx        | k8s Deployment (in Code Engine) | Proxies requests from Scratch to external third-party APIs |
+| mlforkids-api-cleanup | [`./mlforkids-api`](./mlforkids-api)               | [dalelane/mlforkids-api](https://hub.docker.com/r/dalelane/mlforkids-api)               | Node.js      | k8s Job (in Code Engine) | Periodic job (cron triggered every hour) to cleanup redundant data in Cloud Object Storage, and delete expired users and Watson Assistant workspaces |
 
 
 ---
@@ -38,7 +37,7 @@ An instance of [Cloud Internet Services](https://www.ibm.com/cloud/cloud-interne
 | **url**                              | **routed to**     | **notes** |
 | ------------------------------------ | ----------------- | --------- |
 | login.machinelearningforkids.co.uk   | _Auth0_           | see [Where users are authenticated](#where-users-are-authenticated) |
-| machinelearningforkids.co.uk/scratch | mlforkids-scratch | *caching means most requests are  served immediately from Cloud Internet Services layer* |
+| machinelearningforkids.co.uk/scratch | mlforkids-scratch | *caching means most requests are served immediately from Cloud Internet Services layer* |
 | proxy.machinelearningforkids.co.uk   | mlforkids-proxies |
 | machinelearningforkids.co.uk         | mlforkids-api     |
 
