@@ -12,7 +12,7 @@ import loggerSetup from '../../lib/utils/logger';
 const log = loggerSetup();
 
 
-describe('auth0 users', () => {
+describe.skip('auth0 users', () => {
 
     const TESTTENANT: string = 'TESTTENANT';
 

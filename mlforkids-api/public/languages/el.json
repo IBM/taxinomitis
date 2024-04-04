@@ -785,7 +785,7 @@
             "EXPL_6": "Η <strong>τιμή</strong> που εμφανίζεται σε κάθε πλαίσιο σού δείχνει πόσα παραδείγματα από τα δεδομένα εκπαίδευσης πέρασαν τον έλεγχο που εμφανίζεται στην κορυφή (ακολουθώντας το αριστερό βέλος) και πόσα παραδείγματα δεν πέρασαν τον έλεγχο στην κορυφή (ακολουθώντας το δεξί βέλος)."
         },
         "ERRORS": {
-            "NUMBERSONLY": "Μπορούν να περιγραφούν μόνο μοντέλα μηχανικής μάθησης για έργα αναγνώρισης αριθμών"
+
         }
     },
     "DESCRIBETEXTMODEL": {
@@ -957,6 +957,7 @@
         "TITLE": "Χρησιμοποιώντας μηχανική μάθηση στην Python",
         "NOTREADY": "Το έργο σου δεν είναι ακόμα έτοιμο για χρήση στην Python.",
         "NOMODEL": "Δεν έχεις εκπαιδεύσει ακόμα ένα μοντέλο μηχανικής μάθησης.",
+        "EXPIRED": "Your model is no longer available on the model server.",
         "NOSOUND": "Python cannot be used with sounds projects.",
         "LAUNCH": "Run Python in the browser",
         "LOCAL": "Copy code to run on your computer",
@@ -1810,8 +1811,7 @@
             "Q5-A-UNLIMITED": "Unlimited",
             "Q5-A-LIMITED": "Limits apply",
             "Q5-A-NUMBER_OF_PROJECTS": "Number of projects",
-            "Q5-A-TRAINING_DATA": "Amount of training data in a project",
-            "Q5-A-4": "(Numbers projects cannot be stored in your web browser. They can only be stored in the cloud.)"
+            "Q5-A-TRAINING_DATA": "Amount of training data in a project"
         },
         "SCRATCH": {
             "TITLE": "Θέματα με το Scratch",

@@ -81,6 +81,14 @@ gulp.task('tensorflowjs', function() {
         'node_modules/@tensorflow/tfjs/dist/tf.min.js.map'
     ]).pipe(gulp.dest('web/static/bower_components/tfjs'));
 });
+gulp.task('tensorflowjs-tfdf', function() {
+    return gulp.src([
+        'node_modules/@tensorflow/tfjs-tfdf/dist/tf-tfdf.js',
+        'node_modules/@tensorflow/tfjs-tfdf/dist/tf-tfdf.min.js',
+        'node_modules/@tensorflow/tfjs-tfdf/dist/tf-tfdf.min.js.map',
+        'node_modules/@tensorflow/tfjs-tfdf/dist/inference.wasm'
+    ]).pipe(gulp.dest('web/static/bower_components/tfjs-tfdf'));
+});
 gulp.task('tensorflowposenet', function() {
     return gulp.src([
         'node_modules/tensorflow-models-posenet/dist/posenet.min.js'
@@ -172,6 +180,7 @@ gulp.task('tensorflowhandposemodel', function() {
 });
 gulp.task('tfjs',
     gulp.parallel('tensorflowjs',
+        'tensorflowjs-tfdf',
         'tensorflowspeechcommands', 'tensorflowspeechcommands-scratch',
         'speechcommandsmodel', 'speechcommandsmodel-scratch',
         'tensorflowposenet', 'posenetmodel',

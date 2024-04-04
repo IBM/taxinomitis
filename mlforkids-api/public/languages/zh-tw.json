@@ -794,7 +794,7 @@
             "EXPL_6": "每個項目中的<strong>數值</strong>告訴你訓練資料中有多少範例通過了上方的測試(選左側路徑)，以及多少個範例沒有通過(選右側路徑)"
         },
         "ERRORS": {
-            "NUMBERSONLY": "只有數字類型的機器學習專案可以被描述出來"
+
         }
     },
     "DESCRIBETEXTMODEL": {
@@ -967,6 +967,7 @@
 
         "NOTREADY": "你的專案尚未準備好在Python使用",
         "NOMODEL": "你還沒有訓練機器學習模型",
+        "EXPIRED": "Your model is no longer available on the model server.",
 
         "NOSOUND": "Python無法在辨識聲音的專案中使用",
 
@@ -1890,8 +1891,7 @@
             "Q5-A-UNLIMITED": "Unlimited",
             "Q5-A-LIMITED": "Limits apply",
             "Q5-A-NUMBER_OF_PROJECTS": "Number of projects",
-            "Q5-A-TRAINING_DATA": "Amount of training data in a project",
-            "Q5-A-4": "(Numbers projects cannot be stored in your web browser. They can only be stored in the cloud.)"
+            "Q5-A-TRAINING_DATA": "Amount of training data in a project"
         },
 
         "SCRATCH": {

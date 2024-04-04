@@ -139,15 +139,23 @@
         vm.confirm = function (projectSpec) {
             $scope.creating = true;
 
-            if (projectSpec.type !== 'numbers') {
+            // clean up
+            if (projectSpec.type === 'numbers') {
+                projectSpec.fields = projectSpec.fields.map((field) => {
+                    const cleanedupField = {
+                        name: field.name,
+                        type: field.type
+                    };
+                    if (field.type === 'multichoice') {
+                        cleanedupField.choices = field.choices;
+                    }
+                    return cleanedupField;
+                });
+            }
+            else {
                 delete projectSpec.fields;
             }
 
-            if (projectSpec.type === 'numbers' && projectSpec.storage === 'local') {
-                displayAlert('errors', 400, { message : 'Projects for recognizing numbers cannot be stored in your web browser' });
-                $scope.creating = false;
-                return;
-            }
             if (projectSpec.type === 'regression' && projectSpec.storage === 'cloud') {
                 displayAlert('errors', 400, { message : 'Projects for predicting numbers cannot be stored in the cloud' });
                 $scope.creating = false;

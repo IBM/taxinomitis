@@ -1,0 +1,28 @@
+#
+# intentionally and manually installed
+#
+
+# REST API support
+fastapi==0.110.0
+uvicorn==0.29.0
+python-multipart==0.0.9
+
+# LRU cache
+cachetools==5.3.3
+
+# ML model support
+tensorflow==2.16.1
+tensorflow-decision-forests==1.9.0
+tensorflowjs==4.17.0
+
+# Visualisation support
+dtreeviz==2.2.2
+graphviz==0.20.3
+
+#
+# dependencies automatically dragged in
+#
+keras==3.1.1
+matplotlib==3.8.3
+numpy==1.26.4
+pandas==2.2.1

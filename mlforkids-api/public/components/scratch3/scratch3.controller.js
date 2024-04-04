@@ -7,13 +7,12 @@
         Scratch3Controller.$inject = [
             'authService',
             'modelService', 'projectsService', 'scratchkeysService',
-            'browserStorageService',
             'loggerService',
             '$stateParams',
             '$scope'
         ];
 
-        function Scratch3Controller(authService, modelService, projectsService, scratchkeysService, browserStorageService, loggerService, $stateParams, $scope) {
+        function Scratch3Controller(authService, modelService, projectsService, scratchkeysService, loggerService, $stateParams, $scope) {
 
             var vm = this;
             vm.authService = authService;
@@ -27,6 +26,11 @@
             };
 
             loggerService.debug('[ml4kscratch3] preparing Scratch 3 page', $scope.projecturls);
+
+            const escapeProjectName = function (input) {
+                return input.replaceAll(/[\(\)&<>]/g, ' ')
+                            .replace(/[']/g, '\\\'');
+            };
 
             authService.getProfileDeferred()
                 .then(function (profile) {
@@ -44,6 +48,8 @@
                     $scope.projecturls.learnandtest = '/#!/mlproject/' + $scope.project.userid + '/' + $scope.project.id + '/models';
 
                     if (project.type === 'text' || project.storage !== 'local') {
+                        // cloud projects always require a scratch key
+                        //  local projects normally don't - text projects are an exception
                         loggerService.debug('[ml4kscratch3] getting scratch key');
                         return scratchkeysService.getScratchKeys(project, $scope.userId, vm.profile.tenant);
                     }
@@ -75,6 +81,10 @@
                                 };
                             }));
                         }
+                        else if ($scope.project.type === 'numbers') {
+                            additionalQuery = 'userid=' + $scope.userId + '&' +
+                                'fields=' + JSON.stringify($scope.project.fields);
+                        }
 
                         scratchkey = {
                             id: $scope.project.id,
@@ -87,7 +97,7 @@
                                             encodeURIComponent(
                                                 '?' +
                                                     'projectid=' + $scope.project.id + '&' +
-                                                    'projectname=' + $scope.project.name + '&' +
+                                                    'projectname=' + escapeProjectName($scope.project.name) + '&' +
                                                     'labelslist=' + $scope.project.labels.join(',') + '&' +
                                                     additionalQuery
                                             )
@@ -95,14 +105,7 @@
                     }
 
 
-
-                    if ($scope.project.type === 'sounds' && modelService.isModelSavedInBrowser('sounds', $scope.project.id)) {
-                        scratchkey.model = 'placeholder';
-                    }
-                    else if ($scope.project.type === 'imgtfjs' && modelService.isModelSavedInBrowser('images', $scope.project.id)) {
-                        scratchkey.model = 'placeholder';
-                    }
-                    else if ($scope.project.type === 'regression' && modelService.isModelSavedInBrowser('regression', $scope.project.id)) {
+                    if (modelService.isModelSavedInBrowser($scope.project.type, $scope.project.id)) {
                         scratchkey.model = 'placeholder';
                     }
 

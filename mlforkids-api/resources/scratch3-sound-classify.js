@@ -1,6 +1,6 @@
 class MachineLearningSound {
 
-    constructor() {
+    constructor () {
         this._labels = [ {{#labels}} '{{name}}', {{/labels}} ];
 
         this._statuses = [
@@ -241,6 +241,9 @@ class MachineLearningSound {
             else if (that && msg.data.mlforkidssound === 'modelinit')
             {
                 console.log('sound blocks ready to use');
+            }
+            else if (that && msg.data.mlforkidssound === 'stopped') {
+                that.listening = false;
             }
 
             // if we're not listening for sounds, then we're assuming that

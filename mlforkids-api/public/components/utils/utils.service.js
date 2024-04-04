@@ -36,6 +36,9 @@
         function loadImageProjectSupport() {
             return loadScript('/static/bower_components/blueimp-canvas-to-blob/js/canvas-to-blob.min.js');
         }
+        function loadNumberProjectSupport() {
+            return loadScript('/static/bower_components/tfjs-tfdf/tf-tfdf.min.js');
+        }
 
         function isInternetExplorer() {
             var userAgent = navigator.userAgent;
@@ -44,7 +47,7 @@
         }
 
         function loadTensorFlow() {
-            return loadScript('/static/bower_components/tfjs/tf.min.js?v=155');
+            return loadScript('/static/bower_components/tfjs/tf.min.js?v=156');
         }
 
 
@@ -59,6 +62,7 @@
             loadScript : loadScript,
             loadTensorFlow : loadTensorFlow,
             loadImageProjectSupport : loadImageProjectSupport,
+            loadNumberProjectSupport : loadNumberProjectSupport,
             isInternetExplorer : isInternetExplorer,
             isGoogleFilesUrl : isGoogleFilesUrl
         };

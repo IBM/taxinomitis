@@ -148,6 +148,16 @@
                         style="display: none;"
                         data-label="{{ label }}"
                         onchange="angular.element(this).scope().uploadTrainingData(event, this)"/>
+                    <label class="btn newexamplebutton" for="numbers-file-upload-{{$index}}" ng-if="project.type === 'numbers' && project.storage === 'local'">
+                        <div class="thin buttonicon glyphicon glyphicon-open-file"></div>
+                        <div class="newexamplelabel" translate="TRAINING.ADDFROMFILE"></div>
+                    </label>
+                    <input id="numbers-file-upload-{{$index}}" ng-if="project.type === 'numbers' && project.storage === 'local'"
+                        type="file"
+                        accept=".csv"
+                        style="display: none;"
+                        data-label="{{ label }}"
+                        onchange="angular.element(this).scope().uploadTrainingData(event, this)"/>
                     <div class="btn newexamplebutton" ng-if="(project.type === 'text' || project.type === 'numbers') && training[label].length > 0 " ng-click="downloadTrainingData($event, label)">
                         <div class="thin buttonicon glyphicon glyphicon-save-file"></div>
                         <div class="newexamplelabel" translate="WORKSHEETS.DOWNLOAD"></div>

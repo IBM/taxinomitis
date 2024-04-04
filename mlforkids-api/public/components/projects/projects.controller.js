@@ -8,10 +8,11 @@
         'authService',
         'projectsService',
         'modelService',
+        'browserStorageService',
         '$stateParams', '$translate', '$mdDialog', '$scope', 'cleanupService', 'loggerService'
     ];
 
-    function ProjectsController(authService, projectsService, modelService, $stateParams, $translate, $mdDialog, $scope, cleanupService, loggerService) {
+    function ProjectsController(authService, projectsService, modelService, browserStorageService, $stateParams, $translate, $mdDialog, $scope, cleanupService, loggerService) {
 
         var vm = this;
         vm.authService = authService;
@@ -171,6 +172,10 @@
 
                             // delete local data associated with the project
                             cleanupService.deleteProject(project);
+                            if (project.type === 'numbers') {
+                                browserStorageService.deleteAsset(project.id + '-viz');
+                                browserStorageService.deleteAsset(project.id + '-assets');
+                            }
 
                             // refresh view
                             if (project.storage === 'local') {

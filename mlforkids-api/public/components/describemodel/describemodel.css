@@ -29,6 +29,10 @@
     background-color: #eeeef2;
 }
 
+.describemlmodel .visualisationimagehost > svg {
+    transform-origin: 0 0;
+}
+
 .describemlmodel .visualisationpage .sidepanel {
     display: flex;
     flex-direction: column;

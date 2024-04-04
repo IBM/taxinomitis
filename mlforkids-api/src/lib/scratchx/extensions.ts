@@ -23,7 +23,7 @@ function escapeProjectName(name: string): string {
     //  characters (e.g. '<') will prevent extensions from
     //  loading
     return name.replace(/[&<>]/g, ' ')
-                .replace(/[']/g, '\\\'');
+               .replace(/[']/g, '\\\'');
 }
 
 
@@ -114,6 +114,60 @@ async function getImagesTfjsExtension(scratchkey: Types.ScratchKey, project: Typ
     return rendered;
 }
 
+async function getNumbersExtensionLocalData(userid: string, projectid: string, projectname: string, labels: string[], fields: Types.NumbersProjectFieldSummary[]): Promise<string>
+{
+    if (!userid || userid.length === 0) {
+        throw new Error('Missing required userid');
+    }
+
+    const allChoices = [];
+    for (const field of fields) {
+        if (field.type === 'multichoice' && field.choices) {
+            for (const choice of field.choices) {
+                if (allChoices.indexOf(choice) === -1) {
+                    allChoices.push(choice);
+                }
+            }
+        }
+    }
+
+    const template: string = await fileutils.read('./resources/scratch3-numbers-classify.js');
+
+    Mustache.parse(template);
+    const rendered = Mustache.render(template, {
+        projectid : projectid,
+        modelid : projectid,
+
+        modelurl : ROOT_URL + '/api/scratch/' + userid + '-' + projectid + '/local/models',
+
+        projectname : escapeProjectName(projectname),
+
+        labels : labels.map((name, idx) => {
+            return { name, idx };
+        }),
+
+        firstlabel : labels.length > 0 ? labels[0] : '',
+
+        fields : fields ? fields.map((field, idx) => {
+            return {
+                name : field.name,
+                type : field.type,
+                multichoice : field.type === 'multichoice',
+                idx,
+                menu : field.type === 'multichoice' ? field.choices : [],
+                default : field.type === 'multichoice' ?
+                            ((field.choices && field.choices.length > 0) ? field.choices[0] : '') :
+                            0,
+            };
+        }) : [],
+
+        choices : allChoices.map((name, idx) => {
+            return { name, idx };
+        }),
+    });
+    return rendered;
+}
+
 async function getNumbersExtension(scratchkey: Types.ScratchKey, project: Types.Project): Promise<string>
 {
     const allChoices = [];
@@ -134,9 +188,8 @@ async function getNumbersExtension(scratchkey: Types.ScratchKey, project: Types.
     Mustache.parse(template);
     const rendered = Mustache.render(template, {
         projectid : project.id.replace(/-/g, ''),
+        modelid : project.id,
 
-        statusurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/status',
-        classifyurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/classify',
         storeurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/train',
         modelurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/models',
 
@@ -153,7 +206,6 @@ async function getNumbersExtension(scratchkey: Types.ScratchKey, project: Types.
                 name : field.name,
                 type : field.type,
                 multichoice : field.type === 'multichoice',
-                typeformat : field.type === 'number' ? '%n' : '%s',
                 idx,
                 menu : field.type === 'multichoice' ? field.choices : [],
                 default : field.type === 'multichoice' ?
@@ -284,11 +336,13 @@ export function getHybridScratchxExtension(
 
 
 export function getScratchxExtensionLocalData(
+    userid: string,
     projecttype: Types.LocalProjectTypeLabel,
     projectid: string,
     projectname: string,
     labels: string[],
-    columns: { label: string, output: boolean}[]
+    columns: { label: string, output: boolean}[],
+    fields: Types.NumbersProjectFieldSummary[],
 ): Promise<string>
 {
     switch (projecttype) {
@@ -298,6 +352,8 @@ export function getScratchxExtensionLocalData(
             return getSoundExtensionLocalData(projectid, projectname, labels);
         case 'regression':
             return getRegressionExtensionLocalData(projectid, projectname, columns);
+        case 'numbers':
+            return getNumbersExtensionLocalData(userid, projectid, projectname, labels, fields);
         default:
             return Promise.resolve('');
     }

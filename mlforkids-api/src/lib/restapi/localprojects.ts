@@ -3,6 +3,7 @@ import * as Express from 'express';
 import * as httpstatus from 'http-status';
 // local dependencies
 import * as conversation from '../training/conversation';
+import * as numbers from '../training/numbers';
 import * as auth from './auth';
 import * as store from '../db/store';
 import * as Objects from '../db/db-types';
@@ -74,6 +75,27 @@ async function deleteLocalProject(req: auth.RequestWithLocalProject, res: Expres
         log.error({ err, func : 'deleteLocalProject' }, 'Server error');
         errors.unknownError(res, err);
     }
+}
+
+
+
+function newLocalProjectNumberModel(req: auth.RequestWithUser, res: Express.Response) {
+    let request: { project: Objects.Project, training: Objects.NumberTraining[] };
+    try {
+        request = numbers.validateLocalProjectTrainingRequest(req.body, req.params.studentid);
+    }
+    catch (err) {
+        log.error({ err, func: 'newLocalProjectNumberModel' }, 'Failed to parse training data');
+        return errors.missingData(res);
+    }
+
+    return numbers.trainClassifier(request.project, request.training, request.project.fields as Objects.NumbersProjectField[])
+        .then((model) => {
+            return res.status(httpstatus.CREATED).json(model);
+        })
+        .catch((err) => {
+            return errors.unknownError(res, err);
+        });
 }
 
 
@@ -261,6 +283,13 @@ export default function registerApis(app: Express.Application) {
                auth.verifyLocalProjectAuth,
                // @ts-expect-error custom middleware not understood by linter
                deleteLocalProject);
+
+    app.post(urls.LOCALNUMBERSMODELS,
+             auth.authenticate,
+             auth.checkValidUser,
+             auth.verifyLocalModelsAuth,
+             // @ts-expect-error custom middleware not understood by linter
+             newLocalProjectNumberModel);
 
     app.post(urls.LOCALMODELS,
              auth.authenticate,

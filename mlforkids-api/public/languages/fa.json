@@ -785,7 +785,7 @@
             "EXPL_6": "نشان‌داده‌شده در هر کادر به شما می‌گوید چند مثال در داده‌های آموزشی شما آزمون نشان‌داده‌شده در بالا (به دنبال فلش سمت چپ) را گذرانده‌اند <strong>مقدار</strong> "
         },
         "ERRORS": {
-            "NUMBERSONLY": ".در پروژه‌های اعداد تنها می‌توان از مدل‌های یادگیری ماشین استفاده کرد"
+
         }
     },
     "DESCRIBETEXTMODEL": {
@@ -957,6 +957,7 @@
         "TITLE": "استفاده از یادگیری ماشین در پایتون",
         "NOTREADY": "پروژه شما هنوز آماده استفاده در پایتون نیست.",
         "NOMODEL": ".شما هنوز مدل یادگیری ماشین را آموزش نداده اید",
+        "EXPIRED": "Your model is no longer available on the model server.",
         "NOSOUND": "نمی‌توان از پایتون در پروژه‌های مربوط به صدا استفاده کرد.",
         "LAUNCH": "پایتون را در مرورگر اجرا کنید",
         "LOCAL": "کد را برای اجرا در رایانه خود کپی کنید",
@@ -1811,8 +1812,7 @@
             "Q5-A-UNLIMITED": "Unlimited",
             "Q5-A-LIMITED": "Limits apply",
             "Q5-A-NUMBER_OF_PROJECTS": "Number of projects",
-            "Q5-A-TRAINING_DATA": "Amount of training data in a project",
-            "Q5-A-4": "(Numbers projects cannot be stored in your web browser. They can only be stored in the cloud.)"
+            "Q5-A-TRAINING_DATA": "Amount of training data in a project"
         },
         "SCRATCH": {
             "TITLE": "مسائل مربوط به اسکرچ",

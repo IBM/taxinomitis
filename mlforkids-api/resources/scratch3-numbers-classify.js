@@ -6,7 +6,50 @@ class MachineLearningNumbers {
             acceptReporters : true
         };
 
+        this._statuses = [
+            { value : 'Ready', text : 'ready to use' },
+            { value : 'Training', text : 'still training' },
+            { value : 'Model Failed', text : 'ERROR - broken' }
+        ];
+
         this._icon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4gwIFCspuPG7bgAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAAElUlEQVRIx62WW2xUVRSGv73PmTOdmZbS9AYtlEsGW8qlKlqjhhjEK6gxGhJBn3zQBB9QMcREjEaCjRofeBKNkHgJRX3AiNGIpAmKgSYNkIgIba20FAq9wXTazsw5c/byoS1Q2mnHwHrZOefstf6z/rXWv7cigy17fX9ubNjd46VNuZCdKaWwtBqqnpO/5sDbDw1OtsfO5Oz7xooNe8t2v3Lf/GhpLkYgYClCQRsRQaEQhOGUj28MCsWJ9su88UXToDFiZYprZ/5d8I2RqrIZVM/JB+DTX1vY3dDKQMLDGGFmxOG952p4tKYMgMFUGhHMVCzYWbLFhh2HcWxNY93jbN17grKZYTY+dhu1b/7M0eZe3lm3PKs40wJqrfjkl2YsrejoGeKZjw4RcmyOtfXT1NaHbwxfHmrj7mghhXnBmwdUQMPJi9Q9fwcdPUMcae7h4/2n2LR2MauWzqLrchm2VtT/cZZX1yyeFlBPt0GApRUzqdt3ki1fH6OyPJ+XH6mkbzDFSzuPUBstpK17kNqFhRiRW5PhpViS2mgRyysK+KGpk0tXEjxQXcrcwggtF+P8cylOUV4QlUUNs8qwIOwQG3LZtLaKo809hByLYMCiqjyfXQdb2dfYgW+ya75pAY0Rtm+4nd/PdLOroZXK8hnkhQLsPHCG8/3D3F9VzD2Liti+vgY3bW6e0jFbsaCQU+di1FQUYFuKlVUl9MZTXIwlyI84aKWQWzEWY7b12WX8eKyTbd/9CQiptCEvFODddcu5t7I42zCZAdNGo1D0D7n0xVMYEVZWlfDTWw/ijVIXsBWW0qQ8n17PEBtyQYGRzMnamWunyA0F5IUdh9FajevasVXGuuqqFAqOZWGmIFfFG9f9jVJVN/aPQgjZPkpN4iwu7+s6QtpDTTIMnmcm7XZfpNEGM5yz8DV0uCLjWIx7Tg+QPL0NY8ET8xZQEAxmcWxBXzJJfXPLsA2CzilFO8WIpEEplBW+jjxB/ASIjHyzZ4ysQEEwSHEoB4BEOo1SIz6O1mg1PnMjI4UdqaFycDv34PX+Bgih6m3oUMVoRoMkTm5G/BRWbpRgdPPEegvsPn2aVNonEgjw5Px5lEUiUwy+uDjzXkQ5BVi5UbyehmsHcew4yikBhJxFW8C4E4Mo2LhkCUaE9YuiGcFuUBoB4xIoWkW6++DVt+65egLFq8F4iPEyBvJGhTs9jYBPGAvlFKGcQtLdB1HhCsRPoMPzuVU2UUu1Q6BkNW7X97jnvyFQ8jDKDv/vwJ4xHO7qyka8DYFZT2ES7fj9jThz14Pxx099FmZEaI0NZKJUY5IXEONiEufQkSiB0jWIPwRo/EQ7gmCG29GhuZMC9CeTiMCVVAoFpHx/ihrqAF7nXiQdJ9XxFTqvmsDspxEvhnhXSJ39HKU07r87CS35cNJsPvvrFDmWxbctrVfFoiIvNwOgcQlGNzNBM3JmAxC5c9e1XvYGxinIyFgott61YgLl18ueugaoMMkLoLM8qdJxGFWNvmQyq3uMAnqTSTQoG2U3JZo/iCNZXhKUQlthjDHUN7cgIlm6KRWy7eP/AR5T4+fuc4K4AAAAAElFTkSuQmCC';
+
+        this.training = false;
+        this.lastModelTrain = 0;
+        this.modelReady = false;
+        this.modelError = false;
+
+        const that = this;
+        addEventListener('message', function (evt) {
+            that.receiveListenEvents(evt, that);
+        });
+
+
+        postMessage({
+            mlforkidsstorage : {
+                command : 'init'
+            }
+        });
+
+        {{#storeurl}}
+        postMessage({
+            mlforkidsnumbers : {
+                command : 'init',
+                data : '{{{modelid}}}'
+            }
+        });
+        {{/storeurl}}
+        {{^storeurl}}
+        postMessage({
+            mlforkidsnumbers : {
+                command : 'initlocal',
+                data : '{{{modelid}}}'
+            }
+        });
+        {{/storeurl}}
+
+        this.nextClassifyRequest = 1;
+        this.classifyRequests = {};
     }
 
 
@@ -129,6 +172,21 @@ class MachineLearningNumbers {
                         default: 'train new machine learning model',
                         id: 'mlforkids.numbers.trainNewModel'
                     }
+                },
+                {
+                    opcode: 'checkModelStatus',
+                    blockType: Scratch.BlockType.BOOLEAN,
+                    text: {
+                        default: 'Is the machine learning model [STATUS] ?',
+                        id: 'mlforkids.text.checkModelStatus'
+                    },
+                    arguments: {
+                        STATUS: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: this._statuses[0].value,
+                            menu: 'statuses'
+                        }
+                    }
                 }
             ],
 
@@ -143,6 +201,8 @@ class MachineLearningNumbers {
                     acceptReporters : true
                 },
                 {{/fields}}
+
+                statuses: this._statuses
             }
         };
     }
@@ -151,10 +211,10 @@ class MachineLearningNumbers {
 
 
     label(args) {
-        return new Promise(resolve => prepareArgsGetNumberClassificationResponse('class_name', args, resolve));
+        return new Promise(resolve => this.prepareArgsGetNumberClassificationResponse('class_name', args, resolve));
     }
     confidence(args) {
-        return new Promise(resolve => prepareArgsGetNumberClassificationResponse('confidence', args, resolve));
+        return new Promise(resolve => this.prepareArgsGetNumberClassificationResponse('confidence', args, resolve));
     }
 
 
@@ -171,14 +231,26 @@ class MachineLearningNumbers {
     {{/choices}}
 
 
+    checkModelStatus({ STATUS }) {
+        switch(STATUS) {
+            case 'Ready':
+                return this.modelReady;
+            case 'Training':
+                return this.training;
+            default:
+                return this.modelError;
+        }
+    }
+
 
     addTraining(args) {
-        var numbers = getFieldValues(args);
-        var label = args.LABEL;
+        const numbers = this.getFieldValuesAsAry(args);
+        const label = args.LABEL;
 
-        var url = new URL('{{{ storeurl }}}');
+        {{#storeurl}}
+        const url = new URL('{{{ storeurl }}}');
 
-        var options = {
+        const options = {
             headers : {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -210,224 +282,163 @@ class MachineLearningNumbers {
                     }
                 }
             });
+        {{/storeurl}}
+        {{^storeurl}}
+        postMessage({
+            mlforkidsstorage : {
+                command : 'storenumbers',
+                data : {
+                    projectid : '{{{modelid}}}',
+                    numberdata : numbers,
+                    label : label
+                }
+            }
+        });
+        {{/storeurl}}
     }
 
 
     trainNewModel() {
-        if (trainingModel || // currently submitting a new-model request, OR
-            lastModelTrainedRecently()) // we very recently submitted one
+        if (this.trainingModel || // currently submitting a new-model request, OR
+            this._lastModelTrainedRecently()) // we very recently submitted one
         {
-            console.log('ignoring request');
+            console.log('ignoring request - new model requested very recently');
             return;
         }
 
-        return trainNewClassifier();
-    }
+        this.trainingModel = true;
+        this.lastModelTrain = Date.now();
 
-
-}
-
-var resultsCache = {
-    // schema:
-    //
-    // cacheKey (space_separated_numbers) : {
-    //
-    //    // returned by the API
-    //    class_name : topClassName,
-    //    confidence : topClassConfidence,
-    //    classifierTimestamp : isoStringDateTime,
-    //
-    //    // added locally
-    //    fetched : timestamp-ms-since-epoch
-    // }
-};
-
-
-var ONE_MINUTE = 60 * 1000;
-
-
-// the last time that we used the API to train a new ML model
-var lastModelTrain = 0;
-
-// returns true if the last time that we trained a ML model
-//  was too recently to do again
-function lastModelTrainedRecently() {
-    return (lastModelTrain + ONE_MINUTE) > Date.now();
-}
-
-
-
-
-// returns the current date in the format that the API uses
-function nowAsString() {
-    return new Date().toISOString();
-}
-// returns true if the provided timestamp is within the last 10 seconds
-function veryRecently(timestamp) {
-    var TEN_SECONDS = 10 * 1000;
-    return (timestamp + TEN_SECONDS) > Date.now();
-}
-
-
-
-// Submit xhr request to the classify API to get a label for a set of numbers
-function classifyNumbers(numbers, cacheKey, lastmodified, callback) {
-    var options = {
-        method : 'POST',
-        body : JSON.stringify({ data : numbers }),
-        headers : {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'X-User-Agent': 'mlforkids-scratch3-numbers',
-
-            'If-Modified-Since': lastmodified
-        }
-    };
-
-    return fetch('{{{ classifyurl }}}', options)
-        .then((response) => {
-            if (response.status === 304 && resultsCache[cacheKey]) {
-                // the API returned NOT-MODIFIED so we'll
-                // reuse the value we got last time
-                callback(resultsCache[cacheKey]);
+        {{#storeurl}}
+        postMessage({
+            mlforkidsnumbers : {
+                command : 'train',
+                data : {
+                    projectid : '{{{ modelid }}}',
+                    modelurl : '{{{ modelurl }}}'
+                }
             }
-            else if (response.status === 200) {
-                response.json().then((responseJson) => {
-                    if (responseJson && responseJson.length > 0) {
-                        // we got a result from the classifier
-                        callback(responseJson[0]);
-                    }
-                    else {
-                        callback({
-                            class_name: 'Unknown',
-                            confidence: 0,
-                            classifierTimestamp: nowAsString()
-                        });
-                    }
-                });
-            }
-            else {
-                console.log(response);
-
-                callback({
-                    class_name: 'Unknown',
-                    confidence: 0,
-                    classifierTimestamp: nowAsString()
-                });
-            }
-        })
-        .catch((err) => {
-            console.log(err);
-
-            callback({
-                class_name: 'Unknown',
-                confidence: 0,
-                classifierTimestamp: nowAsString()
-            });
         });
-}
-
-
-
-
-
-
-function getFieldValues(args) {
-    var values = [];
-    for (var i = 0; i < {{fields.length}}; i++) {
-        values.push(args['FIELD' + i]);
-    }
-    return values;
-}
-function getCacheKey(numbers) {
-    return numbers.join(' ');
-}
-
-
-
-
-
-function prepareArgsGetNumberClassificationResponse(valueToReturn, args, callback) {
-    var numbers = getFieldValues(args);
-    var cacheKey = getCacheKey(numbers);
-
-    getNumberClassificationResponse(numbers, cacheKey, valueToReturn, callback);
-}
-
-
-function getNumberClassificationResponse(numbers, cacheKey, valueToReturn, callback) {
-    var cached = resultsCache[cacheKey];
-
-    // protect against kids putting the ML block inside a forever
-    //  loop making too many requests too quickly
-    // this throttling means we won't try and classify the same
-    //  numbers more than once every 10 seconds
-    if (cached && cached.fetched && veryRecently(cached.fetched)) {
-        return callback(cached[valueToReturn]);
+        {{/storeurl}}
+        {{^storeurl}}
+        postMessage({
+            mlforkidsnumbers : {
+                command : 'trainlocal',
+                data : {
+                    projectid : '{{{modelid}}}',
+                    modelurl : '{{{ modelurl }}}'
+                }
+            }
+        });
+        {{/storeurl}}
     }
 
-    // if we have a cached value, get it's timestamp
-    var lastmodified = nowAsString();
-    if (cached && cached.classifierTimestamp) {
-        lastmodified = cached.classifierTimestamp;
-    }
 
-    // submit to the classify API
-    classifyNumbers(numbers, cacheKey, lastmodified, function (result) {
-        if (result.random) {
-            // We got a randomly selected result (which means we must not
-            //  have a working classifier) but we thought we had a model
-            //  with a good status.
-            // This should not be possible - we've gotten into a weird
-            //  unexpected state.
-            return callback(result[valueToReturn]);
-        }
+    classifyNumbers(numbers, callback) {
+        const requestId = this.nextClassifyRequest;
+        this.nextClassifyRequest += 1;
 
-        // update the timestamp to allow local throttling
-        result.fetched = Date.now();
-
-        // cache the result to let it be used again
-        resultsCache[cacheKey] = result;
-
-        // return the requested value from the response
-        callback(result[valueToReturn]);
-    });
-}
-
-
-
-// are we currently training a classifier?
-//  used as a primitive lock to prevent multiple concurrent requests being made
-var trainingModel = false;
-
-
-// make an XHR request to train a new ML model
-function trainNewClassifier() {
-    trainingModel = true;
-    lastModelTrain = Date.now();
-
-    var url = new URL('{{{ modelurl }}}');
-    var options = {
-        headers : {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'X-User-Agent': 'mlforkids-scratch3-numbers'
-        },
-        method : 'POST'
-    };
-
-    return fetch(url, options)
-        .then((response) => {
+        this.classifyRequests[requestId] = function (response) {
             console.log(response);
-            trainingModel = false;
-        })
-        .catch((err) => {
-            console.log(err);
-            trainingModel = false;
+            return callback(response);
+        };
+
+        postMessage({
+            mlforkidsnumbers : {
+                command : 'classify',
+                data : {
+                    projectid : '{{{modelid}}}',
+                    requestid : requestId,
+                    numbers : numbers
+                }
+            }
         });
+    }
+
+    receiveListenEvents (msg, that) {
+        if (msg && msg.data && msg.data.mlforkidsnumbers && msg.data.data.projectid === '{{{modelid}}}')
+        {
+            if (that && msg.data.mlforkidsnumbers === 'modelready')
+            {
+                console.log('model ready for use');
+                that.modelReady = true;
+                that.training = false;
+            }
+            else if (that && msg.data.mlforkidsnumbers === 'modelfailed')
+            {
+                console.log('model FAILED');
+                that.modelError = true;
+                that.training = false;
+            }
+            else if (that && msg.data.mlforkidsnumbers === 'modelinit')
+            {
+                console.log('ready to train a new model');
+
+                // to avoid the user needing to do this, we'll
+                //  try to train a model automatically
+                that.trainNewModel();
+            }
+            else if (that && msg.data.mlforkidsnumbers === 'classifyresponse')
+            {
+                const callbackFn = that.classifyRequests[msg.data.data.requestid];
+                callbackFn(msg.data.data.result);
+                delete that.classifyRequests[msg.data.data.requestid];
+            }
+        }
+    }
+
+
+
+    getNumberClassificationResponse (numbers, valueToReturn, callback) {
+        this.classifyNumbers(numbers, function (results) {
+            callback(results[0][valueToReturn]);
+        });
+    }
+
+
+    getFieldValuesAsObj (args) {
+        const data = {};
+        {{#fields}}
+        data['{{name}}'] = args['FIELD{{idx}}'];
+        {{/fields}}
+        return data;
+    }
+    getFieldValuesAsAry (args) {
+        const data = [];
+        let menuChoices = {};
+        let menuChoicesIdx = 0;
+        {{#fields}}
+        const value{{idx}} = args['FIELD{{idx}}'];
+        {{#multichoice}}
+        menuChoices = {};
+        menuChoicesIdx = 0;
+        {{#menu}}
+        menuChoices['{{.}}'] = menuChoicesIdx++;
+        {{/menu}}
+        data['{{idx}}'] = menuChoices[value{{idx}}];
+        {{/multichoice}}
+        {{^multichoice}}
+        if (value{{idx}}.includes('.')) {
+            data['{{idx}}'] = parseFloat(value{{idx}});
+        }
+        else {
+            data['{{idx}}'] = parseInt(value{{idx}});
+        }
+        {{/multichoice}}
+        {{/fields}}
+        return data;
+    }
+
+
+    prepareArgsGetNumberClassificationResponse (valueToReturn, args, callback) {
+        const numbers = this.getFieldValuesAsObj(args);
+        this.getNumberClassificationResponse(numbers, valueToReturn, callback);
+    }
+
+    _lastModelTrainedRecently() {
+        const THREE_MINUTES = 3 * 60 * 1000;
+        return (this.lastModelTrain + THREE_MINUTES) > Date.now();
+    }
 }
-
-
-
 
 Scratch.extensions.register(new MachineLearningNumbers());

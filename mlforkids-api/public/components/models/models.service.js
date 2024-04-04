@@ -150,7 +150,8 @@
 
         function isModelSavedInBrowser(modeltype, projectid) {
             try {
-                var modelid = getModelDbLocation(modeltype, projectid);
+                const type = modeltype === 'imgtfjs' ? 'images' : modeltype;
+                const modelid = getModelDbLocation(type, projectid);
                 if (storageService.getItem(modelid)) {
                     return true;
                 }
@@ -161,14 +162,34 @@
             return false;
         }
 
+
+        function clearSupportingModelData(savelocation, modeltype, projectid) {
+            loggerService.debug('[ml4kmodels] deleting supporting model data');
+            clearModelSavedDate(savelocation);
+
+            if (modeltype === 'numbers') {
+                storageService.removeItem('ml4k-models-numbers-' + projectid + '-features');
+                storageService.removeItem('ml4k-models-numbers-' + projectid + '-labels');
+                storageService.removeItem('ml4k-models-numbers-' + projectid + '-status');
+
+                // can't delete the assets (-assets and -viz) without introducing a circular dependency,
+                //  so this has to be done in both numberTrainingService and ProjectsController
+                //
+                // browserStorageService.deleteAsset(projectid + '-assets');
+                // browserStorageService.deleteAsset(projectid + '-viz');
+            }
+
+            return Promise.resolve();
+        }
+
+
         function deleteModel(modeltype, projectid, retried) {
             loggerService.debug('[ml4kmodels] deleting stored model', projectid);
             var savelocation = getModelDbLocation(modeltype, projectid);
             if (typeof tf !== 'undefined') {
                 return tf.io.removeModel(savelocation)
                     .then(function () {
-                        loggerService.debug('[ml4kmodels] model deleted');
-                        clearModelSavedDate(savelocation);
+                        return clearSupportingModelData(savelocation, modeltype, projectid);
                     })
                     .catch(function (err) {
                         loggerService.debug('[ml4kmodels] model could not be deleted', err);
@@ -183,8 +204,8 @@
                     });
             }
             else {
-                loggerService.debug('[ml4kmodels] tensorflow not loaded - skipping');
-                return Promise.resolve();
+                loggerService.debug('[ml4kmodels] tensorflow not loaded - skipping model deletion');
+                return clearSupportingModelData(savelocation, modeltype, projectid);
             }
         }
 
@@ -207,6 +228,9 @@
             var loadPromise;
             if (transfermodel) {
                 loadPromise = transfermodel.load(savelocation);
+            }
+            else if (modeltype === 'numbers') {
+                loadPromise = tf.loadGraphModel(savelocation);
             }
             else {
                 loadPromise = tf.loadLayersModel(savelocation);

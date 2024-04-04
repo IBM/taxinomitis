@@ -7,7 +7,7 @@
     ModelsController.$inject = [
         'authService',
         'projectsService', 'trainingService', 'quizService',
-        'soundTrainingService', 'imageTrainingService', 'regressionTrainingService',
+        'soundTrainingService', 'imageTrainingService', 'regressionTrainingService', 'numberTrainingService',
         'modelService', 'utilService', 'storageService', 'downloadService', 'imageToolsService',
         '$stateParams',
         '$scope',
@@ -16,7 +16,7 @@
 
     function ModelsController(authService,
         projectsService, trainingService, quizService,
-        soundTrainingService, imageTrainingService, regressionTrainingService,
+        soundTrainingService, imageTrainingService, regressionTrainingService, numberTrainingService,
         modelService, utilService, storageService, downloadService, imageToolsService,
         $stateParams,
         $scope,
@@ -229,9 +229,15 @@
 
 
         function setupNumberProject () {
-            return projectsService.getFields($scope.projectId, $scope.userId, vm.profile.tenant)
+            return projectsService.getFields($scope.project, $scope.userId, vm.profile.tenant)
                 .then(function (fields) {
                     $scope.project.fields = fields;
+                    return numberTrainingService.initNumberSupport($scope.project);
+                })
+                .then(function (loaded) {
+                    if (loaded) {
+                        fetchModels();
+                    }
                 });
         }
         function setupImagesProject () {
@@ -292,7 +298,7 @@
                 return 20000;
             }
             if ($scope.project.type === 'numbers') {
-                return 2000;
+                return 4000;
             }
             loggerService.error('[ml4kmodels] Unexpected project type');
             return 60000;
@@ -354,6 +360,9 @@
             else if ($scope.project.type === 'regression') {
                 modelFnPromise = regressionTrainingService.getModels();
             }
+            else if ($scope.project.type === 'numbers') {
+                modelFnPromise = numberTrainingService.getModels();
+            }
             else {
                 modelFnPromise = trainingService.getModels($scope.project, $scope.userId, vm.profile.tenant);
             }
@@ -371,13 +380,13 @@
         function trainTextProject (project) {
             if (project.storage === 'local') {
                 if (project.cloudid) {
-                    return trainingService.newLocalProjectModel(project);
+                    return trainingService.newLocalProjectTextModel(project);
                 }
                 else {
                     return projectsService.createLocalProject(project, $scope.userId, vm.profile.tenant)
                         .then(function (cloudproject) {
                             $scope.project = cloudproject;
-                            return trainingService.newLocalProjectModel(cloudproject);
+                            return trainingService.newLocalProjectTextModel(cloudproject);
                         });
                 }
             }
@@ -402,10 +411,10 @@
                 modelFnPromise = imageTrainingService.newModel(project.id, $scope.userId, vm.profile.tenant);
             }
             else if ($scope.project.type === 'sounds') {
-                modelFnPromise = soundTrainingService.newModel(project.id, $scope.userId, vm.profile.tenant)
+                modelFnPromise = soundTrainingService.newModel(project.id, $scope.userId, vm.profile.tenant);
             }
             else if ($scope.project.type === 'numbers') {
-                modelFnPromise = trainingService.newModel($scope.projectId, $scope.userId, vm.profile.tenant);
+                modelFnPromise = numberTrainingService.newModel(project, $scope.userId, vm.profile.tenant);
             }
             else if ($scope.project.type === 'text') {
                 modelFnPromise = trainTextProject(project);
@@ -542,11 +551,16 @@
                 }
             }
             else if (project.type === 'numbers') {
-                testdata.numbers = project.fields.map(function (field) {
+                project.fields.map(function (field) {
                     if (field.type === 'number') {
-                        return parseFloat($scope.testformData[field.name]);
+                        const val = $scope.testformData[field.name];
+                        if (val.includes('.')) {
+                            $scope.testformData[field.name] = parseFloat(val);
+                        }
+                        else {
+                            $scope.testformData[field.name] = parseInt(val);
+                        }
                     }
-                    return $scope.testformData[field.name];
                 });
             }
             else if (project.type === 'regression') {
@@ -584,6 +598,9 @@
             else if (project.type === 'regression') {
                 testFnPromise = regressionTrainingService.testModel(project, testdata.regression);
             }
+            else if (project.type === 'numbers') {
+                testFnPromise = numberTrainingService.testModel(project, $scope.testformData);
+            }
             else {
                 testFnPromise = trainingService.testModel(project,
                     $scope.userId, vm.profile.tenant,
@@ -591,32 +608,9 @@
                     testdata);
             }
 
-            testFnPromise.then(function (resp) {
-                    loggerService.debug('[ml4kmodels] test response', resp);
-
-                    if (resp && resp.length > 0) {
-                        if (project.type === 'regression') {
-                            $scope.$apply(function () {
-                                $scope.testoutput = resp[0];
-                            });
-                        }
-                        else {
-                            $scope.testoutput = resp[0].class_name;
-                            $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
-                        }
-                    }
-                    else {
-                        $scope.testoutput = 'Unknown';
-                        $scope.testoutput_explanation = "Test value could not be recognised";
-                    }
-                })
-                .catch(function (err) {
-                    loggerService.error('[ml4kmodels] model test failed', err);
-                    delete $scope.testoutput;
-
-                    var errId = displayAlert('errors', err.status, err.data);
-                    scrollToNewItem('errors' + errId);
-                });
+            testFnPromise
+                .then(displayTestResult)
+                .catch(displayTestError);
         };
 
 
@@ -637,6 +631,9 @@
             else if (project.type === 'regression') {
                 modelFnPromise = regressionTrainingService.deleteModel(project.id);
             }
+            else if (project.type === 'numbers') {
+                modelFnPromise = numberTrainingService.deleteModel(project.id);
+            }
             else {
                 var classifierid = model.classifierid;
                 modelFnPromise = trainingService.deleteModel(project, $scope.userId, vm.profile.tenant, classifierid);
@@ -646,7 +643,7 @@
                     $scope.models = [];
                     $scope.status = modelService.getStatus($scope.models);
 
-                    if ($scope.status === 'training' || project.type === 'imgtfjs' || project.type === 'sounds' || project.type === 'regression') {
+                    if ($scope.status === 'training' || project.type === 'numbers' || project.type === 'imgtfjs' || project.type === 'sounds' || project.type === 'regression') {
                         refreshModels();
                     }
                     else {
@@ -799,8 +796,13 @@
             loggerService.debug('[ml4kmodels] prediction', resp);
             $timeout(function () {
                 if (resp && resp.length > 0) {
-                    $scope.testoutput = resp[0].class_name;
-                    $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
+                    if ($scope.project.type === 'regression') {
+                        $scope.testoutput = resp[0];
+                    }
+                    else {
+                        $scope.testoutput = resp[0].class_name;
+                        $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
+                    }
                 }
                 else {
                     $scope.testoutput = 'Unknown';
@@ -809,6 +811,9 @@
             }, 0);
         }
         function displayTestError(err) {
+            loggerService.error('[ml4kmodels] model test failed', err);
+            delete $scope.testoutput;
+
             var errId = displayAlert('errors', err.status, err.data);
             scrollToNewItem('errors' + errId);
         }

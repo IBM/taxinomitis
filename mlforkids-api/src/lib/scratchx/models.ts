@@ -9,8 +9,8 @@ import * as numbers from '../training/numbers';
 
 
 
-export async function trainModelLocalProject(scratchKey: Types.ScratchKey, trainingData: TrainingTypes.ConversationTrainingData): Promise<ScratchTypes.Status> {
-    if (scratchKey.type !== 'text') { // && scratchKey.type !== 'numbers') {
+export async function trainTextModelLocalProject(scratchKey: Types.ScratchKey, trainingData: TrainingTypes.ConversationTrainingData): Promise<ScratchTypes.Status> {
+    if (scratchKey.type !== 'text') {
         return Promise.reject(new Error('Only text models can be trained using a Scratch key'));
     }
 
@@ -58,7 +58,7 @@ export async function trainModelLocalProject(scratchKey: Types.ScratchKey, train
 
 
 
-export async function trainModel(scratchKey: Types.ScratchKey): Promise<ScratchTypes.Status> {
+export async function trainModel(scratchKey: Types.ScratchKey): Promise<ScratchTypes.Status | numbers.NumbersApiResponsePayloadClassifierItem> {
     if (scratchKey.type !== 'text' && scratchKey.type !== 'numbers') {
         return Promise.reject(new Error('Only text or numbers models can be trained using a Scratch key'));
     }
@@ -87,21 +87,7 @@ export async function trainModel(scratchKey: Types.ScratchKey): Promise<ScratchT
             }
         }
         else if (project.type === 'numbers') {
-            const model = await numbers.trainClassifier(project);
-            if (model.status === 'Available') {
-                return {
-                    status : 2,
-                    msg : 'Ready',
-                    type : scratchKey.type,
-                };
-            }
-            else {
-                return {
-                    status : 0,
-                    msg : 'Model Failed',
-                    type : scratchKey.type,
-                };
-            }
+            return numbers.trainClassifierCloudProject(project);
         }
         else {
             return Promise.reject(new Error('Only text or numbers models can be trained using a Scratch key'));

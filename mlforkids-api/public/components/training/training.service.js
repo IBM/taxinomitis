@@ -40,6 +40,13 @@
                     };
                     return browserStorageService.addTrainingData(projectid, trainingObject);
                 }
+                else if (projecttype === 'numbers') {
+                    var trainingObject = {
+                        numberdata : data,
+                        label : label
+                    };
+                    return browserStorageService.addTrainingData(projectid, trainingObject);
+                }
                 else {
                     throw new Error('unexpected project type');
                 }
@@ -73,6 +80,21 @@
                 }
                 else if (project.type === 'regression') {
                     return browserStorageService.bulkAddTrainingData(project.id, data);
+                }
+                else if (project.type === 'numbers') {
+                    return browserStorageService.bulkAddTrainingData(project.id, data.numbers.map((item) => {
+                        return {
+                            numberdata : project.fields.map((field) => {
+                                if (field.type === 'number') {
+                                    return item[field.name];
+                                }
+                                else if (field.type === 'multichoice') {
+                                    return field.choices.indexOf(item[field.name]);
+                                }
+                            }),
+                            label : data.label
+                        };
+                    }));
                 }
                 else {
                     throw new Error('unexpected project type');
@@ -221,7 +243,7 @@
                         '/models/' + modelid +
                         '?ts=' + timestamp;
 
-             return $http.get(url).then(function (resp) {
+            return $http.get(url).then(function (resp) {
                 return resp.data;
             });
         }
@@ -241,7 +263,7 @@
         // for a local project, the training data isn't stored
         //  on the server so needs to be provided with each
         //  model creation request
-        function newLocalProjectModel(project) {
+        function newLocalProjectTextModel(project) {
             var url = '/api/classes/' + project.classid +
                         '/students/' + project.userid +
                         '/localprojects/' + project.cloudid +
@@ -262,6 +284,27 @@
                         delete project.cloudid;
                     }
                     throw err;
+                });
+        }
+
+
+        // for a local project, the training data isn't stored
+        //  on the server so needs to be provided with each
+        //  model creation request
+        function newLocalProjectNumbersModel(project) {
+            var url = '/api/classes/' + project.classid +
+                        '/students/' + project.userid +
+                        '/localnumbersprojects';
+
+            return browserStorageService.getTrainingData(project.id)
+                .then(function (training) {
+                    return $http.post(url, { project, training }, { timeout : 180000 });
+                })
+                .then(function (resp) {
+                    resp.data.lastPollTime = new Date();
+                    browserStorageService.addCloudRefToProject(project.id, resp.data.key);
+                    project.cloudid = resp.key;
+                    return resp.data;
                 });
         }
 
@@ -424,7 +467,8 @@
             getModels : getModels,
             getModel : getModel,
             newModel : newModel,
-            newLocalProjectModel : newLocalProjectModel,
+            newLocalProjectTextModel : newLocalProjectTextModel,
+            newLocalProjectNumbersModel : newLocalProjectNumbersModel,
             testModel : testModel,
             testModelPrep : testModelPrep,
             deleteModel : deleteModel,

@@ -52,8 +52,6 @@ describe('REST API - models', () => {
     let conversationStubDeleteClassifierStub: sinon.SinonStub<any, any>;
 
     let numbersStubTrainClassifierStub: sinon.SinonStub<any, any>;
-    let numbersStubTestClassifierStub: sinon.SinonStub<any, any>;
-    let numbersStubDeleteClassifierStub: sinon.SinonStub<any, any>;
 
     const updated = new Date();
     updated.setMilliseconds(0);
@@ -68,8 +66,6 @@ describe('REST API - models', () => {
         conversationStubDeleteClassifierStub = sinon.stub(conversation, 'deleteClassifier');
 
         numbersStubTrainClassifierStub = sinon.stub(numbers, 'trainClassifier');
-        numbersStubTestClassifierStub = sinon.stub(numbers, 'testClassifier');
-        numbersStubDeleteClassifierStub = sinon.stub(numbers, 'deleteClassifier');
 
         conversationStubGetClassifiersStub.callsFake((tenant, classifiers: Types.ConversationWorkspace[]) =>  {
             return new Promise((resolve) => {
@@ -152,18 +148,6 @@ describe('REST API - models', () => {
             };
             return Promise.resolve(output);
         });
-        numbersStubTestClassifierStub.callsFake(() => {
-            const classifierTimestamp = new Date();
-            const classifications: Types.Classification[] = [
-                { class_name : 'first', confidence : 0.8, classifierTimestamp },
-                { class_name : 'second', confidence : 0.15, classifierTimestamp },
-                { class_name : 'third', confidence : 0.05, classifierTimestamp },
-            ];
-            return Promise.resolve(classifications);
-        });
-        numbersStubDeleteClassifierStub.callsFake(() => {
-            return new Promise((resolve) => { resolve(''); });
-        });
 
         await store.init();
 
@@ -179,8 +163,6 @@ describe('REST API - models', () => {
         conversationStubTestClassifierStub.restore();
         conversationStubDeleteClassifierStub.restore();
         numbersStubTrainClassifierStub.restore();
-        numbersStubTestClassifierStub.restore();
-        numbersStubDeleteClassifierStub.restore();
 
         return store.disconnect();
     });
@@ -283,12 +265,6 @@ describe('REST API - models', () => {
             ], false);
             const projectid = project.id;
 
-            const classifier = await store.storeNumbersClassifier(userid, classid, projectid, 'Available');
-            const created = classifier.created;
-            created.setMilliseconds(0);
-
-            const expectedTimestamp = created.toISOString();
-
             nextAuth0Userid = userid;
             nextAuth0Role = 'student';
             nextAuth0Class = classid;
@@ -297,13 +273,8 @@ describe('REST API - models', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.OK)
                 .then(async (res) => {
-                    assert.strictEqual(res.body.length, 1);
-                    assert.strictEqual(res.body[0].classifierid, projectid);
-                    assert.strictEqual(res.body[0].status, 'Available');
-                    assert(res.body[0].created);
-                    assert(res.body[0].updated);
-                    assert.strictEqual(res.body[0].created.substr(0, 18), expectedTimestamp.substr(0, 18));
-                    assert.strictEqual(res.body[0].updated.substr(0, 18), expectedTimestamp.substr(0, 18));
+                    const body = res.body;
+                    assert.deepStrictEqual(body, []);
 
                     await store.deleteEntireProject(userid, classid, project);
                 });
@@ -674,6 +645,18 @@ describe('REST API - models', () => {
                 { name : 'a', type : 'number' }, { name : 'b', type : 'number' },
             ], false);
             const projectid = project.id;
+            await store.addLabelToProject(userid, classid, projectid, 'one');
+            await store.addLabelToProject(userid, classid, projectid, 'two');
+            const data = [
+                { numberdata : [ 1, 1 ], label : 'one' },
+                { numberdata : [ 2, 2 ], label : 'one' },
+                { numberdata : [ 3, 3 ], label : 'one' },
+                { numberdata : [ 1, 10 ], label : 'two' },
+                { numberdata : [ 2, 20 ], label : 'two' },
+                { numberdata : [ 3, 30 ], label : 'two' },
+            ];
+
+            await store.bulkStoreNumberTraining(projectid, data);
 
             nextAuth0Userid = userid;
             nextAuth0Role = 'student';
@@ -685,10 +668,10 @@ describe('REST API - models', () => {
                 .then((res) => {
                     const body = res.body;
 
-                    assert.strictEqual(body.status, 'Available');
-                    assert.strictEqual(body.classifierid, projectid);
+                    assert.strictEqual(body.status, 'Training');
+                    assert.strictEqual(body.key, projectid);
 
-                    const created = new Date(body.created);
+                    const created = new Date(body.lastupdate);
                     assert.strictEqual(isNaN(created.getDate()), false);
 
                     return store.deleteEntireProject(userid, classid, project);
@@ -902,28 +885,35 @@ describe('REST API - models', () => {
                 });
         });
 
-        it('should submit a classify request to numbers service', () => {
+
+        it('should refuse to test numbers models', async () => {
+            const classid = uuid();
+            const userid = uuid();
+            const projName = uuid();
+            const modelid = randomstring.generate({ length : 10 });
+
+            const project = await store.storeProject(userid, classid, 'numbers', projName, 'en', [
+                { name : 'a', type : 'number' }, { name : 'b', type : 'number' },
+            ], false);
+            const projectid = project.id;
+
+            nextAuth0Userid = userid;
             nextAuth0Role = 'student';
-            nextAuth0Class = 'testclass';
+            nextAuth0Class = classid;
+
             return request(testServer)
-                .post('/api/classes/testclass/students/testuser/projects/testproject/models/testmodel/label')
+                .post('/api/classes/' + classid +
+                      '/students/' + userid +
+                      '/projects/' + projectid +
+                      '/models/' + modelid + '/label')
                 .send({
                     numbers : [1, 2, 3],
-                    type : 'numbers',
+                    type : 'sounds',
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const body = res.body;
-
-                    const classifierTimestamp = body[0].classifierTimestamp;
-                    assert(classifierTimestamp);
-
-                    assert.deepStrictEqual(body, [
-                        { class_name : 'first', confidence : 0.8, classifierTimestamp },
-                        { class_name : 'second', confidence : 0.15, classifierTimestamp },
-                        { class_name : 'third', confidence : 0.05, classifierTimestamp },
-                    ]);
+                .expect(httpstatus.NOT_IMPLEMENTED)
+                .then(() => {
+                    return store.deleteEntireUser(userid, classid);
                 });
         });
 
@@ -1107,33 +1097,6 @@ describe('REST API - models', () => {
                     return store.deleteEntireUser(userid, classid);
                 });
         });
-
-
-        it('should require data for the numbers service', () => {
-            nextAuth0Role = 'student';
-            nextAuth0Class = 'testclass';
-            return request(testServer)
-                .post('/api/classes/testclass/students/testuser/projects/testproject/models/testmodel/label')
-                .send({
-                    type : 'numbers',
-                })
-                .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST);
-        });
-
-        it('should require numbers for the numbers service', () => {
-            nextAuth0Role = 'student';
-            nextAuth0Class = 'testclass';
-            return request(testServer)
-                .post('/api/classes/testclass/students/testuser/projects/testproject/models/testmodel/label')
-                .send({
-                    numbers : [],
-                    type : 'numbers',
-                })
-                .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST);
-        });
-
     });
 
     describe('deleteModel', () => {
@@ -1282,14 +1245,14 @@ describe('REST API - models', () => {
         });
 
 
-        it('should delete numbers classifiers', async () => {
+        it('should refuse to delete numbers classifiers', async () => {
             const classid = uuid();
             const userid = uuid();
             const projName = uuid();
             const modelid = randomstring.generate({ length : 10 });
 
             const project = await store.storeProject(userid, classid, 'numbers', projName, 'en', [
-                { name : 'A', type : 'number' },
+                { name : 'a', type : 'number' }, { name : 'b', type : 'number' },
             ], false);
             const projectid = project.id;
 
@@ -1301,7 +1264,7 @@ describe('REST API - models', () => {
                         '/students/' + userid +
                         '/projects/' + projectid +
                         '/models/' + modelid)
-                .expect(httpstatus.NO_CONTENT)
+                .expect(httpstatus.NOT_FOUND)
                 .then(async () => {
                     await store.deleteEntireUser(userid, classid);
                 });

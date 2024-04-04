@@ -793,7 +793,7 @@
             "EXPL_6": "Az egyes mezőkben látható <strong>értékek</strong> megmutatják, hogy a tanítási adatok közül hány példa teljesítette a felül látható tesztet (a balra mutató nyíl után), és hány példa nem ment át a felül látható teszten (a jobbra mutató nyíl után)."
         },
         "ERRORS": {
-            "NUMBERSONLY": "Csak a számprojektekhez tartozó gépi tanulási modellek írhatók le"
+
         }
     },
     "DESCRIBETEXTMODEL": {
@@ -966,6 +966,7 @@
 
         "NOTREADY": "A projekted még nincs kész ahhoz, hogy Python-ban programozd.",
         "NOMODEL": "Még nem tanítottad be a modellt.",
+        "EXPIRED": "Your model is no longer available on the model server.",
 
         "NOSOUND": "Python nem tud hangfelismerést végezni.",
 
@@ -1890,8 +1891,7 @@
             "Q5-A-UNLIMITED": "Unlimited",
             "Q5-A-LIMITED": "Limits apply",
             "Q5-A-NUMBER_OF_PROJECTS": "Number of projects",
-            "Q5-A-TRAINING_DATA": "Amount of training data in a project",
-            "Q5-A-4": "(Numbers projects cannot be stored in your web browser. They can only be stored in the cloud.)"
+            "Q5-A-TRAINING_DATA": "Amount of training data in a project"
         },
 
         "SCRATCH": {

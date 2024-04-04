@@ -44,6 +44,7 @@ export const PROJECT_CROWDSOURCED  = '/api/classes/:classid/students/:studentid/
 // Scratch key for a project
 export const SCRATCHKEYS           = '/api/classes/:classid/students/:studentid/projects/:projectid/scratchkeys';
 // local project APIs
+export const LOCALNUMBERSMODELS    = '/api/classes/:classid/students/:studentid/localnumbersprojects';
 export const LOCALPROJECTS         = '/api/classes/:classid/students/:studentid/localprojects';
 export const LOCALPROJECT          = '/api/classes/:classid/students/:studentid/localprojects/:projectid';
 export const LOCALSCRATCHKEYS      = '/api/classes/:classid/students/:studentid/localprojects/:projectid/scratchkeys';

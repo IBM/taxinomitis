@@ -794,7 +794,7 @@
             "EXPL_6": "The <strong>value</strong> shown in each box tells you how many examples in your training data passed the test shown at the top (following the left arrow) and how many examples didn't pass the test at the top (following the right arrow)."
         },
         "ERRORS": {
-            "NUMBERSONLY": "Only machine learning models for numbers projects can be described"
+
         }
     },
     "DESCRIBETEXTMODEL": {
@@ -967,6 +967,7 @@
 
         "NOTREADY": "아직 준비중입니다",
         "NOMODEL": "훈련된 모델이 없습니다",
+        "EXPIRED": "Your model is no longer available on the model server.",
 
         "NOSOUND": "Python cannot be used with sounds projects.",
 
@@ -1891,8 +1892,7 @@
             "Q5-A-UNLIMITED": "Unlimited",
             "Q5-A-LIMITED": "Limits apply",
             "Q5-A-NUMBER_OF_PROJECTS": "Number of projects",
-            "Q5-A-TRAINING_DATA": "Amount of training data in a project",
-            "Q5-A-4": "(Numbers projects cannot be stored in your web browser. They can only be stored in the cloud.)"
+            "Q5-A-TRAINING_DATA": "Amount of training data in a project"
         },
 
         "SCRATCH": {

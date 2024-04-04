@@ -107,7 +107,7 @@ function create_app {
         --env-from-secret $DOCKER_IMAGE-postgresql \
         --env-from-secret $DOCKER_IMAGE-slack \
         --env-from-secret $DOCKER_IMAGE-spotify \
-        --env NUMBERS_SERVICE=$(ibmcloud ce application get --name mlforkids-numbers -o json | jq -r .status.url) \
+        --env NUMBERS_SERVICE=$(ibmcloud ce application get --name mlforkids-newnumbers -o json | jq -r .status.url) \
         --mount-secret "/usr/src/app/pgsqlcerts"=$DOCKER_IMAGE-postgresql-cert \
         --min-scale $MIN_INSTANCES  --max-scale $MAX_INSTANCES \
         --no-cluster-local

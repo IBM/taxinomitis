@@ -177,10 +177,22 @@
                 templateUrl: 'static/components/python/python.html',
                 controllerAs: 'vm'
             })
-            .state('mlproject_python_local', {
-                url: '/mlproject/:userId/:projectId/pythonlocal',
-                controller: 'PythonLocalController',
-                templateUrl: 'static/components/pythonlocal/python.html',
+            .state('mlproject_python_text', {
+                url: '/mlproject/:userId/:projectId/pythontext',
+                controller: 'PythonTextController',
+                templateUrl: 'static/components/pythontext/pythontext.html',
+                controllerAs: 'vm'
+            })
+            .state('mlproject_python_numbers', {
+                url: '/mlproject/:userId/:projectId/pythonnumbers',
+                controller: 'PythonNumbersController',
+                templateUrl: 'static/components/pythonnumbers/pythonnumbers.html',
+                controllerAs: 'vm'
+            })
+            .state('mlproject_python_images', {
+                url: '/mlproject/:userId/:projectId/pythonimages',
+                controller: 'PythonImagesController',
+                templateUrl: 'static/components/pythonimages/pythonimages.html',
                 controllerAs: 'vm'
             })
             .state('mlproject_edublocks', {
@@ -277,6 +289,7 @@
         $urlRouterProvider.otherwise('/404');
 
         jwtOptionsProvider.config({
+            whiteListedDomains: AUTH0_WHITELISTED_DOMAINS,
             tokenGetter: ['options', 'storageService', function (options, storageService) {
                 if (options && options.url.substr(options.url.length - 5) == '.html') {
                     return null;
@@ -294,7 +307,7 @@
             .useSanitizeValueStrategy('sanitizeParameters')
             .useStaticFilesLoader({
                 prefix: 'static/languages/',
-                suffix: '.json?v=155'
+                suffix: '.json?v=156'
             })
             .determinePreferredLanguage(function () {
                 var lang = navigator.userLanguage || navigator.language;

@@ -139,13 +139,14 @@ CREATE TABLE mlforkidsdb.soundtraining (
     audiourl character varying(185)
 );
 
-CREATE TABLE mlforkidsdb.taxinoclassifiers (
-    projectid character varying(36) NOT NULL PRIMARY KEY,
-    userid character varying(36) NOT NULL,
-    classid character varying(36) NOT NULL,
-    created timestamp with time zone NOT NULL,
-    status smallint NOT NULL
-);
+-- CREATE TABLE mlforkidsdb.taxinoclassifiers (
+--     projectid character varying(36) NOT NULL PRIMARY KEY,
+--     userid character varying(36) NOT NULL,
+--     classid character varying(36) NOT NULL,
+--     created timestamp with time zone NOT NULL,
+--     status smallint NOT NULL
+-- );
+-- update (2 Apr 2024) - deleted table
 
 CREATE TABLE mlforkidsdb.tenants (
     id character varying(36) NOT NULL PRIMARY KEY,

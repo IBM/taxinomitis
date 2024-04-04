@@ -1,10 +1,8 @@
 // external dependencies
 import * as _ from 'lodash';
-import * as httpStatus from 'http-status';
 // local dependencies
 import * as store from '../db/store';
 import * as conversation from '../training/conversation';
-import * as numberService from '../training/numbers';
 import * as Types from '../db/db-types';
 import * as TrainingTypes from '../training/training-types';
 import loggerSetup from '../utils/logger';
@@ -60,65 +58,12 @@ async function classifyText(key: Types.ScratchKey, text: string): Promise<Traini
 }
 
 
-
-/**
- * Parses the provided string as a number if it can be.
- *  If that fails (returns NaN), it returns the original string.
- */
-function safeParseFloat(str: string): any {
-    const val = parseFloat(str);
-    return isNaN(val) ? str : val;
+async function classifyNumbers(key: Types.ScratchKey): Promise<TrainingTypes.Classification[]> {
+    log.error({ key }, 'Unexpected attempt to test browser-hosted model');
+    const err: any = new Error('Classification for this project is only available in the browser');
+    err.statusCode = 400;
+    throw err;
 }
-
-function safeJsonStringify(obj: object): string {
-    try {
-        return JSON.stringify(obj);
-    }
-    catch (err) {
-        return err.message;
-    }
-}
-
-
-async function classifyNumbers(key: Types.ScratchKey, numbers: string[]): Promise<TrainingTypes.Classification[]> {
-    if (!numbers || numbers.length === 0 || !Array.isArray(numbers)) {
-        throw new Error('Missing data');
-    }
-    const project = await store.getProject(key.projectid);
-    if (!project) {
-        throw new Error('Project not found');
-    }
-    if (numbers.length !== project.numfields) {
-        throw new Error('Missing data');
-    }
-
-    try {
-        if (key.classifierid && key.credentials) {
-            const resp = await numberService.testClassifier(
-                key.credentials.username,
-                key.credentials.password,
-                key.updated,
-                key.classifierid,
-                numbers.map(safeParseFloat));
-            return resp;
-        }
-    }
-    catch (err) {
-        if (err.statusCode === httpStatus.BAD_REQUEST) {
-            log.warn({ err, numbers }, 'Failed to test numbers classifier');
-        }
-        else {
-            log.error({ err, numbers, numbersjson : safeJsonStringify(numbers) }, 'Failed to test numbers classifier');
-        }
-    }
-
-    // we don't have a trained functional decision tree,
-    //  so we resort to choosing random
-    return chooseLabelsAtRandom(project);
-}
-
-
-
 
 async function classifySound(key: Types.ScratchKey): Promise<TrainingTypes.Classification[]> {
     log.error({ key }, 'Unexpected attempt to test sound model');
@@ -142,7 +87,7 @@ export function classify(scratchKey: Types.ScratchKey, data: any): Promise<Train
     case 'text':
         return classifyText(scratchKey, data as string);
     case 'numbers':
-        return classifyNumbers(scratchKey, data as string[]);
+        return classifyNumbers(scratchKey);
     case 'sounds':
         return classifySound(scratchKey);
     case 'imgtfjs':

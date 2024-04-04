@@ -5,7 +5,6 @@ import * as postgresql from './postgresqldb';
 import * as dbobjects from './objects';
 import * as projectObjects from './projects';
 import * as Objects from './db-types';
-import * as numbers from '../training/numbers';
 import * as conversation from '../training/conversation';
 import * as TrainingObjects from '../training/training-types';
 import * as limits from './limits';
@@ -83,7 +82,7 @@ export async function storeProject(
         obj.iscrowdsourced,
     ];
 
-    const queryParameterValues = [];
+    const queryParameterValues: any[] = [];
     let queryIdx = 1;
     const insertFieldsQryPlaceholders = [];
     for (const field of obj.fields) {
@@ -750,7 +749,7 @@ export async function bulkStoreTextTraining(
     projectid: string, training: {textdata: string, label: string}[],
 ): Promise<void>
 {
-    const queryParameterValues = [];
+    const queryParameterValues: any[] = [];
     let queryIdx = 1;
     const insertFieldsQryPlaceholders = [];
 
@@ -900,7 +899,7 @@ export async function bulkStoreImageTraining(
     projectid: string, training: {imageurl: string, label: string}[],
 ): Promise<void>
 {
-    const queryParameterValues = [];
+    const queryParameterValues: any[] = [];
     let queryIdx = 1;
     const insertFieldsQryPlaceholders = [];
 
@@ -1094,7 +1093,7 @@ export async function bulkStoreNumberTraining(
     projectid: string, training: {numberdata: number[], label: string}[],
 ): Promise<void>
 {
-    const queryParameterValues = [];
+    const queryParameterValues: any[] = [];
     let queryIdx = 1;
     const insertFieldsQryPlaceholders = [];
 
@@ -1627,19 +1626,6 @@ export async function deleteClassifiersByCredentials(credentials: TrainingObject
 }
 
 
-export async function getNumbersClassifiers(projectid: string): Promise<TrainingObjects.NumbersClassifier[]>
-{
-    const queryName = 'dbqn-select-taxinoclassifiers-projectid';
-    const queryString = 'SELECT projectid, userid, classid, ' +
-                        'created, status ' +
-                        'FROM taxinoclassifiers ' +
-                        'WHERE projectid = $1';
-    const queryValues = [ projectid ];
-
-    const response = await dbExecute(queryName, queryString, queryValues);
-    return response.rows.map(dbobjects.getNumbersClassifierFromDbRow);
-}
-
 export async function getConversationWorkspaces(
     projectid: string,
 ): Promise<TrainingObjects.ConversationWorkspace[]>
@@ -1768,31 +1754,6 @@ export async function getExpiredConversationWorkspaces(): Promise<TrainingObject
     return response.rows.map(dbobjects.getWorkspaceFromDbRow);
 }
 
-
-export async function storeNumbersClassifier(
-    userid: string, classid: string, projectid: string, status: TrainingObjects.NumbersStatus,
-): Promise<TrainingObjects.NumbersClassifier>
-{
-    const obj = dbobjects.createNumbersClassifier(userid, classid, projectid, status);
-
-    const queryName = 'dbqn-insert-taxinoclassifiers';
-    const queryString: string = 'INSERT INTO taxinoclassifiers ' +
-                                    '(projectid, userid, classid, created, status) ' +
-                                'VALUES ' +
-                                    '($1, $2, $3, $4, $5) ' +
-                                'ON CONFLICT (projectid) DO UPDATE SET ' +
-                                    'userid = $2, classid = $3, created = $4, status = $5';
-    const queryValues = [ obj.projectid, obj.userid, obj.classid, obj.created, obj.status ];
-
-    try {
-        await dbExecute(queryName, queryString, queryValues);
-    }
-    catch (err) {
-        throw new Error('Failed to store classifier');
-    }
-
-    return dbobjects.getNumbersClassifierFromDbRow(obj);
-}
 
 
 
@@ -2682,14 +2643,8 @@ export async function deleteEntireProject(userid: string, classid: string, proje
         // nothing to do - models all stored client-side
         break;
     case 'numbers':
-        try {
-            await numbers.deleteClassifier(userid, classid, project.id);
-        }
-        catch (err) {
-            log.error({ err, userid, classid, projectid : project.id }, 'Failed to delete numbers model');
-        }
+        // nothing to do - models all stored client-side
         break;
-
     case 'sounds':
         // nothing to do - models all stored client-side
         break;
@@ -2704,7 +2659,6 @@ export async function deleteEntireProject(userid: string, classid: string, proje
         'DELETE FROM imagetraining WHERE projectid = $1',
         'DELETE FROM soundtraining WHERE projectid = $1',
         'DELETE FROM bluemixclassifiers WHERE projectid = $1',
-        'DELETE FROM taxinoclassifiers WHERE projectid = $1',
         'DELETE FROM scratchkeys WHERE projectid = $1',
     ];
 
@@ -2724,7 +2678,6 @@ export async function deleteEntireUser(userid: string, classid: string): Promise
         'DELETE FROM projects WHERE userid = $1',
         'DELETE FROM localprojects WHERE userid = $1',
         'DELETE FROM bluemixclassifiers WHERE userid = $1',
-        'DELETE FROM taxinoclassifiers WHERE userid = $1',
         'DELETE FROM scratchkeys WHERE userid = $1',
     ];
 

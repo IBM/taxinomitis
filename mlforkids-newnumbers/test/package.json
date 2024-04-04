@@ -1,0 +1,14 @@
+{
+  "name": "mlforkids-newnumbers-test",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "test": "mocha --no-timeouts --bail test-numbers.js"
+  },
+  "dependencies": {
+    "mocha": "^10.3.0",
+    "request-promise": "^4.2.6",
+    "uuid": "^9.0.1",
+    "xmldom": "^0.6.0"
+  }
+}

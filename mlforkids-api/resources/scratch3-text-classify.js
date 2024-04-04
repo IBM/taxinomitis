@@ -522,7 +522,7 @@ function trainNewClassifier({{^storeurl}}trainingdata{{/storeurl}}) {
             'X-User-Agent': 'mlforkids-scratch3-text'
         },
         method : 'POST',
-        body : JSON.stringify({ training : trainingdata })
+        body : JSON.stringify({ training : trainingdata, type : 'text' })
     };
     {{/storeurl}}
 

@@ -785,7 +785,7 @@
             "EXPL_6": "The <strong>value</strong> shown in each box tells you how many examples in your training data passed the test shown at the top (following the left arrow) and how many examples didn't pass the test at the top (following the right arrow)."
         },
         "ERRORS": {
-            "NUMBERSONLY": "Only machine learning models for numbers projects can be described"
+
         }
     },
     "DESCRIBETEXTMODEL": {
@@ -957,6 +957,7 @@
         "TITLE": "Using machine learning in Python",
         "NOTREADY": "Your project isn't ready to be used in Python yet.",
         "NOMODEL": "You haven't trained a machine learning model yet.",
+        "EXPIRED": "Your model is no longer available on the model server.",
         "NOSOUND": "Python cannot be used with sounds projects.",
         "LAUNCH": "Run Python in the browser",
         "LOCAL": "Copy code to run on your computer",
@@ -1667,7 +1668,7 @@
         },
         "SUPERVISION": {
             "TITLE": "Администрирование : Проекты учеников",
-            "INTRO_1": "This page displays a list of all of the projects that your class currently has. You can use it to review what they're working on.",
+            "INTRO_1": "This page displays a list of all of the cloud projects that your class currently has. You can use it to review what they're working on. Note that you can't review projects stored in their web browser from here.",
             "INTRO_2": "If you've hit the limit for the number of machine learning models that your class can create, you can use this to see which projects currently have a machine learning model, and delete any that you think are no longer needed.",
             "NO_PROJECTS_1": "Ни один из учеников в вашем классе в настоящее время не имеет никаких проектов.",
             "NO_PROJECTS_2": "Как только ваши студенты начнут создавать проекты, вернитесь сюда, чтобы увидеть обзор их работы.",
@@ -1810,8 +1811,7 @@
             "Q5-A-UNLIMITED": "Unlimited",
             "Q5-A-LIMITED": "Limits apply",
             "Q5-A-NUMBER_OF_PROJECTS": "Number of projects",
-            "Q5-A-TRAINING_DATA": "Amount of training data in a project",
-            "Q5-A-4": "(Numbers projects cannot be stored in your web browser. They can only be stored in the cloud.)"
+            "Q5-A-TRAINING_DATA": "Amount of training data in a project"
         },
         "SCRATCH": {
             "TITLE": "Проблемы со Scratch",

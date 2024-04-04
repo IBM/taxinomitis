@@ -85,7 +85,7 @@ describe('REST API - users', () => {
 
                     assert.deepStrictEqual(body, {
                         maxTextModels : 0,
-                        maxUsers: 30,
+                        maxUsers: 31,
                         supportedProjectTypes: [ 'text', 'imgtfjs', 'numbers', 'sounds' ],
                         tenantType : Types.ClassTenantType.UnManaged,
                         isManaged : false,
@@ -397,7 +397,7 @@ describe('REST API - users', () => {
                 getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
                 createUser : sinon.stub(auth0, 'createUser').callsFake(mocks.createUser.good),
                 getUserCounts : sinon.stub(auth0, 'getUserCounts').resolves({
-                    users: [], total : 30, start : 0, limit : 30, length : 30 }),
+                    users: [], total : 31, start : 0, limit : 31, length : 31 }),
             };
             tenantId = 'mytesttenant';
 

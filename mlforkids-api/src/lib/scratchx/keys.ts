@@ -2,7 +2,6 @@
 import * as store from '../db/store';
 import * as Types from '../db/db-types';
 import * as ScratchTypes from './scratchx-types';
-import * as TrainingTypes from '../training/training-types';
 
 
 
@@ -38,35 +37,8 @@ async function createImagesKey(project: Types.Project): Promise<ScratchTypes.Key
 
 
 async function createNumbersKey(project: Types.Project | Types.LocalProject): Promise<ScratchTypes.Key> {
-    const numClassifiers = await store.getNumbersClassifiers(project.id);
-
-    if (numClassifiers.length === 0) {
-        const id = await store.storeUntrainedScratchKey(project);
-        return { id };
-    }
-    else {
-        const credentials: TrainingTypes.BluemixCredentials = {
-            servicetype: 'num',
-            id: 'NOTUSED',
-            url: 'tenantid=' + project.classid + '&' +
-                'studentid=' + project.userid + '&' +
-                'projectid=' + project.id,
-            username: project.userid,
-            password: project.classid,
-            classid : project.classid,
-            credstype : 'unknown',
-        };
-
-        const classifier = numClassifiers[0];
-
-        const id = await store.storeOrUpdateScratchKey(
-            project,
-            credentials,
-            project.id,
-            classifier.created);
-
-        return { id, model : project.id };
-    }
+    const id = await store.storeUntrainedScratchKey(project);
+    return { id };
 }
 
 
@@ -115,7 +87,6 @@ export async function createLocalKey(localprojectid: string): Promise<ScratchTyp
     switch (project.type) {
     case 'text':
         return createTextKey(project);
-    // future-proofing - not using this yet
     case 'numbers':
         return createNumbersKey(project);
     default:

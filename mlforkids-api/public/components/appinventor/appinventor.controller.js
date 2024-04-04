@@ -37,6 +37,17 @@
 
                 $scope.project = project;
 
+                if ($scope.project.storage === 'local') {
+                    $scope.appInventorError = 'App Inventor cannot be used with projects stored in your web browser';
+                    return;
+                }
+                if ($scope.project.type === 'numbers' || $scope.project.type === 'sounds') {
+                    $scope.appInventorError = 'App Inventor cannot be used with ' + $scope.project.type + ' projects';
+                    return;
+                }
+
+                $scope.validProjectType = true;
+
                 $scope.projecturls.train = '/#!/mlproject/' + $scope.project.userid + '/' + $scope.project.id + '/training';
                 $scope.projecturls.learnandtest = '/#!/mlproject/' + $scope.project.userid + '/' + $scope.project.id + '/models';
 

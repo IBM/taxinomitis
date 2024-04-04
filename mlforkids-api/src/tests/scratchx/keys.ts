@@ -97,26 +97,6 @@ describe('Scratchx - keys', () => {
             assert.strictEqual(scratchkey.name, project.name);
             await store.deleteScratchKey(key.id);
         });
-
-
-        it('should create a key for projects with a classifier', async () => {
-            const userid = uuid();
-            const project = await store.storeProject(userid, TESTCLASS, 'numbers', 'test project', 'en', [
-                { name : 'a', type : 'number' },
-            ], false);
-
-            await store.storeNumbersClassifier(userid, TESTCLASS, project.id, 'Available');
-
-            const key = await keys.createKey(project.id);
-            assert(key.id);
-            assert.strictEqual(project.id, key.model);
-
-            const scratchkey = await store.getScratchKey(key.id);
-            assert.strictEqual(scratchkey.name, project.name);
-            assert.strictEqual(scratchkey.classifierid, project.id);
-
-            await store.deleteEntireProject(userid, TESTCLASS, project);
-        });
     });
 
 

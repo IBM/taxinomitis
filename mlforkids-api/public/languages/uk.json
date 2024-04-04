@@ -785,7 +785,7 @@
       "EXPL_6": "<strong>Значення</strong>, яке відображається в кожному полі, повідомляє вам, скільки прикладів у ваших тренувальних даних пройшли тест, показаний угорі (після стрілки в ліво), і скільки прикладів не пройшли тест угорі (за стрілкою вправо)."
     },
     "ERRORS": {
-      "NUMBERSONLY": "Можна описати лише моделі машинного навчання для чисел"
+
     }
   },
   "DESCRIBETEXTMODEL": {
@@ -957,6 +957,7 @@
     "TITLE": "Використання машинного навчання в Python",
     "NOTREADY": "Ваш проект ще не готовий до використання в Python.",
     "NOMODEL": "Ви ще не навчили модель машинного навчання.",
+    "EXPIRED": "Your model is no longer available on the model server.",
     "NOSOUND": "Python не можна використовувати зі звуковими проектами.",
     "LAUNCH": "Запустити Python у браузері",
     "LOCAL": "Скопіюйте код для запуску на вашому комп'ютері",
@@ -1809,8 +1810,7 @@
       "Q5-A-UNLIMITED": "Unlimited",
       "Q5-A-LIMITED": "Limits apply",
       "Q5-A-NUMBER_OF_PROJECTS": "Number of projects",
-      "Q5-A-TRAINING_DATA": "Amount of training data in a project",
-      "Q5-A-4": "(Numbers projects cannot be stored in your web browser. They can only be stored in the cloud.)"
+      "Q5-A-TRAINING_DATA": "Amount of training data in a project"
     },
     "SCRATCH": {
       "TITLE": "Проблеми зі Scratch",
