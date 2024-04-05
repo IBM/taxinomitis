@@ -2404,7 +2404,9 @@ var ML4KidsNumbersTraining = /*#__PURE__*/function () {
         var modellocation = this._getModelDbLocation(projectid);
         this._storageSupport.registerForModelStorageUpdates(modellocation, function () {
           console.log('[mlforkids] ML4KidsNumbersTraining new model was trained');
-          _this10.trainNewModel(projectid, worker);
+          _this10._loadModel({
+            id: projectid
+          });
         });
       }
     }

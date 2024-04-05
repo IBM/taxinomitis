@@ -419,13 +419,13 @@ class MachineLearningNumbers {
         {{/multichoice}}
         {{^multichoice}}
         if (typeof value{{idx}} === 'number') {
-            data['{{idx}}'] = value{{idx}};
+            data[{{idx}}] = value{{idx}};
         }
         else if (value{{idx}}.includes('.')) {
-            data['{{idx}}'] = parseFloat(value{{idx}});
+            data[{{idx}}] = parseFloat(value{{idx}});
         }
         else {
-            data['{{idx}}'] = parseInt(value{{idx}});
+            data[{{idx}}] = parseInt(value{{idx}});
         }
         {{/multichoice}}
         {{/fields}}
@@ -439,8 +439,8 @@ class MachineLearningNumbers {
     }
 
     _lastModelTrainedRecently() {
-        const THREE_MINUTES = 3 * 60 * 1000;
-        return (this.lastModelTrain + THREE_MINUTES) > Date.now();
+        const ONE_MINUTE = 60 * 1000;
+        return (this.lastModelTrain + ONE_MINUTE) > Date.now();
     }
 }
 
