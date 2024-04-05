@@ -418,7 +418,10 @@ class MachineLearningNumbers {
         data['{{idx}}'] = menuChoices[value{{idx}}];
         {{/multichoice}}
         {{^multichoice}}
-        if (value{{idx}}.includes('.')) {
+        if (typeof value{{idx}} === 'number') {
+            data['{{idx}}'] = value{{idx}};
+        }
+        else if (value{{idx}}.includes('.')) {
             data['{{idx}}'] = parseFloat(value{{idx}});
         }
         else {
