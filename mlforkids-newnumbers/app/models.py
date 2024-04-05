@@ -16,7 +16,7 @@ from app.utils import create_zip
 
 
 
-def create_visualisation(model: RandomForestModel, dataframe: DataFrame, outcome_label: str, classes: list[any], download_folder: str, attempt=0):
+def create_visualisation(key: str, model: RandomForestModel, dataframe: DataFrame, outcome_label: str, classes: list[any], download_folder: str, attempt=0):
     try:
         model_features = [f.name for f in model.make_inspector().features()]
         viz = dtreeviz.model(model,
@@ -28,10 +28,11 @@ def create_visualisation(model: RandomForestModel, dataframe: DataFrame, outcome
                              class_names=classes)
         viz.view(fancy=True, fontname="Liberation Sans Narrow").save(join(download_folder, "dtreeviz-tree-0.svg"))
     except Exception as vizerr:
+        exception("%s : Failed to train model", key)
         if attempt == 0:
             create_visualisation(model, dataframe, outcome_label, classes, download_folder, 1)
         else:
-            raise vizerr;
+            exception("%s : Second attempt to generate visualisation failed", key)
 
 
 def sanitize_feature_names(key: str, dataframe: DataFrame):
@@ -107,7 +108,7 @@ def train_model(modelinfo: ModelInfo, dataframe: DataFrame):
 
         # create a visualisation
         info("%s : Creating the visualisation", key)
-        create_visualisation(model, dataframe, outcome_label, classes, download_folder)
+        create_visualisation(key, model, dataframe, outcome_label, classes, download_folder)
 
         # update status
         info("%s : Updating the status", key)
@@ -142,4 +143,3 @@ def train_model(modelinfo: ModelInfo, dataframe: DataFrame):
             "stack": format_exc()
         }
         update_status_file(model_folder, modelinfo)
-

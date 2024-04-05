@@ -2093,7 +2093,7 @@ var ML4KidsNumbersTraining = /*#__PURE__*/function () {
             }
           });
         }
-        _this2._watchForNewModels(project.id, worker);
+        _this2._watchForNewModels(project.id);
       }).catch(function (err) {
         console.log('[mlforkids] ML4KidsNumbersTraining failed init', err);
         _this2.PROJECTS[projectid].state = 'ERROR';
@@ -2275,7 +2275,9 @@ var ML4KidsNumbersTraining = /*#__PURE__*/function () {
         _this8.PROJECTS[projectid].features = modelinfo.features;
         _this8.PROJECTS[projectid].labels = modelinfo.labels;
         console.log('[mlforkids] downloading visualisation');
-        return _this8._storageSupport.storeAsset(projectid + '-viz', modelinfo.urls.viz);
+        return _this8._storageSupport.storeAsset(projectid + '-viz', modelinfo.urls.viz).catch(function (err) {
+          console.log('[mlforkids] failed to download visualisation', err);
+        });
       }).then(function () {
         console.log('[mlforkids] downloading model assets');
         return _this8._storageSupport.storeAsset(projectid + '-assets', _this8.PROJECTS[projectid].model.assets);
@@ -2391,7 +2393,7 @@ var ML4KidsNumbersTraining = /*#__PURE__*/function () {
     }
   }, {
     key: "_watchForNewModels",
-    value: function _watchForNewModels(projectid, worker) {
+    value: function _watchForNewModels(projectid) {
       var _this10 = this;
       if (!this.PROJECTS[projectid].modelWatcher) {
         console.log('[mlforkids] ML4KidsNumbersTraining listening for model updates', projectid);

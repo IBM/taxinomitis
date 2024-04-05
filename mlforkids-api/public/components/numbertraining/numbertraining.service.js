@@ -121,7 +121,10 @@
                     //  available at this URL for long
                     // save the visualisation (not part of the TFDF model but needs saving too)
                     loggerService.debug('[ml4knums] downloading visualisation');
-                    return browserStorageService.storeAsset(modelStatus.classifierid + '-viz', modelinfo.urls.viz);
+                    return browserStorageService.storeAsset(modelStatus.classifierid + '-viz', modelinfo.urls.viz)
+                        .catch((err) => {
+                            loggerService.error('[ml4knums] failed to download visualisation', err);
+                        });
                 })
                 .then(() => {
                     // save the assets zip
