@@ -2153,18 +2153,16 @@ var ML4KidsNumbersTraining = /*#__PURE__*/function () {
       var _this4 = this;
       console.log('[mlforkids] new model request', request);
       var projectid = request.projectid;
-      return this.deleteModel(projectid).then(function () {
-        _this4.PROJECTS[projectid].state = 'TRAINING';
-        var options = {
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          method: 'POST',
-          body: '{}'
-        };
-        return fetch(request.modelurl, options);
-      }).then(function (resp) {
+      this.PROJECTS[projectid].state = 'TRAINING';
+      var options = {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: '{}'
+      };
+      return fetch(request.modelurl, options).then(function (resp) {
         return resp.json();
       }).then(function (response) {
         _this4.PROJECTS[projectid].details = response;
@@ -2187,10 +2185,8 @@ var ML4KidsNumbersTraining = /*#__PURE__*/function () {
       var _this5 = this;
       console.log('[mlforkids] new model request', request);
       var projectid = request.projectid;
-      return this.deleteModel(projectid).then(function () {
-        _this5.PROJECTS[projectid].state = 'TRAINING';
-        return _this5._storageSupport.getTrainingData(projectid);
-      }).then(function (training) {
+      this.PROJECTS[projectid].state = 'TRAINING';
+      return this._storageSupport.getTrainingData(projectid).then(function (training) {
         var options = {
           headers: {
             'Accept': 'application/json',
@@ -2315,16 +2311,15 @@ var ML4KidsNumbersTraining = /*#__PURE__*/function () {
         }
       });
     }
-  }, {
-    key: "deleteModel",
-    value: function deleteModel(projectid) {
-      this.PROJECTS[projectid].state = 'READY';
-      delete this.PROJECTS[projectid].features;
-      delete this.PROJECTS[projectid].labels;
-      delete this.PROJECTS[projectid].model;
-      // TODO delete stored model
-      return Promise.resolve();
-    }
+
+    // deleteModel (projectid) {
+    //     this.PROJECTS[projectid].state = 'READY';
+    //     delete this.PROJECTS[projectid].features;
+    //     delete this.PROJECTS[projectid].labels;
+    //     delete this.PROJECTS[projectid].model;
+    //     // TODO delete stored model
+    //     return Promise.resolve();
+    // }
   }, {
     key: "classifyNumberData",
     value: function classifyNumberData(request, worker) {
