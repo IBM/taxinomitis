@@ -18,7 +18,7 @@ function create_app_image_builder {
     ibmcloud ce build create \
         --name $DOCKER_IMAGE \
         --strategy dockerfile \
-        --size small \
+        --size large \
         --build-type git \
         --source https://github.com/IBM/taxinomitis \
         --commit master \
