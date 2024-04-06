@@ -139,7 +139,7 @@ project <span class="pythonop">=</span> <span class="pythonfuncname">MLforKidsNu
 <span class="pythoncomments"># add to your training examples</span>
 trainingvalue <span class="pythonop">=</span> [<div ng-repeat="field in trainingdata.fields track by $index">    <span style="background-color: #fff0f0"><strong><span ng-if="fields[$index].type === 'multichoice'">"</span>{{ field ? field : 0 }}<span ng-if="fields[$index].type === 'multichoice'">"</span></strong></span>,</div>]
 
-project<span class="pythonop">.</span>store(trainingvalue)
+project<span class="pythonop">.</span>store(trainingvalue, &quot;{{ trainingdata.label }}&quot;)
 </pre></div>
         </div>
     </div>
