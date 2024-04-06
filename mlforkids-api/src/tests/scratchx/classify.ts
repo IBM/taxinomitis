@@ -294,7 +294,7 @@ describe('Scratchx - classify', () => {
                 assert.fail('Should not reach here');
             }
             catch (err) {
-                assert.strictEqual(err.message, 'Classification for this project is only available in the browser');
+                assert.strictEqual(err.message, 'Classification for numbers project is only available in the browser or from Python projects');
             }
         });
     });

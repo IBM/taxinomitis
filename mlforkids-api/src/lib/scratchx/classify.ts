@@ -60,7 +60,7 @@ async function classifyText(key: Types.ScratchKey, text: string): Promise<Traini
 
 async function classifyNumbers(key: Types.ScratchKey): Promise<TrainingTypes.Classification[]> {
     log.error({ key }, 'Unexpected attempt to test browser-hosted model');
-    const err: any = new Error('Classification for this project is only available in the browser');
+    const err: any = new Error('Classification for numbers project is only available in the browser or from Python projects');
     err.statusCode = 400;
     throw err;
 }
