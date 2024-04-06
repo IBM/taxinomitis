@@ -36,14 +36,14 @@
         </div>
     </div>
 
-    <div ng-if="!loading && project && project.labels.length > 1 && !modelSource && !expiredModel" style="margin: 2em;">
+    <div ng-if="!loading && project && project.labels.length > 1 && !modelSource && !expiredModel && !scratchkey" style="margin: 2em;">
         <div class="alert alert-info" role="alert" translate="PYTHON.NOMODEL"></div>
         <div ng-if="project.type !== 'text'">
             You can <strong><a href="" ui-sref="mlproject_models({ projectId : projectId, userId : userId })">train one now</a></strong> and then come back to start your Python project.
         </div>
     </div>
 
-    <div ng-if="!loading && expiredModel" style="margin: 2em;">
+    <div ng-if="!loading && expiredModel && !scratchkey" style="margin: 2em;">
         <div class="alert alert-info" role="alert" translate="PYTHON.EXPIRED"></div>
         <div ng-if="project.type !== 'text'">
             You can <strong><a href="" ui-sref="mlproject_models({ projectId : projectId, userId : userId })">train a new model now</a></strong> and then come back to start your Python project.
@@ -82,13 +82,16 @@ result: '{{ project.labels[0] }}' with 81% confidence</pre></div>
         <div class="modelguidance" style="flex: 3">
 <div class="pythoncodebox"><pre class="pythoncode"><span class="pythonfunc">from</span> <span class="pythonimport">mlforkidsnumbers</span> <span class="pythonfunc">import</span> <span class="pythonimport">MLforKidsNumbers</span>
 
-model <span class="pythonop">=</span> <span class="pythonfuncname">MLforKidsNumbers</span>(&quot;{{ modelSource }}&quot;)
+project <span class="pythonop">=</span> <span class="pythonfuncname">MLforKidsNumbers</span>(<span ng-if="scratchkey">
+    key<span class="pythonop">=</span>&quot;{{ scratchkey }}&quot;,</span>
+    modelurl=&quot;{{ modelSource }}&quot;</span>
+)
 
 <span class="pythoncomments"># CHANGE THIS to something you want your</span>
 <span class="pythoncomments"># machine learning model to classify</span>
 testvalue <span class="pythonop">=</span> {<div ng-repeat="field in testdata.fields track by $index">    "{{ fields[$index].name }}" <span class="pythonop">:</span> <span style="background-color: #fff0f0"><strong><span ng-if="fields[$index].type === 'multichoice'">"</span>{{ field ? field : 0 }}<span ng-if="fields[$index].type === 'multichoice'">"</span></strong></span>,</div>}
 
-response <span class="pythonop">=</span> model<span class="pythonop">.</span>classify(testvalue)
+response <span class="pythonop">=</span> project<span class="pythonop">.</span>classify(testvalue)
 top_match <span class="pythonop">=</span> response[<span class="pythonint">0</span>]
 
 label <span class="pythonop">=</span> top_match[&quot;class_name&quot;]
@@ -98,6 +101,50 @@ confidence <span class="pythonop">=</span> top_match[&quot;confidence&quot;]
 <span class="pythonfunc">print</span> (&quot;result: &#39;%s&#39; with %d%% confidence&quot; <span class="pythonop">%</span> (label, confidence))
 </pre></div>
         </div>
+    </div>
+
+    <div class="modelguidancecontainer" ng-if="!loading && scratchkey && project && project.labels.length > 1">
+        <div class="modelguidance">
+            <div class="modelstatusdetail">
+                You can use this code to add numbers to your training data.
+            </div>
+            <div class="modelstatusdetail" ng-if="project.type==='numbers'">
+                Enter the numbers below:
+            </div>
+            <div class="modelstatusdetail" ng-if="project.type==='numbers'">
+                <div ng-repeat="field in fields track by $index">
+                    {{ field.name }} :
+                    <input ng-if="field.type === 'number'"
+                           type="number"
+                           ng-model="trainingdata.fields[$index]"
+                           ng-init="trainingdata.fields[$index] = 0"></input>
+                    <select ng-if="field.type === 'multichoice'"
+                            ng-model="trainingdata.fields[$index]"
+                            ng-options="value for value in field.choices"
+                            ng-init="trainingdata.fields[$index] = field.choices[0]"
+                            style="height: 24px">
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="modelguidance" style="flex: 3">
+<div class="pythoncodebox"><pre class="pythoncode"><span class="pythonfunc">from</span> <span class="pythonimport">mlforkidsnumbers</span> <span class="pythonfunc">import</span> <span class="pythonimport">MLforKidsNumbers</span>
+
+project <span class="pythonop">=</span> <span class="pythonfuncname">MLforKidsNumbers</span>(
+    key<span class="pythonop">=</span>&quot;{{ scratchkey }}&quot;<span ng-if="modelSource">,
+    modelurl=&quot;{{ modelSource }}&quot;</span>
+)
+
+<span class="pythoncomments"># CHANGE THIS to something you want to</span>
+<span class="pythoncomments"># add to your training examples</span>
+trainingvalue <span class="pythonop">=</span> [<div ng-repeat="field in trainingdata.fields track by $index">    <span style="background-color: #fff0f0"><strong><span ng-if="fields[$index].type === 'multichoice'">"</span>{{ field ? field : 0 }}<span ng-if="fields[$index].type === 'multichoice'">"</span></strong></span>,</div>]
+
+project<span class="pythonop">.</span>store(trainingvalue)
+</pre></div>
+        </div>
+    </div>
+
+    <div class="modelguidancecontainer" ng-if="modelSource || scratchkey">
         <div class="modelguidance" style="min-width: 300px">
             <div class="modelstatusdetail" style="font-size: 1em; padding-bottom: 0;">
                 To use this code, you need to:

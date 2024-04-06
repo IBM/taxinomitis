@@ -1,7 +1,7 @@
 from urllib.request import urlopen
 from urllib.error import HTTPError
 from urllib.parse import urlparse, urljoin, unquote
-from requests import get
+from requests import get, post
 from os import makedirs, remove
 from os.path import join, exists
 from shutil import rmtree
@@ -14,21 +14,24 @@ from tf_keras.models import load_model
 
 
 class MLforKidsNumbers:
-    def __init__(self, url):
-        self._message("Checking for downloaded model...")
-        key = self._get_model_key(url)
-        model_folder = self._get_saved_model_folder(key)
-        if exists(model_folder):
-            self._message("Reusing downloaded model from " + model_folder)
-        else:
-            self._download_model(url, model_folder)
+    def __init__(self, key=None, modelurl=None):
+        self._scratchkey = key
 
-        self._message("Loading model...")
-        self.MODEL = load_model(model_folder)
+        if modelurl is not None:
+            self._message("Checking for downloaded model...")
+            key = self._get_model_key(modelurl)
+            model_folder = self._get_saved_model_folder(key)
+            if exists(model_folder):
+                self._message("Reusing downloaded model from " + model_folder)
+            else:
+                self._download_model(modelurl, model_folder)
 
-        self._message("Accessing model metadata...")
-        self.METADATA = self._read_json_file(join(model_folder, "mlforkids.json"))
-        self._message("Model trained at " + self.METADATA["lastupdate"])
+            self._message("Loading model...")
+            self.MODEL = load_model(model_folder)
+
+            self._message("Accessing model metadata...")
+            self.METADATA = self._read_json_file(join(model_folder, "mlforkids.json"))
+            self._message("Model trained at " + self.METADATA["lastupdate"])
 
 
     # ------------------------------------------------------------
@@ -146,10 +149,41 @@ class MLforKidsNumbers:
         return e["confidence"]
 
 
+
+    #
+    # This function will store your data in one of the training
+    # buckets in your machine learning project
+    #
+    #  key - API key - the secret code for your ML project
+    #  data - the data that you want to store as a training example
+    #  label - the training bucket to put the example into
+    #
+    def store(self, data, label):
+        if self._scratchkey is None:
+            self._message("You need to provide a key to be able to add to your training data")
+            self._message("This can only be done for projects that are stored in the cloud")
+            raise Exception ("Key unavailable")
+
+        url = ("https://machinelearningforkids.co.uk/api/scratch/" +
+               self._scratchkey +
+               "/train")
+
+        response = post(url, json={ "data" : data, "label" : label })
+        if response.ok == False:
+            # if something went wrong, display the error
+            print(response.json())
+
+
+
+
     # use the model to classify the provided data
     #  returns a sorted list of objects, one for each label
     #  each with a confidence percentage
     def classify(self, data):
+        if self.MODEL is None:
+            self._message("Train a new model on the Machine Learning for Kids site, then try again with the new URL.")
+            raise Exception ("Model unavailable")
+
         labelled = {}
         types = {}
         for feature in self.METADATA["features"]:
