@@ -951,7 +951,9 @@
         "SCRATCH3": "Defnyddio fersiwn newydd o Scratch",
         "PYTHON": "Ysgrifennwch god Python i ddefnyddio'ch model dysgu peiriant",
         "APPINVENTOR": "Creu ap symudol ar gyfer eich ffôn neu dabled",
-        "EDUBLOCKS": "Write Python using a drag and drop coding tool"
+        "EDUBLOCKS": "Write Python using a drag and drop coding tool",
+        "REPLIT": "Write Python code in the web browser using replit",
+        "COLAB": "Write Python code in the web browser using Google Colab"
     },
     "PYTHON": {
         "TITLE": "Defnyddio dysgu peiriant yn Python",

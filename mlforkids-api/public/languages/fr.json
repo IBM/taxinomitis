@@ -952,7 +952,9 @@
         "SCRATCH3": "Utilisez la nouvelle version de Scratch",
         "PYTHON": "Ecrire du code Python pour utiliser votre modèle d'apprentissage machine",
         "APPINVENTOR": "Créez une application mobile pour votre téléphone ou tablette",
-        "EDUBLOCKS": "Write Python using a drag and drop coding tool"
+        "EDUBLOCKS": "Write Python using a drag and drop coding tool",
+        "REPLIT": "Write Python code in the web browser using replit",
+        "COLAB": "Write Python code in the web browser using Google Colab"
     },
     "PYTHON": {
         "TITLE": "Utilisation de l'apprentissage machine avec Python",

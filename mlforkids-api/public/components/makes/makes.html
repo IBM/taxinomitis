@@ -60,7 +60,7 @@
             <div class="makebutton">
                 <button ng-if="project.type === 'text'"
                         type="button" class="btn btn-primary"
-                        ui-sref="mlproject_python({ projectId : projectId, userId : userId })"
+                        ui-sref="mlproject_python_text({ projectId : projectId, userId : userId })"
                         translate="PROJECT.PYTHON.TITLE"></button>
                 <button ng-if="project.type === 'imgtfjs'"
                         type="button" class="btn btn-primary"
@@ -73,6 +73,42 @@
             </div>
             <div class="screenshot">
                 <img class="makeicon" src="static/images/screenshot-python.jpg"/>
+            </div>
+        </div>
+        <div class="make" ng-if="makes.replit">
+            <div class="makecard">
+                <div class="info">
+                    <div class="title">replit</div>
+                    <div class="description" translate="MAKES.REPLIT"></div>
+                </div>
+                <div class="image">
+                    <img class="makeicon" src="static/images/logo-replit.png"/>
+                </div>
+            </div>
+            <div class="makebutton">
+                <button type="button" class="btn btn-primary"
+                        ui-sref="mlproject_replit({ projectId : projectId, userId : userId })">replit</button>
+            </div>
+            <div class="screenshot">
+                <img class="makeicon" src="static/images/screenshot-replit.jpg"/>
+            </div>
+        </div>
+        <div class="make" ng-if="makes.colab">
+            <div class="makecard">
+                <div class="info">
+                    <div class="title">Google Colab</div>
+                    <div class="description" translate="MAKES.COLAB"></div>
+                </div>
+                <div class="image">
+                    <img class="makeicon" src="static/images/logo-colab.png"/>
+                </div>
+            </div>
+            <div class="makebutton">
+                <button type="button" class="btn btn-primary"
+                        ui-sref="mlproject_colab({ projectId : projectId, userId : userId })">Colab</button>
+            </div>
+            <div class="screenshot">
+                <img class="makeicon" src="static/images/screenshot-colab.jpg"/>
             </div>
         </div>
         <div class="make" ng-if="makes.edublocks">

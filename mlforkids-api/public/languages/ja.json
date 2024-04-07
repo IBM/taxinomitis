@@ -951,7 +951,9 @@
         "SCRATCH3": "最新版のScratchを使う。",
         "PYTHON": "機械学習モデルを使うのにPythonのコードを書く。",
         "APPINVENTOR": "あたの携帯やタブレット用にアップを作成する。",
-        "EDUBLOCKS": "Write Python using a drag and drop coding tool"
+        "EDUBLOCKS": "Write Python using a drag and drop coding tool",
+        "REPLIT": "Write Python code in the web browser using replit",
+        "COLAB": "Write Python code in the web browser using Google Colab"
     },
     "PYTHON": {
         "TITLE": "機械学習をPythonで使う",

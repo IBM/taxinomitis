@@ -951,7 +951,9 @@
         "SCRATCH3": "Use your machine learning model in Scratch",
         "PYTHON": "Write Python code to use your machine learning model",
         "APPINVENTOR": "Make a mobile app for your phone or tablet",
-        "EDUBLOCKS": "Write Python using a drag and drop coding tool"
+        "EDUBLOCKS": "Write Python using a drag and drop coding tool",
+        "REPLIT": "Write Python code in the web browser using replit",
+        "COLAB": "Write Python code in the web browser using Google Colab"
     },
     "PYTHON": {
         "TITLE": "Att använda maskininlärning i Python",

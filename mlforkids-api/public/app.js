@@ -171,10 +171,16 @@
                 templateUrl: 'static/components/scratch3/scratch3.html',
                 controllerAs: 'vm'
             })
-            .state('mlproject_python', {
-                url: '/mlproject/:userId/:projectId/python',
-                controller: 'PythonController',
-                templateUrl: 'static/components/python/python.html',
+            .state('mlproject_colab', {
+                url: '/mlproject/:userId/:projectId/colab',
+                controller: 'ColabController',
+                templateUrl: 'static/components/colab/colab.html',
+                controllerAs: 'vm'
+            })
+            .state('mlproject_replit', {
+                url: '/mlproject/:userId/:projectId/replit',
+                controller: 'ReplitController',
+                templateUrl: 'static/components/replit/replit.html',
                 controllerAs: 'vm'
             })
             .state('mlproject_python_text', {
@@ -307,7 +313,7 @@
             .useSanitizeValueStrategy('sanitizeParameters')
             .useStaticFilesLoader({
                 prefix: 'static/languages/',
-                suffix: '.json?v=164'
+                suffix: '.json?v=165'
             })
             .determinePreferredLanguage(function () {
                 var lang = navigator.userLanguage || navigator.language;

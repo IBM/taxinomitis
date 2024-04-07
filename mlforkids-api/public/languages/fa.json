@@ -951,7 +951,9 @@
         "SCRATCH3": "از نسخه جدید اسکرچ استفاده کنید",
         "PYTHON": "برای استفاده از مدل یادگیری ماشین خود کد پایتون بنویسید",
         "APPINVENTOR": "برای گوشی یا تبلت خود یک اپلیکیشن موبایل بسازید",
-        "EDUBLOCKS": "Write Python using a drag and drop coding tool"
+        "EDUBLOCKS": "Write Python using a drag and drop coding tool",
+        "REPLIT": "Write Python code in the web browser using replit",
+        "COLAB": "Write Python code in the web browser using Google Colab"
     },
     "PYTHON": {
         "TITLE": "استفاده از یادگیری ماشین در پایتون",

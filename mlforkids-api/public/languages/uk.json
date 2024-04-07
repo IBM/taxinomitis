@@ -951,7 +951,9 @@
     "SCRATCH3": "Використовуйте свою модель машинного навчання в Scratch",
     "PYTHON": "Напишіть код Python для використання вашої моделі машинного навчання",
     "APPINVENTOR": "Створіть мобільний додаток для свого телефону чи планшета",
-    "EDUBLOCKS": "Write Python using a drag and drop coding tool"
+    "EDUBLOCKS": "Write Python using a drag and drop coding tool",
+    "REPLIT": "Write Python code in the web browser using replit",
+    "COLAB": "Write Python code in the web browser using Google Colab"
   },
   "PYTHON": {
     "TITLE": "Використання машинного навчання в Python",

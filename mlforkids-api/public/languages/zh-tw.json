@@ -960,7 +960,9 @@
         "SCRATCH3": "使用新版的Scratch進行創作",
         "PYTHON": "寫一些Python程式碼來使用你的機器學習模型",
         "APPINVENTOR": "製作一個手機APP給你的手機或平板使用",
-        "EDUBLOCKS": "Write Python using a drag and drop coding tool"
+        "EDUBLOCKS": "Write Python using a drag and drop coding tool",
+        "REPLIT": "Write Python code in the web browser using replit",
+        "COLAB": "Write Python code in the web browser using Google Colab"
     },
     "PYTHON": {
         "TITLE": "在Python中使用機器學習",

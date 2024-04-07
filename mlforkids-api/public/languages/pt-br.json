@@ -951,7 +951,9 @@
         "SCRATCH3": "Use a nova versão do Scratch",
         "PYTHON": "Escreva um código em Python para usar o seu modelo de aprendizado de máquina",
         "APPINVENTOR": "Faça um aplicativo para o seu celular ou tablet",
-        "EDUBLOCKS": "Write Python using a drag and drop coding tool"
+        "EDUBLOCKS": "Write Python using a drag and drop coding tool",
+        "REPLIT": "Write Python code in the web browser using replit",
+        "COLAB": "Write Python code in the web browser using Google Colab"
     },
     "PYTHON": {
         "TITLE": "Usando aprendizado de máquina em Python",

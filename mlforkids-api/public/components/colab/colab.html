@@ -16,9 +16,9 @@
     <em ng-if="failure.status >= 500"><span translate="ERRORS.IFPERSISTENT"></span> <a ui-sref="help" translate="ERRORS.LETMEKNOW"></a></em>
 </div>
 
-<div ng-if="isAuthenticated && projectId">
+<div ng-if="isAuthenticated && projectId" class="colab">
     <div class="jumbotron">
-        <h2 class="text-center" translate="PYTHON.TITLE"></h2>
+        <h2 class="text-center">Coding in Google Colab</h2>
     </div>
     <div class="backbutton">
         <a ui-sref="mlproject({ projectId : projectId, userId : userId  })" translate="APP.BACKTOPROJECT"></a>
@@ -50,6 +50,37 @@
         </div>
     </div>
 
+    <div class="modelguidancecontainer" ng-if="modelSource || scratchkey">
+        <div class="modelguidance" style="flex: 2; min-width: 300px;">
+            <div class="modelstatusdetail">
+                To use this code, you need to:
+                <ol style="margin-bottom: 0; padding-left: 20px;">
+                    <li class="mainlistitem">Download both of these files (<em>try right-clicking on the links</em>):
+                        <ul>
+                            <li><a href="https://raw.githubusercontent.com/IBM/taxinomitis/master/resources/mlforkidsnumbers.py">mlforkidsnumbers.py</a></li>
+                            <li><a href="https://raw.githubusercontent.com/IBM/taxinomitis/master/resources/mlforkids-numbers-requirements.txt">mlforkids-numbers-requirements.txt</a></li>
+                        </ul>
+                    </li>
+                    <li class="mainlistitem"><a target="_blank" class="btn btn-primary"
+                        href="https://colab.google">Go to colab.google</a></li>
+                    <li class="mainlistitem">Click on <strong>New Notebook</strong></li>
+                    <li class="mainlistitem">Upload the two files in the file browser on the left
+                        <br/><img src="static/images/colab-upload.png" />
+                    </li>
+                    <li class="mainlistitem">Use the <strong>+ Code</strong> button to add:
+                        <div class="pythoncodebox"><pre class="pythoncode">!pip install -r mlforkids-numbers-requirements.txt<br/>
+from mlforkidsnumbers import MLforKidsNumbers</pre></div>
+                    </li>
+                    <li class="mainlistitem">Click the <strong>Play</strong> button to run those lines (<em>it may take a minute</em>)
+                        <br/><img src="static/images/colab-import.jpg" />
+                    </li>
+                    <li class="mainlistitem">Try adding the suggested code below to new code blocks to use your project <br/>(<em>remember to click <strong>Play</strong> when you're ready to run your new block</em>)</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+
     <div class="modelguidancecontainer" ng-if="!loading && modelSource && project && project.labels.length > 1">
         <div class="modelguidance">
             <div class="modelstatusdetail">
@@ -80,9 +111,7 @@
 result: '{{ project.labels[0] }}' with 81% confidence</pre></div>
         </div>
         <div class="modelguidance" style="flex: 3">
-<div class="pythoncodebox"><pre class="pythoncode"><span class="pythonfunc">from</span> <span class="pythonimport">mlforkidsnumbers</span> <span class="pythonfunc">import</span> <span class="pythonimport">MLforKidsNumbers</span>
-
-project <span class="pythonop">=</span> <span class="pythonfuncname">MLforKidsNumbers</span>(<span ng-if="scratchkey">
+<div class="pythoncodebox"><pre class="pythoncode">project <span class="pythonop">=</span> <span class="pythonfuncname">MLforKidsNumbers</span>(<span ng-if="scratchkey">
     key<span class="pythonop">=</span>&quot;{{ scratchkey }}&quot;,</span>
     modelurl=&quot;{{ modelSource }}&quot;</span>
 )
@@ -128,9 +157,7 @@ confidence <span class="pythonop">=</span> top_match[&quot;confidence&quot;]
             </div>
         </div>
         <div class="modelguidance" style="flex: 3">
-<div class="pythoncodebox"><pre class="pythoncode"><span class="pythonfunc">from</span> <span class="pythonimport">mlforkidsnumbers</span> <span class="pythonfunc">import</span> <span class="pythonimport">MLforKidsNumbers</span>
-
-project <span class="pythonop">=</span> <span class="pythonfuncname">MLforKidsNumbers</span>(
+<div class="pythoncodebox"><pre class="pythoncode">project <span class="pythonop">=</span> <span class="pythonfuncname">MLforKidsNumbers</span>(
     key<span class="pythonop">=</span>&quot;{{ scratchkey }}&quot;<span ng-if="modelSource">,
     modelurl=&quot;{{ modelSource }}&quot;</span>
 )
@@ -143,19 +170,4 @@ project<span class="pythonop">.</span>store(trainingvalue, &quot;{{ trainingdata
 </pre></div>
         </div>
     </div>
-
-    <div class="modelguidancecontainer" ng-if="modelSource || scratchkey">
-        <div class="modelguidance" style="min-width: 300px">
-            <div class="modelstatusdetail" style="font-size: 1em; padding-bottom: 0;">
-                To use this code, you need to:
-                <ul style="margin-bottom: 0; padding-left: 20px;">
-                    <li>Use Python 3</li>
-                    <li>Download this <a href="https://raw.githubusercontent.com/IBM/taxinomitis/master/resources/mlforkids-numbers-requirements.txt" download>list of other Python modules you need</a></li>
-                    <li>Install the other Python modules by running <br/><code>pip3 install -r mlforkids-numbers-requirements.txt</code></li>
-                    <li>Download <a href="https://raw.githubusercontent.com/IBM/taxinomitis/master/resources/mlforkidsnumbers.py" download>mlforkidsnumbers.py</a> to the folder where you will run your Python code</li>
-                </ul>
-            </div>
-        </div>
-    </div>
 </div>
-

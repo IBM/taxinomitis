@@ -959,7 +959,9 @@
         "SCRATCH3": "Használd a Scratch új verzióját",
         "PYTHON": "Írj egy Python kódot, és használd a gépi tanulási modelledet.",
         "APPINVENTOR": "Készíts egy mobilapplikációt a telefonodra vagy a tabletedre",
-        "EDUBLOCKS": "Write Python using a drag and drop coding tool"
+        "EDUBLOCKS": "Write Python using a drag and drop coding tool",
+        "REPLIT": "Write Python code in the web browser using replit",
+        "COLAB": "Write Python code in the web browser using Google Colab"
     },
     "PYTHON": {
         "TITLE": "A gépi tanulás használata Python-ban",

@@ -18,7 +18,7 @@
 
 <div ng-if="isAuthenticated && projectId">
     <div class="jumbotron">
-        <h2 class="text-center" translate="PYTHON.TITLE"></h2>
+        <h2 class="text-center" translate="PYTHON.REPLIT.TITLE"></h2>
     </div>
     <div class="backbutton">
         <a ui-sref="mlproject({ projectId : projectId, userId : userId  })" translate="APP.BACKTOPROJECT"></a>
@@ -38,20 +38,13 @@
 
     <div class="modelguidancecontainer" ng-if="scratchkey && project && project.labels.length > 1">
         <div class="modelguidance" style="flex: 2">
-            <div class="modelstatusdetail" translate="PYTHON.MODE.INTRO"></div>
-            <div class="modelstatusdetail" translate="PYTHON.MODE.BROWSER"></div>
-            <div class="modelstatusdetail" translate="PYTHON.MODE.LOCAL"></div>
+            <div class="modelstatusdetail" translate="PYTHON.REPLIT.TIP"></div>
         </div>
         <div class="modelguidance">
             <div class="modelstatusdetail">
                 <a target="_blank" class="btn btn-primary"
-                    ng-click="openReplLink('https://repl.it/@mlforkids/TextMLTemplate', $event)"
-                    translate="PYTHON.LAUNCH"></a>
-            </div>
-            <div class="modelstatusdetail">
-                <button type="button" class="btn btn-default"
-                    ui-sref="mlproject_python_text({ projectId : projectId, userId : userId })"
-                    translate="PYTHON.LOCAL"></button>
+                    href="https://repl.it/@mlforkids/TextMLTemplate"
+                    translate="PYTHON.REPLIT.GO"></a>
             </div>
         </div>
     </div>

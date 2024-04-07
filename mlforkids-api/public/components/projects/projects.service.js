@@ -242,14 +242,16 @@
                     scratch : true,
                     edublocks : true,
                     python : true,
-                    appinventor : true
+                    appinventor : true,
+                    replit : true
                 };
             }
             else if (project.type === 'numbers') {
                 return {
                     scratch : true,
                     edublocks : false,
-                    python : true
+                    python : true,
+                    colab : true
                 };
             }
             else if (project.type === 'sounds') {

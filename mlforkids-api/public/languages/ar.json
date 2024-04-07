@@ -951,7 +951,9 @@
         "SCRATCH3": "استخدم الإصدار الجديد من  Scratch",
         "PYTHON": "اكتب رمز Python لاستخدام نموذج تعلم الآلة",
         "APPINVENTOR": "إنشاء تطبيق  لهاتفك الجوال أو جهازك اللوحي",
-        "EDUBLOCKS": "Write Python using a drag and drop coding tool"
+        "EDUBLOCKS": "Write Python using a drag and drop coding tool",
+        "REPLIT": "Write Python code in the web browser using replit",
+        "COLAB": "Write Python code in the web browser using Google Colab"
     },
     "PYTHON": {
         "TITLE": "استخدام تعلم الآلة في Python",

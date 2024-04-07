@@ -2,14 +2,14 @@
 
         angular
             .module('app')
-            .controller('PythonController', PythonController);
+            .controller('ReplitController', ReplitController);
 
-        PythonController.$inject = [
+        ReplitController.$inject = [
             'authService', 'projectsService', 'scratchkeysService', 'loggerService',
-            '$translate', '$mdDialog', '$stateParams', '$scope', '$window'
+            '$stateParams', '$scope'
         ];
 
-        function PythonController(authService, projectsService, scratchkeysService, loggerService, $translate, $mdDialog, $stateParams, $scope, $window) {
+        function ReplitController(authService, projectsService, scratchkeysService, loggerService, $stateParams, $scope) {
 
             var vm = this;
             vm.authService = authService;
@@ -19,10 +19,6 @@
                 storetext : 'The text that you want to store',
                 label     : 'label'
             };
-
-            var replitTitle = 'replit';
-            var replitTip = 'Click on Fork to start editing your own copy of the code';
-            var replitLaunch = 'Go';
 
             $scope.projectId = $stateParams.projectId;
             $scope.userId = $stateParams.userId;
@@ -59,31 +55,5 @@
                         status : err.status
                     };
                 });
-
-            $translate([
-                'PYTHON.REPLIT.TITLE',
-                'PYTHON.REPLIT.TIP',
-                'PYTHON.REPLIT.GO'
-            ]).then(function (translations) {
-                replitTitle = translations['PYTHON.REPLIT.TITLE'];
-                replitTip = translations['PYTHON.REPLIT.TIP'];
-                replitLaunch = translations['PYTHON.REPLIT.GO'];
-            });
-
-            $scope.openReplLink = function (replurl, ev) {
-                $mdDialog.show($mdDialog.alert()
-                    .title(replitTitle)
-                    .htmlContent(replitTip)
-                    .targetEvent(ev)
-                    .ok(replitLaunch))
-                    .then(
-                        function () {
-                            $window.open(replurl, '_blank');
-                        },
-                        function() {
-                            // cancelled, do nothing
-                        }
-                    );
-            };
         }
     }());

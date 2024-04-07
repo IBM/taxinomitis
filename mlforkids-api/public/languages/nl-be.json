@@ -951,7 +951,9 @@
         "SCRATCH3": "Gebruik de nieuwe versie van Scratch",
         "PYTHON": "Schrijf Python code om je machine learning model te gebruiken",
         "APPINVENTOR": "Maak een mobiele app voor je smartphone of tabel",
-        "EDUBLOCKS": "Write Python using a drag and drop coding tool"
+        "EDUBLOCKS": "Write Python using a drag and drop coding tool",
+        "REPLIT": "Write Python code in the web browser using replit",
+        "COLAB": "Write Python code in the web browser using Google Colab"
     },
     "PYTHON": {
         "TITLE": "Gebruik machine learning in Python",

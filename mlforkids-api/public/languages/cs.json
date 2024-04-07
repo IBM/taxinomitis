@@ -951,7 +951,9 @@
         "SCRATCH3": "Použití modelu strojového učení v aplikaci Scratch",
         "PYTHON": "Napište kód Pythonu pro použití modelu strojového učení",
         "APPINVENTOR": "Vytvoření mobilní aplikace pro telefon nebo tablet",
-        "EDUBLOCKS": "Psaní v jazyce Python pomocí kódovacího nástroje typu drag and drop"
+        "EDUBLOCKS": "Psaní v jazyce Python pomocí kódovacího nástroje typu drag and drop",
+        "REPLIT": "Write Python code in the web browser using replit",
+        "COLAB": "Write Python code in the web browser using Google Colab"
     },
     "PYTHON": {
         "TITLE": "Použití strojového učení v jazyce Python",

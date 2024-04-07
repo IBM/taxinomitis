@@ -951,7 +951,9 @@
         "SCRATCH3": "Χρησιμοποίησε τη νέα έκδοση του Scratch",
         "PYTHON": "Γράψε κώδικα Python για να χρησιμοποιήσεις το μοντέλο σου",
         "APPINVENTOR": "Φτιάξε μια εφαρμογή για το κινητό σου τηλέφωνο ή το tablet",
-        "EDUBLOCKS": "Write Python using a drag and drop coding tool"
+        "EDUBLOCKS": "Write Python using a drag and drop coding tool",
+        "REPLIT": "Write Python code in the web browser using replit",
+        "COLAB": "Write Python code in the web browser using Google Colab"
     },
     "PYTHON": {
         "TITLE": "Χρησιμοποιώντας μηχανική μάθηση στην Python",

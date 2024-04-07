@@ -137,7 +137,7 @@
                     return modelService.saveModel(MODELTYPE, modelStatus.classifierid, model.graphModel);
                 })
                 .then(() => {
-                    loggerService.debug('[ml4knums] storing model metadata');
+                    loggerService.debug('[ml4knums] storing model metadata', modelinfo);
                     modelStatus.status = 'Available';
                     storeModelMetadata(modelinfo);
                 })

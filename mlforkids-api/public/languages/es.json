@@ -951,7 +951,9 @@
         "SCRATCH3": "Usa la nueva version de  Scratch",
         "PYTHON": "Programa en Python para usar tu modelo de aprendizaje automático",
         "APPINVENTOR": "Crea una app para tu móvil o tablet ",
-        "EDUBLOCKS": "Write Python using a drag and drop coding tool"
+        "EDUBLOCKS": "Write Python using a drag and drop coding tool",
+        "REPLIT": "Write Python code in the web browser using replit",
+        "COLAB": "Write Python code in the web browser using Google Colab"
     },
     "PYTHON": {
         "TITLE": "Usando aprendizaje automático en Python",

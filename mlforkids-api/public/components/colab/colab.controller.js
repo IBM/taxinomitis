@@ -2,14 +2,14 @@
 
         angular
             .module('app')
-            .controller('PythonNumbersController', PythonNumbersController);
+            .controller('ColabController', ColabController);
 
-        PythonNumbersController.$inject = [
+        ColabController.$inject = [
             'authService', 'projectsService', 'storageService', 'scratchkeysService', 'loggerService',
-            '$http', '$stateParams', '$scope'
+            '$http', '$stateParams', '$scope',
         ];
 
-        function PythonNumbersController(authService, projectsService, storageService, scratchkeysService, loggerService, $http, $stateParams, $scope) {
+        function ColabController(authService, projectsService, storageService, scratchkeysService, loggerService, $http, $stateParams, $scope) {
 
             var vm = this;
             vm.authService = authService;
