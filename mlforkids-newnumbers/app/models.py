@@ -48,6 +48,9 @@ def sanitize_feature_names(key: str, dataframe: DataFrame):
             if forbidden_character in new_name:
                 new_name = new_name.replace(forbidden_character, "_")
 
+        # lower-case
+        new_name = new_name.lower()
+
         # remove preceeding underscores
         new_name = new_name.lstrip("_")
 
