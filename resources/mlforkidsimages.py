@@ -1,5 +1,6 @@
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+os.environ['TF_USE_LEGACY_KERAS'] = '1'
 import tensorflow as tf
 tf.get_logger().setLevel('ERROR')
 
@@ -7,8 +8,7 @@ import tensorflow_hub as hub
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras import Sequential
-from tensorflow.keras.layers import Dropout, Dense
-from tensorflow.keras.layers.experimental.preprocessing import Rescaling
+from tensorflow.keras.layers import Dropout, Dense, Rescaling
 
 import numpy as np
 import urllib.request, urllib.error, json
