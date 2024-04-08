@@ -3661,7 +3661,7 @@ var ML4KidsTensorFlow = /*#__PURE__*/function () {
       var loadModelPromise;
       if (this.PROJECTS[projectid].dataType === 'graphdefimage') {
         var loadModelOptions = {};
-        if (modellocation.startsWith('https://tfhub.dev')) {
+        if (modellocation.startsWith('https://tfhub.dev') || modellocation.startsWith('https://www.kaggle.com')) {
           loadModelOptions.fromTFHub = true;
         }
         if (this.urlEndsWith(modellocation, '/model.json')) {
