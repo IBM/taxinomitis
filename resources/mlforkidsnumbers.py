@@ -32,6 +32,12 @@ class MLforKidsNumbers:
             self._message("Accessing model metadata...")
             self.METADATA = self._read_json_file(join(model_folder, "mlforkids.json"))
             self._message("Model trained at " + self.METADATA["lastupdate"])
+        else:
+            self.MODEL = None
+
+
+    def has_model(self):
+        return self.MODEL is not None
 
 
     # ------------------------------------------------------------
