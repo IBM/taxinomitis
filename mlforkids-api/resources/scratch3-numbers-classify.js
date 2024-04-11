@@ -244,10 +244,10 @@ class MachineLearningNumbers {
 
 
     addTraining(args) {
-        const numbers = this.getFieldValuesAsAry(args);
         const label = args.LABEL;
-
         {{#storeurl}}
+        const numbers = this.getRawFieldValuesAsAry(args);
+
         const url = new URL('{{{ storeurl }}}');
 
         const options = {
@@ -284,6 +284,8 @@ class MachineLearningNumbers {
             });
         {{/storeurl}}
         {{^storeurl}}
+        const numbers = this.getFieldValuesAsAry(args);
+
         postMessage({
             mlforkidsstorage : {
                 command : 'storenumbers',
@@ -416,6 +418,28 @@ class MachineLearningNumbers {
         menuChoices['{{.}}'] = menuChoicesIdx++;
         {{/menu}}
         data['{{idx}}'] = menuChoices[value{{idx}}];
+        {{/multichoice}}
+        {{^multichoice}}
+        if (typeof value{{idx}} === 'number') {
+            data[{{idx}}] = value{{idx}};
+        }
+        else if (value{{idx}}.includes('.')) {
+            data[{{idx}}] = parseFloat(value{{idx}});
+        }
+        else {
+            data[{{idx}}] = parseInt(value{{idx}});
+        }
+        {{/multichoice}}
+        {{/fields}}
+        return data;
+    }
+    getRawFieldValuesAsAry (args) {
+        const data = [];
+        let menuChoices = {};
+        let menuChoicesIdx = 0;
+        {{#fields}}
+        {{#multichoice}}
+        data['{{idx}}'] = args['FIELD{{idx}}'];
         {{/multichoice}}
         {{^multichoice}}
         if (typeof value{{idx}} === 'number') {
