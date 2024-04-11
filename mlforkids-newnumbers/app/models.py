@@ -20,17 +20,18 @@ def create_visualisation(key: str, model: RandomForestModel, dataframe: DataFram
     try:
         model_features = [f.name for f in model.make_inspector().features()]
         viz = dtreeviz.model(model,
-                             tree_index=0,
+                             tree_index=attempt,
                              X_train=dataframe[model_features],
                              y_train=dataframe[outcome_label],
                              feature_names=model_features,
                              target_name=outcome_label,
                              class_names=classes)
         viz.view(fancy=True, fontname="Liberation Sans Narrow").save(join(download_folder, "dtreeviz-tree-0.svg"))
+        info("%s : Visualisation successful (attempt %d)", key, attempt)
     except Exception as vizerr:
-        exception("%s : Failed to train model", key)
-        if attempt == 0:
-            create_visualisation(key, model, dataframe, outcome_label, classes, download_folder, 1)
+        exception("%s : Failed to create visualisation (attempt %d)", key, attempt)
+        if attempt < 4:
+            create_visualisation(key, model, dataframe, outcome_label, classes, download_folder, attempt + 1)
         else:
             exception("%s : Second attempt to generate visualisation failed", key)
 
