@@ -1,6 +1,6 @@
 # core dependencies
 from logging import info, exception
-from os.path import join, isfile
+from os.path import join, isfile, getsize
 from os import listdir
 from itertools import chain
 from traceback import format_exc
@@ -16,24 +16,42 @@ from app.utils import create_zip
 
 
 
-def create_visualisation(key: str, model: RandomForestModel, dataframe: DataFrame, outcome_label: str, classes: list[any], download_folder: str, attempt=0):
-    try:
-        model_features = [f.name for f in model.make_inspector().features()]
-        viz = dtreeviz.model(model,
-                             tree_index=attempt,
-                             X_train=dataframe[model_features],
-                             y_train=dataframe[outcome_label],
-                             feature_names=model_features,
-                             target_name=outcome_label,
-                             class_names=classes)
-        viz.view(fancy=True, fontname="Liberation Sans Narrow").save(join(download_folder, "dtreeviz-tree-0.svg"))
-        info("%s : Visualisation successful (attempt %d)", key, attempt)
-    except Exception as vizerr:
-        exception("%s : Failed to create visualisation (attempt %d)", key, attempt)
-        if attempt < 4:
-            create_visualisation(key, model, dataframe, outcome_label, classes, download_folder, attempt + 1)
-        else:
-            exception("%s : Second attempt to generate visualisation failed", key)
+def create_visualisation(key: str, model: RandomForestModel, dataframe: DataFrame, outcome_label: str, classes: list[any], download_folder: str):
+    inspector = model.make_inspector()
+    model_features = [f.name for f in inspector.features()]
+
+    # Trees with very very small training data sets can run into
+    #  https://github.com/parrt/dtreeviz/issues/305
+    # which prevents a tree being visualised
+    #
+    # Until a fix is available for this, I'm working around this by
+    #  trying to create a visualisation for multiple trees in the
+    #  forest - it's unlikely that all trees in the forest will
+    #  be blocked by this
+    #
+    # Failures still create an SVG file, but it only contains the
+    #  legend. A filesize check is a cheap way of identifying
+    #  this, so we'll accept the first tree visualisation with
+    #  a filesize that suggests it's got more than just a legend
+    SUSPICIOUSLY_SMALL_SVG_BYTES = 40000
+
+    tree_file = join(download_folder, "dtreeviz-tree-0.svg")
+
+    for tree_index in range(inspector.num_trees()):
+        try:
+            viz = dtreeviz.model(model,
+                                 tree_index=tree_index,
+                                 X_train=dataframe[model_features],
+                                 y_train=dataframe[outcome_label],
+                                 feature_names=model_features,
+                                 target_name=outcome_label,
+                                 class_names=classes)
+            viz.view(fancy=True, fontname="Liberation Sans Narrow").save(tree_file)
+
+            if getsize(tree_file) > SUSPICIOUSLY_SMALL_SVG_BYTES:
+                return
+        except:
+            exception("%s : Visualisation failed (tree %d)", key, tree_index)
 
 
 def sanitize_feature_names(key: str, dataframe: DataFrame):
