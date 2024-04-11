@@ -554,7 +554,10 @@
                 project.fields.map(function (field) {
                     if (field.type === 'number') {
                         const val = $scope.testformData[field.name];
-                        if (val.includes('.')) {
+                        if (typeof val === 'number') {
+                            $scope.testformData[field.name] = val;
+                        }
+                        else if (val.includes('.')) {
                             $scope.testformData[field.name] = parseFloat(val);
                         }
                         else {

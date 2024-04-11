@@ -44,7 +44,7 @@ def sanitize_feature_names(key: str, dataframe: DataFrame):
         new_name = column
 
         # replace forbidden characters with _
-        for forbidden_character in " \t?%,@.":
+        for forbidden_character in " \t?%,@.-":
             if forbidden_character in new_name:
                 new_name = new_name.replace(forbidden_character, "_")
 
