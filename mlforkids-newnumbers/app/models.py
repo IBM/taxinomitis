@@ -30,7 +30,7 @@ def create_visualisation(key: str, model: RandomForestModel, dataframe: DataFram
     except Exception as vizerr:
         exception("%s : Failed to train model", key)
         if attempt == 0:
-            create_visualisation(model, dataframe, outcome_label, classes, download_folder, 1)
+            create_visualisation(key, model, dataframe, outcome_label, classes, download_folder, 1)
         else:
             exception("%s : Second attempt to generate visualisation failed", key)
 
