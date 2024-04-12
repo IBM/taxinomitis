@@ -55,6 +55,24 @@
             }, 0);
         }
 
+        function updateLegend() {
+            try {
+                const legend = document.getElementById('legend_1');
+                if (legend) {
+                    for (const child of legend.childNodes) {
+                        if (child.nodeName === 'g' && child.id === 'text_1') {
+                            while (child.firstChild) {
+                                child.removeChild(child.firstChild);
+                            }
+                            return;
+                        }
+                    }
+                }
+            }
+            catch (err) {
+                loggerService.error(err);
+            }
+        }
 
         authService.getProfileDeferred()
             .then(function (profile) {
@@ -69,6 +87,8 @@
                 $scope.svgdiagram = $sce.trustAsHtml(svg);
                 $scope.loading = false;
                 $scope.modelinfo = true;
+
+                $timeout(updateLegend, 200);
             })
             .catch(function (err) {
                 var errId = displayAlert('errors', err.status, err.data);
