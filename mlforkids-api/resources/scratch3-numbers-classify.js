@@ -435,13 +435,12 @@ class MachineLearningNumbers {
     }
     getRawFieldValuesAsAry (args) {
         const data = [];
-        let menuChoices = {};
-        let menuChoicesIdx = 0;
         {{#fields}}
         {{#multichoice}}
         data['{{idx}}'] = args['FIELD{{idx}}'];
         {{/multichoice}}
         {{^multichoice}}
+        const value{{idx}} = args['FIELD{{idx}}'];
         if (typeof value{{idx}} === 'number') {
             data[{{idx}}] = value{{idx}};
         }
