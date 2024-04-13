@@ -203,47 +203,47 @@
             loggerService.debug('[ml4kdesc] identifying tree route');
             var answers = {};
 
-			for (var featureidx = 0; featureidx < $scope.vocabulary.length; featureidx++) {
+            for (var featureidx = 0; featureidx < $scope.vocabulary.length; featureidx++) {
                 var feature = $scope.vocabulary[featureidx];
 
-				var split = feature.indexOf('=');
-				if (split === -1) {
-					answers[feature] = rawdata[feature];
-				}
-				else {
-					var field = feature.substr(0, split);
-					var option = feature.substr(split + 1);
+                var split = feature.indexOf('=');
+                if (split === -1) {
+                    answers[feature] = rawdata[feature];
+                }
+                else {
+                    var field = feature.substr(0, split);
+                    var option = feature.substr(split + 1);
 
-					answers[feature] = (option === rawdata[field]) ? 1 : 0;
-				}
+                    answers[feature] = (option === rawdata[field]) ? 1 : 0;
+                }
             }
 
             var itemsToHighlight = [];
 
-			var nextnode = $scope.treenodes[0];
-			while (nextnode) {
-				itemsToHighlight.push('node' + (parseInt(nextnode.id) + 1));
+            var nextnode = $scope.treenodes[0];
+            while (nextnode) {
+                itemsToHighlight.push('node' + (parseInt(nextnode.id) + 1));
 
-				if (nextnode.test) {
-					var test = nextnode.test;
+                if (nextnode.test) {
+                    var test = nextnode.test;
 
-					var testValue = answers[test.field];
+                    var testValue = answers[test.field];
 
-					var testPass = false;
-					if (test.op === '<=') {
-						testPass = (testValue <= test.threshold);
-					}
-					else if (test.op === '=') {
-						testPass = (testValue === test.threshold);
-					}
+                    var testPass = false;
+                    if (test.op === '<=') {
+                        testPass = (testValue <= test.threshold);
+                    }
+                    else if (test.op === '=') {
+                        testPass = (testValue === test.threshold);
+                    }
 
-					var nextnodeid = testPass ? nextnode.children[0] : nextnode.children[1];
-					itemsToHighlight.push('edge' + (testPass ? nextnode.edges[0] : nextnode.edges[1]));
-					nextnode = $scope.treenodes[nextnodeid];
-				}
-				else {
-					nextnode = undefined;
-				}
+                    var nextnodeid = testPass ? nextnode.children[0] : nextnode.children[1];
+                    itemsToHighlight.push('edge' + (testPass ? nextnode.edges[0] : nextnode.edges[1]));
+                    nextnode = $scope.treenodes[nextnodeid];
+                }
+                else {
+                    nextnode = undefined;
+                }
             }
 
             return itemsToHighlight;
@@ -293,16 +293,16 @@
 
             // add highlighting classes to edges and nodes
             var mysvg = document.getElementById('mlforkidsmodelvizimg');
-			var things = mysvg.querySelectorAll('.node,.edge');
-			for (var i = 0; i < things.length; i++) {
-				var thing = things[i];
-				if (itemsToHighlight.indexOf(thing.id) >= 0) {
-					thing.classList.add("highlighted");
-				}
-				else {
-					thing.classList.add("nothighlighted");
-				}
-			}
+            var things = mysvg.querySelectorAll('.node,.edge');
+            for (var i = 0; i < things.length; i++) {
+                var thing = things[i];
+                if (itemsToHighlight.indexOf(thing.id) >= 0) {
+                    thing.classList.add("highlighted");
+                }
+                else {
+                    thing.classList.add("nothighlighted");
+                }
+            }
         };
 
 
