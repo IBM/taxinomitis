@@ -81,3 +81,8 @@ md-dialog.md-transition-in,md-dialog.md-transition-out {
     text-align: center;
     margin-bottom: 8px;
 }
+
+.languageicon {
+    height: 24px;
+    width: 24px;
+}
