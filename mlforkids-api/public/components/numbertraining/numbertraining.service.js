@@ -121,7 +121,13 @@
                     //  available at this URL for long
                     // save the visualisation (not part of the TFDF model but needs saving too)
                     loggerService.debug('[ml4knums] downloading visualisation');
-                    return browserStorageService.storeAsset(modelStatus.classifierid + '-viz', modelinfo.urls.viz)
+                    return browserStorageService.storeAsset(modelStatus.classifierid + '-tree', modelinfo.urls.tree)
+                        .then(() => {
+                            return browserStorageService.storeAsset(modelStatus.classifierid + '-dot', modelinfo.urls.dot)
+                        })
+                        .then(() => {
+                            return browserStorageService.storeAsset(modelStatus.classifierid + '-vocab', modelinfo.urls.vocab)
+                        })
                         .catch((err) => {
                             loggerService.error('[ml4knums] failed to download visualisation', err);
                         });
@@ -270,10 +276,16 @@
             modelDetails = null;
             return modelService.deleteModel(MODELTYPE, projectid)
                 .then(() => {
-                    return browserStorageService.deleteAsset(projectid + '-viz');
+                    return browserStorageService.deleteAsset(projectid + '-assets');
                 })
                 .then(() => {
-                    return browserStorageService.deleteAsset(projectid + '-assets');
+                    return browserStorageService.deleteAsset(projectid + '-tree');
+                })
+                .then(() => {
+                    return browserStorageService.deleteAsset(projectid + '-dot');
+                })
+                .then(() => {
+                    return browserStorageService.deleteAsset(projectid + '-vocab');
                 })
                 .catch((err) => {
                     loggerService.error('[ml4knums] failed to delete model data', err);

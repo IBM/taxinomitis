@@ -1,57 +1,19 @@
 # core dependencies
 from logging import info, exception
-from os.path import join, isfile, getsize
+from os.path import join, isfile
 from os import listdir
 from itertools import chain
 from traceback import format_exc
 # external dependencies
 from pandas import DataFrame
-import dtreeviz
 from tensorflow_decision_forests.keras import pd_dataframe_to_tf_dataset, RandomForestModel
 from tensorflowjs.converters.tf_saved_model_conversion_v2 import convert_tf_saved_model
 # local dependencies
 from app.savedmodels import get_location, update_status_file, cleanup
 from app.payloads import ModelInfo
+from app.viz import create_visualisation
 from app.utils import create_zip
 
-
-
-def create_visualisation(key: str, model: RandomForestModel, dataframe: DataFrame, outcome_label: str, classes: list[any], download_folder: str):
-    inspector = model.make_inspector()
-    model_features = [f.name for f in inspector.features()]
-
-    # Trees with very very small training data sets can run into
-    #  https://github.com/parrt/dtreeviz/issues/305
-    # which prevents a tree being visualised
-    #
-    # Until a fix is available for this, I'm working around this by
-    #  trying to create a visualisation for multiple trees in the
-    #  forest - it's unlikely that all trees in the forest will
-    #  be blocked by this
-    #
-    # Failures still create an SVG file, but it only contains the
-    #  legend. A filesize check is a cheap way of identifying
-    #  this, so we'll accept the first tree visualisation with
-    #  a filesize that suggests it's got more than just a legend
-    SUSPICIOUSLY_SMALL_SVG_BYTES = 40000
-
-    tree_file = join(download_folder, "dtreeviz-tree-0.svg")
-
-    for tree_index in range(inspector.num_trees()):
-        try:
-            viz = dtreeviz.model(model,
-                                 tree_index=tree_index,
-                                 X_train=dataframe[model_features],
-                                 y_train=dataframe[outcome_label],
-                                 feature_names=model_features,
-                                 target_name=outcome_label,
-                                 class_names=classes)
-            viz.view(fancy=True, fontname="Liberation Sans Narrow").save(tree_file)
-
-            if getsize(tree_file) > SUSPICIOUSLY_SMALL_SVG_BYTES:
-                return
-        except:
-            exception("%s : Visualisation failed (tree %d)", key, tree_index)
 
 
 def sanitize_feature_names(key: str, dataframe: DataFrame):
@@ -93,8 +55,13 @@ def train_model(modelinfo: ModelInfo, dataframe: DataFrame):
     info("%s : Training model", key)
     model_folder = get_location(key)
     download_folder = join(model_folder, "download")
+    outcome_label = "mlforkids_outcome_label"
 
     try:
+        # Attempt to create a visualisation of the data using original
+        #  feature names before making any changes needed for TFDF
+        create_visualisation(key, dataframe, outcome_label, download_folder)
+
         # Identify feature types for preparing test data
         modelinfo["features"] = {}
         for feature, type in dataframe.dtypes.items():
@@ -107,7 +74,6 @@ def train_model(modelinfo: ModelInfo, dataframe: DataFrame):
 
         # Identify classification target label
         info("%s : Identifying target label", key)
-        outcome_label = "mlforkids_outcome_label"
         classes = list(dataframe[outcome_label].unique())
         modelinfo["labels"] = classes
         info("%s : classes in target label : %s", key, classes)
@@ -127,10 +93,6 @@ def train_model(modelinfo: ModelInfo, dataframe: DataFrame):
         model.save(model_folder, overwrite=True)
         info("%s : Converting model to tensorflowjs", key)
         convert_tf_saved_model(model_folder, download_folder)
-
-        # create a visualisation
-        info("%s : Creating the visualisation", key)
-        create_visualisation(key, model, dataframe, outcome_label, classes, download_folder)
 
         # update status
         info("%s : Updating the status", key)

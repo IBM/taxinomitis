@@ -2275,7 +2275,11 @@ var ML4KidsNumbersTraining = /*#__PURE__*/function () {
         _this8.PROJECTS[projectid].features = modelinfo.features;
         _this8.PROJECTS[projectid].labels = modelinfo.labels;
         console.log('[mlforkids] downloading visualisation');
-        return _this8._storageSupport.storeAsset(projectid + '-viz', modelinfo.urls.viz).catch(function (err) {
+        return _this8._storageSupport.storeAsset(projectid + '-tree', modelinfo.urls.tree).then(function () {
+          return _this8._storageSupport.storeAsset(projectid + '-dot', modelinfo.urls.dot);
+        }).then(function () {
+          return _this8._storageSupport.storeAsset(projectid + '-vocab', modelinfo.urls.vocab);
+        }).catch(function (err) {
           console.log('[mlforkids] failed to download visualisation', err);
         });
       }).then(function () {

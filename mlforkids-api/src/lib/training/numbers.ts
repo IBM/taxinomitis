@@ -235,7 +235,9 @@ export interface NumbersApiResponsePayloadClassifierItem {
     readonly urls : undefined | {
         readonly status : string;
         readonly model : string;
-        readonly viz : string;
+        readonly tree : string;
+        readonly vocab : string;
+        readonly dot : string;
     };
     readonly lastupdate : string;
     readonly error : undefined | {

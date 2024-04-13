@@ -88,17 +88,16 @@ def create_clean_folder(scratchkey: str):
 def create_status_file(location: Path, scratchkey: str) -> ModelInfo:
     info("%s : Creating status object", scratchkey)
     scratchkeyurl = hostname + "/saved-models/" + scratchkey + "/"
-    statusurl = scratchkeyurl + "status"
-    modelurl = scratchkeyurl + "download/model.json"
-    visualisationurl = scratchkeyurl + "download/dtreeviz-tree-0.svg"
 
     status = {
         "key": scratchkey,
         "status": "Training",
         "urls": {
-            "status": statusurl,
-            "model": modelurl,
-            "viz": visualisationurl
+            "status": scratchkeyurl + "status",
+            "model": scratchkeyurl + "download/model.json",
+            "tree": scratchkeyurl + "download/tree.svg",
+            "dot": scratchkeyurl + "download/tree.dot",
+            "vocab": scratchkeyurl + "download/vocab.json"
         },
         "lastupdate": datetime.now()
     }

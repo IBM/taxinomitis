@@ -13,7 +13,9 @@ class ModelStatus(str, Enum):
 class ModelLocations(BaseModel):
     status: str
     model: str
-    viz: str
+    tree: str
+    dot: str
+    vocab: str
 
 class ErrorInfo(BaseModel):
     message: str

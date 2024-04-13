@@ -172,11 +172,13 @@
                 storageService.removeItem('ml4k-models-numbers-' + projectid + '-labels');
                 storageService.removeItem('ml4k-models-numbers-' + projectid + '-status');
 
-                // can't delete the assets (-assets and -viz) without introducing a circular dependency,
+                // can't delete the assets (-assets and -tree) without introducing a circular dependency,
                 //  so this has to be done in both numberTrainingService and ProjectsController
                 //
                 // browserStorageService.deleteAsset(projectid + '-assets');
-                // browserStorageService.deleteAsset(projectid + '-viz');
+                // browserStorageService.deleteAsset(projectid + '-tree');
+                // browserStorageService.deleteAsset(projectid + '-dot');
+                // browserStorageService.deleteAsset(projectid + '-vocab');
             }
 
             return Promise.resolve();

@@ -16,8 +16,8 @@ tensorflow-decision-forests==1.9.0
 tensorflowjs==4.17.0
 
 # Visualisation support
-dtreeviz==2.2.2
-graphviz==0.20.3
+scikit-learn==1.4.2
+pydotplus==2.0.2
 
 #
 # dependencies automatically dragged in

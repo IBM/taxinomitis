@@ -138,7 +138,9 @@ describe('verify new number service API', () => {
                         urls : {
                             status : API + '/saved-models/' + key + '/status',
                             model : API + '/saved-models/' + key + '/download/model.json',
-                            viz : API + '/saved-models/' + key + '/download/dtreeviz-tree-0.svg',
+                            tree : API + '/saved-models/' + key + '/download/tree.svg',
+                            dot : API + '/saved-models/' + key + '/download/tree.dot',
+                            vocab : API + '/saved-models/' + key + '/download/vocab.json',
                         },
                     });
                     return waitForModel(resp.urls.status);
@@ -171,7 +173,9 @@ describe('verify new number service API', () => {
                         urls : {
                             status : API + '/saved-models/' + key + '/status',
                             model : API + '/saved-models/' + key + '/download/model.json',
-                            viz : API + '/saved-models/' + key + '/download/dtreeviz-tree-0.svg',
+                            tree : API + '/saved-models/' + key + '/download/tree.svg',
+                            dot : API + '/saved-models/' + key + '/download/tree.dot',
+                            vocab : API + '/saved-models/' + key + '/download/vocab.json',
                         }
                     });
                     return waitForModel(resp.urls.status);
@@ -277,18 +281,41 @@ describe('verify new number service API', () => {
                     csvfile : fs.createReadStream(TITANIC)
                 },
             };
-            let vizUrl;
+            let treeUrl, dotUrl, vocabUrl;
 
             return request.post(NEW_MODEL_API + key, trainingRequest)
                 .then((resp) => {
-                    vizUrl = resp.urls.viz;
+                    treeUrl = resp.urls.tree;
+                    dotUrl = resp.urls.dot;
+                    vocabUrl = resp.urls.vocab;
                     return waitForModel(resp.urls.status);
                 })
                 .then(() => {
-                    return request.get(vizUrl);
+                    return request.get(treeUrl);
                 })
                 .then((resp) => {
                     xmlParser.parseFromString(resp, 'text/xml');
+
+                    return request.get(dotUrl);
+                })
+                .then((resp) => {
+                    assert(resp.startsWith('digraph Tree {'));
+
+                    return request.get(vocabUrl, { json : true });
+                })
+                .then((resp) => {
+                    assert.deepStrictEqual(resp, [
+                        "ticket class",
+                        "gender=female",
+                        "age",
+                        "sibl. sp.",
+                        "par. ch.",
+                        "ticket fare",
+                        "embarked=Cherbourg",
+                        "gender=male",
+                        "embarked=Queenstwn",
+                        "embarked=Southampt",
+                    ]);
                 });
         });
 
@@ -301,18 +328,38 @@ describe('verify new number service API', () => {
                     csvfile : fs.createReadStream(POKEMON)
                 },
             };
-            let vizUrl;
+            let treeUrl, dotUrl, vocabUrl;
 
             return request.post(NEW_MODEL_API + key, trainingRequest)
                 .then((resp) => {
-                    vizUrl = resp.urls.viz;
+                    treeUrl = resp.urls.tree;
+                    dotUrl = resp.urls.dot;
+                    vocabUrl = resp.urls.vocab;
                     return waitForModel(resp.urls.status);
                 })
                 .then(() => {
-                    return request.get(vizUrl);
+                    return request.get(treeUrl);
                 })
                 .then((resp) => {
                     xmlParser.parseFromString(resp, 'text/xml');
+
+                    return request.get(dotUrl);
+                })
+                .then((resp) => {
+                    assert(resp.startsWith('digraph Tree {'));
+
+                    return request.get(vocabUrl, { json : true });
+                })
+                .then((resp) => {
+                    assert.deepStrictEqual(resp, [
+                        'height',
+                        'weight',
+                        'attack',
+                        'defense',
+                        'speed',
+                        'hp',
+                        'capture rate'
+                    ]);
                 });
         });
     });

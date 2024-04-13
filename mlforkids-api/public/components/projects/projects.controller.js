@@ -173,8 +173,10 @@
                             // delete local data associated with the project
                             cleanupService.deleteProject(project);
                             if (project.type === 'numbers') {
-                                browserStorageService.deleteAsset(project.id + '-viz');
                                 browserStorageService.deleteAsset(project.id + '-assets');
+                                browserStorageService.deleteAsset(project.id + '-tree');
+                                browserStorageService.deleteAsset(project.id + '-dot');
+                                browserStorageService.deleteAsset(project.id + '-vocab');
                             }
 
                             // refresh view
