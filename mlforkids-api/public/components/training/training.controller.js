@@ -850,12 +850,15 @@
                                 });
                             }
 
+                            $scope.$applyAsync(() => { $scope.loadingtraining = true; });
                             return trainingService.bulkAddTrainingData($scope.project, results.data);
                         })
                         .then(function (stored) {
                             $scope.training = $scope.training.concat(stored);
+                            $scope.$applyAsync(() => { $scope.loadingtraining = false; });
                         })
                         .catch(function (err) {
+                            $scope.$applyAsync(() => { $scope.loadingtraining = false; });
                             displayAlert('errors', 400, err);
                         });
                 }

@@ -207,12 +207,14 @@
                 <div class="trainingbucketheader">
                     <span class="trainingbucketlabel">examples</span>
                 </div>
+                <div class="loading loadingtraining" ng-if="loadingtraining"> </div>
                 <mldatatable
+                    ng-hide="loadingtraining"
                     class="trainingbucketitems"
                     on-delete-item="vm.deleteRegressionItem"
                     mode="regressionmode" set-mode="vm.setRegressionMode"
                     project="project" training="training"></mldatatable>
-                <div class="newexamplesbuttonbar" ng-hide="regressionmode === 'selectcolumns'">
+                <div class="newexamplesbuttonbar" ng-hide="regressionmode === 'selectcolumns' || loadingtraining">
                     <div class="btn newexamplebutton" ng-click="vm.setRegressionMode('selectcolumns')" ng-if="project.columns.length > 1">
                         <div class="buttonicon glyphicon glyphicon-check"></div>
                         <div class="newexamplelabel">Change output column(s)</div>
