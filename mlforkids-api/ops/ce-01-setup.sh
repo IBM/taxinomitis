@@ -43,7 +43,6 @@ function setup_batch_job {
         --env-from-secret $DOCKER_IMAGE-cos \
         --env-from-secret $DOCKER_IMAGE-email \
         --env-from-secret $DOCKER_IMAGE-numbers \
-        --env-from-secret $DOCKER_IMAGE-openwhisk \
         --env-from-secret $DOCKER_IMAGE-postgresql \
         --env-from-secret $DOCKER_IMAGE-slack \
         --env NUMBERS_SERVICE=$(ibmcloud ce application get --name mlforkids-numbers -o json | jq -r .status.url) \
@@ -72,9 +71,6 @@ function create_app {
     ibmcloud ce secret create \
         --name $DOCKER_IMAGE-email \
         --from-env-file email-credentials.env
-    ibmcloud ce secret create \
-        --name $DOCKER_IMAGE-openwhisk \
-        --from-env-file openwhisk-credentials.env
     ibmcloud ce secret create \
         --name $DOCKER_IMAGE-postgresql \
         --from-env-file postgresql-credentials.env
