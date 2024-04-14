@@ -149,12 +149,14 @@
                 })
                 .catch((err) => {
                     loggerService.error('[ml4knums] failed to store model', err);
-                    if (err.message && err.message.includes('BlobURLs are not yet supported')) {
-                        modelStatus.status = 'Available';
-                        modelStatus.warning = 'Not stored';
-                    }
-                    else {
-                        modelStatus.status = 'Failed';
+                    if (modelStatus) {
+                        if (err.message && err.message.includes('BlobURLs are not yet supported')) {
+                            modelStatus.status = 'Available';
+                            modelStatus.warning = 'Not stored';
+                        }
+                        else {
+                            modelStatus.status = 'Failed';
+                        }
                     }
                 });
         }
