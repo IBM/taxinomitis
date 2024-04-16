@@ -2,6 +2,7 @@
 from logging import info, exception
 from os.path import join, isfile
 from os import listdir
+from unicodedata import normalize, combining
 from itertools import chain
 from traceback import format_exc
 # external dependencies
@@ -23,6 +24,10 @@ def sanitize_feature_names(key: str, dataframe: DataFrame):
 
     for column in dataframe:
         new_name = column
+
+        # remove accented characters
+        nfkd_form = normalize("NFKD", new_name)
+        new_name = "".join([c for c in nfkd_form if not combining(c)])
 
         # replace forbidden characters with _
         for forbidden_character in " \t?%,@.-":
