@@ -434,11 +434,11 @@
                     title : translations['WORKSHEETS.SHOOTTHEBUG.TITLE'],
                     summary : translations['WORKSHEETS.SHOOTTHEBUG.SUMMARY'],
                     description : translations['WORKSHEETS.SHOOTTHEBUG.DESCRIPTION'],
-                    difficulty : 'Beginner',
-                    type : 'numbers',
+                    difficulty : 'Intermediate',
+                    type : 'regression',
                     maketypes : [ 'scratch3' ],
                     image : 'static/images/project-shootthebug.png',
-                    tags : [ 'decision tree learning' ],
+                    tags : [ 'regression' ],
                     teachersnotes : translations['WORKSHEETS.SHOOTTHEBUG.TEACHERSNOTES_URL'],
                     downloads : [
                         {

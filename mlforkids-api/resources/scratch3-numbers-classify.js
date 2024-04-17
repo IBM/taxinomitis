@@ -358,7 +358,7 @@ class MachineLearningNumbers {
     }
 
     receiveListenEvents (msg, that) {
-        if (msg && msg.data && msg.data.mlforkidsnumbers && msg.data.data.projectid === '{{{modelid}}}')
+        if (msg && msg.data && msg.data.mlforkidsnumbers && msg.data.data.projectid == '{{{modelid}}}')
         {
             if (that && msg.data.mlforkidsnumbers === 'modelready')
             {

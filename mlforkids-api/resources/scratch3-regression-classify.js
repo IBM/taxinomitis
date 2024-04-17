@@ -167,7 +167,7 @@ class MachineLearningRegression {
 
 
     receiveListenEvents (msg, that) {
-        if (msg && msg.data && msg.data.mlforkidsregression && msg.data.data.projectid === '{{{projectid}}}')
+        if (msg && msg.data && msg.data.mlforkidsregression && msg.data.data.projectid == '{{{projectid}}}')
         {
             if (that && msg.data.mlforkidsregression === 'modelready')
             {

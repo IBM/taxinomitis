@@ -280,7 +280,7 @@ class MachineLearningText {
 
     {{^storeurl}}
     receiveListenEvents (msg) {
-        if (msg && msg.data && msg.data.mlforkidsstorage && msg.data.projectid === '{{{projectid}}}')
+        if (msg && msg.data && msg.data.mlforkidsstorage && msg.data.projectid == '{{{projectid}}}')
         {
             if (msg.data.mlforkidsstorage === 'textwatson') {
                 console.log('received training data for training a model');

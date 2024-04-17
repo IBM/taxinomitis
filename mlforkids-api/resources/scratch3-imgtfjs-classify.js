@@ -270,7 +270,7 @@ class MachineLearningImagesTfjs {
 
 
     receiveListenEvents (msg, that) {
-        if (msg && msg.data && msg.data.mlforkidsimage && msg.data.data.projectid === '{{{projectid}}}')
+        if (msg && msg.data && msg.data.mlforkidsimage && msg.data.data.projectid == '{{{projectid}}}')
         {
             if (that && msg.data.mlforkidsimage === 'modelready')
             {

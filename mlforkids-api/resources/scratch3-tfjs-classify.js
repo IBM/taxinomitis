@@ -152,7 +152,7 @@ class MachineLearningTfjs {
     }
 
     receiveListenEvents (msg, that) {
-        if (msg && msg.data && msg.data.mlforkidstensorflow && msg.data.data.projectid === '{{{projectid}}}')
+        if (msg && msg.data && msg.data.mlforkidstensorflow && msg.data.data.projectid == '{{{projectid}}}')
         {
             if (that && msg.data.mlforkidstensorflow === 'modelready')
             {
