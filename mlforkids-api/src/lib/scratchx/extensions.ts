@@ -22,7 +22,7 @@ function escapeProjectName(name: string): string {
     // Scratch 3 needs HTML encoding (e.g. '&lt;') as special
     //  characters (e.g. '<') will prevent extensions from
     //  loading
-    return name.replace(/[&<>]/g, ' ')
+    return name.replace(/[&<>"]/g, ' ')
                .replace(/[']/g, '\\\'');
 }
 
