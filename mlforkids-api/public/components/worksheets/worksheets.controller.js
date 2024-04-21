@@ -199,7 +199,10 @@
             'WORKSHEETS.CARPOOL.WORKSHEET_1.URL',
 
             'WORKSHEETS.CATCHTHEBALL.TITLE', 'WORKSHEETS.CATCHTHEBALL.SUMMARY', 'WORKSHEETS.CATCHTHEBALL.DESCRIPTION',
-            'WORKSHEETS.CATCHTHEBALL.WORKSHEET_1.URL'
+            'WORKSHEETS.CATCHTHEBALL.WORKSHEET_1.URL',
+
+            'WORKSHEETS.HOOPS.TITLE', 'WORKSHEETS.HOOPS.SUMMARY', 'WORKSHEETS.HOOPS.DESCRIPTION',
+            'WORKSHEETS.HOOPS.WORKSHEET_1.URL'
 
         ]).then(function (translations) {
             vm.worksheets = [
@@ -427,6 +430,21 @@
                     downloads : [
                         {
                             worksheet : translations['WORKSHEETS.CATCHTHEBALL.WORKSHEET_1.URL']
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.HOOPS.TITLE'],
+                    summary : translations['WORKSHEETS.HOOPS.SUMMARY'],
+                    description : translations['WORKSHEETS.HOOPS.DESCRIPTION'],
+                    difficulty : 'Beginner',
+                    type : 'regression',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-hoops.png',
+                    tags : [ 'regression' ],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.HOOPS.WORKSHEET_1.URL']
                         }
                     ]
                 },

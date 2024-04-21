@@ -1616,6 +1616,14 @@
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-catchtheball.pdf"
             }
+        },
+        "HOOPS": {
+            "TITLE": "Hoops",
+            "SUMMARY": "Teach a computer to shoot hoops",
+            "DESCRIPTION": "Make a game in Scratch that learns how to score basketball hoops.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-hoops.pdf"
+            }
         }
     },
     "TEACHER": {
