@@ -1188,7 +1188,7 @@
             "SUMMARY": "Bringe einem Computer bei, Handschrift zu lesen",
             "DESCRIPTION": "Erstelle ein Postbüro in Scratch. Die Briefe werden sotiert, indem handgeschriebene Adressen automatisch ausgelesen werden.",
             "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-mailmanmax-de.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-mailmanmax.pdf"
             },
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-mailmanmax.pdf"
         },
