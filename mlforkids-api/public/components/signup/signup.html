@@ -15,7 +15,7 @@
 <div ng-repeat="info in vm.infos"
     id="infos{{info.alertid}}"
     class="alert alert-info pageheadermsg" role="alert">
-    <div>Your account has been created - your password is <strong>{{info.password}}</strong></div>
+    <div>Your account has been created - your password is <strong style="font-size: 1.4em;">{{info.password}}</strong></div>
     <div>Check your inbox for a confirmation email. You need to click the link in the email to activate your class account.</div>
 </div>
 
@@ -28,14 +28,19 @@
                 <label>Username</label>
                 <input md-autofocus
                         type="text"
-                        md-autofocus
                         ng-required="true"
                         ng-pattern="/^[\w.\-_]+$/"
                         ng-disabled="vm.complete || vm.creating"
-                        ng-model="username"
+                        ng-model="username" name="username"
                         ng-focus="vm.focused = 'username'"
-                        md-maxlength="15"
+                        md-maxlength="15" ng-maxlength="15"
+                        spellcheck="false"
                         class="signuptextentry"/>
+                <div ng-messages="newClass.username.$error" ng-show="newClass.username.$touched" role="alert">
+                    <div ng-message="required">You need to choose a username</div>
+                    <div ng-message="pattern">Sorry, this is not a valid username</div>
+                    <div ng-message="maxlength">Sorry, that username is too long</div>
+                </div>
             </md-input-container>
             <div class="well newprojecthelp" ng-if="vm.focused === 'username'">
                 We need a unique username to identify you.
@@ -48,9 +53,14 @@
                 <input type="email"
                        ng-disabled="vm.complete || vm.creating"
                        ng-required="true"
-                       ng-model="email"
+                       ng-model="email" name="email"
                        ng-focus="vm.focused = 'email'"
+                       spellcheck="false"
                        class="signuptextentry"/>
+                <div ng-messages="newClass.email.$error" ng-show="newClass.email.$touched">
+                    <div ng-message="required">You need to provide an email address</div>
+                    <div ng-message="email">This does not look like a valid email address</div>
+                </div>
             </md-input-container>
             <div class="well newprojecthelp" ng-if="vm.focused === 'email'">
                 <div style="margin-bottom: 1em">
@@ -76,6 +86,7 @@
                         ng-model="intendeduse"
                         ng-maxlength="1000"
                         ng-focus="vm.focused = 'intendeduse'"
+                        spellcheck="false"
                         class="signuptextentry"/>
             </md-input-container>
             <div class="well newprojecthelp" ng-if="vm.focused === 'intendeduse'">
