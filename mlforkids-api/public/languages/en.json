@@ -273,6 +273,11 @@
             "INTRO_3": "You will be able to make changes to the training data if you like, or you can go straight to training a machine learning model with it. "
         },
         "IMPORT": "Import",
+        "PLEASEWAIT": "Importing. Please wait...",
+        "NEW": {
+            "LOCAL": "Store on your computer",
+            "CLOUD": "Store in the cloud"
+        },
         "TESTING": "Do you want to use some of the data for testing?",
         "MORE": {
             "TITLE": "Other data sets",

@@ -691,6 +691,7 @@
         return {
             isSupported,
             idIsLocal,
+            sanitizeLabel,
 
             getProjects,
             getProject,

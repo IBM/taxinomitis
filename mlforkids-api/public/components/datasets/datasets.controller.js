@@ -7,13 +7,15 @@
         DatasetsController.$inject = [
             'authService',
             'projectsService',
+            'datasetsService',
             'loggerService',
+            'trainingService',
             'storageService',
-            '$state', '$translate', '$mdDialog'
+            '$state', '$translate', '$mdDialog', '$q'
         ];
 
 
-    function DatasetsController(authService, projectsService, loggerService, storageService, $state, $translate, $mdDialog) {
+    function DatasetsController(authService, projectsService, datasetsService, loggerService, trainingService, storageService, $state, $translate, $mdDialog, $q) {
 
         var vm = this;
         vm.authService = authService;
@@ -224,7 +226,8 @@
                     $scope.hide = function() {
                         $mdDialog.hide();
                     };
-                    $scope.confirm = function() {
+                    $scope.confirm = function(location) {
+                        $scope.dataset.storage = location;
                         $scope.dataset.testratio = $scope.testratio;
                         $mdDialog.hide($scope.dataset);
                     };
@@ -280,27 +283,77 @@
             var importRequest = {
                 type : dataset.type,
                 dataset : dataset.id,
-                testratio : dataset.testratio
+                testratio : dataset.testratio,
+                storage : dataset.storage,
+                name : dataset.title
             };
 
-            projectsService.createProject(importRequest,
-                                          vm.profile.user_id,
-                                          vm.profile.tenant)
-                .then(function (created) {
+            if (dataset.storage === 'local') {
+                vm.loading = true;
 
-                    if (created.testdata) {
-                        storeTestdataAsCsv(created);
-                    }
+                let trainingdata = [];
+                let projectid;
 
-                    $state.go('projects', { id : created.id });
-                })
-                .catch(function (err) {
-                    loggerService.error('[ml4kds] Import failed', err);
+                datasetsService.getDataset(importRequest.type, importRequest.dataset)
+                    .then((dataset) => {
+                        trainingdata = dataset.trainingdata;
+                        importRequest.language = dataset.language;
+                        importRequest.labels = dataset.labels;
+                        importRequest.fields = dataset.fields;
+                        return projectsService.createProject(importRequest,
+                                                             vm.profile.user_id,
+                                                             vm.profile.tenant);
+                    })
+                    .then((project) => {
+                        projectid = project.id;
 
-                    displayAlert('errors', err.status, err.data);
+                        if (project.type === 'numbers') {
+                            return $q.all(
+                                trainingdata.map((labeldata) => {
+                                    return trainingService.bulkAddTrainingData(project, labeldata);
+                                })
+                            );
+                        }
+                        else {
+                            return trainingService.bulkAddTrainingData(project, trainingdata,
+                                // values only needed for imgtfjs projects, as they're needed
+                                //  to send image resizing request API calls
+                                vm.profile.user_id, vm.profile.tenant);
+                        }
+                    })
+                    .then(() => {
+                        $state.go('projects', { id : projectid });
+                    })
+                    .catch(function (err) {
+                        loggerService.error('[ml4kds] Import failed', err);
 
-                    vm.creating = false;
-                });
+                        displayAlert('errors', err.status, err.data);
+
+                        vm.creating = false;
+                        vm.loading = false;
+                    });
+            }
+            else {
+
+                projectsService.createProject(importRequest,
+                                              vm.profile.user_id,
+                                              vm.profile.tenant)
+                    .then(function (created) {
+
+                        if (created.testdata) {
+                            storeTestdataAsCsv(created);
+                        }
+
+                        $state.go('projects', { id : created.id });
+                    })
+                    .catch(function (err) {
+                        loggerService.error('[ml4kds] Import failed', err);
+
+                        displayAlert('errors', err.status, err.data);
+
+                        vm.creating = false;
+                    });
+            }
         };
 
 

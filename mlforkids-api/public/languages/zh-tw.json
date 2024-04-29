@@ -273,6 +273,11 @@
             "INTRO_3": "你可以依照你的需求修改這些訓練用的資料，或是直接使用它去訓練機器學習模型"
         },
         "IMPORT": "匯入",
+        "PLEASEWAIT": "Importing. Please wait...",
+        "NEW": {
+            "LOCAL": "Store on your computer",
+            "CLOUD": "Store in the cloud"
+        },
         "TESTING": "Do you want to use some of the data for testing?",
         "MORE": {
             "TITLE": "其他資料集",

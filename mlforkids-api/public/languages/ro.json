@@ -273,6 +273,11 @@
             "INTRO_3": "Dacă dorești, vei putea face modificări la datele de antrenament sau poți merge direct la instruirea unui model de învățare automată cu acesta."
         },
         "IMPORT": "Importare",
+        "PLEASEWAIT": "Importing. Please wait...",
+        "NEW": {
+            "LOCAL": "Store on your computer",
+            "CLOUD": "Store in the cloud"
+        },
         "TESTING": "Doriți să utilizați unele dintre date pentru testare?",
         "MORE": {
             "TITLE": "Alte seturi de date",

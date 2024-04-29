@@ -267,6 +267,11 @@
       "INTRO_3": "Ви зможете вносити зміни в навчальні дані, якщо хочете, або ви можете перейти безпосередньо до навчання моделі машинного навчання з ними."
     },
     "IMPORT": "Імпорт",
+    "PLEASEWAIT": "Importing. Please wait...",
+    "NEW": {
+        "LOCAL": "Store on your computer",
+        "CLOUD": "Store in the cloud"
+    },
     "TESTING": "Do you want to use some of the data for testing?",
     "MORE": {
       "TITLE": "Інші набори даних",

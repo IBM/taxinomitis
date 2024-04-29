@@ -267,6 +267,11 @@
             "INTRO_3": "در صورت تمایل می‌توانید تغییراتی در داده‌های آموزشی ایجاد کنید یا می‌توانید مستقیماً به آموزش یک مدل یادگیری ماشین با آن بروید."
         },
         "IMPORT": "وارد كردن ",
+        "PLEASEWAIT": "Importing. Please wait...",
+        "NEW": {
+            "LOCAL": "Store on your computer",
+            "CLOUD": "Store in the cloud"
+        },
         "TESTING": "Do you want to use some of the data for testing?",
         "MORE": {
             "TITLE": "سایر مجموعه های داده ",

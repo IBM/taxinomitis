@@ -17,6 +17,7 @@ const DEPLOYMENT = process.env.DEPLOYMENT;
 console.log('Building for ' + DEPLOYMENT);
 
 const paths = {
+    datasets : ['resources/datasets/**/*.json'],
     json : ['src/**/*.json'],
     ts : ['src/**/*.ts'],
     tstest : ['src/tests/**/*.ts'],
@@ -289,6 +290,12 @@ gulp.task('angularcomponents', gulp.series('jsapp', () => {
             .pipe(gulp.dest('web/static/components'));
 }));
 
+gulp.task('datasets', () => {
+    return gulp.src(paths.datasets)
+        .pipe(jsonminify())
+        .pipe(gulp.dest('web/static/datasets'));
+});
+
 gulp.task('languages', () => {
     return gulp.src('public/languages/**')
         .pipe(gulp.dest('web/static/languages'));
@@ -367,7 +374,8 @@ gulp.task('web',
         'images',
         'html',
         'angularcomponents',
-        'prodlanguages'));
+        'prodlanguages',
+        'datasets'));
 
 gulp.task('uidependencies',
     gulp.series('bower', 'tfjs', 'boweroverrides'));
@@ -390,6 +398,7 @@ gulp.task('buildprod',
             'prodhtml',
             'angularcomponents',
             'prodlanguages',
+            'datasets',
             'scratchblocks',
             'stories'),
         'compile'));

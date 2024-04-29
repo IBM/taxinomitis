@@ -18,10 +18,13 @@
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     <strong translate="APP.WARNING"></strong> {{ warning.message }}
 </div>
-<div class="datasetsintro">
+<div class="datasetsintro" ng-hide="vm.creating">
     <p translate="DATASETS.INTRO.INTRO_1"></p>
     <p translate="DATASETS.INTRO.INTRO_2"></p>
     <p translate="DATASETS.INTRO.INTRO_3"></p>
+</div>
+<div class="datasetsintro" ng-if="vm.creating">
+    <p translate="DATASETS.PLEASEWAIT"></p>
 </div>
 <div ng-if="vm.loading" class="loading"></div>
 <div ng-if="isAuthenticated" >
@@ -54,7 +57,7 @@
                 </div>
             </div>
         </div>
-        <div class="datasetcard fullheightcard">
+        <div class="datasetcard fullheightcard" ng-hide="vm.loading">
             <div class="cardmain">
                 <div class="info">
                     <div class="title" translate="DATASETS.MORE.TITLE"></div>

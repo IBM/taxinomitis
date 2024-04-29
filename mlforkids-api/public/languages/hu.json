@@ -272,6 +272,11 @@
             "INTRO_3": "Változtathatsz a tanítási adatokon, ha gondolod, vagy akár ezzel is elkezdheted a tanítást."
         },
         "IMPORT": "Importálás",
+        "PLEASEWAIT": "Importing. Please wait...",
+        "NEW": {
+            "LOCAL": "Store on your computer",
+            "CLOUD": "Store in the cloud"
+        },
         "TESTING": "Do you want to use some of the data for testing?",
         "MORE": {
             "TITLE": "Másik adat készlet",

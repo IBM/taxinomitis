@@ -267,6 +267,11 @@
             "INTRO_3": "Vous pourrez apporter des modifications aux données d'entraînement si vous le souhaitez, ou vous pourrez passer directement à l'entraînement d'un modèle d'apprentissage machine avec celui-ci. "
         },
         "IMPORT": "Importer",
+        "PLEASEWAIT": "Importing. Please wait...",
+        "NEW": {
+            "LOCAL": "Store on your computer",
+            "CLOUD": "Store in the cloud"
+        },
         "TESTING": "Souhaitez-vous utiliser une partie des données à des fins de test ?",
         "MORE": {
             "TITLE": "Autres jeux de données",

@@ -267,6 +267,11 @@
             "INTRO_3": "Θα μπορείς να κάνεις αλλαγές στα δεδομένα εκπαίδευσης αν θέλεις ή να ξεκινήσεις απευθείας την εκπαίδευση ενός μοντέλου μηχανικής μάθησης με αυτά."
         },
         "IMPORT": "Εισαγωγή",
+        "PLEASEWAIT": "Importing. Please wait...",
+        "NEW": {
+            "LOCAL": "Store on your computer",
+            "CLOUD": "Store in the cloud"
+        },
         "TESTING": "Do you want to use some of the data for testing?",
         "MORE": {
             "TITLE": "Άλλα σύνολα δεδομένων",

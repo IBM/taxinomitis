@@ -181,3 +181,10 @@
     color: #00008b;
     font-weight: bold;
 }
+
+@media (max-width: 600px) {
+    .datasetdialog .md-primary {
+        white-space: normal;
+        max-width: 160px;
+    }
+}

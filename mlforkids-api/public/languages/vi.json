@@ -273,6 +273,11 @@
             "INTRO_3": "Bạn sẽ có thể thực hiện các thay đổi đối với dữ liệu đào tạo nếu muốn hoặc bạn có thể chuyển thẳng sang đào tạo một mô hình máy học với dữ liệu đó. "
         },
         "IMPORT": "Nhập",
+        "PLEASEWAIT": "Importing. Please wait...",
+        "NEW": {
+            "LOCAL": "Store on your computer",
+            "CLOUD": "Store in the cloud"
+        },
         "TESTING": "Bạn có muốn sử dụng một vài dữ liệu để kiểm tra không?",
         "MORE": {
             "TITLE": "Bộ dữ liệu khác",

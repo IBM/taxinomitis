@@ -5,11 +5,11 @@
         .service('trainingService', trainingService);
 
     trainingService.$inject = [
-        '$http',
+        '$http', '$q',
         'browserStorageService'
     ];
 
-    function trainingService($http, browserStorageService) {
+    function trainingService($http, $q, browserStorageService) {
 
         var INVALID_TEXT_CHARS = /[\t\n]/g;
 
@@ -65,7 +65,7 @@
         }
 
 
-        function bulkAddTrainingData(project, data) {
+        function bulkAddTrainingData(project, data, userid, tenant) {
             if (project.storage !== 'local') {
                 throw new Error('unexpected project type');
             }
@@ -94,6 +94,16 @@
                             }),
                             label : data.label
                         };
+                    }));
+                }
+                else if (project.type === 'imgtfjs') {
+                    return $q.all(data.map((trainingitem) => {
+                        return newTrainingData(project.id,
+                            userid, tenant,
+                            project.type,
+                            project.storage,
+                            trainingitem.imageurl,
+                            trainingitem.label);
                     }));
                 }
                 else {

@@ -267,6 +267,11 @@
             "INTRO_3": "Вы сможете вносить изменения в обучающую выборку, если хотите, или можете сразу перейти к обучению модели машинного обучения."
         },
         "IMPORT": "Импортировать",
+        "PLEASEWAIT": "Importing. Please wait...",
+        "NEW": {
+            "LOCAL": "Store on your computer",
+            "CLOUD": "Store in the cloud"
+        },
         "TESTING": "Do you want to use some of the data for testing?",
         "MORE": {
             "TITLE": "Другие наборы данных",

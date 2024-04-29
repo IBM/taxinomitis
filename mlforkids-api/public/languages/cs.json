@@ -267,6 +267,11 @@
             "INTRO_3": "V případě potřeby budete moci provést změny v trénovacích datech nebo můžete rovnou přejít k trénování modelu strojového učení. "
         },
         "IMPORT": "Import",
+        "PLEASEWAIT": "Importing. Please wait...",
+        "NEW": {
+            "LOCAL": "Store on your computer",
+            "CLOUD": "Store in the cloud"
+        },
         "TESTING": "Chcete některá data použít k testování?",
         "MORE": {
             "TITLE": "Další datové soubory",
