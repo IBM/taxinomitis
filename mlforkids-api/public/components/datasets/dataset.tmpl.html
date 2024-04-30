@@ -36,8 +36,14 @@
         </md-dialog-content>
         <md-dialog-actions layout="row">
             <span flex></span>
-            <md-button class="md-raised md-primary" ng-click="confirm('cloud')" translate="DATASETS.NEW.CLOUD"></md-button>
-            <md-button class="md-raised md-primary" ng-click="confirm('local')" translate="DATASETS.NEW.LOCAL" ng-disabled="showtestratio"></md-button>
+            <md-button class="md-raised"
+                ng-click="confirm('cloud')"
+                translate="DATASETS.NEW.CLOUD"></md-button>
+            <md-button
+                class="md-raised md-primary"
+                ng-click="confirm('local')"
+                translate="DATASETS.NEW.LOCAL"
+                ng-disabled="showtestratio"></md-button>
         </md-dialog-actions>
     </form>
 </md-dialog>

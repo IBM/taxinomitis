@@ -183,7 +183,7 @@
 }
 
 @media (max-width: 600px) {
-    .datasetdialog .md-primary {
+    .datasetdialog .md-raised {
         white-space: normal;
         max-width: 160px;
     }
