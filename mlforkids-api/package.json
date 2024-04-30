@@ -73,7 +73,7 @@
     "gulp-download2": "1.1.0",
     "gulp-htmlmin": "5.0.1",
     "gulp-jsonminify": "1.1.0",
-    "gulp-mocha": "10.0.0",
+    "gulp-mocha": "10.0.1",
     "gulp-ng-annotate-patched": "0.1.1",
     "gulp-rename": "2.0.0",
     "gulp-sourcemaps": "3.0.0",
@@ -90,7 +90,7 @@
     "supertest": "6.3.4",
     "typescript": "5.4.5",
     "typescript-require": "0.3.0",
-    "unzipper": "0.10.14"
+    "unzipper": "0.11.4"
   },
   "dependencies": {
     "@slack/webhook": "7.0.2",
@@ -112,13 +112,13 @@
     "helmet": "7.1.0",
     "http-range-parse": "1.0.0",
     "http-status": "1.7.4",
-    "ibm-cos-sdk": "1.13.3",
+    "ibm-cos-sdk": "1.13.4",
     "jsonwebtoken": "9.0.2",
     "jszip": "3.10.1",
     "jwks-rsa": "3.1.0",
     "jwt-decode": "3.1.2",
     "lodash": "4.17.21",
-    "lru-cache": "10.2.0",
+    "lru-cache": "10.2.2",
     "mlforkids-google-dns": "0.0.2",
     "multer": "1.4.4",
     "mustache": "4.2.0",
