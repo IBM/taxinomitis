@@ -238,6 +238,12 @@
                 templateUrl: 'static/components/admin/admin.html',
                 controllerAs: 'vm'
             })
+            .state('resetstorage', {
+                url: '/reset-storage',
+                controller: 'ResetStorageController',
+                templateUrl: 'static/components/resetstorage/resetstorage.html',
+                controllerAs: 'vm'
+            })
             .state('book', {
                 url: '/book',
                 templateUrl: 'static/components/book/book.html',
@@ -313,7 +319,7 @@
             .useSanitizeValueStrategy('sanitizeParameters')
             .useStaticFilesLoader({
                 prefix: 'static/languages/',
-                suffix: '.json?v=179'
+                suffix: '.json?v=180'
             })
             .determinePreferredLanguage(function () {
                 var lang = navigator.userLanguage || navigator.language;

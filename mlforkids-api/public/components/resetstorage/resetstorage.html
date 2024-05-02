@@ -1,0 +1,15 @@
+<div class="jumbotron">
+    <h2 class="text-center">Storage diagnostics</h2>
+</div>
+<div class="helpsection">
+    <div class="apikeysguideinfo">Please don't use this page unless explicitly requested to. </div>
+</div>
+<div style="padding: 2em;">
+    <button class="btn btn-primary" ng-click="listDatabases()">List IndexedDB stores</button>
+    <button class="btn btn-primary" ng-click="resetAssetsStore()">Reset ASSETS store</button>
+</div>
+<div style="padding: 1em; margin-bottom: 3em;">
+    <pre style="background-color: #f0f0f0; border: medium black solid; width: 100%; font-family: 'Courier New', Courier, monospace; font-weight: bold;">
+        {{ debugoutput.text }}
+    </pre>
+</div>
