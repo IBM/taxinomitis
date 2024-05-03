@@ -43,19 +43,21 @@
                     const storename = DBOpenRequest.result.objectStoreNames[idx];
                     storenames.push(storename);
                 }
-                const transaction = DBOpenRequest.result.transaction(storenames);
-                for (const storename of storenames) {
-                    debug(db.name + ' > ' + storename);
-                    const objectstore = transaction.objectStore(storename);
-                    debug(db.name + ' > ' + storename + ' > autoinc = ' + objectstore.autoIncrement);
-                    debug(db.name + ' > ' + storename + ' > key = ' + objectstore.keyPath);
-                    for (let idx = 0; idx < objectstore.indexNames.length; idx++) {
-                        debug(db.name + ' > ' + storename + ' > index = ' + objectstore.indexNames[idx]);
+                if (storenames.length > 0) {
+                    const transaction = DBOpenRequest.result.transaction(storenames);
+                    for (const storename of storenames) {
+                        debug(db.name + ' > ' + storename);
+                        const objectstore = transaction.objectStore(storename);
+                        debug(db.name + ' > ' + storename + ' > autoinc = ' + objectstore.autoIncrement);
+                        debug(db.name + ' > ' + storename + ' > key = ' + objectstore.keyPath);
+                        for (let idx = 0; idx < objectstore.indexNames.length; idx++) {
+                            debug(db.name + ' > ' + storename + ' > index = ' + objectstore.indexNames[idx]);
+                        }
+                        const count = objectstore.count();
+                        count.onsuccess = () => {
+                            debug(db.name + ' > ' + storename + ' > records = ' + count.result);
+                        };
                     }
-                    const count = objectstore.count();
-                    count.onsuccess = () => {
-                        debug(db.name + ' > ' + storename + ' > records = ' + count.result);
-                    };
                 }
 
                 DBOpenRequest.result.close();
@@ -92,6 +94,9 @@
         };
 
 
+        // -----
+
+
         function createNewAssetStore () {
             debug('createNewAssetStore');
             const createrequest = window.indexedDB.open('mlforkidsAssets');
@@ -123,6 +128,66 @@
                     debug('Deleted existing assets database');
                     debug('Pausing for 5 seconds before creating new database');
                     $timeout(createNewAssetStore, 5000);
+                };
+            }
+            catch (err) {
+                handleErr(err);
+            }
+        };
+
+
+        // -----
+
+
+        function createNewProjectsStore () {
+            debug('createNewProjectsStore');
+            const createrequest = window.indexedDB.open('mlforkidsLocalProjects');
+            createrequest.onupgradeneeded = function (event) {
+                debug('createNewProjectStore > onupgradeneeded');
+                const table = event.target.result.createObjectStore('projects', { keyPath: 'id', autoIncrement: true });
+                table.createIndex('classid', 'classid', { unique: false });
+            };
+            createrequest.onerror = function (event) {
+                debug('createNewProjectStore > onerror');
+                handleErr(event);
+            };
+            createrequest.onsuccess = function (event) {
+                debug('createNewProjectStore > onsuccess');
+                createrequest.result.close();
+            };
+        }
+
+        $scope.resetProjectsStore = function () {
+            divider('resetProjectsStore');
+            try {
+                const DBDeleteRequest = window.indexedDB.deleteDatabase('mlforkidsLocalProjects');
+                DBDeleteRequest.onerror = (event) => {
+                    debug('Failed to delete existing projects database');
+                    handleErr(event);
+                    debug('Pausing for 5 seconds before creating new database');
+                    $timeout(createNewProjectsStore, 5000);
+                };
+                DBDeleteRequest.onsuccess = (event) => {
+                    debug('Deleted existing projects database');
+                    debug('Pausing for 5 seconds before creating new database');
+                    $timeout(createNewProjectsStore, 5000);
+                };
+            }
+            catch (err) {
+                handleErr(err);
+            }
+        };
+
+        $scope.clearTensorflowStore = function () {
+            divider('clearTensorflowStore');
+            try {
+                const DBDeleteRequest = window.indexedDB.deleteDatabase('tensorflowjs');
+                DBDeleteRequest.onerror = (event) => {
+                    debug('Failed to delete existing tensorflowjs database');
+                    handleErr(event);
+                };
+                DBDeleteRequest.onsuccess = (event) => {
+                    debug('Deleted existing tensorflowjs database');
                 };
             }
             catch (err) {
