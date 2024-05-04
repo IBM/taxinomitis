@@ -635,6 +635,120 @@
                 }, noop);
         };
 
+        vm.importMultipleUsers = function (ev, group) {
+            loggerService.debug('[ml4kuser] requesting details for importing students');
+
+            var userslimit = Math.min($scope.MAX_PER_GROUP, vm.policy.maxUsers);
+            var remaining = userslimit - vm.groupedStudents[group].length;
+
+            $mdDialog.show({
+                controller : function ($scope, $mdDialog) {
+                    $scope.remaining = remaining;
+                    $scope.userslimit = userslimit;
+                    $scope.userstoimport = [];
+
+                    $scope.hide = function () {
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function () {
+                        $mdDialog.cancel();
+                    };
+                    $scope.confirm = function (usernames, password) {
+                        $mdDialog.hide({ usernames, password });
+                    };
+                    $scope.refreshPassword = function () {
+                        $scope.password = '...';
+                        usersService.getGeneratedPassword(vm.profile.tenant)
+                            .then(function (resp) {
+                                $scope.password = resp.password;
+                            })
+                            .catch(function (err) {
+                                loggerService.error('[ml4kuser] failed to generate password', err);
+                            });
+                    };
+                    $scope.getUsers = function (ev) {
+                        // const group = elem.dataset.group;
+                        var files = ev.currentTarget.files;
+                        if (files && files.length > 0) {
+                            var file = ev.currentTarget.files[0];
+
+                            const txtfilereader = new FileReader();
+                            txtfilereader.readAsText(file);
+                            txtfilereader.onload = function () {
+                                const NEWLINES = /[\r\n]+/;
+                                const INVALID_USERNAME_CHARS = /[^\w.\-_]/g;
+                                const usernames = txtfilereader.result
+                                                    .split(NEWLINES)
+                                                    .map(line => line.trim().substring(0, 15).trim())
+                                                    .filter(line => line.length > 2)
+                                                    .map(line => line.replaceAll(INVALID_USERNAME_CHARS, ''))
+                                                    .reduce((acc, cur) => acc.includes(cur) ? acc : [...acc, cur], []);
+                                $scope.$applyAsync(() => {
+                                    $scope.userstoimport = usernames.slice(0, remaining);
+                                });
+                            };
+                            txtfilereader.onerror = function () {
+                                displayAlert('errors', 500, txtfilereader.error);
+                            };
+                        }
+                    };
+
+                    $scope.refreshPassword();
+                },
+                templateUrl : 'static/components/teacher_students/importstudents.tmpl.html',
+                targetEvent : ev,
+                clickOutsideToClose : true
+            })
+            .then(
+                function(dialogResp) {
+                    var operation = 'importing students';
+
+                    var prechecks = function () {
+                        if (vm.groupedStudents[group]) {
+                            for (const username of dialogResp.usernames) {
+                                var newUserObj = {
+                                    id : placeholderId++,
+                                    username,
+                                    isPlaceholder : true,
+                                    group : group
+                                };
+                                vm.groupedStudents[group].push(newUserObj);
+                            }
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+                    };
+
+                    var opFunction = function () {
+                        return usersService.importStudents(vm.profile.tenant, dialogResp.usernames, dialogResp.password, group);
+                    };
+
+                    var onSuccess = function (apiResp) {
+                        vm.groupedStudents[group] = vm.groupedStudents[group].filter(function (student) {
+                            return !student.isPlaceholder;
+                        });
+
+                        if (apiResp && apiResp.successes) {
+                            for (var i = 0; i < apiResp.successes.length; i++) {
+                                vm.groupedStudents[group].push(apiResp.successes[i]);
+                            }
+                        }
+
+                        displayCreateFailures(ev, apiResp, dialogResp.password);
+                    };
+
+                    var onFailure = function () {
+                        vm.groupedStudents[group] = vm.groupedStudents[group].filter(function (student) {
+                            return !student.isPlaceholder;
+                        });
+                    };
+
+                    performPageOperation(operation, prechecks, opFunction, onSuccess, onFailure);
+
+                }, noop);
+        };
 
 
         // ---------------------------------------------------------------

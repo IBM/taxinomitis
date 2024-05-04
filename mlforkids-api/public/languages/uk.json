@@ -1671,7 +1671,6 @@
       "PROJECT_LIMITS": {
         "TITLE": "Обмеження на проекти, створені вашими учнями",
         "NUM_PROJECTS": "Кожному з ваших учніва дозволено мати до <span class='mlprojecttype'>{{ num }}</span> проектів.",
-        "TYPES": "Ваші студенти можуть створювати проекти для розпізнавання <span class='mlprojecttype'>{{ types }}</span>.",
         "TRAINING_DATA": "Кожен <span class='mlprojecttype'>{{ type }}</span> проект може мати до <span class='mlprojecttype'>{{ num }}</span> прикладів навчальних даних. "
       },
       "EXPIRY": {
@@ -1721,6 +1720,7 @@
       },
       "ADD_MULTIPLE": {
         "BUTTON": "Кілька студентів",
+        "IMPORT": "Import students",
         "TITLE": "Додати нових студентів",
         "INTRO": "Ви можете використовувати це, щоб створити більше одного облікового запису студента одночасно.",
         "USERNAME": "З чого ви хочете починати кожне ім'я користувача?",

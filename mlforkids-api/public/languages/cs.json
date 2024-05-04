@@ -1672,7 +1672,6 @@
             "PROJECT_LIMITS": {
                 "TITLE": "Limity pro projekty vytvořené vašimi studenty",
                 "NUM_PROJECTS": "Každý z vašich studentů může mít až <span class='mlprojecttype'>{{ počet }}</span> projektů.",
-                "TYPES": "Vaši studenti mohou vytvářet projekty k rozpoznání <span class='mlprojecttype'>{{ typů }}</span>.",
                 "TRAINING_DATA": "Každý projekt <span class='mlprojecttype'>{{ typ }}</span> může mít až <span class='mlprojecttype'>{{ počet }}</span> příkladů trénovacích dat. "
             },
             "EXPIRY": {
@@ -1722,6 +1721,7 @@
             },
             "ADD_MULTIPLE": {
                 "BUTTON": "Více studentů",
+                "IMPORT": "Import students",
                 "TITLE": "Přidání nových studentů",
                 "INTRO": "Pomocí této funkce můžete vytvořit více studentských účtů najednou.",
                 "USERNAME": "Čím chcete, aby začínalo každé uživatelské jméno?",

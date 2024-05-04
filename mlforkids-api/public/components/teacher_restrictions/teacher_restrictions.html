@@ -45,7 +45,6 @@
             <h4 translate>TEACHER.RESTRICTIONS.PROJECT_LIMITS.TITLE</h4>
 
             <div class="adminrestriction" translate="TEACHER.RESTRICTIONS.PROJECT_LIMITS.NUM_PROJECTS" translate-values="{ num : vm.policy.maxProjectsPerUser }"></div>
-            <div class="adminrestriction" translate="TEACHER.RESTRICTIONS.PROJECT_LIMITS.TYPES" translate-values="{ types : vm.policy.supportedProjectTypes.join(' or ') }"></div>
 
             <div class="adminrestriction" ng-if="vm.policy.supportedProjectTypes.indexOf('text') >= 0"
                  translate="TEACHER.RESTRICTIONS.PROJECT_LIMITS.TRAINING_DATA" translate-values="{ type : 'text', num : vm.policy.textTrainingItemsPerProject }"></div>

@@ -1671,7 +1671,6 @@
             "PROJECT_LIMITS": {
                 "TITLE": "حدود المشاريع التي أنشأها طلابك",
                 "NUM_PROJECTS": "يُسمح لكل من طلابك بتنفيذ ما يصل إلى <span class='mlprojecttype'>{{num}}</span> مشروع.",
-                "TYPES": "يمكن لطلابك إنشاء مشاريع للتعرف على <span class='mlprojecttype'>{{types}}</span>.",
                 "TRAINING_DATA": "يمكن أن يحتوي كل مشروع<span class='mlprojecttype'> {{type}} </span>على ما يصل إلى <span class='mlprojecttype'>{{num}} </span>من أمثلة بيانات التدريب."
             },
             "EXPIRY": {
@@ -1723,6 +1722,7 @@
             },
             "ADD_MULTIPLE": {
                 "BUTTON": "طلاب متعددين",
+                "IMPORT": "Import students",
                 "TITLE": "إضافة طلاب جدد",
                 "INTRO": "يمكنك استخدام هذا لإنشاء أكثر من حساب لطلاب في نفس الوقت.",
                 "USERNAME": "ماذا تريد أن يبدأ كل اسم مستخدم؟",

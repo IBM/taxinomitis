@@ -1734,7 +1734,6 @@
             "PROJECT_LIMITS": {
                 "TITLE": "학생 프로젝트 생성 제한",
                 "NUM_PROJECTS": "여러분은 학생들은 <span class='mlprojecttype'>{{ num }}</span>개의 프로젝트를 생성할 수 있습니다.",
-                "TYPES": "여러분의 학생들은 <span class='mlprojecttype'>{{ types }}</span> 방식의 프로젝트를 생성할 수 있습니다.",
                 "TRAINING_DATA": "<span class='mlprojecttype'>{{ type }}</span> 방식의 프로젝트는 <span class='mlprojecttype'>{{ num }}</span>개의 샘플 데이터를 가질 수 있습니다. "
             },
             "EXPIRY": {
@@ -1799,6 +1798,7 @@
 
             "ADD_MULTIPLE": {
                 "BUTTON" : "여러 학생 추가",
+                "IMPORT": "Import students",
 
                 "TITLE" : "새로운 학생 추가",
                 "INTRO" : "여려명의 학생 계정을 추가할 때 사용할 수 있습니다.",

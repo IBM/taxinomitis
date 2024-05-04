@@ -73,6 +73,15 @@
             return $http.put('/api/classes/' + tenant + '/students', bulkCreate)
                 .then(returnData);
         }
+        function importStudents(tenant, usernames, password, group) {
+            var bulkCreate = {
+                usernames : usernames,
+                password : password,
+                group : group
+            };
+            return $http.put('/api/classes/' + tenant + '/students', bulkCreate)
+                .then(returnData);
+        }
 
         function resetStudentPassword(profile, tenant) {
             return $http.post('/api/classes/' + tenant + '/students/' + profile.id + '/password')
@@ -195,6 +204,7 @@
 
             createStudent : createStudent,
             createStudents : createStudents,
+            importStudents : importStudents,
             deleteStudent : deleteStudent,
             deleteStudents : deleteStudents,
 

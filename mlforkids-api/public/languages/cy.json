@@ -1671,7 +1671,6 @@
             "PROJECT_LIMITS": {
                 "TITLE": "Terfynau ar gyfer prosiectau a grëwyd gan eich myfyrwyr",
                 "NUM_PROJECTS": "Caniateir i bob un o'ch myfyrwyr gael hyd at <span class='mlprojecttype'>{{ num }}</span> prosiect.",
-                "TYPES": "Gall eich myfyrwyr greu prosiectau i'w cydnabod <span class='mlprojecttype'>{{ types }}</span>.",
                 "TRAINING_DATA": "Gall pob prosiect <span class='mlprojecttype'>{{ type }}</span> cael hyd at <span class='mlprojecttype'>{{ num }}</span> enghreifft o ddata hyfforddi. "
             },
             "EXPIRY": {
@@ -1721,6 +1720,7 @@
             },
             "ADD_MULTIPLE": {
                 "BUTTON": "Myfyrwyr lluosog",
+                "IMPORT": "Import students",
                 "TITLE": "Ychwanegwch fyfyrwyr newydd",
                 "INTRO": "Gallwch ddefnyddio hwn i greu mwy nag un cyfrif myfyriwr ar yr un pryd.",
                 "USERNAME": "Beth ydych chi am i bob enw defnyddiwr ddechrau?",

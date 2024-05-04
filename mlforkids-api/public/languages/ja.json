@@ -1671,7 +1671,6 @@
             "PROJECT_LIMITS": {
                 "TITLE": "生徒によって作られるプロジェクトに関する制限",
                 "NUM_PROJECTS": "あなたの生徒一人一人は、 最大で<span class='mlprojecttype'>{{ num }}</span> つののプロジェクトを作成できます。",
-                "TYPES": "あなたの生徒たちは、<span class='mlprojecttype'>{{ types }}</span> を認識するプロジェクトを作成できます。",
                 "TRAINING_DATA": "各々の <span class='mlprojecttype'>{{ type }}</span> 認識プロジェクトは、最大<span class='mlprojecttype'>{{ num }}</span> つのトレーニングデータを使えます。"
             },
             "EXPIRY": {
@@ -1721,6 +1720,7 @@
             },
             "ADD_MULTIPLE": {
                 "BUTTON": "複数生徒",
+                "IMPORT": "Import students",
                 "TITLE": "新しい生徒の追加",
                 "INTRO": "複数の生徒アカウントを同時に作成できます。",
                 "USERNAME": "ユーザ名の先頭部分は何で始まりたいですか？",

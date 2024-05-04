@@ -144,28 +144,11 @@ async function createStudents(req: Express.Request, res: Express.Response) {
     if (!req.body.group || typeof req.body.group !== 'string' || req.body.group.trim().length === 0) {
         return res.status(httpstatus.BAD_REQUEST).json({ error : 'Missing required field "group"' });
     }
-    if (!req.body.prefix || typeof req.body.prefix !== 'string' || req.body.prefix.trim().length === 0) {
-        return res.status(httpstatus.BAD_REQUEST).json({ error : 'Missing required field "prefix"' });
-    }
-    if (!req.body.number || Number.isInteger(req.body.number) === false ||
-        req.body.number <= 0 || req.body.number > 250)
-    {
-        return res.status(httpstatus.BAD_REQUEST).json({ error : 'Missing required field "number"' });
-    }
     // we don't need to check the password is good/sensible as password
     //  complexity policy is defined and enforced at the Auth0 service
     if (!req.body.password || typeof req.body.password !== 'string' || req.body.password.trim().length === 0) {
         return res.status(httpstatus.BAD_REQUEST).json({ error : 'Missing required field "password"' });
     }
-
-    const numUsersInTenant = await auth0.countUsers(tenant);
-    const tenantPolicy = await store.getClassTenant(tenant);
-    if (numUsersInTenant + req.body.number > tenantPolicy.maxUsers) {
-        return res.status(httpstatus.CONFLICT)
-                  .json({ error : 'That would exceed the number of students allowed in the class' });
-    }
-
-    const prefix = req.body.prefix.trim();
     const password = req.body.password.trim();
 
     const group = req.body.group.trim();
@@ -173,14 +156,46 @@ async function createStudents(req: Express.Request, res: Express.Response) {
         return res.status(httpstatus.BAD_REQUEST).json({ error : 'Unsupported group name' });
     }
 
-    log.info({ prefix, tenant, number : req.body.number }, 'Creating multiple students');
+    const numUsersInTenant = await auth0.countUsers(tenant);
+    const tenantPolicy = await store.getClassTenant(tenant);
 
     const successes: { id: string, username: string }[] = [];
     const duplicates: string[] = [];
     const failures: string[] = [];
 
-    for (let idx = 1; idx <= req.body.number; idx++) {
-        const username = prefix + idx;
+    let usersToCreate: string[] = [];
+
+    if (req.body.prefix && req.body.number) {
+        if (!req.body.prefix || typeof req.body.prefix !== 'string' || req.body.prefix.trim().length === 0) {
+            return res.status(httpstatus.BAD_REQUEST).json({ error : 'Missing required field "prefix"' });
+        }
+        if (!req.body.number || Number.isInteger(req.body.number) === false ||
+            req.body.number <= 0 || req.body.number > 250)
+        {
+            return res.status(httpstatus.BAD_REQUEST).json({ error : 'Missing required field "number"' });
+        }
+
+        if (numUsersInTenant + req.body.number > tenantPolicy.maxUsers) {
+            return res.status(httpstatus.CONFLICT)
+                    .json({ error : 'That would exceed the number of students allowed in the class' });
+        }
+
+        const prefix = req.body.prefix.trim();
+
+        log.info({ prefix, tenant, number : req.body.number }, 'Creating multiple students');
+
+        for (let idx = 1; idx <= req.body.number; idx++) {
+            usersToCreate.push(prefix + idx);
+        }
+    }
+    else if (req.body.usernames && Array.isArray(req.body.usernames)) {
+        usersToCreate = req.body.usernames;
+    }
+    else {
+        return res.status(httpstatus.BAD_REQUEST).json({ error : 'Missing required fields' });
+    }
+
+    for (const username of usersToCreate) {
         try {
             const newstudent = await auth0.createStudentWithPwd(tenant, username, password, group);
             successes.push({ id : newstudent.id, username : newstudent.username });

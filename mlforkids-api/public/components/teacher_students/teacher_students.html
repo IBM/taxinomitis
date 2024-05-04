@@ -60,6 +60,12 @@
                     <div class="newlabelbuttons" style="margin-right: 0" ng-if="vm.groupedStudents[group]">
                         <div class="newlabelbutton" style="margin-right: 1em; clear: initial;"
                              ng-disabled="busy || vm.groupedStudents[group].length >= MAX_PER_GROUP"
+                             ng-click="vm.importMultipleUsers($event, group)">
+                            <div class="newlabelicon">+</div>
+                            <div class="newlabellabel" translate="TEACHER.STUDENTMANAGEMENT.ADD_MULTIPLE.IMPORT"></div>
+                        </div>
+                        <div class="newlabelbutton" style="margin-right: 1em; clear: initial;"
+                             ng-disabled="busy || vm.groupedStudents[group].length >= MAX_PER_GROUP"
                              ng-click="vm.createMultipleUsers($event, group)">
                             <div class="newlabelicon">+</div>
                             <div class="newlabellabel" translate="TEACHER.STUDENTMANAGEMENT.ADD_MULTIPLE.BUTTON"></div>

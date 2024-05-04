@@ -1672,7 +1672,6 @@
             "PROJECT_LIMITS": {
                 "TITLE": "محدودیت برای پروژه‌های ایجاد شده توسط دانش آموزان شما",
                 "NUM_PROJECTS": "هر یک از دانش‌آموزان شما مجاز به داشتن حداکثر پروژه‌های <span class='mlprojecttype'>{{num}}</span> هستند.",
-                "TYPES": "دانش‌آموزان شما می‌توانند پروژه‌هایی برای تشخیص <span class='mlprojecttype'>{{types}}</span>. ایجاد کنند.",
                 "TRAINING_DATA": "هر پروژه <span class='mlprojecttype'> {{type}} </span> می‌تواند تا <span class='mlprojecttype'>{{num}} </span> از نمونه‌های داده‌های آموزشی را در خود جای دهد."
             },
             "EXPIRY": {
@@ -1722,6 +1721,7 @@
             },
             "ADD_MULTIPLE": {
                 "BUTTON": "دانش آموزان متعدد",
+                "IMPORT": "Import students",
                 "TITLE": "اضافه کردن دانش آموزان جدید ",
                 "INTRO": "می‌توانید از این برای ایجاد بیش از یک حساب دانش آموزی به طور همزمان استفاده کنید.",
                 "USERNAME": "می خواهید هر نام کاربری با چه چیزی شروع شود؟",

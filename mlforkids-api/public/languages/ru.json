@@ -1610,7 +1610,7 @@
             },
             "SUPERVISION": {
                 "TITLE": "Supervision",
-                "DESCRIPTION": "Review projects that your students have created"
+                "DESCRIPTION": "Review cloud projects that your students have created"
             },
             "ADVANCEDOPTIONS": "Advanced options",
             "DELETECLASS": {
@@ -1671,7 +1671,6 @@
             "PROJECT_LIMITS": {
                 "TITLE": "Лимиты на проекты, созданные вашими учениками",
                 "NUM_PROJECTS": "Each of your students is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> projects.",
-                "TYPES": "Your students can create projects to recognise <span class='mlprojecttype'>{{ types }}</span>.",
                 "TRAINING_DATA": "Each <span class='mlprojecttype'>{{ type }}</span> project can have up to <span class='mlprojecttype'>{{ num }}</span> training data examples. "
             },
             "EXPIRY": {
@@ -1721,6 +1720,7 @@
             },
             "ADD_MULTIPLE": {
                 "BUTTON": "Multiple students",
+                "IMPORT": "Import students",
                 "TITLE": "Add new students",
                 "INTRO": "You can use this to create more than one student account at the same time.",
                 "USERNAME": "What do you want each username to start with?",

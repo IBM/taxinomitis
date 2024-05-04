@@ -1733,7 +1733,6 @@
             "PROJECT_LIMITS": {
                 "TITLE": "A diákok által elkészített projektek száma",
                 "NUM_PROJECTS": "Minden diák <span class='mlprojecttype'>{{ num }}</span> projektet készíthet.",
-                "TYPES": "A diákjaid projekteket készíthetnek, hogy felismerjék <span class='mlprojecttype'>{{ types }}</span>.",
                 "TRAINING_DATA": "Minden <span class='mlprojecttype'>{{ type }}</span> projektnek <span class='mlprojecttype'>{{ num }}</span> tanítási adat példája lehet. "
             },
             "EXPIRY": {
@@ -1798,6 +1797,7 @@
 
             "ADD_MULTIPLE": {
                 "BUTTON" : "Többszörözd meg a diákokat könnyedén",
+                "IMPORT": "Import students",
 
                 "TITLE" : "Adj hozzá új diákot",
                 "INTRO" : "Ezt egynél több diák szimultán fiókjának elkészítéséhez használhatod.",

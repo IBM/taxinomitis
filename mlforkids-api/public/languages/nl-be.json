@@ -1671,7 +1671,6 @@
             "PROJECT_LIMITS": {
                 "TITLE": "Limieten voor projecten gemaakt door je studenten",
                 "NUM_PROJECTS": "Elke student is toegestaan om tot <span class='mlprojecttype'>{{ num }}</span> projecten aan te maken.",
-                "TYPES": "Je studenten kunnen projecten aanmaken om het volgende te herkennen:  <span class='mlprojecttype'>{{ types }}</span>.",
                 "TRAINING_DATA": "Elk <span class='mlprojecttype'>{{ type }}</span> project kan tot <span class='mlprojecttype'>{{ num }}</span> training data voorbeelden hebben. "
             },
             "EXPIRY": {
@@ -1721,6 +1720,7 @@
             },
             "ADD_MULTIPLE": {
                 "BUTTON": "Multiple students",
+                "IMPORT": "Import students",
                 "TITLE": "Add new students",
                 "INTRO": "You can use this to create more than one student account at the same time.",
                 "USERNAME": "What do you want each username to start with?",

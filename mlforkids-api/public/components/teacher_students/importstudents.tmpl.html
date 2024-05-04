@@ -1,0 +1,58 @@
+<md-dialog aria-label="Import new students">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2 translate="TEACHER.STUDENTMANAGEMENT.ADD_MULTIPLE.TITLE"></h2>
+        </div>
+    </md-toolbar>
+    <form ng-cloak name="newStudents" ng-submit="confirm(userstoimport, password)">
+        <md-dialog-content>
+            <div style="margin: 1em;" translate="TEACHER.STUDENTMANAGEMENT.ADD_MULTIPLE.INTRO"></div>
+            <div class="md-dialog-content" style="min-width: 300px">
+                <md-card-content>
+                    <div style="max-height: 200px; overflow-y: scroll; margin-top: -12px; margin-bottom: 20px;">
+                        <div ng-repeat="username in userstoimport" style="width: 100%; border: thin black solid; font-family: 'Courier New', Courier, monospace; font-size: 0.8em; padding: 6px;">
+                            {{ username }}
+                        </div>
+                    </div>
+                    <div layout="column" ng-if="userstoimport.length === 0">
+                        <input id="student-file-upload"
+                            type="file"
+                            accept=".txt"
+                            style="display: none"
+                            data-group="{{ group }}"
+                            onchange="angular.element(this).scope().getUsers(event)"/>
+                        <label class="newlabelbutton" style="margin-right: 1em; clear: initial;" for="student-file-upload">
+                            <div class="glyphicon glyphicon-open-file" style="padding-top: 0.3em; font-size: 2em;"></div>
+                            <div style="padding: 1em; float: left; font-weight: normal;">Upload a text file with usernames</div>
+                        </label>
+                    </div>
+                    <div layout="row">
+                        <md-input-container style="min-width: 280px">
+                            <label translate="TEACHER.STUDENTMANAGEMENT.ADD_MULTIPLE.PASSWORD"></label>
+                            <input type="text" name="password"
+                                    readonly
+                                    ng-required="true"
+                                    ng-model="password"
+                                    placeholder="password"
+                                    style="font-family: monospace"
+                                    md-minlength="8"></input>
+                            <div ng-messages="newStudents.password.$error" ng-show="newStudents.password.$touched">
+                                <div ng-message="minlength" translate="TEACHER.STUDENTMANAGEMENT.ADD_MULTIPLE.PASSWORD_TOOSHORT"></div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container>
+                            <md-button class="md-fab md-mini md-primary" ng-click="refreshPassword()">
+                                <span class="glyphicon glyphicon-refresh"> </span>
+                            </md-button>
+                        </md-input-container>
+                    </div>
+                </md-card-content>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button aria-label="add" type="submit" class="md-raised md-primary" ng-disabled="userstoimport.length === 0 || newStudents.$invalid" translate="APP.ADD"></md-button>
+            <md-button aria-label="cancel" ng-click="cancel()" translate="APP.CANCEL"></md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

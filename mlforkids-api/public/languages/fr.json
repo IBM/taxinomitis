@@ -1673,7 +1673,6 @@
             "PROJECT_LIMITS": {
                 "TITLE": "Limites pour les projets créés par vos élèves",
                 "NUM_PROJECTS": "Chacun de vos élèves est autorisé à avoir jusqu'à <span class='mlprojecttype'>{{ num }}</span> projets.",
-                "TYPES": "Vos élèves peuvent créer des projets pour reconnaître <span class='mlprojecttype'>{{ types}}</span>.",
                 "TRAINING_DATA": "Chaque projet <span class='mlprojecttype'>{{type }}</span> peut avoir jusqu'à <span class='mlprojecttype'>{{ num }}</span> exemples de données d'entraînement. "
             },
             "EXPIRY": {
@@ -1723,6 +1722,7 @@
             },
             "ADD_MULTIPLE": {
                 "BUTTON": "Élèves multiples",
+                "IMPORT": "Import students",
                 "TITLE": "Ajouter de nouveaux élèves",
                 "INTRO": "Vous pouvez l'utiliser pour créer plus d'un compte élève en même temps.",
                 "USERNAME": "Par quoi voulez-vous que chaque nom d'utilisateur commence ?",

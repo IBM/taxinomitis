@@ -1734,7 +1734,6 @@
             "PROJECT_LIMITS": {
                 "TITLE": "你的學生可以建立的專案總量",
                 "NUM_PROJECTS": "每個學生最多可以擁有<span class='mlprojecttype'>{{ num }}</span>個專案",
-                "TYPES": "你的學生可以建立辨識<span class='mlprojecttype'>{{ types }}</span>的專案",
                 "TRAINING_DATA": "每個<span class='mlprojecttype'>{{ type }}</span>專案最多可以有<span class='mlprojecttype'>{{ num }}</span>個訓練資料"
             },
             "EXPIRY": {
@@ -1798,6 +1797,7 @@
 
             "ADD_MULTIPLE": {
                 "BUTTON" : "多名學生",
+                "IMPORT": "Import students",
 
                 "TITLE" : "新增多名學生",
                 "INTRO" : "你可以使用它來一次建立多個學生帳戶",

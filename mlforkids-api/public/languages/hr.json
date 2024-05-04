@@ -1610,7 +1610,7 @@
             },
             "SUPERVISION": {
                 "TITLE": "Supervision",
-                "DESCRIPTION": "Review projects that your students have created"
+                "DESCRIPTION": "Review cloud projects that your students have created"
             },
             "ADVANCEDOPTIONS": "Advanced options",
             "DELETECLASS": {
@@ -1669,9 +1669,8 @@
                 "NUM_IMAGE_MODELS": "Your class is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> machine learning models in total across all their <span class='mlprojecttype'>images</span> projects.</div>"
             },
             "PROJECT_LIMITS": {
-                "TITLE": "Limits for projects created by your students",
+                "TITLE": "Limits for cloud projects created by your students",
                 "NUM_PROJECTS": "Each of your students is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> projects.",
-                "TYPES": "Your students can create projects to recognise <span class='mlprojecttype'>{{ types }}</span>.",
                 "TRAINING_DATA": "Each <span class='mlprojecttype'>{{ type }}</span> project can have up to <span class='mlprojecttype'>{{ num }}</span> training data examples. "
             },
             "EXPIRY": {
@@ -1721,6 +1720,7 @@
             },
             "ADD_MULTIPLE": {
                 "BUTTON": "Višestruki učenici",
+                "IMPORT": "Import students",
                 "TITLE": "Dodaj nove učenike",
                 "INTRO": "Možete iskoristiti ovu funkciju za istovremeno dodavanje više učenika",
                 "USERNAME": "Ša čime želite da započne svaki korisnički račun?",
