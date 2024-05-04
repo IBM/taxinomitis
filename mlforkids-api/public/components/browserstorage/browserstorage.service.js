@@ -687,6 +687,11 @@
             return promisifyIndexedDbTransaction(transaction);
         }
 
+        function deleteAssetsDatabase() {
+            window.indexedDB.deleteDatabase(ASSETS_DB_NAME);
+            delete assetsDbHandle;
+        }
+
 
         return {
             isSupported,
@@ -716,7 +721,8 @@
 
             storeAsset,
             retrieveAsset,
-            deleteAsset
+            deleteAsset,
+            deleteAssetsDatabase
         };
     }
 })();

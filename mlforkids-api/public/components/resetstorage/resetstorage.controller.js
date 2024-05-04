@@ -12,6 +12,7 @@
         $scope.debugoutput = { text : "DEBUG OUTPUT\n" };
 
         function debug (str) {
+            console.log(str);
             $scope.$applyAsync(() => {
                 $scope.debugoutput.text += (Date.now().toString() + " : " + str + "\n");
             });
@@ -31,11 +32,20 @@
             debug('database version: ' + db.version);
 
             const DBOpenRequest = window.indexedDB.open(db.name, db.version);
+            DBOpenRequest.onupgradeneeded = (event) => {
+                debug('Upgrade needed for database ' + db.name);
+                handleErr(event);
+            };
+            DBOpenRequest.onblocked = (event) => {
+                debug('Blocked from loading database ' + db.name);
+                handleErr(event);
+            };
             DBOpenRequest.onerror = (event) => {
-                debug('Error loading database');
+                debug('Error loading database ' + db.name);
                 handleErr(event);
             };
             DBOpenRequest.onsuccess = () => {
+                debug('opened ' + db.name);
                 const storenames = [];
                 const numstores = DBOpenRequest.result.objectStoreNames.length;
                 debug(db.name + ' (' + numstores + ' object stores)');

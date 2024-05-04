@@ -154,6 +154,12 @@
                             modelStatus.status = 'Available';
                             modelStatus.warning = 'Not stored';
                         }
+                        else if (err.name === 'NotFoundError' && err.message === "Failed to execute 'transaction' on 'IDBDatabase': One of the specified object stores was not found.") {
+                            modelStatus.status = 'Available';
+                            modelStatus.warning = 'Not stored';
+
+                            browserStorageService.deleteAssetsDatabase();
+                        }
                         else {
                             modelStatus.status = 'Failed';
                         }
