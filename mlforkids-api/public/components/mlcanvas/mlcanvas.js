@@ -35,7 +35,13 @@ angular.module('app')
                 $scope.canvas = element.find('canvas')[0];
                 var ctx = $scope.canvas.getContext('2d');
 
+                var touching = false;
+
                 function isMouseButtonDown(mouseevt) {
+                    if (touching) {
+                        return true;
+                    }
+
                     if (mouseevt.buttons !== undefined) {
                         return mouseevt.buttons === 1;
                     }
@@ -79,6 +85,26 @@ angular.module('app')
                 };
 
                 $scope.reset();
+
+
+                function simulateMouseEvent(touchevent) {
+                    const rect = touchevent.target.getBoundingClientRect();
+                    return {
+                        offsetX : touchevent.targetTouches[0].pageX - rect.left,
+                        offsetY : touchevent.targetTouches[0].pageY - rect.top
+                    };
+                }
+
+                $scope.canvas.addEventListener('touchstart', function (evt) {
+                    touching = true;
+                    $scope.handleMouseDown(simulateMouseEvent(evt));
+                });
+                $scope.canvas.addEventListener('touchend', function (evt) {
+                    touching = false;
+                });
+                $scope.canvas.addEventListener('touchmove', function (evt) {
+                    $scope.handleMouseMove(simulateMouseEvent(evt));
+                });
             }
         };
     });
