@@ -202,7 +202,10 @@
             'WORKSHEETS.CATCHTHEBALL.WORKSHEET_1.URL',
 
             'WORKSHEETS.HOOPS.TITLE', 'WORKSHEETS.HOOPS.SUMMARY', 'WORKSHEETS.HOOPS.DESCRIPTION',
-            'WORKSHEETS.HOOPS.WORKSHEET_1.URL'
+            'WORKSHEETS.HOOPS.WORKSHEET_1.URL',
+
+            'WORKSHEETS.CAPTCHA.TITLE', 'WORKSHEETS.CAPTCHA.SUMMARY', 'WORKSHEETS.CAPTCHA.DESCRIPTION',
+            'WORKSHEETS.CAPTCHA.WORKSHEET_1.URL'
 
         ]).then(function (translations) {
             vm.worksheets = [
@@ -234,6 +237,21 @@
                     downloads : [
                         {
                             worksheet : translations['WORKSHEETS.POKEMONIMAGES.WORKSHEET_1.URL']
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.CAPTCHA.TITLE'],
+                    summary : translations['WORKSHEETS.CAPTCHA.SUMMARY'],
+                    description : translations['WORKSHEETS.CAPTCHA.DESCRIPTION'],
+                    difficulty : 'Intermediate',
+                    type : 'images',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-captcha.png',
+                    tags : [ 'image classification', 'supervised learning' ],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.CAPTCHA.WORKSHEET_1.URL']
                         }
                     ]
                 },
