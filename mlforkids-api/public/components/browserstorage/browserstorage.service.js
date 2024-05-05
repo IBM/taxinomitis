@@ -676,6 +676,29 @@
                 });
         }
 
+        async function retrieveAssetAsText(id) {
+            loggerService.debug('[ml4kstorage] retrieveAssetAsText', id);
+
+            const asset = await retrieveAsset(id);
+            if (asset.text) {
+                return asset.text();
+            }
+            else {
+                // some browsers don't have a text() method, so this is a workaround
+                const blobReader = new FileReader();
+                return new Promise((resolve, reject) => {
+                    blobReader.addEventListener('load', () => {
+                        resolve(blobReader.result);
+                    }, false);
+                    blobReader.addEventListener('error', (err) => {
+                        reject(err);
+                    }, false);
+
+                    blobReader.readAsText(asset);
+                });
+            }
+        }
+
         async function deleteAsset(id) {
             loggerService.debug('[ml4kstorage] deleteAsset', id);
 
@@ -721,6 +744,7 @@
 
             storeAsset,
             retrieveAsset,
+            retrieveAssetAsText,
             deleteAsset,
             deleteAssetsDatabase
         };

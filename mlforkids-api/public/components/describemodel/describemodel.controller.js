@@ -56,14 +56,8 @@
             }, 0);
         }
 
-        function getAssetAsText(key) {
-            return browserStorageService.retrieveAsset(key)
-                .then((asset) => {
-                    return asset.text();
-                });
-        }
         function getAssetAsJson(key) {
-            return getAssetAsText(key)
+            return browserStorageService.retrieveAssetAsText(key)
                 .then((text) => {
                     return JSON.parse(text);
                 });
@@ -79,7 +73,7 @@
             .then((project) => {
                 $scope.project = project;
 
-                return getAssetAsText($scope.projectId + '-tree');
+                return browserStorageService.retrieveAssetAsText($scope.projectId + '-tree');
             })
             .then((tree) => {
                 $scope.loading = false;
@@ -87,7 +81,7 @@
 
                 initializeVisualisation(tree);
 
-                return getAssetAsText($scope.projectId + '-dot');
+                return browserStorageService.retrieveAssetAsText($scope.projectId + '-dot');
             })
             .then((dot) => {
                 prepareDecisionTreeGraph(dot);
