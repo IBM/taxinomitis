@@ -369,6 +369,12 @@
                 "SUMMARY": "Învață să clasificăm tipurile de stele",
                 "DESCRIPTION": "Antrenează un model de învățare automată pentru a prezice tipul unei stele pe baza atributelor acestora.",
                 "DETAILS": "Clasificarea stelare este atunci când astronomii clasifică o stea pe baza caracteristicilor lor spectrale. Utilizați acest set de date pentru a antrena un model simplu de învățare automată care poate prezice anumite tipuri de stele.\n\nCâmpul „temperatură” este în grade Kelvin.\nCâmpul „rază” oferă dimensiunea stelei în raport cu Soarele.\n Câmpul „luminozitate” oferă luminozitatea stelei în raport cu Soarele.\nCâmpul „culoare” oferă culoarea observabilă a stelei.\n\nAtribuire: \nhttps://www.kaggle.com/datasets/brsdincer/star-type-classification"
+            },
+            "CAPTCHA": {
+                "TITLE": "CAPTCHA",
+                "SUMMARY": "Recognise objects in images",
+                "DESCRIPTION": "Train a machine learning model to solve CAPTCHA problems, by recognising objects in photographs. ",
+                "DETAILS": "This is an empty template to help you collect your own training data. For instructions on how to use it, download 'CAPTCHA' from Worksheets."
             }
         }
     },

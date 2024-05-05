@@ -363,6 +363,12 @@
                 "SUMMARY": "Apprendre à classer les types d’étoiles",
                 "DESCRIPTION": "Entraîne un modèle d’apprentissage automatique pour prédire le type d’étoile en fonction de ses attributs.",
                 "DETAILS": "Pour les astronomes, la classification des étoiles consiste à les classer selon leurs caractéristiques spectrales. Utilise cet ensemble de données pour entraîner un modèle d’apprentissage automatique simple capable de prédire certains types d’étoiles.\n\nLe champ « Température » est exprimé en degrés Kelvin.\nLe champ « Rayon » fournit la taille de l’étoile relativement à celle du Soleil.\nLe champ « Luminosité » fournit la luminosité de l’étoile relativement à celle du Soleil.\nLe champ « Couleur » fournit la couleur observable de l’étoile.\n\nAttribution : \nhttps://www.kaggle.com/datasets/brsdincer/star-type-classification"
+            },
+            "CAPTCHA": {
+                "TITLE": "CAPTCHA",
+                "SUMMARY": "Recognise objects in images",
+                "DESCRIPTION": "Train a machine learning model to solve CAPTCHA problems, by recognising objects in photographs. ",
+                "DETAILS": "This is an empty template to help you collect your own training data. For instructions on how to use it, download 'CAPTCHA' from Worksheets."
             }
         }
     },

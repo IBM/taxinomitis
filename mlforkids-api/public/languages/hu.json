@@ -367,6 +367,12 @@
                 "SUMMARY": "Learn to classify the types of stars",
                 "DESCRIPTION": "Train a machine learning model to predict the type of a star based on their attributes. ",
                 "DETAILS": "Stellar classification is when astronomers classify a star based on their spectral characteristics. Use this dataset to train a simple machine learning model that can predict some types of stars.\n\nThe 'temperature' field is in degrees Kelvin.\nThe 'radius' field gives the size of the star relative to the Sun.\nThe 'brightness' field gives the luminosity of the star relative to the Sun.\nThe 'colour' field gives the observable colour of the star.\n\nAttribution: \nhttps://www.kaggle.com/datasets/brsdincer/star-type-classification"
+            },
+            "CAPTCHA": {
+                "TITLE": "CAPTCHA",
+                "SUMMARY": "Recognise objects in images",
+                "DESCRIPTION": "Train a machine learning model to solve CAPTCHA problems, by recognising objects in photographs. ",
+                "DETAILS": "This is an empty template to help you collect your own training data. For instructions on how to use it, download 'CAPTCHA' from Worksheets."
             }
         }
     },

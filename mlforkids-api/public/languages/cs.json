@@ -362,6 +362,12 @@
                 "SUMMARY": "Naučte se klasifikovat typy hvězd",
                 "DESCRIPTION": "Vytrénujte model strojového učení k předpovědi typu hvězdy na základě jejich atributů. ",
                 "DETAILS": "Hvězdná klasifikace je klasifikace, kdy astronomové klasifikují hvězdy na základě jejich spektrálních charakteristik. Pomocí této sady dat můžete natrénovat jednoduchý model strojového učení, který dokáže předpovídat některé typy hvězd. Pole \"teplota\" je ve stupních Kelvina. Pole \"poloměr\" udává velikost hvězdy vzhledem ke Slunci. Pole \"jasnost\" udává svítivost hvězdy vzhledem ke Slunci. Pole \"barva\" udává pozorovatelnou barvu hvězdy. Příspěvek: \nhttps://www.kaggle.com/datasets/brsdincer/star-type-classification"
+            },
+            "CAPTCHA": {
+                "TITLE": "CAPTCHA",
+                "SUMMARY": "Recognise objects in images",
+                "DESCRIPTION": "Train a machine learning model to solve CAPTCHA problems, by recognising objects in photographs. ",
+                "DETAILS": "This is an empty template to help you collect your own training data. For instructions on how to use it, download 'CAPTCHA' from Worksheets."
             }
         }
     },

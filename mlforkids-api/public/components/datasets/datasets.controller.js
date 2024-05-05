@@ -65,7 +65,8 @@
                     'DATASETS.DATA.POKEMONIMAGES.TITLE', 'DATASETS.DATA.POKEMONIMAGES.SUMMARY', 'DATASETS.DATA.POKEMONIMAGES.DESCRIPTION', 'DATASETS.DATA.POKEMONIMAGES.DETAILS',
                     'DATASETS.DATA.ARGO.TITLE', 'DATASETS.DATA.ARGO.SUMMARY', 'DATASETS.DATA.ARGO.DESCRIPTION', 'DATASETS.DATA.ARGO.DETAILS',
                     'DATASETS.DATA.STARS.TITLE', 'DATASETS.DATA.STARS.SUMMARY', 'DATASETS.DATA.STARS.DESCRIPTION', 'DATASETS.DATA.STARS.DETAILS',
-                    'DATASETS.DATA.FAKENEWS.ID', 'DATASETS.DATA.FAKENEWS.TITLE', 'DATASETS.DATA.FAKENEWS.SUMMARY', 'DATASETS.DATA.FAKENEWS.DESCRIPTION', 'DATASETS.DATA.FAKENEWS.DETAILS'
+                    'DATASETS.DATA.FAKENEWS.ID', 'DATASETS.DATA.FAKENEWS.TITLE', 'DATASETS.DATA.FAKENEWS.SUMMARY', 'DATASETS.DATA.FAKENEWS.DESCRIPTION', 'DATASETS.DATA.FAKENEWS.DETAILS',
+                    'DATASETS.DATA.FAKENEWS.ID', 'DATASETS.DATA.CAPTCHA.TITLE', 'DATASETS.DATA.CAPTCHA.SUMMARY', 'DATASETS.DATA.CAPTCHA.DESCRIPTION', 'DATASETS.DATA.CAPTCHA.DETAILS'
                 ]).then(function (translations) {
                     vm.datasets = [
                         {
@@ -196,6 +197,15 @@
                             details: translations['DATASETS.DATA.FAKENEWS.DETAILS'],
                             type: 'text',
                             image: 'static/images/dataset-fakenews-upd.png'
+                        },
+                        {
+                            id: 'captcha',
+                            title: translations['DATASETS.DATA.CAPTCHA.TITLE'],
+                            summary: translations['DATASETS.DATA.CAPTCHA.SUMMARY'],
+                            description: translations['DATASETS.DATA.CAPTCHA.DESCRIPTION'],
+                            details: translations['DATASETS.DATA.CAPTCHA.DETAILS'],
+                            type: 'imgtfjs',
+                            image: 'static/images/dataset-captcha.png'
                         }
                     ];
 

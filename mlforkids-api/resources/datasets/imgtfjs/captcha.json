@@ -1,0 +1,10 @@
+{
+    "metadata": {
+        "name": "CAPTCHA"
+    },
+    "data": {
+        "bicycles": [],
+        "crosswalks": [],
+        "firehydrant": []
+    }
+}
