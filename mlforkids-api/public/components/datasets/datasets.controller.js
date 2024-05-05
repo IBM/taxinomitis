@@ -11,11 +11,12 @@
             'loggerService',
             'trainingService',
             'storageService',
+            'browserStorageService',
             '$state', '$translate', '$mdDialog', '$q'
         ];
 
 
-    function DatasetsController(authService, projectsService, datasetsService, loggerService, trainingService, storageService, $state, $translate, $mdDialog, $q) {
+    function DatasetsController(authService, projectsService, datasetsService, loggerService, trainingService, storageService, browserStorageService, $state, $translate, $mdDialog, $q) {
 
         var vm = this;
         vm.authService = authService;
@@ -30,6 +31,7 @@
             vm[type].splice(errIdx, 1);
         };
 
+        let localStorageSupported = false;
 
         function displayAlert(type, status, errObj) {
             if (!errObj) {
@@ -197,6 +199,11 @@
                         }
                     ];
 
+                    browserStorageService.isSupported()
+                        .then((supported) => {
+                            localStorageSupported = (supported === 1);
+                        });
+
                     vm.loading = false;
                 });
             })
@@ -218,11 +225,13 @@
             $mdDialog.show({
                 locals : {
                     dataset : dataset,
-                    testratio : defaultTestRatio
+                    testratio : defaultTestRatio,
+                    localStorageSupported : localStorageSupported
                 },
                 controller : function ($scope, locals) {
                     $scope.dataset = locals.dataset;
                     $scope.testratio = locals.testratio;
+                    $scope.localStorageSupported = locals.localStorageSupported;
                     $scope.hide = function() {
                         $mdDialog.hide();
                     };

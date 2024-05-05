@@ -38,9 +38,11 @@
             <span flex></span>
             <md-button class="md-raised"
                 ng-click="confirm('cloud')"
+                ng-class="{'md-primary' : !localStorageSupported }"
                 translate="DATASETS.NEW.CLOUD"></md-button>
             <md-button
                 class="md-raised md-primary"
+                ng-if="localStorageSupported"
                 ng-click="confirm('local')"
                 translate="DATASETS.NEW.LOCAL"
                 ng-disabled="showtestratio"></md-button>

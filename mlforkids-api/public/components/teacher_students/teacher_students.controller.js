@@ -475,7 +475,7 @@
             };
 
             var confirmation = {
-                message : 'Do you want to reset the passwords for the selected students (so they all have the same password)?',
+                message : 'Do you want to reset the passwords for the selected students?',
                 event : ev
             };
 
