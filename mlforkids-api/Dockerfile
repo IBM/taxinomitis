@@ -58,6 +58,7 @@ COPY --chown=node:node resources resources
 RUN mkdir web
 COPY --from=builder --chown=node:node /usr/src/build/web/static web/static
 COPY --from=builder --chown=node:node /usr/src/build/web/dynamic web/dynamic
+COPY --chown=node:node resources/datasets web/static/datasets
 
 # copy across built back-end code
 RUN mkdir dist
