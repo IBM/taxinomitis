@@ -90,8 +90,8 @@ angular.module('app')
                 function simulateMouseEvent(touchevent) {
                     const rect = touchevent.target.getBoundingClientRect();
                     return {
-                        offsetX : touchevent.targetTouches[0].pageX - rect.left,
-                        offsetY : touchevent.targetTouches[0].pageY - rect.top
+                        offsetX : touchevent.targetTouches[0].clientX - rect.x,
+                        offsetY : touchevent.targetTouches[0].clientY - rect.y
                     };
                 }
 
