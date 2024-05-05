@@ -398,7 +398,7 @@ gulp.task('buildprod',
             'prodhtml',
             'angularcomponents',
             'prodlanguages',
-            'datasets',
             'scratchblocks',
             'stories'),
+        'datasets',
         'compile'));
