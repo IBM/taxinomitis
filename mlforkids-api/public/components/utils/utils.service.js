@@ -47,7 +47,7 @@
         }
 
         function loadTensorFlow() {
-            return loadScript('/static/bower_components/tfjs/tf.min.js?v=182');
+            return loadScript('/static/bower_components/tfjs/tf.min.js?v=183');
         }
 
 
