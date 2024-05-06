@@ -212,7 +212,7 @@
                         clearAuthData();
                         storageService.clear();
 
-                        browserStorageService.deleteSessionUserProjects();
+                        return browserStorageService.deleteSessionUserProjects();
                     })
                     .catch(function (err) {
                         loggerService.error('[ml4kauth] Failed to delete session user', err);

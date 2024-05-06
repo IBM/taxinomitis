@@ -82,6 +82,12 @@
         }
 
 
+        function isCorruptedDatabase(err) {
+            return err &&
+                   err.name === 'NotFoundError' &&
+                   err.message === "Failed to execute 'transaction' on 'IDBDatabase': One of the specified object stores was not found.";
+        }
+
         //-----------------------------------------------------------
         //  common functions
         //-----------------------------------------------------------
@@ -256,7 +262,12 @@
                     };
                 }
                 catch (err) {
-                    loggerService.error('[ml4kstorage] failed to run session user cleanup.', err);
+                    if (isCorruptedDatabase(err)) {
+                        loggerService.error('[ml4kstorage] projects database corrupted', err);
+                    }
+                    else {
+                        loggerService.error('[ml4kstorage] failed to run session user cleanup.', err);
+                    }
                     reject(err);
                 }
             });
@@ -277,19 +288,25 @@
                 return [];
             }
 
-            const transaction = projectsDbHandle.transaction([ PROJECTS_TABLE ], 'readonly');
-            const request = transaction.objectStore(PROJECTS_TABLE).getAll();
+            try {
+                const transaction = projectsDbHandle.transaction([ PROJECTS_TABLE ], 'readonly');
+                const request = transaction.objectStore(PROJECTS_TABLE).getAll();
 
-            return promisifyIndexedDbRequest(request)
-                .then(function (event) {
-                    return event.target.result.filter(function (project) {
-                        return project.userid === userid;
+                return promisifyIndexedDbRequest(request)
+                    .then(function (event) {
+                        return event.target.result.filter(function (project) {
+                            return project.userid === userid;
+                        });
+                    })
+                    .catch(function (err) {
+                        loggerService.error('[ml4kstorage] unable to get local projects info.', err);
+                        return [];
                     });
-                })
-                .catch(function (err) {
-                    loggerService.error('[ml4kstorage] unable to get local projects info.', err);
-                    return [];
-                });
+            }
+            catch (err) {
+                loggerService.error('[ml4kstorage] unable to access projects database.', err);
+                return [];
+            }
         }
 
 
@@ -704,20 +721,36 @@
 
             await requiresAssetsDatabase();
 
-            const transaction = assetsDbHandle.transaction([ ASSETS_TABLE ], 'readwrite');
-            transaction.objectStore(ASSETS_TABLE).delete(id);
+            try {
+                const transaction = assetsDbHandle.transaction([ ASSETS_TABLE ], 'readwrite');
+                transaction.objectStore(ASSETS_TABLE).delete(id);
 
-            return promisifyIndexedDbTransaction(transaction);
+                return promisifyIndexedDbTransaction(transaction);
+            }
+            catch (err) {
+                if (isCorruptedDatabase(err)) {
+                    loggerService.debug('[ml4kstorage] assets db corrupted - resetting');
+                    deleteAssetsDatabase();
+                }
+                else {
+                    throw err;
+                }
+            }
         }
 
         function deleteAssetsDatabase() {
-            window.indexedDB.deleteDatabase(ASSETS_DB_NAME);
-            delete assetsDbHandle;
+            loggerService.debug('[ml4kstorage] deleting assets database');
+            try {
+                window.indexedDB.deleteDatabase(ASSETS_DB_NAME);
+                delete assetsDbHandle;
+            }
+            catch (err) { }
         }
 
 
         return {
             isSupported,
+            isCorruptedDatabase,
             idIsLocal,
             sanitizeLabel,
 
