@@ -95,14 +95,14 @@ angular.module('app')
                     };
                 }
 
-                $scope.canvas.addEventListener('touchstart', function (evt) {
+                $scope.canvas.addEventListener('touchstart', (evt) => {
                     touching = true;
                     $scope.handleMouseDown(simulateMouseEvent(evt));
                 });
-                $scope.canvas.addEventListener('touchend', function (evt) {
+                $scope.canvas.addEventListener('touchend', (evt) => {
                     touching = false;
                 });
-                $scope.canvas.addEventListener('touchmove', function (evt) {
+                $scope.canvas.addEventListener('touchmove', (evt) => {
                     $scope.handleMouseMove(simulateMouseEvent(evt));
                 });
             }

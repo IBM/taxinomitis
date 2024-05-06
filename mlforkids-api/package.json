@@ -90,7 +90,7 @@
     "supertest": "6.3.4",
     "typescript": "5.4.5",
     "typescript-require": "0.3.0",
-    "unzipper": "0.11.4"
+    "unzipper": "0.11.5"
   },
   "dependencies": {
     "@slack/webhook": "7.0.2",
