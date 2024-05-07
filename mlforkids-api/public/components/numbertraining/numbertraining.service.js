@@ -158,7 +158,7 @@
                             modelStatus.status = 'Available';
                             modelStatus.warning = 'Not stored';
 
-                            browserStorageService.deleteAssetsDatabase();
+                            return browserStorageService.deleteAssetsDatabase();
                         }
                         else {
                             modelStatus.status = 'Failed';

@@ -85,7 +85,8 @@
         function isCorruptedDatabase(err) {
             return err &&
                    err.name === 'NotFoundError' &&
-                   err.message === "Failed to execute 'transaction' on 'IDBDatabase': One of the specified object stores was not found.";
+                   (err.message === "Failed to execute 'transaction' on 'IDBDatabase': One of the specified object stores was not found." ||
+                    err.message === "IDBDatabase.transaction: 'assets' is not a known object store name");
         }
 
         //-----------------------------------------------------------
@@ -675,9 +676,19 @@
             const resp = await $http.get(url, { responseType : 'blob' });
             const zipdata = resp.data;
 
-            const transaction = assetsDbHandle.transaction([ ASSETS_TABLE ], 'readwrite');
-            const request = transaction.objectStore(ASSETS_TABLE).put(zipdata, id);
-            return promisifyIndexedDbRequest(request);
+            try {
+                const transaction = assetsDbHandle.transaction([ ASSETS_TABLE ], 'readwrite');
+                const request = transaction.objectStore(ASSETS_TABLE).put(zipdata, id);
+                return promisifyIndexedDbRequest(request);
+            }
+            catch (err) {
+                if (isCorruptedDatabase(err)) {
+                    loggerService.debug('[ml4kstorage] assets db corrupted - resetting');
+                    await deleteAssetsDatabase();
+                }
+
+                throw err;
+            }
         }
 
         async function retrieveAsset(id) {
@@ -730,7 +741,7 @@
             catch (err) {
                 if (isCorruptedDatabase(err)) {
                     loggerService.debug('[ml4kstorage] assets db corrupted - resetting');
-                    deleteAssetsDatabase();
+                    await deleteAssetsDatabase();
                 }
                 else {
                     throw err;
@@ -740,11 +751,20 @@
 
         function deleteAssetsDatabase() {
             loggerService.debug('[ml4kstorage] deleting assets database');
-            try {
-                window.indexedDB.deleteDatabase(ASSETS_DB_NAME);
-                delete assetsDbHandle;
-            }
-            catch (err) { }
+            return new Promise((resolve) => {
+                if (assetsDbHandle) {
+                    assetsDbHandle.close();
+                }
+                const request = window.indexedDB.deleteDatabase(ASSETS_DB_NAME);
+                request.onsuccess = () => {
+                    assetsDbHandle = undefined;
+                    resolve();
+                };
+                request.onerror = () => {
+                    assetsDbHandle = undefined;
+                    resolve();
+                };
+            });
         }
 
 
