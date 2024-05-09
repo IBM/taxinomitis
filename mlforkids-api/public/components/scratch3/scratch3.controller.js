@@ -28,8 +28,8 @@
             loggerService.debug('[ml4kscratch3] preparing Scratch 3 page', $scope.projecturls);
 
             const escapeProjectName = function (input) {
-                return input.replaceAll(/[\(\)&<>]/g, ' ')
-                            .replace(/[']/g, '\\\'');
+                return input.replaceAll(/[\(\)!&<>]/g, ' ')
+                            .replaceAll(/[']/g, '%27');
             };
 
             authService.getProfileDeferred()
