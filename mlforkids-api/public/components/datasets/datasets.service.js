@@ -11,7 +11,7 @@
     function datasetsService($http, browserStorageService) {
 
         function getDataset(type, id) {
-            const url = '/static/datasets/' + type + '/' + id + '.json';
+            const url = '/static/datasets/' + type + '/' + id + '.json?v=1';
             return $http.get(url)
                 .then((resp) => {
                     return resp.data;
