@@ -36,7 +36,7 @@
     "@types/express-jwt": "6.0.4",
     "@types/he": "1.2.3",
     "@types/jsonwebtoken": "9.0.6",
-    "@types/lodash": "4.17.3",
+    "@types/lodash": "4.17.4",
     "@types/mocha": "10.0.6",
     "@types/multer": "1.4.11",
     "@types/mustache": "4.2.5",

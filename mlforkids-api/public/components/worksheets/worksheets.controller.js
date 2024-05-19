@@ -205,8 +205,10 @@
             'WORKSHEETS.HOOPS.WORKSHEET_1.URL',
 
             'WORKSHEETS.CAPTCHA.TITLE', 'WORKSHEETS.CAPTCHA.SUMMARY', 'WORKSHEETS.CAPTCHA.DESCRIPTION',
-            'WORKSHEETS.CAPTCHA.WORKSHEET_1.URL'
+            'WORKSHEETS.CAPTCHA.WORKSHEET_1.URL',
 
+            'WORKSHEETS.RECOMMENDER.TITLE', 'WORKSHEETS.RECOMMENDER.SUMMARY', 'WORKSHEETS.RECOMMENDER.DESCRIPTION',
+            'WORKSHEETS.RECOMMENDER.WORKSHEET_1.URL'
         ]).then(function (translations) {
             vm.worksheets = [
                 {
@@ -673,6 +675,21 @@
                     ]
                 },
                 {
+                    title : translations['WORKSHEETS.RECOMMENDER.TITLE'],
+                    summary : translations['WORKSHEETS.RECOMMENDER.SUMMARY'],
+                    description : translations['WORKSHEETS.RECOMMENDER.DESCRIPTION'],
+                    difficulty : 'Intermediate',
+                    type : 'images',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-recommender.png',
+                    tags : [ 'image classification', 'recommendations' ],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.RECOMMENDER.WORKSHEET_1.URL']
+                        }
+                    ]
+                },
+                {
                     title : translations['WORKSHEETS.INKBLOTS.TITLE'],
                     summary : translations['WORKSHEETS.INKBLOTS.SUMMARY'],
                     description : translations['WORKSHEETS.INKBLOTS.DESCRIPTION'],
@@ -761,7 +778,7 @@
                     title : translations['WORKSHEETS.JUDGEABOOK.TITLE'],
                     summary : translations['WORKSHEETS.JUDGEABOOK.SUMMARY'],
                     description : translations['WORKSHEETS.JUDGEABOOK.DESCRIPTION'],
-                    difficulty : 'Intermediate',
+                    difficulty : 'Advanced',
                     type : 'images',
                     maketypes : [ 'scratch3' ],
                     image : 'static/images/project-judgeabook.png',

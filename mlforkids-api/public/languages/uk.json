@@ -1603,6 +1603,14 @@
         "WORKSHEET_1": {
             "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-captcha.pdf"
         }
+    },
+    "RECOMMENDER": {
+        "TITLE": "Recommender",
+        "SUMMARY": "Teach a computer to recognise visual style",
+        "DESCRIPTION": "Make a game that recommends a book you would like to read.",
+        "WORKSHEET_1": {
+            "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-recommender.pdf"
+        }
     }
   },
   "TEACHER": {
