@@ -1473,7 +1473,7 @@
             "SUMMARY": "Enseñe a una computadora a reconocer enlaces web de phishing",
             "DESCRIPTION": "Crea un programa Python que pueda predecir si una URL es legítima",
             "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-phishing-es.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-phishing.pdf"
             },
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-phishing.pdf"
         },
