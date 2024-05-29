@@ -2333,6 +2333,26 @@ var ML4KidsNumbersTraining = /*#__PURE__*/function () {
       var projectid = request.projectid;
       var numberdata = request.numbers;
       var requestid = request.requestid;
+      if (!this.state != 'READY' ||
+      // library not ready
+      !this.PROJECTS[projectid] ||
+      // unknown project
+      this.PROJECTS[projectid].state !== 'READY')
+        // model not ready
+        {
+          worker.postMessage({
+            mlforkidsnumbers: 'classifyresponse',
+            data: {
+              projectid: projectid,
+              requestid: requestid,
+              result: [{
+                class_name: 'model not ready',
+                confidence: 0
+              }]
+            }
+          });
+          return;
+        }
       var testdata = {};
       for (var _i = 0, _Object$keys = Object.keys(numberdata); _i < _Object$keys.length; _i++) {
         var key = _Object$keys[_i];

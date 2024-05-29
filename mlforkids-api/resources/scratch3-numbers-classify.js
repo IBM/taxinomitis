@@ -392,9 +392,18 @@ class MachineLearningNumbers {
 
 
     getNumberClassificationResponse (numbers, valueToReturn, callback) {
-        this.classifyNumbers(numbers, function (results) {
-            callback(results[0][valueToReturn]);
-        });
+        if (this.modelReady) {
+            this.classifyNumbers(numbers, function (results) {
+                callback(results[0][valueToReturn]);
+            });
+        }
+        else {
+            const NOT_READY = {
+                class_name : 'model not ready',
+                confidence : 0
+            };
+            callback(NOT_READY[valueToReturn]);
+        }
     }
 
 
