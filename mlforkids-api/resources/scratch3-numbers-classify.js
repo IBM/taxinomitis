@@ -301,14 +301,14 @@ class MachineLearningNumbers {
 
 
     trainNewModel() {
-        if (this.trainingModel || // currently submitting a new-model request, OR
+        if (this.training || // currently submitting a new-model request, OR
             this._lastModelTrainedRecently()) // we very recently submitted one
         {
-            console.log('ignoring request - new model requested very recently');
+            console.log('ignoring request - new model requested less than a minute ago');
             return;
         }
 
-        this.trainingModel = true;
+        this.training = true;
         this.lastModelTrain = Date.now();
 
         {{#storeurl}}
@@ -374,11 +374,20 @@ class MachineLearningNumbers {
             }
             else if (that && msg.data.mlforkidsnumbers === 'modelinit')
             {
-                console.log('ready to train a new model');
+                if (msg.data.data.reason === 'no training data') {
+                    console.log('library is ready to train a new model - no training data available');
 
-                // to avoid the user needing to do this, we'll
-                //  try to train a model automatically
-                that.trainNewModel();
+                    that.lastModelTrain = 0;
+                    that.modelError = false;
+                    that.training = false;
+                }
+                else {
+                    console.log('ready to train a new model');
+
+                    // to avoid the user needing to do this, we'll
+                    //  try to train a model automatically
+                    that.trainNewModel();
+                }
             }
             else if (that && msg.data.mlforkidsnumbers === 'classifyresponse')
             {

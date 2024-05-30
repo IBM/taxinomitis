@@ -2168,6 +2168,26 @@ var ML4KidsNumbersTraining = /*#__PURE__*/function () {
         _this4.PROJECTS[projectid].details = response;
         if (response.status === 'Training') {
           _this4._scheduleModelStatusCheck(projectid, response, worker);
+        } else if (response.status === 'Failed') {
+          console.log('[mlforkids] model training failed', response);
+          if (response.error && response.error.message === 'More training data needed to train a model') {
+            // no training data for a model - let the scratch extension know
+            worker.postMessage({
+              mlforkidsnumbers: 'modelinit',
+              data: {
+                projectid: projectid,
+                reason: 'no training data'
+              }
+            });
+            return;
+          } else {
+            worker.postMessage({
+              mlforkidsnumbers: 'modelfailed',
+              data: {
+                projectid: projectid
+              }
+            });
+          }
         }
       }).catch(function (err) {
         console.log('[mlforkids] model training failed', err);
@@ -2187,6 +2207,17 @@ var ML4KidsNumbersTraining = /*#__PURE__*/function () {
       var projectid = request.projectid;
       this.PROJECTS[projectid].state = 'TRAINING';
       return this._storageSupport.getTrainingData(projectid).then(function (training) {
+        if (training.length === 0) {
+          // no training - nothing we can do now - let the scratch extension know
+          worker.postMessage({
+            mlforkidsnumbers: 'modelinit',
+            data: {
+              projectid: projectid,
+              reason: 'no training data'
+            }
+          });
+          return;
+        }
         var options = {
           headers: {
             'Accept': 'application/json',
@@ -2201,11 +2232,35 @@ var ML4KidsNumbersTraining = /*#__PURE__*/function () {
         };
         return fetch(request.modelurl, options);
       }).then(function (resp) {
-        return resp.json();
+        if (resp) {
+          return resp.json();
+        }
       }).then(function (response) {
-        _this5.PROJECTS[projectid].details = response;
-        if (response.status === 'Training') {
-          _this5._scheduleModelStatusCheck(projectid, response, worker);
+        if (response) {
+          _this5.PROJECTS[projectid].details = response;
+          if (response.status === 'Training') {
+            _this5._scheduleModelStatusCheck(projectid, response, worker);
+          } else if (response.status === 'Failed') {
+            console.log('[mlforkids] model training failed', response);
+            if (response.error && response.error.message === 'More training data needed to train a model') {
+              // no training - nothing we can do now - let the scratch extension know
+              worker.postMessage({
+                mlforkidsnumbers: 'modelinit',
+                data: {
+                  projectid: projectid,
+                  reason: 'no training data'
+                }
+              });
+              return;
+            } else {
+              worker.postMessage({
+                mlforkidsnumbers: 'modelfailed',
+                data: {
+                  projectid: projectid
+                }
+              });
+            }
+          }
         }
       }).catch(function (err) {
         console.log('[mlforkids] model training failed', err);
@@ -2269,9 +2324,9 @@ var ML4KidsNumbersTraining = /*#__PURE__*/function () {
         _this8.PROJECTS[projectid].model = tfmodel;
         console.log('[mlforkids] saving model info');
         window.localStorage.setItem(modellocation, Date.now());
-        window.localStorage.setItem(projectid + '-features', JSON.stringify(modelinfo.features));
-        window.localStorage.setItem(projectid + '-labels', JSON.stringify(modelinfo.labels));
-        window.localStorage.setItem(projectid + '-status', modelinfo.urls.status);
+        window.localStorage.setItem('ml4k-models-numbers-' + projectid + '-features', JSON.stringify(modelinfo.features));
+        window.localStorage.setItem('ml4k-models-numbers-' + projectid + '-labels', JSON.stringify(modelinfo.labels));
+        window.localStorage.setItem('ml4k-models-numbers-' + projectid + '-status', modelinfo.urls.status);
         _this8.PROJECTS[projectid].features = modelinfo.features;
         _this8.PROJECTS[projectid].labels = modelinfo.labels;
         console.log('[mlforkids] downloading visualisation');
@@ -2333,39 +2388,44 @@ var ML4KidsNumbersTraining = /*#__PURE__*/function () {
       var projectid = request.projectid;
       var numberdata = request.numbers;
       var requestid = request.requestid;
-      if (!this.state != 'READY' ||
-      // library not ready
-      !this.PROJECTS[projectid] ||
-      // unknown project
-      this.PROJECTS[projectid].state !== 'READY')
-        // model not ready
-        {
-          worker.postMessage({
-            mlforkidsnumbers: 'classifyresponse',
-            data: {
-              projectid: projectid,
-              requestid: requestid,
-              result: [{
-                class_name: 'model not ready',
-                confidence: 0
-              }]
-            }
-          });
-          return;
-        }
+
+      // if (!this.state != 'READY' ||                    // library not ready
+      //     !this.PROJECTS[projectid] ||                 // unknown project
+      //     this.PROJECTS[projectid].state !== 'READY')  // model not ready
+      // {
+      //     worker.postMessage({
+      //         mlforkidsnumbers: 'classifyresponse',
+      //         data: {
+      //             projectid,
+      //             requestid,
+      //             result : [{
+      //                 class_name : 'model not ready',
+      //                 confidence : 0
+      //             }]
+      //         }
+      //     });
+      //
+      //     return;
+      // }
+
       var testdata = {};
-      for (var _i = 0, _Object$keys = Object.keys(numberdata); _i < _Object$keys.length; _i++) {
-        var key = _Object$keys[_i];
-        var feature = this.PROJECTS[projectid].features[key];
-        if (feature) {
-          if (feature.type.includes('int')) {
-            testdata[feature.name] = tf.tensor([parseInt(numberdata[key])]).toInt();
-          } else if (feature.type.includes('float')) {
-            testdata[feature.name] = tf.tensor([parseFloat(numberdata[key])]);
-          } else {
-            testdata[feature.name] = tf.tensor([numberdata[key]]);
+      try {
+        for (var _i = 0, _Object$keys = Object.keys(numberdata); _i < _Object$keys.length; _i++) {
+          var key = _Object$keys[_i];
+          var feature = this.PROJECTS[projectid].features[key];
+          if (feature) {
+            if (feature.type.includes('int')) {
+              testdata[feature.name] = tf.tensor([parseInt(numberdata[key])]).toInt();
+            } else if (feature.type.includes('float')) {
+              testdata[feature.name] = tf.tensor([parseFloat(numberdata[key])]);
+            } else {
+              testdata[feature.name] = tf.tensor([numberdata[key]]);
+            }
           }
         }
+      } catch (err) {
+        console.error('[ml4knums] unable to prepare data for classifying', err);
+        return;
       }
       this.PROJECTS[projectid].model.executeAsync(testdata).then(function (result) {
         return result.data();

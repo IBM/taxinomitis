@@ -204,6 +204,11 @@ class MachineLearningRegression {
 
 
     predict(args) {
+        if (!this.modelReady) {
+            console.log('model not ready to make predictions');
+            return;
+        }
+
         return new Promise((resolve) => {
             var requestId = this.nextClassifyRequest;
             this.nextClassifyRequest += 1;
