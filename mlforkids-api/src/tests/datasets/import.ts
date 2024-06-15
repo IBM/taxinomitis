@@ -313,13 +313,13 @@ describe('Datasets import', () => {
 
         it('should hold out the requested amount of numbers data for testing', async () => {
             const TESTS = [
-                { ratio:  10, expectedtest :  35, expectedtrain : 315 },
-                { ratio:  20, expectedtest :  70, expectedtrain : 280 },
-                { ratio:  25, expectedtest :  88, expectedtrain : 262 },
-                { ratio:  50, expectedtest : 175, expectedtrain : 175 },
-                { ratio: 100, expectedtest : 350, expectedtrain :   0 },
+                { ratio:  10, expectedtest :  33, expectedtrain : 301 },
+                { ratio:  20, expectedtest :  67, expectedtrain : 267 },
+                { ratio:  25, expectedtest :  84, expectedtrain : 250 },
+                { ratio:  50, expectedtest : 167, expectedtrain : 167 },
+                { ratio: 100, expectedtest : 334, expectedtrain :   0 },
             ];
-            const expectedtotal = 350;
+            const expectedtotal = 334;
 
             const user = uuid();
 
