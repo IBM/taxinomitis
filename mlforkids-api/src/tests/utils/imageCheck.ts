@@ -105,6 +105,10 @@ describe('Utils - imageCheck', () => {
             });
     });
 
+    it('should tolerate malformed URI characters', (done) => {
+        imageCheck.verifyImage(SPECIAL_CHAR_URL, 10000000).then(done);
+    });
+
     it('should reject images that exceed size limits', (done) => {
         imageCheck.verifyImage(VALID_JPG, 8000)
             .then(() => {
@@ -134,3 +138,4 @@ const GIBBERISH = '12345';
 const SPECIALCHARS = '*';
 const HTTP_ADDRESS = 'http://image-net.org/static_files/index_files/logo.jpg';
 const HTTPS_REDIR_TO_HTTP = 'https://ibm.biz/Bdf2Bu';
+const SPECIAL_CHAR_URL = 'http://blogfiles.naver.net/MjAyNDA1MjFfMTg4/MDAxNzE2Mjc2MTg3Mzkx.lOoMKRMHnh5w1GgDQRf6e61M2n9pRcJytnLaY9nhBvYg.MyvpXiieqx78oKDQo2gS0S8tS2Xmtk7sYInmz8NsuIUg.JPEG/DSC_8982_%BA%B9%BB%E7_2.jpg';

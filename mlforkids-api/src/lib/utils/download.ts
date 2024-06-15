@@ -5,7 +5,7 @@ import { pipeline } from 'node:stream';
 // external dependencies
 import * as httpstatus from 'http-status';
 import * as sharp from 'sharp';
-import got from 'got';
+import * as got from 'mlforkids-got';
 import * as googleDns from 'mlforkids-google-dns';
 // local dependencies
 import loggerSetup from './logger';
@@ -188,7 +188,7 @@ export function resizeUrl(url: string, width: number, height: number): Promise<B
                                 });
 
         got.stream(url, REQUEST_OPTIONS)
-            .on('error', (err) => {
+            .on('error', (err: any) => {
                 log.warn({ err, url }, 'Download fail');
                 return reject(new Error(ERRORS.DOWNLOAD_FAIL + url));
             })
