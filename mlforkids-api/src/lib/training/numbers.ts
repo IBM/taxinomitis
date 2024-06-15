@@ -35,24 +35,35 @@ export function trainClassifier(
             return submitTraining(project.id, csvData);
         })
         .catch((err) => {
-            log.error({ err, project }, 'Failed to train classifier');
-            if (isTrainingErrorPayload(err)) {
-                slack.notify('Failed to train number classifier', slack.SLACK_CHANNELS.TRAINING_ERRORS);
-                return err;
-            }
-            else {
-                let errormessage = err.message;
-                if (errormessage.includes('ECONNREFUSED')) {
-                    errormessage = 'Failed to contact model training server';
-                }
-
+            if (err.statusCode === httpStatus.BAD_REQUEST) {
                 return {
                     key : project.id,
                     status : 'Failed',
                     error : {
-                        message : errormessage,
+                        message : err.message,
                     },
                 };
+            }
+            else {
+                log.error({ err, project }, 'Failed to train classifier');
+                if (isTrainingErrorPayload(err)) {
+                    slack.notify('Failed to train number classifier', slack.SLACK_CHANNELS.TRAINING_ERRORS);
+                    return err;
+                }
+                else {
+                    let errormessage = err.message;
+                    if (errormessage.includes('ECONNREFUSED')) {
+                        errormessage = 'Failed to contact model training server';
+                    }
+
+                    return {
+                        key : project.id,
+                        status : 'Failed',
+                        error : {
+                            message : errormessage,
+                        },
+                    };
+                }
             }
         });
 }
