@@ -643,9 +643,10 @@
                     duplicatesCheck[label] = [];
                 }
 
-                if (!duplicatesCheck[label].includes(text)) {
+                const caseInsensitiveText = text.toLowerCase();
+                if (!duplicatesCheck[label].includes(caseInsensitiveText)) {
                     trainingByLabel[label].examples.push({ text });
-                    duplicatesCheck[label].push(text);
+                    duplicatesCheck[label].push(caseInsensitiveText);
                 }
             }
 

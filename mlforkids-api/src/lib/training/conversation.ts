@@ -454,12 +454,22 @@ async function getTraining(project: DbObjects.Project): Promise<TrainingObjects.
                 start : 0, limit : counts[label],
             });
 
-            intents.push({
+            const intentTraining: TrainingObjects.ConversationIntent = {
                 intent : label.replace(/\s/g, '_'),
-                examples : training.map((item) => {
-                    return { text : item };
-                }),
-            });
+                examples : [],
+            };
+
+            const duplicatesCheck: string[] = [];
+            for (const text of training) {
+                const caseInsensitiveText = text.toLowerCase();
+
+                if (!duplicatesCheck.includes(caseInsensitiveText)) {
+                    intentTraining.examples.push({ text });
+                    duplicatesCheck.push(caseInsensitiveText);
+                }
+            }
+
+            intents.push(intentTraining);
         }
     }
 
