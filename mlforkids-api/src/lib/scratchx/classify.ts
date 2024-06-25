@@ -5,7 +5,6 @@ import * as store from '../db/store';
 import * as conversation from '../training/conversation';
 import * as Types from '../db/db-types';
 import * as TrainingTypes from '../training/training-types';
-import * as legacy from './legacy';
 import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
@@ -61,11 +60,7 @@ async function classifyText(key: Types.ScratchKey, text: string): Promise<Traini
 
 
 
-async function classifyNumbers(key: Types.ScratchKey, numbers: string[]): Promise<TrainingTypes.Classification[]> {
-    if (legacy.LEGACYKEYS.includes(key.id)) {
-        return legacy.classifyNumbers(key, numbers);
-    }
-
+async function classifyNumbers(key: Types.ScratchKey): Promise<TrainingTypes.Classification[]> {
     log.error({ key }, 'Unexpected attempt to test browser-hosted model');
     const err: any = new Error('Classification for numbers project is only available in the browser or from Python projects');
     err.statusCode = 400;
@@ -94,7 +89,7 @@ export function classify(scratchKey: Types.ScratchKey, data: any): Promise<Train
     case 'text':
         return classifyText(scratchKey, data as string);
     case 'numbers':
-        return classifyNumbers(scratchKey, data as string[]);
+        return classifyNumbers(scratchKey);
     case 'sounds':
         return classifySound(scratchKey);
     case 'imgtfjs':

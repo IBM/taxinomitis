@@ -5,7 +5,6 @@ import * as ScratchTypes from './scratchx-types';
 import * as db from '../db/store';
 import * as conversation from '../training/conversation';
 import * as numbers from '../training/numbers';
-import * as legacy from './legacy';
 
 
 
@@ -88,24 +87,6 @@ export async function trainModel(scratchKey: Types.ScratchKey): Promise<ScratchT
             }
         }
         else if (project.type === 'numbers') {
-            if (legacy.LEGACYKEYS.includes(scratchKey.id)) {
-                const model = await legacy.trainClassifier(project);
-                if (model.status === 'Available') {
-                    return {
-                        status : 2,
-                        msg : 'Ready',
-                        type : scratchKey.type,
-                    };
-                }
-                else {
-                    return {
-                        status : 0,
-                        msg : 'Model Failed',
-                        type : scratchKey.type,
-                    };
-                }
-            }
-
             return numbers.trainClassifierCloudProject(project);
         }
         else {
