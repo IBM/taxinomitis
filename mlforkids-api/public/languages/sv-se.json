@@ -140,6 +140,7 @@
         "FORGOT_DETAILS": "Glömt dina uppgifter?",
         "TRY_TITLE": "Testa utan att registrera dig",
         "TRY_NOW": "Testa nu",
+        "TRY_NOW_EXPLANATION": "Use all features of the website without needing to register or log in. Machine learning projects created using \"Try it now\" will be deleted after (at least) four hours.",
         "WHO_YOU": "Vem är du?",
         "TEACHER": "En lärare eller handledare i en kodningsklubb",
         "STUDENT": "En elev",

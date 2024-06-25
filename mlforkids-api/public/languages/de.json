@@ -140,6 +140,7 @@
         "FORGOT_DETAILS": "Hast du deine Zugangsdaten vergessen?",
         "TRY_TITLE": "Test ohne Account",
         "TRY_NOW": "Jetzt testen",
+        "TRY_NOW_EXPLANATION": "Use all features of the website without needing to register or log in. Machine learning projects created using \"Try it now\" will be deleted after (at least) four hours.",
         "WHO_YOU": "Wer bist du?",
         "TEACHER": "Eine Lehrkraft: LehrerIn, AG- oder ProjektleiterIn",
         "STUDENT": "Ein/e Schüler/in",

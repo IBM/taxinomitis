@@ -140,6 +140,7 @@
         "FORGOT_DETAILS": "詳細をわすれましたか?",
         "TRY_TITLE": "登録せずに試す",
         "TRY_NOW": "すぐに試す",
+        "TRY_NOW_EXPLANATION": "Use all features of the website without needing to register or log in. Machine learning projects created using \"Try it now\" will be deleted after (at least) four hours.",
         "WHO_YOU": "あなたは誰?",
         "TEACHER": "先生又はコーディンククラブのリーダー",
         "STUDENT": "生徒",

@@ -140,6 +140,7 @@
         "FORGOT_DETAILS": "Informations oubliées ?",
         "TRY_TITLE": "Essayer sans s'enregistrer",
         "TRY_NOW": "Essayer maintenant",
+        "TRY_NOW_EXPLANATION": "Use all features of the website without needing to register or log in. Machine learning projects created using \"Try it now\" will be deleted after (at least) four hours.",
         "WHO_YOU": "Qui êtes-vous ?",
         "TEACHER": "Un enseignant ou un animateur d'atelier de codage",
         "STUDENT": "Un élève",

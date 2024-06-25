@@ -34,7 +34,15 @@
         </div>
         <hr ng-if="vm.deployment === 'machinelearningforkids.co.uk'"/>
         <div class="loginItem">
-            <label translate>LOGIN.TRY_TITLE</label>
+            <label>
+                {{ "LOGIN.TRY_TITLE" | translate }}
+                <md-button class="md-icon-button test-tooltip">
+                    <md-tooltip md-direction="bottom" class="tooltipBody" style="max-width: 330px;">
+                        {{ "LOGIN.TRY_NOW_EXPLANATION" | translate }}
+                    </md-tooltip>
+                    <span class="glyphicon glyphicon-question-sign"></span>
+                </md-button>
+            </label>
             <button class="btn btn-primary login-button" ng-click="vm.startTryItNowSession()" translate>LOGIN.TRY_NOW</button>
         </div>
     </div>

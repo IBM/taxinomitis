@@ -140,6 +140,7 @@
         "FORGOT_DETAILS": "¿Olvidaste tus datos?",
         "TRY_TITLE": "Prueba sin registrarte",
         "TRY_NOW": "Pruébalo ahora",
+        "TRY_NOW_EXPLANATION": "Use all features of the website without needing to register or log in. Machine learning projects created using \"Try it now\" will be deleted after (at least) four hours.",
         "WHO_YOU": "¿Quién eres tú?",
         "TEACHER": "Un profesor o responsable de un club de programación ",
         "STUDENT": "Un estudiante",

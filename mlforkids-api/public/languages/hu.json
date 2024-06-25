@@ -145,6 +145,7 @@
         "FORGOT_DETAILS": "Elfelejtett jelszó?",
         "TRY_TITLE": "Próbáld ki regisztráció nélkül",
         "TRY_NOW": "Próbáld ki!",
+        "TRY_NOW_EXPLANATION": "Use all features of the website without needing to register or log in. Machine learning projects created using \"Try it now\" will be deleted after (at least) four hours.",
         "WHO_YOU": "Ki vagy?",
         "TEACHER": "Szülő, tanár szakkörvezető?",
         "STUDENT": "Diák",

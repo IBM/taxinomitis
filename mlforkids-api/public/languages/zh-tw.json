@@ -146,6 +146,7 @@
         "FORGOT_DETAILS": "忘記了你的資料嗎？",
         "TRY_TITLE": "試試看不註冊吧",
         "TRY_NOW": "立即使用",
+        "TRY_NOW_EXPLANATION": "Use all features of the website without needing to register or log in. Machine learning projects created using \"Try it now\" will be deleted after (at least) four hours.",
         "WHO_YOU": "你是誰呢？",
         "TEACHER": "父母、老師或是程式教育者",
         "STUDENT": "學生",

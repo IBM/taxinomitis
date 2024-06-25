@@ -146,6 +146,7 @@
         "FORGOT_DETAILS": "Ți-ai uitat detaliile?",
         "TRY_TITLE": "Încearcă fără a te înregistra",
         "TRY_NOW": "Încearcă acum",
+        "TRY_NOW_EXPLANATION": "Use all features of the website without needing to register or log in. Machine learning projects created using \"Try it now\" will be deleted after (at least) four hours.",
         "WHO_YOU": "Cine ești tu?",
         "TEACHER": "Un părinte, profesor sau lider al unui club de codare",
         "STUDENT": "un elev la școală",

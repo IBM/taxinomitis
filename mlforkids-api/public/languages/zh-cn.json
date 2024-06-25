@@ -140,6 +140,7 @@
         "FORGOT_DETAILS": "忘了你的详细信息？",
         "TRY_TITLE": "尝试不注册",
         "TRY_NOW": "立即尝试",
+        "TRY_NOW_EXPLANATION": "Use all features of the website without needing to register or log in. Machine learning projects created using \"Try it now\" will be deleted after (at least) four hours.",
         "WHO_YOU": "你是谁？",
         "TEACHER": "编码俱乐部的老师或领导者",
         "STUDENT": "一个学生",

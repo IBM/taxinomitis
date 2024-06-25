@@ -140,6 +140,7 @@
         "FORGOT_DETAILS": "Bilgilerinizi mi unuttunuz?",
         "TRY_TITLE": "Kaydolmadan dene",
         "TRY_NOW": "Hemen dene",
+        "TRY_NOW_EXPLANATION": "Use all features of the website without needing to register or log in. Machine learning projects created using \"Try it now\" will be deleted after (at least) four hours.",
         "WHO_YOU": "Kimsiniz?",
         "TEACHER": "Öğretmen ya da kodlama kulübü lideri",
         "STUDENT": "Öğrenci",

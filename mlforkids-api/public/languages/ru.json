@@ -140,6 +140,7 @@
         "FORGOT_DETAILS": "Забыли свои данные?",
         "TRY_TITLE": "Попробовать без регистрации",
         "TRY_NOW": "Попробовать сейчас",
+        "TRY_NOW_EXPLANATION": "Use all features of the website without needing to register or log in. Machine learning projects created using \"Try it now\" will be deleted after (at least) four hours.",
         "WHO_YOU": "Кто Вы?",
         "TEACHER": "Родитель, учитель или лидер клуба программирования",
         "STUDENT": "Студент",

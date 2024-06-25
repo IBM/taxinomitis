@@ -146,6 +146,7 @@
         "FORGOT_DETAILS": "아이디나 비밀번호를 잊어버렸나요?",
         "TRY_TITLE": "등록 건너뛰기",
         "TRY_NOW": "지금 실행해보기",
+        "TRY_NOW_EXPLANATION": "Use all features of the website without needing to register or log in. Machine learning projects created using \"Try it now\" will be deleted after (at least) four hours.",
         "WHO_YOU": "누구십니까?",
         "TEACHER": "교사 혹은 코딩 클럽의 리더",
         "STUDENT": "학생",

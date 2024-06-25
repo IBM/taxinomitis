@@ -140,6 +140,7 @@
         "FORGOT_DETAILS": "اطلاعات خود را فراموش کرده اید؟",
         "TRY_TITLE": "بدون ثبت نام تلاش کنید",
         "TRY_NOW": "اکنون آن را امتحان کنید",
+        "TRY_NOW_EXPLANATION": "Use all features of the website without needing to register or log in. Machine learning projects created using \"Try it now\" will be deleted after (at least) four hours.",
         "WHO_YOU": "شما کی هستید؟",
         "TEACHER": "والدین، معلم یا رهبر یک باشگاه کدنویسی",
         "STUDENT": "دانش آموز",

@@ -140,6 +140,7 @@
         "FORGOT_DETAILS": "هل نسيت بياناتك ؟",
         "TRY_TITLE": "جرب دون تسجيل",
         "TRY_NOW": "جرب الآن",
+        "TRY_NOW_EXPLANATION": "Use all features of the website without needing to register or log in. Machine learning projects created using \"Try it now\" will be deleted after (at least) four hours.",
         "WHO_YOU": "من أنت؟",
         "TEACHER": "ولي أمر، معلم أو رئيس نادي الأكواد",
         "STUDENT": "طالب",

@@ -140,6 +140,7 @@
         "FORGOT_DETAILS": "Inloggegevens vergeten?",
         "TRY_TITLE": "Probeer zonder te registeren",
         "TRY_NOW": "Probeer nu",
+        "TRY_NOW_EXPLANATION": "Use all features of the website without needing to register or log in. Machine learning projects created using \"Try it now\" will be deleted after (at least) four hours.",
         "WHO_YOU": "Wie ben je?",
         "TEACHER": "Een leerkracht of organisator van een codeerclub",
         "STUDENT": "Een student",
