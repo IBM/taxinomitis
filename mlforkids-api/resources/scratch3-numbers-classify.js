@@ -381,6 +381,13 @@ class MachineLearningNumbers {
                     that.modelError = false;
                     that.training = false;
                 }
+                else if (msg.data.data.reason === 'model deleted') {
+                    console.log('model deleted outside of scratch');
+
+                    that.lastModelTrain = 0;
+                    that.modelError = false;
+                    that.training = false;
+                }
                 else {
                     console.log('ready to train a new model');
 

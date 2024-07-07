@@ -2479,12 +2479,13 @@ var ML4KidsNumbersTraining = /*#__PURE__*/function () {
                 }
               });
             } else {
-              console.log('[mlforkids] ML4KidsNumbersTraining no model');
+              console.log('[mlforkids] ML4KidsNumbersTraining no model - model deleted');
               _this10.PROJECTS[projectid].state = 'READY';
               worker.postMessage({
                 mlforkidsnumbers: 'modelinit',
                 data: {
-                  projectid: projectid
+                  projectid: projectid,
+                  reason: 'model deleted'
                 }
               });
             }
