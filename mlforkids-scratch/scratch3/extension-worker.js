@@ -2468,20 +2468,31 @@ var ML4KidsNumbersTraining = /*#__PURE__*/function () {
           _this10.PROJECTS[projectid].state = 'TRAINING'; // loading saved model
           _this10._loadModel({
             id: projectid
-          }).then(function () {
-            console.log('[mlforkids] ML4KidsNumbersTraining model loaded');
-            _this10.PROJECTS[projectid].state = 'TRAINED';
-            worker.postMessage({
-              mlforkidsnumbers: 'modelready',
-              data: {
-                projectid: projectid
-              }
-            });
+          }).then(function (loaded) {
+            if (loaded) {
+              console.log('[mlforkids] ML4KidsNumbersTraining model loaded');
+              _this10.PROJECTS[projectid].state = 'TRAINED';
+              worker.postMessage({
+                mlforkidsnumbers: 'modelready',
+                data: {
+                  projectid: projectid
+                }
+              });
+            } else {
+              console.log('[mlforkids] ML4KidsNumbersTraining no model');
+              _this10.PROJECTS[projectid].state = 'READY';
+              worker.postMessage({
+                mlforkidsnumbers: 'modelinit',
+                data: {
+                  projectid: projectid
+                }
+              });
+            }
           }).catch(function () {
-            console.log('[mlforkids] ML4KidsNumbersTraining no model');
-            _this10.PROJECTS[projectid].state = 'READY';
+            console.log('[mlforkids] ML4KidsNumbersTraining unexpected loading error');
+            _this10.PROJECTS[projectid].state = 'ERROR';
             worker.postMessage({
-              mlforkidsnumbers: 'modelinit',
+              mlforkidsnumbers: 'modelfailed',
               data: {
                 projectid: projectid
               }
