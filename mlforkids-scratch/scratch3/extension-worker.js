@@ -2093,7 +2093,7 @@ var ML4KidsNumbersTraining = /*#__PURE__*/function () {
             }
           });
         }
-        _this2._watchForNewModels(project.id);
+        _this2._watchForNewModels(project.id, worker);
       }).catch(function (err) {
         console.log('[mlforkids] ML4KidsNumbersTraining failed init', err);
         _this2.PROJECTS[projectid].state = 'ERROR';
@@ -2388,26 +2388,6 @@ var ML4KidsNumbersTraining = /*#__PURE__*/function () {
       var projectid = request.projectid;
       var numberdata = request.numbers;
       var requestid = request.requestid;
-
-      // if (!this.state != 'READY' ||                    // library not ready
-      //     !this.PROJECTS[projectid] ||                 // unknown project
-      //     this.PROJECTS[projectid].state !== 'READY')  // model not ready
-      // {
-      //     worker.postMessage({
-      //         mlforkidsnumbers: 'classifyresponse',
-      //         data: {
-      //             projectid,
-      //             requestid,
-      //             result : [{
-      //                 class_name : 'model not ready',
-      //                 confidence : 0
-      //             }]
-      //         }
-      //     });
-      //
-      //     return;
-      // }
-
       var testdata = {};
       try {
         for (var _i = 0, _Object$keys = Object.keys(numberdata); _i < _Object$keys.length; _i++) {
@@ -2477,7 +2457,7 @@ var ML4KidsNumbersTraining = /*#__PURE__*/function () {
     }
   }, {
     key: "_watchForNewModels",
-    value: function _watchForNewModels(projectid) {
+    value: function _watchForNewModels(projectid, worker) {
       var _this10 = this;
       if (!this.PROJECTS[projectid].modelWatcher) {
         console.log('[mlforkids] ML4KidsNumbersTraining listening for model updates', projectid);
@@ -2485,8 +2465,27 @@ var ML4KidsNumbersTraining = /*#__PURE__*/function () {
         var modellocation = this._getModelDbLocation(projectid);
         this._storageSupport.registerForModelStorageUpdates(modellocation, function () {
           console.log('[mlforkids] ML4KidsNumbersTraining new model was trained');
+          _this10.PROJECTS[projectid].state = 'TRAINING'; // loading saved model
           _this10._loadModel({
             id: projectid
+          }).then(function () {
+            console.log('[mlforkids] ML4KidsNumbersTraining model loaded');
+            _this10.PROJECTS[projectid].state = 'TRAINED';
+            worker.postMessage({
+              mlforkidsnumbers: 'modelready',
+              data: {
+                projectid: projectid
+              }
+            });
+          }).catch(function () {
+            console.log('[mlforkids] ML4KidsNumbersTraining no model');
+            _this10.PROJECTS[projectid].state = 'READY';
+            worker.postMessage({
+              mlforkidsnumbers: 'modelinit',
+              data: {
+                projectid: projectid
+              }
+            });
           });
         });
       }
