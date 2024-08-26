@@ -1693,7 +1693,7 @@
             "NOTAUTHORISED": "Nu ești autorizat să accesezi pagina profesorului pentru clasa ta."
         },
         "APIKEYS": {
-            "TITLE": "Administration : IBM Watson API Keys",
+            "TITLE": "Administration : IBM watsonx API Keys",
 
             "ADDNEWCREDENTIALS": "Adăugați noi credențiale",
             "ADDAPIKEY": "Adaugă o nouă cheie API",
@@ -1713,7 +1713,7 @@
 
             "HELP_STEPBYSTEP_GUIDE": "If you're not sure what to do here, please follow the <a href='/apikeys-guide'> step-by-step guide </a>. If you'd like any help, please <strong><a style='cursor: pointer;' href='/help'>get in touch</a></strong>.",
 
-            "INTRO_WATSONASSISTANT": "Training machine learning models for <span class='mlprojecttype'>text</span> projects uses <a class='mlprojecttype' href='https://www.ibm.com/cloud/watson-assistant/'>Watson Assistant</a>",
+            "INTRO_WATSONASSISTANT": "Training machine learning models for <span class='mlprojecttype'>text</span> projects uses <a class='mlprojecttype' href='https://www.ibm.com/products/watsonx-assistant/'>watsonx Assistant</a>",
             "INTRO_NUMBERS": "Training machine learning models for <span class='mlprojecttype'>numbers</span> projects does <strong>not</strong> require any API keys",
             "INTRO_SOUNDS": "Training machine learning models for <span class='mlprojecttype'>sound</span> projects does <strong>not</strong> require any API keys",
             "INTRO_IMAGES": "Training machine learning models for <span class='mlprojecttype'>images</span> projects does <strong>not</strong> require any API keys",
@@ -1731,7 +1731,7 @@
             "LIMIT_TEXT_PROJECTS": "Number of text machine learning models your students can have:",
 
             "ADD_API_KEYS": {
-                "ASSISTANT_TITLE": "Add Watson Assistant credentials",
+                "ASSISTANT_TITLE": "Add watsonx Assistant credentials",
 
                 "USED_FOR_TEXT_PROJECTS": "These will be used when your students train models in text projects.",
 
@@ -1958,7 +1958,7 @@
 
             "Q1": "\"No Watson credentials have been set up\"",
             "Q1-A-1": "Machine learning models in the tool are created using IBM Watson APIs.",
-            "Q1-A-2": "If you have an \"unmanaged\" class account, then your teacher or group leader will need to provide Watson API credentials from IBM Cloud for this to work. Step-by-step instructions for how they can do this are in the \"Getting Started\" document at the top of this page.",
+            "Q1-A-2": "If you have an \"unmanaged\" class account, then your teacher or group leader will need to provide watsonx Assistant API credentials from IBM Cloud for this to work. <a href='https://machinelearningforkids.co.uk/#!/apikeys-guide'>Step-by-step instructions</a> explain how they can do this.",
 
             "Q2": "\"Watson credentials being used by your class were rejected\"",
             "Q2-A-1": "Machine learning models in the tool are created using IBM Watson APIs.",
@@ -1976,7 +1976,7 @@
 
             "Q5": "\"Watson ... is currently rate limiting their API key\"",
             "Q5-A-1": "Machine learning models in the tool are created using IBM Watson APIs.",
-            "Q5-A-2": "If you have an \"unmanaged\" class account, then your teacher or group leader will need to provide Watson API credentials from IBM Cloud for this to work.",
+            "Q5-A-2": "If you have an \"unmanaged\" class account, then your teacher or group leader will need to provide watsonx Assistant API credentials from IBM Cloud for this to work.",
             "Q5-A-3": "If free accounts are created, they will apply a limit on the rate of requests for new machine learning models. In normal usage, this will not impact the class. However, if students get a \"no more skills available\" or \"no more classifiers available\" error (as described above) but then continue to click the \"Train new Machine Learning model\" button multiple times per second, for several minutes, then the rate limiting will apply.",
             "Q5-A-4": "A message like this will be displayed to students in this case:",
             "Q5-A-5": "Your class is making too many requests to create machine learning models at too fast a rate. Please stop now and let your teacher or group leader know that \"the Watson Assistant service is currently rate limiting their API key\"",
@@ -2071,17 +2071,17 @@
             "Q4-A-8": "Errors that happen in the web browser are captured using the third party service, <a href='https://sentry.io/'>Sentry</a>. If something goes wrong, it will capture information about the error, including your username, IP address, type of browser you were using, and a technical description of what went wrong.",
 
             "Q5": "What happens to training data created by students?",
-            "Q5-A-1": "A step in all machine learning projects that students make using this site is to create or collect training examples. For text projects, this can mean typing in short text passages. For image projects, this can means drawing pictures onto an on-screen canvas or taking photos using the webcam. For numbers projects, this means typing in sets of numbers.",
+            "Q5-A-1": "A step in all machine learning projects that students make using this site is to create or collect training examples. For text projects, this can mean typing in short text passages. For image projects, this can mean drawing pictures onto an on-screen canvas or taking photos using the webcam. For numbers projects, this means typing in sets of numbers.",
             "Q5-A-2": "All of these training examples are stored in a <a href='https://www.ibm.com/cloud/databases-for-postgresql'>PostgreSQL database hosted on IBM Cloud</a>, in Dallas in the United States. As the database administrator, I have access to all of these training examples for all student projects, however I do not use it for any other purposes other than enabling students to access and work on their own projects. I do not publish the training data (either publicly or to individuals or third parties) or otherwise share it, with the two exceptions of submitting it to IBM Watson APIs described below.",
-            "Q5-A-3": "Machine learning models for text projects are created using the <a href='https://www.ibm.com/cloud/watson-assistant/'>IBM Watson Assistant</a> cloud service, which means when students train a model, a copy of the training examples that they have entered will be <a href='https://cloud.ibm.com/apidocs/assistant#create-workspace'>submitted to IBM Watson</a>. (The location of this cloud service is something that teachers choose when <a href='https://machinelearningforkids.co.uk/apikeys-guide'>creating API keys</a>.) IBM Watson does not use these training examples for any other purposes. This is because Machine Learning for Kids <a href='https://cloud.ibm.com/apidocs/assistant#data-collection'>requests an opt-out</a> for student training examples being used by IBM to improve the service, as <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>described in the Watson documentation</a>.",
-            "Q5-A-5": "IBM Watson provides some <a href='https://cloud.ibm.com/docs/services/assistant?topic=assistant-information-security#information-security-gdpr-wa'>general guidance for sharing training data with their services</a>, which also apply to training data created and collected in Machine Learning for Kids. Specifically, students should be advised not to include personally identifiable information in the examples that they collect."
+            "Q5-A-3": "Machine learning models for text projects are created using the <a href='https://www.ibm.com/products/watsonx-assistant/'>IBM Watson Assistant</a> cloud service, which means when students train a model, a copy of the training examples that they have entered will be <a href='https://cloud.ibm.com/apidocs/assistant#create-workspace'>submitted to IBM Watson</a>. (The location of this cloud service is something that teachers choose when <a href='https://machinelearningforkids.co.uk/apikeys-guide'>creating API keys</a>.) IBM Watson does not use these training examples for any other purposes. This is because Machine Learning for Kids <a href='https://cloud.ibm.com/apidocs/assistant#data-collection'>requests an opt-out</a> for student training examples being used by IBM to improve the service, as <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>described in the Watson documentation</a>.",
+            "Q5-A-5": "IBM Watson provides some <a href='https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-securing#securing-gdpr-wa'>general guidance for sharing training data with their services</a>, which also apply to training data created and collected in Machine Learning for Kids. Specifically, students should be advised not to include personally identifiable information in the examples that they collect."
         }
     },
     "APIKEYSGUIDE": {
         "TITLE": "Guide to IBM Cloud",
         "INTRO": {
-            "INTRO_1": "Teachers / parents / code club-leaders with unmanaged class accounts need to provide '<strong>API Keys</strong>' from IBM Cloud. These are secret codes that provide access to the artificial intelligence technology that will power student projects.",
-            "INTRO_2": "Text projects need a 'Watson Assistant' API Key. (Images, numbers and sound projects don't require API Keys).",
+            "INTRO_1": "Teachers / parents / code club-leaders with unmanaged class accounts need to provide '<strong>API Keys</strong>' from IBM Cloud. These are secret codes that provide access to the artificial intelligence technology that will power student's text projects.",
+            "INTRO_2": "Text projects need a 'watsonx Assistant' API Key. (Images, numbers and sound projects don't require API Keys).",
             "INTRO_3": "You will need to create an account on IBM Cloud to be able to create these codes. It is free to create an account, and there are no charges for 'Lite' API Keys. "
         },
         "LINK": "How to create API Keys",

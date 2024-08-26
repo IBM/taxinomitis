@@ -1660,7 +1660,7 @@
             "NOTAUTHORISED": "あなたのクラスで使われる Watson API キーにアクセスする権限をあなたは持っていません。",
             "MANAGEDCLASS": "あなたのクラスで使われる API キーはあなたのために管理されています。",
             "HELP_STEPBYSTEP_GUIDE": "このページで何をしたら良いのか確信が無い場合は、この<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'> step-by-step guide </a>を参照ください。 助けが必要であれば、<strong><a style='cursor: pointer;' ui-sref='help'>get in touch</a></strong>で連絡ください。",
-            "INTRO_WATSONASSISTANT": "機械学習モデルを <span class='mlprojecttype'>文字列</span>プロジェクトのためにトレーニングする際には、<a class='mlprojecttype' href='https://www.ibm.com/watson/services/conversation/'>Watson Assistant</a>を利用します。",
+            "INTRO_WATSONASSISTANT": "機械学習モデルを <span class='mlprojecttype'>文字列</span>プロジェクトのためにトレーニングする際には、<a class='mlprojecttype' href='https://www.ibm.com/watson/services/conversation/'>watsonx Assistant</a>を利用します。",
             "INTRO_NUMBERS": "Training machine learning models for <span class='mlprojecttype'>numbers</span> projects does <strong>not</strong> require any API keys",
             "INTRO_SOUNDS": "Training machine learning models for <span class='mlprojecttype'>sound</span> projects does <strong>not</strong> require any API keys",
             "INTRO_IMAGES": "Training machine learning models for <span class='mlprojecttype'>images</span> projects does <strong>not</strong> require any API keys",
@@ -1970,15 +1970,15 @@
             "Q5": "生徒が作成したトレーニングデータはどうなりますか?",
             "Q5-A-1": "本サイトで生徒が作成する機械学習プロジェクトはトレーニングデータを作成・収集します。文字列プレジェクトでは, 短い文字列をタイプすることを意味しますし、画像プロジェクトでは、Webcamで写真を撮ったり、スクリーン上のキャンバスに絵を描いたりすることを意味し、数値プロジェクトでは、数値のセットを入力することを意味します。",
             "Q5-A-2": "これらの全てのトレーニングデータは、<a href='https://www.ibm.com/cloud/compose/mysql'>IBMにホストされている MySQL データベース Cloud</a>に格納されます。本サイトのデータベースの管理者は、生徒が作成した全てのトレーニング例にアクセスできます。 しかし、本サイトでは生徒が彼らのプロジェクトのためにアクセスし、作業する以外の目的で利用しません。本サイトは、トレーニングデータを（公にも、個人にも、第三者にも）公開しません。２つの例外は、以下に説明されている２つのIBM Watson APIを用いるために送信することです。 ",
-            "Q5-A-3": "文字列プロジェクトのための機械学習モデルは、<a href='https://www.ibm.com/cloud/watson-assistant/'>IBM Watson Assistant</a> クラウドサービスを用いて作られており、生徒がモデルをトレーニングする際に、生徒が入力したトレーニングデータのコピーは、 <a href='https://cloud.ibm.com/apidocs/assistant#create-workspace'>IBM Watsonに送信されます。</a> IBM Watsonは、これらのトレーニングデータを他目的には利用しません。これは、本サイト(Machine Learning for Kids)が、IBMがサービス改善のために生徒が入力したトレーニングデータを利用することから<a href='https://cloud.ibm.com/apidocs/assistant#data-collection'>オプトアウト</a> しているからです。詳細は、<a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>Watsonのドキュメント</a>を参照ください。",
-            "Q5-A-5": "IBM Watsonは、<a href='https://cloud.ibm.com/docs/services/assistant?topic=assistant-information-security#information-security-gdpr-wa'>かれらのサービスとトレーニングデータを共有する一般的なガイダンス</a>を提供しています。それらは、本サイトで生成・収集されたトレーニングデータにも適用されます。特に、生徒には個人が特定できるような情報を彼らが収集するトレーニングデータに含めないようにアドバイスしてください。"
+            "Q5-A-3": "文字列プロジェクトのための機械学習モデルは、<a href='https://www.ibm.com/products/watsonx-assistant/'>IBM Watson Assistant</a> クラウドサービスを用いて作られており、生徒がモデルをトレーニングする際に、生徒が入力したトレーニングデータのコピーは、 <a href='https://cloud.ibm.com/apidocs/assistant#create-workspace'>IBM Watsonに送信されます。</a> IBM Watsonは、これらのトレーニングデータを他目的には利用しません。これは、本サイト(Machine Learning for Kids)が、IBMがサービス改善のために生徒が入力したトレーニングデータを利用することから<a href='https://cloud.ibm.com/apidocs/assistant#data-collection'>オプトアウト</a> しているからです。詳細は、<a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>Watsonのドキュメント</a>を参照ください。",
+            "Q5-A-5": "IBM Watsonは、<a href='https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-securing#securing-gdpr-wa'>かれらのサービスとトレーニングデータを共有する一般的なガイダンス</a>を提供しています。それらは、本サイトで生成・収集されたトレーニングデータにも適用されます。特に、生徒には個人が特定できるような情報を彼らが収集するトレーニングデータに含めないようにアドバイスしてください。"
         }
     },
     "APIKEYSGUIDE": {
         "TITLE": "Guide to IBM Cloud",
         "INTRO": {
-            "INTRO_1": "Teachers / parents / code club-leaders with unmanaged class accounts need to provide '<strong>API Keys</strong>' from IBM Cloud. These are secret codes that provide access to the artificial intelligence technology that will power student projects.",
-            "INTRO_2": "Text projects need a 'Watson Assistant' API Key. (Images, numbers and sound projects don't require API Keys).",
+            "INTRO_1": "Teachers / parents / code club-leaders with unmanaged class accounts need to provide '<strong>API Keys</strong>' from IBM Cloud. These are secret codes that provide access to the artificial intelligence technology that will power student's text projects.",
+            "INTRO_2": "Text projects need a 'watsonx Assistant' API Key. (Images, numbers and sound projects don't require API Keys).",
             "INTRO_3": "You will need to create an account on IBM Cloud to be able to create these codes. It is free to create an account, and there are no charges for 'Lite' API Keys. "
         },
         "LINK": "How to create API Keys",

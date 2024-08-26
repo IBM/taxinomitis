@@ -1,4 +1,4 @@
-<md-dialog aria-label="Store new Watson Assistant API key" style="max-width: 98%; max-height: 95%">
+<md-dialog aria-label="Store new watsonx Assistant API key" style="max-width: 98%; max-height: 95%">
     <md-toolbar>
         <div class="md-toolbar-tools">
             <h2 translate>TEACHER.APIKEYS.ADD_API_KEYS.ASSISTANT_TITLE</h2>
@@ -27,46 +27,13 @@
 
                         <hr/>
 
-                        <div style="margin-top: 1em; font-weight: bold;" translate>TEACHER.APIKEYS.ADD_API_KEYS.CREDENTIALS_TYPE</div>
+                        <div style="margin-top: 1em; font-weight: bold;" translate>TEACHER.APIKEYS.ADD_API_KEYS.ENTER_APIKEY</div>
+
                         <div style="margin-top: 0.2em; margin-left: 1em;">
-                            <md-radio-group ng-model="type" ng-required="true">
-                                <md-radio-button value="apikey" class="md-primary" ng-click="username = ''; password = ''">An API key</md-radio-button>
-                                <md-radio-button value="password" class="md-primary" ng-click="apikey = ''">A username and password</md-radio-button>
-                            </md-radio-group>
-                        </div>
-
-                        <hr/>
-
-                        <div ng-hide="type !== 'password'" style="margin-top: 1em; font-weight: bold;" translate>TEACHER.APIKEYS.ADD_API_KEYS.ENTER_PASSWORD</div>
-                        <div ng-hide="type !== 'apikey'" style="margin-top: 1em; font-weight: bold;" translate>TEACHER.APIKEYS.ADD_API_KEYS.ENTER_APIKEY</div>
-
-                        <div ng-hide="type !== 'password'" style="margin-top: 0.2em; margin-left: 1em;">
-                            <md-input-container style="width: 100%; padding-right: 1.1em;">
-                                <label translate="TEACHER.APIKEYS.USERNAME"></label>
-                                <input type="text" name="text"
-                                    md-autofocus
-                                    ng-required="type === 'password'"
-                                    ng-pattern="/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[34][0-9a-fA-F]{3}-[89ab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/"
-                                    ng-model="username"
-                                    placeholder="username"
-                                    style="width: 100%;"
-                                    md-maxlength="36"></input>
-                            </md-input-container>
-                            <md-input-container style="width: 100%; padding-right: 1.1em;">
-                                <label translate="TEACHER.APIKEYS.PASSWORD"></label>
-                                <input type="text" name="text"
-                                    ng-required="type === 'password'"
-                                    ng-pattern="/^[0-9A-Za-z]{12}$/"
-                                    ng-model="password"
-                                    placeholder="password"
-                                    md-maxlength="12"></input>
-                            </md-input-container>
-                        </div>
-                        <div ng-hide="type !== 'apikey'" style="margin-top: 0.2em; margin-left: 1em;">
                             <md-input-container style="width: 100%; padding-right: 1.1em;">
                                 <input type="text" name="text"
                                     md-autofocus
-                                    ng-required="type === 'apikey'"
+                                    ng-required="true"
                                     ng-pattern="/^[0-9A-Za-z\-\_]{44}$/"
                                     ng-model="apikey"
                                     placeholder="API key"
@@ -79,8 +46,7 @@
                             For help creating a username and password or API key, download the &nbsp;
                             <a ui-sref="apikeysguide" target="_blank"> step by step guide </a>.
                         </div>
-                        <img ng-hide="type !== 'apikey'"   src="static/images/creds-conv-apikey.jpg" style="width: 100%" class="dialoghelpimages" alt="screenshot of the Watson Assistant screen"/>
-                        <img ng-hide="type !== 'password'" src="static/images/creds-conv-password.jpg" style="width: 100%" class="dialoghelpimages" alt="screenshot of the Watson Assistant screen"/>
+                        <img src="static/images/creds-conv-apikey.jpg" style="width: 100%" class="dialoghelpimages" alt="screenshot of the watsonx Assistant screen"/>
                     </div>
                 </div>
                 <md-dialog-actions layout="row">

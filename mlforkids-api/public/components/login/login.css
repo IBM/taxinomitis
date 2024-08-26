@@ -186,6 +186,10 @@ table.loginInfoGrid td {
     margin: 1em 0;
 }
 
+.loginPage .loginType .loginNewClassInfo a {
+    font-size: 1em;
+}
+
 .loginPage .loginType .loginNewClassButton {
     text-align: center;
 }
