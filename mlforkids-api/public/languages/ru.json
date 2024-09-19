@@ -205,23 +205,23 @@
             "NOTES_2": "Это полезно для проектов, которые преподают краудсорсинг в качестве подхода к обучению проектов машинного обучения."
         },
         "STORAGE": {
-            "LABEL": "Storage",
-            "LOCAL": "In your web browser",
-            "CLOUD": "In the cloud",
-            "NOTES_1": "Where do you want to store this project?",
-            "NOTES_2": "Storing in your web browser removes limits on how big your project can be.",
-            "NOTES_3": "Storing in the cloud will let you access the project from any computer.",
-            "PROMPT": "Please choose where you would like to store your project"
+            "LABEL": "Хранение",
+            "LOCAL": "В веб браузере",
+            "CLOUD": "В облаке",
+            "NOTES_1": "Где будем хранить проект?",
+            "NOTES_2": "Хранение в веб браузере не имеет ограничения на размер проекта.",
+            "NOTES_3": "Сохранение в облаке позволяет получать доступ с любого другого компьютера.",
+            "PROMPT": "Выберете место хранения проекта"
         },
         "TYPES": {
-            "TYPELABEL": "Project Type",
+            "TYPELABEL": "Тип проекта",
             "LABEL": "Распознавание",
             "NOTES_1": "Какие типы данных вы хотите научить компьютер распознавать?",
             "NOTES_2": "Для слов, предложений или абзацев выберите «текст»",
             "NOTES_3": "Для фотографий, диаграмм и картинок выберите «картинки»",
             "NOTES_4": "Для набора чисел или множественного выбора выберите «числа»",
             "NOTES_5": "Для голосов и звуков выберите «звуки»",
-            "NOTES_6": "To predict numbers, choose \"predicting numbers\""
+            "NOTES_6": "Прогнозирование последовательности номеров, выберете \"predicting numbers\""
         },
         "LANGUAGE": {
             "LABEL": "Язык",
@@ -605,12 +605,12 @@
                     "ENOUGH_DATA": {
                         "READY_TO_START": "Готовы начать обучение компьютера?",
                         "START_TRAINING": {
-                            "CROWDSOURCED": "Click the button below to start training a machine learning model using the examples your class have collected so far",
-                            "INDIVIDUAL": "Click the button below to start training a machine learning model using the examples you have collected so far"
+                            "CROWDSOURCED": "Нажмите кнопку внизу, чтобы начать машинное обучение на модели собранной вашим классом.",
+                            "INDIVIDUAL": "Нажмите кнопку внизу, чтобы начать машинное обучение на подготовленной Вами модели."
                         },
                         "MORE_EXAMPLES": {
-                            "CROWDSOURCED": "(Or ask your class to go back to the <a href='{{ urls.train }}'>Train</a> page if you want them to collect more examples first.)",
-                            "INDIVIDUAL": "(Or go back to the <a href='{{ urls.train }}'>Train</a> page if you want to collect some more examples first.)"
+                            "CROWDSOURCED": "(Или попросите свой класс вернуться в <a href='{{ urls.train }}'>Train</a> страницу, если хотите собрать больше примеров.)",
+                            "INDIVIDUAL": "(Или вернитесь в <a href='{{ urls.train }}'>Train</a> страницу, если хотите собрать больше примеров.)"
                         },
                         "WAITING_FOR_TEACHER": "Ожидаем Вашего учителя, чтобы начать обучение компьютера."
                     }
@@ -618,11 +618,11 @@
             },
             "READY": {
                 "TEST": {
-                    "TEXT": "Try testing the machine learning model below. Enter an example of text below, that you didn't include in the examples you used to train it. It will tell you what it recognises it as, and how confident it is in that.",
-                    "IMAGES": "Try testing the machine learning model below. Enter an example image below, that you didn't include in the examples you used to train it. It will tell you what it recognises it as, and how confident it is in that.",
-                    "NUMBERS": "Try testing the machine learning model below. Enter an example of numbers below, that you didn't include in the examples you used to train it. It will tell you what it recognises it as, and how confident it is in that.",
-                    "SOUNDS": "Try testing the machine learning model below. Click the 'Start listening' button. If your machine learning model recognises any sounds, it will tell you what it recognises it as, and how confident it is in that.",
-                    "REGRESSION" : "Try testing the machine learning model below. Enter an example of numbers below, that you didn't include in the examples you used to train it. It will tell you what it predicts the output should be."
+                    "TEXT": "Попробуйте протестировать модель машинного обучения. Введите ниже пример текста, не из примера обучения модели. Система распознает вариант данных и укажет процент совпадения.",
+                    "IMAGES": "Попробуйте протестировать модель машинного обучения. Введите ниже пример изображения, не из примера обучения модели. Система распознает вариант данных и укажет процент совпадения.",
+                    "NUMBERS": "Попробуйте протестировать модель машинного обучения. Введите ниже пример чисел, не из примера обучения модели. Система распознает вариант данных и укажет процент совпадения.",
+                    "SOUNDS": "Попробуйте протестировать модель машинного обучения. Нажмите кнопку «Начать прослушивание». Если модель машинного обучения распознает звуки, то она укажет и укажет процент совпадения.",
+                    "REGRESSION" : "Попробуйте протестировать модель машинного обучения. Введите ниже пример цифр, не из примера обучения модели. Система распознает вариант данных и укажет процент совпадения."
                 },
                 "SCRATCH": "If the computer seems to have learned to recognise things correctly, then you can go to Scratch and use what the computer has learned to make a game!",
                 "SCRATCH_REGRESSION" : "If the computer seems to have learned to predict things correctly, then you can go to Scratch and use what the computer has learned to make a game!",
