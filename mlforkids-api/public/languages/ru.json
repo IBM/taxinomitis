@@ -2,7 +2,7 @@
     "APP": {
         "TITLE": "Машинное обучение для детей",
         "BACK": "Назад",
-        "NEXT": "Next",
+        "NEXT": "Далее",
         "BACKTOPROJECT": "&lt;  Назад к проекту",
         "BACKTOMODEL": "&lt;  Назад к модели",
         "ERROR": "Ошибка:",
@@ -18,9 +18,9 @@
         "TEACHER": "Учитель",
         "PROJECTS": "Проекты",
         "WORKSHEETS": "Рабочие листы",
-        "PRETRAINED": "Pretrained",
+        "PRETRAINED": "Предобученный",
         "NEWS": "Новости",
-        "STORIES": "Stories",
+        "STORIES": "Хранилище",
         "HELP": "Помощь",
         "LOGIN": "Войти",
         "LOGOUT": "Выйти",
@@ -45,7 +45,7 @@
             "LOGIN": "Для начала:"
         },
         "PRETRAINED": {
-            "BODY": "Pre-trained models are also provided for students to use in their projects. These advanced models enable projects that might otherwise be too complex for students to train for themselves, and provide useful hands-on insights into some of the other things that machine learning can do."
+            "BODY": "Учащимся предоставляются предварительно обученные модели для использования в проектах. На этих моделях можно обучать более продвинутые версии, так как изначально они могут оказаться довольно сложными и нарабатывать практику машинного обучения."
         },
         "FURTHER": {
             "TITLE": "Дальнейшее изучение",
@@ -77,7 +77,7 @@
             "BODY2": "Программа основана на конкурсе, который побуждает детей придумывать свои собственные ИИ-проекты при поддержке их семей и технических наставников."
         },
         "MAGENTADEMOS": {
-            "BODY1": "Online toys that demonstrate different aspects of machine learning, using TensorFlow.js"
+            "BODY1": "Онлайн игрушка, кторая лемостирует разные особенности машинного обучения с использованием TensorFlow.js"
         },
         "AIINSCHOOLS": {
             "BODY1": "Программа AIinSchools предоставляет бесплатный план уроков для учителей по преподаванию ИИ до 9-го класса ( 13-14 лет).",
@@ -205,23 +205,23 @@
             "NOTES_2": "Это полезно для проектов, которые преподают краудсорсинг в качестве подхода к обучению проектов машинного обучения."
         },
         "STORAGE": {
-            "LABEL": "Storage",
-            "LOCAL": "In your web browser",
-            "CLOUD": "In the cloud",
-            "NOTES_1": "Where do you want to store this project?",
-            "NOTES_2": "Storing in your web browser removes limits on how big your project can be.",
-            "NOTES_3": "Storing in the cloud will let you access the project from any computer.",
-            "PROMPT": "Please choose where you would like to store your project"
+            "LABEL": "Хранение",
+            "LOCAL": "В веб браузере",
+            "CLOUD": "В облаке",
+            "NOTES_1": "Где будем хранить проект?",
+            "NOTES_2": "Хранение в веб браузере не имеет ограничения на размер проекта.",
+            "NOTES_3": "Сохранение в облаке позволяет получать доступ с любого другого компьютера.",
+            "PROMPT": "Выберете место хранения проекта"
         },
         "TYPES": {
-            "TYPELABEL": "Project Type",
+            "TYPELABEL": "Тип проекта",
             "LABEL": "Распознавание",
             "NOTES_1": "Какие типы данных вы хотите научить компьютер распознавать?",
             "NOTES_2": "Для слов, предложений или абзацев выберите «текст»",
             "NOTES_3": "Для фотографий, диаграмм и картинок выберите «картинки»",
             "NOTES_4": "Для набора чисел или множественного выбора выберите «числа»",
             "NOTES_5": "Для голосов и звуков выберите «звуки»",
-            "NOTES_6": "To predict numbers, choose \"predicting numbers\""
+            "NOTES_6": "Прогнозирование последовательности номеров, выберете \"predicting numbers\""
         },
         "LANGUAGE": {
             "LABEL": "Язык",
@@ -422,7 +422,7 @@
         "ADDWEBCAM": "веб-камера",
         "ADDDRAWING": "нарисовать",
         "DRAGIMAGES": "Перетащите картинки из других окон и поместите их сюда",
-        "DRAGIMAGESLOCAL": "Drag pictures from files or other browser windows and drop them here",
+        "DRAGIMAGESLOCAL": "Перетащите сюда изображения из файлов или из окна интернет браузера",
         "NEWLABEL": {
             "INTRO": "Введите новую метку для распознавания",
             "ERROR": "Используйте только буквы и цифры в метках"
@@ -564,11 +564,11 @@
                         "SOUNDS": "Your class has collected examples of sounds for a computer to use to recognise when sounds are "
                     },
                     "INDIVIDUAL": {
-                        "TEXT": "You have collected examples of text for a computer to use to recognise when text is ",
-                        "IMAGES": "You have collected examples of images for a computer to use to recognise when images are ",
-                        "NUMBERS": "You have collected examples of numbers for a computer to use to recognise when numbers are ",
-                        "SOUNDS": "You have collected examples of sounds for a computer to use to recognise when sounds are ",
-                        "REGRESSION" : "You have collected examples of numbers for a computer to use to predict the value of "
+                        "TEXT": "Вы собрали примеры текста для использования компьютерного распознавания текста для ",
+                        "IMAGES": "Вы собрали примеры изображений для использования компьютерного распознавания изображения для ",
+                        "NUMBERS": "Вы собрали примеры чисел для использования компьютерного распознавания чисел для ",
+                        "SOUNDS": "Вы собрали примеры звуков для использования компьютерного распознавания звуков для ",
+                        "REGRESSION" : "Вы собрали примеры чисел для использования компьютерного прогнозирования значений "
                     },
                     "COLLECTED": {
                         "CLASS": "Они собрали:",
@@ -600,17 +600,17 @@
                             "YOU": "Go back to the <a href='{{ urls.train }}'>Train</a> page and collect more examples for each of the labels.",
                             "CLASS": "Ask your class to go back to the <a href='{{ urls.train }}'>Train</a> page and collect more examples for each of the labels."
                         },
-                        "MORE_IS_BETTER": "The more you can get, the better it should learn, but you need at least {{ minimumExamples }} examples of each as an absolute minimum."
+                        "MORE_IS_BETTER": "Чем больше примеров, тем лучьше результат. Добавьте как минимум {{ minimumExamples }} примеров для каждого набора"
                     },
                     "ENOUGH_DATA": {
                         "READY_TO_START": "Готовы начать обучение компьютера?",
                         "START_TRAINING": {
-                            "CROWDSOURCED": "Click the button below to start training a machine learning model using the examples your class have collected so far",
-                            "INDIVIDUAL": "Click the button below to start training a machine learning model using the examples you have collected so far"
+                            "CROWDSOURCED": "Нажмите кнопку внизу, чтобы начать машинное обучение на модели собранной вашим классом.",
+                            "INDIVIDUAL": "Нажмите кнопку внизу, чтобы начать машинное обучение на подготовленной Вами модели."
                         },
                         "MORE_EXAMPLES": {
-                            "CROWDSOURCED": "(Or ask your class to go back to the <a href='{{ urls.train }}'>Train</a> page if you want them to collect more examples first.)",
-                            "INDIVIDUAL": "(Or go back to the <a href='{{ urls.train }}'>Train</a> page if you want to collect some more examples first.)"
+                            "CROWDSOURCED": "(Или попросите свой класс вернуться в <a href='{{ urls.train }}'>Train</a> страницу, если хотите собрать больше примеров.)",
+                            "INDIVIDUAL": "(Или вернитесь в <a href='{{ urls.train }}'>Train</a> страницу, если хотите собрать больше примеров.)"
                         },
                         "WAITING_FOR_TEACHER": "Ожидаем Вашего учителя, чтобы начать обучение компьютера."
                     }
@@ -618,11 +618,11 @@
             },
             "READY": {
                 "TEST": {
-                    "TEXT": "Try testing the machine learning model below. Enter an example of text below, that you didn't include in the examples you used to train it. It will tell you what it recognises it as, and how confident it is in that.",
-                    "IMAGES": "Try testing the machine learning model below. Enter an example image below, that you didn't include in the examples you used to train it. It will tell you what it recognises it as, and how confident it is in that.",
-                    "NUMBERS": "Try testing the machine learning model below. Enter an example of numbers below, that you didn't include in the examples you used to train it. It will tell you what it recognises it as, and how confident it is in that.",
-                    "SOUNDS": "Try testing the machine learning model below. Click the 'Start listening' button. If your machine learning model recognises any sounds, it will tell you what it recognises it as, and how confident it is in that.",
-                    "REGRESSION" : "Try testing the machine learning model below. Enter an example of numbers below, that you didn't include in the examples you used to train it. It will tell you what it predicts the output should be."
+                    "TEXT": "Попробуйте протестировать модель машинного обучения. Введите ниже пример текста, не из примера обучения модели. Система распознает вариант данных и укажет процент совпадения.",
+                    "IMAGES": "Попробуйте протестировать модель машинного обучения. Введите ниже пример изображения, не из примера обучения модели. Система распознает вариант данных и укажет процент совпадения.",
+                    "NUMBERS": "Попробуйте протестировать модель машинного обучения. Введите ниже пример чисел, не из примера обучения модели. Система распознает вариант данных и укажет процент совпадения.",
+                    "SOUNDS": "Попробуйте протестировать модель машинного обучения. Нажмите кнопку «Начать прослушивание». Если модель машинного обучения распознает звуки, то она укажет и укажет процент совпадения.",
+                    "REGRESSION" : "Попробуйте протестировать модель машинного обучения. Введите ниже пример цифр, не из примера обучения модели. Система распознает вариант данных и укажет процент совпадения."
                 },
                 "SCRATCH": "If the computer seems to have learned to recognise things correctly, then you can go to Scratch and use what the computer has learned to make a game!",
                 "SCRATCH_REGRESSION" : "If the computer seems to have learned to predict things correctly, then you can go to Scratch and use what the computer has learned to make a game!",
