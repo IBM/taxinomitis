@@ -77,7 +77,7 @@
             "BODY2": "Программа основана на конкурсе, который побуждает детей придумывать свои собственные ИИ-проекты при поддержке их семей и технических наставников."
         },
         "MAGENTADEMOS": {
-            "BODY1": "Онлайн игрушка, кторая лемостирует разные особенности машинного обучения с использованием TensorFlow.js"
+            "BODY1": "Онлайн игрушка, которая демонстирует разные особенности машинного обучения с использованием TensorFlow.js"
         },
         "AIINSCHOOLS": {
             "BODY1": "Программа AIinSchools предоставляет бесплатный план уроков для учителей по преподаванию ИИ до 9-го класса ( 13-14 лет).",
@@ -90,7 +90,7 @@
             "BODY1": "AI4ALL организует летние лагеря для старшеклассников в США, которые дают подробное техническое введение в ИИ."
         },
         "CALYPSO": {
-            "BODY1": "Учащиеся с программируемыми роботами Cozmo могут использовать среду программирования Calypso, чтобы получить практический опыт знакомства с ИИ, экспериментируя с такими методами, как компьютерное зрение и распознавание речи."
+            "BODY1": "Учащиеся использующие роботов Cozmo могут использовать среду программирования Calypso, для получения практического опыта работы с ИИ, например, компьютерное зрение и распознавание речи."
         },
         "AIINABOX": {
             "BODY1": "AI-in-a-Box - это набор роботов, аксессуаров и учебных ресурсов. Этот комплект можно использовать для обучения проектам, охватывающим такие темы, как распознавание образов, распознавание лиц, генерация речи и распознавание речи."
@@ -169,29 +169,29 @@
         },
         "MANAGED": {
             "TITLE": "Создать <strong>управляемую</strong> учетную запись класса",
-            "INTRO": "Если вы хотите, чтобы Дейл создал учетную запись класса, используйте кнопку ниже, чтобы отправить email со следующей информацией:",
+            "INTRO": "Если вы хотите, чтобы Дейл создал учетную запись класса, используйте кнопку ниже, чтобы отправить е-почта со следующей информацией:",
             "LIST_NUMBEROFSTUDENTS": "Примерно, сколько учетных записей вам понадобится",
             "LIST_NAMEOFSCHOOL": "Название школы или группы по программированию, для которой предназначена учетная запись",
-            "RESTRICTIONS": "This offer is only available to schools and not-for-profit student coding clubs.",
-            "EMAIL": "Email"
+            "RESTRICTIONS": "Это предложение только для школ и некоммерческих образовательных учреждений.",
+            "EMAIL": "Е-почта"
         }
     },
     "PROJECTS": {
         "TITLE": "Ваши проекты машинного обучения",
         "ADDNEWPROJECT": "Добавить новый проект",
-        "COPYTEMPLATE": "Copy template",
+        "COPYTEMPLATE": "Копия шаблона",
         "CREATEFIRSTPROJECT": "Нажмите кнопку «плюс» справа, чтобы создать свой первый проект.",
         "RECOGNISING": "Распознавание",
-        "PREDICTING": "Predicting",
+        "PREDICTING": "Прогнозирование",
         "AS": "как",
-        "SHARE": "Share",
-        "UNSHARE": "Un-share",
+        "SHARE": "Открыть доступ",
+        "UNSHARE": "Закрыть доступ",
         "WHOLE_CLASS_TITLE": "Crowd-sourced project",
-        "WHOLE_CLASS_NOTES": "This is a whole-class project. All students in your class can use it and add to the training data.",
-        "CLOUD_STORAGE_TITLE": "Cloud project",
-        "CLOUD_STORAGE_NOTES": "Your training data for this project is stored in the cloud. This project can be accessed from any computer.",
-        "LOCAL_STORAGE_TITLE": "Local project",
-        "LOCAL_STORAGE_NOTES": "Your training data for this project is stored on your computer. This project can only be accessed from this web browser."
+        "WHOLE_CLASS_NOTES": "Проект для всего класса. Все учащиеся могут использовать его и добавлять  данные для модели.",
+        "CLOUD_STORAGE_TITLE": "Проект из облака",
+        "CLOUD_STORAGE_NOTES": "Данные модели обучения хрянятся в облаке. Доступ с любого компьютера.",
+        "LOCAL_STORAGE_TITLE": "Проект локальный",
+        "LOCAL_STORAGE_NOTES": "Данные модели обучения на Вашем компьютере. Доступ только с этого компьютера."
     },
     "NEWPROJECT": {
         "TITLE": "Начать новый проект машинного обучения",
@@ -218,7 +218,7 @@
             "LABEL": "Распознавание",
             "NOTES_1": "Какие типы данных вы хотите научить компьютер распознавать?",
             "NOTES_2": "Для слов, предложений или абзацев выберите «текст»",
-            "NOTES_3": "Для фотографий, диаграмм и картинок выберите «картинки»",
+            "NOTES_3": "Для фотографий, диаграмм и картинок выберите «изображения»",
             "NOTES_4": "Для набора чисел или множественного выбора выберите «числа»",
             "NOTES_5": "Для голосов и звуков выберите «звуки»",
             "NOTES_6": "Прогнозирование последовательности номеров, выберете \"predicting numbers\""
@@ -252,8 +252,8 @@
         "ERRORS": {
             "REQUIRED": "Обязательное поле!",
             "TOOLONG": "Слишком длинное!",
-            "EXCEEDLIMIT": "You've reached the limit for the number of projects you can have. You need to delete one of your current projects before you can create another.",
-            "TRYITNOW": "Sorry! You can only create one project at a time if you use 'Try it now'. You need to delete your current project before you can create another."
+            "EXCEEDLIMIT": "Достигнуто максимальное количество проектов. Удалите один из созданных, что бы создать новый.",
+            "TRYITNOW": "Возможно создать только один проект в режиме 'Попробовать сейчас'. Удалите существующий, что бы создать новый."
         },
         "WARNINGS": {
             "MLCRED-TEXT-NOKEYS": "Please let your teacher know that they will need to add a \"Watson Assistant API key\" to your class to let you train the machine learning model for your new project",
@@ -268,12 +268,12 @@
             "INTRO_3": "Вы сможете вносить изменения в обучающую выборку, если хотите, или можете сразу перейти к обучению модели машинного обучения."
         },
         "IMPORT": "Импортировать",
-        "PLEASEWAIT": "Importing. Please wait...",
+        "PLEASEWAIT": "Импортирую. Ожидайте...",
         "NEW": {
-            "LOCAL": "Store on your computer",
-            "CLOUD": "Store in the cloud"
+            "LOCAL": "Хранение на компьютере",
+            "CLOUD": "Хранение в облаке"
         },
-        "TESTING": "Do you want to use some of the data for testing?",
+        "TESTING": "Использовать данные для проверки?",
         "MORE": {
             "TITLE": "Другие наборы данных",
             "SUMMARY": "Какие другие наборы данных вы хотели бы видеть?",
@@ -294,9 +294,9 @@
                 "DETAILS": "Этот обучающий набор фотографий из Wikimedia Commons является хорошим стартовым набором для создания собственных обучающих данных фотографий животных"
             },
             "ORGANICWASTE": {
-                "TITLE": "Organic waste",
-                "SUMMARY": "Sorting waste items",
-                "DESCRIPTION": "Training a machine learning model to recognise if an item can be placed in a biodegradable bin is a way to highlight how image recognition can help.",
+                "TITLE": "Органический мусор",
+                "SUMMARY": "Соритровка мусора",
+                "DESCRIPTION": "Использование моделей машинного обучения для распознавания органики. Это позволит более эффективно сортировать мусор через изображение.",
                 "DETAILS": "Attribution: Sashaank Sekar https://www.kaggle.com/datasets/techsash/waste-classification-data"
             },
             "UKNEWSPAPERS": {
@@ -306,13 +306,13 @@
                 "DETAILS": "Этот обучающий набор данных включает заголовки из Daily Mail, Daily Telegraph, Independent и The Guardian."
             },
             "PHISHING": {
-                "TITLE": "Phishing",
+                "TITLE": "Фишиг",
                 "SUMMARY": "Predict if a link is a phishing link",
                 "DESCRIPTION": "Phishing is when a website tries to trick you into giving up sensitive information, by sending you a link to a fake website disguised like a trustworthy one. You can use this to train a machine learning model that can predict if a web address is a real link, or a phishing link to a fake website.",
                 "DETAILS": "This training dataset includes attributes of five hundred legitimate web addresses, and five hundred phishing links.\n\nThe 'address type' field is 'IP addr' if the link has a numeric IP address like '104.20.74.246' or 'DNS name' if the link has a name-based address like 'machinelearningforkids.co.uk'. \nThe 'url length' field groups the training addresses by how long they are. \nThe 'shortening' field is 'yes' if the web address uses a shortening service like TinyURL or bit.ly, or 'no' if it doesn't. \nThe 'includes @' field is 'yes' if the web address includes an @ symbol, or 'no' if it doesn't. \nThe 'port number' field is 'standard' if the web address uses a standard port number like 80 or 443, or 'non-std' if it uses something different. \nThe 'domain age' field groups addresses by how long ago the web address in the address was registered. \nThe 'redirects' field groups the training addresses by the number of times a web browser is sent to a different address before reaching a final page. \nThe 'domain reg' field is 'expiring' if the registration for the web address domain name expires within a year."
             },
             "NOUGHTSANDCROSSES": {
-                "SUMMARY": "Learn how to play a game",
+                "SUMMARY": "Науыиться играть в игру",
                 "DESCRIPTION": "Train a machine learning model to play noughts and crosses, by collecting examples of moves that the computer can use to learn how to predict the best move to make next.",
                 "DETAILS": "This is an empty template to help you collect your own training data. For instructions on how to use it, download 'Noughts and Crosses' from Worksheets"
             },
@@ -323,43 +323,43 @@
                 "DETAILS": "This is an empty template to help you collect your own training data. For instructions on how to use it, download 'Top Trumps' from Worksheets."
             },
             "SONGLYRICS": {
-                "TITLE": "Song lyrics",
+                "TITLE": "Тексты песен",
                 "SUMMARY": "Recognize types of songs",
                 "DESCRIPTION": "Train a machine learning model to recognize the type of song based on it's lyrics",
                 "DETAILS": "This training dataset includes 140 lines from song lyrics - half from children's songs and half from Top 40 songs. It is a good starting set for training a machine learning model to recognize different uses of language."
             },
             "HANDGESTURES": {
-                "TITLE": "Hand gestures",
+                "TITLE": "Жется рук",
                 "SUMMARY": "Recognize hand gestures from finger positions",
                 "DESCRIPTION": "Train a machine learning model to recognize different hand gestures, by collecting examples of the positions of your fingers.",
                 "DETAILS": "This is an empty template to help you collect your own training data. For instructions on how to use it, download 'Hand gestures' from Worksheets."
             },
             "POKEMONSTATS": {
-                "TITLE": "Pokémon statistics",
+                "TITLE": "Статистика покемонов",
                 "SUMMARY": "Recognize Pokémon from their statistics",
                 "DESCRIPTION": "Train a machine learning model to predict the type of a Pokémon based on a collection of statistics about hundreds of Pokémon. ",
                 "DETAILS": "This training dataset includes attributes of a selection of Pokémon. \n\nThe 'height' field is the height of a Pokémon in metres. \nThe 'weight' field is the weight of a Pokémon in kilograms. \nThe 'attack' field is the attack strength of a level 100 Pokémon. \nThe 'defense' field is the defense strength of a level 100 Pokémon. \nThe 'speed' field is the speed rating of a level 100 Pokémon. \nThe 'HP' field is the hit point statistics for a Pokémon. \nThe 'capture rate' field is the catch rate for a Pokémon. Pokémon with higher catch rates are easier to capture than Pokémon with lower catch rates."
             },
             "POKEMONIMAGES": {
-                "TITLE": "Pokémon images",
+                "TITLE": "Картинки покемонов",
                 "SUMMARY": "Recognize Pokémon from pictures",
                 "DESCRIPTION": "Train a machine learning model to predict the type of a Pokémon based on a set of pictures of a hundred Pokémon. ",
                 "DETAILS": "This training dataset includes images of a selection of Pokémon, grouped by their type. It is a good starting set for training a machine learning model to predict the type of a Pokémon from a picture."
             },
             "ARGO": {
-                "TITLE": "Ocean data",
+                "TITLE": "Данные об океане",
                 "SUMMARY": "Predict the location from ocean sensor data",
                 "DESCRIPTION": "Train a machine learning model to predict the location of ocean robots. ",
                 "DETAILS": "Argo is an international program that collects information from inside the ocean using a fleet of robotic instruments that drift with the ocean currents and move up and down between the surface and a mid-water level. Each instrument (float) spends almost all its life below the surface.\n\nSome floats fail to report back their location data. Train a machine learning model to predict which ocean the float data is likely to have been collected from.\n\n\nAttribution / References:\nForget, Gaël, 2016, \"MITprof_mar2016_argo0910.nc\", ECCO version 4 release 2: in situ and estimated profile data (MITprof data sets), https://doi.org/10.7910/DVN/EE3C40/DQBDDA, Harvard Dataverse, V1\nForget, G., Campin, J.-M., Heimbach, P., Hill, C. N., Ponte, R. M., and Wunsch, C.: ECCO version 4: an integrated framework for non-linear inverse modeling and global ocean state estimation, Geosci. Model Dev., 8, 3071–3104, https://doi.org/10.5194/gmd-8-3071-2015, 2015.\n\nPrepared by Dani Jones, British Antartic Survey, NERC, UKRI"
             },
             "FAKENEWS": {
-                "TITLE": "Fake news",
+                "TITLE": "Ложные новости",
                 "SUMMARY": "Recognize fake news",
                 "DESCRIPTION": "Train a machine learning model to recognize the type of writing in fake news. ",
                 "DETAILS": "False and misleading news is more common as people turn to social media to get their news. Use this dataset to create a machine learning model that can try to distinguish when news is real or fake.\n\n\nAttribution: \nhttps://www.uvic.ca/ecs/ece/isot/datasets/fake-news/\n\nAcknowledgements:\nAhmed H, Traore I, Saad S. \"Detecting opinion spams and fake news using text classification\", Journal of Security and Privacy, Volume 1, Issue 1, Wiley, January/February 2018.\nAhmed H, Traore I, Saad S. (2017) \"Detection of Online Fake News Using N-Gram Analysis and Machine Learning Techniques\". In: Traore I., Woungang I., Awad A. (eds) Intelligent, Secure, and Dependable Systems in Distributed and Cloud Environments. ISDDC 2017. Lecture Notes in Computer Science, vol 10618. Springer, Cham (pp. 127-138)."
             },
             "STARS": {
-                "TITLE": "Star types",
+                "TITLE": "Типы звезд",
                 "SUMMARY": "Learn to classify the types of stars",
                 "DESCRIPTION": "Train a machine learning model to predict the type of a star based on their attributes. ",
                 "DETAILS": "Stellar classification is when astronomers classify a star based on their spectral characteristics. Use this dataset to train a simple machine learning model that can predict some types of stars.\n\nThe 'temperature' field is in degrees Kelvin.\nThe 'radius' field gives the size of the star relative to the Sun.\nThe 'brightness' field gives the luminosity of the star relative to the Sun.\nThe 'colour' field gives the observable colour of the star.\n\nAttribution: \nhttps://www.kaggle.com/datasets/brsdincer/star-type-classification"
@@ -375,7 +375,7 @@
     "PROJECT": {
         "TRAIN": {
             "TITLE": "Обучить",
-            "BODY": "Соберите примеры/образцы того, что вы хотите, чтобы компьютер распознал",
+            "BODY": "Соберите примеры/образцы того, что компьютер должен распознавать",
             "REGRESSION": "Collect examples of what you want the computer to predict"
         },
         "LEARNANDTEST": {
@@ -479,25 +479,25 @@
             },
             "READY": {
                 "CROWDSOURCED": {
-                    "TEXT": "Your class has trained a machine learning model to recognise when text is ",
-                    "IMAGES": "Your class has trained a machine learning model to recognise when images are ",
-                    "NUMBERS": "Your class has trained a machine learning model to recognise when numbers are ",
-                    "SOUNDS": "Your class has trained a machine learning model to recognise when sounds are "
+                    "TEXT": "Класс создал модель машинного обучения для распознавания текста ",
+                    "IMAGES": "Класс создал модель машинного обучения для распознавания изобрежения ",
+                    "NUMBERS": "Класс создал модель машинного обучения для распознавания чисел ",
+                    "SOUNDS": "Класс создал модель машинного обучения для распознавания звуков "
                 },
                 "INDIVIDUAL": {
-                    "TEXT": "You have trained a machine learning model to recognise when text is ",
-                    "IMAGES": "You have trained a machine learning model to recognise when images are ",
-                    "NUMBERS": "You have trained a machine learning model to recognise when numbers are ",
-                    "SOUNDS": "You have trained a machine learning model to recognise when sounds are ",
-                    "REGRESSION": "You have trained a machine learning model to predict the values of "
+                    "TEXT": "Вы создали модель машинного обучения для распознавания текста ",
+                    "IMAGES": "Вы создали модель машинного обучения для распознавания изобрежения ",
+                    "NUMBERS": "Вы создали модель машинного обучения для распознавания чисел ",
+                    "SOUNDS": "Вы создали модель машинного обучения для распознавания звуков ",
+                    "REGRESSION": "Вы создали модель машинного обучения для прогнозирования значений "
                 },
                 "CREATED": {
-                    "TEACHER": "Your teacher created the model on ",
-                    "YOU": "You created the model on "
+                    "TEACHER": "Преподователь создал модель для ",
+                    "YOU": "Вы создали модель для "
                 },
                 "TRAINING": {
-                    "CLASS": "Your class has collected: ",
-                    "YOU": "You have collected: "
+                    "CLASS": "Класс собрал: ",
+                    "YOU": "Вы собрали: "
                 }
             },
             "ERROR": {
@@ -624,28 +624,28 @@
                     "SOUNDS": "Попробуйте протестировать модель машинного обучения. Нажмите кнопку «Начать прослушивание». Если модель машинного обучения распознает звуки, то она укажет и укажет процент совпадения.",
                     "REGRESSION" : "Попробуйте протестировать модель машинного обучения. Введите ниже пример цифр, не из примера обучения модели. Система распознает вариант данных и укажет процент совпадения."
                 },
-                "SCRATCH": "If the computer seems to have learned to recognise things correctly, then you can go to Scratch and use what the computer has learned to make a game!",
-                "SCRATCH_REGRESSION" : "If the computer seems to have learned to predict things correctly, then you can go to Scratch and use what the computer has learned to make a game!",
+                "SCRATCH": "Если компьютер будет верно распознавать образцы, то можно перейти в Scratch и использовать эту модель для создания игры!",                
+                "SCRATCH_REGRESSION" : "Если компьютер будет верно давать прогнозы, то можно перейти в Scratch и использовать эту модель для создания игры!",
                 "ADDITIONAL_TRAINING": {
                     "MORE_EXAMPLES": {
-                        "CROWDSOURCED": "If the computer is getting too many things wrong, your class might want to go back to the <a href='{{ urls.train }}'>Train</a> page and collect some more examples.",
-                        "INDIVIDUAL": "If the computer is getting too many things wrong, you might want to go back to the <a href='{{ urls.train }}'>Train</a> page and collect some more examples"
+                        "CROWDSOURCED": "Если компьютер часто ощибается, класс может вернуться на страницу <a href='{{ urls.train }}'>Обучение</a> и добавить больше примеров.",
+                        "INDIVIDUAL": "Если компьютер часто ощибается, можно вернуться на страницу <a href='{{ urls.train }}'>Обучение</a> и добавить больше примеров"
                     },
                     "RETRAIN": {
-                        "YOU": "Once you've done that, click on the button below to train a new machine learning model and see what difference the extra examples will make!",
-                        "CLASS": "Once you've done that, your teacher will need to train a new machine learning model."
+                        "YOU": "По окончании, нажмите кнопку внизу, чтобы увидеть отличие новой модели машинного обубчения с дополнительными образцами!",
+                        "CLASS": "По окончании, педагогу нужно обучить новую модель машинного обубчения."
                     }
                 }
             }
         },
         "TRAINING": {
-            "TITLE": "Info from training computer:",
-            "STARTED": "Model started training at:",
+            "TITLE": "Данные об обучении модели:",
+            "STARTED": "Начало обучения модели:",
             "STATUS": "Текущий статус модели:",
             "DETAIL": "Детали:",
             "DELETION": "Модель будет автоматически удалена после: ",
             "LASTCHECK": "Последняя проверка модели:",
-            "PROMPTREFRESH": "If this is more than a minute, you should refresh the page to get an up-to-date status"
+            "PROMPTREFRESH": "Если процесс продолжается больше минуты, обновите страницу, для получения текущего статуса"
         },
         "TESTING": {
             "INTRO": {
