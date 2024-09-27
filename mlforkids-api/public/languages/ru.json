@@ -649,11 +649,11 @@
         },
         "TESTING": {
             "INTRO": {
-                "TEXT": "Try putting in some text to see how it is recognised based on your training.",
-                "IMAGES": "Try putting in an image to see how it is recognised based on your training.",
-                "NUMBERS": "Try putting in some numbers to see how it is recognised based on your training.",
-                "SOUNDS": "Try making a sound to see how it is recognised based on your training",
-                "REGRESSION": "Try putting in some numbers to see the prediction based on your training."
+                "TEXT": "Попробуйте ввести несколько предложений и проверить качесво распознавания после обучения.",
+                "IMAGES": "Попробуйте загрузить изображение и проверить качесво распознавания после обучения.",
+                "NUMBERS": "Попробуйте ввести набор чисел и проверить качесво распознавания после обучения.",
+                "SOUNDS": "Попробуйте загрузить звук и проверить качесво распознавания после обучения.",
+                "REGRESSION": "Попробуйте ввести набор чисел и проверить качесво распознавания после обучения."
             },
             "WEBCAM": "Test with <strong>webcam</strong>",
             "DRAWING": "Test by <strong>drawing</strong>",
