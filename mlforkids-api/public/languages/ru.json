@@ -655,18 +655,18 @@
                 "SOUNDS": "Попробуйте загрузить звук и проверить качесво распознавания после обучения.",
                 "REGRESSION": "Попробуйте ввести набор чисел и проверить качесво распознавания после обучения."
             },
-            "WEBCAM": "Test with <strong>webcam</strong>",
-            "DRAWING": "Test by <strong>drawing</strong>",
-            "WWW": "Test with <strong>www</strong>",
-            "RECOGNISED": "Recognised as  <strong>{{ testoutput }}</strong>",
-            "PREDICTION": "Prediction:",
+            "WEBCAM": "Проверить через <strong>вебкамеру</strong>",
+            "DRAWING": "Проверить <strong>рисунком</strong>",
+            "WWW": "Проверить <strong>ссылкой в сети</strong>",
+            "RECOGNISED": "Распознано как <strong>{{ testoutput }}</strong>",
+            "PREDICTION": "Прогноз:",
             "STARTLISTENING": "Начать слушать",
             "STOPLISTENING": "Закончить слушать"
         },
         "TESTDATA": {
-            "TITLE": "Test data:",
-            "EXPLANATION": "You kept some of the data from the project template out of the training set, so that it can be used for testing. Click the button below to download a CSV file.",
-            "DOWNLOAD": "Download test data"
+            "TITLE": "Проверочные данные:",            
+            "EXPLANATION": "Вы сохранили некоторые данные без включения в набор обучения. Их можно использовать для тестирования. Нажмите кнопку внизу, чтобы скачать CSV файл.",
+            "DOWNLOAD": "Скачать проверочные данные"
         },
         "QUIZ": {
             "TITLE": "Время проверки знаний!",
@@ -676,10 +676,10 @@
             "INCORRECT_ANSWER": "К сожалению, нет. Верный ответ показан выше.",
             "NEXT_QUESTION": "Следующий вопрос",
             "QUESTION_1": {
-                "QUESTION": "In general, what will help machines to learn better?",
+                "QUESTION": "Как лучше обучать машну?",
                 "ANSWER_1": "Больше примеров",
                 "ANSWER_2": "Меньше примеров",
-                "NOTES_1": "That isn't the only thing that has an effect. But in general, the more examples it has to learn from, the better it should learn."
+                "NOTES_1": "Это не единственное, что даёт эффект. В любом случае, чем больше примеров, тем лучше обучение."
             },
             "QUESTION_2": {
                 "QUESTION": "Which of these would probably be best for training a computer to recognise a photo of an apple?",
@@ -801,30 +801,30 @@
         }
     },
     "DESCRIBETEXTMODEL": {
-        "ZOOM": "Use these controls to zoom in on the diagrams",
+        "ZOOM": "Используйте управления для приближения графиков",
         "ERRORS": {
             "TEXTONLY": "Only neural networks for text projects can be described"
         },
         "MOREINFO": "for more detail, try searching for:",
         "PAGE1": {
-            "TITLE": "neural networks",
+            "TITLE": "нейросети",
             "TEXT1": "The type of machine learning model you trained in this project is called a <em>neural network</em>.",
             "TEXT2": "The next few pages will explain how your model was created.",
             "TEXT3": "These diagrams aren't an exact description of your model. Your model is larger and more complicated, but these diagrams are easier to explain."
         },
         "PAGE2": {
-            "TITLE": "deep learning",
+            "TITLE": "глубокое обучение",
             "TEXT1": "The model is made of <em>nodes</em>, arranged in vertical <em>layers</em>.",
             "TEXT2": "Models with a lot of layers are described as <em>deep</em>.",
             "TEXT3": "Deep models can give better results, but take longer to train."
         },
         "PAGE3": {
-            "TITLE": "input layer",
+            "TITLE": "слой ввода",
             "TEXT1": "Let's start with one of the training examples used to create your model.",
             "TEXT2": "Your training example is shown as <em>input</em> on the left."
         },
         "PAGE4": {
-            "TITLE": "encoding",
+            "TITLE": "декодирование",
             "TEXT1": "To use your training example to train the model, first the text needs to be turned into a series of numbers.",
             "TEXT2": "There are lots of ways to do this.",
             "TEXT3": "If you build your own machine learning model, you need to choose a way that works well for your particular project."
@@ -968,7 +968,7 @@
         "COLAB": "Write Python code in the web browser using Google Colab"
     },
     "PYTHON": {
-        "TITLE": "Using machine learning in Python",
+        "TITLE": "Используйте машинное обучение в Python",
         "NOTREADY": "Your project isn't ready to be used in Python yet.",
         "NOMODEL": "You haven't trained a machine learning model yet.",
         "EXPIRED": "Your model is no longer available on the model server.",
@@ -976,9 +976,9 @@
         "LAUNCH": "Run Python in the browser",
         "LOCAL": "Copy code to run on your computer",
         "REPLIT": {
-            "TITLE": "Coding in replit",
+            "TITLE": "Код в replit",
             "TIP": "Tip: You have to click on <span class='pythonreplhighlight'>Fork repl</span> to start editing your own copy of the code",
-            "GO": "Go to replit.com"
+            "GO": "Открыть replit.com"
         },
         "MODE": {
             "INTRO": "Where would you like to write and run your Python code?",
