@@ -977,13 +977,13 @@
         "LOCAL": "Copy code to run on your computer",
         "REPLIT": {
             "TITLE": "Код в replit",
-            "TIP": "Tip: You have to click on <span class='pythonreplhighlight'>Fork repl</span> to start editing your own copy of the code",
+            "TIP": "Совет: Нажмите на <span class='pythonreplhighlight'>Fork repl</span> чтобы начать работать с копией кода",
             "GO": "Открыть replit.com"
         },
         "MODE": {
-            "INTRO": "Where would you like to write and run your Python code?",
-            "BROWSER": "You can do everything in the web browser, which means you don't need to worry about installing or setting up Python, or any of the third-party Python modules you will need.",
-            "LOCAL": "Or you can copy the code to run on your own computer. This is useful if there are local files, or devices like a webcam or speaker, that you want to use in your Python program."
+            "INTRO": "Где бы Вы хотели редактировать и запускать код на Питоне?",
+            "BROWSER": "Используя интернет браузер не нужно беспокоиться об установке и настройке Питон или модулей для него.",
+            "LOCAL": "Или можно скопировать код на свой компьютер. Это удобно при использовании локальных файлов или устройств типа веб-камеры. Нужно установить редактор для Питон."
         },
         "APIKEY_INSTRUCTION": "You need to <span class='strongemphasis'>add your API key</span> to the project. Do that on line 6 of the template.",
         "APIKEY_WARNING": "Treat this code like a password and make sure that you keep it secret!",
@@ -1016,25 +1016,25 @@
         }
     },
     "EDUBLOCKS": {
-        "TITLE": "Coding in EduBlocks",
-        "TIP": "Tip: You have to click on <span class='pythonreplhighlight'>Clone</span> to start editing your own copy of the code",
-        "NOTREADY": "Your project isn't ready to be used in EduBlocks yet.",
-        "NOMODEL": "You haven't trained a machine learning model yet.",
-        "GO": "Go to EduBlocks",
-        "LAUNCH": "Open EduBlocks"
+        "TITLE": "Пишем код в EduBlocks",
+        "TIP": "Совет: Нажмите на <span class='pythonreplhighlight'>Clone</span> для начала редактирования копии кода",
+        "NOTREADY": "Ваш проект еще не готов для использования в EduBlocks.",
+        "NOMODEL": "Модель машинного обучения еще не обучена.",
+        "GO": "Перейти EduBlocks",
+        "LAUNCH": "Открыть в EduBlocks"
     },
     "APPINVENTOR": {
-        "TITLE": "Using machine learning in App Inventor",
-        "LAUNCH_APPINVENTOR_BY_ITSELF": "(You can use <a href='{{ url }}' class='btn btn-default' target='_blank'>App Inventor by itself</a> if you want.)",
-        "NOTREADY": "Your project isn't ready to be used in App Inventor yet.",
-        "NOMODEL": "You haven't trained a machine learning model yet.",
-        "LAUNCH": "Open App Inventor"
+        "TITLE": "Использование машинного обучения в App Inventor",
+        "LAUNCH_APPINVENTOR_BY_ITSELF": "(Можно использовать <a href='{{ url }}' class='btn btn-default' target='_blank'>App Inventor by itself</a>, если хотите.)",
+        "NOTREADY": "Ваш проект еще не готов для использования в App Inventor.",
+        "NOMODEL": "Модель машинного обучения еще не обучена.",
+        "LAUNCH": "Открыть в App Inventor"
     },
     "SCRATCH": {
-        "TITLE": "Using machine learning in Scratch",
-        "NOTREADY": "Your project isn't ready to be used in Scratch yet.",
-        "NOMODEL": "You haven't trained a machine learning model yet.",
-        "LAUNCH": "Open in Scratch",
+        "TITLE": "Использование машинного обучения в Scratch",
+        "NOTREADY": "Ваш проект еще не готов для использования в Scratch.",
+        "NOMODEL": "Модель машинного обучения еще не обучена.",
+        "LAUNCH": "Открыть в Scratch",
         "LAUNCH_SCRATCH_BY_ITSELF": "(You can use <a href='{{ url }}' class='btn btn-default' target='_blank'>Scratch by itself</a> if you want.)",
         "GO_TO_LEARNANDTEST": "Or go to the <a href='{{ urls.learnandtest }}'>Learn &amp; Test</a> page for some tips on what to do next.",
         "MORE_BLOCKS": "Your project will add these blocks to the <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>More Blocks</span> tab in Scripts.",
@@ -1055,7 +1055,7 @@
         "STATUS_RED": "means something went wrong. Go back to the <a href='{{ urls.learnandtest }}'>Learn &amp; Test</a> page to see what went wrong with training."
     },
     "SCRATCH3": {
-        "TITLE": "Using machine learning in Scratch 3",
+        "TITLE": "Использование машинного обучения в Scratch 3",
         "LAUNCH": "Открыть в Scratch 3"
     },
     "WORKSHEETS": {
