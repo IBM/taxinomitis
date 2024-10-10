@@ -1068,39 +1068,39 @@
             "TITLE": "Распознавание:",
             "ALL": "Все типы проектов",
             "PREFIX": "Обучите компьютер распознавать",
-            "PREFIXREGRESSION": "Train a computer to predict ",
+            "PREFIXREGRESSION": "Обучить компьютер прогнозированию ",
             "TEXT": "текст",
             "IMAGES": "изображения",
             "NUMBERS": "числа",
             "SOUNDS": "звуки",
-            "FACES": "faces",
-            "REGRESSION": "predicting numbers"
+            "FACES": "лица",
+            "REGRESSION": "прогнозирование чисел"
         },
         "LEVELS": {
-            "TITLE": "Difficulty:",
-            "ALL": "All difficulties",
-            "BEGINNER": "Beginner projects",
-            "INTERMEDIATE": "Intermediate projects",
-            "ADVANCED": "Advanced projects"
+            "TITLE": "Сложность:",
+            "ALL": "Любая сложность",
+            "BEGINNER": "Проекты для начинающих",
+            "INTERMEDIATE": "Проекты для продолжающих",
+            "ADVANCED": "Проекты для опытных"
         },
-        "DOWNLOAD": "Download",
+        "DOWNLOAD": "Скачать",
         "DOWNLOADS": {
             "AUDIENCE": {
-                "TEACHERS": "For teachers:",
-                "STUDENTS": "For students:"
+                "TEACHERS": "Для учителей:",
+                "STUDENTS": "Для учащихся:"
             },
             "GUIDANCE": {
-                "TITLE": "Download guidance for teachers",
-                "DETAIL": "This sheet contains information for teachers or coding group leaders to help them prepare, setup and supervise this project.",
-                "NOTES": "Notes:"
+                "TITLE": "Скачать руководство для учителей",
+                "DETAIL": "Листы содержать информацию для учителей или наставников для подготовки, установки и сопровождения проекта.",
+                "NOTES": "Заметки:"
             },
             "WORKSHEET": {
-                "TITLE": "Download project worksheet",
-                "AUTHOR": "Worksheet provided by:"
+                "TITLE": "Скачасть рабочие листы для проекта",
+                "AUTHOR": "Рабочие листы предоставлены:"
             },
             "RESOURCES": {
-                "TITLE": "Additional project resources",
-                "DETAIL": "You will also need to provide students with a printed copy of this file."
+                "TITLE": "Дополнительные материалы для проекта",
+                "DETAIL": "Необходимо выдать учащимся в распечатанном виде."
             }
         },
         "MAKETYPES": {
