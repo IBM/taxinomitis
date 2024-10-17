@@ -649,24 +649,24 @@
         },
         "TESTING": {
             "INTRO": {
-                "TEXT": "Try putting in some text to see how it is recognised based on your training.",
-                "IMAGES": "Try putting in an image to see how it is recognised based on your training.",
-                "NUMBERS": "Try putting in some numbers to see how it is recognised based on your training.",
-                "SOUNDS": "Try making a sound to see how it is recognised based on your training",
-                "REGRESSION": "Try putting in some numbers to see the prediction based on your training."
+                "TEXT": "Попробуйте ввести несколько предложений и проверить качесво распознавания после обучения.",
+                "IMAGES": "Попробуйте загрузить изображение и проверить качесво распознавания после обучения.",
+                "NUMBERS": "Попробуйте ввести набор чисел и проверить качесво распознавания после обучения.",
+                "SOUNDS": "Попробуйте загрузить звук и проверить качесво распознавания после обучения.",
+                "REGRESSION": "Попробуйте ввести набор чисел и проверить качесво распознавания после обучения."
             },
-            "WEBCAM": "Test with <strong>webcam</strong>",
-            "DRAWING": "Test by <strong>drawing</strong>",
-            "WWW": "Test with <strong>www</strong>",
-            "RECOGNISED": "Recognised as  <strong>{{ testoutput }}</strong>",
-            "PREDICTION": "Prediction:",
+            "WEBCAM": "Проверить через <strong>вебкамеру</strong>",
+            "DRAWING": "Проверить <strong>рисунком</strong>",
+            "WWW": "Проверить <strong>ссылкой в сети</strong>",
+            "RECOGNISED": "Распознано как <strong>{{ testoutput }}</strong>",
+            "PREDICTION": "Прогноз:",
             "STARTLISTENING": "Начать слушать",
             "STOPLISTENING": "Закончить слушать"
         },
         "TESTDATA": {
-            "TITLE": "Test data:",
-            "EXPLANATION": "You kept some of the data from the project template out of the training set, so that it can be used for testing. Click the button below to download a CSV file.",
-            "DOWNLOAD": "Download test data"
+            "TITLE": "Проверочные данные:",            
+            "EXPLANATION": "Вы сохранили некоторые данные без включения в набор обучения. Их можно использовать для тестирования. Нажмите кнопку внизу, чтобы скачать CSV файл.",
+            "DOWNLOAD": "Скачать проверочные данные"
         },
         "QUIZ": {
             "TITLE": "Время проверки знаний!",
@@ -676,10 +676,10 @@
             "INCORRECT_ANSWER": "К сожалению, нет. Верный ответ показан выше.",
             "NEXT_QUESTION": "Следующий вопрос",
             "QUESTION_1": {
-                "QUESTION": "In general, what will help machines to learn better?",
+                "QUESTION": "Как лучше обучать машну?",
                 "ANSWER_1": "Больше примеров",
                 "ANSWER_2": "Меньше примеров",
-                "NOTES_1": "That isn't the only thing that has an effect. But in general, the more examples it has to learn from, the better it should learn."
+                "NOTES_1": "Это не единственное, что даёт эффект. В любом случае, чем больше примеров, тем лучше обучение."
             },
             "QUESTION_2": {
                 "QUESTION": "Which of these would probably be best for training a computer to recognise a photo of an apple?",
@@ -801,30 +801,30 @@
         }
     },
     "DESCRIBETEXTMODEL": {
-        "ZOOM": "Use these controls to zoom in on the diagrams",
+        "ZOOM": "Используйте управления для приближения графиков",
         "ERRORS": {
             "TEXTONLY": "Only neural networks for text projects can be described"
         },
         "MOREINFO": "for more detail, try searching for:",
         "PAGE1": {
-            "TITLE": "neural networks",
+            "TITLE": "нейросети",
             "TEXT1": "The type of machine learning model you trained in this project is called a <em>neural network</em>.",
             "TEXT2": "The next few pages will explain how your model was created.",
             "TEXT3": "These diagrams aren't an exact description of your model. Your model is larger and more complicated, but these diagrams are easier to explain."
         },
         "PAGE2": {
-            "TITLE": "deep learning",
+            "TITLE": "глубокое обучение",
             "TEXT1": "The model is made of <em>nodes</em>, arranged in vertical <em>layers</em>.",
             "TEXT2": "Models with a lot of layers are described as <em>deep</em>.",
             "TEXT3": "Deep models can give better results, but take longer to train."
         },
         "PAGE3": {
-            "TITLE": "input layer",
+            "TITLE": "слой ввода",
             "TEXT1": "Let's start with one of the training examples used to create your model.",
             "TEXT2": "Your training example is shown as <em>input</em> on the left."
         },
         "PAGE4": {
-            "TITLE": "encoding",
+            "TITLE": "декодирование",
             "TEXT1": "To use your training example to train the model, first the text needs to be turned into a series of numbers.",
             "TEXT2": "There are lots of ways to do this.",
             "TEXT3": "If you build your own machine learning model, you need to choose a way that works well for your particular project."
@@ -968,7 +968,7 @@
         "COLAB": "Write Python code in the web browser using Google Colab"
     },
     "PYTHON": {
-        "TITLE": "Using machine learning in Python",
+        "TITLE": "Используйте машинное обучение в Python",
         "NOTREADY": "Your project isn't ready to be used in Python yet.",
         "NOMODEL": "You haven't trained a machine learning model yet.",
         "EXPIRED": "Your model is no longer available on the model server.",
@@ -976,14 +976,14 @@
         "LAUNCH": "Run Python in the browser",
         "LOCAL": "Copy code to run on your computer",
         "REPLIT": {
-            "TITLE": "Coding in replit",
-            "TIP": "Tip: You have to click on <span class='pythonreplhighlight'>Fork repl</span> to start editing your own copy of the code",
-            "GO": "Go to replit.com"
+            "TITLE": "Код в replit",
+            "TIP": "Совет: Нажмите на <span class='pythonreplhighlight'>Fork repl</span> чтобы начать работать с копией кода",
+            "GO": "Открыть replit.com"
         },
         "MODE": {
-            "INTRO": "Where would you like to write and run your Python code?",
-            "BROWSER": "You can do everything in the web browser, which means you don't need to worry about installing or setting up Python, or any of the third-party Python modules you will need.",
-            "LOCAL": "Or you can copy the code to run on your own computer. This is useful if there are local files, or devices like a webcam or speaker, that you want to use in your Python program."
+            "INTRO": "Где бы Вы хотели редактировать и запускать код на Питоне?",
+            "BROWSER": "Используя интернет браузер не нужно беспокоиться об установке и настройке Питон или модулей для него.",
+            "LOCAL": "Или можно скопировать код на свой компьютер. Это удобно при использовании локальных файлов или устройств типа веб-камеры. Нужно установить редактор для Питон."
         },
         "APIKEY_INSTRUCTION": "You need to <span class='strongemphasis'>add your API key</span> to the project. Do that on line 6 of the template.",
         "APIKEY_WARNING": "Treat this code like a password and make sure that you keep it secret!",
@@ -1016,25 +1016,25 @@
         }
     },
     "EDUBLOCKS": {
-        "TITLE": "Coding in EduBlocks",
-        "TIP": "Tip: You have to click on <span class='pythonreplhighlight'>Clone</span> to start editing your own copy of the code",
-        "NOTREADY": "Your project isn't ready to be used in EduBlocks yet.",
-        "NOMODEL": "You haven't trained a machine learning model yet.",
-        "GO": "Go to EduBlocks",
-        "LAUNCH": "Open EduBlocks"
+        "TITLE": "Пишем код в EduBlocks",
+        "TIP": "Совет: Нажмите на <span class='pythonreplhighlight'>Clone</span> для начала редактирования копии кода",
+        "NOTREADY": "Ваш проект еще не готов для использования в EduBlocks.",
+        "NOMODEL": "Модель машинного обучения еще не обучена.",
+        "GO": "Перейти EduBlocks",
+        "LAUNCH": "Открыть в EduBlocks"
     },
     "APPINVENTOR": {
-        "TITLE": "Using machine learning in App Inventor",
-        "LAUNCH_APPINVENTOR_BY_ITSELF": "(You can use <a href='{{ url }}' class='btn btn-default' target='_blank'>App Inventor by itself</a> if you want.)",
-        "NOTREADY": "Your project isn't ready to be used in App Inventor yet.",
-        "NOMODEL": "You haven't trained a machine learning model yet.",
-        "LAUNCH": "Open App Inventor"
+        "TITLE": "Использование машинного обучения в App Inventor",
+        "LAUNCH_APPINVENTOR_BY_ITSELF": "(Можно использовать <a href='{{ url }}' class='btn btn-default' target='_blank'>App Inventor by itself</a>, если хотите.)",
+        "NOTREADY": "Ваш проект еще не готов для использования в App Inventor.",
+        "NOMODEL": "Модель машинного обучения еще не обучена.",
+        "LAUNCH": "Открыть в App Inventor"
     },
     "SCRATCH": {
-        "TITLE": "Using machine learning in Scratch",
-        "NOTREADY": "Your project isn't ready to be used in Scratch yet.",
-        "NOMODEL": "You haven't trained a machine learning model yet.",
-        "LAUNCH": "Open in Scratch",
+        "TITLE": "Использование машинного обучения в Scratch",
+        "NOTREADY": "Ваш проект еще не готов для использования в Scratch.",
+        "NOMODEL": "Модель машинного обучения еще не обучена.",
+        "LAUNCH": "Открыть в Scratch",
         "LAUNCH_SCRATCH_BY_ITSELF": "(You can use <a href='{{ url }}' class='btn btn-default' target='_blank'>Scratch by itself</a> if you want.)",
         "GO_TO_LEARNANDTEST": "Or go to the <a href='{{ urls.learnandtest }}'>Learn &amp; Test</a> page for some tips on what to do next.",
         "MORE_BLOCKS": "Your project will add these blocks to the <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>More Blocks</span> tab in Scripts.",
@@ -1055,7 +1055,7 @@
         "STATUS_RED": "means something went wrong. Go back to the <a href='{{ urls.learnandtest }}'>Learn &amp; Test</a> page to see what went wrong with training."
     },
     "SCRATCH3": {
-        "TITLE": "Using machine learning in Scratch 3",
+        "TITLE": "Использование машинного обучения в Scratch 3",
         "LAUNCH": "Открыть в Scratch 3"
     },
     "WORKSHEETS": {
@@ -1068,39 +1068,39 @@
             "TITLE": "Распознавание:",
             "ALL": "Все типы проектов",
             "PREFIX": "Обучите компьютер распознавать",
-            "PREFIXREGRESSION": "Train a computer to predict ",
+            "PREFIXREGRESSION": "Обучить компьютер прогнозированию ",
             "TEXT": "текст",
             "IMAGES": "изображения",
             "NUMBERS": "числа",
             "SOUNDS": "звуки",
-            "FACES": "faces",
-            "REGRESSION": "predicting numbers"
+            "FACES": "лица",
+            "REGRESSION": "прогнозирование чисел"
         },
         "LEVELS": {
-            "TITLE": "Difficulty:",
-            "ALL": "All difficulties",
-            "BEGINNER": "Beginner projects",
-            "INTERMEDIATE": "Intermediate projects",
-            "ADVANCED": "Advanced projects"
+            "TITLE": "Сложность:",
+            "ALL": "Любая сложность",
+            "BEGINNER": "Проекты для начинающих",
+            "INTERMEDIATE": "Проекты для продолжающих",
+            "ADVANCED": "Проекты для опытных"
         },
-        "DOWNLOAD": "Download",
+        "DOWNLOAD": "Скачать",
         "DOWNLOADS": {
             "AUDIENCE": {
-                "TEACHERS": "For teachers:",
-                "STUDENTS": "For students:"
+                "TEACHERS": "Для учителей:",
+                "STUDENTS": "Для учащихся:"
             },
             "GUIDANCE": {
-                "TITLE": "Download guidance for teachers",
-                "DETAIL": "This sheet contains information for teachers or coding group leaders to help them prepare, setup and supervise this project.",
-                "NOTES": "Notes:"
+                "TITLE": "Скачать руководство для учителей",
+                "DETAIL": "Листы содержать информацию для учителей или наставников для подготовки, установки и сопровождения проекта.",
+                "NOTES": "Заметки:"
             },
             "WORKSHEET": {
-                "TITLE": "Download project worksheet",
-                "AUTHOR": "Worksheet provided by:"
+                "TITLE": "Скачасть рабочие листы для проекта",
+                "AUTHOR": "Рабочие листы предоставлены:"
             },
             "RESOURCES": {
-                "TITLE": "Additional project resources",
-                "DETAIL": "You will also need to provide students with a printed copy of this file."
+                "TITLE": "Дополнительные материалы для проекта",
+                "DETAIL": "Необходимо выдать учащимся в распечатанном виде."
             }
         },
         "MAKETYPES": {
