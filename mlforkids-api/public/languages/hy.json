@@ -1616,6 +1616,14 @@
       "WORKSHEET_1": {
         "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-recommender.pdf"
       }
+    },
+    "MOBILENET": {
+        "TITLE": "Mobilenet",
+        "SUMMARY": "Use a computer that has been trained to recognize objects in a photo",
+        "DESCRIPTION": "Make a game in Scratch where the computer recognises what you click on",
+        "WORKSHEET_1": {
+            "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-mobilenet.pdf"
+        }
     }
   },
   "TEACHER": {

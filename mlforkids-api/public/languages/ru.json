@@ -624,7 +624,7 @@
                     "SOUNDS": "Попробуйте протестировать модель машинного обучения. Нажмите кнопку «Начать прослушивание». Если модель машинного обучения распознает звуки, то она укажет и укажет процент совпадения.",
                     "REGRESSION" : "Попробуйте протестировать модель машинного обучения. Введите ниже пример цифр, не из примера обучения модели. Система распознает вариант данных и укажет процент совпадения."
                 },
-                "SCRATCH": "Если компьютер будет верно распознавать образцы, то можно перейти в Scratch и использовать эту модель для создания игры!",                
+                "SCRATCH": "Если компьютер будет верно распознавать образцы, то можно перейти в Scratch и использовать эту модель для создания игры!",
                 "SCRATCH_REGRESSION" : "Если компьютер будет верно давать прогнозы, то можно перейти в Scratch и использовать эту модель для создания игры!",
                 "ADDITIONAL_TRAINING": {
                     "MORE_EXAMPLES": {
@@ -664,7 +664,7 @@
             "STOPLISTENING": "Закончить слушать"
         },
         "TESTDATA": {
-            "TITLE": "Проверочные данные:",            
+            "TITLE": "Проверочные данные:",
             "EXPLANATION": "Вы сохранили некоторые данные без включения в набор обучения. Их можно использовать для тестирования. Нажмите кнопку внизу, чтобы скачать CSV файл.",
             "DOWNLOAD": "Скачать проверочные данные"
         },
@@ -1611,6 +1611,14 @@
             "DESCRIPTION": "Make a game that recommends a book you would like to read.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-recommender.pdf"
+            }
+        },
+        "MOBILENET": {
+            "TITLE": "Mobilenet",
+            "SUMMARY": "Use a computer that has been trained to recognize objects in a photo",
+            "DESCRIPTION": "Make a game in Scratch where the computer recognises what you click on",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-mobilenet.pdf"
             }
         }
     },

@@ -208,7 +208,11 @@
             'WORKSHEETS.CAPTCHA.WORKSHEET_1.URL',
 
             'WORKSHEETS.RECOMMENDER.TITLE', 'WORKSHEETS.RECOMMENDER.SUMMARY', 'WORKSHEETS.RECOMMENDER.DESCRIPTION',
-            'WORKSHEETS.RECOMMENDER.WORKSHEET_1.URL'
+            'WORKSHEETS.RECOMMENDER.WORKSHEET_1.URL',
+
+            'WORKSHEETS.MOBILENET.TITLE', 'WORKSHEETS.MOBILENET.SUMMARY', 'WORKSHEETS.MOBILENET.DESCRIPTION',
+            'WORKSHEETS.MOBILENET.WORKSHEET_1.URL'
+
         ]).then(function (translations) {
             vm.worksheets = [
                 {
@@ -589,6 +593,21 @@
                 //         embed: $sce.trustAsHtml('<div class="worksheetcardembeddiv"><iframe src="https://player.vimeo.com/video/378414131?byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>')
                 //     }
                 // },
+                {
+                    title : translations['WORKSHEETS.MOBILENET.TITLE'],
+                    summary : translations['WORKSHEETS.MOBILENET.SUMMARY'],
+                    description : translations['WORKSHEETS.MOBILENET.DESCRIPTION'],
+                    difficulty : 'Beginner',
+                    type : 'images',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-mobilenet.png',
+                    tags : [ 'image recognition', 'pretrained models' ],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.MOBILENET.WORKSHEET_1.URL']
+                        }
+                    ]
+                },
                 {
                     title : translations['WORKSHEETS.PACMAN.TITLE'],
                     summary : translations['WORKSHEETS.PACMAN.SUMMARY'],
