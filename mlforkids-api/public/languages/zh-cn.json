@@ -2,23 +2,23 @@
     "APP": {
         "TITLE": "儿童机器学习",
         "BACK": " 返回 ",
-        "NEXT": "Next",
+        "NEXT": "下一步",
         "BACKTOPROJECT": "&lt; 返回项目",
-        "BACKTOMODEL": "&lt; Back to model",
+        "BACKTOMODEL": "&lt; 返回到模型",
         "ERROR": "错误: ",
         "WARNING": "警告: ",
         "INFO": "信息: ",
         "ADD": "添加",
         "CANCEL": "取消",
-        "DELETE": "Delete",
-        "EDIT": "Edit",
-        "TEST": "Test",
-        "RESET": "Reset",
+        "DELETE": "删除",
+        "EDIT": "编辑",
+        "TEST": "测试",
+        "RESET": "重置",
         "ABOUT": "关于",
         "TEACHER": "老师",
         "PROJECTS": "项目",
-        "WORKSHEETS": "工作表",
-        "PRETRAINED": "Pretrained",
+        "WORKSHEETS": "操作指南",
+        "PRETRAINED": "预训练模型",
         "NEWS": "新闻",
         "STORIES": "Stories",
         "HELP": "帮助",
@@ -178,9 +178,9 @@
     },
     "PROJECTS": {
         "TITLE": "你的机器学习项目",
-        "ADDNEWPROJECT": "添加一个新项目",
-        "COPYTEMPLATE": "Copy template",
-        "CREATEFIRSTPROJECT": "点击右边的'加号'按钮创建你的第一个项目。",
+        "ADDNEWPROJECT": "添加新项目",
+        "COPYTEMPLATE": "使用模板",
+        "CREATEFIRSTPROJECT": "点击右边'加号'按钮，创建你的第一个项目。",
         "RECOGNISING": "识别",
         "PREDICTING": "Predicting",
         "AS": "as",
@@ -197,31 +197,31 @@
         "TITLE": "开始一个新的机器学习项目",
         "PROJECT_NAME": {
             "TITLE": "项目名称",
-            "NOTES": "给你的项目命名,描述你将尝试教授计算机识别的东西。"
+            "NOTES": "给你的项目取个名字,描述一下你想让电脑辨识什么。"
         },
         "WHOLE_CLASS_PROJECT": {
-            "TITLE": "全班项目？",
+            "TITLE": "全班的项目？",
             "NOTES_1": "如果您希望全班同学能够共同完成此项目,请勾选此项。",
-            "NOTES_2": "这对于教授众包作为培训机器学习项目的方法的项目非常有用。"
+            "NOTES_2": "这对于需要分工合作的项目来说很有帮助。"
         },
         "STORAGE": {
-            "LABEL": "Storage",
-            "LOCAL": "In your web browser",
-            "CLOUD": "In the cloud",
-            "NOTES_1": "Where do you want to store this project?",
-            "NOTES_2": "Storing in your web browser removes limits on how big your project can be.",
-            "NOTES_3": "Storing in the cloud will let you access the project from any computer.",
-            "PROMPT": "Please choose where you would like to store your project"
+            "LABEL": "存储在",
+            "LOCAL": "浏览器里",
+            "CLOUD": "云端",
+            "NOTES_1": "你想把这个项目存在哪里？",
+            "NOTES_2": "存在你的浏览器里可以无视项目大小的限制。",
+            "NOTES_3": "存在云端可以让你从任意一台电脑访问项目",
+            "PROMPT": "请选择你希望保存项目的位置"
         },
         "TYPES": {
-            "TYPELABEL": "Project Type",
+            "TYPELABEL": "项目类型",
             "LABEL": "识别",
-            "NOTES_1": "你想教电脑识别什么类型的东西？",
-            "NOTES_2": "对于单词,句子或段落,请选择\" text \" ",
-            "NOTES_3": "对于照片,图表和图片,请选择\" images \" ",
-            "NOTES_4": "对于数字组或多个选项,请选择\"数字\" ",
-            "NOTES_5": "For voices and sounds, choose \"sounds\"",
-            "NOTES_6": "To predict numbers, choose \"predicting numbers\""
+            "NOTES_1": "你想教电脑认识什么类型的东西？",
+            "NOTES_2": "识别单词,句子或段落,选择\" 识别文本 \" ",
+            "NOTES_3": "识别照片,图表和图片,选择\" 识别图像 \" ",
+            "NOTES_4": "识别数字组或多个选项,选择\"识别数字\" ",
+            "NOTES_5": "识别声音和音乐, 选择 \"识别声音\"",
+            "NOTES_6": "需要预测数字，选择 \"预测数字\""
         },
         "LANGUAGE": {
             "LABEL": "语言",
@@ -384,10 +384,10 @@
             "REGRESSION": "Use the examples to train the computer to make predictions"
         },
         "MAKES": {
-            "TITLE": "Make",
-            "BODY": "Use the machine learning model you've trained to make a game or app, in Scratch, Python, EduBlocks, or App Inventor",
-            "BODY_SCRATCHPYTHONAPPINV": "Use the machine learning model you've trained to make a game or app, in Scratch, Python, or App Inventor",
-            "BODY_SCRATCHONLY": "Use the machine learning model you've trained to make a game or app in Scratch"
+            "TITLE": "成果应用",
+            "BODY": "使用你训练的机器学习模型在 Scratch、Python、EduBlocks 或 App Inventor 中制作游戏或APP",
+            "BODY_SCRATCHPYTHONAPPINV": "使用你训练的机器学习模型在 Scratch、Python 或 App Inventor 中制作游戏或APP",
+            "BODY_SCRATCHONLY": "使用你训练的机器学习模型在 Scratch 中制作游戏或APP"
         },
         "SCRATCH": {
             "TITLE": " Scratch ",
@@ -416,8 +416,8 @@
         "ADDCOLUMN": "Add new column",
         "CREATEFIRSTLABEL": "点击右边的'加号'按钮添加你的第一个训练集。",
         "CROWDSOURCEDEMPTY": "在您的老师创建培训桶之后刷新此页面。",
-        "ADDEXAMPLE": "添加示例",
-        "ADDFROMFILE": "Add file",
+        "ADDEXAMPLE": "添加例子",
+        "ADDFROMFILE": "添加文件",
         "ADDURL": " www ",
         "ADDWEBCAM": "摄像头",
         "ADDDRAWING": "画画",
@@ -433,15 +433,15 @@
         },
         "NEWEXAMPLE": {
             "INTRO": "输入一个例子",
-            "INTROURL": "输入作为示例的图片的网址",
+            "INTROURL": "输入作为例子的图片的网址",
             "INTRODRAWING": "画一个新的例子",
             "INTROWEBCAM": "添加新的例子",
             "ERROR": "您不能使用制表符或换行符。",
-            "REQUIRED": "您必须在示例中包含所有字段的值",
-            "PATTERNNUMBER": "这看起来不像是一个数字",
+            "REQUIRED": "您必须在例子中包含所有字段的值",
+            "PATTERNNUMBER": "这看上去不是一个数字",
             "PATTERNURL": "这需要是图片的网址",
-            "WEBCAMFAIL": "抱歉！我们无法让网络摄像头为您工作。",
-            "WEBCAMERROR": "我们从您的网络浏览器收到的消息是: "
+            "WEBCAMFAIL": "抱歉！摄像头不可用。",
+            "WEBCAMERROR": "我们从浏览器收到的消息是: "
         },
         "BACKGROUNDNOISE": "Collecting examples of background noise will help the computer to learn to recognize your sounds",
         "REGRESSION": {
@@ -453,11 +453,11 @@
     },
     "MODELS": {
         "TITLE": "机器学习模型",
-        "TRAIN": "培养新机器学习模式",
+        "TRAIN": "开始训练新的机器学习模型",
         "CANCEL": "取消训练",
         "DELETE": "删除此模型",
-        "TEST_CANVAS": "Draw something to test your model with",
-        "TEST_WEBCAM": "Take a photo to test your model with",
+        "TEST_CANVAS": "画一些东西来测试你的模型",
+        "TEST_WEBCAM": "拍张照来测试你的模型",
         "WHATHAVEYOUDONE": {
             "TITLE": "你做了什么？",
             "PLEASEWAIT": "这通常需要几分钟,但如果训练计算机非常繁忙,可能需要更长的时间。",
@@ -564,31 +564,31 @@
                         "SOUNDS": "Your class has collected examples of sounds for a computer to use to recognise when sounds are "
                     },
                     "INDIVIDUAL": {
-                        "TEXT": "您收集了计算机用于识别文本的文本示例",
-                        "IMAGES": "您已经收集了计算机用于识别图像的图像示例",
-                        "NUMBERS": "您已收集计算机的数字示例,用于识别数字何时",
-                        "SOUNDS": "You have collected examples of sounds for a computer to use to recognise when sounds are ",
+                        "TEXT": "你收集了一些文本例子，计算机会把文字识别成",
+                        "IMAGES": "你收集了一些图像例子，计算机会把文字识别成",
+                        "NUMBERS": "你收集了一些数字例子，计算机会把数字识别成",
+                        "SOUNDS": "你收集了一些图像例子，计算机声音识别成",
                         "REGRESSION" : "You have collected examples of numbers for a computer to use to predict the value of "
                     },
                     "COLLECTED": {
-                        "CLASS": "他们收集了: ",
+                        "CLASS": "别人收集了: ",
                         "YOU": "你收集了: "
                     }
                 }
             }
         },
         "WHATSNEXT": {
-            "TITLE": "下一步是什么？",
-            "PLEASEWAIT": "你可以等待机器学习模型完成训练。",
-            "OFFERQUIZ": "或者,你可以尝试下面的机器学习测验,检查你学到了什么。",
-            "FAIL": "来自训练计算机的错误信息如下所示。如果这对您有意义,请尝试解决问题。否则,如果它只是一个随机错误,可能值得再次尝试。",
+            "TITLE": "接下来做什么？",
+            "PLEASEWAIT": "你需要等待机器学习模型完成训练。",
+            "OFFERQUIZ": "或者,你可以试试下面的机器学习测验,看看你学到了什么。",
+            "FAIL": "来自服务器的错误信息如下所示。如果你能看懂，请尝试解决问题。或者,他也有可能是随机错误,你可以再试一次。",
             "IDLE": {
-                "NOLABELS": "下一步是转到<strong>培训</strong>页面。为您希望教授计算机能够识别的每一项内容添加一些标签。",
+                "NOLABELS": "下一步是去<a href='{{ urls.train }}'>训练</a>页面。给每一个你希望教会电脑认识的内容添加标签",
                 "ONELABEL": {
                     "EXPLANATION": "你只说了一件你希望计算机能够识别的东西: {{label}} ",
-                    "ISTHATALL": "这是您希望计算机能够识别的唯一内容吗？",
-                    "NO": " <strong>否？</strong> <br/>返回<strong>训练</strong>页面。<br/>为每个要教授的内容添加更多标签计算机能够识别。<br/> <br/> ",
-                    "YES": " <strong>是吗？</strong>您需要先做一些工作。<br/>为了让计算机能够学会如何识别\" {{label}} \",你需要给它一些不是{{label}}的东西的例子。<br/>回到<strong>训练</strong>页面并为不存在的事物的例子创建一个新的标签。\"{{label}}你可以称之为\"不- {{label}}\" 。"
+                    "ISTHATALL": "你只希望电脑识别这一个东西吗？",
+                    "NO": " <strong>不？</strong> <br/>返回<a href='{{ urls.train }}'>训练</a>页面。<br/>为你希望教电脑认识的每一个东西添加更多标签。<br/> <br/> ",
+                    "YES": " <strong>对？</strong>你需要先做一点额外的事情。<br/>为了让电脑能够学会如何识别\" {{label}} \",你需要给它一些不是{{label}}的东西的例子。<br/>回到<a href='{{ urls.train }}'>训练</a>页面，并为不是\" {{label}} \"的一些东西创建一个新的标签。你可以叫他\"not- {{label}}\" 。"
                 },
                 "LABELS": {
                     "NO_DATA": "下一步是转到<strong>训练</strong>页面。为每个标签添加示例。",
@@ -605,14 +605,14 @@
                     "ENOUGH_DATA": {
                         "READY_TO_START": "准备开始计算机培训了吗？",
                         "START_TRAINING": {
-                            "CROWDSOURCED": "点击下面的按钮,开始使用您班级目前收集的示例来训练机器学习模型",
-                            "INDIVIDUAL": "点击下面的按钮,开始使用您目前收集的示例训练机器学习模型"
+                            "CROWDSOURCED": "点击下面的按钮,开始使用您班级目前收集的例子来训练机器学习模型",
+                            "INDIVIDUAL": "点击下面的按钮,开始使用您目前收集的例子训练机器学习模型"
                         },
                         "MORE_EXAMPLES": {
-                            "CROWDSOURCED": "（或者,如果您希望他们先收集更多示例,请让您的班级返回<strong>培训</strong>页面。）",
-                            "INDIVIDUAL": "（或者,如果您想先收集更多示例,请返回<strong>训练</strong>页面。）"
+                            "CROWDSOURCED": "（或者如果你希望他们先收集更多例子，。请你的班级返回<a href='{{ urls.train }}'>训练</a>页面，）",
+                            "INDIVIDUAL": "（或者如果你想先收集更多例子，返回<a href='{{ urls.train }}'>训练</a>页面。）"
                         },
-                        "WAITING_FOR_TEACHER": "等待老师开始计算机培训。"
+                        "WAITING_FOR_TEACHER": "等待老师开始训练。"
                     }
                 }
             },
@@ -633,35 +633,35 @@
                     },
                     "RETRAIN": {
                         "YOU": "完成后,点击下面的按钮来训练一个新的机器学习模型,看看额外的例子会有什么不同！",
-                        "CLASS": "一旦你完成了这项工作,你的老师就需要培养一种新的机器学习模式。"
+                        "CLASS": "一旦你完成了这项工作,你的老师就需要训练一种新的机器学习模式。"
                     }
                 }
             }
         },
         "TRAINING": {
-            "TITLE": "正在训练计算机的信息: ",
-            "STARTED": "模特开始训练: ",
-            "STATUS": "当前型号状态: ",
+            "TITLE": "来自训练服务器的消息: ",
+            "STARTED": "开始训练时间",
+            "STATUS": "当前模型状态: ",
             "DETAIL": "说明: ",
             "DELETION": "模型将在以下后自动删除: ",
-            "LASTCHECK": "模型上次检查: ",
+            "LASTCHECK": "上次检查模型的时间: ",
             "PROMPTREFRESH": "如果超过一分钟,您应刷新页面以获取最新状态"
         },
         "TESTING": {
             "INTRO": {
-                "TEXT": "尝试根据您的训练添加一些文字以了解它是如何识别的。",
-                "IMAGES": "尝试根据您的训练设置图像以查看其识别方式。",
-                "NUMBERS": "尝试输入一些数字,看看它是如何根据你的训练得到认可的。",
-                "SOUNDS": "Try making a sound to see how it is recognised based on your training",
-                "REGRESSION": "Try putting in some numbers to see the prediction based on your training."
+                "TEXT": "试试输入一些文字，看看你训练的模型怎么识别它。",
+                "IMAGES": "试试给我一些图片，看看你训练的模型怎么识别它。",
+                "NUMBERS": "试试给我一些数字，看看你训练的模型怎么识别它。",
+                "SOUNDS": "试试给我一些音频，看看你训练的模型怎么识别它。",
+                "REGRESSION": "试试给我一些数字，看看你训练的模型怎么识别它。"
             },
-            "WEBCAM": "使用<strong>摄像头</strong>进行测试",
+            "WEBCAM": "使用<strong>摄像头</strong>测试",
             "DRAWING": "通过<strong>绘图</strong>进行测试",
-            "WWW": "用<strong> www </strong>进行测试",
-            "RECOGNISED": "被认可为<strong> {{testoutput}} </strong> ",
+            "WWW": "用<strong> 网址 </strong>进行测试",
+            "RECOGNISED": "辨识的结果是<strong> {{testoutput}} </strong> ",
             "PREDICTION": "Prediction:",
-            "STARTLISTENING": "Start listening",
-            "STOPLISTENING": "Stop listening"
+            "STARTLISTENING": "开始录音",
+            "STOPLISTENING": "停止录音"
         },
         "TESTDATA": {
             "TITLE": "Test data:",
@@ -673,7 +673,7 @@
             "INTROQUESTION": "当你在等待模型完成训练时,试着回答这个问题。",
             "PREVIOUSLY_ATTEMPTED": "你以前看过这个 - 让我们看看你有没有记住这次正确答案！",
             "CORRECT_ANSWER": "那是对的！",
-            "INCORRECT_ANSWER": "不,对不起。正确答案如上所示。",
+            "INCORRECT_ANSWER": "好可惜！错了。正确答案如上所示。",
             "NEXT_QUESTION": "下一个问题",
             "QUESTION_1": {
                 "QUESTION": "In general, what will help machines to learn better?",
@@ -959,13 +959,13 @@
         }
     },
     "MAKES": {
-        "TITLE": "Make something with your machine learning model",
-        "SCRATCH3": "Use your machine learning model in Scratch",
-        "PYTHON": "Write Python code to use your machine learning model",
-        "APPINVENTOR": "Make a mobile app for your phone or tablet",
-        "EDUBLOCKS": "Write Python using a drag and drop coding tool",
-        "REPLIT": "Write Python code in the web browser using replit",
-        "COLAB": "Write Python code in the web browser using Google Colab"
+        "TITLE": "用你的机器学习模型制作一些作品",
+        "SCRATCH3": "在Scratch里使用机器学习模型",
+        "PYTHON": "用你的机器学习模型写一些Python代码",
+        "APPINVENTOR": "给你的手机或者平板做一个APP",
+        "EDUBLOCKS": "用模块化编程平台写Python",
+        "REPLIT": "用replit在浏览器里写Python",
+        "COLAB": "用Google Colab在浏览器里写Python"
     },
     "PYTHON": {
         "TITLE": "在Python中使用机器学习",
@@ -1037,26 +1037,26 @@
         "LAUNCH": "在Scratch打开",
         "LAUNCH_SCRATCH_BY_ITSELF": "(如果你愿意的话，你可以使用 <a href='{{ url }}' class='btn btn-default' target='_blank'>Scratch by itself</a>.)",
         "GO_TO_LEARNANDTEST": "或者转到<strong>学习和测试</strong>页面，了解有关下一步操作的一些提示。",
-        "MORE_BLOCKS": "您的项目会将这些块添加到脚本中 <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>More Blocks</span> .",
-        "MORE_BLOCKS_3": "Your project will add these blocks to Scratch.",
-        "EXPLAIN_RECOGNISE_LABEL": "将{{type}}放入此输入中，它将返回您的机器学习模型识别为的标签。",
-        "EXPLAIN_PREDICT": "Put input numbers in this, and it will return a prediction of the output number.",
-        "EXPLAIN_RECOGNISE_CONFIDENCE": "这将返回您的机器学习模型对于识别{{type}}类型的信心。（作为0到100之间的数字）。",
-        "EXPLAIN_LABELS": "这些块代表您在项目中创建的标签，因此您可以在脚本中使用它们的名称。",
-        "EXPLAIN_COSTUMEIMAGE": "此块位于Sprites的Looks调色板中，并将返回当前所选主题的图像。",
-        "EXPLAIN_ADD_TRAINING": "Use this to add a new example to your training data. (Training data has an effect after you train a machine learning model with it)",
-        "EXPLAIN_TRAIN_MODEL": "Use this to train a new machine learning model",
-        "EXPLAIN_IS_MODEL_READY": "The machine learning model will take a minute before it's ready for use. You can use these blocks to wait until it is ready.",
-        "SAMPLE_SCRIPT": "这意味着你可以这样做：",
-        "SAMPLE_SCREENSHOT": "它看起来像这样 - 除了你的项目名称。",
+        "MORE_BLOCKS": "你的项目将在脚本的 <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>More Blocks</span> 选项卡中添加这些积木。",
+        "MORE_BLOCKS_3": "你的项目会把这些积木加到Scratch里。",
+        "EXPLAIN_RECOGNISE_LABEL": "将{{type}}放到这个积木的空位，它会输出你的模型识别出的标签",
+        "EXPLAIN_PREDICT": "将输入数字放入此处，它将返回输出数字的预测值",
+        "EXPLAIN_RECOGNISE_CONFIDENCE": "他会输出你的模型识别{{type}}类型的置信度。（输出为0到100之间的数字）。",
+        "EXPLAIN_LABELS": "这种积木是你在项目中创建的标签，你可以在脚本中使用它们的名称。",
+        "EXPLAIN_COSTUMEIMAGE": "这个积木位于造型的外观调色板中，将返回当前选定造型的图像。",
+        "EXPLAIN_ADD_TRAINING": "用这个积木来给你的训练数据添加一个新例子（训练数据在你用它训练模型之后才会有用）",
+        "EXPLAIN_TRAIN_MODEL": "用这个积木来训练一个新的模型",
+        "EXPLAIN_IS_MODEL_READY": "机器学习模型需要一点时间才能准备好使用。你可以用这些积木等待训练完成",
+        "SAMPLE_SCRIPT": "这代表你可以像这样做：",
+        "SAMPLE_SCREENSHOT": "它看起来像这样 - 除了项目名称和你的不一样。",
         "EXPLAIN_STATUS": "项目名称旁边的彩色圆圈告诉您机器学习模型是否正常。",
-        "STATUS_GREEN": "表示您的模型经过培训并准备就绪",
-        "STATUS_YELLOW": "表示您的模型尚未完成培训",
-        "STATUS_RED": "表示出现了问题。请返回<strong>学习与测试</strong>页面查看培训出了什么问题。"
+        "STATUS_GREEN": "表示您的模型经过训练并准备就绪",
+        "STATUS_YELLOW": "表示您的模型未完成训练",
+        "STATUS_RED": "表示出问题了。请回到<a href='{{ urls.learnandtest }}'>学习 &amp; 测试</a>页面看看训练的时候发生了什么错误"
     },
     "SCRATCH3": {
         "TITLE": "在Scratch 3中使用机器学习",
-        "LAUNCH": "Open in Scratch 3"
+        "LAUNCH": "打开 Scratch 3"
     },
     "WORKSHEETS": {
         "TITLE": "机器学习项目",
@@ -1072,9 +1072,9 @@
             "TEXT": " 文本 ",
             "IMAGES": "图像",
             "NUMBERS": "数字",
-            "SOUNDS": "sounds",
-            "FACES": "faces",
-            "REGRESSION": "predicting numbers"
+            "SOUNDS": "声音",
+            "FACES": "面容",
+            "REGRESSION": "预测数字"
         },
         "LEVELS": {
             "TITLE": "难度: ",
@@ -1086,11 +1086,11 @@
         "DOWNLOAD": "下载",
         "DOWNLOADS": {
             "AUDIENCE": {
-                "TEACHERS": "For teachers:",
-                "STUDENTS": "For students:"
+                "TEACHERS": "给教师:",
+                "STUDENTS": "给学生:"
             },
             "GUIDANCE": {
-                "TITLE": "Download guidance for teachers",
+                "TITLE": "下载教师用教学指南",
                 "DETAIL": "This sheet contains information for teachers or coding group leaders to help them prepare, setup and supervise this project.",
                 "NOTES": "Notes:"
             },
@@ -1105,9 +1105,9 @@
         },
         "MAKETYPES": {
             "ALL": "All make types",
-            "SCRATCH": "Scratch projects",
-            "PYTHON": "Python projects",
-            "APPINVENTOR": "App Inventor projects",
+            "SCRATCH": "Scratch 项目",
+            "PYTHON": "Python 项目",
+            "APPINVENTOR": "App Inventor 项目",
             "SCRATCH_WORKSHEET": "Worksheet for making project in Scratch",
             "PYTHON_WORKSHEET": "Worksheet for making project in Python",
             "APPINVENTOR_WORKSHEET": "Worksheet for making project in App Inventor"
@@ -1814,11 +1814,11 @@
             "mlforkids.imageblocks.saveScreenshotToCostume": "save screenshot to costume"
         },
         "GUI": {
-            "gui.menuBar.ml4kidssharing": "Share",
-            "gui.menuBar.mlforkidsstartrecording": "Start recording the Stage",
-            "gui.menuBar.mlforkidsstoprecording": "Stop recording the Stage",
-            "gui.menuBar.mlforkidsLibrary": "Project templates",
-            "gui.mlforkidsLibrary.templates": "Machine Learning for Kids project templates"
+            "gui.menuBar.ml4kidssharing": "分享",
+            "gui.menuBar.mlforkidsstartrecording": "开始舞台录像",
+            "gui.menuBar.mlforkidsstoprecording": "结束舞台录像",
+            "gui.menuBar.mlforkidsLibrary": "项目模板",
+            "gui.mlforkidsLibrary.templates": "儿童机器学习项目模板"
         }
     },
     "HELP": {
@@ -1860,7 +1860,7 @@
             "Q5-A-TRAINING_DATA": "Amount of training data in a project"
         },
         "SCRATCH": {
-            "TITLE": "划痕问题",
+            "TITLE": "Scratch常见问题",
             "Q5": "我可以使用任何版本的Scratch吗？",
             "Q5-A-1": "您需要使用由儿童机器学习站点提供的Scratch版本。可以通过单击项目页面中的Scratch（或'Scratch 3'）按钮来启动它。",
             "Q6": "Scratch 3 is only saving projects to the 'Downloads' folder",
