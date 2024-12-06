@@ -2898,7 +2898,7 @@ var ML4KidsSoundTraining = /*#__PURE__*/function () {
     key: "loadSpeechCommands",
     value: function loadSpeechCommands() {
       var scriptid = 'mlforkids-script-speechcommands';
-      var scripturl = 'https://machinelearningforkids.co.uk' + '/static/bower_components' + '/tensorflow-models/speech-commands-scratch' + '/speech-commands.min.js?v=117';
+      var scripturl = 'https://machinelearningforkids.co.uk' + '/static/bower_components' + '/tensorflow-models/speech-commands-scratch' + '/speech-commands.min.js?v=118';
       return new Promise(function (resolve, reject) {
         if (document.getElementById(scriptid)) {
           return resolve();

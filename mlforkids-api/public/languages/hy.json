@@ -1624,6 +1624,14 @@
         "WORKSHEET_1": {
             "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-mobilenet.pdf"
         }
+    },
+    "VOICETUNER": {
+        "TITLE": "Voice Tuner",
+        "SUMMARY": "Use a computer that has been trained to recognize musical notes",
+        "DESCRIPTION": "Make a game in Scratch where the computer recognises what note you are singing",
+        "WORKSHEET_1": {
+            "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-voicetuner.pdf"
+        }
     }
   },
   "TEACHER": {
@@ -2061,7 +2069,7 @@
       "SPICE_1": "Այս մոդելը կարող է օգտագործվել ձեր համակարգչի խոսափողից երգվող նոտան ճանաչելու համար:",
       "SPICE_2": "Այն ձեզ բլոկներ է տալիս, որոնք կվերադարձնեն իր կողմից ճանաչված նոտայի հաճախականությունը և այն կվերածեն անվանման կամ MIDI նշումի:",
       "SPICE_3": "Մոդելը, որը կոչվում է <a href='https://ai.googleblog.com/2019/11/spice-self-supervised-pitch-estimation.html'>ՍՊԻՍՍ</a>, սովորել է պարզել գերիշխող հնչյունը երգված աուդիոում, ներառյալ երգված նոտան ճանաչելու հնարավորությունը, նույնիսկ եթե կա ֆոնային երաժշտություն և աղմուկ:",
-      "SPICE_4": "Այս մոդելի համար օգտագործված վերապատրաստման տվյալները ստացվել են <a href='https://sites.google.com/site/unvoicedsoundseparation/mir-1k'>MIR-1K</a>, որը սիրողական երգիչների 1000 կարճ ձայնագրությունների հավաքածու է, որոնք երգում են կարաոկեի հետ միասին:",
+      "SPICE_4": "Այս մոդելի համար օգտագործված վերապատրաստման տվյալները ստացվել են <a href='https://paperswithcode.com/dataset/mir-1k'>MIR-1K</a>, որը սիրողական երգիչների 1000 կարճ ձայնագրությունների հավաքածու է, որոնք երգում են կարաոկեի հետ միասին:",
       "SPICE_5": "Այս մոդելն օգտագործելու համար դուք պետք է թույլ տաք Scratch-ին օգտագործել ձեր խոսափողը:"
     },
     "IDEAS": {

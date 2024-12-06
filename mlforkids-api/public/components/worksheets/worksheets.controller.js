@@ -211,7 +211,10 @@
             'WORKSHEETS.RECOMMENDER.WORKSHEET_1.URL',
 
             'WORKSHEETS.MOBILENET.TITLE', 'WORKSHEETS.MOBILENET.SUMMARY', 'WORKSHEETS.MOBILENET.DESCRIPTION',
-            'WORKSHEETS.MOBILENET.WORKSHEET_1.URL'
+            'WORKSHEETS.MOBILENET.WORKSHEET_1.URL',
+
+            'WORKSHEETS.VOICETUNER.TITLE', 'WORKSHEETS.VOICETUNER.SUMMARY', 'WORKSHEETS.VOICETUNER.DESCRIPTION',
+            'WORKSHEETS.VOICETUNER.WORKSHEET_1.URL'
 
         ]).then(function (translations) {
             vm.worksheets = [
@@ -298,6 +301,21 @@
                     downloads : [
                         {
                             worksheet : translations['WORKSHEETS.ISPY.WORKSHEET_1.URL']
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.VOICETUNER.TITLE'],
+                    summary : translations['WORKSHEETS.VOICETUNER.SUMMARY'],
+                    description : translations['WORKSHEETS.VOICETUNER.DESCRIPTION'],
+                    difficulty : 'Beginner',
+                    type : 'sounds',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-voicetuner.png',
+                    tags : [ 'pitch estimation', 'pretrained models' ],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.VOICETUNER.WORKSHEET_1.URL']
                         }
                     ]
                 },
