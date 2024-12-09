@@ -150,9 +150,15 @@
 
         function isModelSavedInBrowser(modeltype, projectid) {
             try {
-                const type = modeltype === 'imgtfjs' ? 'images' : modeltype;
-                const modelid = getModelDbLocation(type, projectid);
-                if (storageService.getItem(modelid)) {
+                let location;
+                if (modeltype === 'numbers') {
+                    location = 'ml4k-models-numbers-' + projectid + '-date';
+                }
+                else {
+                    const type = modeltype === 'imgtfjs' ? 'images' : modeltype;
+                    location = getModelDbLocation(type, projectid);
+                }
+                if (storageService.getItem(location)) {
                     return true;
                 }
             }
