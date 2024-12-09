@@ -43,7 +43,7 @@
             logs.push($window.location.href);
             logs.push('\n[ml4klog] url parameters ');
             logs.push(JSON.stringify(urlParms));
-            logs.push('\n[ml4klog] version v=219');
+            logs.push('\n[ml4klog] version v=220');
 
             downloadService.downloadFile(logs, 'text/plain', 'mlforkids.log');
         }

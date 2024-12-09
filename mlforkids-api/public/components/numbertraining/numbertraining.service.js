@@ -13,8 +13,6 @@
 
     function numberTrainingService(modelService, trainingService, storageService, browserStorageService, utilService, loggerService, $q, $http) {
 
-        const MODELTYPE = 'numbers';
-
         let model;
         let modelStatus;
         let modelDetails;
@@ -230,11 +228,11 @@
                         }
                     ].sort(modelService.sortByConfidence));
                 }
-                else if (modelDetails.labels.length === (output.length / 2)) {
+                else if (modelDetails.labels.length === output.length) {
                     const result = modelDetails.labels.map((label, idx) => {
                         return {
                             class_name : label,
-                            confidence : output[idx + modelDetails.labels.length] * 100,
+                            confidence : output[idx] * 100,
                         };
                     }).sort(modelService.sortByConfidence);
                     loggerService.debug('[ml4knums] model response', result);
@@ -250,6 +248,10 @@
 
 
         function deleteModel(projectid) {
+            if (model) {
+                model.unload();
+            }
+
             model = null;
             modelStatus = null;
             modelDetails = null;

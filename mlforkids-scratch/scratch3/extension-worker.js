@@ -2333,6 +2333,9 @@ var ML4KidsNumbersTraining = /*#__PURE__*/function () {
         console.log('[mlforkids] opening model');
         return _this8._ydf.loadModelFromZipBlob(modelzip);
       }).then(function (ydfmodel) {
+        if (_this8.PROJECTS[projectid].model) {
+          _this8.PROJECTS[projectid].model.unload();
+        }
         _this8.PROJECTS[projectid].model = ydfmodel;
         console.log('[mlforkids] saving model info');
         window.localStorage.setItem('ml4k-models-numbers-' + projectid + '-features', JSON.stringify(modelinfo.features));
@@ -2382,7 +2385,6 @@ var ML4KidsNumbersTraining = /*#__PURE__*/function () {
   }, {
     key: "classifyNumberData",
     value: function classifyNumberData(request, worker) {
-      var _this9 = this;
       var projectid = request.projectid;
       var numberdata = request.numbers;
       var requestid = request.requestid;
@@ -2422,11 +2424,11 @@ var ML4KidsNumbersTraining = /*#__PURE__*/function () {
             result: result
           }
         });
-      } else if (this.PROJECTS[projectid].labels.length === output.length / 2) {
+      } else if (this.PROJECTS[projectid].labels.length === output.length) {
         var _result = this.PROJECTS[projectid].labels.map(function (label, idx) {
           return {
             class_name: label,
-            confidence: output[idx + _this9.PROJECTS[projectid].labels.length] * 100
+            confidence: output[idx] * 100
           };
         }).sort(this._sortByConfidence);
         worker.postMessage({
@@ -2451,20 +2453,20 @@ var ML4KidsNumbersTraining = /*#__PURE__*/function () {
   }, {
     key: "_watchForNewModels",
     value: function _watchForNewModels(projectid, worker) {
-      var _this10 = this;
+      var _this9 = this;
       if (!this.PROJECTS[projectid].modelWatcher) {
         console.log('[mlforkids] ML4KidsNumbersTraining listening for model updates', projectid);
         this.PROJECTS[projectid].modelWatcher = true;
         var modellocation = 'ml4k-models-numbers-' + projectid + '-date';
         this._storageSupport.registerForModelStorageUpdates(modellocation, function () {
           console.log('[mlforkids] ML4KidsNumbersTraining new model was trained');
-          _this10.PROJECTS[projectid].state = 'TRAINING'; // loading saved model
-          _this10._loadModel({
+          _this9.PROJECTS[projectid].state = 'TRAINING'; // loading saved model
+          _this9._loadModel({
             id: projectid
           }).then(function (loaded) {
             if (loaded) {
               console.log('[mlforkids] ML4KidsNumbersTraining model loaded');
-              _this10.PROJECTS[projectid].state = 'TRAINED';
+              _this9.PROJECTS[projectid].state = 'TRAINED';
               worker.postMessage({
                 mlforkidsnumbers: 'modelready',
                 data: {
@@ -2473,7 +2475,7 @@ var ML4KidsNumbersTraining = /*#__PURE__*/function () {
               });
             } else {
               console.log('[mlforkids] ML4KidsNumbersTraining no model - model deleted');
-              _this10.PROJECTS[projectid].state = 'READY';
+              _this9.PROJECTS[projectid].state = 'READY';
               worker.postMessage({
                 mlforkidsnumbers: 'modelinit',
                 data: {
@@ -2484,7 +2486,7 @@ var ML4KidsNumbersTraining = /*#__PURE__*/function () {
             }
           }).catch(function () {
             console.log('[mlforkids] ML4KidsNumbersTraining unexpected loading error');
-            _this10.PROJECTS[projectid].state = 'ERROR';
+            _this9.PROJECTS[projectid].state = 'ERROR';
             worker.postMessage({
               mlforkidsnumbers: 'modelfailed',
               data: {
