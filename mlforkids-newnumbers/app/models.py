@@ -1,19 +1,17 @@
 # core dependencies
 from logging import info, exception
-from os.path import join, isfile
-from os import listdir
+from os.path import join
+from pathlib import Path
 from unicodedata import normalize, combining
-from itertools import chain
 from traceback import format_exc
 # external dependencies
 from pandas import DataFrame
-from tensorflow_decision_forests.keras import pd_dataframe_to_tf_dataset, RandomForestModel
-from tensorflowjs.converters.tf_saved_model_conversion_v2 import convert_tf_saved_model
+from ydf import GradientBoostedTreesLearner
 # local dependencies
 from app.savedmodels import get_location, update_status_file, cleanup
 from app.payloads import ModelInfo
 from app.viz import create_visualisation
-from app.utils import create_zip
+from app.utils import create_zip_flat, recursive_delete
 
 
 
@@ -63,8 +61,8 @@ def train_model(modelinfo: ModelInfo, dataframe: DataFrame):
     outcome_label = "mlforkids_outcome_label"
 
     try:
-        # Attempt to create a visualisation of the data using original
-        #  feature names before making any changes needed for TFDF
+        # Attempt to create a visualisation of the data
+        #  using original feature names
         create_visualisation(key, dataframe, outcome_label, download_folder)
 
         # Identify feature types for preparing test data
@@ -84,37 +82,23 @@ def train_model(modelinfo: ModelInfo, dataframe: DataFrame):
         info("%s : classes in target label : %s", key, classes)
         dataframe[outcome_label] = dataframe[outcome_label].map(classes.index)
 
-        # Convert to tensorflow data sets
-        info("%s : Converting to tensorflow data set", key)
-        train_ds = pd_dataframe_to_tf_dataset(dataframe, label=outcome_label, fix_feature_names=False)
-
-        # Train a Random Forest model
+        # Train a model
         info("%s : Training a model", key)
-        model = RandomForestModel(verbose=1)
-        model.fit(train_ds)
+        model = GradientBoostedTreesLearner(label=outcome_label).train(dataframe)
 
         # save model
         info("%s : Saving the model", key)
-        model.save(model_folder, overwrite=True)
-        info("%s : Converting model to tensorflowjs", key)
-        convert_tf_saved_model(model_folder, download_folder)
+        model_location = join(model_folder, "model")
+        # reset in case this model has been trained before
+        recursive_delete(Path(model_location))
+        model.save(model_location)
+        info("%s : Zipping model for browser use", key)
+        create_zip_flat(model_location, join(download_folder, "model.zip"))
 
         # update status
         info("%s : Updating the status", key)
         modelinfo["status"] = "Available"
         update_status_file(model_folder, modelinfo)
-
-        # save Python version of the model
-        python_files = chain(
-            [
-                join(model_folder, "saved_model.pb"),
-                join(model_folder, "keras_metadata.pb"),
-                join(model_folder, "fingerprint.pb")
-            ],
-            [   join(model_folder, "variables", f) for f in listdir(join(model_folder, "variables")) if isfile(join(model_folder, "variables", f))],
-            [   join(model_folder, "assets", f) for f in listdir(join(model_folder, "assets")) if isfile(join(model_folder, "assets", f))]
-        )
-        create_zip(python_files, model_folder, join(download_folder, "python.zip"))
 
         # delete the working files to save space
         cleanup(model_folder)

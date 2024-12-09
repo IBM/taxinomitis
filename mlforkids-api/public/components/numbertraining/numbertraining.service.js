@@ -19,57 +19,38 @@
         let modelStatus;
         let modelDetails;
 
+        let ydf;
 
-        function loadTensorFlow() {
-            loggerService.debug('[ml4knums] loading tensorflow');
-            return utilService.loadTensorFlow()
-                .then(function () {
-                    return utilService.loadNumberProjectSupport();
-                })
-                .then(function () {
-                    loggerService.debug('[ml4knums] enabling tf prod mode');
-                    if (tf && tf.enableProdMode) {
-                        tf.enableProdMode();
-                        loggerService.debug('[ml4knums] tfjs version', tf.version);
-                    }
+
+        function loadYdf() {
+            loggerService.debug('[ml4knums] loading ydf');
+            return utilService.loadNumberProjectSupport()
+                .then(function (ydfInstance) {
+                    ydf = ydfInstance;
                 })
                 .catch(function (err) {
-                    loggerService.error('[ml4knums] failed to load tensorflow', err);
+                    loggerService.error('[ml4knums] failed to load ydf', err);
                     throw err;
                 });
         }
 
 
         function loadModel(project) {
-            // load the graph model
-            return modelService.loadModel(MODELTYPE, project.id)
-                .then((resp) => {
-                    if (resp) {
-                        modelStatus = {
-                            classifierid : project.id,
-                            status : 'Loading',
-                            progress : 0,
-                            updated : resp.timestamp
-                        };
+            modelStatus = {
+                classifierid : project.id,
+                status : 'Loading',
+                progress : 0,
+                updated : getModelDate(project)
+            };
 
-                        // load the decision forest using the graph model and
-                        //  the assets zip saved to indexeddb storage
-                        return tfdf.loadTFDFModel({
-                                loadModel : () => {
-                                    return resp.output.artifacts;
-                                },
-                                loadAssets : () => {
-                                    return browserStorageService.retrieveAsset(project.id + '-assets');
-                                }
-                            });
-                    }
-                    else {
-                        throw new Error('Graph model not found');
-                    }
+            return browserStorageService.retrieveAsset(project.id + '-model')
+                .then((modelzip) => {
+                    loggerService.debug('[ml4knums] opening model');
+                    return ydf.loadModelFromZipBlob(modelzip);
                 })
-                .then((resp) => {
+                .then((ydfmodel) => {
                     loadModelMetadata(project);
-                    model = resp;
+                    model = ydfmodel;
 
                     modelStatus.status = 'Available';
                     modelStatus.progress = 100;
@@ -84,7 +65,7 @@
 
         function initNumberSupport(project) {
             loggerService.debug('[ml4knums] initialising number model support', project.id);
-            return loadTensorFlow()
+            return loadYdf()
                 .then(function () {
                     return loadModel(project);
                 });
@@ -111,12 +92,11 @@
 
 
         function storeModelForLocalReuse(modelinfo) {
-            loggerService.debug('[ml4knums] loading tfdf model', modelinfo.urls.model);
-            // load the decision forest - which is made up of two pieces - a graph model and an assets zip
-            tfdf.loadTFDFModel(modelinfo.urls.model)
-                .then((tfmodel) => {
-                    model = tfmodel;
+            loggerService.debug('[ml4knums] loading ydf model', modelinfo.urls.model);
 
+            // save the model zip to browser storage
+            browserStorageService.storeAsset(modelStatus.classifierid + '-model', modelinfo.urls.model)
+                .then(() => {
                     // store the downloaded model for later reuse, as it will not be
                     //  available at this URL for long
                     // save the visualisation (not part of the TFDF model but needs saving too)
@@ -133,16 +113,17 @@
                         });
                 })
                 .then(() => {
-                    // save the assets zip
-                    loggerService.debug('[ml4knums] downloading model assets');
-                    return browserStorageService.storeAsset(modelStatus.classifierid + '-assets', model.assets);
+                    // check that the model can be loaded from storage
+                    //  before declaring it available
+                    return browserStorageService.retrieveAsset(modelStatus.classifierid + '-model');
                 })
-                .then(() => {
-                    // save the graph model
-                    loggerService.debug('[ml4knums] saving graph model');
-                    return modelService.saveModel(MODELTYPE, modelStatus.classifierid, model.graphModel);
+                .then((modelzip) => {
+                    loggerService.debug('[ml4knums] opening model');
+                    return ydf.loadModelFromZipBlob(modelzip);
                 })
-                .then(() => {
+                .then((ydfmodel) => {
+                    model = ydfmodel;
+
                     loggerService.debug('[ml4knums] storing model metadata', modelinfo);
                     modelStatus.status = 'Available';
                     storeModelMetadata(modelinfo);
@@ -194,8 +175,6 @@
 
         function newModel(project, userid, classid) {
             loggerService.debug('[ml4knums] creating new ML model', project.id);
-            loggerService.debug('[ml4knums] tf backend', tf.getBackend());
-            loggerService.debug('[ml4knums] tf precision', tf.ENV.getBool('WEBGL_RENDER_FLOAT32_ENABLED'));
 
             return deleteModel(project.id)
                 .then(() => {
@@ -233,47 +212,39 @@
             for (const key of Object.keys(data)) {
                 const feature = modelDetails.features[key]
                 if (feature) {
-                    if (feature.type.includes('int')) {
-                        testdata[feature.name] = tf.tensor([ data[key] ]).toInt();
-                    }
-                    else {
-                        testdata[feature.name] = tf.tensor([ data[key] ]);
-                    }
+                    testdata[feature.name] = [ data[key] ];
                 }
             }
 
-            return model.executeAsync(testdata)
-                .then((result) => {
-                    return result.data();
-                })
-                .then((output) => {
-                    if (modelDetails.labels.length === 2) {
-                        return [
-                            {
-                                class_name : modelDetails.labels[0],
-                                confidence : (1 - output[0]) * 100
-                            },
-                            {
-                                class_name : modelDetails.labels[1],
-                                confidence : output[0] * 100
-                            }
-                        ].sort(modelService.sortByConfidence);
-                    }
-                    else if (modelDetails.labels.length === (output.length / 2)) {
-                        const result = modelDetails.labels.map((label, idx) => {
-                            return {
-                                class_name : label,
-                                confidence : output[idx + modelDetails.labels.length] * 100,
-                            };
-                        }).sort(modelService.sortByConfidence);
-                        loggerService.debug('[ml4knums] model response', result);
-                        return result;
-                    }
-                    else {
-                        loggerService.error('[ml4knums] unexpected model response', output);
-                        throw new Error('Unexpected response');
-                    }
-                });
+            return $q(function (resolve, reject) {
+                const output = model.predict(testdata);
+                if (modelDetails.labels.length === 2) {
+                    resolve([
+                        {
+                            class_name : modelDetails.labels[0],
+                            confidence : (1 - output[0]) * 100
+                        },
+                        {
+                            class_name : modelDetails.labels[1],
+                            confidence : output[0] * 100
+                        }
+                    ].sort(modelService.sortByConfidence));
+                }
+                else if (modelDetails.labels.length === (output.length / 2)) {
+                    const result = modelDetails.labels.map((label, idx) => {
+                        return {
+                            class_name : label,
+                            confidence : output[idx + modelDetails.labels.length] * 100,
+                        };
+                    }).sort(modelService.sortByConfidence);
+                    loggerService.debug('[ml4knums] model response', result);
+                    resolve(result);
+                }
+                else {
+                    loggerService.error('[ml4knums] unexpected model response', output);
+                    reject(new Error('Unexpected response'));
+                }
+            });
         }
 
 
@@ -282,10 +253,8 @@
             model = null;
             modelStatus = null;
             modelDetails = null;
-            return modelService.deleteModel(MODELTYPE, projectid)
-                .then(() => {
-                    return browserStorageService.deleteAsset(projectid + '-assets');
-                })
+            storageService.removeItem('ml4k-models-numbers-' + projectid + '-date');
+            return browserStorageService.deleteAsset(projectid + '-model')
                 .then(() => {
                     return browserStorageService.deleteAsset(projectid + '-tree');
                 })
@@ -309,10 +278,28 @@
             return JSON.parse(value);
         }
 
-
+        function getModelDate(project) {
+            try {
+                const key = 'ml4k-models-numbers-' + project.id + '-date';
+                const value = storageService.getItem(key);
+                if (!value) {
+                    return new Date();
+                }
+                else {
+                    return new Date(parseInt(value));
+                }
+            }
+            catch (err) {
+                loggerService.error('[ml4knums] model date parsing error', err);
+                return new Date();
+            }
+        }
+        function setModelDate(classifierid) {
+            const key = 'ml4k-models-numbers-' + classifierid + '-date';
+            storageService.setItem(key, Date.now());
+        }
         function loadModelMetadata(project) {
             const projectid = project.id;
-
 
             modelDetails = {
                 key: projectid,
@@ -327,6 +314,7 @@
                                    JSON.stringify(modelinfo.labels));
             storageService.setItem('ml4k-models-numbers-' + modelStatus.classifierid + '-status',
                                    modelinfo.urls.status);
+            setModelDate(modelStatus.classifierid);
         }
 
 

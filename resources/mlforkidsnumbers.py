@@ -8,8 +8,7 @@ from shutil import rmtree
 from json import load, loads
 from zipfile import ZipFile
 from pandas import DataFrame
-import tensorflow_decision_forests as tfdf
-from tf_keras.models import load_model
+from ydf import load_model
 
 
 
@@ -136,9 +135,9 @@ class MLforKidsNumbers:
         makedirs(model_folder)
 
         self._message("Downloading model...")
-        model_zip = join(model_folder, "python.zip")
+        model_zip = join(model_folder, "model.zip")
         self._download_file(
-            urljoin(model_info["urls"]["model"], "python.zip"),
+            urljoin(model_info["urls"]["model"], "model.zip"),
             model_zip)
         self._download_file(
             status_url,
@@ -203,8 +202,7 @@ class MLforKidsNumbers:
             if type != "object":
                 types[label] = type
         df = DataFrame([ labelled ])
-        ds = tfdf.keras.pd_dataframe_to_tf_dataset(df.astype(types), label=None)
-        classifications = self.MODEL.predict(ds)
+        classifications = self.MODEL.predict(df)
         results = []
         if len(self.METADATA["labels"]) == 2:
             results.append({

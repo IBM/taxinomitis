@@ -3,6 +3,11 @@ const assert = require('assert');
 const uuid = require('uuid').v4;
 const fs = require('fs');
 const { DOMParser } = require('xmldom');
+let ydf;
+require('ydf-inference')()
+    .then((mod) => {
+        ydf = mod;
+    });
 
 
 const API = 'http://127.0.0.1:8000';
@@ -137,13 +142,44 @@ describe('verify new number service API', () => {
                         status : 'Training',
                         urls : {
                             status : API + '/saved-models/' + key + '/status',
-                            model : API + '/saved-models/' + key + '/download/model.json',
+                            model : API + '/saved-models/' + key + '/download/model.zip',
                             tree : API + '/saved-models/' + key + '/download/tree.svg',
                             dot : API + '/saved-models/' + key + '/download/tree.dot',
                             vocab : API + '/saved-models/' + key + '/download/vocab.json',
                         },
                     });
                     return waitForModel(resp.urls.status);
+                });
+        });
+
+
+        it('should accept re-training requests for a previous model project', () => {
+            const key = newScratchKey();
+            return request.post(NEW_MODEL_API + key, {
+                    ...DEFAULT_REQUEST,
+                    ...DEV_CREDENTIALS,
+                    formData : {
+                        csvfile : fs.createReadStream(TITANIC)
+                    },
+                })
+                .then((resp) => {
+                    return waitForModel(resp.urls.status);
+                })
+                .then((resp) => {
+                    assert.strictEqual(resp.status, 'Available');
+                    return request.post(NEW_MODEL_API + key, {
+                        ...DEFAULT_REQUEST,
+                        ...DEV_CREDENTIALS,
+                        formData : {
+                            csvfile : fs.createReadStream(TITANIC)
+                        },
+                    });
+                })
+                .then((resp) => {
+                    return waitForModel(resp.urls.status);
+                })
+                .then((resp) => {
+                    assert.strictEqual(resp.status, 'Available');
                 });
         });
 
@@ -172,7 +208,7 @@ describe('verify new number service API', () => {
                         status : 'Training',
                         urls : {
                             status : API + '/saved-models/' + key + '/status',
-                            model : API + '/saved-models/' + key + '/download/model.json',
+                            model : API + '/saved-models/' + key + '/download/model.zip',
                             tree : API + '/saved-models/' + key + '/download/tree.svg',
                             dot : API + '/saved-models/' + key + '/download/tree.dot',
                             vocab : API + '/saved-models/' + key + '/download/vocab.json',
@@ -240,11 +276,13 @@ describe('verify new number service API', () => {
                         console.trace(resp);
                     }
                     assert.strictEqual(resp.status, 'Available');
-                    return request.get(modelUrl, { json: true });
+                    return request.get(modelUrl, { encoding : null });
                 })
                 .then((resp) => {
-                    return Object.keys(resp.signature.inputs)
-                        .map((inputval) => { return inputval.split(':')[0]; });
+                    return ydf.loadModelFromZipBlob(resp);
+                })
+                .then((model) => {
+                    return model.unload();
                 });
         }
 
@@ -259,12 +297,7 @@ describe('verify new number service API', () => {
         });
 
         it('should handle running multiple models at once', () => {
-            return Promise.all([run(PHISHING), run(POKEMON), run(TITANIC)])
-                .then(([phishingvals, pokemonvals, titanicvals]) => {
-                    assert(phishingvals.includes('domain_age'));
-                    assert(pokemonvals.includes('capture_rate'));
-                    assert(titanicvals.includes('ticket_fare'));
-                });
+            return Promise.all([run(PHISHING), run(POKEMON), run(TITANIC)]);
         });
     });
 
@@ -432,11 +465,9 @@ describe('verify new number service API', () => {
                     csvfile : fs.createReadStream(PHISHING)
                 },
             };
-            let modelUrl;
 
             return request.post(NEW_MODEL_API + key, trainingRequest)
                 .then((resp) => {
-                    modelUrl = resp.urls.model;
                     return waitForModel(resp.urls.status);
                 })
                 .then((modelinfo) => {
@@ -560,19 +591,36 @@ describe('verify new number service API', () => {
                     return waitForModel(resp.urls.status);
                 })
                 .then(() => {
-                    return request.get(modelUrl, { json: true });
+                    return request.get(modelUrl, { encoding : null });
                 })
                 .then((resp) => {
-                    assert.strictEqual('graph-model', resp.format);
-                    const inputs = Object.keys(resp.signature.inputs)
-                        .map((inputval) => { return inputval.split(':')[0]; });
-                    assert(inputs.includes('embarked'));
-                    assert(inputs.includes('ticket_class'));
-                    assert(inputs.includes('gender'));
-                    assert(inputs.includes('ticket_fare'));
-                    assert(inputs.includes('sibl__sp_'));
-                    assert(inputs.includes('age'));
-                    assert(inputs.includes('par__ch_'));
+                    return ydf.loadModelFromZipBlob(resp);
+                })
+                .then((model) => {
+                    assert.deepStrictEqual(model.inputFeatures, [
+                        { name : 'ticket_class', type : 'NUMERICAL',   internalIdx : 0, specIdx : 1 },
+                        { name : 'gender',       type : 'CATEGORICAL', internalIdx : 1, specIdx : 2 },
+                        { name : 'age',          type : 'NUMERICAL',   internalIdx : 2, specIdx : 3 },
+                        { name : 'sibl__sp_',    type : 'NUMERICAL',   internalIdx : 3, specIdx : 4 },
+                        { name : 'par__ch_',     type : 'NUMERICAL',   internalIdx : 4, specIdx : 5 },
+                        { name : 'ticket_fare',  type : 'NUMERICAL',   internalIdx : 5, specIdx : 6 },
+                        { name : 'embarked',     type : 'CATEGORICAL', internalIdx : 6, specIdx : 7 },
+                    ]);
+                    assert.deepStrictEqual(model.labelClasses, [ '0', '1' ]);
+
+                    const survivedConfidence = model.predict({
+                        ticket_class : [1,        3],
+                        gender :       ['female', 'male'],
+                        age :          [17,       30],
+                        sibl__sp_ :    [3,        0],
+                        par__ch_ :     [2,        0],
+                        ticket_fare :  [400,      15],
+                        embarked :     ['Cherbourg','Cherbourg']
+                    });
+                    assert(survivedConfidence[0] > 0.9);
+                    assert(survivedConfidence[1] < 0.15)
+
+                    model.unload();
                 });
         });
 
@@ -593,19 +641,38 @@ describe('verify new number service API', () => {
                     return waitForModel(resp.urls.status);
                 })
                 .then(() => {
-                    return request.get(modelUrl, { json: true });
+                    return request.get(modelUrl, { encoding : null });
                 })
                 .then((resp) => {
-                    assert.strictEqual('graph-model', resp.format);
-                    const inputs = Object.keys(resp.signature.inputs)
-                        .map((inputval) => { return inputval.split(':')[0]; });
-                    assert(inputs.includes('domain_reg'));
-                    assert(inputs.includes('includes__'));
-                    assert(inputs.includes('redirects'));
-                    assert(inputs.includes('domain_age'));
-                    assert(inputs.includes('address_type'));
-                    assert(inputs.includes('port_number'));
-                    assert(inputs.includes('url_length'));
+                    return ydf.loadModelFromZipBlob(resp);
+                })
+                .then((model) => {
+                    assert.deepStrictEqual(model.inputFeatures, [
+                        { name : 'address_type', type : 'CATEGORICAL', internalIdx : 0, specIdx : 1 },
+                        { name : 'url_length',   type : 'CATEGORICAL', internalIdx : 1, specIdx : 2 },
+                        { name : 'shortening',   type : 'CATEGORICAL', internalIdx : 2, specIdx : 3 },
+                        { name : 'includes__',   type : 'CATEGORICAL', internalIdx : 3, specIdx : 4 },
+                        { name : 'port_number',  type : 'CATEGORICAL', internalIdx : 4, specIdx : 5 },
+                        { name : 'domain_age',   type : 'CATEGORICAL', internalIdx : 5, specIdx : 6 },
+                        { name : 'redirects',    type : 'CATEGORICAL', internalIdx : 6, specIdx : 7 },
+                        { name : 'domain_reg',   type : 'CATEGORICAL', internalIdx : 7, specIdx : 8 },
+                    ]);
+                    assert.deepStrictEqual(model.labelClasses, [ '0', '1' ]);
+
+                    const safeConfidence = model.predict({
+                        'address_type' : ['IP addr',   'DNS name'],
+                        'url_length'   : ['>75 chars', '<54 chars'],
+                        'shortening'   : ['no',        'no'],
+                        'includes__'   : ['yes',       'no'],
+                        'port_number'  : ['non-std',   'standard'],
+                        'domain_age'   : ['< 6 month', 'older'],
+                        'redirects'    : ['> 4',       '<= 4'],
+                        'domain_reg'   : ['not',       'not']
+                    });
+                    assert(safeConfidence[0] < 0.01);
+                    assert(safeConfidence[1] > 0.9)
+
+                    model.unload();
                 });
         });
 
@@ -626,19 +693,40 @@ describe('verify new number service API', () => {
                     return waitForModel(resp.urls.status);
                 })
                 .then(() => {
-                    return request.get(modelUrl, { json: true });
+                    return request.get(modelUrl, { encoding : null });
                 })
                 .then((resp) => {
-                    assert.strictEqual('graph-model', resp.format);
-                    const inputs = Object.keys(resp.signature.inputs)
-                        .map((inputval) => { return inputval.split(':')[0]; });
-                    assert(inputs.includes('defense'));
-                    assert(inputs.includes('speed'));
-                    assert(inputs.includes('capture_rate'));
-                    assert(inputs.includes('weight'));
-                    assert(inputs.includes('attack'));
-                    assert(inputs.includes('height'));
-                    assert(inputs.includes('hp'));
+                    return ydf.loadModelFromZipBlob(resp);
+                })
+                .then((model) => {
+                    assert.deepStrictEqual(model.inputFeatures, [
+                        { name : 'height',       type : 'NUMERICAL', internalIdx : 0, specIdx : 1 },
+                        { name : 'weight',       type : 'NUMERICAL', internalIdx : 1, specIdx : 2 },
+                        { name : 'attack',       type : 'NUMERICAL', internalIdx : 2, specIdx : 3 },
+                        { name : 'defense',      type : 'NUMERICAL', internalIdx : 3, specIdx : 4 },
+                        { name : 'speed',        type : 'NUMERICAL', internalIdx : 4, specIdx : 5 },
+                        { name : 'hp',           type : 'NUMERICAL', internalIdx : 5, specIdx : 6 },
+                        { name : 'capture_rate', type : 'NUMERICAL', internalIdx : 6, specIdx : 7 },
+                    ]);
+                    assert.deepStrictEqual(model.labelClasses, [ '0', '1', '2', '3', '4', '5' ]);
+
+                    const pokemonConfidence = model.predict({
+                        defense      : [ 40 ],
+                        speed        : [ 90 ],
+                        capture_rate : [ 190 ],
+                        weight       : [ 6 ],
+                        attack       : [ 55 ],
+                        height       : [ 0.4 ],
+                        hp           : [ 35 ]
+                    });
+                    assert(pokemonConfidence[0] > 0.5);
+                    assert(pokemonConfidence[1] < 0.12);
+                    assert(pokemonConfidence[2] < 0.12);
+                    assert(pokemonConfidence[3] < 0.12);
+                    assert(pokemonConfidence[4] < 0.12);
+                    assert(pokemonConfidence[5] < 0.12);
+
+                    model.unload();
                 });
         });
     });

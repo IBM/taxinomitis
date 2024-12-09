@@ -9,6 +9,7 @@
     "mocha": "^10.3.0",
     "request-promise": "^4.2.6",
     "uuid": "^9.0.1",
-    "xmldom": "^0.6.0"
+    "xmldom": "^0.6.0",
+    "ydf-inference": "^0.0.4"
   }
 }

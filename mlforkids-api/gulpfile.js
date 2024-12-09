@@ -82,13 +82,13 @@ gulp.task('tensorflowjs', function() {
         'node_modules/@tensorflow/tfjs/dist/tf.min.js.map'
     ]).pipe(gulp.dest('web/static/bower_components/tfjs'));
 });
-gulp.task('tensorflowjs-tfdf', function() {
+gulp.task('ydf-inference', function() {
     return gulp.src([
-        'node_modules/@tensorflow/tfjs-tfdf/dist/tf-tfdf.js',
-        'node_modules/@tensorflow/tfjs-tfdf/dist/tf-tfdf.min.js',
-        'node_modules/@tensorflow/tfjs-tfdf/dist/tf-tfdf.min.js.map',
-        'node_modules/@tensorflow/tfjs-tfdf/dist/inference.wasm'
-    ]).pipe(gulp.dest('web/static/bower_components/tfjs-tfdf'));
+        'node_modules/ydf-inference/dist/inference.js',
+        'node_modules/ydf-inference/dist/inference.wasm',
+        // ydf-inference in the browser has a dependency on jszip
+        'node_modules/jszip/dist/jszip.min.js'
+    ]).pipe(gulp.dest('web/static/bower_components/ydf-inference'));
 });
 gulp.task('tensorflowposenet', function() {
     return gulp.src([
@@ -181,7 +181,7 @@ gulp.task('tensorflowhandposemodel', function() {
 });
 gulp.task('tfjs',
     gulp.parallel('tensorflowjs',
-        'tensorflowjs-tfdf',
+        'ydf-inference',
         'tensorflowspeechcommands', 'tensorflowspeechcommands-scratch',
         'speechcommandsmodel', 'speechcommandsmodel-scratch',
         'tensorflowposenet', 'posenetmodel',

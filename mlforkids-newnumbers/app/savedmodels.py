@@ -93,8 +93,11 @@ def create_status_file(location: Path, scratchkey: str) -> ModelInfo:
         "key": scratchkey,
         "status": "Training",
         "urls": {
+            # json file with latest status
             "status": scratchkeyurl + "status",
-            "model": scratchkeyurl + "download/model.json",
+            # location of the zip of model.save output
+            "model": scratchkeyurl + "download/model.zip",
+            # locations of visualisation output
             "tree": scratchkeyurl + "download/tree.svg",
             "dot": scratchkeyurl + "download/tree.dot",
             "vocab": scratchkeyurl + "download/vocab.json"

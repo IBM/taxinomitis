@@ -4,6 +4,7 @@ from io import BytesIO
 from os.path import join, exists
 from os import mkdir
 from json import dump
+from threading import Lock
 # external dependencies
 from sklearn.tree import DecisionTreeClassifier, export_graphviz
 from sklearn.feature_extraction import DictVectorizer
@@ -13,7 +14,7 @@ from pandas import DataFrame
 from app.utils import json_serializer
 
 
-
+lock = Lock()
 
 def create_visualisation(key: str, dataframe: DataFrame, outcome_label: str, download_folder: str):
     info("%s : Creating visualisation of a decision tree", key)
@@ -30,13 +31,14 @@ def create_visualisation(key: str, dataframe: DataFrame, outcome_label: str, dow
         tree.fit(features_encoded, target)
 
         dot_data = export_graphviz(tree,
-                                feature_names=vec.feature_names_,
-                                class_names=tree.classes_,
-                                impurity=False,
-                                filled=True,
-                                rounded=True)
+                                   feature_names=vec.feature_names_,
+                                   class_names=tree.classes_,
+                                   impurity=False,
+                                   filled=True,
+                                   rounded=True)
 
-        graph = graph_from_dot_data(dot_data)
+        with lock:
+            graph = graph_from_dot_data(dot_data)
         graph.del_node("\"\\n\"")
 
         if not exists(download_folder):
@@ -62,5 +64,6 @@ def create_visualisation(key: str, dataframe: DataFrame, outcome_label: str, dow
             del dotbuffer
             dotfile.write(dot)
 
+        info("%s : Visualisation complete", key)
     except:
         exception("%s : Visualisation failed", key)
