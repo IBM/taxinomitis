@@ -11,7 +11,7 @@
 </div>
 <div ng-if="isAuthenticated && projectId" class="describemlmodel">
     <div class="jumbotron">
-        <h2 class="text-center">{{ 'DESCRIBEMODEL.TITLE' | translate }} <span class="badge">beta</span></h2>
+        <h2 class="text-center" translate="DESCRIBEMODEL.TITLE"></h2>
     </div>
     <div class="backbutton">
         <a ui-sref="mlproject_models({ projectId : projectId, userId : userId })" translate="APP.BACKTOMODEL"></a>

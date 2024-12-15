@@ -438,7 +438,7 @@
 
             <input ng-if="project.type === 'text' || project.type === 'numbers' || project.type === 'regression'" type="submit" class="btn btn-primary describetextmodelbutton" value="{{ 'APP.TEST' | translate }}" ng-disabled="testform.$invalid">
             <div ng-if="project.type === 'numbers'" class="btn btn-default describemodelbuttons" ui-sref="mlproject_model_describe({ projectId : projectId, userId : userId, modelId : projectId })">Describe your model!</div>
-            <div ng-if="project.type === 'text' && project.storage !== 'local'" class="btn btn-default describemodelbuttons" ui-sref="mlproject_text_model_describe({ projectId : projectId, userId : userId, modelId : projectId })">Describe your model!  <span class="badge">beta</span></div>
+            <div ng-if="project.type === 'text' && project.storage !== 'local'" class="btn btn-default describemodelbuttons" ui-sref="mlproject_text_model_describe({ projectId : projectId, userId : userId, modelId : projectId })">Describe your model!</div>
             <div ng-if="project.type === 'sounds'" class="describetextmodelbutton">
                 <button ng-disabled="listening"  ng-click="vm.startListening()" class="btn btn-primary" translate="MODELS.TESTING.STARTLISTENING"></button>
                 <button ng-disabled="!listening" ng-click="vm.stopListening()" class="btn btn-primary" translate="MODELS.TESTING.STOPLISTENING"></button>
@@ -524,7 +524,7 @@
                                 ng-disabled="submittingDeleteRequest">
                             {{ (model.status === 'Training' ? 'MODELS.CANCEL' : 'MODELS.DELETE') | translate }}
                         </button>
-                        <div ng-if="project.type === 'text' && model.status === 'Training' && project.storage !== 'local'" class="btn btn-default describemodelbuttons" ui-sref="mlproject_text_model_describe({ projectId : projectId, userId : userId, modelId : projectId })">Describe your model!  <span class="badge">beta</span></div>
+                        <div ng-if="project.type === 'text' && model.status === 'Training' && project.storage !== 'local'" class="btn btn-default describemodelbuttons" ui-sref="mlproject_text_model_describe({ projectId : projectId, userId : userId, modelId : projectId })">Describe your model!</div>
 
                         <md-progress-circular class="progressindicator" ng-if="submittingDeleteRequest" md-mode="indeterminate"></md-progress-circular>
                     </td>
