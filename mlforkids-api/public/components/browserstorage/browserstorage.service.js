@@ -703,8 +703,6 @@
                 if (isCorruptedDatabase(err)) {
                     loggerService.debug('[ml4kstorage] assets db corrupted - resetting');
                     await deleteAssetsDatabase();
-
-                    throw new Error('Error in your web browser storage. Please refresh the page.');
                 }
 
                 throw err;
@@ -762,8 +760,6 @@
                 if (isCorruptedDatabase(err)) {
                     loggerService.debug('[ml4kstorage] assets db corrupted - resetting');
                     await deleteAssetsDatabase();
-
-                    throw new Error('Error in your web browser storage. Please refresh the page.');
                 }
                 else {
                     throw err;
