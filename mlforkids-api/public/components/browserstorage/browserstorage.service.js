@@ -143,7 +143,7 @@
                 });
         }
         function getTrainingDatabase(projectId) {
-            loggerService.debug('[ml4kstorage] getTrainingDatabase');
+            loggerService.debug('[ml4kstorage] getTrainingDatabase', projectId);
 
             const request = window.indexedDB.open(TRAINING_DB_NAME_PREFIX + projectId);
             request.onupgradeneeded = initTrainingDatabase;
@@ -470,13 +470,30 @@
 
             await requiresTrainingDatabase(projectId);
 
-            const transaction = trainingDataDatabases[projectId].transaction([ TRAINING_TABLE ], 'readonly');
-            const request = transaction.objectStore(TRAINING_TABLE).getAll();
+            try {
+                const transaction = trainingDataDatabases[projectId].transaction([ TRAINING_TABLE ], 'readonly');
+                const request = transaction.objectStore(TRAINING_TABLE).getAll();
 
-            return promisifyIndexedDbRequest(request)
-                .then(function (event) {
-                    return event.target.result;
-                });
+                return promisifyIndexedDbRequest(request)
+                    .then(function (event) {
+                        return event.target.result;
+                    });
+            }
+            catch (err) {
+                if (isCorruptedDatabase(err)) {
+                    loggerService.debug('[ml4kstorage] training db corrupted - resetting');
+
+                    if (trainingDataDatabases[projectId]) {
+                        trainingDataDatabases[projectId].close();
+                    }
+                    window.indexedDB.deleteDatabase(TRAINING_DB_NAME_PREFIX + projectId);
+                    delete trainingDataDatabases[projectId];
+
+                    throw new Error('Error in your web browser storage. Please refresh the page.');
+                }
+
+                throw err;
+            }
         }
 
 
@@ -686,6 +703,8 @@
                 if (isCorruptedDatabase(err)) {
                     loggerService.debug('[ml4kstorage] assets db corrupted - resetting');
                     await deleteAssetsDatabase();
+
+                    throw new Error('Error in your web browser storage. Please refresh the page.');
                 }
 
                 throw err;
@@ -743,6 +762,8 @@
                 if (isCorruptedDatabase(err)) {
                     loggerService.debug('[ml4kstorage] assets db corrupted - resetting');
                     await deleteAssetsDatabase();
+
+                    throw new Error('Error in your web browser storage. Please refresh the page.');
                 }
                 else {
                     throw err;
