@@ -1,197 +1,2697 @@
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./node_modules/babel-loader/lib/index.js?!./node_modules/scratch-vm/src/extension-support/extension-worker.js");
-/******/ })
-/************************************************************************/
-/******/ ({
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["VirtualMachine"] = factory();
+	else
+		root["VirtualMachine"] = factory();
+})(self, () => {
+return /******/ (() => { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/scratch-vm/src/extension-support/extension-worker.js":
-/*!*******************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4!./node_modules/scratch-vm/src/extension-support/extension-worker.js ***!
-  \*******************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./src/dispatch/shared-dispatch.js":
+/*!*****************************************!*\
+  !*** ./src/dispatch/shared-dispatch.js ***!
+  \*****************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-/* WEBPACK VAR INJECTION */(function(global) {function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-/* eslint-env worker */
+const log = __webpack_require__(/*! ../util/log */ "./src/util/log.js");
+const mlforkidsSound = __webpack_require__(/*! ../mlforkids-components/sound */ "./src/mlforkids-components/sound/index.js");
+const mlforkidsImages = __webpack_require__(/*! ../mlforkids-components/images */ "./src/mlforkids-components/images/index.js");
+const mlforkidsRegression = __webpack_require__(/*! ../mlforkids-components/regression */ "./src/mlforkids-components/regression/index.js");
+const mlforkidsNumbers = __webpack_require__(/*! ../mlforkids-components/numbers */ "./src/mlforkids-components/numbers/index.js");
+const mlforkidsTensorFlow = __webpack_require__(/*! ../mlforkids-components/tensorflow */ "./src/mlforkids-components/tensorflow/index.js");
+const mlforkidsStorage = __webpack_require__(/*! ../mlforkids-components/storage */ "./src/mlforkids-components/storage/index.js");
 
-var ArgumentType = __webpack_require__(/*! ../extension-support/argument-type */ "./node_modules/scratch-vm/src/extension-support/argument-type.js");
-var BlockType = __webpack_require__(/*! ../extension-support/block-type */ "./node_modules/scratch-vm/src/extension-support/block-type.js");
-var dispatch = __webpack_require__(/*! ../dispatch/worker-dispatch */ "./node_modules/scratch-vm/src/dispatch/worker-dispatch.js");
-var TargetType = __webpack_require__(/*! ../extension-support/target-type */ "./node_modules/scratch-vm/src/extension-support/target-type.js");
-var ExtensionWorker = /*#__PURE__*/function () {
-  function ExtensionWorker() {
-    var _this = this;
-    _classCallCheck(this, ExtensionWorker);
-    this.nextExtensionId = 0;
-    this.initialRegistrations = [];
-    this.extensionURL = null;
-    dispatch.waitForConnection.then(function () {
-      dispatch.call('extensions', 'allocateWorker').then(function (x) {
-        var _x = _slicedToArray(x, 2),
-          id = _x[0],
-          extension = _x[1];
-        _this.workerId = id;
-        console.log('[mlforkids] ExtensionWorker ' + extension);
-        if (extension.indexOf('http') === 0) {
-          console.log('[mlforkids] Extension from remote URL : ' + extension);
-          _this.extensionURL = extension;
-        } else {
-          console.log('[mlforkids] Skipping built-in extension : ' + extension);
-          _this.extensionURL = extension;
-          return dispatch.call('extensions', 'onWorkerInit', id);
+/**
+ * @typedef {object} DispatchCallMessage - a message to the dispatch system representing a service method call
+ * @property {*} responseId - send a response message with this response ID. See {@link DispatchResponseMessage}
+ * @property {string} service - the name of the service to be called
+ * @property {string} method - the name of the method to be called
+ * @property {Array|undefined} args - the arguments to be passed to the method
+ */
+
+/**
+ * @typedef {object} DispatchResponseMessage - a message to the dispatch system representing the results of a call
+ * @property {*} responseId - a copy of the response ID from the call which generated this response
+ * @property {*|undefined} error - if this is truthy, then it contains results from a failed call (such as an exception)
+ * @property {*|undefined} result - if error is not truthy, then this contains the return value of the call (if any)
+ */
+
+/**
+ * @typedef {DispatchCallMessage|DispatchResponseMessage} DispatchMessage
+ * Any message to the dispatch system.
+ */
+
+/**
+ * The SharedDispatch class is responsible for dispatch features shared by
+ * {@link CentralDispatch} and {@link WorkerDispatch}.
+ */
+class SharedDispatch {
+  constructor() {
+    /**
+     * List of callback registrations for promises waiting for a response from a call to a service on another
+     * worker. A callback registration is an array of [resolve,reject] Promise functions.
+     * Calls to local services don't enter this list.
+     * @type {Array.<Function[]>}
+     */
+    this.callbacks = [];
+
+    /**
+     * The next response ID to be used.
+     * @type {int}
+     */
+    this.nextResponseId = 0;
+  }
+
+  /**
+   * Call a particular method on a particular service, regardless of whether that service is provided locally or on
+   * a worker. If the service is provided by a worker, the `args` will be copied using the Structured Clone
+   * algorithm, except for any items which are also in the `transfer` list. Ownership of those items will be
+   * transferred to the worker, and they should not be used after this call.
+   * @example
+   *      dispatcher.call('vm', 'setData', 'cat', 42);
+   *      // this finds the worker for the 'vm' service, then on that worker calls:
+   *      vm.setData('cat', 42);
+   * @param {string} service - the name of the service.
+   * @param {string} method - the name of the method.
+   * @param {*} [args] - the arguments to be copied to the method, if any.
+   * @returns {Promise} - a promise for the return value of the service method.
+   */
+  call(service, method) {
+    for (var _len = arguments.length, args = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+      args[_key - 2] = arguments[_key];
+    }
+    return this.transferCall(service, method, null, ...args);
+  }
+
+  /**
+   * Call a particular method on a particular service, regardless of whether that service is provided locally or on
+   * a worker. If the service is provided by a worker, the `args` will be copied using the Structured Clone
+   * algorithm, except for any items which are also in the `transfer` list. Ownership of those items will be
+   * transferred to the worker, and they should not be used after this call.
+   * @example
+   *      dispatcher.transferCall('vm', 'setData', [myArrayBuffer], 'cat', myArrayBuffer);
+   *      // this finds the worker for the 'vm' service, transfers `myArrayBuffer` to it, then on that worker calls:
+   *      vm.setData('cat', myArrayBuffer);
+   * @param {string} service - the name of the service.
+   * @param {string} method - the name of the method.
+   * @param {Array} [transfer] - objects to be transferred instead of copied. Must be present in `args` to be useful.
+   * @param {*} [args] - the arguments to be copied to the method, if any.
+   * @returns {Promise} - a promise for the return value of the service method.
+   */
+  transferCall(service, method, transfer) {
+    try {
+      const {
+        provider,
+        isRemote
+      } = this._getServiceProvider(service);
+      if (provider) {
+        for (var _len2 = arguments.length, args = new Array(_len2 > 3 ? _len2 - 3 : 0), _key2 = 3; _key2 < _len2; _key2++) {
+          args[_key2 - 3] = arguments[_key2];
         }
-        try {
-          importScripts(extension);
-          var initialRegistrations = _this.initialRegistrations;
-          _this.initialRegistrations = null;
-          Promise.all(initialRegistrations).then(function () {
-            return dispatch.call('extensions', 'onWorkerInit', id);
+        if (isRemote) {
+          return this._remoteTransferCall(provider, service, method, transfer, ...args);
+        }
+
+        // TODO: verify correct `this` after switching from apply to spread
+        // eslint-disable-next-line prefer-spread
+        const result = provider[method].apply(provider, args);
+        return Promise.resolve(result);
+      }
+      return Promise.reject(new Error("Service not found: ".concat(service)));
+    } catch (e) {
+      return Promise.reject(e);
+    }
+  }
+
+  /**
+   * Check if a particular service lives on another worker.
+   * @param {string} service - the service to check.
+   * @returns {boolean} - true if the service is remote (calls must cross a Worker boundary), false otherwise.
+   * @private
+   */
+  _isRemoteService(service) {
+    return this._getServiceProvider(service).isRemote;
+  }
+
+  /**
+   * Like {@link call}, but force the call to be posted through a particular communication channel.
+   * @param {object} provider - send the call through this object's `postMessage` function.
+   * @param {string} service - the name of the service.
+   * @param {string} method - the name of the method.
+   * @param {*} [args] - the arguments to be copied to the method, if any.
+   * @returns {Promise} - a promise for the return value of the service method.
+   */
+  _remoteCall(provider, service, method) {
+    for (var _len3 = arguments.length, args = new Array(_len3 > 3 ? _len3 - 3 : 0), _key3 = 3; _key3 < _len3; _key3++) {
+      args[_key3 - 3] = arguments[_key3];
+    }
+    return this._remoteTransferCall(provider, service, method, null, ...args);
+  }
+
+  /**
+   * Like {@link transferCall}, but force the call to be posted through a particular communication channel.
+   * @param {object} provider - send the call through this object's `postMessage` function.
+   * @param {string} service - the name of the service.
+   * @param {string} method - the name of the method.
+   * @param {Array} [transfer] - objects to be transferred instead of copied. Must be present in `args` to be useful.
+   * @param {*} [args] - the arguments to be copied to the method, if any.
+   * @returns {Promise} - a promise for the return value of the service method.
+   */
+  _remoteTransferCall(provider, service, method, transfer) {
+    for (var _len4 = arguments.length, args = new Array(_len4 > 4 ? _len4 - 4 : 0), _key4 = 4; _key4 < _len4; _key4++) {
+      args[_key4 - 4] = arguments[_key4];
+    }
+    return new Promise((resolve, reject) => {
+      const responseId = this._storeCallbacks(resolve, reject);
+
+      /** @TODO: remove this hack! this is just here so we don't try to send `util` to a worker */
+      if (args.length > 0 && typeof args[args.length - 1].yield === 'function') {
+        args.pop();
+      }
+      if (transfer) {
+        provider.postMessage({
+          service,
+          method,
+          responseId,
+          args
+        }, transfer);
+      } else {
+        provider.postMessage({
+          service,
+          method,
+          responseId,
+          args
+        });
+      }
+    });
+  }
+
+  /**
+   * Store callback functions pending a response message.
+   * @param {Function} resolve - function to call if the service method returns.
+   * @param {Function} reject - function to call if the service method throws.
+   * @returns {*} - a unique response ID for this set of callbacks. See {@link _deliverResponse}.
+   * @protected
+   */
+  _storeCallbacks(resolve, reject) {
+    const responseId = this.nextResponseId++;
+    this.callbacks[responseId] = [resolve, reject];
+    return responseId;
+  }
+
+  /**
+   * Deliver call response from a worker. This should only be called as the result of a message from a worker.
+   * @param {int} responseId - the response ID of the callback set to call.
+   * @param {DispatchResponseMessage} message - the message containing the response value(s).
+   * @protected
+   */
+  _deliverResponse(responseId, message) {
+    try {
+      const [resolve, reject] = this.callbacks[responseId];
+      delete this.callbacks[responseId];
+      if (message.error) {
+        reject(message.error);
+      } else {
+        resolve(message.result);
+      }
+    } catch (e) {
+      log.error("Dispatch callback failed: ".concat(JSON.stringify(e)));
+    }
+  }
+
+  /**
+   * Handle a message event received from a connected worker.
+   * @param {Worker} worker - the worker which sent the message, or the global object if running in a worker.
+   * @param {MessageEvent} event - the message event to be handled.
+   * @protected
+   */
+  _onMessage(worker, event) {
+    /** @type {DispatchMessage} */
+    const message = event.data;
+    message.args = message.args || [];
+    let promise;
+    if (message.service) {
+      if (message.service === 'dispatch') {
+        promise = this._onDispatchMessage(worker, message);
+      } else {
+        promise = this.call(message.service, message.method, ...message.args);
+      }
+    } else if (message.mlforkids) {
+      console.log('[mlforkids] Handling message from ML for Kids extension running in a web worker', message);
+      window.dispatchEvent(new Event(message.mlforkids));
+    } else if (message.mlforkidssound) {
+      if (message.mlforkidssound.command === 'init') {
+        if (!this.mlforkidsSoundSupport) {
+          this.mlforkidsSoundSupport = new mlforkidsSound(this.mlforkidsStorageSupport);
+        }
+        this.mlforkidsSoundSupport.init(message.mlforkidssound.data, worker);
+      } else if (message.mlforkidssound.command === 'initlocal') {
+        if (!this.mlforkidsSoundSupport) {
+          this.mlforkidsSoundSupport = new mlforkidsSound(this.mlforkidsStorageSupport);
+        }
+        return this.mlforkidsStorageSupport.getProject(message.mlforkidssound.data).then(projectinfo => {
+          projectinfo.projectid = message.mlforkidssound.data;
+          this.mlforkidsSoundSupport.init(projectinfo, worker);
+        }).catch(err => {
+          console.log('[mlforkids] failed to load project', err);
+          worker.postMessage({
+            mlforkidssound: 'modelfailed'
           });
-        } catch (e) {
-          dispatch.call('extensions', 'onWorkerInit', id, e);
-          if (postMessage && e.name === 'NetworkError' && extension.indexOf('extension3.js') > 0) {
-            postMessage({
-              mlforkids: 'mlforkids-extension-help'
+        });
+      } else if (message.mlforkidssound.command === 'train') {
+        this.mlforkidsSoundSupport.trainNewModel(message.mlforkidssound.data, worker);
+      } else if (message.mlforkidssound.command === 'trainlocal') {
+        this.mlforkidsSoundSupport.trainNewModelLocal(message.mlforkidssound.data, worker);
+      } else if (message.mlforkidssound.command === 'listen') {
+        this.mlforkidsSoundSupport.startListening(worker);
+      } else if (message.mlforkidssound.command === 'stoplisten') {
+        this.mlforkidsSoundSupport.stopListening(worker);
+      }
+    } else if (message.mlforkidsimage) {
+      if (message.mlforkidsimage.command === 'init') {
+        if (!this.mlforkidsImageSupport) {
+          this.mlforkidsImageSupport = new mlforkidsImages(this.mlforkidsStorageSupport);
+        }
+        this.mlforkidsImageSupport.init().then(() => {
+          this.mlforkidsImageSupport.initProject(message.mlforkidsimage.data, worker);
+        });
+      } else if (message.mlforkidsimage.command === 'initlocal') {
+        if (!this.mlforkidsImageSupport) {
+          this.mlforkidsImageSupport = new mlforkidsImages(this.mlforkidsStorageSupport);
+        }
+        this.mlforkidsImageSupport.init().then(() => {
+          return this.mlforkidsStorageSupport.getProject(message.mlforkidsimage.data);
+        }).then(projectinfo => {
+          projectinfo.projectid = message.mlforkidsimage.data;
+          this.mlforkidsImageSupport.initProject(projectinfo, worker);
+        }).catch(err => {
+          console.log('[mlforkids] failed to load project', err);
+          worker.postMessage({
+            mlforkidsimage: 'modelfailed',
+            data: {
+              projectid: message.mlforkidsimage.data
+            }
+          });
+        });
+      } else if (message.mlforkidsimage.command === 'classify') {
+        this.mlforkidsImageSupport.classifyImageData(message.mlforkidsimage.data, worker);
+      } else if (message.mlforkidsimage.command === 'train') {
+        this.mlforkidsImageSupport.trainNewModel(message.mlforkidsimage.data, worker);
+      } else if (message.mlforkidsimage.command === 'trainlocal') {
+        this.mlforkidsImageSupport.trainNewModelLocal(message.mlforkidsimage.data, worker);
+      }
+    } else if (message.mlforkidsnumbers) {
+      if (message.mlforkidsnumbers.command === 'init') {
+        if (!this.mlforkidsNumbersSupport) {
+          this.mlforkidsNumbersSupport = new mlforkidsNumbers(this.mlforkidsStorageSupport);
+        }
+        this.mlforkidsNumbersSupport.init().then(() => {
+          this.mlforkidsNumbersSupport.initProject({
+            id: message.mlforkidsnumbers.data
+          }, worker);
+        }).catch(err => {
+          console.log('[mlforkids] failed to prepare numbers support', err);
+          worker.postMessage({
+            mlforkidsnumbers: 'modelfailed',
+            data: {
+              projectid: message.mlforkidsnumbers.data
+            }
+          });
+        });
+      } else if (message.mlforkidsnumbers.command === 'initlocal') {
+        if (!this.mlforkidsNumbersSupport) {
+          this.mlforkidsNumbersSupport = new mlforkidsNumbers(this.mlforkidsStorageSupport);
+        }
+        this.mlforkidsNumbersSupport.init().then(() => {
+          return this.mlforkidsStorageSupport.getProject(message.mlforkidsnumbers.data);
+        }).then(projectinfo => {
+          projectinfo.projectid = message.mlforkidsnumbers.data;
+          this.mlforkidsNumbersSupport.initProject(projectinfo, worker);
+        }).catch(err => {
+          console.log('[mlforkids] failed to load project', err);
+          worker.postMessage({
+            mlforkidsnumbers: 'modelfailed',
+            data: {
+              projectid: message.mlforkidsnumbers.data
+            }
+          });
+        });
+      } else if (message.mlforkidsnumbers.command === 'classify') {
+        this.mlforkidsNumbersSupport.classifyNumberData(message.mlforkidsnumbers.data, worker);
+      } else if (message.mlforkidsnumbers.command === 'train') {
+        this.mlforkidsNumbersSupport.trainNewModel(message.mlforkidsnumbers.data, worker);
+      } else if (message.mlforkidsnumbers.command === 'trainlocal') {
+        this.mlforkidsNumbersSupport.trainNewModelLocal(message.mlforkidsnumbers.data, worker);
+      }
+    } else if (message.mlforkidsregression) {
+      if (message.mlforkidsregression.command === 'init') {
+        if (!this.mlforkidsRegressionSupport) {
+          this.mlforkidsRegressionSupport = new mlforkidsRegression(this.mlforkidsStorageSupport);
+        }
+        this.mlforkidsRegressionSupport.init().then(() => {
+          return this.mlforkidsStorageSupport.getProject(message.mlforkidsregression.data);
+        }).then(projectinfo => {
+          projectinfo.projectid = message.mlforkidsregression.data;
+          this.mlforkidsRegressionSupport.initProject(projectinfo, worker);
+        }).catch(err => {
+          console.log('[mlforkids] failed to load project', err);
+          worker.postMessage({
+            mlforkidsimage: 'modelfailed',
+            data: {
+              projectid: message.mlforkidsregression.data
+            }
+          });
+        });
+      } else if (message.mlforkidsregression.command === 'train') {
+        this.mlforkidsRegressionSupport.trainNewModel(message.mlforkidsregression.data, worker);
+      } else if (message.mlforkidsregression.command === 'predict') {
+        this.mlforkidsRegressionSupport.predict(message.mlforkidsregression.data, worker);
+      }
+    } else if (message.mlforkidsstorage) {
+      if (message.mlforkidsstorage.command === 'init') {
+        if (!this.mlforkidsStorageSupport) {
+          this.mlforkidsStorageSupport = new mlforkidsStorage();
+        }
+      } else if (message.mlforkidsstorage.command === 'storeimage') {
+        this.mlforkidsStorageSupport.storeBase64EncodedImage(message.mlforkidsstorage.data.projectid, message.mlforkidsstorage.data.label, message.mlforkidsstorage.data.image);
+      } else if (message.mlforkidsstorage.command === 'storetext') {
+        this.mlforkidsStorageSupport.addTrainingData(message.mlforkidsstorage.data.projectid, {
+          textdata: message.mlforkidsstorage.data.textdata,
+          label: message.mlforkidsstorage.data.label
+        });
+      } else if (message.mlforkidsstorage.command === 'storeregression') {
+        this.mlforkidsStorageSupport.addTrainingData(message.mlforkidsstorage.data.projectid, message.mlforkidsstorage.data.values);
+      } else if (message.mlforkidsstorage.command === 'storenumbers') {
+        this.mlforkidsStorageSupport.addTrainingData(message.mlforkidsstorage.data.projectid, {
+          numberdata: message.mlforkidsstorage.data.numberdata,
+          label: message.mlforkidsstorage.data.label
+        });
+      } else if (message.mlforkidsstorage.command === 'textwatson') {
+        this.mlforkidsStorageSupport.getProject(message.mlforkidsstorage.data.projectid).then(projectinfo => {
+          return this.mlforkidsStorageSupport.getTrainingForCloud(projectinfo);
+        }).then(training => {
+          worker.postMessage({
+            mlforkidsstorage: 'textwatson',
+            projectid: message.mlforkidsstorage.data.projectid,
+            data: training
+          });
+        });
+      } else if (message.mlforkidsstorage.command === 'trainingdata') {
+        this.mlforkidsStorageSupport.getTrainingData(message.mlforkidsstorage.data.projectid).then(training => {
+          worker.postMessage({
+            mlforkidsstorage: 'trainingdata',
+            projectid: message.mlforkidsstorage.data.projectid,
+            data: training
+          });
+        });
+      }
+    } else if (message.mlforkidstensorflow) {
+      if (message.mlforkidstensorflow.command === 'init') {
+        if (!this.mlforkidsTensorFlowSupport) {
+          this.mlforkidsTensorFlowSupport = new mlforkidsTensorFlow();
+        }
+        this.mlforkidsTensorFlowSupport.initProject(message.mlforkidstensorflow.data, worker);
+      } else if (message.mlforkidstensorflow.command === 'classify') {
+        this.mlforkidsTensorFlowSupport.classifyData(message.mlforkidstensorflow.data, worker);
+      }
+    } else if (typeof message.responseId === 'undefined') {
+      log.error("Dispatch caught malformed message from a worker: ".concat(JSON.stringify(event)));
+    } else {
+      this._deliverResponse(message.responseId, message);
+    }
+    if (promise) {
+      if (typeof message.responseId === 'undefined') {
+        log.error("Dispatch message missing required response ID: ".concat(JSON.stringify(event)));
+      } else {
+        promise.then(result => worker.postMessage({
+          responseId: message.responseId,
+          result
+        }), error => worker.postMessage({
+          responseId: message.responseId,
+          error
+        }));
+      }
+    }
+  }
+
+  /**
+   * Fetch the service provider object for a particular service name.
+   * @abstract
+   * @param {string} service - the name of the service to look up
+   * @returns {{provider:(object|Worker), isRemote:boolean}} - the means to contact the service, if found
+   * @protected
+   */
+  _getServiceProvider(service) {
+    throw new Error("Could not get provider for ".concat(service, ": _getServiceProvider not implemented"));
+  }
+
+  /**
+   * Handle a call message sent to the dispatch service itself
+   * @abstract
+   * @param {Worker} worker - the worker which sent the message.
+   * @param {DispatchCallMessage} message - the message to be handled.
+   * @returns {Promise|undefined} - a promise for the results of this operation, if appropriate
+   * @private
+   */
+  _onDispatchMessage(worker, message) {
+    throw new Error("Unimplemented dispatch message handler cannot handle ".concat(message.method, " method"));
+  }
+}
+module.exports = SharedDispatch;
+
+/***/ }),
+
+/***/ "./src/dispatch/worker-dispatch.js":
+/*!*****************************************!*\
+  !*** ./src/dispatch/worker-dispatch.js ***!
+  \*****************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const SharedDispatch = __webpack_require__(/*! ./shared-dispatch */ "./src/dispatch/shared-dispatch.js");
+const log = __webpack_require__(/*! ../util/log */ "./src/util/log.js");
+
+/**
+ * This class provides a Worker with the means to participate in the message dispatch system managed by CentralDispatch.
+ * From any context in the messaging system, the dispatcher's "call" method can call any method on any "service"
+ * provided in any participating context. The dispatch system will forward function arguments and return values across
+ * worker boundaries as needed.
+ * @see {CentralDispatch}
+ */
+class WorkerDispatch extends SharedDispatch {
+  constructor() {
+    super();
+
+    /**
+     * This promise will be resolved when we have successfully connected to central dispatch.
+     * @type {Promise}
+     * @see {waitForConnection}
+     * @private
+     */
+    this._connectionPromise = new Promise(resolve => {
+      this._onConnect = resolve;
+    });
+
+    /**
+     * Map of service name to local service provider.
+     * If a service is not listed here, it is assumed to be provided by another context (another Worker or the main
+     * thread).
+     * @see {setService}
+     * @type {object}
+     */
+    this.services = {};
+    this._onMessage = this._onMessage.bind(this, self);
+    if (typeof self !== 'undefined') {
+      self.onmessage = this._onMessage;
+    }
+  }
+
+  /**
+   * @returns {Promise} a promise which will resolve upon connection to central dispatch. If you need to make a call
+   * immediately on "startup" you can attach a 'then' to this promise.
+   * @example
+   *      dispatch.waitForConnection.then(() => {
+   *          dispatch.call('myService', 'hello');
+   *      })
+   */
+  get waitForConnection() {
+    return this._connectionPromise;
+  }
+
+  /**
+   * Set a local object as the global provider of the specified service.
+   * WARNING: Any method on the provider can be called from any worker within the dispatch system.
+   * @param {string} service - a globally unique string identifying this service. Examples: 'vm', 'gui', 'extension9'.
+   * @param {object} provider - a local object which provides this service.
+   * @returns {Promise} - a promise which will resolve once the service is registered.
+   */
+  setService(service, provider) {
+    if (Object.prototype.hasOwnProperty.call(this.services, service)) {
+      log.warn("Worker dispatch replacing existing service provider for ".concat(service));
+    }
+    this.services[service] = provider;
+    return this.waitForConnection.then(() => this._remoteCall(self, 'dispatch', 'setService', service));
+  }
+
+  /**
+   * Fetch the service provider object for a particular service name.
+   * @override
+   * @param {string} service - the name of the service to look up
+   * @returns {{provider:(object|Worker), isRemote:boolean}} - the means to contact the service, if found
+   * @protected
+   */
+  _getServiceProvider(service) {
+    // if we don't have a local service by this name, contact central dispatch by calling `postMessage` on self
+    const provider = this.services[service];
+    return {
+      provider: provider || self,
+      isRemote: !provider
+    };
+  }
+
+  /**
+   * Handle a call message sent to the dispatch service itself
+   * @override
+   * @param {Worker} worker - the worker which sent the message.
+   * @param {DispatchCallMessage} message - the message to be handled.
+   * @returns {Promise|undefined} - a promise for the results of this operation, if appropriate
+   * @protected
+   */
+  _onDispatchMessage(worker, message) {
+    let promise;
+    switch (message.method) {
+      case 'handshake':
+        promise = this._onConnect();
+        break;
+      case 'terminate':
+        // Don't close until next tick, after sending confirmation back
+        setTimeout(() => self.close(), 0);
+        promise = Promise.resolve();
+        break;
+      default:
+        log.error("Worker dispatch received message for unknown method: ".concat(message.method));
+    }
+    return promise;
+  }
+}
+module.exports = new WorkerDispatch();
+
+/***/ }),
+
+/***/ "./src/extension-support/argument-type.js":
+/*!************************************************!*\
+  !*** ./src/extension-support/argument-type.js ***!
+  \************************************************/
+/***/ ((module) => {
+
+/**
+ * Block argument types
+ * @enum {string}
+ */
+const ArgumentType = {
+  /**
+   * Numeric value with angle picker
+   */
+  ANGLE: 'angle',
+  /**
+   * Boolean value with hexagonal placeholder
+   */
+  BOOLEAN: 'Boolean',
+  /**
+   * Numeric value with color picker
+   */
+  COLOR: 'color',
+  /**
+   * Numeric value with text field
+   */
+  NUMBER: 'number',
+  /**
+   * String value with text field
+   */
+  STRING: 'string',
+  /**
+   * String value with matrix field
+   */
+  MATRIX: 'matrix',
+  /**
+   * MIDI note number with note picker (piano) field
+   */
+  NOTE: 'note',
+  /**
+   * Inline image on block (as part of the label)
+   */
+  IMAGE: 'image'
+};
+module.exports = ArgumentType;
+
+/***/ }),
+
+/***/ "./src/extension-support/block-type.js":
+/*!*********************************************!*\
+  !*** ./src/extension-support/block-type.js ***!
+  \*********************************************/
+/***/ ((module) => {
+
+/**
+ * Types of block
+ * @enum {string}
+ */
+const BlockType = {
+  /**
+   * Boolean reporter with hexagonal shape
+   */
+  BOOLEAN: 'Boolean',
+  /**
+   * A button (not an actual block) for some special action, like making a variable
+   */
+  BUTTON: 'button',
+  /**
+   * Command block
+   */
+  COMMAND: 'command',
+  /**
+   * Specialized command block which may or may not run a child branch
+   * The thread continues with the next block whether or not a child branch ran.
+   */
+  CONDITIONAL: 'conditional',
+  /**
+   * Specialized hat block with no implementation function
+   * This stack only runs if the corresponding event is emitted by other code.
+   */
+  EVENT: 'event',
+  /**
+   * Hat block which conditionally starts a block stack
+   */
+  HAT: 'hat',
+  /**
+   * Specialized command block which may or may not run a child branch
+   * If a child branch runs, the thread evaluates the loop block again.
+   */
+  LOOP: 'loop',
+  /**
+   * General reporter with numeric or string value
+   */
+  REPORTER: 'reporter'
+};
+module.exports = BlockType;
+
+/***/ }),
+
+/***/ "./src/extension-support/target-type.js":
+/*!**********************************************!*\
+  !*** ./src/extension-support/target-type.js ***!
+  \**********************************************/
+/***/ ((module) => {
+
+/**
+ * Default types of Target supported by the VM
+ * @enum {string}
+ */
+const TargetType = {
+  /**
+   * Rendered target which can move, change costumes, etc.
+   */
+  SPRITE: 'sprite',
+  /**
+   * Rendered target which cannot move but can change backdrops
+   */
+  STAGE: 'stage'
+};
+module.exports = TargetType;
+
+/***/ }),
+
+/***/ "./src/mlforkids-components/images/index.js":
+/*!**************************************************!*\
+  !*** ./src/mlforkids-components/images/index.js ***!
+  \**************************************************/
+/***/ ((module) => {
+
+class ML4KidsImageTraining {
+  // This component needs to support multiple instances of the image
+  //  extension being used at once, so all state and models are
+  //  indexed by project id
+  // The base model can be shared across all projects
+
+  // state = <INIT/READY/ERROR>
+  // baseModel = <model>
+  // PROJECTS[projectid].modelClasses = <label1/label2/label3/...>
+  // PROJECTS[projectid].modelNumClasses = <number of modelClasses>
+  // PROJECTS[projectid].state = INIT/READY/TRAINING/TRAINED/ERROR
+  // PROJECTS[projectid].transferModel = <model>
+  // PROJECTS[projectid].usingRestoredModel = true/false
+
+  // states:
+  //   INIT - not ready yet
+  //   READY - ready for training
+  //   TRAINING - training in progress
+  //   TRAINED - ML model ready for use
+  //   ERROR - something went wrong
+
+  constructor(storageSupport) {
+    this.PROJECTS = {};
+    this.state = 'INIT';
+    this._storageSupport = storageSupport;
+  }
+
+  // safe to call this multiple times, including calling it before the first call has completed
+  init() {
+    if (!this.initPromise) {
+      this.initPromise = new Promise((resolve, reject) => {
+        tf.enableProdMode();
+
+        // const BASE_MODEL = 'https://storage.googleapis.com' +
+        //                     '/tfjs-models/tfjs' +
+        //                     '/mobilenet_v1_0.25_224' +
+        //                     '/model.json';
+        const BASE_MODEL = '/static/bower_components/tensorflow-models/image-recognition-scratch/model.json';
+        tf.loadLayersModel(BASE_MODEL).then(pretrainedModel => {
+          const activationLayer = pretrainedModel.getLayer('conv_pw_13_relu');
+          this.baseModel = tf.model({
+            inputs: pretrainedModel.inputs,
+            outputs: activationLayer.output
+          });
+          this.state = 'READY';
+          resolve();
+        }).catch(err => {
+          this.state = 'ERROR';
+          console.log('[mlforkids] Failed to initialise images component', err);
+          reject(err);
+        });
+      });
+    }
+    return this.initPromise;
+  }
+
+  // encprojectdata
+  // JSON.stringify-ed version of
+  //   { labels : [ labelA, labelB, labelC ], projectid : projectId }
+  initProject(encprojectdata, worker) {
+    console.log('[mlforkids] ML4KidsImageTraining init');
+    const projectData = typeof encprojectdata === 'string' ? JSON.parse(encprojectdata) : encprojectdata;
+    const projectid = projectData.projectid;
+    this.PROJECTS[projectid] = {};
+    this.PROJECTS[projectid].state = 'INIT';
+    this.PROJECTS[projectid].modelClasses = projectData.labels;
+    this.PROJECTS[projectid].modelNumClasses = projectData.labels.length;
+    this.PROJECTS[projectid].usingRestoredModel = false;
+    return this._loadModel(projectid).then(model => {
+      if (model) {
+        this.PROJECTS[projectid].transferModel = model;
+        this.PROJECTS[projectid].state = 'TRAINED';
+        this.PROJECTS[projectid].usingRestoredModel = true;
+        worker.postMessage({
+          mlforkidsimage: 'modelready',
+          data: {
+            projectid: projectid
+          }
+        });
+      } else {
+        this.PROJECTS[projectid].transferModel = this.prepareTransferLearningModel(projectData.labels.length);
+        this.PROJECTS[projectid].state = 'READY';
+        worker.postMessage({
+          mlforkidsimage: 'modelinit',
+          data: {
+            projectid: projectid
+          }
+        });
+      }
+      this._watchForNewModels(projectid, worker);
+    }).catch(err => {
+      console.log('[mlforkids] ML4KidsImageTraining failed init', err);
+      this.PROJECTS[projectid].state = 'ERROR';
+      worker.postMessage({
+        mlforkidsimage: 'modelfailed',
+        data: {
+          projectid: projectid
+        }
+      });
+    });
+  }
+  sortByConfidence(a, b) {
+    if (a.confidence < b.confidence) {
+      return 1;
+    } else if (a.confidence > b.confidence) {
+      return -1;
+    } else {
+      return 0;
+    }
+  }
+
+  // encrequest
+  // JSON.stringify-ed version of
+  //   { projectid : projectId, requestid : requestId, imagedata: base64-enc-jpg }
+  classifyImageData(encrequest, worker) {
+    const requestData = JSON.parse(encrequest);
+    const projectid = requestData.projectid;
+    const requestid = requestData.requestid;
+    if (projectid in this.PROJECTS) {
+      if (this.PROJECTS[projectid].state !== 'TRAINED') {
+        console.log('[mlforkids] ML4KidsImageTraining received classify request before a model is ready');
+        return worker.postMessage({
+          mlforkidsimage: 'classifyresponse',
+          data: {
+            projectid: projectid,
+            requestid: requestid
+          }
+        });
+      }
+      var imageElement = document.createElement('img');
+      imageElement.width = 224;
+      imageElement.height = 224;
+      imageElement.onerror = err => {
+        console.log('[mlforkids] failed to prepare image data for prediction', err);
+        return worker.postMessage({
+          mlforkidsimage: 'classifyresponse',
+          data: {
+            projectid: projectid,
+            requestid: requestid
+          }
+        });
+      };
+      var that = this;
+      imageElement.onload = () => {
+        const imageDataTensor = tf.tidy(() => {
+          return tf.browser.fromPixels(imageElement).expandDims(0).toFloat().div(127).sub(1);
+        });
+        const baseModelOutput = that.baseModel.predict(imageDataTensor);
+        const transferModelOutput = that.PROJECTS[projectid].transferModel.predict(baseModelOutput);
+        transferModelOutput.data().then(output => {
+          if (output.length !== that.PROJECTS[projectid].modelNumClasses) {
+            console.log('[mlforkids] ML4KidsImageTraining received unexpected classify response', output);
+            return worker.postMessage({
+              mlforkidsimage: 'classifyresponse',
+              data: {
+                projectid: projectid,
+                requestid: requestid
+              }
+            });
+          }
+          const matches = that.PROJECTS[projectid].modelClasses.map((label, idx) => {
+            return {
+              class_name: label,
+              confidence: 100 * output[idx]
+            };
+          }).sort(that.sortByConfidence);
+          return worker.postMessage({
+            mlforkidsimage: 'classifyresponse',
+            data: {
+              projectid: projectid,
+              requestid: requestid,
+              matches: matches
+            }
+          });
+        });
+      };
+      imageElement.src = 'data:image/jpeg;base64,' + requestData.imagedata;
+    } else {
+      console.log('[mlforkids] ML4KidsImageTraining received request for unknown project');
+      return worker.postMessage({
+        mlforkidsimage: 'classifyresponse',
+        data: {
+          projectid: projectid,
+          requestid: requestid
+        }
+      });
+    }
+  }
+  prepareTransferLearningModel(numClasses) {
+    var model = tf.sequential({
+      layers: [tf.layers.flatten({
+        inputShape: this.baseModel.outputs[0].shape.slice(1)
+      }), tf.layers.dense({
+        units: 100,
+        activation: 'relu',
+        kernelInitializer: 'varianceScaling',
+        useBias: true
+      }), tf.layers.dense({
+        units: numClasses,
+        activation: 'softmax',
+        kernelInitializer: 'varianceScaling',
+        useBias: false
+      })]
+    });
+    model.compile({
+      optimizer: tf.train.adam(0.0001),
+      loss: 'categoricalCrossentropy'
+    });
+    return model;
+  }
+  _getModelDbLocation(projectid) {
+    return 'indexeddb://ml4k-models-images-' + projectid.toString().replaceAll('-', '');
+  }
+  _loadModel(projectid) {
+    console.log('[mlforkids] ML4KidsImageTraining loading model from browser storage');
+    const savelocation = this._getModelDbLocation(projectid);
+    return tf.loadLayersModel(savelocation).catch(err => {
+      console.log('[mlforkids] ML4KidsImageTraining failed to load model from storage', err);
+      return;
+    });
+  }
+  _saveModel(projectid) {
+    console.log('[mlforkids] ML4KidsImageTraining saving model to browser storage');
+    const savelocation = this._getModelDbLocation(projectid);
+    return this.PROJECTS[projectid].transferModel.save(savelocation).then(results => {
+      console.log('[mlforkids] ML4KidsImageTraining saved model', savelocation, results);
+      this._storeModelSavedDate(savelocation);
+    }).catch(err => {
+      console.log('[mlforkids] ML4KidsImageTraining failed to save model', err);
+    });
+  }
+  _storeModelSavedDate(modelid) {
+    try {
+      if (window.localStorage) {
+        window.localStorage.setItem(modelid, Date.now());
+      }
+    } catch (err) {
+      console.log('[mlforkids] ML4KidsImageTraining unable to save model date');
+    }
+  }
+  _watchForNewModels(projectid, worker) {
+    if (!this.PROJECTS[projectid].modelWatcher) {
+      console.log('[mlforkids] ML4KidsImageTraining listening for model updates', projectid);
+      this.PROJECTS[projectid].modelWatcher = true;
+      const modellocation = this._getModelDbLocation(projectid);
+      this._storageSupport.registerForModelStorageUpdates(modellocation, () => {
+        console.log('[mlforkids] ML4KidsImageTraining new model was trained outside of Scratch');
+        return this._loadModel(projectid).then(model => {
+          if (model) {
+            this.PROJECTS[projectid].transferModel = model;
+            this.PROJECTS[projectid].state = 'TRAINED';
+            this.PROJECTS[projectid].usingRestoredModel = true;
+            worker.postMessage({
+              mlforkidsimage: 'modelready',
+              data: {
+                projectid: projectid
+              }
+            });
+          } else {
+            // we weren't able to load the model
+            //  it may have been deleted outside of Scratch
+            this.PROJECTS[projectid].state = 'ERROR';
+            worker.postMessage({
+              mlforkidsimage: 'modelfailed',
+              data: {
+                projectid: projectid
+              }
+            });
+          }
+        });
+      });
+    }
+  }
+  _getLocalImageData(projectid, trainingdataid) {
+    let storedTrainingItem;
+    return this._storageSupport.getTrainingDataItem(projectid, trainingdataid).then(trainingitem => {
+      storedTrainingItem = trainingitem;
+      if (!storedTrainingItem.imagedata) {
+        const url = new URL('https://machinelearningforkids.co.uk/api/classes/' + tenant + '/students/' + userid + '/training/images');
+        url.search = new URLSearchParams({
+          imageurl: trainingitem.imageurl,
+          label: trainingitem.label,
+          option: 'prepare'
+        });
+        return fetch(url);
+      }
+    }).then(resp => {
+      if (storedTrainingItem.imagedata) {
+        return storedTrainingItem.imagedata;
+      }
+      return resp.arrayBuffer();
+    }).then(imgdata => {
+      return {
+        imgdata,
+        metadata: storedTrainingItem
+      };
+    });
+  }
+  trainNewModelLocal(projectinfo, worker) {
+    const projectid = projectinfo.projectid;
+    const that = this;
+    return this._storageSupport.getTrainingData(projectid).then(trainingitems => {
+      const data = {
+        projectid,
+        trainingdata: trainingitems.map(trainingitem => {
+          return {
+            metadata: trainingitem,
+            imgdata: trainingitem.imagedata
+          };
+        })
+      };
+      that.trainNewModel(data, worker);
+    });
+  }
+  trainNewModel(data, worker) {
+    const projectid = data.projectid;
+    if (this.state !== 'READY') {
+      console.log('[mlforkids] ML4KidsImageTraining not ready to train a new ML model - state : ' + this.state);
+      return;
+    }
+    if (this.PROJECTS[projectid].state === 'TRAINING') {
+      console.log('[mlforkids] ML4KidsImageTraining training in progress for this model');
+      return;
+    }
+    if (data.trainingdata.length < 5) {
+      console.log('[mlforkids] ML4KidsImageTraining insufficient training examples for a new model');
+      return;
+    }
+    console.log('[mlforkids] ML4KidsImageTraining training new model');
+    this.PROJECTS[projectid].state = 'TRAINING';
+    if (this.PROJECTS[projectid].usingRestoredModel) {
+      this.PROJECTS[projectid].transferModel = this.prepareTransferLearningModel(this.PROJECTS[projectid].modelNumClasses);
+    }
+    const that = this;
+    return Promise.all(data.trainingdata.map(this._getTensorForImageData)).then(trainingdata => {
+      let xs;
+      let ys;
+      for (let i = 0; i < trainingdata.length; i++) {
+        const trainingdataitem = trainingdata[i];
+        const labelIdx = that.PROJECTS[projectid].modelClasses.indexOf(trainingdataitem.metadata.label);
+        const xval = that.baseModel.predict(trainingdataitem.data);
+        const yval = tf.tidy(function () {
+          return tf.oneHot(tf.tensor1d([labelIdx]).toInt(), that.PROJECTS[projectid].modelNumClasses);
+        });
+        if (i === 0) {
+          xs = xval;
+          ys = yval;
+        } else {
+          var oldxs = xs;
+          var oldys = ys;
+          xs = oldxs.concat(xval, 0);
+          ys = oldys.concat(yval, 0);
+          oldxs.dispose();
+          oldys.dispose();
+        }
+      }
+      let epochs = 10;
+      if (trainingdata.length > 55) {
+        epochs = 15;
+      }
+      that.PROJECTS[projectid].transferModel.fit(xs, ys, {
+        batchSize: 10,
+        epochs: epochs,
+        callbacks: {
+          onEpochEnd: function onEpochEnd(epoch, logs) {
+            console.log('[mlforkids] ML4KidsImageTraining epoch ' + epoch + ' loss ' + logs.loss);
+          },
+          onTrainEnd: function onTrainEnd() {
+            console.log('[mlforkids] ML4KidsImageTraining training complete');
+            that._saveModel(projectid);
+            that.PROJECTS[projectid].state = 'TRAINED';
+            that.PROJECTS[projectid].usingRestoredModel = false;
+            worker.postMessage({
+              mlforkidsimage: 'modelready',
+              data: {
+                projectid
+              }
             });
           }
         }
       });
-    });
-    this.extensions = [];
-  }
-  _createClass(ExtensionWorker, [{
-    key: "register",
-    value: function register(extensionObject) {
-      var _this2 = this;
-      var extensionId = this.nextExtensionId++;
-      this.extensions.push(extensionObject);
-      var serviceName = "extension.".concat(this.workerId, ".").concat(extensionId);
-      var promise = dispatch.setService(serviceName, extensionObject).then(function () {
-        return dispatch.call('extensions', 'registerExtensionService', serviceName, _this2.extensionURL);
+    }).catch(err => {
+      console.log('[mlforkids] ML4KidsImageTraining failed to train model', err);
+      this.PROJECTS[projectid].state = 'ERROR';
+      worker.postMessage({
+        mlforkidsimage: 'modelfailed',
+        data: {
+          projectid
+        }
       });
-      if (this.initialRegistrations) {
-        this.initialRegistrations.push(promise);
-      }
-      return promise;
-    }
-  }]);
-  return ExtensionWorker;
-}();
-global.Scratch = global.Scratch || {};
-global.Scratch.ArgumentType = ArgumentType;
-global.Scratch.BlockType = BlockType;
-global.Scratch.TargetType = TargetType;
-
-/**
- * Expose only specific parts of the worker to extensions.
- */
-var extensionWorker = new ExtensionWorker();
-global.Scratch.extensions = {
-  register: extensionWorker.register.bind(extensionWorker)
-};
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+    });
+  }
+  _getTensorForImageData(_ref) {
+    let {
+      imgdata,
+      metadata
+    } = _ref;
+    return new Promise((resolve, reject) => {
+      var imgDataBlob = URL.createObjectURL(new Blob([imgdata]));
+      var hiddenImg = document.createElement('img');
+      hiddenImg.width = 224;
+      hiddenImg.height = 224;
+      hiddenImg.onerror = function (err) {
+        console.log('[mlforkids] ML4KidsImageTraining failed to load image', err);
+        return reject(err);
+      };
+      hiddenImg.onload = function () {
+        var imageData = tf.tidy(function () {
+          return tf.browser.fromPixels(hiddenImg).expandDims(0).toFloat().div(127).sub(1);
+        });
+        resolve({
+          metadata,
+          data: imageData
+        });
+        URL.revokeObjectURL(imgDataBlob);
+      };
+      hiddenImg.src = imgDataBlob;
+    });
+  }
+}
+module.exports = ML4KidsImageTraining;
 
 /***/ }),
 
-/***/ "./node_modules/scratch-vm/node_modules/microee/index.js":
-/*!***************************************************************!*\
-  !*** ./node_modules/scratch-vm/node_modules/microee/index.js ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ "./src/mlforkids-components/numbers/index.js":
+/*!***************************************************!*\
+  !*** ./src/mlforkids-components/numbers/index.js ***!
+  \***************************************************/
+/***/ ((module) => {
+
+class ML4KidsNumbersTraining {
+  constructor(storageSupport) {
+    this.PROJECTS = {};
+    this.state = 'INIT';
+    this._storageSupport = storageSupport;
+    // this._ydf = null;
+  }
+  init() {
+    if (!this.initPromise) {
+      this.initPromise = new Promise((resolve, reject) => {
+        return YDFInference().then(ydf => {
+          this._ydf = ydf;
+          this.state = 'READY';
+          resolve();
+        }).catch(err => {
+          this.state = 'ERROR';
+          reject(err);
+        });
+      });
+    }
+    return this.initPromise;
+  }
+  initProject(project, worker) {
+    const projectid = project.id.toString();
+    this.PROJECTS[projectid] = {
+      state: 'INIT',
+      project: project
+    };
+    return this._loadModel(project).then(loaded => {
+      if (loaded) {
+        this.PROJECTS[projectid].state = 'TRAINED';
+        worker.postMessage({
+          mlforkidsnumbers: 'modelready',
+          data: {
+            projectid: projectid
+          }
+        });
+      } else {
+        this.PROJECTS[projectid].state = 'READY';
+        worker.postMessage({
+          mlforkidsnumbers: 'modelinit',
+          data: {
+            projectid: projectid
+          }
+        });
+      }
+      this._watchForNewModels(project.id, worker);
+    }).catch(err => {
+      console.log('[mlforkids] ML4KidsNumbersTraining failed init', err);
+      this.PROJECTS[projectid].state = 'ERROR';
+      worker.postMessage({
+        mlforkidsnumbers: 'modelfailed',
+        data: {
+          projectid: projectid
+        }
+      });
+    });
+  }
+
+  // TODO remove?
+  // _getModelDbLocation (projectid) {
+  //     return 'indexeddb://ml4k-models-numbers-' + projectid.toString().replaceAll('-', '');
+  // }
+
+  _getFromStorageAsJson(key) {
+    const value = this._storageSupport.getFromLocalStorage(key);
+    if (!value) {
+      throw new Error('Missing data ' + key);
+    }
+    return JSON.parse(value);
+  }
+  _loadModel(project) {
+    console.log('[mlforkids] ML4KidsNumbersTraining loading model zip from browser storage');
+    var loaded = false;
+    return this._storageSupport.retrieveAsset(project.id + '-model').then(modelzip => {
+      return this._ydf.loadModelFromZipBlob(modelzip);
+    }).then(ydfmodel => {
+      this.PROJECTS[project.id].model = ydfmodel;
+      const modelid = project.id;
+      this.PROJECTS[project.id].features = this._getFromStorageAsJson('ml4k-models-numbers-' + modelid + '-features');
+      this.PROJECTS[project.id].labels = this._getFromStorageAsJson('ml4k-models-numbers-' + modelid + '-labels');
+      loaded = true;
+      return loaded;
+    }).catch(err => {
+      console.log('[mlforkids] ML4KidsNumbersTraining failed to load model from storage', err);
+      return loaded;
+    });
+  }
+  trainNewModel(request, worker) {
+    console.log('[mlforkids] new model request', request);
+    const projectid = request.projectid;
+    this.PROJECTS[projectid].state = 'TRAINING';
+    const options = {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: '{}'
+    };
+    return fetch(request.modelurl, options).then(resp => {
+      return resp.json();
+    }).then(response => {
+      this.PROJECTS[projectid].details = response;
+      if (response.status === 'Training') {
+        this._scheduleModelStatusCheck(projectid, response, worker);
+      } else if (response.status === 'Failed') {
+        console.log('[mlforkids] model training failed', response);
+        if (response.error && response.error.message === 'More training data needed to train a model') {
+          // no training data for a model - let the scratch extension know
+          worker.postMessage({
+            mlforkidsnumbers: 'modelinit',
+            data: {
+              projectid: projectid,
+              reason: 'no training data'
+            }
+          });
+          return;
+        } else {
+          worker.postMessage({
+            mlforkidsnumbers: 'modelfailed',
+            data: {
+              projectid: projectid
+            }
+          });
+        }
+      }
+    }).catch(err => {
+      console.log('[mlforkids] model training failed', err);
+      worker.postMessage({
+        mlforkidsnumbers: 'modelfailed',
+        data: {
+          projectid: projectid
+        }
+      });
+    });
+  }
+  trainNewModelLocal(request, worker) {
+    console.log('[mlforkids] new model request', request);
+    const projectid = request.projectid;
+    this.PROJECTS[projectid].state = 'TRAINING';
+    return this._storageSupport.getTrainingData(projectid).then(training => {
+      if (training.length === 0) {
+        // no training - nothing we can do now - let the scratch extension know
+        worker.postMessage({
+          mlforkidsnumbers: 'modelinit',
+          data: {
+            projectid: projectid,
+            reason: 'no training data'
+          }
+        });
+        return;
+      }
+      const options = {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify({
+          project: this.PROJECTS[projectid].project,
+          training: training,
+          type: 'numbers'
+        })
+      };
+      return fetch(request.modelurl, options);
+    }).then(resp => {
+      if (resp) {
+        return resp.json();
+      }
+    }).then(response => {
+      if (response) {
+        this.PROJECTS[projectid].details = response;
+        if (response.status === 'Training') {
+          this._scheduleModelStatusCheck(projectid, response, worker);
+        } else if (response.status === 'Failed') {
+          console.log('[mlforkids] model training failed', response);
+          if (response.error && response.error.message === 'More training data needed to train a model') {
+            // no training - nothing we can do now - let the scratch extension know
+            worker.postMessage({
+              mlforkidsnumbers: 'modelinit',
+              data: {
+                projectid: projectid,
+                reason: 'no training data'
+              }
+            });
+            return;
+          } else {
+            worker.postMessage({
+              mlforkidsnumbers: 'modelfailed',
+              data: {
+                projectid: projectid
+              }
+            });
+          }
+        }
+      }
+    }).catch(err => {
+      console.log('[mlforkids] model training failed', err);
+      worker.postMessage({
+        mlforkidsnumbers: 'modelfailed',
+        data: {
+          projectid: projectid
+        }
+      });
+    });
+  }
+  _scheduleModelStatusCheck(projectid, modelinfo, worker) {
+    setTimeout(() => {
+      this._checkModelStatus(projectid, modelinfo, worker);
+    }, 4000);
+  }
+  _checkModelStatus(projectid, modelinfo, worker) {
+    console.log('[mlforkids] checking model status');
+    return fetch(modelinfo.urls.status).then(r => {
+      return r.json();
+    }).then(newstatus => {
+      if (newstatus.status === 'Training') {
+        console.log('[mlforkids] model still training');
+        this._scheduleModelStatusCheck(projectid, newstatus, worker);
+      } else if (newstatus.status === 'Available') {
+        this._storeModelForLocalReuse(projectid, newstatus, worker);
+      } else {
+        console.log('[mlforkids] model server reports training failed', newstatus);
+        this.PROJECTS[projectid].state = 'ERROR';
+        worker.postMessage({
+          mlforkidsnumbers: 'modelfailed',
+          data: {
+            projectid: projectid
+          }
+        });
+      }
+    }).catch(err => {
+      console.log('[mlforkids] failed to check model status', err);
+      this.PROJECTS[projectid].state = 'ERROR';
+      worker.postMessage({
+        mlforkidsnumbers: 'modelfailed',
+        data: {
+          projectid: projectid
+        }
+      });
+    });
+  }
+  _storeModelForLocalReuse(projectid, modelinfo, worker) {
+    console.log('[mlforkids] downloading ydf model');
+    this._storageSupport.storeAsset(projectid + '-model', modelinfo.urls.model).then(() => {
+      console.log('[mlforkids] downloading visualisation');
+      return this._storageSupport.storeAsset(projectid + '-tree', modelinfo.urls.tree).then(() => {
+        return this._storageSupport.storeAsset(projectid + '-dot', modelinfo.urls.dot);
+      }).then(() => {
+        return this._storageSupport.storeAsset(projectid + '-vocab', modelinfo.urls.vocab);
+      }).catch(err => {
+        console.log('[mlforkids] failed to download visualisation', err);
+      });
+    }).then(() => {
+      console.log('[mlforkids] retrieving model from storage');
+      return this._storageSupport.retrieveAsset(projectid + '-model');
+    }).then(modelzip => {
+      console.log('[mlforkids] opening model');
+      return this._ydf.loadModelFromZipBlob(modelzip);
+    }).then(ydfmodel => {
+      if (this.PROJECTS[projectid].model) {
+        this.PROJECTS[projectid].model.unload();
+      }
+      this.PROJECTS[projectid].model = ydfmodel;
+      console.log('[mlforkids] saving model info');
+      window.localStorage.setItem('ml4k-models-numbers-' + projectid + '-features', JSON.stringify(modelinfo.features));
+      window.localStorage.setItem('ml4k-models-numbers-' + projectid + '-labels', JSON.stringify(modelinfo.labels));
+      window.localStorage.setItem('ml4k-models-numbers-' + projectid + '-status', modelinfo.urls.status);
+      window.localStorage.setItem('ml4k-models-numbers-' + projectid + '-date', Date.now());
+      this.PROJECTS[projectid].features = modelinfo.features;
+      this.PROJECTS[projectid].labels = modelinfo.labels;
+    }).then(() => {
+      this.PROJECTS[projectid].state = 'TRAINED';
+      worker.postMessage({
+        mlforkidsnumbers: 'modelready',
+        data: {
+          projectid: projectid
+        }
+      });
+    }).catch(err => {
+      console.log('[mlforkids] model storing failed', err);
+      if (err.message && err.message.includes('BlobURLs are not yet supported')) {
+        console.log('[mlforkids] UNABLE TO STORE MODEL');
+        this.PROJECTS[projectid].state = 'TRAINED';
+        worker.postMessage({
+          mlforkidsnumbers: 'modelready',
+          data: {
+            projectid: projectid
+          }
+        });
+      } else {
+        worker.postMessage({
+          mlforkidsnumbers: 'modelfailed',
+          data: {
+            projectid: projectid
+          }
+        });
+      }
+    });
+  }
+
+  // deleteModel (projectid) {
+  //     this.PROJECTS[projectid].state = 'READY';
+  //     delete this.PROJECTS[projectid].features;
+  //     delete this.PROJECTS[projectid].labels;
+  //     delete this.PROJECTS[projectid].model;
+  //     // TODO delete stored model
+  //     return Promise.resolve();
+  // }
+
+  classifyNumberData(request, worker) {
+    const projectid = request.projectid;
+    const numberdata = request.numbers;
+    const requestid = request.requestid;
+    const testdata = {};
+    try {
+      for (const key of Object.keys(numberdata)) {
+        const feature = this.PROJECTS[projectid].features[key];
+        if (feature) {
+          if (feature.type.includes('int')) {
+            testdata[feature.name] = [parseInt(numberdata[key])];
+          } else if (feature.type.includes('float')) {
+            testdata[feature.name] = [parseFloat(numberdata[key])];
+          } else {
+            testdata[feature.name] = [numberdata[key]];
+          }
+        }
+      }
+    } catch (err) {
+      console.error('[mlforkids] unable to prepare data for classifying', err);
+      return;
+    }
+    const output = this.PROJECTS[projectid].model.predict(testdata);
+    if (this.PROJECTS[projectid].labels.length === 2) {
+      const result = [{
+        class_name: this.PROJECTS[projectid].labels[0],
+        confidence: (1 - output[0]) * 100
+      }, {
+        class_name: this.PROJECTS[projectid].labels[1],
+        confidence: output[0] * 100
+      }].sort(this._sortByConfidence);
+      worker.postMessage({
+        mlforkidsnumbers: 'classifyresponse',
+        data: {
+          projectid,
+          requestid,
+          result
+        }
+      });
+    } else if (this.PROJECTS[projectid].labels.length === output.length) {
+      const result = this.PROJECTS[projectid].labels.map((label, idx) => {
+        return {
+          class_name: label,
+          confidence: output[idx] * 100
+        };
+      }).sort(this._sortByConfidence);
+      worker.postMessage({
+        mlforkidsnumbers: 'classifyresponse',
+        data: {
+          projectid,
+          requestid,
+          result
+        }
+      });
+    } else {
+      console.error('[ml4knums] unexpected model response', output);
+      this.PROJECTS[projectid].state = 'ERROR';
+      worker.postMessage({
+        mlforkidsnumbers: 'modelfailed',
+        data: {
+          projectid: projectid
+        }
+      });
+    }
+  }
+  _watchForNewModels(projectid, worker) {
+    if (!this.PROJECTS[projectid].modelWatcher) {
+      console.log('[mlforkids] ML4KidsNumbersTraining listening for model updates', projectid);
+      this.PROJECTS[projectid].modelWatcher = true;
+      const modellocation = 'ml4k-models-numbers-' + projectid + '-date';
+      this._storageSupport.registerForModelStorageUpdates(modellocation, () => {
+        console.log('[mlforkids] ML4KidsNumbersTraining new model was trained');
+        this.PROJECTS[projectid].state = 'TRAINING'; // loading saved model
+        this._loadModel({
+          id: projectid
+        }).then(loaded => {
+          if (loaded) {
+            console.log('[mlforkids] ML4KidsNumbersTraining model loaded');
+            this.PROJECTS[projectid].state = 'TRAINED';
+            worker.postMessage({
+              mlforkidsnumbers: 'modelready',
+              data: {
+                projectid: projectid
+              }
+            });
+          } else {
+            console.log('[mlforkids] ML4KidsNumbersTraining no model - model deleted');
+            this.PROJECTS[projectid].state = 'READY';
+            worker.postMessage({
+              mlforkidsnumbers: 'modelinit',
+              data: {
+                projectid: projectid,
+                reason: 'model deleted'
+              }
+            });
+          }
+        }).catch(() => {
+          console.log('[mlforkids] ML4KidsNumbersTraining unexpected loading error');
+          this.PROJECTS[projectid].state = 'ERROR';
+          worker.postMessage({
+            mlforkidsnumbers: 'modelfailed',
+            data: {
+              projectid: projectid
+            }
+          });
+        });
+      });
+    }
+  }
+  _sortByConfidence(a, b) {
+    if (a.confidence < b.confidence) {
+      return 1;
+    } else if (a.confidence > b.confidence) {
+      return -1;
+    } else {
+      return 0;
+    }
+  }
+}
+module.exports = ML4KidsNumbersTraining;
+
+/***/ }),
+
+/***/ "./src/mlforkids-components/regression/index.js":
+/*!******************************************************!*\
+  !*** ./src/mlforkids-components/regression/index.js ***!
+  \******************************************************/
+/***/ ((module) => {
+
+class ML4KidsRegressionTraining {
+  constructor(storageSupport) {
+    this.PROJECTS = {};
+    this.state = 'INIT';
+    this._storageSupport = storageSupport;
+  }
+  init() {
+    if (!this.initPromise) {
+      this.initPromise = new Promise(resolve => {
+        tf.enableProdMode();
+        this.state = 'READY';
+        resolve();
+      });
+    }
+    return this.initPromise;
+  }
+  initProject(project, worker) {
+    this.PROJECTS[project.id] = {
+      state: 'INIT',
+      project: project
+    };
+    return this._loadModel(project.id).then(loaded => {
+      if (loaded) {
+        this.PROJECTS[project.id].state = 'TRAINED';
+        worker.postMessage({
+          mlforkidsregression: 'modelready',
+          data: {
+            projectid: project.id
+          }
+        });
+      } else {
+        this.PROJECTS[project.id].state = 'READY';
+        worker.postMessage({
+          mlforkidsregression: 'modelinit',
+          data: {
+            projectid: project.id
+          }
+        });
+      }
+      this._watchForNewModels(project.id, worker);
+    }).catch(err => {
+      console.log('[mlforkids] ML4KidsRegressionTraining failed init', err);
+      this.PROJECTS[projectid].state = 'ERROR';
+      worker.postMessage({
+        mlforkidsregression: 'modelfailed',
+        data: {
+          projectid: project.id
+        }
+      });
+    });
+  }
+  trainNewModel(projectid, worker) {
+    if (this.PROJECTS[projectid].state === 'TRAINING') {
+      console.log('[mlforkids] ML4KidsRegressionTraining training in progress for this model');
+      return;
+    }
+    console.log('[mlforkids] ML4KidsRegressionTraining training new model');
+    this.PROJECTS[projectid].state = 'TRAINING';
+    const that = this;
+    return this._storageSupport.getTrainingData(projectid).then(training => {
+      const project = that.PROJECTS[projectid].project;
+
+      // separate out columns into input and output values
+      const inputColumns = project.columns.filter(function (col) {
+        return col.output === false;
+      }).map(function (col) {
+        return col.label;
+      });
+      const targetColumns = project.columns.filter(function (col) {
+        return col.output === true;
+      }).map(function (col) {
+        return col.label;
+      });
+
+      // turn array of JSON objects into array of raw numbers
+      const inputFeatures = [];
+      const targetFeatures = [];
+      for (let i = 0; i < training.length; i++) {
+        const trainingitem = training[i];
+        let skip = false;
+        const inputFeature = inputColumns.map(function (col) {
+          const num = trainingitem[col];
+          if (isNaN(num)) {
+            skip = true;
+          }
+          return num;
+        });
+        const targetFeature = targetColumns.map(function (col) {
+          const num = trainingitem[col];
+          if (isNaN(num)) {
+            skip = true;
+          }
+          return num;
+        });
+        if (skip) {
+          console.log('[mlforkids] skipping non-numeric training data', trainingitem);
+        } else {
+          inputFeatures.push(inputFeature);
+          targetFeatures.push(targetFeature);
+        }
+      }
+
+      // normalize the input
+      const inputFeaturesTensor = tf.tensor2d(inputFeatures);
+      const mean = inputFeaturesTensor.mean(0);
+      const standardDeviation = inputFeaturesTensor.sub(mean).square().mean(0).sqrt();
+      that.PROJECTS[projectid].normalization = {
+        mean,
+        standardDeviation
+      };
+      const normalisedInputFeatures = inputFeaturesTensor.sub(that.PROJECTS[projectid].normalization.mean).div(that.PROJECTS[projectid].normalization.standardDeviation);
+
+      // store the normalization
+      that._storageSupport.addMetadataToProject(projectid, 'normalization', {
+        mean: that.PROJECTS[projectid].normalization.mean.arraySync(),
+        standardDeviation: that.PROJECTS[projectid].normalization.standardDeviation.arraySync()
+      });
+
+      // create the model
+      that.PROJECTS[projectid].model = that._defineModel(inputColumns.length, targetColumns.length);
+
+      // train the model
+      that.PROJECTS[projectid].model.fit(normalisedInputFeatures, tf.tensor2d(targetFeatures), {
+        batchSize: 40,
+        epochs: 200,
+        validationSplit: 0.2,
+        callbacks: {
+          onEpochEnd: (epoch, logs) => {
+            console.log('[mlforkids] ML4KidsRegressionTraining epoch ' + epoch + ' loss ' + logs.loss);
+          },
+          onTrainEnd: function onTrainEnd() {
+            console.log('[mlforkids] ML4KidsRegressionTraining training complete');
+            that._saveModel(projectid);
+            that.PROJECTS[projectid].state = 'TRAINED';
+            worker.postMessage({
+              mlforkidsregression: 'modelready',
+              data: {
+                projectid
+              }
+            });
+          }
+        }
+      });
+    }).catch(err => {
+      console.log('[mlforkids] ML4KidsRegressionTraining failed to train model', err);
+      this.PROJECTS[projectid].state = 'ERROR';
+      worker.postMessage({
+        mlforkidsregression: 'modelfailed',
+        data: {
+          projectid
+        }
+      });
+    });
+  }
+  predict(requestdata, worker) {
+    const requestid = requestdata.requestid;
+    const projectid = requestdata.projectid;
+    const project = this.PROJECTS[projectid].project;
+    const normalization = this.PROJECTS[projectid].normalization;
+    const testdata = requestdata.data;
+    var testTensor = tf.tidy(function () {
+      const inputValues = project.columns.filter(function (col) {
+        return col.output === false;
+      }).map(function (col) {
+        return testdata[col.label];
+      });
+      const inputTensor = tf.tensor2d([inputValues]);
+      const normalisedInputValues = inputTensor.sub(normalization.mean).div(normalization.standardDeviation);
+      return normalisedInputValues;
+    });
+    var modelOutput = this.PROJECTS[projectid].model.predict(testTensor);
+    modelOutput.data().then(function (output) {
+      const targetColumns = project.columns.filter(function (col) {
+        return col.output === true;
+      });
+      if (output.length !== targetColumns.length) {
+        loggerService.error('[ml4kregress] unexpected output from model', output);
+        throw new Error('Unexpected output from model');
+      }
+      var labelledOutput = {};
+      targetColumns.forEach(function (col, idx) {
+        labelledOutput[col.label] = output[idx];
+      });
+      worker.postMessage({
+        mlforkidsregression: 'classifyresponse',
+        data: {
+          projectid: projectid,
+          requestid: requestid,
+          prediction: labelledOutput
+        }
+      });
+    }).catch(function (err) {
+      console.log('[mlforkids] ML4KidsRegressionTraining failed to run test', err);
+      // TODO
+    });
+  }
+  _defineModel(numInputFeatures, numOutputLabels) {
+    const regressionModel = tf.sequential();
+    regressionModel.add(tf.layers.dense({
+      inputShape: [numInputFeatures],
+      units: 50,
+      activation: 'sigmoid',
+      kernelInitializer: 'leCunNormal'
+    }));
+    regressionModel.add(tf.layers.dense({
+      units: 50,
+      activation: 'sigmoid',
+      kernelInitializer: 'leCunNormal'
+    }));
+    regressionModel.add(tf.layers.dense({
+      units: numOutputLabels
+    }));
+    regressionModel.compile({
+      optimizer: tf.train.sgd(0.01),
+      loss: 'meanSquaredError'
+    });
+    return regressionModel;
+  }
+  _getModelDbLocation(projectid) {
+    return 'indexeddb://ml4k-models-regression-' + projectid.toString().replaceAll('-', '');
+  }
+  _loadModel(projectid) {
+    console.log('[mlforkids] ML4KidsRegressionTraining loading model from browser storage');
+    var loaded = false;
+    if (this.PROJECTS[projectid].project.normalization) {
+      const savelocation = this._getModelDbLocation(projectid);
+      return tf.loadLayersModel(savelocation).then(storedModelInfo => {
+        // TODO compare model with project info to check size is consistent
+        if (storedModelInfo) {
+          this.PROJECTS[projectid].normalization = {
+            mean: tf.tensor(this.PROJECTS[projectid].project.normalization.mean),
+            standardDeviation: tf.tensor(this.PROJECTS[projectid].project.normalization.standardDeviation)
+          };
+          this.PROJECTS[projectid].model = storedModelInfo;
+          loaded = true;
+        }
+        return loaded;
+      }).catch(err => {
+        console.log('[mlforkids] ML4KidsRegressionTraining failed to load model from storage', err);
+        return loaded;
+      });
+    } else {
+      console.log('[mlforkids] ML4KidsRegressionTraining no stored normalization data - cannot use a loaded model');
+      return Promise.resolve(loaded);
+    }
+  }
+  _saveModel(projectid) {
+    console.log('[mlforkids] ML4KidsRegressionTraining saving model to browser storage');
+    const savelocation = this._getModelDbLocation(projectid);
+    return this.PROJECTS[projectid].model.save(savelocation).then(results => {
+      console.log('[mlforkids] ML4KidsRegressionTraining saved model', savelocation, results);
+    }).catch(err => {
+      console.log('[mlforkids] ML4KidsRegressionTraining failed to save model', err);
+    });
+  }
+  _watchForNewModels(projectid, worker) {
+    if (!this.PROJECTS[projectid].modelWatcher) {
+      console.log('[mlforkids] ML4KidsRegressionTraining listening for model updates', projectid);
+      this.PROJECTS[projectid].modelWatcher = true;
+      const modellocation = this._getModelDbLocation(projectid);
+      this._storageSupport.registerForModelStorageUpdates(modellocation, () => {
+        console.log('[mlforkids] ML4KidsRegressionTraining new model was trained');
+        this.trainNewModel(projectid, worker);
+      });
+    }
+  }
+}
+module.exports = ML4KidsRegressionTraining;
+
+/***/ }),
+
+/***/ "./src/mlforkids-components/sound/index.js":
+/*!*************************************************!*\
+  !*** ./src/mlforkids-components/sound/index.js ***!
+  \*************************************************/
+/***/ ((module) => {
+
+class ML4KidsSoundTraining {
+  // states:
+  //   INIT - not ready yet
+  //   READY - ready for training
+  //   TRAINING - training in progress
+  //   TRAINED - ML model ready for use
+  //   LISTENING - ML model being used
+  //   ERROR - something went wrong
+
+  constructor(storageSupport) {
+    this.state = 'INIT';
+    this.usingRestoredModel = false;
+    this._storageSupport = storageSupport;
+  }
+  init(encprojectdata, worker) {
+    // TODO this will break if there are multiple sound extensions open in Scratch - use multi-project approach from image-support class
+
+    if (typeof encprojectdata === 'string') {
+      if (encprojectdata[0] === '{') {
+        // additional info for using indexeddb to store/load models
+        const projectData = JSON.parse(encprojectdata);
+        this.mlprojectid = projectData.projectid;
+        this.mlprojectlabels = projectData.labels;
+        if (!projectData.labels.includes('_background_noise_')) {
+          this.mlprojectlabels.unshift('_background_noise_');
+        }
+      } else {
+        // project id only means new models can be created only
+        this.mlprojectid = encprojectdata;
+      }
+    } else {
+      // additional info for using indexeddb to store/load models
+      this.mlprojectid = encprojectdata.projectid;
+      this.mlprojectlabels = encprojectdata.labels;
+      if (!encprojectdata.labels.includes('_background_noise_')) {
+        this.mlprojectlabels.unshift('_background_noise_');
+      }
+    }
+    tf.enableProdMode();
+    window.addEventListener('mlforkids-runtime-project-stop-all', () => {
+      this.stopListening(worker);
+    });
+    return this.loadSpeechCommands().then(() => {
+      return this.initSoundSupport(true, worker);
+      // })
+      // .then(() => {
+      //     this._watchForNewModels(this.mlprojectid);
+    });
+  }
+  loadSpeechCommands() {
+    const scriptid = 'mlforkids-script-speechcommands';
+    const scripturl = 'https://machinelearningforkids.co.uk' + '/static/bower_components' + '/tensorflow-models/speech-commands-scratch' + '/speech-commands.min.js?v=118';
+    return new Promise((resolve, reject) => {
+      if (document.getElementById(scriptid)) {
+        return resolve();
+      } else {
+        const scriptObj = document.createElement('script');
+        scriptObj.id = scriptid;
+        scriptObj.type = 'text/javascript';
+        scriptObj.src = scripturl;
+        scriptObj.onload = resolve;
+        scriptObj.onError = reject;
+        document.head.appendChild(scriptObj);
+      }
+    });
+  }
+  prepareSoundService(worker) {
+    if (this.usingRestoredModel) {
+      // models restored from indexeddb don't have the base layers needed
+      //  to train a new model, so we need to start from scratch
+      console.log('[mlforkids] Setting up new transfer learning model');
+      return this.initSoundSupport(false, worker);
+    } else {
+      // we aren't using a model restored from indexeddb so we should
+      //  have everything we need already in place to train a new model
+      return Promise.resolve();
+    }
+  }
+  initSoundSupport(loadModelIfAvailable, worker) {
+    const siteUrl = 'https://machinelearningforkids.co.uk' + '/static/bower_components' + '/tensorflow-models/speech-commands-scratch';
+    const vocab = null;
+    const modelJson = siteUrl + '/model.json';
+    const metadataJson = siteUrl + '/metadata.json';
+    console.log('[mlforkids] Creating base recognizer');
+    const baseRecognizer = speechCommands.create('BROWSER_FFT', vocab, modelJson, metadataJson);
+    return baseRecognizer.ensureModelLoaded().then(() => {
+      console.log('[mlforkids] Creating transfer learning model');
+      this.transferRecognizer = baseRecognizer.createTransfer('project-' + this.mlprojectid);
+      const modelInfo = this.transferRecognizer.modelInputShape();
+      this.transferModelInfo = {
+        numFrames: modelInfo[1],
+        fftSize: modelInfo[2]
+      };
+      if (loadModelIfAvailable) {
+        return this._loadModel(this.mlprojectid, this.mlprojectlabels, worker);
+      }
+    }).catch(err => {
+      console.log('[mlforkids] ML4KidsSoundTraining failed init', err);
+      this.state = 'ERROR';
+      if (worker) {
+        worker.postMessage({
+          mlforkidssound: 'modelfailed'
+        });
+      }
+    });
+  }
+  trainNewModelLocal(projectinfo, worker) {
+    const projectid = projectinfo.projectid;
+    const that = this;
+    return this._storageSupport.getTrainingData(projectid).then(data => {
+      return that.trainNewModel(data, worker);
+    });
+  }
+  trainNewModel(data, worker) {
+    if (this.state === 'LISTENING') {
+      this.stopListening();
+    }
+    if (this.state !== 'READY' && this.state !== 'TRAINED') {
+      console.log('[mlforkids] ML4KidsSoundTraining not ready to train a new ML model - state : ' + this.state);
+      return;
+    }
+    this.state = 'TRAINING';
+    return this.prepareSoundService(worker).then(() => {
+      this.transferRecognizer.dataset.clear();
+      this.transferRecognizer.dataset.label2Ids = {};
+      this.transferRecognizer.words = null;
+      for (var i = 0; i < data.length; i++) {
+        var trainingdataitem = data[i];
+        this.transferRecognizer.dataset.addExample({
+          label: trainingdataitem.label,
+          spectrogram: {
+            frameSize: this.transferModelInfo.fftSize,
+            data: new Float32Array(trainingdataitem.audiodata)
+          }
+        });
+      }
+      this.transferRecognizer.collateTransferWords();
+      return tf.nextFrame();
+    }).then(() => {
+      return this.transferRecognizer.train({
+        epochs: 100
+      });
+    }).then(() => {
+      this.state = 'TRAINED';
+      this.usingRestoredModel = false;
+      return this._saveModel(this.mlprojectid);
+    }).then(() => {
+      worker.postMessage({
+        mlforkidssound: 'modelready'
+      });
+    }).catch(err => {
+      this.state = 'ERROR';
+      worker.postMessage({
+        mlforkidssound: 'modelfailed'
+      });
+      console.log('[mlforkids] ML4KidsSoundTraining model training failed');
+      console.log(err);
+    });
+  }
+  startListening(worker) {
+    if (this.state !== 'TRAINED') {
+      console.log('[mlforkids] ML4KidsSoundTraining not ready to listen - state : ' + this.state);
+      return;
+    }
+    console.log('[mlforkids] startListening');
+    try {
+      var that = this;
+      this.transferRecognizer.listen(result => {
+        var matches = [];
+        var labels = that.transferRecognizer.wordLabels();
+        for (var i = 0; i < result.scores.length; i++) {
+          matches.push({
+            class_name: labels[i],
+            confidence: result.scores[i] * 100
+          });
+        }
+        matches.sort((a, b) => {
+          return b.confidence - a.confidence;
+        });
+        worker.postMessage({
+          mlforkidssound: 'recognized',
+          data: matches
+        });
+      }, {
+        probabilityThreshold: 0.70
+      });
+      this.state = 'LISTENING';
+    } catch (err) {
+      this.state = 'ERROR';
+      console.log('[mlforkids] ML4KidsSoundTraining failed to start listening');
+      console.log(err);
+    }
+  }
+  stopListening(worker) {
+    if (this.state !== 'LISTENING') {
+      console.log('[mlforkids] ML4KidsSoundTraining not listening - state : ' + this.state);
+      return;
+    }
+    console.log('[mlforkids] stopListening');
+    try {
+      this.transferRecognizer.stopListening();
+      this.state = 'TRAINED';
+      worker.postMessage({
+        mlforkidssound: 'stopped'
+      });
+    } catch (err) {
+      this.state = 'ERROR';
+      console.log('[mlforkids] ML4KidsSoundTraining failed to start listening');
+      console.log(err);
+    }
+  }
+  _getModelDbLocation(projectid) {
+    return 'indexeddb://ml4k-models-sounds-' + projectid.toString().replaceAll('-', '');
+  }
+  _saveModel(projectid) {
+    console.log('[mlforkids] ML4KidsSoundTraining saving model to browser storage');
+    var savelocation = this._getModelDbLocation(projectid);
+    this.transferRecognizer.save(savelocation).then(r => {
+      console.log('[mlforkids] ML4KidsSoundTraining saved model', r);
+      this._storeModelSavedDate(savelocation);
+    }).catch(err => {
+      console.log('[mlforkids] ML4KidsSoundTraining failed to save model', err);
+    });
+  }
+  _storeModelSavedDate(modelid) {
+    try {
+      if (window.localStorage) {
+        window.localStorage.setItem(modelid, Date.now());
+      }
+    } catch (err) {
+      console.log('[mlforkids] ML4KidsSoundTraining unable to save model date');
+    }
+  }
+  _loadModel(projectid, labels, worker) {
+    if (labels) {
+      console.log('[mlforkids] ML4KidsSoundTraining loading model from browser storage');
+      var savelocation = this._getModelDbLocation(projectid);
+      return this.transferRecognizer.load(savelocation).then(() => {
+        this.transferRecognizer.words = Array.from(labels).sort();
+        console.log('[mlforkids] ML4KidsSoundTraining loaded model from storage');
+        this.state = 'TRAINED';
+        this.usingRestoredModel = true;
+        if (worker) {
+          worker.postMessage({
+            mlforkidssound: 'modelready'
+          });
+        }
+      }).catch(err => {
+        console.log('[mlforkids] ML4KidsSoundTraining failed to load model from storage', err);
+        this.state = 'READY';
+        if (worker) {
+          worker.postMessage({
+            mlforkidssound: 'modelinit'
+          });
+        }
+      });
+    } else {
+      console.log('[mlforkids] ML4KidsSoundTraining unable to restore model from storage');
+      this.state = 'READY';
+    }
+  }
+
+  // TODO - too risky for now... need to consider things like:
+  //   - what if the transferRecognizer is currently listening? do we need to stop listening first? notify extensions?
+  // _watchForNewModels (projectid) {
+  //     if (!this.modelWatcher) {
+  //         console.log('[mlforkids] ML4KidsSoundTraining listening for model updates', projectid);
+  //         this.modelWatcher = true;
+  //
+  //         const modellocation = this._getModelDbLocation(projectid);
+  //         window.addEventListener('storage', (evt) => {
+  //             if (evt.key === modellocation) {
+  //                 console.log('[mlforkids] ML4KidsSoundTraining new model is available');
+  //                 return this._loadModel(projectid, this.mlprojectlabels);
+  //             }
+  //         });
+  //     }
+  // }
+}
+module.exports = ML4KidsSoundTraining;
+
+/***/ }),
+
+/***/ "./src/mlforkids-components/storage/index.js":
+/*!***************************************************!*\
+  !*** ./src/mlforkids-components/storage/index.js ***!
+  \***************************************************/
+/***/ ((module) => {
+
+class ML4KidsLocalStorage {
+  constructor() {
+    // this.projectsDbHandle;
+    this.PROJECTS_DB_NAME = 'mlforkidsLocalProjects';
+    this.PROJECTS_TABLE = 'projects';
+    this.trainingDataDatabases = {};
+    this.TRAINING_DB_NAME_PREFIX = 'mlforkidsProject';
+    this.TRAINING_TABLE = 'training';
+
+    // this.assetsDbHandle;
+    this.ASSETS_DB_NAME = 'mlforkidsAssets';
+    this.ASSETS_TABLE = 'assets';
+  }
+
+  //-----------------------------------------------------------
+  //  common functions
+  //-----------------------------------------------------------
+
+  promisifyIndexedDbRequest(request) {
+    return new Promise((resolve, reject) => {
+      request.onsuccess = resolve;
+      request.onerror = reject;
+    });
+  }
+  initProjectsDatabase(event) {
+    console.log('[ml4kstorage] initProjectsDatabase');
+    event.target.result.createObjectStore(this.PROJECTS_TABLE, {
+      keyPath: 'id',
+      autoIncrement: true
+    });
+  }
+  initTrainingDatabase(event) {
+    console.log('[ml4kstorage] initTrainingDatabase');
+    const table = event.target.result.createObjectStore(this.TRAINING_TABLE, {
+      keyPath: 'id',
+      autoIncrement: true
+    });
+    table.createIndex('label', 'label', {
+      unique: false
+    });
+  }
+  initAssetsDatabase(event) {
+    console.log('[ml4kstorage] initAssetsDatabase');
+    event.target.result.createObjectStore(this.ASSETS_TABLE);
+  }
+  getProjectsDatabase() {
+    console.log('[ml4kstorage] getProjectsDatabase');
+    const request = window.indexedDB.open(this.PROJECTS_DB_NAME);
+    request.onupgradeneeded = this.initProjectsDatabase;
+    return this.promisifyIndexedDbRequest(request).then(event => {
+      return event.target.result;
+    });
+  }
+  getTrainingDatabase(projectId) {
+    console.log('[ml4kstorage] getTrainingDatabase');
+    const request = window.indexedDB.open(this.TRAINING_DB_NAME_PREFIX + projectId);
+    request.onupgradeneeded = this.initTrainingDatabase;
+    return this.promisifyIndexedDbRequest(request).then(event => {
+      return event.target.result;
+    });
+  }
+  getAssetsDatabase() {
+    console.log('[ml4kstorage] getAssetsDatabase');
+    const request = window.indexedDB.open(this.ASSETS_DB_NAME);
+    request.onupgradeneeded = this.initAssetsDatabase;
+    return this.promisifyIndexedDbRequest(request).then(event => {
+      return event.target.result;
+    });
+  }
+  async requiresProjectsDatabase() {
+    if (!this.projectsDbHandle) {
+      this.projectsDbHandle = await this.getProjectsDatabase();
+      this.projectsDbHandle.onclose = () => {
+        console.log('[ml4kstorage] projects database closed');
+        delete this.projectsDbHandle;
+      };
+    }
+  }
+  async requiresTrainingDatabase(projectId) {
+    if (!this.trainingDataDatabases[projectId]) {
+      this.trainingDataDatabases[projectId] = await this.getTrainingDatabase(projectId);
+      this.trainingDataDatabases[projectId].onclose = () => {
+        console.log('[ml4kstorage] training database closed', projectId);
+        delete this.trainingDataDatabases[projectId];
+      };
+    }
+  }
+  async requiresAssetsDatabase() {
+    if (!this.assetsDbHandle) {
+      this.assetsDbHandle = await this.getAssetsDatabase();
+      this.assetsDbHandle.onclose = () => {
+        console.log('[ml4kstorage] assets database closed');
+        delete this.assetsDbHandle;
+      };
+    }
+  }
+  requiresResult(event) {
+    if (event && event.target && event.target.result) {
+      return event.target.result;
+    }
+    const notFoundErr = new Error('not found');
+    notFoundErr.status = 404;
+    notFoundErr.data = {
+      error: 'not found'
+    };
+    throw notFoundErr;
+  }
+  requiresIntegerId(id) {
+    return parseInt(id, 10);
+  }
+
+  //-----------------------------------------------------------
+  //  PROJECTS database
+  //-----------------------------------------------------------
+
+  async getProject(projectId) {
+    console.log('[ml4kstorage] getProject', projectId);
+    await this.requiresProjectsDatabase();
+    const transaction = this.projectsDbHandle.transaction([this.PROJECTS_TABLE], 'readonly');
+    const request = transaction.objectStore(this.PROJECTS_TABLE).get(this.requiresIntegerId(projectId));
+    return this.promisifyIndexedDbRequest(request).then(event => {
+      return this.requiresResult(event);
+    });
+  }
+  async addMetadataToProject(projectid, key, value) {
+    console.log('[ml4kstorage] addMetadataToProject');
+    await this.requiresProjectsDatabase();
+    const transaction = this.projectsDbHandle.transaction([this.PROJECTS_TABLE], 'readwrite');
+    const projectsTable = transaction.objectStore(this.PROJECTS_TABLE);
+    const readRequest = projectsTable.get(this.requiresIntegerId(projectid));
+    const readEvent = await this.promisifyIndexedDbRequest(readRequest);
+    const projectObject = this.requiresResult(readEvent);
+    projectObject[key] = value;
+    const updateRequest = projectsTable.put(projectObject);
+    await this.promisifyIndexedDbRequest(updateRequest);
+    return projectObject;
+  }
+
+  //-----------------------------------------------------------
+  //  TRAINING DATA store
+  //-----------------------------------------------------------
+
+  async getTrainingData(projectId) {
+    console.log('[ml4kstorage] getTrainingData', projectId);
+    await this.requiresTrainingDatabase(projectId);
+    const transaction = this.trainingDataDatabases[projectId].transaction([this.TRAINING_TABLE], 'readonly');
+    const request = transaction.objectStore(this.TRAINING_TABLE).getAll();
+    return this.promisifyIndexedDbRequest(request).then(event => {
+      return event.target.result;
+    });
+  }
+  async addTrainingData(projectId, trainingObject) {
+    console.log('[ml4kstorage] addTrainingData');
+    await this.requiresTrainingDatabase(projectId);
+    const transaction = this.trainingDataDatabases[projectId].transaction([this.TRAINING_TABLE], 'readwrite');
+    const request = transaction.objectStore(this.TRAINING_TABLE).add(trainingObject);
+    return this.promisifyIndexedDbRequest(request).then(event => {
+      trainingObject.id = event.target.result;
+      if (trainingObject.label) {
+        this.addLabel(projectId, trainingObject.label);
+      }
+      return trainingObject;
+    });
+  }
+
+  // update labels to meet WA requirements
+  sanitizeLabel(proposedlabel) {
+    return proposedlabel.replace(/[^\w.]/g, '_').substring(0, 30);
+  }
+  async addLabel(projectId, newlabel) {
+    console.log('[ml4kstorage] addLabel');
+    await this.requiresProjectsDatabase();
+    let label = newlabel;
+    try {
+      label = this.sanitizeLabel(newlabel);
+    } catch (labelErr) {
+      console.error('[ml4kstorage] Failed to sanitize label, leaving as-is');
+    }
+    const transaction = this.projectsDbHandle.transaction([this.PROJECTS_TABLE], 'readwrite');
+    const projectsTable = transaction.objectStore(this.PROJECTS_TABLE);
+    const readRequest = projectsTable.get(this.requiresIntegerId(projectId));
+    const readEvent = await this.promisifyIndexedDbRequest(readRequest);
+    const projectObject = this.requiresResult(readEvent);
+    if (!projectObject.labels.includes(label)) {
+      projectObject.labels.push(label);
+      const updateRequest = projectsTable.put(projectObject);
+      await this.promisifyIndexedDbRequest(updateRequest);
+    }
+  }
+  getTrainingForCloud(project) {
+    return this.getTrainingData(project.id).then(allTraining => {
+      if (project.type === 'text') {
+        const trainingByLabel = {};
+        const duplicatesCheck = {};
+        for (const item of allTraining) {
+          const label = item.label;
+          const text = item.textdata.substring(0, 1024);
+          if (!(label in trainingByLabel)) {
+            trainingByLabel[label] = {
+              intent: label.replace(/\s/g, '_'),
+              examples: []
+            };
+          }
+          if (!(label in duplicatesCheck)) {
+            duplicatesCheck[label] = [];
+          }
+          if (!duplicatesCheck[label].includes(text)) {
+            trainingByLabel[label].examples.push({
+              text
+            });
+            duplicatesCheck[label].push(text);
+          }
+        }
+        return {
+          name: project.name,
+          language: project.language ? project.language : 'en',
+          intents: Object.values(trainingByLabel),
+          dialog_nodes: [],
+          counterexamples: [],
+          entities: [],
+          metadata: {
+            createdby: 'machinelearningforkids'
+          }
+        };
+      } else if (project.type === 'numbers') {
+        const csvRows = allTraining.map(data => {
+          const rowLabel = data.label;
+          const rowValues = data.numberdata;
+
+          // TODO what if we have a field called label???
+          const csvRow = {
+            label: rowLabel
+          };
+          project.fields.forEach((field, idx) => {
+            if (field.type === 'multichoice') {
+              csvRow[field.name] = field.choices[rowValues[idx]];
+            } else {
+              csvRow[field.name] = rowValues[idx];
+            }
+          });
+          return csvRow;
+        });
+        return Papa.unparse(csvRows, {
+          columns: project.fields.map(field => {
+            return field.name;
+          })
+        });
+      } else {
+        console.error('[ml4kstorage] unexpected project type', project);
+      }
+    });
+  }
+
+  //-----------------------------------------------------------
+  //  ASSETS database
+  //-----------------------------------------------------------
+
+  storeAsset(id, url) {
+    console.log('[ml4kstorage] storeAsset', id);
+    return this.requiresAssetsDatabase().then(() => {
+      return fetch(url);
+    }).then(r => {
+      return r.blob();
+    }).then(zipdata => {
+      const transaction = this.assetsDbHandle.transaction([this.ASSETS_TABLE], 'readwrite');
+      const request = transaction.objectStore(this.ASSETS_TABLE).put(zipdata, id);
+      return this.promisifyIndexedDbRequest(request);
+    });
+  }
+  async retrieveAsset(id) {
+    console.log('[ml4kstorage] retrieveAsset', id);
+    await this.requiresAssetsDatabase();
+    const transaction = this.assetsDbHandle.transaction([this.ASSETS_TABLE], 'readonly');
+    const request = transaction.objectStore(this.ASSETS_TABLE).get(id);
+    return this.promisifyIndexedDbRequest(request).then(event => {
+      return this.requiresResult(event);
+    });
+  }
+  async deleteAsset(id) {
+    console.log('[ml4kstorage] deleteAsset', id);
+    await this.requiresAssetsDatabase();
+    const transaction = this.assetsDbHandle.transaction([this.ASSETS_TABLE], 'readwrite');
+    transaction.objectStore(this.ASSETS_TABLE).delete(id);
+    return this.promisifyIndexedDbTransaction(transaction);
+  }
+
+  //-----------------------------------------------------------
+  //  Other
+  //-----------------------------------------------------------
+
+  getFromLocalStorage(id) {
+    return window.localStorage.getItem(id);
+  }
+  storeBase64EncodedImage(projectid, label, b64imgdata) {
+    const _that = this;
+    return fetch("data:image/jpeg;base64,".concat(b64imgdata)).then(converted => {
+      return converted.blob();
+    }).then(imagedata => {
+      _that.addTrainingData(projectid, {
+        imagedata,
+        label: label,
+        isstored: true
+      });
+    });
+  }
+  registerForModelStorageUpdates(modelid, callback) {
+    window.addEventListener('storage', evt => {
+      if (evt.key === modelid) {
+        callback();
+      }
+    });
+  }
+}
+module.exports = ML4KidsLocalStorage;
+
+/***/ }),
+
+/***/ "./src/mlforkids-components/tensorflow/index.js":
+/*!******************************************************!*\
+  !*** ./src/mlforkids-components/tensorflow/index.js ***!
+  \******************************************************/
+/***/ ((module) => {
+
+class ML4KidsTensorFlow {
+  // This component needs to support multiple instances of the model
+  //  extension being used at once, so all state and models are
+  //  indexed by a unique request id
+
+  // PROJECTS[projectid].modelClasses = <label1/label2/label3/...>
+  // PROJECTS[projectid].modelNumClasses = <number of modelClasses>
+  // PROJECTS[projectid].dataType = teachablemachineimage
+  // PROJECTS[projectid].state = INIT/READY/TRAINED/ERROR
+  // PROJECTS[projectid].model = <model>
+
+  // states:
+  //   INIT - not ready yet
+  //   READY - ready for training
+  //   TRAINED - ML model ready for use
+  //   ERROR - something went wrong
+
+  constructor() {
+    this.PROJECTS = {};
+    this.state = 'INIT';
+    tf.enableProdMode();
+  }
+
+  // encprojectdata
+  // JSON.stringify-ed version of
+  //   { projectid : someprojectid, labels : [ labelA, labelB, labelC ], dataType : IMAGE, modelurl : http://somedomain... }
+  initProject(encprojectdata, worker) {
+    const projectData = JSON.parse(encprojectdata);
+    const projectid = projectData.projectid;
+    let modellocation = projectData.modelurl;
+    console.log('[mlforkids] Initializing project', projectid, projectData);
+    this.PROJECTS[projectid] = {};
+    this.PROJECTS[projectid].state = 'INIT';
+    this.PROJECTS[projectid].modelClasses = projectData.labels;
+    this.PROJECTS[projectid].modelNumClasses = projectData.labels.length;
+    this.PROJECTS[projectid].dataType = projectData.dataType;
+    let loadModelPromise;
+    if (this.PROJECTS[projectid].dataType === 'graphdefimage') {
+      const loadModelOptions = {};
+      if (modellocation.startsWith('https://tfhub.dev') || modellocation.startsWith('https://www.kaggle.com')) {
+        loadModelOptions.fromTFHub = true;
+      }
+      if (this.urlEndsWith(modellocation, '/model.json')) {
+        modellocation = modellocation.substr(0, modellocation.length - '/model.json'.length);
+      }
+      console.log('[mlforkids] loading graph model', modellocation, loadModelOptions);
+      loadModelPromise = tf.loadGraphModel(modellocation, loadModelOptions);
+    } else if (this.PROJECTS[projectid].dataType === 'teachablemachinepose') {
+      console.log('[mlforkids] loading pose model iframe');
+      loadModelPromise = this._loadPoseModelSupport().then(iframe => {
+        this.teachableMachinePoseIframe = iframe;
+        const metadataJsonUrl = modellocation.replace(/model\.json$/, 'metadata.json');
+        return iframe.contentWindow.initModel(projectid, modellocation, metadataJsonUrl);
+      });
+    } else {
+      console.log('[mlforkids] loading layers model', modellocation);
+      loadModelPromise = tf.loadLayersModel(modellocation);
+    }
+    return loadModelPromise.then(model => {
+      this.PROJECTS[projectid].model = model;
+      this.PROJECTS[projectid].state = 'TRAINED';
+      worker.postMessage({
+        mlforkidstensorflow: 'modelready',
+        data: {
+          projectid: projectid
+        }
+      });
+    }).catch(err => {
+      console.log('[mlforkids] ML4KidsTensorFlow failed init', err);
+      this.PROJECTS[projectid].state = 'ERROR';
+      worker.postMessage({
+        mlforkidstensorflow: 'modelfailed',
+        data: {
+          projectid: projectid
+        }
+      });
+    });
+  }
+  urlEndsWith(urlToCheck, stringToCheck) {
+    return urlToCheck.length === urlToCheck.indexOf(stringToCheck) + stringToCheck.length;
+  }
+  sortByConfidence(a, b) {
+    if (a.confidence < b.confidence) {
+      return 1;
+    } else if (a.confidence > b.confidence) {
+      return -1;
+    } else {
+      return 0;
+    }
+  }
+
+  // encrequest
+  // JSON.stringify-ed version of
+  //   { projectid : projectId, requestid : requestId, requestdata : somethingtouse }
+  classifyData(encrequest, worker) {
+    const requestData = JSON.parse(encrequest);
+    const projectid = requestData.projectid;
+    const requestid = requestData.requestid;
+    return this._prepareDataForClassification(projectid, requestData.requestdata).then(dataToClassify => {
+      if (this.PROJECTS[projectid].dataType === 'teachablemachinepose') {
+        return this.teachableMachinePoseIframe.contentWindow.predict(projectid, dataToClassify);
+      } else {
+        return this.PROJECTS[projectid].model.predict(dataToClassify).data();
+      }
+    }).then(output => {
+      let matches;
+      if (this.PROJECTS[projectid].dataType === 'teachablemachinepose') {
+        matches = output.sort(this.sortByConfidence);
+      } else {
+        if (this.PROJECTS[projectid].modelNumClasses > 0) {
+          matches = this.PROJECTS[projectid].modelClasses.map((label, idx) => {
+            return {
+              class_name: label,
+              confidence: 100 * output[idx]
+            };
+          }).sort(this.sortByConfidence);
+        } else {
+          // label names aren't known, so we just have to refer to them by idx
+          const anonScores = new Array(output.length);
+          for (let idx = 0; idx < output.length; idx++) {
+            anonScores[idx] = {
+              class_name: 'label ' + idx,
+              confidence: 100 * output[idx]
+            };
+          }
+          matches = anonScores.sort(this.sortByConfidence);
+        }
+      }
+      return worker.postMessage({
+        mlforkidstensorflow: 'classifyresponse',
+        data: {
+          projectid: projectid,
+          requestid: requestid,
+          matches: matches
+        }
+      });
+    }).catch(err => {
+      if (err) {
+        console.log('[mlforkids] ML4KidsTensorFlow error', err);
+      }
+      return worker.postMessage({
+        mlforkidstensorflow: 'classifyresponse',
+        data: {
+          projectid: projectid,
+          requestid: requestid
+        }
+      });
+    });
+  }
+  _prepareDataForClassification(projectid, classifydata) {
+    return new Promise((resolve, reject) => {
+      if (projectid in this.PROJECTS) {
+        if (this.PROJECTS[projectid].state !== 'TRAINED') {
+          console.log('[mlforkids] ML4KidsTensorFlow received classify request before a model is ready');
+          return reject();
+        }
+        if (this.PROJECTS[projectid].dataType === 'teachablemachineimage' || this.PROJECTS[projectid].dataType === 'graphdefimage') {
+          const imageElement = document.createElement('img');
+          imageElement.width = 224;
+          imageElement.height = 224;
+          imageElement.onerror = err => {
+            console.log('[mlforkids] ML4KidsTensorFlow failed to prepare image data for prediction', err);
+            return reject();
+          };
+          imageElement.onload = () => {
+            return resolve(tf.tidy(() => {
+              return tf.browser.fromPixels(imageElement).expandDims(0).toFloat().div(127).sub(1);
+            }));
+          };
+          imageElement.src = 'data:image/jpeg;base64,' + classifydata;
+        } else if (this.PROJECTS[projectid].dataType === 'teachablemachinepose') {
+          this.teachableMachinePoseIframe.contentWindow.createImage(classifydata, resolve);
+        } else {
+          return resolve(classifydata);
+        }
+      } else {
+        console.log('[mlforkids] ML4KidsTensorFlow received request for unknown project');
+        return reject();
+      }
+    });
+  }
+  _loadPoseModelSupport() {
+    return new Promise(resolve => {
+      var id = 'mlforkids-iframe-posenet';
+      var iframeObj = document.getElementById(id);
+      if (iframeObj) {
+        console.log('[mlforkids] Posenet already loaded');
+        resolve(iframeObj);
+      } else {
+        console.log('[mlforkids] loading posenet');
+        iframeObj = document.createElement('iframe');
+        iframeObj.id = id;
+        iframeObj.type = 'text/javascript';
+        iframeObj.src = 'teachablemachinepose.html';
+        iframeObj.onload = () => {
+          resolve(iframeObj);
+        };
+        document.head.appendChild(iframeObj);
+      }
+    });
+  }
+}
+module.exports = ML4KidsTensorFlow;
+
+/***/ }),
+
+/***/ "./src/util/log.js":
+/*!*************************!*\
+  !*** ./src/util/log.js ***!
+  \*************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const minilog = __webpack_require__(/*! minilog */ "./node_modules/minilog/lib/web/index.js");
+minilog.enable();
+module.exports = minilog('vm');
+
+/***/ }),
+
+/***/ "./node_modules/microee/index.js":
+/*!***************************************!*\
+  !*** ./node_modules/microee/index.js ***!
+  \***************************************/
+/***/ ((module) => {
 
 function M() { this._events = {}; }
 M.prototype = {
@@ -247,15 +2747,14 @@ module.exports = M;
 
 /***/ }),
 
-/***/ "./node_modules/scratch-vm/node_modules/minilog/lib/common/filter.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/scratch-vm/node_modules/minilog/lib/common/filter.js ***!
-  \***************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/minilog/lib/common/filter.js":
+/*!***************************************************!*\
+  !*** ./node_modules/minilog/lib/common/filter.js ***!
+  \***************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 // default filter
-var Transform = __webpack_require__(/*! ./transform.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/common/transform.js");
+var Transform = __webpack_require__(/*! ./transform.js */ "./node_modules/minilog/lib/common/transform.js");
 
 var levelMap = { debug: 1, info: 2, warn: 3, error: 4 };
 
@@ -314,15 +2813,14 @@ module.exports = Filter;
 
 /***/ }),
 
-/***/ "./node_modules/scratch-vm/node_modules/minilog/lib/common/minilog.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/scratch-vm/node_modules/minilog/lib/common/minilog.js ***!
-  \****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/minilog/lib/common/minilog.js":
+/*!****************************************************!*\
+  !*** ./node_modules/minilog/lib/common/minilog.js ***!
+  \****************************************************/
+/***/ ((module, exports, __webpack_require__) => {
 
-var Transform = __webpack_require__(/*! ./transform.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/common/transform.js"),
-    Filter = __webpack_require__(/*! ./filter.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/common/filter.js");
+var Transform = __webpack_require__(/*! ./transform.js */ "./node_modules/minilog/lib/common/transform.js"),
+    Filter = __webpack_require__(/*! ./filter.js */ "./node_modules/minilog/lib/common/filter.js");
 
 var log = new Transform(),
     slice = Array.prototype.slice;
@@ -370,14 +2868,13 @@ exports.enable = function() {
 
 /***/ }),
 
-/***/ "./node_modules/scratch-vm/node_modules/minilog/lib/common/transform.js":
-/*!******************************************************************************!*\
-  !*** ./node_modules/scratch-vm/node_modules/minilog/lib/common/transform.js ***!
-  \******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/minilog/lib/common/transform.js":
+/*!******************************************************!*\
+  !*** ./node_modules/minilog/lib/common/transform.js ***!
+  \******************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-var microee = __webpack_require__(/*! microee */ "./node_modules/scratch-vm/node_modules/microee/index.js");
+var microee = __webpack_require__(/*! microee */ "./node_modules/microee/index.js");
 
 // Implements a subset of Node's stream.Transform - in a cross-platform manner.
 function Transform() {}
@@ -453,14 +2950,13 @@ module.exports = Transform;
 
 /***/ }),
 
-/***/ "./node_modules/scratch-vm/node_modules/minilog/lib/web/array.js":
-/*!***********************************************************************!*\
-  !*** ./node_modules/scratch-vm/node_modules/minilog/lib/web/array.js ***!
-  \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/minilog/lib/web/array.js":
+/*!***********************************************!*\
+  !*** ./node_modules/minilog/lib/web/array.js ***!
+  \***********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-var Transform = __webpack_require__(/*! ../common/transform.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/common/transform.js"),
+var Transform = __webpack_require__(/*! ../common/transform.js */ "./node_modules/minilog/lib/common/transform.js"),
     cache = [ ];
 
 var logger = new Transform();
@@ -478,14 +2974,13 @@ module.exports = logger;
 
 /***/ }),
 
-/***/ "./node_modules/scratch-vm/node_modules/minilog/lib/web/console.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/scratch-vm/node_modules/minilog/lib/web/console.js ***!
-  \*************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/minilog/lib/web/console.js":
+/*!*************************************************!*\
+  !*** ./node_modules/minilog/lib/web/console.js ***!
+  \*************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-var Transform = __webpack_require__(/*! ../common/transform.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/common/transform.js");
+var Transform = __webpack_require__(/*! ../common/transform.js */ "./node_modules/minilog/lib/common/transform.js");
 
 var newlines = /\n+$/,
     logger = new Transform();
@@ -513,23 +3008,22 @@ logger.write = function(name, level, args) {
 };
 
 logger.formatters = ['color', 'minilog'];
-logger.color = __webpack_require__(/*! ./formatters/color.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/web/formatters/color.js");
-logger.minilog = __webpack_require__(/*! ./formatters/minilog.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/web/formatters/minilog.js");
+logger.color = __webpack_require__(/*! ./formatters/color.js */ "./node_modules/minilog/lib/web/formatters/color.js");
+logger.minilog = __webpack_require__(/*! ./formatters/minilog.js */ "./node_modules/minilog/lib/web/formatters/minilog.js");
 
 module.exports = logger;
 
 
 /***/ }),
 
-/***/ "./node_modules/scratch-vm/node_modules/minilog/lib/web/formatters/color.js":
-/*!**********************************************************************************!*\
-  !*** ./node_modules/scratch-vm/node_modules/minilog/lib/web/formatters/color.js ***!
-  \**********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/minilog/lib/web/formatters/color.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/minilog/lib/web/formatters/color.js ***!
+  \**********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-var Transform = __webpack_require__(/*! ../../common/transform.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/common/transform.js"),
-    color = __webpack_require__(/*! ./util.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/web/formatters/util.js");
+var Transform = __webpack_require__(/*! ../../common/transform.js */ "./node_modules/minilog/lib/common/transform.js"),
+    color = __webpack_require__(/*! ./util.js */ "./node_modules/minilog/lib/web/formatters/util.js");
 
 var colors = { debug: ['cyan'], info: ['purple' ], warn: [ 'yellow', true ], error: [ 'red', true ] },
     logger = new Transform();
@@ -550,15 +3044,14 @@ module.exports = logger;
 
 /***/ }),
 
-/***/ "./node_modules/scratch-vm/node_modules/minilog/lib/web/formatters/minilog.js":
-/*!************************************************************************************!*\
-  !*** ./node_modules/scratch-vm/node_modules/minilog/lib/web/formatters/minilog.js ***!
-  \************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/minilog/lib/web/formatters/minilog.js":
+/*!************************************************************!*\
+  !*** ./node_modules/minilog/lib/web/formatters/minilog.js ***!
+  \************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-var Transform = __webpack_require__(/*! ../../common/transform.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/common/transform.js"),
-    color = __webpack_require__(/*! ./util.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/web/formatters/util.js"),
+var Transform = __webpack_require__(/*! ../../common/transform.js */ "./node_modules/minilog/lib/common/transform.js"),
+    color = __webpack_require__(/*! ./util.js */ "./node_modules/minilog/lib/web/formatters/util.js"),
     colors = { debug: ['gray'], info: ['purple' ], warn: [ 'yellow', true ], error: [ 'red', true ] },
     logger = new Transform();
 
@@ -587,12 +3080,11 @@ module.exports = logger;
 
 /***/ }),
 
-/***/ "./node_modules/scratch-vm/node_modules/minilog/lib/web/formatters/util.js":
-/*!*********************************************************************************!*\
-  !*** ./node_modules/scratch-vm/node_modules/minilog/lib/web/formatters/util.js ***!
-  \*********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ "./node_modules/minilog/lib/web/formatters/util.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/minilog/lib/web/formatters/util.js ***!
+  \*********************************************************/
+/***/ ((module) => {
 
 var hex = {
   black: '#000',
@@ -618,19 +3110,18 @@ module.exports = color;
 
 /***/ }),
 
-/***/ "./node_modules/scratch-vm/node_modules/minilog/lib/web/index.js":
-/*!***********************************************************************!*\
-  !*** ./node_modules/scratch-vm/node_modules/minilog/lib/web/index.js ***!
-  \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/minilog/lib/web/index.js":
+/*!***********************************************!*\
+  !*** ./node_modules/minilog/lib/web/index.js ***!
+  \***********************************************/
+/***/ ((module, exports, __webpack_require__) => {
 
-var Minilog = __webpack_require__(/*! ../common/minilog.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/common/minilog.js");
+var Minilog = __webpack_require__(/*! ../common/minilog.js */ "./node_modules/minilog/lib/common/minilog.js");
 
 var oldEnable = Minilog.enable,
     oldDisable = Minilog.disable,
     isChrome = (typeof navigator != 'undefined' && /chrome/i.test(navigator.userAgent)),
-    console = __webpack_require__(/*! ./console.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/web/console.js");
+    console = __webpack_require__(/*! ./console.js */ "./node_modules/minilog/lib/web/console.js");
 
 // Use a more capable logging backend if on Chrome
 Minilog.defaultBackend = (isChrome ? console.minilog : console);
@@ -662,23 +3153,22 @@ Minilog.disable = function() {
 exports = module.exports = Minilog;
 
 exports.backends = {
-  array: __webpack_require__(/*! ./array.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/web/array.js"),
+  array: __webpack_require__(/*! ./array.js */ "./node_modules/minilog/lib/web/array.js"),
   browser: Minilog.defaultBackend,
-  localStorage: __webpack_require__(/*! ./localstorage.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/web/localstorage.js"),
-  jQuery: __webpack_require__(/*! ./jquery_simple.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/web/jquery_simple.js")
+  localStorage: __webpack_require__(/*! ./localstorage.js */ "./node_modules/minilog/lib/web/localstorage.js"),
+  jQuery: __webpack_require__(/*! ./jquery_simple.js */ "./node_modules/minilog/lib/web/jquery_simple.js")
 };
 
 
 /***/ }),
 
-/***/ "./node_modules/scratch-vm/node_modules/minilog/lib/web/jquery_simple.js":
-/*!*******************************************************************************!*\
-  !*** ./node_modules/scratch-vm/node_modules/minilog/lib/web/jquery_simple.js ***!
-  \*******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/minilog/lib/web/jquery_simple.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/minilog/lib/web/jquery_simple.js ***!
+  \*******************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-var Transform = __webpack_require__(/*! ../common/transform.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/common/transform.js");
+var Transform = __webpack_require__(/*! ../common/transform.js */ "./node_modules/minilog/lib/common/transform.js");
 
 var cid = new Date().valueOf().toString(36);
 
@@ -756,14 +3246,13 @@ module.exports = AjaxLogger;
 
 /***/ }),
 
-/***/ "./node_modules/scratch-vm/node_modules/minilog/lib/web/localstorage.js":
-/*!******************************************************************************!*\
-  !*** ./node_modules/scratch-vm/node_modules/minilog/lib/web/localstorage.js ***!
-  \******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/minilog/lib/web/localstorage.js":
+/*!******************************************************!*\
+  !*** ./node_modules/minilog/lib/web/localstorage.js ***!
+  \******************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-var Transform = __webpack_require__(/*! ../common/transform.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/common/transform.js"),
+var Transform = __webpack_require__(/*! ../common/transform.js */ "./node_modules/minilog/lib/common/transform.js"),
     cache = false;
 
 var logger = new Transform();
@@ -779,3244 +3268,122 @@ logger.write = function(name, level, args) {
 
 module.exports = logger;
 
-/***/ }),
-
-/***/ "./node_modules/scratch-vm/src/dispatch/shared-dispatch.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/scratch-vm/src/dispatch/shared-dispatch.js ***!
-  \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-var log = __webpack_require__(/*! ../util/log */ "./node_modules/scratch-vm/src/util/log.js");
-var mlforkidsSound = __webpack_require__(/*! ../mlforkids-components/sound */ "./node_modules/scratch-vm/src/mlforkids-components/sound/index.js");
-var mlforkidsImages = __webpack_require__(/*! ../mlforkids-components/images */ "./node_modules/scratch-vm/src/mlforkids-components/images/index.js");
-var mlforkidsRegression = __webpack_require__(/*! ../mlforkids-components/regression */ "./node_modules/scratch-vm/src/mlforkids-components/regression/index.js");
-var mlforkidsNumbers = __webpack_require__(/*! ../mlforkids-components/numbers */ "./node_modules/scratch-vm/src/mlforkids-components/numbers/index.js");
-var mlforkidsTensorFlow = __webpack_require__(/*! ../mlforkids-components/tensorflow */ "./node_modules/scratch-vm/src/mlforkids-components/tensorflow/index.js");
-var mlforkidsStorage = __webpack_require__(/*! ../mlforkids-components/storage */ "./node_modules/scratch-vm/src/mlforkids-components/storage/index.js");
-
-/**
- * @typedef {object} DispatchCallMessage - a message to the dispatch system representing a service method call
- * @property {*} responseId - send a response message with this response ID. See {@link DispatchResponseMessage}
- * @property {string} service - the name of the service to be called
- * @property {string} method - the name of the method to be called
- * @property {Array|undefined} args - the arguments to be passed to the method
- */
-
-/**
- * @typedef {object} DispatchResponseMessage - a message to the dispatch system representing the results of a call
- * @property {*} responseId - a copy of the response ID from the call which generated this response
- * @property {*|undefined} error - if this is truthy, then it contains results from a failed call (such as an exception)
- * @property {*|undefined} result - if error is not truthy, then this contains the return value of the call (if any)
- */
-
-/**
- * @typedef {DispatchCallMessage|DispatchResponseMessage} DispatchMessage
- * Any message to the dispatch system.
- */
-
-/**
- * The SharedDispatch class is responsible for dispatch features shared by
- * {@link CentralDispatch} and {@link WorkerDispatch}.
- */
-var SharedDispatch = /*#__PURE__*/function () {
-  function SharedDispatch() {
-    _classCallCheck(this, SharedDispatch);
-    /**
-     * List of callback registrations for promises waiting for a response from a call to a service on another
-     * worker. A callback registration is an array of [resolve,reject] Promise functions.
-     * Calls to local services don't enter this list.
-     * @type {Array.<Function[]>}
-     */
-    this.callbacks = [];
-
-    /**
-     * The next response ID to be used.
-     * @type {int}
-     */
-    this.nextResponseId = 0;
-  }
-
-  /**
-   * Call a particular method on a particular service, regardless of whether that service is provided locally or on
-   * a worker. If the service is provided by a worker, the `args` will be copied using the Structured Clone
-   * algorithm, except for any items which are also in the `transfer` list. Ownership of those items will be
-   * transferred to the worker, and they should not be used after this call.
-   * @example
-   *      dispatcher.call('vm', 'setData', 'cat', 42);
-   *      // this finds the worker for the 'vm' service, then on that worker calls:
-   *      vm.setData('cat', 42);
-   * @param {string} service - the name of the service.
-   * @param {string} method - the name of the method.
-   * @param {*} [args] - the arguments to be copied to the method, if any.
-   * @returns {Promise} - a promise for the return value of the service method.
-   */
-  _createClass(SharedDispatch, [{
-    key: "call",
-    value: function call(service, method) {
-      for (var _len = arguments.length, args = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
-        args[_key - 2] = arguments[_key];
-      }
-      return this.transferCall.apply(this, [service, method, null].concat(args));
-    }
-
-    /**
-     * Call a particular method on a particular service, regardless of whether that service is provided locally or on
-     * a worker. If the service is provided by a worker, the `args` will be copied using the Structured Clone
-     * algorithm, except for any items which are also in the `transfer` list. Ownership of those items will be
-     * transferred to the worker, and they should not be used after this call.
-     * @example
-     *      dispatcher.transferCall('vm', 'setData', [myArrayBuffer], 'cat', myArrayBuffer);
-     *      // this finds the worker for the 'vm' service, transfers `myArrayBuffer` to it, then on that worker calls:
-     *      vm.setData('cat', myArrayBuffer);
-     * @param {string} service - the name of the service.
-     * @param {string} method - the name of the method.
-     * @param {Array} [transfer] - objects to be transferred instead of copied. Must be present in `args` to be useful.
-     * @param {*} [args] - the arguments to be copied to the method, if any.
-     * @returns {Promise} - a promise for the return value of the service method.
-     */
-  }, {
-    key: "transferCall",
-    value: function transferCall(service, method, transfer) {
-      try {
-        var _this$_getServiceProv = this._getServiceProvider(service),
-          provider = _this$_getServiceProv.provider,
-          isRemote = _this$_getServiceProv.isRemote;
-        if (provider) {
-          for (var _len2 = arguments.length, args = new Array(_len2 > 3 ? _len2 - 3 : 0), _key2 = 3; _key2 < _len2; _key2++) {
-            args[_key2 - 3] = arguments[_key2];
-          }
-          if (isRemote) {
-            return this._remoteTransferCall.apply(this, [provider, service, method, transfer].concat(args));
-          }
-
-          // TODO: verify correct `this` after switching from apply to spread
-          // eslint-disable-next-line prefer-spread
-          var result = provider[method].apply(provider, args);
-          return Promise.resolve(result);
-        }
-        return Promise.reject(new Error("Service not found: ".concat(service)));
-      } catch (e) {
-        return Promise.reject(e);
-      }
-    }
-
-    /**
-     * Check if a particular service lives on another worker.
-     * @param {string} service - the service to check.
-     * @returns {boolean} - true if the service is remote (calls must cross a Worker boundary), false otherwise.
-     * @private
-     */
-  }, {
-    key: "_isRemoteService",
-    value: function _isRemoteService(service) {
-      return this._getServiceProvider(service).isRemote;
-    }
-
-    /**
-     * Like {@link call}, but force the call to be posted through a particular communication channel.
-     * @param {object} provider - send the call through this object's `postMessage` function.
-     * @param {string} service - the name of the service.
-     * @param {string} method - the name of the method.
-     * @param {*} [args] - the arguments to be copied to the method, if any.
-     * @returns {Promise} - a promise for the return value of the service method.
-     */
-  }, {
-    key: "_remoteCall",
-    value: function _remoteCall(provider, service, method) {
-      for (var _len3 = arguments.length, args = new Array(_len3 > 3 ? _len3 - 3 : 0), _key3 = 3; _key3 < _len3; _key3++) {
-        args[_key3 - 3] = arguments[_key3];
-      }
-      return this._remoteTransferCall.apply(this, [provider, service, method, null].concat(args));
-    }
-
-    /**
-     * Like {@link transferCall}, but force the call to be posted through a particular communication channel.
-     * @param {object} provider - send the call through this object's `postMessage` function.
-     * @param {string} service - the name of the service.
-     * @param {string} method - the name of the method.
-     * @param {Array} [transfer] - objects to be transferred instead of copied. Must be present in `args` to be useful.
-     * @param {*} [args] - the arguments to be copied to the method, if any.
-     * @returns {Promise} - a promise for the return value of the service method.
-     */
-  }, {
-    key: "_remoteTransferCall",
-    value: function _remoteTransferCall(provider, service, method, transfer) {
-      var _this = this;
-      for (var _len4 = arguments.length, args = new Array(_len4 > 4 ? _len4 - 4 : 0), _key4 = 4; _key4 < _len4; _key4++) {
-        args[_key4 - 4] = arguments[_key4];
-      }
-      return new Promise(function (resolve, reject) {
-        var responseId = _this._storeCallbacks(resolve, reject);
-
-        /** @TODO: remove this hack! this is just here so we don't try to send `util` to a worker */
-        if (args.length > 0 && typeof args[args.length - 1].yield === 'function') {
-          args.pop();
-        }
-        if (transfer) {
-          provider.postMessage({
-            service: service,
-            method: method,
-            responseId: responseId,
-            args: args
-          }, transfer);
-        } else {
-          provider.postMessage({
-            service: service,
-            method: method,
-            responseId: responseId,
-            args: args
-          });
-        }
-      });
-    }
-
-    /**
-     * Store callback functions pending a response message.
-     * @param {Function} resolve - function to call if the service method returns.
-     * @param {Function} reject - function to call if the service method throws.
-     * @returns {*} - a unique response ID for this set of callbacks. See {@link _deliverResponse}.
-     * @protected
-     */
-  }, {
-    key: "_storeCallbacks",
-    value: function _storeCallbacks(resolve, reject) {
-      var responseId = this.nextResponseId++;
-      this.callbacks[responseId] = [resolve, reject];
-      return responseId;
-    }
-
-    /**
-     * Deliver call response from a worker. This should only be called as the result of a message from a worker.
-     * @param {int} responseId - the response ID of the callback set to call.
-     * @param {DispatchResponseMessage} message - the message containing the response value(s).
-     * @protected
-     */
-  }, {
-    key: "_deliverResponse",
-    value: function _deliverResponse(responseId, message) {
-      try {
-        var _this$callbacks$respo = _slicedToArray(this.callbacks[responseId], 2),
-          resolve = _this$callbacks$respo[0],
-          reject = _this$callbacks$respo[1];
-        delete this.callbacks[responseId];
-        if (message.error) {
-          reject(message.error);
-        } else {
-          resolve(message.result);
-        }
-      } catch (e) {
-        log.error("Dispatch callback failed: ".concat(JSON.stringify(e)));
-      }
-    }
-
-    /**
-     * Handle a message event received from a connected worker.
-     * @param {Worker} worker - the worker which sent the message, or the global object if running in a worker.
-     * @param {MessageEvent} event - the message event to be handled.
-     * @protected
-     */
-  }, {
-    key: "_onMessage",
-    value: function _onMessage(worker, event) {
-      var _this2 = this;
-      /** @type {DispatchMessage} */
-      var message = event.data;
-      message.args = message.args || [];
-      var promise;
-      if (message.service) {
-        if (message.service === 'dispatch') {
-          promise = this._onDispatchMessage(worker, message);
-        } else {
-          promise = this.call.apply(this, [message.service, message.method].concat(_toConsumableArray(message.args)));
-        }
-      } else if (message.mlforkids) {
-        console.log('[mlforkids] Handling message from ML for Kids extension running in a web worker', message);
-        window.dispatchEvent(new Event(message.mlforkids));
-      } else if (message.mlforkidssound) {
-        if (message.mlforkidssound.command === 'init') {
-          if (!this.mlforkidsSoundSupport) {
-            this.mlforkidsSoundSupport = new mlforkidsSound(this.mlforkidsStorageSupport);
-          }
-          this.mlforkidsSoundSupport.init(message.mlforkidssound.data, worker);
-        } else if (message.mlforkidssound.command === 'initlocal') {
-          if (!this.mlforkidsSoundSupport) {
-            this.mlforkidsSoundSupport = new mlforkidsSound(this.mlforkidsStorageSupport);
-          }
-          return this.mlforkidsStorageSupport.getProject(message.mlforkidssound.data).then(function (projectinfo) {
-            projectinfo.projectid = message.mlforkidssound.data;
-            _this2.mlforkidsSoundSupport.init(projectinfo, worker);
-          }).catch(function (err) {
-            console.log('[mlforkids] failed to load project', err);
-            worker.postMessage({
-              mlforkidssound: 'modelfailed'
-            });
-          });
-        } else if (message.mlforkidssound.command === 'train') {
-          this.mlforkidsSoundSupport.trainNewModel(message.mlforkidssound.data, worker);
-        } else if (message.mlforkidssound.command === 'trainlocal') {
-          this.mlforkidsSoundSupport.trainNewModelLocal(message.mlforkidssound.data, worker);
-        } else if (message.mlforkidssound.command === 'listen') {
-          this.mlforkidsSoundSupport.startListening(worker);
-        } else if (message.mlforkidssound.command === 'stoplisten') {
-          this.mlforkidsSoundSupport.stopListening(worker);
-        }
-      } else if (message.mlforkidsimage) {
-        if (message.mlforkidsimage.command === 'init') {
-          if (!this.mlforkidsImageSupport) {
-            this.mlforkidsImageSupport = new mlforkidsImages(this.mlforkidsStorageSupport);
-          }
-          this.mlforkidsImageSupport.init().then(function () {
-            _this2.mlforkidsImageSupport.initProject(message.mlforkidsimage.data, worker);
-          });
-        } else if (message.mlforkidsimage.command === 'initlocal') {
-          if (!this.mlforkidsImageSupport) {
-            this.mlforkidsImageSupport = new mlforkidsImages(this.mlforkidsStorageSupport);
-          }
-          this.mlforkidsImageSupport.init().then(function () {
-            return _this2.mlforkidsStorageSupport.getProject(message.mlforkidsimage.data);
-          }).then(function (projectinfo) {
-            projectinfo.projectid = message.mlforkidsimage.data;
-            _this2.mlforkidsImageSupport.initProject(projectinfo, worker);
-          }).catch(function (err) {
-            console.log('[mlforkids] failed to load project', err);
-            worker.postMessage({
-              mlforkidsimage: 'modelfailed',
-              data: {
-                projectid: message.mlforkidsimage.data
-              }
-            });
-          });
-        } else if (message.mlforkidsimage.command === 'classify') {
-          this.mlforkidsImageSupport.classifyImageData(message.mlforkidsimage.data, worker);
-        } else if (message.mlforkidsimage.command === 'train') {
-          this.mlforkidsImageSupport.trainNewModel(message.mlforkidsimage.data, worker);
-        } else if (message.mlforkidsimage.command === 'trainlocal') {
-          this.mlforkidsImageSupport.trainNewModelLocal(message.mlforkidsimage.data, worker);
-        }
-      } else if (message.mlforkidsnumbers) {
-        if (message.mlforkidsnumbers.command === 'init') {
-          if (!this.mlforkidsNumbersSupport) {
-            this.mlforkidsNumbersSupport = new mlforkidsNumbers(this.mlforkidsStorageSupport);
-          }
-          this.mlforkidsNumbersSupport.init().then(function () {
-            _this2.mlforkidsNumbersSupport.initProject({
-              id: message.mlforkidsnumbers.data
-            }, worker);
-          }).catch(function (err) {
-            console.log('[mlforkids] failed to prepare numbers support', err);
-            worker.postMessage({
-              mlforkidsnumbers: 'modelfailed',
-              data: {
-                projectid: message.mlforkidsnumbers.data
-              }
-            });
-          });
-        } else if (message.mlforkidsnumbers.command === 'initlocal') {
-          if (!this.mlforkidsNumbersSupport) {
-            this.mlforkidsNumbersSupport = new mlforkidsNumbers(this.mlforkidsStorageSupport);
-          }
-          this.mlforkidsNumbersSupport.init().then(function () {
-            return _this2.mlforkidsStorageSupport.getProject(message.mlforkidsnumbers.data);
-          }).then(function (projectinfo) {
-            projectinfo.projectid = message.mlforkidsnumbers.data;
-            _this2.mlforkidsNumbersSupport.initProject(projectinfo, worker);
-          }).catch(function (err) {
-            console.log('[mlforkids] failed to load project', err);
-            worker.postMessage({
-              mlforkidsnumbers: 'modelfailed',
-              data: {
-                projectid: message.mlforkidsnumbers.data
-              }
-            });
-          });
-        } else if (message.mlforkidsnumbers.command === 'classify') {
-          this.mlforkidsNumbersSupport.classifyNumberData(message.mlforkidsnumbers.data, worker);
-        } else if (message.mlforkidsnumbers.command === 'train') {
-          this.mlforkidsNumbersSupport.trainNewModel(message.mlforkidsnumbers.data, worker);
-        } else if (message.mlforkidsnumbers.command === 'trainlocal') {
-          this.mlforkidsNumbersSupport.trainNewModelLocal(message.mlforkidsnumbers.data, worker);
-        }
-      } else if (message.mlforkidsregression) {
-        if (message.mlforkidsregression.command === 'init') {
-          if (!this.mlforkidsRegressionSupport) {
-            this.mlforkidsRegressionSupport = new mlforkidsRegression(this.mlforkidsStorageSupport);
-          }
-          this.mlforkidsRegressionSupport.init().then(function () {
-            return _this2.mlforkidsStorageSupport.getProject(message.mlforkidsregression.data);
-          }).then(function (projectinfo) {
-            projectinfo.projectid = message.mlforkidsregression.data;
-            _this2.mlforkidsRegressionSupport.initProject(projectinfo, worker);
-          }).catch(function (err) {
-            console.log('[mlforkids] failed to load project', err);
-            worker.postMessage({
-              mlforkidsimage: 'modelfailed',
-              data: {
-                projectid: message.mlforkidsregression.data
-              }
-            });
-          });
-        } else if (message.mlforkidsregression.command === 'train') {
-          this.mlforkidsRegressionSupport.trainNewModel(message.mlforkidsregression.data, worker);
-        } else if (message.mlforkidsregression.command === 'predict') {
-          this.mlforkidsRegressionSupport.predict(message.mlforkidsregression.data, worker);
-        }
-      } else if (message.mlforkidsstorage) {
-        if (message.mlforkidsstorage.command === 'init') {
-          if (!this.mlforkidsStorageSupport) {
-            this.mlforkidsStorageSupport = new mlforkidsStorage();
-          }
-        } else if (message.mlforkidsstorage.command === 'storeimage') {
-          this.mlforkidsStorageSupport.storeBase64EncodedImage(message.mlforkidsstorage.data.projectid, message.mlforkidsstorage.data.label, message.mlforkidsstorage.data.image);
-        } else if (message.mlforkidsstorage.command === 'storetext') {
-          this.mlforkidsStorageSupport.addTrainingData(message.mlforkidsstorage.data.projectid, {
-            textdata: message.mlforkidsstorage.data.textdata,
-            label: message.mlforkidsstorage.data.label
-          });
-        } else if (message.mlforkidsstorage.command === 'storeregression') {
-          this.mlforkidsStorageSupport.addTrainingData(message.mlforkidsstorage.data.projectid, message.mlforkidsstorage.data.values);
-        } else if (message.mlforkidsstorage.command === 'storenumbers') {
-          this.mlforkidsStorageSupport.addTrainingData(message.mlforkidsstorage.data.projectid, {
-            numberdata: message.mlforkidsstorage.data.numberdata,
-            label: message.mlforkidsstorage.data.label
-          });
-        } else if (message.mlforkidsstorage.command === 'textwatson') {
-          this.mlforkidsStorageSupport.getProject(message.mlforkidsstorage.data.projectid).then(function (projectinfo) {
-            return _this2.mlforkidsStorageSupport.getTrainingForCloud(projectinfo);
-          }).then(function (training) {
-            worker.postMessage({
-              mlforkidsstorage: 'textwatson',
-              projectid: message.mlforkidsstorage.data.projectid,
-              data: training
-            });
-          });
-        } else if (message.mlforkidsstorage.command === 'trainingdata') {
-          this.mlforkidsStorageSupport.getTrainingData(message.mlforkidsstorage.data.projectid).then(function (training) {
-            worker.postMessage({
-              mlforkidsstorage: 'trainingdata',
-              projectid: message.mlforkidsstorage.data.projectid,
-              data: training
-            });
-          });
-        }
-      } else if (message.mlforkidstensorflow) {
-        if (message.mlforkidstensorflow.command === 'init') {
-          if (!this.mlforkidsTensorFlowSupport) {
-            this.mlforkidsTensorFlowSupport = new mlforkidsTensorFlow();
-          }
-          this.mlforkidsTensorFlowSupport.initProject(message.mlforkidstensorflow.data, worker);
-        } else if (message.mlforkidstensorflow.command === 'classify') {
-          this.mlforkidsTensorFlowSupport.classifyData(message.mlforkidstensorflow.data, worker);
-        }
-      } else if (typeof message.responseId === 'undefined') {
-        log.error("Dispatch caught malformed message from a worker: ".concat(JSON.stringify(event)));
-      } else {
-        this._deliverResponse(message.responseId, message);
-      }
-      if (promise) {
-        if (typeof message.responseId === 'undefined') {
-          log.error("Dispatch message missing required response ID: ".concat(JSON.stringify(event)));
-        } else {
-          promise.then(function (result) {
-            return worker.postMessage({
-              responseId: message.responseId,
-              result: result
-            });
-          }, function (error) {
-            return worker.postMessage({
-              responseId: message.responseId,
-              error: error
-            });
-          });
-        }
-      }
-    }
-
-    /**
-     * Fetch the service provider object for a particular service name.
-     * @abstract
-     * @param {string} service - the name of the service to look up
-     * @returns {{provider:(object|Worker), isRemote:boolean}} - the means to contact the service, if found
-     * @protected
-     */
-  }, {
-    key: "_getServiceProvider",
-    value: function _getServiceProvider(service) {
-      throw new Error("Could not get provider for ".concat(service, ": _getServiceProvider not implemented"));
-    }
-
-    /**
-     * Handle a call message sent to the dispatch service itself
-     * @abstract
-     * @param {Worker} worker - the worker which sent the message.
-     * @param {DispatchCallMessage} message - the message to be handled.
-     * @returns {Promise|undefined} - a promise for the results of this operation, if appropriate
-     * @private
-     */
-  }, {
-    key: "_onDispatchMessage",
-    value: function _onDispatchMessage(worker, message) {
-      throw new Error("Unimplemented dispatch message handler cannot handle ".concat(message.method, " method"));
-    }
-  }]);
-  return SharedDispatch;
-}();
-module.exports = SharedDispatch;
-
-/***/ }),
-
-/***/ "./node_modules/scratch-vm/src/dispatch/worker-dispatch.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/scratch-vm/src/dispatch/worker-dispatch.js ***!
-  \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-var SharedDispatch = __webpack_require__(/*! ./shared-dispatch */ "./node_modules/scratch-vm/src/dispatch/shared-dispatch.js");
-var log = __webpack_require__(/*! ../util/log */ "./node_modules/scratch-vm/src/util/log.js");
-
-/**
- * This class provides a Worker with the means to participate in the message dispatch system managed by CentralDispatch.
- * From any context in the messaging system, the dispatcher's "call" method can call any method on any "service"
- * provided in any participating context. The dispatch system will forward function arguments and return values across
- * worker boundaries as needed.
- * @see {CentralDispatch}
- */
-var WorkerDispatch = /*#__PURE__*/function (_SharedDispatch) {
-  _inherits(WorkerDispatch, _SharedDispatch);
-  function WorkerDispatch() {
-    var _this;
-    _classCallCheck(this, WorkerDispatch);
-    _this = _callSuper(this, WorkerDispatch);
-
-    /**
-     * This promise will be resolved when we have successfully connected to central dispatch.
-     * @type {Promise}
-     * @see {waitForConnection}
-     * @private
-     */
-    _this._connectionPromise = new Promise(function (resolve) {
-      _this._onConnect = resolve;
-    });
-
-    /**
-     * Map of service name to local service provider.
-     * If a service is not listed here, it is assumed to be provided by another context (another Worker or the main
-     * thread).
-     * @see {setService}
-     * @type {object}
-     */
-    _this.services = {};
-    _this._onMessage = _this._onMessage.bind(_assertThisInitialized(_this), self);
-    if (typeof self !== 'undefined') {
-      self.onmessage = _this._onMessage;
-    }
-    return _this;
-  }
-
-  /**
-   * @returns {Promise} a promise which will resolve upon connection to central dispatch. If you need to make a call
-   * immediately on "startup" you can attach a 'then' to this promise.
-   * @example
-   *      dispatch.waitForConnection.then(() => {
-   *          dispatch.call('myService', 'hello');
-   *      })
-   */
-  _createClass(WorkerDispatch, [{
-    key: "waitForConnection",
-    get: function get() {
-      return this._connectionPromise;
-    }
-
-    /**
-     * Set a local object as the global provider of the specified service.
-     * WARNING: Any method on the provider can be called from any worker within the dispatch system.
-     * @param {string} service - a globally unique string identifying this service. Examples: 'vm', 'gui', 'extension9'.
-     * @param {object} provider - a local object which provides this service.
-     * @returns {Promise} - a promise which will resolve once the service is registered.
-     */
-  }, {
-    key: "setService",
-    value: function setService(service, provider) {
-      var _this2 = this;
-      if (Object.prototype.hasOwnProperty.call(this.services, service)) {
-        log.warn("Worker dispatch replacing existing service provider for ".concat(service));
-      }
-      this.services[service] = provider;
-      return this.waitForConnection.then(function () {
-        return _this2._remoteCall(self, 'dispatch', 'setService', service);
-      });
-    }
-
-    /**
-     * Fetch the service provider object for a particular service name.
-     * @override
-     * @param {string} service - the name of the service to look up
-     * @returns {{provider:(object|Worker), isRemote:boolean}} - the means to contact the service, if found
-     * @protected
-     */
-  }, {
-    key: "_getServiceProvider",
-    value: function _getServiceProvider(service) {
-      // if we don't have a local service by this name, contact central dispatch by calling `postMessage` on self
-      var provider = this.services[service];
-      return {
-        provider: provider || self,
-        isRemote: !provider
-      };
-    }
-
-    /**
-     * Handle a call message sent to the dispatch service itself
-     * @override
-     * @param {Worker} worker - the worker which sent the message.
-     * @param {DispatchCallMessage} message - the message to be handled.
-     * @returns {Promise|undefined} - a promise for the results of this operation, if appropriate
-     * @protected
-     */
-  }, {
-    key: "_onDispatchMessage",
-    value: function _onDispatchMessage(worker, message) {
-      var promise;
-      switch (message.method) {
-        case 'handshake':
-          promise = this._onConnect();
-          break;
-        case 'terminate':
-          // Don't close until next tick, after sending confirmation back
-          setTimeout(function () {
-            return self.close();
-          }, 0);
-          promise = Promise.resolve();
-          break;
-        default:
-          log.error("Worker dispatch received message for unknown method: ".concat(message.method));
-      }
-      return promise;
-    }
-  }]);
-  return WorkerDispatch;
-}(SharedDispatch);
-module.exports = new WorkerDispatch();
-
-/***/ }),
-
-/***/ "./node_modules/scratch-vm/src/extension-support/argument-type.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/scratch-vm/src/extension-support/argument-type.js ***!
-  \************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Block argument types
- * @enum {string}
- */
-var ArgumentType = {
-  /**
-   * Numeric value with angle picker
-   */
-  ANGLE: 'angle',
-  /**
-   * Boolean value with hexagonal placeholder
-   */
-  BOOLEAN: 'Boolean',
-  /**
-   * Numeric value with color picker
-   */
-  COLOR: 'color',
-  /**
-   * Numeric value with text field
-   */
-  NUMBER: 'number',
-  /**
-   * String value with text field
-   */
-  STRING: 'string',
-  /**
-   * String value with matrix field
-   */
-  MATRIX: 'matrix',
-  /**
-   * MIDI note number with note picker (piano) field
-   */
-  NOTE: 'note',
-  /**
-   * Inline image on block (as part of the label)
-   */
-  IMAGE: 'image'
-};
-module.exports = ArgumentType;
-
-/***/ }),
-
-/***/ "./node_modules/scratch-vm/src/extension-support/block-type.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/scratch-vm/src/extension-support/block-type.js ***!
-  \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Types of block
- * @enum {string}
- */
-var BlockType = {
-  /**
-   * Boolean reporter with hexagonal shape
-   */
-  BOOLEAN: 'Boolean',
-  /**
-   * A button (not an actual block) for some special action, like making a variable
-   */
-  BUTTON: 'button',
-  /**
-   * Command block
-   */
-  COMMAND: 'command',
-  /**
-   * Specialized command block which may or may not run a child branch
-   * The thread continues with the next block whether or not a child branch ran.
-   */
-  CONDITIONAL: 'conditional',
-  /**
-   * Specialized hat block with no implementation function
-   * This stack only runs if the corresponding event is emitted by other code.
-   */
-  EVENT: 'event',
-  /**
-   * Hat block which conditionally starts a block stack
-   */
-  HAT: 'hat',
-  /**
-   * Specialized command block which may or may not run a child branch
-   * If a child branch runs, the thread evaluates the loop block again.
-   */
-  LOOP: 'loop',
-  /**
-   * General reporter with numeric or string value
-   */
-  REPORTER: 'reporter'
-};
-module.exports = BlockType;
-
-/***/ }),
-
-/***/ "./node_modules/scratch-vm/src/extension-support/target-type.js":
-/*!**********************************************************************!*\
-  !*** ./node_modules/scratch-vm/src/extension-support/target-type.js ***!
-  \**********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Default types of Target supported by the VM
- * @enum {string}
- */
-var TargetType = {
-  /**
-   * Rendered target which can move, change costumes, etc.
-   */
-  SPRITE: 'sprite',
-  /**
-   * Rendered target which cannot move but can change backdrops
-   */
-  STAGE: 'stage'
-};
-module.exports = TargetType;
-
-/***/ }),
-
-/***/ "./node_modules/scratch-vm/src/mlforkids-components/images/index.js":
-/*!**************************************************************************!*\
-  !*** ./node_modules/scratch-vm/src/mlforkids-components/images/index.js ***!
-  \**************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-var ML4KidsImageTraining = /*#__PURE__*/function () {
-  // This component needs to support multiple instances of the image
-  //  extension being used at once, so all state and models are
-  //  indexed by project id
-  // The base model can be shared across all projects
-
-  // state = <INIT/READY/ERROR>
-  // baseModel = <model>
-  // PROJECTS[projectid].modelClasses = <label1/label2/label3/...>
-  // PROJECTS[projectid].modelNumClasses = <number of modelClasses>
-  // PROJECTS[projectid].state = INIT/READY/TRAINING/TRAINED/ERROR
-  // PROJECTS[projectid].transferModel = <model>
-  // PROJECTS[projectid].usingRestoredModel = true/false
-
-  // states:
-  //   INIT - not ready yet
-  //   READY - ready for training
-  //   TRAINING - training in progress
-  //   TRAINED - ML model ready for use
-  //   ERROR - something went wrong
-
-  function ML4KidsImageTraining(storageSupport) {
-    _classCallCheck(this, ML4KidsImageTraining);
-    this.PROJECTS = {};
-    this.state = 'INIT';
-    this._storageSupport = storageSupport;
-  }
-
-  // safe to call this multiple times, including calling it before the first call has completed
-  _createClass(ML4KidsImageTraining, [{
-    key: "init",
-    value: function init() {
-      var _this = this;
-      if (!this.initPromise) {
-        this.initPromise = new Promise(function (resolve, reject) {
-          tf.enableProdMode();
-
-          // const BASE_MODEL = 'https://storage.googleapis.com' +
-          //                     '/tfjs-models/tfjs' +
-          //                     '/mobilenet_v1_0.25_224' +
-          //                     '/model.json';
-          var BASE_MODEL = '/static/bower_components/tensorflow-models/image-recognition-scratch/model.json';
-          tf.loadLayersModel(BASE_MODEL).then(function (pretrainedModel) {
-            var activationLayer = pretrainedModel.getLayer('conv_pw_13_relu');
-            _this.baseModel = tf.model({
-              inputs: pretrainedModel.inputs,
-              outputs: activationLayer.output
-            });
-            _this.state = 'READY';
-            resolve();
-          }).catch(function (err) {
-            _this.state = 'ERROR';
-            console.log('[mlforkids] Failed to initialise images component', err);
-            reject(err);
-          });
-        });
-      }
-      return this.initPromise;
-    }
-
-    // encprojectdata
-    // JSON.stringify-ed version of
-    //   { labels : [ labelA, labelB, labelC ], projectid : projectId }
-  }, {
-    key: "initProject",
-    value: function initProject(encprojectdata, worker) {
-      var _this2 = this;
-      console.log('[mlforkids] ML4KidsImageTraining init');
-      var projectData = typeof encprojectdata === 'string' ? JSON.parse(encprojectdata) : encprojectdata;
-      var projectid = projectData.projectid;
-      this.PROJECTS[projectid] = {};
-      this.PROJECTS[projectid].state = 'INIT';
-      this.PROJECTS[projectid].modelClasses = projectData.labels;
-      this.PROJECTS[projectid].modelNumClasses = projectData.labels.length;
-      this.PROJECTS[projectid].usingRestoredModel = false;
-      return this._loadModel(projectid).then(function (model) {
-        if (model) {
-          _this2.PROJECTS[projectid].transferModel = model;
-          _this2.PROJECTS[projectid].state = 'TRAINED';
-          _this2.PROJECTS[projectid].usingRestoredModel = true;
-          worker.postMessage({
-            mlforkidsimage: 'modelready',
-            data: {
-              projectid: projectid
-            }
-          });
-        } else {
-          _this2.PROJECTS[projectid].transferModel = _this2.prepareTransferLearningModel(projectData.labels.length);
-          _this2.PROJECTS[projectid].state = 'READY';
-          worker.postMessage({
-            mlforkidsimage: 'modelinit',
-            data: {
-              projectid: projectid
-            }
-          });
-        }
-        _this2._watchForNewModels(projectid, worker);
-      }).catch(function (err) {
-        console.log('[mlforkids] ML4KidsImageTraining failed init', err);
-        _this2.PROJECTS[projectid].state = 'ERROR';
-        worker.postMessage({
-          mlforkidsimage: 'modelfailed',
-          data: {
-            projectid: projectid
-          }
-        });
-      });
-    }
-  }, {
-    key: "sortByConfidence",
-    value: function sortByConfidence(a, b) {
-      if (a.confidence < b.confidence) {
-        return 1;
-      } else if (a.confidence > b.confidence) {
-        return -1;
-      } else {
-        return 0;
-      }
-    }
-
-    // encrequest
-    // JSON.stringify-ed version of
-    //   { projectid : projectId, requestid : requestId, imagedata: base64-enc-jpg }
-  }, {
-    key: "classifyImageData",
-    value: function classifyImageData(encrequest, worker) {
-      var requestData = JSON.parse(encrequest);
-      var projectid = requestData.projectid;
-      var requestid = requestData.requestid;
-      if (projectid in this.PROJECTS) {
-        if (this.PROJECTS[projectid].state !== 'TRAINED') {
-          console.log('[mlforkids] ML4KidsImageTraining received classify request before a model is ready');
-          return worker.postMessage({
-            mlforkidsimage: 'classifyresponse',
-            data: {
-              projectid: projectid,
-              requestid: requestid
-            }
-          });
-        }
-        var imageElement = document.createElement('img');
-        imageElement.width = 224;
-        imageElement.height = 224;
-        imageElement.onerror = function (err) {
-          console.log('[mlforkids] failed to prepare image data for prediction', err);
-          return worker.postMessage({
-            mlforkidsimage: 'classifyresponse',
-            data: {
-              projectid: projectid,
-              requestid: requestid
-            }
-          });
-        };
-        var that = this;
-        imageElement.onload = function () {
-          var imageDataTensor = tf.tidy(function () {
-            return tf.browser.fromPixels(imageElement).expandDims(0).toFloat().div(127).sub(1);
-          });
-          var baseModelOutput = that.baseModel.predict(imageDataTensor);
-          var transferModelOutput = that.PROJECTS[projectid].transferModel.predict(baseModelOutput);
-          transferModelOutput.data().then(function (output) {
-            if (output.length !== that.PROJECTS[projectid].modelNumClasses) {
-              console.log('[mlforkids] ML4KidsImageTraining received unexpected classify response', output);
-              return worker.postMessage({
-                mlforkidsimage: 'classifyresponse',
-                data: {
-                  projectid: projectid,
-                  requestid: requestid
-                }
-              });
-            }
-            var matches = that.PROJECTS[projectid].modelClasses.map(function (label, idx) {
-              return {
-                class_name: label,
-                confidence: 100 * output[idx]
-              };
-            }).sort(that.sortByConfidence);
-            return worker.postMessage({
-              mlforkidsimage: 'classifyresponse',
-              data: {
-                projectid: projectid,
-                requestid: requestid,
-                matches: matches
-              }
-            });
-          });
-        };
-        imageElement.src = 'data:image/jpeg;base64,' + requestData.imagedata;
-      } else {
-        console.log('[mlforkids] ML4KidsImageTraining received request for unknown project');
-        return worker.postMessage({
-          mlforkidsimage: 'classifyresponse',
-          data: {
-            projectid: projectid,
-            requestid: requestid
-          }
-        });
-      }
-    }
-  }, {
-    key: "prepareTransferLearningModel",
-    value: function prepareTransferLearningModel(numClasses) {
-      var model = tf.sequential({
-        layers: [tf.layers.flatten({
-          inputShape: this.baseModel.outputs[0].shape.slice(1)
-        }), tf.layers.dense({
-          units: 100,
-          activation: 'relu',
-          kernelInitializer: 'varianceScaling',
-          useBias: true
-        }), tf.layers.dense({
-          units: numClasses,
-          activation: 'softmax',
-          kernelInitializer: 'varianceScaling',
-          useBias: false
-        })]
-      });
-      model.compile({
-        optimizer: tf.train.adam(0.0001),
-        loss: 'categoricalCrossentropy'
-      });
-      return model;
-    }
-  }, {
-    key: "_getModelDbLocation",
-    value: function _getModelDbLocation(projectid) {
-      return 'indexeddb://ml4k-models-images-' + projectid.toString().replaceAll('-', '');
-    }
-  }, {
-    key: "_loadModel",
-    value: function _loadModel(projectid) {
-      console.log('[mlforkids] ML4KidsImageTraining loading model from browser storage');
-      var savelocation = this._getModelDbLocation(projectid);
-      return tf.loadLayersModel(savelocation).catch(function (err) {
-        console.log('[mlforkids] ML4KidsImageTraining failed to load model from storage', err);
-        return;
-      });
-    }
-  }, {
-    key: "_saveModel",
-    value: function _saveModel(projectid) {
-      var _this3 = this;
-      console.log('[mlforkids] ML4KidsImageTraining saving model to browser storage');
-      var savelocation = this._getModelDbLocation(projectid);
-      return this.PROJECTS[projectid].transferModel.save(savelocation).then(function (results) {
-        console.log('[mlforkids] ML4KidsImageTraining saved model', savelocation, results);
-        _this3._storeModelSavedDate(savelocation);
-      }).catch(function (err) {
-        console.log('[mlforkids] ML4KidsImageTraining failed to save model', err);
-      });
-    }
-  }, {
-    key: "_storeModelSavedDate",
-    value: function _storeModelSavedDate(modelid) {
-      try {
-        if (window.localStorage) {
-          window.localStorage.setItem(modelid, Date.now());
-        }
-      } catch (err) {
-        console.log('[mlforkids] ML4KidsImageTraining unable to save model date');
-      }
-    }
-  }, {
-    key: "_watchForNewModels",
-    value: function _watchForNewModels(projectid, worker) {
-      var _this4 = this;
-      if (!this.PROJECTS[projectid].modelWatcher) {
-        console.log('[mlforkids] ML4KidsImageTraining listening for model updates', projectid);
-        this.PROJECTS[projectid].modelWatcher = true;
-        var modellocation = this._getModelDbLocation(projectid);
-        this._storageSupport.registerForModelStorageUpdates(modellocation, function () {
-          console.log('[mlforkids] ML4KidsImageTraining new model was trained outside of Scratch');
-          return _this4._loadModel(projectid).then(function (model) {
-            if (model) {
-              _this4.PROJECTS[projectid].transferModel = model;
-              _this4.PROJECTS[projectid].state = 'TRAINED';
-              _this4.PROJECTS[projectid].usingRestoredModel = true;
-              worker.postMessage({
-                mlforkidsimage: 'modelready',
-                data: {
-                  projectid: projectid
-                }
-              });
-            } else {
-              // we weren't able to load the model
-              //  it may have been deleted outside of Scratch
-              _this4.PROJECTS[projectid].state = 'ERROR';
-              worker.postMessage({
-                mlforkidsimage: 'modelfailed',
-                data: {
-                  projectid: projectid
-                }
-              });
-            }
-          });
-        });
-      }
-    }
-  }, {
-    key: "_getLocalImageData",
-    value: function _getLocalImageData(projectid, trainingdataid) {
-      var storedTrainingItem;
-      return this._storageSupport.getTrainingDataItem(projectid, trainingdataid).then(function (trainingitem) {
-        storedTrainingItem = trainingitem;
-        if (!storedTrainingItem.imagedata) {
-          var url = new URL('https://machinelearningforkids.co.uk/api/classes/' + tenant + '/students/' + userid + '/training/images');
-          url.search = new URLSearchParams({
-            imageurl: trainingitem.imageurl,
-            label: trainingitem.label,
-            option: 'prepare'
-          });
-          return fetch(url);
-        }
-      }).then(function (resp) {
-        if (storedTrainingItem.imagedata) {
-          return storedTrainingItem.imagedata;
-        }
-        return resp.arrayBuffer();
-      }).then(function (imgdata) {
-        return {
-          imgdata: imgdata,
-          metadata: storedTrainingItem
-        };
-      });
-    }
-  }, {
-    key: "trainNewModelLocal",
-    value: function trainNewModelLocal(projectinfo, worker) {
-      var projectid = projectinfo.projectid;
-      var that = this;
-      return this._storageSupport.getTrainingData(projectid).then(function (trainingitems) {
-        var data = {
-          projectid: projectid,
-          trainingdata: trainingitems.map(function (trainingitem) {
-            return {
-              metadata: trainingitem,
-              imgdata: trainingitem.imagedata
-            };
-          })
-        };
-        that.trainNewModel(data, worker);
-      });
-    }
-  }, {
-    key: "trainNewModel",
-    value: function trainNewModel(data, worker) {
-      var _this5 = this;
-      var projectid = data.projectid;
-      if (this.state !== 'READY') {
-        console.log('[mlforkids] ML4KidsImageTraining not ready to train a new ML model - state : ' + this.state);
-        return;
-      }
-      if (this.PROJECTS[projectid].state === 'TRAINING') {
-        console.log('[mlforkids] ML4KidsImageTraining training in progress for this model');
-        return;
-      }
-      if (data.trainingdata.length < 5) {
-        console.log('[mlforkids] ML4KidsImageTraining insufficient training examples for a new model');
-        return;
-      }
-      console.log('[mlforkids] ML4KidsImageTraining training new model');
-      this.PROJECTS[projectid].state = 'TRAINING';
-      if (this.PROJECTS[projectid].usingRestoredModel) {
-        this.PROJECTS[projectid].transferModel = this.prepareTransferLearningModel(this.PROJECTS[projectid].modelNumClasses);
-      }
-      var that = this;
-      return Promise.all(data.trainingdata.map(this._getTensorForImageData)).then(function (trainingdata) {
-        var xs;
-        var ys;
-        var _loop = function _loop() {
-            var trainingdataitem = trainingdata[i];
-            var labelIdx = that.PROJECTS[projectid].modelClasses.indexOf(trainingdataitem.metadata.label);
-            var xval = that.baseModel.predict(trainingdataitem.data);
-            var yval = tf.tidy(function () {
-              return tf.oneHot(tf.tensor1d([labelIdx]).toInt(), that.PROJECTS[projectid].modelNumClasses);
-            });
-            if (i === 0) {
-              xs = xval;
-              ys = yval;
-            } else {
-              oldxs = xs;
-              oldys = ys;
-              xs = oldxs.concat(xval, 0);
-              ys = oldys.concat(yval, 0);
-              oldxs.dispose();
-              oldys.dispose();
-            }
-          },
-          oldxs,
-          oldys;
-        for (var i = 0; i < trainingdata.length; i++) {
-          _loop();
-        }
-        var epochs = 10;
-        if (trainingdata.length > 55) {
-          epochs = 15;
-        }
-        that.PROJECTS[projectid].transferModel.fit(xs, ys, {
-          batchSize: 10,
-          epochs: epochs,
-          callbacks: {
-            onEpochEnd: function onEpochEnd(epoch, logs) {
-              console.log('[mlforkids] ML4KidsImageTraining epoch ' + epoch + ' loss ' + logs.loss);
-            },
-            onTrainEnd: function onTrainEnd() {
-              console.log('[mlforkids] ML4KidsImageTraining training complete');
-              that._saveModel(projectid);
-              that.PROJECTS[projectid].state = 'TRAINED';
-              that.PROJECTS[projectid].usingRestoredModel = false;
-              worker.postMessage({
-                mlforkidsimage: 'modelready',
-                data: {
-                  projectid: projectid
-                }
-              });
-            }
-          }
-        });
-      }).catch(function (err) {
-        console.log('[mlforkids] ML4KidsImageTraining failed to train model', err);
-        _this5.PROJECTS[projectid].state = 'ERROR';
-        worker.postMessage({
-          mlforkidsimage: 'modelfailed',
-          data: {
-            projectid: projectid
-          }
-        });
-      });
-    }
-  }, {
-    key: "_getTensorForImageData",
-    value: function _getTensorForImageData(_ref) {
-      var imgdata = _ref.imgdata,
-        metadata = _ref.metadata;
-      return new Promise(function (resolve, reject) {
-        var imgDataBlob = URL.createObjectURL(new Blob([imgdata]));
-        var hiddenImg = document.createElement('img');
-        hiddenImg.width = 224;
-        hiddenImg.height = 224;
-        hiddenImg.onerror = function (err) {
-          console.log('[mlforkids] ML4KidsImageTraining failed to load image', err);
-          return reject(err);
-        };
-        hiddenImg.onload = function () {
-          var imageData = tf.tidy(function () {
-            return tf.browser.fromPixels(hiddenImg).expandDims(0).toFloat().div(127).sub(1);
-          });
-          resolve({
-            metadata: metadata,
-            data: imageData
-          });
-          URL.revokeObjectURL(imgDataBlob);
-        };
-        hiddenImg.src = imgDataBlob;
-      });
-    }
-  }]);
-  return ML4KidsImageTraining;
-}();
-module.exports = ML4KidsImageTraining;
-
-/***/ }),
-
-/***/ "./node_modules/scratch-vm/src/mlforkids-components/numbers/index.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/scratch-vm/src/mlforkids-components/numbers/index.js ***!
-  \***************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-var ML4KidsNumbersTraining = /*#__PURE__*/function () {
-  function ML4KidsNumbersTraining(storageSupport) {
-    _classCallCheck(this, ML4KidsNumbersTraining);
-    this.PROJECTS = {};
-    this.state = 'INIT';
-    this._storageSupport = storageSupport;
-    // this._ydf = null;
-  }
-  _createClass(ML4KidsNumbersTraining, [{
-    key: "init",
-    value: function init() {
-      var _this = this;
-      if (!this.initPromise) {
-        this.initPromise = new Promise(function (resolve, reject) {
-          return YDFInference().then(function (ydf) {
-            _this._ydf = ydf;
-            _this.state = 'READY';
-            resolve();
-          }).catch(function (err) {
-            _this.state = 'ERROR';
-            reject(err);
-          });
-        });
-      }
-      return this.initPromise;
-    }
-  }, {
-    key: "initProject",
-    value: function initProject(project, worker) {
-      var _this2 = this;
-      var projectid = project.id.toString();
-      this.PROJECTS[projectid] = {
-        state: 'INIT',
-        project: project
-      };
-      return this._loadModel(project).then(function (loaded) {
-        if (loaded) {
-          _this2.PROJECTS[projectid].state = 'TRAINED';
-          worker.postMessage({
-            mlforkidsnumbers: 'modelready',
-            data: {
-              projectid: projectid
-            }
-          });
-        } else {
-          _this2.PROJECTS[projectid].state = 'READY';
-          worker.postMessage({
-            mlforkidsnumbers: 'modelinit',
-            data: {
-              projectid: projectid
-            }
-          });
-        }
-        _this2._watchForNewModels(project.id, worker);
-      }).catch(function (err) {
-        console.log('[mlforkids] ML4KidsNumbersTraining failed init', err);
-        _this2.PROJECTS[projectid].state = 'ERROR';
-        worker.postMessage({
-          mlforkidsnumbers: 'modelfailed',
-          data: {
-            projectid: projectid
-          }
-        });
-      });
-    }
-
-    // TODO remove?
-    // _getModelDbLocation (projectid) {
-    //     return 'indexeddb://ml4k-models-numbers-' + projectid.toString().replaceAll('-', '');
-    // }
-  }, {
-    key: "_getFromStorageAsJson",
-    value: function _getFromStorageAsJson(key) {
-      var value = this._storageSupport.getFromLocalStorage(key);
-      if (!value) {
-        throw new Error('Missing data ' + key);
-      }
-      return JSON.parse(value);
-    }
-  }, {
-    key: "_loadModel",
-    value: function _loadModel(project) {
-      var _this3 = this;
-      console.log('[mlforkids] ML4KidsNumbersTraining loading model zip from browser storage');
-      var loaded = false;
-      return this._storageSupport.retrieveAsset(project.id + '-model').then(function (modelzip) {
-        return _this3._ydf.loadModelFromZipBlob(modelzip);
-      }).then(function (ydfmodel) {
-        _this3.PROJECTS[project.id].model = ydfmodel;
-        var modelid = project.id;
-        _this3.PROJECTS[project.id].features = _this3._getFromStorageAsJson('ml4k-models-numbers-' + modelid + '-features');
-        _this3.PROJECTS[project.id].labels = _this3._getFromStorageAsJson('ml4k-models-numbers-' + modelid + '-labels');
-        loaded = true;
-        return loaded;
-      }).catch(function (err) {
-        console.log('[mlforkids] ML4KidsNumbersTraining failed to load model from storage', err);
-        return loaded;
-      });
-    }
-  }, {
-    key: "trainNewModel",
-    value: function trainNewModel(request, worker) {
-      var _this4 = this;
-      console.log('[mlforkids] new model request', request);
-      var projectid = request.projectid;
-      this.PROJECTS[projectid].state = 'TRAINING';
-      var options = {
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        method: 'POST',
-        body: '{}'
-      };
-      return fetch(request.modelurl, options).then(function (resp) {
-        return resp.json();
-      }).then(function (response) {
-        _this4.PROJECTS[projectid].details = response;
-        if (response.status === 'Training') {
-          _this4._scheduleModelStatusCheck(projectid, response, worker);
-        } else if (response.status === 'Failed') {
-          console.log('[mlforkids] model training failed', response);
-          if (response.error && response.error.message === 'More training data needed to train a model') {
-            // no training data for a model - let the scratch extension know
-            worker.postMessage({
-              mlforkidsnumbers: 'modelinit',
-              data: {
-                projectid: projectid,
-                reason: 'no training data'
-              }
-            });
-            return;
-          } else {
-            worker.postMessage({
-              mlforkidsnumbers: 'modelfailed',
-              data: {
-                projectid: projectid
-              }
-            });
-          }
-        }
-      }).catch(function (err) {
-        console.log('[mlforkids] model training failed', err);
-        worker.postMessage({
-          mlforkidsnumbers: 'modelfailed',
-          data: {
-            projectid: projectid
-          }
-        });
-      });
-    }
-  }, {
-    key: "trainNewModelLocal",
-    value: function trainNewModelLocal(request, worker) {
-      var _this5 = this;
-      console.log('[mlforkids] new model request', request);
-      var projectid = request.projectid;
-      this.PROJECTS[projectid].state = 'TRAINING';
-      return this._storageSupport.getTrainingData(projectid).then(function (training) {
-        if (training.length === 0) {
-          // no training - nothing we can do now - let the scratch extension know
-          worker.postMessage({
-            mlforkidsnumbers: 'modelinit',
-            data: {
-              projectid: projectid,
-              reason: 'no training data'
-            }
-          });
-          return;
-        }
-        var options = {
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          method: 'POST',
-          body: JSON.stringify({
-            project: _this5.PROJECTS[projectid].project,
-            training: training,
-            type: 'numbers'
-          })
-        };
-        return fetch(request.modelurl, options);
-      }).then(function (resp) {
-        if (resp) {
-          return resp.json();
-        }
-      }).then(function (response) {
-        if (response) {
-          _this5.PROJECTS[projectid].details = response;
-          if (response.status === 'Training') {
-            _this5._scheduleModelStatusCheck(projectid, response, worker);
-          } else if (response.status === 'Failed') {
-            console.log('[mlforkids] model training failed', response);
-            if (response.error && response.error.message === 'More training data needed to train a model') {
-              // no training - nothing we can do now - let the scratch extension know
-              worker.postMessage({
-                mlforkidsnumbers: 'modelinit',
-                data: {
-                  projectid: projectid,
-                  reason: 'no training data'
-                }
-              });
-              return;
-            } else {
-              worker.postMessage({
-                mlforkidsnumbers: 'modelfailed',
-                data: {
-                  projectid: projectid
-                }
-              });
-            }
-          }
-        }
-      }).catch(function (err) {
-        console.log('[mlforkids] model training failed', err);
-        worker.postMessage({
-          mlforkidsnumbers: 'modelfailed',
-          data: {
-            projectid: projectid
-          }
-        });
-      });
-    }
-  }, {
-    key: "_scheduleModelStatusCheck",
-    value: function _scheduleModelStatusCheck(projectid, modelinfo, worker) {
-      var _this6 = this;
-      setTimeout(function () {
-        _this6._checkModelStatus(projectid, modelinfo, worker);
-      }, 4000);
-    }
-  }, {
-    key: "_checkModelStatus",
-    value: function _checkModelStatus(projectid, modelinfo, worker) {
-      var _this7 = this;
-      console.log('[mlforkids] checking model status');
-      return fetch(modelinfo.urls.status).then(function (r) {
-        return r.json();
-      }).then(function (newstatus) {
-        if (newstatus.status === 'Training') {
-          console.log('[mlforkids] model still training');
-          _this7._scheduleModelStatusCheck(projectid, newstatus, worker);
-        } else if (newstatus.status === 'Available') {
-          _this7._storeModelForLocalReuse(projectid, newstatus, worker);
-        } else {
-          console.log('[mlforkids] model server reports training failed', newstatus);
-          _this7.PROJECTS[projectid].state = 'ERROR';
-          worker.postMessage({
-            mlforkidsnumbers: 'modelfailed',
-            data: {
-              projectid: projectid
-            }
-          });
-        }
-      }).catch(function (err) {
-        console.log('[mlforkids] failed to check model status', err);
-        _this7.PROJECTS[projectid].state = 'ERROR';
-        worker.postMessage({
-          mlforkidsnumbers: 'modelfailed',
-          data: {
-            projectid: projectid
-          }
-        });
-      });
-    }
-  }, {
-    key: "_storeModelForLocalReuse",
-    value: function _storeModelForLocalReuse(projectid, modelinfo, worker) {
-      var _this8 = this;
-      console.log('[mlforkids] downloading ydf model');
-      this._storageSupport.storeAsset(projectid + '-model', modelinfo.urls.model).then(function () {
-        console.log('[mlforkids] downloading visualisation');
-        return _this8._storageSupport.storeAsset(projectid + '-tree', modelinfo.urls.tree).then(function () {
-          return _this8._storageSupport.storeAsset(projectid + '-dot', modelinfo.urls.dot);
-        }).then(function () {
-          return _this8._storageSupport.storeAsset(projectid + '-vocab', modelinfo.urls.vocab);
-        }).catch(function (err) {
-          console.log('[mlforkids] failed to download visualisation', err);
-        });
-      }).then(function () {
-        console.log('[mlforkids] retrieving model from storage');
-        return _this8._storageSupport.retrieveAsset(projectid + '-model');
-      }).then(function (modelzip) {
-        console.log('[mlforkids] opening model');
-        return _this8._ydf.loadModelFromZipBlob(modelzip);
-      }).then(function (ydfmodel) {
-        if (_this8.PROJECTS[projectid].model) {
-          _this8.PROJECTS[projectid].model.unload();
-        }
-        _this8.PROJECTS[projectid].model = ydfmodel;
-        console.log('[mlforkids] saving model info');
-        window.localStorage.setItem('ml4k-models-numbers-' + projectid + '-features', JSON.stringify(modelinfo.features));
-        window.localStorage.setItem('ml4k-models-numbers-' + projectid + '-labels', JSON.stringify(modelinfo.labels));
-        window.localStorage.setItem('ml4k-models-numbers-' + projectid + '-status', modelinfo.urls.status);
-        window.localStorage.setItem('ml4k-models-numbers-' + projectid + '-date', Date.now());
-        _this8.PROJECTS[projectid].features = modelinfo.features;
-        _this8.PROJECTS[projectid].labels = modelinfo.labels;
-      }).then(function () {
-        _this8.PROJECTS[projectid].state = 'TRAINED';
-        worker.postMessage({
-          mlforkidsnumbers: 'modelready',
-          data: {
-            projectid: projectid
-          }
-        });
-      }).catch(function (err) {
-        console.log('[mlforkids] model storing failed', err);
-        if (err.message && err.message.includes('BlobURLs are not yet supported')) {
-          console.log('[mlforkids] UNABLE TO STORE MODEL');
-          _this8.PROJECTS[projectid].state = 'TRAINED';
-          worker.postMessage({
-            mlforkidsnumbers: 'modelready',
-            data: {
-              projectid: projectid
-            }
-          });
-        } else {
-          worker.postMessage({
-            mlforkidsnumbers: 'modelfailed',
-            data: {
-              projectid: projectid
-            }
-          });
-        }
-      });
-    }
-
-    // deleteModel (projectid) {
-    //     this.PROJECTS[projectid].state = 'READY';
-    //     delete this.PROJECTS[projectid].features;
-    //     delete this.PROJECTS[projectid].labels;
-    //     delete this.PROJECTS[projectid].model;
-    //     // TODO delete stored model
-    //     return Promise.resolve();
-    // }
-  }, {
-    key: "classifyNumberData",
-    value: function classifyNumberData(request, worker) {
-      var projectid = request.projectid;
-      var numberdata = request.numbers;
-      var requestid = request.requestid;
-      var testdata = {};
-      try {
-        for (var _i = 0, _Object$keys = Object.keys(numberdata); _i < _Object$keys.length; _i++) {
-          var key = _Object$keys[_i];
-          var feature = this.PROJECTS[projectid].features[key];
-          if (feature) {
-            if (feature.type.includes('int')) {
-              testdata[feature.name] = [parseInt(numberdata[key])];
-            } else if (feature.type.includes('float')) {
-              testdata[feature.name] = [parseFloat(numberdata[key])];
-            } else {
-              testdata[feature.name] = [numberdata[key]];
-            }
-          }
-        }
-      } catch (err) {
-        console.error('[mlforkids] unable to prepare data for classifying', err);
-        return;
-      }
-      var output = this.PROJECTS[projectid].model.predict(testdata);
-      if (this.PROJECTS[projectid].labels.length === 2) {
-        var result = [{
-          class_name: this.PROJECTS[projectid].labels[0],
-          confidence: (1 - output[0]) * 100
-        }, {
-          class_name: this.PROJECTS[projectid].labels[1],
-          confidence: output[0] * 100
-        }].sort(this._sortByConfidence);
-        worker.postMessage({
-          mlforkidsnumbers: 'classifyresponse',
-          data: {
-            projectid: projectid,
-            requestid: requestid,
-            result: result
-          }
-        });
-      } else if (this.PROJECTS[projectid].labels.length === output.length) {
-        var _result = this.PROJECTS[projectid].labels.map(function (label, idx) {
-          return {
-            class_name: label,
-            confidence: output[idx] * 100
-          };
-        }).sort(this._sortByConfidence);
-        worker.postMessage({
-          mlforkidsnumbers: 'classifyresponse',
-          data: {
-            projectid: projectid,
-            requestid: requestid,
-            result: _result
-          }
-        });
-      } else {
-        console.error('[ml4knums] unexpected model response', output);
-        this.PROJECTS[projectid].state = 'ERROR';
-        worker.postMessage({
-          mlforkidsnumbers: 'modelfailed',
-          data: {
-            projectid: projectid
-          }
-        });
-      }
-    }
-  }, {
-    key: "_watchForNewModels",
-    value: function _watchForNewModels(projectid, worker) {
-      var _this9 = this;
-      if (!this.PROJECTS[projectid].modelWatcher) {
-        console.log('[mlforkids] ML4KidsNumbersTraining listening for model updates', projectid);
-        this.PROJECTS[projectid].modelWatcher = true;
-        var modellocation = 'ml4k-models-numbers-' + projectid + '-date';
-        this._storageSupport.registerForModelStorageUpdates(modellocation, function () {
-          console.log('[mlforkids] ML4KidsNumbersTraining new model was trained');
-          _this9.PROJECTS[projectid].state = 'TRAINING'; // loading saved model
-          _this9._loadModel({
-            id: projectid
-          }).then(function (loaded) {
-            if (loaded) {
-              console.log('[mlforkids] ML4KidsNumbersTraining model loaded');
-              _this9.PROJECTS[projectid].state = 'TRAINED';
-              worker.postMessage({
-                mlforkidsnumbers: 'modelready',
-                data: {
-                  projectid: projectid
-                }
-              });
-            } else {
-              console.log('[mlforkids] ML4KidsNumbersTraining no model - model deleted');
-              _this9.PROJECTS[projectid].state = 'READY';
-              worker.postMessage({
-                mlforkidsnumbers: 'modelinit',
-                data: {
-                  projectid: projectid,
-                  reason: 'model deleted'
-                }
-              });
-            }
-          }).catch(function () {
-            console.log('[mlforkids] ML4KidsNumbersTraining unexpected loading error');
-            _this9.PROJECTS[projectid].state = 'ERROR';
-            worker.postMessage({
-              mlforkidsnumbers: 'modelfailed',
-              data: {
-                projectid: projectid
-              }
-            });
-          });
-        });
-      }
-    }
-  }, {
-    key: "_sortByConfidence",
-    value: function _sortByConfidence(a, b) {
-      if (a.confidence < b.confidence) {
-        return 1;
-      } else if (a.confidence > b.confidence) {
-        return -1;
-      } else {
-        return 0;
-      }
-    }
-  }]);
-  return ML4KidsNumbersTraining;
-}();
-module.exports = ML4KidsNumbersTraining;
-
-/***/ }),
-
-/***/ "./node_modules/scratch-vm/src/mlforkids-components/regression/index.js":
-/*!******************************************************************************!*\
-  !*** ./node_modules/scratch-vm/src/mlforkids-components/regression/index.js ***!
-  \******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-var ML4KidsRegressionTraining = /*#__PURE__*/function () {
-  function ML4KidsRegressionTraining(storageSupport) {
-    _classCallCheck(this, ML4KidsRegressionTraining);
-    this.PROJECTS = {};
-    this.state = 'INIT';
-    this._storageSupport = storageSupport;
-  }
-  _createClass(ML4KidsRegressionTraining, [{
-    key: "init",
-    value: function init() {
-      var _this = this;
-      if (!this.initPromise) {
-        this.initPromise = new Promise(function (resolve) {
-          tf.enableProdMode();
-          _this.state = 'READY';
-          resolve();
-        });
-      }
-      return this.initPromise;
-    }
-  }, {
-    key: "initProject",
-    value: function initProject(project, worker) {
-      var _this2 = this;
-      this.PROJECTS[project.id] = {
-        state: 'INIT',
-        project: project
-      };
-      return this._loadModel(project.id).then(function (loaded) {
-        if (loaded) {
-          _this2.PROJECTS[project.id].state = 'TRAINED';
-          worker.postMessage({
-            mlforkidsregression: 'modelready',
-            data: {
-              projectid: project.id
-            }
-          });
-        } else {
-          _this2.PROJECTS[project.id].state = 'READY';
-          worker.postMessage({
-            mlforkidsregression: 'modelinit',
-            data: {
-              projectid: project.id
-            }
-          });
-        }
-        _this2._watchForNewModels(project.id, worker);
-      }).catch(function (err) {
-        console.log('[mlforkids] ML4KidsRegressionTraining failed init', err);
-        _this2.PROJECTS[projectid].state = 'ERROR';
-        worker.postMessage({
-          mlforkidsregression: 'modelfailed',
-          data: {
-            projectid: project.id
-          }
-        });
-      });
-    }
-  }, {
-    key: "trainNewModel",
-    value: function trainNewModel(projectid, worker) {
-      var _this3 = this;
-      if (this.PROJECTS[projectid].state === 'TRAINING') {
-        console.log('[mlforkids] ML4KidsRegressionTraining training in progress for this model');
-        return;
-      }
-      console.log('[mlforkids] ML4KidsRegressionTraining training new model');
-      this.PROJECTS[projectid].state = 'TRAINING';
-      var that = this;
-      return this._storageSupport.getTrainingData(projectid).then(function (training) {
-        var project = that.PROJECTS[projectid].project;
-
-        // separate out columns into input and output values
-        var inputColumns = project.columns.filter(function (col) {
-          return col.output === false;
-        }).map(function (col) {
-          return col.label;
-        });
-        var targetColumns = project.columns.filter(function (col) {
-          return col.output === true;
-        }).map(function (col) {
-          return col.label;
-        });
-
-        // turn array of JSON objects into array of raw numbers
-        var inputFeatures = [];
-        var targetFeatures = [];
-        var _loop = function _loop() {
-          var trainingitem = training[i];
-          var skip = false;
-          var inputFeature = inputColumns.map(function (col) {
-            var num = trainingitem[col];
-            if (isNaN(num)) {
-              skip = true;
-            }
-            return num;
-          });
-          var targetFeature = targetColumns.map(function (col) {
-            var num = trainingitem[col];
-            if (isNaN(num)) {
-              skip = true;
-            }
-            return num;
-          });
-          if (skip) {
-            console.log('[mlforkids] skipping non-numeric training data', trainingitem);
-          } else {
-            inputFeatures.push(inputFeature);
-            targetFeatures.push(targetFeature);
-          }
-        };
-        for (var i = 0; i < training.length; i++) {
-          _loop();
-        }
-
-        // normalize the input
-        var inputFeaturesTensor = tf.tensor2d(inputFeatures);
-        var mean = inputFeaturesTensor.mean(0);
-        var standardDeviation = inputFeaturesTensor.sub(mean).square().mean(0).sqrt();
-        that.PROJECTS[projectid].normalization = {
-          mean: mean,
-          standardDeviation: standardDeviation
-        };
-        var normalisedInputFeatures = inputFeaturesTensor.sub(that.PROJECTS[projectid].normalization.mean).div(that.PROJECTS[projectid].normalization.standardDeviation);
-
-        // store the normalization
-        that._storageSupport.addMetadataToProject(projectid, 'normalization', {
-          mean: that.PROJECTS[projectid].normalization.mean.arraySync(),
-          standardDeviation: that.PROJECTS[projectid].normalization.standardDeviation.arraySync()
-        });
-
-        // create the model
-        that.PROJECTS[projectid].model = that._defineModel(inputColumns.length, targetColumns.length);
-
-        // train the model
-        that.PROJECTS[projectid].model.fit(normalisedInputFeatures, tf.tensor2d(targetFeatures), {
-          batchSize: 40,
-          epochs: 200,
-          validationSplit: 0.2,
-          callbacks: {
-            onEpochEnd: function onEpochEnd(epoch, logs) {
-              console.log('[mlforkids] ML4KidsRegressionTraining epoch ' + epoch + ' loss ' + logs.loss);
-            },
-            onTrainEnd: function onTrainEnd() {
-              console.log('[mlforkids] ML4KidsRegressionTraining training complete');
-              that._saveModel(projectid);
-              that.PROJECTS[projectid].state = 'TRAINED';
-              worker.postMessage({
-                mlforkidsregression: 'modelready',
-                data: {
-                  projectid: projectid
-                }
-              });
-            }
-          }
-        });
-      }).catch(function (err) {
-        console.log('[mlforkids] ML4KidsRegressionTraining failed to train model', err);
-        _this3.PROJECTS[projectid].state = 'ERROR';
-        worker.postMessage({
-          mlforkidsregression: 'modelfailed',
-          data: {
-            projectid: projectid
-          }
-        });
-      });
-    }
-  }, {
-    key: "predict",
-    value: function predict(requestdata, worker) {
-      var requestid = requestdata.requestid;
-      var projectid = requestdata.projectid;
-      var project = this.PROJECTS[projectid].project;
-      var normalization = this.PROJECTS[projectid].normalization;
-      var testdata = requestdata.data;
-      var testTensor = tf.tidy(function () {
-        var inputValues = project.columns.filter(function (col) {
-          return col.output === false;
-        }).map(function (col) {
-          return testdata[col.label];
-        });
-        var inputTensor = tf.tensor2d([inputValues]);
-        var normalisedInputValues = inputTensor.sub(normalization.mean).div(normalization.standardDeviation);
-        return normalisedInputValues;
-      });
-      var modelOutput = this.PROJECTS[projectid].model.predict(testTensor);
-      modelOutput.data().then(function (output) {
-        var targetColumns = project.columns.filter(function (col) {
-          return col.output === true;
-        });
-        if (output.length !== targetColumns.length) {
-          loggerService.error('[ml4kregress] unexpected output from model', output);
-          throw new Error('Unexpected output from model');
-        }
-        var labelledOutput = {};
-        targetColumns.forEach(function (col, idx) {
-          labelledOutput[col.label] = output[idx];
-        });
-        worker.postMessage({
-          mlforkidsregression: 'classifyresponse',
-          data: {
-            projectid: projectid,
-            requestid: requestid,
-            prediction: labelledOutput
-          }
-        });
-      }).catch(function (err) {
-        console.log('[mlforkids] ML4KidsRegressionTraining failed to run test', err);
-        // TODO
-      });
-    }
-  }, {
-    key: "_defineModel",
-    value: function _defineModel(numInputFeatures, numOutputLabels) {
-      var regressionModel = tf.sequential();
-      regressionModel.add(tf.layers.dense({
-        inputShape: [numInputFeatures],
-        units: 50,
-        activation: 'sigmoid',
-        kernelInitializer: 'leCunNormal'
-      }));
-      regressionModel.add(tf.layers.dense({
-        units: 50,
-        activation: 'sigmoid',
-        kernelInitializer: 'leCunNormal'
-      }));
-      regressionModel.add(tf.layers.dense({
-        units: numOutputLabels
-      }));
-      regressionModel.compile({
-        optimizer: tf.train.sgd(0.01),
-        loss: 'meanSquaredError'
-      });
-      return regressionModel;
-    }
-  }, {
-    key: "_getModelDbLocation",
-    value: function _getModelDbLocation(projectid) {
-      return 'indexeddb://ml4k-models-regression-' + projectid.toString().replaceAll('-', '');
-    }
-  }, {
-    key: "_loadModel",
-    value: function _loadModel(projectid) {
-      var _this4 = this;
-      console.log('[mlforkids] ML4KidsRegressionTraining loading model from browser storage');
-      var loaded = false;
-      if (this.PROJECTS[projectid].project.normalization) {
-        var savelocation = this._getModelDbLocation(projectid);
-        return tf.loadLayersModel(savelocation).then(function (storedModelInfo) {
-          // TODO compare model with project info to check size is consistent
-          if (storedModelInfo) {
-            _this4.PROJECTS[projectid].normalization = {
-              mean: tf.tensor(_this4.PROJECTS[projectid].project.normalization.mean),
-              standardDeviation: tf.tensor(_this4.PROJECTS[projectid].project.normalization.standardDeviation)
-            };
-            _this4.PROJECTS[projectid].model = storedModelInfo;
-            loaded = true;
-          }
-          return loaded;
-        }).catch(function (err) {
-          console.log('[mlforkids] ML4KidsRegressionTraining failed to load model from storage', err);
-          return loaded;
-        });
-      } else {
-        console.log('[mlforkids] ML4KidsRegressionTraining no stored normalization data - cannot use a loaded model');
-        return Promise.resolve(loaded);
-      }
-    }
-  }, {
-    key: "_saveModel",
-    value: function _saveModel(projectid) {
-      console.log('[mlforkids] ML4KidsRegressionTraining saving model to browser storage');
-      var savelocation = this._getModelDbLocation(projectid);
-      return this.PROJECTS[projectid].model.save(savelocation).then(function (results) {
-        console.log('[mlforkids] ML4KidsRegressionTraining saved model', savelocation, results);
-      }).catch(function (err) {
-        console.log('[mlforkids] ML4KidsRegressionTraining failed to save model', err);
-      });
-    }
-  }, {
-    key: "_watchForNewModels",
-    value: function _watchForNewModels(projectid, worker) {
-      var _this5 = this;
-      if (!this.PROJECTS[projectid].modelWatcher) {
-        console.log('[mlforkids] ML4KidsRegressionTraining listening for model updates', projectid);
-        this.PROJECTS[projectid].modelWatcher = true;
-        var modellocation = this._getModelDbLocation(projectid);
-        this._storageSupport.registerForModelStorageUpdates(modellocation, function () {
-          console.log('[mlforkids] ML4KidsRegressionTraining new model was trained');
-          _this5.trainNewModel(projectid, worker);
-        });
-      }
-    }
-  }]);
-  return ML4KidsRegressionTraining;
-}();
-module.exports = ML4KidsRegressionTraining;
-
-/***/ }),
-
-/***/ "./node_modules/scratch-vm/src/mlforkids-components/sound/index.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/scratch-vm/src/mlforkids-components/sound/index.js ***!
-  \*************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-var ML4KidsSoundTraining = /*#__PURE__*/function () {
-  // states:
-  //   INIT - not ready yet
-  //   READY - ready for training
-  //   TRAINING - training in progress
-  //   TRAINED - ML model ready for use
-  //   LISTENING - ML model being used
-  //   ERROR - something went wrong
-
-  function ML4KidsSoundTraining(storageSupport) {
-    _classCallCheck(this, ML4KidsSoundTraining);
-    this.state = 'INIT';
-    this.usingRestoredModel = false;
-    this._storageSupport = storageSupport;
-  }
-  _createClass(ML4KidsSoundTraining, [{
-    key: "init",
-    value: function init(encprojectdata, worker) {
-      var _this = this;
-      // TODO this will break if there are multiple sound extensions open in Scratch - use multi-project approach from image-support class
-
-      if (typeof encprojectdata === 'string') {
-        if (encprojectdata[0] === '{') {
-          // additional info for using indexeddb to store/load models
-          var projectData = JSON.parse(encprojectdata);
-          this.mlprojectid = projectData.projectid;
-          this.mlprojectlabels = projectData.labels;
-          if (!projectData.labels.includes('_background_noise_')) {
-            this.mlprojectlabels.unshift('_background_noise_');
-          }
-        } else {
-          // project id only means new models can be created only
-          this.mlprojectid = encprojectdata;
-        }
-      } else {
-        // additional info for using indexeddb to store/load models
-        this.mlprojectid = encprojectdata.projectid;
-        this.mlprojectlabels = encprojectdata.labels;
-        if (!encprojectdata.labels.includes('_background_noise_')) {
-          this.mlprojectlabels.unshift('_background_noise_');
-        }
-      }
-      tf.enableProdMode();
-      window.addEventListener('mlforkids-runtime-project-stop-all', function () {
-        _this.stopListening(worker);
-      });
-      return this.loadSpeechCommands().then(function () {
-        return _this.initSoundSupport(true, worker);
-        // })
-        // .then(() => {
-        //     this._watchForNewModels(this.mlprojectid);
-      });
-    }
-  }, {
-    key: "loadSpeechCommands",
-    value: function loadSpeechCommands() {
-      var scriptid = 'mlforkids-script-speechcommands';
-      var scripturl = 'https://machinelearningforkids.co.uk' + '/static/bower_components' + '/tensorflow-models/speech-commands-scratch' + '/speech-commands.min.js?v=118';
-      return new Promise(function (resolve, reject) {
-        if (document.getElementById(scriptid)) {
-          return resolve();
-        } else {
-          var scriptObj = document.createElement('script');
-          scriptObj.id = scriptid;
-          scriptObj.type = 'text/javascript';
-          scriptObj.src = scripturl;
-          scriptObj.onload = resolve;
-          scriptObj.onError = reject;
-          document.head.appendChild(scriptObj);
-        }
-      });
-    }
-  }, {
-    key: "prepareSoundService",
-    value: function prepareSoundService(worker) {
-      if (this.usingRestoredModel) {
-        // models restored from indexeddb don't have the base layers needed
-        //  to train a new model, so we need to start from scratch
-        console.log('[mlforkids] Setting up new transfer learning model');
-        return this.initSoundSupport(false, worker);
-      } else {
-        // we aren't using a model restored from indexeddb so we should
-        //  have everything we need already in place to train a new model
-        return Promise.resolve();
-      }
-    }
-  }, {
-    key: "initSoundSupport",
-    value: function initSoundSupport(loadModelIfAvailable, worker) {
-      var _this2 = this;
-      var siteUrl = 'https://machinelearningforkids.co.uk' + '/static/bower_components' + '/tensorflow-models/speech-commands-scratch';
-      var vocab = null;
-      var modelJson = siteUrl + '/model.json';
-      var metadataJson = siteUrl + '/metadata.json';
-      console.log('[mlforkids] Creating base recognizer');
-      var baseRecognizer = speechCommands.create('BROWSER_FFT', vocab, modelJson, metadataJson);
-      return baseRecognizer.ensureModelLoaded().then(function () {
-        console.log('[mlforkids] Creating transfer learning model');
-        _this2.transferRecognizer = baseRecognizer.createTransfer('project-' + _this2.mlprojectid);
-        var modelInfo = _this2.transferRecognizer.modelInputShape();
-        _this2.transferModelInfo = {
-          numFrames: modelInfo[1],
-          fftSize: modelInfo[2]
-        };
-        if (loadModelIfAvailable) {
-          return _this2._loadModel(_this2.mlprojectid, _this2.mlprojectlabels, worker);
-        }
-      }).catch(function (err) {
-        console.log('[mlforkids] ML4KidsSoundTraining failed init', err);
-        _this2.state = 'ERROR';
-        if (worker) {
-          worker.postMessage({
-            mlforkidssound: 'modelfailed'
-          });
-        }
-      });
-    }
-  }, {
-    key: "trainNewModelLocal",
-    value: function trainNewModelLocal(projectinfo, worker) {
-      var projectid = projectinfo.projectid;
-      var that = this;
-      return this._storageSupport.getTrainingData(projectid).then(function (data) {
-        return that.trainNewModel(data, worker);
-      });
-    }
-  }, {
-    key: "trainNewModel",
-    value: function trainNewModel(data, worker) {
-      var _this3 = this;
-      if (this.state === 'LISTENING') {
-        this.stopListening();
-      }
-      if (this.state !== 'READY' && this.state !== 'TRAINED') {
-        console.log('[mlforkids] ML4KidsSoundTraining not ready to train a new ML model - state : ' + this.state);
-        return;
-      }
-      this.state = 'TRAINING';
-      return this.prepareSoundService(worker).then(function () {
-        _this3.transferRecognizer.dataset.clear();
-        _this3.transferRecognizer.dataset.label2Ids = {};
-        _this3.transferRecognizer.words = null;
-        for (var i = 0; i < data.length; i++) {
-          var trainingdataitem = data[i];
-          _this3.transferRecognizer.dataset.addExample({
-            label: trainingdataitem.label,
-            spectrogram: {
-              frameSize: _this3.transferModelInfo.fftSize,
-              data: new Float32Array(trainingdataitem.audiodata)
-            }
-          });
-        }
-        _this3.transferRecognizer.collateTransferWords();
-        return tf.nextFrame();
-      }).then(function () {
-        return _this3.transferRecognizer.train({
-          epochs: 100
-        });
-      }).then(function () {
-        _this3.state = 'TRAINED';
-        _this3.usingRestoredModel = false;
-        return _this3._saveModel(_this3.mlprojectid);
-      }).then(function () {
-        worker.postMessage({
-          mlforkidssound: 'modelready'
-        });
-      }).catch(function (err) {
-        _this3.state = 'ERROR';
-        worker.postMessage({
-          mlforkidssound: 'modelfailed'
-        });
-        console.log('[mlforkids] ML4KidsSoundTraining model training failed');
-        console.log(err);
-      });
-    }
-  }, {
-    key: "startListening",
-    value: function startListening(worker) {
-      if (this.state !== 'TRAINED') {
-        console.log('[mlforkids] ML4KidsSoundTraining not ready to listen - state : ' + this.state);
-        return;
-      }
-      console.log('[mlforkids] startListening');
-      try {
-        var that = this;
-        this.transferRecognizer.listen(function (result) {
-          var matches = [];
-          var labels = that.transferRecognizer.wordLabels();
-          for (var i = 0; i < result.scores.length; i++) {
-            matches.push({
-              class_name: labels[i],
-              confidence: result.scores[i] * 100
-            });
-          }
-          matches.sort(function (a, b) {
-            return b.confidence - a.confidence;
-          });
-          worker.postMessage({
-            mlforkidssound: 'recognized',
-            data: matches
-          });
-        }, {
-          probabilityThreshold: 0.70
-        });
-        this.state = 'LISTENING';
-      } catch (err) {
-        this.state = 'ERROR';
-        console.log('[mlforkids] ML4KidsSoundTraining failed to start listening');
-        console.log(err);
-      }
-    }
-  }, {
-    key: "stopListening",
-    value: function stopListening(worker) {
-      if (this.state !== 'LISTENING') {
-        console.log('[mlforkids] ML4KidsSoundTraining not listening - state : ' + this.state);
-        return;
-      }
-      console.log('[mlforkids] stopListening');
-      try {
-        this.transferRecognizer.stopListening();
-        this.state = 'TRAINED';
-        worker.postMessage({
-          mlforkidssound: 'stopped'
-        });
-      } catch (err) {
-        this.state = 'ERROR';
-        console.log('[mlforkids] ML4KidsSoundTraining failed to start listening');
-        console.log(err);
-      }
-    }
-  }, {
-    key: "_getModelDbLocation",
-    value: function _getModelDbLocation(projectid) {
-      return 'indexeddb://ml4k-models-sounds-' + projectid.toString().replaceAll('-', '');
-    }
-  }, {
-    key: "_saveModel",
-    value: function _saveModel(projectid) {
-      var _this4 = this;
-      console.log('[mlforkids] ML4KidsSoundTraining saving model to browser storage');
-      var savelocation = this._getModelDbLocation(projectid);
-      this.transferRecognizer.save(savelocation).then(function (r) {
-        console.log('[mlforkids] ML4KidsSoundTraining saved model', r);
-        _this4._storeModelSavedDate(savelocation);
-      }).catch(function (err) {
-        console.log('[mlforkids] ML4KidsSoundTraining failed to save model', err);
-      });
-    }
-  }, {
-    key: "_storeModelSavedDate",
-    value: function _storeModelSavedDate(modelid) {
-      try {
-        if (window.localStorage) {
-          window.localStorage.setItem(modelid, Date.now());
-        }
-      } catch (err) {
-        console.log('[mlforkids] ML4KidsSoundTraining unable to save model date');
-      }
-    }
-  }, {
-    key: "_loadModel",
-    value: function _loadModel(projectid, labels, worker) {
-      var _this5 = this;
-      if (labels) {
-        console.log('[mlforkids] ML4KidsSoundTraining loading model from browser storage');
-        var savelocation = this._getModelDbLocation(projectid);
-        return this.transferRecognizer.load(savelocation).then(function () {
-          _this5.transferRecognizer.words = Array.from(labels).sort();
-          console.log('[mlforkids] ML4KidsSoundTraining loaded model from storage');
-          _this5.state = 'TRAINED';
-          _this5.usingRestoredModel = true;
-          if (worker) {
-            worker.postMessage({
-              mlforkidssound: 'modelready'
-            });
-          }
-        }).catch(function (err) {
-          console.log('[mlforkids] ML4KidsSoundTraining failed to load model from storage', err);
-          _this5.state = 'READY';
-          if (worker) {
-            worker.postMessage({
-              mlforkidssound: 'modelinit'
-            });
-          }
-        });
-      } else {
-        console.log('[mlforkids] ML4KidsSoundTraining unable to restore model from storage');
-        this.state = 'READY';
-      }
-    }
-
-    // TODO - too risky for now... need to consider things like:
-    //   - what if the transferRecognizer is currently listening? do we need to stop listening first? notify extensions?
-    // _watchForNewModels (projectid) {
-    //     if (!this.modelWatcher) {
-    //         console.log('[mlforkids] ML4KidsSoundTraining listening for model updates', projectid);
-    //         this.modelWatcher = true;
-    //
-    //         const modellocation = this._getModelDbLocation(projectid);
-    //         window.addEventListener('storage', (evt) => {
-    //             if (evt.key === modellocation) {
-    //                 console.log('[mlforkids] ML4KidsSoundTraining new model is available');
-    //                 return this._loadModel(projectid, this.mlprojectlabels);
-    //             }
-    //         });
-    //     }
-    // }
-  }]);
-  return ML4KidsSoundTraining;
-}();
-module.exports = ML4KidsSoundTraining;
-
-/***/ }),
-
-/***/ "./node_modules/scratch-vm/src/mlforkids-components/storage/index.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/scratch-vm/src/mlforkids-components/storage/index.js ***!
-  \***************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw new Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw new Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-var ML4KidsLocalStorage = /*#__PURE__*/function () {
-  function ML4KidsLocalStorage() {
-    _classCallCheck(this, ML4KidsLocalStorage);
-    // this.projectsDbHandle;
-    this.PROJECTS_DB_NAME = 'mlforkidsLocalProjects';
-    this.PROJECTS_TABLE = 'projects';
-    this.trainingDataDatabases = {};
-    this.TRAINING_DB_NAME_PREFIX = 'mlforkidsProject';
-    this.TRAINING_TABLE = 'training';
-
-    // this.assetsDbHandle;
-    this.ASSETS_DB_NAME = 'mlforkidsAssets';
-    this.ASSETS_TABLE = 'assets';
-  }
-
-  //-----------------------------------------------------------
-  //  common functions
-  //-----------------------------------------------------------
-  _createClass(ML4KidsLocalStorage, [{
-    key: "promisifyIndexedDbRequest",
-    value: function promisifyIndexedDbRequest(request) {
-      return new Promise(function (resolve, reject) {
-        request.onsuccess = resolve;
-        request.onerror = reject;
-      });
-    }
-  }, {
-    key: "initProjectsDatabase",
-    value: function initProjectsDatabase(event) {
-      console.log('[ml4kstorage] initProjectsDatabase');
-      event.target.result.createObjectStore(this.PROJECTS_TABLE, {
-        keyPath: 'id',
-        autoIncrement: true
-      });
-    }
-  }, {
-    key: "initTrainingDatabase",
-    value: function initTrainingDatabase(event) {
-      console.log('[ml4kstorage] initTrainingDatabase');
-      var table = event.target.result.createObjectStore(this.TRAINING_TABLE, {
-        keyPath: 'id',
-        autoIncrement: true
-      });
-      table.createIndex('label', 'label', {
-        unique: false
-      });
-    }
-  }, {
-    key: "initAssetsDatabase",
-    value: function initAssetsDatabase(event) {
-      console.log('[ml4kstorage] initAssetsDatabase');
-      event.target.result.createObjectStore(this.ASSETS_TABLE);
-    }
-  }, {
-    key: "getProjectsDatabase",
-    value: function getProjectsDatabase() {
-      console.log('[ml4kstorage] getProjectsDatabase');
-      var request = window.indexedDB.open(this.PROJECTS_DB_NAME);
-      request.onupgradeneeded = this.initProjectsDatabase;
-      return this.promisifyIndexedDbRequest(request).then(function (event) {
-        return event.target.result;
-      });
-    }
-  }, {
-    key: "getTrainingDatabase",
-    value: function getTrainingDatabase(projectId) {
-      console.log('[ml4kstorage] getTrainingDatabase');
-      var request = window.indexedDB.open(this.TRAINING_DB_NAME_PREFIX + projectId);
-      request.onupgradeneeded = this.initTrainingDatabase;
-      return this.promisifyIndexedDbRequest(request).then(function (event) {
-        return event.target.result;
-      });
-    }
-  }, {
-    key: "getAssetsDatabase",
-    value: function getAssetsDatabase() {
-      console.log('[ml4kstorage] getAssetsDatabase');
-      var request = window.indexedDB.open(this.ASSETS_DB_NAME);
-      request.onupgradeneeded = this.initAssetsDatabase;
-      return this.promisifyIndexedDbRequest(request).then(function (event) {
-        return event.target.result;
-      });
-    }
-  }, {
-    key: "requiresProjectsDatabase",
-    value: function () {
-      var _requiresProjectsDatabase = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var _this = this;
-        return _regeneratorRuntime().wrap(function _callee$(_context) {
-          while (1) switch (_context.prev = _context.next) {
-            case 0:
-              if (this.projectsDbHandle) {
-                _context.next = 5;
-                break;
-              }
-              _context.next = 3;
-              return this.getProjectsDatabase();
-            case 3:
-              this.projectsDbHandle = _context.sent;
-              this.projectsDbHandle.onclose = function () {
-                console.log('[ml4kstorage] projects database closed');
-                delete _this.projectsDbHandle;
-              };
-            case 5:
-            case "end":
-              return _context.stop();
-          }
-        }, _callee, this);
-      }));
-      function requiresProjectsDatabase() {
-        return _requiresProjectsDatabase.apply(this, arguments);
-      }
-      return requiresProjectsDatabase;
-    }()
-  }, {
-    key: "requiresTrainingDatabase",
-    value: function () {
-      var _requiresTrainingDatabase = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(projectId) {
-        var _this2 = this;
-        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-          while (1) switch (_context2.prev = _context2.next) {
-            case 0:
-              if (this.trainingDataDatabases[projectId]) {
-                _context2.next = 5;
-                break;
-              }
-              _context2.next = 3;
-              return this.getTrainingDatabase(projectId);
-            case 3:
-              this.trainingDataDatabases[projectId] = _context2.sent;
-              this.trainingDataDatabases[projectId].onclose = function () {
-                console.log('[ml4kstorage] training database closed', projectId);
-                delete _this2.trainingDataDatabases[projectId];
-              };
-            case 5:
-            case "end":
-              return _context2.stop();
-          }
-        }, _callee2, this);
-      }));
-      function requiresTrainingDatabase(_x) {
-        return _requiresTrainingDatabase.apply(this, arguments);
-      }
-      return requiresTrainingDatabase;
-    }()
-  }, {
-    key: "requiresAssetsDatabase",
-    value: function () {
-      var _requiresAssetsDatabase = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-        var _this3 = this;
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-          while (1) switch (_context3.prev = _context3.next) {
-            case 0:
-              if (this.assetsDbHandle) {
-                _context3.next = 5;
-                break;
-              }
-              _context3.next = 3;
-              return this.getAssetsDatabase();
-            case 3:
-              this.assetsDbHandle = _context3.sent;
-              this.assetsDbHandle.onclose = function () {
-                console.log('[ml4kstorage] assets database closed');
-                delete _this3.assetsDbHandle;
-              };
-            case 5:
-            case "end":
-              return _context3.stop();
-          }
-        }, _callee3, this);
-      }));
-      function requiresAssetsDatabase() {
-        return _requiresAssetsDatabase.apply(this, arguments);
-      }
-      return requiresAssetsDatabase;
-    }()
-  }, {
-    key: "requiresResult",
-    value: function requiresResult(event) {
-      if (event && event.target && event.target.result) {
-        return event.target.result;
-      }
-      var notFoundErr = new Error('not found');
-      notFoundErr.status = 404;
-      notFoundErr.data = {
-        error: 'not found'
-      };
-      throw notFoundErr;
-    }
-  }, {
-    key: "requiresIntegerId",
-    value: function requiresIntegerId(id) {
-      return parseInt(id, 10);
-    }
-
-    //-----------------------------------------------------------
-    //  PROJECTS database
-    //-----------------------------------------------------------
-  }, {
-    key: "getProject",
-    value: function () {
-      var _getProject = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(projectId) {
-        var _this4 = this;
-        var transaction, request;
-        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-          while (1) switch (_context4.prev = _context4.next) {
-            case 0:
-              console.log('[ml4kstorage] getProject', projectId);
-              _context4.next = 3;
-              return this.requiresProjectsDatabase();
-            case 3:
-              transaction = this.projectsDbHandle.transaction([this.PROJECTS_TABLE], 'readonly');
-              request = transaction.objectStore(this.PROJECTS_TABLE).get(this.requiresIntegerId(projectId));
-              return _context4.abrupt("return", this.promisifyIndexedDbRequest(request).then(function (event) {
-                return _this4.requiresResult(event);
-              }));
-            case 6:
-            case "end":
-              return _context4.stop();
-          }
-        }, _callee4, this);
-      }));
-      function getProject(_x2) {
-        return _getProject.apply(this, arguments);
-      }
-      return getProject;
-    }()
-  }, {
-    key: "addMetadataToProject",
-    value: function () {
-      var _addMetadataToProject = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(projectid, key, value) {
-        var transaction, projectsTable, readRequest, readEvent, projectObject, updateRequest;
-        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-          while (1) switch (_context5.prev = _context5.next) {
-            case 0:
-              console.log('[ml4kstorage] addMetadataToProject');
-              _context5.next = 3;
-              return this.requiresProjectsDatabase();
-            case 3:
-              transaction = this.projectsDbHandle.transaction([this.PROJECTS_TABLE], 'readwrite');
-              projectsTable = transaction.objectStore(this.PROJECTS_TABLE);
-              readRequest = projectsTable.get(this.requiresIntegerId(projectid));
-              _context5.next = 8;
-              return this.promisifyIndexedDbRequest(readRequest);
-            case 8:
-              readEvent = _context5.sent;
-              projectObject = this.requiresResult(readEvent);
-              projectObject[key] = value;
-              updateRequest = projectsTable.put(projectObject);
-              _context5.next = 14;
-              return this.promisifyIndexedDbRequest(updateRequest);
-            case 14:
-              return _context5.abrupt("return", projectObject);
-            case 15:
-            case "end":
-              return _context5.stop();
-          }
-        }, _callee5, this);
-      }));
-      function addMetadataToProject(_x3, _x4, _x5) {
-        return _addMetadataToProject.apply(this, arguments);
-      }
-      return addMetadataToProject;
-    }() //-----------------------------------------------------------
-    //  TRAINING DATA store
-    //-----------------------------------------------------------
-  }, {
-    key: "getTrainingData",
-    value: function () {
-      var _getTrainingData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(projectId) {
-        var transaction, request;
-        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
-          while (1) switch (_context6.prev = _context6.next) {
-            case 0:
-              console.log('[ml4kstorage] getTrainingData', projectId);
-              _context6.next = 3;
-              return this.requiresTrainingDatabase(projectId);
-            case 3:
-              transaction = this.trainingDataDatabases[projectId].transaction([this.TRAINING_TABLE], 'readonly');
-              request = transaction.objectStore(this.TRAINING_TABLE).getAll();
-              return _context6.abrupt("return", this.promisifyIndexedDbRequest(request).then(function (event) {
-                return event.target.result;
-              }));
-            case 6:
-            case "end":
-              return _context6.stop();
-          }
-        }, _callee6, this);
-      }));
-      function getTrainingData(_x6) {
-        return _getTrainingData.apply(this, arguments);
-      }
-      return getTrainingData;
-    }()
-  }, {
-    key: "addTrainingData",
-    value: function () {
-      var _addTrainingData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7(projectId, trainingObject) {
-        var _this5 = this;
-        var transaction, request;
-        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
-          while (1) switch (_context7.prev = _context7.next) {
-            case 0:
-              console.log('[ml4kstorage] addTrainingData');
-              _context7.next = 3;
-              return this.requiresTrainingDatabase(projectId);
-            case 3:
-              transaction = this.trainingDataDatabases[projectId].transaction([this.TRAINING_TABLE], 'readwrite');
-              request = transaction.objectStore(this.TRAINING_TABLE).add(trainingObject);
-              return _context7.abrupt("return", this.promisifyIndexedDbRequest(request).then(function (event) {
-                trainingObject.id = event.target.result;
-                if (trainingObject.label) {
-                  _this5.addLabel(projectId, trainingObject.label);
-                }
-                return trainingObject;
-              }));
-            case 6:
-            case "end":
-              return _context7.stop();
-          }
-        }, _callee7, this);
-      }));
-      function addTrainingData(_x7, _x8) {
-        return _addTrainingData.apply(this, arguments);
-      }
-      return addTrainingData;
-    }() // update labels to meet WA requirements
-  }, {
-    key: "sanitizeLabel",
-    value: function sanitizeLabel(proposedlabel) {
-      return proposedlabel.replace(/[^\w.]/g, '_').substring(0, 30);
-    }
-  }, {
-    key: "addLabel",
-    value: function () {
-      var _addLabel = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8(projectId, newlabel) {
-        var label, transaction, projectsTable, readRequest, readEvent, projectObject, updateRequest;
-        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
-          while (1) switch (_context8.prev = _context8.next) {
-            case 0:
-              console.log('[ml4kstorage] addLabel');
-              _context8.next = 3;
-              return this.requiresProjectsDatabase();
-            case 3:
-              label = newlabel;
-              try {
-                label = this.sanitizeLabel(newlabel);
-              } catch (labelErr) {
-                console.error('[ml4kstorage] Failed to sanitize label, leaving as-is');
-              }
-              transaction = this.projectsDbHandle.transaction([this.PROJECTS_TABLE], 'readwrite');
-              projectsTable = transaction.objectStore(this.PROJECTS_TABLE);
-              readRequest = projectsTable.get(this.requiresIntegerId(projectId));
-              _context8.next = 10;
-              return this.promisifyIndexedDbRequest(readRequest);
-            case 10:
-              readEvent = _context8.sent;
-              projectObject = this.requiresResult(readEvent);
-              if (projectObject.labels.includes(label)) {
-                _context8.next = 17;
-                break;
-              }
-              projectObject.labels.push(label);
-              updateRequest = projectsTable.put(projectObject);
-              _context8.next = 17;
-              return this.promisifyIndexedDbRequest(updateRequest);
-            case 17:
-            case "end":
-              return _context8.stop();
-          }
-        }, _callee8, this);
-      }));
-      function addLabel(_x9, _x10) {
-        return _addLabel.apply(this, arguments);
-      }
-      return addLabel;
-    }()
-  }, {
-    key: "getTrainingForCloud",
-    value: function getTrainingForCloud(project) {
-      return this.getTrainingData(project.id).then(function (allTraining) {
-        if (project.type === 'text') {
-          var trainingByLabel = {};
-          var duplicatesCheck = {};
-          var _iterator = _createForOfIteratorHelper(allTraining),
-            _step;
-          try {
-            for (_iterator.s(); !(_step = _iterator.n()).done;) {
-              var item = _step.value;
-              var label = item.label;
-              var text = item.textdata.substring(0, 1024);
-              if (!(label in trainingByLabel)) {
-                trainingByLabel[label] = {
-                  intent: label.replace(/\s/g, '_'),
-                  examples: []
-                };
-              }
-              if (!(label in duplicatesCheck)) {
-                duplicatesCheck[label] = [];
-              }
-              if (!duplicatesCheck[label].includes(text)) {
-                trainingByLabel[label].examples.push({
-                  text: text
-                });
-                duplicatesCheck[label].push(text);
-              }
-            }
-          } catch (err) {
-            _iterator.e(err);
-          } finally {
-            _iterator.f();
-          }
-          return {
-            name: project.name,
-            language: project.language ? project.language : 'en',
-            intents: Object.values(trainingByLabel),
-            dialog_nodes: [],
-            counterexamples: [],
-            entities: [],
-            metadata: {
-              createdby: 'machinelearningforkids'
-            }
-          };
-        } else if (project.type === 'numbers') {
-          var csvRows = allTraining.map(function (data) {
-            var rowLabel = data.label;
-            var rowValues = data.numberdata;
-
-            // TODO what if we have a field called label???
-            var csvRow = {
-              label: rowLabel
-            };
-            project.fields.forEach(function (field, idx) {
-              if (field.type === 'multichoice') {
-                csvRow[field.name] = field.choices[rowValues[idx]];
-              } else {
-                csvRow[field.name] = rowValues[idx];
-              }
-            });
-            return csvRow;
-          });
-          return Papa.unparse(csvRows, {
-            columns: project.fields.map(function (field) {
-              return field.name;
-            })
-          });
-        } else {
-          console.error('[ml4kstorage] unexpected project type', project);
-        }
-      });
-    }
-
-    //-----------------------------------------------------------
-    //  ASSETS database
-    //-----------------------------------------------------------
-  }, {
-    key: "storeAsset",
-    value: function storeAsset(id, url) {
-      var _this6 = this;
-      console.log('[ml4kstorage] storeAsset', id);
-      return this.requiresAssetsDatabase().then(function () {
-        return fetch(url);
-      }).then(function (r) {
-        return r.blob();
-      }).then(function (zipdata) {
-        var transaction = _this6.assetsDbHandle.transaction([_this6.ASSETS_TABLE], 'readwrite');
-        var request = transaction.objectStore(_this6.ASSETS_TABLE).put(zipdata, id);
-        return _this6.promisifyIndexedDbRequest(request);
-      });
-    }
-  }, {
-    key: "retrieveAsset",
-    value: function () {
-      var _retrieveAsset = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9(id) {
-        var _this7 = this;
-        var transaction, request;
-        return _regeneratorRuntime().wrap(function _callee9$(_context9) {
-          while (1) switch (_context9.prev = _context9.next) {
-            case 0:
-              console.log('[ml4kstorage] retrieveAsset', id);
-              _context9.next = 3;
-              return this.requiresAssetsDatabase();
-            case 3:
-              transaction = this.assetsDbHandle.transaction([this.ASSETS_TABLE], 'readonly');
-              request = transaction.objectStore(this.ASSETS_TABLE).get(id);
-              return _context9.abrupt("return", this.promisifyIndexedDbRequest(request).then(function (event) {
-                return _this7.requiresResult(event);
-              }));
-            case 6:
-            case "end":
-              return _context9.stop();
-          }
-        }, _callee9, this);
-      }));
-      function retrieveAsset(_x11) {
-        return _retrieveAsset.apply(this, arguments);
-      }
-      return retrieveAsset;
-    }()
-  }, {
-    key: "deleteAsset",
-    value: function () {
-      var _deleteAsset = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10(id) {
-        var transaction;
-        return _regeneratorRuntime().wrap(function _callee10$(_context10) {
-          while (1) switch (_context10.prev = _context10.next) {
-            case 0:
-              console.log('[ml4kstorage] deleteAsset', id);
-              _context10.next = 3;
-              return this.requiresAssetsDatabase();
-            case 3:
-              transaction = this.assetsDbHandle.transaction([this.ASSETS_TABLE], 'readwrite');
-              transaction.objectStore(this.ASSETS_TABLE).delete(id);
-              return _context10.abrupt("return", this.promisifyIndexedDbTransaction(transaction));
-            case 6:
-            case "end":
-              return _context10.stop();
-          }
-        }, _callee10, this);
-      }));
-      function deleteAsset(_x12) {
-        return _deleteAsset.apply(this, arguments);
-      }
-      return deleteAsset;
-    }() //-----------------------------------------------------------
-    //  Other
-    //-----------------------------------------------------------
-  }, {
-    key: "getFromLocalStorage",
-    value: function getFromLocalStorage(id) {
-      return window.localStorage.getItem(id);
-    }
-  }, {
-    key: "storeBase64EncodedImage",
-    value: function storeBase64EncodedImage(projectid, label, b64imgdata) {
-      var _that = this;
-      return fetch("data:image/jpeg;base64,".concat(b64imgdata)).then(function (converted) {
-        return converted.blob();
-      }).then(function (imagedata) {
-        _that.addTrainingData(projectid, {
-          imagedata: imagedata,
-          label: label,
-          isstored: true
-        });
-      });
-    }
-  }, {
-    key: "registerForModelStorageUpdates",
-    value: function registerForModelStorageUpdates(modelid, callback) {
-      window.addEventListener('storage', function (evt) {
-        if (evt.key === modelid) {
-          callback();
-        }
-      });
-    }
-  }]);
-  return ML4KidsLocalStorage;
-}();
-module.exports = ML4KidsLocalStorage;
-
-/***/ }),
-
-/***/ "./node_modules/scratch-vm/src/mlforkids-components/tensorflow/index.js":
-/*!******************************************************************************!*\
-  !*** ./node_modules/scratch-vm/src/mlforkids-components/tensorflow/index.js ***!
-  \******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-var ML4KidsTensorFlow = /*#__PURE__*/function () {
-  // This component needs to support multiple instances of the model
-  //  extension being used at once, so all state and models are
-  //  indexed by a unique request id
-
-  // PROJECTS[projectid].modelClasses = <label1/label2/label3/...>
-  // PROJECTS[projectid].modelNumClasses = <number of modelClasses>
-  // PROJECTS[projectid].dataType = teachablemachineimage
-  // PROJECTS[projectid].state = INIT/READY/TRAINED/ERROR
-  // PROJECTS[projectid].model = <model>
-
-  // states:
-  //   INIT - not ready yet
-  //   READY - ready for training
-  //   TRAINED - ML model ready for use
-  //   ERROR - something went wrong
-
-  function ML4KidsTensorFlow() {
-    _classCallCheck(this, ML4KidsTensorFlow);
-    this.PROJECTS = {};
-    this.state = 'INIT';
-    tf.enableProdMode();
-  }
-
-  // encprojectdata
-  // JSON.stringify-ed version of
-  //   { projectid : someprojectid, labels : [ labelA, labelB, labelC ], dataType : IMAGE, modelurl : http://somedomain... }
-  _createClass(ML4KidsTensorFlow, [{
-    key: "initProject",
-    value: function initProject(encprojectdata, worker) {
-      var _this = this;
-      var projectData = JSON.parse(encprojectdata);
-      var projectid = projectData.projectid;
-      var modellocation = projectData.modelurl;
-      console.log('[mlforkids] Initializing project', projectid, projectData);
-      this.PROJECTS[projectid] = {};
-      this.PROJECTS[projectid].state = 'INIT';
-      this.PROJECTS[projectid].modelClasses = projectData.labels;
-      this.PROJECTS[projectid].modelNumClasses = projectData.labels.length;
-      this.PROJECTS[projectid].dataType = projectData.dataType;
-      var loadModelPromise;
-      if (this.PROJECTS[projectid].dataType === 'graphdefimage') {
-        var loadModelOptions = {};
-        if (modellocation.startsWith('https://tfhub.dev') || modellocation.startsWith('https://www.kaggle.com')) {
-          loadModelOptions.fromTFHub = true;
-        }
-        if (this.urlEndsWith(modellocation, '/model.json')) {
-          modellocation = modellocation.substr(0, modellocation.length - '/model.json'.length);
-        }
-        console.log('[mlforkids] loading graph model', modellocation, loadModelOptions);
-        loadModelPromise = tf.loadGraphModel(modellocation, loadModelOptions);
-      } else if (this.PROJECTS[projectid].dataType === 'teachablemachinepose') {
-        console.log('[mlforkids] loading pose model iframe');
-        loadModelPromise = this._loadPoseModelSupport().then(function (iframe) {
-          _this.teachableMachinePoseIframe = iframe;
-          var metadataJsonUrl = modellocation.replace(/model\.json$/, 'metadata.json');
-          return iframe.contentWindow.initModel(projectid, modellocation, metadataJsonUrl);
-        });
-      } else {
-        console.log('[mlforkids] loading layers model', modellocation);
-        loadModelPromise = tf.loadLayersModel(modellocation);
-      }
-      return loadModelPromise.then(function (model) {
-        _this.PROJECTS[projectid].model = model;
-        _this.PROJECTS[projectid].state = 'TRAINED';
-        worker.postMessage({
-          mlforkidstensorflow: 'modelready',
-          data: {
-            projectid: projectid
-          }
-        });
-      }).catch(function (err) {
-        console.log('[mlforkids] ML4KidsTensorFlow failed init', err);
-        _this.PROJECTS[projectid].state = 'ERROR';
-        worker.postMessage({
-          mlforkidstensorflow: 'modelfailed',
-          data: {
-            projectid: projectid
-          }
-        });
-      });
-    }
-  }, {
-    key: "urlEndsWith",
-    value: function urlEndsWith(urlToCheck, stringToCheck) {
-      return urlToCheck.length === urlToCheck.indexOf(stringToCheck) + stringToCheck.length;
-    }
-  }, {
-    key: "sortByConfidence",
-    value: function sortByConfidence(a, b) {
-      if (a.confidence < b.confidence) {
-        return 1;
-      } else if (a.confidence > b.confidence) {
-        return -1;
-      } else {
-        return 0;
-      }
-    }
-
-    // encrequest
-    // JSON.stringify-ed version of
-    //   { projectid : projectId, requestid : requestId, requestdata : somethingtouse }
-  }, {
-    key: "classifyData",
-    value: function classifyData(encrequest, worker) {
-      var _this2 = this;
-      var requestData = JSON.parse(encrequest);
-      var projectid = requestData.projectid;
-      var requestid = requestData.requestid;
-      return this._prepareDataForClassification(projectid, requestData.requestdata).then(function (dataToClassify) {
-        if (_this2.PROJECTS[projectid].dataType === 'teachablemachinepose') {
-          return _this2.teachableMachinePoseIframe.contentWindow.predict(projectid, dataToClassify);
-        } else {
-          return _this2.PROJECTS[projectid].model.predict(dataToClassify).data();
-        }
-      }).then(function (output) {
-        var matches;
-        if (_this2.PROJECTS[projectid].dataType === 'teachablemachinepose') {
-          matches = output.sort(_this2.sortByConfidence);
-        } else {
-          if (_this2.PROJECTS[projectid].modelNumClasses > 0) {
-            matches = _this2.PROJECTS[projectid].modelClasses.map(function (label, idx) {
-              return {
-                class_name: label,
-                confidence: 100 * output[idx]
-              };
-            }).sort(_this2.sortByConfidence);
-          } else {
-            // label names aren't known, so we just have to refer to them by idx
-            var anonScores = new Array(output.length);
-            for (var idx = 0; idx < output.length; idx++) {
-              anonScores[idx] = {
-                class_name: 'label ' + idx,
-                confidence: 100 * output[idx]
-              };
-            }
-            matches = anonScores.sort(_this2.sortByConfidence);
-          }
-        }
-        return worker.postMessage({
-          mlforkidstensorflow: 'classifyresponse',
-          data: {
-            projectid: projectid,
-            requestid: requestid,
-            matches: matches
-          }
-        });
-      }).catch(function (err) {
-        if (err) {
-          console.log('[mlforkids] ML4KidsTensorFlow error', err);
-        }
-        return worker.postMessage({
-          mlforkidstensorflow: 'classifyresponse',
-          data: {
-            projectid: projectid,
-            requestid: requestid
-          }
-        });
-      });
-    }
-  }, {
-    key: "_prepareDataForClassification",
-    value: function _prepareDataForClassification(projectid, classifydata) {
-      var _this3 = this;
-      return new Promise(function (resolve, reject) {
-        if (projectid in _this3.PROJECTS) {
-          if (_this3.PROJECTS[projectid].state !== 'TRAINED') {
-            console.log('[mlforkids] ML4KidsTensorFlow received classify request before a model is ready');
-            return reject();
-          }
-          if (_this3.PROJECTS[projectid].dataType === 'teachablemachineimage' || _this3.PROJECTS[projectid].dataType === 'graphdefimage') {
-            var imageElement = document.createElement('img');
-            imageElement.width = 224;
-            imageElement.height = 224;
-            imageElement.onerror = function (err) {
-              console.log('[mlforkids] ML4KidsTensorFlow failed to prepare image data for prediction', err);
-              return reject();
-            };
-            imageElement.onload = function () {
-              return resolve(tf.tidy(function () {
-                return tf.browser.fromPixels(imageElement).expandDims(0).toFloat().div(127).sub(1);
-              }));
-            };
-            imageElement.src = 'data:image/jpeg;base64,' + classifydata;
-          } else if (_this3.PROJECTS[projectid].dataType === 'teachablemachinepose') {
-            _this3.teachableMachinePoseIframe.contentWindow.createImage(classifydata, resolve);
-          } else {
-            return resolve(classifydata);
-          }
-        } else {
-          console.log('[mlforkids] ML4KidsTensorFlow received request for unknown project');
-          return reject();
-        }
-      });
-    }
-  }, {
-    key: "_loadPoseModelSupport",
-    value: function _loadPoseModelSupport() {
-      return new Promise(function (resolve) {
-        var id = 'mlforkids-iframe-posenet';
-        var iframeObj = document.getElementById(id);
-        if (iframeObj) {
-          console.log('[mlforkids] Posenet already loaded');
-          resolve(iframeObj);
-        } else {
-          console.log('[mlforkids] loading posenet');
-          iframeObj = document.createElement('iframe');
-          iframeObj.id = id;
-          iframeObj.type = 'text/javascript';
-          iframeObj.src = 'teachablemachinepose.html';
-          iframeObj.onload = function () {
-            resolve(iframeObj);
-          };
-          document.head.appendChild(iframeObj);
-        }
-      });
-    }
-  }]);
-  return ML4KidsTensorFlow;
-}();
-module.exports = ML4KidsTensorFlow;
-
-/***/ }),
-
-/***/ "./node_modules/scratch-vm/src/util/log.js":
-/*!*************************************************!*\
-  !*** ./node_modules/scratch-vm/src/util/log.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var minilog = __webpack_require__(/*! minilog */ "./node_modules/scratch-vm/node_modules/minilog/lib/web/index.js");
-minilog.enable();
-module.exports = minilog('vm');
-
-/***/ }),
-
-/***/ "./node_modules/webpack/buildin/global.js":
-/*!***********************************!*\
-  !*** (webpack)/buildin/global.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || new Function("return this")();
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
 /***/ })
 
-/******/ });
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/global */
+/******/ 	(() => {
+/******/ 		__webpack_require__.g = (function() {
+/******/ 			if (typeof globalThis === 'object') return globalThis;
+/******/ 			try {
+/******/ 				return this || new Function('return this')();
+/******/ 			} catch (e) {
+/******/ 				if (typeof window === 'object') return window;
+/******/ 			}
+/******/ 		})();
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
+(() => {
+/*!***************************************************!*\
+  !*** ./src/extension-support/extension-worker.js ***!
+  \***************************************************/
+/* eslint-env worker */
+
+const ArgumentType = __webpack_require__(/*! ../extension-support/argument-type */ "./src/extension-support/argument-type.js");
+const BlockType = __webpack_require__(/*! ../extension-support/block-type */ "./src/extension-support/block-type.js");
+const dispatch = __webpack_require__(/*! ../dispatch/worker-dispatch */ "./src/dispatch/worker-dispatch.js");
+const TargetType = __webpack_require__(/*! ../extension-support/target-type */ "./src/extension-support/target-type.js");
+class ExtensionWorker {
+  constructor() {
+    this.nextExtensionId = 0;
+    this.initialRegistrations = [];
+    this.extensionURL = null;
+    dispatch.waitForConnection.then(() => {
+      dispatch.call('extensions', 'allocateWorker').then(x => {
+        const [id, extension] = x;
+        this.workerId = id;
+        console.log('[mlforkids] ExtensionWorker ' + extension);
+        if (extension.indexOf('http') === 0) {
+          console.log('[mlforkids] Extension from remote URL : ' + extension);
+          this.extensionURL = extension;
+        } else {
+          console.log('[mlforkids] Skipping built-in extension : ' + extension);
+          this.extensionURL = extension;
+          return dispatch.call('extensions', 'onWorkerInit', id);
+        }
+        try {
+          importScripts(extension);
+          const initialRegistrations = this.initialRegistrations;
+          this.initialRegistrations = null;
+          Promise.all(initialRegistrations).then(() => dispatch.call('extensions', 'onWorkerInit', id));
+        } catch (e) {
+          dispatch.call('extensions', 'onWorkerInit', id, e);
+          if (postMessage && e.name === 'NetworkError' && extension.indexOf('extension3.js') > 0) {
+            postMessage({
+              mlforkids: 'mlforkids-extension-help'
+            });
+          }
+        }
+      });
+    });
+    this.extensions = [];
+  }
+  register(extensionObject) {
+    const extensionId = this.nextExtensionId++;
+    this.extensions.push(extensionObject);
+    const serviceName = "extension.".concat(this.workerId, ".").concat(extensionId);
+    const promise = dispatch.setService(serviceName, extensionObject).then(() => dispatch.call('extensions', 'registerExtensionService', serviceName, this.extensionURL));
+    if (this.initialRegistrations) {
+      this.initialRegistrations.push(promise);
+    }
+    return promise;
+  }
+}
+__webpack_require__.g.Scratch = __webpack_require__.g.Scratch || {};
+__webpack_require__.g.Scratch.ArgumentType = ArgumentType;
+__webpack_require__.g.Scratch.BlockType = BlockType;
+__webpack_require__.g.Scratch.TargetType = TargetType;
+
+/**
+ * Expose only specific parts of the worker to extensions.
+ */
+const extensionWorker = new ExtensionWorker();
+__webpack_require__.g.Scratch.extensions = {
+  register: extensionWorker.register.bind(extensionWorker)
+};
+})();
+
+/******/ 	return __webpack_exports__;
+/******/ })()
+;
+});
 //# sourceMappingURL=extension-worker.js.map
