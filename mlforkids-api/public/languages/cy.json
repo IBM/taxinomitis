@@ -170,8 +170,6 @@
         "MANAGED": {
             "TITLE": "Creu cyfrif dosbarth <strong>wedi'i reoli</strong>",
             "INTRO": "Os hoffech i Dale sefydlu'r cyfrif dosbarth, defnyddiwch y botwm isod i anfon e-bost gyda'r wybodaeth ganlynol:",
-            "LIST_NUMBEROFSTUDENTS": "Tua faint o gyfrifon myfyrwyr y bydd eu hangen arnoch",
-            "LIST_NAMEOFSCHOOL": "Enw'r ysgol neu'r grŵp codio mae'r cyfrif ar ei gyfer",
             "RESTRICTIONS": "Mae'r cynnig hwn ar gael i ysgolion a chlybiau codio myfyrwyr dielw yn unig.",
             "EMAIL": "E-bost"
         }

@@ -1,7 +1,7 @@
 if (Sentry) {
     Sentry.init({
         dsn: 'https://b4bbe1a8fbce473cb9eb089652848a1e@sentry.io/202347',
-        release: '223',
+        release: '224',
         // https://docs.sentry.io/platforms/javascript/configuration/filtering/#decluttering-sentry
         ignoreErrors: [
             "top.GLOBALS",
@@ -22,7 +22,8 @@ if (Sentry) {
             "LayersVariable dense_Dense1/kernel is already disposed",
             "LayersVariable dense_Dense3/kernel is already disposed",
             "LayersVariable dense_Dense5/kernel is already disposed",
-            "LayersVariable dense_Dense7/kernel is already disposed"
+            "LayersVariable dense_Dense7/kernel is already disposed",
+            "Failed to link vertex and fragment shaders"
         ],
         denyUrls: [
             /graph\.facebook\.com/i,

@@ -175,8 +175,6 @@
         "MANAGED": {
             "TITLE": "Készíts egy <strong>ellenőrzött</strong> osztály fiókot",
             "INTRO": "Ha azt szeretnéd hogy Dale hozza létre az osztályfiókot, használd a lenti gombot, és küldj egy e-mailt, amiben szükséges megadni az alábbi információkat:",
-            "LIST_NUMBEROFSTUDENTS": "Nagyjából hány tanulói fiókra lesz szükséged",
-            "LIST_NAMEOFSCHOOL": "Az iskola vagy a szakkör neve, akinek a fiókot létrehozod.",
             "RESTRICTIONS": "Ez az ajánlat az iskoláknak, illetve a non-profit szakkörök számára elérhető.",
             "EMAIL": "Email"
         }

@@ -170,8 +170,6 @@
         "MANAGED": {
             "TITLE": "Créer un compte de classe <strong> géré </strong>",
             "INTRO": "Si vous souhaitez que Dale configure le compte de classe, utilisez le bouton ci-dessous pour envoyer un courrier électronique en anglais avec les informations suivantes :",
-            "LIST_NUMBEROFSTUDENTS": "De combien de comptes étudiants aurez vous besoin approximativement",
-            "LIST_NAMEOFSCHOOL": "Le nom de l'école ou du groupe de codage auquel le compte est destiné",
             "RESTRICTIONS": "Cette offre est réservée aux écoles et aux clubs de codage d'élèves à but non lucratif.",
             "EMAIL": "Votre adresse de courriel"
         }

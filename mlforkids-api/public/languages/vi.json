@@ -176,8 +176,6 @@
         "MANAGED": {
             "TITLE": "Tạo một <strong>managed</strong> tài khoản lớp học",
             "INTRO": " Nếu bạn muốn Dale thiết lập tài khoản lớp học, hãy sử dụng nút bên dưới để gửi email kèm theo thông tin sau:",
-            "LIST_NUMBEROFSTUDENTS": "Khoảng bao nhiêu tài khoản học sinh bạn sẽ cần",
-            "LIST_NAMEOFSCHOOL": "Tên của trường hoặc nhóm mã hóa mà tài khoản dành cho",
             "RESTRICTIONS": "Ưu đãi này chỉ dành cho các trường học và câu lạc bộ mã hóa học sinh phi lợi nhuận.",
             "EMAIL": "Thư điện tử"
         }

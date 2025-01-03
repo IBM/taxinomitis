@@ -170,8 +170,6 @@
         "MANAGED": {
             "TITLE": "Vytvoření účtu <strong>spravované</strong> třídy",
             "INTRO": "Pokud chcete, aby Dale zřídil účet třídy, použijte níže uvedené tlačítko a zašlete e-mail s následujícími informacemi:",
-            "LIST_NUMBEROFSTUDENTS": "Kolik studentských účtů zhruba budete potřebovat",
-            "LIST_NAMEOFSCHOOL": "Název školy nebo kódovací skupiny, pro kterou je účet určen",
             "RESTRICTIONS": "Tato nabídka je dostupná pouze pro školy a neziskové studentské kluby programátorů.",
             "EMAIL": "E-mail"
         }

@@ -7,10 +7,10 @@
     LoginController.$inject = [
         'authService', 'loggerService', 'browserStorageService',
         '$location', '$stateParams', '$document', '$scope',
-        '$timeout', '$state', '$translate', '$mdDialog'
+        '$timeout', '$state', '$mdDialog'
     ];
 
-    function LoginController(authService, loggerService, browserStorageService, $location, $stateParams, $document, $scope, $timeout, $state, $translate, $mdDialog) {
+    function LoginController(authService, loggerService, browserStorageService, $location, $stateParams, $document, $scope, $timeout, $state, $mdDialog) {
         var vm = this;
         vm.authService = authService;
 
@@ -18,19 +18,16 @@
         readFocusFromUrl();
 
         vm.sendEmail = function (ev) {
-            var lang = $translate.use();
-            if (lang === 'ar') {
-                $mdDialog.show(
-                    $mdDialog.alert()
-                        .title('How to ask Dale to create a managed class account for you')
-                        .htmlContent('<div>If you are a teacher or you run a not-for-profit coding group for children, please email me at dale.lane@uk.ibm.com with : <ul><li>your name and title</li><li>the name and web address of your school or coding group</li><li>the number of students in your group</li></ul></div>')
-                        .ok('OK')
-                        .targetEvent(ev)
-                    );
-            }
-            else {
-                window.location = 'mailto:dale.lane@uk.ibm.com?subject=New%20MLforKids%20class%20account&body=___PLEASE%20FILL%20IN%20THIS%20TEMPLATE___%0A%0APlease%20can%20you%20setup%20a%20new%20class%20account%20for%20my%20group.%20%0A%0AI%20need%20it%20for%20my%20group%20of%20___THIS%20MANY___%20students.%20%0A%0AI%20run%20___NAME%20OF%20SCHOOL%20%2F%20DESCRIPTION%20OF%20CODING%20GROUP___.%20%0A%0AYou%20can%20find%20us%20at%20___WEB%20ADDRESS%20FOR%20SCHOOL%20OR%20CODING%20GROUP___.%0A%0AThanks%20very%20much!%0A%0A___WHO%20I%20AM___';
-            }
+            $mdDialog.show({
+                templateUrl : 'static/components/login/signup.tmpl.html',
+                autoWrap : false,
+                targetEvent : ev,
+                controller : function ($scope) {
+                    $scope.close = function() {
+                        $mdDialog.hide();
+                    };
+                }
+            });
         };
 
         vm.deployment = $stateParams.DEPLOYMENT;
