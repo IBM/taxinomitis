@@ -23,7 +23,8 @@ if (Sentry) {
             "LayersVariable dense_Dense3/kernel is already disposed",
             "LayersVariable dense_Dense5/kernel is already disposed",
             "LayersVariable dense_Dense7/kernel is already disposed",
-            "Failed to link vertex and fragment shaders"
+            "Failed to link vertex and fragment shaders",
+            "Failed to compile fragment shader"
         ],
         denyUrls: [
             /graph\.facebook\.com/i,
