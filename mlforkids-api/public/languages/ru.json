@@ -1626,6 +1626,14 @@
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-voicetuner.pdf"
             }
+        },
+        "SHOEBOX": {
+            "TITLE": "Shoebox",
+            "SUMMARY": "Teach a computer to recognize speech",
+            "DESCRIPTION": "Recreate the world's first speech recognition system from 1961.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shoebox.pdf"
+            }
         }
     },
     "TEACHER": {

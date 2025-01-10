@@ -214,8 +214,10 @@
             'WORKSHEETS.MOBILENET.WORKSHEET_1.URL',
 
             'WORKSHEETS.VOICETUNER.TITLE', 'WORKSHEETS.VOICETUNER.SUMMARY', 'WORKSHEETS.VOICETUNER.DESCRIPTION',
-            'WORKSHEETS.VOICETUNER.WORKSHEET_1.URL'
+            'WORKSHEETS.VOICETUNER.WORKSHEET_1.URL',
 
+            'WORKSHEETS.SHOEBOX.TITLE', 'WORKSHEETS.SHOEBOX.SUMMARY', 'WORKSHEETS.SHOEBOX.DESCRIPTION',
+            'WORKSHEETS.SHOEBOX.WORKSHEET_1.URL'
         ]).then(function (translations) {
             vm.worksheets = [
                 {
@@ -708,6 +710,21 @@
                     downloads : [
                         {
                             worksheet : translations['WORKSHEETS.TOURISTINFO.WORKSHEET_1.URL']
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.SHOEBOX.TITLE'],
+                    summary : translations['WORKSHEETS.SHOEBOX.SUMMARY'],
+                    description : translations['WORKSHEETS.SHOEBOX.DESCRIPTION'],
+                    difficulty : 'Intermediate',
+                    type : 'sounds',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-shoebox.png',
+                    tags : [ 'speech recognition' ],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.SHOEBOX.WORKSHEET_1.URL']
                         }
                     ]
                 },
