@@ -5,10 +5,10 @@
         .controller('ResetStorageController', ResetStorageController);
 
     ResetStorageController.$inject = [
-        '$scope', '$timeout'
+        '$scope', '$timeout', 'storageService'
     ];
 
-    function ResetStorageController($scope, $timeout) {
+    function ResetStorageController($scope, $timeout, storageService) {
         $scope.debugoutput = { text : "DEBUG OUTPUT\n" };
 
         function debug (str) {
@@ -204,5 +204,17 @@
                 handleErr(err);
             }
         };
+
+        $scope.clearLocalStorage = function () {
+            divider('clearLocalStorage');
+            try {
+                debug('clearing');
+                storageService.clear();
+                debug('cleared');
+            }
+            catch (err) {
+                handleErr(err);
+            }
+        }
     }
 }());

@@ -34,6 +34,7 @@
 
 
         function loadModel(project) {
+            loggerService.debug('[ml4knums] loading model');
             modelStatus = {
                 classifierid : project.id,
                 status : 'Loading',
