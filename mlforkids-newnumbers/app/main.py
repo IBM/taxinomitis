@@ -6,7 +6,7 @@ from fastapi import FastAPI, Depends, HTTPException, status, UploadFile, Backgro
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
-from pandas import read_csv
+from pandas import read_csv, unique
 
 # debug logging
 if getenv("MODE") == "development":
@@ -69,6 +69,22 @@ async def model_training_request(scratch_key: str, csvfile: UploadFile,
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Unable to process CSV file"
+        )
+
+    # check that the CSV contains the expected outcome column
+    if "mlforkids_outcome_label" not in df.columns:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid CSV file"
+        )
+
+    # check that there are training examples for multiple classes
+    #  otherwise model training will fail
+    numclasses = len(unique(df["mlforkids_outcome_label"]))
+    if numclasses < 2:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Examples needed for at least two classes to train a model"
         )
 
     # record placeholder status file to record training

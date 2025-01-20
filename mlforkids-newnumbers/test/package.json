@@ -5,6 +5,10 @@
   "scripts": {
     "test": "mocha --no-timeouts --bail test-numbers.js"
   },
+  "engines": {
+    "node": "20.x",
+    "npm": "10.x"
+  },
   "dependencies": {
     "mocha": "^10.3.0",
     "request-promise": "^4.2.6",

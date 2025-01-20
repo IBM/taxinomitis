@@ -28,6 +28,7 @@ const DEV_CREDENTIALS = {
 const TITANIC  = './data/titanic.csv';
 const POKEMON  = './data/pokemon.csv';
 const PHISHING = './data/phishing.csv';
+const SINGLECLASS  = './data/singleclass.csv';
 const INVALID = './package.json';
 
 
@@ -217,13 +218,28 @@ describe('verify new number service API', () => {
                     return waitForModel(resp.urls.status);
                 });
         });
-    });
 
 
+        it('should require at least two classes to start training', () => {
+            const key = newScratchKey();
+            const trainingRequest = {
+                ...DEFAULT_REQUEST,
+                ...DEV_CREDENTIALS,
+                formData : {
+                    csvfile : fs.createReadStream(SINGLECLASS)
+                },
+            };
+            return request.post(NEW_MODEL_API + key, trainingRequest)
+                .then(() => {
+                    assert.fail('should not have accepted the training request');
+                })
+                .catch((err) => {
+                    assert.strictEqual(err.statusCode, 400);
+                    assert.deepStrictEqual(err.response.body, { detail : 'Examples needed for at least two classes to train a model' });
+                });
+        });
 
-    describe('get model status', () => {
-
-        it('should set status to error for invalid CSV files', () => {
+        it('should reject invalid CSV files', () => {
             const key = newScratchKey();
             const trainingRequest = {
                 ...DEFAULT_REQUEST,
@@ -232,23 +248,21 @@ describe('verify new number service API', () => {
                     csvfile : fs.createReadStream(INVALID)
                 },
             };
-            let statusUrl;
 
             return request.post(NEW_MODEL_API + key, trainingRequest)
-                .then((resp) => {
-                    statusUrl = resp.urls.status;
-                    return waitForModel(statusUrl);
-                })
                 .then(() => {
-                    return request.get(statusUrl, { ...DEFAULT_REQUEST, ...DEV_CREDENTIALS });
+                    assert.fail('should not have accepted the training request');
                 })
-                .then((resp) => {
-                    assert.strictEqual(resp.status, 'Failed');
-                    assert(resp.error.message);
-                    assert(resp.error.stack);
-                    assert(resp.error.stack.startsWith('Traceback (most recent call'));
+                .catch((err) => {
+                    assert.strictEqual(err.statusCode, 400);
+                    assert.deepStrictEqual(err.response.body, { detail : 'Invalid CSV file' });
                 });
         });
+    });
+
+
+
+    describe('get model status', () => {
 
         function run(csv) {
             const key = newScratchKey();
