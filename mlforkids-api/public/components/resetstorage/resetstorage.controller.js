@@ -22,6 +22,9 @@
             debug(title);
             debug('-------------------------------------------------------');
         }
+        function versionChangePrompt () {
+            debug('This change will need you to refresh any tabs or pages that have the Machine Learning for Kids site open (INCLUDING THIS ONE)');
+        }
         function handleErr (err) {
             debug(err);
             debug(err.stack);
@@ -121,6 +124,7 @@
             createrequest.onsuccess = function (event) {
                 debug('createNewAssetStore > onsuccess');
                 createrequest.result.close();
+                versionChangePrompt();
             };
         }
 
@@ -138,6 +142,9 @@
                     debug('Deleted existing assets database');
                     debug('Pausing for 5 seconds before creating new database');
                     $timeout(createNewAssetStore, 5000);
+                };
+                DBDeleteRequest.onblocked = () => {
+                    debug('Blocked from deleting assets database (likely due to another browser tab still using the database)');
                 };
             }
             catch (err) {
@@ -164,6 +171,7 @@
             createrequest.onsuccess = function (event) {
                 debug('createNewProjectStore > onsuccess');
                 createrequest.result.close();
+                versionChangePrompt();
             };
         }
 
@@ -182,6 +190,9 @@
                     debug('Pausing for 5 seconds before creating new database');
                     $timeout(createNewProjectsStore, 5000);
                 };
+                DBDeleteRequest.onblocked = (event) => {
+                    debug('Blocked from deleting projects database (likely due to another browser tab still using the database)');
+                };
             }
             catch (err) {
                 handleErr(err);
@@ -198,6 +209,10 @@
                 };
                 DBDeleteRequest.onsuccess = (event) => {
                     debug('Deleted existing tensorflowjs database');
+                    versionChangePrompt();
+                };
+                DBDeleteRequest.onblocked = (event) => {
+                    debug('Blocked from deleting tensorflowjs database (likely due to another browser tab still using the database)');
                 };
             }
             catch (err) {
@@ -211,6 +226,7 @@
                 debug('clearing');
                 storageService.clear();
                 debug('cleared');
+                versionChangePrompt();
             }
             catch (err) {
                 handleErr(err);

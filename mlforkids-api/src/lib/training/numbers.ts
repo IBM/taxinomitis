@@ -36,11 +36,19 @@ export function trainClassifier(
         })
         .catch((err) => {
             if (err.statusCode === httpStatus.BAD_REQUEST) {
+                let errorMessage = err.message;
+                if (err.response &&
+                    err.response.body &&
+                    err.response.body.detail)
+                {
+                    errorMessage = err.response.body.detail;
+                }
+
                 return {
                     key : project.id,
                     status : 'Failed',
                     error : {
-                        message : err.message,
+                        message : errorMessage,
                     },
                 };
             }

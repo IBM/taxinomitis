@@ -2222,6 +2222,11 @@ class ML4KidsLocalStorage {
         console.log('[ml4kstorage] projects database closed');
         delete this.projectsDbHandle;
       };
+      this.projectsDbHandle.onversionchange = () => {
+        console.log('[ml4kstorage] external change to projects database');
+        this.projectsDbHandle.close();
+        delete this.projectsDbHandle;
+      };
     }
   }
   async requiresTrainingDatabase(projectId) {
@@ -2231,6 +2236,11 @@ class ML4KidsLocalStorage {
         console.log('[ml4kstorage] training database closed', projectId);
         delete this.trainingDataDatabases[projectId];
       };
+      this.trainingDataDatabases[projectId].onversionchange = () => {
+        console.log('[ml4kstorage] external change to training database');
+        this.trainingDataDatabases[projectId].close();
+        delete this.trainingDataDatabases[projectId];
+      };
     }
   }
   async requiresAssetsDatabase() {
@@ -2238,6 +2248,11 @@ class ML4KidsLocalStorage {
       this.assetsDbHandle = await this.getAssetsDatabase();
       this.assetsDbHandle.onclose = () => {
         console.log('[ml4kstorage] assets database closed');
+        delete this.assetsDbHandle;
+      };
+      this.assetsDbHandle.onversionchange = () => {
+        console.log('[ml4kstorage] external change to assets database');
+        this.assetsDbHandle.close();
         delete this.assetsDbHandle;
       };
     }

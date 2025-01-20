@@ -198,6 +198,9 @@
                     modelStatus.status = modelinfo.status;
                     modelStatus.progress = 33;
                     modelStatus.updated = new Date();
+                    if (modelinfo.error) {
+                        modelStatus.error = { data : modelinfo.error };
+                    }
 
                     return modelStatus;
                 });

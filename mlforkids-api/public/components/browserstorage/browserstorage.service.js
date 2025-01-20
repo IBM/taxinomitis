@@ -169,6 +169,11 @@
         async function requiresProjectsDatabase() {
             if (!projectsDbHandle) {
                 projectsDbHandle = await getProjectsDatabase();
+                projectsDbHandle.onversionchange = () => {
+                    loggerService.debug('[ml4kstorage] external change to projects database');
+                    projectsDbHandle.close();
+                    projectsDbHandle = null;
+                };
                 projectsDbHandle.onclose = () => {
                     loggerService.debug('[ml4kstorage] projects database closed');
                     projectsDbHandle = null;
@@ -178,6 +183,11 @@
         async function requiresTrainingDatabase(projectId) {
             if (!trainingDataDatabases[projectId]) {
                 trainingDataDatabases[projectId] = await getTrainingDatabase(projectId);
+                trainingDataDatabases[projectId].onversionchange = () => {
+                    loggerService.debug('[ml4kstorage] external change to training database');
+                    trainingDataDatabases[projectId].close();
+                    delete trainingDataDatabases[projectId];
+                };
                 trainingDataDatabases[projectId].onclose = () => {
                     loggerService.debug('[ml4kstorage] training database closed', projectId);
                     delete trainingDataDatabases[projectId];
@@ -187,6 +197,11 @@
         async function requiresAssetsDatabase() {
             if (!assetsDbHandle) {
                 assetsDbHandle = await getAssetsDatabase();
+                assetsDbHandle.onversionchange = () => {
+                    loggerService.debug('[ml4kstorage] external change to assets database');
+                    assetsDbHandle.close();
+                    assetsDbHandle = null;
+                };
                 assetsDbHandle.onclose = () => {
                     loggerService.debug('[ml4kstorage] assets database closed');
                     assetsDbHandle = null;
@@ -769,7 +784,7 @@
 
         function deleteAssetsDatabase() {
             loggerService.debug('[ml4kstorage] deleting assets database');
-            return new Promise((resolve) => {
+            return new Promise((resolve, reject) => {
                 if (assetsDbHandle) {
                     assetsDbHandle.close();
                 }
@@ -781,6 +796,9 @@
                 request.onerror = () => {
                     assetsDbHandle = undefined;
                     resolve();
+                };
+                request.onblocked = () => {
+                    reject(new Error('Unable to store asset. Please close other tabs or windows using this site, and then refresh the page.'));
                 };
             });
         }
