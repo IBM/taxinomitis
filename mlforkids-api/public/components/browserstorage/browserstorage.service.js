@@ -171,8 +171,10 @@
                 projectsDbHandle = await getProjectsDatabase();
                 projectsDbHandle.onversionchange = () => {
                     loggerService.debug('[ml4kstorage] external change to projects database');
-                    projectsDbHandle.close();
-                    projectsDbHandle = null;
+                    if (projectsDbHandle) {
+                        projectsDbHandle.close();
+                        projectsDbHandle = null;
+                    }
                 };
                 projectsDbHandle.onclose = () => {
                     loggerService.debug('[ml4kstorage] projects database closed');
@@ -185,8 +187,10 @@
                 trainingDataDatabases[projectId] = await getTrainingDatabase(projectId);
                 trainingDataDatabases[projectId].onversionchange = () => {
                     loggerService.debug('[ml4kstorage] external change to training database');
-                    trainingDataDatabases[projectId].close();
-                    delete trainingDataDatabases[projectId];
+                    if (trainingDataDatabases[projectId]) {
+                        trainingDataDatabases[projectId].close();
+                        delete trainingDataDatabases[projectId];
+                    }
                 };
                 trainingDataDatabases[projectId].onclose = () => {
                     loggerService.debug('[ml4kstorage] training database closed', projectId);
@@ -199,8 +203,10 @@
                 assetsDbHandle = await getAssetsDatabase();
                 assetsDbHandle.onversionchange = () => {
                     loggerService.debug('[ml4kstorage] external change to assets database');
-                    assetsDbHandle.close();
-                    assetsDbHandle = null;
+                    if (assetsDbHandle) {
+                        assetsDbHandle.close();
+                        assetsDbHandle = null;
+                    }
                 };
                 assetsDbHandle.onclose = () => {
                     loggerService.debug('[ml4kstorage] assets database closed');

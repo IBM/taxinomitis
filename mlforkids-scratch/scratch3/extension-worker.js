@@ -2224,8 +2224,10 @@ class ML4KidsLocalStorage {
       };
       this.projectsDbHandle.onversionchange = () => {
         console.log('[ml4kstorage] external change to projects database');
-        this.projectsDbHandle.close();
-        delete this.projectsDbHandle;
+        if (this.projectsDbHandle) {
+          this.projectsDbHandle.close();
+          delete this.projectsDbHandle;
+        }
       };
     }
   }
@@ -2238,8 +2240,10 @@ class ML4KidsLocalStorage {
       };
       this.trainingDataDatabases[projectId].onversionchange = () => {
         console.log('[ml4kstorage] external change to training database');
-        this.trainingDataDatabases[projectId].close();
-        delete this.trainingDataDatabases[projectId];
+        if (this.trainingDataDatabases[projectId]) {
+          this.trainingDataDatabases[projectId].close();
+          delete this.trainingDataDatabases[projectId];
+        }
       };
     }
   }
@@ -2252,8 +2256,10 @@ class ML4KidsLocalStorage {
       };
       this.assetsDbHandle.onversionchange = () => {
         console.log('[ml4kstorage] external change to assets database');
-        this.assetsDbHandle.close();
-        delete this.assetsDbHandle;
+        if (this.assetsDbHandle) {
+          this.assetsDbHandle.close();
+          delete this.assetsDbHandle;
+        }
       };
     }
   }
