@@ -26,7 +26,7 @@ const CHECK_WINDOW = 10 * 1000; // 10 seconds
 const SESSION_LIFESPAN = 4 * 60 * 60 * 1000; // 4 hours
 
 /** The number of users that can be created in this class. After this, the class is considered full.  */
-const MAX_ALLOWED_USERS = 3200;
+const MAX_ALLOWED_USERS = 3500;
 
 export const ERROR_MESSAGES = {
     CLASS_FULL : 'Class full',
@@ -49,7 +49,7 @@ export async function createSessionUser(requestOrigin?: string): Promise<Objects
 
     // is the session class full?
     const currentClassSize = await store.countTemporaryUsers();
-    const limit = requestOrigin === 'SA' ? 1200 : MAX_ALLOWED_USERS;
+    const limit = requestOrigin === 'SA' ? 1700 : MAX_ALLOWED_USERS;
     if (currentClassSize >= limit) {
         // record the current time so that we don't
         //  need to check again too soon

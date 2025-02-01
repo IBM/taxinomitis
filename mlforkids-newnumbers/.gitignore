@@ -3,6 +3,7 @@ __pycache__/
 ops/prod-us-credentials.env
 ops/prod-au-credentials.env
 ops/prod-eu-credentials.env
+ops/prod-me-credentials.env
 venv
 saved-models
 test/node_modules

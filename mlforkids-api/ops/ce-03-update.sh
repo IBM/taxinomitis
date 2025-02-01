@@ -34,6 +34,12 @@ echo "Selecting code engine project"
 echo "Updating app"
 update_app
 
+echo "ME deployment"
+echo "Selecting code engine project"
+../../ops/codeengine-region-me.sh
+echo "Updating app"
+update_app
+
 echo "AU-SYD deployment"
 echo "Selecting code engine project"
 ../../ops/codeengine-region-ausyd.sh

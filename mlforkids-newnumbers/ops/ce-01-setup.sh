@@ -53,6 +53,14 @@ ibmcloud ce secret create --name $DOCKER_IMAGE --from-env-file prod-eu-credentia
 echo "Creating app"
 create_app
 
+echo "ME deployment"
+echo "Selecting code engine project"
+../../ops/codeengine-region-me.sh
+echo "setting up config"
+ibmcloud ce secret create --name $DOCKER_IMAGE --from-env-file prod-me-credentials.env
+echo "Creating app"
+create_app
+
 echo "US-SOUTH deployment"
 echo "Selecting code engine project"
 ../../ops/codeengine-region-ussouth.sh

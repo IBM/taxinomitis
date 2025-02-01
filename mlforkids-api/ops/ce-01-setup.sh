@@ -99,7 +99,6 @@ function create_app {
         --env-from-secret $DOCKER_IMAGE-cos \
         --env-from-secret $DOCKER_IMAGE-email \
         --env-from-secret $DOCKER_IMAGE-numbers \
-        --env-from-secret $DOCKER_IMAGE-openwhisk \
         --env-from-secret $DOCKER_IMAGE-postgresql \
         --env-from-secret $DOCKER_IMAGE-slack \
         --env-from-secret $DOCKER_IMAGE-spotify \
@@ -118,6 +117,12 @@ echo "Creating app"
 ibmcloud ce secret create --name $DOCKER_IMAGE-numbers --from-env-file numbers-eu-credentials.env
 create_app
 
+echo "ME deployment"
+echo "Selecting code engine project"
+../../ops/codeengine-region-me.sh
+echo "Creating app"
+ibmcloud ce secret create --name $DOCKER_IMAGE-numbers --from-env-file numbers-me-credentials.env
+create_app
 
 echo "US-SOUTH deployment"
 echo "Selecting code engine project"
