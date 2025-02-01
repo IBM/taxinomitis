@@ -11,7 +11,7 @@
     "codeenginejob": "node dist/lib/batch.js"
   },
   "engines": {
-    "node": "20.x",
+    "node": "22.x",
     "npm": "10.x"
   },
   "private": true,
