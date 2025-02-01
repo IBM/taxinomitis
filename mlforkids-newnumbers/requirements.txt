@@ -3,12 +3,12 @@
 #
 
 # REST API support
-fastapi==0.115.6
+fastapi==0.115.8
 uvicorn==0.34.0
 python-multipart==0.0.20
 
 # LRU cache
-cachetools==5.5.0
+cachetools==5.5.1
 
 # ML model support
 ydf==0.9.0
