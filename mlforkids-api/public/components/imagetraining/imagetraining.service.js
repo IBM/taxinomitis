@@ -247,40 +247,18 @@
                         }
                     }
 
-                    var epochs = 10;
-                    if (trainingdata.length > 55) {
+                    let epochs = 10;
+                    if (trainingdata.length > 100) {
+                        epochs = 20;
+                    }
+                    else if (trainingdata.length > 50) {
                         epochs = 15;
                     }
 
-                    transferModel.fit(xs, ys, {
-                        batchSize : 10,
-                        epochs : epochs,
-                        callbacks : {
-                            onEpochEnd : function (epoch, logs) {
-                                loggerService.debug('[ml4kimages] epoch ' + epoch + ' loss ' + logs.loss);
-                                if (modelStatus) {
-                                    if (epochs === 15) {
-                                        modelStatus.progress = (epoch + 1) * 7;
-                                    }
-                                    else {
-                                        modelStatus.progress = (epoch + 1) * 10;
-                                    }
-                                }
-                            },
-                            onTrainEnd : function () {
-                                return saveModel(projectid)
-                                    .then(function () {
-                                        loggerService.debug('[ml4kimages] training complete');
-                                        if (modelStatus) {
-                                            modelStatus.status = 'Available';
-                                            modelStatus.progress = 100;
-                                        }
-                                        usingRestoredModel = false;
-                                    });
-                            }
-                        }
-                    });
+                    // start the training in the background
+                    trainTfjsModel(projectid, epochs, xs, ys);
 
+                    // return the status immediately
                     return modelStatus;
                 })
                 .catch(function (err) {
@@ -296,6 +274,61 @@
                 });
         }
 
+
+        function trainTfjsModel(projectid, epochs, xs, ys) {
+            let aborted = false;
+
+            var progressPerEpoch = Math.round(100 / epochs);
+            transferModel.fit(xs, ys, {
+                batchSize : 10,
+                epochs : epochs,
+                callbacks : {
+                    onEpochEnd : function (epoch, logs) {
+                        loggerService.debug('[ml4kimages] epoch ' + epoch + ' loss ' + logs.loss);
+                        if (modelStatus) {
+                            modelStatus.progress = (epoch + 1) * progressPerEpoch;
+                        }
+
+                        if (isNaN(logs.loss)) {
+                            loggerService.debug('[ml4kimages] aborting training');
+                            transferModel.stopTraining = true;
+                            aborted = true;
+                        }
+                    },
+                    onTrainEnd : function () {
+                        if (aborted) {
+                            if (epochs >= 10) {
+                                // retry with a smaller epoch
+                                transferModel = prepareTransferLearningModel(baseModel, modelNumClasses);
+                                return trainTfjsModel(projectid,
+                                    (epochs > 10) ? 10 : 5,
+                                    xs, ys);
+                            }
+                            else {
+                                // already tried with only 5 epochs - give up
+                                loggerService.debug('[ml4kimages] training failed');
+                                if (modelStatus) {
+                                    modelStatus.status = 'Failed';
+                                    modelStatus.progress = 100;
+                                }
+                                usingRestoredModel = false;
+                                return;
+                            }
+                        }
+
+                        return saveModel(projectid)
+                            .then(function () {
+                                loggerService.debug('[ml4kimages] training complete');
+                                if (modelStatus) {
+                                    modelStatus.status = 'Available';
+                                    modelStatus.progress = 100;
+                                }
+                                usingRestoredModel = false;
+                            });
+                    }
+                }
+            });
+        }
 
 
         function testImageDataTensor(imageData) {

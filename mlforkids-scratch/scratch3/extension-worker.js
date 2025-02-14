@@ -1067,39 +1067,70 @@ class ML4KidsImageTraining {
         }
       }
       let epochs = 10;
-      if (trainingdata.length > 55) {
+      if (trainingdata.length > 100) {
+        epochs = 20;
+      } else if (trainingdata.length > 50) {
         epochs = 15;
       }
-      that.PROJECTS[projectid].transferModel.fit(xs, ys, {
-        batchSize: 10,
-        epochs: epochs,
-        callbacks: {
-          onEpochEnd: function onEpochEnd(epoch, logs) {
-            console.log('[mlforkids] ML4KidsImageTraining epoch ' + epoch + ' loss ' + logs.loss);
-          },
-          onTrainEnd: function onTrainEnd() {
-            console.log('[mlforkids] ML4KidsImageTraining training complete');
-            that._saveModel(projectid);
-            that.PROJECTS[projectid].state = 'TRAINED';
-            that.PROJECTS[projectid].usingRestoredModel = false;
-            worker.postMessage({
-              mlforkidsimage: 'modelready',
-              data: {
-                projectid
-              }
-            });
-          }
-        }
-      });
+      that._trainTfjsModel(projectid, epochs, xs, ys, worker);
     }).catch(err => {
       console.log('[mlforkids] ML4KidsImageTraining failed to train model', err);
       this.PROJECTS[projectid].state = 'ERROR';
+      this.PROJECTS[projectid].usingRestoredModel = false;
       worker.postMessage({
         mlforkidsimage: 'modelfailed',
         data: {
           projectid
         }
       });
+    });
+  }
+  _trainTfjsModel(projectid, epochs, xs, ys, worker) {
+    let aborted = false;
+    this.PROJECTS[projectid].transferModel.fit(xs, ys, {
+      batchSize: 10,
+      epochs: epochs,
+      callbacks: {
+        onEpochEnd: (epoch, logs) => {
+          console.log('[mlforkids] ML4KidsImageTraining epoch ' + epoch + ' loss ' + logs.loss);
+          if (isNaN(logs.loss)) {
+            console.log('[ml4kimages] ML4KidsImageTraining aborting training');
+            this.PROJECTS[projectid].transferModel.stopTraining = true;
+            aborted = true;
+          }
+        },
+        onTrainEnd: () => {
+          if (aborted) {
+            if (epochs >= 10) {
+              // retry with a smaller epoch
+              this.PROJECTS[projectid].transferModel = this.prepareTransferLearningModel(this.PROJECTS[projectid].modelNumClasses);
+              return this._trainTfjsModel(projectid, epochs > 10 ? 10 : 5, xs, ys, worker);
+            } else {
+              // already tried with only 5 epochs - give up
+              console.log('[mlforkids] ML4KidsImageTraining failed to train model');
+              this.PROJECTS[projectid].state = 'ERROR';
+              this.PROJECTS[projectid].usingRestoredModel = false;
+              worker.postMessage({
+                mlforkidsimage: 'modelfailed',
+                data: {
+                  projectid
+                }
+              });
+              return;
+            }
+          }
+          console.log('[mlforkids] ML4KidsImageTraining training complete');
+          this._saveModel(projectid);
+          this.PROJECTS[projectid].state = 'TRAINED';
+          this.PROJECTS[projectid].usingRestoredModel = false;
+          worker.postMessage({
+            mlforkidsimage: 'modelready',
+            data: {
+              projectid
+            }
+          });
+        }
+      }
     });
   }
   _getTensorForImageData(_ref) {
