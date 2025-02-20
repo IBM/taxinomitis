@@ -33,17 +33,17 @@
             <div class="stepheading">Type of language model</div>
             <div style="margin: 1em 0;">
                 <button type="button" class="btn btn-default"
-                    ng-class="{'btn-primary' : project.modeltype === 'toy' }"
+                    ng-class="{'btn-primary' : project.modeltype === 'toy' || modeltype === 'toy' }"
                     ng-disabled="project.modeltype && project.modeltype !== 'toy'"
-                    ng-click="project.modeltype='toy'">Toy</button>
+                    ng-click="modeltype='toy'">Toy</button>
                 <button type="button" class="btn btn-default"
-                    ng-class="{'btn-primary' : project.modeltype === 'small' }"
+                    ng-class="{'btn-primary' : project.modeltype === 'small' || modeltype === 'small' }"
                     ng-disabled="project.modeltype && project.modeltype !== 'small'"
-                    ng-click="project.modeltype='small'">Small</button>
+                    ng-click="modeltype='small'">Small</button>
                 <button type="button" class="btn btn-default"
-                    ng-class="{'btn-primary' : project.modeltype === 'large' }"
+                    ng-class="{'btn-primary' : project.modeltype === 'large' || modeltype === 'large' }"
                     ng-disabled="project.modeltype && project.modeltype !== 'large'"
-                    ng-click="project.modeltype='large'">Large</button>
+                    ng-click="modeltype='large'">Large</button>
                 <strong style="color: #00008b; margin-left: 1em;">language model</strong>
             </div>
             <div class="stepexplanation" ng-hide="project.modeltype">
@@ -54,48 +54,309 @@
             </div>
         </div>
 
-        <div class="nextstep" ng-hide="project.details">
+        <div class="nextstep" ng-hide="project.modeltype">
             <button type="button"
                 class="btn btn-primary"
                 translate="APP.NEXT"
-                ng-disabled="!project.modeltype"
-                ng-click="project.details = {}"
+                ng-disabled="!modeltype"
+                ng-click="project.modeltype = modeltype"
                 ></button>
         </div>
+
+        <!-- ******************************************************* -->
+        <!--   TOY models - corpus                                   -->
+        <!-- ******************************************************* -->
+
+        <div class="trainingbuckets" ng-if="project.modeltype == 'toy'" ng-class="{'documents' : corpus.length > 0 }">
+            <div class="trainingbucket">
+                <div class="trainingbucketheader">
+                    <span class="trainingbucketlabel">corpus</span>
+                </div>
+                <div class="trainingbucketitems">
+                    <div class="trainingbucketitem" ng-repeat="doc in corpus">
+                        <span class="glyphicon glyphicon-remove-circle deletetext" aria-hidden="true"
+                            ng-click="removeCorpusDoc(doc.id)"></span>
+                        <img ng-src="static/images/{{doc.type}}.png"
+                             class="trainingImageThumbnail"
+                             alt="text">
+                        <div class="documentlabel">{{doc.label}}</div>
+                    </div>
+                </div>
+                <div class="newexamplesbuttonbar" ng-hide="reviewing">
+                    <div class="btn newexamplebutton" ng-click="">
+                        <div class="newexampleicon">+</div>
+                        <div class="newexamplelabel">Add text</div>
+                    </div>
+                    <label class="btn newexamplebutton">
+                        <div class="thin buttonicon glyphicon glyphicon-open-file"></div>
+                        <div class="newexamplelabel" translate="TRAINING.ADDFROMFILE"></div>
+                    </label>
+                    <div class="btn newexamplebutton" ng-click="">
+                        <div class="newexampleicon" style="font-family: serif; font-size: 2em;">W</div>
+                        <div class="newexamplelabel">Wikipedia</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="nextstep"
+            ng-if="project.modeltype === 'toy' && !project.toy">
+            <button type="button"
+                class="btn btn-primary"
+                translate="APP.NEXT"
+                ng-click="project.toy = { ngrams : 0 }"
+                ng-disabled="corpus.length === 0"
+                ></button>
+        </div>
+
+        <!-- ******************************************************* -->
+        <!--   TOY models - n-grams choice                           -->
+        <!-- ******************************************************* -->
+
+        <div class="modelstep" ng-if="project.toy">
+            <div class="stepheading">"Size of context window"</div>
+            <div class="steprow">
+                <div class="rowitem">
+                    <img ng-src="static/images/context-{{ project.toy.ngrams }}.png" style="max-width: 150px;">
+                </div>
+                <div class="rowitem" style="margin-top: 1em;">
+                    <button type="button" class="btn btn-default" ng-click="changeNgramSize()">Change</button>
+                </div>
+                <div class="rowitem stepexplanation" style="flex: 3;">
+                    <span ng-hide="project.toy.temperature || project.toy.topp">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                    enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                    nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                    pariatur.
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="nextstep"
+            ng-if="project.toy"
+            ng-hide="project.toy.tokens">
+            <button type="button"
+                class="btn btn-primary"
+                translate="APP.NEXT"
+                ng-click="initTokens()"
+                ng-disabled="project.toy.ngrams === 0"
+                ></button>
+        </div>
+
+        <!-- ******************************************************* -->
+        <!--   TOY models - tokens sample                            -->
+        <!-- ******************************************************* -->
+
+        <div class="trainingbuckets"
+            ng-if="project.modeltype === 'toy' && project.toy.tokens"
+            ng-hide="project.toy.temperature || project.toy.topp"
+            style="min-height: 320px; max-height: 340px; height: unset;">
+            <div class="trainingbucket">
+                <div class="trainingbucketheader">
+                    <span class="trainingbucketlabel">tokens sample</span>
+                </div>
+                <div class="trainingbucketitems" style="max-height: 267px; height: unset; overflow-y: scroll; padding-top: 0;">
+                    <table style="padding-top: 0;">
+                        <tr ng-repeat="nexttoken in project.toy.tokens">
+                            <td ng-click="toggleToken(nexttoken, project.toy.tokens, [])"
+                                class="tokenpresent" ng-class="{ 'selected' : nexttoken.selected }"
+                                style="width: calc(23vw - 20px)">
+                                {{ nexttoken.token }} ({{nexttoken.count}})
+                            </td>
+                            <td ng-class="{'tokenmissing' : !nexttoken.selected, 'nexttoken' : nexttoken.selected }">
+                                <table ng-if="nexttoken.selected">
+                                    <tr ng-repeat="nexttoken_2 in nexttoken.next">
+                                        <td ng-click="toggleToken(nexttoken_2, nexttoken.next, [ nexttoken.token, nexttoken_2.token ])"
+                                            class="tokenpresent" ng-class="{ 'selected' : nexttoken_2.selected }"
+                                            style="width: calc(23vw - 20px)">
+                                            {{ nexttoken_2.token }} ({{nexttoken_2.count}})
+                                        </td>
+                                        <td ng-class="{'tokenmissing' : !nexttoken_2.selected, 'nexttoken' : nexttoken_2.selected }">
+                                            <table ng-if="project.toy.ngrams > 1 && nexttoken_2.selected">
+                                                <tr ng-repeat="nexttoken_3 in nexttoken_2.next">
+                                                    <td ng-click="toggleToken(nexttoken_3, nexttoken_2.next, [ nexttoken.token, nexttoken_2.token, nexttoken_3.token ])"
+                                                        class="tokenpresent" ng-class="{ 'selected' : nexttoken_3.selected }"
+                                                        style="width: calc(23vw - 20px)">
+                                                        {{ nexttoken_3.token }} ({{nexttoken_3.count}})
+                                                    </td>
+                                                    <td ng-class="{'tokenmissing' : !nexttoken_3.selected, 'nexttoken' : nexttoken_3.selected }">
+                                                        <table ng-if="project.toy.ngrams > 2 && nexttoken_3.selected">
+                                                            <tr ng-repeat="nexttoken_4 in nexttoken_3.next">
+                                                                <td ng-click="toggleToken(nexttoken_4, nexttoken_3.next, [ nexttoken.token, nexttoken_2.token, nexttoken_3.token, nexttoken_4.token ])"
+                                                                    class="tokenpresent" ng-class="{ 'selected' : nexttoken_4.selected }"
+                                                                    style="width: calc(23vw - 20px)">
+                                                                    {{ nexttoken_4.token }} ({{nexttoken_4.count}})
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div ng-if="confirmTokens" ng-hide="project.toy.temperature || project.toy.topp" class="confirmtokens">
+            <span class="token">{{ confirmTokens.text }}</span> found <strong>{{ confirmTokens.count }}</strong> times in the corpus
+        </div>
+
+        <div class="nextstep"
+            ng-if="project.modeltype === 'toy' && project.toy.tokens"
+            ng-hide="project.toy.temperature || project.toy.topp">
+            <button type="button"
+                class="btn btn-primary"
+                translate="APP.NEXT"
+                ng-click="project.toy.temperature = 1.0; project.toy.topp = 1.0; initToyTemperature(); recomputeToyScores()"
+                ></button>
+        </div>
+
+        <!-- ******************************************************* -->
+        <!--   TOY models - temperature and top-p                    -->
+        <!-- ******************************************************* -->
+
+        <div class="modelstep" ng-if="project.modeltype === 'toy' && (project.toy.temperature || project.toy.topp)">
+            <div class="steprow">
+                <div class="rowitem">
+                    <div class="stepheading">"Temperature"</div>
+                    <div>
+                        <md-slider min="0.1" max="1.0" step="0.1" ng-model="project.toy.temperature" ng-change="recomputeToyScores()"></md-slider>
+                    </div>
+                    <div style="margin-bottom: 1em; display: flex; flex-direction: row; padding: 0 1em; font-size: 0.9em; color: #2e6da4;">
+                        <div style="flex: 1; text-align: left;">low</div>
+                        <div style="flex: 1; text-align: right;">high</div>
+                    </div>
+                    <div class="stepexplanation" ng-hide="">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                        laboris nisi ut aliquip ex ea commodo consequat.
+                    </div>
+                </div>
+                <div class="rowitem">
+                    <div class="stepheading">"Top-p"</div>
+                    <div>
+                        <md-slider min="0.1" max="1.0" step="0.1" ng-model="project.toy.topp" ng-change="recomputeToyScores()"></md-slider>
+                    </div>
+                    <div style="margin-bottom: 1em; display: flex; flex-direction: row; padding: 0 1em; font-size: 0.9em; color: #2e6da4;">
+                        <div style="flex: 1; text-align: left;">low</div>
+                        <div style="flex: 1; text-align: right;">high</div>
+                    </div>
+                    <div class="stepexplanation" ng-hide="project.slm.ready">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                        laboris nisi ut aliquip ex ea commodo consequat.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="trainingbuckets" ng-if="project.modeltype === 'toy' && (project.toy.temperature || project.toy.topp)" style="min-height: 370px; max-height: 390px; height: unset;">
+            <div class="trainingbucket">
+                <div class="trainingbucketheader">
+                    <span class="trainingbucketlabel">how tokens will be selected</span>
+                </div>
+                <div class="trainingbucketitems" style="max-height: 317px; height: unset; overflow-y: scroll; padding-top: 0;">
+                    <table style="padding-top: 0;">
+                        <tr ng-repeat="nexttoken in project.toy.tokens">
+                            <td ng-click="highlightToken(nexttoken.selected, 0, nexttoken, project.toy.tokens, [ nexttoken.token, '' ])"
+                                class="tokenpresent" ng-class="{ 'selected' : nexttoken.selected }"
+                                style="width: calc(23vw - 20px)">
+                                {{ nexttoken.token }} ({{nexttoken.count}})
+                            </td>
+                            <td ng-class="{'tokenmissing' : !nexttoken.selected, 'nexttoken' : nexttoken.selected }">
+                                <table ng-if="nexttoken.selected">
+                                    <tr ng-repeat="nexttoken_2 in nexttoken.next">
+                                        <td ng-click="highlightToken(nexttoken_2.selected, 1, nexttoken_2, nexttoken.next, [ nexttoken.token, nexttoken_2.token, '' ])"
+                                            class="tokenpresent" ng-class="{ 'selected' : nexttoken_2.selected, 'unclickable' : project.toy.ngrams <= 1, 'count' : project.toy.ngrams <= 1, 'deselected' : nexttoken_2.viz === 0  }"
+                                            style="width: calc(23vw - 20px); --percent: {{ nexttoken_2.viz }}%;">
+                                            {{ nexttoken_2.token }} ({{nexttoken_2.count}})
+                                        </td>
+                                        <td ng-class="{'tokenmissing' : !nexttoken_2.selected, 'nexttoken' : nexttoken_2.selected }">
+                                            <table ng-if="project.toy.ngrams > 1 && nexttoken_2.selected">
+                                                <tr ng-repeat="nexttoken_3 in nexttoken_2.next">
+                                                    <td ng-click="highlightToken(nexttoken_3.selected, 2, nexttoken_3, nexttoken_2.next, [ nexttoken.token, nexttoken_2.token, nexttoken_3.token, '' ])"
+                                                        class="tokenpresent" ng-class="{ 'selected' : nexttoken_3.selected, 'unclickable' : project.toy.ngrams <= 2, 'count' : project.toy.ngrams <= 2, 'deselected' : nexttoken_3.viz === 0 }"
+                                                        style="width: calc(23vw - 20px); --percent: {{ nexttoken_3.viz }}%;">
+                                                        {{ nexttoken_3.token }} ({{nexttoken_3.count}})
+                                                    </td>
+                                                    <td ng-class="{'tokenmissing' : !nexttoken_3.selected, 'nexttoken' : nexttoken_3.selected }">
+                                                        <table ng-if="project.toy.ngrams > 2 && nexttoken_3.selected">
+                                                            <tr ng-repeat="nexttoken_4 in nexttoken_3.next">
+                                                                <td class="tokenpresent count" ng-class="{ 'selected' : nexttoken_4.selected, 'deselected' : nexttoken_4.viz === 0  }"
+                                                                    style="width: calc(23vw - 20px); --percent: {{ nexttoken_4.viz }}%;">
+                                                                    {{ nexttoken_4.token }} ({{nexttoken_4.count}})
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div ng-if="confirmTokens && project.toy.temperature && project.toy.topp" class="confirmtokens" style="text-align: right;">
+            green bars above show the chance of words that could be chosen to follow <span class="token">{{ confirmTokens.text }}</span>
+        </div>
+
+        <div class="nextstep"
+            ng-if="project.modeltype === 'toy' && (project.toy.temperature || project.toy.topp)"
+            ng-hide="">
+            <button type="button"
+                class="btn btn-primary"
+                translate="APP.NEXT"
+                ng-click=""
+                ></button>
+        </div>
+
 
         <!-- ******************************************************* -->
         <!--   SLM models - select an architecture                   -->
         <!-- ******************************************************* -->
 
-        <div class="modelstep" ng-if="project.modeltype === 'small' && project.details">
+        <div class="modelstep" ng-if="project.modeltype === 'small'">
             <div class="stepheading">Model architecture</div>
             <div class="steprow">
-                <md-select class="rowitem" ng-model="project.details.slm" ng-required="true" placeholder="choose a small language model">
+                <md-select class="rowitem" ng-model="project.slm" ng-required="true" placeholder="choose a small language model">
                     <md-option ng-repeat="slmModel in slmModels" ng-value="slmModel">{{slmModel.label}}</md-option>
                 </md-select>
-                <div class="rowitem" ng-if="project.details.slm" ng-hide="project.details.slm.download >= 0">
+                <div class="rowitem" ng-if="project.slm" ng-hide="project.slm.download >= 0">
                     <div>
-                        <strong>created by: </strong> {{ project.details.slm.developer }}
+                        <strong>created by: </strong> {{ project.slm.developer }}
                     </div>
                     <div>
-                        <strong>storage size: </strong> {{ project.details.slm.storage }}
+                        <strong>storage size: </strong> {{ project.slm.storage }}
                     </div>
                 </div>
-                <div class="rowitem" ng-if="project.details.slm.download >= 0" ng-hide="project.details.slm.download === 100">
+                <div class="rowitem" ng-if="project.slm.download >= 0" ng-hide="project.slm.download === 100">
                     <div>Downloading...</div>
                     <md-progress-linear
                         style="width: 80%;"
-                        ng-if="project.details.slm.download < 100"
+                        ng-if="project.slm.download < 100"
                         md-mode="determinate"
-                        value={{project.details.slm.download}}></md-progress-linear>
+                        value={{project.slm.download}}></md-progress-linear>
                 </div>
             </div>
         </div>
 
-        <div class="nextstep" ng-if="project.details.slm" ng-hide="project.details.slm.download === 100">
+        <div class="nextstep" ng-if="project.slm" ng-hide="project.slm.download === 100">
             <button type="button"
                 class="btn btn-primary"
-                ng-disabled="project.details.slm.download >= 0"
+                ng-disabled="project.slm.download >= 0"
                 ng-click="downloadModel()">
                 Download
             </button>
@@ -105,10 +366,10 @@
         <!--   SLM models - choose context window size               -->
         <!-- ******************************************************* -->
 
-        <div class="modelstep" ng-if="project.modeltype === 'small' && project.details.slm.download === 100">
+        <div class="modelstep" ng-if="project.modeltype === 'small' && project.slm.download === 100">
             <div class="stepheading">Size of context window</div>
             <div class="steprow">
-                <md-select class="rowitem" ng-model="project.details.slm.contextwindow" ng-required="true">
+                <md-select class="rowitem" ng-model="project.slm.contextwindow" ng-required="true">
                     <md-option ng-value=512>512</md-option>
                     <md-option ng-value=1024>1024</md-option>
                     <md-option ng-value=2048>2048</md-option>
@@ -119,7 +380,7 @@
                     <md-option ng-value="65536">65536</md-option>
                     <md-option ng-value="131072">131072</md-option>
                 </md-select>
-                <div class="rowitem stepexplanation" ng-hide="project.details.slm.temperature || project.details.slm.topp">
+                <div class="rowitem stepexplanation" ng-hide="project.slm.temperature || project.slm.topp">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                     eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                     enim ad minim veniam, quis nostrud exercitation ullamco laboris
@@ -131,12 +392,12 @@
         </div>
 
         <div class="nextstep"
-            ng-if="project.modeltype === 'small' && project.details.slm.download === 100"
-            ng-hide="project.details.slm.temperature || project.details.slm.topp">
+            ng-if="project.modeltype === 'small' && project.slm.download === 100"
+            ng-hide="project.slm.temperature || project.slm.topp">
             <button type="button"
                 class="btn btn-primary"
                 translate="APP.NEXT"
-                ng-click="project.details.slm.temperature = 1.0; project.details.slm.topp = 1.0;"
+                ng-click="project.slm.temperature = 1.0; project.slm.topp = 1.0;"
                 ></button>
         </div>
 
@@ -144,18 +405,18 @@
         <!--   SLM models - set temperature and top-p                -->
         <!-- ******************************************************* -->
 
-        <div class="modelstep" ng-if="project.modeltype === 'small' && (project.details.slm.temperature || project.details.slm.topp)">
+        <div class="modelstep" ng-if="project.modeltype === 'small' && (project.slm.temperature || project.slm.topp)">
             <div class="steprow">
                 <div class="rowitem">
                     <div class="stepheading">Temperature</div>
                     <div>
-                        <md-slider min="0.1" max="1.0" step="0.1" ng-model="project.details.slm.temperature"></md-slider>
+                        <md-slider min="0.1" max="1.0" step="0.1" ng-model="project.slm.temperature"></md-slider>
                     </div>
                     <div style="margin-bottom: 1em; display: flex; flex-direction: row; padding: 0 1em; font-size: 0.9em; color: #2e6da4;">
                         <div style="flex: 1; text-align: left;">low</div>
                         <div style="flex: 1; text-align: right;">high</div>
                     </div>
-                    <div class="stepexplanation" ng-hide="project.details.slm.ready">
+                    <div class="stepexplanation" ng-hide="project.slm.ready">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                         ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
                         laboris nisi ut aliquip ex ea commodo consequat.
@@ -164,13 +425,13 @@
                 <div class="rowitem">
                     <div class="stepheading">Top-p</div>
                     <div>
-                        <md-slider min="0.1" max="1.0" step="0.1" ng-model="project.details.slm.topp"></md-slider>
+                        <md-slider min="0.1" max="1.0" step="0.1" ng-model="project.slm.topp"></md-slider>
                     </div>
                     <div style="margin-bottom: 1em; display: flex; flex-direction: row; padding: 0 1em; font-size: 0.9em; color: #2e6da4;">
                         <div style="flex: 1; text-align: left;">low</div>
                         <div style="flex: 1; text-align: right;">high</div>
                     </div>
-                    <div class="stepexplanation" ng-hide="project.details.slm.ready">
+                    <div class="stepexplanation" ng-hide="project.slm.ready">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                         ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
                         laboris nisi ut aliquip ex ea commodo consequat.
@@ -180,12 +441,12 @@
         </div>
 
         <div class="nextstep"
-            ng-if="project.modeltype === 'small' && (project.details.slm.temperature || project.details.slm.topp)"
-            ng-hide="project.details.slm.ready">
+            ng-if="project.modeltype === 'small' && (project.slm.temperature || project.slm.topp)"
+            ng-hide="project.slm.ready">
             <button type="button"
                 class="btn btn-primary"
                 translate="APP.NEXT"
-                ng-click="project.details.slm.ready = true"
+                ng-click="project.slm.ready = true"
                 ></button>
         </div>
 
@@ -193,7 +454,7 @@
         <!--   testing                                               -->
         <!-- ******************************************************* -->
 
-        <div ng-if="project.details.slm.ready" style="margin-top: 2em;">
+        <div ng-if="project.slm.ready" style="margin-top: 2em;">
             <div style="display: flex; flex-direction: row; margin-bottom: 8px;">
                 <div class="stepheading"> Prompt </div>
                 <input ng-model="prompt" style="flex: 3; margin-left: 10px; margin-right: 10px;">
@@ -212,7 +473,7 @@
         <!--   Scratch integration                                   -->
         <!-- ******************************************************* -->
 
-        <div class="makes" ng-if="project.details.slm.ready">
+        <div class="makes" ng-if="project.slm.ready">
             <div class="makesplaceholder"> </div>
             <div class="make">
                 <div class="makecard">

@@ -82,6 +82,318 @@
             }
         ];
 
+        $scope.corpus = [
+            {
+                id    : 0,
+                label : 'my volcano project',
+                type  : 'text'
+            },
+            {
+                id    : 1,
+                label : 'vesuvius.txt',
+                type  : 'text'
+            },
+            {
+                id    : 2,
+                label : 'Mount Etna',
+                type  : 'wikipedia'
+            },
+            {
+                id    : 3,
+                label : 'krakatoa.txt',
+                type  : 'text'
+            }
+        ];
+
+        const temp_tokens = [
+            {
+                token : 'ipsum',
+                count : 98,
+                next : [
+                    {
+                        token : 'laoreet',
+                        count : 28,
+                        next : [
+                            {
+                                token : 'nibh',
+                                count : 10,
+                                next : [
+                                    {
+                                        token : 'ante',
+                                        count : 6,
+                                        next : []
+                                    },
+                                    {
+                                        token : 'malesuada',
+                                        count : 3,
+                                        next : []
+                                    },
+                                    {
+                                        token : 'tristique',
+                                        count : 1,
+                                        next : []
+                                    }
+                                ]
+                            },
+                            {
+                                token : 'augue',
+                                count : 8,
+                                next : []
+                            },
+                            {
+                                token : 'curabitur',
+                                count : 5,
+                                next : []
+                            },
+                            {
+                                token : 'consequat',
+                                count : 4,
+                                next : []
+                            },
+                            {
+                                token : 'adipiscing',
+                                count : 1,
+                                next : []
+                            }
+                        ]
+                    },
+                    {
+                        token : 'elit',
+                        count : 20,
+                        next : []
+                    },
+                    {
+                        token : 'nec',
+                        count : 18,
+                        next : []
+                    },
+                    {
+                        token : 'venenatis',
+                        count : 14,
+                        next : [
+                            {
+                                token : 'ullamcorper',
+                                count : 8,
+                                next : []
+                            },
+                            {
+                                token : 'rutrum',
+                                count : 5,
+                                next : []
+                            },
+                            {
+                                token : 'tortor',
+                                count : 3,
+                                next : [
+                                    {
+                                        token : 'consectetur',
+                                        count : 2,
+                                        next : []
+                                    },
+                                    {
+                                        token : 'velit',
+                                        count : 1,
+                                        next : []
+                                    }
+                                ]
+                            },
+                            {
+                                token : 'veniam',
+                                count : 1,
+                                next : []
+                            }
+                        ]
+                    },
+                    {
+                        token : 'lacinia',
+                        count : 10,
+                        next : []
+                    },
+                    {
+                        token : 'efficitur',
+                        count : 8,
+                        next : []
+                    }
+                ]
+            },
+            {
+                token : 'odor',
+                count : 92,
+                next : []
+            },
+            {
+                token : 'amet',
+                count : 88,
+                next : []
+            },
+            {
+                token : 'consectetuer',
+                count : 71,
+                next : []
+            },
+            {
+                token : 'lorem',
+                count : 63,
+                next : [
+                    {
+                        token : 'sunt',
+                        count : 30,
+                        next : [
+                            {
+                                token : 'ultricies',
+                                count : 14,
+                                next : [
+                                    {
+                                        token : 'placerat',
+                                        count : 3,
+                                        next : []
+                                    },
+                                    {
+                                        token : 'platea',
+                                        count : 3,
+                                        next : []
+                                    },
+                                    {
+                                        token : 'torquent',
+                                        count : 2,
+                                        next : []
+                                    },
+                                    {
+                                        token : 'consequat',
+                                        count : 2,
+                                        next : []
+                                    },
+                                    {
+                                        token : 'potenti',
+                                        count : 2,
+                                        next : []
+                                    },
+                                    {
+                                        token : 'tristique',
+                                        count : 1,
+                                        next : []
+                                    },
+                                    {
+                                        token : 'dapibus',
+                                        count : 1,
+                                        next : []
+                                    }
+                                ]
+                            },
+                            {
+                                token : 'eget',
+                                count : 8,
+                                next : []
+                            },
+                            {
+                                token : 'molestie',
+                                count : 5,
+                                next : []
+                            },
+                            {
+                                token : 'fermentum',
+                                count : 1,
+                                next : []
+                            },
+                            {
+                                token : 'dapibus',
+                                count : 1,
+                                next : []
+                            },
+                            {
+                                token : 'posuere',
+                                count : 1,
+                                next : []
+                            }
+                        ]
+                    },
+                    {
+                        token : 'culpa',
+                        count : 20,
+                        next : []
+                    },
+                    {
+                        token : 'officia',
+                        count : 7,
+                        next : []
+                    },
+                    {
+                        token : 'mollit',
+                        count : 3,
+                        next : []
+                    },
+                    {
+                        token : 'laborum',
+                        count : 1,
+                        next : []
+                    },
+                    {
+                        token : 'eiusmod',
+                        count : 1,
+                        next : []
+                    },
+                    {
+                        token : 'adipiscing',
+                        count : 1,
+                        next : []
+                    }
+                ]
+            },
+            {
+                token : 'fugiat',
+                count : 62,
+                next : [
+                    {
+                        token : 'molestie',
+                        count : 14,
+                        next : []
+                    },
+                    {
+                        token : 'augue',
+                        count : 13,
+                        next : [],
+                    },
+                    {
+                        token : 'dolor',
+                        count : 10,
+                        next : []
+                    },
+                    {
+                        token : 'reprehenderit',
+                        count : 8,
+                        next : []
+                    },
+                    {
+                        token : 'aliquip',
+                        count : 7,
+                        next : []
+                    },
+                    {
+                        token : 'eiusmod',
+                        count : 7,
+                        next : []
+                    },
+                    {
+                        token : 'nulla',
+                        count : 3,
+                        next : []
+                    }
+                ]
+            },
+            {
+                token : 'adipiscing',
+                count : 51,
+                next : []
+            },
+            {
+                token : 'esse',
+                count : 36,
+                next : []
+            }
+        ];
+
+        let tokenToRecompute;
+
 
         // check that they're authenticated before doing anything else
         authService.getProfileDeferred()
@@ -97,22 +409,150 @@
                 displayAlert('errors', err.status, err.data ? err.data : err);
             });
 
+        $scope.removeCorpusDoc = function (id) {
+            $scope.corpus = $scope.corpus.filter((doc) => doc.id !== id);
+        };
+
+        $scope.changeNgramSize = function () {
+            $scope.project.toy.ngrams = ($scope.project.toy.ngrams === 3 ? 1 : $scope.project.toy.ngrams + 1);
+            if ($scope.project.toy.temperature || $scope.project.toy.topp) {
+                $scope.initToyTemperature();
+                $scope.recomputeToyScores();
+            }
+            else {
+                if ($scope.project.toy.tokens) {
+                    $scope.project.toy.tokens.forEach(deselect);
+                }
+                delete $scope.confirmTokens;
+            }
+        };
+
+        function generateCumulativeProbability(tokens, parentsize) {
+            let cumulativeProbability = 0;
+            const processedTokens = tokens.map((t) => {
+                const probability = t.count / parentsize;
+                cumulativeProbability = Math.min(cumulativeProbability + probability, 1.0);
+                return {
+                    token : t.token,
+                    count : t.count,
+                    probability,
+                    cumulativeProbability,
+                    next : generateCumulativeProbability(t.next, t.count)
+                };
+            });
+            return processedTokens;
+        }
+
+        function sumCounts(tokens) {
+            let count = 0;
+            tokens.forEach((t) => count += t.count);
+            return count;
+        }
+
+        $scope.initTokens = function () {
+            const totalCounts = sumCounts(temp_tokens);
+            $scope.project.toy.tokens = generateCumulativeProbability(temp_tokens, totalCounts);
+            // console.log(JSON.stringify($scope.project.toy.tokens, null, 4));
+        };
+
+        function deselect(token) {
+            token.selected = false;
+            token.next.forEach(deselect);
+        }
+
+        $scope.toggleToken = function (token, others, parents) {
+            delete $scope.confirmTokens;
+
+            token.selected = !token.selected;
+            if (token.selected) {
+                others
+                    .filter((t) => t.token !== token.token)
+                    .forEach(deselect);
+
+                if (parents.length === ($scope.project.toy.ngrams + 1)) {
+                    $scope.confirmTokens = {
+                        text : parents.join(' '),
+                        count : token.count
+                    };
+                }
+            }
+        };
+
+        $scope.highlightToken = function (selected, depth, token, others, parents) {
+            if (selected) { return; }
+
+            $scope.toggleToken(token, others, parents);
+
+            if (depth === ($scope.project.toy.ngrams - 1)) {
+                tokenToRecompute = token;
+                $scope.recomputeToyScores();
+            }
+        };
+
+        $scope.recomputeToyScores = function () {
+            if (tokenToRecompute) {
+                let totalScaled = 0;
+                for (const t of tokenToRecompute.next) {
+                    if (t.cumulativeProbability > $scope.project.toy.topp) {
+                        t.viz = 0;
+                    }
+                    else {
+                        t._temp = Math.pow(t.count, 1 / $scope.project.toy.temperature);
+                        totalScaled += t._temp;
+                    }
+                }
+                for (const t of tokenToRecompute.next) {
+                    if (t.cumulativeProbability <= $scope.project.toy.topp) {
+                        t.viz = t._temp / totalScaled * 100;
+                        if (t.viz < 1) {
+                            t.viz = 0;
+                        }
+                        delete t._temp;
+                    }
+                }
+            }
+        }
+
+        $scope.initToyTemperature = function () {
+            $scope.project.toy.tokens.forEach(deselect);
+
+            let nextToken = $scope.project.toy.tokens[0];
+            $scope.confirmTokens = {
+                text : ''
+            };
+            let parent;
+
+            for (let i = 0; i < $scope.project.toy.ngrams; i++) {
+                $scope.confirmTokens = {
+                    text : $scope.confirmTokens.text + ' ' + nextToken.token,
+                    count : nextToken.count
+                };
+
+                nextToken.selected = true;
+
+                parent = nextToken;
+                nextToken = nextToken.next[0];
+            }
+
+            tokenToRecompute = parent;
+        };
+
         $scope.downloadModel = function () {
-            $scope.project.details.slm.download = 0;
+            $scope.project.slm.download = 0;
             console.log('simulating download');
-            $timeout(() => { $scope.project.details.slm.download = 33; }, 700);
-            $timeout(() => { $scope.project.details.slm.download = 50; }, 1200);
-            $timeout(() => { $scope.project.details.slm.download = 66; }, 1700);
-            $timeout(() => { $scope.project.details.slm.download = 90; }, 2300);
-            $timeout(() => { $scope.project.details.slm.download = 100; }, 2900);
+            $timeout(() => { $scope.project.slm.download = 33; }, 300);
+            $timeout(() => { $scope.project.slm.download = 50; }, 800);
+            $timeout(() => { $scope.project.slm.download = 66; }, 1200);
+            $timeout(() => { $scope.project.slm.download = 90; }, 1800);
+            $timeout(() => { $scope.project.slm.download = 100; }, 2100);
         };
 
         $scope.generateText = function (prompt) {
             $scope.generating = true;
-            $scope.textgenerated = true;
             $scope.generated = '...';
             $timeout(() => {
                 $scope.generated = 'Response to the prompt ' + prompt + ' will go here';
+                $scope.textgenerated = true;
                 $scope.generating = false;
             }, 1000);
         };

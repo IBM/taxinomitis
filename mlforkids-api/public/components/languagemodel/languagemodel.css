@@ -23,6 +23,81 @@
     margin-left: 0.75em;
 }
 
+
+.languagemodelpage .trainingbuckets {
+    height: 220px;
+}
+
+.languagemodelpage .trainingbuckets.documents {
+    height: 310px;
+}
+
+.languagemodelpage .trainingbuckets .trainingbucket {
+    max-width: 100%;
+}
+
+.languagemodelpage .trainingbuckets .trainingbucket .documentlabel {
+    font-size: 0.7em;
+}
+
+.languagemodelpage table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.languagemodelpage table td {
+    padding: 0.7em;
+    vertical-align: top;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.languagemodelpage table td.unclickable {
+    cursor: default;
+}
+
+.languagemodelpage table td.tokenpresent {
+    border: thin black solid;
+}
+
+.languagemodelpage table td.tokenpresent.selected {
+    background-color: #d9d9d9;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.languagemodelpage table td.tokenmissing {
+    border: none;
+}
+
+.languagemodelpage table td.nexttoken {
+    padding: 0;
+}
+
+.languagemodelpage .confirmtokens {
+    border: thin black solid;
+    width: 97%;
+    margin: 1em auto 2em auto;
+    padding: 1em;
+}
+.languagemodelpage .confirmtokens .token {
+    background-color: #d9d9d9;
+    font-family: monospace;
+    font-size: 1.1em;
+    padding: 0.7em 1em;
+    margin-right: 1em;
+}
+
+.languagemodelpage td.count {
+    background: linear-gradient(to right, #9fbe94 var(--percent, 0%), white var(--percent, 0%));
+}
+.languagemodelpage td.count.deselected {
+    color: #c0c0c0;
+}
+
+
+
 .languagemodelpage md-select {
     background-color: white;
     padding: 0.2em;
