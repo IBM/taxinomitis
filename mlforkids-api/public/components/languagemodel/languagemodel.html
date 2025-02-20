@@ -1,0 +1,242 @@
+<div ng-if="!isAuthenticated">
+    <div class="alert alert-warning pageheadermsg">
+        <strong translate="ERRORS.NOTLOGGEDIN"></strong>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" ng-click="vm.authService.login()" translate="APP.LOGIN"></button>
+    </div>
+</div>
+<div ng-if="isAuthenticated" ignore-drop>
+    <div class="jumbotron training">
+        <h2 class="text-center">Prepare a language model</h2>
+    </div>
+
+    <div ng-repeat="error in vm.errors" class="alert alert-danger alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('errors', $index)">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong translate="APP.ERROR"></strong> {{ error.message }}<br/>
+        <em ng-if="error.status >= 500"><span translate="ERRORS.IFPERSISTENT"></span> <a ui-sref="help" translate="ERRORS.LETMEKNOW"></a></em>
+    </div>
+    <div ng-repeat="warning in vm.warnings" class="alert alert-warning alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('warnings', $index)">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong translate="APP.WARNING"></strong> {{ warning.message }}
+    </div>
+
+    <div ng-if="projectId && !project" class="loading"> </div>
+
+    <div ng-if="project" class="languagemodelpage">
+
+        <!-- ******************************************************* -->
+        <!--   type of language model to prepare : toy vs SLM        -->
+        <!-- ******************************************************* -->
+
+        <div class="modelstep">
+            <div class="stepheading">Type of language model</div>
+            <div style="margin: 1em 0;">
+                <button type="button" class="btn btn-default"
+                    ng-class="{'btn-primary' : project.modeltype === 'toy' }"
+                    ng-disabled="project.modeltype && project.modeltype !== 'toy'"
+                    ng-click="project.modeltype='toy'">Toy</button>
+                <button type="button" class="btn btn-default"
+                    ng-class="{'btn-primary' : project.modeltype === 'small' }"
+                    ng-disabled="project.modeltype && project.modeltype !== 'small'"
+                    ng-click="project.modeltype='small'">Small</button>
+                <button type="button" class="btn btn-default"
+                    ng-class="{'btn-primary' : project.modeltype === 'large' }"
+                    ng-disabled="project.modeltype && project.modeltype !== 'large'"
+                    ng-click="project.modeltype='large'">Large</button>
+                <strong style="color: #00008b; margin-left: 1em;">language model</strong>
+            </div>
+            <div class="stepexplanation" ng-hide="project.modeltype">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+                aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+                aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </div>
+        </div>
+
+        <div class="nextstep" ng-hide="project.details">
+            <button type="button"
+                class="btn btn-primary"
+                translate="APP.NEXT"
+                ng-disabled="!project.modeltype"
+                ng-click="project.details = {}"
+                ></button>
+        </div>
+
+        <!-- ******************************************************* -->
+        <!--   SLM models - select an architecture                   -->
+        <!-- ******************************************************* -->
+
+        <div class="modelstep" ng-if="project.modeltype === 'small' && project.details">
+            <div class="stepheading">Model architecture</div>
+            <div class="steprow">
+                <md-select class="rowitem" ng-model="project.details.slm" ng-required="true" placeholder="choose a small language model">
+                    <md-option ng-repeat="slmModel in slmModels" ng-value="slmModel">{{slmModel.label}}</md-option>
+                </md-select>
+                <div class="rowitem" ng-if="project.details.slm" ng-hide="project.details.slm.download >= 0">
+                    <div>
+                        <strong>created by: </strong> {{ project.details.slm.developer }}
+                    </div>
+                    <div>
+                        <strong>storage size: </strong> {{ project.details.slm.storage }}
+                    </div>
+                </div>
+                <div class="rowitem" ng-if="project.details.slm.download >= 0" ng-hide="project.details.slm.download === 100">
+                    <div>Downloading...</div>
+                    <md-progress-linear
+                        style="width: 80%;"
+                        ng-if="project.details.slm.download < 100"
+                        md-mode="determinate"
+                        value={{project.details.slm.download}}></md-progress-linear>
+                </div>
+            </div>
+        </div>
+
+        <div class="nextstep" ng-if="project.details.slm" ng-hide="project.details.slm.download === 100">
+            <button type="button"
+                class="btn btn-primary"
+                ng-disabled="project.details.slm.download >= 0"
+                ng-click="downloadModel()">
+                Download
+            </button>
+        </div>
+
+        <!-- ******************************************************* -->
+        <!--   SLM models - choose context window size               -->
+        <!-- ******************************************************* -->
+
+        <div class="modelstep" ng-if="project.modeltype === 'small' && project.details.slm.download === 100">
+            <div class="stepheading">Size of context window</div>
+            <div class="steprow">
+                <md-select class="rowitem" ng-model="project.details.slm.contextwindow" ng-required="true">
+                    <md-option ng-value=512>512</md-option>
+                    <md-option ng-value=1024>1024</md-option>
+                    <md-option ng-value=2048>2048</md-option>
+                    <md-option ng-value=4096>4096</md-option>
+                    <md-option ng-value=8192>8192</md-option>
+                    <md-option ng-value="16384">16384</md-option>
+                    <md-option ng-value="32768">32768</md-option>
+                    <md-option ng-value="65536">65536</md-option>
+                    <md-option ng-value="131072">131072</md-option>
+                </md-select>
+                <div class="rowitem stepexplanation" ng-hide="project.details.slm.temperature || project.details.slm.topp">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                    enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                    nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                    pariatur.
+                </div>
+            </div>
+        </div>
+
+        <div class="nextstep"
+            ng-if="project.modeltype === 'small' && project.details.slm.download === 100"
+            ng-hide="project.details.slm.temperature || project.details.slm.topp">
+            <button type="button"
+                class="btn btn-primary"
+                translate="APP.NEXT"
+                ng-click="project.details.slm.temperature = 1.0; project.details.slm.topp = 1.0;"
+                ></button>
+        </div>
+
+        <!-- ******************************************************* -->
+        <!--   SLM models - set temperature and top-p                -->
+        <!-- ******************************************************* -->
+
+        <div class="modelstep" ng-if="project.modeltype === 'small' && (project.details.slm.temperature || project.details.slm.topp)">
+            <div class="steprow">
+                <div class="rowitem">
+                    <div class="stepheading">Temperature</div>
+                    <div>
+                        <md-slider min="0.1" max="1.0" step="0.1" ng-model="project.details.slm.temperature"></md-slider>
+                    </div>
+                    <div style="margin-bottom: 1em; display: flex; flex-direction: row; padding: 0 1em; font-size: 0.9em; color: #2e6da4;">
+                        <div style="flex: 1; text-align: left;">low</div>
+                        <div style="flex: 1; text-align: right;">high</div>
+                    </div>
+                    <div class="stepexplanation" ng-hide="project.details.slm.ready">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                        laboris nisi ut aliquip ex ea commodo consequat.
+                    </div>
+                </div>
+                <div class="rowitem">
+                    <div class="stepheading">Top-p</div>
+                    <div>
+                        <md-slider min="0.1" max="1.0" step="0.1" ng-model="project.details.slm.topp"></md-slider>
+                    </div>
+                    <div style="margin-bottom: 1em; display: flex; flex-direction: row; padding: 0 1em; font-size: 0.9em; color: #2e6da4;">
+                        <div style="flex: 1; text-align: left;">low</div>
+                        <div style="flex: 1; text-align: right;">high</div>
+                    </div>
+                    <div class="stepexplanation" ng-hide="project.details.slm.ready">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                        laboris nisi ut aliquip ex ea commodo consequat.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="nextstep"
+            ng-if="project.modeltype === 'small' && (project.details.slm.temperature || project.details.slm.topp)"
+            ng-hide="project.details.slm.ready">
+            <button type="button"
+                class="btn btn-primary"
+                translate="APP.NEXT"
+                ng-click="project.details.slm.ready = true"
+                ></button>
+        </div>
+
+        <!-- ******************************************************* -->
+        <!--   testing                                               -->
+        <!-- ******************************************************* -->
+
+        <div ng-if="project.details.slm.ready" style="margin-top: 2em;">
+            <div style="display: flex; flex-direction: row; margin-bottom: 8px;">
+                <div class="stepheading"> Prompt </div>
+                <input ng-model="prompt" style="flex: 3; margin-left: 10px; margin-right: 10px;">
+                <button type="button"
+                    class="btn btn-primary"
+                    ng-click="generateText(prompt)"
+                    ng-disabled="!prompt || prompt.trim().length === 0 || generating"
+                    >Generate</button>
+            </div>
+            <div class="generatedtext" ng-class="{'placeholder' : !textgenerated }">
+                {{ generated }}
+            </div>
+        </div>
+
+        <!-- ******************************************************* -->
+        <!--   Scratch integration                                   -->
+        <!-- ******************************************************* -->
+
+        <div class="makes" ng-if="project.details.slm.ready">
+            <div class="makesplaceholder"> </div>
+            <div class="make">
+                <div class="makecard">
+                    <div class="info">
+                        <div class="title" translate="PROJECT.SCRATCH3.TITLE"></div>
+                        <div class="description">Use your language model in Scratch</div>
+                    </div>
+                    <div class="image">
+                        <img class="makeicon" src="static/images/logo-scratch3.png"/>
+                    </div>
+                </div>
+                <div class="makebutton">
+                    <button type="button" class="btn btn-primary"
+                            ng-disabled="!textgenerated"
+                            ui-sref="mlproject_scratch3({ projectId : projectId, userId : userId })"
+                            translate="PROJECT.SCRATCH3.TITLE"></button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div ng-if="!projectId" class="alert alert-danger pageheadermsg">
+        <strong translate="APP.ERROR"></strong> <span translate="ERRORS.MISSINGPROJECTID"></span> <a ui-sref="projects" translate="APP.PROJECTS"></a>
+    </div>
+</div>

@@ -171,6 +171,12 @@
                 templateUrl: 'static/components/scratch3/scratch3.html',
                 controllerAs: 'vm'
             })
+            .state('mlproject_slm', {
+                url: '/mlproject/:userId/:projectId/languagemodel',
+                controller: 'LanguageModelController',
+                templateUrl: 'static/components/languagemodel/languagemodel.html',
+                controllerAs: 'vm'
+            })
             .state('mlproject_colab', {
                 url: '/mlproject/:userId/:projectId/colab',
                 controller: 'ColabController',
