@@ -5,14 +5,14 @@
         .controller('LanguageModelController', LanguageModelController);
 
     LanguageModelController.$inject = [
-        'authService',
+        'authService', 'utilService',
         'loggerService',
         '$mdDialog',
         '$stateParams',
         '$scope', '$timeout'
     ];
 
-    function LanguageModelController(authService, loggerService, $mdDialog, $stateParams, $scope, $timeout) {
+    function LanguageModelController(authService, utilService, loggerService, $mdDialog, $stateParams, $scope, $timeout) {
         var vm = this;
         vm.authService = authService;
 
@@ -684,6 +684,7 @@
         ];
 
         let tokenToRecompute;
+        let slmReconfiguring = false;
 
 
         // check that they're authenticated before doing anything else
@@ -696,9 +697,85 @@
                 };
             })
             .catch(function (err) {
-                loggerService.error('[ml4ktraining] error', err);
+                loggerService.error('[ml4klangauge] error', err);
                 displayAlert('errors', err.status, err.data ? err.data : err);
             });
+
+
+        $scope.initModelType = function (type) {
+            if (type === 'small') {
+                $scope.loading = true;
+
+                utilService.loadWebLlmProjectSupport()
+                    .then((webllm) => {
+                        $scope.project.modeltype = type;
+                        $scope.webllmEngine = new webllm.MLCEngine();
+                        $scope.webllmEngine.setInitProgressCallback((report) => {
+                            if (!slmReconfiguring) {
+                                $scope.$applyAsync(() => {
+                                    $scope.project.slm.download = report.progress * 100;
+                                });
+                            }
+                            loggerService.debug('[ml4klangauge] Initialising model', report.text);
+                        });
+                        $scope.$applyAsync(() => {
+                            $scope.loading = false;
+                        });
+                    })
+                    .catch((err) => {
+                        loggerService.error('[ml4klangauge] Failed to get webllm library');
+                        displayAlert('errors', 500, err);
+                        $scope.loading = false;
+                    });
+            }
+            else {
+                $scope.project.modeltype = type;
+            }
+        };
+
+        $scope.modifySlmContextWindow = function () {
+            loggerService.debug('[ml4klangauge] Modifying context window');
+            $scope.loading = true;
+            slmReconfiguring = true;
+            $scope.downloadModel()
+                .then(() => {
+                    slmReconfiguring = false;
+                    $scope.$applyAsync(() => {
+                        $scope.loading = false;
+                    });
+                });
+        };
+
+        $scope.downloadModel = function () {
+            loggerService.debug('[ml4klangauge] Downloading model', $scope.project.slm.id);
+            if (!slmReconfiguring) {
+                $scope.project.slm.download = 0;
+            }
+            const modelCfg = {};
+            if ($scope.project.slm.contextwindow) {
+                modelCfg.context_window_size = parseInt($scope.project.slm.contextwindow, 10);
+            }
+            loggerService.debug('[ml4klangauge] Using model config', modelCfg);
+            return $scope.webllmEngine.reload($scope.project.slm.id, modelCfg)
+                .then((a) => {
+                    loggerService.debug('[ml4klangauge] Downloaded model');
+                })
+                .catch((err) => {
+                    loggerService.error('[ml4klangauge] Failed to download model');
+                    displayAlert('errors', 500, err);
+                });
+
+            // $scope.project.slm.download = 0;
+            // console.log('simulating download');
+            // $timeout(() => { $scope.project.slm.download = 33; }, 300);
+            // $timeout(() => { $scope.project.slm.download = 50; }, 800);
+            // $timeout(() => { $scope.project.slm.download = 66; }, 1200);
+            // $timeout(() => { $scope.project.slm.download = 90; }, 1800);
+            // $timeout(() => { $scope.project.slm.download = 100; }, 2100);
+        };
+
+
+
 
         $scope.addCorpusText = function (ev) {
             $mdDialog.show({
@@ -793,7 +870,6 @@
         $scope.initTokens = function () {
             const totalCounts = sumCounts(temp_tokens);
             $scope.project.toy.tokens = generateCumulativeProbability(temp_tokens, totalCounts);
-            // console.log(JSON.stringify($scope.project.toy.tokens, null, 4));
         };
 
         function deselect(token) {
@@ -892,24 +968,58 @@
             }
         };
 
-        $scope.downloadModel = function () {
-            $scope.project.slm.download = 0;
-            console.log('simulating download');
-            $timeout(() => { $scope.project.slm.download = 33; }, 300);
-            $timeout(() => { $scope.project.slm.download = 50; }, 800);
-            $timeout(() => { $scope.project.slm.download = 66; }, 1200);
-            $timeout(() => { $scope.project.slm.download = 90; }, 1800);
-            $timeout(() => { $scope.project.slm.download = 100; }, 2100);
-        };
+
+        async function useSlm(prompt) {
+            const completion = await $scope.webllmEngine.chat.completions.create({
+                stream: true,
+                messages : [
+                    { role : 'system', content : 'You are a helpful AI agent helping users.' },
+                    { role : 'user',   content : prompt }
+                ],
+                top_p : $scope.project.slm.topp,
+                temperature : $scope.project.slm.temperature
+            });
+
+            $scope.generated = '';
+
+            for await (const chunk of completion) {
+                const curDelta = chunk.choices[0].delta.content;
+                if (curDelta) {
+                    const formatted = curDelta.replace(/\n/g, '<br>');
+                    $scope.$applyAsync(() => {
+                        $scope.generated += formatted;
+                    });
+                }
+            }
+
+            const finalMessage = await $scope.webllmEngine.getMessage();
+            console.log(finalMessage);
+        }
+
 
         $scope.generateText = function (prompt) {
             $scope.generating = true;
             $scope.generated = '...';
-            $timeout(() => {
-                $scope.generated = 'Response to the prompt ' + prompt + ' will go here';
-                $scope.textgenerated = true;
-                $scope.generating = false;
-            }, 1000);
+
+            loggerService.debug('[ml4klanguage] generating text for prompt', prompt);
+            if ($scope.project.modeltype === 'small') {
+                useSlm(prompt)
+                    .then(() => {
+                        $scope.generating = false;
+                        $scope.textgenerated = true;
+                    })
+                    .catch((err) => {
+                        loggerService.error('[ml4klangauge] error submitting prompt', err);
+                        displayAlert('errors', 500, err);
+                    });
+            }
+            else {
+                $timeout(() => {
+                    $scope.generated = 'Response to the prompt ' + prompt + ' will go here';
+                    $scope.textgenerated = true;
+                    $scope.generating = false;
+                }, 1000);
+            }
         };
 
 

@@ -58,8 +58,8 @@
             <button type="button"
                 class="btn btn-primary"
                 translate="APP.NEXT"
-                ng-disabled="!modeltype"
-                ng-click="project.modeltype = modeltype"
+                ng-disabled="!modeltype || loading"
+                ng-click="initModelType(modeltype)"
                 ></button>
         </div>
 
@@ -98,7 +98,7 @@
                         <div class="thin buttonicon glyphicon glyphicon-open-file"></div>
                         <div class="newexamplelabel" translate="TRAINING.ADDFROMFILE"></div>
                     </label>
-                    <div class="btn newexamplebutton" ng-click="">
+                    <div class="btn newexamplebutton" ng-click="console.log('NOT IMPLEMENTED YET')">
                         <div class="newexampleicon" style="font-family: serif; font-size: 2em;">W</div>
                         <div class="newexamplelabel">Wikipedia</div>
                     </div>
@@ -446,7 +446,10 @@
         <div class="modelstep" ng-if="project.modeltype === 'small'">
             <div class="stepheading">Model architecture</div>
             <div class="steprow">
-                <md-select class="rowitem" ng-model="project.slm" ng-required="true" placeholder="choose a small language model">
+                <md-select class="rowitem"
+                    ng-model="project.slm" ng-required="true"
+                    placeholder="choose a small language model"
+                    ng-disabled="project.slm.download >= 0 && project.slm.download !== 100">
                     <md-option ng-repeat="slmModel in slmModels" ng-value="slmModel">{{slmModel.label}}</md-option>
                 </md-select>
                 <div class="rowitem" ng-if="project.slm" ng-hide="project.slm.download >= 0">
@@ -484,7 +487,7 @@
         <div class="modelstep" ng-if="project.modeltype === 'small' && project.slm.download === 100">
             <div class="stepheading">Size of context window</div>
             <div class="steprow">
-                <md-select class="rowitem" ng-model="project.slm.contextwindow" ng-required="true">
+                <md-select class="rowitem" ng-model="project.slm.contextwindow" ng-required="true" ng-change="modifySlmContextWindow()">
                     <md-option ng-value=512>512</md-option>
                     <md-option ng-value=1024>1024</md-option>
                     <md-option ng-value=2048>2048</md-option>
@@ -512,6 +515,7 @@
             <button type="button"
                 class="btn btn-primary"
                 translate="APP.NEXT"
+                ng-disabled="!project.slm.contextwindow"
                 ng-click="project.slm.temperature = 1.0; project.slm.topp = 1.0;"
                 ></button>
         </div>
@@ -576,12 +580,10 @@
                 <button type="button"
                     class="btn btn-primary"
                     ng-click="generateText(prompt)"
-                    ng-disabled="!prompt || prompt.trim().length === 0 || generating"
+                    ng-disabled="!prompt || prompt.trim().length === 0 || generating || loading"
                     >Generate</button>
             </div>
-            <div class="generatedtext" ng-class="{'placeholder' : !textgenerated }">
-                {{ generated }}
-            </div>
+            <div class="generatedtext" ng-class="{'placeholder' : !textgenerated }" ng-bind-html="generated"></div>
         </div>
 
         <!-- ******************************************************* -->
@@ -602,13 +604,15 @@
                 </div>
                 <div class="makebutton">
                     <button type="button" class="btn btn-primary"
-                            ng-disabled="!textgenerated"
+                            ng-disabled="!textgenerated || loading || generating"
                             ui-sref="mlproject_scratch3({ projectId : projectId, userId : userId })"
                             translate="PROJECT.SCRATCH3.TITLE"></button>
                 </div>
             </div>
         </div>
 
+
+        <div ng-if="loading" class="loading"></div>
 
     </div>
 

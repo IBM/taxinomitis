@@ -168,6 +168,7 @@
     background-color: #efefef;
     padding: 1em;
     font-family: monospace;
+    overflow-y: scroll;
 }
 
 .languagemodelpage .generatedtext.placeholder {
