@@ -156,8 +156,13 @@
                 delete projectSpec.fields;
             }
 
-            if (projectSpec.type === 'regression' && projectSpec.storage === 'cloud') {
+            if ((projectSpec.type === 'regression') && projectSpec.storage === 'cloud') {
                 displayAlert('errors', 400, { message : 'Projects for predicting numbers cannot be stored in the cloud' });
+                $scope.creating = false;
+                return;
+            }
+            if ((projectSpec.type === 'language') && projectSpec.storage === 'cloud') {
+                displayAlert('errors', 400, { message : 'Projects for generating text cannot be stored in the cloud' });
                 $scope.creating = false;
                 return;
             }

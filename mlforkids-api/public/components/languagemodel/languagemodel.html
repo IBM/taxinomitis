@@ -54,7 +54,7 @@
             </div>
         </div>
 
-        <div class="nextstep" ng-hide="project.modeltype">
+        <div class="nextstep" ng-hide="project.modeltype || loading">
             <button type="button"
                 class="btn btn-primary"
                 translate="APP.NEXT"
@@ -443,16 +443,17 @@
         <!--   SLM models - select an architecture                   -->
         <!-- ******************************************************* -->
 
-        <div class="modelstep" ng-if="project.modeltype === 'small'">
+        <div class="modelstep" ng-if="project.modeltype === 'small'" ng-hide="loading">
             <div class="stepheading">Model architecture</div>
             <div class="steprow">
                 <md-select class="rowitem"
-                    ng-model="project.slm" ng-required="true"
+                    ng-model="project.slm.id" ng-change="lookupSlmInfo()"
+                    ng-required="true"
                     placeholder="choose a small language model"
                     ng-disabled="project.slm.download >= 0 && project.slm.download !== 100">
-                    <md-option ng-repeat="slmModel in slmModels" ng-value="slmModel">{{slmModel.label}}</md-option>
+                    <md-option ng-repeat="slmModel in slmModels" ng-value="slmModel.id">{{slmModel.label}}</md-option>
                 </md-select>
-                <div class="rowitem" ng-if="project.slm" ng-hide="project.slm.download >= 0">
+                <div class="rowitem" ng-if="project.slm.id" ng-hide="project.slm.download >= 0">
                     <div>
                         <strong>created by: </strong> {{ project.slm.developer }}
                     </div>
@@ -471,10 +472,10 @@
             </div>
         </div>
 
-        <div class="nextstep" ng-if="project.slm" ng-hide="project.slm.download === 100">
+        <div class="nextstep" ng-if="project.slm" ng-hide="project.slm.download === 100 || loading">
             <button type="button"
                 class="btn btn-primary"
-                ng-disabled="project.slm.download >= 0"
+                ng-disabled="!project.slm.id || project.slm.download >= 0"
                 ng-click="downloadModel()">
                 Download
             </button>
@@ -511,11 +512,11 @@
 
         <div class="nextstep"
             ng-if="project.modeltype === 'small' && project.slm.download === 100"
-            ng-hide="project.slm.temperature || project.slm.topp">
+            ng-hide="project.slm.temperature || project.slm.topp || loading">
             <button type="button"
                 class="btn btn-primary"
                 translate="APP.NEXT"
-                ng-disabled="!project.slm.contextwindow"
+                ng-disabled="!project.slm.contextwindow || reconfiguring"
                 ng-click="project.slm.temperature = 1.0; project.slm.topp = 1.0;"
                 ></button>
         </div>
@@ -524,7 +525,9 @@
         <!--   SLM models - set temperature and top-p                -->
         <!-- ******************************************************* -->
 
-        <div class="modelstep" ng-if="project.modeltype === 'small' && (project.slm.temperature || project.slm.topp)">
+        <div class="modelstep"
+            ng-if="project.modeltype === 'small' && (project.slm.temperature || project.slm.topp) && project.slm.download === 100"
+            ng-hide="loading">
             <div class="steprow">
                 <div class="rowitem">
                     <div class="stepheading">Temperature</div>
@@ -560,12 +563,13 @@
         </div>
 
         <div class="nextstep"
-            ng-if="project.modeltype === 'small' && (project.slm.temperature || project.slm.topp)"
-            ng-hide="project.slm.ready">
+            ng-if="project.modeltype === 'small' && (project.slm.temperature || project.slm.topp) && project.slm.download === 100"
+            ng-hide="project.slm.ready || loading">
             <button type="button"
                 class="btn btn-primary"
+                ng-disabled="reconfiguring"
                 translate="APP.NEXT"
-                ng-click="project.slm.ready = true"
+                ng-click="storeSlmConfig()"
                 ></button>
         </div>
 
@@ -612,7 +616,11 @@
         </div>
 
 
-        <div ng-if="loading" class="loading"></div>
+        <div ng-if="loading"       class="loading"></div>
+        <div ng-if="reconfiguring" class="loading"></div>
+
+        <!-- debug -->
+        <!-- <div style="font-family: monospace;" ng-bind-html="debug(project)"></div> -->
 
     </div>
 

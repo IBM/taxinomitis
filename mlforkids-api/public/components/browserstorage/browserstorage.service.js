@@ -410,6 +410,46 @@
         }
 
 
+        async function updateLocalProject(projectId, updateFn) {
+            loggerService.debug('[ml4kstorage] updateLocalProject');
+
+            await requiresProjectsDatabase();
+
+            const transaction = projectsDbHandle.transaction([ PROJECTS_TABLE ], 'readwrite');
+            const projectsTable = transaction.objectStore(PROJECTS_TABLE);
+            const readRequest = projectsTable.get(requiresIntegerId(projectId));
+            const readEvent = await promisifyIndexedDbRequest(readRequest);
+            const projectObject = requiresResult(readEvent);
+
+            const updatedProjectObject = updateFn(projectObject);
+
+            const updateRequest = projectsTable.put(updatedProjectObject);
+            await promisifyIndexedDbRequest(updateRequest);
+
+            return updatedProjectObject;
+        }
+
+
+        async function setLanguageModelType(projectId, modelType) {
+            loggerService.debug('[ml4kstorage] setLanguageModelType');
+
+            return updateLocalProject(projectId, (projectObject) => {
+                projectObject.modeltype = modelType;
+                return projectObject;
+            });
+        }
+
+        async function storeSmallLanguageModelConfig(projectId, slm) {
+            loggerService.debug('[ml4kstorage] setLanguageModelType');
+
+            return updateLocalProject(projectId, (projectObject) => {
+                projectObject.slm = slm;
+                return projectObject;
+            });
+        }
+
+
+
         // update labels to meet WA requirements
         const INVALID_LABEL_NAME_CHARS = /[^\w.]/g;
         const MAX_LABEL_LENGTH = 30;
@@ -824,6 +864,9 @@
             deleteProject,
             addLabel,
             deleteLabel,
+
+            setLanguageModelType,
+            storeSmallLanguageModelConfig,
 
             getTrainingData,
             countTrainingData,

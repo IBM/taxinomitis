@@ -14,7 +14,7 @@
 .languagemodelpage {
     display: flex;
     flex-direction: column;
-    padding-bottom: 3em;
+    padding-bottom: 6em;
 }
 
 .languagemodelpage button {

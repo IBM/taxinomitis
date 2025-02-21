@@ -42,14 +42,14 @@
             <div class="mlprojectdetails placeholder" ng-if="project.isPlaceholder">
                 <div class="mlprojecttitle">{{ project.name }}</div>
             </div>
-            <div class="mlprojectdetails" ng-if="!project.isPlaceholder"
+            <div class="mlprojectdetails" ng-if="!project.isPlaceholder" ng-hide="project.type === 'language'"
                  ui-sref="mlproject({ projectId : project.id, userId : project.userid })"
                  ng-class="{ 'mlprojecthighlight' : vm.highlightId === project.id }">
                 <div class="mlprojecttitle">{{ project.name }}</div>
                 <div class="mlprojectdescription">
                     <span ng-hide="project.type === 'regression'" translate="PROJECTS.RECOGNISING"></span>
                     <span ng-if="project.type === 'regression'">Predicting</span>
-                    <span class="mlprojecttype" ng-if="project.type === 'text'" translate="WORKSHEETS.TYPES.TEXT"></span>
+                    <span class="mlprojecttype" ng-if="project.type === 'text' || project.type === 'language'" translate="WORKSHEETS.TYPES.TEXT"></span>
                     <span class="mlprojecttype" ng-if="project.type === 'imgtfjs'" translate="WORKSHEETS.TYPES.IMAGES"></span>
                     <span class="mlprojecttype" ng-if="project.type === 'numbers'" translate="WORKSHEETS.TYPES.NUMBERS"></span>
                     <span class="mlprojecttype" ng-if="project.type === 'sounds'" translate="WORKSHEETS.TYPES.SOUNDS"></span>
@@ -66,6 +66,19 @@
                 <div class="mlprojecticon mlprojectcrowd" ng-if="project.isCrowdSourced"      ng-click="vm.displayCrowdSourcedInfo($event)"> </div>
                 <div class="mlprojecticon mlprojectcloud" ng-if="project.storage !== 'local'" ng-click="vm.displayProjectTypeInfo($event, 'cloud')"> </div>
                 <div class="mlprojecticon mlprojectlocal" ng-if="project.storage === 'local'" ng-click="vm.displayProjectTypeInfo($event, 'local')"> </div>
+            </div>
+            <div class="mlprojectdetails" ng-if="!project.isPlaceholder && project.type === 'language'"
+                 ui-sref="mlproject_slm({ projectId : project.id, userId : project.userid })"
+                 ng-class="{ 'mlprojecthighlight' : vm.highlightId === project.id }">
+                <div class="mlprojecttitle">{{ project.name }}</div>
+                <div class="mlprojectdescription">
+                    <span>Generating</span>
+                    <span class="mlprojecttype" translate="WORKSHEETS.TYPES.TEXT"></span>
+                    <span ng-if="project.modeltype">
+                        ( {{ project.modeltype }} language model )
+                    </span>
+                </div>
+                <div class="mlprojecticon mlprojectlocal" ng-click="vm.displayProjectTypeInfo($event, 'local')"> </div>
             </div>
             <div class="mlprojectdelete">
                 <button type="button"
