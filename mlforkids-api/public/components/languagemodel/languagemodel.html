@@ -234,7 +234,7 @@
                         <div style="flex: 1; text-align: left;">low</div>
                         <div style="flex: 1; text-align: right;">high</div>
                     </div>
-                    <div class="stepexplanation" ng-hide="">
+                    <div class="stepexplanation" ng-hide="attention">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                         ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
                         laboris nisi ut aliquip ex ea commodo consequat.
@@ -249,7 +249,7 @@
                         <div style="flex: 1; text-align: left;">low</div>
                         <div style="flex: 1; text-align: right;">high</div>
                     </div>
-                    <div class="stepexplanation" ng-hide="project.slm.ready">
+                    <div class="stepexplanation" ng-hide="attention">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                         ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
                         laboris nisi ut aliquip ex ea commodo consequat.
@@ -258,7 +258,9 @@
             </div>
         </div>
 
-        <div class="trainingbuckets" ng-if="project.modeltype === 'toy' && (project.toy.temperature || project.toy.topp)" style="min-height: 370px; max-height: 390px; height: unset;">
+        <div class="trainingbuckets"
+            ng-if="project.modeltype === 'toy' && (project.toy.temperature || project.toy.topp)" style="min-height: 370px; max-height: 390px; height: unset;"
+            ng-hide="attention">
             <div class="trainingbucket">
                 <div class="trainingbucketheader">
                     <span class="trainingbucketlabel">how tokens will be selected</span>
@@ -309,17 +311,123 @@
             </div>
         </div>
 
-        <div ng-if="confirmTokens && project.toy.temperature && project.toy.topp" class="confirmtokens" style="text-align: right;">
+        <div ng-if="confirmTokens && project.toy.temperature && project.toy.topp" ng-hide="attention" class="confirmtokens" style="text-align: right;">
             green bars above show the chance of words that could be chosen to follow <span class="token">{{ confirmTokens.text }}</span>
         </div>
 
         <div class="nextstep"
             ng-if="project.modeltype === 'toy' && (project.toy.temperature || project.toy.topp)"
-            ng-hide="">
+            ng-hide="attention">
             <button type="button"
                 class="btn btn-primary"
                 translate="APP.NEXT"
-                ng-click=""
+                ng-disabled="!modeltype"
+                ng-click="setAttention('unset')"
+                ></button>
+        </div>
+
+
+        <!-- ******************************************************* -->
+        <!--   TOY models - attention                                -->
+        <!-- ******************************************************* -->
+
+        <div class="modelstep" ng-if="project.modeltype === 'toy' && attention">
+            <div class="stepheading">"Attention"</div>
+            <div class="steprow">
+                <div class="rowitem" style="margin-top: auto; margin-bottom: auto;">
+                    <button type="button" class="btn btn-default btn-wide"
+                        ng-class="{'btn-primary' : project.toy.attention === 'spelling' || attention === 'spelling' }"
+                        ng-click="setAttention('spelling')">Use spelling only</button>
+                    <button type="button" class="btn btn-default btn-wide"
+                        ng-class="{'btn-primary' : project.toy.attention === 'pos' || attention === 'pos' }"
+                        ng-click="setAttention('pos')">Spelling + category</button>
+                </div>
+                <div class="rowitem stepexplanation" style="flex: 2;">
+                    <span ng-hide="">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                        enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                        nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                        pariatur.
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="nextstep"
+            ng-if="project.modeltype === 'toy' && attention"
+            ng-hide="project.toy.attention">
+            <button type="button"
+                class="btn btn-primary"
+                translate="APP.NEXT"
+                ng-disabled="attention === 'unset'"
+                ng-click="project.toy.attention = attention"
+                ></button>
+        </div>
+
+        <div class="trainingbuckets"
+            ng-if="project.modeltype === 'toy' && project.toy.attention"
+            ng-hide="project.toy.ready"
+            style="min-height: 320px; max-height: 340px; height: unset;">
+            <div class="trainingbucket">
+                <div class="trainingbucketheader">
+                    <span class="trainingbucketlabel">tokens sample</span>
+                </div>
+                <div class="trainingbucketitems" style="max-height: 267px; height: unset; overflow-y: scroll; padding-top: 0;">
+                    <table style="padding-top: 0;">
+                        <tr ng-repeat="nexttoken in project.toy.tokens">
+                            <td ng-click="toggleToken(nexttoken, project.toy.tokens, [])"
+                                class="tokenpresent" ng-class="{ 'selected' : nexttoken.selected }"
+                                style="width: calc(23vw - 20px)">
+                                {{ nexttoken.token }} ({{nexttoken.count}})
+                            </td>
+                            <td ng-class="{'tokenmissing' : !nexttoken.selected, 'nexttoken' : nexttoken.selected }">
+                                <table ng-if="nexttoken.selected">
+                                    <tr ng-repeat="nexttoken_2 in nexttoken.next">
+                                        <td ng-click="toggleToken(nexttoken_2, nexttoken.next, [ nexttoken.token, nexttoken_2.token ])"
+                                            class="tokenpresent" ng-class="{ 'selected' : nexttoken_2.selected }"
+                                            style="width: calc(23vw - 20px)">
+                                            {{ nexttoken_2.token }} ({{nexttoken_2.count}})
+                                        </td>
+                                        <td ng-class="{'tokenmissing' : !nexttoken_2.selected, 'nexttoken' : nexttoken_2.selected }">
+                                            <table ng-if="project.toy.ngrams > 1 && nexttoken_2.selected">
+                                                <tr ng-repeat="nexttoken_3 in nexttoken_2.next">
+                                                    <td ng-click="toggleToken(nexttoken_3, nexttoken_2.next, [ nexttoken.token, nexttoken_2.token, nexttoken_3.token ])"
+                                                        class="tokenpresent" ng-class="{ 'selected' : nexttoken_3.selected }"
+                                                        style="width: calc(23vw - 20px)">
+                                                        {{ nexttoken_3.token }} ({{nexttoken_3.count}})
+                                                    </td>
+                                                    <td ng-class="{'tokenmissing' : !nexttoken_3.selected, 'nexttoken' : nexttoken_3.selected }">
+                                                        <table ng-if="project.toy.ngrams > 2 && nexttoken_3.selected">
+                                                            <tr ng-repeat="nexttoken_4 in nexttoken_3.next">
+                                                                <td ng-click="toggleToken(nexttoken_4, nexttoken_3.next, [ nexttoken.token, nexttoken_2.token, nexttoken_3.token, nexttoken_4.token ])"
+                                                                    class="tokenpresent" ng-class="{ 'selected' : nexttoken_4.selected }"
+                                                                    style="width: calc(23vw - 20px)">
+                                                                    {{ nexttoken_4.token }} ({{nexttoken_4.count}})
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="nextstep"
+            ng-if="project.modeltype === 'toy' && project.toy.attention"
+            ng-hide="project.toy.ready">
+            <button type="button"
+                class="btn btn-primary"
+                translate="APP.NEXT"
+                ng-click="project.toy.ready = true"
                 ></button>
         </div>
 
@@ -454,7 +562,7 @@
         <!--   testing                                               -->
         <!-- ******************************************************* -->
 
-        <div ng-if="project.slm.ready" style="margin-top: 2em;">
+        <div ng-if="project.slm.ready || project.toy.ready" style="margin-top: 2em;">
             <div style="display: flex; flex-direction: row; margin-bottom: 8px;">
                 <div class="stepheading"> Prompt </div>
                 <input ng-model="prompt" style="flex: 3; margin-left: 10px; margin-right: 10px;">
@@ -473,7 +581,7 @@
         <!--   Scratch integration                                   -->
         <!-- ******************************************************* -->
 
-        <div class="makes" ng-if="project.slm.ready">
+        <div class="makes" ng-if="project.slm.ready || project.toy.ready">
             <div class="makesplaceholder"> </div>
             <div class="make">
                 <div class="makecard">
