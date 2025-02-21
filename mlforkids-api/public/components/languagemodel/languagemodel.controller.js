@@ -7,11 +7,12 @@
     LanguageModelController.$inject = [
         'authService',
         'loggerService',
-        '$stateParams', '$scope',
-        '$timeout'
+        '$mdDialog',
+        '$stateParams',
+        '$scope', '$timeout'
     ];
 
-    function LanguageModelController(authService, loggerService, $stateParams, $scope, $timeout) {
+    function LanguageModelController(authService, loggerService, $mdDialog, $stateParams, $scope, $timeout) {
         var vm = this;
         vm.authService = authService;
 
@@ -106,6 +107,7 @@
                 type  : 'text'
             }
         ];
+        let nextCorpusId = 4;
 
         const temp_tokens = [
             {
@@ -697,6 +699,56 @@
                 loggerService.error('[ml4ktraining] error', err);
                 displayAlert('errors', err.status, err.data ? err.data : err);
             });
+
+        $scope.addCorpusText = function (ev) {
+            $mdDialog.show({
+                locals : {
+                    project : $scope.project
+                },
+                controller : function ($scope, locals) {
+                    $scope.project = locals.project;
+                    $scope.values = {};
+
+                    $scope.hide = function() {
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function() {
+                        $mdDialog.cancel();
+                    };
+                    $scope.confirm = function(resp) {
+                        $mdDialog.hide(resp);
+                    };
+                },
+                templateUrl : 'static/components/languagemodel/corpustext.tmpl.html',
+                targetEvent : ev,
+                clickOutsideToClose : true
+            })
+            .then(
+                function (resp) {
+                    console.log(resp);
+                    $scope.corpus.push({
+                        id : nextCorpusId++,
+                        label : resp.title,
+                        type : 'text'
+                    });
+                },
+                function() {
+                    // cancelled. do nothing
+                }
+            );
+        };
+        $scope.addCorpusFile = function (ev) {
+            if (ev.currentTarget && ev.currentTarget.files) {
+                for (let idx = 0; idx < ev.currentTarget.files.length; idx++) {
+                    const newFile = {
+                        id : nextCorpusId++,
+                        label : ev.currentTarget.files[idx].name,
+                        type : 'text'
+                    };
+                    $scope.$applyAsync(() => { $scope.corpus.push(newFile) });
+                }
+            }
+        };
 
         $scope.removeCorpusDoc = function (id) {
             $scope.corpus = $scope.corpus.filter((doc) => doc.id !== id);

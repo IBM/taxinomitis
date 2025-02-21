@@ -83,11 +83,18 @@
                     </div>
                 </div>
                 <div class="newexamplesbuttonbar" ng-hide="reviewing">
-                    <div class="btn newexamplebutton" ng-click="">
+                    <div class="btn newexamplebutton" ng-click="addCorpusText($event)">
                         <div class="newexampleicon">+</div>
                         <div class="newexamplelabel">Add text</div>
                     </div>
-                    <label class="btn newexamplebutton">
+                    <input id="corpus-file-upload"
+                        type="file"
+                        multiple
+                        accept=".txt"
+                        style="display: none;"
+                        data-label="add file"
+                        onchange="angular.element(this).scope().addCorpusFile(event, this)"/>
+                    <label class="btn newexamplebutton" for="corpus-file-upload">
                         <div class="thin buttonicon glyphicon glyphicon-open-file"></div>
                         <div class="newexamplelabel" translate="TRAINING.ADDFROMFILE"></div>
                     </label>
