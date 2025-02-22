@@ -5,14 +5,14 @@
         .controller('LanguageModelController', LanguageModelController);
 
     LanguageModelController.$inject = [
-        'authService', 'projectsService', 'trainingService', 'utilService',
-        'loggerService',
+        'authService', 'projectsService', 'trainingService', 'wikipediaService',
+        'utilService', 'loggerService',
         '$mdDialog',
         '$stateParams',
         '$scope', '$timeout'
     ];
 
-    function LanguageModelController(authService, projectsService, trainingService, utilService, loggerService, $mdDialog, $stateParams, $scope, $timeout) {
+    function LanguageModelController(authService, projectsService, trainingService, wikipediaService, utilService, loggerService, $mdDialog, $stateParams, $scope, $timeout) {
         var vm = this;
         vm.authService = authService;
 
@@ -920,8 +920,50 @@
                 addToyCorpusItems(allFiles);
             }
         };
+        $scope.addWikipediaPage = function (ev) {
+            $mdDialog.show({
+                locals : {
+                    project : $scope.project
+                },
+                controller : function ($scope, locals) {
+                    $scope.project = locals.project;
+
+                    $scope.hide = function() {
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function() {
+                        $mdDialog.cancel();
+                    };
+                    $scope.confirm = function(resp) {
+                        $mdDialog.hide(resp);
+                    };
+
+                    $scope.search = function (title) {
+                        wikipediaService.searchByTitle(title)
+                            .then((contents) => { $scope.contents = contents });
+                    };
+                },
+                templateUrl : 'static/components/languagemodel/wikipedia.tmpl.html',
+                targetEvent : ev,
+                clickOutsideToClose : true
+            })
+            .then(
+                function (resp) {
+                    addToyCorpusItem('wikipedia', resp.title, resp.contents);
+                },
+                function() {
+                    // cancelled. do nothing
+                }
+            );
+        };
 
         $scope.removeCorpusDoc = function (id) {
+            trainingService.deleteTrainingData(
+                $scope.projectId,
+                $scope.userId,
+                $scope.project.classid,
+                id
+            );
             $scope.corpus = $scope.corpus.filter((doc) => doc.id !== id);
         };
 
