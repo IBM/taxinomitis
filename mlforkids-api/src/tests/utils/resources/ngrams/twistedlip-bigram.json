@@ -205,8 +205,8 @@
                     "count": 1,
                     "next": {}
                 },
-                "s": {
-                    "token": "s",
+                "'s": {
+                    "token": "'s",
                     "count": 2,
                     "next": {}
                 },
@@ -3172,15 +3172,15 @@
             "token": "George",
             "count": 1,
             "next": {
-                "s": {
-                    "token": "s",
+                "'s": {
+                    "token": "'s",
                     "count": 1,
                     "next": {}
                 }
             }
         },
-        "s": {
-            "token": "s",
+        "'s": {
+            "token": "'s",
             "count": 35,
             "next": {
                 "was": {
@@ -6419,8 +6419,8 @@
             "token": "Quincey",
             "count": 1,
             "next": {
-                "s": {
-                    "token": "s",
+                "'s": {
+                    "token": "'s",
                     "count": 1,
                     "next": {}
                 }
@@ -8766,8 +8766,8 @@
                     "count": 1,
                     "next": {}
                 },
-                "s": {
-                    "token": "s",
+                "'s": {
+                    "token": "'s",
                     "count": 1,
                     "next": {}
                 },
@@ -11965,8 +11965,8 @@
                     "count": 1,
                     "next": {}
                 },
-                "s": {
-                    "token": "s",
+                "'s": {
+                    "token": "'s",
                     "count": 1,
                     "next": {}
                 },
@@ -12926,8 +12926,8 @@
                     "count": 1,
                     "next": {}
                 },
-                "s": {
-                    "token": "s",
+                "'s": {
+                    "token": "'s",
                     "count": 1,
                     "next": {}
                 }
@@ -13189,8 +13189,8 @@
                     "count": 1,
                     "next": {}
                 },
-                "s": {
-                    "token": "s",
+                "'s": {
+                    "token": "'s",
                     "count": 2,
                     "next": {}
                 },
@@ -17164,8 +17164,8 @@
                     "count": 13,
                     "next": {}
                 },
-                "s": {
-                    "token": "s",
+                "'s": {
+                    "token": "'s",
                     "count": 2,
                     "next": {}
                 },
@@ -18004,8 +18004,8 @@
             "token": "Doctor",
             "count": 1,
             "next": {
-                "s": {
-                    "token": "s",
+                "'s": {
+                    "token": "'s",
                     "count": 1,
                     "next": {}
                 }
@@ -18711,8 +18711,8 @@
             "token": "husband",
             "count": 13,
             "next": {
-                "s": {
-                    "token": "s",
+                "'s": {
+                    "token": "'s",
                     "count": 5,
                     "next": {}
                 },
@@ -20255,8 +20255,8 @@
                     "count": 7,
                     "next": {}
                 },
-                "s": {
-                    "token": "s",
+                "'s": {
+                    "token": "'s",
                     "count": 1,
                     "next": {}
                 },
@@ -26754,8 +26754,8 @@
                     "count": 12,
                     "next": {}
                 },
-                "s": {
-                    "token": "s",
+                "'s": {
+                    "token": "'s",
                     "count": 1,
                     "next": {}
                 },
@@ -26961,8 +26961,8 @@
                     "count": 1,
                     "next": {}
                 },
-                "s": {
-                    "token": "s",
+                "'s": {
+                    "token": "'s",
                     "count": 1,
                     "next": {}
                 }
@@ -29228,8 +29228,8 @@
             "token": "Paul",
             "count": 1,
             "next": {
-                "s": {
-                    "token": "s",
+                "'s": {
+                    "token": "'s",
                     "count": 1,
                     "next": {}
                 }
@@ -29459,8 +29459,8 @@
                     "count": 2,
                     "next": {}
                 },
-                "s": {
-                    "token": "s",
+                "'s": {
+                    "token": "'s",
                     "count": 4,
                     "next": {}
                 },
@@ -30298,8 +30298,8 @@
             "token": "Here",
             "count": 4,
             "next": {
-                "s": {
-                    "token": "s",
+                "'s": {
+                    "token": "'s",
                     "count": 1,
                     "next": {}
                 },
@@ -30404,8 +30404,8 @@
                     "count": 1,
                     "next": {}
                 },
-                "s": {
-                    "token": "s",
+                "'s": {
+                    "token": "'s",
                     "count": 3,
                     "next": {}
                 },
@@ -31764,8 +31764,8 @@
                     "count": 1,
                     "next": {}
                 },
-                "s": {
-                    "token": "s",
+                "'s": {
+                    "token": "'s",
                     "count": 1,
                     "next": {}
                 },
@@ -32104,8 +32104,8 @@
                     "count": 2,
                     "next": {}
                 },
-                "s": {
-                    "token": "s",
+                "'s": {
+                    "token": "'s",
                     "count": 1,
                     "next": {}
                 },
@@ -33836,8 +33836,8 @@
                     "count": 1,
                     "next": {}
                 },
-                "s": {
-                    "token": "s",
+                "'s": {
+                    "token": "'s",
                     "count": 1,
                     "next": {}
                 },
@@ -44042,8 +44042,8 @@
             "token": "tinker",
             "count": 1,
             "next": {
-                "s": {
-                    "token": "s",
+                "'s": {
+                    "token": "'s",
                     "count": 1,
                     "next": {}
                 }
@@ -44228,8 +44228,8 @@
                     "count": 1,
                     "next": {}
                 },
-                "s": {
-                    "token": "s",
+                "'s": {
+                    "token": "'s",
                     "count": 1,
                     "next": {}
                 },
@@ -45973,8 +45973,8 @@
             "token": "fortnight",
             "count": 1,
             "next": {
-                "s": {
-                    "token": "s",
+                "'s": {
+                    "token": "'s",
                     "count": 1,
                     "next": {}
                 }
@@ -58288,7 +58288,7 @@
                     "next": []
                 },
                 {
-                    "token": "s",
+                    "token": "'s",
                     "count": 1,
                     "next": []
                 },
@@ -58844,7 +58844,7 @@
             ]
         },
         {
-            "token": "s",
+            "token": "'s",
             "count": 35,
             "next": [
                 {
@@ -59402,7 +59402,7 @@
                     "next": []
                 },
                 {
-                    "token": "s",
+                    "token": "'s",
                     "count": 2,
                     "next": []
                 },
@@ -59861,7 +59861,7 @@
                     "next": []
                 },
                 {
-                    "token": "s",
+                    "token": "'s",
                     "count": 1,
                     "next": []
                 },
@@ -60322,7 +60322,7 @@
                     "next": []
                 },
                 {
-                    "token": "s",
+                    "token": "'s",
                     "count": 1,
                     "next": []
                 },
@@ -60929,7 +60929,7 @@
             "count": 27,
             "next": [
                 {
-                    "token": "s",
+                    "token": "'s",
                     "count": 4,
                     "next": []
                 },
@@ -63370,7 +63370,7 @@
                     "next": []
                 },
                 {
-                    "token": "s",
+                    "token": "'s",
                     "count": 1,
                     "next": []
                 },
@@ -63432,7 +63432,7 @@
             "count": 15,
             "next": [
                 {
-                    "token": "s",
+                    "token": "'s",
                     "count": 2,
                     "next": []
                 },
@@ -64313,7 +64313,7 @@
             "count": 13,
             "next": [
                 {
-                    "token": "s",
+                    "token": "'s",
                     "count": 5,
                     "next": []
                 },
@@ -66106,7 +66106,7 @@
                     "next": []
                 },
                 {
-                    "token": "s",
+                    "token": "'s",
                     "count": 1,
                     "next": []
                 },
@@ -66661,7 +66661,7 @@
             "count": 8,
             "next": [
                 {
-                    "token": "s",
+                    "token": "'s",
                     "count": 2,
                     "next": []
                 },
@@ -68316,7 +68316,7 @@
             "count": 7,
             "next": [
                 {
-                    "token": "s",
+                    "token": "'s",
                     "count": 3,
                     "next": []
                 },
@@ -70960,7 +70960,7 @@
                     "next": []
                 },
                 {
-                    "token": "s",
+                    "token": "'s",
                     "count": 1,
                     "next": []
                 },
@@ -72104,7 +72104,7 @@
                     "next": []
                 },
                 {
-                    "token": "s",
+                    "token": "'s",
                     "count": 1,
                     "next": []
                 },
@@ -72302,7 +72302,7 @@
                     "next": []
                 },
                 {
-                    "token": "s",
+                    "token": "'s",
                     "count": 1,
                     "next": []
                 },
@@ -74188,7 +74188,7 @@
                     "next": []
                 },
                 {
-                    "token": "s",
+                    "token": "'s",
                     "count": 1,
                     "next": []
                 }
@@ -74732,7 +74732,7 @@
                     "next": []
                 },
                 {
-                    "token": "s",
+                    "token": "'s",
                     "count": 1,
                     "next": []
                 },
@@ -75995,7 +75995,7 @@
                     "next": []
                 },
                 {
-                    "token": "s",
+                    "token": "'s",
                     "count": 1,
                     "next": []
                 }
@@ -81057,7 +81057,7 @@
             "count": 1,
             "next": [
                 {
-                    "token": "s",
+                    "token": "'s",
                     "count": 1,
                     "next": []
                 }
@@ -81145,7 +81145,7 @@
             "count": 1,
             "next": [
                 {
-                    "token": "s",
+                    "token": "'s",
                     "count": 1,
                     "next": []
                 }
@@ -81695,7 +81695,7 @@
             "count": 1,
             "next": [
                 {
-                    "token": "s",
+                    "token": "'s",
                     "count": 1,
                     "next": []
                 }
@@ -84060,7 +84060,7 @@
             "count": 1,
             "next": [
                 {
-                    "token": "s",
+                    "token": "'s",
                     "count": 1,
                     "next": []
                 }
@@ -91694,7 +91694,7 @@
             "count": 1,
             "next": [
                 {
-                    "token": "s",
+                    "token": "'s",
                     "count": 1,
                     "next": []
                 }
@@ -93333,7 +93333,7 @@
             "count": 1,
             "next": [
                 {
-                    "token": "s",
+                    "token": "'s",
                     "count": 1,
                     "next": []
                 }
