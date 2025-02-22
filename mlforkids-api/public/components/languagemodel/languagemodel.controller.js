@@ -5,14 +5,14 @@
         .controller('LanguageModelController', LanguageModelController);
 
     LanguageModelController.$inject = [
-        'authService', 'projectsService', 'utilService',
+        'authService', 'projectsService', 'trainingService', 'utilService',
         'loggerService',
         '$mdDialog',
         '$stateParams',
         '$scope', '$timeout'
     ];
 
-    function LanguageModelController(authService, projectsService, utilService, loggerService, $mdDialog, $stateParams, $scope, $timeout) {
+    function LanguageModelController(authService, projectsService, trainingService, utilService, loggerService, $mdDialog, $stateParams, $scope, $timeout) {
         var vm = this;
         vm.authService = authService;
 
@@ -86,29 +86,7 @@
             }
         ];
 
-        $scope.corpus = [
-            {
-                id    : 0,
-                label : 'my volcano project',
-                type  : 'text'
-            },
-            {
-                id    : 1,
-                label : 'vesuvius.txt',
-                type  : 'text'
-            },
-            {
-                id    : 2,
-                label : 'Mount Etna',
-                type  : 'wikipedia'
-            },
-            {
-                id    : 3,
-                label : 'krakatoa.txt',
-                type  : 'text'
-            }
-        ];
-        let nextCorpusId = 4;
+        $scope.corpus = [];
 
         const temp_tokens = [
             {
@@ -712,6 +690,25 @@
                             }
                         });
                 }
+                else if ($scope.project.modeltype === 'toy') {
+                    return trainingService.getTraining(
+                            $scope.projectId,
+                            $scope.userId,
+                            $scope.project.classid
+                        )
+                        .then((docs) => {
+                            for (const doc of docs) {
+                                $scope.$applyAsync(() => {
+                                    $scope.corpus.push({
+                                        id : doc.id,
+                                        title : doc.title,
+                                        type : doc.type
+                                    });
+                                });
+                            }
+                        });
+
+                }
             })
             .then(() => {
                 $scope.loading = false;
@@ -826,16 +823,55 @@
                     loggerService.error('[ml4klangauge] Failed to download model');
                     displayAlert('errors', 500, err);
                 });
-
-            // $scope.project.slm.download = 0;
-            // console.log('simulating download');
-            // $timeout(() => { $scope.project.slm.download = 33; }, 300);
-            // $timeout(() => { $scope.project.slm.download = 50; }, 800);
-            // $timeout(() => { $scope.project.slm.download = 66; }, 1200);
-            // $timeout(() => { $scope.project.slm.download = 90; }, 1800);
-            // $timeout(() => { $scope.project.slm.download = 100; }, 2100);
         };
 
+
+        function addToyCorpusItem (type, title, contents) {
+            return trainingService.newTrainingData(
+                    $scope.projectId,
+                    $scope.userId,
+                    $scope.project.classid,
+                    $scope.project.type,
+                    'local',
+                    { type, title, contents }
+                )
+                .then((added) => {
+                    $scope.$applyAsync(() => {
+                        $scope.corpus.push({
+                            id : added.id,
+                            title : added.title,
+                            type : added.type
+                        });
+                    });
+                })
+                .catch((err) => {
+                    loggerService.error('[ml4klangauge] Failed to store corpus');
+                    displayAlert('errors', 500, err);
+                });
+        }
+        function addToyCorpusItems (items) {
+            return trainingService.bulkAddTrainingData(
+                    $scope.project,
+                    items,
+                    $scope.userId,
+                    $scope.project.classid
+                )
+                .then((allAdded) => {
+                    for (const added of allAdded) {
+                        $scope.$applyAsync(() => {
+                            $scope.corpus.push({
+                                id : added.id,
+                                title : added.title,
+                                type : added.type
+                            });
+                        });
+                    }
+                })
+                .catch((err) => {
+                    loggerService.error('[ml4klangauge] Failed to store corpus');
+                    displayAlert('errors', 500, err);
+                });
+        }
 
 
 
@@ -864,12 +900,7 @@
             })
             .then(
                 function (resp) {
-                    console.log(resp);
-                    $scope.corpus.push({
-                        id : nextCorpusId++,
-                        label : resp.title,
-                        type : 'text'
-                    });
+                    addToyCorpusItem('text', resp.title, resp.contents);
                 },
                 function() {
                     // cancelled. do nothing
@@ -878,14 +909,15 @@
         };
         $scope.addCorpusFile = function (ev) {
             if (ev.currentTarget && ev.currentTarget.files) {
+                const allFiles = [];
                 for (let idx = 0; idx < ev.currentTarget.files.length; idx++) {
-                    const newFile = {
-                        id : nextCorpusId++,
-                        label : ev.currentTarget.files[idx].name,
-                        type : 'text'
-                    };
-                    $scope.$applyAsync(() => { $scope.corpus.push(newFile) });
+                    allFiles.push({
+                        type : 'text',
+                        title : ev.currentTarget.files[idx].name,
+                        contents : 'placeholder'
+                    });
                 }
+                addToyCorpusItems(allFiles);
             }
         };
 
