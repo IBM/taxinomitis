@@ -41,6 +41,10 @@
 
 .languagemodelpage .trainingbuckets .trainingbucket .documentlabel {
     font-size: 0.7em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 120px;
 }
 
 .languagemodelpage table {
