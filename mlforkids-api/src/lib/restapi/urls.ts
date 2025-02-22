@@ -55,6 +55,7 @@ export const LOCALMODELTEST        = '/api/classes/:classid/students/:studentid/
 //
 // URLS supporting browser-storage projects
 export const PREPARE_IMAGES        = '/api/classes/:classid/students/:studentid/training/images';
+export const PREPARE_NGRAMS        = '/api/classes/:classid/students/:studentid/training/ngrams';
 
 //
 // URLs about training data hosting

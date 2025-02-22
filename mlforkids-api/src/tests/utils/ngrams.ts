@@ -403,6 +403,7 @@ describe('Utils - ngrams', () => {
         });
     });
 
+
     describe('different n-grams', () => {
         it('should return consistent results for different values of n', () => {
             return getTestStrings([ TEST_INPUT_FILES.BOHEMIA, TEST_INPUT_FILES.BOSCOMBE,
@@ -459,13 +460,13 @@ const UNUSUAL_PUNCTUATION = [
     'This . Is . Okay ? 5 ! 4! !3! 2! !1',
 ];
 
-const TEST_INPUT_FILES = {
+export const TEST_INPUT_FILES = {
     BOHEMIA : 'holmes-bohemia.txt',
     BOSCOMBE : 'holmes-boscombe.txt',
     IDENTITY : 'holmes-identity.txt',
     TWISTEDLIP : 'holmes-twistedlip.txt',
 };
-function getTestStrings(filenames: string[]): Promise<string[]> {
+export function getTestStrings(filenames: string[]): Promise<string[]> {
     const filereads = filenames.map((filename) => {
         return read('./src/tests/utils/resources/ngrams/' + filename);
     });
