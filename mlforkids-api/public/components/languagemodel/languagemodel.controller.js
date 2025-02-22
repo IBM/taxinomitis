@@ -5,14 +5,15 @@
         .controller('LanguageModelController', LanguageModelController);
 
     LanguageModelController.$inject = [
-        'authService', 'projectsService', 'trainingService', 'wikipediaService',
+        'authService', 'projectsService', 'trainingService',
+        'wikipediaService', 'languageModelService',
         'utilService', 'loggerService',
         '$mdDialog',
         '$stateParams',
         '$scope', '$timeout'
     ];
 
-    function LanguageModelController(authService, projectsService, trainingService, wikipediaService, utilService, loggerService, $mdDialog, $stateParams, $scope, $timeout) {
+    function LanguageModelController(authService, projectsService, trainingService, wikipediaService, languageModelService, utilService, loggerService, $mdDialog, $stateParams, $scope, $timeout) {
         var vm = this;
         vm.authService = authService;
 
@@ -88,581 +89,8 @@
 
         $scope.corpus = [];
 
-        const temp_tokens = [
-            {
-                token : 'ipsum',
-                count : 98,
-                next : [
-                    {
-                        token : 'laoreet',
-                        count : 28,
-                        next : [
-                            {
-                                token : 'nibh',
-                                count : 10,
-                                next : [
-                                    {
-                                        token : 'ante',
-                                        count : 6,
-                                        next : []
-                                    },
-                                    {
-                                        token : 'malesuada',
-                                        count : 3,
-                                        next : []
-                                    },
-                                    {
-                                        token : 'tristique',
-                                        count : 1,
-                                        next : []
-                                    }
-                                ]
-                            },
-                            {
-                                token : 'augue',
-                                count : 8,
-                                next : []
-                            },
-                            {
-                                token : 'curabitur',
-                                count : 5,
-                                next : []
-                            },
-                            {
-                                token : 'consequat',
-                                count : 4,
-                                next : []
-                            },
-                            {
-                                token : 'adipiscing',
-                                count : 1,
-                                next : []
-                            }
-                        ]
-                    },
-                    {
-                        token : 'elit',
-                        count : 20,
-                        next : []
-                    },
-                    {
-                        token : 'nec',
-                        count : 18,
-                        next : []
-                    },
-                    {
-                        token : 'venenatis',
-                        count : 14,
-                        next : [
-                            {
-                                token : 'ullamcorper',
-                                count : 8,
-                                next : []
-                            },
-                            {
-                                token : 'rutrum',
-                                count : 5,
-                                next : []
-                            },
-                            {
-                                token : 'tortor',
-                                count : 3,
-                                next : [
-                                    {
-                                        token : 'consectetur',
-                                        count : 2,
-                                        next : []
-                                    },
-                                    {
-                                        token : 'velit',
-                                        count : 1,
-                                        next : []
-                                    }
-                                ]
-                            },
-                            {
-                                token : 'veniam',
-                                count : 1,
-                                next : []
-                            }
-                        ]
-                    },
-                    {
-                        token : 'lacinia',
-                        count : 10,
-                        next : []
-                    },
-                    {
-                        token : 'efficitur',
-                        count : 8,
-                        next : []
-                    }
-                ]
-            },
-            {
-                token : 'odor',
-                count : 92,
-                next : []
-            },
-            {
-                token : 'amet',
-                count : 88,
-                next : []
-            },
-            {
-                token : 'consectetuer',
-                count : 71,
-                next : []
-            },
-            {
-                token : 'lorem',
-                count : 63,
-                next : [
-                    {
-                        token : 'sunt',
-                        count : 30,
-                        next : [
-                            {
-                                token : 'ultricies',
-                                count : 14,
-                                next : [
-                                    {
-                                        token : 'placerat',
-                                        count : 3,
-                                        next : []
-                                    },
-                                    {
-                                        token : 'platea',
-                                        count : 3,
-                                        next : []
-                                    },
-                                    {
-                                        token : 'torquent',
-                                        count : 2,
-                                        next : []
-                                    },
-                                    {
-                                        token : 'consequat',
-                                        count : 2,
-                                        next : []
-                                    },
-                                    {
-                                        token : 'potenti',
-                                        count : 2,
-                                        next : []
-                                    },
-                                    {
-                                        token : 'tristique',
-                                        count : 1,
-                                        next : []
-                                    },
-                                    {
-                                        token : 'dapibus',
-                                        count : 1,
-                                        next : []
-                                    }
-                                ]
-                            },
-                            {
-                                token : 'eget',
-                                count : 8,
-                                next : []
-                            },
-                            {
-                                token : 'molestie',
-                                count : 5,
-                                next : []
-                            },
-                            {
-                                token : 'fermentum',
-                                count : 1,
-                                next : []
-                            },
-                            {
-                                token : 'dapibus',
-                                count : 1,
-                                next : []
-                            },
-                            {
-                                token : 'posuere',
-                                count : 1,
-                                next : []
-                            }
-                        ]
-                    },
-                    {
-                        token : 'culpa',
-                        count : 20,
-                        next : []
-                    },
-                    {
-                        token : 'officia',
-                        count : 7,
-                        next : []
-                    },
-                    {
-                        token : 'mollit',
-                        count : 3,
-                        next : []
-                    },
-                    {
-                        token : 'laborum',
-                        count : 1,
-                        next : []
-                    },
-                    {
-                        token : 'eiusmod',
-                        count : 1,
-                        next : []
-                    },
-                    {
-                        token : 'adipiscing',
-                        count : 1,
-                        next : []
-                    }
-                ]
-            },
-            {
-                token : 'fugiat',
-                count : 62,
-                next : [
-                    {
-                        token : 'molestie',
-                        count : 14,
-                        next : []
-                    },
-                    {
-                        token : 'augue',
-                        count : 13,
-                        next : [],
-                    },
-                    {
-                        token : 'dolor',
-                        count : 10,
-                        next : []
-                    },
-                    {
-                        token : 'reprehenderit',
-                        count : 8,
-                        next : []
-                    },
-                    {
-                        token : 'aliquip',
-                        count : 7,
-                        next : []
-                    },
-                    {
-                        token : 'eiusmod',
-                        count : 7,
-                        next : []
-                    },
-                    {
-                        token : 'nulla',
-                        count : 3,
-                        next : []
-                    }
-                ]
-            },
-            {
-                token : 'adipiscing',
-                count : 51,
-                next : []
-            },
-            {
-                token : 'esse',
-                count : 36,
-                next : []
-            }
-        ];
-
-        const temp_tokens_with_pos = [
-            {
-                token : 'ipsum [NOUN]',
-                count : 98,
-                next : [
-                    {
-                        token : 'laoreet [VERB]',
-                        count : 28,
-                        next : [
-                            {
-                                token : 'nibh',
-                                count : 10,
-                                next : [
-                                    {
-                                        token : 'ante',
-                                        count : 6,
-                                        next : []
-                                    },
-                                    {
-                                        token : 'malesuada',
-                                        count : 3,
-                                        next : []
-                                    },
-                                    {
-                                        token : 'tristique',
-                                        count : 1,
-                                        next : []
-                                    }
-                                ]
-                            },
-                            {
-                                token : 'augue',
-                                count : 8,
-                                next : []
-                            },
-                            {
-                                token : 'curabitur',
-                                count : 5,
-                                next : []
-                            },
-                            {
-                                token : 'consequat',
-                                count : 4,
-                                next : []
-                            },
-                            {
-                                token : 'adipiscing',
-                                count : 1,
-                                next : []
-                            }
-                        ]
-                    },
-                    {
-                        token : 'elit',
-                        count : 20,
-                        next : []
-                    },
-                    {
-                        token : 'nec',
-                        count : 18,
-                        next : []
-                    },
-                    {
-                        token : 'venenatis',
-                        count : 14,
-                        next : [
-                            {
-                                token : 'ullamcorper',
-                                count : 8,
-                                next : []
-                            },
-                            {
-                                token : 'rutrum',
-                                count : 5,
-                                next : []
-                            },
-                            {
-                                token : 'tortor',
-                                count : 3,
-                                next : [
-                                    {
-                                        token : 'consectetur',
-                                        count : 2,
-                                        next : []
-                                    },
-                                    {
-                                        token : 'velit',
-                                        count : 1,
-                                        next : []
-                                    }
-                                ]
-                            },
-                            {
-                                token : 'veniam',
-                                count : 1,
-                                next : []
-                            }
-                        ]
-                    },
-                    {
-                        token : 'lacinia',
-                        count : 10,
-                        next : []
-                    },
-                    {
-                        token : 'efficitur',
-                        count : 8,
-                        next : []
-                    }
-                ]
-            },
-            {
-                token : 'odor [VERB]',
-                count : 92,
-                next : []
-            },
-            {
-                token : 'amet [NOUN]',
-                count : 88,
-                next : []
-            },
-            {
-                token : 'consectetuer [NOUN]',
-                count : 71,
-                next : []
-            },
-            {
-                token : 'lorem [VERB]',
-                count : 63,
-                next : [
-                    {
-                        token : 'sunt',
-                        count : 30,
-                        next : [
-                            {
-                                token : 'ultricies',
-                                count : 14,
-                                next : [
-                                    {
-                                        token : 'placerat',
-                                        count : 3,
-                                        next : []
-                                    },
-                                    {
-                                        token : 'platea',
-                                        count : 3,
-                                        next : []
-                                    },
-                                    {
-                                        token : 'torquent',
-                                        count : 2,
-                                        next : []
-                                    },
-                                    {
-                                        token : 'consequat',
-                                        count : 2,
-                                        next : []
-                                    },
-                                    {
-                                        token : 'potenti',
-                                        count : 2,
-                                        next : []
-                                    },
-                                    {
-                                        token : 'tristique',
-                                        count : 1,
-                                        next : []
-                                    },
-                                    {
-                                        token : 'dapibus',
-                                        count : 1,
-                                        next : []
-                                    }
-                                ]
-                            },
-                            {
-                                token : 'eget',
-                                count : 8,
-                                next : []
-                            },
-                            {
-                                token : 'molestie',
-                                count : 5,
-                                next : []
-                            },
-                            {
-                                token : 'fermentum',
-                                count : 1,
-                                next : []
-                            },
-                            {
-                                token : 'dapibus',
-                                count : 1,
-                                next : []
-                            },
-                            {
-                                token : 'posuere',
-                                count : 1,
-                                next : []
-                            }
-                        ]
-                    },
-                    {
-                        token : 'culpa',
-                        count : 20,
-                        next : []
-                    },
-                    {
-                        token : 'officia',
-                        count : 7,
-                        next : []
-                    },
-                    {
-                        token : 'mollit',
-                        count : 3,
-                        next : []
-                    },
-                    {
-                        token : 'laborum',
-                        count : 1,
-                        next : []
-                    },
-                    {
-                        token : 'eiusmod',
-                        count : 1,
-                        next : []
-                    },
-                    {
-                        token : 'adipiscing',
-                        count : 1,
-                        next : []
-                    }
-                ]
-            },
-            {
-                token : 'fugiat [ADJ]',
-                count : 62,
-                next : [
-                    {
-                        token : 'molestie',
-                        count : 14,
-                        next : []
-                    },
-                    {
-                        token : 'augue',
-                        count : 13,
-                        next : [],
-                    },
-                    {
-                        token : 'dolor',
-                        count : 10,
-                        next : []
-                    },
-                    {
-                        token : 'reprehenderit',
-                        count : 8,
-                        next : []
-                    },
-                    {
-                        token : 'aliquip',
-                        count : 7,
-                        next : []
-                    },
-                    {
-                        token : 'eiusmod',
-                        count : 7,
-                        next : []
-                    },
-                    {
-                        token : 'nulla',
-                        count : 3,
-                        next : []
-                    }
-                ]
-            },
-            {
-                token : 'adipiscing [VERB]',
-                count : 51,
-                next : []
-            },
-            {
-                token : 'esse [NOUN]',
-                count : 36,
-                next : []
-            }
-        ];
-
         let tokenToRecompute;
+        let analyzedCorpus;
 
 
         authService.getProfileDeferred()
@@ -969,6 +397,11 @@
 
         $scope.changeNgramSize = function () {
             $scope.project.toy.ngrams = ($scope.project.toy.ngrams === 3 ? 1 : $scope.project.toy.ngrams + 1);
+
+            if ($scope.project.toy.tokens) {
+                $scope.project.toy.tokens = analyzedCorpus[$scope.project.toy.ngrams].summary;
+            }
+
             if ($scope.project.toy.temperature || $scope.project.toy.topp) {
                 $scope.initToyTemperature();
                 $scope.recomputeToyScores();
@@ -994,7 +427,7 @@
                     next : generateCumulativeProbability(t.next, t.count)
                 };
             });
-            return processedTokens;
+            return processedTokens.slice(0, 15);
         }
 
         function sumCounts(tokens) {
@@ -1003,9 +436,52 @@
             return count;
         }
 
+        function parseCorpus() {
+            return trainingService.getTraining($scope.projectId, $scope.userId, $scope.project.classid)
+                .then((corpus) => {
+                    const text = corpus.map((doc) => doc.contents);
+                    return languageModelService.generateNgrams($scope.userId, $scope.project.classid, text);
+                })
+                .then((output) => {
+                    const bigramCounts    = sumCounts(output.bigrams.sorted);
+                    const trigramCounts   = sumCounts(output.trigrams.sorted);
+                    const tetragramCounts = sumCounts(output.tetragrams.sorted);
+                    analyzedCorpus = {
+                        '1' : {
+                            totalTokens : bigramCounts,
+                            lookup : output.bigrams.lookup,
+                            sorted : output.bigrams.sorted,
+                            summary : generateCumulativeProbability(output.bigrams.sorted, bigramCounts)
+                        },
+                        '2' : {
+                            totalTokens : trigramCounts,
+                            lookup : output.trigrams.lookup,
+                            sorted : output.trigrams.sorted,
+                            summary : generateCumulativeProbability(output.trigrams.sorted, trigramCounts)
+                        },
+                        '3' : {
+                            totalTokens : tetragramCounts,
+                            lookup : output.tetragrams.lookup,
+                            sorted : output.tetragrams.sorted,
+                            summary : generateCumulativeProbability(output.tetragrams.sorted, tetragramCounts)
+                        }
+                    };
+                });
+        }
+
+
         $scope.initTokens = function () {
-            const totalCounts = sumCounts(temp_tokens);
-            $scope.project.toy.tokens = generateCumulativeProbability(temp_tokens, totalCounts);
+            $scope.loading = true;
+            parseCorpus()
+                .then(() => {
+                    $scope.project.toy.tokens = analyzedCorpus[$scope.project.toy.ngrams].summary;
+                    $scope.$applyAsync(() => { $scope.loading = false });
+                })
+                .catch((err) => {
+                    loggerService.error('[ml4klangauge] error generating ngrams', err);
+                    $scope.loading = false;
+                    displayAlert('errors', 500, err);
+                });
         };
 
         function deselect(token) {
@@ -1024,7 +500,7 @@
 
                 if (parents.length === ($scope.project.toy.ngrams + 1)) {
                     $scope.confirmTokens = {
-                        text : parents.join(' '),
+                        text : parents.join(' ').replaceAll(" 's ", "'s "),
                         count : token.count
                     };
                 }

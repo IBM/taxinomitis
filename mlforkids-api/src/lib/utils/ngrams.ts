@@ -65,11 +65,16 @@ function simpleTokenize(input: string): string[] {
     const PUNCTUATION_PLACEHOLDER = 'xxxxxSTOPxxxxx';
     const PUNCTUATION_PLACEHOLDER_PATTERN = ' ' + PUNCTUATION_PLACEHOLDER;
     const PUNCTUATION_TOKEN = '<STOP>';
+    const S = 's';
+    const APOSTROPHE_S = "'s";
 
     const PUNCTUATION_PATTERN = /[.!?]/g;
     return tokenizer
         .tokenize(input.replace(PUNCTUATION_PATTERN, PUNCTUATION_PLACEHOLDER_PATTERN))
         .flatMap((t) => {
+            if (t === S) {
+                return APOSTROPHE_S;
+            }
             if (t === PUNCTUATION_PLACEHOLDER) {
                 return PUNCTUATION_TOKEN;
             }
