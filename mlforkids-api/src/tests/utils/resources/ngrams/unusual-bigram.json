@@ -1,0 +1,252 @@
+{
+    "lookup": {
+        "2": {
+            "token": "2",
+            "count": 1,
+            "next": {
+                "<STOP>": {
+                    "token": "<STOP>",
+                    "count": 1,
+                    "next": {}
+                }
+            }
+        },
+        "3": {
+            "token": "3",
+            "count": 1,
+            "next": {
+                "<STOP>": {
+                    "token": "<STOP>",
+                    "count": 1,
+                    "next": {}
+                }
+            }
+        },
+        "4": {
+            "token": "4",
+            "count": 1,
+            "next": {
+                "<STOP>": {
+                    "token": "<STOP>",
+                    "count": 1,
+                    "next": {}
+                }
+            }
+        },
+        "5": {
+            "token": "5",
+            "count": 1,
+            "next": {
+                "<STOP>": {
+                    "token": "<STOP>",
+                    "count": 1,
+                    "next": {}
+                }
+            }
+        },
+        "This": {
+            "token": "This",
+            "count": 1,
+            "next": {
+                "<STOP>": {
+                    "token": "<STOP>",
+                    "count": 1,
+                    "next": {}
+                }
+            }
+        },
+        "<STOP>": {
+            "token": "<STOP>",
+            "count": 9,
+            "next": {
+                "1": {
+                    "token": "1",
+                    "count": 1,
+                    "next": {}
+                },
+                "2": {
+                    "token": "2",
+                    "count": 1,
+                    "next": {}
+                },
+                "3": {
+                    "token": "3",
+                    "count": 1,
+                    "next": {}
+                },
+                "4": {
+                    "token": "4",
+                    "count": 1,
+                    "next": {}
+                },
+                "5": {
+                    "token": "5",
+                    "count": 1,
+                    "next": {}
+                },
+                "Is": {
+                    "token": "Is",
+                    "count": 1,
+                    "next": {}
+                },
+                "Okay": {
+                    "token": "Okay",
+                    "count": 1,
+                    "next": {}
+                },
+                "<STOP>": {
+                    "token": "<STOP>",
+                    "count": 2,
+                    "next": {}
+                }
+            }
+        },
+        "Is": {
+            "token": "Is",
+            "count": 1,
+            "next": {
+                "<STOP>": {
+                    "token": "<STOP>",
+                    "count": 1,
+                    "next": {}
+                }
+            }
+        },
+        "Okay": {
+            "token": "Okay",
+            "count": 1,
+            "next": {
+                "<STOP>": {
+                    "token": "<STOP>",
+                    "count": 1,
+                    "next": {}
+                }
+            }
+        }
+    },
+    "sorted": [
+        {
+            "token": "<STOP>",
+            "count": 9,
+            "next": [
+                {
+                    "token": "<STOP>",
+                    "count": 2,
+                    "next": []
+                },
+                {
+                    "token": "1",
+                    "count": 1,
+                    "next": []
+                },
+                {
+                    "token": "2",
+                    "count": 1,
+                    "next": []
+                },
+                {
+                    "token": "3",
+                    "count": 1,
+                    "next": []
+                },
+                {
+                    "token": "4",
+                    "count": 1,
+                    "next": []
+                },
+                {
+                    "token": "5",
+                    "count": 1,
+                    "next": []
+                },
+                {
+                    "token": "Is",
+                    "count": 1,
+                    "next": []
+                },
+                {
+                    "token": "Okay",
+                    "count": 1,
+                    "next": []
+                }
+            ]
+        },
+        {
+            "token": "2",
+            "count": 1,
+            "next": [
+                {
+                    "token": "<STOP>",
+                    "count": 1,
+                    "next": []
+                }
+            ]
+        },
+        {
+            "token": "3",
+            "count": 1,
+            "next": [
+                {
+                    "token": "<STOP>",
+                    "count": 1,
+                    "next": []
+                }
+            ]
+        },
+        {
+            "token": "4",
+            "count": 1,
+            "next": [
+                {
+                    "token": "<STOP>",
+                    "count": 1,
+                    "next": []
+                }
+            ]
+        },
+        {
+            "token": "5",
+            "count": 1,
+            "next": [
+                {
+                    "token": "<STOP>",
+                    "count": 1,
+                    "next": []
+                }
+            ]
+        },
+        {
+            "token": "This",
+            "count": 1,
+            "next": [
+                {
+                    "token": "<STOP>",
+                    "count": 1,
+                    "next": []
+                }
+            ]
+        },
+        {
+            "token": "Is",
+            "count": 1,
+            "next": [
+                {
+                    "token": "<STOP>",
+                    "count": 1,
+                    "next": []
+                }
+            ]
+        },
+        {
+            "token": "Okay",
+            "count": 1,
+            "next": [
+                {
+                    "token": "<STOP>",
+                    "count": 1,
+                    "next": []
+                }
+            ]
+        }
+    ]
+}

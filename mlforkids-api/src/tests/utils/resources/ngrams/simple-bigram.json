@@ -1,0 +1,494 @@
+{
+    "lookup": {
+        "The": {
+            "token": "The",
+            "count": 2,
+            "next": {
+                "cat": {
+                    "token": "cat",
+                    "count": 2,
+                    "next": {}
+                }
+            }
+        },
+        "cat": {
+            "token": "cat",
+            "count": 3,
+            "next": {
+                "sat": {
+                    "token": "sat",
+                    "count": 2,
+                    "next": {}
+                },
+                "sit": {
+                    "token": "sit",
+                    "count": 1,
+                    "next": {}
+                }
+            }
+        },
+        "sat": {
+            "token": "sat",
+            "count": 2,
+            "next": {
+                "on": {
+                    "token": "on",
+                    "count": 2,
+                    "next": {}
+                }
+            }
+        },
+        "on": {
+            "token": "on",
+            "count": 3,
+            "next": {
+                "the": {
+                    "token": "the",
+                    "count": 3,
+                    "next": {}
+                }
+            }
+        },
+        "the": {
+            "token": "the",
+            "count": 6,
+            "next": {
+                "mat": {
+                    "token": "mat",
+                    "count": 3,
+                    "next": {}
+                },
+                "cat": {
+                    "token": "cat",
+                    "count": 1,
+                    "next": {}
+                },
+                "warmth": {
+                    "token": "warmth",
+                    "count": 1,
+                    "next": {}
+                },
+                "view": {
+                    "token": "view",
+                    "count": 1,
+                    "next": {}
+                }
+            }
+        },
+        "mat": {
+            "token": "mat",
+            "count": 3,
+            "next": {
+                "<STOP>": {
+                    "token": "<STOP>",
+                    "count": 2,
+                    "next": {}
+                },
+                "maybe": {
+                    "token": "maybe",
+                    "count": 1,
+                    "next": {}
+                }
+            }
+        },
+        "<STOP>": {
+            "token": "<STOP>",
+            "count": 2,
+            "next": {
+                "Why": {
+                    "token": "Why",
+                    "count": 1,
+                    "next": {}
+                },
+                "The": {
+                    "token": "The",
+                    "count": 1,
+                    "next": {}
+                }
+            }
+        },
+        "Why": {
+            "token": "Why",
+            "count": 1,
+            "next": {
+                "did": {
+                    "token": "did",
+                    "count": 1,
+                    "next": {}
+                }
+            }
+        },
+        "did": {
+            "token": "did",
+            "count": 1,
+            "next": {
+                "the": {
+                    "token": "the",
+                    "count": 1,
+                    "next": {}
+                }
+            }
+        },
+        "sit": {
+            "token": "sit",
+            "count": 1,
+            "next": {
+                "on": {
+                    "token": "on",
+                    "count": 1,
+                    "next": {}
+                }
+            }
+        },
+        "maybe": {
+            "token": "maybe",
+            "count": 2,
+            "next": {
+                "because": {
+                    "token": "because",
+                    "count": 1,
+                    "next": {}
+                },
+                "it": {
+                    "token": "it",
+                    "count": 1,
+                    "next": {}
+                }
+            }
+        },
+        "because": {
+            "token": "because",
+            "count": 1,
+            "next": {
+                "she": {
+                    "token": "she",
+                    "count": 1,
+                    "next": {}
+                }
+            }
+        },
+        "she": {
+            "token": "she",
+            "count": 1,
+            "next": {
+                "liked": {
+                    "token": "liked",
+                    "count": 1,
+                    "next": {}
+                }
+            }
+        },
+        "liked": {
+            "token": "liked",
+            "count": 1,
+            "next": {
+                "the": {
+                    "token": "the",
+                    "count": 1,
+                    "next": {}
+                }
+            }
+        },
+        "warmth": {
+            "token": "warmth",
+            "count": 1,
+            "next": {
+                "or": {
+                    "token": "or",
+                    "count": 1,
+                    "next": {}
+                }
+            }
+        },
+        "or": {
+            "token": "or",
+            "count": 1,
+            "next": {
+                "maybe": {
+                    "token": "maybe",
+                    "count": 1,
+                    "next": {}
+                }
+            }
+        },
+        "it": {
+            "token": "it",
+            "count": 1,
+            "next": {
+                "was": {
+                    "token": "was",
+                    "count": 1,
+                    "next": {}
+                }
+            }
+        },
+        "was": {
+            "token": "was",
+            "count": 1,
+            "next": {
+                "the": {
+                    "token": "the",
+                    "count": 1,
+                    "next": {}
+                }
+            }
+        },
+        "view": {
+            "token": "view",
+            "count": 1,
+            "next": {
+                "<STOP>": {
+                    "token": "<STOP>",
+                    "count": 1,
+                    "next": {}
+                }
+            }
+        }
+    },
+    "sorted": [
+        {
+            "token": "the",
+            "count": 6,
+            "next": [
+                {
+                    "token": "mat",
+                    "count": 3,
+                    "next": []
+                },
+                {
+                    "token": "cat",
+                    "count": 1,
+                    "next": []
+                },
+                {
+                    "token": "warmth",
+                    "count": 1,
+                    "next": []
+                },
+                {
+                    "token": "view",
+                    "count": 1,
+                    "next": []
+                }
+            ]
+        },
+        {
+            "token": "cat",
+            "count": 3,
+            "next": [
+                {
+                    "token": "sat",
+                    "count": 2,
+                    "next": []
+                },
+                {
+                    "token": "sit",
+                    "count": 1,
+                    "next": []
+                }
+            ]
+        },
+        {
+            "token": "on",
+            "count": 3,
+            "next": [
+                {
+                    "token": "the",
+                    "count": 3,
+                    "next": []
+                }
+            ]
+        },
+        {
+            "token": "mat",
+            "count": 3,
+            "next": [
+                {
+                    "token": "<STOP>",
+                    "count": 2,
+                    "next": []
+                },
+                {
+                    "token": "maybe",
+                    "count": 1,
+                    "next": []
+                }
+            ]
+        },
+        {
+            "token": "The",
+            "count": 2,
+            "next": [
+                {
+                    "token": "cat",
+                    "count": 2,
+                    "next": []
+                }
+            ]
+        },
+        {
+            "token": "sat",
+            "count": 2,
+            "next": [
+                {
+                    "token": "on",
+                    "count": 2,
+                    "next": []
+                }
+            ]
+        },
+        {
+            "token": "<STOP>",
+            "count": 2,
+            "next": [
+                {
+                    "token": "Why",
+                    "count": 1,
+                    "next": []
+                },
+                {
+                    "token": "The",
+                    "count": 1,
+                    "next": []
+                }
+            ]
+        },
+        {
+            "token": "maybe",
+            "count": 2,
+            "next": [
+                {
+                    "token": "because",
+                    "count": 1,
+                    "next": []
+                },
+                {
+                    "token": "it",
+                    "count": 1,
+                    "next": []
+                }
+            ]
+        },
+        {
+            "token": "Why",
+            "count": 1,
+            "next": [
+                {
+                    "token": "did",
+                    "count": 1,
+                    "next": []
+                }
+            ]
+        },
+        {
+            "token": "did",
+            "count": 1,
+            "next": [
+                {
+                    "token": "the",
+                    "count": 1,
+                    "next": []
+                }
+            ]
+        },
+        {
+            "token": "sit",
+            "count": 1,
+            "next": [
+                {
+                    "token": "on",
+                    "count": 1,
+                    "next": []
+                }
+            ]
+        },
+        {
+            "token": "because",
+            "count": 1,
+            "next": [
+                {
+                    "token": "she",
+                    "count": 1,
+                    "next": []
+                }
+            ]
+        },
+        {
+            "token": "she",
+            "count": 1,
+            "next": [
+                {
+                    "token": "liked",
+                    "count": 1,
+                    "next": []
+                }
+            ]
+        },
+        {
+            "token": "liked",
+            "count": 1,
+            "next": [
+                {
+                    "token": "the",
+                    "count": 1,
+                    "next": []
+                }
+            ]
+        },
+        {
+            "token": "warmth",
+            "count": 1,
+            "next": [
+                {
+                    "token": "or",
+                    "count": 1,
+                    "next": []
+                }
+            ]
+        },
+        {
+            "token": "or",
+            "count": 1,
+            "next": [
+                {
+                    "token": "maybe",
+                    "count": 1,
+                    "next": []
+                }
+            ]
+        },
+        {
+            "token": "it",
+            "count": 1,
+            "next": [
+                {
+                    "token": "was",
+                    "count": 1,
+                    "next": []
+                }
+            ]
+        },
+        {
+            "token": "was",
+            "count": 1,
+            "next": [
+                {
+                    "token": "the",
+                    "count": 1,
+                    "next": []
+                }
+            ]
+        },
+        {
+            "token": "view",
+            "count": 1,
+            "next": [
+                {
+                    "token": "<STOP>",
+                    "count": 1,
+                    "next": []
+                }
+            ]
+        }
+    ]
+}
