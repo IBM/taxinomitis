@@ -58,10 +58,26 @@
             <button type="button"
                 class="btn btn-primary"
                 translate="APP.NEXT"
-                ng-disabled="!modeltype || loading"
+                ng-disabled="!modeltype || loading || modeltype === 'large'"
                 ng-click="chooseModelType(modeltype)"
                 ></button>
         </div>
+
+        <!-- ******************************************************* -->
+        <!--   LARGE models                                          -->
+        <!-- ******************************************************* -->
+
+        <div class="modelstep" ng-if="modeltype === 'large'">
+            <div class="stepheading">Large Language Models</div>
+            <div class="stepexplanation">
+                Vehicula quis in cubilia metus dis. Commodo class nascetur curabitur pellentesque dis magna tristique? Iaculis gravida
+                felis tortor sollicitudin accumsan lacus. Himenaeos mus condimentum dis lorem dictum purus interdum taciti vulputate.
+                Fames senectus orci litora sagittis orci rutrum eros. Vestibulum pulvinar hendrerit vehicula etiam fusce velit senectus
+                quisque vulputate. Arcu parturient volutpat habitant congue lacinia netus ipsum fames. Per sed nullam posuere suspendisse
+                cursus aliquet maximus. Dapibus porta eget tempus sit interdum sit. Curae ad habitasse congue torquent nisi.
+            </div>
+        </div>
+
 
         <!-- ******************************************************* -->
         <!--   TOY models - corpus                                   -->
