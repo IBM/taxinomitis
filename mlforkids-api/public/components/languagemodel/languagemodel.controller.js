@@ -115,6 +115,14 @@
                 storage : '276 MB'
             },
             {
+                id : 'Qwen2.5-0.5B-Instruct-q4f16_1-MLC',
+                version : '2.5',
+                size : '0.5B',
+                label : 'Qwen',
+                developer : 'Alibaba',
+                storage : '289 MB'
+            },
+            {
                 id : 'TinyLlama-1.1B-Chat-v1.0-q4f16_1-MLC-1k',
                 version : '1.0',
                 size : '1.1B',
@@ -137,6 +145,14 @@
                 label : 'Phi',
                 developer : 'Microsoft',
                 storage : '806 MB'
+            },
+            {
+                id : 'gemma-2-2b-it-q4f16_1-MLC-1k',
+                version : '2',
+                size : '2B',
+                label : 'Gemma',
+                developer : 'Google',
+                storage : '1490 MB'
             }
         ];
 
@@ -239,6 +255,7 @@
                                 loggerService.debug('[ml4klanguage] restoring corpus tokens');
                                 analyzedCorpus = savedCorpus;
                                 if ($scope.project.toy.ngrams) {
+                                    $scope.project.toy.tokens = analyzedCorpus[$scope.project.toy.ngrams].summary;
                                     $scope.phase = $scope.PHASES.TOY.READY;
                                     $scope.project.toy.ready = true;
                                 }
