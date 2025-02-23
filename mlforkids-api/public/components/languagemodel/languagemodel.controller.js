@@ -81,6 +81,10 @@
 
         $scope.phase = $scope.PHASES.INITIAL;
 
+        $scope.review = function (newphase) {
+            $scope.phase = newphase;
+        };
+
         // all model types
         $scope.loading = true;
         $scope.reconfiguring = false;

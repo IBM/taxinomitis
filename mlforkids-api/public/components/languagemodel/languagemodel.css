@@ -111,6 +111,7 @@
 }
 
 .languagemodelpage .modelstep {
+    position: relative;
     flex: 1;
     background-color: #eeeeee;
     border-radius: 2em;
@@ -120,6 +121,18 @@
     font-size: 1.1em;
 }
 
+.languagemodelpage .modelstep .resetlink {
+    position: absolute;
+    font-size: 11px;
+    top: 18px;
+    right: 18px;
+    text-decoration: none;
+    background-color: #f5f5ff;
+    border: 1px #707070 dotted;
+    border-radius: 6px;
+    color: #707070;
+    padding: 6px;
+}
 
 .languagemodelpage .stepheading {
     font-weight: bold;
