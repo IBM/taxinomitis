@@ -463,6 +463,8 @@
                     ng-disabled="!prompt || prompt.trim().length === 0 || generating || loading"
                     >Generate</button>
             </div>
+            <div class="testfeedback" ng-if="testfeedbackmoretokens">You need to add more words to your prompt for the model to work.</div>
+            <div class="testfeedback" ng-if="testfeedbacknomatch">The words at the end of your prompt weren't found anywhere in your corpus.</div>
             <div class="generatedtext" ng-class="{'placeholder' : !textgenerated }" ng-bind-html="generated"></div>
         </div>
 
