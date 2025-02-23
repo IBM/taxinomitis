@@ -42,8 +42,10 @@ export function countNgrams(inputs: string[], idx: number): NgramData {
     }
 
     const sorted = sort(raw);
+    const count  = sumCounts(sorted);
 
     return {
+        count,
         lookup  : createLookupTable(raw, 0, idx - 2),
         summary : generateCumulativeProbability(sorted, sumCounts(sorted), true),
     };
@@ -202,6 +204,7 @@ export type NgramLookupTable = {[key:string]: NgramLookupTableRootEntry};
 
 
 export interface NgramData {
+    count:   number,
     lookup:  NgramLookupTable,
     summary: SortedNgramCountWithCumulativeProbabilities[],
 }

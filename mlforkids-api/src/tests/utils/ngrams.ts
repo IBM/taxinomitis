@@ -77,6 +77,7 @@ describe('Utils - ngrams', () => {
             }
             else {
                 verifySummary({
+                    count   : lookupToken.count,
                     lookup  : lookupToken.next,
                     summary : summaryNgram.next,
                 });
@@ -181,13 +182,13 @@ describe('Utils - ngrams', () => {
         it('should handle empty strings', () => {
             const output = ngrams.countNgrams([''], n);
             assert.deepStrictEqual(output, {
-                lookup: {}, summary: [],
+                count: 0, lookup: {}, summary: [],
             });
         });
         it('should handle strings with only whitespace', () => {
             const output = ngrams.countNgrams(['                        '], n);
             assert.deepStrictEqual(output, {
-                lookup: {}, summary: [],
+                count: 0, lookup: {}, summary: [],
             });
         });
         it('should handle strings with only punctuation', () => {
@@ -198,7 +199,7 @@ describe('Utils - ngrams', () => {
         it('should handle empty input arrays', () => {
             const output = ngrams.countNgrams([], n);
             assert.deepStrictEqual(output, {
-                lookup: {}, summary: [],
+                count: 0, lookup: {}, summary: [],
             });
         });
     });
@@ -296,25 +297,25 @@ describe('Utils - ngrams', () => {
         it('should handle empty strings', () => {
             const output = ngrams.countNgrams([''], n);
             assert.deepStrictEqual(output, {
-                lookup: {}, summary: [],
+                count: 0, lookup: {}, summary: [],
             });
         });
         it('should handle strings with only whitespace', () => {
             const output = ngrams.countNgrams(['                        '], n);
             assert.deepStrictEqual(output, {
-                lookup: {}, summary: [],
+                count: 0, lookup: {}, summary: [],
             });
         });
         it('should handle strings with only punctuation', () => {
             const output = ngrams.countNgrams(['?!'], n);
             assert.deepStrictEqual(output, {
-                lookup: {}, summary: [],
+                count: 0, lookup: {}, summary: [],
             });
         });
         it('should handle empty input arrays', () => {
             const output = ngrams.countNgrams([], n);
             assert.deepStrictEqual(output, {
-                lookup: {}, summary: [],
+                count: 0, lookup: {}, summary: [],
             });
         });
     });
@@ -414,25 +415,25 @@ describe('Utils - ngrams', () => {
         it('should handle empty strings', () => {
             const output = ngrams.countNgrams([''], n);
             assert.deepStrictEqual(output, {
-                lookup: {}, summary: [],
+                count: 0, lookup: {}, summary: [],
             });
         });
         it('should handle strings with only whitespace', () => {
             const output = ngrams.countNgrams(['                        '], n);
             assert.deepStrictEqual(output, {
-                lookup: {}, summary: [],
+                count: 0, lookup: {}, summary: [],
             });
         });
         it('should handle strings with only punctuation', () => {
             const output = ngrams.countNgrams(['?!'], n);
             assert.deepStrictEqual(output, {
-                lookup: {}, summary: [],
+                count: 0, lookup: {}, summary: [],
             });
         });
         it('should handle empty input arrays', () => {
             const output = ngrams.countNgrams([], n);
             assert.deepStrictEqual(output, {
-                lookup: {}, summary: [],
+                count: 0, lookup: {}, summary: [],
             });
         });
     });
