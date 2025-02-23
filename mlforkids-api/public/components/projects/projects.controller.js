@@ -178,6 +178,9 @@
                                     .then(() => { return browserStorageService.deleteAsset(project.id + '-dot'); })
                                     .then(() => { return browserStorageService.deleteAsset(project.id + '-vocab'); });
                             }
+                            if (project.type === 'language' && project.modeltype === 'toy') {
+                                browserStorageService.deleteAsset('language-model-' + project.id);
+                            }
 
                             // refresh view
                             if (project.storage === 'local') {

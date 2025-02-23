@@ -267,6 +267,9 @@
                             delete trainingDataDatabases[cursor.value.id];
                             window.indexedDB.deleteDatabase(TRAINING_DB_NAME_PREFIX + cursor.value.id);
 
+                            // delete any saved language model data
+                            deleteAsset('language-model-' + cursor.value.id);
+
                             // delete the project itself
                             projectsTable.delete(cursor.primaryKey);
 

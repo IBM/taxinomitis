@@ -30,6 +30,9 @@
             else if (project.type === 'numbers') {
                 modelService.deleteModel('numbers', project.id);
             }
+            // else if (project.type === 'language' && project.modeltype === 'toy') {
+            //     browserStorageService.deleteAsset('language-model-' + project.id);
+            // }
 
             // clear up any test data stored on the browser
             storageService.removeItem('testdata://' + project.id);
