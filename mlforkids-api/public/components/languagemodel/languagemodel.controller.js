@@ -195,6 +195,7 @@
                 });
         }
         function restoreSavedToyLanguageModel() {
+            loggerService.debug('[ml4klanguage] restoreSavedToyLanguageModel');
             return trainingService.getTraining(
                     $scope.projectId,
                     $scope.userId,
@@ -211,26 +212,35 @@
                         });
                     }
 
-                    if ($scope.project.toy && $scope.project.toy.ready) {
-                        $scope.setProjectReady();
+                    loggerService.debug('[ml4klanguage] restored corpus', docs.length);
+
+                    if (!$scope.project.toy) {
+                        loggerService.debug('[ml4klanguage] no model config stored - initialising');
+                        $scope.project.toy = {
+                            ngrams : 0,
+                            temperature : 1.0,
+                            topp : 1.0
+                        };
                     }
                     else {
-                        if (!$scope.project.toy) {
-                            $scope.project.toy = {
-                                ngrams : 0,
-                                temperature : 1.0,
-                                topp : 1.0
-                            };
-                        }
-
-                        if (docs.length > 0) {
-                            $scope.phase = $scope.PHASES.TOY.CONTEXTWINDOW;
-                        }
-                        else {
-                            $scope.phase = $scope.PHASES.TOY.CORPUS;
-                        }
+                        loggerService.debug('[ml4klanguage] restored model config', $scope.project.toy);
                     }
 
+                    $scope.phase = $scope.PHASES.TOY.CORPUS;
+                    if (docs.length > 0) {
+                        return trainingService.retrieveAsset($scope.project)
+                            .then((savedCorpus) => {
+                                loggerService.debug('[ml4klanguage] restoring corpus tokens');
+                                analyzedCorpus = savedCorpus;
+                                if ($scope.project.toy.ngrams) {
+                                    $scope.phase = $scope.PHASES.TOY.READY;
+                                    $scope.project.toy.ready = true;
+                                }
+                            })
+                            .catch((err) => {
+                                loggerService.debug('[ml4klanguage] no tokens saved', err);
+                            });
+                    }
                 });
         }
 
@@ -332,8 +342,6 @@
                     { type, title, contents }
                 )
                 .then((added) => {
-                    modifyCorpus();
-
                     $scope.$applyAsync(() => {
                         $scope.corpus.push({
                             id : added.id,
@@ -341,6 +349,8 @@
                             type : added.type
                         });
                     });
+
+                    modifyCorpus();
                 })
                 .catch((err) => {
                     loggerService.error('[ml4klanguage] Failed to store corpus');
@@ -355,17 +365,17 @@
                     $scope.project.classid
                 )
                 .then((allAdded) => {
-                    modifyCorpus();
-
-                    for (const added of allAdded) {
-                        $scope.$applyAsync(() => {
+                    $scope.$applyAsync(() => {
+                        for (const added of allAdded) {
                             $scope.corpus.push({
                                 id : added.id,
                                 title : added.title,
                                 type : added.type
                             });
-                        });
-                    }
+                        }
+                    });
+
+                    modifyCorpus();
                 })
                 .catch((err) => {
                     loggerService.error('[ml4klanguage] Failed to store corpus');
@@ -382,7 +392,9 @@
                     id
                 )
                 .then(() => {
-                    $scope.corpus = $scope.corpus.filter((doc) => doc.id !== id);
+                    $scope.$applyAsync(() => {
+                        $scope.corpus = $scope.corpus.filter((doc) => doc.id !== id);
+                    });
 
                     modifyCorpus();
                 });
@@ -394,13 +406,7 @@
         // add free text - invoked on clicking "Add text" button
         $scope.addCorpusText = function (ev) {
             $mdDialog.show({
-                locals : {
-                    project : $scope.project
-                },
-                controller : function ($scope, locals) {
-                    $scope.project = locals.project;
-                    $scope.values = {};
-
+                controller : function ($scope) {
                     $scope.hide = function() {
                         $mdDialog.hide();
                     };
@@ -428,11 +434,9 @@
         // add contents of Wikipedia page - invoked on clicking "Wikipedia" button
         $scope.addWikipediaPage = function (ev) {
             $mdDialog.show({
-                locals : {
-                    project : $scope.project
-                },
-                controller : function ($scope, locals) {
-                    $scope.project = locals.project;
+                controller : function ($scope) {
+                    $scope.title = '';
+                    $scope.contents = '';
 
                     $scope.hide = function() {
                         $mdDialog.hide();
@@ -445,8 +449,10 @@
                     };
 
                     $scope.search = function (title) {
-                        wikipediaService.searchByTitle(title)
-                            .then((contents) => { $scope.contents = contents });
+                        if (title) {
+                            wikipediaService.searchByTitle(title)
+                                .then((contents) => { $scope.contents = contents });
+                        }
                     };
                 },
                 templateUrl : 'static/components/languagemodel/wikipedia.tmpl.html',
@@ -516,6 +522,9 @@
                             summary : generateCumulativeProbability(output.tetragrams.sorted, tetragramCounts)
                         }
                     };
+
+                    // save the parsed corpus for reuse
+                    trainingService.storeAsset($scope.project, analyzedCorpus);
                 });
         }
 
@@ -546,6 +555,20 @@
 
 
         // ===================================================================
+        // TOY LANGUAGE MODEL - DISPLAYING TOKENS
+        //   starting phase:     TOY.CORPUS
+        //   finishing phase:    TOY.CONTEXTWINDOW
+        // ===================================================================
+        // invoked when the user clicks Next after preparing their corpus for the first time
+        $scope.confirmCorpus = function () {
+            $scope.phase = $scope.PHASES.TOY.CONTEXTWINDOW;
+        };
+
+
+
+
+
+        // ===================================================================
         // TOY LANGUAGE MODEL - GENERATING TOKENS
         // ===================================================================
 
@@ -563,6 +586,11 @@
                 $scope.project.toy.tokens.forEach(deselect);
                 tokenToRecompute = undefined;
                 delete $scope.confirmTokens;
+            }
+
+            // if the user is viewing the tokens, highlight the most common token
+            if ($scope.phase === $scope.PHASES.TOY.TOKENS) {
+                selectFirstToken();
             }
 
             // if the user is viewing probability scores, recompute with the new ngram size
@@ -590,6 +618,7 @@
                     $scope.project.toy.tokens = analyzedCorpus[$scope.project.toy.ngrams].summary;
                     $scope.$applyAsync(() => {
                         $scope.phase = $scope.PHASES.TOY.TOKENS;
+                        selectFirstToken();
                         $scope.loading = false;
                     });
                 })
@@ -616,6 +645,9 @@
                         count : token.count
                     };
                 }
+            }
+            else {
+                deselect(token);
             }
         };
 
@@ -645,10 +677,11 @@
             loggerService.debug('[ml4klanguage] initToyModelTemperature');
 
             $scope.loading = true;
+            $scope.phase = $scope.PHASES.TOY.TEMPERATURE;
+
             selectFirstToken();
             $scope.recomputeProbabilities();
 
-            $scope.phase = $scope.PHASES.TOY.TEMPERATURE;
             $scope.loading = false;
         };
 
@@ -668,8 +701,9 @@
             //  in the "confirmTokens" box
             let nextToken = $scope.project.toy.tokens[0];
             $scope.confirmTokens = { text : '' };
+            const selectionLength = ($scope.phase === $scope.PHASES.TOY.TOKENS) ? $scope.project.toy.ngrams + 1 : $scope.project.toy.ngrams;
             let parent;
-            for (let i = 0; i < $scope.project.toy.ngrams; i++) {
+            for (let i = 0; i < selectionLength; i++) {
                 $scope.confirmTokens = {
                     text : $scope.confirmTokens.text + ' ' + nextToken.token,
                     count : nextToken.count
@@ -843,7 +877,7 @@
 
 
         // ===================================================================
-        // SMALL LANGUAGE MODEL - SAVE
+        // SAVE MODEL
         // ===================================================================
         // save the configuration for the current project
         function saveSmallLanguageModel() {
@@ -859,6 +893,17 @@
                     return updated;
                 });
         }
+        function saveToyLanguageModel() {
+            return projectsService.storeToyLanguageModelConfig($scope.project, {
+                    ngrams : $scope.project.toy.ngrams,
+                    temperature : $scope.project.toy.temperature,
+                    topp : $scope.project.toy.topp
+                })
+                .then((updated) => {
+                    updated.toy.ready = true;
+                    return updated;
+                });
+        }
 
         // -------------------------------------------------------------------
 
@@ -870,8 +915,17 @@
             loggerService.debug('[ml4klanguage] setProjectReady');
 
             if ($scope.project.modeltype === 'toy') {
-                $scope.project.toy.ready = true;
-                $scope.phase = $scope.PHASES.TOY.READY;
+                saveToyLanguageModel()
+                    .then((updated) => {
+                        $scope.$applyAsync(() => {
+                            $scope.phase = $scope.PHASES.TOY.READY;
+                            $scope.project = updated;
+                        });
+                    })
+                    .catch((err) => {
+                        loggerService.error('[ml4klanguage] error saving model', err);
+                        displayAlert('errors', 500, err);
+                    });
             }
             else if ($scope.project.modeltype === 'small') {
                 saveSmallLanguageModel()
@@ -882,7 +936,7 @@
                         });
                     })
                     .catch((err) => {
-                        loggerService.error('[ml4klanguage] error submitting prompt', err);
+                        loggerService.error('[ml4klanguage] error saving model', err);
                         displayAlert('errors', 500, err);
                     });
             }
@@ -925,8 +979,112 @@
                 });
         };
 
+
+        function getTokenWithHighestCount(obj) {
+            let highest;
+            for (const key in obj) {
+                if (!highest || obj[key].count > highest.count) {
+                    highest = obj[key];
+                }
+            }
+            return highest;
+        }
+
+        function runBigrams() {
+            let generated = '';
+            console.log('using bigrams');
+            const lookup = analyzedCorpus['1'].lookup;
+            const sorted = analyzedCorpus['1'].sorted;
+
+            let token0Object = sorted[0];
+            let token0Bigrams = lookup[token0Object.token].next;
+            generated = token0Object.token;
+
+            let token1Object = getTokenWithHighestCount(token0Bigrams);
+            while (token1Object && generated.length < 1000) {
+                if (token1Object.token === "'s") {
+                    generated += token1Object.token;
+                }
+                else {
+                    generated += ' ' + token1Object.token;
+                }
+
+                token0Object = lookup[token1Object.token];
+                token1Object = getTokenWithHighestCount(token0Object.next);
+            }
+            return generated;
+        }
+        function runTrigrams() {
+            let generated = '';
+            console.log('using trigrams');
+            const lookup = analyzedCorpus['2'].lookup;
+            const sorted = analyzedCorpus['2'].sorted;
+
+            let token0Object = sorted[0];
+            let token1Object = token0Object.next[0];
+
+            let token1Trigrams = lookup[token0Object.token].next[token1Object.token].next;
+            generated = token0Object.token + ' ' + token1Object.token;
+
+            let token2Object = getTokenWithHighestCount(token1Trigrams);
+            while (token2Object && generated.length < 1000) {
+                if (token2Object.token === "'s") {
+                    generated += token2Object.token;
+                }
+                else {
+                    generated += ' ' + token2Object.token;
+                }
+
+                const newToken0 = token1Object.token;
+                const newToken1 = token2Object.token;
+
+                token0Object = lookup[newToken0];
+                token1Object = token0Object.next[newToken1];
+
+                token2Object = getTokenWithHighestCount(token1Object.next);
+            }
+            return generated;
+        }
+        function runTetragrams() {
+            let generated = '';
+            console.log('using tetragrams');
+            const lookup = analyzedCorpus['3'].lookup;
+            const sorted = analyzedCorpus['3'].sorted;
+
+            let token0Object = sorted[0];
+            let token1Object = token0Object.next[0];
+            let token2Object = token1Object.next[0];
+
+            let token2Trigrams = lookup[token0Object.token].next[token1Object.token].next[token2Object.token].next;
+            generated = token0Object.token + ' ' + token1Object.token + ' ' + token2Object.token;
+
+            let token3Object = getTokenWithHighestCount(token2Trigrams);
+            while (token3Object && generated.length < 1000) {
+                if (token3Object.token === "'s") {
+                    generated += token3Object.token;
+                }
+                else {
+                    generated += ' ' + token3Object.token;
+                }
+
+                const newToken0 = token1Object.token;
+                const newToken1 = token2Object.token;
+                const newToken2 = token3Object.token;
+
+                token0Object = lookup[newToken0];
+                token1Object = token0Object.next[newToken1];
+                token2Object = token1Object.next[newToken2];
+
+                token3Object = getTokenWithHighestCount(token2Object.next);
+            }
+            return generated;
+        }
+
         async function useToyLanguageModel(prompt) {
-            return Promise.resolve('Response to the prompt ' + prompt + ' will go here');
+            if ($scope.project.toy.ready) {
+                return Promise.resolve('<h3>bigrams</h3>' + runBigrams() + '<hr>' + '<h3>trigrams</h3>' + runTrigrams() + '<hr>' + '<h3>tetragrams</h3>' + runTetragrams());
+            }
+            return Promise.reject('Model not ready');
         }
 
 

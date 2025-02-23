@@ -173,6 +173,12 @@
             }
             return browserStorageService.storeSmallLanguageModelConfig(project.id, slmConfig);
         }
+        function storeToyLanguageModelConfig(project, toyConfig) {
+            if (project.storage !== 'local' || project.type !== 'language') {
+                return Promise.reject(new Error('Unexpected project type'));
+            }
+            return browserStorageService.storeToyLanguageModelConfig(project.id, toyConfig);
+        }
 
 
         function addMetadataToProject(project, key, value) {
@@ -327,6 +333,7 @@
 
             setLanguageModelType : setLanguageModelType,
             storeSmallLanguageModelConfig : storeSmallLanguageModelConfig,
+            storeToyLanguageModelConfig : storeToyLanguageModelConfig,
 
             checkProjectCredentials : checkProjectCredentials,
 

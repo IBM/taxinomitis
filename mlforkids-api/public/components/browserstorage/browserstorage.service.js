@@ -440,10 +440,18 @@
         }
 
         async function storeSmallLanguageModelConfig(projectId, slm) {
-            loggerService.debug('[ml4kstorage] setLanguageModelType');
+            loggerService.debug('[ml4kstorage] storeSmallLanguageModelConfig');
 
             return updateLocalProject(projectId, (projectObject) => {
                 projectObject.slm = slm;
+                return projectObject;
+            });
+        }
+        async function storeToyLanguageModelConfig(projectId, toy) {
+            loggerService.debug('[ml4kstorage] storeToyLanguageModelConfig');
+
+            return updateLocalProject(projectId, (projectObject) => {
+                projectObject.toy = toy;
                 return projectObject;
             });
         }
@@ -770,6 +778,27 @@
             }
         }
 
+        async function storeAssetData(id, data) {
+            loggerService.debug('[ml4kstorage] storeAssetData', id);
+
+            await requiresAssetsDatabase();
+
+            try {
+                const transaction = assetsDbHandle.transaction([ ASSETS_TABLE ], 'readwrite');
+                const request = transaction.objectStore(ASSETS_TABLE).put(data, id);
+                return promisifyIndexedDbRequest(request);
+            }
+            catch (err) {
+                if (isCorruptedDatabase(err)) {
+                    loggerService.debug('[ml4kstorage] assets db corrupted - resetting');
+                    await deleteAssetsDatabase();
+                }
+
+                throw err;
+            }
+        }
+
+
         async function retrieveAsset(id) {
             loggerService.debug('[ml4kstorage] retrieveAsset', id);
 
@@ -867,6 +896,7 @@
 
             setLanguageModelType,
             storeSmallLanguageModelConfig,
+            storeToyLanguageModelConfig,
 
             getTrainingData,
             countTrainingData,
@@ -881,6 +911,7 @@
             deleteSessionUserProjects,
 
             storeAsset,
+            storeAssetData,
             retrieveAsset,
             retrieveAssetAsText,
             deleteAsset,

@@ -9,14 +9,16 @@
             <div style="padding: 1em;">
                 <div>
                     <md-input-container class="trainingtextinput">
-                        <input placeholder="Title" ng-model="title" ng-required="true">
+                        <input placeholder="Wikipedia page name" ng-model="title" ng-required="true">
                     </md-input-container>
                     <button type="button" class="btn btn-primary" ng-click="search(title)" ng-disabled="title.trim().length === 0">Search</button>
                 </div>
                 <div>
                     <md-input-container class="trainingtextinput">
                         <textarea type="text" name="text"
-                            placeholder="Corpus text"
+                            style="padding: 0.5em; border: thin #c0c0c0 solid;"
+                            placeholder="Wikipedia page contents"
+                            ng-disabled="contents.length === 0"
                             ng-required="true"
                             ng-model="contents"></textarea>
                     </md-input-container>
