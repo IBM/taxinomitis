@@ -1,273 +1,290 @@
 {
     "lookup": {
         "The": {
-            "token": "The",
             "count": 2,
-            "next": {
-                "cat": {
+            "next": [
+                {
                     "token": "cat",
                     "count": 2,
-                    "next": {}
+                    "prob": 1,
+                    "cumprob": 1
                 }
-            }
+            ]
         },
         "cat": {
-            "token": "cat",
             "count": 3,
-            "next": {
-                "sat": {
+            "next": [
+                {
                     "token": "sat",
                     "count": 2,
-                    "next": {}
+                    "prob": 0.6666666666666666,
+                    "cumprob": 0.6666666666666666
                 },
-                "sit": {
+                {
                     "token": "sit",
                     "count": 1,
-                    "next": {}
+                    "prob": 0.3333333333333333,
+                    "cumprob": 1
                 }
-            }
+            ]
         },
         "sat": {
-            "token": "sat",
             "count": 2,
-            "next": {
-                "on": {
+            "next": [
+                {
                     "token": "on",
                     "count": 2,
-                    "next": {}
+                    "prob": 1,
+                    "cumprob": 1
                 }
-            }
+            ]
         },
         "on": {
-            "token": "on",
             "count": 3,
-            "next": {
-                "the": {
+            "next": [
+                {
                     "token": "the",
                     "count": 3,
-                    "next": {}
+                    "prob": 1,
+                    "cumprob": 1
                 }
-            }
+            ]
         },
         "the": {
-            "token": "the",
-            "count": 6,
-            "next": {
-                "mat": {
-                    "token": "mat",
-                    "count": 3,
-                    "next": {}
-                },
-                "cat": {
-                    "token": "cat",
-                    "count": 1,
-                    "next": {}
-                },
-                "warmth": {
-                    "token": "warmth",
-                    "count": 1,
-                    "next": {}
-                },
-                "view": {
-                    "token": "view",
-                    "count": 1,
-                    "next": {}
-                }
-            }
-        },
-        "mat": {
-            "token": "mat",
-            "count": 3,
-            "next": {
-                "<STOP>": {
-                    "token": "<STOP>",
-                    "count": 2,
-                    "next": {}
-                },
-                "maybe": {
-                    "token": "maybe",
-                    "count": 1,
-                    "next": {}
-                }
-            }
-        },
-        "<STOP>": {
-            "token": "<STOP>",
-            "count": 2,
-            "next": {
-                "Why": {
-                    "token": "Why",
-                    "count": 1,
-                    "next": {}
-                },
-                "The": {
-                    "token": "The",
-                    "count": 1,
-                    "next": {}
-                }
-            }
-        },
-        "Why": {
-            "token": "Why",
-            "count": 1,
-            "next": {
-                "did": {
-                    "token": "did",
-                    "count": 1,
-                    "next": {}
-                }
-            }
-        },
-        "did": {
-            "token": "did",
-            "count": 1,
-            "next": {
-                "the": {
-                    "token": "the",
-                    "count": 1,
-                    "next": {}
-                }
-            }
-        },
-        "sit": {
-            "token": "sit",
-            "count": 1,
-            "next": {
-                "on": {
-                    "token": "on",
-                    "count": 1,
-                    "next": {}
-                }
-            }
-        },
-        "maybe": {
-            "token": "maybe",
-            "count": 2,
-            "next": {
-                "because": {
-                    "token": "because",
-                    "count": 1,
-                    "next": {}
-                },
-                "it": {
-                    "token": "it",
-                    "count": 1,
-                    "next": {}
-                }
-            }
-        },
-        "because": {
-            "token": "because",
-            "count": 1,
-            "next": {
-                "she": {
-                    "token": "she",
-                    "count": 1,
-                    "next": {}
-                }
-            }
-        },
-        "she": {
-            "token": "she",
-            "count": 1,
-            "next": {
-                "liked": {
-                    "token": "liked",
-                    "count": 1,
-                    "next": {}
-                }
-            }
-        },
-        "liked": {
-            "token": "liked",
-            "count": 1,
-            "next": {
-                "the": {
-                    "token": "the",
-                    "count": 1,
-                    "next": {}
-                }
-            }
-        },
-        "warmth": {
-            "token": "warmth",
-            "count": 1,
-            "next": {
-                "or": {
-                    "token": "or",
-                    "count": 1,
-                    "next": {}
-                }
-            }
-        },
-        "or": {
-            "token": "or",
-            "count": 1,
-            "next": {
-                "maybe": {
-                    "token": "maybe",
-                    "count": 1,
-                    "next": {}
-                }
-            }
-        },
-        "it": {
-            "token": "it",
-            "count": 1,
-            "next": {
-                "was": {
-                    "token": "was",
-                    "count": 1,
-                    "next": {}
-                }
-            }
-        },
-        "was": {
-            "token": "was",
-            "count": 1,
-            "next": {
-                "the": {
-                    "token": "the",
-                    "count": 1,
-                    "next": {}
-                }
-            }
-        },
-        "view": {
-            "token": "view",
-            "count": 1,
-            "next": {
-                "<STOP>": {
-                    "token": "<STOP>",
-                    "count": 1,
-                    "next": {}
-                }
-            }
-        }
-    },
-    "sorted": [
-        {
-            "token": "the",
             "count": 6,
             "next": [
                 {
                     "token": "mat",
                     "count": 3,
+                    "prob": 0.5,
+                    "cumprob": 0.5
+                },
+                {
+                    "token": "cat",
+                    "count": 1,
+                    "prob": 0.16666666666666666,
+                    "cumprob": 0.6666666666666666
+                },
+                {
+                    "token": "warmth",
+                    "count": 1,
+                    "prob": 0.16666666666666666,
+                    "cumprob": 0.8333333333333333
+                },
+                {
+                    "token": "view",
+                    "count": 1,
+                    "prob": 0.16666666666666666,
+                    "cumprob": 0.9999999999999999
+                }
+            ]
+        },
+        "mat": {
+            "count": 3,
+            "next": [
+                {
+                    "token": "<STOP>",
+                    "count": 2,
+                    "prob": 0.6666666666666666,
+                    "cumprob": 0.6666666666666666
+                },
+                {
+                    "token": "maybe",
+                    "count": 1,
+                    "prob": 0.3333333333333333,
+                    "cumprob": 1
+                }
+            ]
+        },
+        "<STOP>": {
+            "count": 2,
+            "next": [
+                {
+                    "token": "Why",
+                    "count": 1,
+                    "prob": 0.5,
+                    "cumprob": 0.5
+                },
+                {
+                    "token": "The",
+                    "count": 1,
+                    "prob": 0.5,
+                    "cumprob": 1
+                }
+            ]
+        },
+        "Why": {
+            "count": 1,
+            "next": [
+                {
+                    "token": "did",
+                    "count": 1,
+                    "prob": 1,
+                    "cumprob": 1
+                }
+            ]
+        },
+        "did": {
+            "count": 1,
+            "next": [
+                {
+                    "token": "the",
+                    "count": 1,
+                    "prob": 1,
+                    "cumprob": 1
+                }
+            ]
+        },
+        "sit": {
+            "count": 1,
+            "next": [
+                {
+                    "token": "on",
+                    "count": 1,
+                    "prob": 1,
+                    "cumprob": 1
+                }
+            ]
+        },
+        "maybe": {
+            "count": 2,
+            "next": [
+                {
+                    "token": "because",
+                    "count": 1,
+                    "prob": 0.5,
+                    "cumprob": 0.5
+                },
+                {
+                    "token": "it",
+                    "count": 1,
+                    "prob": 0.5,
+                    "cumprob": 1
+                }
+            ]
+        },
+        "because": {
+            "count": 1,
+            "next": [
+                {
+                    "token": "she",
+                    "count": 1,
+                    "prob": 1,
+                    "cumprob": 1
+                }
+            ]
+        },
+        "she": {
+            "count": 1,
+            "next": [
+                {
+                    "token": "liked",
+                    "count": 1,
+                    "prob": 1,
+                    "cumprob": 1
+                }
+            ]
+        },
+        "liked": {
+            "count": 1,
+            "next": [
+                {
+                    "token": "the",
+                    "count": 1,
+                    "prob": 1,
+                    "cumprob": 1
+                }
+            ]
+        },
+        "warmth": {
+            "count": 1,
+            "next": [
+                {
+                    "token": "or",
+                    "count": 1,
+                    "prob": 1,
+                    "cumprob": 1
+                }
+            ]
+        },
+        "or": {
+            "count": 1,
+            "next": [
+                {
+                    "token": "maybe",
+                    "count": 1,
+                    "prob": 1,
+                    "cumprob": 1
+                }
+            ]
+        },
+        "it": {
+            "count": 1,
+            "next": [
+                {
+                    "token": "was",
+                    "count": 1,
+                    "prob": 1,
+                    "cumprob": 1
+                }
+            ]
+        },
+        "was": {
+            "count": 1,
+            "next": [
+                {
+                    "token": "the",
+                    "count": 1,
+                    "prob": 1,
+                    "cumprob": 1
+                }
+            ]
+        },
+        "view": {
+            "count": 1,
+            "next": [
+                {
+                    "token": "<STOP>",
+                    "count": 1,
+                    "prob": 1,
+                    "cumprob": 1
+                }
+            ]
+        }
+    },
+    "summary": [
+        {
+            "token": "the",
+            "count": 6,
+            "prob": 0.176,
+            "cumprob": 0.176,
+            "next": [
+                {
+                    "token": "mat",
+                    "count": 3,
+                    "prob": 0.5,
+                    "cumprob": 0.5,
                     "next": []
                 },
                 {
                     "token": "cat",
                     "count": 1,
+                    "prob": 0.167,
+                    "cumprob": 0.667,
                     "next": []
                 },
                 {
                     "token": "warmth",
                     "count": 1,
+                    "prob": 0.167,
+                    "cumprob": 0.833,
                     "next": []
                 },
                 {
                     "token": "view",
                     "count": 1,
+                    "prob": 0.167,
+                    "cumprob": 1,
                     "next": []
                 }
             ]
@@ -275,15 +292,21 @@
         {
             "token": "cat",
             "count": 3,
+            "prob": 0.088,
+            "cumprob": 0.265,
             "next": [
                 {
                     "token": "sat",
                     "count": 2,
+                    "prob": 0.667,
+                    "cumprob": 0.667,
                     "next": []
                 },
                 {
                     "token": "sit",
                     "count": 1,
+                    "prob": 0.333,
+                    "cumprob": 1,
                     "next": []
                 }
             ]
@@ -291,10 +314,14 @@
         {
             "token": "on",
             "count": 3,
+            "prob": 0.088,
+            "cumprob": 0.353,
             "next": [
                 {
                     "token": "the",
                     "count": 3,
+                    "prob": 1,
+                    "cumprob": 1,
                     "next": []
                 }
             ]
@@ -302,15 +329,21 @@
         {
             "token": "mat",
             "count": 3,
+            "prob": 0.088,
+            "cumprob": 0.441,
             "next": [
                 {
                     "token": "<STOP>",
                     "count": 2,
+                    "prob": 0.667,
+                    "cumprob": 0.667,
                     "next": []
                 },
                 {
                     "token": "maybe",
                     "count": 1,
+                    "prob": 0.333,
+                    "cumprob": 1,
                     "next": []
                 }
             ]
@@ -318,10 +351,14 @@
         {
             "token": "The",
             "count": 2,
+            "prob": 0.059,
+            "cumprob": 0.5,
             "next": [
                 {
                     "token": "cat",
                     "count": 2,
+                    "prob": 1,
+                    "cumprob": 1,
                     "next": []
                 }
             ]
@@ -329,10 +366,14 @@
         {
             "token": "sat",
             "count": 2,
+            "prob": 0.059,
+            "cumprob": 0.559,
             "next": [
                 {
                     "token": "on",
                     "count": 2,
+                    "prob": 1,
+                    "cumprob": 1,
                     "next": []
                 }
             ]
@@ -340,15 +381,21 @@
         {
             "token": "<STOP>",
             "count": 2,
+            "prob": 0.059,
+            "cumprob": 0.618,
             "next": [
                 {
                     "token": "Why",
                     "count": 1,
+                    "prob": 0.5,
+                    "cumprob": 0.5,
                     "next": []
                 },
                 {
                     "token": "The",
                     "count": 1,
+                    "prob": 0.5,
+                    "cumprob": 1,
                     "next": []
                 }
             ]
@@ -356,15 +403,21 @@
         {
             "token": "maybe",
             "count": 2,
+            "prob": 0.059,
+            "cumprob": 0.676,
             "next": [
                 {
                     "token": "because",
                     "count": 1,
+                    "prob": 0.5,
+                    "cumprob": 0.5,
                     "next": []
                 },
                 {
                     "token": "it",
                     "count": 1,
+                    "prob": 0.5,
+                    "cumprob": 1,
                     "next": []
                 }
             ]
@@ -372,10 +425,14 @@
         {
             "token": "Why",
             "count": 1,
+            "prob": 0.029,
+            "cumprob": 0.706,
             "next": [
                 {
                     "token": "did",
                     "count": 1,
+                    "prob": 1,
+                    "cumprob": 1,
                     "next": []
                 }
             ]
@@ -383,10 +440,14 @@
         {
             "token": "did",
             "count": 1,
+            "prob": 0.029,
+            "cumprob": 0.735,
             "next": [
                 {
                     "token": "the",
                     "count": 1,
+                    "prob": 1,
+                    "cumprob": 1,
                     "next": []
                 }
             ]
@@ -394,10 +455,14 @@
         {
             "token": "sit",
             "count": 1,
+            "prob": 0.029,
+            "cumprob": 0.765,
             "next": [
                 {
                     "token": "on",
                     "count": 1,
+                    "prob": 1,
+                    "cumprob": 1,
                     "next": []
                 }
             ]
@@ -405,10 +470,14 @@
         {
             "token": "because",
             "count": 1,
+            "prob": 0.029,
+            "cumprob": 0.794,
             "next": [
                 {
                     "token": "she",
                     "count": 1,
+                    "prob": 1,
+                    "cumprob": 1,
                     "next": []
                 }
             ]
@@ -416,10 +485,14 @@
         {
             "token": "she",
             "count": 1,
+            "prob": 0.029,
+            "cumprob": 0.824,
             "next": [
                 {
                     "token": "liked",
                     "count": 1,
+                    "prob": 1,
+                    "cumprob": 1,
                     "next": []
                 }
             ]
@@ -427,10 +500,14 @@
         {
             "token": "liked",
             "count": 1,
+            "prob": 0.029,
+            "cumprob": 0.853,
             "next": [
                 {
                     "token": "the",
                     "count": 1,
+                    "prob": 1,
+                    "cumprob": 1,
                     "next": []
                 }
             ]
@@ -438,54 +515,14 @@
         {
             "token": "warmth",
             "count": 1,
+            "prob": 0.029,
+            "cumprob": 0.882,
             "next": [
                 {
                     "token": "or",
                     "count": 1,
-                    "next": []
-                }
-            ]
-        },
-        {
-            "token": "or",
-            "count": 1,
-            "next": [
-                {
-                    "token": "maybe",
-                    "count": 1,
-                    "next": []
-                }
-            ]
-        },
-        {
-            "token": "it",
-            "count": 1,
-            "next": [
-                {
-                    "token": "was",
-                    "count": 1,
-                    "next": []
-                }
-            ]
-        },
-        {
-            "token": "was",
-            "count": 1,
-            "next": [
-                {
-                    "token": "the",
-                    "count": 1,
-                    "next": []
-                }
-            ]
-        },
-        {
-            "token": "view",
-            "count": 1,
-            "next": [
-                {
-                    "token": "<STOP>",
-                    "count": 1,
+                    "prob": 1,
+                    "cumprob": 1,
                     "next": []
                 }
             ]

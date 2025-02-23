@@ -15,7 +15,7 @@ describe('Utils - ngrams', () => {
             });
     }
 
-    function verifyOrder(sortedNgrams: ngrams.SortedNgramCount[]) {
+    function verifyOrder(sortedNgrams: ngrams.SortedNgramCountWithCumulativeProbabilities[]) {
         if (sortedNgrams.length === 0) {
             return;
         }
@@ -28,24 +28,57 @@ describe('Utils - ngrams', () => {
         }
     }
 
-    function verifySorting(output: ngrams.NgramData): void {
-        assert.strictEqual(Object.keys(output.lookup).length,
-                           output.sorted.length);
+    function equalWithinRounding(num1: number, num2: number): boolean {
+        return Math.abs(num1 - num2) < 0.001;
+    }
 
-        for (const sortedNgram of output.sorted) {
-            const token = sortedNgram.token;
+    function lookupCount(input: ngrams.NgramLookupTable, tokens: string[]): number {
+        let node = input;
+        for (let tokenIdx = 0; tokenIdx < tokens.length - 1; tokenIdx++) {
+            const nxtToken = tokens[tokenIdx]
+            node = node[nxtToken].next as ngrams.NgramLookupTable;
+        }
+        const token = tokens[tokens.length - 1];
+        let entry;
+        if (Array.isArray(node)) {
+            const allNgrams = node;
+            entry = allNgrams.find((i) => i.token === token);
+        }
+        else {
+            entry = node[token];
+        }
+        if (entry) {
+            return entry.count;
+        }
+        throw new Error('lookup entry not found');
+    }
+
+    function verifySummary(output: ngrams.NgramData): void {
+        assert.strictEqual(Math.min(Object.keys(output.lookup).length, ngrams.SUMMARY_DEPTH),
+                           output.summary.length);
+
+        for (const summaryNgram of output.summary) {
+            const token = summaryNgram.token;
             const lookupToken = output.lookup[token];
 
-            assert.strictEqual(sortedNgram.count, lookupToken.count);
+            assert.strictEqual(summaryNgram.count, lookupToken.count);
 
-            for (const recursiveSortedNgram of sortedNgram.next) {
-                const recursiveToken = recursiveSortedNgram.token;
-                const recursiveLookup = lookupToken.next[recursiveToken];
-                assert.strictEqual(recursiveSortedNgram.count, recursiveLookup.count);
-
-                verifySorting({
-                    lookup: recursiveLookup.next,
-                    sorted: recursiveSortedNgram.next,
+            if (Array.isArray(lookupToken.next)) {
+                const summaryNgramView = summaryNgram.next;
+                const lookupNgramView  = lookupToken.next;
+                assert.strictEqual(Math.min(lookupNgramView.length, ngrams.SUMMARY_DEPTH),
+                                   summaryNgramView.length);
+                for (let i = 0; i < summaryNgramView.length; i++) {
+                    assert.strictEqual(summaryNgramView[i].token, lookupNgramView[i].token);
+                    assert.strictEqual(summaryNgramView[i].count, lookupNgramView[i].count);
+                    assert(equalWithinRounding(summaryNgramView[i].prob, lookupNgramView[i].prob));
+                    assert(equalWithinRounding(summaryNgramView[i].cumprob, lookupNgramView[i].cumprob));
+                }
+            }
+            else {
+                verifySummary({
+                    lookup  : lookupToken.next,
+                    summary : summaryNgram.next,
                 });
             }
         }
@@ -88,17 +121,18 @@ describe('Utils - ngrams', () => {
             return getTestStrings([ TEST_INPUT_FILES.BOHEMIA ])
                 .then((input) => {
                     const output = ngrams.countNgrams(input, n);
-                    verifyOrder(output.sorted);
+                    verifyOrder(output.summary);
                 });
         });
-        it('should return consistent results between lookup and sorted', () => {
+        it('should return consistent results between lookup and summary', () => {
             return getTestStrings([ TEST_INPUT_FILES.BOHEMIA, TEST_INPUT_FILES.BOSCOMBE,
                                     TEST_INPUT_FILES.IDENTITY, TEST_INPUT_FILES.TWISTEDLIP ])
                 .then((input) => {
                     const output = ngrams.countNgrams(input, n);
-                    verifySorting(output);
+                    verifySummary(output);
                 });
         });
+
         it('should return consistent results from multiple files', () => {
             return getTestStrings([ TEST_INPUT_FILES.BOHEMIA, TEST_INPUT_FILES.BOSCOMBE,
                                     TEST_INPUT_FILES.IDENTITY, TEST_INPUT_FILES.TWISTEDLIP ])
@@ -118,17 +152,17 @@ describe('Utils - ngrams', () => {
                     const TOKEN_1 = "I";
                     const TOKEN_2 = "have";
 
-                    const count_output_1_0 = output_1_0.lookup[TOKEN_1].next[TOKEN_2].count;
-                    const count_output_1_1 = output_1_1.lookup[TOKEN_1].next[TOKEN_2].count;
-                    const count_output_1_2 = output_1_2.lookup[TOKEN_1].next[TOKEN_2].count;
-                    const count_output_1_3 = output_1_3.lookup[TOKEN_1].next[TOKEN_2].count;
+                    const count_output_1_0 = lookupCount(output_1_0.lookup, [ TOKEN_1, TOKEN_2 ]);
+                    const count_output_1_1 = lookupCount(output_1_1.lookup, [ TOKEN_1, TOKEN_2 ]);
+                    const count_output_1_2 = lookupCount(output_1_2.lookup, [ TOKEN_1, TOKEN_2 ]);
+                    const count_output_1_3 = lookupCount(output_1_3.lookup, [ TOKEN_1, TOKEN_2 ]);
 
-                    const count_output_2_0 = output_2_0.lookup[TOKEN_1].next[TOKEN_2].count;
-                    const count_output_2_1 = output_2_1.lookup[TOKEN_1].next[TOKEN_2].count;
+                    const count_output_2_0 = lookupCount(output_2_0.lookup, [ TOKEN_1, TOKEN_2 ]);
+                    const count_output_2_1 = lookupCount(output_2_1.lookup, [ TOKEN_1, TOKEN_2 ]);
 
-                    const count_output_3_0 = output_3_0.lookup[TOKEN_1].next[TOKEN_2].count;
+                    const count_output_3_0 = lookupCount(output_3_0.lookup, [ TOKEN_1, TOKEN_2 ]);
 
-                    const count_output_4 = output_4.lookup[TOKEN_1].next[TOKEN_2].count;
+                    const count_output_4   = lookupCount(output_4.lookup,   [ TOKEN_1, TOKEN_2 ]);
 
                     assert.strictEqual(count_output_1_0 + count_output_1_1 + count_output_1_2 + count_output_1_3,
                                        count_output_4);
@@ -147,24 +181,24 @@ describe('Utils - ngrams', () => {
         it('should handle empty strings', () => {
             const output = ngrams.countNgrams([''], n);
             assert.deepStrictEqual(output, {
-                lookup: {}, sorted: [],
+                lookup: {}, summary: [],
             });
         });
         it('should handle strings with only whitespace', () => {
             const output = ngrams.countNgrams(['                        '], n);
             assert.deepStrictEqual(output, {
-                lookup: {}, sorted: [],
+                lookup: {}, summary: [],
             });
         });
         it('should handle strings with only punctuation', () => {
             const output = ngrams.countNgrams(['?!'], n);
-            assert.strictEqual(output.sorted.length, 1);
+            assert.strictEqual(output.summary.length, 1);
             assert.strictEqual(output.lookup['<STOP>'].count, 1);
         });
         it('should handle empty input arrays', () => {
             const output = ngrams.countNgrams([], n);
             assert.deepStrictEqual(output, {
-                lookup: {}, sorted: [],
+                lookup: {}, summary: [],
             });
         });
     });
@@ -202,15 +236,15 @@ describe('Utils - ngrams', () => {
             return getTestStrings([ TEST_INPUT_FILES.IDENTITY ])
                 .then((input) => {
                     const output = ngrams.countNgrams(input, n);
-                    verifyOrder(output.sorted);
+                    verifyOrder(output.summary);
                 });
         });
-        it('should return consistent results between lookup and sorted', () => {
+        it('should return consistent results between lookup and summary', () => {
             return getTestStrings([ TEST_INPUT_FILES.BOHEMIA, TEST_INPUT_FILES.BOSCOMBE,
                                     TEST_INPUT_FILES.IDENTITY, TEST_INPUT_FILES.TWISTEDLIP ])
                 .then((input) => {
                     const output = ngrams.countNgrams(input, n);
-                    verifySorting(output);
+                    verifySummary(output);
                 });
         });
         it('should return consistent results from multiple files', () => {
@@ -233,17 +267,17 @@ describe('Utils - ngrams', () => {
                     const TOKEN_2 = "I";
                     const TOKEN_3 = "have"
 
-                    const count_output_1_0 = output_1_0.lookup[TOKEN_1].next[TOKEN_2].next[TOKEN_3].count;
-                    const count_output_1_1 = output_1_1.lookup[TOKEN_1].next[TOKEN_2].next[TOKEN_3].count;
-                    const count_output_1_2 = output_1_2.lookup[TOKEN_1].next[TOKEN_2].next[TOKEN_3].count;
-                    const count_output_1_3 = output_1_3.lookup[TOKEN_1].next[TOKEN_2].next[TOKEN_3].count;
+                    const count_output_1_0 = lookupCount(output_1_0.lookup, [TOKEN_1, TOKEN_2, TOKEN_3]);
+                    const count_output_1_1 = lookupCount(output_1_1.lookup, [TOKEN_1, TOKEN_2, TOKEN_3]);
+                    const count_output_1_2 = lookupCount(output_1_2.lookup, [TOKEN_1, TOKEN_2, TOKEN_3]);
+                    const count_output_1_3 = lookupCount(output_1_3.lookup, [TOKEN_1, TOKEN_2, TOKEN_3]);
 
-                    const count_output_2_0 = output_2_0.lookup[TOKEN_1].next[TOKEN_2].next[TOKEN_3].count;
-                    const count_output_2_1 = output_2_1.lookup[TOKEN_1].next[TOKEN_2].next[TOKEN_3].count;
+                    const count_output_2_0 = lookupCount(output_2_0.lookup, [TOKEN_1, TOKEN_2, TOKEN_3]);
+                    const count_output_2_1 = lookupCount(output_2_1.lookup, [TOKEN_1, TOKEN_2, TOKEN_3]);
 
-                    const count_output_3_0 = output_3_0.lookup[TOKEN_1].next[TOKEN_2].next[TOKEN_3].count;
+                    const count_output_3_0 = lookupCount(output_3_0.lookup, [TOKEN_1, TOKEN_2, TOKEN_3]);
 
-                    const count_output_4 = output_4.lookup[TOKEN_1].next[TOKEN_2].next[TOKEN_3].count;
+                    const count_output_4   = lookupCount(output_4.lookup, [TOKEN_1, TOKEN_2, TOKEN_3]);
 
                     assert.strictEqual(count_output_1_0 + count_output_1_1 + count_output_1_2 + count_output_1_3,
                                        count_output_4);
@@ -262,25 +296,25 @@ describe('Utils - ngrams', () => {
         it('should handle empty strings', () => {
             const output = ngrams.countNgrams([''], n);
             assert.deepStrictEqual(output, {
-                lookup: {}, sorted: [],
+                lookup: {}, summary: [],
             });
         });
         it('should handle strings with only whitespace', () => {
             const output = ngrams.countNgrams(['                        '], n);
             assert.deepStrictEqual(output, {
-                lookup: {}, sorted: [],
+                lookup: {}, summary: [],
             });
         });
         it('should handle strings with only punctuation', () => {
             const output = ngrams.countNgrams(['?!'], n);
             assert.deepStrictEqual(output, {
-                lookup: {}, sorted: [],
+                lookup: {}, summary: [],
             });
         });
         it('should handle empty input arrays', () => {
             const output = ngrams.countNgrams([], n);
             assert.deepStrictEqual(output, {
-                lookup: {}, sorted: [],
+                lookup: {}, summary: [],
             });
         });
     });
@@ -318,15 +352,15 @@ describe('Utils - ngrams', () => {
             return getTestStrings([ TEST_INPUT_FILES.BOSCOMBE ])
                 .then((input) => {
                     const output = ngrams.countNgrams(input, n);
-                    verifyOrder(output.sorted);
+                    verifyOrder(output.summary);
                 });
         });
-        it('should return consistent results between lookup and sorted', () => {
+        it('should return consistent results between lookup and summary', () => {
             return getTestStrings([ TEST_INPUT_FILES.BOHEMIA, TEST_INPUT_FILES.BOSCOMBE,
                                     TEST_INPUT_FILES.IDENTITY, TEST_INPUT_FILES.TWISTEDLIP ])
                 .then((input) => {
                     const output = ngrams.countNgrams(input, n);
-                    verifySorting(output);
+                    verifySummary(output);
                 });
         });
         it('should return consistent results from multiple files', () => {
@@ -350,18 +384,18 @@ describe('Utils - ngrams', () => {
                     const TOKEN_3 = "think"
                     const TOKEN_4 = "that";
 
-                    const count_output_1_0 = output_1_0.lookup[TOKEN_1].next[TOKEN_2].next[TOKEN_3].next[TOKEN_4].count;
-                    const count_output_1_1 = output_1_1.lookup[TOKEN_1].next[TOKEN_2].next[TOKEN_3].next[TOKEN_4].count;
-                    const count_output_1_2 = output_1_2.lookup[TOKEN_1].next[TOKEN_2].next[TOKEN_3].next[TOKEN_4].count;
+                    const count_output_1_0 = lookupCount(output_1_0.lookup, [TOKEN_1, TOKEN_2, TOKEN_3, TOKEN_4]);
+                    const count_output_1_1 = lookupCount(output_1_1.lookup, [TOKEN_1, TOKEN_2, TOKEN_3, TOKEN_4]);
+                    const count_output_1_2 = lookupCount(output_1_2.lookup, [TOKEN_1, TOKEN_2, TOKEN_3, TOKEN_4]);
                     const count_output_1_3 = 0;
-                    assert.strictEqual(TOKEN_4 in output_1_3.lookup[TOKEN_1].next[TOKEN_2].next[TOKEN_3].next, false);
+                    assert.throws(() => { lookupCount(output_1_3.lookup, [TOKEN_1, TOKEN_2, TOKEN_3, TOKEN_4])});
 
-                    const count_output_2_0 = output_2_0.lookup[TOKEN_1].next[TOKEN_2].next[TOKEN_3].next[TOKEN_4].count;
-                    const count_output_2_1 = output_2_1.lookup[TOKEN_1].next[TOKEN_2].next[TOKEN_3].next[TOKEN_4].count;
+                    const count_output_2_0 = lookupCount(output_2_0.lookup, [TOKEN_1, TOKEN_2, TOKEN_3, TOKEN_4]);
+                    const count_output_2_1 = lookupCount(output_2_1.lookup, [TOKEN_1, TOKEN_2, TOKEN_3, TOKEN_4]);
 
-                    const count_output_3_0 = output_3_0.lookup[TOKEN_1].next[TOKEN_2].next[TOKEN_3].next[TOKEN_4].count;
+                    const count_output_3_0 = lookupCount(output_3_0.lookup, [TOKEN_1, TOKEN_2, TOKEN_3, TOKEN_4]);
 
-                    const count_output_4 = output_4.lookup[TOKEN_1].next[TOKEN_2].next[TOKEN_3].next[TOKEN_4].count;
+                    const count_output_4   = lookupCount(output_4.lookup, [TOKEN_1, TOKEN_2, TOKEN_3, TOKEN_4]);
 
                     assert.strictEqual(count_output_1_0 + count_output_1_1 + count_output_1_2 + count_output_1_3,
                                        count_output_4);
@@ -380,25 +414,25 @@ describe('Utils - ngrams', () => {
         it('should handle empty strings', () => {
             const output = ngrams.countNgrams([''], n);
             assert.deepStrictEqual(output, {
-                lookup: {}, sorted: [],
+                lookup: {}, summary: [],
             });
         });
         it('should handle strings with only whitespace', () => {
             const output = ngrams.countNgrams(['                        '], n);
             assert.deepStrictEqual(output, {
-                lookup: {}, sorted: [],
+                lookup: {}, summary: [],
             });
         });
         it('should handle strings with only punctuation', () => {
             const output = ngrams.countNgrams(['?!'], n);
             assert.deepStrictEqual(output, {
-                lookup: {}, sorted: [],
+                lookup: {}, summary: [],
             });
         });
         it('should handle empty input arrays', () => {
             const output = ngrams.countNgrams([], n);
             assert.deepStrictEqual(output, {
-                lookup: {}, sorted: [],
+                lookup: {}, summary: [],
             });
         });
     });
@@ -415,34 +449,15 @@ describe('Utils - ngrams', () => {
 
                     const tokensToVerify = [ 'I', 'do', 'not', 'know' ];
 
-                    assert.strictEqual(
-                        tetragrams.lookup[tokensToVerify[0]]
-                            .next[tokensToVerify[1]]
-                            .next[tokensToVerify[2]]
-                            .next[tokensToVerify[3]]
-                            .count,
-                        4);
+                    assert.strictEqual(lookupCount(tetragrams.lookup, [ tokensToVerify[0], tokensToVerify[1], tokensToVerify[2], tokensToVerify[3]]), 4);
 
                     for (const ngramResults of [ trigrams, tetragrams ]) {
-                        assert.strictEqual(
-                            ngramResults.lookup[tokensToVerify[0]]
-                                .next[tokensToVerify[1]]
-                                .next[tokensToVerify[2]]
-                                .count,
-                            11);
+                        assert.strictEqual(lookupCount(ngramResults.lookup, [ tokensToVerify[0], tokensToVerify[1], tokensToVerify[2] ]), 11);
                     }
 
                     for (const ngramResults of [ bigrams, trigrams, tetragrams ]) {
-                        assert.strictEqual(
-                            ngramResults.lookup[tokensToVerify[0]]
-                                .next[tokensToVerify[1]]
-                                .count,
-                            16);
-
-                        assert.strictEqual(
-                            ngramResults.lookup[tokensToVerify[0]]
-                                .count,
-                            935);
+                        assert.strictEqual(lookupCount(ngramResults.lookup, [ tokensToVerify[0], tokensToVerify[1] ]), 16);
+                        assert.strictEqual(lookupCount(ngramResults.lookup, [ tokensToVerify[0] ]),                    935);
                     }
                 });
         });

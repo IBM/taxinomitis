@@ -1,6 +1,7 @@
 /*eslint-env mocha */
 import * as assert from 'assert';
 import { TEST_INPUT_FILES, getTestStrings } from '../utils/ngrams';
+import { NgramLookupTable } from '../../lib/utils/ngrams';
 import { readJson } from '../../lib/utils/fileutils';
 import * as httpstatus from 'http-status';
 import * as express from 'express';
@@ -51,6 +52,26 @@ describe('REST API - ngrams', () => {
         checkUserStub.restore();
     });
 
+    function lookupCount(input: NgramLookupTable, tokens: string[]): number {
+        let node = input;
+        for (let tokenIdx = 0; tokenIdx < tokens.length - 1; tokenIdx++) {
+            const nxtToken = tokens[tokenIdx]
+            node = node[nxtToken].next as NgramLookupTable;
+        }
+        const token = tokens[tokens.length - 1];
+        let entry;
+        if (Array.isArray(node)) {
+            const allNgrams = node;
+            entry = allNgrams.find((i) => i.token === token);
+        }
+        else {
+            entry = node[token];
+        }
+        if (entry) {
+            return entry.count;
+        }
+        throw new Error('lookup entry not found');
+    }
 
 
     describe('invalid input', () => {
@@ -140,32 +161,22 @@ describe('REST API - ngrams', () => {
                     const tokensToVerify = [ 'I', 'do', 'not', 'know' ];
 
                     assert.strictEqual(
-                        output.tetragrams.lookup[tokensToVerify[0]]
-                            .next[tokensToVerify[1]]
-                            .next[tokensToVerify[2]]
-                            .next[tokensToVerify[3]]
-                            .count,
+                        lookupCount(output.tetragrams.lookup, [ tokensToVerify[0], tokensToVerify[1], tokensToVerify[2], tokensToVerify[3] ]),
                         4);
 
                     for (const ngramResults of [ output.trigrams, output.tetragrams ]) {
                         assert.strictEqual(
-                            ngramResults.lookup[tokensToVerify[0]]
-                                .next[tokensToVerify[1]]
-                                .next[tokensToVerify[2]]
-                                .count,
+                            lookupCount(ngramResults.lookup, [ tokensToVerify[0], tokensToVerify[1], tokensToVerify[2] ]),
                             11);
                     }
 
                     for (const ngramResults of [ output.bigrams, output.trigrams, output.tetragrams ]) {
                         assert.strictEqual(
-                            ngramResults.lookup[tokensToVerify[0]]
-                                .next[tokensToVerify[1]]
-                                .count,
+                            lookupCount(ngramResults.lookup, [ tokensToVerify[0], tokensToVerify[1] ]),
                             16);
 
                         assert.strictEqual(
-                            ngramResults.lookup[tokensToVerify[0]]
-                                .count,
+                            ngramResults.lookup[tokensToVerify[0]].count,
                             935);
                     }
                 });
@@ -174,6 +185,7 @@ describe('REST API - ngrams', () => {
 
         it('should return output for very large requests', () => {
             return getTestStrings([
+                TEST_INPUT_FILES.BOHEMIA,  TEST_INPUT_FILES.BOSCOMBE, TEST_INPUT_FILES.IDENTITY, TEST_INPUT_FILES.TWISTEDLIP,
                 TEST_INPUT_FILES.BOHEMIA,  TEST_INPUT_FILES.BOSCOMBE, TEST_INPUT_FILES.IDENTITY, TEST_INPUT_FILES.TWISTEDLIP,
                 TEST_INPUT_FILES.BOHEMIA,  TEST_INPUT_FILES.BOSCOMBE, TEST_INPUT_FILES.IDENTITY, TEST_INPUT_FILES.TWISTEDLIP,
                 TEST_INPUT_FILES.BOHEMIA,  TEST_INPUT_FILES.BOSCOMBE, TEST_INPUT_FILES.IDENTITY, TEST_INPUT_FILES.TWISTEDLIP,
