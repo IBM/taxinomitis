@@ -321,7 +321,8 @@
 
         // called on any corpus changes - recomputes the tokens using the updated corpus
         function modifyCorpus() {
-            if ($scope.project.toy && $scope.project.toy.tokens) {
+            loggerService.debug('[ml4klanguage] modifyCorpus');
+            if ($scope.project.toy && analyzedCorpus) {
                 $scope.loading = true;
                 return parseCorpus()
                     .then(() => {
@@ -495,6 +496,7 @@
         // ===================================================================
 
         function parseCorpus() {
+            loggerService.debug('[ml4klanguage] parseCorpus');
             return trainingService.getTraining($scope.projectId, $scope.userId, $scope.project.classid)
                 .then((corpus) => {
                     const text = corpus.map((doc) => doc.contents);
@@ -941,10 +943,16 @@
                 });
         };
 
+
+
+        //=====================================================================
+        //  using the toy language model
+        //=====================================================================
+
         const MAX_LENGTH = 1000;
 
         function append(currentString, newToken) {
-            if (newToken === "'s") {
+            if (newToken === "'s" || newToken === "'d") {
                 return currentString + newToken;
             }
             else {
@@ -977,12 +985,46 @@
             return [];
         }
 
+
+        function getCandidateNgrams(allNgramsList) {
+            return allNgramsList.filter((i) => i.cumprob <= $scope.project.toy.topp);
+        }
+        function computeCandidateProbabilities(candidates) {
+            let total = 0.0;
+            const computedCandidates = candidates.map((c) => {
+                const val = Math.pow(c.count, 1 / $scope.project.toy.temperature);
+                total += val;
+                return { token : c.token, val };
+            });
+            return computedCandidates.map((c) => {
+                return { token : c.token, prob : c.val / total };
+            });
+        }
+        function selectCandidate(candidates) {
+            const rand = Math.random();
+            let cum = 0;
+            for (const candidate of candidates) {
+                cum += candidate.prob;
+                if (rand < cum) {
+                    return candidate;
+                }
+            }
+            throw new Error('Failure to select next token');
+        }
+        function chooseNgram(allNgrams) {
+            const candidates = getCandidateNgrams(allNgrams);
+            if (candidates.length === 0) {
+                return allNgrams[0].token;
+            }
+            return selectCandidate(computeCandidateProbabilities(candidates)).token;
+        }
+
         function runBigrams(generated, token0String) {
             generated = append(generated, token0String);
 
             let bigramOptions = lookupBigrams(token0String);
             while (bigramOptions.length > 0 && generated.length < MAX_LENGTH) {
-                const nextTokenString = bigramOptions[0].token;
+                const nextTokenString = chooseNgram(bigramOptions);
                 generated = append(generated, nextTokenString);
 
                 token0String = nextTokenString;
@@ -996,7 +1038,7 @@
 
             let trigramOptions = lookupTrigrams(token0String, token1String);
             while (trigramOptions.length > 0 && generated.length < MAX_LENGTH) {
-                const nextTokenString = trigramOptions[0].token;
+                const nextTokenString = chooseNgram(trigramOptions);
                 generated = append(generated, nextTokenString);
 
                 token0String = token1String;
@@ -1012,7 +1054,7 @@
 
             let tetragramOptions = lookupTetragrams(token0String, token1String, token2String);
             while (tetragramOptions.length > 0 && generated.length < MAX_LENGTH) {
-                const nextTokenString = tetragramOptions[0].token;
+                const nextTokenString = chooseNgram(tetragramOptions);
                 generated = append(generated, nextTokenString);
 
                 token0String = token1String;

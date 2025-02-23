@@ -9,7 +9,7 @@
             <div style="padding: 1em;">
                 <div>
                     <md-input-container class="trainingtextinput">
-                        <input placeholder="Title" ng-model="title">
+                        <input placeholder="Title" ng-model="title" ng-required="true">
                     </md-input-container>
                 </div>
                 <div>
@@ -18,7 +18,7 @@
                             placeholder="Corpus text"
                             ng-required="true"
                             ng-model="contents"
-                            md-maxlength="10000"></textarea>
+                            md-maxlength="25000"></textarea>
                     </md-input-container>
                 </div>
             </div>
