@@ -23,6 +23,7 @@ const mlforkidsImages = __webpack_require__(/*! ../mlforkids-components/images *
 const mlforkidsRegression = __webpack_require__(/*! ../mlforkids-components/regression */ "./src/mlforkids-components/regression/index.js");
 const mlforkidsNumbers = __webpack_require__(/*! ../mlforkids-components/numbers */ "./src/mlforkids-components/numbers/index.js");
 const mlforkidsTensorFlow = __webpack_require__(/*! ../mlforkids-components/tensorflow */ "./src/mlforkids-components/tensorflow/index.js");
+const mlforkidsWebllm = __webpack_require__(/*! ../mlforkids-components/webllm */ "./src/mlforkids-components/webllm/index.js");
 const mlforkidsStorage = __webpack_require__(/*! ../mlforkids-components/storage */ "./src/mlforkids-components/storage/index.js");
 
 /**
@@ -417,6 +418,15 @@ class SharedDispatch {
         this.mlforkidsTensorFlowSupport.initProject(message.mlforkidstensorflow.data, worker);
       } else if (message.mlforkidstensorflow.command === 'classify') {
         this.mlforkidsTensorFlowSupport.classifyData(message.mlforkidstensorflow.data, worker);
+      }
+    } else if (message.mlforkidswebllm) {
+      if (message.mlforkidswebllm.command === 'init') {
+        if (!this.mlforkidsWebLlmSupport) {
+          this.mlforkidsWebLlmSupport = new mlforkidsWebllm();
+        }
+        this.mlforkidsWebLlmSupport.initModel(message.mlforkidswebllm.data, worker);
+      } else if (message.mlforkidswebllm.command === 'prompt') {
+        this.mlforkidsWebLlmSupport.promptModel(message.mlforkidswebllm.data, worker);
       }
     } else if (typeof message.responseId === 'undefined') {
       log.error("Dispatch caught malformed message from a worker: ".concat(JSON.stringify(event)));
@@ -2724,6 +2734,148 @@ class ML4KidsTensorFlow {
   }
 }
 module.exports = ML4KidsTensorFlow;
+
+/***/ }),
+
+/***/ "./src/mlforkids-components/webllm/index.js":
+/*!**************************************************!*\
+  !*** ./src/mlforkids-components/webllm/index.js ***!
+  \**************************************************/
+/***/ ((module) => {
+
+class ML4KidsWebLlm {
+  constructor() {
+    this.MODELS = {};
+    this.state = 'INIT';
+  }
+  initModel(requestdata, worker) {
+    const modelid = requestdata.modelid;
+    const contextwindow = requestdata.contextwindow;
+    this.MODELS[modelid + '-' + contextwindow] = {
+      state: 'INIT',
+      busy: false
+    };
+    this._loadWebLlmProjectSupport().then(() => {
+      this.MODELS[modelid + '-' + contextwindow].webllmEngine = new window.mlforkidsWebLlm.MLCEngine();
+      const modelCfg = {
+        context_window_size: contextwindow
+      };
+      console.log('[mlforkids] loading model', modelid, modelCfg);
+      return this.MODELS[modelid + '-' + contextwindow].webllmEngine.reload(modelid, modelCfg);
+    }).then(() => {
+      console.log('[mlforkids] loaded model');
+      this.MODELS[modelid + '-' + contextwindow].state = 'READY';
+      worker.postMessage({
+        mlforkidswebllm: 'modelready',
+        data: {
+          modelid,
+          contextwindow
+        }
+      });
+    }).catch(err => {
+      console.log('[mlforkids] failed to load model', err);
+      this.MODELS[modelid + '-' + contextwindow].state = 'ERROR';
+      worker.postMessage({
+        mlforkidswebllm: 'modelfailed',
+        data: {
+          modelid,
+          contextwindow
+        }
+      });
+    });
+  }
+  promptModel(requestdata, worker) {
+    const requestid = requestdata.requestid;
+    const modelid = requestdata.modelid;
+    const contextwindow = requestdata.contextwindow;
+    const input = requestdata.input;
+    const temperature = requestdata.temperature;
+    const top_p = requestdata.top_p;
+    const modelKey = modelid + '-' + contextwindow;
+    if (modelKey in this.MODELS === false) {
+      console.log('[mlforkids] Unknown model ' + modelKey);
+      return;
+    }
+    if (this.MODELS[modelKey].state !== 'READY') {
+      console.log('[mlforkids] Model not ready');
+      return;
+    }
+    if (this.MODELS[modelKey].busy) {
+      console.log('[mlforkids] Model is busy');
+      return;
+    }
+    this.MODELS[modelKey].busy = true;
+    const prompt = {
+      messages: [{
+        role: 'system',
+        content: 'You are a helpful AI agent helping users.'
+      }, {
+        role: 'user',
+        content: input
+      }],
+      temperature,
+      top_p
+    };
+    console.log(prompt);
+    this.MODELS[modelid + '-' + contextwindow].webllmEngine.chat.completions.create(prompt).then(reply => {
+      console.log(reply);
+      const response = reply.choices[0].message.content;
+      worker.postMessage({
+        mlforkidswebllm: 'promptresponse',
+        data: {
+          requestid,
+          modelid,
+          contextwindow,
+          response
+        }
+      });
+      this.MODELS[modelKey].busy = false;
+    }).catch(err => {
+      console.log('[mlforkids] language model fail', err);
+      worker.postMessage({
+        mlforkidswebllm: 'promptresponse',
+        data: {
+          requestid,
+          modelid,
+          contextwindow,
+          response: 'Unable to respond'
+        }
+      });
+      this.MODELS[modelKey].busy = false;
+    });
+  }
+  _loadWebLlmProjectSupport() {
+    console.log('[mlforkids] loading web-llm script');
+    return new Promise((resolve, reject) => {
+      if (window.mlforkidsWebLlm) {
+        return resolve(window.mlforkidsWebLlm);
+      }
+      const scriptObj = document.createElement('script');
+      scriptObj.src = './mlforkids-thirdparty-libs/web-llm/index.js';
+      scriptObj.onload = () => {
+        this._waitForWebLlmModule(resolve);
+        scriptObj.remove();
+      };
+      scriptObj.onerror = err => {
+        this.state = 'ERROR';
+        console.log('[mlforkids] Failed to load web-llm module', err);
+        reject();
+      };
+      document.head.appendChild(scriptObj);
+    });
+  }
+  _waitForWebLlmModule(resolve) {
+    if (window.mlforkidsWebLlm) {
+      console.log('[mlforkids] loaded web-llm');
+      resolve(window.mlforkidsWebLlm);
+    } else {
+      setTimeout(() => {
+        this._waitForWebLlmModule(resolve);
+      }, 3000);
+    }
+  }
+}
+module.exports = ML4KidsWebLlm;
 
 /***/ }),
 

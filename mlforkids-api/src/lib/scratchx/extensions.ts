@@ -301,6 +301,15 @@ async function getRegressionExtensionLocalData(projectid: string, projectname: s
 
 
 
+export async function getSmallLanguageModelExtension(modelid: string, contextwindow: number): Promise<string>
+{
+    const template: string = await fileutils.read('./resources/scratch3-language.js');
+    Mustache.parse(template);
+    return Mustache.render(template, { modelid, contextwindow });
+}
+
+
+
 
 export function getScratchxExtension(
     scratchkey: Types.ScratchKey,

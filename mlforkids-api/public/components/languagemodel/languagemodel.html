@@ -505,10 +505,10 @@
                     </div>
                 </div>
                 <div class="makebutton">
-                    <button type="button" class="btn btn-primary"
-                            ng-disabled="!textgenerated || loading || generating"
-                            ui-sref="mlproject_scratch3({ projectId : projectId, userId : userId })"
-                            translate="PROJECT.SCRATCH3.TITLE"></button>
+                    <a target="_blank" class="btn btn-primary"
+                       ng-disabled="!textgenerated || loading || generating"
+                       href="/scratch/?url=https://machinelearningforkids.co.uk/api/scratch/{{ project.slm.id }}/{{ project.slm.contextwindow }}/extensionslm.js"
+                       translate="PROJECT.SCRATCH3.TITLE"></a>
                 </div>
             </div>
         </div>

@@ -482,6 +482,30 @@ async function getScratch3Extension(req: Express.Request, res: Express.Response)
 
 
 
+function getSmallLanguageModelExtension(req: Express.Request, res: Express.Response) {
+    const modelid = req.params.modelid;
+    const contextwindow = req.params.contextwindow;
+
+    const intContextWindow = parseInt(contextwindow, 10);
+    if (isNaN(intContextWindow)) {
+        return errors.missingData(res);
+    }
+
+    return extensions.getSmallLanguageModelExtension(modelid, intContextWindow)
+        .then((extension) => {
+            return res.set('Content-Type', 'application/javascript')
+                  .set(headers.CACHE_1YEAR)
+                  .send(extension);
+        })
+        .catch((err) => {
+            return errors.unknownError(res, err);
+        });
+}
+
+
+
+
+
 
 function handleTfjsException(err: any, res: Express.Response) {
     log.error({ err }, 'TensorFlow.js request exception');
@@ -649,6 +673,7 @@ export default function registerApis(app: Express.Application) {
 
     app.get(urls.SCRATCH3_EXTENSION, cors(CORS_CONFIG), getScratch3Extension);
     app.get(urls.SCRATCH3_EXTENSION_LOCAL, cors(CORS_CONFIG), getScratch3ExtensionLocalData);
+    app.get(urls.SCRATCH3_SLMEXTENSION, cors(CORS_CONFIG), getSmallLanguageModelExtension);
     app.get(urls.SCRATCHTFJS_EXTENSION, cors(CORS_CONFIG), getTfjsExtension);
     app.get(urls.SCRATCHKEY_STATUS, cors(CORS_CONFIG), getScratchxStatus);
 }
