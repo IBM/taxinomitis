@@ -277,6 +277,9 @@
         //   finishing phase:    TOY.CORPUS
         //                       SMALL.ARCHITECTURE
         // ===================================================================
+        $scope.modelTypeSwitch = function (type) {
+            $scope.modeltype = type;
+        };
         // invoked when the user clicks Next after choosing project type
         $scope.chooseModelType = function (type) {
             loggerService.debug('[ml4klanguage] chooseModelType', type);
@@ -682,27 +685,32 @@
             // clear current selection
             $scope.project.toy.tokens.forEach(deselect);
 
-            // walk the ngrams tree, building up the joined up text to display
-            //  in the "confirmTokens" box
-            let nextToken = $scope.project.toy.tokens[0];
-            $scope.confirmTokens = { text : '' };
-            const selectionLength = ($scope.phase === $scope.PHASES.TOY.TOKENS) ? $scope.project.toy.ngrams + 1 : $scope.project.toy.ngrams;
-            let parent;
-            for (let i = 0; i < selectionLength; i++) {
-                $scope.confirmTokens = {
-                    text : $scope.confirmTokens.text + ' ' + nextToken.token,
-                    count : nextToken.count
-                };
-
-                nextToken.selected = true;
-
-                parent = nextToken;
-                nextToken = nextToken.next[0];
+            if ($scope.project.toy.tokens.length === 0) {
+                // TODO - need to prompt the user to provide more of a corpus
             }
+            else {
+                // walk the ngrams tree, building up the joined up text to display
+                //  in the "confirmTokens" box
+                let nextToken = $scope.project.toy.tokens[0];
+                $scope.confirmTokens = { text : '' };
+                const selectionLength = ($scope.phase === $scope.PHASES.TOY.TOKENS) ? $scope.project.toy.ngrams + 1 : $scope.project.toy.ngrams;
+                let parent;
+                for (let i = 0; i < selectionLength; i++) {
+                    $scope.confirmTokens = {
+                        text : $scope.confirmTokens.text + ' ' + nextToken.token,
+                        count : nextToken.count
+                    };
 
-            // token to display probability scores for is the parent of the
-            //  selected word
-            tokenToRecompute = parent;
+                    nextToken.selected = true;
+
+                    parent = nextToken;
+                    nextToken = nextToken.next[0];
+                }
+
+                // token to display probability scores for is the parent of the
+                //  selected word
+                tokenToRecompute = parent;
+            }
         }
 
         // recursively deselect all tokens

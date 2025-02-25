@@ -220,6 +220,7 @@
         "TYPES": {
             "TYPELABEL": "Project Type",
             "LABEL": "recognising",
+            "GENERATE": "generating",
             "NOTES_1": "What do you want to teach the computer to do?",
             "NOTES_2": "To recognise words, sentences or paragraphs, choose \"recognising text\"",
             "NOTES_3": "To recognise photos, diagrams or pictures, choose \"recognising images\"",
@@ -964,6 +965,70 @@
             "TITLE": "neural networks",
             "TEXT1": "I hope this simplified description gives you an idea what happens when you click on the \"Train new machine learning model\" button.",
             "TEXT2": "For an explanation of why this process works, try watching \"<a href='https://youtu.be/R9OHn5ZF4Uo'>How Machines Learn</a>\" by CGP Grey."
+        }
+    },
+    "LANGUAGEMODEL": {
+        "TITLE": "Prepare a language model",
+        "NAME": "language model",
+
+        "REVIEW": "Review",
+
+        "TYPE": {
+            "TITLE": "Type of language model",
+            "TOY": "Toy",
+            "SMALL": "Small",
+            "LARGE": "Large",
+            "DESCRIPTION": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        },
+
+        "CORPUS": {
+            "TITLE": "corpus",
+            "ADD": "Add text"
+        },
+
+        "CONTEXTWINDOW": {
+            "TITLE": "Size of context window",
+            "DESCRIPTION": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+        },
+
+        "NGRAMS": {
+            "DESCRIPTION": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+
+            "SAMPLE": "sample of the tokens",
+            "COUNTLABEL": "times in the corpus",
+            "PROBABILITYLABEL": "how tokens will be selected",
+            "PROBABILITY": "green bars above show the chance of words that could be chosen to follow"
+        },
+
+        "TEMPERATURE": {
+            "TITLE": "Temperature",
+            "DESCRIPTION": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "LOW": "low",
+            "HIGH": "high"
+        },
+        "TOPP": {
+            "TITLE": "Top-p",
+            "DESCRIPTION": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+        },
+
+        "SMALL": {
+            "TYPE": "Model architecture",
+            "DOWNLOADING": "Downloading..."
+        },
+
+        "LARGE": {
+            "TITLE": "Large Language Models",
+            "DESCRIPTION": "Vehicula quis in cubilia metus dis. Commodo class nascetur curabitur pellentesque dis magna tristique? Iaculis gravida felis tortor sollicitudin accumsan lacus. Himenaeos mus condimentum dis lorem dictum purus interdum taciti vulputate. Fames senectus orci litora sagittis orci rutrum eros. Vestibulum pulvinar hendrerit vehicula etiam fusce velit senectus quisque vulputate. Arcu parturient volutpat habitant congue lacinia netus ipsum fames. Per sed nullam posuere suspendisse cursus aliquet maximus. Dapibus porta eget tempus sit interdum sit. Curae ad habitasse congue torquent nisi."
+        },
+
+        "TESTING": {
+            "TITLE": " Prompt ",
+            "GENERATE": "Generate",
+            "ERROR": {
+                "TOOSHORT": "You need to add more words to your prompt for the model to work.",
+                "NOTFOUND": "The words at the end of your prompt weren't found anywhere in your corpus."
+            },
+            "SCRATCH": "Use your language model in Scratch"
         }
     },
     "MAKES": {

@@ -8,7 +8,7 @@
 </div>
 <div ng-if="isAuthenticated" ignore-drop>
     <div class="jumbotron training">
-        <h2 class="text-center">Prepare a language model</h2>
+        <h2 class="text-center" translate="LANGUAGEMODEL.TITLE"></h2>
     </div>
 
     <div ng-repeat="error in vm.errors" class="alert alert-danger alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('errors', $index)">
@@ -30,28 +30,23 @@
         <!-- ******************************************************* -->
 
         <div class="modelstep">
-            <div class="stepheading">Type of language model</div>
+            <div class="stepheading" translate="LANGUAGEMODEL.TYPE.TITLE"></div>
             <div style="margin: 1em 0;">
-                <button type="button" class="btn btn-default"
+                <button type="button" class="btn btn-default" translate="LANGUAGEMODEL.TYPE.TOY"
                     ng-class="{'btn-primary' : project.modeltype === 'toy' || modeltype === 'toy' }"
                     ng-disabled="project.modeltype && project.modeltype !== 'toy'"
-                    ng-click="modeltype='toy'">Toy</button>
-                <button type="button" class="btn btn-default"
+                    ng-click="modelTypeSwitch('toy')"></button>
+                <button type="button" class="btn btn-default" translate="LANGUAGEMODEL.TYPE.SMALL"
                     ng-class="{'btn-primary' : project.modeltype === 'small' || modeltype === 'small' }"
                     ng-disabled="project.modeltype && project.modeltype !== 'small'"
-                    ng-click="modeltype='small'">Small</button>
-                <button type="button" class="btn btn-default"
+                    ng-click="modelTypeSwitch('small')"></button>
+                <button type="button" class="btn btn-default" translate="LANGUAGEMODEL.TYPE.LARGE"
                     ng-class="{'btn-primary' : project.modeltype === 'large' || modeltype === 'large' }"
                     ng-disabled="project.modeltype && project.modeltype !== 'large'"
-                    ng-click="modeltype='large'">Large</button>
-                <strong style="color: #00008b; margin-left: 1em;">language model</strong>
+                    ng-click="modelTypeSwitch('large')"></button>
+                <strong style="color: #00008b; margin-left: 1em;" translate="LANGUAGEMODEL.NAME"></strong>
             </div>
-            <div class="stepexplanation" ng-if="phase === PHASES.INITIAL">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-                aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </div>
+            <div class="stepexplanation" ng-if="phase === PHASES.INITIAL" translate="LANGUAGEMODEL.TYPE.DESCRIPTION"></div>
         </div>
 
         <div class="nextstep" ng-if="phase === PHASES.INITIAL">
@@ -68,14 +63,8 @@
         <!-- ******************************************************* -->
 
         <div class="modelstep" ng-if="modeltype === 'large'">
-            <div class="stepheading">Large Language Models</div>
-            <div class="stepexplanation">
-                Vehicula quis in cubilia metus dis. Commodo class nascetur curabitur pellentesque dis magna tristique? Iaculis gravida
-                felis tortor sollicitudin accumsan lacus. Himenaeos mus condimentum dis lorem dictum purus interdum taciti vulputate.
-                Fames senectus orci litora sagittis orci rutrum eros. Vestibulum pulvinar hendrerit vehicula etiam fusce velit senectus
-                quisque vulputate. Arcu parturient volutpat habitant congue lacinia netus ipsum fames. Per sed nullam posuere suspendisse
-                cursus aliquet maximus. Dapibus porta eget tempus sit interdum sit. Curae ad habitasse congue torquent nisi.
-            </div>
+            <div class="stepheading" translate="LANGUAGEMODEL.LARGE.TITLE">Large Language Models</div>
+            <div class="stepexplanation" translate="LANGUAGEMODEL.LARGE.DESCRIPTION"></div>
         </div>
 
 
@@ -86,7 +75,7 @@
         <div class="trainingbuckets" ng-if="project.modeltype == 'toy'" ng-class="{'documents' : corpus.length > 0 }">
             <div class="trainingbucket">
                 <div class="trainingbucketheader">
-                    <span class="trainingbucketlabel">corpus</span>
+                    <span class="trainingbucketlabel" translate="LANGUAGEMODEL.CORPUS.TITLE"></span>
                 </div>
                 <div class="trainingbucketitems">
                     <div class="trainingbucketitem" ng-repeat="doc in corpus">
@@ -101,7 +90,7 @@
                 <div class="newexamplesbuttonbar" ng-hide="reviewing">
                     <div class="btn newexamplebutton" ng-click="addCorpusText($event)">
                         <div class="newexampleicon">+</div>
-                        <div class="newexamplelabel">Add text</div>
+                        <div class="newexamplelabel" translate="LANGUAGEMODEL.CORPUS.ADD"></div>
                     </div>
                     <input id="corpus-file-upload"
                         type="file"
@@ -136,8 +125,8 @@
         <!-- ******************************************************* -->
 
         <div class="modelstep" ng-if="phase === PHASES.TOY.CONTEXTWINDOW || phase === PHASES.TOY.TOKENS || phase === PHASES.TOY.TEMPERATURE || phase === PHASES.TOY.READY">
-            <div class="resetlink" ng-if="phase === PHASES.TOY.READY" ng-click="review(PHASES.TOY.CONTEXTWINDOW)">Review</div>
-            <div class="stepheading">"Size of context window"</div>
+            <div class="resetlink" ng-if="phase === PHASES.TOY.READY" ng-click="review(PHASES.TOY.CONTEXTWINDOW)" translate="LANGUAGEMODEL.REVIEW"></div>
+            <div class="stepheading">"{{ 'LANGUAGEMODEL.CONTEXTWINDOW.TITLE' | translate }}"</div>
             <div class="steprow">
                 <div class="rowitem">
                     <img ng-src="static/images/context-{{ project.toy.ngrams }}.png" style="max-width: 150px;">
@@ -146,14 +135,7 @@
                     <button type="button" class="btn btn-default" ng-click="changeNgramSize()">Change</button>
                 </div>
                 <div class="rowitem stepexplanation" style="flex: 3;">
-                    <span ng-if="phase === PHASES.TOY.CONTEXTWINDOW || phase === PHASES.TOY.TOKENS">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                    enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                    nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                    pariatur.
-                    </span>
+                    <span ng-if="phase === PHASES.TOY.CONTEXTWINDOW || phase === PHASES.TOY.TOKENS" translate="LANGUAGEMODEL.NGRAMS.DESCRIPTION"></span>
                 </div>
             </div>
         </div>
@@ -174,7 +156,7 @@
         <div class="trainingbuckets" ng-if="phase === PHASES.TOY.TOKENS" style="min-height: 320px; max-height: 340px; height: unset;">
             <div class="trainingbucket">
                 <div class="trainingbucketheader">
-                    <span class="trainingbucketlabel">sample of the tokens</span>
+                    <span class="trainingbucketlabel" translate="LANGUAGEMODEL.NGRAMS.SAMPLE">sample of the tokens</span>
                 </div>
                 <div class="trainingbucketitems" style="max-height: 267px; height: unset; overflow-y: scroll; padding-top: 0;">
                     <table style="padding-top: 0;">
@@ -224,7 +206,7 @@
         </div>
 
         <div ng-if="phase === PHASES.TOY.TOKENS && confirmTokens" class="confirmtokens">
-            <span class="token">{{ confirmTokens.text }}</span> found <strong>{{ confirmTokens.count }}</strong> times in the corpus
+            <span class="token">{{ confirmTokens.text }}</span> found <strong>{{ confirmTokens.count }}</strong> {{ 'LANGUAGEMODEL.NGRAMS.COUNTLABEL' | translate }}
         </div>
 
         <div class="nextstep" ng-if="phase === PHASES.TOY.TOKENS">
@@ -243,34 +225,26 @@
             <div class="resetlink" ng-if="phase === PHASES.TOY.READY" ng-click="review(PHASES.TOY.TEMPERATURE)">Review</div>
             <div class="steprow">
                 <div class="rowitem">
-                    <div class="stepheading">"Temperature"</div>
+                    <div class="stepheading">"{{ 'LANGUAGEMODEL.TEMPERATURE.TITLE' | translate }}"</div>
                     <div>
                         <md-slider min="0.1" max="1.0" step="0.1" ng-model="project.toy.temperature" ng-change="recomputeProbabilities()"></md-slider>
                     </div>
                     <div style="margin-bottom: 1em; display: flex; flex-direction: row; padding: 0 1em; font-size: 0.9em; color: #2e6da4;">
-                        <div style="flex: 1; text-align: left;">low</div>
-                        <div style="flex: 1; text-align: right;">high</div>
+                        <div style="flex: 1; text-align: left;"  translate="LANGUAGEMODEL.TEMPERATURE.LOW"></div>
+                        <div style="flex: 1; text-align: right;" translate="LANGUAGEMODEL.TEMPERATURE.HIGH"></div>
                     </div>
-                    <div class="stepexplanation" ng-if="phase === PHASES.TOY.TEMPERATURE">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris nisi ut aliquip ex ea commodo consequat.
-                    </div>
+                    <div class="stepexplanation" ng-if="phase === PHASES.TOY.TEMPERATURE" translate="LANGUAGEMODEL.TEMPERATURE.DESCRIPTION"></div>
                 </div>
                 <div class="rowitem">
-                    <div class="stepheading">"Top-p"</div>
+                    <div class="stepheading">"{{ 'LANGUAGEMODEL.TOPP.TITLE' | translate }}"</div>
                     <div>
                         <md-slider min="0.1" max="1.0" step="0.1" ng-model="project.toy.topp" ng-change="recomputeProbabilities()"></md-slider>
                     </div>
                     <div style="margin-bottom: 1em; display: flex; flex-direction: row; padding: 0 1em; font-size: 0.9em; color: #2e6da4;">
-                        <div style="flex: 1; text-align: left;">low</div>
-                        <div style="flex: 1; text-align: right;">high</div>
+                        <div style="flex: 1; text-align: left;"  translate="LANGUAGEMODEL.TEMPERATURE.LOW"></div>
+                        <div style="flex: 1; text-align: right;" translate="LANGUAGEMODEL.TEMPERATURE.HIGH"></div>
                     </div>
-                    <div class="stepexplanation" ng-if="phase === PHASES.TOY.TEMPERATURE">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris nisi ut aliquip ex ea commodo consequat.
-                    </div>
+                    <div class="stepexplanation" ng-if="phase === PHASES.TOY.TEMPERATURE" translate="LANGUAGEMODEL.TOPP.DESCRIPTION"></div>
                 </div>
             </div>
         </div>
@@ -278,7 +252,7 @@
         <div class="trainingbuckets" ng-if="phase === PHASES.TOY.TEMPERATURE" style="min-height: 370px; max-height: 390px; height: unset;">
             <div class="trainingbucket">
                 <div class="trainingbucketheader">
-                    <span class="trainingbucketlabel">how tokens will be selected</span>
+                    <span class="trainingbucketlabel" translate="LANGUAGEMODEL.NGRAMS.PROBABILITYLABEL"></span>
                 </div>
                 <div class="trainingbucketitems" style="max-height: 317px; height: unset; overflow-y: scroll; padding-top: 0;">
                     <table style="padding-top: 0;">
@@ -327,7 +301,7 @@
         </div>
 
         <div ng-if="phase === PHASES.TOY.TEMPERATURE && confirmTokens" ng-hide="project.toy.ready" class="confirmtokens" style="text-align: right;">
-            green bars above show the chance of words that could be chosen to follow <span class="token">{{ confirmTokens.text }}</span>
+            {{ 'LANGUAGEMODEL.NGRAMS.PROBABILITY' | translate }} <span class="token">{{ confirmTokens.text }}</span>
         </div>
 
         <div class="nextstep" ng-if="phase === PHASES.TOY.TEMPERATURE">
@@ -344,7 +318,7 @@
 
         <div class="modelstep" ng-hide="loading"
             ng-if="phase === PHASES.SMALL.ARCHITECTURE || phase === PHASES.SMALL.CONTEXTWINDOW || phase === PHASES.SMALL.TEMPERATURE || phase === PHASES.SMALL.READY">
-            <div class="stepheading">Model architecture</div>
+            <div class="stepheading" translate="LANGUAGEMODEL.SMALL.TYPE"></div>
             <div class="steprow">
                 <md-select class="rowitem"
                     ng-model="project.slm.id" ng-change="lookupSmallLanguageModelDetails()"
@@ -362,7 +336,7 @@
                     </div>
                 </div>
                 <div class="rowitem" ng-if="project.slm.download >= 0" ng-hide="project.slm.download === 100">
-                    <div>Downloading...</div>
+                    <div translate="LANGUAGEMODEL.SMALL.DOWNLOADING"></div>
                     <md-progress-linear
                         style="width: 80%;"
                         ng-if="project.slm.download < 100"
@@ -373,12 +347,10 @@
         </div>
 
         <div class="nextstep" ng-if="project.slm" ng-hide="project.slm.download === 100 || loading">
-            <button type="button"
+            <button type="button" translate="WORKSHEETS.DOWNLOAD"
                 class="btn btn-primary"
                 ng-disabled="!project.slm.id || project.slm.download >= 0"
-                ng-click="downloadModel()">
-                Download
-            </button>
+                ng-click="downloadModel()"></button>
         </div>
 
         <!-- ******************************************************* -->
@@ -386,8 +358,8 @@
         <!-- ******************************************************* -->
 
         <div class="modelstep" ng-if="phase === PHASES.SMALL.CONTEXTWINDOW || phase === PHASES.SMALL.TEMPERATURE || phase === PHASES.SMALL.READY">
-            <div class="resetlink" ng-if="phase === PHASES.SMALL.READY" ng-click="review(PHASES.SMALL.CONTEXTWINDOW)">Review</div>
-            <div class="stepheading">Size of context window</div>
+            <div class="resetlink" ng-if="phase === PHASES.SMALL.READY" ng-click="review(PHASES.SMALL.CONTEXTWINDOW)" translate="LANGUAGEMODEL.REVIEW">Review</div>
+            <div class="stepheading" translate="LANGUAGEMODEL.CONTEXTWINDOW.TITLE" translate="LANGUAGEMODEL.CONTEXTWINDOW.TITLE"></div>
             <div class="steprow">
                 <md-select class="rowitem" ng-model="project.slm.contextwindow" ng-required="true" ng-change="modifySmallModelContextWindow()">
                     <md-option ng-value=512>512</md-option>
@@ -400,14 +372,7 @@
                     <md-option ng-value="65536">65536</md-option>
                     <md-option ng-value="131072">131072</md-option>
                 </md-select>
-                <div class="rowitem stepexplanation" ng-if="phase === PHASES.SMALL.CONTEXTWINDOW">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                    enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                    nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                    pariatur.
-                </div>
+                <div class="rowitem stepexplanation" ng-if="phase === PHASES.SMALL.CONTEXTWINDOW" translate="LANGUAGEMODEL.CONTEXTWINDOW.DESCRIPTION"></div>
             </div>
         </div>
 
@@ -416,8 +381,7 @@
                 class="btn btn-primary"
                 translate="APP.NEXT"
                 ng-disabled="!project.slm.contextwindow || reconfiguring"
-                ng-click="initSmallModelTemperature()"
-                ></button>
+                ng-click="initSmallModelTemperature()"></button>
         </div>
 
         <!-- ******************************************************* -->
@@ -425,37 +389,29 @@
         <!-- ******************************************************* -->
 
         <div class="modelstep" ng-if="phase === PHASES.SMALL.TEMPERATURE || phase === PHASES.SMALL.READY" ng-hide="loading">
-            <div class="resetlink" ng-if="phase === PHASES.SMALL.READY" ng-click="review(PHASES.SMALL.TEMPERATURE)">Review</div>
+            <div class="resetlink" ng-if="phase === PHASES.SMALL.READY" ng-click="review(PHASES.SMALL.TEMPERATURE)" translate="LANGUAGEMODEL.REVIEW"></div>
             <div class="steprow">
                 <div class="rowitem">
-                    <div class="stepheading">Temperature</div>
+                    <div class="stepheading" translate="LANGUAGEMODEL.TEMPERATURE.TITLE"></div>
                     <div>
                         <md-slider min="0.1" max="1.0" step="0.1" ng-model="project.slm.temperature"></md-slider>
                     </div>
                     <div style="margin-bottom: 1em; display: flex; flex-direction: row; padding: 0 1em; font-size: 0.9em; color: #2e6da4;">
-                        <div style="flex: 1; text-align: left;">low</div>
-                        <div style="flex: 1; text-align: right;">high</div>
+                        <div style="flex: 1; text-align: left;"  translate="LANGUAGEMODEL.TEMPERATURE.LOW"></div>
+                        <div style="flex: 1; text-align: right;" translate="LANGUAGEMODEL.TEMPERATURE.HIGH"></div>
                     </div>
-                    <div class="stepexplanation" ng-if="phase === PHASES.SMALL.TEMPERATURE">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris nisi ut aliquip ex ea commodo consequat.
-                    </div>
+                    <div class="stepexplanation" ng-if="phase === PHASES.SMALL.TEMPERATURE" translate="LANGUAGEMODEL.TEMPERATURE.DESCRIPTION"></div>
                 </div>
                 <div class="rowitem">
-                    <div class="stepheading">Top-p</div>
+                    <div class="stepheading" translate="LANGUAGEMODEL.TOPP.TITLE"></div>
                     <div>
                         <md-slider min="0.1" max="1.0" step="0.1" ng-model="project.slm.topp"></md-slider>
                     </div>
                     <div style="margin-bottom: 1em; display: flex; flex-direction: row; padding: 0 1em; font-size: 0.9em; color: #2e6da4;">
-                        <div style="flex: 1; text-align: left;">low</div>
-                        <div style="flex: 1; text-align: right;">high</div>
+                        <div style="flex: 1; text-align: left;"  translate="LANGUAGEMODEL.TEMPERATURE.LOW"></div>
+                        <div style="flex: 1; text-align: right;" translate="LANGUAGEMODEL.TEMPERATURE.HIGH"></div>
                     </div>
-                    <div class="stepexplanation" ng-if="phase === PHASES.SMALL.TEMPERATURE">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris nisi ut aliquip ex ea commodo consequat.
-                    </div>
+                    <div class="stepexplanation" ng-if="phase === PHASES.SMALL.TEMPERATURE" translate="LANGUAGEMODEL.TOPP.DESCRIPTION"></div>
                 </div>
             </div>
         </div>
@@ -465,8 +421,7 @@
                 class="btn btn-primary"
                 ng-disabled="reconfiguring"
                 translate="APP.NEXT"
-                ng-click="setProjectReady()"
-                ></button>
+                ng-click="setProjectReady()"></button>
         </div>
 
         <!-- ******************************************************* -->
@@ -475,16 +430,15 @@
 
         <div ng-if="phase === PHASES.TOY.READY || phase === PHASES.SMALL.READY" style="margin-top: 2em;">
             <div style="display: flex; flex-direction: row; margin-bottom: 8px;">
-                <div class="stepheading"> Prompt </div>
+                <div class="stepheading" translate="LANGUAGEMODEL.TESTING.TITLE"></div>
                 <input ng-model="prompt" style="flex: 3; margin-left: 10px; margin-right: 10px;">
-                <button type="button"
+                <button type="button" translate="LANGUAGEMODEL.TESTING.GENERATE"
                     class="btn btn-primary"
                     ng-click="testModel(prompt)"
-                    ng-disabled="!prompt || prompt.trim().length === 0 || generating || loading"
-                    >Generate</button>
+                    ng-disabled="!prompt || prompt.trim().length === 0 || generating || loading"></button>
             </div>
-            <div class="testfeedback" ng-if="testfeedbackmoretokens">You need to add more words to your prompt for the model to work.</div>
-            <div class="testfeedback" ng-if="testfeedbacknomatch">The words at the end of your prompt weren't found anywhere in your corpus.</div>
+            <div class="testfeedback" ng-if="testfeedbackmoretokens" translate="LANGUAGEMODEL.TESTING.ERROR.TOOSHORT"></div>
+            <div class="testfeedback" ng-if="testfeedbacknomatch"    translate="LANGUAGEMODEL.TESTING.ERROR.NOTFOUND"></div>
             <div class="generatedtext" ng-class="{'placeholder' : !textgenerated || generating }" ng-bind-html="generated"></div>
         </div>
 
@@ -498,7 +452,7 @@
                 <div class="makecard">
                     <div class="info">
                         <div class="title" translate="PROJECT.SCRATCH3.TITLE"></div>
-                        <div class="description">Use your language model in Scratch</div>
+                        <div class="description" translate="LANGUAGEMODEL.TESTING.SCRATCH"></div>
                     </div>
                     <div class="image">
                         <img class="makeicon" src="static/images/logo-scratch3.png"/>
@@ -520,6 +474,7 @@
         <!-- debug -->
         <!--
             <div style="font-family: monospace;">{{ phase }}</div>
+            <div style="font-family: monospace;">{{ modeltype }}</div>
             <div style="font-family: monospace;" ng-bind-html="debug(project)"></div>
         -->
     </div>
