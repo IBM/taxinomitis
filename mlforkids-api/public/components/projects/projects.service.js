@@ -161,6 +161,26 @@
         }
 
 
+        function setLanguageModelType(project, type) {
+            if (project.storage !== 'local' || project.type !== 'language') {
+                return Promise.reject(new Error('Unexpected project type'));
+            }
+            return browserStorageService.setLanguageModelType(project.id, type);
+        }
+        function storeSmallLanguageModelConfig(project, slmConfig) {
+            if (project.storage !== 'local' || project.type !== 'language') {
+                return Promise.reject(new Error('Unexpected project type'));
+            }
+            return browserStorageService.storeSmallLanguageModelConfig(project.id, slmConfig);
+        }
+        function storeToyLanguageModelConfig(project, toyConfig) {
+            if (project.storage !== 'local' || project.type !== 'language') {
+                return Promise.reject(new Error('Unexpected project type'));
+            }
+            return browserStorageService.storeToyLanguageModelConfig(project.id, toyConfig);
+        }
+
+
         function addMetadataToProject(project, key, value) {
             if (project.storage === 'local') {
                 return browserStorageService.addMetadataToProject(project.id, key, value);
@@ -310,6 +330,10 @@
             addLabelToProject : addLabelToProject,
             removeLabelFromProject : removeLabelFromProject,
             addMetadataToProject : addMetadataToProject,
+
+            setLanguageModelType : setLanguageModelType,
+            storeSmallLanguageModelConfig : storeSmallLanguageModelConfig,
+            storeToyLanguageModelConfig : storeToyLanguageModelConfig,
 
             checkProjectCredentials : checkProjectCredentials,
 

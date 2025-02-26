@@ -186,6 +186,9 @@
                 // browserStorageService.deleteAsset(projectid + '-dot');
                 // browserStorageService.deleteAsset(projectid + '-vocab');
             }
+            // else if (modeltype === 'language'  && project.modeltype === 'toy') {
+            //     browserStorageService.deleteAsset('language-model-' + project.id);
+            // }
             else {
                 clearModelSavedDate(savelocation);
             }

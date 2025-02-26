@@ -81,8 +81,14 @@
         var MIN_NUM_CHOICES = 2;
         var MAX_NUM_CHOICES = 5;
 
+        $scope.earlyaccess = false;
+
         authService.getProfileDeferred()
             .then(function (profile) {
+                if (profile.tenant === 'demo' || profile.tenant === '01e8b244-8df1-4f94-93a3-8a7addfc8ea6') {
+                    $scope.earlyaccess = true;
+                }
+
                 vm.profile = profile;
             })
             .catch(function (err) {
@@ -156,8 +162,13 @@
                 delete projectSpec.fields;
             }
 
-            if (projectSpec.type === 'regression' && projectSpec.storage === 'cloud') {
+            if ((projectSpec.type === 'regression') && projectSpec.storage === 'cloud') {
                 displayAlert('errors', 400, { message : 'Projects for predicting numbers cannot be stored in the cloud' });
+                $scope.creating = false;
+                return;
+            }
+            if ((projectSpec.type === 'language') && projectSpec.storage === 'cloud') {
+                displayAlert('errors', 400, { message : 'Projects for generating text cannot be stored in the cloud' });
                 $scope.creating = false;
                 return;
             }

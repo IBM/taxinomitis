@@ -267,6 +267,9 @@
                             delete trainingDataDatabases[cursor.value.id];
                             window.indexedDB.deleteDatabase(TRAINING_DB_NAME_PREFIX + cursor.value.id);
 
+                            // delete any saved language model data
+                            deleteAsset('language-model-' + cursor.value.id);
+
                             // delete the project itself
                             projectsTable.delete(cursor.primaryKey);
 
@@ -408,6 +411,54 @@
 
             return promisifyIndexedDbTransaction(transaction);
         }
+
+
+        async function updateLocalProject(projectId, updateFn) {
+            loggerService.debug('[ml4kstorage] updateLocalProject');
+
+            await requiresProjectsDatabase();
+
+            const transaction = projectsDbHandle.transaction([ PROJECTS_TABLE ], 'readwrite');
+            const projectsTable = transaction.objectStore(PROJECTS_TABLE);
+            const readRequest = projectsTable.get(requiresIntegerId(projectId));
+            const readEvent = await promisifyIndexedDbRequest(readRequest);
+            const projectObject = requiresResult(readEvent);
+
+            const updatedProjectObject = updateFn(projectObject);
+
+            const updateRequest = projectsTable.put(updatedProjectObject);
+            await promisifyIndexedDbRequest(updateRequest);
+
+            return updatedProjectObject;
+        }
+
+
+        async function setLanguageModelType(projectId, modelType) {
+            loggerService.debug('[ml4kstorage] setLanguageModelType');
+
+            return updateLocalProject(projectId, (projectObject) => {
+                projectObject.modeltype = modelType;
+                return projectObject;
+            });
+        }
+
+        async function storeSmallLanguageModelConfig(projectId, slm) {
+            loggerService.debug('[ml4kstorage] storeSmallLanguageModelConfig');
+
+            return updateLocalProject(projectId, (projectObject) => {
+                projectObject.slm = slm;
+                return projectObject;
+            });
+        }
+        async function storeToyLanguageModelConfig(projectId, toy) {
+            loggerService.debug('[ml4kstorage] storeToyLanguageModelConfig');
+
+            return updateLocalProject(projectId, (projectObject) => {
+                projectObject.toy = toy;
+                return projectObject;
+            });
+        }
+
 
 
         // update labels to meet WA requirements
@@ -730,6 +781,27 @@
             }
         }
 
+        async function storeAssetData(id, data) {
+            loggerService.debug('[ml4kstorage] storeAssetData', id);
+
+            await requiresAssetsDatabase();
+
+            try {
+                const transaction = assetsDbHandle.transaction([ ASSETS_TABLE ], 'readwrite');
+                const request = transaction.objectStore(ASSETS_TABLE).put(data, id);
+                return promisifyIndexedDbRequest(request);
+            }
+            catch (err) {
+                if (isCorruptedDatabase(err)) {
+                    loggerService.debug('[ml4kstorage] assets db corrupted - resetting');
+                    await deleteAssetsDatabase();
+                }
+
+                throw err;
+            }
+        }
+
+
         async function retrieveAsset(id) {
             loggerService.debug('[ml4kstorage] retrieveAsset', id);
 
@@ -825,6 +897,10 @@
             addLabel,
             deleteLabel,
 
+            setLanguageModelType,
+            storeSmallLanguageModelConfig,
+            storeToyLanguageModelConfig,
+
             getTrainingData,
             countTrainingData,
             getTrainingDataItem,
@@ -838,6 +914,7 @@
             deleteSessionUserProjects,
 
             storeAsset,
+            storeAssetData,
             retrieveAsset,
             retrieveAssetAsText,
             deleteAsset,

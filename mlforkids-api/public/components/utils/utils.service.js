@@ -46,6 +46,15 @@
                 });
         }
 
+        function loadWebLlmProjectSupport() {
+            loggerService.debug('[ml4kutils] loading web-llm script');
+            return import("https://esm.run/@mlc-ai/web-llm")
+                .then((module) => {
+                    loggerService.debug('[ml4kutils] loaded web-llm script');
+                    return module;
+                });
+        }
+
         function isInternetExplorer() {
             var userAgent = navigator.userAgent;
             return userAgent &&
@@ -69,6 +78,7 @@
             loadTensorFlow : loadTensorFlow,
             loadImageProjectSupport : loadImageProjectSupport,
             loadNumberProjectSupport : loadNumberProjectSupport,
+            loadWebLlmProjectSupport : loadWebLlmProjectSupport,
             isInternetExplorer : isInternetExplorer,
             isGoogleFilesUrl : isGoogleFilesUrl
         };

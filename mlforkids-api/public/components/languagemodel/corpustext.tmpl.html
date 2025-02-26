@@ -1,0 +1,32 @@
+<md-dialog aria-label="Add new example" class="newtrainingdatadialog">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Add text to corpus</h2>
+        </div>
+    </md-toolbar>
+    <form name="newTextCorpusData" ng-submit="confirm({ title, contents })">
+        <md-dialog-content>
+            <div style="padding: 1em;">
+                <div>
+                    <md-input-container class="trainingtextinput">
+                        <input placeholder="Title" ng-model="title" ng-required="true">
+                    </md-input-container>
+                </div>
+                <div>
+                    <md-input-container class="trainingtextinput">
+                        <textarea type="text" name="text"
+                            placeholder="Corpus text"
+                            ng-required="true"
+                            ng-model="contents"
+                            md-maxlength="25000"></textarea>
+                    </md-input-container>
+                </div>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button type="submit" class="md-raised md-primary" ng-disabled="newTextCorpusData.$invalid" translate="APP.ADD" aria-label="Add new corpus document"></md-button>
+            <md-button ng-click="cancel()" translate="APP.CANCEL" aria-label="Cancel"></md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

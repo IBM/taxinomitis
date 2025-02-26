@@ -1,0 +1,219 @@
+@media(min-width: 450px) {
+    .languagemodelpage {
+        margin: 1em auto 2em auto;
+        width: 92%;
+    }
+}
+@media(max-width: 450px) {
+    .languagemodelpage {
+        margin: 1em 0 2em 0;
+        width: 100%;
+    }
+}
+
+.agewarning {
+    margin: 0;
+}
+
+.languagemodelpage {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 300px;
+}
+
+.languagemodelpage button {
+    width: 120px;
+    margin-left: 0.75em;
+    margin-left: 0.75em;
+}
+
+.languagemodelpage button.btn-wide {
+    width: 150px;
+}
+
+.languagemodelpage .trainingbuckets {
+    height: 220px;
+}
+
+.languagemodelpage .trainingbuckets.documents {
+    height: 310px;
+}
+
+.languagemodelpage .trainingbuckets .trainingbucket {
+    max-width: 100%;
+}
+
+.languagemodelpage .trainingbuckets .trainingbucket .documentlabel {
+    font-size: 0.7em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 120px;
+}
+
+.languagemodelpage table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.languagemodelpage table td {
+    padding: 0.7em;
+    vertical-align: top;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.languagemodelpage table td.unclickable {
+    cursor: default;
+}
+
+.languagemodelpage table td.tokenpresent {
+    border: thin black solid;
+}
+
+.languagemodelpage table td.tokenpresent.selected {
+    background-color: #d9d9d9;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.languagemodelpage table td.tokenmissing {
+    border: none;
+}
+
+.languagemodelpage table td.nexttoken {
+    padding: 0;
+}
+
+.languagemodelpage table td .tokentooltip {
+    display: inline-flex;
+    padding: 0;
+    margin: 0 0 0 10px;
+}
+
+.languagemodelpage .confirmtokens {
+    border: thin black solid;
+    width: 97%;
+    margin: 1em auto 2em auto;
+    padding: 1em;
+}
+.languagemodelpage .confirmtokens .token {
+    background-color: #d9d9d9;
+    font-family: monospace;
+    font-size: 1.1em;
+    padding: 0.7em 1em;
+    margin-right: 1em;
+}
+
+.languagemodelpage td.count {
+    background: linear-gradient(to right, #9fbe94 var(--percent, 0%), white var(--percent, 0%));
+}
+.languagemodelpage td.count.deselected {
+    color: #c0c0c0;
+}
+
+
+
+.languagemodelpage md-select {
+    background-color: white;
+    padding: 0.2em;
+}
+
+.languagemodelpage .modelstep {
+    position: relative;
+    flex: 1;
+    background-color: #eeeeee;
+    border-radius: 2em;
+    width: 100%;
+    margin: 1em 0;
+    padding: 1.75em;
+    font-size: 1.1em;
+}
+
+.languagemodelpage .modelstep .resetlink {
+    position: absolute;
+    font-size: 11px;
+    top: 18px;
+    right: 18px;
+    text-decoration: none;
+    background-color: #f5f5ff;
+    border: 1px #707070 dotted;
+    border-radius: 6px;
+    color: #707070;
+    padding: 6px;
+}
+
+.languagemodelpage .stepheading {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 0.5em;
+}
+
+.languagemodelpage .modelstep .stepexplanation {
+    font-size: 1em;
+    margin-bottom: 0.2em;
+}
+
+.languagemodelpage .modelstep .stepcontrols {
+    margin-bottom: 1em;
+}
+
+.languagemodelpage .modelstep .steprow {
+    display: flex;
+    flex-direction: row;
+}
+
+.languagemodelpage .modelstep .steprow .rowitem {
+    flex: 1;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+.languagemodelpage md-slider .md-track.md-track-fill,
+.languagemodelpage md-slider .md-sign {
+    background-color: #2e6da4;
+}
+
+.languagemodelpage md-slider .md-thumb:after {
+    border-color: #2e6da4;
+    background-color: #2e6da4;
+}
+
+.languagemodelpage md-slider .md-focus-ring {
+    background-color: rgb(0 0 139 / 40%);
+}
+
+.languagemodelpage .nextstep {
+    text-align: right;
+}
+
+.languagemodelpage .testfeedback {
+    color: #931509;
+    margin-bottom: 1em;
+}
+
+.languagemodelpage .generatedtext {
+    width: 100%;
+    height: 240px;
+    border: thin black solid;
+    background-color: #efefef;
+    padding: 1em;
+    font-family: monospace;
+    overflow-y: scroll;
+}
+
+.languagemodelpage .generatedtext.placeholder {
+    font-style: italic;
+}
+
+.languagemodelpage .makes {
+    width: 100%;
+    margin-top: 2em;
+}
+
+@media(min-width: 450px) {
+    .languagemodelpage .makes .makesplaceholder {
+        flex: 2;
+    }
+}
