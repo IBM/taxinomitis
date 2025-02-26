@@ -979,7 +979,7 @@
             "TOY": "Toy",
             "SMALL": "Small",
             "LARGE": "Large",
-            "DESCRIPTION_1": "Language models are used to generate text. Computers look for patterns in large numbers of documents. Language models generate text by using those statistical patterns to predict what word could come next.",
+            "DESCRIPTION_1": "Computers can look for patterns in large numbers of documents. Language models generate text by using those statistical patterns to predict what word could come next.",
             "DESCRIPTION_2": "Creating a <strong>toy</strong> language model will show you how this works, and see the types of patterns computers look for (in documents you choose yourself).",
             "DESCRIPTION_3": "Configuring a <strong>small</strong> language model will show you how to use patterns found in millions of documents.",
             "DESCRIPTION_4": "All of this will help you to understand how <strong>large</strong> language models work in the real world."
@@ -987,7 +987,9 @@
 
         "CORPUS": {
             "TITLE": "corpus",
-            "ADD": "Add text"
+            "ADD": "Add text",
+            "ADDTEXT": "Add text to corpus",
+            "ADDWIKIPEDIA": "Add Wikipedia page to corpus"
         },
 
         "CONTEXTWINDOW": {

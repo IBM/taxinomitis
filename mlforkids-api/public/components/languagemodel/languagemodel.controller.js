@@ -257,10 +257,12 @@
                         return trainingService.retrieveAsset($scope.project)
                             .then((savedCorpus) => {
                                 loggerService.debug('[ml4klanguage] restoring corpus tokens');
-                                if (savedCorpus && savedCorpus.bigrams && savedCorpus.bigrams.count > 0) {
+                                if (savedCorpus && savedCorpus['1'] && savedCorpus['1'].count > 0) {
                                     analyzedCorpus = savedCorpus;
                                     if ($scope.project.toy.ngrams) {
                                         $scope.project.toy.tokens = analyzedCorpus[$scope.project.toy.ngrams].summary;
+                                        selectFirstToken();
+                                        $scope.recomputeProbabilities();
                                         $scope.phase = $scope.PHASES.TOY.READY;
                                         $scope.project.toy.ready = true;
                                     }
@@ -589,15 +591,9 @@
             }
 
             // if the user is viewing the tokens, highlight the most common token
-            if ($scope.phase === $scope.PHASES.TOY.TOKENS) {
-                selectFirstToken();
-            }
-
             // if the user is viewing probability scores, recompute with the new ngram size
-            if ($scope.phase === $scope.PHASES.TOY.TEMPERATURE) {
-                selectFirstToken();
-                $scope.recomputeProbabilities();
-            }
+            selectFirstToken();
+            $scope.recomputeProbabilities();
         };
         // -------------------------------------------------------------------
 
@@ -612,8 +608,17 @@
         $scope.initTokens = function () {
             loggerService.debug('[ml4klanguage] initTokens');
 
+            let corpusFn;
+            if (analyzedCorpus) {
+                // we already have a corpus - no need to parse the corpus again
+                corpusFn = Promise.resolve();
+            }
+            else {
+                corpusFn = parseCorpus();
+            }
+
             $scope.loading = true;
-            parseCorpus()
+            corpusFn
                 .then(() => {
                     if (analyzedCorpus) {
                         $scope.project.toy.tokens = analyzedCorpus[$scope.project.toy.ngrams].summary;
@@ -917,6 +922,7 @@
                 })
                 .then((updated) => {
                     updated.toy.ready = true;
+                    updated.toy.tokens = $scope.project.toy.tokens;
                     return updated;
                 });
         }
@@ -1145,6 +1151,7 @@
                     $scope.testfeedbacknomatch = true;
                     return Promise.resolve('');
                 }
+                ngramGeneratedText = ngramGeneratedText.replaceAll(' <STOP>', '.');
                 return Promise.resolve(ngramGeneratedText);
             }
             return Promise.reject('Model not ready');
