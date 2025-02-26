@@ -220,12 +220,14 @@
         "TYPES": {
             "TYPELABEL": "Project Type",
             "LABEL": "Công nhận",
+            "GENERATE": "generating",
             "NOTES_1": "Bạn muốn dạy máy tính nhận biết loại đồ vật nào?",
             "NOTES_2": "Đối với các từ, các câu hoặc các đoạn văn, hãy chọn \"text\"",
             "NOTES_3": "Đối với ảnh, sơ đồ và hình ảnh, hãy chọn\"images\"",
             "NOTES_4": "Đối với các bộ số hoặc nhiều lựa chọn, hãy chọn \"numbers\"",
             "NOTES_5": "Đối với giọng nói và âm thanh, hãy chọn \"sounds\"",
-            "NOTES_6": "To predict numbers, choose \"predicting numbers\""
+            "NOTES_6": "To predict numbers, choose \"predicting numbers\"",
+            "NOTES_7": "To generate new text with a language model, choose \"generating text\""
         },
         "LANGUAGE": {
             "LABEL": "Ngôn ngữ",

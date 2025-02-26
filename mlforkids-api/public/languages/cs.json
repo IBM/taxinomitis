@@ -214,12 +214,14 @@
         "TYPES": {
             "TYPELABEL": "Project Type",
             "LABEL": "Rozpoznání",
+            "GENERATE": "generating",
             "NOTES_1": "Jaký typ věcí chcete počítač naučit rozpoznávat?",
             "NOTES_2": "Pro slova, věty nebo odstavce vyberte možnost \"text\"",
             "NOTES_3": "Pro fotografie, schémata a obrázky zvolte \"obrázky\"",
             "NOTES_4": "Pro sady čísel nebo více možností vyberte možnost \"čísla\"",
             "NOTES_5": "Pro hlasy a zvuky vyberte možnost \"zvuky\"",
-            "NOTES_6": "To predict numbers, choose \"predicting numbers\""
+            "NOTES_6": "To predict numbers, choose \"predicting numbers\"",
+            "NOTES_7": "To generate new text with a language model, choose \"generating text\""
         },
         "LANGUAGE": {
             "LABEL": "Jazyk",
@@ -954,6 +956,83 @@
             "TITLE": "neuronové sítě",
             "TEXT1": "Doufám, že vám tento zjednodušený popis přiblíží, co se stane, když kliknete na tlačítko \"Trénovat nový model strojového učení\".",
             "TEXT2": "Pro vysvětlení, proč tento proces funguje, se zkuste podívat na<a href='https://youtu.be/R9OHn5ZF4Uo'>knihu \"Jak se stroje učí</a>\" od CGP Grey."
+        }
+    },
+    "LANGUAGEMODEL": {
+        "TITLE": "Prepare a language model",
+        "NAME": "language model",
+
+        "AGEWARNING": "If you are under the age of 13, please only use a small language model with supervision from a trusted adult. Generative AI can sometimes generate text that isn't nice or appropriate.",
+
+        "REVIEW": "Review",
+
+        "TYPE": {
+            "TITLE": "Type of language model",
+            "TOY": "Toy",
+            "SMALL": "Small",
+            "LARGE": "Large",
+            "DESCRIPTION_1": "Language models are used to generate text. Computers look for patterns in large numbers of documents. Language models generate text by using those statistical patterns to predict what word could come next.",
+            "DESCRIPTION_2": "Creating a <strong>toy</strong> language model will show you how this works, and see the types of patterns computers look for (in documents you choose yourself).",
+            "DESCRIPTION_3": "Configuring a <strong>small</strong> language model will show you how to use patterns found in millions of documents.",
+            "DESCRIPTION_4": "All of this will help you to understand how <strong>large</strong> language models work in the real world."
+        },
+
+        "CORPUS": {
+            "TITLE": "corpus",
+            "ADD": "Add text"
+        },
+
+        "CONTEXTWINDOW": {
+            "TITLE": "Size of context window",
+            "DESCRIPTION": "How much text the model looks at before generating the next word. A smaller window means it works with less previous text. A larger window allows it to use more, which can make responses more accurate but needs more computer memory."
+        },
+
+        "NGRAMS": {
+            "DESCRIPTION_1": "Your model will generate the next word by looking for what word commonly comes next in the text in your corpus. How much should the computer remember of what it has already generated?",
+            "DESCRIPTION_2": "Small window: it only remembers a little, so each choice will be based on just the last word.",
+            "DESCRIPTION_3": "Big window: it remembers more, so each choice will be based on the last few words.",
+
+            "SAMPLE": "sample of the tokens",
+            "COUNTLABEL": "times in your corpus",
+            "PROBABILITYLABEL": "how tokens will be selected",
+            "PROBABILITY": "the green bars show the chance that the model will choose that word to follow ",
+
+            "STOP": "This token represents something that ends a sentence, such as a full-stop (period) or exclamation mark."
+        },
+
+        "TEMPERATURE": {
+            "TITLE": "Temperature",
+            "DESCRIPTION_1": "With a low temperature, the model will generate the next word based on what is most common.",
+            "DESCRIPTION_2": "With a high temperature, the model is more likely to pick something unexpected.",
+            "LOW": "low",
+            "HIGH": "high"
+        },
+        "TOPP": {
+            "TITLE": "Top-p",
+            "DESCRIPTION_1": "With a low value, the model will only consider the most common candidates for the next word.",
+            "DESCRIPTION_2": "With a high value, the model will consider any word that could come next."
+        },
+
+        "SMALL": {
+            "TYPE": "Model architecture",
+            "DOWNLOADING": "Downloading...",
+            "DEVELOPER": "Created by:",
+            "SIZE": "Download size:"
+        },
+
+        "LARGE": {
+            "TITLE": "Large Language Models",
+            "DESCRIPTION": "If you would like to run your own large language model, you can find instructions for how to get started at:"
+        },
+
+        "TESTING": {
+            "TITLE": " Prompt ",
+            "GENERATE": "Generate",
+            "ERROR": {
+                "TOOSHORT": "You need to add more words to your prompt for the model to work.",
+                "NOTFOUND": "The words at the end of your prompt weren't found anywhere in your corpus."
+            },
+            "SCRATCH": "Use your language model in Scratch"
         }
     },
     "MAKES": {
@@ -1855,13 +1934,15 @@
         },
         "PROJECTS": {
             "TITLE": "Otázky k projektu",
-            "Q4": "Které modely strojového učení jsou trénovány na vašem počítači a které v cloudu?",
+            "Q4": "Which machine learning models are trained and stored on your computer, and which are trained and stored in the cloud?",
             "Q4-A-0": "You cannot choose where machine learning models are trained and stored. This is decided by Machine Learning for Kids based on the type of project.",
-            "Q4-A-1": "<strong>recognising text</strong> projects are trained in the cloud.",
-            "Q4-A-2": "<strong>recognising numbers</strong> projects are trained in the cloud.",
-            "Q4-A-3": "<strong>recognising sounds</strong> projects are trained on your computer.",
-            "Q4-A-4": "<strong>recognising images</strong> projects are trained on your computer.",
-            "Q4-A-5": "<strong>predicting numbers</strong> projects are trained on your computer.",
+            "Q4-A-1": "<strong>recognising text</strong> projects are trained and stored in the cloud.",
+            "Q4-A-2": "<strong>recognising numbers</strong> projects are trained in the cloud, and stored on your computer.",
+            "Q4-A-3": "<strong>recognising sounds</strong> projects are trained and stored on your computer.",
+            "Q4-A-4": "<strong>recognising images</strong> projects are trained and stored on your computer.",
+            "Q4-A-5": "<strong>predicting numbers</strong> projects are trained and stored on your computer.",
+            "Q4-A-6": "<strong>generating text</strong> projects (<strong>toy</strong> models) are trained in the cloud, and stored on your computer",
+            "Q4-A-7": "<strong>generating text</strong> projects (<strong>small</strong> models) are stored on your computer",
 
             "Q5": "What difference does it make where a project is stored?",
             "Q5-A-0": "You can choose where to store the training data for your machine learning project. You can store your training examples:",
