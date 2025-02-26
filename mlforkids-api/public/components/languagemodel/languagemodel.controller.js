@@ -10,10 +10,10 @@
         'utilService', 'loggerService',
         '$mdDialog',
         '$stateParams',
-        '$scope', '$timeout'
+        '$scope', '$window'
     ];
 
-    function LanguageModelController(authService, projectsService, trainingService, wikipediaService, languageModelService, utilService, loggerService, $mdDialog, $stateParams, $scope, $timeout) {
+    function LanguageModelController(authService, projectsService, trainingService, wikipediaService, languageModelService, utilService, loggerService, $mdDialog, $stateParams, $scope, $window) {
         var vm = this;
         vm.authService = authService;
 
@@ -50,6 +50,7 @@
                     message : errObj.message || errObj.error || 'Unknown error',
                     status : status
                 });
+                $window.scrollTo(0, 0);
             });
         }
         vm.displayAlert = displayAlert;
@@ -96,6 +97,9 @@
         $scope.testfeedbackmoretokens = false;
         let tokenToRecompute;
         let analyzedCorpus;
+
+        // small language models
+        $scope.ageWarningDisplayed = false;
 
         // -------------------------------------------------------------------
 
@@ -152,7 +156,7 @@
                 size : '2B',
                 label : 'Gemma',
                 developer : 'Google',
-                storage : '1490 MB'
+                storage : '1.5 GB'
             }
         ];
 
@@ -253,11 +257,13 @@
                         return trainingService.retrieveAsset($scope.project)
                             .then((savedCorpus) => {
                                 loggerService.debug('[ml4klanguage] restoring corpus tokens');
-                                analyzedCorpus = savedCorpus;
-                                if ($scope.project.toy.ngrams) {
-                                    $scope.project.toy.tokens = analyzedCorpus[$scope.project.toy.ngrams].summary;
-                                    $scope.phase = $scope.PHASES.TOY.READY;
-                                    $scope.project.toy.ready = true;
+                                if (savedCorpus && savedCorpus.bigrams && savedCorpus.bigrams.count > 0) {
+                                    analyzedCorpus = savedCorpus;
+                                    if ($scope.project.toy.ngrams) {
+                                        $scope.project.toy.tokens = analyzedCorpus[$scope.project.toy.ngrams].summary;
+                                        $scope.phase = $scope.PHASES.TOY.READY;
+                                        $scope.project.toy.ready = true;
+                                    }
                                 }
                             })
                             .catch((err) => {
@@ -527,6 +533,12 @@
                     return languageModelService.generateNgrams($scope.userId, $scope.project.classid, text);
                 })
                 .then((output) => {
+                    if (output.bigrams.count === 0) {
+                        displayAlert('warnings', 400, { message : 'Please add more text to your corpus' });
+                        $scope.phase = $scope.PHASES.TOY.CORPUS;
+                        return;
+                    }
+
                     analyzedCorpus = {
                         '1' : output.bigrams,
                         '2' : output.trigrams,
@@ -603,10 +615,12 @@
             $scope.loading = true;
             parseCorpus()
                 .then(() => {
-                    $scope.project.toy.tokens = analyzedCorpus[$scope.project.toy.ngrams].summary;
-                    $scope.$applyAsync(() => {
+                    if (analyzedCorpus) {
+                        $scope.project.toy.tokens = analyzedCorpus[$scope.project.toy.ngrams].summary;
                         $scope.phase = $scope.PHASES.TOY.TOKENS;
                         selectFirstToken();
+                    }
+                    $scope.$applyAsync(() => {
                         $scope.loading = false;
                     });
                 })
@@ -629,7 +643,7 @@
 
                 if (parents.length === ($scope.project.toy.ngrams + 1)) {
                     $scope.confirmTokens = {
-                        text : parents.join(' ').replaceAll(" 's ", "'s "),
+                        text :combineTokens(parents),
                         count : token.count
                     };
                 }
@@ -642,6 +656,10 @@
         // handle clicks on tokens in the probability tokens view
         $scope.highlightToken = function (selected, depth, token, others, parents) {
             if (selected) { return; }
+
+            if (depth === $scope.project.toy.ngrams) {
+                return;
+            }
 
             $scope.toggleToken(token, others, parents);
 
@@ -686,7 +704,7 @@
             $scope.project.toy.tokens.forEach(deselect);
 
             if ($scope.project.toy.tokens.length === 0) {
-                // TODO - need to prompt the user to provide more of a corpus
+                displayAlert('warnings', 400, { message : 'Please add more text to your corpus' });
             }
             else {
                 // walk the ngrams tree, building up the joined up text to display
@@ -697,7 +715,7 @@
                 let parent;
                 for (let i = 0; i < selectionLength; i++) {
                     $scope.confirmTokens = {
-                        text : $scope.confirmTokens.text + ' ' + nextToken.token,
+                        text : combineTokens([ $scope.confirmTokens.text, nextToken.token ]),
                         count : nextToken.count
                     };
 
@@ -776,6 +794,10 @@
                 });
         }
 
+        $scope.dismissAgeWarning = function () {
+            $scope.ageWarningDisplayed = true;
+        }
+
         // -------------------------------------------------------------------
 
 
@@ -795,6 +817,9 @@
                 //  assume it should be quick)
                 $scope.project.slm.download = 0;
             }
+
+            $scope.generating = false;
+            $scope.generated = 'Generated text';
 
             const modelCfg = {};
             if ($scope.project.slm.contextwindow) {
@@ -943,6 +968,10 @@
         // LANGUAGE MODEL - testing
         //=====================================================================
         $scope.testModel = function (prompt) {
+            if (!prompt || prompt.trim().length === 0 || $scope.generating || $scope.loading || $scope.reconfiguring) {
+                return;
+            }
+
             loggerService.debug('[ml4klanguage] testModel', prompt);
 
             $scope.generating = true;
@@ -960,6 +989,7 @@
 
             submitFn
                 .then((response) => {
+                    loggerService.debug('[ml4klanguage] response', response);
                     $scope.$applyAsync(() => {
                         $scope.generated = response;
                         $scope.generating = false;
@@ -980,13 +1010,10 @@
 
         const MAX_LENGTH = 1000;
 
-        function append(currentString, newToken) {
-            if (newToken === "'s" || newToken === "'d") {
-                return currentString + newToken;
-            }
-            else {
-                return currentString + " " + newToken;
-            }
+        function combineTokens(alltokens) {
+            return alltokens.reduce((acc, next) => {
+                return acc + (["'s", "'d"].includes(next) ? next : ' ' + next);
+            });
         }
 
         function lookupBigrams(token0) {
@@ -1049,12 +1076,12 @@
         }
 
         function runBigrams(generated, token0String) {
-            generated = append(generated, token0String);
+            generated = combineTokens([ generated, token0String ]);
 
             let bigramOptions = lookupBigrams(token0String);
             while (bigramOptions.length > 0 && generated.length < MAX_LENGTH) {
                 const nextTokenString = chooseNgram(bigramOptions);
-                generated = append(generated, nextTokenString);
+                generated = combineTokens([ generated, nextTokenString ]);
 
                 token0String = nextTokenString;
                 bigramOptions = lookupBigrams(token0String);
@@ -1062,13 +1089,12 @@
             return generated.trim();
         }
         function runTrigrams(generated, token0String, token1String) {
-            generated = append(generated, token0String);
-            generated = append(generated, token1String);
+            generated = combineTokens([ generated, token0String, token1String ]);
 
             let trigramOptions = lookupTrigrams(token0String, token1String);
             while (trigramOptions.length > 0 && generated.length < MAX_LENGTH) {
                 const nextTokenString = chooseNgram(trigramOptions);
-                generated = append(generated, nextTokenString);
+                generated = combineTokens([ generated, nextTokenString ]);
 
                 token0String = token1String;
                 token1String = nextTokenString;
@@ -1077,14 +1103,12 @@
             return generated.trim();
         }
         function runTetragrams(generated, token0String, token1String, token2String) {
-            generated = append(generated, token0String);
-            generated = append(generated, token1String);
-            generated = append(generated, token2String);
+            generated = combineTokens([ generated, token0String, token1String, token2String ]);
 
             let tetragramOptions = lookupTetragrams(token0String, token1String, token2String);
             while (tetragramOptions.length > 0 && generated.length < MAX_LENGTH) {
                 const nextTokenString = chooseNgram(tetragramOptions);
-                generated = append(generated, nextTokenString);
+                generated = combineTokens([ generated, nextTokenString ]);
 
                 token0String = token1String;
                 token1String = token2String;
@@ -1135,7 +1159,15 @@
             const completion = await $scope.webllmEngine.chat.completions.create({
                 stream: true,
                 messages : [
-                    { role : 'system', content : 'You are a helpful AI agent helping users.' },
+                    { role : 'system', content :
+                        'You are a friendly and supportive AI assistant for children. ' +
+                        'Use simple, clear, and encouraging language. Keep responses short, ' +
+                        'engaging, and educational. Avoiding harmful, inappropriate, ' +
+                        'scary, or violent content. ' +
+                        'Always be positive and constructive, and avoid sarcasm or harsh language. ' +
+                        'Promote digital safety by reminding children not to share personal ' +
+                        'information. If a child asks something unsafe, gently guide them toward ' +
+                        'a trusted adult.' },
                     { role : 'user',   content : prompt }
                 ],
                 top_p : $scope.project.slm.topp,

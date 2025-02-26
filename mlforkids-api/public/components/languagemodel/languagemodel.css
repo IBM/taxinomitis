@@ -11,10 +11,14 @@
     }
 }
 
+.agewarning {
+    margin: 0;
+}
+
 .languagemodelpage {
     display: flex;
     flex-direction: column;
-    padding-bottom: 6em;
+    padding-bottom: 300px;
 }
 
 .languagemodelpage button {
@@ -80,6 +84,12 @@
 
 .languagemodelpage table td.nexttoken {
     padding: 0;
+}
+
+.languagemodelpage table td .tokentooltip {
+    display: inline-flex;
+    padding: 0;
+    margin: 0 0 0 10px;
 }
 
 .languagemodelpage .confirmtokens {
@@ -185,7 +195,7 @@
 
 .languagemodelpage .generatedtext {
     width: 100%;
-    height: 220px;
+    height: 240px;
     border: thin black solid;
     background-color: #efefef;
     padding: 1em;
