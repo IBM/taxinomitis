@@ -88,11 +88,16 @@
 
         // all model types
         $scope.loading = true;
+
+        // small language models
         $scope.reconfiguring = false;
         $scope.generated = 'Generated text';
 
         // toy language models
         $scope.corpus = [];
+        $scope.generatedtokens = [];
+        $scope.hovertoken = undefined;
+        $scope.hoverexplain = undefined;
         $scope.testfeedbacknomatch = false;
         $scope.testfeedbackmoretokens = false;
         let tokenToRecompute;
@@ -745,6 +750,10 @@
         // called when selecting a token, or modifying the temperature/topp score
         //  which impacts an already-selected token
         $scope.recomputeProbabilities = function () {
+            $scope.generatedtokens = [];
+            $scope.hovertoken = undefined;
+            $scope.hoverexplain = undefined;
+
             if (tokenToRecompute) {
                 let totalScaled = 0;
                 for (const t of tokenToRecompute.next) {
@@ -994,10 +1003,8 @@
             }
 
             submitFn
-                .then((response) => {
-                    loggerService.debug('[ml4klanguage] response', response);
+                .then(() => {
                     $scope.$applyAsync(() => {
-                        $scope.generated = response;
                         $scope.generating = false;
                         $scope.textgenerated = true;
                     });
@@ -1014,37 +1021,44 @@
         //  using the toy language model
         //=====================================================================
 
-        const MAX_LENGTH = 1000;
+        const MAX_LENGTH = 500;
+
+        $scope.shouldMerge = function (tok) {
+            return ["'s", "'d", "."].includes(tok);
+        };
 
         function combineTokens(alltokens) {
             return alltokens.reduce((acc, next) => {
-                return acc + (["'s", "'d"].includes(next) ? next : ' ' + next);
+                return acc + ($scope.shouldMerge(next) ? next : ' ' + next);
             });
         }
 
         function lookupBigrams(token0) {
             if (token0 in analyzedCorpus['1'].lookup)
             {
-                return analyzedCorpus['1'].lookup[token0].next;
+                const tok = analyzedCorpus['1'].lookup[token0];
+                return { count : tok.count, next : tok.next };
             }
-            return [];
+            return { count : 0, next : [] };
         }
         function lookupTrigrams(token0, token1) {
             if (token0 in analyzedCorpus['2'].lookup &&
                 token1 in analyzedCorpus['2'].lookup[token0].next)
             {
-                return analyzedCorpus['2'].lookup[token0].next[token1].next;
+                const tok = analyzedCorpus['2'].lookup[token0].next[token1];
+                return { count : tok.count, next : tok.next };
             }
-            return [];
+            return { count : 0, next : [] };
         }
         function lookupTetragrams(token0, token1, token2) {
             if (token0 in analyzedCorpus['3'].lookup &&
                 token1 in analyzedCorpus['3'].lookup[token0].next &&
                 token2 in analyzedCorpus['3'].lookup[token0].next[token1].next)
             {
-                return analyzedCorpus['3'].lookup[token0].next[token1].next[token2].next;
+                const tok = analyzedCorpus['3'].lookup[token0].next[token1].next[token2];
+                return { count : tok.count, next : tok.next };
             }
-            return [];
+            return { count : 0, next : [] };
         }
 
 
@@ -1056,10 +1070,10 @@
             const computedCandidates = candidates.map((c) => {
                 const val = Math.pow(c.count, 1 / $scope.project.toy.temperature);
                 total += val;
-                return { token : c.token, val };
+                return { token : c.token, count : c.count, val };
             });
             return computedCandidates.map((c) => {
-                return { token : c.token, prob : c.val / total };
+                return { token : c.token, count : c.count, prob : c.val / total };
             });
         }
         function selectCandidate(candidates) {
@@ -1076,55 +1090,88 @@
         function chooseNgram(allNgrams) {
             const candidates = getCandidateNgrams(allNgrams);
             if (candidates.length === 0) {
-                return allNgrams[0].token;
+                return allNgrams[0];
             }
-            return selectCandidate(computeCandidateProbabilities(candidates)).token;
+            return selectCandidate(computeCandidateProbabilities(candidates));
         }
 
-        function runBigrams(generated, token0String) {
-            generated = combineTokens([ generated, token0String ]);
-
-            let bigramOptions = lookupBigrams(token0String);
-            while (bigramOptions.length > 0 && generated.length < MAX_LENGTH) {
-                const nextTokenString = chooseNgram(bigramOptions);
-                generated = combineTokens([ generated, nextTokenString ]);
-
-                token0String = nextTokenString;
-                bigramOptions = lookupBigrams(token0String);
+        function representAsText(tok) {
+            if (tok === '<STOP>') {
+                return '.';
             }
-            return generated.trim();
+            else {
+                return tok;
+            }
         }
-        function runTrigrams(generated, token0String, token1String) {
-            generated = combineTokens([ generated, token0String, token1String ]);
 
-            let trigramOptions = lookupTrigrams(token0String, token1String);
-            while (trigramOptions.length > 0 && generated.length < MAX_LENGTH) {
-                const nextTokenString = chooseNgram(trigramOptions);
-                generated = combineTokens([ generated, nextTokenString ]);
+        function genToken(idx, nextToken, candidates, input) {
+            return {
+                idx,
+                text : representAsText(nextToken.token),
+                token : nextToken.token,
+                count : nextToken.count,
+                prob : Math.round(100 * nextToken.prob),
+                options : candidates.count,
+                candidates : candidates.next.length,
+                input
+            };
+        }
+
+        function runBigrams(generatedTokens, token0String) {
+            let bigramCandidates = lookupBigrams(token0String);
+            while (bigramCandidates.next.length > 0 && generatedTokens.length < MAX_LENGTH) {
+                const nextToken = chooseNgram(bigramCandidates.next);
+                generatedTokens.push(
+                    genToken(
+                        generatedTokens.length,
+                        nextToken,
+                        bigramCandidates,
+                        combineTokens([ token0String ])));
+
+                token0String = nextToken.token;
+                bigramCandidates = lookupBigrams(token0String);
+            }
+        }
+        function runTrigrams(generatedTokens, token0String, token1String) {
+            let trigramCandidates = lookupTrigrams(token0String, token1String);
+            while (trigramCandidates.next.length > 0 && generatedTokens.length < MAX_LENGTH) {
+                const nextToken = chooseNgram(trigramCandidates.next);
+                generatedTokens.push(
+                    genToken(
+                        generatedTokens.length,
+                        nextToken,
+                        trigramCandidates,
+                        combineTokens([ token0String, token1String ])));
 
                 token0String = token1String;
-                token1String = nextTokenString;
-                trigramOptions = lookupTrigrams(token0String, token1String);
+                token1String = nextToken.token;
+                trigramCandidates = lookupTrigrams(token0String, token1String);
             }
-            return generated.trim();
         }
-        function runTetragrams(generated, token0String, token1String, token2String) {
-            generated = combineTokens([ generated, token0String, token1String, token2String ]);
-
-            let tetragramOptions = lookupTetragrams(token0String, token1String, token2String);
-            while (tetragramOptions.length > 0 && generated.length < MAX_LENGTH) {
-                const nextTokenString = chooseNgram(tetragramOptions);
-                generated = combineTokens([ generated, nextTokenString ]);
+        function runTetragrams(generatedTokens, token0String, token1String, token2String) {
+            let tetragramCandidates = lookupTetragrams(token0String, token1String, token2String);
+            while (tetragramCandidates.next.length > 0 && generatedTokens.length < MAX_LENGTH) {
+                const nextToken = chooseNgram(tetragramCandidates.next);
+                generatedTokens.push(
+                    genToken(
+                        generatedTokens.length,
+                        nextToken,
+                        tetragramCandidates,
+                        combineTokens([ token0String, token1String, token2String ])));
 
                 token0String = token1String;
                 token1String = token2String;
-                token2String = nextTokenString;
-                tetragramOptions = lookupTetragrams(token0String, token1String, token2String);
+                token2String = nextToken.token;
+                tetragramCandidates = lookupTetragrams(token0String, token1String, token2String);
             }
-            return generated.trim();
         }
 
         async function useToyLanguageModel(prompt) {
+            $scope.hovertoken = undefined;
+            $scope.hoverexplain = undefined;
+
+            $scope.generatedtokens = [ { idx : 0, text : '...' } ];
+
             if ($scope.project.toy.ready && analyzedCorpus) {
                 const promptTokens = prompt.split(' ');
                 if (promptTokens.length < $scope.project.toy.ngrams) {
@@ -1134,33 +1181,44 @@
                 const tokensNeededIdx = promptTokens.length - $scope.project.toy.ngrams;
                 const tokensToSubmit = promptTokens.slice(tokensNeededIdx);
                 const tokensToIgnore = promptTokens.slice(0, tokensNeededIdx).join(' ');
-                let ngramGeneratedText;
+
+                const generatedTokens = [ { idx : 0, text : tokensToIgnore, prompt : true }, { idx : 1, text : tokensToSubmit.join(' '), prompt : true } ];
+
                 if ($scope.project.toy.ngrams === 1) {
-                    ngramGeneratedText = runBigrams(tokensToIgnore, tokensToSubmit[0]);
+                    runBigrams(generatedTokens, tokensToSubmit[0]);
                 }
                 else if ($scope.project.toy.ngrams === 2) {
-                    ngramGeneratedText = runTrigrams(tokensToIgnore, tokensToSubmit[0], tokensToSubmit[1]);
+                    runTrigrams(generatedTokens, tokensToSubmit[0], tokensToSubmit[1]);
                 }
                 else if ($scope.project.toy.ngrams === 3) {
-                    ngramGeneratedText = runTetragrams(tokensToIgnore, tokensToSubmit[0], tokensToSubmit[1], tokensToSubmit[2]);
+                    runTetragrams(generatedTokens, tokensToSubmit[0], tokensToSubmit[1], tokensToSubmit[2]);
                 }
-                if (!ngramGeneratedText) {
+                else {
                     return Promise.reject('Context window size not selected');
                 }
-                if (ngramGeneratedText === prompt) {
+
+                if (generatedTokens.length === 2) {
                     $scope.testfeedbacknomatch = true;
                     return Promise.resolve('');
                 }
-                ngramGeneratedText = ngramGeneratedText.replaceAll(' <STOP>', '.');
-                return Promise.resolve(ngramGeneratedText);
+
+                $scope.generatedtokens = generatedTokens;
+
+                return Promise.resolve();
             }
             return Promise.reject('Model not ready');
         }
 
 
 
-
-
+        $scope.setHoverToken = function (generatedTokensIdx) {
+            if ($scope.generatedtokens[generatedTokensIdx].prompt) {
+                // ignore prompt words - they were generated because the user provided them
+                return;
+            }
+            $scope.hovertoken = generatedTokensIdx;
+            $scope.hoverexplain = $scope.generatedtokens[generatedTokensIdx];
+        };
 
         async function useSmallLanguageModel(prompt) {
             const completion = await $scope.webllmEngine.chat.completions.create({
@@ -1193,7 +1251,10 @@
             }
 
             const finalMessage = await $scope.webllmEngine.getMessage();
-            return finalMessage.replace(/\n/g, '<br>');
+            const response = finalMessage.replace(/\n/g, '<br>');
+
+            loggerService.debug('[ml4klanguage] response', response);
+            $scope.generated = response;
         }
 
 

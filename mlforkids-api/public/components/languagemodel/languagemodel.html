@@ -471,7 +471,41 @@
             </div>
             <div class="testfeedback" ng-if="testfeedbackmoretokens" translate="LANGUAGEMODEL.TESTING.ERROR.TOOSHORT"></div>
             <div class="testfeedback" ng-if="testfeedbacknomatch"    translate="LANGUAGEMODEL.TESTING.ERROR.NOTFOUND"></div>
-            <div class="generatedtext" ng-class="{'placeholder' : !textgenerated || generating }" ng-bind-html="generated"></div>
+            <!-- for toy models render the text as individual tokens with metadata -->
+            <div ng-if="project.modeltype === 'toy'" class="generatedtext"
+                 ng-class="{'placeholder' : !textgenerated }"
+                 ><span ng-repeat="generatedtoken in generatedtokens track by $index"><span ng-hide="shouldMerge(generatedtoken.text)"> </span><span class="generatedtoken"
+                        ng-class="{ 'hovertoken' : hovertoken && (hovertoken === generatedtoken.idx), 'hoverinput' : hovertoken && ((hovertoken - generatedtoken.idx) > 0) && ((hovertoken - generatedtoken.idx) <= project.toy.ngrams) }"
+                        ng-click="setHoverToken(generatedtoken.idx)">{{ generatedtoken.text }}</span></div>
+            <div ng-if="project.modeltype === 'toy' && generatedtokens.length > 1 && !hoverexplain" class="confirmtokens hoverexplain" translate="LANGUAGEMODEL.TESTING.CLICK"></div>
+            <div ng-if="project.modeltype === 'toy' && hoverexplain" class="confirmtokens hoverexplain">
+                <div style="margin-bottom: 15px;">
+                    <span class="token" >{{ hoverexplain.input }}</span> was in your documents <span class="highlightnumber">{{ hoverexplain.options }}</span> time<span ng-hide="hoverexplain.options === 1">s</span>.
+                    <span ng-if="hoverexplain.candidates === 1">
+                        The only token found immediately after "{{ hoverexplain.input }}" was
+                        <span class="token" style="background-color: black; color: white; margin-left: 1em;">{{ hoverexplain.token }}</span>
+                    </span>
+                    <span ng-if="hoverexplain.candidates > 1">
+                        <span class="highlightnumber">{{ hoverexplain.candidates }}</span> different tokens were found immediately after it.
+                        <span class="token" style="background-color: black; color: white; margin-left: 1em;">{{ hoverexplain.token }}</span> was
+                        after "{{ hoverexplain.input }}" <span class="highlightnumber">{{ hoverexplain.count }}</span>
+                        time<span ng-hide="hoverexplain.count === 1">s</span>.
+                    </span>
+                </div>
+                <div ng-if="hoverexplain.candidates === 1">
+                    This meant there was a <span class="highlightnumber">100%</span> chance that "{{ hoverexplain.token }}" would be chosen.
+                </div>
+                <div ng-if="hoverexplain.candidates > 1">
+                    Your temperature and top-p choices meant that there was
+                    <span ng-if="hoverexplain.prob > 0">a <span class="highlightnumber">{{ hoverexplain.prob }}%</span></span>
+                    <span ng-if="hoverexplain.prob === 0"><span class="highlightnumber">less than a 1%</span></span>
+                    chance that it would be chosen.
+                </div>
+            </div>
+            <!-- for small models render the text as a single value -->
+            <div ng-if="project.modeltype === 'small'" class="generatedtext"
+                 ng-class="{'placeholder' : !textgenerated || generating }"
+                 ng-bind-html="generated"></div>
         </div>
 
         <!-- ******************************************************* -->

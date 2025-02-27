@@ -1031,6 +1031,7 @@
         "TESTING": {
             "TITLE": " Prompt ",
             "GENERATE": "Generate",
+            "CLICK": "Click on a word to see why that word was generated",
             "ERROR": {
                 "TOOSHORT": "You need to add more words to your prompt for the model to work.",
                 "NOTFOUND": "The words at the end of your prompt weren't found anywhere in your corpus."

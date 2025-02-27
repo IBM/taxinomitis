@@ -98,6 +98,14 @@
     margin: 1em auto 2em auto;
     padding: 1em;
 }
+.languagemodelpage .confirmtokens .highlightnumber {
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
 .languagemodelpage .confirmtokens .token {
     background-color: #d9d9d9;
     font-family: monospace;
@@ -105,6 +113,16 @@
     padding: 0.7em 1em;
     margin-right: 1em;
 }
+
+.languagemodelpage .confirmtokens.hoverexplain {
+    width: 100%;
+}
+
+.languagemodelpage .confirmtokens.hoverexplain .token {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
 
 .languagemodelpage td.count {
     background: linear-gradient(to right, #9fbe94 var(--percent, 0%), white var(--percent, 0%));
@@ -202,6 +220,22 @@
     font-family: monospace;
     overflow-y: scroll;
 }
+
+.languagemodelpage .generatedtext .generatedtoken {
+    cursor: pointer;
+}
+
+.languagemodelpage .generatedtext .generatedtoken.hovertoken {
+    background-color: black;
+    color: white;
+    padding: 4px;
+}
+.languagemodelpage .generatedtext .generatedtoken.hoverinput {
+    background-color: grey;
+    color: white;
+    padding: 4px;
+}
+
 
 .languagemodelpage .generatedtext.placeholder {
     font-style: italic;
