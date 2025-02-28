@@ -2859,7 +2859,7 @@ class ML4KidsWebLlm {
       if (err.message.includes('tokens exceed context window size') && this.MODELS[modelKey].messages.length > 1) {
         this.MODELS[modelKey].messages.pop();
         this.MODELS[modelKey].messages.splice(1, 1);
-        this._submitPrompt(modelKey, temperature, top_p, input, worker);
+        this._submitPrompt(requestid, modelid, contextwindow, modelKey, temperature, top_p, input, worker);
       } else {
         worker.postMessage({
           mlforkidswebllm: 'promptresponse',
