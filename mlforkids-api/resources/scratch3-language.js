@@ -82,6 +82,11 @@ class Scratch3ML4KSmallLanguageModelBlocks {
                     }
                 },
                 {
+                    opcode: 'clearContext',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: 'clear context'
+                },
+                {
                     opcode: 'checkModelStatus',
                     blockType: Scratch.BlockType.BOOLEAN,
                     text: 'Is the langauge model [STATUS] ?',
@@ -141,6 +146,21 @@ class Scratch3ML4KSmallLanguageModelBlocks {
             return 0.1;
         }
         return numericInput;
+    }
+
+
+    clearContext() {
+        if (this._modelState === 'Ready') {
+            postMessage({
+                mlforkidswebllm : {
+                    command : 'clear',
+                    data : {
+                        modelid : '{{{ modelid }}}',
+                        contextwindow : {{{contextwindow}}}
+                    }
+                }
+            });
+        }
     }
 
 

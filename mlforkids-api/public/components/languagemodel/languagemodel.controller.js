@@ -10,10 +10,10 @@
         'utilService', 'loggerService',
         '$mdDialog',
         '$stateParams',
-        '$scope', '$window'
+        '$scope', '$window', '$timeout'
     ];
 
-    function LanguageModelController(authService, projectsService, trainingService, wikipediaService, languageModelService, utilService, loggerService, $mdDialog, $stateParams, $scope, $window) {
+    function LanguageModelController(authService, projectsService, trainingService, wikipediaService, languageModelService, utilService, loggerService, $mdDialog, $stateParams, $scope, $window, $timeout) {
         var vm = this;
         vm.authService = authService;
 
@@ -88,10 +88,13 @@
 
         // all model types
         $scope.loading = true;
+        $scope.prompt = {
+            message : ''
+        };
 
         // small language models
         $scope.reconfiguring = false;
-        $scope.generated = 'Generated text';
+        $scope.generatedmessages = [];
 
         // toy language models
         $scope.corpus = [];
@@ -825,15 +828,19 @@
         $scope.downloadModel = function () {
             loggerService.debug('[ml4klanguage] downloadModel', $scope.project.slm.id);
 
-            if (!$scope.reconfiguring) {
+            if ($scope.reconfiguring) {
                 // download progress isn't displayed if we're doing this
                 //  because of a change to the context window size (as we
                 //  assume it should be quick)
-                $scope.project.slm.download = 0;
+            }
+            else {
+                // placeholder animation to get started until the first
+                //  progress report is received
+                $scope.project.slm.download = 101;
             }
 
             $scope.generating = false;
-            $scope.generated = 'Generated text';
+            $scope.resetContextWindow();
 
             const modelCfg = {};
             if ($scope.project.slm.contextwindow) {
@@ -852,7 +859,15 @@
                 })
                 .catch((err) => {
                     loggerService.error('[ml4klanguage] Failed to download model');
-                    displayAlert('errors', 500, err);
+                    if (err.message && err.message.startsWith('WebGPU is not supported')) {
+                        displayAlert('errors', 400,
+                            { message : 'Running small language models in Machine Learning for Kids uses ' +
+                                        'a web browser feature called "WebGPU". WebGPU is not enabled in your ' +
+                                        'browser. '});
+                    }
+                    else {
+                        displayAlert('errors', 500, err);
+                    }
                 });
         };
 
@@ -982,15 +997,16 @@
         //=====================================================================
         // LANGUAGE MODEL - testing
         //=====================================================================
-        $scope.testModel = function (prompt) {
-            if (!prompt || prompt.trim().length === 0 || $scope.generating || $scope.loading || $scope.reconfiguring) {
+        $scope.testModel = function () {
+            if (!$scope.prompt.message || $scope.prompt.message.trim().length === 0 || $scope.generating || $scope.loading || $scope.reconfiguring) {
                 return;
             }
+
+            const prompt = $scope.prompt.message;
 
             loggerService.debug('[ml4klanguage] testModel', prompt);
 
             $scope.generating = true;
-            $scope.generated = '...';
             $scope.testfeedbacknomatch = false;
             $scope.testfeedbackmoretokens = false;
 
@@ -1063,7 +1079,15 @@
 
 
         function getCandidateNgrams(allNgramsList) {
-            return allNgramsList.filter((i) => i.cumprob <= $scope.project.toy.topp);
+            const candidates = allNgramsList.filter((i) => i.cumprob <= $scope.project.toy.topp);
+            return (candidates.length > 0) ?
+                    // return the candidates that meet top-p
+                    candidates :
+                    // but if there aren't any, force the first option - unusual, but
+                    //  otherwise it's difficult to generate anything with a small corpus
+                    //  so focus on making something usable over being overly faithful
+                    [ allNgramsList[0] ];
+
         }
         function computeCandidateProbabilities(candidates) {
             let total = 0.0;
@@ -1089,10 +1113,8 @@
         }
         function chooseNgram(allNgrams) {
             const candidates = getCandidateNgrams(allNgrams);
-            if (candidates.length === 0) {
-                return allNgrams[0];
-            }
-            return selectCandidate(computeCandidateProbabilities(candidates));
+            const computedCandidates = computeCandidateProbabilities(candidates);
+            return selectCandidate(computedCandidates);
         }
 
         function representAsText(tok) {
@@ -1220,11 +1242,11 @@
             $scope.hoverexplain = $scope.generatedtokens[generatedTokensIdx];
         };
 
-        async function useSmallLanguageModel(prompt) {
-            const completion = await $scope.webllmEngine.chat.completions.create({
-                stream: true,
-                messages : [
-                    { role : 'system', content :
+        function startNewContext() {
+            return [
+                {
+                    role : 'system',
+                    content :
                         'You are a friendly and supportive AI assistant for children. ' +
                         'Use simple, clear, and encouraging language. Keep responses short, ' +
                         'engaging, and educational. Avoiding harmful, inappropriate, ' +
@@ -1232,20 +1254,51 @@
                         'Always be positive and constructive, and avoid sarcasm or harsh language. ' +
                         'Promote digital safety by reminding children not to share personal ' +
                         'information. If a child asks something unsafe, gently guide them toward ' +
-                        'a trusted adult.' },
-                    { role : 'user',   content : prompt }
-                ],
+                        'a trusted adult.'
+                }
+            ];
+        }
+
+        $scope.resetContextWindow = function () {
+            $scope.generatedmessages = [];
+        };
+
+        function scrollToNewMessage () {
+            $timeout(() => {
+                $scope.prompt.message = '';
+                const messagesContainer = document.getElementById('smallmodelmessages');
+                if (messagesContainer) {
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                }
+            }, 400);
+        }
+
+        async function useSmallLanguageModel(prompt) {
+            if ($scope.generatedmessages.length === 0) {
+                $scope.generatedmessages = startNewContext();
+            }
+
+            $scope.generatedmessages.push({ role : 'user', content : prompt });
+            scrollToNewMessage();
+
+            const completion = await $scope.webllmEngine.chat.completions.create({
+                stream: true,
+                messages : $scope.generatedmessages.filter((m) => m.role !== 'assistant' ),
                 top_p : $scope.project.slm.topp,
                 temperature : $scope.project.slm.temperature
             });
 
-            $scope.generated = '';
+            const nextMessageIdx = $scope.generatedmessages.push({
+                role : 'assistant', content : ''
+            }) - 1;
+            scrollToNewMessage();
+
             for await (const chunk of completion) {
                 const curDelta = chunk.choices[0].delta.content;
                 if (curDelta) {
                     const formatted = curDelta.replace(/\n/g, '<br>');
                     $scope.$applyAsync(() => {
-                        $scope.generated += formatted;
+                        $scope.generatedmessages[nextMessageIdx].content += formatted;
                     });
                 }
             }
@@ -1254,7 +1307,7 @@
             const response = finalMessage.replace(/\n/g, '<br>');
 
             loggerService.debug('[ml4klanguage] response', response);
-            $scope.generated = response;
+            $scope.generatedmessages[nextMessageIdx].content = response;
         }
 
 

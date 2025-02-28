@@ -369,6 +369,10 @@
                     <div translate="LANGUAGEMODEL.SMALL.DOWNLOADING"></div>
                     <md-progress-linear
                         style="width: 80%;"
+                        ng-if="project.slm.download > 100"
+                        md-mode="indeterminate"></md-progress-linear>
+                    <md-progress-linear
+                        style="width: 80%;"
                         ng-if="project.slm.download < 100"
                         md-mode="determinate"
                         value={{project.slm.download}}></md-progress-linear>
@@ -392,15 +396,12 @@
             <div class="stepheading" translate="LANGUAGEMODEL.CONTEXTWINDOW.TITLE" translate="LANGUAGEMODEL.CONTEXTWINDOW.TITLE"></div>
             <div class="steprow">
                 <md-select class="rowitem" ng-model="project.slm.contextwindow" ng-required="true" ng-change="modifySmallModelContextWindow()">
-                    <md-option ng-value=512>512</md-option>
-                    <md-option ng-value=1024>1024</md-option>
-                    <md-option ng-value=2048>2048</md-option>
-                    <md-option ng-value=4096>4096</md-option>
-                    <md-option ng-value=8192>8192</md-option>
+                    <md-option ng-value="512">512</md-option>
+                    <md-option ng-value="1024">1024</md-option>
+                    <md-option ng-value="2048">2048</md-option>
+                    <md-option ng-value="4096">4096</md-option>
+                    <md-option ng-value="8192">8192</md-option>
                     <md-option ng-value="16384">16384</md-option>
-                    <md-option ng-value="32768">32768</md-option>
-                    <md-option ng-value="65536">65536</md-option>
-                    <md-option ng-value="131072">131072</md-option>
                 </md-select>
                 <div class="rowitem stepexplanation" ng-if="phase === PHASES.SMALL.CONTEXTWINDOW" translate="LANGUAGEMODEL.CONTEXTWINDOW.DESCRIPTION"></div>
             </div>
@@ -463,11 +464,15 @@
         <div ng-if="phase === PHASES.TOY.READY || phase === PHASES.SMALL.READY" style="margin-top: 2em;">
             <div style="display: flex; flex-direction: row; margin-bottom: 8px;">
                 <div class="stepheading" translate="LANGUAGEMODEL.TESTING.TITLE"></div>
-                <input ng-model="prompt" ng-keypress="$event.which === 13 && testModel(prompt)" style="flex: 3; margin-left: 10px; margin-right: 10px;">
+                <input ng-model="prompt.message" ng-keypress="$event.which === 13 && testModel()" style="flex: 3; margin-left: 10px; margin-right: 10px;">
+                <button type="button" class="btn" translate="LANGUAGEMODEL.TESTING.RESET"
+                    ng-if="project.modeltype === 'small'"
+                    ng-click="resetContextWindow()"
+                    ng-disabled="generating || loading || generatedmessages.length === 0"></button>
                 <button type="button" translate="LANGUAGEMODEL.TESTING.GENERATE"
                     class="btn btn-primary"
-                    ng-click="testModel(prompt)"
-                    ng-disabled="!prompt || prompt.trim().length === 0 || generating || loading"></button>
+                    ng-click="testModel()"
+                    ng-disabled="!prompt.message || prompt.message.trim().length === 0 || generating || loading"></button>
             </div>
             <div class="testfeedback" ng-if="testfeedbackmoretokens" translate="LANGUAGEMODEL.TESTING.ERROR.TOOSHORT"></div>
             <div class="testfeedback" ng-if="testfeedbacknomatch"    translate="LANGUAGEMODEL.TESTING.ERROR.NOTFOUND"></div>
@@ -502,10 +507,16 @@
                     chance that it would be chosen.
                 </div>
             </div>
-            <!-- for small models render the text as a single value -->
-            <div ng-if="project.modeltype === 'small'" class="generatedtext"
-                 ng-class="{'placeholder' : !textgenerated || generating }"
-                 ng-bind-html="generated"></div>
+            <!-- for small models render the text in HTML divs -->
+            <div id="smallmodelmessages" ng-if="project.modeltype === 'small'" class="generatedtext" ng-class="{'placeholder' : !textgenerated || generating }">
+                <div ng-if="generatedmessages.length === 0">Generated text</div>
+                <div ng-repeat="generatedmessage in generatedmessages track by $index">
+                    <div ng-if="generatedmessage.role === 'user'" class="userpromptcontainer">
+                        <div class="userprompt" ng-bind-html="generatedmessage.content"></div>
+                    </div>
+                    <div ng-if="generatedmessage.role === 'assistant'" class="systemmessage" ng-bind-html="generatedmessage.content"></div>
+                </div>
+            </div>
         </div>
 
         <!-- ******************************************************* -->
@@ -533,17 +544,11 @@
             </div>
         </div>
 
-
         <div ng-if="loading"       class="loading"></div>
         <div ng-if="reconfiguring" class="loading"></div>
 
         <!-- debug -->
         <!--
-            <div style="font-family: monospace;">phase {{ phase }}</div>
-            <div style="font-family: monospace;">modeltype {{ modeltype }}</div>
-            <div style="font-family: monospace;">generating {{ generating }}</div>
-            <div style="font-family: monospace;">confirmTokens {{ confirmTokens }}</div>
-            <div style="font-family: monospace;">loading {{ loading }}</div>
             <div style="font-family: monospace;" ng-bind-html="debug(project)"></div>
         -->
     </div>

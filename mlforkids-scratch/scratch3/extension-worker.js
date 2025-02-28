@@ -425,6 +425,8 @@ class SharedDispatch {
           this.mlforkidsWebLlmSupport = new mlforkidsWebllm();
         }
         this.mlforkidsWebLlmSupport.initModel(message.mlforkidswebllm.data, worker);
+      } else if (message.mlforkidswebllm.command === 'clear') {
+        this.mlforkidsWebLlmSupport.clearContext(message.mlforkidswebllm.data);
       } else if (message.mlforkidswebllm.command === 'prompt') {
         this.mlforkidsWebLlmSupport.promptModel(message.mlforkidswebllm.data, worker);
       }
@@ -2753,7 +2755,8 @@ class ML4KidsWebLlm {
     const contextwindow = requestdata.contextwindow;
     this.MODELS[modelid + '-' + contextwindow] = {
       state: 'INIT',
-      busy: false
+      busy: false,
+      messages: []
     };
     this._loadWebLlmProjectSupport().then(() => {
       this.MODELS[modelid + '-' + contextwindow].webllmEngine = new window.mlforkidsWebLlm.MLCEngine();
@@ -2784,6 +2787,16 @@ class ML4KidsWebLlm {
       });
     });
   }
+  clearContext(requestdata) {
+    const modelid = requestdata.modelid;
+    const contextwindow = requestdata.contextwindow;
+    const modelKey = modelid + '-' + contextwindow;
+    if (modelKey in this.MODELS === false) {
+      console.log('[mlforkids] Unknown model ' + modelKey);
+      return;
+    }
+    this.MODELS[modelKey].messages = [];
+  }
   promptModel(requestdata, worker) {
     const requestid = requestdata.requestid;
     const modelid = requestdata.modelid;
@@ -2805,14 +2818,18 @@ class ML4KidsWebLlm {
       return;
     }
     this.MODELS[modelKey].busy = true;
-    const prompt = {
-      messages: [{
+    if (this.MODELS[modelKey].messages.length === 0) {
+      this.MODELS[modelKey].messages.push({
         role: 'system',
         content: 'You are a friendly and supportive AI assistant for children. ' + 'Use simple, clear, and encouraging language. Keep responses short, ' + 'engaging, and educational. Avoiding harmful, inappropriate, ' + 'scary, or violent content. ' + 'Always be positive and constructive, and avoid sarcasm or harsh language. ' + 'Promote digital safety by reminding children not to share personal ' + 'information. If a child asks something unsafe, gently guide them toward ' + 'a trusted adult.'
-      }, {
-        role: 'user',
-        content: input
-      }],
+      });
+    }
+    this.MODELS[modelKey].messages.push({
+      role: 'user',
+      content: input
+    });
+    const prompt = {
+      messages: this.MODELS[modelKey].messages,
       temperature,
       top_p
     };
