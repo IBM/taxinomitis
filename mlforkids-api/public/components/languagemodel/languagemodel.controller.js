@@ -204,7 +204,7 @@
                 $scope.loading = false;
             })
             .catch((err) => {
-                loggerService.error('[ml4klanguage] error', err);
+                loggerService.error('[ml4klanguage] init error', err);
                 displayAlert('errors', err.status, err.data ? err.data : err);
             });
 
@@ -1281,33 +1281,54 @@
             $scope.generatedmessages.push({ role : 'user', content : prompt });
             scrollToNewMessage();
 
-            const completion = await $scope.webllmEngine.chat.completions.create({
-                stream: true,
-                messages : $scope.generatedmessages.filter((m) => m.role !== 'assistant' ),
-                top_p : $scope.project.slm.topp,
-                temperature : $scope.project.slm.temperature
-            });
+            try {
+                const completion = await $scope.webllmEngine.chat.completions.create({
+                    stream: true,
+                    messages : $scope.generatedmessages.filter((m) => !m.inprogress),
+                    top_p : $scope.project.slm.topp,
+                    temperature : $scope.project.slm.temperature
+                });
 
-            const nextMessageIdx = $scope.generatedmessages.push({
-                role : 'assistant', content : ''
-            }) - 1;
-            scrollToNewMessage();
+                const nextMessageIdx = $scope.generatedmessages.push({
+                    role : 'assistant', content : '', inprogress : true
+                }) - 1;
+                scrollToNewMessage();
 
-            for await (const chunk of completion) {
-                const curDelta = chunk.choices[0].delta.content;
-                if (curDelta) {
-                    const formatted = curDelta.replace(/\n/g, '<br>');
-                    $scope.$applyAsync(() => {
-                        $scope.generatedmessages[nextMessageIdx].content += formatted;
-                    });
+                for await (const chunk of completion) {
+                    const curDelta = chunk.choices[0].delta.content;
+                    if (curDelta) {
+                        const formatted = curDelta.replace(/\n/g, '<br>');
+                        $scope.$applyAsync(() => {
+                            $scope.generatedmessages[nextMessageIdx].content += formatted;
+                        });
+                    }
                 }
+
+                const finalMessage = await $scope.webllmEngine.getMessage();
+                const response = finalMessage.replace(/\n/g, '<br>');
+
+                loggerService.debug('[ml4klanguage] response', response);
+                $scope.generatedmessages[nextMessageIdx].content = response;
+                delete $scope.generatedmessages[nextMessageIdx].inprogress;
             }
+            catch (err) {
+                loggerService.error('[ml4klanguage] failure from small language model', err);
+                $scope.generatedmessages = $scope.generatedmessages.filter((m) => !m.inprogress);
 
-            const finalMessage = await $scope.webllmEngine.getMessage();
-            const response = finalMessage.replace(/\n/g, '<br>');
+                if (err.message.includes('tokens exceed context window size') && $scope.generatedmessages.length > 1)
+                {
+                    // remove the user prompt just added
+                    $scope.generatedmessages.pop();
 
-            loggerService.debug('[ml4klanguage] response', response);
-            $scope.generatedmessages[nextMessageIdx].content = response;
+                    // remove the oldest non-system message
+                    $scope.generatedmessages.splice(1, 1);
+
+                    // retry
+                    return useSmallLanguageModel(prompt);
+                }
+
+                throw err;
+            }
         }
 
 

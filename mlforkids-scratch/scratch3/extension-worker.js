@@ -2818,6 +2818,9 @@ class ML4KidsWebLlm {
       return;
     }
     this.MODELS[modelKey].busy = true;
+    this._submitPrompt(modelKey, temperature, top_p, input, worker);
+  }
+  _submitPrompt(modelKey, temperature, top_p, input, worker) {
     if (this.MODELS[modelKey].messages.length === 0) {
       this.MODELS[modelKey].messages.push({
         role: 'system',
@@ -2846,19 +2849,29 @@ class ML4KidsWebLlm {
           response
         }
       });
+      this.MODELS[modelKey].messages.push({
+        role: 'assistant',
+        content: response
+      });
       this.MODELS[modelKey].busy = false;
     }).catch(err => {
       console.log('[mlforkids] language model fail', err);
-      worker.postMessage({
-        mlforkidswebllm: 'promptresponse',
-        data: {
-          requestid,
-          modelid,
-          contextwindow,
-          response: 'Unable to respond'
-        }
-      });
-      this.MODELS[modelKey].busy = false;
+      if (err.message.includes('tokens exceed context window size') && this.MODELS[modelKey].messages.length > 1) {
+        this.MODELS[modelKey].messages.pop();
+        this.MODELS[modelKey].messages.splice(1, 1);
+        this._submitPrompt(modelKey, temperature, top_p, input, worker);
+      } else {
+        worker.postMessage({
+          mlforkidswebllm: 'promptresponse',
+          data: {
+            requestid,
+            modelid,
+            contextwindow,
+            response: 'Unable to respond'
+          }
+        });
+        this.MODELS[modelKey].busy = false;
+      }
     });
   }
   _loadWebLlmProjectSupport() {
