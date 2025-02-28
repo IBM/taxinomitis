@@ -2818,9 +2818,9 @@ class ML4KidsWebLlm {
       return;
     }
     this.MODELS[modelKey].busy = true;
-    this._submitPrompt(modelKey, temperature, top_p, input, worker);
+    this._submitPrompt(requestid, modelid, contextwindow, modelKey, temperature, top_p, input, worker);
   }
-  _submitPrompt(modelKey, temperature, top_p, input, worker) {
+  _submitPrompt(requestid, modelid, contextwindow, modelKey, temperature, top_p, input, worker) {
     if (this.MODELS[modelKey].messages.length === 0) {
       this.MODELS[modelKey].messages.push({
         role: 'system',
