@@ -485,16 +485,31 @@
             <div ng-if="project.modeltype === 'toy' && generatedtokens.length > 1 && !hoverexplain" class="confirmtokens hoverexplain" translate="LANGUAGEMODEL.TESTING.CLICK"></div>
             <div ng-if="project.modeltype === 'toy' && hoverexplain" class="confirmtokens hoverexplain">
                 <div style="margin-bottom: 15px;">
-                    <span class="token" >{{ hoverexplain.input }}</span> was in your documents <span class="highlightnumber">{{ hoverexplain.options }}</span> time<span ng-hide="hoverexplain.options === 1">s</span>.
-                    <span ng-if="hoverexplain.candidates === 1">
-                        The only token found immediately after "{{ hoverexplain.input }}" was
+                    <span class="nowrap">
+                        <span class="token" style="margin-left: 0;">{{ hoverexplain.input }}</span>
+                        was in your documents
+                        <span class="highlightnumber">{{ hoverexplain.options }}</span>
+                        time<span ng-hide="hoverexplain.options === 1">s</span>.
+                    </span>
+
+                    <span ng-if="hoverexplain.candidates === 1" class="nowrap">
+                        The only token found immediately after
+                        "{{ hoverexplain.input }}" was
                         <span class="token" style="background-color: black; color: white; margin-left: 1em;">{{ hoverexplain.token }}</span>
                     </span>
+
                     <span ng-if="hoverexplain.candidates > 1">
-                        <span class="highlightnumber">{{ hoverexplain.candidates }}</span> different tokens were found immediately after it.
-                        <span class="token" style="background-color: black; color: white; margin-left: 1em;">{{ hoverexplain.token }}</span> was
-                        after "{{ hoverexplain.input }}" <span class="highlightnumber">{{ hoverexplain.count }}</span>
-                        time<span ng-hide="hoverexplain.count === 1">s</span>.
+                        <span class="nowrap">
+                            <span class="highlightnumber">{{ hoverexplain.candidates }}</span>
+                            different tokens were found immediately after it.
+                        </span>
+                        <span class="nowrap">
+                            <span class="token" style="background-color: black; color: white; margin-left: 1em;">{{ hoverexplain.token }}</span>
+                            was after
+                            "{{ hoverexplain.input }}"
+                            <span class="highlightnumber">{{ hoverexplain.count }}</span>
+                            time<span ng-hide="hoverexplain.count === 1">s</span>.
+                        </span>
                     </span>
                 </div>
                 <div ng-if="hoverexplain.candidates === 1">

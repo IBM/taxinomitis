@@ -101,7 +101,7 @@
 .languagemodelpage .confirmtokens .highlightnumber {
     font-family: monospace;
     font-weight: bold;
-    font-size: 1.1em;
+    font-size: 1.2em;
     margin-left: 5px;
     margin-right: 5px;
 }
@@ -116,6 +116,12 @@
 
 .languagemodelpage .confirmtokens.hoverexplain {
     width: 100%;
+}
+
+.languagemodelpage .confirmtokens.hoverexplain .nowrap {
+    white-space: nowrap;
+    display: inline-block;
+    line-height: 50px;
 }
 
 .languagemodelpage .confirmtokens.hoverexplain .token {
