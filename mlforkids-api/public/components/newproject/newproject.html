@@ -87,12 +87,12 @@
                            ng-disabled="creating"
                            ng-focus="vm.focused = 'type'"
                            class="newprojecttype">
-                    <md-option value="text"   >{{ 'NEWPROJECT.TYPES.LABEL' | translate }} {{ 'WORKSHEETS.TYPES.TEXT'    | translate }}</md-option>
-                    <md-option value="imgtfjs">{{ 'NEWPROJECT.TYPES.LABEL' | translate }} {{ 'WORKSHEETS.TYPES.IMAGES'  | translate }}</md-option>
-                    <md-option value="numbers">{{ 'NEWPROJECT.TYPES.LABEL' | translate }} {{ 'WORKSHEETS.TYPES.NUMBERS' | translate }}</md-option>
-                    <md-option value="sounds" >{{ 'NEWPROJECT.TYPES.LABEL' | translate }} {{ 'WORKSHEETS.TYPES.SOUNDS'  | translate }}</md-option>
+                    <md-option  value="text"   >{{ 'NEWPROJECT.TYPES.LABEL' | translate }} {{ 'WORKSHEETS.TYPES.TEXT'    | translate }}</md-option>
+                    <md-option  value="imgtfjs">{{ 'NEWPROJECT.TYPES.LABEL' | translate }} {{ 'WORKSHEETS.TYPES.IMAGES'  | translate }}</md-option>
+                    <md-option  value="numbers">{{ 'NEWPROJECT.TYPES.LABEL' | translate }} {{ 'WORKSHEETS.TYPES.NUMBERS' | translate }}</md-option>
+                    <md-option  value="sounds" >{{ 'NEWPROJECT.TYPES.LABEL' | translate }} {{ 'WORKSHEETS.TYPES.SOUNDS'  | translate }}</md-option>
                     <md-option value="regression" ng-if="isLocalSupported" translate="WORKSHEETS.TYPES.REGRESSION"></md-option>
-                    <md-option value="language" ng-if="earlyaccess">{{ 'NEWPROJECT.TYPES.GENERATE' | translate }} {{ 'WORKSHEETS.TYPES.TEXT' | translate }} <span class='badge' translate="APP.BETA"></span></md-option>
+                    <md-option value="language">{{ 'NEWPROJECT.TYPES.GENERATE' | translate }} {{ 'WORKSHEETS.TYPES.TEXT' | translate }} <span class='badge' translate="APP.BETA"></span></md-option>
                 </md-select>
             </md-input-container>
             <div class="well newprojecthelp"
@@ -103,7 +103,7 @@
                 <div translate="NEWPROJECT.TYPES.NOTES_4"></div>
                 <div translate="NEWPROJECT.TYPES.NOTES_5"></div>
                 <div translate="NEWPROJECT.TYPES.NOTES_6"></div>
-                <div translate="NEWPROJECT.TYPES.NOTES_7" ng-if="earlyaccess"></div>
+                <div translate="NEWPROJECT.TYPES.NOTES_7"></div>
             </div>
         </div>
 
