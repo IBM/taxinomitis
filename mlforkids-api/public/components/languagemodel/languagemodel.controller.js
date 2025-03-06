@@ -858,12 +858,25 @@
                     }
                 })
                 .catch((err) => {
-                    loggerService.error('[ml4klanguage] Failed to download model');
+                    loggerService.error('[ml4klanguage] Failed to download model', err);
                     if (err.message && err.message.startsWith('WebGPU is not supported')) {
                         displayAlert('errors', 400,
                             { message : 'Running small language models in Machine Learning for Kids uses ' +
                                         'a web browser feature called "WebGPU". WebGPU is not enabled in your ' +
                                         'browser. '});
+                    }
+                    else if (err.message && err.message.includes('insufficient memory or other GPU constraints') {
+                        if ($scope.project.slm.id === 'SmolLM2-135M-Instruct-q0f16-MLC') {
+                            displayAlert('errors', 500,
+                                { message : 'Sorry! Model could not be loaded - this could be because your computer ' +
+                                            'does not have enough memory to run a small language model.'});
+                        }
+                        else {
+                            displayAlert('errors', 400,
+                                { message : 'Model could not be loaded - this could be because your computer ' +
+                                            'does not have enough memory to run the model you have chosen. ' +
+                                            'Try choosing a smaller model.'});
+                        }
                     }
                     else {
                         displayAlert('errors', 500, err);
