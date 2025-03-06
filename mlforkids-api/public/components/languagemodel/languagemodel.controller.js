@@ -865,7 +865,7 @@
                                         'a web browser feature called "WebGPU". WebGPU is not enabled in your ' +
                                         'browser. '});
                     }
-                    else if (err.message && err.message.includes('insufficient memory or other GPU constraints') {
+                    else if (err.message && err.message.includes('insufficient memory or other GPU constraints')) {
                         if ($scope.project.slm.id === 'SmolLM2-135M-Instruct-q0f16-MLC') {
                             displayAlert('errors', 500,
                                 { message : 'Sorry! Model could not be loaded - this could be because your computer ' +
