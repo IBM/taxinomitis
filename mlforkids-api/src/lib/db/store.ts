@@ -252,7 +252,7 @@ export async function addLabelToProject(
     // case-insentive check to see if the label is already
     //  in use, because Watson Assistant chokes on projects
     //  with labels that differ only in case
-    if (labels.map(l => l.toLowerCase()).includes(newlabel.toLowerCase()) === false) {
+    if (labels.map(l => conversation.normalizeText(l)).includes(conversation.normalizeText(newlabel)) === false) {
         labels.push(newlabel);
     }
 

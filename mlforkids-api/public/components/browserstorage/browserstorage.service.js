@@ -489,7 +489,7 @@
             const readEvent = await promisifyIndexedDbRequest(readRequest);
             const projectObject = requiresResult(readEvent);
 
-            if (!projectObject.labels.includes(label)) {
+            if (!projectObject.labels.map(l => l.toLowerCase()).includes(label.toLowerCase())) {
                 projectObject.labels.push(label);
 
                 const updateRequest = projectsTable.put(projectObject);

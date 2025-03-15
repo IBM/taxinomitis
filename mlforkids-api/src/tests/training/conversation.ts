@@ -449,7 +449,72 @@ describe('Training - Conversation', () => {
     });
 
 
+    describe('normalize text', () => {
+        it('should return expected text', () => {
+            const TESTS = [
+                { input : 'HELLO', expected : 'hello' },
+                { input : 'Hello', expected : 'hello' },
+                { input : 'HÉLLO', expected : 'hello' },
+                { input : 'héllo', expected : 'hello' },
+                { input : 'àèìòùÀÈÌÒÙ', expected : 'aeiouaeiou' }
+            ];
+            for (const test of TESTS) {
+                assert.strictEqual(test.expected, conversation.normalizeText(test.input));
+            }
+        });
+    });
 
+    describe('sanitize training', () => {
+        it('should remove duplicates from a training set', () => {
+            const language: DbTypes.TextProjectLanguage = 'en';
+            const testinput = {
+                name: "Me hace feliz",
+                language,
+                intents:[
+                    {
+                        intent: 'bien',
+                        examples:[
+                            {text:'guapo'},
+                            {text:'hermoso'},
+                            {text:'Amort'},
+                            {text:'precioso'},
+                            {text:'listo'},
+                            {text:'inteligente'},
+                            {text:'gracioso'},
+                            {text:'amort'},
+                            {text:'amor'},
+                            {text:'tt'}
+                        ]
+                    },
+                    {
+                        intent: 'mal',
+                        examples:[
+                            {text:'feo'},
+                            {text:'tonto'},
+                            {text:'tontorron'},
+                            {text:'aburrido'},
+                            {text:'autista'},
+                            {text:'retrasado'},
+                            {text:'malo'},
+                            {text:'tontorrón'},
+                            {text:'Autista'}
+                        ]
+                    }
+                ],
+                dialog_nodes:[],
+                counterexamples:[],
+                entities:[],
+                metadata:{createdby:'machinelearningforkids'}
+            };
+            const output = conversation.sanitizeTraining(testinput);
+            assert.deepStrictEqual(output.intents[0].examples.map(e => e.text),
+                [ 'guapo', 'hermoso', 'Amort', 'precioso', 'listo',
+                  'inteligente', 'gracioso', 'amor', 'tt' ]);
+            assert.deepStrictEqual(output.intents[1].examples.map(e => e.text),
+                [ 'feo', 'tonto', 'tontorron', 'aburrido', 'autista',
+                  'retrasado', 'malo' ]);
+        });
+    });
 
     const newClassifierDate = new Date();
     newClassifierDate.setMilliseconds(0);

@@ -461,7 +461,7 @@ async function getTraining(project: DbObjects.Project): Promise<TrainingObjects.
 
             const duplicatesCheck: string[] = [];
             for (const text of training) {
-                const caseInsensitiveText = text.toLowerCase();
+                const caseInsensitiveText = normalizeText(text);
 
                 if (!duplicatesCheck.includes(caseInsensitiveText)) {
                     intentTraining.examples.push({ text });
@@ -506,15 +506,25 @@ export function sanitizeTraining(obj:TrainingObjects.ConversationTrainingData): 
         name : obj.name.replace(/[\t\n]/g, '_').substring(64),
         language : obj.language,
         intents : obj.intents.map((origintent) => {
+            const normalizedExamples: string[] = [];
             return {
                 intent : origintent.intent.replace(/[^A-Za-z0-9_\-.]/g, '_').substring(0, 128),
                 examples : origintent.examples
-                    .map((example) => {
-                        return {
-                            text : example.text.replace(/[\t\n]/g, ' ').trim()
-                        };
-                    })
-                    .filter(example => example.text.length > 0)
+                            .map(example => example.text.replace(/[\t\n]/g, ' ').trim())
+                            .filter(txt => txt.length > 0)
+                            .filter((txt) => {
+                                const normalized = normalizeText(txt);
+                                if (normalizedExamples.includes(normalized)) {
+                                    // already got something like this in the training - filter it out
+                                    return false;
+                                }
+                                else {
+                                    // record this example to prevent future duplicates being added
+                                    normalizedExamples.push(normalized);
+                                    return true;
+                                }
+                            })
+                            .map((text) => { return {text} })
             };
         }),
         dialog_nodes : [],
@@ -542,6 +552,14 @@ function validateIntent(obj: TrainingObjects.ConversationIntent): boolean
            });
 }
 
+
+export function normalizeText(text: string): string {
+    return text
+        .toLowerCase()
+        .normalize('NFD')
+        // remove accents
+        .replace(/[\u0300-\u036f]/g, '');
+}
 
 
 

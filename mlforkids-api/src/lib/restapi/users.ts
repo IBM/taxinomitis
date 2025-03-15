@@ -226,6 +226,9 @@ function userAlreadyExists(err: any) {
                 ||
                (err.response.body.statusCode === httpstatus.BAD_REQUEST &&
                 err.response.body.message === 'The username provided is in use already.')
+                ||
+               (err.response.body.statusCode === httpstatus.BAD_REQUEST &&
+                err.response.body.message.startsWith('The user already exists'))
             );
 }
 function passwordRejected(err: any) {
