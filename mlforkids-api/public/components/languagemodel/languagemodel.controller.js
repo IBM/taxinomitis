@@ -6,14 +6,14 @@
 
     LanguageModelController.$inject = [
         'authService', 'projectsService', 'trainingService',
-        'wikipediaService', 'languageModelService',
+        'wikipediaService', 'languageModelService', 'txtService',
         'utilService', 'loggerService',
         '$mdDialog',
         '$stateParams',
         '$scope', '$window', '$timeout'
     ];
 
-    function LanguageModelController(authService, projectsService, trainingService, wikipediaService, languageModelService, utilService, loggerService, $mdDialog, $stateParams, $scope, $window, $timeout) {
+    function LanguageModelController(authService, projectsService, trainingService, wikipediaService, languageModelService, txtService, utilService, loggerService, $mdDialog, $stateParams, $scope, $window, $timeout) {
         var vm = this;
         vm.authService = authService;
 
@@ -515,15 +515,13 @@
         // add contents of a text file - invoked after choosing files from file picker
         $scope.addCorpusFile = function (ev) {
             if (ev.currentTarget && ev.currentTarget.files) {
-                const allFiles = [];
-                for (let idx = 0; idx < ev.currentTarget.files.length; idx++) {
-                    allFiles.push({
-                        type : 'text',
-                        title : ev.currentTarget.files[idx].name,
-                        contents : 'placeholder'
+                return txtService.getContents(ev.currentTarget.files)
+                    .then((allFiles) => {
+                        addToyCorpusItems(allFiles);
+                    })
+                    .catch(() => {
+                        displayAlert('errors', 500, { message : 'There was a problem reading one of your files' });
                     });
-                }
-                addToyCorpusItems(allFiles);
             }
         };
 
