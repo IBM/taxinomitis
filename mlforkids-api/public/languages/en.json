@@ -187,6 +187,7 @@
         "CREATEFIRSTPROJECT": "Click the 'plus' button on the right to create your first project.",
         "RECOGNISING": "Recognising",
         "PREDICTING": "Predicting",
+        "GENERATING": "Generating",
         "AS": "as",
         "SHARE": "Share",
         "UNSHARE": "Un-share",
@@ -1180,6 +1181,7 @@
 
             "PREFIX": "Train a computer to recognise ",
             "PREFIXREGRESSION": "Train a computer to predict ",
+            "PREFIXLANGUAGE": "Train a computer to generate ",
 
             "TEXT": "text",
             "IMAGES": "images",
@@ -1757,6 +1759,15 @@
             "DESCRIPTION": "Recreate the world's first speech recognition system from 1961.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shoebox.pdf"
+            }
+        },
+        "LANGUAGEMODELS": {
+            "TITLE": "Language models",
+            "SUMMARY": "Teach a computer to generate text",
+            "DESCRIPTION": "Learn the concepts behind how language models can generate new text",
+            "TEACHERSNOTES_URL": "https://dalelane.co.uk/blog/?p=5538",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-langmodels.pdf"
             }
         }
     },

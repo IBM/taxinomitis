@@ -16,6 +16,7 @@
         <md-option value="sounds">{{ 'WORKSHEETS.TYPES.PREFIX' | translate }} <strong translate="WORKSHEETS.TYPES.SOUNDS"></strong></md-option>
         <md-option value="faces">{{ 'WORKSHEETS.TYPES.PREFIX' | translate }} <strong translate="WORKSHEETS.TYPES.FACES"></strong></md-option>
         <md-option value="regression">{{ 'WORKSHEETS.TYPES.PREFIXREGRESSION' | translate }} <strong translate="WORKSHEETS.TYPES.NUMBERS"></strong></md-option>
+        <md-option value="language">{{ 'WORKSHEETS.TYPES.PREFIXLANGUAGE' | translate }}  <strong translate="WORKSHEETS.TYPES.TEXT"></strong></md-option>
     </md-select>
     <md-select ng-model="projectdifficulty" class="filter" aria-label="Filter by project difficulty">
         <md-option value="ALL" translate="WORKSHEETS.LEVELS.ALL"></md-option>
@@ -45,8 +46,9 @@
         <div class="cardfooter">
             <div class="difficulty"><span class="heading" translate="WORKSHEETS.LEVELS.TITLE"></span> {{worksheet.difficulty}}</div>
             <div class="projecttype">
-                <span class="heading" translate="WORKSHEETS.TYPES.TITLE" ng-hide="worksheet.type === 'regression'"></span>
+                <span class="heading" translate="WORKSHEETS.TYPES.TITLE" ng-hide="worksheet.type === 'regression' || worksheet.type === 'language'"></span>
                 <span class="heading" translate="PROJECTS.PREDICTING" ng-if="worksheet.type === 'regression'"></span>
+                <span class="heading" translate="PROJECTS.GENERATING" ng-if="worksheet.type === 'language'"></span>
 
                 <span class="worksheettype" ng-if="worksheet.type === 'text'" translate="WORKSHEETS.TYPES.TEXT"></span>
                 <span class="worksheettype" ng-if="worksheet.type === 'images'" translate="WORKSHEETS.TYPES.IMAGES"></span>
@@ -54,6 +56,7 @@
                 <span class="worksheettype" ng-if="worksheet.type === 'sounds'" translate="WORKSHEETS.TYPES.SOUNDS"></span>
                 <span class="worksheettype" ng-if="worksheet.type === 'faces'" translate="WORKSHEETS.TYPES.FACES"></span>
                 <span class="worksheettype" ng-if="worksheet.type === 'regression'" translate="WORKSHEETS.TYPES.NUMBERS"></span>
+                <span class="worksheettype" ng-if="worksheet.type === 'language'" translate="WORKSHEETS.TYPES.TEXT"></span>
             </div>
         </div>
         <div class="cardfooter">
