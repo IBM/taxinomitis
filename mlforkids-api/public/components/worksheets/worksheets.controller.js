@@ -220,7 +220,10 @@
             'WORKSHEETS.SHOEBOX.WORKSHEET_1.URL',
 
             'WORKSHEETS.LANGUAGEMODELS.TITLE', 'WORKSHEETS.LANGUAGEMODELS.SUMMARY', 'WORKSHEETS.LANGUAGEMODELS.DESCRIPTION',
-            'WORKSHEETS.LANGUAGEMODELS.TEACHERSNOTES_URL', 'WORKSHEETS.LANGUAGEMODELS.WORKSHEET_1.URL'
+            'WORKSHEETS.LANGUAGEMODELS.TEACHERSNOTES_URL', 'WORKSHEETS.LANGUAGEMODELS.WORKSHEET_1.URL',
+
+            'WORKSHEETS.STORYTELLER.TITLE', 'WORKSHEETS.STORYTELLER.SUMMARY', 'WORKSHEETS.STORYTELLER.DESCRIPTION',
+            'WORKSHEETS.STORYTELLER.TEACHERSNOTES_URL', 'WORKSHEETS.STORYTELLER.WORKSHEET_1.URL'
 
         ]).then(function (translations) {
             vm.worksheets = [
@@ -1074,6 +1077,22 @@
                     downloads : [
                         {
                             worksheet : translations['WORKSHEETS.LANGUAGEMODELS.WORKSHEET_1.URL']
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.STORYTELLER.TITLE'],
+                    summary : translations['WORKSHEETS.STORYTELLER.SUMMARY'],
+                    description : translations['WORKSHEETS.STORYTELLER.DESCRIPTION'],
+                    difficulty : 'Beginner',
+                    type : 'language',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-storyteller.png',
+                    tags : [ 'language models', 'LLM', 'generative AI' ],
+                    teachersnotes : translations['WORKSHEETS.STORYTELLER.TEACHERSNOTES_URL'],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.STORYTELLER.WORKSHEET_1.URL']
                         }
                     ]
                 }

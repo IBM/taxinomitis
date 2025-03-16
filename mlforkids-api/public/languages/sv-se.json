@@ -181,6 +181,7 @@
         "CREATEFIRSTPROJECT": "Klicka på 'plus'-knappen till höger för att skapa ditt första projekt.",
         "RECOGNISING": "Känna igen",
         "PREDICTING": "Predicting",
+        "GENERATING": "Generating",
         "AS": "som",
         "SHARE": "Share",
         "UNSHARE": "Un-share",
@@ -1150,6 +1151,7 @@
             "ALL": "Alla projekttyper",
             "PREFIX": "Träna en dator att känna igen ",
             "PREFIXREGRESSION": "Train a computer to predict ",
+            "PREFIXLANGUAGE": "Train a computer to generate ",
             "TEXT": "text",
             "IMAGES": "bilder",
             "NUMBERS": "siffror",
@@ -1716,6 +1718,24 @@
             "DESCRIPTION": "Recreate the world's first speech recognition system from 1961.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shoebox.pdf"
+            }
+        },
+        "LANGUAGEMODELS": {
+            "TITLE": "Language models",
+            "SUMMARY": "Teach a computer how to generate text",
+            "DESCRIPTION": "Learn the concepts behind how language models can generate new text",
+            "TEACHERSNOTES_URL": "https://dalelane.co.uk/blog/?p=5538",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-langmodels.pdf"
+            }
+        },
+        "STORYTELLER": {
+            "TITLE": "Story teller",
+            "SUMMARY": "Use a computer trained to generate text",
+            "DESCRIPTION": "Make a project in Scratch that can generate new stories",
+            "TEACHERSNOTES_URL": "https://dalelane.co.uk/blog/?p=5538",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-storyteller.pdf"
             }
         }
     },

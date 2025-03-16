@@ -1763,11 +1763,20 @@
         },
         "LANGUAGEMODELS": {
             "TITLE": "Language models",
-            "SUMMARY": "Teach a computer to generate text",
+            "SUMMARY": "Teach a computer how to generate text",
             "DESCRIPTION": "Learn the concepts behind how language models can generate new text",
             "TEACHERSNOTES_URL": "https://dalelane.co.uk/blog/?p=5538",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-langmodels.pdf"
+            }
+        },
+        "STORYTELLER": {
+            "TITLE": "Story teller",
+            "SUMMARY": "Use a computer trained to generate text",
+            "DESCRIPTION": "Make a project in Scratch that can generate new stories",
+            "TEACHERSNOTES_URL": "https://dalelane.co.uk/blog/?p=5538",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-storyteller.pdf"
             }
         }
     },
