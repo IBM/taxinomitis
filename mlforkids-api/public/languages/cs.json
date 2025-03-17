@@ -46,65 +46,6 @@
         },
         "PRETRAINED": {
             "BODY": "Studentům jsou k dispozici také předem natrénované modely, které mohou použít ve svých projektech. Tyto pokročilé modely umožňují realizovat projekty, které by jinak byly pro studenty příliš složité na to, aby je sami trénovali, a poskytují užitečné praktické poznatky o některých dalších možnostech strojového učení."
-        },
-        "FURTHER": {
-            "TITLE": "Další vzdělávání",
-            "BODY": "Strojové učení pro děti je užitečný nástroj, který dětem přiblíží, jak se systémy ML trénují, jak se používají a jaké jsou některé reálné důsledky aplikací umělé inteligence. <br/><br/>Další výukové a vzdělávací zdroje, včetně výuky vnitřních principů systémů ML, naleznete zde: "
-        }
-    },
-    "LINKS": {
-        "TITLE": "Vzdělávací zdroje AI pro děti",
-        "INTRO": "Na této stránce naleznete seznam dalších nástrojů a zdrojů pro vysvětlení umělé inteligence dětem.",
-        "ECRAFT2LEARN": {
-            "BODY1": "<a href='http://users.ox.ac.uk/~oucs0030/' target='_blank'>Ken Kahn</a> vytvořil zdroje, které umožňují začátečníkům vytvářet programy s umělou inteligencí v prostředí Snap! (vizuální programovací prostředí podobné Scratchi).",
-            "BODY2": "Zatímco já jsem se zaměřil na vysvětlení toho, jak jsou systémy umělé inteligence trénovány a jak se chovají (a jaké to má reálné důsledky), eCraft2Learn má fantastické zdroje, které se zabývají tím, jak systémy ML skutečně fungují.",
-            "BODY3": "Obzvláště fascinující je <a href='https://ecraft2learn.github.io/ai/AI-Teacher-Guide/chapter-6.html' target='_blank'>projekt neuronové sítě Tic Tac Toe</a>, který studentům umožňuje experimentovat s hyperparametry z aplikace Snap."
-        },
-        "STEMLEARNING": {
-            "BODY1": "STEM Learning a britské ministerstvo pro obchod, energetiku a průmyslovou strategii vytvořily zdroje pro výuku principů umělé inteligence.",
-            "BODY2": "Tyto zdroje zahrnují projekty <em>Machine Learning for Kids</em>, doplněné o poznámky k výuce, prezentační materiály, karty s podněty a praktické aktivity \"unplugged\""
-        },
-        "RASPBERRYPI": {
-            "BODY1": "Nadace Raspberry Pi Foundation poskytuje zdroje pro Code Clubs s návody krok za krokem pro různé kreativní projekty.",
-            "BODY2": "Jejich cesta ke strojovému učení zahrnuje řadu projektů z programu <em>Machine Learning for Kids</em>."
-        },
-        "APPSFORGOOD": {
-            "BODY1": "Apps for Good je nezisková organizace se sídlem ve Velké Británii, která vytváří zdroje pro výuku technologických předmětů, které dává volně k dispozici školám.",
-            "BODY2": "Jejich kurz strojového učení využívá <em>učebnici Machine Learning for Kids</em> a doplňuje ji řadou dalších materiálů, jako jsou pracovní schémata, plány hodin, pracovní sešity pro studenty, prezentace a další. Školám usnadňuje výuku ML, která dává cvičení z kódování do souvislostí."
-        },
-        "AIFAMILYCHALLENGE": {
-            "BODY1": "AI Family Challenge je bezplatný praktický vzdělávací program o umělé inteligenci pro rodiny. Využívají <em>program Machine Learning for Kids</em> a doplňují ho o spoustu další podpory, jako jsou techničtí koučové a mentoři, strukturovaný plán výuky a podpůrná videa.",
-            "BODY2": "Program je založen na soutěži, která vyzývá děti, aby s podporou svých rodin a technických mentorů vymyslely vlastní nápady na projekty v oblasti umělé inteligence."
-        },
-        "MAGENTADEMOS": {
-            "BODY1": "Online hračky, které demonstrují různé aspekty strojového učení pomocí TensorFlow.js"
-        },
-        "AIINSCHOOLS": {
-            "BODY1": "Program AIinSchools poskytuje učitelům bezplatný plán výuky, který jim pomůže vysvětlit umělou inteligenci v 9. ročníku (13-14 let).",
-            "BODY2": "Zahrnuje jak aktivity bez zapojení do výuky, tak programování pro trénování neuronových sítí na grafických procesorech běžících na AWS."
-        },
-        "TEENSINAI": {
-            "BODY1": "Program Teens in AI využívá kombinaci hackathonů, akcelerátorů a bootcampů, aby podpořil mladé lidi ve věku 12-18 let v objevování umělé inteligence."
-        },
-        "AI4ALL": {
-            "BODY1": "AI4ALL pořádá letní tábory pro středoškoláky v USA, které poskytují podrobný technický úvod do umělé inteligence."
-        },
-        "CALYPSO": {
-            "BODY1": "Studenti, kteří mají programovatelné roboty Cozmo, mohou využít programovací rámec Calypso a prakticky si vyzkoušet umělou inteligenci experimentováním s technikami, jako je počítačové vidění a rozpoznávání řeči."
-        },
-        "AIINABOX": {
-            "BODY1": "AI-in-a-Box je sada robotů, příslušenství a výukových materiálů. Sadu lze použít k výuce projektů, které pokrývají témata jako vizuální rozpoznávání, rozpoznávání obličeje, generování řeči a rozpoznávání řeči."
-        },
-        "GOOGLEEXPERIMENTS": {
-            "BODY1": "Jednoduché online experimenty, s nimiž můžete začít zkoumat strojové učení pomocí obrázků, kreseb, jazyka a hudby."
-        },
-        "EXPLORINGCS": {
-            "BODY1": "Exploring CS poskytuje studentům znalosti a dovednosti v oblasti umělé inteligence a zároveň zohledňuje sociální, morální a etické dopady.",
-            "BODY2": "Zkoumají praktické každodenní aplikace umělé inteligence, které ovlivňují jejich životy.  Studenti navrhují chytrá města, domy a školy.  Naučí se také sestavit, trénovat a testovat systém AI prostřednictvím platformy NVIDIA a podívají se, jak se komunikuje poselství AI."
-        },
-        "VIDEOS": {
-            "TITLE": "Videa",
-            "INTRO": "Tato videa se mi také osvědčila při zavádění konceptů umělé inteligence:"
         }
     },
     "ERRORS": {

@@ -46,65 +46,6 @@
         },
         "PRETRAINED": {
             "BODY": "Pre-trained models are also provided for students to use in their projects. These advanced models enable projects that might otherwise be too complex for students to train for themselves, and provide useful hands-on insights into some of the other things that machine learning can do."
-        },
-        "FURTHER": {
-            "TITLE": "Dalsza nauka",
-            "BODY": "Machine Learning for Kids jest użytecznym narzędziem do wprowadzenia dzieci w sposób, w jaki szkolone są systemy ML, w jaki sposób są one wykorzystywane i niektóre z realnych implikacji zastosowań AI. <br/><br/>Dodatkowe materiały dydaktyczne i dydaktyczne, w tym materiały dydaktyczne dotyczące wewnętrznych aspektów systemów ML, można znaleźć na stronie internetowej: "
-        }
-    },
-    "LINKS": {
-        "TITLE": "Zasoby edukacyjne Sztucznej Inteligencji dla dzieci",
-        "INTRO": "Ta strona jest listą dalszych narzędzi i zasobów służących wyjaśnianiu sztucznej inteligencji dzieciom.",
-        "ECRAFT2LEARN": {
-            "BODY1": "<a href='http://users.ox.ac.uk/~oucs0030/' target='_blank'>Ken Kahn</a> stworzył zasoby umożliwiające początkującym tworzenie programów AI w Snap! (wizualne środowisko programowania podobne do Scratch).",
-            "BODY2": "Podczas gdy ja skupiłem się na wyjaśnieniu, w jaki sposób systemy AI są szkolone i zachowują się (i rzeczywistym użytkowaniu), eCraft2Learn posiada fantastyczne zasoby, które głęboko nurkują w to, jak działają systemy ML (Machine Learning, czyli Uczenia Maszynowego).",
-            "BODY3": "Szczególnie fascynujący jest <a href='https://ecraft2learn.github.io/ai/AI-Teacher-Guide/chapter-6.html' target='_blank'>projekt sieci neuronowej Tic Tac Toe</a>, który pozwala studentom eksperymentować z hiperparametrami z Snap."
-        },
-        "STEMLEARNING": {
-            "BODY1": "STEM Learning and the UK Department for Business, Energy and Industrial Strategy have created resources for teaching the principles of artificial intelligence.",
-            "BODY2": "These resources include <em>Machine Learning for Kids</em> projects, supplemented with teaching notes, presentation materials, prompt cards, and practical “unplugged” activities"
-        },
-        "RASPBERRYPI": {
-            "BODY1": "The Raspberry Pi Foundation provides resources for Code Clubs, with step-by-step instructions for a variety of creative projects.",
-            "BODY2": "Their machine learning pathway includes a variety of projects from <em>Machine Learning for Kids</em>."
-        },
-        "APPSFORGOOD": {
-            "BODY1": "Apps for Good to brytyjska organizacja non-profit, która tworzy zasoby do nauczania przedmiotów technicznych, które udostępnia bezpłatnie szkołom.",
-            "BODY2": "Ich kurs Machine Learning wykorzystuje <em>Machine Learning for Kids</em> i uzupełnia go o szereg dodatkowych materiałów, takich jak schematy pracy, plany lekcji, podręczniki dla studentów, prezentacje i wiele innych. Ułatwia to szkołom dostarczanie lekcji ML, które umieszczają ćwiczenia kodowania w kontekście."
-        },
-        "AIFAMILYCHALLENGE": {
-            "BODY1": "AI Family Challenge to bezpłatny, praktyczny program edukacyjny dla rodzin. Korzystają z <em>Machine Learning for Kids</em> i uzupełniają go dodatkowym wsparciem, takim jak trenerzy techniczni i mentorzy, ustrukturyzowany plan lekcji i filmy pomocnicze.",
-            "BODY2": "Program opiera się na konkursie, w którym dzieci muszą zastanowić się nad własnymi pomysłami na projekt Sztucznej Inteligencji, przy wsparciu rodzin i mentorów technicznych."
-        },
-        "MAGENTADEMOS": {
-            "BODY1": "Online toys that demonstrate different aspects of machine learning, using TensorFlow.js"
-        },
-        "AIINSCHOOLS": {
-            "BODY1": "Program AIinSchools zapewnia nauczycielom bezpłatny plan lekcji objaśniający AI dla 9 klasy (wieku 13-14 lat).",
-            "BODY2": "Obejmuje ona zarówno zajęcia w salach lekcyjnych bez podłączeń, jak i działania programistyczne w zakresie szkolenia sieci neuronowych na jednostkach GPU pracujących w systemie AWS."
-        },
-        "TEENSINAI": {
-            "BODY1": "Nastolatki w SI wykorzystują kombinację hakatonów, akceleratorów i bootcampów, aby wspierać młodych ludzi w wieku 12-18 lat w odkrywaniu SI."
-        },
-        "AI4ALL": {
-            "BODY1": "AI4ALL prowadzi obozy letnie dla uczniów szkół średnich w USA, które dają szczegółowe techniczne wprowadzenie do SI."
-        },
-        "CALYPSO": {
-            "BODY1": "Uczniowie z programowalnymi robotami Cozmo mogą korzystać ze środowiska programowania Calypso w celu uzyskania praktycznego sposobu doświadczania sztucznej inteligencji poprzez eksperymentowanie z technikami takimi jak widzenie komputerowe i rozpoznawanie mowy."
-        },
-        "AIINABOX": {
-            "BODY1": "AI-in-a-Box to zestaw robotów, akcesoriów i materiałów dydaktycznych. Zestaw może być używany do nauczania projektów obejmujących takie tematy jak rozpoznawanie wizualne, rozpoznawanie twarzy, generowanie mowy i rozpoznawanie mowy."
-        },
-        "GOOGLEEXPERIMENTS": {
-            "BODY1": "Proste eksperymenty online, aby rozpocząć odkrywanie uczenia się maszynowego, poprzez obrazy, rysunki, język i muzykę."
-        },
-        "EXPLORINGCS": {
-            "BODY1": "Exploring CS gives students AI knowledge and skills while considering social, moral and ethical impacts.",
-            "BODY2": "They explore practical daily applications of AI that impact their lives.  Students design smart cities, homes and schools.  They also learn to build, train and test an AI system through an NVIDIA platform and look at how the message of AI is communicated."
-        },
-        "VIDEOS": {
-            "TITLE": "Wideo",
-            "INTRO": "Filmy te okazały się również przydatne przy wprowadzaniu koncepcji Sztucznej Inteligencji"
         }
     },
     "ERRORS": {

@@ -46,65 +46,6 @@
         },
         "PRETRAINED": {
             "BODY": "Pre-trained models are also provided for students to use in their projects. These advanced models enable projects that might otherwise be too complex for students to train for themselves, and provide useful hands-on insights into some of the other things that machine learning can do."
-        },
-        "FURTHER": {
-            "TITLE": "Aprendizado complementar",
-            "BODY": "Machine Learning for Kids é uma ferramenta útil para introdução de como sistemas de Aprendizagem de máquina são treinados, como são utilizados e alguns conceitos de aplicações reais de I.A. <br/><br/>Para recursos adicionais de ensino e aprendizado, incluindo ensinando sobre os fundamento de Aprendizagem de máquina, veja: "
-        }
-    },
-    "LINKS": {
-        "TITLE": "Recursos educacionais de I.A. para crianças",
-        "INTRO": "Esta página é uma lista de ferramentas e recursos adicionais para introduzir a Inteligência Artificial para crianças.",
-        "ECRAFT2LEARN": {
-            "BODY1": "<a href='http://users.ox.ac.uk/~oucs0030/' target='_blank'>Ken Kahn</a> criou recursos que permitem iniciantes a programar I.A. em Snap! (uma linguagem de programação visual similar ao Scratch).",
-            "BODY2": "Enquanto eu tenho focado em explicar como os sistemas de I.A são treinados e se comportam (e suas aplicações para o dia-a-dia), eCraft2Learn têm recursos fantásticos que aprofundam em como sistemas de Aprendizagem de Máquina realmente funcionam.",
-            "BODY3": "O <a href='https://ecraft2learn.github.io/ai/AI-Teacher-Guide/chapter-6.html' target='_blank'>projeto de jogo-da-velha com redes neurais</a> é particularmente fascinante, permitindo estudantes experimentar com hiperparâmetros do Snap!"
-        },
-        "STEMLEARNING": {
-            "BODY1": "STEM Learning and the UK Department for Business, Energy and Industrial Strategy have created resources for teaching the principles of artificial intelligence.",
-            "BODY2": "These resources include <em>Machine Learning for Kids</em> projects, supplemented with teaching notes, presentation materials, prompt cards, and practical “unplugged” activities"
-        },
-        "RASPBERRYPI": {
-            "BODY1": "The Raspberry Pi Foundation provides resources for Code Clubs, with step-by-step instructions for a variety of creative projects.",
-            "BODY2": "Their machine learning pathway includes a variety of projects from <em>Machine Learning for Kids</em>."
-        },
-        "APPSFORGOOD": {
-            "BODY1": "Apps for Good(Aplicativos para o Bem) são uma organização sem fins lucrativos baseada no Reino Unido que cria recursos para ensinar assuntos ligados a tecnologia, que são disponibilizados gratuitamente para escolas.",
-            "BODY2": "Os cursos que eles têm em Aprendizagem de máquina usam o <em>Machine Learning for Kids</em>, e o suplementam com uma variedade de materiais adicionais como esquemas de trabalho, planos de aula, materiais para estudantes, apresentações e mais. Facilitando para as escolas incluir planos de aula de Aprendizagem de Máquina que colocam exercícios code em um melhor contexto.."
-        },
-        "AIFAMILYCHALLENGE": {
-            "BODY1": "O AI Family Challenge é um programa gratuito e mão na massa para ensinar I.A. para famílias. Eles usam o  <em>Machine Learning for Kids</em>, e também o suplementam com suporte, como coaches e mentores técnicos, planos de aula estruturados e vídeos de suporte.",
-            "BODY2": "O programa é baseado em competições que desafiam as crianças a pensar em seus próprios projetos de I.A., com suporte de suas famílias e técnicos que agem como mentores."
-        },
-        "MAGENTADEMOS": {
-            "BODY1": "Online toys that demonstrate different aspects of machine learning, using TensorFlow.js"
-        },
-        "AIINSCHOOLS": {
-            "BODY1": "O programa AIinSchools fornece gratuitamente planos de aula para explicar I.A. para crianças do Oitavo ano (13-14 anos).",
-            "BODY2": "Nele, são incluídas tanto atividades offline quando atividades de programação para treinar redes neurais usando a GPU dos computadores rodando na AWS."
-        },
-        "TEENSINAI": {
-            "BODY1": "Teens in AI usam uma combinação de maratonas hacker, aceleradoras e bootcamps para apoiar jovens de 12-18 anos a explorar I.A."
-        },
-        "AI4ALL": {
-            "BODY1": "AI4ALL fazem acampamentos de verão para alunos do ensino médio nos Estados Unidos que dão uma introdução técnica detalhada em I.A. para seus alunos."
-        },
-        "CALYPSO": {
-            "BODY1": "Alunos com os robôs programáveis Cozmo podem usar a interface de programação Calypso para aprender de maneira mão-na-massa sobre I.A. e fazer experiências utilizando técnicas de Visão Computacional e Reconhecimento de Fala."
-        },
-        "AIINABOX": {
-            "BODY1": "AI-in-a-Box é um pacote de robôs, acessórios e recursos didáticos. O kit pode ser usado para ensinar projetos que abordam tópicos como reconhecimento visual, reconhecimento facial, geração de fala e reconhecimento de fala."
-        },
-        "GOOGLEEXPERIMENTS": {
-            "BODY1": "Simple online experiments to start exploring machine learning, through pictures, drawings, language, and music."
-        },
-        "EXPLORINGCS": {
-            "BODY1": "Exploring CS gives students AI knowledge and skills while considering social, moral and ethical impacts.",
-            "BODY2": "They explore practical daily applications of AI that impact their lives.  Students design smart cities, homes and schools.  They also learn to build, train and test an AI system through an NVIDIA platform and look at how the message of AI is communicated."
-        },
-        "VIDEOS": {
-            "TITLE": "Vídeos",
-            "INTRO": "Eu também achei esses vídeos úteis quando fazendo introdução de conceitos de I.A.:"
         }
     },
     "ERRORS": {

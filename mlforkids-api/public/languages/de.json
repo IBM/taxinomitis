@@ -46,65 +46,6 @@
         },
         "PRETRAINED": {
             "BODY": "Pre-trained models are also provided for students to use in their projects. These advanced models enable projects that might otherwise be too complex for students to train for themselves, and provide useful hands-on insights into some of the other things that machine learning can do."
-        },
-        "FURTHER": {
-            "TITLE": "Weiteres Lernen",
-            "BODY": "Machine Learning for Kids ist eine nützliche Plattform, um Kinder an das Trainieren und den Nutzen von ML-Systemen heranzuführen und ihnen ein paar reale Anwendungen für Künstliche Intelligenz näher zu bringen. <br/><br/>Für weiteres Lehr- und Lernmaterial, wie die Kernbausteine eines ML-Systems, bitte hier schauen:"
-        }
-    },
-    "LINKS": {
-        "TITLE": "Quellen (auf Englisch) für Kinder zum Nachlesen über künstliche Intelligenz",
-        "INTRO": "Diese Seite besteht aus einer Liste weiterer Werkzeuge und Quellen, um Kinder an künstliche Intelligenz heranzuführen.",
-        "ECRAFT2LEARN": {
-            "BODY1": "<a href='http://users.ox.ac.uk/~oucs0030/' target='_blank'>Ken Kahn</a> hat verschiedene Quellen erstellt, um Anfängern zu ermöglichen, Programme für künstliche Intelligen in Snap (eine visuelle Programmierumgebung, ähnlich zu Scratch) entwickeln.",
-            "BODY2": "Während ich mich darauf konzentiere zu erklären, wie Systeme der künstlichen Intelligenz trainiert werden und wie sie sich verhalten (sowie deren reale Auswirkungen), hat eCraft2Learn fantastische Quelle, die tiefer beleuchten, wie System maschinellen Lernens tatsächlich funktionieren.",
-            "BODY3": "The <a href='https://ecraft2learn.github.io/ai/AI-Teacher-Guide/chapter-6.html' target='_blank'>neural net Tic Tac Toe project</a> is besonders interessant, hier können die Lernenden mit Hyperparametern in Snap experimentieren."
-        },
-        "STEMLEARNING": {
-            "BODY1": "STEM Learning und das britische Department for Business, Energy and Industrial Strategy haben Unterrichtsmaterialien über die Prinzipien von künstlicher Intelligenz entwickelt.",
-            "BODY2": "Diese Quellen beinhalten unter anderem <em>Machine Learning for Kids</em> Projekte, ergänzt durch Notizen für Lehrkräfte, Präsentationsmaterialien, Stichwortkarten und praktischen Aktivitäten."
-        },
-        "RASPBERRYPI": {
-            "BODY1": "Die Raspberry Pi Foundation bietet Materialien für Programmier-Clubs an, die eine Schritt-für-Schritt-Anleitung für verschiedene kreative Projekte haben.",
-            "BODY2": "Ihr Weg zum maschinellen Lernen beinhaltet auch verschiedene Projekte von <em>Machine Learning for Kids</em>."
-        },
-        "APPSFORGOOD": {
-            "BODY1": "Apps for Good ist eine britische gemeinnützige Organisation, die Unterrichtsresourcen zu technischen Themen erstellt, die sie Schulen frei zur Verfügung stellen.",
-            "BODY2": "Ihr Kurs zu maschinellem Lernen verwendet <em>Machine Learning for Kids</em> und ergänzt es durch verschiedene Zusatzmaterialien wie Arbeitspläne, Unterrichtspläne, Workbooks für die Lernenden, Präsentationen und mehr. Es vereinfacht es Schulen, Unterricht zu maschinellem Lernen anzubeiten, der Programmieraufgaben in Kontext stellt."
-        },
-        "AIFAMILYCHALLENGE": {
-            "BODY1": "Die AI Family Challenge ist eine kostenloses, praktisch orientiertes KI-Bildungsprogramm für Familien. Es verwendet <em>Machine Learning for Kids</em> und ergänzt es mit viel zusätzlicher Unterstützung wie technischen Trainern und Mentoren, einem strukturierten Unterrichtsplan und ergänzenden Videos.",
-            "BODY2": "Das Programm basiert auf einem Wettbewerb, der Kinder dazu auffordern soll, sich mit der Unterstützung durch die Familie und technische Mentoren eigene Projekte im Bereich der künstlichen Intelligenz zu überlegen."
-        },
-        "MAGENTADEMOS": {
-            "BODY1": "Online Spielzeug, die verschiedene Aspekte des maschinellen Lernens mit TensorFlow.js beleuchten."
-        },
-        "AIINSCHOOLS": {
-            "BODY1": "Das Programm AIinSchools stellt einen kostenlosen Unterrichtsplan für Lehrkräfte zur Verfügung, um künstliche Intelligenz für Neuntklässlerinnen und Neuntklässler (13 bis 14 Jahre als) zu erklären.",
-            "BODY2": "Dies beinhaltet sowohl Klassenraumaktivitäten als auch Programmieraktivitäten für das Trainiern von neuronalen Netzen auf GPUs, die in der AWS laufen."
-        },
-        "TEENSINAI": {
-            "BODY1": "Teens in AI verwendet eine Kombination aus Hackathons, Accelerators und Bootcamps, um junge Menschen im Alter von 12-18 Jahren darin zu unterstützen, künstliche Intelligenz zu entdecken."
-        },
-        "AI4ALL": {
-            "BODY1": "AI4ALL betreibt Sommerferienlager für Highschool-Schülerinnen und -Schüler in den USA, die eine detaillierte technische Einführung zu künstlicher Intelligenz geben."
-        },
-        "CALYPSO": {
-            "BODY1": "Schülerinnen und Schüler mit programmierbaren Cozmo-Roboter können die Calypso-Programmierumgebung verwenden, um praktische Erfahren im Umgang mit künstlicher Intelligenz zu sammeln, indem sie mit Techniken wie Computer Vision und Spracherkennung experimentieren."
-        },
-        "AIINABOX": {
-            "BODY1": "AI-in-a-Box is a bundle of robots, accessories and teaching resources. The kit can be used to teach projects that cover topics like visual recognition, facial recognition, speech generation and speech recognition."
-        },
-        "GOOGLEEXPERIMENTS": {
-            "BODY1": "Simple online experiments to start exploring machine learning, through pictures, drawings, language, and music."
-        },
-        "EXPLORINGCS": {
-            "BODY1": "Exploring CS gives students AI knowledge and skills while considering social, moral and ethical impacts.",
-            "BODY2": "They explore practical daily applications of AI that impact their lives.  Students design smart cities, homes and schools.  They also learn to build, train and test an AI system through an NVIDIA platform and look at how the message of AI is communicated."
-        },
-        "VIDEOS": {
-            "TITLE": "Videos",
-            "INTRO": "Ich fand außerdem diese Videos sehr hilfreich, um Konzepte künstlicher Intelligenz einzuführen:"
         }
     },
     "ERRORS": {

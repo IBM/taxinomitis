@@ -50,65 +50,6 @@
         },
         "PRETRAINED": {
             "BODY": "Các mô hình đào tạo trước cũng được cung cấp cho sinh viên sử dụng trong các dự án của họ. Các mô hình nâng cao này làm cho các dự án mà nếu không có thể rất phức tạp để sinh viên tự đào tạo và cung cấp thông tin chi tiết thực hành hữu ích về một số điều khác mà học máy có thể thực hiện."
-        },
-        "FURTHER": {
-            "TITLE": "Học thêm",
-            "BODY": "Học máy trí tuệ nhân tạo đối với trẻ em là công cụ hữu ích để giới thiệu cho trẻ cách mà các hệ thống ML được đào tạo, cách mà chúng được sử dụng và một số ý nghĩa trong thế giới thực của các ứng dụng AI. <br/><br/>Để biết thêm tài nguyên giảng dạy và học tập, bao gồm giảng dạy nội bộ của hệ thống ML, vui lòng xem: "
-        }
-    },
-    "LINKS": {
-        "TITLE": "Tài nguyên AI giáo dục cho trẻ em",
-        "INTRO": "Trang này là danh sách các công cụ và tài nguyên bổ sung để giải thích về trí tuệ nhân tạo cho trẻ em.",
-        "ECRAFT2LEARN": {
-            "BODY1": "<a href='http://users.ox.ac.uk/~oucs0030/' target='_blank'>Ken Kahn</a> Đã tạo tài nguyên để cho phép người mới bắt đầu tạo chương trình AI trong Snap! (Một môi trường lập trình trực quan tương tự như lập trình Scratch).",
-            "BODY2": "Trong khi tôi đã tập trung vào việc giải thích cách các hệ thống AI được đào tạo và hoạt động (và các ý nghĩa thực tế), eCraft2Learn có các tài nguyên tuyệt vời đi sâu vào cách các hệ thống ML thực sự hoạt động.",
-            "BODY3": "The <a href='https://ecraft2learn.github.io/ai/AI-Teacher-Guide/chapter-6.html' target='_blank'>neural net Tic Tac Toe project</a> đặc biệt hấp dẫn, cho phép học sinh thử nghiệm siêu tham số từ Snap ."
-        },
-        "STEMLEARNING": {
-            "BODY1": "Mô hình học Stem và Bộ Chiến lược kinh doanh, Năng lượng và Công Nghệ Vương Quốc Anh đã tạo ra các tài nguyên để giảng dạy các nguyên tắc của trí tuệ nhân tạo.",
-            "BODY2": "Những tài nguyên này bao gồm <em>Dự án học máy đối với trẻ em</em>, được bổ sung với các ghi chú giảng dạy, tài liệu thuyết trình, thẻ nhớ, và các hoạt động thực tế \"được gỡ bỏ\""
-        },
-        "RASPBERRYPI": {
-            "BODY1": "Ứng dụng Raspberry Pi Foundation cung cấp tài nguyên cho các câu lạc bộ viết mã, với các hướng dẫn từng bước cho nhiều dự án sang tạo.",
-            "BODY2": "Con đường học máy của họ bao gồm nhiều dự án từ <em>Học máy đối với trẻ em</em>."
-        },
-        "APPSFORGOOD": {
-            "BODY1": "Apps for Good là một tổ chức phi lợi nhuận có trụ sở tại Vương Quốc Anh, chuyên tạo ra các tài nguyên để giảng dạy các môn công nghệ, cung cấp miễn phí cho các trường học.",
-            "BODY2": "Khóa học học máy của họ sử dụng <em>học máy cho trẻ em</em>, và bổ sung cho khóa học này với một loạt các tài liệu như kế hoạch làm việc, giáo án, sách bài tập cho học sinh, tài liệu thuyết trình,…. Điều này giúp các trường học dễ dàng cung cấp các bài học ML đưa các bài tập lập trình vào ngữ cảnh."
-        },
-        "AIFAMILYCHALLENGE": {
-            "BODY1": "AI Family Challenge là một chương trình giáo dục AI thực hành miễn phí dành cho các gia đình. Họ sử dụng <em>Học máy cho trẻ em</em>, và bổ sung cho nó với rất nhiều các hỗ trợ khác, như là huấn luyện viên và cố vấn viên kỹ thuật, các bài học có sẵn và các videos.",
-            "BODY2": "Chương trình được dựa trên một cuộc thi thách thức trẻ em nghĩ ra ý tưởng dự án AI của riêng mình, với sự hỗ trợ của gia đình và cố vấn kỹ thuật."
-        },
-        "MAGENTADEMOS": {
-            "BODY1": "Trò chơi trực tuyến sử dụng các khía cạnh khác nhau của máy học, sử dụng TensorFlow.js"
-        },
-        "AIINSCHOOLS": {
-            "BODY1": "Chương trình AIinSchools cung cấp giáo án miễn phí để giáo viên giải thích AI cho học sinh lớp 9 (độ tuổi 13-14).",
-            "BODY2": "Nó bao gồm các hoạt động trong lớp học mà không dùng tới máy tính, và các hoạt động lập trình để đào tạo mạng lưới thần kinh GPUs chạy trên AWS."
-        },
-        "TEENSINAI": {
-            "BODY1": "Thanh thiếu niên AI sử dụng kết hợp các ý tưởng sang tạo bứt phá về lập trình, máy gia tốc và mô hình đào tạo chuyên sâu để hỗ trợ những người trẻ ở độ tuổi 12-18 để khám phá AI."
-        },
-        "AI4ALL": {
-            "BODY1": "AI4ALL điều hành các trại hè cho học sinh trung học ở Hoa Kỳ mà đưa ra giới thiệu kỹ thuật chi tiết tới AI."
-        },
-        "CALYPSO": {
-            "BODY1": "Học sinh với rô bốt có thể lập trình Cozmo có thể sử dụng khung lập trình Calypso để có thể trải nghiệm thực tế về AI bằng cách thử nghiệm các kỹ thuật như thị giác máy tính và nhận diện giọng nói."
-        },
-        "AIINABOX": {
-            "BODY1": "AI-in-a-Box là một gói robot, phụ kiện và tài nguyên giảng dạy. Bộ công cụ này có thể được sử dụng để dạy các dự án bao gồm các chủ đề như nhận dạng hình ảnh, nhận dạng khuôn mặt, tạo giọng nói và nhận dạng giọng nói."
-        },
-        "GOOGLEEXPERIMENTS": {
-            "BODY1": "Các thử nghiệm trực tuyến đơn giản để bắt đầu khám phá học máy, thông qua hình ảnh, hình vẽ, ngôn ngữ và âm nhạc."
-        },
-        "EXPLORINGCS": {
-            "BODY1": "Khám phá CS mang đến cho học sinh kiến thức và kỹ năng về AI đồng thời xem xét các tác động tới xã hội, đạo đức và luân lý.",
-            "BODY2": "Học sinh khám phá các ứng dụng thực tế hàng ngày của AI có tác động đến cuộc sống của họ. Họ thiết kế thành phố, nhà ở và trường học thông minh. Họ cũng học cách xây dựng, đào tạo và thử nghiệm hệ thống AI thông qua nền tảng NVIDIA và xem cách mà thông điệp của AI được truyền đạt."
-        },
-        "VIDEOS": {
-            "TITLE": "Videos",
-            "INTRO": "Tôi cũng thấy những video này hữu ích khi giới thiệu các khái niệm AI:"
         }
     },
     "ERRORS": {

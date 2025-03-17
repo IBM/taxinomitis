@@ -46,65 +46,6 @@
         },
         "PRETRAINED": {
             "BODY": "Pre-trained models are also provided for students to use in their projects. These advanced models enable projects that might otherwise be too complex for students to train for themselves, and provide useful hands-on insights into some of the other things that machine learning can do."
-        },
-        "FURTHER": {
-            "TITLE": "もっと知る",
-            "BODY": "Machine Learning for Kids は、子供たちに機械学習システムがどのようにトレーニングされるのか、使われるのか、そして現実に使われているＡＩアプリとの関係を紹介するのに役立つツールです。<br/><br/>追加の学習、教育リーソース（含む、機械学習システムの内部の仕組み）は、こちらを参照ください: "
-        }
-    },
-    "LINKS": {
-        "TITLE": "子供向けAI教育リソース",
-        "INTRO": "子供にAIについて説明するのに役立つツールやリソースをリストしています。",
-        "ECRAFT2LEARN": {
-            "BODY1": "<a href='http://users.ox.ac.uk/~oucs0030/' target='_blank'>Ken Kahn</a> は、Snap!(Scratchと似たビジュアルプログラミング環境）を使って初心者がAIプログラムを作成するためのリソースを作成しました。",
-            "BODY2": "私がAIシステムがどのようにトレーニングされ、（実世界に関連して）動作するかにフォーカスしたのに対し、eCraft2Learn は、機械学習システムがどのように機能しているのか深く追求した素晴らしいリソースです。",
-            "BODY3": "<a href='https://ecraft2learn.github.io/ai/AI-Teacher-Guide/chapter-6.html' target='_blank'>ニューラルネット Tic Tac Toe プロジェクト</a> は、生徒にSnap!からハイパーパラメタについて経験できるようにしてあり、特別に素晴らしいです。 "
-        },
-        "STEMLEARNING": {
-            "BODY1": "STEM Learning and the UK Department for Business, Energy and Industrial Strategy have created resources for teaching the principles of artificial intelligence.",
-            "BODY2": "These resources include <em>Machine Learning for Kids</em> projects, supplemented with teaching notes, presentation materials, prompt cards, and practical “unplugged” activities"
-        },
-        "RASPBERRYPI": {
-            "BODY1": "The Raspberry Pi Foundation provides resources for Code Clubs, with step-by-step instructions for a variety of creative projects.",
-            "BODY2": "Their machine learning pathway includes a variety of projects from <em>Machine Learning for Kids</em>."
-        },
-        "APPSFORGOOD": {
-            "BODY1": "イギリスベースの非営利団体 Apps for Good はテクノロジーについて教えるリソース（学校向けには無償）を作成しています。",
-            "BODY2": "かれらの機械学習コースは<em>Machine Learning for Kids</em>を利用しており, レッスンプラン、スキーム、ワークブック、プレゼンテーション等の補完的な教材を提供しており、学校が機械学習に関するレッスンとコーディングを全体の中で捉えやすくしています。"
-        },
-        "AIFAMILYCHALLENGE": {
-            "BODY1": "AI Family Challenge は無償の実プロジェクトを通した家族向けのAIプログラムです。 彼らは <em>Machine Learning for Kids</em> を利用しており、技術コーチ、メンター、構造化したレッスンプラン、サポートビデオ等で補完しています。",
-            "BODY2": "そのプログラムは、家族や技術メンターの支援を得て、子供たちが彼ら独自のAIプロジェクトのアイデアを作る競争を中心につくられています。"
-        },
-        "MAGENTADEMOS": {
-            "BODY1": "Online toys that demonstrate different aspects of machine learning, using TensorFlow.js"
-        },
-        "AIINSCHOOLS": {
-            "BODY1": "AIinSchools のプログラムは、第9学年(13歳から14歳）向けにAIを教えるレッスンプランを提供しています。",
-            "BODY2": "Internetを使わないアクティビティとAWS上のGPUを使ってニューラルネットワークをトレーニングするためのプログラミングの両方を含んでいます。"
-        },
-        "TEENSINAI": {
-            "BODY1": "Teens in AI は、ハッカソン、ブートキャンプ、アクセラレータの組み合わで12から18歳の若者がAIを探求するのを支援しています。"
-        },
-        "AI4ALL": {
-            "BODY1": "AI4ALL は、高校生向けに米国でAIに関する技術的な詳細を学ぶサマーキャンプを提供しています。"
-        },
-        "CALYPSO": {
-            "BODY1": "プログラム可能な Cozmo ロボットを持っている生徒は、Calypso プログラミング フレームワークを用いて、画像認識や音声認識をつかったAIの経験を実地にすることが可能です。"
-        },
-        "AIINABOX": {
-            "BODY1": "AI-in-a-Box は、ロボット、アクセサリーと教育用リソースの組み合わせです。そのキットは、画像認識、顔認識、音声認識、音声生成といったトピックに関するプロジェクトを教えるのに使うことができます。 "
-        },
-        "GOOGLEEXPERIMENTS": {
-            "BODY1": "Simple online experiments to start exploring machine learning, through pictures, drawings, language, and music."
-        },
-        "EXPLORINGCS": {
-            "BODY1": "Exploring CS gives students AI knowledge and skills while considering social, moral and ethical impacts.",
-            "BODY2": "They explore practical daily applications of AI that impact their lives.  Students design smart cities, homes and schools.  They also learn to build, train and test an AI system through an NVIDIA platform and look at how the message of AI is communicated."
-        },
-        "VIDEOS": {
-            "TITLE": "ビデオ",
-            "INTRO": "これらのビデオはAIを教えるのに有効だと思います:"
         }
     },
     "ERRORS": {

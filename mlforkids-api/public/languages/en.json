@@ -37,7 +37,7 @@
         "IN20MINS": "In 20 minutes...",
         "WHAT": {
             "TITLE": "What?",
-            "BODY" : "This free tool introduces machine learning by providing hands-on experiences for training machine learning systems and building things with them. <br/><br/>It provides an easy-to-use guided environment for training machine learning models to recognise text, numbers, images, or sounds. <br/><br/>This builds on existing efforts to introduce and teach coding to children, by adding these models to educational coding platforms <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a> and <a href='https://edublocks.org' target='_blank'>EduBlocks</a>, and helping children create projects and build games with the machine learning models they train. <br/><br/>The tool was first made available in 2017, and is now being <a href='https://wakelet.com/wake/4d3680cb-2a11-49ab-9180-fcfeced48393' target='_blank'>used by thousands of schools, code clubs, and families around the world</a>. <br/><br/>To learn more, look at:"
+            "BODY" : "This free tool introduces machine learning by providing hands-on experiences for training machine learning systems and building things with them. <br/><br/>It provides an easy-to-use guided environment for training machine learning models to: recognise text, numbers, images, sounds; predict numbers; generate text. <br/><br/>This builds on existing efforts to introduce and teach coding to children, by adding these models to educational coding platforms like <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a>, and helping children build projects and games with the machine learning models they create. <br/><br/>The tool was first made available in 2017, and is now being <a href='https://wakelet.com/wake/4d3680cb-2a11-49ab-9180-fcfeced48393' target='_blank'>used by thousands of schools, code clubs, and families around the world</a>. <br/><br/>To learn more, look at:"
         },
         "WHY": {
             "TITLE": "Why?",
@@ -45,70 +45,11 @@
         },
         "TECH": {
             "TITLE": "Tech",
-            "BODY": "The tool is entirely web-based and requires no installs or complicated setup to be able to use. <br/><br/>It was designed for use in the classroom by schools and volunteer-run coding groups for children, and provides an admin page for teachers or group leaders to be able to manage and administer access for their students.<br/><br/>It is being built by <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> using APIs from <a target='_blank' href='https://www.ibm.com/watson/developer/'>IBM Watson</a>.<br/><br/>For more details about the implementation, you can see the <a target='_blank' href='https://github.com/IBM/taxinomitis/'>source code on GitHub</a>, or read some of the <a target='_blank' href='http://dalelane.co.uk/blog/?tag=mlforkids-tech'>blog posts about the tech</a>. ",
+            "BODY": "The tool is entirely web-based and requires no installs or complicated setup to be able to use. <br/><br/>It can be used without any signup or registration, however was designed for use in the classroom by schools - and so optionally provides an admin page for teachers or group leaders to be able to manage and administer access for their students.<br/><br/>It is being built by <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> using APIs from <a target='_blank' href='https://www.ibm.com/watson/'>IBM Watson</a>.<br/><br/>For more details about the implementation, you can see the <a target='_blank' href='https://github.com/IBM/taxinomitis/'>source code on GitHub</a>, or read some of the <a target='_blank' href='http://dalelane.co.uk/blog/?tag=mlforkids-tech'>blog posts about the tech</a>. ",
             "LOGIN": "To get started: "
         },
         "PRETRAINED": {
             "BODY": "Pre-trained models are also provided for students to use in their projects. These advanced models enable projects that might otherwise be too complex for students to train for themselves, and provide useful hands-on insights into some of the other things that machine learning can do."
-        },
-        "FURTHER": {
-            "TITLE": "Further learning",
-            "BODY": "Machine Learning for Kids is a useful tool for introducing children to how ML systems are trained, how they are used, and some of the real-world implications of AI applications. <br/><br/>For additional teaching and learning resources, including teaching the internals of ML systems, please see: "
-        }
-    },
-    "LINKS": {
-        "TITLE": "Educational AI resources for children",
-        "INTRO": "This page is a list of further tools and resources for explaining artificial intelligence to children.",
-        "ECRAFT2LEARN": {
-            "BODY1": "<a href='http://users.ox.ac.uk/~oucs0030/' target='_blank'>Ken Kahn</a> has created resources to allow beginners to create AI programs in Snap! (a visual programming environment similar to Scratch).",
-            "BODY2": "While I've focused on explaining how AI systems are trained and behave (and the real-world implications), eCraft2Learn has fantastic resources that dive deep into how ML systems actually work.",
-            "BODY3": "The <a href='https://ecraft2learn.github.io/ai/AI-Teacher-Guide/chapter-6.html' target='_blank'>neural net Tic Tac Toe project</a> is particularly fascinating, allowing students to experiment with hyperparameters from Snap."
-        },
-        "STEMLEARNING": {
-            "BODY1": "STEM Learning and the UK Department for Business, Energy and Industrial Strategy have created resources for teaching the principles of artificial intelligence.",
-            "BODY2": "These resources include <em>Machine Learning for Kids</em> projects, supplemented with teaching notes, presentation materials, prompt cards, and practical \"unplugged\" activities"
-        },
-        "RASPBERRYPI": {
-            "BODY1": "The Raspberry Pi Foundation provides resources for Code Clubs, with step-by-step instructions for a variety of creative projects.",
-            "BODY2": "Their machine learning pathway includes a variety of projects from <em>Machine Learning for Kids</em>."
-        },
-        "APPSFORGOOD": {
-            "BODY1": "Apps for Good are a UK-based not-for-profit that creates resources for teaching technology subjects, that they make freely available to schools.",
-            "BODY2": "Their Machine Learning course uses <em>Machine Learning for Kids</em>, and supplements it with a range of additional materials like schemes of work, lesson plans, student workbooks, presentations and more. It makes it easy for schools to deliver ML lessons that put the coding exercises in context."
-        },
-        "AIFAMILYCHALLENGE": {
-            "BODY1": "The AI Family Challenge is a free, hands-on AI education program for families. They use <em>Machine Learning for Kids</em>, and supplement it with a lot of additional support, such as technical coaches and mentors, a structured lesson plan and supporting videos.",
-            "BODY2": "The program is based around a competition that challenges children to think of their own AI project ideas, with the support of their families and technical mentors."
-        },
-        "MAGENTADEMOS": {
-            "BODY1": "Online toys that demonstrate different aspects of machine learning, using TensorFlow.js"
-        },
-        "AIINSCHOOLS": {
-            "BODY1": "The AIinSchools programme provides a free lesson plan for teachers to explain AI to Year 9 (aged 13-14).",
-            "BODY2": "It includes both unplugged classroom activities, and programming activities for training neural networks on GPUs running on AWS."
-        },
-        "TEENSINAI": {
-            "BODY1": "Teens in AI use a combination of hackathons, accelerators and bootcamps to support young people aged 12-18 to explore AI."
-        },
-        "AI4ALL": {
-            "BODY1": "AI4ALL run summer camps for high school students in the US that give a detailed technical introduction to AI."
-        },
-        "CALYPSO": {
-            "BODY1": "Students with programmable Cozmo robots can use the Calypso programming framework to get a hands-on way to experience AI by experimenting with techniques like computer vision and speech recognition."
-        },
-        "AIINABOX": {
-            "BODY1": "AI-in-a-Box is a bundle of robots, accessories and teaching resources. The kit can be used to teach projects that cover topics like visual recognition, facial recognition, speech generation and speech recognition."
-        },
-        "GOOGLEEXPERIMENTS": {
-            "BODY1": "Simple online experiments to start exploring machine learning, through pictures, drawings, language, and music."
-        },
-        "EXPLORINGCS": {
-            "BODY1": "Exploring CS gives students AI knowledge and skills while considering social, moral and ethical impacts.",
-            "BODY2": "They explore practical daily applications of AI that impact their lives.  Students design smart cities, homes and schools.  They also learn to build, train and test an AI system through an NVIDIA platform and look at how the message of AI is communicated."
-        },
-        "VIDEOS": {
-            "TITLE": "Videos",
-            "INTRO": "I've also found these videos useful when introducing AI concepts:"
         }
     },
     "ERRORS": {

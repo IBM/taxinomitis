@@ -50,64 +50,6 @@
         },
         "PRETRAINED": {
             "BODY": "A diákok előre tanított modelleket is felhasználhatnak a saját projektjeikhez. Ezek a modellek használhatók akkor, ha a diák számára túl nehéz lenne a feladat, vagy csak gyakorlati betekintést szeretne kapni a Gépi Tanulás lehetőségeibe."
-        },
-        "FURTHER": {
-            "TITLE": "További tanulnivalók",
-            "BODY": "A Gépi Tanulás Gyerekeknek hasznos eszköz arra, hogy a diákok megtapasztalják a Gépi tanulási rendszerek tanítását, használatát, illetve a mesterséges intelligencia által vezérelt applikációk belső világát.<br/><br/>További forrásokért, beleértve a tanári kézikönyvet is, kattints: "
-        }
-    },
-    "LINKS": {
-        "TITLE": "Oktatási célú mesterséges intelligencia anyagok gyerekeknek",
-        "INTRO": "Ez az oldal további - a mesterséges intelligenciát bemutató - eszközöket és forrásokat tartalmaz.",
-        "ECRAFT2LEARN": {
-            "BODY1": "<a href='http://users.ox.ac.uk/~oucs0030/' target='_blank'>Ken Kahn</a> készített egy forrást, ami lehetővé teszi a kezdőknek, hogy mesterséges intelligencia programokat készítsenek Snap-ben.(a Scratch-hez hasonló vizuális program).",
-            "BODY2": "Amíg én arra fókuszálok, hogy elmagyarázzam, hogy tanítsuk a mesterséges intelligenciát, és az hogyan viselkedik (és mik a valós relevanciái),addig az eCraft2Learn nagyszerű forrásokat tartalmaz, és mélyre ás a valós gépi tanulási rendszer működésében.",
-            "BODY3": "A <a href='https://ecraft2learn.github.io/ai/AI-Teacher-Guide/chapter-6.html' target='_blank'>neurális háló amőbajáték</a> különösen elbűvölő, ami a Snap-ben történő hiperparaméterekkel történő kísérletezést tesz lehetővé."
-        },
-        "STEMLEARNING": {
-            "BODY1": "A STEM tanulás és a UK Gazdasági Minisztérium energetikai és ipari stratégiája, a mesterséges intelligencia elméletének tanításához készítettek el anyagokat.",
-            "BODY2": "Ezek az anyagok tartalmazzák a <em>Machine Learning for Kids</em> projektjeit, kiegészítve tanári jegyzetekkel, prezentációs anyagokkal, kártyákkal, és különböző, eszközt nem igénylő feladatokkal."
-        },
-        "RASPBERRYPI": {
-            "BODY1": "A Raspberry Pi Alapítvány a kódoló szakköröknek kínál anyagokat, amelyek lépésről-lépésre instrukciót adnak a különböző projektekhez.",
-            "BODY2": "Az ő gépi tanulási rendszerük tartalmazza <em>Machine Learning for Kids</em> változatos anyagait is."
-        },
-        "APPSFORGOOD": {
-            "BODY1": "Apps for Good az Egyesült Királyságban található, nonprofit szervezet, amely a technológia alapú tantárgyak tanítására használható forrásokat tesz elérhetővé iskolák számára.",
-            "BODY2": "Ez a forrás magába foglalja a Machine Learning for kids projektet kiegészítő anyagokkal,</em>, úgy mint különböző minták, óravázlatok, munkafüzetek, prezentációk stb. Segíti az iskolákat abban hogy gépi tanulási oktatást nyújtsanak amelyek értelmezik a kódolási feladatokat."
-        },
-        "AIFAMILYCHALLENGE": {
-            "BODY1": "A Családi Mesterséges Intelligencia kihívás egy ingyenes, kézzel fogható oktatóprogram családok számára. ők is a <em>Machine Learning for Kids</em> programot használják, kiegészítve különböző támogatásokkal, úgy mint technikai segítség, mentorálás, oktató videók és óravázlatok.",
-            "BODY2": "A programban számos versenyt is meghirdetnek, ahol a diákok saját mesterséges intelligenciájukat találhatják ki a családjaik támogatásával és technikai mentorokkal."
-        },
-        "MAGENTADEMOS": {
-            "BODY1": "Online játékok, amelyek a gépi tanulás különböző aspektuasait mutatják be, TensorFlow.js-t használva"
-        },
-        "AIINSCHOOLS": {
-            "BODY1": "Az AIinSchools program olyan óravázlatokat tartalmaz, amely 13-14 éves diákok számára mutatja be a mesterséges intelligencia működését.",
-            "BODY2": "Magába foglal mind eszközt nem igénylő tevékenységeket, mind pedig programozási feladatokat, amelyek AWS-en futó GPUs neurális hálózatok tanítását célozza meg."
-        },
-        "TEENSINAI": {
-            "BODY1": "A Teens in AI a hackathonok, gyorsító oktatások és a bevonó táborok kombinációját használja annak érdekében, hogy 12-18 éves diákok feldfedezzék a mesterséges intelligenciát."
-        },
-        "AI4ALL": {
-            "BODY1": "AI4ALL nyári táborokat szervez amerikai középiskolásoknak abból a célból, hogy bepillantást kapjanak a mesterséges intelligencia működésébe."
-        },
-        "CALYPSO": {
-            "BODY1": "A diákok a programozható Cozmo robotokkal a Calypso programozási keretrendszert használva kézzelfogható élményeket szereznek a mesterséges intelligencia programozásban, olyanokkal kisérletezve mint a kép- vagy beszédfelismerés."
-        },
-        "AIINABOX": {
-            "BODY1": "AI-in-a-Box egy robotcsomag, kiegészítőkkel, tanári segédletekkel. A készlet olyan projektek oktatására használható, mint a vizuális felismerés, az arcfelismerés, a beszédgenerálás és a beszédfelismerés."
-        },
-        "GOOGLEEXPERIMENTS": {
-            "BODY1": "Egyszerű online kísérletek a gépi tanulás felfedezéséhez képeken, rajzokon, nyelven és zenén keresztül."
-        },
-        "EXPLORINGCS": {
-            "BODY1": "Az Exploring CS a mesterséges intelligencia ismeretét és készségeit kínálja a diákoknak, miközben figyelembe veszi a társadalmi, erkölcsi és etikai hatásokat.",
-            "BODY2": "Felfedezik az mesterséges intelligencia gyakorlati és napi alkalmazásait, amelyek hatással vannak az életükre. A diákok okosvárosokat, otthonokat és iskolákat terveznek. Emellett megtanulnak MI-rendszert építeni, betanítani és tesztelni az NVIDIA platformon keresztül, és megnézik, hogyan kommunikálják az MI üzenetét."       },
-        "VIDEOS": {
-            "TITLE": "Videók",
-            "INTRO": "Ezeket a videókat szintén hasznosnak találtam, amikor a mesterséges intelligencia működését tanulmányoztam:"
         }
     },
     "ERRORS": {

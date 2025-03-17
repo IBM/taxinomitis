@@ -46,65 +46,6 @@
         },
         "PRETRAINED": {
             "BODY": "Des modèles pré-entraînés sont également fournis pour que les élèves puissent les utiliser dans leurs projets. Ces modèles avancés permettent de réaliser des projets qui seraient autrement trop complexes pour que les élèves les entraînent eux-mêmes, et donnent un aperçu pratique utile de certaines des autres possibilités offertes par l'apprentissage automatique."
-        },
-        "FURTHER": {
-            "TITLE": "Pour aller plus loin...",
-            "BODY": "L'apprentissage machine pour les enfants est un outil utile pour présenter aux enfants comment les systèmes de machine learning sont formés, comment ils sont utilisés, et certaines des implications du monde réel des applications de l'IA. <br/><br/>Pour des ressources d'enseignement et d'apprentissage supplémentaires, y compris l'enseignement des processus internes des systèmes de ML, veuillez consulter "
-        }
-    },
-    "LINKS": {
-        "TITLE": "Ressources éducatives en matière d'IA pour les enfants",
-        "INTRO": "Cette page est une liste d'autres outils et de ressources pour initier les enfants à l'intelligence artificielle.",
-        "ECRAFT2LEARN": {
-            "BODY1": "<a href='http://users.ox.ac.uk/~oucs0030/' target='_blank'>Ken Kahn</a> a créé des ressources pour permettre aux débutants de créer des programmes d'IA dans Snap ! (un environnement de programmation visuel similaire à Scratch).",
-            "BODY2": "Alors que je me suis attaché à expliquer comment les systèmes d'IA sont entrainés et se comportent (et les implications que cela peut avoir dans le monde réel), eCraft2Learn dispose de ressources fantastiques qui plongent dans le fonctionnement réel des systèmes de ML.",
-            "BODY3": "Le <a href='https://ecraft2learn.github.io/ai/AI-Teacher-Guide/chapter-6.html' target='_blank'>projet de réseau neuronal Tic Tac Toe</a> est particulièrement fascinant, car il permet aux élèves d'expérimenter avec les hyperparamètres de Snap!."
-        },
-        "STEMLEARNING": {
-            "BODY1": "STEM Learning et le ministère britannique du commerce, de l'énergie et de la stratégie industrielle ont créé des ressources pour enseigner les principes de l'intelligence artificielle.",
-            "BODY2": "Ces ressources comprennent les projets <em>Machine Learning for Kids</em>, complétés par des notes pédagogiques, des supports de présentation, des cartes d'aide et des activités pratiques \"débranchées\"."
-        },
-        "RASPBERRYPI": {
-            "BODY1": "La Fondation Raspberry Pi fournit des ressources aux Clubs d’informatique et de codage, avec des instructions étape par étape pour une variété de projets créatifs.",
-            "BODY2": "Leur parcours sur l'apprentissage machine comprend une variété de projets provenant de <em>Machine Learning for Kids</em>."
-        },
-        "APPSFORGOOD": {
-            "BODY1": "Apps for Good est une organisation à but non lucratif basée au Royaume-Uni qui crée des ressources pour l'enseignement des matières technologiques, qu'elle met gratuitement à la disposition des écoles.",
-            "BODY2": "Leur cours d'apprentissage automatique utilise <em>Machine Learning for Kids</em>, et le complète avec une série de matériels supplémentaires comme des schémas de travail, des plans de cours, des cahiers d'exercices pour les élèves, des présentations et bien d'autres choses encore. Il permet aux écoles de dispenser facilement des leçons de ML qui replacent les exercices de codage dans leur contexte."
-        },
-        "AIFAMILYCHALLENGE": {
-            "BODY1": "L'AI Family Challenge est un programme éducatif gratuit et pratique sur l'IA destiné aux familles. Ils utilisent <em>Machine Learning for Kids</em>, et le complètent avec beaucoup de soutien supplémentaire, comme des moniteurs techniques et des mentors, un plan de cours structuré et des vidéos de soutien.",
-            "BODY2": "Le programme est basé sur un concours qui met les enfants au défi de réfléchir à leurs propres idées de projets d'IA, avec le soutien de leurs familles et de leurs mentors techniques."
-        },
-        "MAGENTADEMOS": {
-            "BODY1": "Des jouets en ligne qui démontrent différents aspects de l'apprentissage machine, en utilisant TensorFlow.js"
-        },
-        "AIINSCHOOLS": {
-            "BODY1": "Le programme AIinSchools propose aux enseignants un plan de cours gratuit pour expliquer l'IA aux élèves de 13-14 ans (4ème en France).",
-            "BODY2": "Il comprend à la fois des activités de classe débranchées et des activités de programmation pour la formation des réseaux neuronaux sur les GPU fonctionnant sur AWS."
-        },
-        "TEENSINAI": {
-            "BODY1": "Teens in AI propose une combinaison de hackathons, d'accélérateurs et de bootcamps pour aider les jeunes de 12 à 18 ans à explorer l'IA."
-        },
-        "AI4ALL": {
-            "BODY1": "AI4ALL organise des camps d'été pour les lycéens aux États-Unis qui donnent une introduction technique détaillée à l'IA."
-        },
-        "CALYPSO": {
-            "BODY1": "Les étudiants équipés de robots Cozmo programmables peuvent utiliser l'environnement de programmation Calypso pour expérimenter concrètement l'IA en utilisant des techniques comme la vision par ordinateur et la reconnaissance vocale."
-        },
-        "AIINABOX": {
-            "BODY1": "AI-in-a-Box est un ensemble de robots, d'accessoires et de ressources pédagogiques. Le kit peut être utilisé pour enseigner des projets qui couvrent des sujets comme la reconnaissance visuelle, la reconnaissance faciale, la génération de la parole et la reconnaissance vocale."
-        },
-        "GOOGLEEXPERIMENTS": {
-            "BODY1": "Des expériences simples en ligne pour commencer à explorer l'apprentissage machine, à travers des images, des dessins, le langage et la musique."
-        },
-        "EXPLORINGCS": {
-            "BODY1": "L'exploration des sciences informatiques permet aux élèves d'acquérir des connaissances et des compétences en matière d'intelligence artificielle tout en tenant compte des impacts sociaux, moraux et éthiques.",
-            "BODY2": "Ils explorent les applications pratiques quotidiennes de l'IA qui ont un impact sur leur vie. Les élèves conçoivent des villes, des maisons et des écoles intelligentes. Ils apprennent également à construire, entraîner et tester un système d'IA via une plateforme NVIDIA et se penchent sur la manière dont le message de l'IA est transmis."
-        },
-        "VIDEOS": {
-            "TITLE": "Vidéos",
-            "INTRO": "J'ai également trouvé ces vidéos utiles pour présenter les concepts de l'IA :"
         }
     },
     "ERRORS": {

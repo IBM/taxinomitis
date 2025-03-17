@@ -245,31 +245,4 @@
       <xhtml:link rel="alternate" hreflang="zh-cn" href="https://machinelearningforkids.co.uk/?lang=zh-cn#!/signup" />
       <xhtml:link rel="alternate" hreflang="zh-tw" href="https://machinelearningforkids.co.uk/?lang=zh-tw#!/signup" />
    </url>
-   <url>
-      <loc>https://machinelearningforkids.co.uk/#!/links</loc>
-      <lastmod>2020-12-21</lastmod>
-      <changefreq>weekly</changefreq>
-      <priority>0.1</priority>
-      <xhtml:link rel="alternate" hreflang="ar"    href="https://machinelearningforkids.co.uk/?lang=ar#!/links" />
-      <xhtml:link rel="alternate" hreflang="cs"    href="https://machinelearningforkids.co.uk/?lang=cs#!/links" />
-      <xhtml:link rel="alternate" hreflang="cy"    href="https://machinelearningforkids.co.uk/?lang=cy#!/links" />
-      <xhtml:link rel="alternate" hreflang="de"    href="https://machinelearningforkids.co.uk/?lang=de#!/links" />
-      <xhtml:link rel="alternate" hreflang="el"    href="https://machinelearningforkids.co.uk/?lang=el#!/links" />
-      <xhtml:link rel="alternate" hreflang="en"    href="https://machinelearningforkids.co.uk/?lang=en#!/links" />
-      <xhtml:link rel="alternate" hreflang="es"    href="https://machinelearningforkids.co.uk/?lang=es#!/links" />
-      <xhtml:link rel="alternate" hreflang="fr"    href="https://machinelearningforkids.co.uk/?lang=fr#!/links" />
-      <xhtml:link rel="alternate" hreflang="hr"    href="https://machinelearningforkids.co.uk/?lang=hr#!/links" />
-      <xhtml:link rel="alternate" hreflang="it"    href="https://machinelearningforkids.co.uk/?lang=it#!/links" />
-      <xhtml:link rel="alternate" hreflang="ja"    href="https://machinelearningforkids.co.uk/?lang=ja#!/links" />
-      <xhtml:link rel="alternate" hreflang="ko"    href="https://machinelearningforkids.co.uk/?lang=ko#!/links" />
-      <xhtml:link rel="alternate" hreflang="nl-be" href="https://machinelearningforkids.co.uk/?lang=nl-be#!/links" />
-      <xhtml:link rel="alternate" hreflang="pl"    href="https://machinelearningforkids.co.uk/?lang=pl#!/links" />
-      <xhtml:link rel="alternate" hreflang="pt-br" href="https://machinelearningforkids.co.uk/?lang=pt-br#!/links" />
-      <xhtml:link rel="alternate" hreflang="ru"    href="https://machinelearningforkids.co.uk/?lang=ru#!/links" />
-      <xhtml:link rel="alternate" hreflang="si-lk" href="https://machinelearningforkids.co.uk/?lang=si-lk#!/links" />
-      <xhtml:link rel="alternate" hreflang="sv-se" href="https://machinelearningforkids.co.uk/?lang=sv-se#!/links" />
-      <xhtml:link rel="alternate" hreflang="tr"    href="https://machinelearningforkids.co.uk/?lang=tr#!/links" />
-      <xhtml:link rel="alternate" hreflang="zh-cn" href="https://machinelearningforkids.co.uk/?lang=zh-cn#!/links" />
-      <xhtml:link rel="alternate" hreflang="zh-tw" href="https://machinelearningforkids.co.uk/?lang=zh-tw#!/links" />
-   </url>
 </urlset>

@@ -219,10 +219,6 @@
                 templateUrl: 'static/components/appinventor/appinventor.html',
                 controllerAs: 'vm'
             })
-            .state('links', {
-                url: '/links',
-                templateUrl: 'static/components/links/links.html#top'
-            })
             .state('stories', {
                 url: '/stories/:storyId',
                 controller: 'StoriesController',

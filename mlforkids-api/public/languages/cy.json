@@ -46,65 +46,6 @@
         },
         "PRETRAINED": {
             "BODY": "Pre-trained models are also provided for students to use in their projects. These advanced models enable projects that might otherwise be too complex for students to train for themselves, and provide useful hands-on insights into some of the other things that machine learning can do."
-        },
-        "FURTHER": {
-            "TITLE": "Dysgu Pellach",
-            "BODY": "Mae Dysgu Peiriant i Blant yn adnodd defnyddiol ar gyfer cyflwyno plant i sut mae systemau DP yn cael eu hyfforddi, sut maen nhw'n cael eu defnyddio, a rhai o oblygiadau'r byd go iawn o gymwysiadau AI. <br/><br/> Am adnoddau addysgu a dysgu ychwanegol, gan gynnwys addysgu systemau mewnol DP, gweler:"
-        }
-    },
-    "LINKS": {
-        "TITLE": "Adnoddau AI addysgol i blant",
-        "INTRO": "Mae'r dudalen hon yn rhestr o offer ac adnoddau pellach ar gyfer egluro deallusrwydd artiffisial i blant.",
-        "ECRAFT2LEARN": {
-            "BODY1": "Mae <a href='http://users.ox.ac.uk/~oucs0030/' target='_blank'>Ken Kahn</a> wedi creu adnoddau i ganiatáu i ddechreuwyr greu rhaglenni AI yn Snap! (amgylchedd rhaglennu gweledol tebyg i Scratch).",
-            "BODY2": "Er fy mod i wedi canolbwyntio ar egluro sut mae systemau AI yn cael eu hyfforddi ac ymddwyn (a'r goblygiadau yn y byd go iawn), mae gan eCraft2Learn adnoddau gwych sy'n plymio'n ddwfn i sut mae systemau DP yn gweithio mewn gwirionedd.",
-            "BODY3": "Mae'r <a href='https://ecraft2learn.github.io/ai/AI-Teacher-Guide/chapter-6.html' target='_blank'>prosiect Tic Tac Toe niwral net</a> yn arbennig o ddiddorol, gan ganiatáu i fyfyrwyr arbrofi gyda hyperparamedrau o Snap."
-        },
-        "STEMLEARNING": {
-            "BODY1": "Mae STEM Learning ac Adran Busnes, Ynni a Strategaeth Ddiwydiannol y DU wedi creu adnoddau ar gyfer dysgu egwyddorion deallusrwydd artiffisial.",
-            "BODY2": "Mae'r adnoddau hyn yn cynnwys prosiectau <em>Dysgu Peiriant i Blant</em>, wedi'u hategu â nodiadau addysgu, deunyddiau cyflwyno, cardiau prydlon, a gweithgareddau 'unplugged' ymarferol"
-        },
-        "RASPBERRYPI": {
-            "BODY1": "Mae'r Raspberry Pi Foundation yn darparu adnoddau ar gyfer Clybiau Cod, gyda chyfarwyddiadau cam wrth gam ar gyfer amrywiaeth o brosiectau creadigol.",
-            "BODY2": "Mae eu llwybr dysgu peiriant yn cynnwys amrywiaeth o brosiectau o <em>Dysgu Peiriant i Blant</em>."
-        },
-        "APPSFORGOOD": {
-            "BODY1": "Mae Apps for Good yn ddielw yn y DU sy'n creu adnoddau ar gyfer dysgu pynciau technoleg, y maent ar gael yn rhwydd i ysgolion.",
-            "BODY2": "Mae eu cwrs Dysgu Peiriant yn defnyddio <em>Dysgu Peiriant i Blant</em>, ac yn ei ategu gydag ystod o ddeunyddiau ychwanegol fel cynlluniau gwaith, cynlluniau gwersi, llyfrau gwaith myfyrwyr, cyflwyniadau a mwy. Mae'n ei gwneud hi'n hawdd i ysgolion gyflwyno gwersi DP sy'n rhoi'r ymarferion codio yn eu cyd-destun."
-        },
-        "AIFAMILYCHALLENGE": {
-            "BODY1": "Mae AI Family Challenge yn rhaglen addysg AI ymarferol am ddim i deuluoedd. Maent yn defnyddio <em>Dysgu Peiriant i Blant</em>, ac yn ei ategu gyda llawer o gefnogaeth ychwanegol, fel hyfforddwyr technegol a mentoriaid, cynllun gwers strwythuredig a fideos ategol.",
-            "BODY2": "Mae'r rhaglen wedi'i seilio ar gystadleuaeth sy'n herio plant i feddwl am eu syniadau prosiect AI eu hunain, gyda chefnogaeth eu teuluoedd a'u mentoriaid technegol."
-        },
-        "MAGENTADEMOS": {
-            "BODY1": "Teganau ar-lein sy'n dangos gwahanol agweddau ar ddysgu peiriant, gan ddefnyddio TensorFlow.js"
-        },
-        "AIINSCHOOLS": {
-            "BODY1": "Mae'r rhaglen AIinSchools yn darparu cynllun gwers am ddim i athrawon egluro AI i Flwyddyn 9 (13-14 oed).",
-            "BODY2": "Mae'n cynnwys gweithgareddau ystafell ddosbarth 'unplugged', a gweithgareddau rhaglennu ar gyfer hyfforddi rhwydweithiau niwral ar GPUs sy'n rhedeg ar AWS."
-        },
-        "TEENSINAI": {
-            "BODY1": "Mae Teens in AI yn defnyddio cyfuniad o hacathonau, cyflymwyr a bwtcamps i gefnogi pobl ifanc 12-18 oed i archwilio AI."
-        },
-        "AI4ALL": {
-            "BODY1": "Mae AI4ALL yn rhedeg gwersylloedd haf ar gyfer myfyrwyr ysgol uwchradd yn yr UD sy'n rhoi cyflwyniad technegol manwl i AI."
-        },
-        "CALYPSO": {
-            "BODY1": "Gall myfyrwyr sydd â robotiaid Cozmo rhaglenadwy ddefnyddio fframwaith rhaglennu Calypso i gael ffordd ymarferol i brofi AI trwy arbrofi gyda thechnegau fel gweledigaeth gyfrifiadurol a chydnabod lleferydd."
-        },
-        "AIINABOX": {
-            "BODY1": "Mae AI-in-a-Box yn fwndel o robotiaid, ategolion ac adnoddau addysgu. Gellir defnyddio'r pecyn i ddysgu prosiectau sy'n ymdrin â phynciau fel adnabod gweledol, adnabod wynebau, cynhyrchu llais a chydnabod llais."
-        },
-        "GOOGLEEXPERIMENTS": {
-            "BODY1": "Arbrofion syml ar-lein i ddechrau archwilio dysgu peiriant, trwy luniau, lluniadau, iaith a cherddoriaeth."
-        },
-        "EXPLORINGCS": {
-            "BODY1": "Exploring CS gives students AI knowledge and skills while considering social, moral and ethical impacts.",
-            "BODY2": "They explore practical daily applications of AI that impact their lives.  Students design smart cities, homes and schools.  They also learn to build, train and test an AI system through an NVIDIA platform and look at how the message of AI is communicated."
-        },
-        "VIDEOS": {
-            "TITLE": "Fideos",
-            "INTRO": "Rwyf hefyd wedi gweld y fideos hyn yn ddefnyddiol wrth gyflwyno cysyniadau AI:"
         }
     },
     "ERRORS": {

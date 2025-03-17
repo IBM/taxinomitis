@@ -50,65 +50,6 @@
         },
         "PRETRAINED": {
             "BODY": "預訓練模型也可提供學生在他的專案中使用。 這些進階模型如果自己訓練可能太複雜，所以學生無法自己完成。這些模型也提供了有關機器學習可以完成各式各樣事情的實用建議。"
-        },
-        "FURTHER": {
-            "TITLE": "進階學習",
-            "BODY": "「兒童機器學習」是一個好用的工具，用來向孩子介紹如何訓練以及使用機器學習系統，還有一些AI應用程式在現實世界中的含義"
-        }
-    },
-    "LINKS": {
-        "TITLE": "兒童的AI教育資源",
-        "INTRO": "此頁面是用來向兒童解釋人工智慧的延伸工具和資源的清單",
-        "ECRAFT2LEARN": {
-            "BODY1": "<a href='http://users.ox.ac.uk/~oucs0030/' target='_blank'>Ken Kahn</a>建立了讓初學者創造AI程式的環境- Snap! (與Scratch相似的視覺化程式編輯環境)",
-            "BODY2": "當我專注在解釋AI系統的訓練和行為方式時（以及對現實世界的影響），eCraft2Learn已擁有大量可深入研究ML系統的實際工作方式的資源。",
-            "BODY3": "<a href='https://ecraft2learn.github.io/ai/AI-Teacher-Guide/chapter-6.html' target='_blank'>神經網路專案 Tic Tac Toe </a>特別吸引人，讓學生可以嘗試來自Snap的超參數"
-        },
-        "STEMLEARNING": {
-            "BODY1": "STEM教育與英國的商業能源工業戰略部已經成立用於教育人工智慧原理的資源",
-            "BODY2": "這些資源包含<em>兒童機器學習</em>專案，並輔以教學筆記、演講素材、提示卡片與實用的「不插電」活動"
-        },
-        "RASPBERRYPI": {
-            "BODY1": "Raspberry Pi基金會為Code Clubs提供資源，並且為各種創意專案提供一步一步的教學說明",
-            "BODY2": "他們的機器學習路徑包含各種來自<em>兒童機器學習</em>的專案"
-        },
-        "APPSFORGOOD": {
-            "BODY1": "Apps for Good是英國的非營利組織，它製作資訊科技課程的教學資源，這些資源可以免費提供給學校。",
-            "BODY2": "他們的機器學習課程使用了<em>兒童機器學習</em>，而且補充了一系列額外的素材，例如執行規劃、課程計畫、學生作業簿、演講稿......等等。它讓學校可以更容易使用ML課程，使程式練習前後連貫"
-        },
-        "AIFAMILYCHALLENGE": {
-            "BODY1": "The AI Family Challenge是設計給家庭的免費AI實作計畫。他們使用<em>兒童機器學習</em>，並提供許多額外的支援，例如技術指導者、結構化的課程規劃以及支援影片",
-            "BODY2": "這個計畫建立在競賽上，孩子需要在家人與技術指導者的支援下思考自己的AI專案構想"
-        },
-        "MAGENTADEMOS": {
-            "BODY1": "使用TensorFlow.js展示機器學習各個方面的線上遊戲作品"
-        },
-        "AIINSCHOOLS": {
-            "BODY1": "The AIinSchools programme提供免費的課程給老師，用來解釋AI給國中(13~14歲)的孩子",
-            "BODY2": "它包含了不插電的課堂活動以及在AWS上運作的訓練神經網路程式練習"
-        },
-        "TEENSINAI": {
-            "BODY1": "AI領域的青少年可以結合黑客松、加速器與訓練營來支持12-18歲的青年探索AI"
-        },
-        "AI4ALL": {
-            "BODY1": "AI4ALL在美國為高中生舉辦夏令營，其中包含了AI的詳細介紹"
-        },
-        "CALYPSO": {
-            "BODY1": "學生使用可以寫程式的機器人Cozmo與Calypso程式開發架構，藉由嘗試電腦影像視覺與語音辨識來親身感受AI"
-        },
-        "AIINABOX": {
-            "BODY1": "AI-in-a-Box是包含機器人、配件與教學資源的套件。這個套件可以用在教學影像樣辨識、臉部辨識、語音產生以及語音辨識的主題上"
-        },
-        "GOOGLEEXPERIMENTS": {
-            "BODY1": "簡單的線上體驗就可以開始透過圖片、繪畫、文字與音樂來探索機器學習"
-        },
-        "EXPLORINGCS": {
-            "BODY1": "Exploring CS gives students AI knowledge and skills while considering social, moral and ethical impacts.",
-            "BODY2": "They explore practical daily applications of AI that impact their lives.  Students design smart cities, homes and schools.  They also learn to build, train and test an AI system through an NVIDIA platform and look at how the message of AI is communicated."
-        },
-        "VIDEOS": {
-            "TITLE": "影片",
-            "INTRO": "我還發現這些影片對於介紹AI觀念非常有幫助"
         }
     },
     "ERRORS": {
