@@ -4,6 +4,9 @@ export const ROOT                  = '/';
 
 export const ALL_APIS              = '/api/*';
 
+export const K8S_PROBE             = '/api';
+export const ERROR_TEST            = '/api/debug/errors/:errorcode';
+
 export const TEACHERS              = '/api/teachers';
 export const CLASSES               = '/api/classes';
 

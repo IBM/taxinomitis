@@ -45,7 +45,7 @@
             logs.push(JSON.stringify(urlParms));
             logs.push('\n[ml4klog] browser ');
             logs.push(navigator.userAgent);
-            logs.push('\n[ml4klog] version v=245');
+            logs.push('\n[ml4klog] version v=246');
 
             downloadService.downloadFile(logs, 'text/plain', 'mlforkids.log');
         }

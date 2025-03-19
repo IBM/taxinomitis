@@ -246,6 +246,12 @@
                 templateUrl: 'static/components/resetstorage/resetstorage.html',
                 controllerAs: 'vm'
             })
+            .state('debugapis', {
+                url: '/debug-apis',
+                controller: 'DebugApisController',
+                templateUrl: 'static/components/debugapi/debugapi.html',
+                controllerAs: 'vm'
+            })
             .state('book', {
                 url: '/book',
                 templateUrl: 'static/components/book/book.html',
@@ -321,7 +327,7 @@
             .useSanitizeValueStrategy('sanitizeParameters')
             .useStaticFilesLoader({
                 prefix: 'static/languages/',
-                suffix: '.json?v=245'
+                suffix: '.json?v=246'
             })
             .determinePreferredLanguage(function () {
                 var lang = navigator.userLanguage || navigator.language;

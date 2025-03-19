@@ -1,0 +1,22 @@
+<div class="jumbotron">
+    <h2 class="text-center">API diagnostics</h2>
+</div>
+<div class="helpsection">
+    <div class="apikeysguideinfo">Please don't use this page unless explicitly requested to. </div>
+</div>
+<div style="padding: 2em;">
+    <button class="btn btn-primary" ng-click="geterror(200)">ok</button>
+    <button class="btn btn-primary" ng-click="geterror(400)">bad request</button>
+    <button class="btn btn-primary" ng-click="geterror(404)">not found</button>
+    <button class="btn btn-primary" ng-click="geterror(401)">unauthorized</button>
+    <button class="btn btn-primary" ng-click="geterror(403)">forbidden</button>
+    <button class="btn btn-primary" ng-click="geterror(413)">request too large</button>
+    <button class="btn btn-primary" ng-click="geterror(501)">not implemented</button>
+    <button class="btn btn-primary" ng-click="geterror(503)">service unavailable</button>
+    <button class="btn btn-primary" ng-click="geterror(500)">server error</button>
+</div>
+<div style="padding: 1em; margin-bottom: 3em;">
+    <pre style="background-color: #f0f0f0; border: medium black solid; width: 100%; font-family: 'Courier New', Courier, monospace; font-weight: bold;">
+        {{ apioutput.text }}
+    </pre>
+</div>

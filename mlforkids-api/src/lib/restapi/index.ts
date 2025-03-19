@@ -20,6 +20,7 @@ import registerServicesApis from './services';
 import registerNgramApis from './ngrams';
 import registerSessionUserApis from './sessionusers';
 import registerSiteAlertApis from './sitealerts';
+import registerDebugApis from './debug';
 import * as URLS from './urls';
 import * as serverConfig from './config';
 import * as errors from './errors';
@@ -92,6 +93,7 @@ export default function setup(app: Express.Application): void {
         registerServicesApis(app);
         registerNgramApis(app);
         registerSessionUserApis(app);
+        registerDebugApis(app);
     }
 
     // error handling
