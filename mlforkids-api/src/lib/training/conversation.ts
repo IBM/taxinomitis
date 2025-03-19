@@ -819,7 +819,7 @@ export async function testMultipleCredentials(creds: TrainingObjects.BluemixCred
             atLeastOneValidCredential = true;
         }
         catch (err) {
-            log.error({ nextcred, err }, 'Credentials test failed');
+            log.info({ nextcred, err }, 'Credentials test failed');
         }
     }
     return atLeastOneValidCredential;

@@ -555,6 +555,18 @@
 
                     // save the parsed corpus for reuse
                     trainingService.storeAsset($scope.project, analyzedCorpus);
+                })
+                .catch((err) => {
+                    if (err.status) {
+                        // API error from generating the ngrams
+                        loggerService.error('[ml4klanguage] error generating ngrams', err);
+                        $scope.loading = false;
+                        displayAlert('errors', err.status, err.data);
+                    }
+                    else {
+                        // logic error
+                        throw err;
+                    }
                 });
         }
 
@@ -636,7 +648,7 @@
                     });
                 })
                 .catch((err) => {
-                    loggerService.error('[ml4klanguage] error generating ngrams', err);
+                    loggerService.error('[ml4klanguage] error parsing corpus', err);
                     $scope.loading = false;
                     displayAlert('errors', 500, err);
                 });

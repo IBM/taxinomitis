@@ -101,7 +101,7 @@ function newLocalProjectNumberModel(req: auth.RequestWithUser, res: Express.Resp
         request = numbers.validateLocalProjectTrainingRequest(req.body, req.params.studentid);
     }
     catch (err) {
-        log.error({ err, func: 'newLocalProjectNumberModel' }, 'Failed to parse training data');
+        log.error({ err, func: 'newLocalProjectNumberModel', payload : req.body }, 'Failed to parse training data');
         return errors.missingData(res);
     }
 
