@@ -58,7 +58,7 @@ async function getUnmanagedClassifiers(reqWithTenant: auth.RequestWithTenant, re
                });
         })
         .catch((err) => {
-            log.error({ err }, 'Server error while fetching unmanaged classifiers');
+            log.info({ err }, 'Server error while fetching unmanaged classifiers');
             errors.unknownError(res, err);
         });
 }

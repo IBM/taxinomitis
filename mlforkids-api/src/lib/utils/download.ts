@@ -1,7 +1,7 @@
 // core dependencies
 import * as fs from 'fs';
 import { IncomingHttpHeaders, IncomingMessage } from 'http';
-import { pipeline } from 'node:stream';
+import { pipeline, Writable, Readable } from 'node:stream';
 // external dependencies
 import * as httpstatus from 'http-status';
 import * as sharp from 'sharp';
@@ -65,6 +65,8 @@ export function file(url: string, targetFilePath: string, callback: IErrCallback
         if (resolved === false) {
             resolved = true;
             if (err) {
+                cleanupStream(readStream);
+                cleanupStream(writeStream);
                 return reportDownloadFailure(url, err, callback);
             }
             else {
@@ -81,14 +83,29 @@ export function file(url: string, targetFilePath: string, callback: IErrCallback
                 resolve(problem);
                 r.destroy();
             }
+        })
+        .on('error', (err: Error) => {
+            resolve(err as ML4KError);
         });
     // writing to file
-    const writeStream = fs.createWriteStream(targetFilePath);
+    const writeStream = fs.createWriteStream(targetFilePath)
+        .on('error', (err: Error) => {
+            resolve(err as ML4KError);
+        });
 
     // joining the two streams
     pipeline(readStream, writeStream, (err) => {
         resolve(err as ML4KError);
     });
+}
+
+function cleanupStream(str: Readable | Writable): void {
+    if (str && !str.destroyed) {
+        try {
+            str.destroy();
+        }
+        catch (err) {}
+    }
 }
 
 
