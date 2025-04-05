@@ -148,7 +148,8 @@ describe('REST API - site alerts', () => {
             req: Express.Request, res: Express.Response,
             next: (err?: Error) => void)
         {
-            req.user = { ...nextUser };
+            const mockedReq: any = req;
+            mockedReq.user = { ...nextUser };
             next();
         }
 

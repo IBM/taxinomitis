@@ -34,7 +34,8 @@ describe('REST API - users', () => {
         req: Express.Request, res: Express.Response,
         next: (err?: Error) => void)
     {
-        req.user = {
+        const mockedReq: any = req;
+        mockedReq.user = {
             'sub' : 'userid',
             'https://machinelearningforkids.co.uk/api/role' : 'supervisor',
             'https://machinelearningforkids.co.uk/api/tenant' : tenantId,

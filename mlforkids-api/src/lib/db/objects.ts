@@ -778,14 +778,22 @@ export function getWorkspaceFromDbRow(row: TrainingObjects.ClassifierDbRow): Tra
 
 export function createNumbersClassifier(
     userid: string, classid: string, projectid: string,
-    status: TrainingObjects.NumbersStatus,
+    url: string,
 ): TrainingObjects.NumbersClassifierDbRow
 {
-    return {
-        userid, projectid, classid,
-        created : new Date(),
-        status : status === 'Available' ? 1 : 0,
-    };
+    if (userid === undefined || typeof userid !== 'string' || userid.trim().length === 0 ||
+        classid === undefined || typeof classid !== 'string' || classid.trim().length === 0 ||
+        projectid === undefined || typeof projectid !== 'string' || projectid.trim().length === 0 ||
+        url === undefined || typeof url !== 'string' || url.trim().length === 0)
+    {
+        throw new Error('Missing required attributes');
+    }
+    if (!url.startsWith('http') || !url.endsWith('/status'))
+    {
+        throw new Error('Unexpected model URL');
+    }
+
+    return { userid, projectid, classid, url };
 }
 
 export function getNumbersClassifierFromDbRow(
@@ -793,9 +801,10 @@ export function getNumbersClassifierFromDbRow(
 ): TrainingObjects.NumbersClassifier
 {
     return {
-        created : row.created,
-        status : row.status === 1 ? 'Available' : 'Failed',
-        classifierid : row.projectid,
+        userid : row.userid,
+        classid : row.classid,
+        projectid : row.projectid,
+        url : row.url,
     };
 }
 

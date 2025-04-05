@@ -205,8 +205,8 @@
                     answers[feature] = rawdata[feature];
                 }
                 else {
-                    var field = feature.substr(0, split);
-                    var option = feature.substr(split + 1);
+                    var field = feature.substring(0, split);
+                    var option = feature.substring(split + 1);
 
                     answers[feature] = (option === rawdata[field]) ? 1 : 0;
                 }

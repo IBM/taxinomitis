@@ -33,7 +33,7 @@
         }
 
 
-        function loadModel(project) {
+        async function loadModel(project, serverinfo) {
             loggerService.debug('[ml4knums] loading model');
             modelStatus = {
                 classifierid : project.id,
@@ -42,11 +42,42 @@
                 updated : getModelDate(project)
             };
 
-            return browserStorageService.retrieveAsset(project.id + '-model')
-                .then((modelzip) => {
-                    loggerService.debug('[ml4knums] opening model');
-                    return ydf.loadModelFromZipBlob(modelzip);
-                })
+            let modelzip;
+            try {
+                modelzip = await browserStorageService.retrieveAsset(project.id + '-model');
+            }
+            catch (err) {
+                loggerService.debug('[ml4knums] failed to load model from storage', err);
+                if (serverinfo) {
+                    return $http.get(serverinfo.urls.status)
+                        .then((resp) => {
+                            const modelinfo = resp.data;
+
+                            modelDetails = modelinfo;
+
+                            modelStatus.status = modelinfo.status;
+                            modelStatus.progress = 33;
+                            modelStatus.updated = new Date();
+                            if (modelinfo.error) {
+                                modelStatus.error = { data : modelinfo.error };
+                            }
+
+                            updateStatus(modelinfo);
+                            return true;
+                        })
+                        .catch(() => {
+                            // model not available on the server
+                            return;
+                        });
+                }
+                else {
+                    // no info about server-hosted model
+                    return;
+                }
+            }
+
+            loggerService.debug('[ml4knums] opening model');
+            return ydf.loadModelFromZipBlob(modelzip)
                 .then((ydfmodel) => {
                     loadModelMetadata(project);
                     model = ydfmodel;
@@ -62,11 +93,11 @@
         }
 
 
-        function initNumberSupport(project) {
+        function initNumberSupport(project, serverinfo) {
             loggerService.debug('[ml4knums] initialising number model support', project.id);
             return loadYdf()
                 .then(function () {
-                    return loadModel(project);
+                    return loadModel(project, serverinfo);
                 });
         }
 
@@ -74,6 +105,7 @@
 
 
         function updateStatus(modelinfo) {
+            loggerService.debug('[ml4knums] updating model status', modelinfo);
             modelDetails = modelinfo;
             modelDetails.lastupdate = new Date(modelinfo.lastupdate);
             modelStatus.updated = modelDetails.lastupdate;

@@ -30,6 +30,15 @@ function returnConversationWorkspace(classifier: Types.ConversationWorkspace) {
         status : classifier.status,
     };
 }
+function returnNumberClassifier(classifier: Types.NumbersClassifier) {
+    return {
+        key : classifier.projectid,
+        status : 'Unknown',
+        urls : {
+            status : classifier.url,
+        }
+    };
+}
 
 
 
@@ -51,7 +60,8 @@ async function getModels(req: auth.RequestWithProject, res: Express.Response) {
         classifiers = [];
         break;
     case 'numbers':
-        classifiers = [];
+        classifiers = await store.getNumbersClassifiers(projectid);
+        classifiers = classifiers.map(returnNumberClassifier);
         break;
     case 'sounds':
         classifiers = [];
@@ -107,7 +117,10 @@ async function deleteModel(req: auth.RequestWithProject, res: Express.Response) 
             await conversation.deleteClassifier(tenant, workspace);
             return res.sendStatus(httpstatus.NO_CONTENT);
         }
-        case 'numbers':
+        case 'numbers': {
+            await store.deleteNumberClassifier(req.project.userid, req.project.id);
+            return res.sendStatus(httpstatus.NO_CONTENT);
+        }
         case 'sounds':
         case 'imgtfjs':
         case 'images':
@@ -194,11 +207,6 @@ async function testModel(req: Express.Request, res: Express.Response) {
         }
     }
     catch (err) {
-        if ((type === 'images' || type === 'numbers') &&
-            err.statusCode === 400)
-        {
-            return res.status(httpstatus.BAD_REQUEST).send({ error : err.message });
-        }
         if (err.message && err.message.startsWith(download.ERRORS.DOWNLOAD_FAIL)) {
             return res.status(httpstatus.BAD_REQUEST)
                     .send({ error : 'The test image could not be downloaded' });

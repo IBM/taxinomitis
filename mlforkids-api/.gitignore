@@ -25,3 +25,4 @@ logs/*.log
 logs/*.log.*
 dist
 web
+.nyc_output

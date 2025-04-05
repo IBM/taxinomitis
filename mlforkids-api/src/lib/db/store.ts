@@ -1626,6 +1626,20 @@ export async function deleteClassifiersByCredentials(credentials: TrainingObject
 }
 
 
+export async function getNumbersClassifiers(projectid: string): Promise<TrainingObjects.NumbersClassifier[]>
+{
+    const queryName = 'dbqn-select-taxinoclassifiers-projectid';
+    const queryString = 'SELECT projectid, userid, classid, ' +
+                        'url ' +
+                        'FROM taxinoclassifiers ' +
+                        'WHERE projectid = $1';
+    const queryValues = [ projectid ];
+
+    const response = await dbExecute(queryName, queryString, queryValues);
+    return response.rows.map(dbobjects.getNumbersClassifierFromDbRow);
+}
+
+
 export async function getConversationWorkspaces(
     projectid: string,
 ): Promise<TrainingObjects.ConversationWorkspace[]>
@@ -1723,6 +1737,50 @@ export async function storeConversationWorkspace(
     return workspace;
 }
 
+
+export async function storeNumbersClassifier(
+    userid: string, classid: string, projectid: string, url: string,
+): Promise<TrainingObjects.NumbersClassifier>
+{
+    const obj = dbobjects.createNumbersClassifier(userid, classid, projectid, url);
+
+    const queryName = 'dbqn-insert-taxinoclassifiers';
+    const queryString: string = 'INSERT INTO taxinoclassifiers ' +
+                                    '(projectid, userid, classid, url) ' +
+                                'VALUES ' +
+                                    '($1, $2, $3, $4) ' +
+                                'ON CONFLICT (projectid) DO UPDATE SET ' +
+                                    'userid = $2, classid = $3, url = $4';
+    const queryValues = [ obj.projectid, obj.userid, obj.classid, obj.url ];
+
+    try {
+        await dbExecute(queryName, queryString, queryValues);
+    }
+    catch (err) {
+        throw new Error('Failed to store classifier');
+    }
+
+    return dbobjects.getNumbersClassifierFromDbRow(obj);
+}
+
+export async function deleteNumberClassifier(
+    userid: string, projectid: string,
+): Promise<void>
+{
+    const queryName = 'dbqn-delete-taxinoclassifiers';
+    const queryString = 'DELETE FROM taxinoclassifiers ' +
+                            'WHERE ' +
+                                'projectid = $1 AND ' +
+                                'userid = $2';
+    const queryValues = [ projectid, userid ];
+
+    try {
+        await dbExecute(queryName, queryString, queryValues);
+    }
+    catch (err) {
+        throw new Error('Failed to delete classifiers info');
+    }
+}
 
 export async function updateConversationWorkspaceExpiry(
     workspace: TrainingObjects.ConversationWorkspace,
@@ -2624,6 +2682,7 @@ export async function getLatestSiteAlert(): Promise<Objects.SiteAlert | undefine
 
 
 export async function deleteEntireProject(userid: string, classid: string, project: Objects.Project | Objects.LocalProject): Promise<void> {
+    // delete stored models
     switch (project.type) {
     case 'text': {
         const classifiers = await getConversationWorkspaces(project.id);
@@ -2640,16 +2699,13 @@ export async function deleteEntireProject(userid: string, classid: string, proje
     }
     case 'imgtfjs':
     case 'images':
-        // nothing to do - models all stored client-side
-        break;
     case 'numbers':
-        // nothing to do - models all stored client-side
-        break;
     case 'sounds':
-        // nothing to do - models all stored client-side
+        // nothing to do - other models are all stored client-side
         break;
     }
 
+    // delete database contents
     const deleteQueries = [
         'DELETE FROM projects WHERE id = $1',
         'DELETE FROM localprojects WHERE id = $1',
@@ -2659,6 +2715,7 @@ export async function deleteEntireProject(userid: string, classid: string, proje
         'DELETE FROM imagetraining WHERE projectid = $1',
         'DELETE FROM soundtraining WHERE projectid = $1',
         'DELETE FROM bluemixclassifiers WHERE projectid = $1',
+        'DELETE FROM taxinoclassifiers WHERE projectid = $1',
         'DELETE FROM scratchkeys WHERE projectid = $1',
     ];
 
@@ -2678,6 +2735,7 @@ export async function deleteEntireUser(userid: string, classid: string): Promise
         'DELETE FROM projects WHERE userid = $1',
         'DELETE FROM localprojects WHERE userid = $1',
         'DELETE FROM bluemixclassifiers WHERE userid = $1',
+        'DELETE FROM taxinoclassifiers WHERE userid = $1',
         'DELETE FROM scratchkeys WHERE userid = $1',
     ];
 

@@ -105,19 +105,17 @@ export type ClassifierStatus = 'Non Existent' | 'Training' | 'Failed' | 'Availab
 
 
 export interface NumbersClassifier {
-    readonly created: Date;
-    readonly status: NumbersStatus;
-    readonly classifierid: string;
-    updated?: Date;
+    readonly projectid: string;
+    readonly userid: string;
+    readonly classid: string;
+    readonly url: string;
 }
 export interface NumbersClassifierDbRow {
-    readonly userid: string;
     readonly projectid: string;
+    readonly userid: string;
     readonly classid: string;
-    readonly created: Date;
-    readonly status: number;
+    readonly url: string;
 }
-export type NumbersStatus = 'Failed' | 'Available';
 
 
 export type CsvString = string;

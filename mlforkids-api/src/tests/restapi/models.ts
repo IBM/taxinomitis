@@ -13,7 +13,6 @@ import * as express from 'express';
 import * as store from '../../lib/db/store';
 import * as auth from '../../lib/restapi/auth';
 import * as conversation from '../../lib/training/conversation';
-import * as numbers from '../../lib/training/numbers';
 import * as DbTypes from '../../lib/db/db-types';
 import * as Types from '../../lib/training/training-types';
 import testapiserver from './testserver';
@@ -51,8 +50,6 @@ describe('REST API - models', () => {
     let conversationStubTestClassifierStub: sinon.SinonStub<any, any>;
     let conversationStubDeleteClassifierStub: sinon.SinonStub<any, any>;
 
-    let numbersStubTrainClassifierStub: sinon.SinonStub<any, any>;
-
     const updated = new Date();
     updated.setMilliseconds(0);
 
@@ -64,8 +61,6 @@ describe('REST API - models', () => {
         conversationStubTrainClassifierStub = sinon.stub(conversation, 'trainClassifier');
         conversationStubTestClassifierStub = sinon.stub(conversation, 'testClassifier');
         conversationStubDeleteClassifierStub = sinon.stub(conversation, 'deleteClassifier');
-
-        numbersStubTrainClassifierStub = sinon.stub(numbers, 'trainClassifier');
 
         conversationStubGetClassifiersStub.callsFake((tenant, classifiers: Types.ConversationWorkspace[]) =>  {
             return new Promise((resolve) => {
@@ -140,15 +135,6 @@ describe('REST API - models', () => {
             return Promise.resolve();
         });
 
-        numbersStubTrainClassifierStub.callsFake((project: DbTypes.Project) => {
-            const output: Types.NumbersClassifier = {
-                created : new Date(),
-                status : 'Available',
-                classifierid : project.id,
-            };
-            return Promise.resolve(output);
-        });
-
         await store.init();
 
         testServer = testapiserver();
@@ -162,7 +148,6 @@ describe('REST API - models', () => {
         conversationStubTrainClassifierStub.restore();
         conversationStubTestClassifierStub.restore();
         conversationStubDeleteClassifierStub.restore();
-        numbersStubTrainClassifierStub.restore();
 
         return store.disconnect();
     });
@@ -265,6 +250,9 @@ describe('REST API - models', () => {
             ], false);
             const projectid = project.id;
 
+            await store.storeNumbersClassifier(userid, classid, project.id,
+                'https://mlforkids-newnumbers.not-a-real-region.cloud-region.codeengine.appdomain.cloud/saved-models/' + projectid + '/status');
+
             nextAuth0Userid = userid;
             nextAuth0Role = 'student';
             nextAuth0Class = classid;
@@ -274,7 +262,13 @@ describe('REST API - models', () => {
                 .expect(httpstatus.OK)
                 .then(async (res) => {
                     const body = res.body;
-                    assert.deepStrictEqual(body, []);
+                    assert.deepStrictEqual(body, [ {
+                        key : projectid,
+                        status : 'Unknown',
+                        urls : {
+                            status : 'https://mlforkids-newnumbers.not-a-real-region.cloud-region.codeengine.appdomain.cloud/saved-models/' + projectid + '/status',
+                        },
+                    }]);
 
                     await store.deleteEntireProject(userid, classid, project);
                 });
@@ -636,6 +630,33 @@ describe('REST API - models', () => {
         });
 
 
+        it('should refuse to train image classifiers', async () => {
+            const classid = uuid();
+            const userid = uuid();
+            const projName = uuid();
+
+            const project = await store.storeProject(userid, classid, 'imgtfjs', projName, 'en', [], false);
+            const projectid = project.id;
+
+            nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
+            return request(testServer)
+                .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.NOT_IMPLEMENTED)
+                .then((res) => {
+                    const body = res.body;
+
+                    assert.deepStrictEqual(body, {
+                        error : 'Not implemented',
+                    });
+
+                    return store.deleteEntireUser(userid, classid);
+                });
+        });
+
+
         it('should train new numbers classifiers', async () => {
             const classid = uuid();
             const userid = uuid();
@@ -673,6 +694,18 @@ describe('REST API - models', () => {
 
                     const created = new Date(body.lastupdate);
                     assert.strictEqual(isNaN(created.getDate()), false);
+
+                    return store.getNumbersClassifiers(projectid);
+                })
+                .then((models) => {
+                    assert.strictEqual(models.length, 1);
+
+                    const model = models[0];
+                    assert.strictEqual(model.userid, userid);
+                    assert.strictEqual(model.classid, classid);
+                    assert.strictEqual(model.projectid, projectid);
+                    assert(model.url.startsWith('http'));
+                    assert(model.url.endsWith('/saved-models/' + projectid + '/status'));
 
                     return store.deleteEntireProject(userid, classid, project);
                 });
@@ -1245,7 +1278,7 @@ describe('REST API - models', () => {
         });
 
 
-        it('should refuse to delete numbers classifiers', async () => {
+        it('should delete numbers classifiers', async () => {
             const classid = uuid();
             const userid = uuid();
             const projName = uuid();
@@ -1259,14 +1292,22 @@ describe('REST API - models', () => {
             nextAuth0Userid = userid;
             nextAuth0Role = 'student';
             nextAuth0Class = classid;
+
+            await store.storeNumbersClassifier(userid, classid, project.id,
+                'https://mlforkids-newnumbers.not-a-real-region.cloud-region.codeengine.appdomain.cloud/saved-models/741120a0-f38a-11ee-872d-a10721b23614/status');
+
             return request(testServer)
                 .delete('/api/classes/' + classid +
                         '/students/' + userid +
                         '/projects/' + projectid +
                         '/models/' + modelid)
-                .expect(httpstatus.NOT_FOUND)
-                .then(async () => {
-                    await store.deleteEntireUser(userid, classid);
+                .expect(httpstatus.NO_CONTENT)
+                .then(() => {
+                    return store.getNumbersClassifiers(projectid);
+                })
+                .then((output) => {
+                    assert.deepStrictEqual(output, []);
+                    return store.deleteEntireUser(userid, classid);
                 });
         });
 

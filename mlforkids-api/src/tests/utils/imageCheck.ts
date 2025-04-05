@@ -7,6 +7,10 @@ import * as imageCheck from '../../lib/utils/imageCheck';
 
 describe('Utils - imageCheck', () => {
 
+    // before((done) => {
+    //     setTimeout(done, 5000);
+    // });
+
     beforeEach(() => {
         imageCheck.init();
     });
@@ -82,6 +86,56 @@ describe('Utils - imageCheck', () => {
                 done();
             });
     });
+
+    // function wait(): Promise<void> {
+    //     return new Promise((resolve) => {
+    //         setTimeout(resolve, 5);
+    //     });
+    // }
+
+    // it.skip('should handle large numbers of requests to invalid URLs without running out of memory', async () => {
+    //     const checkPromises = [];
+    //     for (let i = 0; i < 200_000; i++) {
+    //         const mod = i % 700;
+    //         switch (mod) {
+    //             case 0:
+    //                 checkPromises.push(imageCheck.verifyImage(VALID_JPG, 10000));
+    //                 break;
+    //             case 1:
+    //                 checkPromises.push(imageCheck.verifyImage(VALID_PNG, 10000));
+    //                 break;
+    //             case 599:
+    //                 await wait();
+    //                 break;
+    //             default:
+    //                 const hostname = 'not-a-real-host-' + (i % 400) + '.com';
+    //                 const path = 'folder' + i;
+    //                 const filename = 'not-a-real-image.jpg';
+    //                 checkPromises.push(imageCheck.verifyImage('https://' + hostname + '/' + path + '/' + filename, 100000));
+    //         }
+    //     }
+    //     return Promise.allSettled(checkPromises)
+    //         .then((outcomes) => {
+    //             for (let i = 0; i < outcomes.length; i++) {
+    //                 const outcome = outcomes[i];
+    //                 const mod = i % 700;
+    //                 if (mod === 0 || mod === 1) {
+    //                     if (outcome.status !== 'fulfilled') {
+    //                         console.log(outcome.reason.message);
+    //                     }
+    //                     // assert.strictEqual(outcome.status, 'fulfilled');
+    //                 }
+    //                 else {
+    //                     assert.strictEqual(outcome.status, 'rejected');
+    //                     if (outcome.reason && !outcome.reason.message.startsWith('Unable to download image from https://not-a-real-host-')) {
+    //                         console.log(outcome.reason.message);
+    //                     }
+    //                     assert(outcome.reason.message.startsWith('Unable to download image from https://not-a-real-host-'));
+    //                     assert(outcome.reason.ml4k);
+    //                 }
+    //             }
+    //         });
+    // });
 
     it('should tolerate gibberish without crashing', (done) => {
         imageCheck.verifyImage(GIBBERISH, 10000000)

@@ -148,6 +148,14 @@ CREATE TABLE mlforkidsdb.soundtraining (
 -- );
 -- update (2 Apr 2024) - deleted table
 
+CREATE TABLE mlforkidsdb.taxinoclassifiers (
+    projectid character varying(36) NOT NULL PRIMARY KEY,
+    userid character varying(36) NOT NULL,
+    classid character varying(36) NOT NULL,
+    url character varying(150) NOT NULL
+);
+-- update (5 Apr 2025) - new table
+
 CREATE TABLE mlforkidsdb.tenants (
     id character varying(36) NOT NULL PRIMARY KEY,
     projecttypes character varying(34) DEFAULT 'text,imgtfjs,numbers,sounds'::character varying NOT NULL,
@@ -189,6 +197,11 @@ CREATE INDEX texttraining_renametexttraining ON mlforkidsdb.texttraining USING b
 -- update (8 Jan 2024) - new indexes
 CREATE INDEX localprojects_getprojectsbyuserid ON mlforkidsdb.localprojects USING btree (userid);
 CREATE INDEX localprojects_getprojectsbyclassid ON mlforkidsdb.localprojects USING btree (classid);
+-- update (5 Apr 2025) - new indexes
+CREATE INDEX taxinoclassifiers_getclassifiersbyuserid ON mlforkidsdb.taxinoclassifiers USING btree (userid);
+CREATE INDEX taxinoclassifiers_getclassifiersbyclassid ON mlforkidsdb.taxinoclassifiers USING btree (classid);
+CREATE INDEX taxinoclassifiers_deleteclassifiers ON mlforkidsdb.taxinoclassifiers USING btree (projectid, userid);
+
 
 ALTER DATABASE mlforkidsdb SET search_path to mlforkidsdb;
 

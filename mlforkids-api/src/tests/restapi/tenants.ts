@@ -31,7 +31,8 @@ describe('REST API - tenants', () => {
         req: Express.Request, res: Express.Response,
         next: (err?: Error) => void)
     {
-        req.user = {
+        const mockedReq: any = req;
+        mockedReq.user = {
             'sub' : nextAuth0UserId,
             'https://machinelearningforkids.co.uk/api/role' : nextAuth0UserRole,
             'https://machinelearningforkids.co.uk/api/tenant' : nextAuth0UserTenant,

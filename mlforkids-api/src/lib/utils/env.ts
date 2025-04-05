@@ -29,8 +29,6 @@ export const SMTP_PORT = 'SMTP_PORT';
 export const SMTP_USER = 'SMTP_USER';
 export const SMTP_PASS = 'SMTP_PASS';
 export const SMTP_REPLY_TO = 'SMTP_REPLY_TO';
-export const SPOTIFY_CLIENT_ID = 'SPOTIFY_CLIENT_ID';
-export const SPOTIFY_CLIENT_SECRET = 'SPOTIFY_CLIENT_SECRET';
 const MAINTENANCE_MODE = 'MAINTENANCE_MODE';
 
 
@@ -49,7 +47,6 @@ const PROD = [
     // optional - not required for prod
     // SLACK_WEBHOOK_URL,
     // MAINTENANCE_MODE,
-    // SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
 ];
 
 export function confirmRequiredEnvironment() {

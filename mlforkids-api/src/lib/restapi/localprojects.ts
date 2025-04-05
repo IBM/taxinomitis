@@ -14,13 +14,7 @@ import * as headers from './headers';
 import * as urls from './urls';
 import loggerSetup from '../utils/logger';
 
-import * as slack from '../notifications/slack';
-
 const log = loggerSetup();
-
-
-
-const SCRAPER = /^project[A-Za-z0-9_-]{22}$/;
 
 
 async function createLocalProject(req: auth.RequestWithUser, res: Express.Response) {
@@ -31,17 +25,6 @@ async function createLocalProject(req: auth.RequestWithUser, res: Express.Respon
     const type: Objects.ProjectTypeLabel = req.body.type;
     const name: string = req.body.name;
     const labels: string[] = req.body.labels;
-
-    try {
-        if (SCRAPER.test(name)) {
-            const origin = req.header('x-forwarded-for');
-            log.error({ headers : req.headers, classid, userid, type, name, origin }, 'SCRAPER');
-            slack.notify('suspected scraper from ' + origin, slack.SLACK_CHANNELS.CRITICAL_ERRORS);
-        }
-    }
-    catch (scrapeerr) {
-        log.error({ err : scrapeerr }, 'Exception while checking project name');
-    }
 
     try {
         const project = await store.storeLocalProject(userid, classid, type, name, labels);

@@ -232,7 +232,12 @@
             return projectsService.getFields($scope.project, $scope.userId, vm.profile.tenant)
                 .then(function (fields) {
                     $scope.project.fields = fields;
-                    return numberTrainingService.initNumberSupport($scope.project);
+
+                    let serverModelInfo = undefined;
+                    if ($scope.models && $scope.models.length > 0) {
+                        serverModelInfo = $scope.models[0];
+                    }
+                    return numberTrainingService.initNumberSupport($scope.project, serverModelInfo);
                 })
                 .then(function (loaded) {
                     if (loaded) {
@@ -371,6 +376,10 @@
 
                 $scope.models = models;
                 $scope.status = modelService.getStatus($scope.models);
+
+                if (models && models.length > 0 && models[0].status === 'Training') {
+                    refreshModels();
+                }
 
                 loggerService.debug('[ml4kmodels] model status', $scope.status);
             });
@@ -636,6 +645,10 @@
             }
             else if (project.type === 'numbers') {
                 modelFnPromise = numberTrainingService.deleteModel(project.id);
+
+                if (project.storage !== 'local') {
+                    trainingService.deleteModel(project, $scope.userId, vm.profile.tenant, project.id);
+                }
             }
             else {
                 var classifierid = model.classifierid;

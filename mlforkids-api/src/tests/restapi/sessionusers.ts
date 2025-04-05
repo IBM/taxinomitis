@@ -29,7 +29,8 @@ describe('REST API - session users', () => {
         req: Express.Request, res: Express.Response,
         next: (err?: Error) => void)
     {
-        req.user = {
+        const mockedReq: any = req;
+        mockedReq.user = {
             'sub' : nextAuth0UserId,
             'https://machinelearningforkids.co.uk/api/role' : nextAuth0UserRole,
             'https://machinelearningforkids.co.uk/api/tenant' : nextAuth0UserTenant,
@@ -201,7 +202,7 @@ describe('REST API - session users', () => {
 
 
     async function fillSessionUsersClass(): Promise<void> {
-        for (let i = 0; i < 3200; i++) {
+        for (let i = 0; i < 3500; i++) {
             await store.storeTemporaryUser(1);
         }
     }

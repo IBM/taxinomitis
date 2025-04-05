@@ -28,8 +28,8 @@
                 part = part.split('+').join(' ');
 
                 var eq = part.indexOf('=');
-                var key = eq > -1 ? part.substr(0, eq) : part;
-                var val = eq > -1 ? decodeURIComponent(part.substr(eq + 1)) : '';
+                var key = eq > -1 ? part.substring(0, eq) : part;
+                var val = eq > -1 ? decodeURIComponent(part.substring(eq + 1)) : '';
 
                 var from = key.indexOf('[');
                 if (from === -1) {
@@ -89,10 +89,10 @@
 
         function urlIsImageData(url) {
             return url && typeof url === 'string' &&
-                   (url.substr(0, 10) === 'data:image' ||
-                    url.substr(0, 5) === 'blob:' ||
-                    url.substr(0, 11) === 'x-raw-image' ||
-                    url.substr(0, 5) === 'file:');
+                   (url.substring(0, 10) === 'data:image' ||
+                    url.substring(0, 5) === 'blob:' ||
+                    url.substring(0, 11) === 'x-raw-image' ||
+                    url.substring(0, 5) === 'file:');
         }
 
 

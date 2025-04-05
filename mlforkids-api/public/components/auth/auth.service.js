@@ -475,7 +475,7 @@
             if (paramStr &&
                 paramStr[0] === '?')
             {
-                var params = parseUrlParams(paramStr.substr(1));
+                var params = parseUrlParams(paramStr.substring(1));
 
                 if (params.message === 'Your%20email%20was%20verified.%20You%20can%20continue%20using%20the%20application.')
                 {

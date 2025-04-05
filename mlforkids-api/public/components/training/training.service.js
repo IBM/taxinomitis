@@ -391,7 +391,7 @@
             }
             else {
                 url = '/api/classes/' + tenant +
-                        '/students/' + userid +
+                        '/students/' + project.userid +
                         '/projects/' + project.id +
                         '/models/' + modelid;
             }

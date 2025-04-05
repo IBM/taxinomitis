@@ -233,7 +233,7 @@ describe('REST API - local projects', () => {
         });
     });
 
-    const VALID_TRAINING_DATA = {
+    const VALID_TEXT_TRAINING_DATA = {
         name: 'my project',
         language: 'en',
         intents: [
@@ -281,7 +281,7 @@ describe('REST API - local projects', () => {
 
                     return request(testServer)
                         .post('/api/classes/' + TESTCLASS + '/students/userid/localprojects/' + projectid + '/models')
-                        .send({ training: VALID_TRAINING_DATA })
+                        .send({ training: VALID_TEXT_TRAINING_DATA })
                         .expect('Content-Type', /json/)
                         .expect(httpstatus.CREATED)
                         .then((res) => {
@@ -297,6 +297,18 @@ describe('REST API - local projects', () => {
                     assert(proj);
                     assert(proj.expiry.getTime() > expiry.getTime());
                     assert.deepStrictEqual(proj.labels, [ 'this', 'that' ]);
+                });
+        });
+
+        it('should reject requests for non-text projects', () => {
+            return request(testServer)
+                .post('/api/classes/' + TESTCLASS + '/students/userid/localprojects')
+                .send({ type : 'numbers', name : 'numeric project', labels : [ 'this' ] })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then((res) => {
+                    const body = res.body;
+                    assert.deepStrictEqual(body, { error : 'Local projects not supported for non-text projects' });
                 });
         });
     });
@@ -374,7 +386,7 @@ describe('REST API - local projects', () => {
 
             const createModel = await request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/userid/localprojects/' + projectBody.id + '/models')
-                .send({ training: VALID_TRAINING_DATA })
+                .send({ training: VALID_TEXT_TRAINING_DATA })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.CREATED);
             const modelBody = createModel.body;
@@ -436,6 +448,196 @@ describe('REST API - local projects', () => {
             assert.deepStrictEqual(firstKeyBody, secondKeyBody);
 
             await store.deleteEntireProject('userid', TESTCLASS, projectBody);
+        });
+    });
+
+    describe('numbers projects', () => {
+
+        it('should train a model', () => {
+            const projectid = 1;
+            const training = [
+                { id : 1, numberdata : [ 1, 1 ], label : 'one' },
+                { id : 2, numberdata : [ 2, 2 ], label : 'one' },
+                { id : 3, numberdata : [ 3, 3 ], label : 'one' },
+                { id : 4, numberdata : [ 1, 10 ], label : 'two' },
+                { id : 5, numberdata : [ 2, 20 ], label : 'two' },
+                { id : 6, numberdata : [ 3, 30 ], label : 'two' },
+            ];
+            const fields = [
+                { name : 'first', type : 'number' },
+                { name : 'second', type : 'number' },
+            ];
+
+            const payload = {
+                project : {
+                    id : projectid,
+                    labels : [ 'one', 'two'],
+                    fields,
+                    classid : TESTCLASS,
+                    storage : 'local',
+                    type : 'numbers',
+                    userid : 'userid',
+                },
+                training,
+            };
+
+            return request(testServer)
+                .post('/api/classes/' + TESTCLASS + '/students/userid/localnumbersprojects')
+                .send(payload)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CREATED)
+                .then((res) => {
+                    const body = res.body;
+                    assert.strictEqual(body.key, 'userid-1');
+                    assert.strictEqual(body.status, 'Training');
+                    assert(body.urls.status.startsWith('http'));
+                    assert(body.urls.status.endsWith('/saved-models/userid-1/status'));
+                });
+        });
+
+
+
+        function submitInvalidTrainingData(training: any) {
+            const projectid = 2;
+            const fields = [
+                { name : 'first', type : 'number' },
+                { name : 'second', type : 'number' },
+            ];
+
+            const payload = {
+                project : {
+                    id : projectid,
+                    labels : [ 'one', 'two'],
+                    fields,
+                    classid : TESTCLASS,
+                    storage : 'local',
+                    type : 'numbers',
+                    userid : 'userid',
+                },
+                training,
+            };
+
+            return request(testServer)
+                .post('/api/classes/' + TESTCLASS + '/students/userid/localnumbersprojects')
+                .send(payload)
+                .expect('Content-Type', /json/);
+        }
+
+        it('should check for number data', () => {
+            return submitInvalidTrainingData(
+                [
+                    { id : 1, numberdata : [ 1, 1 ], label : 'one' },
+                    { id : 2, numberdata : [ 2, 2 ], label : 'one' },
+                    { id : 3, numberdata : [ 3, 3 ], label : 'one' },
+                    { id : 4, label : 'two' },
+                    { id : 5, numberdata : [ 2, 20 ], label : 'two' },
+                    { id : 6, numberdata : [ 3, 30 ], label : 'two' },
+                ])
+                .expect(httpstatus.BAD_REQUEST)
+                .then((res) => {
+                    const body = res.body;
+                    assert.deepStrictEqual(body, { error : 'Missing data' });
+                });
+        });
+
+        it('should check for training data', () => {
+            return submitInvalidTrainingData(undefined)
+                .expect(httpstatus.BAD_REQUEST)
+                .then((res) => {
+                    const body = res.body;
+                    assert.deepStrictEqual(body, { error : 'Missing data' });
+                });
+        });
+
+        it('should check for empty training data', () => {
+            return submitInvalidTrainingData([])
+                .expect(httpstatus.CREATED)
+                .then((res) => {
+                    const body = res.body;
+                    assert.deepStrictEqual(body, {
+                        key: 'userid-2',
+                        status: 'Failed',
+                        error: { message: 'More training data needed to train a model' },
+                    });
+                });
+        });
+
+        it('should check for numbers that are too big', () => {
+            return submitInvalidTrainingData(
+                [
+                    { id : 1, numberdata : [ 1, 1 ], label : 'one' },
+                    { id : 2, numberdata : [ 2, 2 ], label : 'one' },
+                    { id : 3, numberdata : [ 3, 3 ], label : 'one' },
+                    { id : 4, numberdata : [ 1, 10 ], label : 'two' },
+                    { id : 5, numberdata : [ 2, 20 ], label : 'two' },
+                    { id : 6, numberdata : [ 3, 999999999999999999999999999999999999999999999999999 ], label : 'two' },
+                ])
+                .expect(httpstatus.CREATED)
+                .then((res) => {
+                    const body = res.body;
+                    assert.deepStrictEqual(body, {
+                        key: 'userid-2',
+                        status: 'Failed',
+                        error: { message: 'Value (1e+51) is too big' },
+                    });
+                });
+        });
+
+        it('should check for numbers that are too small', () => {
+            return submitInvalidTrainingData(
+                [
+                    { id : 1, numberdata : [ 1, 1 ], label : 'one' },
+                    { id : 2, numberdata : [ 2, 2 ], label : 'one' },
+                    { id : 3, numberdata : [ 3, 3 ], label : 'one' },
+                    { id : 4, numberdata : [ 1, 10 ], label : 'two' },
+                    { id : 5, numberdata : [ 2, 20 ], label : 'two' },
+                    { id : 6, numberdata : [ 3, -999999999999999999999999999999999999999999999999999 ], label : 'two' },
+                ])
+                .expect(httpstatus.CREATED)
+                .then((res) => {
+                    const body = res.body;
+                    assert.deepStrictEqual(body, {
+                        key: 'userid-2',
+                        status: 'Failed',
+                        error: { message: 'Value (-1e+51) is too small' },
+                    });
+                });
+        });
+
+        it('should check for project info', () => {
+            const projectid = 2;
+            const fields = [
+                { name : 'first', type : 'number' },
+                { name : 'second', type : 'number' },
+            ];
+
+            const payload = {
+                project : {
+                    id : projectid,
+                    fields,
+                    classid : TESTCLASS,
+                    type : 'numbers',
+                    userid : 'userid',
+                },
+                training : [
+                    { id : 1, numberdata : [ 1, 1 ], label : 'one' },
+                    { id : 2, numberdata : [ 2, 2 ], label : 'one' },
+                    { id : 3, numberdata : [ 3, 3 ], label : 'one' },
+                    { id : 4, numberdata : [ 1, 10 ], label : 'two' },
+                    { id : 5, numberdata : [ 2, 20 ], label : 'two' },
+                    { id : 6, numberdata : [ 3, 30 ], label : 'two' },
+                ],
+            };
+
+            return request(testServer)
+                .post('/api/classes/' + TESTCLASS + '/students/userid/localnumbersprojects')
+                .send(payload)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then((res) => {
+                    const body = res.body;
+                    assert.deepStrictEqual(body, { error : 'Missing data' });
+                });
         });
     });
 });
