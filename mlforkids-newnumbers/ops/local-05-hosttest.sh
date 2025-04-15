@@ -17,7 +17,7 @@ cd ..
 PORT=8000
 DEVHOST=ml-for-kids-local.net
 
-echo "Running image"
+echo "Running server"
 source ./venv/bin/activate
 
 MODE=development \
@@ -29,7 +29,7 @@ MODE=development \
     uvicorn app.main:app --port 8000 &
 
 echo "Waiting for start"
-sleep 4
+sleep 10
 
 cd ./test
 
