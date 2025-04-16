@@ -1,7 +1,7 @@
 if (Sentry) {
     Sentry.init({
         dsn: 'https://b4bbe1a8fbce473cb9eb089652848a1e@sentry.io/202347',
-        release: '249',
+        release: '250',
         // https://docs.sentry.io/platforms/javascript/configuration/filtering/#decluttering-sentry
         ignoreErrors: [
             "top.GLOBALS",
@@ -20,6 +20,7 @@ if (Sentry) {
             "conduitPage",
             "Cannot redefine property: googletag",
             "LayersVariable dense_Dense1/kernel is already disposed",
+            "LayersVariable dense_Dense1/kernel_1 is already disposed",
             "LayersVariable dense_Dense3/kernel is already disposed",
             "LayersVariable dense_Dense5/kernel is already disposed",
             "LayersVariable dense_Dense7/kernel is already disposed",
