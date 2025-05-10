@@ -150,6 +150,7 @@
 
 .mlprojectdetails .mlprojectcrowd {
     background-image: url('./../../static/images/group.png');
+    margin-right: 32px;
 }
 
 .mlprojectdetails .mlprojectcloud {
