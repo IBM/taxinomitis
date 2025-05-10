@@ -1583,7 +1583,10 @@ class ML4KidsImageTraining {
     return this._storageSupport.getTrainingDataItem(projectid, trainingdataid).then(trainingitem => {
       storedTrainingItem = trainingitem;
       if (!storedTrainingItem.imagedata) {
-        const url = new URL('https://machinelearningforkids.co.uk/api/classes/' + tenant + '/students/' + userid + '/training/images');
+        // const url = new URL('https://machinelearningforkids.co.uk/api/classes/' + tenant +
+        //                     '/students/' + userid +
+        //                     '/training/images');
+        const url = new URL('/api/classes/' + tenant + '/students/' + userid + '/training/images');
         url.search = new URLSearchParams({
           imageurl: trainingitem.imageurl,
           label: trainingitem.label,
@@ -2534,7 +2537,8 @@ class ML4KidsSoundTraining {
   }
   loadSpeechCommands() {
     const scriptid = 'mlforkids-script-speechcommands';
-    const scripturl = 'https://machinelearningforkids.co.uk' + '/static/bower_components' + '/tensorflow-models/speech-commands-scratch' + '/speech-commands.min.js?v=118';
+    // const scripturl = 'https://machinelearningforkids.co.uk' +
+    const scripturl = '/static/bower_components' + '/tensorflow-models/speech-commands-scratch' + '/speech-commands.min.js?v=118';
     return new Promise((resolve, reject) => {
       if (document.getElementById(scriptid)) {
         return resolve();
@@ -2562,7 +2566,8 @@ class ML4KidsSoundTraining {
     }
   }
   initSoundSupport(loadModelIfAvailable, worker) {
-    const siteUrl = 'https://machinelearningforkids.co.uk' + '/static/bower_components' + '/tensorflow-models/speech-commands-scratch';
+    // const siteUrl = 'https://machinelearningforkids.co.uk' +
+    const siteUrl = '/static/bower_components' + '/tensorflow-models/speech-commands-scratch';
     const vocab = null;
     const modelJson = siteUrl + '/model.json';
     const metadataJson = siteUrl + '/metadata.json';
