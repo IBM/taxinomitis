@@ -25,13 +25,13 @@
     "angular-translate": "2.19.1",
     "angular-translate-loader-static-files": "2.19.1",
     "angular-lock": "3.0.4",
-    "auth0.js": "9.26.0",
+    "auth0.js": "9.28.0",
     "auth0-lock": "11.35.1",
     "bootstrap": "3.4.1",
     "d3": "5.16.0",
     "webcam": "webcam-directive#3.2.1",
     "blueimp-canvas-to-blob": "3.29.0",
-    "jquery": "3.6.0"
+    "jquery": "3.7.1"
   },
   "resolutions": {
     "angular": "1.8.3"

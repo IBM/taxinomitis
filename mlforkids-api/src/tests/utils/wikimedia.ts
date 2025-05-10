@@ -49,7 +49,7 @@ describe('Utils - wikimedia', () => {
         'https://upload.wikimedia.org/wikipedia/commons/4/4c/Push_van_cat.jpg',
     ];
     const EXPECTED_URL_THUMBS = [
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/BrownSpiderMonkey_%28edit2%29.jpg/244px-BrownSpiderMonkey_%28edit2%29.jpg', // tslint:disable-line
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/BrownSpiderMonkey_%28edit2%29.jpg/250px-BrownSpiderMonkey_%28edit2%29.jpg', // tslint:disable-line
         'https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Narval.JPG/250px-Narval.JPG',
         'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Push_van_cat.jpg/250px-Push_van_cat.jpg',
     ];
@@ -61,7 +61,7 @@ describe('Utils - wikimedia', () => {
     const EXPECTED_THUMB_THUMBS = [
         'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Playing_card_diamond_5.svg/244px-Playing_card_diamond_5.svg.png', // tslint:disable-line
         'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/2cv-club-red.jpg/250px-2cv-club-red.jpg',
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Example_barcode.svg/244px-Example_barcode.svg.png',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Example_barcode.svg/250px-Example_barcode.svg.png',
     ];
     const INVALID_URLS = [
         'https://something.com/mygreatpicture.jpg',
