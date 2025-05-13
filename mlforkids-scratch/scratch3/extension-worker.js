@@ -2566,8 +2566,7 @@ class ML4KidsSoundTraining {
     }
   }
   initSoundSupport(loadModelIfAvailable, worker) {
-    // const siteUrl = 'https://machinelearningforkids.co.uk' +
-    const siteUrl = '/static/bower_components' + '/tensorflow-models/speech-commands-scratch';
+    const siteUrl = 'https://machinelearningforkids.co.uk' + '/static/bower_components' + '/tensorflow-models/speech-commands-scratch';
     const vocab = null;
     const modelJson = siteUrl + '/model.json';
     const metadataJson = siteUrl + '/metadata.json';
