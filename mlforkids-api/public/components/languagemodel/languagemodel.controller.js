@@ -44,6 +44,14 @@
                 }
             }
 
+            if (status === 413) {
+                errObj = {
+                    status : 413,
+                    message : 'Sorry! Your corpus is too large for a toy language model project. ' +
+                              'Please remove some text from your corpus and try again.'
+                };
+            }
+
             $scope.$applyAsync(() => {
                 vm[type].push({
                     alertid : alertId++,
