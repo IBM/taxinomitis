@@ -123,7 +123,7 @@
     "lru-cache": "10.4.3",
     "mlforkids-google-dns": "0.0.2",
     "mlforkids-got": "14.4.7-0",
-    "multer": "1.4.4",
+    "multer": "2.0.0",
     "mustache": "4.2.0",
     "natural": "8.1.0",
     "nodemailer": "6.10.1",
