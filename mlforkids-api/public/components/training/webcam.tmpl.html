@@ -8,6 +8,7 @@
         <img src="static/images/loading.gif" ng-hide="webcamInitComplete" alt="loading" style="margin: 1em auto; width: 320px;"/>
         <webcam
             channel="channel"
+            config="webcamConfig"
             ng-hide="webcamerror"
             on-error="onWebcamError(err)"
             on-access-denied="onWebcamError(err)"

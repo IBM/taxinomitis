@@ -555,6 +555,10 @@
                     $scope.channel = {};
                     $scope.webcamerror = false;
                     $scope.webcamInitComplete = false;
+                    $scope.webcamConfig = {
+                        video: { facingMode: { exact: "environment" } }
+                    };
+                    $scope.fallbackTried = false;
 
                     $scope.webcamCanvas = null;
 
@@ -594,6 +598,20 @@
 
                     $scope.onWebcamError = function(err) {
                         loggerService.error('[ml4ktraining] webcam error', err);
+
+                        if (!$scope.fallbackTried) {
+                            $scope.fallbackTried = true;
+
+                            $scope.webcamConfig = {
+                                video: { facingMode: { exact: "user" } }
+                            };
+
+                            $scope.$apply();
+                        } else {
+                            $scope.webcamerror = true;
+                            $scope.$apply();
+                        }
+
 
                         $scope.webcamInitComplete = true;
 
