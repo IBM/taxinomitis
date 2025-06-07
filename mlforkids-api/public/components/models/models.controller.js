@@ -8,7 +8,7 @@
         'authService',
         'projectsService', 'trainingService', 'quizService',
         'soundTrainingService', 'imageTrainingService', 'regressionTrainingService', 'numberTrainingService',
-        'modelService', 'utilService', 'storageService', 'downloadService', 'imageToolsService',
+        'modelService', 'utilService', 'storageService', 'downloadService', 'imageToolsService', 'webcamsService',
         '$stateParams',
         '$scope',
         '$mdDialog', '$timeout', '$interval', '$q', '$document', '$state', 'loggerService'
@@ -17,7 +17,7 @@
     function ModelsController(authService,
         projectsService, trainingService, quizService,
         soundTrainingService, imageTrainingService, regressionTrainingService, numberTrainingService,
-        modelService, utilService, storageService, downloadService, imageToolsService,
+        modelService, utilService, storageService, downloadService, imageToolsService, webcamsService,
         $stateParams,
         $scope,
         $mdDialog, $timeout, $interval, $q, $document, $state, loggerService)
@@ -153,6 +153,10 @@
 
         $scope.minimumExamples = 'five';
         $scope.testformData = {};
+
+        var webcams;
+        var currentWebcamIdx = 0;
+
 
 
         authService.getProfileDeferred()
@@ -735,10 +739,15 @@
                     $scope.channel = {};
                     $scope.webcamerror = false;
                     $scope.webcamInitComplete = false;
-                    $scope.webcamConfig = {
-                        video: { facingMode: { exact: "environment" } }
-                    };
-                    $scope.fallbackTried = false;
+                    $scope.multipleWebcams = false;
+
+                    webcamsService.getDevices()
+                        .then((devices) => {
+                            webcams = devices;
+                            $scope.channel.videoOptions = webcams[currentWebcamIdx];
+                            $scope.multipleWebcams = webcams.length > 1;
+                            loggerService.debug('[ml4kmodels] webcam config', $scope.channel.videoOptions);
+                        });
 
                     $scope.webcamCanvas = null;
 
@@ -772,22 +781,43 @@
                         }
                     }
 
+                    function changeWebcamDevice () {
+                        loggerService.debug('[ml4kmodels] changing webcam device');
+                        $scope.$applyAsync(() => {
+                            $scope.webcamInitComplete = false;
+                            $scope.channel.videoOptions = webcams[currentWebcamIdx];
+                            $scope.$broadcast('STOP_WEBCAM');
+                            $scope.$broadcast('START_WEBCAM');
+                            loggerService.debug('[ml4kmodels] new webcam', webcams[currentWebcamIdx]);
+                        });
+                    }
+
+                    $scope.switchWebcam = function () {
+                        loggerService.debug('[ml4kmodels] switching webcam');
+                        if (webcams.length > 0) {
+                            currentWebcamIdx += 1;
+                            if (currentWebcamIdx >= webcams.length) {
+                                currentWebcamIdx = 0;
+                            }
+                            changeWebcamDevice();
+                        }
+                    };
+
                     $scope.onWebcamError = function(err) {
-                        loggerService.error('[ml4kmodels] on webcam error', err);
+                        loggerService.error('[ml4kmodels] webcam error', err);
 
-                        if (!$scope.fallbackTried) {
-                            $scope.fallbackTried = true;
+                        // failed to use the webcam - we won't try this one again
+                        webcams.splice(currentWebcamIdx, 1);
+                        $scope.multipleWebcams = webcams.length > 1;
+                        currentWebcamIdx = 0;
 
-                            $scope.webcamConfig = {
-                                video: { facingMode: { exact: "user" } }
-                            };
-
-                            $scope.$apply();
-                        } else {
-                            $scope.webcamerror = true;
-                            $scope.$apply();
+                        if (webcams.length > 0) {
+                            // there are other webcams we haven't tried yet
+                            return changeWebcamDevice();
                         }
 
+                        // there are no other webcams left to try
+                        //   so we'll display the error
                         $scope.webcamInitComplete = true;
 
                         try {

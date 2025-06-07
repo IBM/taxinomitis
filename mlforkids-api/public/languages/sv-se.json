@@ -399,7 +399,7 @@
         "CANCEL": "Avbryt träning",
         "DELETE": "Radera denna modell",
         "TEST_CANVAS": "Draw something to test your model with",
-        "TEST_WEBCAM": "Take a photo to test your model with",
+        "TEST_WEBCAM": "Take a photo to test with",
         "WHATHAVEYOUDONE": {
             "TITLE": "Vad har du gjort?",
             "PLEASEWAIT": "Det här tar normalt ett par minuter, men kan ta lite längre tid om träningsdatorn är väldigt upptagen.",

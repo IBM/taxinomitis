@@ -399,7 +399,7 @@
         "CANCEL": "Eğitimi iptal et",
         "DELETE": "Bu modeli sil",
         "TEST_CANVAS": "Draw something to test your model with",
-        "TEST_WEBCAM": "Take a photo to test your model with",
+        "TEST_WEBCAM": "Take a photo to test with",
         "WHATHAVEYOUDONE": {
             "TITLE": "Neler yaptınız?",
             "PLEASEWAIT": "Bu genellikle birkaç dakika sürer, ancak eğitim bilgisayarı çok meşgulse biraz daha uzun sürebilir.",

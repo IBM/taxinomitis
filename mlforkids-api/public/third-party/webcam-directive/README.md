@@ -1,0 +1,1 @@
+based on https://github.com/jonashartmann/webcam-directive modified to allow custom video options

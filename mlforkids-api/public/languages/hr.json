@@ -399,7 +399,7 @@
         "CANCEL": "Cancel training",
         "DELETE": "Delete this model",
         "TEST_CANVAS": "Draw something to test your model with",
-        "TEST_WEBCAM": "Take a photo to test your model with",
+        "TEST_WEBCAM": "Take a photo to test with",
         "WHATHAVEYOUDONE": {
             "TITLE": "What have you done?",
             "PLEASEWAIT": "This normally takes a few minutes, but can take a little longer if the training computer is very busy.",

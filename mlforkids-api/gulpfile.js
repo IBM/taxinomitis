@@ -54,6 +54,10 @@ gulp.task('clean', () => {
 gulp.task('bower', function() {
     return bower({ cwd : './public', directory : '../web/static/bower_components' });
 });
+gulp.task('customwebcam', function() {
+    return gulp.src('public/third-party/webcam-directive/webcam.js')
+                .pipe(gulp.dest('web/static/bower_components/webcam-directive/dist'));
+});
 gulp.task('custombootstrap', function() {
     return gulp.src('public/third-party/bootstrap/**')
                 .pipe(gulp.dest('web/static/bower_components/bootstrap/dist'));
@@ -68,7 +72,7 @@ gulp.task('papaparse', function() {
         'node_modules/papaparse/papaparse.min.js'
     ]).pipe(gulp.dest('web/static/bower_components/papaparse'));
 });
-gulp.task('boweroverrides', gulp.parallel('custombootstrap', 'customangularmaterial', 'papaparse'));
+gulp.task('boweroverrides', gulp.parallel('customwebcam', 'custombootstrap', 'customangularmaterial', 'papaparse'));
 
 gulp.task('twitter', function() {
     return gulp.src('public/static-files/twitter-card.html').pipe(gulp.dest('web/dynamic'));

@@ -8,7 +8,7 @@
         <img src="static/images/loading.gif" ng-hide="webcamInitComplete" alt="loading" style="margin: 1em auto; width: 320px;"/>
         <webcam
             channel="channel"
-            config="webcamConfig"
+            ng-if="channel.videoOptions"
             ng-hide="webcamerror"
             on-error="onWebcamError(err)"
             on-access-denied="onWebcamError(err)"
@@ -22,6 +22,7 @@
         </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
+        <span class="glyphicon glyphicon-refresh" ng-if="multipleWebcams" ng-click="switchWebcam()"></span>
         <span flex></span>
         <md-button type="submit" class="md-raised md-primary" ng-disabled="webcamerror" ng-click="confirm()" aria-label="Add example">
             <span class="glyphicon glyphicon-camera"></span>
