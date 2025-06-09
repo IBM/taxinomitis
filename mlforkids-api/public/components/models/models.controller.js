@@ -806,14 +806,16 @@
                     $scope.onWebcamError = function(err) {
                         loggerService.error('[ml4kmodels] webcam error', err);
 
-                        // failed to use the webcam - we won't try this one again
-                        webcams.splice(currentWebcamIdx, 1);
-                        $scope.multipleWebcams = webcams.length > 1;
-                        currentWebcamIdx = 0;
+                        if (webcams) {
+                            // failed to use the webcam - we won't try this one again
+                            webcams.splice(currentWebcamIdx, 1);
+                            $scope.multipleWebcams = webcams.length > 1;
+                            currentWebcamIdx = 0;
 
-                        if (webcams.length > 0) {
-                            // there are other webcams we haven't tried yet
-                            return changeWebcamDevice();
+                            if (webcams.length > 0) {
+                                // there are other webcams we haven't tried yet
+                                return changeWebcamDevice();
+                            }
                         }
 
                         // there are no other webcams left to try
