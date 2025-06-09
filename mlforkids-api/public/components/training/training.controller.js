@@ -590,17 +590,20 @@
                     };
 
                     function displayWebcamError(err) {
-                        loggerService.error('[ml4ktraining] displaying webcam error', err);
+                        loggerService.debug('[ml4ktraining] displaying webcam error', err);
 
                         $scope.webcamerror = err;
                         if (err && err.message) {
                             if (err.name === 'NotAllowedError') {
                                 $scope.webcamerrordetail = 'Not allowed to use the web-cam';
+                                return;
                             }
                             else {
                                 $scope.webcamerrordetail = err.message;
                             }
                         }
+
+                        loggerService.error('[ml4ktraining] unexpected webcam error', err);
                     }
 
                     function changeWebcamDevice () {
@@ -626,7 +629,7 @@
                     };
 
                     $scope.onWebcamError = function(err) {
-                        loggerService.error('[ml4ktraining] webcam error', err);
+                        loggerService.warn('[ml4ktraining] webcam error', err);
 
                         if (webcams) {
                             // failed to use the webcam - we won't try this one again
