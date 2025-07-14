@@ -896,6 +896,12 @@
                                             'Try choosing a smaller model.'});
                         }
                     }
+                    else if (err.message && err.message.startsWith('Cannot initialize runtime because of requested')) {
+                        displayAlert('errors', 400,
+                            { message : 'Running small language models in Machine Learning for Kids needs ' +
+                                        'powerful computer hardware. Sorry, your computer does not meet the WebGPU ' + 
+                                        'requirements. '});                    
+                    }
                     else {
                         displayAlert('errors', 500, err);
                     }
