@@ -1012,6 +1012,8 @@ class SharedDispatch {
         this.mlforkidsWebLlmSupport.clearContext(message.mlforkidswebllm.data);
       } else if (message.mlforkidswebllm.command === 'prompt') {
         this.mlforkidsWebLlmSupport.promptModel(message.mlforkidswebllm.data, worker);
+      } else if (message.mlforkidswebllm.command === 'context') {
+        this.mlforkidsWebLlmSupport.initialContext(message.mlforkidswebllm.data, worker);
       }
     } else if (typeof message.responseId === 'undefined') {
       log.error("Dispatch caught malformed message from a worker: ".concat(JSON.stringify(event)));
@@ -3343,7 +3345,8 @@ class ML4KidsWebLlm {
     this.MODELS[modelid + '-' + contextwindow] = {
       state: 'INIT',
       busy: false,
-      messages: []
+      messages: [],
+      initialcontext: null
     };
     this._loadWebLlmProjectSupport().then(() => {
       this.MODELS[modelid + '-' + contextwindow].webllmEngine = new window.mlforkidsWebLlm.MLCEngine();
@@ -3383,6 +3386,18 @@ class ML4KidsWebLlm {
       return;
     }
     this.MODELS[modelKey].messages = [];
+    this.MODELS[modelKey].initialcontext = null;
+  }
+  initialContext(requestdata) {
+    const modelid = requestdata.modelid;
+    const contextwindow = requestdata.contextwindow;
+    const modelKey = modelid + '-' + contextwindow;
+    const initialcontext = requestdata.initialcontext;
+    if (modelKey in this.MODELS === false) {
+      console.log('[mlforkids] Unknown model ' + modelKey);
+      return;
+    }
+    this.MODELS[modelKey].initialcontext = initialcontext;
   }
   promptModel(requestdata, worker) {
     const requestid = requestdata.requestid;
@@ -3408,15 +3423,17 @@ class ML4KidsWebLlm {
     this._submitPrompt(requestid, modelid, contextwindow, modelKey, temperature, top_p, input, worker);
   }
   _submitPrompt(requestid, modelid, contextwindow, modelKey, temperature, top_p, input, worker) {
+    const rag = this.MODELS[modelKey].messages.length === 0 && this.MODELS[modelKey].initialcontext;
     if (this.MODELS[modelKey].messages.length === 0) {
+      const systemPromptInsert = rag ? 'You will be given additional context to help answer questions. ' + 'Answer only using the provided context. ' : '';
       this.MODELS[modelKey].messages.push({
         role: 'system',
-        content: 'You are a friendly and supportive AI assistant for children. ' + 'Use simple, clear, and encouraging language. Keep responses short, ' + 'engaging, and educational. Avoiding harmful, inappropriate, ' + 'scary, or violent content. ' + 'Always be positive and constructive, and avoid sarcasm or harsh language. ' + 'Promote digital safety by reminding children not to share personal ' + 'information. If a child asks something unsafe, gently guide them toward ' + 'a trusted adult.'
+        content: 'You are a friendly and supportive AI assistant for children. ' + 'Use simple, clear, and encouraging language. Keep responses short, ' + 'engaging, and educational. Avoid harmful, inappropriate, ' + 'scary, or violent content. ' + 'Always be positive and constructive, and avoid sarcasm or harsh language. ' + systemPromptInsert + 'Promote digital safety by reminding children not to share personal ' + 'information. If a child asks something unsafe, gently guide them toward ' + 'a trusted adult.'
       });
     }
     this.MODELS[modelKey].messages.push({
       role: 'user',
-      content: input
+      content: rag ? "Question: " + input + "\n\nContext:\n" + this.MODELS[modelKey].initialcontext : input
     });
     const prompt = {
       messages: this.MODELS[modelKey].messages,
