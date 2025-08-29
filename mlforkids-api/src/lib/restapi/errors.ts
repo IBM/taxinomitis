@@ -1,6 +1,6 @@
 // external dependencies
 import * as Express from 'express';
-import * as httpstatus from 'http-status';
+import { status as httpstatus } from 'http-status';
 // local dependencies
 import * as conversation from '../training/conversation';
 import * as notifications from '../notifications/slack';
@@ -107,6 +107,12 @@ export function unknownError(res: Express.Response, err: NodeJS.ErrnoException |
     return res.status(httpstatus.INTERNAL_SERVER_ERROR).json(err);
 }
 
+export function expectsBody(req: Express.Request, res: Express.Response, next: Express.NextFunction) {
+    if (!req.body) {
+        return missingData(res);
+    }
+    next();
+}
 
 export function registerErrorHandling(app: Express.Application) {
     app.use((err: Error,

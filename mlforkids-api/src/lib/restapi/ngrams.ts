@@ -34,6 +34,7 @@ async function generateNgrams(req: Express.Request, res: Express.Response) {
 
 export default function registerApis(app: Express.Application) {
     app.post(urls.PREPARE_NGRAMS,
+             errors.expectsBody,
              auth.authenticate,
              auth.checkValidUser,
              generateNgrams);

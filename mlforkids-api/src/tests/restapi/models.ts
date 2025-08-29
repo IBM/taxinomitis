@@ -5,7 +5,7 @@ import * as filecompare from 'filecompare';
 import * as tmp from 'tmp';
 import * as assert from 'assert';
 import * as request from 'supertest';
-import * as httpstatus from 'http-status';
+import { status as httpstatus } from 'http-status';
 import * as sinon from 'sinon';
 import * as randomstring from 'randomstring';
 import * as express from 'express';

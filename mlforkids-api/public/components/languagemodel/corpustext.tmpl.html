@@ -1,21 +1,21 @@
 <md-dialog aria-label="Add new example" class="newtrainingdatadialog">
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h2 translate="LANGUAGEMODEL.CORPUS.ADDTEXT"></h2>
+            <h2>{{ dlgtitle | translate }}</h2>
         </div>
     </md-toolbar>
     <form name="newTextCorpusData" ng-submit="confirm({ title, contents })">
         <md-dialog-content>
             <div style="padding: 1em;">
-                <div>
+                <div ng-hide="initialcontext">
                     <md-input-container class="trainingtextinput">
-                        <input placeholder="Title" ng-model="title" ng-required="true">
+                        <input placeholder="Title" ng-model="title" ng-required="!initialcontext">
                     </md-input-container>
                 </div>
                 <div>
                     <md-input-container class="trainingtextinput">
                         <textarea type="text" name="text"
-                            placeholder="Corpus text"
+                            placeholder="{{ placeholder }}"
                             ng-required="true"
                             ng-model="contents"
                             md-maxlength="25000"></textarea>

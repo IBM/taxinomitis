@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import { IncomingHttpHeaders, IncomingMessage } from 'http';
 import { pipeline, Writable, Readable } from 'node:stream';
 // external dependencies
-import * as httpstatus from 'http-status';
+import { status as httpstatus } from 'http-status';
 import * as sharp from 'sharp';
 import * as got from 'mlforkids-got';
 import * as googleDns from 'mlforkids-google-dns';

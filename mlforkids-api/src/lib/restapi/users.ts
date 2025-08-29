@@ -1,5 +1,5 @@
 // external dependencies
-import * as httpstatus from 'http-status';
+import { status as httpstatus } from 'http-status';
 import * as Express from 'express';
 import { v4 as uuid } from 'uuid';
 // local dependencies
@@ -739,12 +739,14 @@ export default function registerApis(app: Express.Application) {
         getPolicy);
 
     app.patch(urls.TENANT_POLICY,
+        errors.expectsBody,
         auth.authenticate,
         auth.checkValidUser,
         auth.requireSupervisor,
         modifyPolicy);
 
     app.patch(urls.CLASS,
+        errors.expectsBody,
         auth.authenticate,
         auth.checkValidUser,
         auth.requireSupervisor,
@@ -763,12 +765,14 @@ export default function registerApis(app: Express.Application) {
         getStudents);
 
     app.post(urls.USERS,
+        errors.expectsBody,
         auth.authenticate,
         auth.checkValidUser,
         auth.requireSupervisor,
         createStudent);
 
     app.put(urls.USERS,
+        errors.expectsBody,
         auth.authenticate,
         auth.checkValidUser,
         auth.requireSupervisor,
@@ -800,5 +804,5 @@ export default function registerApis(app: Express.Application) {
 
     // API for creating new tenants / teacher accounts so
     //  this API can't be an authenticated one
-    app.post(urls.TEACHERS, createTeacher);
+    app.post(urls.TEACHERS, errors.expectsBody, createTeacher);
 }

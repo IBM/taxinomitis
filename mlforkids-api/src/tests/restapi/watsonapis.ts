@@ -4,7 +4,7 @@ import * as assert from 'assert';
 import { v1 as uuid } from 'uuid';
 import * as sinon from 'sinon';
 import * as request from 'supertest';
-import * as httpstatus from 'http-status';
+import { status as httpstatus } from 'http-status';
 import * as randomstring from 'randomstring';
 import * as express from 'express';
 

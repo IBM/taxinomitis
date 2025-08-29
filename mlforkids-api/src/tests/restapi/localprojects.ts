@@ -4,7 +4,7 @@ import * as sinon from 'sinon';
 import { v1 as uuid } from 'uuid';
 import * as assert from 'assert';
 import * as request from 'supertest';
-import * as httpstatus from 'http-status';
+import { status as httpstatus } from 'http-status';
 import * as auth from '../../lib/restapi/auth';
 import * as conversation from '../../lib/training/conversation';
 import * as DbTypes from '../../lib/db/db-types';

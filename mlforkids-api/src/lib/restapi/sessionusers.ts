@@ -1,5 +1,5 @@
 // external dependencies
-import * as httpstatus from 'http-status';
+import { status as httpstatus } from 'http-status';
 import * as Express from 'express';
 // local dependencies
 import * as errors from './errors';

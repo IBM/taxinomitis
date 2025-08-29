@@ -5,7 +5,7 @@ import { generate as randomstring } from 'randomstring';
 import * as request from 'supertest';
 import * as requestPromise from 'request-promise';
 import * as requestLegacy from 'request';
-import * as httpstatus from 'http-status';
+import { status as httpstatus } from 'http-status';
 import * as sinon from 'sinon';
 import * as express from 'express';
 

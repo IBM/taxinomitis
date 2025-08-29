@@ -1,11 +1,12 @@
 // external dependencies
 import * as Express from 'express';
+import { status as httpstatus } from 'http-status';
 // local dependencies
 import * as urls from './urls';
 
 
 function ping(req: Express.Request, res: Express.Response) {
-    res.json({});
+    res.status(httpstatus.OK).json({});
 }
 
 

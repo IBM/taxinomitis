@@ -1,6 +1,6 @@
 // external dependencies
 import * as Express from 'express';
-import * as httpstatus from 'http-status';
+import { status as httpstatus } from 'http-status';
 // local dependencies
 import * as conversation from '../training/conversation';
 import * as numbers from '../training/numbers';
@@ -264,12 +264,14 @@ async function getLocalProjectScratchKeys(req: auth.RequestWithLocalProject, res
 export default function registerApis(app: Express.Application) {
 
     app.post(urls.LOCALPROJECTS,
+             errors.expectsBody,
              auth.authenticate,
              auth.checkValidUser,
              // @ts-expect-error custom middleware not understood by linter
              createLocalProject);
 
     app.put(urls.LOCALPROJECT,
+            errors.expectsBody,
             auth.authenticate,
             auth.checkValidUser,
             auth.verifyLocalProjectAuth,
@@ -284,6 +286,7 @@ export default function registerApis(app: Express.Application) {
                deleteLocalProject);
 
     app.post(urls.LOCALNUMBERSMODELS,
+             errors.expectsBody,
              auth.authenticate,
              auth.checkValidUser,
              auth.verifyLocalModelsAuth,
@@ -291,6 +294,7 @@ export default function registerApis(app: Express.Application) {
              newLocalProjectNumberModel);
 
     app.post(urls.LOCALMODELS,
+             errors.expectsBody,
              auth.authenticate,
              auth.checkValidUser,
              auth.verifyLocalProjectAuth,
@@ -305,6 +309,7 @@ export default function registerApis(app: Express.Application) {
             getLocalProjectModels);
 
     app.post(urls.LOCALMODELTEST,
+             errors.expectsBody,
              auth.authenticate,
              auth.checkValidUser,
              auth.verifyLocalProjectAuth,

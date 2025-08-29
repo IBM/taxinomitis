@@ -3,7 +3,7 @@
 import * as assert from 'assert';
 import * as sinon from 'sinon';
 import * as request from 'supertest';
-import * as httpstatus from 'http-status';
+import { status as httpstatus } from 'http-status';
 import * as randomstring from 'randomstring';
 import * as express from 'express';
 
@@ -194,10 +194,7 @@ describe('REST API - users', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
                 .then((res) => {
-                    assert.deepStrictEqual(res.body, {
-                        error: 'A username and email address for a class leader ' +
-                               'is required to create a new class',
-                    });
+                    assert.deepStrictEqual(res.body, { error: 'Missing data' });
                 });
         });
 
@@ -356,6 +353,7 @@ describe('REST API - users', () => {
 
             return request(testServer)
                 .post('/api/classes/mytesttenant/students')
+                .send({})
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
                 .then((res) => {

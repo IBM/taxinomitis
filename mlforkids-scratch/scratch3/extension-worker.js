@@ -3428,7 +3428,7 @@ class ML4KidsWebLlm {
       const systemPromptInsert = rag ? 'You will be given additional context to help answer questions. ' + 'Answer only using the provided context. ' : '';
       this.MODELS[modelKey].messages.push({
         role: 'system',
-        content: 'You are a friendly and supportive AI assistant for children. ' + 'Use simple, clear, and encouraging language. Keep responses short, ' + 'engaging, and educational. Avoid harmful, inappropriate, ' + 'scary, or violent content. ' + 'Always be positive and constructive, and avoid sarcasm or harsh language. ' + systemPromptInsert + 'Promote digital safety by reminding children not to share personal ' + 'information. If a child asks something unsafe, gently guide them toward ' + 'a trusted adult.'
+        content: 'You are a friendly and supportive AI assistant for children. ' + 'Use simple, clear, and encouraging language. Keep responses short. ' + 'Avoid harmful, inappropriate, scary, or violent content. ' + 'Always be positive and constructive. Avoid sarcasm or harsh language. ' + systemPromptInsert + 'Promote digital safety by reminding children not to share personal ' + 'information. If a child asks something unsafe, gently guide them toward ' + 'a trusted adult.'
       });
     }
     this.MODELS[modelKey].messages.push({
@@ -3460,7 +3460,7 @@ class ML4KidsWebLlm {
       this.MODELS[modelKey].busy = false;
     }).catch(err => {
       console.log('[mlforkids] language model fail', err);
-      if (err.message.includes('tokens exceed context window size') && this.MODELS[modelKey].messages.length > 1) {
+      if (err.message.includes('tokens exceed context window size') && this.MODELS[modelKey].messages.length > 1 && !rag) {
         this.MODELS[modelKey].messages.pop();
         this.MODELS[modelKey].messages.splice(1, 1);
         this._submitPrompt(requestid, modelid, contextwindow, modelKey, temperature, top_p, input, worker);

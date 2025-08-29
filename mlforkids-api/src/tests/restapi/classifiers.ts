@@ -6,7 +6,7 @@ import * as uuid from 'uuid';
 import * as request from 'request-promise';
 import * as randomstring from 'randomstring';
 import * as testRequest from 'supertest';
-import * as httpstatus from 'http-status';
+import { status as httpstatus } from 'http-status';
 
 
 

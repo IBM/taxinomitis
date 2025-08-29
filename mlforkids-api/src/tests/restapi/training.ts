@@ -6,7 +6,7 @@ import * as request from 'supertest';
 import * as filecompare from 'filecompare';
 import * as tmp from 'tmp';
 import * as requestPromise from 'request-promise';
-import * as httpstatus from 'http-status';
+import { status as httpstatus } from 'http-status';
 import * as sinon from 'sinon';
 import * as randomstring from 'randomstring';
 import * as express from 'express';
@@ -234,6 +234,7 @@ describe('REST API - training', () => {
 
             return request(testServer)
                 .post('/api/classes/' + classid + '/students/' + studentid + '/projects/' + projectid + '/training')
+                .send({ data : 'abc' })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.NOT_FOUND)
                 .then((res) => {
@@ -254,6 +255,7 @@ describe('REST API - training', () => {
 
             return request(testServer)
                 .post('/api/classes/' + classid + '/students/DIFFERENTUSER/projects/' + projectid + '/training')
+                .send({ data : 'abc' })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.FORBIDDEN)
                 .then(() => {

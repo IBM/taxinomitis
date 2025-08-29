@@ -1,5 +1,5 @@
 // external dependencies
-import * as httpstatus from 'http-status';
+import { status as httpstatus } from 'http-status';
 import * as Express from 'express';
 // local dependencies
 import * as auth from './auth';
@@ -341,6 +341,7 @@ export default function registerApis(app: Express.Application) {
         deleteCredentials);
 
     app.patch(urls.BLUEMIX_CREDENTIAL,
+        errors.expectsBody,
         auth.authenticate,
         auth.checkValidUser,
         auth.requireSupervisor,
@@ -348,6 +349,7 @@ export default function registerApis(app: Express.Application) {
         modifyCredentials);
 
     app.post(urls.BLUEMIX_CREDENTIALS,
+        errors.expectsBody,
         auth.authenticate,
         auth.checkValidUser,
         auth.requireSupervisor,

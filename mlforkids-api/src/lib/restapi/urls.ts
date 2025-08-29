@@ -2,7 +2,7 @@
 
 export const ROOT                  = '/';
 
-export const ALL_APIS              = '/api/*';
+export const ALL_APIS              = '/api/*all';
 
 export const K8S_PROBE             = '/api';
 export const ERROR_TEST            = '/api/debug/errors/:errorcode';
@@ -69,6 +69,7 @@ export const SOUND                 = '/api/classes/:classid/students/:studentid/
 
 //
 // URLs about Scratch Keys
+export const ALL_SCRATCH_APIS      = '/api/scratch/*all';
 export const SCRATCHKEY_TRAIN      = '/api/scratch/:scratchkey/train';
 export const SCRATCHKEY_IMAGE      = '/api/scratch/:scratchkey/images/api/classes/:classid/students/:studentid/projects/:projectid/images/:imageid';
 export const SCRATCHKEY_CLASSIFY   = '/api/scratch/:scratchkey/classify';
@@ -90,7 +91,7 @@ export const APPINVENTOR_EXTENSION = '/api/appinventor/:scratchkey/extension';
 export const SESSION_USERS         = '/api/sessionusers';
 export const SESSION_USER          = '/api/classes/:classid/sessionusers/:studentid';
 
-export const SESSION_USER_APIS     = '/api/classes/session-users/*';
+// export const SESSION_USER_APIS     = '/api/classes/session-users/*';
 
 //
 // URLs about site alerts

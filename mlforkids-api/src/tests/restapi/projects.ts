@@ -3,7 +3,7 @@ import { v1 as uuid } from 'uuid';
 import * as assert from 'assert';
 import * as sinon from 'sinon';
 import * as request from 'supertest';
-import * as httpstatus from 'http-status';
+import { status as httpstatus } from 'http-status';
 import * as randomstring from 'randomstring';
 import * as express from 'express';
 
@@ -1437,7 +1437,7 @@ describe('REST API - projects', () => {
                 .then((res) => {
                     const body = res.body;
                     assert.deepStrictEqual(body, {
-                        error: 'PATCH body should be an array',
+                        error: 'Missing data',
                     });
 
                     return request(testServer)

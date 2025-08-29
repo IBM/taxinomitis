@@ -84,6 +84,7 @@
                 ARCHITECTURE  : 'small_architecture',
                 CONTEXTWINDOW : 'small_contextwindow',
                 TEMPERATURE   : 'small_temperature',
+                RAGCONTEXT    : 'small_ragcontext',
                 READY         : 'small_ready'
             }
         };
@@ -457,7 +458,14 @@
         // add free text - invoked on clicking "Add text" button
         $scope.addCorpusText = function (ev) {
             $mdDialog.show({
-                controller : function ($scope) {
+                locals : {
+                    dlgtitle : 'LANGUAGEMODEL.CORPUS.ADDTEXT',
+                    placeholder : 'Corpus text'
+                },
+                controller : function ($scope, locals) {
+                    $scope.dlgtitle = locals.dlgtitle;
+                    $scope.placeholder = locals.placeholder;
+
                     $scope.hide = function() {
                         $mdDialog.hide();
                     };
@@ -485,7 +493,11 @@
         // add contents of Wikipedia page - invoked on clicking "Wikipedia" button
         $scope.addWikipediaPage = function (ev) {
             $mdDialog.show({
-                controller : function ($scope) {
+                locals : {
+                    dlgtitle : 'LANGUAGEMODEL.CORPUS.ADDWIKIPEDIA'
+                },
+                controller : function ($scope, locals) {
+                    $scope.dlgtitle = locals.dlgtitle;
                     $scope.title = '';
                     $scope.contents = '';
 
@@ -899,8 +911,8 @@
                     else if (err.message && err.message.startsWith('Cannot initialize runtime because of requested')) {
                         displayAlert('errors', 400,
                             { message : 'Running small language models in Machine Learning for Kids needs ' +
-                                        'powerful computer hardware. Sorry, your computer does not meet the WebGPU ' + 
-                                        'requirements. '});                    
+                                        'powerful computer hardware. Sorry, your computer does not meet the WebGPU ' +
+                                        'requirements. '});
                     }
                     else {
                         displayAlert('errors', 500, err);
@@ -957,6 +969,174 @@
         // -------------------------------------------------------------------
 
 
+        // ===================================================================
+        // SMALL LANGUAGE MODEL - PROVIDING RAG CONTEXT DOCUMENT
+        //   starting phase:     SMALL.TEMPERATURE
+        //   finishing phase:    SMALL.RAGCONTEXT
+        // ===================================================================
+        // invoked when the user clicks Next after specifying temp / top-p
+        $scope.initSmallModelContext = function () {
+            loggerService.debug('[ml4klanguage] initSmallModelContext');
+            $scope.phase = $scope.PHASES.SMALL.RAGCONTEXT;
+        };
+        $scope.smallModelInitialContextClear = function () {
+            $scope.resetContextWindow();
+
+            if (!$scope.project.slm.initialcontext) {
+                $scope.project.slm.initialcontext = {};
+            }
+            $scope.project.slm.initialcontext.state = 'none';
+
+            if ($scope.phase === $scope.PHASES.SMALL.READY) {
+                saveSmallLanguageModel();
+            }
+        };
+        $scope.smallModelInitialContextSet = function () {
+            $scope.resetContextWindow();
+
+            if (!$scope.project.slm.initialcontext) {
+                $scope.project.slm.initialcontext = {};
+            }
+            $scope.project.slm.initialcontext.state = 'provide';
+
+            if ($scope.phase === $scope.PHASES.SMALL.READY) {
+                saveSmallLanguageModel();
+            }
+        };
+        $scope.removeContextDoc = function () {
+            if ($scope.project.slm.initialcontext) {
+                delete $scope.project.slm.initialcontext.doc;
+            }
+
+            if ($scope.phase === $scope.PHASES.SMALL.READY) {
+                saveSmallLanguageModel();
+            }
+        };
+        $scope.addContextText = function (ev) {
+            $mdDialog.show({
+                locals : {
+                    dlgtitle : 'LANGUAGEMODEL.INITIALCONTEXT.ADDTEXT',
+                    placeholder : 'Initial context text',
+                    contents : $scope.project.slm.initialcontext && $scope.project.slm.initialcontext.doc && $scope.project.slm.initialcontext.doc.contents ? $scope.project.slm.initialcontext.doc.contents : '',
+                },
+                controller : function ($scope, locals) {
+                    $scope.dlgtitle = locals.dlgtitle;
+                    $scope.placeholder = locals.placeholder;
+                    $scope.contents = locals.contents;
+                    $scope.initialcontext = true;
+
+                    $scope.hide = function() {
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function() {
+                        $mdDialog.cancel();
+                    };
+                    $scope.confirm = function(resp) {
+                        $mdDialog.hide(resp);
+                    };
+                },
+                templateUrl : 'static/components/languagemodel/corpustext.tmpl.html',
+                targetEvent : ev,
+                clickOutsideToClose : true
+            })
+            .then(
+                function (resp) {
+                    $scope.project.slm.initialcontext = {
+                        state : 'provide',
+                        doc : {
+                            type : 'text',
+                            title : 'text',
+                            contents : resp.contents
+                        }
+                    };
+                    $scope.resetContextWindow();
+                    saveSmallLanguageModel();
+                },
+                function() {
+                    // cancelled. do nothing
+                }
+            );
+        };
+        $scope.addContextFile = function (ev) {
+            if (ev.currentTarget && ev.currentTarget.files) {
+                return txtService.getContents(ev.currentTarget.files)
+                    .then((allFiles) => {
+                        $scope.project.slm.initialcontext = {
+                            state : 'provide',
+                            doc : allFiles[0]
+                        };
+
+                        saveSmallLanguageModel();
+                        $scope.resetContextWindow();
+                    })
+                    .catch(() => {
+                        displayAlert('errors', 500, { message : 'There was a problem reading your file' });
+                    });
+            }
+        };
+        $scope.addContextWikipediaPage = function (ev) {
+            $mdDialog.show({
+                locals : {
+                    dlgtitle : 'LANGUAGEMODEL.INITIALCONTEXT.ADDWIKIPEDIA',
+                    title : $scope.project.slm.initialcontext &&
+                                $scope.project.slm.initialcontext.doc &&
+                                $scope.project.slm.initialcontext.doc.contents &&
+                                $scope.project.slm.initialcontext.doc.type === 'wikipedia' ? $scope.project.slm.initialcontext.doc.title : '',
+                    contents : $scope.project.slm.initialcontext &&
+                                $scope.project.slm.initialcontext.doc &&
+                                $scope.project.slm.initialcontext.doc.contents &&
+                                $scope.project.slm.initialcontext.doc.type === 'wikipedia' ? $scope.project.slm.initialcontext.doc.contents : '',
+                },
+                controller : function ($scope, locals) {
+                    $scope.dlgtitle = locals.dlgtitle;
+                    $scope.title = locals.title;
+                    $scope.contents = locals.contents;
+
+                    $scope.hide = function() {
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function() {
+                        $mdDialog.cancel();
+                    };
+                    $scope.confirm = function(resp) {
+                        $mdDialog.hide(resp);
+                    };
+
+                    $scope.search = function (title) {
+                        if (title) {
+                            wikipediaService.searchByTitle(title)
+                                .then((contents) => { $scope.contents = contents });
+                        }
+                    };
+                },
+                templateUrl : 'static/components/languagemodel/wikipedia.tmpl.html',
+                targetEvent : ev,
+                clickOutsideToClose : true
+            })
+            .then(
+                function (resp) {
+                    $scope.project.slm.initialcontext = {
+                        state : 'provide',
+                        doc : {
+                            type : 'wikipedia',
+                            title : resp.title,
+                            contents : resp.contents
+                        }
+                    };
+
+                    saveSmallLanguageModel();
+                    $scope.resetContextWindow();
+                },
+                function() {
+                    // cancelled. do nothing
+                }
+            );
+        };
+
+        // -------------------------------------------------------------------
+
+
+
 
         // ===================================================================
         // SAVE MODEL
@@ -967,7 +1147,8 @@
                     id : $scope.project.slm.id,
                     contextwindow : $scope.project.slm.contextwindow,
                     temperature : $scope.project.slm.temperature,
-                    topp : $scope.project.slm.topp
+                    topp : $scope.project.slm.topp,
+                    initialcontext : $scope.project.slm.initialcontext
                 })
                 .then((updated) => {
                     updated.slm.download = $scope.project.slm.download;
@@ -1279,16 +1460,30 @@
             $scope.hoverexplain = $scope.generatedtokens[generatedTokensIdx];
         };
 
+        function useRagContext() {
+            return $scope.project.slm.initialcontext &&
+                   $scope.project.slm.initialcontext.state === 'provide' &&
+                   $scope.project.slm.initialcontext.doc &&
+                   $scope.project.slm.initialcontext.doc.contents;
+        }
+
         function startNewContext() {
+            let systemPromptInsert = '';
+            if (useRagContext()) {
+                systemPromptInsert =
+                    'You will be given additional context to help answer questions. ' +
+//                    'Prioritize this context over outside knowledge. ';
+                    'Answer only using the provided context. ';
+            }
             return [
                 {
                     role : 'system',
                     content :
                         'You are a friendly and supportive AI assistant for children. ' +
-                        'Use simple, clear, and encouraging language. Keep responses short, ' +
-                        'engaging, and educational. Avoiding harmful, inappropriate, ' +
-                        'scary, or violent content. ' +
-                        'Always be positive and constructive, and avoid sarcasm or harsh language. ' +
+                        'Use simple, clear, and encouraging language. Keep responses short. ' +
+                        'Avoid harmful, inappropriate, scary, or violent content. ' +
+                        'Always be positive and constructive. Avoid sarcasm or harsh language. ' +
+                        systemPromptInsert +
                         'Promote digital safety by reminding children not to share personal ' +
                         'information. If a child asks something unsafe, gently guide them toward ' +
                         'a trusted adult.'
@@ -1315,19 +1510,27 @@
                 $scope.generatedmessages = startNewContext();
             }
 
-            $scope.generatedmessages.push({ role : 'user', content : prompt });
+            const ragPrompt = $scope.generatedmessages.length === 1 && useRagContext();
+
+            $scope.generatedmessages.push({
+                role : 'user',
+                render : prompt,
+                content : ragPrompt ?
+                            "Question: " + prompt + "\n\nContext:\n" + $scope.project.slm.initialcontext.doc.contents :
+                            prompt
+            });
             scrollToNewMessage();
 
             try {
                 const completion = await $scope.webllmEngine.chat.completions.create({
                     stream: true,
-                    messages : $scope.generatedmessages.filter((m) => !m.inprogress),
+                    messages : $scope.generatedmessages.filter((m) => !m.inprogress).map((m) => { return { role : m.role, content : m.content }}),
                     top_p : $scope.project.slm.topp,
                     temperature : $scope.project.slm.temperature
                 });
 
                 const nextMessageIdx = $scope.generatedmessages.push({
-                    role : 'assistant', content : '', inprogress : true
+                    role : 'assistant', content : '', render : '...', inprogress : true
                 }) - 1;
                 scrollToNewMessage();
 
@@ -1336,7 +1539,13 @@
                     if (curDelta) {
                         const formatted = curDelta.replace(/\n/g, '<br>');
                         $scope.$applyAsync(() => {
-                            $scope.generatedmessages[nextMessageIdx].content += formatted;
+                            $scope.generatedmessages[nextMessageIdx].content += curDelta;
+                            if ($scope.generatedmessages[nextMessageIdx].render === '...') {
+                                $scope.generatedmessages[nextMessageIdx].render = formatted;
+                            }
+                            else {
+                                $scope.generatedmessages[nextMessageIdx].render  += formatted;
+                            }
                         });
                     }
                 }
@@ -1345,7 +1554,8 @@
                 const response = finalMessage.replace(/\n/g, '<br>');
 
                 loggerService.debug('[ml4klanguage] response', response);
-                $scope.generatedmessages[nextMessageIdx].content = response;
+                $scope.generatedmessages[nextMessageIdx].content = finalMessage;
+                $scope.generatedmessages[nextMessageIdx].render = response;
                 delete $scope.generatedmessages[nextMessageIdx].inprogress;
             }
             catch (err) {
@@ -1354,17 +1564,23 @@
 
                 if (err.message.includes('tokens exceed context window size') && $scope.generatedmessages.length > 1)
                 {
-                    // remove the user prompt just added
-                    $scope.generatedmessages.pop();
+                    if (ragPrompt) {
+                        displayAlert('errors', err.status, { message : simplifyError(err.message) });
+                    }
+                    else {
+                        // remove the user prompt just added
+                        $scope.generatedmessages.pop();
 
-                    // remove the oldest non-system message
-                    $scope.generatedmessages.splice(1, 1);
+                        // remove the oldest non-system message
+                        $scope.generatedmessages.splice(1, 1);
 
-                    // retry
-                    return useSmallLanguageModel(prompt);
+                        // retry
+                        return useSmallLanguageModel(prompt);
+                    }
                 }
-
-                throw err;
+                else {
+                    throw err;
+                }
             }
         }
 
@@ -1374,6 +1590,17 @@
             return JSON.stringify(p, null, 4).replaceAll('    ', ' &nbsp; &nbsp;').replace(/\n/g, '<br>');
         };
         */
+
+        function simplifyError(str) {
+            const tooManyTokensErr = 'Consider shortening the prompt, or increase `context_window_size`, or using sliding window via `sliding_window_size`';
+            if (str.includes(tooManyTokensErr)) {
+                return str.replace(tooManyTokensErr,
+                    useRagContext() ?
+                        ' Try a shorter prompt and initial context, or increase the size of the context window' :
+                        ' Try a shorter prompt or increase the size of the context window');
+            }
+            return str;
+        }
 
         $scope.getController = function () {
             return vm;

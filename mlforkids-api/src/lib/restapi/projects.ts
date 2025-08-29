@@ -1,6 +1,6 @@
 // external dependencies
 import * as Express from 'express';
-import * as httpstatus from 'http-status';
+import { status as httpstatus } from 'http-status';
 // local dependencies
 import * as auth from './auth';
 import * as store from '../db/store';
@@ -455,6 +455,7 @@ export default function registerApis(app: Express.Application) {
             getProjectsByUserId);
 
     app.post(urls.PROJECTS,
+            errors.expectsBody,
             auth.authenticate,
             auth.checkValidUser,
             // @ts-expect-error custom middleware not understood by linter
@@ -480,12 +481,14 @@ export default function registerApis(app: Express.Application) {
             deleteProject);
 
     app.patch(urls.PROJECT,
+            errors.expectsBody,
             auth.authenticate,
             auth.checkValidUser,
             auth.verifyProjectOwner,
             modifyProject);
 
     app.patch(urls.PROJECT_CROWDSOURCED,
+            errors.expectsBody,
             auth.authenticate,
             auth.checkValidUser,
             auth.requireSupervisor,

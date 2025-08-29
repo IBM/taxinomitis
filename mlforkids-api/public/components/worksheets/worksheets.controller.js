@@ -223,7 +223,10 @@
             'WORKSHEETS.LANGUAGEMODELS.TEACHERSNOTES_URL', 'WORKSHEETS.LANGUAGEMODELS.WORKSHEET_1.URL',
 
             'WORKSHEETS.STORYTELLER.TITLE', 'WORKSHEETS.STORYTELLER.SUMMARY', 'WORKSHEETS.STORYTELLER.DESCRIPTION',
-            'WORKSHEETS.STORYTELLER.TEACHERSNOTES_URL', 'WORKSHEETS.STORYTELLER.WORKSHEET_1.URL'
+            'WORKSHEETS.STORYTELLER.TEACHERSNOTES_URL', 'WORKSHEETS.STORYTELLER.WORKSHEET_1.URL',
+
+            'WORKSHEETS.RAGTIME.TITLE', 'WORKSHEETS.RAGTIME.SUMMARY', 'WORKSHEETS.RAGTIME.DESCRIPTION',
+            'WORKSHEETS.RAGTIME.WORKSHEET_1.URL'
 
         ]).then(function (translations) {
             vm.worksheets = [
@@ -1093,6 +1096,21 @@
                     downloads : [
                         {
                             worksheet : translations['WORKSHEETS.STORYTELLER.WORKSHEET_1.URL']
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.RAGTIME.TITLE'],
+                    summary : translations['WORKSHEETS.RAGTIME.SUMMARY'],
+                    description : translations['WORKSHEETS.RAGTIME.DESCRIPTION'],
+                    difficulty : 'Beginner',
+                    type : 'language',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-ragtime.png',
+                    tags : [ 'language models', 'LLM', 'generative AI', 'RAG' ],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.RAGTIME.WORKSHEET_1.URL']
                         }
                     ]
                 }

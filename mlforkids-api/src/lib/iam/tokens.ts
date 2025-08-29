@@ -1,5 +1,5 @@
 // external dependencies
-import * as httpStatus from 'http-status';
+import { status as httpStatus } from 'http-status';
 // local dependencies
 import * as Types from './iam-types';
 import * as request from '../utils/request';
@@ -7,7 +7,6 @@ import * as constants from '../utils/constants';
 import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
-
 
 
 

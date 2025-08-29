@@ -1,6 +1,6 @@
 // external dependencies
 import * as Express from 'express';
-import * as httpstatus from 'http-status';
+import { status as httpstatus } from 'http-status';
 import * as cors from 'cors';
 // local dependencies
 import * as store from '../db/store';
@@ -520,7 +520,7 @@ function handleTfjsException(err: any, res: Express.Response) {
 function getTfjsExtension(req: Express.Request, res: Express.Response) {
     const scratchkey = req.params.scratchkey;
 
-    return extensions.getScratchTfjsExtension(scratchkey)
+    extensions.getScratchTfjsExtension(scratchkey)
         .then((extension) => {
             return res.set('Content-Type', 'application/javascript')
                   .set(headers.CACHE_1YEAR)
@@ -532,7 +532,7 @@ function getTfjsExtension(req: Express.Request, res: Express.Response) {
 }
 
 function generateTfjsExtension(req: Express.Request, res: Express.Response) {
-    return scratchtfjs.generateUrl(req.body)
+    scratchtfjs.generateUrl(req.body)
         .then((resp) => {
             return res.status(httpstatus.OK)
                     .set(headers.CACHE_1YEAR)
@@ -652,7 +652,7 @@ function doNothing(req: Express.Request, res: Express.Response, next: Express.Ne
 
 export default function registerApis(app: Express.Application) {
 
-    app.options('/api/scratch/*', cors(CORS_CONFIG), doNothing);
+    app.options(urls.ALL_SCRATCH_APIS, cors(CORS_CONFIG), doNothing);
 
     app.get(urls.SCRATCHKEYS,
             auth.authenticate,
@@ -661,15 +661,15 @@ export default function registerApis(app: Express.Application) {
             getScratchKeys);
 
     app.get(urls.SCRATCHKEY_CLASSIFY, cors(CORS_CONFIG), classifyWithScratchKey);
-    app.post(urls.SCRATCHKEY_CLASSIFY, cors(CORS_CONFIG), postClassifyWithScratchKey);
+    app.post(urls.SCRATCHKEY_CLASSIFY, cors(CORS_CONFIG), errors.expectsBody, postClassifyWithScratchKey);
     app.post(urls.SCRATCHKEY_MODEL, cors(CORS_CONFIG), trainNewClassifier);
-    app.post(urls.SCRATCHKEY_MODEL_LOCAL, cors(CORS_CONFIG), trainNewClassifierLocalProject);
+    app.post(urls.SCRATCHKEY_MODEL_LOCAL, cors(CORS_CONFIG), errors.expectsBody, trainNewClassifierLocalProject);
 
     app.get(urls.SCRATCHKEY_TRAIN, cors(CORS_CONFIG), getTrainingData);
     app.get(urls.SCRATCHKEY_IMAGE, cors(CORS_CONFIG), getImageTrainingDataItem);
-    app.post(urls.SCRATCHKEY_TRAIN, cors(CORS_CONFIG), storeTrainingData);
+    app.post(urls.SCRATCHKEY_TRAIN, cors(CORS_CONFIG), errors.expectsBody, storeTrainingData);
 
-    app.post(urls.SCRATCHTFJS_EXTENSIONS, cors(CORS_CONFIG), generateTfjsExtension);
+    app.post(urls.SCRATCHTFJS_EXTENSIONS, cors(CORS_CONFIG), errors.expectsBody, generateTfjsExtension);
 
     app.get(urls.SCRATCH3_EXTENSION, cors(CORS_CONFIG), getScratch3Extension);
     app.get(urls.SCRATCH3_EXTENSION_LOCAL, cors(CORS_CONFIG), getScratch3ExtensionLocalData);

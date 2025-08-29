@@ -1,5 +1,5 @@
 // external dependencies
-import * as httpStatus from 'http-status';
+import { status as httpStatus } from 'http-status';
 import { unparse } from 'papaparse';
 // local dependencies
 import * as store from '../db/store';

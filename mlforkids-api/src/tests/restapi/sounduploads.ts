@@ -6,7 +6,7 @@ import * as express from 'express';
 import * as sinon from 'sinon';
 import * as IBMCosSDK from 'ibm-cos-sdk';
 import * as request from 'supertest';
-import * as httpStatus from 'http-status';
+import { status as httpStatus } from 'http-status';
 
 import * as store from '../../lib/db/store';
 import * as auth from '../../lib/restapi/auth';

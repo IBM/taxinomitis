@@ -3,7 +3,7 @@ import { v1 as uuid } from 'uuid';
 import * as assert from 'assert';
 import * as request from 'supertest';
 import * as requestPromise from 'request-promise';
-import * as httpstatus from 'http-status';
+import { status as httpstatus } from 'http-status';
 import * as randomstring from 'randomstring';
 import * as sinon from 'sinon';
 import * as proxyquire from 'proxyquire';

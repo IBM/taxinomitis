@@ -3,7 +3,7 @@ import { v1 as uuid } from 'uuid';
 import * as assert from 'assert';
 import * as sinon from 'sinon';
 import * as request from 'supertest';
-import * as httpstatus from 'http-status';
+import { status as httpstatus } from 'http-status';
 import * as express from 'express';
 
 import * as auth0objects from '../../lib/auth0/auth-types';
@@ -82,6 +82,7 @@ describe('REST API - share projects', () => {
             nextAuth0UserRole = 'supervisor';
             return request(testServer)
                 .patch('/api/classes/' + TESTCLASS + '/students/' + studentid + '/projects/' + projectid + '/iscrowdsourced')
+                .send([{ op : 'replace', path : '/isCrowdSourced', value : true }])
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.NOT_FOUND)
                 .then((res) => {

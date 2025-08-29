@@ -2,7 +2,7 @@
 
 import * as assert from 'assert';
 import * as request from 'supertest';
-import * as httpStatus from 'http-status';
+import { status as httpStatus } from 'http-status';
 
 import testServerSetup from './testserver';
 

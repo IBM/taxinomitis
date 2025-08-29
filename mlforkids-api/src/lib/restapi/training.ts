@@ -1,6 +1,6 @@
 // external dependencies
 import * as Express from 'express';
-import * as httpstatus from 'http-status';
+import { status as httpstatus } from 'http-status';
 import * as rangeParse from 'http-range-parse';
 // local dependencies
 import * as auth from './auth';
@@ -302,6 +302,7 @@ export default function registerApis(app: Express.Application) {
             getLabels);
 
     app.put(urls.LABELS,
+            errors.expectsBody,
             auth.authenticate,
             auth.checkValidUser,
             auth.verifyProjectOwner,
@@ -328,6 +329,7 @@ export default function registerApis(app: Express.Application) {
                deleteTraining);
 
     app.post(urls.TRAININGITEMS,
+             errors.expectsBody,
              auth.authenticate,
              auth.checkValidUser,
              auth.verifyProjectAccess,

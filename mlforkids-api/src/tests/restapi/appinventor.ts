@@ -3,7 +3,7 @@ import * as assert from 'assert';
 import * as request from 'supertest';
 import * as fs from 'fs';
 import * as Express from 'express';
-import * as httpstatus from 'http-status';
+import { status as httpstatus } from 'http-status';
 import * as unzip from 'unzipper';
 import * as tmp from 'tmp';
 

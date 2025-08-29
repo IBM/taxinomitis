@@ -2,14 +2,24 @@
 import * as fs from 'fs';
 // external dependencies
 import { LRUCache as LRU } from 'lru-cache';
-import * as fileType from 'file-type';
+import { loadEsm } from "load-esm";
+// import { fileTypeFromFile } from 'file-type';
 import * as tmp from 'tmp';
 import * as async from 'async';
-import * as filesize from 'filesize';
+import { filesize } from 'filesize';
 // local dependencies
 import * as download from './download';
 import * as urlchecker from './urlchecker';
 import loggerSetup from '../utils/logger';
+import { Detector, FileTypeResult } from 'file-type';
+
+// workaround to use an ESM module
+let fileTypeFromFile: ((filePath: string, options?: { customDetectors?: Iterable<Detector>; }) => Promise<FileTypeResult | undefined>) | ((arg0: string) => Promise<any>);
+(async () => {
+    const fileType = await loadEsm<typeof import("file-type")>("file-type");
+    fileTypeFromFile = fileType.fileTypeFromFile;
+})();
+
 
 
 
@@ -155,7 +165,7 @@ export function verifyImage(url: string, maxAllowedSizeBytes: number): Promise<v
  * Returns the type of the file at the specified location.
  */
 function getFileTypeFromContents(filepath: string, callback: IFileTypeCallback): void {
-    fileType.fromFile(filepath)
+    fileTypeFromFile(filepath)
         .then((type) => {
             callback(undefined, type ? type.ext : 'unknown');
         })

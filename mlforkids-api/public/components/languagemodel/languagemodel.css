@@ -194,6 +194,17 @@
     padding-right: 1em;
 }
 
+.languagemodelpage .modelstep .steprow .rowitem.multicol {
+    padding-left: 0.5em;
+    padding-right: 2em;
+}
+
+.languagemodelpage .modelstep .steprow .rowitem .contextinset {
+    margin: 1em;
+    padding: 1em;
+    background-color: white;
+}
+
 .languagemodelpage md-slider .md-track.md-track-fill,
 .languagemodelpage md-slider .md-sign {
     background-color: #2e6da4;

@@ -3,7 +3,7 @@ import { v1 as uuid } from 'uuid';
 import * as assert from 'assert';
 import * as sinon from 'sinon';
 import * as request from 'supertest';
-import * as httpstatus from 'http-status';
+import { status as httpstatus } from 'http-status';
 import * as express from 'express';
 import * as auth0objects from '../../lib/auth0/auth-types';
 import * as store from '../../lib/db/store';

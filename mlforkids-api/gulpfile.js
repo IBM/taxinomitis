@@ -55,27 +55,27 @@ gulp.task('bower', function() {
     return bower({ cwd : './public', directory : '../web/static/bower_components' });
 });
 gulp.task('customwebcam', function() {
-    return gulp.src('public/third-party/webcam-directive/webcam.js')
+    return gulp.src('public/third-party/webcam-directive/webcam.js', { encoding : false })
                 .pipe(gulp.dest('web/static/bower_components/webcam-directive/dist'));
 });
 gulp.task('custombootstrap', function() {
-    return gulp.src('public/third-party/bootstrap/**')
+    return gulp.src('public/third-party/bootstrap/**', { encoding : false })
                 .pipe(gulp.dest('web/static/bower_components/bootstrap/dist'));
 });
 gulp.task('customangularmaterial', function() {
-    return gulp.src('public/third-party/angular-material/*.css')
+    return gulp.src('public/third-party/angular-material/*.css', { encoding : false })
                 .pipe(cleanCSS())
                 .pipe(gulp.dest('web/static/bower_components/angular-material'));
 });
 gulp.task('papaparse', function() {
     return gulp.src([
         'node_modules/papaparse/papaparse.min.js'
-    ]).pipe(gulp.dest('web/static/bower_components/papaparse'));
+    ], { encoding : false }).pipe(gulp.dest('web/static/bower_components/papaparse'));
 });
 gulp.task('boweroverrides', gulp.parallel('customwebcam', 'custombootstrap', 'customangularmaterial', 'papaparse'));
 
 gulp.task('twitter', function() {
-    return gulp.src('public/static-files/twitter-card.html').pipe(gulp.dest('web/dynamic'));
+    return gulp.src('public/static-files/twitter-card.html', { encoding : false }).pipe(gulp.dest('web/dynamic'));
 });
 
 
@@ -84,7 +84,7 @@ gulp.task('tensorflowjs', function() {
         'node_modules/@tensorflow/tfjs/dist/tf.js',
         'node_modules/@tensorflow/tfjs/dist/tf.min.js',
         'node_modules/@tensorflow/tfjs/dist/tf.min.js.map'
-    ]).pipe(gulp.dest('web/static/bower_components/tfjs'));
+    ], { encoding : false }).pipe(gulp.dest('web/static/bower_components/tfjs'));
 });
 gulp.task('ydf-inference', function() {
     return gulp.src([
@@ -92,12 +92,12 @@ gulp.task('ydf-inference', function() {
         'node_modules/ydf-inference/dist/inference.wasm',
         // ydf-inference in the browser has a dependency on jszip
         'node_modules/jszip/dist/jszip.min.js'
-    ]).pipe(gulp.dest('web/static/bower_components/ydf-inference'));
+    ], { encoding : false }).pipe(gulp.dest('web/static/bower_components/ydf-inference'));
 });
 gulp.task('tensorflowposenet', function() {
     return gulp.src([
         'node_modules/tensorflow-models-posenet/dist/posenet.min.js'
-    ]).pipe(gulp.dest('web/static/bower_components/tensorflow-models/posenet'));
+    ], { encoding : false }).pipe(gulp.dest('web/static/bower_components/tensorflow-models/posenet'));
 });
 gulp.task('posenetmodel', function() {
     const files = [
@@ -111,12 +111,12 @@ gulp.task('posenetmodel', function() {
 gulp.task('tensorflowspeechcommands', function() {
     return gulp.src([
         'node_modules/tensorflow-models-speech-commands/dist/speech-commands.min.js'
-    ]).pipe(gulp.dest('web/static/bower_components/tensorflow-models/speech-commands'));
+    ], { encoding : false }).pipe(gulp.dest('web/static/bower_components/tensorflow-models/speech-commands'));
 });
 gulp.task('tensorflowspeechcommands-scratch', function() {
     return gulp.src([
         'node_modules/tensorflow-models-speech-commands/dist/speech-commands.min.js'
-    ]).pipe(gulp.dest('web/static/bower_components/tensorflow-models/speech-commands-scratch'));
+    ], { encoding : false }).pipe(gulp.dest('web/static/bower_components/tensorflow-models/speech-commands-scratch'));
 });
 gulp.task('speechcommandsmodel', function() {
     const files = [
@@ -141,12 +141,12 @@ gulp.task('speechcommandsmodel-scratch', function() {
 gulp.task('tensorflowfacelandmarks', function() {
     return gulp.src([
         'node_modules/tensorflow-models-face-landmarks-detection/dist/face-landmarks-detection.min.js'
-    ]).pipe(gulp.dest('web/static/bower_components/tensorflow-models/face-landmarks-detection'));
+    ], { encoding : false }).pipe(gulp.dest('web/static/bower_components/tensorflow-models/face-landmarks-detection'));
 });
 gulp.task('tensorflowfacemesh', function() {
     return gulp.src([
         'node_modules/@mediapipe/face_mesh/*'
-    ]).pipe(gulp.dest('web/static/bower_components/tensorflow-models/face-mesh'));
+    ], { encoding : false }).pipe(gulp.dest('web/static/bower_components/tensorflow-models/face-mesh'));
 });
 
 gulp.task('imagerecognitionmodel', function() {
@@ -181,7 +181,7 @@ gulp.task('imagerecognitionmodel-scratch', function() {
 gulp.task('tensorflowhandposemodel', function() {
     return gulp.src([
         'node_modules/tensorflow-models-handpose/dist/handpose.min.js'
-    ]).pipe(gulp.dest('web/static/bower_components/tensorflow-models/handpose'));
+    ], { encoding : false }).pipe(gulp.dest('web/static/bower_components/tensorflow-models/handpose'));
 });
 gulp.task('tfjs',
     gulp.parallel('tensorflowjs',
@@ -194,7 +194,7 @@ gulp.task('tfjs',
         'imagerecognitionmodel', 'imagerecognitionmodel-scratch'));
 
 gulp.task('scratchblocks', function() {
-    return gulp.src('public/third-party/scratchblocks-v3.1-min.js').pipe(gulp.dest('web/static'));
+    return gulp.src('public/third-party/scratchblocks-v3.1-min.js', { encoding : false }).pipe(gulp.dest('web/static'));
 });
 
 gulp.task('robotstxt', function() {
@@ -202,13 +202,13 @@ gulp.task('robotstxt', function() {
         'public/static-files/robots.txt',
         'public/static-files/sitemap.xml',
         'public/images/favicon.ico'
-    ]).pipe(gulp.dest('web/dynamic'));
+    ], { encoding : false }).pipe(gulp.dest('web/dynamic'));
 });
 
 gulp.task('stories', function() {
     return gulp.src([
         'public/static-files/stories/*'
-    ]).pipe(gulp.dest('web/static/stories'));
+    ], { encoding : false }).pipe(gulp.dest('web/static/stories'));
 });
 
 gulp.task('scratch3install', function() {
@@ -217,7 +217,7 @@ gulp.task('scratch3install', function() {
         'public/scratch-components/help-scratch3*',
         'public/scratch-components/help-scratch.css',
         'public/scratch-components/teachablemachinepose.html'
-    ]).pipe(gulp.dest('web/scratch3'));
+    ], { encoding : false }).pipe(gulp.dest('web/scratch3'));
 });
 
 gulp.task('compile', () => {
@@ -250,7 +250,7 @@ function prepareHtml (isForProd) {
     return import('gulp-template')
         .then((module) => {
             const template = module.default;
-            return gulp.src('public/index.html')
+            return gulp.src('public/index.html', { encoding : false })
                     .pipe(template(options))
                     .pipe(htmlminify(htmlMinifyOptions))
                     .pipe(gulp.dest('web/dynamic'));
@@ -269,7 +269,7 @@ gulp.task('css', gulp.series('html', () => {
     return import ('gulp-autoprefixer')
         .then((module) => {
             autoprefixer = module.default;
-            return gulp.src(paths.css)
+            return gulp.src(paths.css, { encoding : false })
                     .pipe(cleanCSS())
                     .pipe(autoprefixer())
                     .pipe(concat('style.min.css'))
@@ -281,7 +281,7 @@ gulp.task('jsapp', () => {
     return import('gulp-template')
         .then((module) => {
             const template = module.default;
-            return gulp.src('public/app.js')
+            return gulp.src('public/app.js', { encoding : false })
                     .pipe(template({ DEPLOYMENT }))
                     .pipe(rename('app.js'))
                     .pipe(gulp.dest('web/static'));
@@ -289,30 +289,30 @@ gulp.task('jsapp', () => {
 });
 
 gulp.task('angularcomponents', gulp.series('jsapp', () => {
-    return gulp.src(paths.html)
+    return gulp.src(paths.html, { encoding : false })
             .pipe(htmlminify(htmlMinifyOptions))
             .pipe(gulp.dest('web/static/components'));
 }));
 
 gulp.task('datasets', () => {
-    return gulp.src(paths.datasets)
+    return gulp.src(paths.datasets, { encoding : false })
         .pipe(jsonminify())
         .pipe(gulp.dest('web/static/datasets'));
 });
 
 gulp.task('languages', () => {
-    return gulp.src('public/languages/**')
+    return gulp.src('public/languages/**', { encoding : false })
         .pipe(gulp.dest('web/static/languages'));
 });
 
 gulp.task('prodlanguages', () => {
-    return gulp.src('public/languages/**')
+    return gulp.src('public/languages/**', { encoding : false })
         .pipe(jsonminify())
         .pipe(gulp.dest('web/static/languages'));
 });
 
 gulp.task('images', () => {
-    return gulp.src('public/images/*').pipe(gulp.dest('web/static/images'));
+    return gulp.src('public/images/*', { encoding : false }).pipe(gulp.dest('web/static/images'));
 });
 
 function concatAndMinifiyWebJs (isForProd) {
@@ -337,7 +337,7 @@ function concatAndMinifiyWebJs (isForProd) {
     }
     const webJsWithAuth = additionalVariables.concat(paths.webjs);
 
-    return gulp.src(webJsWithAuth)
+    return gulp.src(webJsWithAuth, { encoding : false })
             .pipe(sourcemaps.init())
                 .pipe(ngAnnotate())
                 .pipe(concat('mlapp.js'))
@@ -364,7 +364,7 @@ gulp.task('test', () => {
     return import('gulp-mocha')
         .then((module) => {
             const mocha = module.default;
-            return gulp.src(paths.jstest)
+            return gulp.src(paths.jstest, { encoding : false })
                     .pipe(mocha(mochaOptions));
         });
 });

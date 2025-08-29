@@ -87,6 +87,17 @@ class Scratch3ML4KSmallLanguageModelBlocks {
                     text: 'clear context'
                 },
                 {
+                    opcode: 'initialContext',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: 'use [CONTEXT] for initial context',
+                    arguments: {
+                        CONTEXT: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: 'text'
+                        }
+                    }
+                },
+                {
                     opcode: 'checkModelStatus',
                     blockType: Scratch.BlockType.BOOLEAN,
                     text: 'Is the langauge model [STATUS] ?',
@@ -157,6 +168,22 @@ class Scratch3ML4KSmallLanguageModelBlocks {
                     data : {
                         modelid : '{{{ modelid }}}',
                         contextwindow : {{{contextwindow}}}
+                    }
+                }
+            });
+        }
+    }
+
+
+    initialContext({ CONTEXT }) {
+        if (this._modelState === 'Ready') {
+            postMessage({
+                mlforkidswebllm : {
+                    command : 'context',
+                    data : {
+                        modelid : '{{{ modelid }}}',
+                        contextwindow : {{{contextwindow}}},
+                        initialcontext : CONTEXT
                     }
                 }
             });

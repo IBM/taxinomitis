@@ -250,7 +250,7 @@
         <div class="modelstep" ng-if="phase === PHASES.TOY.TEMPERATURE || phase === PHASES.TOY.READY">
             <div class="resetlink" ng-if="phase === PHASES.TOY.READY" ng-click="review(PHASES.TOY.TEMPERATURE)">Review</div>
             <div class="steprow">
-                <div class="rowitem" style="padding-left: 0.5em; padding-right: 2em;">
+                <div class="rowitem multicol">
                     <div class="stepheading">"{{ 'LANGUAGEMODEL.TEMPERATURE.TITLE' | translate }}"</div>
                     <div>
                         <md-slider min="0.1" max="1.0" step="0.1" ng-model="project.toy.temperature" ng-change="recomputeProbabilities()"></md-slider>
@@ -345,7 +345,7 @@
         <!-- ******************************************************* -->
 
         <div class="modelstep" ng-hide="loading"
-            ng-if="phase === PHASES.SMALL.ARCHITECTURE || phase === PHASES.SMALL.CONTEXTWINDOW || phase === PHASES.SMALL.TEMPERATURE || phase === PHASES.SMALL.READY">
+            ng-if="phase === PHASES.SMALL.ARCHITECTURE || phase === PHASES.SMALL.CONTEXTWINDOW || phase === PHASES.SMALL.TEMPERATURE || phase === PHASES.SMALL.RAGCONTEXT || phase === PHASES.SMALL.READY">
             <div class="stepheading" translate="LANGUAGEMODEL.SMALL.TYPE"></div>
             <div class="steprow">
                 <md-select class="rowitem"
@@ -391,7 +391,7 @@
         <!--   SLM models - choose context window size               -->
         <!-- ******************************************************* -->
 
-        <div class="modelstep" ng-if="phase === PHASES.SMALL.CONTEXTWINDOW || phase === PHASES.SMALL.TEMPERATURE || phase === PHASES.SMALL.READY">
+        <div class="modelstep" ng-if="phase === PHASES.SMALL.CONTEXTWINDOW || phase === PHASES.SMALL.TEMPERATURE || phase === PHASES.SMALL.RAGCONTEXT || phase === PHASES.SMALL.READY">
             <div class="resetlink" ng-if="phase === PHASES.SMALL.READY" ng-click="review(PHASES.SMALL.CONTEXTWINDOW)" translate="LANGUAGEMODEL.REVIEW">Review</div>
             <div class="stepheading" translate="LANGUAGEMODEL.CONTEXTWINDOW.TITLE" translate="LANGUAGEMODEL.CONTEXTWINDOW.TITLE"></div>
             <div class="steprow">
@@ -419,10 +419,10 @@
         <!--   SLM models - set temperature and top-p                -->
         <!-- ******************************************************* -->
 
-        <div class="modelstep" ng-if="phase === PHASES.SMALL.TEMPERATURE || phase === PHASES.SMALL.READY" ng-hide="loading">
+        <div class="modelstep" ng-if="phase === PHASES.SMALL.TEMPERATURE || phase === PHASES.SMALL.RAGCONTEXT || phase === PHASES.SMALL.READY" ng-hide="loading">
             <div class="resetlink" ng-if="phase === PHASES.SMALL.READY" ng-click="review(PHASES.SMALL.TEMPERATURE)" translate="LANGUAGEMODEL.REVIEW"></div>
             <div class="steprow">
-                <div class="rowitem" style="padding-left: 0.5em; padding-right: 2em;">
+                <div class="rowitem multicol">
                     <div class="stepheading" translate="LANGUAGEMODEL.TEMPERATURE.TITLE"></div>
                     <div>
                         <md-slider min="0.1" max="1.0" step="0.1" ng-model="project.slm.temperature" ng-disabled="generating"></md-slider>
@@ -434,7 +434,7 @@
                     <div class="stepexplanation" ng-if="phase === PHASES.SMALL.TEMPERATURE" translate="LANGUAGEMODEL.TEMPERATURE.DESCRIPTION_1"></div>
                     <div class="stepexplanation" ng-if="phase === PHASES.SMALL.TEMPERATURE" translate="LANGUAGEMODEL.TEMPERATURE.DESCRIPTION_2"></div>
                 </div>
-                <div class="rowitem" style="padding-left: 2em; padding-right: 0.5em;">
+                <div class="rowitem multicol">
                     <div class="stepheading" translate="LANGUAGEMODEL.TOPP.TITLE"></div>
                     <div>
                         <md-slider min="0.1" max="1.0" step="0.1" ng-model="project.slm.topp" ng-disabled="generating"></md-slider>
@@ -453,6 +453,76 @@
             <button type="button"
                 class="btn btn-primary"
                 ng-disabled="reconfiguring"
+                translate="APP.NEXT"
+                ng-click="initSmallModelContext()"></button>
+        </div>
+
+        <!-- ******************************************************* -->
+        <!--   SLM models - add context (RAG)                        -->
+        <!-- ******************************************************* -->
+
+        <div class="modelstep" ng-if="phase === PHASES.SMALL.RAGCONTEXT || phase === PHASES.SMALL.READY" ng-hide="loading">
+            <div class="resetlink" ng-if="phase === PHASES.SMALL.READY" ng-click="review(PHASES.SMALL.RAGCONTEXT)" translate="LANGUAGEMODEL.REVIEW"></div>
+            <div class="steprow">
+                <div class="rowitem" style="padding-left: 0.5em; padding-right: 2em;">
+                    <div class="stepheading" translate="LANGUAGEMODEL.INITIALCONTEXT.TITLE"></div>
+                    <button type="button"
+                        class="btn btn-default btn-wide"
+                        ng-class="{'btn-primary' : project.slm.initialcontext && project.slm.initialcontext.state === 'none' }"
+                        ng-click="smallModelInitialContextClear()"
+                        ng-disabled="loading || reconfiguring || generating || (project.slm.initialcontext && project.slm.initialcontext.state === 'none')">
+                        <strong>No</strong> initial context
+                    </button>
+                    <button type="button"
+                        class="btn btn-default btn-wide"
+                        ng-class="{'btn-primary' : project.slm.initialcontext && project.slm.initialcontext.state === 'provide' }"
+                        ng-click="smallModelInitialContextSet()"
+                        ng-disabled="loading || reconfiguring || generating || (project.slm.initialcontext && project.slm.initialcontext.state === 'provide')">
+                        <strong>Use</strong> initial context
+                    </button>
+                    <div class="contextinset"
+                        ng-if="project.slm.initialcontext && project.slm.initialcontext.state === 'provide' && project.slm.initialcontext.doc">
+                        <span class="glyphicon glyphicon-remove-circle deletetext" aria-hidden="true"
+                            ng-click="removeContextDoc()"
+                            ng-hide="phase !== PHASES.SMALL.RAGCONTEXT"
+                            ng-disabled="loading || reconfiguring || generating"></span>
+                        <img ng-src="static/images/{{project.slm.initialcontext.doc.type}}.png"
+                             class="trainingImageThumbnail"
+                             alt="text">
+                        <div class="documentlabel">{{project.slm.initialcontext.doc.title}}</div>
+                    </div>
+                    <div ng-if="phase === PHASES.SMALL.RAGCONTEXT && project.slm.initialcontext && project.slm.initialcontext.state === 'provide'"
+                        style="background-color: white; margin: 1em; padding: 1em;">
+                        <div class="btn newexamplebutton" ng-click="addContextText($event)" ng-disabled="loading || reconfiguring || generating">
+                            <div class="newexampleicon">+</div>
+                            <div class="newexamplelabel">use text</div>
+                        </div>
+                        <input id="context-file-upload"
+                            type="file"
+                            accept=".txt"
+                            style="display: none;"
+                            data-label="add file"
+                            onchange="angular.element(this).scope().addContextFile(event, this)"/>
+                        <label class="btn newexamplebutton" for="context-file-upload">
+                            <div class="thin buttonicon glyphicon glyphicon-open-file"></div>
+                            <div class="newexamplelabel"> use file</div>
+                        </label>
+                        <div class="btn newexamplebutton" ng-click="addContextWikipediaPage($event)" ng-disabled="loading || reconfiguring || generating">
+                            <div class="newexampleicon" style="font-family: serif; font-size: 2em;">W</div>
+                            <div class="newexamplelabel">use Wikipedia</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rowitem">
+                    <div class="stepexplanation" ng-if="phase === PHASES.SMALL.RAGCONTEXT" translate="LANGUAGEMODEL.INITIALCONTEXT.DESCRIPTION"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="nextstep" ng-if="phase === PHASES.SMALL.RAGCONTEXT" ng-hide="loading">
+            <button type="button"
+                class="btn btn-primary"
+                ng-disabled="!project.slm.initialcontext || (project.slm.initialcontext.state === 'provide' && !project.slm.initialcontext.doc) || reconfiguring"
                 translate="APP.NEXT"
                 ng-click="setProjectReady()"></button>
         </div>
@@ -527,9 +597,9 @@
                 <div ng-if="generatedmessages.length === 0">Generated text</div>
                 <div ng-repeat="generatedmessage in generatedmessages track by $index">
                     <div ng-if="generatedmessage.role === 'user'" class="userpromptcontainer">
-                        <div class="userprompt" ng-bind-html="generatedmessage.content"></div>
+                        <div class="userprompt" ng-bind-html="generatedmessage.render"></div>
                     </div>
-                    <div ng-if="generatedmessage.role === 'assistant'" class="systemmessage" ng-bind-html="generatedmessage.content"></div>
+                    <div ng-if="generatedmessage.role === 'assistant'" class="systemmessage" ng-bind-html="generatedmessage.render"></div>
                 </div>
             </div>
         </div>

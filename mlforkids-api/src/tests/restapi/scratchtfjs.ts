@@ -1,7 +1,7 @@
 /*eslint-env mocha */
 import * as assert from 'assert';
 import * as request from 'supertest';
-import * as httpstatus from 'http-status';
+import { status as httpstatus } from 'http-status';
 import * as express from 'express';
 import testapiserver from './testserver';
 

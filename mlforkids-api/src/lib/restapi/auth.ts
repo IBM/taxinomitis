@@ -2,9 +2,9 @@
 import * as Express from 'express';
 import { expressjwt, GetVerificationKey, Params } from 'express-jwt';
 import * as jwksRsa from 'jwks-rsa';
-import jwtDecode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import * as jsonwebtoken from 'jsonwebtoken';
-import * as httpstatus from 'http-status';
+import { status as httpstatus } from 'http-status';
 // local dependencies
 import * as errors from './errors';
 import * as store from '../db/store';

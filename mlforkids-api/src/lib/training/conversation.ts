@@ -1,5 +1,5 @@
 // external dependencies
-import * as httpStatus from 'http-status';
+import { status as httpStatus } from 'http-status';
 import { v1 as uuid } from 'uuid';
 import * as _ from 'lodash';
 // local dependencies
