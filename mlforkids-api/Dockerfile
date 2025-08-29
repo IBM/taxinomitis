@@ -19,6 +19,7 @@ COPY --chown=node:node *.js ./
 COPY --chown=node:node custom_typings custom_typings
 COPY --chown=node:node src src
 COPY --chown=node:node public public
+COPY --chown=node:node resources resources
 
 # confirm the source
 RUN ls -l /usr/src/build
