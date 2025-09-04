@@ -29,6 +29,12 @@ console.log('');
 console.log('connecting to DB...');
 store.init()
     .then(() => {
+        return store.checkIfTenantExists(tenantid);
+    })
+    .then((tenantidInUse) => {
+        if (tenantidInUse) {
+            throw new Error('tenantid in use');
+        }
         console.log('creating teacher credentials...');
         return auth0.createVerifiedTeacher(tenantid, username, emailadd);
     })

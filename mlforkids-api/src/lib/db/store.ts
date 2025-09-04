@@ -2372,7 +2372,7 @@ export async function storeManagedClassTenant(classid: string, numstudents: numb
 }
 
 
-export async function getClassTenant(classid: string): Promise<Objects.ClassTenant>
+function getTenant(classid: string): Promise<Objects.ClassDbRow[]>
 {
     const queryName = 'dbqn-select-tenants-id';
     const queryString = 'SELECT id, projecttypes, maxusers, ' +
@@ -2383,19 +2383,34 @@ export async function getClassTenant(classid: string): Promise<Objects.ClassTena
                         'WHERE id = $1';
     const queryValues = [ classid ];
 
-    const response = await dbExecute(queryName, queryString, queryValues);
-    const rows = response.rows;
+    return dbExecute(queryName, queryString, queryValues)
+        .then((response) => {
+            return response.rows
+        });
+}
+
+
+export async function checkIfTenantExists(classid: string): Promise<boolean>
+{
+    const tenants = await getTenant(classid);
+    return tenants.length > 0;
+}
+
+
+export async function getClassTenant(classid: string): Promise<Objects.ClassTenant>
+{
+    const tenants = await getTenant(classid);
     /* istanbul ignore else */
-    if (rows.length === 0) {
-        log.debug({ rows, func : 'getClassTenant' }, 'Empty response from DB');
+    if (tenants.length === 0) {
+        log.debug({ tenants, func : 'getClassTenant' }, 'Empty response from DB');
         return dbobjects.getDefaultClassTenant(classid);
     }
-    else if (rows.length === 1) {
-        return dbobjects.getClassFromDbRow(rows[0]);
+    else if (tenants.length === 1) {
+        return dbobjects.getClassFromDbRow(tenants[0]);
     }
     else {
         // id is a primary key, so it shouldn't be possible to end up here
-        log.error({ rows, func : 'getClassTenant' }, 'Unexpected response from DB');
+        log.error({ tenants, func : 'getClassTenant' }, 'Unexpected response from DB');
         return dbobjects.getDefaultClassTenant(classid);
     }
 }
