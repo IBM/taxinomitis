@@ -11,7 +11,20 @@
     <md-dialog-content>
         <div class="md-dialog-content" style="min-width: 300px; max-width: 1000px;">
             <div style="border-radius: 0.4em; background-color: #84cbcc; padding: 0.6em; margin-bottom: 1em; text-align: center;">
-                <img ng-src="{{worksheet.image}}">
+                <iframe
+                    ng-src="{{video}}" ng-if="video"
+                    title="YouTube video player"
+                    frameborder="0"
+                    width="560" height="315"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen
+                    style="display: none; max-width: 100%; margin-left: auto; margin-right: auto;"
+                    onload="this.style.display='block'; document.getElementById('worksheet-download-screenshot').style.display='none';"></iframe>
+                <img ng-src="{{worksheet.image}}" alt="screenshot" id="worksheet-download-screenshot">
+            </div>
+            <div ng-if="worksheet.featured" style="border-radius: 0.4em; background-color: #84cbcc; padding: 0.6em; margin-bottom: 1em; font-size: 1.2em;">
+                <div ng-repeat="text in worksheet.featured" ng-bind-html="text" style="padding-bottom: 1em;"></div>
             </div>
             <div>
                 <h4 ng-if="worksheet.teachersnotes" translate="WORKSHEETS.DOWNLOADS.AUDIENCE.TEACHERS"></h4>

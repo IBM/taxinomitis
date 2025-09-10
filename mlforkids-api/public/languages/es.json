@@ -1096,16 +1096,28 @@
         "INTRO_4": "Examples of how to use these worksheets, and a suggested order for using these with a class, can be found in the <a href='/stories'>stories about what students learn</a>.",
         "TYPES": {
             "TITLE": "Reconocimiento:",
-            "ALL": "Todos los proyectos",
+            "LONGTITLE": "Train a computer to ",
+            "ALL": "See worksheets for all types of machine learning project",
             "PREFIX": "Entrena a una computadora para reconocer ",
             "PREFIXREGRESSION": "Train a computer to predict ",
             "PREFIXLANGUAGE": "Train a computer to generate ",
+            "SHORTPREFIX": "recognise ",
+            "SHORTPREFIXREGRESSION": "predict ",
+            "SHORTPREFIXLANGUAGE": "generate ",
             "TEXT": "texto",
             "IMAGES": "imágenes",
             "NUMBERS": "números",
             "SOUNDS": "sonidos",
             "FACES": "faces",
-            "REGRESSION": "predicting numbers"
+            "REGRESSION": "predicting numbers",
+
+            "DESCRIPTIONTEXT": "In these projects, you will collect examples of text and use these to train a machine learning model that can recognise new examples of text",
+            "DESCRIPTIONIMAGES": "In these projects, you will collect examples of images and use these to train a machine learning model that can recognise new examples of images",
+            "DESCRIPTIONNUMBERS": "In these projects, you will collect sets of numbers and use these to train a machine learning model that can recognise a set of numbers",
+            "DESCRIPTIONSOUNDS": "In these projects, you will collect short sound recordings and use these to train a machine learning model that can recognise those sounds",
+            "DESCRIPTIONFACES": "In these projects, you will use a pretrained model that has been trained to recognise the location of faces in images",
+            "DESCRIPTIONREGRESSION": "In these projects, you will collect examples of numbers, and use these to train a machine learning model to predict new numbers",
+            "DESCRIPTIONGENERATE": "In these projects, you will learn how Generative AI systems can create new text"
         },
         "LEVELS": {
             "TITLE": "Nivel de dificultad:",
@@ -1135,10 +1147,12 @@
             }
         },
         "MAKETYPES": {
-            "ALL": "Todos los tipos",
+            "TITLE": "Make with ",
             "SCRATCH": "Proyectos Scratch ",
             "PYTHON": "Proyectos Python ",
             "APPINVENTOR": "Proyectos App Inventor ",
+            "DESCRIPTIONSCRATCH": "In these projects, student will make a Scratch project that creates and uses machine learning models",
+            "DESCRIPTIONPYTHON": "In these projects, student make Python projects that creates and uses machine learning models",
             "SCRATCH_WORKSHEET": "Ficha para crear un Proyecto en  Scratch",
             "PYTHON_WORKSHEET": "Ficha para crear un Proyecto en Python",
             "APPINVENTOR_WORKSHEET": "Ficha para crear un Proyecto en App Inventor"

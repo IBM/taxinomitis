@@ -134,15 +134,15 @@ md-toolbar.md-default-theme:not(.md-menu-toolbar) md-icon, md-toolbar:not(.md-me
 }
 
 md-radio-button.md-default-theme .md-on, md-radio-button .md-on {
-    background-color: rgba(255,64,129,0.87)
+    background-color: rgb(63,81,181);
 }
 
 md-radio-button.md-default-theme.md-checked .md-off, md-radio-button.md-checked .md-off {
-    border-color: rgba(255,64,129,0.87)
+    border-color: rgb(63,81,181);
 }
 
 md-radio-button.md-default-theme.md-checked .md-ink-ripple, md-radio-button.md-checked .md-ink-ripple {
-    color: rgba(255,64,129,0.87)
+    color: rgb(63,81,181);
 }
 
 md-radio-group.md-default-theme .md-checked .md-ink-ripple, md-radio-group .md-checked .md-ink-ripple {

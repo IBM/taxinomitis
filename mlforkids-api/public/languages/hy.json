@@ -1099,16 +1099,27 @@
     "INTRO_4": "Այս աշխատաթերթերն օգտագործելու օրինակները և դրանք դասի հետ օգտագործելու առաջարկվող կարգը կարող եք գտնել այստեղ՝ <a href='/stories'>պատմություններ այն մասին, թե ինչ են սովորում ուսանողները</a>.",
     "TYPES": {
       "TITLE": "Ճանաչելով.",
-      "ALL": "Ծրագրի բոլոր տեսակները",
+      "LONGTITLE": "Train a computer to ",
+      "ALL": "See worksheets for all types of machine learning project",
       "PREFIX": "Սովորեցրեք համակարգիչը ճանաչելու համար ",
       "PREFIXREGRESSION": "Վարժեցրեք համակարգիչը կանխատեսելու համար ",
       "PREFIXLANGUAGE": "Train a computer to generate ",
+      "SHORTPREFIX": "recognise ",
+      "SHORTPREFIXREGRESSION": "predict ",
+      "SHORTPREFIXLANGUAGE": "generate ",
       "TEXT": "տեքստը",
       "IMAGES": "պատկերներ",
       "NUMBERS": "թվեր",
       "SOUNDS": "հնչյուններ",
       "FACES": "դեմքեր",
-      "REGRESSION": "թվերի կանխատեսում"
+      "REGRESSION": "թվերի կանխատեսում",
+      "DESCRIPTIONTEXT": "In these projects, you will collect examples of text and use these to train a machine learning model that can recognise new examples of text",
+      "DESCRIPTIONIMAGES": "In these projects, you will collect examples of images and use these to train a machine learning model that can recognise new examples of images",
+      "DESCRIPTIONNUMBERS": "In these projects, you will collect sets of numbers and use these to train a machine learning model that can recognise a set of numbers",
+      "DESCRIPTIONSOUNDS": "In these projects, you will collect short sound recordings and use these to train a machine learning model that can recognise those sounds",
+      "DESCRIPTIONFACES": "In these projects, you will use a pretrained model that has been trained to recognise the location of faces in images",
+      "DESCRIPTIONREGRESSION": "In these projects, you will collect examples of numbers, and use these to train a machine learning model to predict new numbers",
+      "DESCRIPTIONGENERATE": "In these projects, you will learn how Generative AI systems can create new text"
     },
     "LEVELS": {
       "TITLE": "Դժվարություն:",
@@ -1138,10 +1149,12 @@
       }
     },
     "MAKETYPES": {
-      "ALL": "Բոլորը պատրաստում են տեսակներ",
+      "TITLE": "Make with ",
       "SCRATCH": "Scratch նախագծեր",
       "PYTHON": "Python նախագծեր",
       "APPINVENTOR": "App Inventor նախագծեր",
+      "DESCRIPTIONSCRATCH": "In these projects, student will make a Scratch project that creates and uses machine learning models",
+      "DESCRIPTIONPYTHON": "In these projects, student make Python projects that creates and uses machine learning models",
       "SCRATCH_WORKSHEET": "Scratch-ով նախագիծ կազմելու աշխատանքային թերթիկ",
       "PYTHON_WORKSHEET": "Python-ում նախագիծ կազմելու աշխատանքային թերթիկ",
       "APPINVENTOR_WORKSHEET": "App Inventor-ում նախագիծ պատրաստելու աշխատանքային թերթիկ"

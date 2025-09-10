@@ -5,10 +5,10 @@
         .controller('StoriesController', StoriesController);
 
     StoriesController.$inject = [
-        '$stateParams', '$state', '$scope', '$window', '$timeout', '$document', '$mdDialog', '$translate'
+        '$stateParams', '$state', '$scope', '$window', '$timeout', '$document', '$mdDialog', '$translate', '$sce'
     ];
 
-    function StoriesController($stateParams, $state, $scope, $window, $timeout, $document, $mdDialog, $translate) {
+    function StoriesController($stateParams, $state, $scope, $window, $timeout, $document, $mdDialog, $translate, $sce) {
 
         $scope.worksheets = {};
 
@@ -96,6 +96,9 @@
                     worksheet : $scope.worksheets[worksheetid]
                 },
                 controller : function ($scope, locals) {
+                    if (locals.worksheet.video) {
+                        $scope.video = $sce.trustAsResourceUrl('https://www.youtube.com/embed/' + locals.worksheet.video + '?rel=0&loop=1&playlist=' + locals.worksheet.video);
+                    }
                     $scope.worksheet = locals.worksheet;
                     $scope.hide = function() {
                         $mdDialog.hide();
@@ -191,7 +194,7 @@
                     title : translations['WORKSHEETS.FACEFINDER.TITLE'],
                     summary : translations['WORKSHEETS.FACEFINDER.SUMMARY'],
                     description : translations['WORKSHEETS.FACEFINDER.DESCRIPTION'],
-                    difficulty : 'Beginner',
+                    difficulty : 1,
                     type : 'faces',
                     maketypes : [ 'scratch3' ],
                     image : 'static/images/project-facefinder.png',
@@ -201,13 +204,18 @@
                         {
                             worksheet : translations['WORKSHEETS.FACEFINDER.WORKSHEET_1.URL']
                         }
-                    ]
+                    ],
+                    featured : [
+                        "Use a pretrained machine learning model that has been trained to recognise the location of faces in photos.",
+                        "Learn about <strong>face detection</strong> by creating animated face filters in <strong>Scratch</strong>."
+                    ],
+                    video : 'OSVEelf9Ksk'
                 },
                 chatbots : {
                     title : translations['WORKSHEETS.CHATBOTS.TITLE'],
                     summary : translations['WORKSHEETS.CHATBOTS.SUMMARY'],
                     description : translations['WORKSHEETS.CHATBOTS.DESCRIPTION'],
-                    difficulty : 'Intermediate',
+                    difficulty : 2,
                     type : 'text',
                     maketypes : [ 'scratch3', 'python' ],
                     image : 'static/images/project-chatbots.png',
@@ -228,7 +236,7 @@
                     title : translations['WORKSHEETS.PACMAN.TITLE'],
                     summary : translations['WORKSHEETS.PACMAN.SUMMARY'],
                     description : translations['WORKSHEETS.PACMAN.DESCRIPTION'],
-                    difficulty : 'Intermediate',
+                    difficulty : 3,
                     type : 'numbers',
                     maketypes : [ 'scratch3' ],
                     image : 'static/images/project-pacman.png',
@@ -238,13 +246,18 @@
                         {
                             worksheet : translations['WORKSHEETS.PACMAN.WORKSHEET_1.URL']
                         }
-                    ]
+                    ],
+                    featured : [
+                        "Train a <strong>decision tree classifier</strong> to avoid the ghost.",
+                        "Learn about artificial intelligence in games by making a machine learning model-controlled Pac-Man in <strong>Scratch</strong>."
+                    ],
+                    video : '5oNjvYEEvDo'
                 },
                 noughtsandcrosses : {
                     title : translations['WORKSHEETS.NOUGHTSANDCROSSES.TITLE'],
                     summary : translations['WORKSHEETS.NOUGHTSANDCROSSES.SUMMARY'],
                     description : translations['WORKSHEETS.NOUGHTSANDCROSSES.DESCRIPTION'],
-                    difficulty : 'Advanced',
+                    difficulty : 3,
                     type : 'numbers',
                     maketypes : [ 'python' ],
                     image : 'static/images/project-noughtsandcrosses.png',
@@ -260,7 +273,7 @@
                     title : translations['WORKSHEETS.NEWSPAPERSHELVES.TITLE'],
                     summary : translations['WORKSHEETS.NEWSPAPERSHELVES.SUMMARY'],
                     description : translations['WORKSHEETS.NEWSPAPERSHELVES.DESCRIPTION'],
-                    difficulty : 'Intermediate',
+                    difficulty : 2,
                     type : 'text',
                     maketypes : [ 'scratch3' ],
                     image : 'static/images/project-headlines-easy.png',
@@ -270,13 +283,18 @@
                         {
                             worksheet : translations['WORKSHEETS.NEWSPAPERSHELVES.WORKSHEET_1.URL']
                         }
-                    ]
+                    ],
+                    featured : [
+                        "Train a machine learning model to recognise the use of language in different newspapers.",
+                        "Learn about <strong>text classifiers</strong> by making a game in <strong>Scratch</strong> that predicts the newspaper that new headlines came from."
+                    ],
+                    video : 'Rv2BumNSxEo'
                 },
                 makemehappy : {
                     title : translations['WORKSHEETS.MAKEMEHAPPY.TITLE'],
                     summary : translations['WORKSHEETS.MAKEMEHAPPY.SUMMARY'],
                     description : translations['WORKSHEETS.MAKEMEHAPPY.DESCRIPTION'],
-                    difficulty : 'Beginner',
+                    difficulty : 1,
                     type : 'text',
                     maketypes : [ 'scratch3', 'python' ],
                     image : 'static/images/project-makemehappy.png',
@@ -295,13 +313,18 @@
                             description : translations['WORKSHEETS.MAKEMEHAPPY.WORKSHEET_3.DESCRIPTION'],
                             worksheet : translations['WORKSHEETS.MAKEMEHAPPY.WORKSHEET_3.URL']
                         }
-                    ]
+                    ],
+                    featured : [
+                        "Train a machine learning model to recognise compliments and insults.",
+                        "Learn about <strong>sentiment analysis</strong> by making a character in <strong>Scratch</strong> that reacts to what you say to it."
+                    ],
+                    video : 'IdU4EVTBpjA'
                 },
                 smartclassroom : {
                     title : translations['WORKSHEETS.SMARTCLASSROOM.TITLE'],
                     summary : translations['WORKSHEETS.SMARTCLASSROOM.SUMMARY'],
                     description : translations['WORKSHEETS.SMARTCLASSROOM.DESCRIPTION'],
-                    difficulty : 'Beginner',
+                    difficulty : 1,
                     type : 'text',
                     maketypes : [ 'scratch3' ],
                     image : 'static/images/project-smartclassroom.png',
@@ -320,13 +343,18 @@
                             description : translations['WORKSHEETS.SMARTCLASSROOM.WORKSHEET_3.DESCRIPTION'],
                             worksheet : translations['WORKSHEETS.SMARTCLASSROOM.WORKSHEET_3.URL']
                         }
-                    ]
+                    ],
+                    featured : [
+                        "Train a machine learning model to recognise commands.",
+                        "Learn how <strong>virtual assistants</strong> such as Siri and Alexa work by making one in <strong>Scratch</strong>."
+                    ],
+                    video : 'PNKGAMBGVWg'
                 },
                 explainability : {
                     title : translations['WORKSHEETS.EXPLAINABILITY.TITLE'],
                     summary : translations['WORKSHEETS.EXPLAINABILITY.SUMMARY'],
                     description : translations['WORKSHEETS.EXPLAINABILITY.DESCRIPTION'],
-                    difficulty : 'Intermediate',
+                    difficulty : 2,
                     type : 'images',
                     maketypes : [ 'scratch3' ],
                     image : 'static/images/project-explainability.png',
@@ -342,7 +370,7 @@
                     title : translations['WORKSHEETS.ROCKPAPERSCISSORS.TITLE'],
                     summary : translations['WORKSHEETS.ROCKPAPERSCISSORS.SUMMARY'],
                     description : translations['WORKSHEETS.ROCKPAPERSCISSORS.DESCRIPTION'],
-                    difficulty : 'Intermediate',
+                    difficulty : 2,
                     type : 'images',
                     maketypes : [ 'scratch3' ],
                     image : 'static/images/project-rockpaperscissors.png',
@@ -358,7 +386,7 @@
                     title : translations['WORKSHEETS.TOURISTINFO.TITLE'],
                     summary : translations['WORKSHEETS.TOURISTINFO.SUMMARY'],
                     description : translations['WORKSHEETS.TOURISTINFO.DESCRIPTION'],
-                    difficulty : 'Intermediate',
+                    difficulty : 2,
                     type : 'text',
                     maketypes : [ 'scratch3' ],
                     image : 'static/images/project-touristinfo.png',
@@ -368,13 +396,18 @@
                         {
                             worksheet : translations['WORKSHEETS.TOURISTINFO.WORKSHEET_1.URL']
                         }
-                    ]
+                    ],
+                    featured : [
+                        "Train a machine learning model to make holiday recommendations.",
+                        "Learn about <strong>training bias</strong> and <strong>ethics in AI</strong> by intentionally making a biased app in <strong>Scratch</strong>."
+                    ],
+                    video : 'Afu7k3x61wA'
                 },
                 secretcode : {
                     title : translations['WORKSHEETS.SECRETCODE.TITLE'],
                     summary : translations['WORKSHEETS.SECRETCODE.SUMMARY'],
                     description : translations['WORKSHEETS.SECRETCODE.DESCRIPTION'],
-                    difficulty : 'Intermediate',
+                    difficulty : 2,
                     type : 'sounds',
                     maketypes : [ 'scratch3' ],
                     image : 'static/images/project-secretcode.png',
@@ -390,7 +423,7 @@
                     title : translations['WORKSHEETS.LASEREYES.TITLE'],
                     summary : translations['WORKSHEETS.LASEREYES.SUMMARY'],
                     description : translations['WORKSHEETS.LASEREYES.DESCRIPTION'],
-                    difficulty : 'Intermediate',
+                    difficulty : 2,
                     type : 'sounds',
                     maketypes : [ 'scratch3' ],
                     image : 'static/images/project-lasereyes.png',
@@ -400,13 +433,18 @@
                         {
                             worksheet : translations['WORKSHEETS.LASEREYES.WORKSHEET_1.URL']
                         }
-                    ]
+                    ],
+                    featured : [
+                        "Learn about machine learning by making a voice-powered laser eyes game in <strong>Scratch</strong>.",
+                        "Train a <strong>speech recognition</strong> model to activate the lasers, and use a pretrained <strong>face detection</strong> model to aim the laser."
+                    ],
+                    video : 'bv-QAAebBa4'
                 },
                 inkblots : {
                     title : translations['WORKSHEETS.INKBLOTS.TITLE'],
                     summary : translations['WORKSHEETS.INKBLOTS.SUMMARY'],
                     description : translations['WORKSHEETS.INKBLOTS.DESCRIPTION'],
-                    difficulty : 'Intermediate',
+                    difficulty : 3,
                     type : 'images',
                     maketypes : [ 'scratch3' ],
                     image : 'static/images/project-inkblots.png',
@@ -422,7 +460,7 @@
                     title : translations['WORKSHEETS.MAILMANMAX.TITLE'],
                     summary : translations['WORKSHEETS.MAILMANMAX.SUMMARY'],
                     description : translations['WORKSHEETS.MAILMANMAX.DESCRIPTION'],
-                    difficulty : 'Beginner',
+                    difficulty : 1,
                     type : 'images',
                     maketypes : [ 'scratch3' ],
                     image : 'static/images/project-mailmanmax.png',
@@ -432,7 +470,12 @@
                         {
                             worksheet : translations['WORKSHEETS.MAILMANMAX.WORKSHEET_1.URL']
                         }
-                    ]
+                    ],
+                    featured : [
+                        "Train a machine learning model to recognise postcodes / zip codes.",
+                        "Learn about <strong>handwriting recognition</strong> by making a letter sorter in <strong>Scratch</strong>."
+                    ],
+                    video : 'vQPFEWFzVIY'
                 }
             };
         });

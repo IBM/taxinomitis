@@ -7,20 +7,191 @@
     font-size: 0.9em;
 }
 
-.worksheetfilters {
-    padding: 2em;
+.worksheetsheader {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    width: 100%;
+    margin-bottom: 1em;
 }
 
-.worksheetfilters .filter {
-    flex-grow: 1;
-    flex-shrink: 1;
-    flex-basis: 0;
-
-    margin: 1em;
+.worksheetsheader .worksheetfeature {
+    flex: 1;
+    padding: 2em;
     min-width: 300px;
+    min-height: 400px;
+    background-color: #B0C4DE;
+    border-radius: 1em;
+    margin: 1em;
+    position: relative;
+    font-size: 1.1em;
+    z-index: 0;
+}
+
+.worksheetsheader .worksheetfeature .worksheetframe-container {
+    position: relative;
+    z-index: 10;
+    transform: translateZ(0);
+    isolation: isolate;
+}
+
+.worksheetsheader .worksheetfeature .worksheetfeaturevideo {
+    max-width: 100%;
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    width: 450px;
+    height: 255px;
+    border: thin #23527c solid;
+    position: relative;
+    z-index: 10;
+    transform: translateZ(0);
+}
+
+@media (max-width: 660px) or (1100px <= width <= 1350px) {
+    .worksheetsheader .worksheetfeature .worksheetfeaturevideo {
+        float: none;
+        display: block;
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+}
+
+.worksheetsheader .worksheetfeature .worksheetfeaturevideofallback {
+    position: relative;
+    z-index: 1;
+}
+
+.worksheetsheader .worksheetfeature .worksheetfeaturevideofallback img {
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+.worksheetsheader .worksheetfeature .title {
+    font-size: 1.8em;
+    font-weight: bold;
+    padding-bottom: 0.5em;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+}
+
+.worksheetsheader .worksheetfeature .title a {
+    color: #23527c;
+    position: relative;
+    z-index: 1;
+}
+
+.worksheetsheader .worksheetfeature .description {
+    font-size: 1.3em;
+    padding-bottom: 1em;
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
+}
+
+.worksheetsheader .worksheetfeature .summary {
+    padding-bottom: 1em;
+    position: relative;
+    z-index: 1;
+}
+
+.worksheetsheader .worksheetfeature .featurelabel {
+    color: rgba(144, 159, 179, 0.2);
+    font-size: 6em;
+    font-weight: bold;
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+    margin: 0;
+    z-index: -1;
+    pointer-events: none;
+    text-align: left;
+    width: auto;
+    height: auto;
+}
+
+.worksheetsheader .worksheetfeature .download {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    z-index: 1;
+}
+
+@media (max-width: 900px) {
+    .worksheetsheader {
+        flex-direction: column;
+    }
+
+    .worksheetsheader .worksheetfeature {
+        width: 100%;
+        order: 1;
+    }
+
+    .worksheetsheader .worksheetfilters {
+        width: 100%;
+        order: 2;
+    }
+
+    .worksheetsheader .worksheetfeature .featurelabel {
+        font-size: 3.5em;
+    }
+}
+
+.worksheetfilters {
+    flex: 1;
+    min-width: 300px;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+.worksheetfilters .filter-group {
+    margin-bottom: 1em;
+    padding: 0.5em;
+    border: thin grey solid;
+}
+
+.worksheetfilters .filter-title {
+    font-weight: bold;
+    color: #555;
+}
+
+.worksheetfilters .filter-options {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.worksheetfilters .filter-options .md-label {
+    font-size: 0.9em;
+    height: 100%;
+}
+
+.worksheetfilters .filter-options .md-label strong {
+    font-size: 1.15em;
+}
+
+.worksheetfilters .filter-options md-checkbox,
+.worksheetfilters .filter-options md-radio-button {
+    width: 100px;
+    margin: 14px;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+
+
+.worksheetsheader .difficulty img {
+    width: 24px;
+    height: 24px;
+    margin: -2px;
+}
+
+.worksheetfilters .filter-options md-radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
 }
 
 .worksheets {
@@ -30,6 +201,7 @@
 
     margin-left: auto;
     margin-right: auto;
+    padding-bottom: 100px;
 }
 
 .worksheetcard {
@@ -237,6 +409,13 @@
     margin-right: auto;
     margin-left: 2px;
 }
+.worksheetcard .cardfooter .difficulty img {
+    border: 0;
+    width: 18px;
+    height: 18px;
+    margin: -2px;
+}
+
 .worksheetcard .cardfooter .projecttype {
     text-align: right;
     margin-left: auto;
@@ -264,3 +443,4 @@
     color: #00008b;
     font-weight: bold;
 }
+

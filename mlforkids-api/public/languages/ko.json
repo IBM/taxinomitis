@@ -1124,18 +1124,30 @@
 
         "TYPES": {
             "TITLE": "인식:",
-            "ALL": "모든 프로젝트",
+            "LONGTITLE": "Train a computer to ",
+            "ALL": "See worksheets for all types of machine learning project",
 
             "PREFIX": "인식을 위한 컴퓨터 훈련",
             "PREFIXREGRESSION": "Train a computer to predict ",
             "PREFIXLANGUAGE": "Train a computer to generate ",
+            "SHORTPREFIX": "recognise ",
+            "SHORTPREFIXREGRESSION": "predict ",
+            "SHORTPREFIXLANGUAGE": "generate ",
 
             "TEXT": "텍스트",
             "IMAGES": "이미지",
             "NUMBERS": "숫자",
             "SOUNDS": "소리",
             "FACES": "faces",
-            "REGRESSION": "predicting numbers"
+            "REGRESSION": "predicting numbers",
+
+            "DESCRIPTIONTEXT": "In these projects, you will collect examples of text and use these to train a machine learning model that can recognise new examples of text",
+            "DESCRIPTIONIMAGES": "In these projects, you will collect examples of images and use these to train a machine learning model that can recognise new examples of images",
+            "DESCRIPTIONNUMBERS": "In these projects, you will collect sets of numbers and use these to train a machine learning model that can recognise a set of numbers",
+            "DESCRIPTIONSOUNDS": "In these projects, you will collect short sound recordings and use these to train a machine learning model that can recognise those sounds",
+            "DESCRIPTIONFACES": "In these projects, you will use a pretrained model that has been trained to recognise the location of faces in images",
+            "DESCRIPTIONREGRESSION": "In these projects, you will collect examples of numbers, and use these to train a machine learning model to predict new numbers",
+            "DESCRIPTIONGENERATE": "In these projects, you will learn how Generative AI systems can create new text"
         },
 
         "LEVELS": {
@@ -1169,11 +1181,14 @@
         },
 
         "MAKETYPES": {
-            "ALL": "모든 종류의 프로젝트",
+            "TITLE": "Make with ",
 
             "SCRATCH": "스크래치 프로젝트",
             "PYTHON": "파이썬 프로젝트",
             "APPINVENTOR": "앱 인벤터 프로젝트",
+
+            "DESCRIPTIONSCRATCH": "In these projects, student will make a Scratch project that creates and uses machine learning models",
+            "DESCRIPTIONPYTHON": "In these projects, student make Python projects that creates and uses machine learning models",
 
             "SCRATCH_WORKSHEET": "스크래치 프로젝트를 위한 워크시트",
             "PYTHON_WORKSHEET": "파이썬 프로젝트를 위한 워크시트",

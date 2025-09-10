@@ -7,29 +7,150 @@
     <p translate="WORKSHEETS.INTRO_4"></p>
     <p class="small"><em><a href="https://github.com/IBM/taxinomitis-docs/blob/master/README.md#contributions" translate="WORKSHEETS.INTRO_3"></a></em></p>
 </div>
-<div class="worksheetfilters">
-    <md-select ng-model="projecttype" class="filter" aria-label="Filter by type of machine learning model">
-        <md-option value="ALL" translate="WORKSHEETS.TYPES.ALL"></md-option>
-        <md-option value="text">{{ 'WORKSHEETS.TYPES.PREFIX' | translate }} <strong translate="WORKSHEETS.TYPES.TEXT"></strong></md-option>
-        <md-option value="images">{{ 'WORKSHEETS.TYPES.PREFIX' | translate }} <strong translate="WORKSHEETS.TYPES.IMAGES"></strong></md-option>
-        <md-option value="numbers">{{ 'WORKSHEETS.TYPES.PREFIX' | translate }} <strong translate="WORKSHEETS.TYPES.NUMBERS"></strong></md-option>
-        <md-option value="sounds">{{ 'WORKSHEETS.TYPES.PREFIX' | translate }} <strong translate="WORKSHEETS.TYPES.SOUNDS"></strong></md-option>
-        <md-option value="faces">{{ 'WORKSHEETS.TYPES.PREFIX' | translate }} <strong translate="WORKSHEETS.TYPES.FACES"></strong></md-option>
-        <md-option value="regression">{{ 'WORKSHEETS.TYPES.PREFIXREGRESSION' | translate }} <strong translate="WORKSHEETS.TYPES.NUMBERS"></strong></md-option>
-        <md-option value="language">{{ 'WORKSHEETS.TYPES.PREFIXLANGUAGE' | translate }}  <strong translate="WORKSHEETS.TYPES.TEXT"></strong></md-option>
-    </md-select>
-    <md-select ng-model="projectdifficulty" class="filter" aria-label="Filter by project difficulty">
-        <md-option value="ALL" translate="WORKSHEETS.LEVELS.ALL"></md-option>
-        <md-option value="Beginner"><strong translate="WORKSHEETS.LEVELS.BEGINNER"></strong></md-option>
-        <md-option value="Intermediate"><strong translate="WORKSHEETS.LEVELS.INTERMEDIATE"></strong></md-option>
-        <md-option value="Advanced"><strong translate="WORKSHEETS.LEVELS.ADVANCED"></strong></md-option>
-    </md-select>
-    <md-select ng-model="projectmaketype" class="filter" aria-label="Filter by project type">
-        <md-option value="ALL" translate="WORKSHEETS.MAKETYPES.ALL"></md-option>
-        <md-option value="scratch"><strong translate="WORKSHEETS.MAKETYPES.SCRATCH"></strong></md-option>
-        <md-option value="python"><strong translate="WORKSHEETS.MAKETYPES.PYTHON"></strong></md-option>
-    </md-select>
-    <br clear="all"/>
+<div class="worksheetsheader">
+    <div class="worksheetfilters">
+        <div class="filter-group">
+            <div class="filter-title" translate="WORKSHEETS.TYPES.LONGTITLE"></div>
+            <div class="filter-options">
+                <md-radio-group ng-model="projecttype">
+                    <md-radio-button value="ALL" aria-label="All project types">
+                        <br/> <strong>All</strong>
+                        <md-tooltip md-direction="bottom" class="tooltipBody">{{ 'WORKSHEETS.TYPES.ALL' | translate }}</md-tooltip>
+                    </md-radio-button>
+                    <md-radio-button value="text" aria-label="Text projects">
+                        {{ 'WORKSHEETS.TYPES.SHORTPREFIX' | translate }} <strong translate="WORKSHEETS.TYPES.TEXT"></strong>
+                        <md-tooltip md-direction="bottom" class="tooltipBody">{{ 'WORKSHEETS.TYPES.DESCRIPTIONTEXT' | translate }}</md-tooltip>
+                    </md-radio-button>
+                    <md-radio-button value="images" aria-label="Image projects">
+                        {{ 'WORKSHEETS.TYPES.SHORTPREFIX' | translate }} <strong translate="WORKSHEETS.TYPES.IMAGES"></strong>
+                        <md-tooltip md-direction="bottom" class="tooltipBody">{{ 'WORKSHEETS.TYPES.DESCRIPTIONIMAGES' | translate }}</md-tooltip>
+                    </md-radio-button>
+                    <md-radio-button value="numbers" aria-label="Number projects">
+                        {{ 'WORKSHEETS.TYPES.SHORTPREFIX' | translate }} <strong translate="WORKSHEETS.TYPES.NUMBERS"></strong>
+                        <md-tooltip md-direction="bottom" class="tooltipBody">{{ 'WORKSHEETS.TYPES.DESCRIPTIONNUMBERS' | translate }}</md-tooltip>
+                    </md-radio-button>
+                    <md-radio-button value="sounds" aria-label="Sound projects">
+                        {{ 'WORKSHEETS.TYPES.SHORTPREFIX' | translate }} <strong translate="WORKSHEETS.TYPES.SOUNDS"></strong>
+                        <md-tooltip md-direction="bottom" class="tooltipBody">{{ 'WORKSHEETS.TYPES.DESCRIPTIONSOUNDS' | translate }}</md-tooltip>
+                    </md-radio-button>
+                    <md-radio-button value="faces" aria-label="Face projects">
+                        {{ 'WORKSHEETS.TYPES.SHORTPREFIX' | translate }} <strong translate="WORKSHEETS.TYPES.FACES"></strong>
+                        <md-tooltip md-direction="bottom" class="tooltipBody">{{ 'WORKSHEETS.TYPES.DESCRIPTIONFACES' | translate }}</md-tooltip>
+                    </md-radio-button>
+                    <md-radio-button value="regression" aria-label="Regression projects">
+                        {{ 'WORKSHEETS.TYPES.SHORTPREFIXREGRESSION' | translate }} <strong translate="WORKSHEETS.TYPES.NUMBERS"></strong>
+                        <md-tooltip md-direction="bottom" class="tooltipBody">{{ 'WORKSHEETS.TYPES.DESCRIPTIONREGRESSION' | translate }}</md-tooltip>
+                    </md-radio-button>
+                    <md-radio-button value="language" aria-label="Language projects">
+                        {{ 'WORKSHEETS.TYPES.SHORTPREFIXLANGUAGE' | translate }} <strong translate="WORKSHEETS.TYPES.TEXT"></strong>
+                        <md-tooltip md-direction="bottom" class="tooltipBody">{{ 'WORKSHEETS.TYPES.DESCRIPTIONGENERATE' | translate }}</md-tooltip>
+                    </md-radio-button>
+                </md-radio-group>
+            </div>
+        </div>
+        <div class="filter-group">
+            <div class="filter-title" translate="WORKSHEETS.LEVELS.TITLE"></div>
+            <div class="filter-options">
+                <md-radio-group ng-model="projectdifficulty">
+                    <md-radio-button value="ALL" aria-label="All difficulty levels">
+                        <strong>All</strong>
+                        <md-tooltip md-direction="bottom" class="tooltipBody">{{ 'WORKSHEETS.LEVELS.ALL' | translate }}</md-tooltip>
+                    </md-radio-button>
+                    <md-radio-button value="1" aria-label="1">
+                        <div class="difficulty">
+                            <img src="static/images/difficulty.svg">
+                        </div>
+                        <md-tooltip md-direction="bottom" class="tooltipBody">{{ 'WORKSHEETS.LEVELS.BEGINNER' | translate }}</md-tooltip>
+                    </md-radio-button>
+                    <md-radio-button value="2" aria-label="2">
+                        <div class="difficulty">
+                            <img src="static/images/difficulty.svg">
+                            <img src="static/images/difficulty.svg">
+                        </div>
+                        <md-tooltip md-direction="bottom" class="tooltipBody">{{ 'WORKSHEETS.LEVELS.INTERMEDIATE' | translate }}</md-tooltip>
+                    </md-radio-button>
+                    <md-radio-button value="3" aria-label="3">
+                        <div class="difficulty">
+                            <img src="static/images/difficulty.svg">
+                            <img src="static/images/difficulty.svg">
+                            <img src="static/images/difficulty.svg">
+                        </div>
+                        <md-tooltip md-direction="bottom" class="tooltipBody">{{ 'WORKSHEETS.LEVELS.ADVANCED' | translate }}</md-tooltip>
+                    </md-radio-button>
+                </md-radio-group>
+            </div>
+        </div>
+        <div class="filter-group">
+            <div class="filter-title" translate="WORKSHEETS.MAKETYPES.TITLE"></div>
+            <div class="filter-options">
+                <md-radio-group ng-model="projectmaketype">
+                    <md-radio-button value="ALL" aria-label="All make types">
+                        <strong>All</strong>
+                        <md-tooltip md-direction="bottom" class="tooltipBody">{{ 'WORKSHEETS.TYPES.ALL' | translate }}</md-tooltip>
+                    </md-radio-button>
+                    <md-radio-button value="scratch" aria-label="Scratch">
+                        <strong translate="WORKSHEETS.MAKETYPES.SCRATCH"></strong>
+                        <md-tooltip md-direction="bottom" class="tooltipBody">{{ 'WORKSHEETS.MAKETYPES.DESCRIPTIONSCRATCH' | translate }}</md-tooltip>
+                    </md-radio-button>
+                    <md-radio-button value="python" aria-label="Python">
+                        <strong translate="WORKSHEETS.MAKETYPES.PYTHON"></strong>
+                        <md-tooltip md-direction="bottom" class="tooltipBody">{{ 'WORKSHEETS.MAKETYPES.DESCRIPTIONPYTHON' | translate }}</md-tooltip>
+                    </md-radio-button>
+                </md-radio-group>
+            </div>
+        </div>
+    </div>
+    <div class="worksheetfeature">
+        <div class="title"><a ng-click="vm.downloadWorksheet($event, featuredWorksheet)">{{ featuredWorksheet.title }}</a></div>
+        <div class="worksheetframe-container">
+            <iframe class="worksheetfeaturevideo"
+                ng-src="{{featuredWorksheetVideo}}"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+                style="display: none;"
+                onload="this.style.display='block'; document.getElementById('worksheetfeaturevideofallback').style.display='none';"
+                onerror="this.style.display='none'; document.getElementById('worksheetfeaturevideofallback').style.display='block';"></iframe>
+            <div id="worksheetfeaturevideofallback" class="worksheetfeaturevideo worksheetfeaturevideofallback" style="display: block;">
+                <img ng-src="{{featuredWorksheet.image}}" alt="screenshot">
+            </div>
+        </div>
+        <div class="description" ng-repeat="description in featuredWorksheet.featured" ng-bind-html="description"></div>
+        <div class="summary">
+            <span   translate="WORKSHEETS.TYPES.PREFIX" ng-if="featuredWorksheet.type === 'text' || featuredWorksheet.type === 'images'"></span>
+            <strong translate="WORKSHEETS.TYPES.TEXT"   ng-if="featuredWorksheet.type === 'text'"></strong>
+            <strong translate="WORKSHEETS.TYPES.IMAGES" ng-if="featuredWorksheet.type === 'images'"></strong>
+        </div>
+        <div class="difficulty" ng-if="featuredWorksheet.difficulty === 1"><span translate="WORKSHEETS.LEVELS.TITLE"></span>:
+            <span>
+                <img src="static/images/difficulty.svg"/>
+                <md-tooltip md-direction="bottom" class="tooltipBody">{{ 'WORKSHEETS.LEVELS.BEGINNER' | translate }}</md-tooltip>
+            </span>
+        </div>
+        <div class="difficulty" ng-if="featuredWorksheet.difficulty === 2"><span translate="WORKSHEETS.LEVELS.TITLE"></span>:
+            <span>
+                <img src="static/images/difficulty.svg"/>
+                <img src="static/images/difficulty.svg"/>
+                <md-tooltip md-direction="bottom" class="tooltipBody">{{ 'WORKSHEETS.LEVELS.INTERMEDIATE' | translate }}</md-tooltip>
+            </span>
+        </div>
+        <div class="difficulty" ng-if="featuredWorksheet.difficulty === 3"><span translate="WORKSHEETS.LEVELS.TITLE"></span>:
+            <span>
+                <img src="static/images/difficulty.svg"/>
+                <img src="static/images/difficulty.svg"/>
+                <img src="static/images/difficulty.svg"/>
+                <md-tooltip md-direction="bottom" class="tooltipBody">{{ 'WORKSHEETS.LEVELS.ADVANCED' | translate }}</md-tooltip>
+            </span>
+        </div>
+        <div class="download">
+            <a ng-click="vm.downloadWorksheet($event, featuredWorksheet)" class="btn btn-primary">
+                <span class="glyphicon glyphicon-download-alt"> </span> {{ 'WORKSHEETS.DOWNLOAD' | translate }}
+            </a>
+        </div>
+        <div class="featurelabel">Featured project</div>
+    </div>
 </div>
 <div class="worksheets">
     <div ng-repeat="worksheet in vm.worksheets | filter : filterWorksheets as filteredWorksheets" class="worksheetcard">
@@ -44,7 +165,23 @@
             </div>
         </div>
         <div class="cardfooter">
-            <div class="difficulty"><span class="heading" translate="WORKSHEETS.LEVELS.TITLE"></span> {{worksheet.difficulty}}</div>
+            <div class="difficulty"><span class="heading" translate="WORKSHEETS.LEVELS.TITLE"></span>:
+                <span ng-if="worksheet.difficulty === 1" class="difficulty">
+                    <img src="static/images/difficulty.svg" >
+                    <md-tooltip md-direction="bottom" class="tooltipBody">{{ 'WORKSHEETS.LEVELS.BEGINNER' | translate }}</md-tooltip>
+                </span>
+                <span ng-if="worksheet.difficulty === 2" class="difficulty">
+                    <img src="static/images/difficulty.svg" >
+                    <img src="static/images/difficulty.svg" >
+                    <md-tooltip md-direction="bottom" class="tooltipBody">{{ 'WORKSHEETS.LEVELS.INTERMEDIATE' | translate }}</md-tooltip>
+                </span>
+                <span ng-if="worksheet.difficulty === 3" class="difficulty">
+                    <img src="static/images/difficulty.svg" >
+                    <img src="static/images/difficulty.svg" >
+                    <img src="static/images/difficulty.svg" >
+                    <md-tooltip md-direction="bottom" class="tooltipBody">{{ 'WORKSHEETS.LEVELS.ADVANCED' | translate }}</md-tooltip>
+                </span>
+            </div>
             <div class="projecttype">
                 <span class="heading" translate="WORKSHEETS.TYPES.TITLE" ng-hide="worksheet.type === 'regression' || worksheet.type === 'language'"></span>
                 <span class="heading" translate="PROJECTS.PREDICTING" ng-if="worksheet.type === 'regression'"></span>
@@ -61,18 +198,21 @@
         </div>
         <div class="cardfooter">
             <div class="maketype" ng-repeat="maketype in worksheet.maketypes">
-                <img ng-if="maketype === 'scratch2'"
+                <span><img ng-if="maketype === 'scratch2'"
                      src="static/images/logo-small-scratch2.png"
-                     alt="{{ 'WORKSHEETS.MAKETYPES.SCRATCH_WORKSHEET' | translate }}"
-                     title="{{ 'WORKSHEETS.MAKETYPES.SCRATCH_WORKSHEET' | translate }}"/>
-                <img ng-if="maketype === 'scratch3'"
+                     alt="{{ 'WORKSHEETS.MAKETYPES.SCRATCH_WORKSHEET' | translate }}"/>
+                     <md-tooltip md-direction="bottom" class="tooltipBody">{{ 'WORKSHEETS.MAKETYPES.DESCRIPTIONSCRATCH' | translate }}</md-tooltip>
+                     </span>
+                <span><img ng-if="maketype === 'scratch3'"
                      src="static/images/logo-small-scratch3.png"
-                     alt="{{ 'WORKSHEETS.MAKETYPES.SCRATCH_WORKSHEET' | translate }}"
-                     title="{{ 'WORKSHEETS.MAKETYPES.SCRATCH_WORKSHEET' | translate }}"/>
-                <img ng-if="maketype === 'python'"
+                     alt="{{ 'WORKSHEETS.MAKETYPES.SCRATCH_WORKSHEET' | translate }}"/>
+                     <md-tooltip md-direction="bottom" class="tooltipBody">{{ 'WORKSHEETS.MAKETYPES.DESCRIPTIONSCRATCH' | translate }}</md-tooltip>
+                     </span>
+                <span><img ng-if="maketype === 'python'"
                      src="static/images/logo-small-python.png"
-                     alt="{{ 'WORKSHEETS.MAKETYPES.PYTHON_WORKSHEET' | translate }}"
-                     title="{{ 'WORKSHEETS.MAKETYPES.PYTHON_WORKSHEET' | translate }}"/>
+                     alt="{{ 'WORKSHEETS.MAKETYPES.PYTHON_WORKSHEET' | translate }}"/>
+                     <md-tooltip md-direction="bottom" class="tooltipBody">{{ 'WORKSHEETS.MAKETYPES.DESCRIPTIONPYTHON' | translate }}</md-tooltip>
+                     </span>
             </div>
             <div class="tags" ng-hide="worksheet.providedby"><span class="heading">Tags:</span> {{ worksheet.tags.join(', ') }}</div>
             <div class="tags" ng-if="worksheet.providedby"><span class="heading">Provided by:</span> <a target="_blank" href="{{ worksheet.providedby.url }}">{{ worksheet.providedby.name }}</a></div>

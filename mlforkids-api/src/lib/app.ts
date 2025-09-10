@@ -16,7 +16,7 @@ import * as env from './utils/env';
 import loggerSetup from './utils/logger';
 
 const log = loggerSetup();
-let server: Server;
+let server: Server | undefined;
 
 // do this before doing anything!
 confirmRequiredEnvironment();
@@ -25,8 +25,8 @@ confirmRequiredEnvironment();
 process.on('uncaughtException', shutdown.crash);
 
 // terminate quickly if we get a SIGTERM signal
-process.on('SIGTERM', () => { shutdown.now('SIGTERM', server); });
-process.on('SIGINT', () => { shutdown.now('SIGINT', server); });
+process.on('SIGTERM', () => { shutdown.now('SIGTERM', server); server = undefined; });
+process.on('SIGINT', () => { shutdown.now('SIGINT', server); server = undefined; });
 
 // check if the site is running in read-only mode
 if (env.inMaintenanceMode()) {

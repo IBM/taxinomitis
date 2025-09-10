@@ -1096,23 +1096,35 @@
         "INTRO_4": "Examples of how to use these worksheets, and a suggested order for using these with a class, can be found in the <a href='/stories'>stories about what students learn</a>.",
         "TYPES": {
             "TITLE": "Cydnabod:",
-            "ALL": "Pob math o brosiect",
+            "LONGTITLE": "Train a computer to ",
+            "ALL": "See worksheets for all types of machine learning project",
             "PREFIX": "Hyfforddwch gyfrifiadur i adnabod ",
             "PREFIXREGRESSION": "Train a computer to predict ",
             "PREFIXLANGUAGE": "Train a computer to generate ",
+            "SHORTPREFIX": "recognise ",
+            "SHORTPREFIXREGRESSION": "predict ",
+            "SHORTPREFIXLANGUAGE": "generate ",
             "TEXT": "testun",
             "IMAGES": "delweddau",
             "NUMBERS": "rhifau",
             "SOUNDS": "synau",
             "FACES": "gwynebau",
-            "REGRESSION": "predicting numbers"
+            "REGRESSION": "predicting numbers",
+
+            "DESCRIPTIONTEXT": "In these projects, you will collect examples of text and use these to train a machine learning model that can recognise new examples of text",
+            "DESCRIPTIONIMAGES": "In these projects, you will collect examples of images and use these to train a machine learning model that can recognise new examples of images",
+            "DESCRIPTIONNUMBERS": "In these projects, you will collect sets of numbers and use these to train a machine learning model that can recognise a set of numbers",
+            "DESCRIPTIONSOUNDS": "In these projects, you will collect short sound recordings and use these to train a machine learning model that can recognise those sounds",
+            "DESCRIPTIONFACES": "In these projects, you will use a pretrained model that has been trained to recognise the location of faces in images",
+            "DESCRIPTIONREGRESSION": "In these projects, you will collect examples of numbers, and use these to train a machine learning model to predict new numbers",
+            "DESCRIPTIONGENERATE": "In these projects, you will learn how Generative AI systems can create new text"
         },
         "LEVELS": {
             "TITLE": "Lefel:",
             "ALL": "Pob Lefel",
-            "BEGINNER": "Prosiectau dechreuwyr",
-            "INTERMEDIATE": "Prosiectau canolradd",
-            "ADVANCED": "Prosiectau uwch"
+            "BEGINNER": "These worksheets include templates with most of the Scratch / Python code needed already created. They allow students to concentrate on the machine learning concepts. (They can be adapted to be more challenging by deleting some of the template contents and encouraging students to create it themselves)",
+            "INTERMEDIATE": "These worksheets include templates with some of the Scratch / Python code needed already created, but include at least one step where students will need to carefully extend the template code.",
+            "ADVANCED": "These worksheets ask students to create complex and challenging Scratch / Python code. They require students to pay careful attention to their coding in addition to understanding the machine learning concepts."
         },
         "DOWNLOAD": "Lawrlwytho",
         "DOWNLOADS": {
@@ -1135,10 +1147,12 @@
             }
         },
         "MAKETYPES": {
-            "ALL": "Pob math o brosiect",
+            "TITLE": "Make with ",
             "SCRATCH": "Prosiectau Scratch",
             "PYTHON": "Prosiectau Python",
             "APPINVENTOR": "Prosiectau App Inventor",
+            "DESCRIPTIONSCRATCH": "In these projects, student will make a Scratch project that creates and uses machine learning models",
+            "DESCRIPTIONPYTHON": "In these projects, student make Python projects that creates and uses machine learning models",
             "SCRATCH_WORKSHEET": "Taflen waith ar gyfer gwneud prosiect yn Scratch",
             "PYTHON_WORKSHEET": "Taflen waith ar gyfer gwneud prosiect yn Python",
             "APPINVENTOR_WORKSHEET": "Taflen waith ar gyfer gwneud prosiect yn App Inventor"

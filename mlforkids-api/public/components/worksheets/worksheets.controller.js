@@ -6,10 +6,10 @@
 
     WorksheetsController.$inject = [
         '$translate',
-        '$mdDialog', '$scope'
+        '$mdDialog', '$scope', '$location', '$sce'
     ];
 
-    function WorksheetsController($translate, $mdDialog, $scope) {
+    function WorksheetsController($translate, $mdDialog, $scope, $location, $sce) {
 
         var vm = this;
 
@@ -155,10 +155,6 @@
             'WORKSHEETS.PHISHING.WORKSHEET_1.URL',
             'WORKSHEETS.PHISHING.TEACHERSNOTES_URL',
 
-            // 'WORKSHEETS.KIWIORSTOAT.TITLE', 'WORKSHEETS.KIWIORSTOAT.SUMMARY', 'WORKSHEETS.KIWIORSTOAT.DESCRIPTION',
-            // 'WORKSHEETS.KIWIORSTOAT.WORKSHEET_1.URL',
-            // 'WORKSHEETS.KIWIORSTOAT.TEACHERSNOTES_URL',
-
             'WORKSHEETS.INKBLOTS.TITLE', 'WORKSHEETS.INKBLOTS.SUMMARY', 'WORKSHEETS.INKBLOTS.DESCRIPTION',
             'WORKSHEETS.INKBLOTS.WORKSHEET_1.URL',
             'WORKSHEETS.INKBLOTS.TEACHERSNOTES_URL',
@@ -231,10 +227,31 @@
         ]).then(function (translations) {
             vm.worksheets = [
                 {
+                    title : translations['WORKSHEETS.MAILMANMAX.TITLE'],
+                    summary : translations['WORKSHEETS.MAILMANMAX.SUMMARY'],
+                    description : translations['WORKSHEETS.MAILMANMAX.DESCRIPTION'],
+                    difficulty : 1,
+                    type : 'images',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-mailmanmax.png',
+                    tags : [ 'optical character recognition', 'handwriting recognition', 'image classification' ],
+                    teachersnotes : translations['WORKSHEETS.MAILMANMAX.TEACHERSNOTES_URL'],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.MAILMANMAX.WORKSHEET_1.URL']
+                        }
+                    ],
+                    featured : [
+                        "Train a machine learning model to recognise postcodes / zip codes.",
+                        "Learn about <strong>handwriting recognition</strong> by making a letter sorter in <strong>Scratch</strong>."
+                    ],
+                    video : 'vQPFEWFzVIY'
+                },
+                {
                     title : translations['WORKSHEETS.DESCRIBETHEGLASS.TITLE'],
                     summary : translations['WORKSHEETS.DESCRIBETHEGLASS.SUMMARY'],
                     description : translations['WORKSHEETS.DESCRIBETHEGLASS.DESCRIPTION'],
-                    difficulty : 'Beginner',
+                    difficulty : 1,
                     type : 'numbers',
                     maketypes : [ 'scratch3' ],
                     image : 'static/images/project-describetheglass.png',
@@ -244,28 +261,55 @@
                         {
                             worksheet : translations['WORKSHEETS.DESCRIBETHEGLASS.WORKSHEET_1.URL']
                         }
+                    ],
+                    featured : [
+                        "Train a machine learning model to predict your answers in <strong>Scratch</strong>.",
+                        "Learn about <strong>decision tree classifiers</strong> by training a model that learns when you would describe a glass as 'half-full' or as 'half-empty'."
+                    ],
+                    video : 'DzOZzLerHFk'
+                },
+                {
+                    title : translations['WORKSHEETS.LANGUAGEMODELS.TITLE'],
+                    summary : translations['WORKSHEETS.LANGUAGEMODELS.SUMMARY'],
+                    description : translations['WORKSHEETS.LANGUAGEMODELS.DESCRIPTION'],
+                    difficulty : 1,
+                    type : 'language',
+                    maketypes : [  ],
+                    image : 'static/images/project-languagemodels.png',
+                    tags : [ 'language models', 'LLM', 'generative AI' ],
+                    teachersnotes : translations['WORKSHEETS.LANGUAGEMODELS.TEACHERSNOTES_URL'],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.LANGUAGEMODELS.WORKSHEET_1.URL']
+                        }
                     ]
                 },
                 {
-                    title : translations['WORKSHEETS.POKEMONIMAGES.TITLE'],
-                    summary : translations['WORKSHEETS.POKEMONIMAGES.SUMMARY'],
-                    description : translations['WORKSHEETS.POKEMONIMAGES.DESCRIPTION'],
-                    difficulty : 'Beginner',
-                    type : 'images',
+                    title : translations['WORKSHEETS.ALIENLANGUAGE.TITLE'],
+                    summary : translations['WORKSHEETS.ALIENLANGUAGE.SUMMARY'],
+                    description : translations['WORKSHEETS.ALIENLANGUAGE.DESCRIPTION'],
+                    difficulty : 2,
+                    type : 'sounds',
                     maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-pokemonimages.png',
-                    tags : [ 'image classification', 'supervised learning' ],
+                    image : 'static/images/project-alienlanguage.png',
+                    tags : [ 'sound recognition', 'supervised learning' ],
+                    teachersnotes : translations['WORKSHEETS.ALIENLANGUAGE.TEACHERSNOTES_URL'],
                     downloads : [
                         {
-                            worksheet : translations['WORKSHEETS.POKEMONIMAGES.WORKSHEET_1.URL']
+                            worksheet : translations['WORKSHEETS.ALIENLANGUAGE.WORKSHEET_1.URL']
                         }
-                    ]
+                    ],
+                    featured : [
+                        "Train a machine learning model to recognise sounds.",
+                        "Learn about <strong>speech recognition</strong> by inventing an alien language and training an AI to understand it. Then tell an alien in <strong>Scratch</strong> what to do."
+                    ],
+                    video : 'hEZo3vEdzho'
                 },
                 {
                     title : translations['WORKSHEETS.CAPTCHA.TITLE'],
                     summary : translations['WORKSHEETS.CAPTCHA.SUMMARY'],
                     description : translations['WORKSHEETS.CAPTCHA.DESCRIPTION'],
-                    difficulty : 'Intermediate',
+                    difficulty : 2,
                     type : 'images',
                     maketypes : [ 'scratch3' ],
                     image : 'static/images/project-captcha.png',
@@ -274,17 +318,22 @@
                         {
                             worksheet : translations['WORKSHEETS.CAPTCHA.WORKSHEET_1.URL']
                         }
-                    ]
+                    ],
+                    featured : [
+                        "Train a machine learning model to solve CAPTCHA puzzles in <strong>Scratch</strong>.",
+                        "Learn about <strong>image recognition</strong> by training a model that learns to recognize some of the objects used in CAPTCHA puzzles."
+                    ],
+                    video : 'CreAx7eVWeA'
                 },
                 {
                     title : translations['WORKSHEETS.SMARTCLASSROOM.TITLE'],
                     summary : translations['WORKSHEETS.SMARTCLASSROOM.SUMMARY'],
                     description : translations['WORKSHEETS.SMARTCLASSROOM.DESCRIPTION'],
-                    difficulty : 'Beginner',
+                    difficulty : 1,
                     type : 'text',
                     maketypes : [ 'scratch3' ],
                     image : 'static/images/project-smartclassroom.png',
-                    tags : [ 'digital assistants', 'supervised learning' ],
+                    tags : [ 'virtual assistants', 'supervised learning' ],
                     teachersnotes : translations['WORKSHEETS.SMARTCLASSROOM.TEACHERSNOTES_URL'],
                     downloads : [
                         {
@@ -299,13 +348,75 @@
                             description : translations['WORKSHEETS.SMARTCLASSROOM.WORKSHEET_3.DESCRIPTION'],
                             worksheet : translations['WORKSHEETS.SMARTCLASSROOM.WORKSHEET_3.URL']
                         }
+                    ],
+                    featured : [
+                        "Train a machine learning model to recognise commands.",
+                        "Learn how <strong>virtual assistants</strong> such as Siri and Alexa work by making one in <strong>Scratch</strong>."
+                    ],
+                    video : 'PNKGAMBGVWg'
+                },
+                {
+                    title : translations['WORKSHEETS.SHYPANDA.TITLE'],
+                    summary : translations['WORKSHEETS.SHYPANDA.SUMMARY'],
+                    description : translations['WORKSHEETS.SHYPANDA.DESCRIPTION'],
+                    difficulty : 1,
+                    type : 'images',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-shypanda.png',
+                    tags : [ 'image classification', 'supervised learning' ],
+                    teachersnotes : translations['WORKSHEETS.SHYPANDA.TEACHERSNOTES_URL'],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.SHYPANDA.WORKSHEET_1.URL']
+                        }
                     ]
+                },
+                {
+                    title : translations['WORKSHEETS.STORYTELLER.TITLE'],
+                    summary : translations['WORKSHEETS.STORYTELLER.SUMMARY'],
+                    description : translations['WORKSHEETS.STORYTELLER.DESCRIPTION'],
+                    difficulty : 1,
+                    type : 'language',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-storyteller.png',
+                    tags : [ 'language models', 'LLM', 'generative AI' ],
+                    teachersnotes : translations['WORKSHEETS.STORYTELLER.TEACHERSNOTES_URL'],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.STORYTELLER.WORKSHEET_1.URL']
+                        }
+                    ],
+                    featured : [
+                        "Use <strong>generative AI</strong> to create stories and poems in <strong>Scratch</strong>.",
+                        "Learn about language models by using a variety of small language models in your browser."
+                    ],
+                    video : 'VhEMtDf3IPI'
+                },
+                {
+                    title : translations['WORKSHEETS.CATCHTHEBALL.TITLE'],
+                    summary : translations['WORKSHEETS.CATCHTHEBALL.SUMMARY'],
+                    description : translations['WORKSHEETS.CATCHTHEBALL.DESCRIPTION'],
+                    difficulty : 1,
+                    type : 'regression',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-catchtheball.png',
+                    tags : [ 'regression' ],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.CATCHTHEBALL.WORKSHEET_1.URL']
+                        }
+                    ],
+                    featured : [
+                        "Train a machine learning model to predict where a ball will land.",
+                        "Learn about <strong>regression</strong> by making a game in <strong>Scratch</strong> to catch balls thrown in a random direction."
+                    ],
+                    video : 'ztA9S-en4HQ'
                 },
                 {
                     title : translations['WORKSHEETS.ISPY.TITLE'],
                     summary : translations['WORKSHEETS.ISPY.SUMMARY'],
                     description : translations['WORKSHEETS.ISPY.DESCRIPTION'],
-                    difficulty : 'Beginner',
+                    difficulty : 2,
                     type : 'images',
                     maketypes : [ 'scratch3' ],
                     image : 'static/images/project-ispy.png',
@@ -314,28 +425,18 @@
                         {
                             worksheet : translations['WORKSHEETS.ISPY.WORKSHEET_1.URL']
                         }
-                    ]
-                },
-                {
-                    title : translations['WORKSHEETS.VOICETUNER.TITLE'],
-                    summary : translations['WORKSHEETS.VOICETUNER.SUMMARY'],
-                    description : translations['WORKSHEETS.VOICETUNER.DESCRIPTION'],
-                    difficulty : 'Beginner',
-                    type : 'sounds',
-                    maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-voicetuner.png',
-                    tags : [ 'pitch estimation', 'pretrained models' ],
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.VOICETUNER.WORKSHEET_1.URL']
-                        }
-                    ]
+                    ],
+                    featured : [
+                        "Use a pretrained model that has been trained to recognise objects in photos.",
+                        "Make a machine learning powered 'I Spy' game in <strong>Scratch</strong>, where you have to guess what the AI has recognised in a photo."
+                    ],
+                    video : 'nXwdUWTeYDo'
                 },
                 {
                     title : translations['WORKSHEETS.MAKEMEHAPPY.TITLE'],
                     summary : translations['WORKSHEETS.MAKEMEHAPPY.SUMMARY'],
                     description : translations['WORKSHEETS.MAKEMEHAPPY.DESCRIPTION'],
-                    difficulty : 'Beginner',
+                    difficulty : 1,
                     type : 'text',
                     maketypes : [ 'scratch3', 'python' ],
                     image : 'static/images/project-makemehappy.png',
@@ -354,13 +455,119 @@
                             description : translations['WORKSHEETS.MAKEMEHAPPY.WORKSHEET_3.DESCRIPTION'],
                             worksheet : translations['WORKSHEETS.MAKEMEHAPPY.WORKSHEET_3.URL']
                         }
-                    ]
+                    ],
+                    featured : [
+                        "Train a machine learning model to recognise compliments and insults.",
+                        "Learn about <strong>sentiment analysis</strong> by making a character in <strong>Scratch</strong> that reacts to what you say to it."
+                    ],
+                    video : 'IdU4EVTBpjA'
+                },
+                {
+                    title : translations['WORKSHEETS.PACMAN.TITLE'],
+                    summary : translations['WORKSHEETS.PACMAN.SUMMARY'],
+                    description : translations['WORKSHEETS.PACMAN.DESCRIPTION'],
+                    difficulty : 3,
+                    type : 'numbers',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-pacman.png',
+                    tags : [ 'decision tree learning' ],
+                    teachersnotes : translations['WORKSHEETS.PACMAN.TEACHERSNOTES_URL'],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.PACMAN.WORKSHEET_1.URL']
+                        }
+                    ],
+                    featured : [
+                        "Train a <strong>decision tree classifier</strong> to avoid the ghost.",
+                        "Learn about artificial intelligence in games by making a machine learning model-controlled Pac-Man in <strong>Scratch</strong>."
+                    ],
+                    video : '5oNjvYEEvDo'
+                },
+                {
+                    title : translations['WORKSHEETS.CARPOOL.TITLE'],
+                    summary : translations['WORKSHEETS.CARPOOL.SUMMARY'],
+                    description : translations['WORKSHEETS.CARPOOL.DESCRIPTION'],
+                    difficulty : 2,
+                    type : 'images',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-carpoolcheats.png',
+                    tags : [ 'image classification', 'supervised learning' ],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.CARPOOL.WORKSHEET_1.URL']
+                        }
+                    ],
+                    featured : [
+                        "Train a machine learning model to recognise whether there are passengers in a car.",
+                        "Learn about <strong>image recognition</strong> by making an artificial-intelligence powered traffic camera game in <strong>Scratch</strong>."
+                    ],
+                    video: 'ly2936QYFos'
+                },
+                {
+                    title : translations['WORKSHEETS.HOOPS.TITLE'],
+                    summary : translations['WORKSHEETS.HOOPS.SUMMARY'],
+                    description : translations['WORKSHEETS.HOOPS.DESCRIPTION'],
+                    difficulty : 1,
+                    type : 'regression',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-hoops.png',
+                    tags : [ 'regression' ],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.HOOPS.WORKSHEET_1.URL']
+                        }
+                    ],
+                    featured : [
+                        "Train a machine learning model to predict the best speed and direction to throw a basketball.",
+                        "Learn about <strong>regression</strong> by making an AI-controlled basketball game in <strong>Scratch</strong>."
+                    ],
+                    video : 'KS89KD91Vzs'
+                },
+                {
+                    title : translations['WORKSHEETS.SHOEBOX.TITLE'],
+                    summary : translations['WORKSHEETS.SHOEBOX.SUMMARY'],
+                    description : translations['WORKSHEETS.SHOEBOX.DESCRIPTION'],
+                    difficulty : 2,
+                    type : 'sounds',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-shoebox.png',
+                    tags : [ 'speech recognition' ],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.SHOEBOX.WORKSHEET_1.URL']
+                        }
+                    ],
+                    featured : [
+                        "Train a machine learning model to recognise spoken words, and use this to create a calculator.",
+                        "Learn about <strong>voice recognition</strong> by recreating an AI project from the 1960's in <strong>Scratch</strong>."
+                    ],
+                    video : 'uJA8LFBmDQA'
+                },
+                {
+                    title : translations['WORKSHEETS.POKEMONIMAGES.TITLE'],
+                    summary : translations['WORKSHEETS.POKEMONIMAGES.SUMMARY'],
+                    description : translations['WORKSHEETS.POKEMONIMAGES.DESCRIPTION'],
+                    difficulty : 1,
+                    type : 'images',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-pokemonimages.png',
+                    tags : [ 'image classification', 'supervised learning' ],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.POKEMONIMAGES.WORKSHEET_1.URL']
+                        }
+                    ],
+                    featured : [
+                        "Train a machine learning model to predict the type of a Pokémon in <strong>Scratch</strong>.",
+                        "Learn about <strong>image recognition</strong> by training a model that learns to predict the type of a Pokémon based on pictures of what different Pokémon look like"
+                    ],
+                    video : '1peXmWswoDY'
                 },
                 {
                     title : translations['WORKSHEETS.POKEMONSTATS.TITLE'],
                     summary : translations['WORKSHEETS.POKEMONSTATS.SUMMARY'],
                     description : translations['WORKSHEETS.POKEMONSTATS.DESCRIPTION'],
-                    difficulty : 'Beginner',
+                    difficulty : 1,
                     type : 'numbers',
                     maketypes : [ 'scratch3' ],
                     image : 'static/images/project-pokemonstatistics.png',
@@ -369,13 +576,300 @@
                         {
                             worksheet : translations['WORKSHEETS.POKEMONSTATS.WORKSHEET_1.URL']
                         }
+                    ],
+                    featured : [
+                        "Train a machine learning model to predict the type of a Pokémon in <strong>Scratch</strong>.",
+                        "Learn about <strong>decision tree classifiers</strong> by training a model that learns to predict the type of a Pokémon based on statistics that describe their size, health, and abilities."
+                    ],
+                    video : '_aZPRHKtqyI'
+                },
+                {
+                    title : translations['WORKSHEETS.NOUGHTSANDCROSSES.TITLE'],
+                    summary : translations['WORKSHEETS.NOUGHTSANDCROSSES.SUMMARY'],
+                    description : translations['WORKSHEETS.NOUGHTSANDCROSSES.DESCRIPTION'],
+                    difficulty : 3,
+                    type : 'numbers',
+                    maketypes : [ 'python' ],
+                    image : 'static/images/project-noughtsandcrosses.png',
+                    tags : [ 'decision tree learning', 'categorical data' ],
+                    teachersnotes : translations['WORKSHEETS.NOUGHTSANDCROSSES.TEACHERSNOTES_URL'],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.NOUGHTSANDCROSSES.WORKSHEET_2.URL']
+                        }
                     ]
+                },
+                {
+                    title : translations['WORKSHEETS.FACEFINDER.TITLE'],
+                    summary : translations['WORKSHEETS.FACEFINDER.SUMMARY'],
+                    description : translations['WORKSHEETS.FACEFINDER.DESCRIPTION'],
+                    difficulty : 1,
+                    type : 'faces',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-facefinder.png',
+                    tags : [ 'face detection' ],
+                    teachersnotes : translations['WORKSHEETS.FACEFINDER.TEACHERSNOTES_URL'],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.FACEFINDER.WORKSHEET_1.URL']
+                        }
+                    ],
+                    featured : [
+                        "Use a pretrained machine learning model that has been trained to recognise the location of faces in photos.",
+                        "Learn about <strong>face detection</strong> by creating animated face filters in <strong>Scratch</strong>."
+                    ],
+                    video : 'OSVEelf9Ksk'
+                },
+                {
+                    title : translations['WORKSHEETS.ROCKPAPERSCISSORS.TITLE'],
+                    summary : translations['WORKSHEETS.ROCKPAPERSCISSORS.SUMMARY'],
+                    description : translations['WORKSHEETS.ROCKPAPERSCISSORS.DESCRIPTION'],
+                    difficulty : 2,
+                    type : 'images',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-rockpaperscissors.png',
+                    tags : [ 'image classification', 'supervised learning' ],
+                    teachersnotes : translations['WORKSHEETS.ROCKPAPERSCISSORS.TEACHERSNOTES_URL'],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.ROCKPAPERSCISSORS.WORKSHEET_1.URL']
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.SHOOTTHEBUG.TITLE'],
+                    summary : translations['WORKSHEETS.SHOOTTHEBUG.SUMMARY'],
+                    description : translations['WORKSHEETS.SHOOTTHEBUG.DESCRIPTION'],
+                    difficulty : 3,
+                    type : 'regression',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-shootthebug.png',
+                    tags : [ 'regression' ],
+                    teachersnotes : translations['WORKSHEETS.SHOOTTHEBUG.TEACHERSNOTES_URL'],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.SHOOTTHEBUG.WORKSHEET_1.URL']
+                        }
+                    ],
+                    featured : [
+                        "Learn about machine learning by making a Space Invaders game in <strong>Scratch</strong>.",
+                        "Train a <strong>regression</strong> model that chooses the direction to fire the ball."
+                    ],
+                    video : 'g80X4r_UO6I'
+                },
+                {
+                    title : translations['WORKSHEETS.RAGTIME.TITLE'],
+                    summary : translations['WORKSHEETS.RAGTIME.SUMMARY'],
+                    description : translations['WORKSHEETS.RAGTIME.DESCRIPTION'],
+                    difficulty : 2,
+                    type : 'language',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-ragtime.png',
+                    tags : [ 'language models', 'LLM', 'generative AI', 'RAG' ],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.RAGTIME.WORKSHEET_1.URL']
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.EXPLAINABILITY.TITLE'],
+                    summary : translations['WORKSHEETS.EXPLAINABILITY.SUMMARY'],
+                    description : translations['WORKSHEETS.EXPLAINABILITY.DESCRIPTION'],
+                    difficulty : 2,
+                    type : 'images',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-explainability.png',
+                    tags : [ 'image recognition', 'explainable AI', 'xai' ],
+                    teachersnotes : translations['WORKSHEETS.EXPLAINABILITY.TEACHERSNOTES_URL'],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.EXPLAINABILITY.WORKSHEET_1.URL']
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.VOICETUNER.TITLE'],
+                    summary : translations['WORKSHEETS.VOICETUNER.SUMMARY'],
+                    description : translations['WORKSHEETS.VOICETUNER.DESCRIPTION'],
+                    difficulty : 2,
+                    type : 'sounds',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-voicetuner.png',
+                    tags : [ 'pitch estimation', 'pretrained models' ],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.VOICETUNER.WORKSHEET_1.URL']
+                        }
+                    ],
+                    featured : [
+                        "Use a pretrained model that has been trained to recognise the note that you are singing.",
+                        "Learn about <strong>pitch estimation</strong> by making an AI-powered voice tuner in <strong>Scratch</strong> where you need to hum or sing a particular note."
+                    ],
+                    video : 'h7pTb5Ma8Hs'
+                },
+                {
+                    title : translations['WORKSHEETS.NEWSPAPERSHELVES.TITLE'],
+                    summary : translations['WORKSHEETS.NEWSPAPERSHELVES.SUMMARY'],
+                    description : translations['WORKSHEETS.NEWSPAPERSHELVES.DESCRIPTION'],
+                    difficulty : 2,
+                    type : 'text',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-headlines-easy.png',
+                    tags : [ 'text classification', 'supervised learning' ],
+                    teachersnotes : translations['WORKSHEETS.NEWSPAPERSHELVES.TEACHERSNOTES_URL'],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.NEWSPAPERSHELVES.WORKSHEET_1.URL']
+                        }
+                    ],
+                    featured : [
+                        "Train a machine learning model to recognise the use of language in different newspapers.",
+                        "Learn about <strong>text classifiers</strong> by making a game in <strong>Scratch</strong> that predicts the newspaper that new headlines came from."
+                    ],
+                    video : 'Rv2BumNSxEo'
+                },
+                {
+                    title : translations['WORKSHEETS.LASEREYES.TITLE'],
+                    summary : translations['WORKSHEETS.LASEREYES.SUMMARY'],
+                    description : translations['WORKSHEETS.LASEREYES.DESCRIPTION'],
+                    difficulty : 2,
+                    type : 'sounds',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-lasereyes.png',
+                    tags : [ 'speech recognition', 'face detection' ],
+                    teachersnotes : translations['WORKSHEETS.LASEREYES.TEACHERSNOTES_URL'],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.LASEREYES.WORKSHEET_1.URL']
+                        }
+                    ],
+                    featured : [
+                        "Learn about machine learning by making a voice-powered laser eyes game in <strong>Scratch</strong>.",
+                        "Train a <strong>speech recognition</strong> model to activate the lasers, and use a pretrained <strong>face detection</strong> model to aim the laser."
+                    ],
+                    video : 'bv-QAAebBa4'
+                },
+                {
+                    title : translations['WORKSHEETS.CHAMELEON.TITLE'],
+                    summary : translations['WORKSHEETS.CHAMELEON.SUMMARY'],
+                    description : translations['WORKSHEETS.CHAMELEON.DESCRIPTION'],
+                    difficulty : 2,
+                    type : 'images',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-chameleon.png',
+                    tags : [ 'image classification', 'supervised learning' ],
+                    teachersnotes : translations['WORKSHEETS.CHAMELEON.TEACHERSNOTES_URL'],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.CHAMELEON.WORKSHEET_1.URL']
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.ZOMBIEESCAPE.TITLE'],
+                    summary : translations['WORKSHEETS.ZOMBIEESCAPE.SUMMARY'],
+                    description : translations['WORKSHEETS.ZOMBIEESCAPE.DESCRIPTION'],
+                    difficulty : 3,
+                    type : 'numbers',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-zombieescape.png',
+                    tags : [ 'supervised learning', 'feature selection', 'decision tree learning' ],
+                    teachersnotes : translations['WORKSHEETS.ZOMBIEESCAPE.TEACHERSNOTES_URL'],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.ZOMBIEESCAPE.WORKSHEET_1.URL']
+                        }
+                    ],
+                    featured : [
+                        "Train a robot to escape the zombies!",
+                        "Learn about <strong>feature selection</strong> by training a custom <strong>decision tree classifier</strong> in <strong>Scratch</strong> that your robot will use to make decisions about where to go next."
+                    ],
+                    video : '4ygpX_jboP4'
+                },
+                {
+                    title : translations['WORKSHEETS.RECOMMENDER.TITLE'],
+                    summary : translations['WORKSHEETS.RECOMMENDER.SUMMARY'],
+                    description : translations['WORKSHEETS.RECOMMENDER.DESCRIPTION'],
+                    difficulty : 2,
+                    type : 'images',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-recommender.png',
+                    tags : [ 'image classification', 'recommendations' ],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.RECOMMENDER.WORKSHEET_1.URL']
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.SECRETCODE.TITLE'],
+                    summary : translations['WORKSHEETS.SECRETCODE.SUMMARY'],
+                    description : translations['WORKSHEETS.SECRETCODE.DESCRIPTION'],
+                    difficulty : 2,
+                    type : 'sounds',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-secretcode.png',
+                    tags : [ 'speech recognition', 'sound recognition', 'supervised learning' ],
+                    teachersnotes : translations['WORKSHEETS.SECRETCODE.TEACHERSNOTES_URL'],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.SECRETCODE.WORKSHEET_1.URL']
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.JUDGEABOOK.TITLE'],
+                    summary : translations['WORKSHEETS.JUDGEABOOK.SUMMARY'],
+                    description : translations['WORKSHEETS.JUDGEABOOK.DESCRIPTION'],
+                    difficulty : 2,
+                    type : 'images',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-judgeabook.png',
+                    tags : [ 'image classification', 'supervised learning' ],
+                    teachersnotes : translations['WORKSHEETS.JUDGEABOOK.TEACHERSNOTES_URL'],
+                    downloads : [
+                        {
+                            description : translations['WORKSHEETS.JUDGEABOOK.WORKSHEET_1.DESCRIPTION'],
+                            worksheet : translations['WORKSHEETS.JUDGEABOOK.WORKSHEET_1.URL']
+                        },
+                        {
+                            description : translations['WORKSHEETS.JUDGEABOOK.WORKSHEET_2.DESCRIPTION'],
+                            worksheet : translations['WORKSHEETS.JUDGEABOOK.WORKSHEET_2.URL']
+                        }
+                    ],
+                    featured : [
+                        "Train a machine learning model to recognise book genres from the cover.",
+                        "Learn about <strong>image recognition</strong> by making a game in <strong>Scratch</strong>."
+                    ],
+                    video : 'ek1lHrPjtgo'
+                },
+                {
+                    title : translations['WORKSHEETS.TOURISTINFO.TITLE'],
+                    summary : translations['WORKSHEETS.TOURISTINFO.SUMMARY'],
+                    description : translations['WORKSHEETS.TOURISTINFO.DESCRIPTION'],
+                    difficulty : 2,
+                    type : 'text',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-touristinfo.png',
+                    tags : [ 'training bias', 'recommendations', 'supervised learning' ],
+                    teachersnotes : translations['WORKSHEETS.TOURISTINFO.TEACHERSNOTES_URL'],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.TOURISTINFO.WORKSHEET_1.URL']
+                        }
+                    ],
+                    featured : [
+                        "Train a machine learning model to make holiday recommendations.",
+                        "Learn about <strong>training bias</strong> and <strong>ethics in AI</strong> by intentionally making a biased app in <strong>Scratch</strong>."
+                    ],
+                    video : 'Afu7k3x61wA'
                 },
                 {
                     title : translations['WORKSHEETS.SNAP.TITLE'],
                     summary : translations['WORKSHEETS.SNAP.SUMMARY'],
                     description : translations['WORKSHEETS.SNAP.DESCRIPTION'],
-                    difficulty : 'Beginner',
+                    difficulty : 2,
                     type : 'images',
                     maketypes : [ 'scratch3' ],
                     image : 'static/images/project-snap.png',
@@ -391,138 +885,18 @@
                             worksheet : translations['WORKSHEETS.SNAP.WORKSHEET_2.URL'],
                             resources : translations['WORKSHEETS.SNAP.WORKSHEET_2.RESOURCES']
                         }
-                    ]
-                },
-                {
-                    title : translations['WORKSHEETS.QUIZSHOW.TITLE'],
-                    summary : translations['WORKSHEETS.QUIZSHOW.SUMMARY'],
-                    description : translations['WORKSHEETS.QUIZSHOW.DESCRIPTION'],
-                    difficulty : 'Beginner',
-                    type : 'text',
-                    maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-quizshow.png',
-                    tags : [ 'question answering' ],
-                    teachersnotes : translations['WORKSHEETS.QUIZSHOW.TEACHERSNOTES_URL'],
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.QUIZSHOW.WORKSHEET_1.URL']
-                        }
-                    ]
-                },
-                {
-                    title : translations['WORKSHEETS.CARPOOL.TITLE'],
-                    summary : translations['WORKSHEETS.CARPOOL.SUMMARY'],
-                    description : translations['WORKSHEETS.CARPOOL.DESCRIPTION'],
-                    difficulty : 'Beginner',
-                    type : 'images',
-                    maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-carpoolcheats.png',
-                    tags : [ 'image classification', 'supervised learning' ],
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.CARPOOL.WORKSHEET_1.URL']
-                        }
-                    ]
-                },
-                {
-                    title : translations['WORKSHEETS.CHAMELEON.TITLE'],
-                    summary : translations['WORKSHEETS.CHAMELEON.SUMMARY'],
-                    description : translations['WORKSHEETS.CHAMELEON.DESCRIPTION'],
-                    difficulty : 'Beginner',
-                    type : 'images',
-                    maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-chameleon.png',
-                    tags : [ 'image classification', 'supervised learning' ],
-                    teachersnotes : translations['WORKSHEETS.CHAMELEON.TEACHERSNOTES_URL'],
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.CHAMELEON.WORKSHEET_1.URL']
-                        }
-                    ]
-                },
-                {
-                    title : translations['WORKSHEETS.TITANIC.TITLE'],
-                    summary : translations['WORKSHEETS.TITANIC.SUMMARY'],
-                    description : translations['WORKSHEETS.TITANIC.DESCRIPTION'],
-                    difficulty : 'Beginner',
-                    type : 'numbers',
-                    maketypes : [ 'python' ],
-                    image : 'static/images/project-titanic.png',
-                    tags : [ 'predictive model', 'supervised learning' ],
-                    teachersnotes : translations['WORKSHEETS.TITANIC.TEACHERSNOTES_URL'],
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.TITANIC.WORKSHEET_1.URL']
-                        }
-                    ]
-                },
-                {
-                    title : translations['WORKSHEETS.MAILMANMAX.TITLE'],
-                    summary : translations['WORKSHEETS.MAILMANMAX.SUMMARY'],
-                    description : translations['WORKSHEETS.MAILMANMAX.DESCRIPTION'],
-                    difficulty : 'Beginner',
-                    type : 'images',
-                    maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-mailmanmax.png',
-                    tags : [ 'optical character recognition', 'handwriting recognition', 'image classification' ],
-                    teachersnotes : translations['WORKSHEETS.MAILMANMAX.TEACHERSNOTES_URL'],
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.MAILMANMAX.WORKSHEET_1.URL']
-                        }
-                    ]
-                },
-                {
-                    title : translations['WORKSHEETS.CATCHTHEBALL.TITLE'],
-                    summary : translations['WORKSHEETS.CATCHTHEBALL.SUMMARY'],
-                    description : translations['WORKSHEETS.CATCHTHEBALL.DESCRIPTION'],
-                    difficulty : 'Beginner',
-                    type : 'regression',
-                    maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-catchtheball.png',
-                    tags : [ 'regression' ],
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.CATCHTHEBALL.WORKSHEET_1.URL']
-                        }
-                    ]
-                },
-                {
-                    title : translations['WORKSHEETS.HOOPS.TITLE'],
-                    summary : translations['WORKSHEETS.HOOPS.SUMMARY'],
-                    description : translations['WORKSHEETS.HOOPS.DESCRIPTION'],
-                    difficulty : 'Beginner',
-                    type : 'regression',
-                    maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-hoops.png',
-                    tags : [ 'regression' ],
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.HOOPS.WORKSHEET_1.URL']
-                        }
-                    ]
-                },
-                {
-                    title : translations['WORKSHEETS.SHOOTTHEBUG.TITLE'],
-                    summary : translations['WORKSHEETS.SHOOTTHEBUG.SUMMARY'],
-                    description : translations['WORKSHEETS.SHOOTTHEBUG.DESCRIPTION'],
-                    difficulty : 'Intermediate',
-                    type : 'regression',
-                    maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-shootthebug.png',
-                    tags : [ 'regression' ],
-                    teachersnotes : translations['WORKSHEETS.SHOOTTHEBUG.TEACHERSNOTES_URL'],
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.SHOOTTHEBUG.WORKSHEET_1.URL']
-                        }
-                    ]
+                    ],
+                    featured : [
+                        "Train a machine learning model to recognise coloured shapes.",
+                        "Learn about <strong>image recognition</strong> by making a Snap game in <strong>Scratch</strong>."
+                    ],
+                    video : 'B_c6ZovBKcY'
                 },
                 {
                     title : translations['WORKSHEETS.CARORCUP.TITLE'],
                     summary : translations['WORKSHEETS.CARORCUP.SUMMARY'],
                     description : translations['WORKSHEETS.CARORCUP.DESCRIPTION'],
-                    difficulty : 'Beginner',
+                    difficulty : 1,
                     type : 'images',
                     maketypes : [ 'scratch3' ],
                     image : 'static/images/project-carorcup.png',
@@ -540,125 +914,10 @@
                     ]
                 },
                 {
-                    title : translations['WORKSHEETS.FACELOCK.TITLE'],
-                    summary : translations['WORKSHEETS.FACELOCK.SUMMARY'],
-                    description : translations['WORKSHEETS.FACELOCK.DESCRIPTION'],
-                    difficulty : 'Beginner',
-                    type : 'images',
-                    maketypes : [ 'scratch2' ],
-                    image : 'static/images/project-facelock.png',
-                    tags : [ 'facial recognition', 'biometrics', 'image classification', 'supervised learning' ],
-                    teachersnotes : translations['WORKSHEETS.FACELOCK.TEACHERSNOTES_URL'],
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.FACELOCK.WORKSHEET_1.URL']
-                        }
-                    ]
-                },
-                {
-                    title : translations['WORKSHEETS.JOURNEYTOSCHOOL.TITLE'],
-                    summary : translations['WORKSHEETS.JOURNEYTOSCHOOL.SUMMARY'],
-                    description : translations['WORKSHEETS.JOURNEYTOSCHOOL.DESCRIPTION'],
-                    difficulty : 'Beginner',
-                    type : 'numbers',
-                    maketypes : [ 'scratch2' ],
-                    image : 'static/images/project-journeytoschool.png',
-                    tags : [ 'predictive model', 'testing and accuracy', 'supervised learning' ],
-                    teachersnotes : translations['WORKSHEETS.JOURNEYTOSCHOOL.TEACHERSNOTES_URL'],
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.JOURNEYTOSCHOOL.WORKSHEET_1.URL']
-                        }
-                    ]
-                },
-                {
-                    title : translations['WORKSHEETS.SHYPANDA.TITLE'],
-                    summary : translations['WORKSHEETS.SHYPANDA.SUMMARY'],
-                    description : translations['WORKSHEETS.SHYPANDA.DESCRIPTION'],
-                    difficulty : 'Beginner',
-                    type : 'images',
-                    maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-shypanda.png',
-                    tags : [ 'image classification', 'supervised learning' ],
-                    teachersnotes : translations['WORKSHEETS.SHYPANDA.TEACHERSNOTES_URL'],
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.SHYPANDA.WORKSHEET_1.URL']
-                        }
-                    ]
-                },
-                {
-                    title : translations['WORKSHEETS.ALIENLANGUAGE.TITLE'],
-                    summary : translations['WORKSHEETS.ALIENLANGUAGE.SUMMARY'],
-                    description : translations['WORKSHEETS.ALIENLANGUAGE.DESCRIPTION'],
-                    difficulty : 'Beginner',
-                    type : 'sounds',
-                    maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-alienlanguage.png',
-                    tags : [ 'sound recognition', 'supervised learning' ],
-                    teachersnotes : translations['WORKSHEETS.ALIENLANGUAGE.TEACHERSNOTES_URL'],
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.ALIENLANGUAGE.WORKSHEET_1.URL']
-                        }
-                    ]
-                },
-                // {
-                //     title : translations['WORKSHEETS.KIWIORSTOAT.TITLE'],
-                //     summary : translations['WORKSHEETS.KIWIORSTOAT.SUMMARY'],
-                //     description : translations['WORKSHEETS.KIWIORSTOAT.DESCRIPTION'],
-                //     difficulty : 'Beginner',
-                //     type : 'images',
-                //     maketypes : [ 'scratch3' ],
-                //     image : 'static/images/project-kiwiorstoat.png',
-                //     tags : [ 'image classification', 'supervised learning' ],
-                //     downloads : [
-                //         {
-                //             worksheet : translations['WORKSHEETS.KIWIORSTOAT.WORKSHEET_1.URL']
-                //         }
-                //     ],
-                //     providedby : {
-                //         name: 'Wildlife.ai',
-                //         url: 'https://www.wildlife.ai/about-us/',
-                //         embed: $sce.trustAsHtml('<div class="worksheetcardembeddiv"><iframe src="https://player.vimeo.com/video/378414131?byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>')
-                //     }
-                // },
-                {
-                    title : translations['WORKSHEETS.MOBILENET.TITLE'],
-                    summary : translations['WORKSHEETS.MOBILENET.SUMMARY'],
-                    description : translations['WORKSHEETS.MOBILENET.DESCRIPTION'],
-                    difficulty : 'Beginner',
-                    type : 'images',
-                    maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-mobilenet.png',
-                    tags : [ 'image recognition', 'pretrained models' ],
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.MOBILENET.WORKSHEET_1.URL']
-                        }
-                    ]
-                },
-                {
-                    title : translations['WORKSHEETS.PACMAN.TITLE'],
-                    summary : translations['WORKSHEETS.PACMAN.SUMMARY'],
-                    description : translations['WORKSHEETS.PACMAN.DESCRIPTION'],
-                    difficulty : 'Intermediate',
-                    type : 'numbers',
-                    maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-pacman.png',
-                    tags : [ 'decision tree learning' ],
-                    teachersnotes : translations['WORKSHEETS.PACMAN.TEACHERSNOTES_URL'],
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.PACMAN.WORKSHEET_1.URL']
-                        }
-                    ]
-                },
-                {
                     title : translations['WORKSHEETS.CHATBOTS.TITLE'],
                     summary : translations['WORKSHEETS.CHATBOTS.SUMMARY'],
                     description : translations['WORKSHEETS.CHATBOTS.DESCRIPTION'],
-                    difficulty : 'Intermediate',
+                    difficulty : 2,
                     type : 'text',
                     maketypes : [ 'scratch3', 'python' ],
                     image : 'static/images/project-chatbots.png',
@@ -676,18 +935,143 @@
                     ]
                 },
                 {
-                    title : translations['WORKSHEETS.ZOMBIEESCAPE.TITLE'],
-                    summary : translations['WORKSHEETS.ZOMBIEESCAPE.SUMMARY'],
-                    description : translations['WORKSHEETS.ZOMBIEESCAPE.DESCRIPTION'],
-                    difficulty : 'Intermediate',
-                    type : 'numbers',
+                    title : translations['WORKSHEETS.MOBILENET.TITLE'],
+                    summary : translations['WORKSHEETS.MOBILENET.SUMMARY'],
+                    description : translations['WORKSHEETS.MOBILENET.DESCRIPTION'],
+                    difficulty : 1,
+                    type : 'images',
                     maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-zombieescape.png',
-                    tags : [ 'supervised learning', 'feature selection', 'decision tree learning' ],
-                    teachersnotes : translations['WORKSHEETS.ZOMBIEESCAPE.TEACHERSNOTES_URL'],
+                    image : 'static/images/project-mobilenet.png',
+                    tags : [ 'image recognition', 'pretrained models' ],
                     downloads : [
                         {
-                            worksheet : translations['WORKSHEETS.ZOMBIEESCAPE.WORKSHEET_1.URL']
+                            worksheet : translations['WORKSHEETS.MOBILENET.WORKSHEET_1.URL']
+                        }
+                    ],
+                    featured : [
+                        "Use a pretrained model that has been trained to recognise objects in photos.",
+                        "Make a game in <strong>Scratch</strong> that can name the object that you point at in a photo."
+                    ],
+                    video : 'cpCeaR9KTF8'
+                },
+                {
+                    title : translations['WORKSHEETS.EMOJIMASK.TITLE'],
+                    summary : translations['WORKSHEETS.EMOJIMASK.SUMMARY'],
+                    description : translations['WORKSHEETS.EMOJIMASK.DESCRIPTION'],
+                    difficulty : 2,
+                    type : 'faces',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-emojimask.png',
+                    tags : [ 'face detection' ],
+                    teachersnotes : translations['WORKSHEETS.EMOJIMASK.TEACHERSNOTES_URL'],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.EMOJIMASK.WORKSHEET_1.URL']
+                        }
+                    ],
+                    video_reqd_for_featured : [
+                        "Use a pretrained machine learning model that has been trained to recognise the location of faces in photos",
+                        "Learn about <strong>face detection</strong> by making a live emoji mask in <strong>Scratch</strong>"
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.HEADLINETESTING.TITLE'],
+                    summary : translations['WORKSHEETS.HEADLINETESTING.SUMMARY'],
+                    description : translations['WORKSHEETS.HEADLINETESTING.DESCRIPTION'],
+                    difficulty : 3,
+                    type : 'text',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-headlines.png',
+                    tags : [ 'text classification', 'supervised learning', 'testing' ],
+                    teachersnotes : translations['WORKSHEETS.HEADLINETESTING.TEACHERSNOTES_URL'],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.HEADLINETESTING.WORKSHEET_1.URL']
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.FOOLED.TITLE'],
+                    summary : translations['WORKSHEETS.FOOLED.SUMMARY'],
+                    description : translations['WORKSHEETS.FOOLED.DESCRIPTION'],
+                    difficulty : 2,
+                    type : 'images',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-fooled.png',
+                    tags : [ 'image classification', 'supervised learning', 'overfitting' ],
+                    teachersnotes : translations['WORKSHEETS.FOOLED.TEACHERSNOTES_URL'],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.FOOLED.WORKSHEET_1.URL']
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.QUIZSHOW.TITLE'],
+                    summary : translations['WORKSHEETS.QUIZSHOW.SUMMARY'],
+                    description : translations['WORKSHEETS.QUIZSHOW.DESCRIPTION'],
+                    difficulty : 1,
+                    type : 'text',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-quizshow.png',
+                    tags : [ 'question answering' ],
+                    teachersnotes : translations['WORKSHEETS.QUIZSHOW.TEACHERSNOTES_URL'],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.QUIZSHOW.WORKSHEET_1.URL']
+                        }
+                    ],
+                    featured : [
+                        "Use a pretrained machine learning model that can find answers to questions in text.",
+                        "Learn about <strong>information retrieval</strong> techniques that predated language models by making a quiz show game in <strong>Scratch</strong>."
+                    ],
+                    video : '6Vo7xBfDdEU'
+                },
+                {
+                    title : translations['WORKSHEETS.TOPTRUMPS.TITLE'],
+                    summary : translations['WORKSHEETS.TOPTRUMPS.SUMMARY'],
+                    description : translations['WORKSHEETS.TOPTRUMPS.DESCRIPTION'],
+                    difficulty : 3,
+                    type : 'numbers',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-toptrumps.png',
+                    tags : [ 'decision tree learning', 'categorical data' ],
+                    teachersnotes : translations['WORKSHEETS.TOPTRUMPS.TEACHERSNOTES_URL'],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.TOPTRUMPS.WORKSHEET_1.URL']
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.JARGONBUSTER.TITLE'],
+                    summary : translations['WORKSHEETS.JARGONBUSTER.SUMMARY'],
+                    description : translations['WORKSHEETS.JARGONBUSTER.DESCRIPTION'],
+                    difficulty : 2,
+                    type : 'sounds',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-jargonbuster.png',
+                    tags : [ 'speech recognition', 'sound recognition', 'supervised learning' ],
+                    teachersnotes : translations['WORKSHEETS.JARGONBUSTER.TEACHERSNOTES_URL'],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.JARGONBUSTER.WORKSHEET_1.URL']
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.TITANIC.TITLE'],
+                    summary : translations['WORKSHEETS.TITANIC.SUMMARY'],
+                    description : translations['WORKSHEETS.TITANIC.DESCRIPTION'],
+                    difficulty : 1,
+                    type : 'numbers',
+                    maketypes : [ 'python' ],
+                    image : 'static/images/project-titanic.png',
+                    tags : [ 'predictive model', 'supervised learning' ],
+                    teachersnotes : translations['WORKSHEETS.TITANIC.TEACHERSNOTES_URL'],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.TITANIC.WORKSHEET_1.URL']
                         }
                     ]
                 },
@@ -695,7 +1079,7 @@
                     title : translations['WORKSHEETS.VIRTUALPET.TITLE'],
                     summary : translations['WORKSHEETS.VIRTUALPET.SUMMARY'],
                     description : translations['WORKSHEETS.VIRTUALPET.DESCRIPTION'],
-                    difficulty : 'Intermediate',
+                    difficulty : 3,
                     type : 'images',
                     maketypes : [ 'scratch3' ],
                     image : 'static/images/project-virtualpet.png',
@@ -708,56 +1092,10 @@
                     ]
                 },
                 {
-                    title : translations['WORKSHEETS.TOURISTINFO.TITLE'],
-                    summary : translations['WORKSHEETS.TOURISTINFO.SUMMARY'],
-                    description : translations['WORKSHEETS.TOURISTINFO.DESCRIPTION'],
-                    difficulty : 'Intermediate',
-                    type : 'text',
-                    maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-touristinfo.png',
-                    tags : [ 'training bias', 'recommendations', 'supervised learning' ],
-                    teachersnotes : translations['WORKSHEETS.TOURISTINFO.TEACHERSNOTES_URL'],
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.TOURISTINFO.WORKSHEET_1.URL']
-                        }
-                    ]
-                },
-                {
-                    title : translations['WORKSHEETS.SHOEBOX.TITLE'],
-                    summary : translations['WORKSHEETS.SHOEBOX.SUMMARY'],
-                    description : translations['WORKSHEETS.SHOEBOX.DESCRIPTION'],
-                    difficulty : 'Intermediate',
-                    type : 'sounds',
-                    maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-shoebox.png',
-                    tags : [ 'speech recognition' ],
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.SHOEBOX.WORKSHEET_1.URL']
-                        }
-                    ]
-                },
-                {
-                    title : translations['WORKSHEETS.RECOMMENDER.TITLE'],
-                    summary : translations['WORKSHEETS.RECOMMENDER.SUMMARY'],
-                    description : translations['WORKSHEETS.RECOMMENDER.DESCRIPTION'],
-                    difficulty : 'Intermediate',
-                    type : 'images',
-                    maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-recommender.png',
-                    tags : [ 'image classification', 'recommendations' ],
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.RECOMMENDER.WORKSHEET_1.URL']
-                        }
-                    ]
-                },
-                {
                     title : translations['WORKSHEETS.INKBLOTS.TITLE'],
                     summary : translations['WORKSHEETS.INKBLOTS.SUMMARY'],
                     description : translations['WORKSHEETS.INKBLOTS.DESCRIPTION'],
-                    difficulty : 'Intermediate',
+                    difficulty : 3,
                     type : 'images',
                     maketypes : [ 'scratch3' ],
                     image : 'static/images/project-inkblots.png',
@@ -770,26 +1108,10 @@
                     ]
                 },
                 {
-                    title : translations['WORKSHEETS.SECRETCODE.TITLE'],
-                    summary : translations['WORKSHEETS.SECRETCODE.SUMMARY'],
-                    description : translations['WORKSHEETS.SECRETCODE.DESCRIPTION'],
-                    difficulty : 'Intermediate',
-                    type : 'sounds',
-                    maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-secretcode.png',
-                    tags : [ 'speech recognition', 'sound recognition', 'supervised learning' ],
-                    teachersnotes : translations['WORKSHEETS.SECRETCODE.TEACHERSNOTES_URL'],
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.SECRETCODE.WORKSHEET_1.URL']
-                        }
-                    ]
-                },
-                {
                     title : translations['WORKSHEETS.SORTINGHAT.TITLE'],
                     summary : translations['WORKSHEETS.SORTINGHAT.SUMMARY'],
                     description : translations['WORKSHEETS.SORTINGHAT.DESCRIPTION'],
-                    difficulty : 'Intermediate',
+                    difficulty : 1,
                     type : 'text',
                     maketypes : [ 'scratch3' ],
                     image : 'static/images/project-sortinghat.png',
@@ -807,175 +1129,10 @@
                     ]
                 },
                 {
-                    title : translations['WORKSHEETS.ROCKPAPERSCISSORS.TITLE'],
-                    summary : translations['WORKSHEETS.ROCKPAPERSCISSORS.SUMMARY'],
-                    description : translations['WORKSHEETS.ROCKPAPERSCISSORS.DESCRIPTION'],
-                    difficulty : 'Intermediate',
-                    type : 'images',
-                    maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-rockpaperscissors.png',
-                    tags : [ 'image classification', 'supervised learning' ],
-                    teachersnotes : translations['WORKSHEETS.ROCKPAPERSCISSORS.TEACHERSNOTES_URL'],
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.ROCKPAPERSCISSORS.WORKSHEET_1.URL']
-                        }
-                    ]
-                },
-                {
-                    title : translations['WORKSHEETS.NEWSPAPERSHELVES.TITLE'],
-                    summary : translations['WORKSHEETS.NEWSPAPERSHELVES.SUMMARY'],
-                    description : translations['WORKSHEETS.NEWSPAPERSHELVES.DESCRIPTION'],
-                    difficulty : 'Intermediate',
-                    type : 'text',
-                    maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-headlines-easy.png',
-                    tags : [ 'text classification', 'supervised learning' ],
-                    teachersnotes : translations['WORKSHEETS.NEWSPAPERSHELVES.TEACHERSNOTES_URL'],
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.NEWSPAPERSHELVES.WORKSHEET_1.URL']
-                        }
-                    ]
-                },
-                {
-                    title : translations['WORKSHEETS.JUDGEABOOK.TITLE'],
-                    summary : translations['WORKSHEETS.JUDGEABOOK.SUMMARY'],
-                    description : translations['WORKSHEETS.JUDGEABOOK.DESCRIPTION'],
-                    difficulty : 'Advanced',
-                    type : 'images',
-                    maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-judgeabook.png',
-                    tags : [ 'image classification', 'supervised learning' ],
-                    teachersnotes : translations['WORKSHEETS.JUDGEABOOK.TEACHERSNOTES_URL'],
-                    downloads : [
-                        {
-                            description : translations['WORKSHEETS.JUDGEABOOK.WORKSHEET_1.DESCRIPTION'],
-                            worksheet : translations['WORKSHEETS.JUDGEABOOK.WORKSHEET_1.URL']
-                        },
-                        {
-                            description : translations['WORKSHEETS.JUDGEABOOK.WORKSHEET_2.DESCRIPTION'],
-                            worksheet : translations['WORKSHEETS.JUDGEABOOK.WORKSHEET_2.URL']
-                        }
-                    ]
-                },
-                {
-                    title : translations['WORKSHEETS.FOOLED.TITLE'],
-                    summary : translations['WORKSHEETS.FOOLED.SUMMARY'],
-                    description : translations['WORKSHEETS.FOOLED.DESCRIPTION'],
-                    difficulty : 'Intermediate',
-                    type : 'images',
-                    maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-fooled.png',
-                    tags : [ 'image classification', 'supervised learning', 'overfitting' ],
-                    teachersnotes : translations['WORKSHEETS.FOOLED.TEACHERSNOTES_URL'],
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.FOOLED.WORKSHEET_1.URL']
-                        }
-                    ]
-                },
-                {
-                    title : translations['WORKSHEETS.SCHOOLLIBRARY.TITLE'],
-                    summary : translations['WORKSHEETS.SCHOOLLIBRARY.SUMMARY'],
-                    description : translations['WORKSHEETS.SCHOOLLIBRARY.DESCRIPTION'],
-                    difficulty : 'Intermediate',
-                    type : 'numbers',
-                    maketypes : [ 'scratch2' ],
-                    image : 'static/images/project-schoollibrary.png',
-                    tags : [ 'predictive model', 'recommendations', 'supervised learning' ],
-                    teachersnotes : translations['WORKSHEETS.SCHOOLLIBRARY.TEACHERSNOTES_URL'],
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.SCHOOLLIBRARY.WORKSHEET_1.URL']
-                        }
-                    ]
-                },
-                {
-                    title : translations['WORKSHEETS.JARGONBUSTER.TITLE'],
-                    summary : translations['WORKSHEETS.JARGONBUSTER.SUMMARY'],
-                    description : translations['WORKSHEETS.JARGONBUSTER.DESCRIPTION'],
-                    difficulty : 'Intermediate',
-                    type : 'sounds',
-                    maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-jargonbuster.png',
-                    tags : [ 'speech recognition', 'sound recognition', 'supervised learning' ],
-                    teachersnotes : translations['WORKSHEETS.JARGONBUSTER.TEACHERSNOTES_URL'],
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.JARGONBUSTER.WORKSHEET_1.URL']
-                        }
-                    ]
-                },
-                {
-                    title : translations['WORKSHEETS.EXPLAINABILITY.TITLE'],
-                    summary : translations['WORKSHEETS.EXPLAINABILITY.SUMMARY'],
-                    description : translations['WORKSHEETS.EXPLAINABILITY.DESCRIPTION'],
-                    difficulty : 'Intermediate',
-                    type : 'images',
-                    maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-explainability.png',
-                    tags : [ 'image recognition', 'explainable AI', 'xai' ],
-                    teachersnotes : translations['WORKSHEETS.EXPLAINABILITY.TEACHERSNOTES_URL'],
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.EXPLAINABILITY.WORKSHEET_1.URL']
-                        }
-                    ]
-                },
-                {
-                    title : translations['WORKSHEETS.NOUGHTSANDCROSSES.TITLE'],
-                    summary : translations['WORKSHEETS.NOUGHTSANDCROSSES.SUMMARY'],
-                    description : translations['WORKSHEETS.NOUGHTSANDCROSSES.DESCRIPTION'],
-                    difficulty : 'Advanced',
-                    type : 'numbers',
-                    maketypes : [ 'python' ],
-                    image : 'static/images/project-noughtsandcrosses.png',
-                    tags : [ 'decision tree learning', 'categorical data' ],
-                    teachersnotes : translations['WORKSHEETS.NOUGHTSANDCROSSES.TEACHERSNOTES_URL'],
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.NOUGHTSANDCROSSES.WORKSHEET_2.URL']
-                        }
-                    ]
-                },
-                {
-                    title : translations['WORKSHEETS.TOPTRUMPS.TITLE'],
-                    summary : translations['WORKSHEETS.TOPTRUMPS.SUMMARY'],
-                    description : translations['WORKSHEETS.TOPTRUMPS.DESCRIPTION'],
-                    difficulty : 'Advanced',
-                    type : 'numbers',
-                    maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-toptrumps.png',
-                    tags : [ 'decision tree learning', 'categorical data' ],
-                    teachersnotes : translations['WORKSHEETS.TOPTRUMPS.TEACHERSNOTES_URL'],
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.TOPTRUMPS.WORKSHEET_1.URL']
-                        }
-                    ]
-                },
-                {
-                    title : translations['WORKSHEETS.HEADLINETESTING.TITLE'],
-                    summary : translations['WORKSHEETS.HEADLINETESTING.SUMMARY'],
-                    description : translations['WORKSHEETS.HEADLINETESTING.DESCRIPTION'],
-                    difficulty : 'Advanced',
-                    type : 'text',
-                    maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-headlines.png',
-                    tags : [ 'text classification', 'supervised learning', 'testing' ],
-                    teachersnotes : translations['WORKSHEETS.HEADLINETESTING.TEACHERSNOTES_URL'],
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.HEADLINETESTING.WORKSHEET_1.URL']
-                        }
-                    ]
-                },
-                {
                     title : translations['WORKSHEETS.PHISHING.TITLE'],
                     summary : translations['WORKSHEETS.PHISHING.SUMMARY'],
                     description : translations['WORKSHEETS.PHISHING.DESCRIPTION'],
-                    difficulty : 'Advanced',
+                    difficulty : 3,
                     type : 'numbers',
                     maketypes : [ 'python' ],
                     image : 'static/images/dataset-phishing.png',
@@ -988,58 +1145,10 @@
                     ]
                 },
                 {
-                    title : translations['WORKSHEETS.FACEFINDER.TITLE'],
-                    summary : translations['WORKSHEETS.FACEFINDER.SUMMARY'],
-                    description : translations['WORKSHEETS.FACEFINDER.DESCRIPTION'],
-                    difficulty : 'Beginner',
-                    type : 'faces',
-                    maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-facefinder.png',
-                    tags : [ 'face detection' ],
-                    teachersnotes : translations['WORKSHEETS.FACEFINDER.TEACHERSNOTES_URL'],
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.FACEFINDER.WORKSHEET_1.URL']
-                        }
-                    ]
-                },
-                {
-                    title : translations['WORKSHEETS.EMOJIMASK.TITLE'],
-                    summary : translations['WORKSHEETS.EMOJIMASK.SUMMARY'],
-                    description : translations['WORKSHEETS.EMOJIMASK.DESCRIPTION'],
-                    difficulty : 'Intermediate',
-                    type : 'faces',
-                    maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-emojimask.png',
-                    tags : [ 'face detection' ],
-                    teachersnotes : translations['WORKSHEETS.EMOJIMASK.TEACHERSNOTES_URL'],
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.EMOJIMASK.WORKSHEET_1.URL']
-                        }
-                    ]
-                },
-                {
-                    title : translations['WORKSHEETS.LASEREYES.TITLE'],
-                    summary : translations['WORKSHEETS.LASEREYES.SUMMARY'],
-                    description : translations['WORKSHEETS.LASEREYES.DESCRIPTION'],
-                    difficulty : 'Intermediate',
-                    type : 'sounds',
-                    maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-lasereyes.png',
-                    tags : [ 'speech recognition', 'face detection' ],
-                    teachersnotes : translations['WORKSHEETS.LASEREYES.TEACHERSNOTES_URL'],
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.LASEREYES.WORKSHEET_1.URL']
-                        }
-                    ]
-                },
-                {
                     title : translations['WORKSHEETS.SEMAPHORES.TITLE'],
                     summary : translations['WORKSHEETS.SEMAPHORES.SUMMARY'],
                     description : translations['WORKSHEETS.SEMAPHORES.DESCRIPTION'],
-                    difficulty : 'Advanced',
+                    difficulty : 3,
                     type : 'sounds',
                     maketypes : [ 'scratch3' ],
                     image : 'static/images/project-semaphores.png',
@@ -1055,7 +1164,7 @@
                     title : translations['WORKSHEETS.HANDGESTURES.TITLE'],
                     summary : translations['WORKSHEETS.HANDGESTURES.SUMMARY'],
                     description : translations['WORKSHEETS.HANDGESTURES.DESCRIPTION'],
-                    difficulty : 'Advanced',
+                    difficulty : 3,
                     type : 'numbers',
                     maketypes : [ 'scratch3' ],
                     image : 'static/images/project-handgestures.png',
@@ -1068,53 +1177,66 @@
                     ]
                 },
                 {
-                    title : translations['WORKSHEETS.LANGUAGEMODELS.TITLE'],
-                    summary : translations['WORKSHEETS.LANGUAGEMODELS.SUMMARY'],
-                    description : translations['WORKSHEETS.LANGUAGEMODELS.DESCRIPTION'],
-                    difficulty : 'Beginner',
-                    type : 'language',
-                    maketypes : [  ],
-                    image : 'static/images/project-languagemodels.png',
-                    tags : [ 'language models', 'LLM', 'generative AI' ],
-                    teachersnotes : translations['WORKSHEETS.LANGUAGEMODELS.TEACHERSNOTES_URL'],
+                    title : translations['WORKSHEETS.FACELOCK.TITLE'],
+                    summary : translations['WORKSHEETS.FACELOCK.SUMMARY'],
+                    description : translations['WORKSHEETS.FACELOCK.DESCRIPTION'],
+                    difficulty : 1,
+                    type : 'images',
+                    maketypes : [ 'scratch2' ],
+                    image : 'static/images/project-facelock.png',
+                    tags : [ 'facial recognition', 'biometrics', 'image classification', 'supervised learning' ],
+                    teachersnotes : translations['WORKSHEETS.FACELOCK.TEACHERSNOTES_URL'],
                     downloads : [
                         {
-                            worksheet : translations['WORKSHEETS.LANGUAGEMODELS.WORKSHEET_1.URL']
+                            worksheet : translations['WORKSHEETS.FACELOCK.WORKSHEET_1.URL']
                         }
                     ]
                 },
                 {
-                    title : translations['WORKSHEETS.STORYTELLER.TITLE'],
-                    summary : translations['WORKSHEETS.STORYTELLER.SUMMARY'],
-                    description : translations['WORKSHEETS.STORYTELLER.DESCRIPTION'],
-                    difficulty : 'Beginner',
-                    type : 'language',
-                    maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-storyteller.png',
-                    tags : [ 'language models', 'LLM', 'generative AI' ],
-                    teachersnotes : translations['WORKSHEETS.STORYTELLER.TEACHERSNOTES_URL'],
+                    title : translations['WORKSHEETS.JOURNEYTOSCHOOL.TITLE'],
+                    summary : translations['WORKSHEETS.JOURNEYTOSCHOOL.SUMMARY'],
+                    description : translations['WORKSHEETS.JOURNEYTOSCHOOL.DESCRIPTION'],
+                    difficulty : 1,
+                    type : 'numbers',
+                    maketypes : [ 'scratch2' ],
+                    image : 'static/images/project-journeytoschool.png',
+                    tags : [ 'predictive model', 'testing and accuracy', 'supervised learning' ],
+                    teachersnotes : translations['WORKSHEETS.JOURNEYTOSCHOOL.TEACHERSNOTES_URL'],
                     downloads : [
                         {
-                            worksheet : translations['WORKSHEETS.STORYTELLER.WORKSHEET_1.URL']
+                            worksheet : translations['WORKSHEETS.JOURNEYTOSCHOOL.WORKSHEET_1.URL']
                         }
                     ]
                 },
                 {
-                    title : translations['WORKSHEETS.RAGTIME.TITLE'],
-                    summary : translations['WORKSHEETS.RAGTIME.SUMMARY'],
-                    description : translations['WORKSHEETS.RAGTIME.DESCRIPTION'],
-                    difficulty : 'Beginner',
-                    type : 'language',
-                    maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-ragtime.png',
-                    tags : [ 'language models', 'LLM', 'generative AI', 'RAG' ],
+                    title : translations['WORKSHEETS.SCHOOLLIBRARY.TITLE'],
+                    summary : translations['WORKSHEETS.SCHOOLLIBRARY.SUMMARY'],
+                    description : translations['WORKSHEETS.SCHOOLLIBRARY.DESCRIPTION'],
+                    difficulty : 2,
+                    type : 'numbers',
+                    maketypes : [ 'scratch2' ],
+                    image : 'static/images/project-schoollibrary.png',
+                    tags : [ 'predictive model', 'recommendations', 'supervised learning' ],
+                    teachersnotes : translations['WORKSHEETS.SCHOOLLIBRARY.TEACHERSNOTES_URL'],
                     downloads : [
                         {
-                            worksheet : translations['WORKSHEETS.RAGTIME.WORKSHEET_1.URL']
+                            worksheet : translations['WORKSHEETS.SCHOOLLIBRARY.WORKSHEET_1.URL']
                         }
                     ]
                 }
             ];
+
+            // featured project - identified by URL parameter if present, or randomly selected otherwise
+            const allFeaturedWorksheets = vm.worksheets.filter(w => w.featured);
+            const requestedWorksheetTitle = $location.search().worksheet;
+            if (requestedWorksheetTitle) {
+                const filterTitle = requestedWorksheetTitle.toLowerCase();
+                $scope.featuredWorksheet = allFeaturedWorksheets.find(w => w.title.toLowerCase() === filterTitle);
+            }
+            if (!$scope.featuredWorksheet) {
+                $scope.featuredWorksheet = allFeaturedWorksheets[Math.floor(Math.random() * allFeaturedWorksheets.length)];
+            }
+            $scope.featuredWorksheetVideo = $sce.trustAsResourceUrl('https://www.youtube.com/embed/' + $scope.featuredWorksheet.video + '?rel=0&loop=1&playlist=' + $scope.featuredWorksheet.video);
         });
 
         vm.downloadWorksheet = function (ev, worksheet) {
@@ -1123,6 +1245,9 @@
                     worksheet : worksheet
                 },
                 controller : function ($scope, locals) {
+                    if (locals.worksheet.video) {
+                        $scope.video = $sce.trustAsResourceUrl('https://www.youtube.com/embed/' + locals.worksheet.video + '?rel=0&loop=1&playlist=' + locals.worksheet.video);
+                    }
                     $scope.worksheet = locals.worksheet;
                     $scope.hide = function() {
                         $mdDialog.hide();
@@ -1149,7 +1274,10 @@
                 match = (item.type === $scope.projecttype);
             }
             if (($scope.projectdifficulty !== 'ALL') && match) {
-                match = (item.difficulty === $scope.projectdifficulty);
+                // intentionally tolerant of different types
+                //  scope.projectdifficulty likely to be a string
+                //  item.difficulty likely to be a number
+                match = (item.difficulty == $scope.projectdifficulty);
             }
             if (($scope.projectmaketype !== 'ALL') && match) {
                 match = (($scope.projectmaketype === 'python' && item.maketypes.indexOf('python') >= 0) ||

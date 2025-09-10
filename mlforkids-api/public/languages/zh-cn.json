@@ -1096,16 +1096,27 @@
         "INTRO_4": "Examples of how to use these worksheets, and a suggested order for using these with a class, can be found in the <a href='/stories'>stories about what students learn</a>.",
         "TYPES": {
             "TITLE": "认识: ",
+            "LONGTITLE": "Train a computer to ",
             "ALL": "所有项目类型",
             "PREFIX": "训练计算机识别",
             "PREFIXREGRESSION": "Train a computer to predict ",
             "PREFIXLANGUAGE": "Train a computer to generate ",
+            "SHORTPREFIX": "recognise ",
+            "SHORTPREFIXREGRESSION": "predict ",
+            "SHORTPREFIXLANGUAGE": "generate ",
             "TEXT": " 文本 ",
             "IMAGES": "图像",
             "NUMBERS": "数字",
             "SOUNDS": "声音",
             "FACES": "面容",
-            "REGRESSION": "预测数字"
+            "REGRESSION": "预测数字",
+            "DESCRIPTIONTEXT": "In these projects, you will collect examples of text and use these to train a machine learning model that can recognise new examples of text",
+            "DESCRIPTIONIMAGES": "In these projects, you will collect examples of images and use these to train a machine learning model that can recognise new examples of images",
+            "DESCRIPTIONNUMBERS": "In these projects, you will collect sets of numbers and use these to train a machine learning model that can recognise a set of numbers",
+            "DESCRIPTIONSOUNDS": "In these projects, you will collect short sound recordings and use these to train a machine learning model that can recognise those sounds",
+            "DESCRIPTIONFACES": "In these projects, you will use a pretrained model that has been trained to recognise the location of faces in images",
+            "DESCRIPTIONREGRESSION": "In these projects, you will collect examples of numbers, and use these to train a machine learning model to predict new numbers",
+            "DESCRIPTIONGENERATE": "In these projects, you will learn how Generative AI systems can create new text"
         },
         "LEVELS": {
             "TITLE": "难度: ",
@@ -1135,10 +1146,12 @@
             }
         },
         "MAKETYPES": {
-            "ALL": "All make types",
+            "TITLE": "Make with ",
             "SCRATCH": "Scratch 项目",
             "PYTHON": "Python 项目",
             "APPINVENTOR": "App Inventor 项目",
+            "DESCRIPTIONSCRATCH": "In these projects, student will make a Scratch project that creates and uses machine learning models",
+            "DESCRIPTIONPYTHON": "In these projects, student make Python projects that creates and uses machine learning models",
             "SCRATCH_WORKSHEET": "Worksheet for making project in Scratch",
             "PYTHON_WORKSHEET": "Worksheet for making project in Python",
             "APPINVENTOR_WORKSHEET": "Worksheet for making project in App Inventor"

@@ -246,4 +246,5 @@
     font-size: 1em !important;
     opacity: 1!important;
     padding: 1em;
+    max-width: 300px;
 }
