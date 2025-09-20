@@ -1206,7 +1206,8 @@
                         {
                             worksheet : translations['WORKSHEETS.JOURNEYTOSCHOOL.WORKSHEET_1.URL']
                         }
-                    ]
+                    ],
+                    video : 'Hhb5rCXDcdQ'
                 },
                 {
                     title : translations['WORKSHEETS.SCHOOLLIBRARY.TITLE'],
