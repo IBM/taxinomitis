@@ -1196,11 +1196,11 @@
                     title : translations['WORKSHEETS.JOURNEYTOSCHOOL.TITLE'],
                     summary : translations['WORKSHEETS.JOURNEYTOSCHOOL.SUMMARY'],
                     description : translations['WORKSHEETS.JOURNEYTOSCHOOL.DESCRIPTION'],
-                    difficulty : 1,
+                    difficulty : 2,
                     type : 'numbers',
-                    maketypes : [ 'scratch2' ],
+                    maketypes : [ 'scratch3' ],
                     image : 'static/images/project-journeytoschool.png',
-                    tags : [ 'predictive model', 'testing and accuracy', 'supervised learning' ],
+                    tags : [ 'predictive model', 'supervised learning' ],
                     teachersnotes : translations['WORKSHEETS.JOURNEYTOSCHOOL.TEACHERSNOTES_URL'],
                     downloads : [
                         {
