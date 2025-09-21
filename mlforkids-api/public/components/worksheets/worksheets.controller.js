@@ -1206,8 +1206,7 @@
                         {
                             worksheet : translations['WORKSHEETS.JOURNEYTOSCHOOL.WORKSHEET_1.URL']
                         }
-                    ],
-                    video : 'Hhb5rCXDcdQ'
+                    ]
                 },
                 {
                     title : translations['WORKSHEETS.SCHOOLLIBRARY.TITLE'],
@@ -1215,7 +1214,7 @@
                     description : translations['WORKSHEETS.SCHOOLLIBRARY.DESCRIPTION'],
                     difficulty : 2,
                     type : 'numbers',
-                    maketypes : [ 'scratch2' ],
+                    maketypes : [ 'scratch3' ],
                     image : 'static/images/project-schoollibrary.png',
                     tags : [ 'predictive model', 'recommendations', 'supervised learning' ],
                     teachersnotes : translations['WORKSHEETS.SCHOOLLIBRARY.TEACHERSNOTES_URL'],
@@ -1223,7 +1222,8 @@
                         {
                             worksheet : translations['WORKSHEETS.SCHOOLLIBRARY.WORKSHEET_1.URL']
                         }
-                    ]
+                    ],
+                    video : 'Hhb5rCXDcdQ'
                 }
             ];
 
