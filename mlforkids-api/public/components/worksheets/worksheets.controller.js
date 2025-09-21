@@ -200,6 +200,9 @@
             'WORKSHEETS.HOOPS.TITLE', 'WORKSHEETS.HOOPS.SUMMARY', 'WORKSHEETS.HOOPS.DESCRIPTION',
             'WORKSHEETS.HOOPS.WORKSHEET_1.URL',
 
+            'WORKSHEETS.GOLF.TITLE', 'WORKSHEETS.GOLF.SUMMARY', 'WORKSHEETS.GOLF.DESCRIPTION',
+            'WORKSHEETS.GOLF.WORKSHEET_1.URL',
+
             'WORKSHEETS.CAPTCHA.TITLE', 'WORKSHEETS.CAPTCHA.SUMMARY', 'WORKSHEETS.CAPTCHA.DESCRIPTION',
             'WORKSHEETS.CAPTCHA.WORKSHEET_1.URL',
 
@@ -973,6 +976,26 @@
                         "Use a pretrained machine learning model that has been trained to recognise the location of faces in photos",
                         "Learn about <strong>face detection</strong> by making a live emoji mask in <strong>Scratch</strong>"
                     ]
+                },
+                {
+                    title : translations['WORKSHEETS.GOLF.TITLE'],
+                    summary : translations['WORKSHEETS.GOLF.SUMMARY'],
+                    description : translations['WORKSHEETS.GOLF.DESCRIPTION'],
+                    difficulty : 1,
+                    type : 'regression',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-golf.png',
+                    tags : [ 'regression' ],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.GOLF.WORKSHEET_1.URL']
+                        }
+                    ],
+                    featured : [
+                        "Train a machine learning model to predict the best speed and direction to putt the ball.",
+                        "Learn about <strong>regression</strong> by making an AI-controlled golf game in <strong>Scratch</strong>."
+                    ],
+                    video : 'OqCULB9VamI'
                 },
                 {
                     title : translations['WORKSHEETS.HEADLINETESTING.TITLE'],
