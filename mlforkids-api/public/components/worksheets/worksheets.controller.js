@@ -1199,7 +1199,7 @@
                     difficulty : 2,
                     type : 'numbers',
                     maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-journeytoschool.png',
+                    image : 'static/images/project-journeytoschool-2.png',
                     tags : [ 'predictive model', 'supervised learning' ],
                     teachersnotes : translations['WORKSHEETS.JOURNEYTOSCHOOL.TEACHERSNOTES_URL'],
                     downloads : [
@@ -1215,7 +1215,7 @@
                     difficulty : 2,
                     type : 'numbers',
                     maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-schoollibrary.png',
+                    image : 'static/images/project-schoollibrary-2.png',
                     tags : [ 'predictive model', 'recommendations', 'supervised learning' ],
                     teachersnotes : translations['WORKSHEETS.SCHOOLLIBRARY.TEACHERSNOTES_URL'],
                     downloads : [
