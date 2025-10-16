@@ -346,6 +346,7 @@
 
         <div class="modelstep" ng-hide="loading"
             ng-if="phase === PHASES.SMALL.ARCHITECTURE || phase === PHASES.SMALL.CONTEXTWINDOW || phase === PHASES.SMALL.TEMPERATURE || phase === PHASES.SMALL.RAGCONTEXT || phase === PHASES.SMALL.READY">
+            <div class="resetlink" ng-if="phase === PHASES.SMALL.READY" ng-click="review(PHASES.SMALL.ARCHITECTURE)" translate="LANGUAGEMODEL.REVIEW">Review</div>
             <div class="stepheading" translate="LANGUAGEMODEL.SMALL.TYPE"></div>
             <div class="steprow">
                 <md-select class="rowitem"
@@ -378,6 +379,28 @@
                         value={{project.slm.download}}></md-progress-linear>
                 </div>
             </div>
+            <div class="steprow modeldetails" style="padding: 1em;" ng-if="phase === PHASES.SMALL.ARCHITECTURE">
+                <mlchart class="mlchart"
+                    chart-data="sizeChartData"
+                    max-value="1500" y-axis-ticks="6"
+                    selected-column="project.slm.id"></mlchart>
+                <div style="flex: 1; padding: 1em;">
+                    <div class="stepexplanation" translate="LANGUAGEMODEL.SMALL.DISKSPACE.TITLE" style="font-weight: bold;"></div>
+                    <div class="stepexplanation" translate="LANGUAGEMODEL.SMALL.DISKSPACE.LARGE"></div>
+                    <div class="stepexplanation" translate="LANGUAGEMODEL.SMALL.DISKSPACE.SMALL"></div>
+                </div>
+            </div>
+            <div class="steprow modeldetails" style="padding: 1em 1em 0 1em;" ng-if="phase === PHASES.SMALL.ARCHITECTURE">
+                <mlchart class="mlchart"
+                    chart-data="complexityChartData"
+                    max-value="3.0" y-axis-ticks="6"
+                    selected-column="project.slm.id"></mlchart>
+                <div style="flex: 1; padding: 1em;">
+                    <div class="stepexplanation" translate="LANGUAGEMODEL.SMALL.PARAMETERS.TITLE" style="font-weight: bold;"></div>
+                    <div class="stepexplanation" translate="LANGUAGEMODEL.SMALL.PARAMETERS.LARGE"></div>
+                    <div class="stepexplanation" translate="LANGUAGEMODEL.SMALL.PARAMETERS.SMALL"></div>
+                </div>
+            </div>
         </div>
 
         <div class="nextstep" ng-if="project.slm" ng-hide="project.slm.download === 100 || loading">
@@ -385,6 +408,11 @@
                 class="btn btn-primary"
                 ng-disabled="!project.slm.id || project.slm.download >= 0"
                 ng-click="downloadModel()"></button>
+        </div>
+        <div class="nextstep" ng-if="phase === PHASES.SMALL.ARCHITECTURE && project.slm.download === 100">
+            <button type="button" translate="APP.NEXT"
+                class="btn btn-primary"
+                ng-click="review(PHASES.SMALL.CONTEXTWINDOW)"></button>
         </div>
 
         <!-- ******************************************************* -->
@@ -542,7 +570,7 @@
                 <button type="button" translate="LANGUAGEMODEL.TESTING.GENERATE"
                     class="btn btn-primary"
                     ng-click="testModel()"
-                    ng-disabled="!prompt.message || prompt.message.trim().length === 0 || generating || loading"></button>
+                    ng-disabled="!prompt.message || prompt.message.trim().length === 0 || generating || loading || (project.slm.download >= 0 && project.slm.download < 100)"></button>
             </div>
             <div class="testfeedback" ng-if="testfeedbackmoretokens" translate="LANGUAGEMODEL.TESTING.ERROR.TOOSHORT"></div>
             <div class="testfeedback" ng-if="testfeedbacknomatch"    translate="LANGUAGEMODEL.TESTING.ERROR.NOTFOUND"></div>

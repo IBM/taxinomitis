@@ -291,3 +291,21 @@
         flex: 2;
     }
 }
+
+
+@media(max-width: 800px) {
+    .languagemodelpage .steprow.modeldetails {
+        flex-direction: column;
+    }
+    .languagemodelpage .mlchart {
+        width: 100%; height: 270px;
+    }
+}
+@media(min-width: 800px) {
+    .languagemodelpage .steprow.modeldetails {
+        flex-direction: row;
+    }
+    .languagemodelpage .mlchart {
+        flex: 3; height: 270px;
+    }
+}

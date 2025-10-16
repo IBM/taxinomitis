@@ -1,0 +1,16 @@
+<div class="mlchart-chart-container">
+    <div class="mlchart-chart">
+        <div class="mlchart-y-axis">
+            <div class="mlchart-y-label" ng-repeat="label in yAxisLabels">{{label}}</div>
+        </div>
+        <div class="mlchart-grid-lines">
+            <div class="mlchart-grid-line" ng-repeat="label in yAxisLabels"></div>
+        </div>
+        <div class="mlchart-bars">
+            <div class="mlchart-bar-wrapper" ng-repeat="item in chartData">
+                <div class="mlchart-bar" ng-class="{'mlchart-bar-selected': item.id == selectedColumn}" ng-style="{'height': getBarHeight(item.value)}"></div>
+                <div class="mlchart-x-label">{{item.label}}</div>
+            </div>
+        </div>
+    </div>
+</div>

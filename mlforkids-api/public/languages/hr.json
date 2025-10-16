@@ -968,7 +968,17 @@
             "TYPE": "Model architecture",
             "DOWNLOADING": "Downloading...",
             "DEVELOPER": "Created by:",
-            "SIZE": "Download size:"
+            "SIZE": "Download size:",
+            "DISKSPACE": {
+                "TITLE": "Size (in MB)",
+                "LARGE": "Larger models take longer to download and need more disk space to store.",
+                "SMALL": "Smaller models are quicker to download and need less disk space to store."
+            },
+            "PARAMETERS": {
+                "TITLE": "Complexity (in billions of parameters)",
+                "LARGE": "More complex models need computers with faster CPUs and more memory to run.",
+                "SMALL": "Less complex models can be run on slower computers that have less memory."
+            }
         },
 
         "LARGE": {
@@ -1095,7 +1105,7 @@
         "INTRO_3": "Suggestions for new worksheets, suggestions of improvements to any of the worksheets, or contributions of new project worksheets, are all very welcome.",
         "INTRO_4": "Examples of how to use these worksheets, and a suggested order for using these with a class, can be found in the <a href='/stories'>stories about what students learn</a>.",
         "TYPES": {
-            "TITLE": "Recognising:",
+            "TITLE": "Recognising",
             "LONGTITLE": "Train a computer to ",
             "ALL": "See worksheets for all types of machine learning project",
             "PREFIX": "Train a computer to recognise ",

@@ -1,0 +1,115 @@
+.mlchart-chart-container {
+    background: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.mlchart-chart {
+    display: flex;
+    align-items: flex-end;
+    height: 100%;
+    position: relative;
+    padding-left: 25px;
+    width: 100%;
+}
+
+.mlchart-y-axis {
+    position: absolute;
+    left: 0;
+    top: -7px;
+    bottom: -7px;
+    width: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-right: 10px;
+    border-right: 1px solid #333;
+    box-sizing: border-box;
+}
+
+.mlchart-y-label {
+    font-size: 12px;
+    color: #666;
+}
+
+.mlchart-grid-lines {
+    position: absolute;
+    left: 25px;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    pointer-events: none;
+}
+
+.mlchart-grid-line {
+    height: 1px;
+    background: #e0e0e0;
+}
+
+.mlchart-bars {
+    display: flex;
+    gap: 2%;
+    height: 100%;
+    align-items: flex-end;
+    flex: 1;
+    margin-left: 2%;
+    width: 100%;
+}
+
+.mlchart-bar-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    height: 100%;
+    position: relative;
+    min-width: 0;
+}
+
+.mlchart-bar {
+    width: 100%;
+    max-width: 80px;
+    background: linear-gradient(to top, #84cbcc, #1864ab);
+    border-radius: 4px 4px 0 0;
+    transition: opacity 0.3s;
+    position: absolute;
+    bottom: 0;
+}
+
+.mlchart-bar:hover {
+    opacity: 0.8;
+}
+
+.mlchart-x-label {
+    position: absolute;
+    bottom: -25px;
+    color: #666;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+@media(min-width: 1100px) {
+    .mlchart-x-label {
+        font-size: 14px;
+    }
+}
+@media(max-width: 1100px) {
+    .mlchart-x-label {
+        font-size: 11px;
+    }
+}
+
+.mlchart-bar-selected {
+    background: linear-gradient(to top, #1864ab, black);
+}
