@@ -225,7 +225,12 @@
             'WORKSHEETS.STORYTELLER.TEACHERSNOTES_URL', 'WORKSHEETS.STORYTELLER.WORKSHEET_1.URL',
 
             'WORKSHEETS.RAGTIME.TITLE', 'WORKSHEETS.RAGTIME.SUMMARY', 'WORKSHEETS.RAGTIME.DESCRIPTION',
-            'WORKSHEETS.RAGTIME.WORKSHEET_1.URL'
+            'WORKSHEETS.RAGTIME.WORKSHEET_1.URL',
+
+            'WORKSHEETS.BENCHMARK.TITLE', 'WORKSHEETS.BENCHMARK.SUMMARY', 'WORKSHEETS.BENCHMARK.DESCRIPTION',
+            'WORKSHEETS.BENCHMARK.WORKSHEET_1.URL',
+            'WORKSHEETS.BENCHMARK.TEACHERSNOTES_URL'
+
 
         ]).then(function (translations) {
             vm.worksheets = [
@@ -1150,6 +1155,27 @@
                             worksheet : translations['WORKSHEETS.SORTINGHAT.WORKSHEET_2.URL']
                         }
                     ]
+                },
+                {
+                    title : translations['WORKSHEETS.BENCHMARK.TITLE'],
+                    summary : translations['WORKSHEETS.BENCHMARK.SUMMARY'],
+                    description : translations['WORKSHEETS.BENCHMARK.DESCRIPTION'],
+                    difficulty : 3,
+                    type : 'language',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-benchmark.png',
+                    tags : [ 'language models', 'LLM', 'benchmark' ],
+                    teachersnotes : translations['WORKSHEETS.BENCHMARK.TEACHERSNOTES_URL'],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.BENCHMARK.WORKSHEET_1.URL']
+                        }
+                    ],
+                    featured : [
+                        "Evaluate language models to identify how good they are at answering maths questions.",
+                        "Learn about <strong>benchmarks</strong> by testing language models in <strong>Scratch</strong>"
+                    ],
+                    video : 'EDWqGDeRP0U'
                 },
                 {
                     title : translations['WORKSHEETS.PHISHING.TITLE'],
