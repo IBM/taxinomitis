@@ -3340,6 +3340,7 @@ class ML4KidsWebLlm {
     this.state = 'INIT';
   }
   initModel(requestdata, worker) {
+    console.log('[mlforkids] init model', requestdata);
     const modelid = requestdata.modelid;
     const contextwindow = requestdata.contextwindow;
     this.MODELS[modelid + '-' + contextwindow] = {
@@ -3400,6 +3401,7 @@ class ML4KidsWebLlm {
     this.MODELS[modelKey].initialcontext = initialcontext;
   }
   promptModel(requestdata, worker) {
+    console.log('[mlforkids] prompt model');
     const requestid = requestdata.requestid;
     const modelid = requestdata.modelid;
     const contextwindow = requestdata.contextwindow;
