@@ -27,23 +27,7 @@
                 <div ng-repeat="text in worksheet.featured" ng-bind-html="text" style="padding-bottom: 1em;"></div>
             </div>
             <div>
-                <h4 ng-if="worksheet.teachersnotes" translate="WORKSHEETS.DOWNLOADS.AUDIENCE.TEACHERS"></h4>
-                <div ng-if="worksheet.teachersnotes"
-                    style="border-radius: 1em; background-color: #eeeeee; padding: 1em; margin-bottom: 1em;">
-                    <a class="btn btn-primary" href="{{worksheet.teachersnotes}}" style="max-width: 100%; white-space: normal;">
-                        <span class="glyphicon glyphicon-check"> </span>
-                        <span translate="WORKSHEETS.DOWNLOADS.GUIDANCE.TITLE"></span>
-                    </a>
-                    <div style="margin-top: 1em;" translate="WORKSHEETS.DOWNLOADS.GUIDANCE.DETAIL"></div>
-                </div>
-                <div ng-if="worksheet.notes && worksheet.notes.length > 0" style="margin-bottom: 1em">
-                    <h4 translate="WORKSHEETS.DOWNLOADS.GUIDANCE.NOTES"></h4>
-                    <div ng-repeat="note in worksheet.notes" style="margin-bottom: 0.5em">
-                        <span class="glyphicon glyphicon-warning-sign"> </span> {{note}}
-                    </div>
-                    <hr ng-if="worksheet.downloads.length > 1" style="border-top: 3px double #8c8b8b;"/>
-                </div>
-                <h4 style="padding-top: 0.5em" ng-if="worksheet.teachersnotes" translate="WORKSHEETS.DOWNLOADS.AUDIENCE.STUDENTS"></h4>
+                <h4 style="padding-top: 0.5em" translate="WORKSHEETS.DOWNLOADS.AUDIENCE.STUDENTS"></h4>
                 <div ng-repeat="download in worksheet.downloads"
                     style="border-radius: 1em; background-color: #eeeeee; padding: 1em; margin-bottom: 1em; ">
                     <div ng-if="download.description" style="margin-bottom: 1em;">
@@ -60,6 +44,26 @@
                             <span translate="WORKSHEETS.DOWNLOADS.RESOURCES.TITLE"></span>
                         </a>
                         <div style="padding-bottom: 1em; margin-top: 0.5em;" translate="WORKSHEETS.DOWNLOADS.RESOURCES.DETAIL"></div>
+                    </div>
+                </div>
+                <h4 translate="WORKSHEETS.DOWNLOADS.AUDIENCE.TEACHERS"></h4>
+                <div style="border-radius: 1em; background-color: #eeeeee; padding: 1em; margin-bottom: 1em;">
+                    <a class="btn btn-info" href="{{worksheet.original}}" style="max-width: 100%; white-space: normal;">
+                        <span class="glyphicon glyphicon-align-left"> </span>
+                        <span translate="WORKSHEETS.DOWNLOADS.GUIDANCE.ORIGINALDOWNLOAD"></span>
+                    </a>
+                    <div style="margin-top: 1em;" translate="WORKSHEETS.DOWNLOADS.GUIDANCE.ORIGINALNOTES"></div>
+                    <hr ng-if="worksheet.teachersnotes" style="border-top: 3px double #8c8b8b;"/>
+                    <a ng-if="worksheet.teachersnotes" class="btn btn-info" href="{{worksheet.teachersnotes}}" style="max-width: 100%; white-space: normal;">
+                        <span class="glyphicon glyphicon-check"> </span>
+                        <span translate="WORKSHEETS.DOWNLOADS.GUIDANCE.TITLE"></span>
+                    </a>
+                    <div ng-if="worksheet.teachersnotes" style="margin-top: 1em;" translate="WORKSHEETS.DOWNLOADS.GUIDANCE.DETAIL"></div>
+                </div>
+                <div ng-if="worksheet.notes && worksheet.notes.length > 0" style="margin-bottom: 1em">
+                    <h4 translate="WORKSHEETS.DOWNLOADS.GUIDANCE.NOTES"></h4>
+                    <div ng-repeat="note in worksheet.notes" style="margin-bottom: 0.5em">
+                        <span class="glyphicon glyphicon-warning-sign"> </span> {{note}}
                     </div>
                 </div>
                 <div ng-if="worksheet.providedby" style="margin: 1em">

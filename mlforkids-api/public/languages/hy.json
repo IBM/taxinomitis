@@ -1147,7 +1147,9 @@
       "GUIDANCE": {
         "TITLE": "Ներբեռնեք ուղեցույց ուսուցիչների համար",
         "DETAIL": "Այս թերթիկը պարունակում է տեղեկություններ ուսուցիչների կամ կոդավորման խմբերի ղեկավարների համար, որոնք կօգնեն նրանց պատրաստել, կարգավորել և վերահսկել այս նախագիծը:",
-        "NOTES": "Նշումներ:"
+        "NOTES": "Նշումներ:",
+                "ORIGINALDOWNLOAD": "MS Word worksheet",
+                "ORIGINALNOTES": "Customize the worksheet for your students - such as by adding additional instructions to simplify the project, or by removing instructions or screenshots to give your students a challenge."
       },
       "WORKSHEET": {
         "TITLE": "Ներբեռնեք ծրագրի աշխատանքային թերթիկը",
@@ -1727,6 +1729,15 @@
         "DESCRIPTION": "Make a project in Scratch that displays answers to questions using live data",
         "WORKSHEET_1": {
             "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-ragtime.pdf"
+        }
+    },
+    "BENCHMARK": {
+        "TITLE": "Benchmark",
+        "SUMMARY": "Use a computer trained to generate text",
+        "DESCRIPTION": "Make a project in Scratch that can test a language model",
+        "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-benchmark.pdf",
+        "WORKSHEET_1": {
+            "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-benchmark.pdf"
         }
     }
   },

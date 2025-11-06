@@ -1179,7 +1179,9 @@
             "GUIDANCE": {
                 "TITLE": "Download guidance for teachers",
                 "DETAIL": "This sheet contains information for teachers or coding group leaders to help them prepare, setup and supervise this project.",
-                "NOTES": "Notes:"
+                "NOTES": "Notes:",
+                "ORIGINALDOWNLOAD": "MS Word worksheet",
+                "ORIGINALNOTES": "Customize the worksheet for your students - such as by adding additional instructions to simplify the project, or by removing instructions or screenshots to give your students a challenge."
             },
             "WORKSHEET": {
                 "TITLE": "Download project worksheet",

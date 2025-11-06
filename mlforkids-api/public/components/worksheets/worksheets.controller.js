@@ -249,6 +249,7 @@
                             worksheet : translations['WORKSHEETS.MAILMANMAX.WORKSHEET_1.URL']
                         }
                     ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-mailmanmax.docx',
                     featured : [
                         "Train a machine learning model to recognise postcodes / zip codes.",
                         "Learn about <strong>handwriting recognition</strong> by making a letter sorter in <strong>Scratch</strong>."
@@ -270,6 +271,7 @@
                             worksheet : translations['WORKSHEETS.DESCRIBETHEGLASS.WORKSHEET_1.URL']
                         }
                     ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-describetheglass.docx',
                     featured : [
                         "Train a machine learning model to predict your answers in <strong>Scratch</strong>.",
                         "Learn about <strong>decision tree classifiers</strong> by training a model that learns when you would describe a glass as 'half-full' or as 'half-empty'."
@@ -290,7 +292,8 @@
                         {
                             worksheet : translations['WORKSHEETS.LANGUAGEMODELS.WORKSHEET_1.URL']
                         }
-                    ]
+                    ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-langmodels.docx'
                 },
                 {
                     title : translations['WORKSHEETS.ALIENLANGUAGE.TITLE'],
@@ -307,6 +310,7 @@
                             worksheet : translations['WORKSHEETS.ALIENLANGUAGE.WORKSHEET_1.URL']
                         }
                     ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-alienlanguage.docx',
                     featured : [
                         "Train a machine learning model to recognise sounds.",
                         "Learn about <strong>speech recognition</strong> by inventing an alien language and training an AI to understand it. Then tell an alien in <strong>Scratch</strong> what to do."
@@ -327,6 +331,7 @@
                             worksheet : translations['WORKSHEETS.CAPTCHA.WORKSHEET_1.URL']
                         }
                     ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-captcha.docx',
                     featured : [
                         "Train a machine learning model to solve CAPTCHA puzzles in <strong>Scratch</strong>.",
                         "Learn about <strong>image recognition</strong> by training a model that learns to recognize some of the objects used in CAPTCHA puzzles."
@@ -357,6 +362,7 @@
                             worksheet : translations['WORKSHEETS.SMARTCLASSROOM.WORKSHEET_3.URL']
                         }
                     ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-smartclassroom.docx',
                     featured : [
                         "Train a machine learning model to recognise commands.",
                         "Learn how <strong>virtual assistants</strong> such as Siri and Alexa work by making one in <strong>Scratch</strong>."
@@ -377,7 +383,8 @@
                         {
                             worksheet : translations['WORKSHEETS.SHYPANDA.WORKSHEET_1.URL']
                         }
-                    ]
+                    ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-shypanda.docx'
                 },
                 {
                     title : translations['WORKSHEETS.STORYTELLER.TITLE'],
@@ -394,6 +401,7 @@
                             worksheet : translations['WORKSHEETS.STORYTELLER.WORKSHEET_1.URL']
                         }
                     ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-storyteller.docx',
                     featured : [
                         "Use <strong>generative AI</strong> to create stories and poems in <strong>Scratch</strong>.",
                         "Learn about language models by using a variety of small language models in your browser."
@@ -414,6 +422,7 @@
                             worksheet : translations['WORKSHEETS.CATCHTHEBALL.WORKSHEET_1.URL']
                         }
                     ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-catchtheball.docx',
                     featured : [
                         "Train a machine learning model to predict where a ball will land.",
                         "Learn about <strong>regression</strong> by making a game in <strong>Scratch</strong> to catch balls thrown in a random direction."
@@ -434,6 +443,7 @@
                             worksheet : translations['WORKSHEETS.ISPY.WORKSHEET_1.URL']
                         }
                     ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-ispy.docx',
                     featured : [
                         "Use a pretrained model that has been trained to recognise objects in photos.",
                         "Make a machine learning powered 'I Spy' game in <strong>Scratch</strong>, where you have to guess what the AI has recognised in a photo."
@@ -464,6 +474,7 @@
                             worksheet : translations['WORKSHEETS.MAKEMEHAPPY.WORKSHEET_3.URL']
                         }
                     ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-makemehappy.docx',
                     featured : [
                         "Train a machine learning model to recognise compliments and insults.",
                         "Learn about <strong>sentiment analysis</strong> by making a character in <strong>Scratch</strong> that reacts to what you say to it."
@@ -485,6 +496,7 @@
                             worksheet : translations['WORKSHEETS.PACMAN.WORKSHEET_1.URL']
                         }
                     ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-pacman.docx',
                     featured : [
                         "Train a <strong>decision tree classifier</strong> to avoid the ghost.",
                         "Learn about artificial intelligence in games by making a machine learning model-controlled Pac-Man in <strong>Scratch</strong>."
@@ -505,6 +517,7 @@
                             worksheet : translations['WORKSHEETS.CARPOOL.WORKSHEET_1.URL']
                         }
                     ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-carpoolcheats.docx',
                     featured : [
                         "Train a machine learning model to recognise whether there are passengers in a car.",
                         "Learn about <strong>image recognition</strong> by making an artificial-intelligence powered traffic camera game in <strong>Scratch</strong>."
@@ -525,6 +538,7 @@
                             worksheet : translations['WORKSHEETS.HOOPS.WORKSHEET_1.URL']
                         }
                     ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-hoops.docx',
                     featured : [
                         "Train a machine learning model to predict the best speed and direction to throw a basketball.",
                         "Learn about <strong>regression</strong> by making an AI-controlled basketball game in <strong>Scratch</strong>."
@@ -545,6 +559,7 @@
                             worksheet : translations['WORKSHEETS.SHOEBOX.WORKSHEET_1.URL']
                         }
                     ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-shoebox.docx',
                     featured : [
                         "Train a machine learning model to recognise spoken words, and use this to create a calculator.",
                         "Learn about <strong>voice recognition</strong> by recreating an AI project from the 1960's in <strong>Scratch</strong>."
@@ -565,6 +580,7 @@
                             worksheet : translations['WORKSHEETS.POKEMONIMAGES.WORKSHEET_1.URL']
                         }
                     ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-pokemonimages.docx',
                     featured : [
                         "Train a machine learning model to predict the type of a Pokémon in <strong>Scratch</strong>.",
                         "Learn about <strong>image recognition</strong> by training a model that learns to predict the type of a Pokémon based on pictures of what different Pokémon look like"
@@ -585,6 +601,7 @@
                             worksheet : translations['WORKSHEETS.POKEMONSTATS.WORKSHEET_1.URL']
                         }
                     ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-pokemonstats.docx',
                     featured : [
                         "Train a machine learning model to predict the type of a Pokémon in <strong>Scratch</strong>.",
                         "Learn about <strong>decision tree classifiers</strong> by training a model that learns to predict the type of a Pokémon based on statistics that describe their size, health, and abilities."
@@ -605,7 +622,8 @@
                         {
                             worksheet : translations['WORKSHEETS.NOUGHTSANDCROSSES.WORKSHEET_2.URL']
                         }
-                    ]
+                    ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-noughtsandcrosses-python.docx'
                 },
                 {
                     title : translations['WORKSHEETS.FACEFINDER.TITLE'],
@@ -622,6 +640,7 @@
                             worksheet : translations['WORKSHEETS.FACEFINDER.WORKSHEET_1.URL']
                         }
                     ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-facefinder.docx',
                     featured : [
                         "Use a pretrained machine learning model that has been trained to recognise the location of faces in photos.",
                         "Learn about <strong>face detection</strong> by creating animated face filters in <strong>Scratch</strong>."
@@ -642,7 +661,8 @@
                         {
                             worksheet : translations['WORKSHEETS.ROCKPAPERSCISSORS.WORKSHEET_1.URL']
                         }
-                    ]
+                    ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-rockpaperscissors.docx'
                 },
                 {
                     title : translations['WORKSHEETS.SHOOTTHEBUG.TITLE'],
@@ -659,6 +679,7 @@
                             worksheet : translations['WORKSHEETS.SHOOTTHEBUG.WORKSHEET_1.URL']
                         }
                     ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-shootthebug.docx',
                     featured : [
                         "Learn about machine learning by making a Space Invaders game in <strong>Scratch</strong>.",
                         "Train a <strong>regression</strong> model that chooses the direction to fire the ball."
@@ -678,7 +699,8 @@
                         {
                             worksheet : translations['WORKSHEETS.RAGTIME.WORKSHEET_1.URL']
                         }
-                    ]
+                    ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-ragtime.docx'
                 },
                 {
                     title : translations['WORKSHEETS.EXPLAINABILITY.TITLE'],
@@ -694,7 +716,8 @@
                         {
                             worksheet : translations['WORKSHEETS.EXPLAINABILITY.WORKSHEET_1.URL']
                         }
-                    ]
+                    ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-explainability.docx'
                 },
                 {
                     title : translations['WORKSHEETS.VOICETUNER.TITLE'],
@@ -710,6 +733,7 @@
                             worksheet : translations['WORKSHEETS.VOICETUNER.WORKSHEET_1.URL']
                         }
                     ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-voicetuner.docx',
                     featured : [
                         "Use a pretrained model that has been trained to recognise the note that you are singing.",
                         "Learn about <strong>pitch estimation</strong> by making an AI-powered voice tuner in <strong>Scratch</strong> where you need to hum or sing a particular note."
@@ -731,6 +755,7 @@
                             worksheet : translations['WORKSHEETS.NEWSPAPERSHELVES.WORKSHEET_1.URL']
                         }
                     ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-headlines-easy.docx',
                     featured : [
                         "Train a machine learning model to recognise the use of language in different newspapers.",
                         "Learn about <strong>text classifiers</strong> by making a game in <strong>Scratch</strong> that predicts the newspaper that new headlines came from."
@@ -752,6 +777,7 @@
                             worksheet : translations['WORKSHEETS.LASEREYES.WORKSHEET_1.URL']
                         }
                     ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-lasereyes.docx',
                     featured : [
                         "Learn about machine learning by making a voice-powered laser eyes game in <strong>Scratch</strong>.",
                         "Train a <strong>speech recognition</strong> model to activate the lasers, and use a pretrained <strong>face detection</strong> model to aim the laser."
@@ -772,7 +798,8 @@
                         {
                             worksheet : translations['WORKSHEETS.CHAMELEON.WORKSHEET_1.URL']
                         }
-                    ]
+                    ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-chameleon.docx'
                 },
                 {
                     title : translations['WORKSHEETS.ZOMBIEESCAPE.TITLE'],
@@ -789,6 +816,7 @@
                             worksheet : translations['WORKSHEETS.ZOMBIEESCAPE.WORKSHEET_1.URL']
                         }
                     ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-zombieescape.docx',
                     featured : [
                         "Train a robot to escape the zombies!",
                         "Learn about <strong>feature selection</strong> by training a custom <strong>decision tree classifier</strong> in <strong>Scratch</strong> that your robot will use to make decisions about where to go next."
@@ -808,7 +836,8 @@
                         {
                             worksheet : translations['WORKSHEETS.RECOMMENDER.WORKSHEET_1.URL']
                         }
-                    ]
+                    ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-recommender.docx'
                 },
                 {
                     title : translations['WORKSHEETS.SECRETCODE.TITLE'],
@@ -824,7 +853,8 @@
                         {
                             worksheet : translations['WORKSHEETS.SECRETCODE.WORKSHEET_1.URL']
                         }
-                    ]
+                    ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-secretcode.docx'
                 },
                 {
                     title : translations['WORKSHEETS.JUDGEABOOK.TITLE'],
@@ -846,6 +876,7 @@
                             worksheet : translations['WORKSHEETS.JUDGEABOOK.WORKSHEET_2.URL']
                         }
                     ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-judgeabook-easy.docx',
                     featured : [
                         "Train a machine learning model to recognise book genres from the cover.",
                         "Learn about <strong>image recognition</strong> by making a game in <strong>Scratch</strong>."
@@ -867,6 +898,7 @@
                             worksheet : translations['WORKSHEETS.TOURISTINFO.WORKSHEET_1.URL']
                         }
                     ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-touristinfo.docx',
                     featured : [
                         "Train a machine learning model to make holiday recommendations.",
                         "Learn about <strong>training bias</strong> and <strong>ethics in AI</strong> by intentionally making a biased app in <strong>Scratch</strong>."
@@ -894,6 +926,7 @@
                             resources : translations['WORKSHEETS.SNAP.WORKSHEET_2.RESOURCES']
                         }
                     ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-snap.docx',
                     featured : [
                         "Train a machine learning model to recognise coloured shapes.",
                         "Learn about <strong>image recognition</strong> by making a Snap game in <strong>Scratch</strong>."
@@ -919,7 +952,8 @@
                             description : translations['WORKSHEETS.CARORCUP.WORKSHEET_2.DESCRIPTION'],
                             worksheet : translations['WORKSHEETS.CARORCUP.WORKSHEET_2.URL']
                         }
-                    ]
+                    ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-carorcup.docx'
                 },
                 {
                     title : translations['WORKSHEETS.CHATBOTS.TITLE'],
@@ -940,7 +974,8 @@
                             description : translations['WORKSHEETS.CHATBOTS.WORKSHEET_2.DESCRIPTION'],
                             worksheet : translations['WORKSHEETS.CHATBOTS.WORKSHEET_2.URL']
                         }
-                    ]
+                    ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-chatbots.docx'
                 },
                 {
                     title : translations['WORKSHEETS.MOBILENET.TITLE'],
@@ -956,6 +991,7 @@
                             worksheet : translations['WORKSHEETS.MOBILENET.WORKSHEET_1.URL']
                         }
                     ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-mobilenet.docx',
                     featured : [
                         "Use a pretrained model that has been trained to recognise objects in photos.",
                         "Make a game in <strong>Scratch</strong> that can name the object that you point at in a photo."
@@ -977,6 +1013,7 @@
                             worksheet : translations['WORKSHEETS.EMOJIMASK.WORKSHEET_1.URL']
                         }
                     ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-emojimask.docx',
                     video_reqd_for_featured : [
                         "Use a pretrained machine learning model that has been trained to recognise the location of faces in photos",
                         "Learn about <strong>face detection</strong> by making a live emoji mask in <strong>Scratch</strong>"
@@ -996,6 +1033,7 @@
                             worksheet : translations['WORKSHEETS.GOLF.WORKSHEET_1.URL']
                         }
                     ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-golf.docx',
                     featured : [
                         "Train a machine learning model to predict the best speed and direction to putt the ball.",
                         "Learn about <strong>regression</strong> by making an AI-controlled golf game in <strong>Scratch</strong>."
@@ -1016,7 +1054,8 @@
                         {
                             worksheet : translations['WORKSHEETS.HEADLINETESTING.WORKSHEET_1.URL']
                         }
-                    ]
+                    ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-headlines.docx'
                 },
                 {
                     title : translations['WORKSHEETS.FOOLED.TITLE'],
@@ -1032,7 +1071,8 @@
                         {
                             worksheet : translations['WORKSHEETS.FOOLED.WORKSHEET_1.URL']
                         }
-                    ]
+                    ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-fooled.docx'
                 },
                 {
                     title : translations['WORKSHEETS.QUIZSHOW.TITLE'],
@@ -1049,6 +1089,7 @@
                             worksheet : translations['WORKSHEETS.QUIZSHOW.WORKSHEET_1.URL']
                         }
                     ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-quizshow.docx',
                     featured : [
                         "Use a pretrained machine learning model that can find answers to questions in text.",
                         "Learn about <strong>information retrieval</strong> techniques that predated language models by making a quiz show game in <strong>Scratch</strong>."
@@ -1069,7 +1110,8 @@
                         {
                             worksheet : translations['WORKSHEETS.TOPTRUMPS.WORKSHEET_1.URL']
                         }
-                    ]
+                    ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-toptrumps.docx'
                 },
                 {
                     title : translations['WORKSHEETS.JARGONBUSTER.TITLE'],
@@ -1085,7 +1127,8 @@
                         {
                             worksheet : translations['WORKSHEETS.JARGONBUSTER.WORKSHEET_1.URL']
                         }
-                    ]
+                    ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-jargonbuster.docx'
                 },
                 {
                     title : translations['WORKSHEETS.TITANIC.TITLE'],
@@ -1101,7 +1144,8 @@
                         {
                             worksheet : translations['WORKSHEETS.TITANIC.WORKSHEET_1.URL']
                         }
-                    ]
+                    ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-titanic-python.docx'
                 },
                 {
                     title : translations['WORKSHEETS.VIRTUALPET.TITLE'],
@@ -1117,7 +1161,8 @@
                         {
                             worksheet : translations['WORKSHEETS.VIRTUALPET.WORKSHEET_1.URL']
                         }
-                    ]
+                    ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-virtualpet.docx'
                 },
                 {
                     title : translations['WORKSHEETS.INKBLOTS.TITLE'],
@@ -1133,7 +1178,8 @@
                         {
                             worksheet : translations['WORKSHEETS.INKBLOTS.WORKSHEET_1.URL']
                         }
-                    ]
+                    ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-inkblots.docx'
                 },
                 {
                     title : translations['WORKSHEETS.SORTINGHAT.TITLE'],
@@ -1154,7 +1200,8 @@
                             description : translations['WORKSHEETS.SORTINGHAT.WORKSHEET_2.DESCRIPTION'],
                             worksheet : translations['WORKSHEETS.SORTINGHAT.WORKSHEET_2.URL']
                         }
-                    ]
+                    ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-sortinghat.docx'
                 },
                 {
                     title : translations['WORKSHEETS.BENCHMARK.TITLE'],
@@ -1171,6 +1218,7 @@
                             worksheet : translations['WORKSHEETS.BENCHMARK.WORKSHEET_1.URL']
                         }
                     ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-benchmark.docx',
                     featured : [
                         "Evaluate language models to identify how good they are at answering maths questions.",
                         "Learn about <strong>benchmarks</strong> by testing language models in <strong>Scratch</strong>"
@@ -1191,7 +1239,8 @@
                         {
                             worksheet : translations['WORKSHEETS.PHISHING.WORKSHEET_1.URL']
                         }
-                    ]
+                    ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-phishing.docx'
                 },
                 {
                     title : translations['WORKSHEETS.SEMAPHORES.TITLE'],
@@ -1207,7 +1256,8 @@
                         {
                             worksheet : translations['WORKSHEETS.SEMAPHORES.WORKSHEET_1.URL']
                         }
-                    ]
+                    ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-semaphores.docx'
                 },
                 {
                     title : translations['WORKSHEETS.HANDGESTURES.TITLE'],
@@ -1223,7 +1273,8 @@
                         {
                             worksheet : translations['WORKSHEETS.HANDGESTURES.WORKSHEET_1.URL']
                         }
-                    ]
+                    ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-handgestures.docx'
                 },
                 {
                     title : translations['WORKSHEETS.FACELOCK.TITLE'],
@@ -1239,7 +1290,8 @@
                         {
                             worksheet : translations['WORKSHEETS.FACELOCK.WORKSHEET_1.URL']
                         }
-                    ]
+                    ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-facelock.docx'
                 },
                 {
                     title : translations['WORKSHEETS.JOURNEYTOSCHOOL.TITLE'],
@@ -1255,7 +1307,8 @@
                         {
                             worksheet : translations['WORKSHEETS.JOURNEYTOSCHOOL.WORKSHEET_1.URL']
                         }
-                    ]
+                    ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-journeytoschool.docx'
                 },
                 {
                     title : translations['WORKSHEETS.SCHOOLLIBRARY.TITLE'],
@@ -1272,6 +1325,7 @@
                             worksheet : translations['WORKSHEETS.SCHOOLLIBRARY.WORKSHEET_1.URL']
                         }
                     ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-schoollibrary.docx',
                     video : 'Hhb5rCXDcdQ'
                 }
             ];
