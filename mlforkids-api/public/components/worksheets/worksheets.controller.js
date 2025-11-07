@@ -1340,7 +1340,7 @@
             if (!$scope.featuredWorksheet) {
                 $scope.featuredWorksheet = allFeaturedWorksheets[Math.floor(Math.random() * allFeaturedWorksheets.length)];
             }
-            $scope.featuredWorksheetVideo = $sce.trustAsResourceUrl('https://www.youtube.com/embed/' + $scope.featuredWorksheet.video + '?rel=0&loop=1&playlist=' + $scope.featuredWorksheet.video);
+            $scope.featuredWorksheetVideo = $sce.trustAsResourceUrl('https://www.youtube-nocookie.com/embed/' + $scope.featuredWorksheet.video + '?rel=0&loop=1&playlist=' + $scope.featuredWorksheet.video + '&origin=https://machinelearningforkids.co.uk');
         });
 
         vm.downloadWorksheet = function (ev, worksheet) {
@@ -1350,7 +1350,7 @@
                 },
                 controller : function ($scope, locals) {
                     if (locals.worksheet.video) {
-                        $scope.video = $sce.trustAsResourceUrl('https://www.youtube.com/embed/' + locals.worksheet.video + '?rel=0&loop=1&playlist=' + locals.worksheet.video);
+                        $scope.video = $sce.trustAsResourceUrl('https://www.youtube-nocookie.com/embed/' + locals.worksheet.video + '?rel=0&loop=1&playlist=' + locals.worksheet.video + '&origin=https://machinelearningforkids.co.uk');
                     }
                     $scope.worksheet = locals.worksheet;
                     $scope.hide = function() {

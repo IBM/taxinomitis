@@ -35,8 +35,9 @@ export const CSP_DIRECTIVES = {
         // used to embed tweets in the News tab
         'http://platform.twitter.com',
         'https://cdn.syndication.twimg.com',
-        // used to embed videos in the News tab
+        // used to embed videos in the News and Worksheets tab
         'https://www.youtube.com',
+        'https://www.youtube-nocookie.com',
         // used to embed video in the Worksheets tab
         'https://player.vimeo.com',
         // used for error capturing
@@ -52,6 +53,7 @@ export const CSP_DIRECTIVES = {
         'https://syndication.twitter.com',
         'https://platform.twitter.com',
         'https://www.youtube.com',
+        'https://www.youtube-nocookie.com',
         // used in the Worksheets tab
         'https://player.vimeo.com',
     ],
