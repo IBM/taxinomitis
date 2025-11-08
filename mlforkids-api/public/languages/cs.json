@@ -599,6 +599,7 @@
             },
             "WEBCAM": "Test s <strong>webovou kamerou</strong>",
             "DRAWING": "Zkouška <strong>kreslením</strong>",
+            "FILE": "Test with <strong>file</strong>",
             "WWW": "Test s <strong>www</strong>",
             "RECOGNISED": "Rozpoznáno jako <strong>{{ testoutput }}</strong>",
             "PREDICTION": "Prediction:",

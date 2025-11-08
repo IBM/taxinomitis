@@ -599,6 +599,7 @@
             },
             "WEBCAM": "Test met <strong>webcam</strong>",
             "DRAWING": "Test door <strong>te tekenen</strong>",
+            "FILE": "Test with <strong>file</strong>",
             "WWW": "Test met <strong>www</strong>",
             "RECOGNISED": "Herkend als  <strong>{{ testoutput }}</strong>",
             "PREDICTION": "Prediction:",

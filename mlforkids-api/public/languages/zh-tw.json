@@ -607,6 +607,7 @@
             },
             "WEBCAM": "使用<strong>視訊攝影機</strong>來測試",
             "DRAWING": "使用<strong>繪圖</strong>來測試",
+            "FILE": "Test with <strong>file</strong>",
             "WWW": "使用<strong>網址</strong>來測試",
             "RECOGNISED": "辨識的結果是<strong>{{ testoutput }}</strong>",
             "PREDICTION": "Prediction:",

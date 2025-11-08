@@ -599,6 +599,7 @@
             },
             "WEBCAM": "Δοκιμή με <strong>web κάμερα</strong>",
             "DRAWING": "Δοκιμή με <strong>σχεδίαση</strong>",
+            "FILE": "Test with <strong>file</strong>",
             "WWW": "Δοκιμή με <strong>www</strong>",
             "RECOGNISED": "Αναγνωρίστηκε ως <strong>{{ testoutput }}</strong>",
             "PREDICTION": "Prediction:",

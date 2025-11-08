@@ -599,6 +599,7 @@
             },
             "WEBCAM": " تست کنید با <strong>وب کم</strong> با ",
             "DRAWING": "با <strong>نقاشی</strong> تست کنید ",
+            "FILE": "Test with <strong>file</strong>",
             "WWW": "با <strong>www</strong> تست کنید ",
             "RECOGNISED": "به عنوان <strong>{{ testoutput }}</strong> شناخته شد",
             "PREDICTION": "Prediction:",

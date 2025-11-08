@@ -608,6 +608,7 @@
             },
             "WEBCAM": "Testează cu <strong>o cameră web</strong>",
             "DRAWING": "Testează cu <strong>un desen</strong>",
+            "FILE": "Test with <strong>file</strong>",
             "WWW": "Testează cu <strong>www</strong>",
             "RECOGNISED": "Recunoscut ca <strong>{{ testoutput }}</strong>",
             "PREDICTION": "Prediction:",

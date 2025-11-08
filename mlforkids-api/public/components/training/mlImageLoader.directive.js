@@ -7,6 +7,8 @@
 
     function mlImageLoader() {
 
+        var mode = 'training';
+
         function cancel(evt) {
             if (evt && evt.preventDefault) {
                 evt.preventDefault();
@@ -105,8 +107,8 @@
                 evt.preventDefault();
             }
 
-            // only allow files for local storage
-            var allowFiles = scope.$parent.project.storage === 'local';
+            // only allow files for local storage or for testing
+            var allowFiles = mode === 'testing' || scope.$parent.project.storage === 'local';
             if (evt.dataTransfer &&
                 evt.dataTransfer.types && evt.dataTransfer.types.length === 1 && evt.dataTransfer.types[0] === 'Files')
             {
@@ -250,6 +252,8 @@
         function link (scope, jqlElements, attrs) {
             var jqlElement = jqlElements[0];
             var label = scope.$parent.label;
+
+            mode = (attrs.mlImageLoader === 'testing') ? 'testing' : 'training';
 
             jqlElement.addEventListener('dragover', cancel);
 

@@ -599,6 +599,7 @@
             },
             "WEBCAM": "使用<strong>摄像头</strong>测试",
             "DRAWING": "通过<strong>绘图</strong>进行测试",
+            "FILE": "Test with <strong>file</strong>",
             "WWW": "用<strong> 网址 </strong>进行测试",
             "RECOGNISED": "辨识的结果是<strong> {{testoutput}} </strong> ",
             "PREDICTION": "Prediction:",

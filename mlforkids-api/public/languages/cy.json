@@ -599,6 +599,7 @@
             },
             "WEBCAM": "Profi gyda <strong>gwe-gamera</strong>",
             "DRAWING": "Profi gan <strong>llunio</strong>",
+            "FILE": "Test with <strong>file</strong>",
             "WWW": "Profi gyda <strong>www</strong>",
             "RECOGNISED": "Cydnabyddir fel <strong>{{ testoutput }}</strong>",
             "PREDICTION": "Prediction:",

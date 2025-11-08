@@ -608,6 +608,7 @@
             },
             "WEBCAM": "Test with <strong>webcam</strong>",
             "DRAWING": "Test by <strong>drawing</strong>",
+            "FILE": "Test with <strong>file</strong>",
             "WWW": "Test with <strong>www</strong>",
             "RECOGNISED": "Recognised as  <strong>{{ testoutput }}</strong>",
             "PREDICTION": "Prediction:",

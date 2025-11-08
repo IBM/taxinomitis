@@ -604,6 +604,7 @@
       },
       "WEBCAM": "Փորձարկել հետ <strong>Վեբ - տեսախցիկ</strong>",
       "DRAWING": "Փորձարկում՝ ըստ <strong>նկարչություն</strong>",
+      "FILE": "Test with <strong>file</strong>",
       "WWW": "Փորձարկել հետ <strong>www</strong>",
       "RECOGNISED": "Ճանաչվել է որպես  <strong>{{ testoutput }}</strong>",
       "PREDICTION": "Կանխատեսում:",

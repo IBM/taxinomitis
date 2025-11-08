@@ -104,13 +104,16 @@
 }
 
 .trainingserversection .testwebcambutton {
-    margin: 2em;
+    margin: 1em;
 }
 .trainingserversection .testcanvasbutton {
     margin: 1em;
 }
+.trainingserversection .testfilebutton {
+    margin: 1em;
+}
 .trainingserversection .testurlbutton {
-    margin-left: 2em;
+    margin-left: 1em;
     width: 70%;
 }
 .trainingserversection .testnumbers {

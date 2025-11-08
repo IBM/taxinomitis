@@ -388,13 +388,26 @@
                     <span translate="MODELS.TESTING.DRAWING"></span>
                 </div>
             </div>
+            <label class="btn newexamplebutton testfilebutton" for="image-testing-upload" ng-if="project.type === 'imgtfjs'">
+                <div class="newexamplelabel">
+                    &nbsp;
+                    <span class="glyphicon glyphicon-open-file"></span>
+                    <span translate="MODELS.TESTING.FILE"></span>
+                </div>
+            </label>
+            <input id="image-testing-upload" ng-if="project.type === 'imgtfjs'"
+                type="file"
+                accept=".jpeg,.jpg,.png"
+                style="display: none;"
+                data-label="test image"
+                onchange="angular.element(this).scope().testUsingFile(event, this)"/>
             <br ng-if="project.type === 'imgtfjs'"/>
             <input ng-if="project.type === 'imgtfjs'"
                    class="testurlbutton"
                    type="text"
                    ng-model="testformData.testimageurl"
                    ng-required="true"
-                   ml-image-loader
+                   ml-image-loader="testing"
                    placeholder="Test with a web address for an image on the Internet">
             <button ng-if="project.type === 'imgtfjs'"
                    class="btn btn-default"

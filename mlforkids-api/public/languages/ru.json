@@ -599,6 +599,7 @@
             },
             "WEBCAM": "Проверить через <strong>вебкамеру</strong>",
             "DRAWING": "Проверить <strong>рисунком</strong>",
+            "FILE": "Test with <strong>file</strong>",
             "WWW": "Проверить <strong>ссылкой в сети</strong>",
             "RECOGNISED": "Распознано как <strong>{{ testoutput }}</strong>",
             "PREDICTION": "Прогноз:",

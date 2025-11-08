@@ -607,6 +607,7 @@
             },
             "WEBCAM": "<strong>웹캠</strong>으로 테스트하기",
             "DRAWING": "<strong>그림 그리기</strong>로 테스트하기",
+            "FILE": "Test with <strong>file</strong>",
             "WWW": "<strong>인터넷 자료</strong>로 테스트하기",
             "RECOGNISED": "<strong>{{ testoutput }}</strong>(으)로 인식되었습니다.",
             "PREDICTION": "Prediction:",

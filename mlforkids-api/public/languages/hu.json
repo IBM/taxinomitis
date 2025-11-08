@@ -607,6 +607,7 @@
             },
             "WEBCAM": "Teszteld a  <strong>webkamerával</strong>",
             "DRAWING": "Teszteld <strong>rajzolással</strong>",
+            "FILE": "Test with <strong>file</strong>",
             "WWW": "Teszteld <strong>webbel</strong>",
             "RECOGNISED": "Ismerd fel, mint <strong>{{ testoutput }}</strong>",
             "PREDICTION": "Prediction:",

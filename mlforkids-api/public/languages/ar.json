@@ -599,6 +599,7 @@
             },
             "WEBCAM": "اختبار باستخدام <strong>كاميرا الويب</strong>",
             "DRAWING": "اختبار باستخدام<strong>الرسم</strong>",
+            "FILE": "Test with <strong>file</strong>",
             "WWW": "اختبار باستخدام<strong>www</strong>",
             "RECOGNISED": "معروف بأنه <strong>{{testoutput}}</strong>",
             "PREDICTION": "Prediction:",

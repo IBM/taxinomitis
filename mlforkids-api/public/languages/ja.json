@@ -599,6 +599,7 @@
             },
             "WEBCAM": "<strong>webcam</strong>で試す。",
             "DRAWING": "<strong>描いて</strong>試す",
+            "FILE": "Test with <strong>file</strong>",
             "WWW": "<strong>www</strong>で試す",
             "RECOGNISED": "<strong>{{ testoutput }}</strong>と認識しました。",
             "PREDICTION": "Prediction:",

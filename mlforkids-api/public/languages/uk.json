@@ -599,6 +599,7 @@
       },
       "WEBCAM": "Тестувати за допомогою <strong>веб-камери</strong>",
       "DRAWING": "Тестувати за допомогою <strong>малювання</strong>",
+      "FILE": "Test with <strong>file</strong>",
       "WWW": "Тестувати за допомогою <strong>www</strong>",
       "RECOGNISED": "Розпізнано як  <strong>{{ testoutput }}</strong>",
       "PREDICTION": "Prediction:",

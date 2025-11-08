@@ -860,6 +860,16 @@
         };
 
 
+        $scope.testUsingFile = function (ev) {
+            loggerService.debug('[ml4kmodels] testUsingFile');
+            var files = ev.currentTarget.files;
+            if (files && files.length > 0) {
+                var file = ev.currentTarget.files[0];
+                vm.addImageFile(file);
+            }
+        };
+
+
         function displayTestResult(resp) {
             loggerService.debug('[ml4kmodels] prediction', resp);
             $timeout(function () {
