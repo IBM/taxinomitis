@@ -57,6 +57,7 @@ export default function setup(app: Express.Application): void {
     log.info('Applying custom API limitations');
     app.use(URLS.PREPARE_NGRAMS, bodyParser.json({ limit : '3mb' }));
     app.use(URLS.LOCALMODELS, bodyParser.json({ limit : '4mb' }));
+    app.use(URLS.LOCALNUMBERSMODELS, bodyParser.json({ limit : '4mb' }));
     app.use(URLS.SCRATCHKEY_CLASSIFY, bodyParser.json({ limit : '3mb' }));
     app.use(URLS.SOUNDS, bodyParser.json({ limit : '400kb' }));
     app.use(URLS.TRAININGITEMS, bodyParser.json({ limit : '400kb' }));
