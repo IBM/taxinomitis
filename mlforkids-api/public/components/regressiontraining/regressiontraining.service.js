@@ -55,10 +55,27 @@
                 })
                 .then(function (loadedModel) {
                     if (loadedModel) {
-                        normalization = {
-                            mean : tf.tensor(project.normalization.mean),
-                            standardDeviation : tf.tensor(project.normalization.standardDeviation)
-                        };
+                        if (project.normalization.mean) {
+                            // only normalization for input is available (models trained before December 2025)
+                            normalization = {
+                                input : {
+                                    mean : tf.tensor(project.normalization.mean),
+                                    standardDeviation : tf.tensor(project.normalization.standardDeviation)
+                                }
+                            };
+                        }
+                        else {
+                            normalization = {
+                                input : {
+                                    mean : tf.tensor(project.normalization.input.mean),
+                                    standardDeviation : tf.tensor(project.normalization.input.standardDeviation)
+                                },
+                                output : {
+                                    mean : tf.tensor(project.normalization.output.mean),
+                                    standardDeviation : tf.tensor(project.normalization.output.standardDeviation)
+                                }
+                            };
+                        }
                         model = loadedModel.output;
                         modelStatus = {
                             classifierid : project.id,
@@ -136,6 +153,24 @@
         }
 
 
+        function normalizeFeatures(features) {
+            const featuresTensor = tf.tensor2d(features);
+            const mean = featuresTensor.mean(0);
+            const standardDeviation = featuresTensor
+                .sub(mean)
+                .square()
+                .mean(0)
+                .sqrt();
+            return {
+                mean,
+                standardDeviation,
+                features : featuresTensor
+                            .sub(mean)
+                            .div(standardDeviation)
+            };
+        }
+
+
         function newModel (project) {
             loggerService.debug('[ml4kregress] creating new ML model');
 
@@ -188,30 +223,37 @@
                         }
                     }
 
-                    // normalize the input
-                    const inputFeaturesTensor = tf.tensor2d(inputFeatures);
-                    const mean = inputFeaturesTensor.mean(0);
-                    const standardDeviation = inputFeaturesTensor
-                        .sub(mean)
-                        .square()
-                        .mean(0)
-                        .sqrt();
-                    normalization = { mean, standardDeviation };
-                    const normalisedInputFeatures = inputFeaturesTensor
-                        .sub(normalization.mean)
-                        .div(normalization.standardDeviation);
+                    // normalize the data
+                    const normalizedInput = normalizeFeatures(inputFeatures);
+                    const normalizedTarget = normalizeFeatures(targetFeatures);
+                    normalization = {
+                        input : {
+                            mean : normalizedInput.mean,
+                            standardDeviation : normalizedInput.standardDeviation
+                        },
+                        output : {
+                            mean : normalizedTarget.mean,
+                            standardDeviation : normalizedTarget.standardDeviation
+                        }
+                    };
 
                     // save the mean and std dev so they can be used in testing
                     browserStorageService.addMetadataToProject(project.id, 'normalization', {
-                        mean : normalization.mean.arraySync(),
-                        standardDeviation : normalization.standardDeviation.arraySync()
+                        input : {
+                            mean : normalizedInput.mean.arraySync(),
+                            standardDeviation : normalizedInput.standardDeviation.arraySync()
+                        },
+                        output : {
+                            mean : normalizedTarget.mean.arraySync(),
+                            standardDeviation : normalizedTarget.standardDeviation.arraySync()
+                        }
                     });
 
                     // create the model
                     model = defineModel(inputColumns.length, targetColumns.length);
 
                     // train the model
-                    model.fit(normalisedInputFeatures, tf.tensor2d(targetFeatures), {
+                    model.fit(normalizedInput.features, normalizedTarget.features, {
                         batchSize : BATCH_SIZE,
                         epochs : EPOCHS,
                         validationSplit : VALIDATION_PROPORTION,
@@ -260,11 +302,19 @@
                     });
                 const inputTensor = tf.tensor2d([ inputValues ]);
                 const normalisedInputValues = inputTensor
-                    .sub(normalization.mean)
-                    .div(normalization.standardDeviation);
+                    .sub(normalization.input.mean)
+                    .div(normalization.input.standardDeviation);
                 return normalisedInputValues;
             });
+
             var modelOutput = model.predict(testTensor);
+            if (normalization.output) {
+                var denormalizedOutput = modelOutput
+                    .mul(normalization.output.standardDeviation)
+                    .add(normalization.output.mean);
+                modelOutput = denormalizedOutput;
+            }
+
             return modelOutput.data()
                 .then(function (output) {
                     const targetColumns = project.columns

@@ -2262,6 +2262,16 @@ class ML4KidsRegressionTraining {
       });
     });
   }
+  normalizeFeatures(features) {
+    const featuresTensor = tf.tensor2d(features);
+    const mean = featuresTensor.mean(0);
+    const standardDeviation = featuresTensor.sub(mean).square().mean(0).sqrt();
+    return {
+      mean,
+      standardDeviation,
+      features: featuresTensor.sub(mean).div(standardDeviation)
+    };
+  }
   trainNewModel(projectid, worker) {
     if (this.PROJECTS[projectid].state === 'TRAINING') {
       console.log('[mlforkids] ML4KidsRegressionTraining training in progress for this model');
@@ -2314,26 +2324,36 @@ class ML4KidsRegressionTraining {
       }
 
       // normalize the input
-      const inputFeaturesTensor = tf.tensor2d(inputFeatures);
-      const mean = inputFeaturesTensor.mean(0);
-      const standardDeviation = inputFeaturesTensor.sub(mean).square().mean(0).sqrt();
+      const normalizedInput = that.normalizeFeatures(inputFeatures);
+      const normalizedTarget = that.normalizeFeatures(targetFeatures);
       that.PROJECTS[projectid].normalization = {
-        mean,
-        standardDeviation
+        input: {
+          mean: normalizedInput.mean,
+          standardDeviation: normalizedInput.standardDeviation
+        },
+        output: {
+          mean: normalizedTarget.mean,
+          standardDeviation: normalizedTarget.standardDeviation
+        }
       };
-      const normalisedInputFeatures = inputFeaturesTensor.sub(that.PROJECTS[projectid].normalization.mean).div(that.PROJECTS[projectid].normalization.standardDeviation);
 
       // store the normalization
       that._storageSupport.addMetadataToProject(projectid, 'normalization', {
-        mean: that.PROJECTS[projectid].normalization.mean.arraySync(),
-        standardDeviation: that.PROJECTS[projectid].normalization.standardDeviation.arraySync()
+        input: {
+          mean: normalizedInput.mean.arraySync(),
+          standardDeviation: normalizedInput.standardDeviation.arraySync()
+        },
+        output: {
+          mean: normalizedTarget.mean.arraySync(),
+          standardDeviation: normalizedTarget.standardDeviation.arraySync()
+        }
       });
 
       // create the model
       that.PROJECTS[projectid].model = that._defineModel(inputColumns.length, targetColumns.length);
 
       // train the model
-      that.PROJECTS[projectid].model.fit(normalisedInputFeatures, tf.tensor2d(targetFeatures), {
+      that.PROJECTS[projectid].model.fit(normalizedInput.features, normalizedTarget.features, {
         batchSize: 40,
         epochs: 200,
         validationSplit: 0.2,
@@ -2378,10 +2398,14 @@ class ML4KidsRegressionTraining {
         return testdata[col.label];
       });
       const inputTensor = tf.tensor2d([inputValues]);
-      const normalisedInputValues = inputTensor.sub(normalization.mean).div(normalization.standardDeviation);
+      const normalisedInputValues = inputTensor.sub(normalization.input.mean).div(normalization.input.standardDeviation);
       return normalisedInputValues;
     });
     var modelOutput = this.PROJECTS[projectid].model.predict(testTensor);
+    if (normalization.output) {
+      var denormalizedOutput = modelOutput.mul(normalization.output.standardDeviation).add(normalization.output.mean);
+      modelOutput = denormalizedOutput;
+    }
     modelOutput.data().then(function (output) {
       const targetColumns = project.columns.filter(function (col) {
         return col.output === true;
@@ -2440,10 +2464,26 @@ class ML4KidsRegressionTraining {
       return tf.loadLayersModel(savelocation).then(storedModelInfo => {
         // TODO compare model with project info to check size is consistent
         if (storedModelInfo) {
-          this.PROJECTS[projectid].normalization = {
-            mean: tf.tensor(this.PROJECTS[projectid].project.normalization.mean),
-            standardDeviation: tf.tensor(this.PROJECTS[projectid].project.normalization.standardDeviation)
-          };
+          if (this.PROJECTS[projectid].project.normalization.mean) {
+            // only normalization for input is available (models trained before December 2025)
+            this.PROJECTS[projectid].normalization = {
+              input: {
+                mean: tf.tensor(this.PROJECTS[projectid].project.normalization.mean),
+                standardDeviation: tf.tensor(this.PROJECTS[projectid].project.normalization.standardDeviation)
+              }
+            };
+          } else {
+            this.PROJECTS[projectid].normalization = {
+              input: {
+                mean: tf.tensor(this.PROJECTS[projectid].project.normalization.input.mean),
+                standardDeviation: tf.tensor(this.PROJECTS[projectid].project.normalization.input.standardDeviation)
+              },
+              output: {
+                mean: tf.tensor(this.PROJECTS[projectid].project.normalization.output.mean),
+                standardDeviation: tf.tensor(this.PROJECTS[projectid].project.normalization.output.standardDeviation)
+              }
+            };
+          }
           this.PROJECTS[projectid].model = storedModelInfo;
           loaded = true;
         }
