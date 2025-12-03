@@ -229,7 +229,7 @@ class MachineLearningImagesTfjs {
             method : 'POST',
             body : JSON.stringify({
                 data : TEXT,
-                label : LABEL
+                label : new String(LABEL)
             })
         };
 
@@ -260,7 +260,7 @@ class MachineLearningImagesTfjs {
                 data : {
                     projectid : '{{{projectid}}}',
                     image : TEXT,
-                    label : LABEL
+                    label : new String(LABEL)
                 }
             }
         });

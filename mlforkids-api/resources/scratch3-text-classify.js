@@ -170,7 +170,7 @@ class MachineLearningText {
 
 
     addTraining({ TEXT, LABEL }) {
-        var txt = cleanUpText(TEXT, 1024);
+        var txt = cleanUpText(new String(TEXT), 1024);
         if (txt.length === 0) {
             return;
         }
@@ -187,7 +187,7 @@ class MachineLearningText {
             method : 'POST',
             body : JSON.stringify({
                 data : txt,
-                label : LABEL
+                label : new String(LABEL)
             })
         };
 
@@ -224,7 +224,7 @@ class MachineLearningText {
                 data : {
                     projectid : '{{{projectid}}}',
                     textdata : txt,
-                    label : LABEL
+                    label : new String(LABEL)
                 }
             }
         });

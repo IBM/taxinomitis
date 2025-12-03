@@ -244,7 +244,7 @@ class MachineLearningNumbers {
 
 
     addTraining(args) {
-        const label = args.LABEL;
+        const label = new String(args.LABEL);
         {{#storeurl}}
         const numbers = this.getRawFieldValuesAsAry(args);
 
