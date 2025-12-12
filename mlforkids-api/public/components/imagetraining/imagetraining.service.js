@@ -104,6 +104,7 @@
             modelClasses = projectLabels;
             return loadTensorFlow()
                 .then(function () {
+                    utilService.logTfjsMemory('initImageSupport');
                     return prepareMobilenet();
                 })
                 .then(function (preparedBaseModel) {
@@ -178,10 +179,68 @@
         }
 
 
+        function prepareTrainingData(trainingdata) {
+            var xs;
+            var ys;
+
+            try {
+                for (var i=0; i < trainingdata.length; i++) {
+                    var trainingdataitem = trainingdata[i];
+                    var labelIdx = modelClasses.indexOf(trainingdataitem.metadata.label);
+
+                    var xval = baseModel.predict(trainingdataitem.data);
+                    trainingdataitem.data.dispose();
+
+                    var yval = tf.tidy(function () {
+                        return tf.oneHot(tf.tensor1d([ labelIdx ]).toInt(), modelNumClasses);
+                    });
+
+                    if (i === 0) {
+                        xs = xval;
+                        ys = yval;
+                    }
+                    else {
+                        var oldxs = xs;
+                        var oldys = ys;
+                        xs = oldxs.concat(xval, 0);
+                        ys = oldys.concat(yval, 0);
+
+                        safeDispose(oldxs, xval);
+                        safeDispose(oldys, yval);
+                    }
+                }
+
+                let epochs = 10;
+                if (trainingdata.length > 100) {
+                    epochs = 20;
+                }
+                else if (trainingdata.length > 50) {
+                    epochs = 15;
+                }
+
+                return { xs, ys, epochs };
+            }
+            catch (err) {
+                loggerService.error('[ml4kimages] failed to prepare training tensors', err);
+                if (err.message && err.message.includes('compile fragment shader')) {
+                    err.data = {
+                        error : 'Your device does not have enough graphics memory to get ' +
+                        'your training data ready. ' +
+                        'You could remove some of your training images. ' +
+                        'It might help if you close other browser tabs or applications. '
+                    };
+                    err.status = 500;
+                }
+                throw err;
+            }
+        }
+
+
         function newModel(projectid, userid, tenantid) {
             loggerService.debug('[ml4kimages] creating new ML model');
             loggerService.debug('[ml4kimages] tf backend', tf.getBackend());
             loggerService.debug('[ml4kimages] tf precision', tf.ENV.getBool('WEBGL_RENDER_FLOAT32_ENABLED'));
+            utilService.logTfjsMemory('newModel');
 
             modelStatus = {
                 classifierid : projectid,
@@ -191,6 +250,9 @@
             };
 
             if (usingRestoredModel) {
+                if (transferModel) {
+                    transferModel.dispose();
+                }
                 transferModel = prepareTransferLearningModel(baseModel, modelNumClasses);
             }
 
@@ -220,40 +282,8 @@
                 .then(function (trainingdata) {
                     loggerService.debug('[ml4kimages] retrieved training data');
 
-                    var xs;
-                    var ys;
-
-                    for (var i=0; i < trainingdata.length; i++) {
-                        var trainingdataitem = trainingdata[i];
-                        var labelIdx = modelClasses.indexOf(trainingdataitem.metadata.label);
-
-                        var xval = baseModel.predict(trainingdataitem.data);
-                        var yval = tf.tidy(function () {
-                            return tf.oneHot(tf.tensor1d([ labelIdx ]).toInt(), modelNumClasses);
-                        });
-
-                        if (i === 0) {
-                            xs = xval;
-                            ys = yval;
-                        }
-                        else {
-                            var oldxs = xs;
-                            var oldys = ys;
-                            xs = oldxs.concat(xval, 0);
-                            ys = oldys.concat(yval, 0);
-
-                            oldxs.dispose();
-                            oldys.dispose();
-                        }
-                    }
-
-                    let epochs = 10;
-                    if (trainingdata.length > 100) {
-                        epochs = 20;
-                    }
-                    else if (trainingdata.length > 50) {
-                        epochs = 15;
-                    }
+                    utilService.logTfjsMemory('preparing training data');
+                    const { xs, ys, epochs } = prepareTrainingData(trainingdata);
 
                     // start the training in the background
                     trainTfjsModel(projectid, epochs, xs, ys);
@@ -276,6 +306,8 @@
 
 
         function trainTfjsModel(projectid, epochs, xs, ys) {
+            utilService.logTfjsMemory('training model', epochs);
+
             let aborted = false;
 
             var progressPerEpoch = Math.round(100 / epochs);
@@ -296,6 +328,8 @@
                         }
                     },
                     onTrainEnd : function () {
+                        safeDispose(xs, ys);
+
                         if (aborted) {
                             if (epochs >= 10) {
                                 // retry with a smaller epoch
@@ -324,10 +358,22 @@
                                     modelStatus.progress = 100;
                                 }
                                 usingRestoredModel = false;
+                                utilService.logTfjsMemory('training complete');
                             });
                     }
                 }
             });
+        }
+
+
+        function safeDispose(tens1, tens2) {
+            try {
+                tf.dispose(tens1);
+                tf.dispose(tens2);
+            }
+            catch (err) {
+                loggerService.error('[ml4kimages] failed to dispose tensors', err);
+            }
         }
 
 
@@ -337,6 +383,9 @@
 
             return transferModelOutput.data()
                 .then(function (output) {
+                    imageData.dispose();
+                    safeDispose(baseModelOutput, transferModelOutput);
+
                     if (output.length !== modelNumClasses) {
                         loggerService.error('[ml4kimages] unexpected output from model', output);
                         throw new Error('Unexpected output from model');

@@ -66,6 +66,24 @@
         }
 
 
+        function logTfjsMemory(stage) {
+            if (tf) {
+                const memInfo = tf.memory();
+                loggerService.debug('[ml4kutils] memory info', {
+                    stage,
+                    numBytes: memInfo.numBytes,
+                    numBytesInGPU: memInfo.numBytesInGPU,
+                    numBytesInGPUAllocated: memInfo.numBytesInGPUAllocated,
+                    numBytesInGPUFree: memInfo.numBytesInGPUFree,
+                    numDataBuffers: memInfo.numDataBuffers,
+                    numTensors: memInfo.numTensors
+                });
+            }
+            else {
+                loggerService.error('[ml4kutils] tensorflow not loaded', stage);
+            }
+        }
+
 
         var GOOGLE_IMAGE_URL_REGEX = /^https:\/\/lh[1-9]\.google(?:usercontent)?\.com\/.*/;
 
@@ -76,6 +94,7 @@
         return {
             loadScript : loadScript,
             loadTensorFlow : loadTensorFlow,
+            logTfjsMemory : logTfjsMemory,
             loadImageProjectSupport : loadImageProjectSupport,
             loadNumberProjectSupport : loadNumberProjectSupport,
             loadWebLlmProjectSupport : loadWebLlmProjectSupport,
