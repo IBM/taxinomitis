@@ -1457,6 +1457,8 @@ class ML4KidsImageTraining {
         const baseModelOutput = that.baseModel.predict(imageDataTensor);
         const transferModelOutput = that.PROJECTS[projectid].transferModel.predict(baseModelOutput);
         transferModelOutput.data().then(output => {
+          imageDataTensor.dispose();
+          that._safeDispose(baseModelOutput, transferModelOutput);
           if (output.length !== that.PROJECTS[projectid].modelNumClasses) {
             console.log('[mlforkids] ML4KidsImageTraining received unexpected classify response', output);
             return worker.postMessage({
@@ -1641,6 +1643,9 @@ class ML4KidsImageTraining {
     console.log('[mlforkids] ML4KidsImageTraining training new model');
     this.PROJECTS[projectid].state = 'TRAINING';
     if (this.PROJECTS[projectid].usingRestoredModel) {
+      if (this.PROJECTS[projectid].transferModel) {
+        this.PROJECTS[projectid].transferModel.dispose();
+      }
       this.PROJECTS[projectid].transferModel = this.prepareTransferLearningModel(this.PROJECTS[projectid].modelNumClasses);
     }
     const that = this;
@@ -1651,6 +1656,7 @@ class ML4KidsImageTraining {
         const trainingdataitem = trainingdata[i];
         const labelIdx = that.PROJECTS[projectid].modelClasses.indexOf(trainingdataitem.metadata.label);
         const xval = that.baseModel.predict(trainingdataitem.data);
+        trainingdataitem.data.dispose();
         const yval = tf.tidy(function () {
           return tf.oneHot(tf.tensor1d([labelIdx]).toInt(), that.PROJECTS[projectid].modelNumClasses);
         });
@@ -1662,8 +1668,8 @@ class ML4KidsImageTraining {
           var oldys = ys;
           xs = oldxs.concat(xval, 0);
           ys = oldys.concat(yval, 0);
-          oldxs.dispose();
-          oldys.dispose();
+          that._safeDispose(oldxs, xval);
+          that._safeDispose(oldys, yval);
         }
       }
       let epochs = 10;
@@ -1675,8 +1681,8 @@ class ML4KidsImageTraining {
       that._trainTfjsModel(projectid, epochs, xs, ys, worker);
     }).catch(err => {
       console.log('[mlforkids] ML4KidsImageTraining failed to train model', err);
-      this.PROJECTS[projectid].state = 'ERROR';
-      this.PROJECTS[projectid].usingRestoredModel = false;
+      that.PROJECTS[projectid].state = 'ERROR';
+      that.PROJECTS[projectid].usingRestoredModel = false;
       worker.postMessage({
         mlforkidsimage: 'modelfailed',
         data: {
@@ -1684,6 +1690,14 @@ class ML4KidsImageTraining {
         }
       });
     });
+  }
+  _safeDispose(tens1, tens2) {
+    try {
+      tf.dispose(tens1);
+      tf.dispose(tens2);
+    } catch (err) {
+      console.log('[mlforkids] ML4KidsImageTraining failed to dispose tensors', err);
+    }
   }
   _trainTfjsModel(projectid, epochs, xs, ys, worker) {
     let aborted = false;
@@ -1700,6 +1714,7 @@ class ML4KidsImageTraining {
           }
         },
         onTrainEnd: () => {
+          this._safeDispose(xs, ys);
           if (aborted) {
             if (epochs >= 10) {
               // retry with a smaller epoch
