@@ -2278,14 +2278,17 @@ class ML4KidsRegressionTraining {
     });
   }
   normalizeFeatures(features) {
-    const featuresTensor = tf.tensor2d(features);
-    const mean = featuresTensor.mean(0);
-    const standardDeviation = featuresTensor.sub(mean).square().mean(0).sqrt();
-    return {
-      mean,
-      standardDeviation,
-      features: featuresTensor.sub(mean).div(standardDeviation)
-    };
+    return tf.tidy(() => {
+      const featuresTensor = tf.tensor2d(features);
+      const mean = featuresTensor.mean(0);
+      const standardDeviation = featuresTensor.sub(mean).square().mean(0).sqrt();
+      const normalizedFeatures = featuresTensor.sub(mean).div(standardDeviation);
+      return {
+        mean: mean.clone(),
+        standardDeviation: standardDeviation.clone(),
+        features: normalizedFeatures.clone()
+      };
+    });
   }
   trainNewModel(projectid, worker) {
     if (this.PROJECTS[projectid].state === 'TRAINING') {
@@ -2341,6 +2344,18 @@ class ML4KidsRegressionTraining {
       // normalize the input
       const normalizedInput = that.normalizeFeatures(inputFeatures);
       const normalizedTarget = that.normalizeFeatures(targetFeatures);
+
+      // dispose existing normalization tensors
+      if (that.PROJECTS[projectid].normalization) {
+        if (that.PROJECTS[projectid].normalization.input) {
+          tf.dispose(that.PROJECTS[projectid].normalization.input.mean);
+          tf.dispose(that.PROJECTS[projectid].normalization.input.standardDeviation);
+        }
+        if (that.PROJECTS[projectid].normalization.output) {
+          tf.dispose(that.PROJECTS[projectid].normalization.output.mean);
+          tf.dispose(that.PROJECTS[projectid].normalization.output.standardDeviation);
+        }
+      }
       that.PROJECTS[projectid].normalization = {
         input: {
           mean: normalizedInput.mean,
@@ -2365,6 +2380,10 @@ class ML4KidsRegressionTraining {
       });
 
       // create the model
+      if (that.PROJECTS[projectid].model) {
+        tf.dispose(that.PROJECTS[projectid].model);
+        that.PROJECTS[projectid].model = null;
+      }
       that.PROJECTS[projectid].model = that._defineModel(inputColumns.length, targetColumns.length);
 
       // train the model
@@ -2378,6 +2397,8 @@ class ML4KidsRegressionTraining {
           },
           onTrainEnd: function onTrainEnd() {
             console.log('[mlforkids] ML4KidsRegressionTraining training complete');
+            tf.dispose(normalizedInput.features);
+            tf.dispose(normalizedTarget.features);
             that._saveModel(projectid);
             that.PROJECTS[projectid].state = 'TRAINED';
             worker.postMessage({
@@ -2406,7 +2427,7 @@ class ML4KidsRegressionTraining {
     const project = this.PROJECTS[projectid].project;
     const normalization = this.PROJECTS[projectid].normalization;
     const testdata = requestdata.data;
-    var testTensor = tf.tidy(function () {
+    const testModelOutput = tf.tidy(() => {
       const inputValues = project.columns.filter(function (col) {
         return col.output === false;
       }).map(function (col) {
@@ -2414,14 +2435,13 @@ class ML4KidsRegressionTraining {
       });
       const inputTensor = tf.tensor2d([inputValues]);
       const normalisedInputValues = inputTensor.sub(normalization.input.mean).div(normalization.input.standardDeviation);
-      return normalisedInputValues;
+      let modelOutput = this.PROJECTS[projectid].model.predict(normalisedInputValues);
+      if (normalization.output) {
+        modelOutput = modelOutput.mul(normalization.output.standardDeviation).add(normalization.output.mean);
+      }
+      return modelOutput.clone();
     });
-    var modelOutput = this.PROJECTS[projectid].model.predict(testTensor);
-    if (normalization.output) {
-      var denormalizedOutput = modelOutput.mul(normalization.output.standardDeviation).add(normalization.output.mean);
-      modelOutput = denormalizedOutput;
-    }
-    modelOutput.data().then(function (output) {
+    testModelOutput.data().then(function (output) {
       const targetColumns = project.columns.filter(function (col) {
         return col.output === true;
       });
@@ -2444,6 +2464,8 @@ class ML4KidsRegressionTraining {
     }).catch(function (err) {
       console.log('[mlforkids] ML4KidsRegressionTraining failed to run test', err);
       // TODO
+    }).finally(function () {
+      tf.dispose(testModelOutput);
     });
   }
   _defineModel(numInputFeatures, numOutputLabels) {

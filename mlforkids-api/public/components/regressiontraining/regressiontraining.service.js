@@ -47,6 +47,7 @@
         function initRegressionSupport (project) {
             return loadTensorFlow()
                 .then(function () {
+                    utilService.logTfjsMemory('initRegressionSupport');
                     if (project.normalization) {
                         // we have previously stored a model - see if we can
                         //  restore it
@@ -83,6 +84,7 @@
                             progress : 100,
                             updated : loadedModel.timestamp
                         };
+                        utilService.logTfjsMemory('loaded model');
                         return modelStatus;
                     }
                 })
@@ -154,25 +156,31 @@
 
 
         function normalizeFeatures(features) {
-            const featuresTensor = tf.tensor2d(features);
-            const mean = featuresTensor.mean(0);
-            const standardDeviation = featuresTensor
-                .sub(mean)
-                .square()
-                .mean(0)
-                .sqrt();
-            return {
-                mean,
-                standardDeviation,
-                features : featuresTensor
-                            .sub(mean)
-                            .div(standardDeviation)
-            };
+            return tf.tidy(() => {
+                const featuresTensor = tf.tensor2d(features);
+                const mean = featuresTensor.mean(0);
+                const standardDeviation = featuresTensor
+                    .sub(mean)
+                    .square()
+                    .mean(0)
+                    .sqrt();
+
+                const normalizedFeatures = featuresTensor
+                    .sub(mean)
+                    .div(standardDeviation);
+
+                return {
+                    mean: mean.clone(),
+                    standardDeviation: standardDeviation.clone(),
+                    features: normalizedFeatures.clone()
+                };
+            });
         }
 
 
         function newModel (project) {
             loggerService.debug('[ml4kregress] creating new ML model');
+            utilService.logTfjsMemory('newModel');
 
             modelStatus = {
                 classifierid : project.id,
@@ -226,6 +234,19 @@
                     // normalize the data
                     const normalizedInput = normalizeFeatures(inputFeatures);
                     const normalizedTarget = normalizeFeatures(targetFeatures);
+
+                    // Dispose old normalization tensors if they exist
+                    if (normalization) {
+                        if (normalization.input) {
+                            tf.dispose(normalization.input.mean);
+                            tf.dispose(normalization.input.standardDeviation);
+                        }
+                        if (normalization.output) {
+                            tf.dispose(normalization.output.mean);
+                            tf.dispose(normalization.output.standardDeviation);
+                        }
+                    }
+
                     normalization = {
                         input : {
                             mean : normalizedInput.mean,
@@ -250,6 +271,10 @@
                     });
 
                     // create the model
+                    if (model) {
+                        tf.dispose(model);
+                        model = null;
+                    }
                     model = defineModel(inputColumns.length, targetColumns.length);
 
                     // train the model
@@ -265,6 +290,11 @@
                                 }
                             },
                             onTrainEnd : function () {
+                                tf.dispose(normalizedInput.features);
+                                tf.dispose(normalizedTarget.features);
+
+                                utilService.logTfjsMemory('model trained');
+
                                 return saveModel(project.id)
                                     .then(function () {
                                         loggerService.debug('[ml4kregress] training complete');
@@ -294,28 +324,30 @@
 
 
         function testModel (project, testdata) {
-            var testTensor = tf.tidy(function () {
+            const testModelOutput = tf.tidy(() => {
                 const inputValues = project.columns
                     .filter(function (col) { return col.type === 'number' && col.output === false; })
                     .map(function (col) {
                         return testdata[col.label];
                     });
+
                 const inputTensor = tf.tensor2d([ inputValues ]);
                 const normalisedInputValues = inputTensor
                     .sub(normalization.input.mean)
                     .div(normalization.input.standardDeviation);
-                return normalisedInputValues;
+
+                let modelOutput = model.predict(normalisedInputValues);
+
+                if (normalization.output) {
+                    modelOutput = modelOutput
+                        .mul(normalization.output.standardDeviation)
+                        .add(normalization.output.mean);
+                }
+
+                return modelOutput.clone();
             });
 
-            var modelOutput = model.predict(testTensor);
-            if (normalization.output) {
-                var denormalizedOutput = modelOutput
-                    .mul(normalization.output.standardDeviation)
-                    .add(normalization.output.mean);
-                modelOutput = denormalizedOutput;
-            }
-
-            return modelOutput.data()
+            return testModelOutput.data()
                 .then(function (output) {
                     const targetColumns = project.columns
                         .filter(function (col) { return col.type === 'number' && col.output === true; });
@@ -334,6 +366,9 @@
                 .catch(function (err) {
                     loggerService.error('[ml4kregress] failed to run test', err);
                     throw err;
+                })
+                .finally(function () {
+                    tf.dispose(testModelOutput);
                 });
         }
 
@@ -343,6 +378,16 @@
                 if (model) {
                     tf.dispose(model);
                     model = null;
+                }
+                if (normalization) {
+                    if (normalization.input) {
+                        tf.dispose(normalization.input.mean);
+                        tf.dispose(normalization.input.standardDeviation);
+                    }
+                    if (normalization.output) {
+                        tf.dispose(normalization.output.mean);
+                        tf.dispose(normalization.output.standardDeviation);
+                    }
                 }
                 modelStatus = null;
                 normalization = null;
