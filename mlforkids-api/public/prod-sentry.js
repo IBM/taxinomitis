@@ -1,7 +1,7 @@
 if (Sentry) {
     Sentry.init({
         dsn: 'https://b4bbe1a8fbce473cb9eb089652848a1e@sentry.io/202347',
-        release: '276',
+        release: '277',
         // https://docs.sentry.io/platforms/javascript/configuration/filtering/#decluttering-sentry
         ignoreErrors: [
             "top.GLOBALS",
@@ -18,15 +18,7 @@ if (Sentry) {
             "bmi_SafeAddOnload",
             "EBCallBackMessageReceived",
             "conduitPage",
-            "Cannot redefine property: googletag",
-            "LayersVariable dense_Dense1/kernel is already disposed",
-            "LayersVariable dense_Dense1/kernel_1 is already disposed",
-            "LayersVariable dense_Dense3/kernel is already disposed",
-            "LayersVariable dense_Dense5/kernel is already disposed",
-            "LayersVariable dense_Dense7/kernel is already disposed",
-            "LayersVariable dense_Dense9/kernel is already disposed",
-            "Failed to link vertex and fragment shaders",
-            "Failed to compile fragment shader"
+            "Cannot redefine property: googletag"
         ],
         denyUrls: [
             /graph\.facebook\.com/i,

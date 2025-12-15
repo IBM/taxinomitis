@@ -654,7 +654,7 @@
                     trainingService.deleteModel(project, $scope.userId, vm.profile.tenant, project.id);
                 }
             }
-            else {
+            else if (model) {
                 var classifierid = model.classifierid;
                 modelFnPromise = trainingService.deleteModel(project, $scope.userId, vm.profile.tenant, classifierid);
             }
@@ -966,17 +966,22 @@
 
             stopRefreshing();
 
-            if ($scope.project && $scope.project.type === 'sounds'){
-                if ($scope.listening) {
-                    soundTrainingService.stopTest()
-                        .catch(function (err) {
-                            loggerService.debug('[ml4kmodels] Failed to stop listening when cleaning up the page', err);
-                        });
+            if ($scope.project) {
+                if ($scope.project.type === 'sounds'){
+                    if ($scope.listening) {
+                        soundTrainingService.stopTest()
+                            .catch(function (err) {
+                                loggerService.debug('[ml4kmodels] Failed to stop listening when cleaning up the page', err);
+                            });
+                    }
+                    soundTrainingService.reset();
                 }
-                soundTrainingService.reset();
-            }
-            else if ($scope.project && $scope.project.type === 'imgtfjs'){
-                imageTrainingService.reset();
+                else if ($scope.project.type === 'imgtfjs'){
+                    imageTrainingService.reset();
+                }
+                else if ($scope.project.type === 'regression'){
+                    regressionTrainingService.reset();
+                }
             }
         });
 

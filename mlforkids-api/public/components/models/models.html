@@ -505,7 +505,7 @@
                     <td><strong translate="MODELS.TRAINING.STATUS"></strong></td>
                     <td>
                         {{ model.status }}
-                        <md-progress-linear ng-if="(project.type === 'sounds' || project.type === 'imgtfjs') && model.status === 'Training'"
+                        <md-progress-linear ng-if="(project.type === 'sounds' || project.type === 'imgtfjs' || project.type === 'regression') && model.status === 'Training'"
                             md-mode="determinate"
                             value={{model.progress}}></md-progress-linear>
                     </td>

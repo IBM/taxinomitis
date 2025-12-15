@@ -16,6 +16,8 @@
         var transferModel;
         var baseModel;
 
+        var resetting = false;
+
         var usingRestoredModel = false;
 
         var modelStatus;
@@ -222,7 +224,9 @@
             }
             catch (err) {
                 loggerService.error('[ml4kimages] failed to prepare training tensors', err);
-                if (err.message && err.message.includes('compile fragment shader')) {
+                if (err.message &&
+                    (err.message.includes('compile fragment shader') || err.message.includes('link vertex and fragment shaders')))
+                {
                     err.data = {
                         error : 'Your device does not have enough graphics memory to get ' +
                         'your training data ready. ' +
@@ -241,6 +245,8 @@
             loggerService.debug('[ml4kimages] tf backend', tf.getBackend());
             loggerService.debug('[ml4kimages] tf precision', tf.ENV.getBool('WEBGL_RENDER_FLOAT32_ENABLED'));
             utilService.logTfjsMemory('newModel');
+
+            resetting = false;
 
             modelStatus = {
                 classifierid : projectid,
@@ -329,6 +335,10 @@
                     },
                     onTrainEnd : function () {
                         safeDispose(xs, ys);
+
+                        if (resetting) {
+                            return;
+                        }
 
                         if (aborted) {
                             if (epochs >= 10) {
@@ -459,12 +469,17 @@
 
         function reset() {
             try {
+                resetting = true;
+
                 if (transferModel) {
+                    transferModel.stopTraining = true;
                     tf.dispose(transferModel);
                 }
                 if (baseModel) {
                     tf.dispose(baseModel);
                 }
+
+                modelStatus = null;
             }
             catch (err) {
                 loggerService.debug('[ml4kimages] error when disposing of models', err);

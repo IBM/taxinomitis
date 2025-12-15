@@ -14,6 +14,8 @@
 
     function regressionTrainingService(browserStorageService, modelService, utilService, loggerService, $q) {
 
+        var resetting = false;
+
         var modelStatus;
         var model;
         var normalization;
@@ -182,6 +184,8 @@
             loggerService.debug('[ml4kregress] creating new ML model');
             utilService.logTfjsMemory('newModel');
 
+            resetting = false;
+
             modelStatus = {
                 classifierid : project.id,
                 status : 'Training',
@@ -293,16 +297,18 @@
                                 tf.dispose(normalizedInput.features);
                                 tf.dispose(normalizedTarget.features);
 
-                                utilService.logTfjsMemory('model trained');
+                                if (!resetting) {
+                                    utilService.logTfjsMemory('model trained');
 
-                                return saveModel(project.id)
-                                    .then(function () {
-                                        loggerService.debug('[ml4kregress] training complete');
-                                        if (modelStatus) {
-                                            modelStatus.status = 'Available';
-                                            modelStatus.progress = 100;
-                                        }
-                                    });
+                                    return saveModel(project.id)
+                                        .then(function () {
+                                            loggerService.debug('[ml4kregress] training complete');
+                                            if (modelStatus) {
+                                                modelStatus.status = 'Available';
+                                                modelStatus.progress = 100;
+                                            }
+                                        });
+                                }
                             }
                         }
                     });
@@ -375,7 +381,10 @@
 
         function reset() {
             try {
+                resetting = true;
+
                 if (model) {
+                    model.stopTraining = true;
                     tf.dispose(model);
                     model = null;
                 }
