@@ -1672,11 +1672,15 @@ class ML4KidsImageTraining {
           that._safeDispose(oldys, yval);
         }
       }
-      let epochs = 10;
-      if (trainingdata.length > 100) {
+      let epochs;
+      if (trainingdata.length < 20) {
+        epochs = 30;
+      } else if (trainingdata.length < 50) {
         epochs = 20;
-      } else if (trainingdata.length > 50) {
-        epochs = 15;
+      } else if (trainingdata.length < 200) {
+        epochs = 10;
+      } else {
+        epochs = 8;
       }
       that._trainTfjsModel(projectid, epochs, xs, ys, worker);
     }).catch(err => {

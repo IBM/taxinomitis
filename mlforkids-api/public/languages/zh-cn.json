@@ -396,6 +396,7 @@
     "MODELS": {
         "TITLE": "机器学习模型",
         "TRAIN": "开始训练新的机器学习模型",
+        "TRAIN_SIMPLE": "Train simplified machine learning model",
         "CANCEL": "取消训练",
         "DELETE": "删除此模型",
         "TEST_CANVAS": "画一些东西来测试你的模型",
@@ -587,7 +588,9 @@
             "DETAIL": "说明: ",
             "DELETION": "模型将在以下后自动删除: ",
             "LASTCHECK": "上次检查模型的时间: ",
-            "PROMPTREFRESH": "如果超过一分钟,您应刷新页面以获取最新状态"
+            "PROMPTREFRESH": "如果超过一分钟,您应刷新页面以获取最新状态",
+            "SIMPLIFIED": "Using a simplified machine learning model for this project that can work with a slower CPU and needs less memory to run.",
+            "SIMPLIFIED_TOOLTIP": "Use this button if the normal \"Train new machine learning model\" button doesn't work on your device. This trains a simpler model that works on slower computers and tablets."
         },
         "TESTING": {
             "INTRO": {

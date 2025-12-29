@@ -402,6 +402,7 @@
     "MODELS": {
         "TITLE": "머신 러닝 모델",
         "TRAIN": "새로운 머신 러닝 모델을 훈련시켜보세요.",
+        "TRAIN_SIMPLE": "Train simplified machine learning model",
         "CANCEL": "훈련 취소",
         "DELETE": "모델 삭제",
         "TEST_CANVAS": "무엇인가를 그려서 모델을 테스트해보세요.",
@@ -595,7 +596,9 @@
             "DETAIL": "상세정보:",
             "DELETION": "모델 지속 시간:",
             "LASTCHECK": "최근 모델 체크 시간:",
-            "PROMPTREFRESH": "페이지를 새로고침하여 최신의 상태를 알아보세요"
+            "PROMPTREFRESH": "페이지를 새로고침하여 최신의 상태를 알아보세요",
+            "SIMPLIFIED": "Using a simplified machine learning model for this project that can work with a slower CPU and needs less memory to run.",
+            "SIMPLIFIED_TOOLTIP": "Use this button if the normal \"Train new machine learning model\" button doesn't work on your device. This trains a simpler model that works on slower computers and tablets."
         },
         "TESTING": {
             "INTRO": {

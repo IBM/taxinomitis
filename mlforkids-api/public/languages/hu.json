@@ -402,6 +402,7 @@
     "MODELS": {
         "TITLE": "Gépi tanulási modellek",
         "TRAIN": "Taníts be egy új modellt",
+        "TRAIN_SIMPLE": "Train simplified machine learning model",
         "CANCEL": "Állítsd le a tanítást",
         "DELETE": "Töröld a modellt",
         "TEST_CANVAS": "Rajzolj valamit, hogy tesztelhesd a modelledet",
@@ -595,7 +596,9 @@
             "DETAIL": "Részletek:",
             "DELETION": "Modelled automatikusan törlésre kerül:",
             "LASTCHECK": "Modellt utoljára ellenőrizted:",
-            "PROMPTREFRESH": "Ha ez több mint egy perc, frissítsd az oldalt, hogy naprakész legyen"
+            "PROMPTREFRESH": "Ha ez több mint egy perc, frissítsd az oldalt, hogy naprakész legyen",
+            "SIMPLIFIED": "Using a simplified machine learning model for this project that can work with a slower CPU and needs less memory to run.",
+            "SIMPLIFIED_TOOLTIP": "Use this button if the normal \"Train new machine learning model\" button doesn't work on your device. This trains a simpler model that works on slower computers and tablets."
         },
         "TESTING": {
             "INTRO": {

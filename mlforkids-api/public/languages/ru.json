@@ -396,6 +396,7 @@
     "MODELS": {
         "TITLE": "Модели машинного обучения",
         "TRAIN": "Обучить новую модель машинного обучения",
+        "TRAIN_SIMPLE": "Train simplified machine learning model",
         "CANCEL": "Отменить обучение",
         "DELETE": "Удалить эту модель",
         "TEST_CANVAS": "Нарисуйте что-нибудь для тестирования своей модели",
@@ -587,7 +588,9 @@
             "DETAIL": "Детали:",
             "DELETION": "Модель будет автоматически удалена после: ",
             "LASTCHECK": "Последняя проверка модели:",
-            "PROMPTREFRESH": "Если процесс продолжается больше минуты, обновите страницу, для получения текущего статуса"
+            "PROMPTREFRESH": "Если процесс продолжается больше минуты, обновите страницу, для получения текущего статуса",
+            "SIMPLIFIED": "Using a simplified machine learning model for this project that can work with a slower CPU and needs less memory to run.",
+            "SIMPLIFIED_TOOLTIP": "Use this button if the normal \"Train new machine learning model\" button doesn't work on your device. This trains a simpler model that works on slower computers and tablets."
         },
         "TESTING": {
             "INTRO": {

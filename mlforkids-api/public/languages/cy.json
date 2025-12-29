@@ -396,6 +396,7 @@
     "MODELS": {
         "TITLE": "Modelau dysgu peiriant",
         "TRAIN": "Hyfforddi model dysgu peiriant newydd",
+        "TRAIN_SIMPLE": "Train simplified machine learning model",
         "CANCEL": "Canslo hyfforddiant",
         "DELETE": "Dileu'r model hwn",
         "TEST_CANVAS": "Tynnwch lun rhywbeth i brofi'ch model",
@@ -587,7 +588,9 @@
             "DETAIL": "Manylion:",
             "DELETION": "Bydd y model yn cael ei ddileu yn awtomatig ar ôl:",
             "LASTCHECK": "Model wedi'i wirio ddiwethaf:",
-            "PROMPTREFRESH": "Os yw hyn yn fwy na munud, dylech adnewyddu'r dudalen i gael statws cyfoes"
+            "PROMPTREFRESH": "Os yw hyn yn fwy na munud, dylech adnewyddu'r dudalen i gael statws cyfoes",
+            "SIMPLIFIED": "Using a simplified machine learning model for this project that can work with a slower CPU and needs less memory to run.",
+            "SIMPLIFIED_TOOLTIP": "Use this button if the normal \"Train new machine learning model\" button doesn't work on your device. This trains a simpler model that works on slower computers and tablets."
         },
         "TESTING": {
             "INTRO": {

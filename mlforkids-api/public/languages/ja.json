@@ -396,6 +396,7 @@
     "MODELS": {
         "TITLE": "機械学習モデル",
         "TRAIN": "新しい機械学習モデルをトレーニングする",
+        "TRAIN_SIMPLE": "Train simplified machine learning model",
         "CANCEL": "トレーニングを中止",
         "DELETE": "このモデルを削除",
         "TEST_CANVAS": "あなたのモデルをテストするために何か描いてください",
@@ -587,7 +588,9 @@
             "DETAIL": "詳細:",
             "DELETION": "モデルは次の日時以降自動的に削除されます:",
             "LASTCHECK": "最後にチェックされたタイミング:",
-            "PROMPTREFRESH": "もし、一分以上掛かっているなら、ページをリフレッシュして最新状況を入手してください。"
+            "PROMPTREFRESH": "もし、一分以上掛かっているなら、ページをリフレッシュして最新状況を入手してください。",
+            "SIMPLIFIED": "Using a simplified machine learning model for this project that can work with a slower CPU and needs less memory to run.",
+            "SIMPLIFIED_TOOLTIP": "Use this button if the normal \"Train new machine learning model\" button doesn't work on your device. This trains a simpler model that works on slower computers and tablets."
         },
         "TESTING": {
             "INTRO": {

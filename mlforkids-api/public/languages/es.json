@@ -396,6 +396,7 @@
     "MODELS": {
         "TITLE": "Modelos de aprendizaje automático",
         "TRAIN": "Entrena un nuevo modelo",
+        "TRAIN_SIMPLE": "Train simplified machine learning model",
         "CANCEL": "Cancelar el entrenamiento ",
         "DELETE": "Borra este modelo ",
         "TEST_CANVAS": "Dibuja algo para probar tu modelo",
@@ -587,7 +588,9 @@
             "DETAIL": "Detalle:",
             "DELETION": "El modelo se borrará automáticamente cuando pasen: :",
             "LASTCHECK": "Último chequeo del modelo:",
-            "PROMPTREFRESH": "Si tarde más de un minute, hay que refrescar la pantalla para obtener información de estatus actualizada. "
+            "PROMPTREFRESH": "Si tarde más de un minute, hay que refrescar la pantalla para obtener información de estatus actualizada. ",
+            "SIMPLIFIED": "Using a simplified machine learning model for this project that can work with a slower CPU and needs less memory to run.",
+            "SIMPLIFIED_TOOLTIP": "Use this button if the normal \"Train new machine learning model\" button doesn't work on your device. This trains a simpler model that works on slower computers and tablets."
         },
         "TESTING": {
             "INTRO": {

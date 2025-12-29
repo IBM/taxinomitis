@@ -396,6 +396,7 @@
     "MODELS": {
         "TITLE": "Machine learning modellen",
         "TRAIN": "Train nieuw machine learning model",
+        "TRAIN_SIMPLE": "Train simplified machine learning model",
         "CANCEL": "Annuleer training",
         "DELETE": "Verwijder dit model",
         "TEST_CANVAS": "Teken iets om je model mee te testen",
@@ -587,7 +588,9 @@
             "DETAIL": "Detail:",
             "DELETION": "Model wordt automatisch verwijderd na:",
             "LASTCHECK": "Model laatste keer gecontroleerd:",
-            "PROMPTREFRESH": "Als dit meer dan een minuut is, moet je de pagina refreshen om een up-to-date status te krijgen"
+            "PROMPTREFRESH": "Als dit meer dan een minuut is, moet je de pagina refreshen om een up-to-date status te krijgen",
+            "SIMPLIFIED": "Using a simplified machine learning model for this project that can work with a slower CPU and needs less memory to run.",
+            "SIMPLIFIED_TOOLTIP": "Use this button if the normal \"Train new machine learning model\" button doesn't work on your device. This trains a simpler model that works on slower computers and tablets."
         },
         "TESTING": {
             "INTRO": {

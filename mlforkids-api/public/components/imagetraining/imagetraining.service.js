@@ -27,6 +27,8 @@
         var IMG_WIDTH = 224;
         var IMG_HEIGHT = 224;
 
+        var simplified = false;
+
 
 
         function loadTensorFlow() {
@@ -67,34 +69,62 @@
         }
 
         function prepareTransferLearningModel(modifiedMobilenet, numClasses) {
-            loggerService.debug('[ml4kimages] creating transfer learning model');
-            var model = tf.sequential({
-                layers : [
-                    tf.layers.flatten({
-                        inputShape : modifiedMobilenet.outputs[0].shape.slice(1)
-                    }),
-                    tf.layers.dense({
-                        units : 100,
-                        activation : 'relu',
-                        kernelInitializer : 'varianceScaling',
-                        useBias : true
-                    }),
-                    tf.layers.dense({
-                        units : numClasses,
-                        activation : 'softmax',
-                        kernelInitializer : 'varianceScaling',
-                        useBias : false
-                    })
-                ]
-            });
+            if (simplified) {
+                loggerService.debug('[ml4kimages] creating simplified transfer learning model');
 
-            loggerService.debug('[ml4kimages] compiling model');
-            model.compile({
-                optimizer : tf.train.adam(0.0001),
-                loss : 'categoricalCrossentropy'
-            });
+                var model = tf.sequential({
+                    layers : [
+                        tf.layers.flatten({
+                            inputShape : modifiedMobilenet.outputs[0].shape.slice(1)
+                        }),
+                        tf.layers.dense({
+                            units : numClasses,
+                            activation : 'softmax',
+                            kernelInitializer : 'varianceScaling',
+                            useBias : false
+                        })
+                    ]
+                });
 
-            return model;
+                loggerService.debug('[ml4kimages] compiling simplified model');
+                model.compile({
+                    optimizer : tf.train.sgd(0.001),
+                    loss : 'categoricalCrossentropy'
+                });
+
+                return model;
+            }
+            else {
+                loggerService.debug('[ml4kimages] creating transfer learning model');
+
+                var model = tf.sequential({
+                    layers : [
+                        tf.layers.flatten({
+                            inputShape : modifiedMobilenet.outputs[0].shape.slice(1)
+                        }),
+                        tf.layers.dense({
+                            units : 100,
+                            activation : 'relu',
+                            kernelInitializer : 'varianceScaling',
+                            useBias : true
+                        }),
+                        tf.layers.dense({
+                            units : numClasses,
+                            activation : 'softmax',
+                            kernelInitializer : 'varianceScaling',
+                            useBias : false
+                        })
+                    ]
+                });
+
+                loggerService.debug('[ml4kimages] compiling model');
+                model.compile({
+                    optimizer : tf.train.adam(0.0001),
+                    loss : 'categoricalCrossentropy'
+                });
+
+                return model;
+            }
         }
 
 
@@ -190,7 +220,9 @@
                     var trainingdataitem = trainingdata[i];
                     var labelIdx = modelClasses.indexOf(trainingdataitem.metadata.label);
 
-                    var xval = baseModel.predict(trainingdataitem.data);
+                    var xval = tf.tidy(function () {
+                        return baseModel.predict(trainingdataitem.data);
+                    });
                     trainingdataitem.data.dispose();
 
                     var yval = tf.tidy(function () {
@@ -213,12 +245,22 @@
                 }
 
                 let epochs = 10;
-                if (trainingdata.length > 100) {
-                    epochs = 20;
+                if (!simplified) {
+                    if (trainingdata.length < 20) {
+                        epochs = 30;
+                    }
+                    else if (trainingdata.length < 50) {
+                        epochs = 20;
+                    }
+                    else if (trainingdata.length < 200) {
+                        epochs = 10;
+                    }
+                    else {
+                        epochs = 8;
+                    }
                 }
-                else if (trainingdata.length > 50) {
-                    epochs = 15;
-                }
+
+                loggerService.debug('[ml4kimages] epochs', epochs);
 
                 return { xs, ys, epochs };
             }
@@ -240,10 +282,17 @@
         }
 
 
-        function newModel(projectid, userid, tenantid) {
+        function newModel(projectid, userid, tenantid, trainSimplifiedModel) {
             loggerService.debug('[ml4kimages] creating new ML model');
             loggerService.debug('[ml4kimages] tf backend', tf.getBackend());
             loggerService.debug('[ml4kimages] tf precision', tf.ENV.getBool('WEBGL_RENDER_FLOAT32_ENABLED'));
+
+            if (trainSimplifiedModel !== simplified) {
+                loggerService.debug('[ml4kimages] requested model type', trainSimplifiedModel);
+                simplified = trainSimplifiedModel;
+                resetTransferModel();
+            }
+
             utilService.logTfjsMemory('newModel');
 
             resetting = false;
@@ -252,10 +301,11 @@
                 classifierid : projectid,
                 status : 'Training',
                 progress : 0,
-                updated : new Date()
+                updated : new Date(),
+                simplified : simplified
             };
 
-            if (usingRestoredModel) {
+            if (usingRestoredModel || !transferModel) {
                 if (transferModel) {
                     transferModel.dispose();
                 }
@@ -312,17 +362,18 @@
 
 
         function trainTfjsModel(projectid, epochs, xs, ys) {
-            utilService.logTfjsMemory('training model', epochs);
+            utilService.logTfjsMemory('training model');
 
             let aborted = false;
 
             var progressPerEpoch = Math.round(100 / epochs);
             transferModel.fit(xs, ys, {
-                batchSize : 10,
+                batchSize : simplified ? 5 : 10,
                 epochs : epochs,
                 callbacks : {
                     onEpochEnd : function (epoch, logs) {
                         loggerService.debug('[ml4kimages] epoch ' + epoch + ' loss ' + logs.loss);
+                        utilService.logTfjsMemory('epoch end');
                         if (modelStatus) {
                             modelStatus.progress = (epoch + 1) * progressPerEpoch;
                         }
@@ -341,6 +392,16 @@
                         }
 
                         if (aborted) {
+                            if (simplified) {
+                                loggerService.debug('[ml4kimages] training failed on constrained device');
+                                if (modelStatus) {
+                                    modelStatus.status = 'Failed';
+                                    modelStatus.progress = 100;
+                                }
+                                usingRestoredModel = false;
+                                return;
+                            }
+
                             if (epochs >= 10) {
                                 // retry with a smaller epoch
                                 transferModel = prepareTransferLearningModel(baseModel, modelNumClasses);
@@ -372,6 +433,34 @@
                             });
                     }
                 }
+            })
+            .catch(function (err) {
+                loggerService.error('[ml4kimages] failed to train model', err);
+                safeDispose(xs, ys);
+                if (modelStatus) {
+                    modelStatus.status = 'Failed';
+                    modelStatus.progress = 100;
+                    modelStatus.updated = new Date();
+
+                    if (err.message &&
+                        (err.message.includes('compile fragment shader') || err.message.includes('link vertex and fragment shaders')))
+                    {
+                        err = new Error(
+                            'Your device does not have enough graphics memory to get ' +
+                            'your training data ready. ' +
+                            'You could remove some of your training images. ' +
+                            'It might help if you close other browser tabs or applications. '
+                        );
+                        err.status = 500;
+                    }
+                    else {
+                        err = new Error('Failed to train machine learning model ' +
+                            err.message ? '(' + err.message + ')' : '');
+                        err.status = 500;
+                    }
+                    modelStatus.error = err;
+                }
+                usingRestoredModel = false;
             });
         }
 
@@ -388,8 +477,12 @@
 
 
         function testImageDataTensor(imageData) {
-            var baseModelOutput = baseModel.predict(imageData);
-            var transferModelOutput = transferModel.predict(baseModelOutput);
+            var baseModelOutput = tf.tidy(function () {
+                return baseModel.predict(imageData);
+            });
+            var transferModelOutput = tf.tidy(function () {
+                return transferModel.predict(baseModelOutput);
+            });
 
             return transferModelOutput.data()
                 .then(function (output) {
@@ -455,7 +548,8 @@
                             classifierid : projectid,
                             status : 'Available',
                             progress : 100,
-                            updated : resp.timestamp
+                            updated : resp.timestamp,
+                            simplified : simplified
                         };
                         usingRestoredModel = true;
                         return resp.output;
@@ -467,14 +561,27 @@
         }
 
 
+        function resetTransferModel() {
+            try {
+                if (transferModel) {
+                    transferModel.stopTraining = true;
+                }
+                tf.dispose(transferModel);
+
+                transferModel = null;
+            }
+            catch (err) {
+                loggerService.debug('[ml4kimages] error when disposing of transfer model', err);
+            }
+        }
+
+
         function reset() {
             try {
                 resetting = true;
 
-                if (transferModel) {
-                    transferModel.stopTraining = true;
-                    tf.dispose(transferModel);
-                }
+                resetTransferModel();
+
                 if (baseModel) {
                     tf.dispose(baseModel);
                 }
