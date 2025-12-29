@@ -403,6 +403,7 @@
     "MODELS": {
         "TITLE": "Machine learning models",
         "TRAIN": "Train new machine learning model",
+        "TRAIN_SIMPLE": "Train simplified machine learning model",
         "CANCEL": "Cancel training",
         "DELETE": "Delete this model",
         "TEST_CANVAS": "Draw something to test your model with",
@@ -596,7 +597,9 @@
             "DETAIL": "Detail:",
             "DELETION": "Model will automatically be deleted after:",
             "LASTCHECK": "Model last checked:",
-            "PROMPTREFRESH": "If this is more than a minute, you should refresh the page to get an up-to-date status"
+            "PROMPTREFRESH": "If this is more than a minute, you should refresh the page to get an up-to-date status",
+            "SIMPLIFIED": "Using a simplified machine learning model for this project that can work with a slower CPU and needs less memory to run.",
+            "SIMPLIFIED_TOOLTIP": "Use this button if the normal \"Train new machine learning model\" button doesn't work on your device. This trains a simpler model that works on slower computers and tablets."
         },
         "TESTING": {
             "INTRO": {

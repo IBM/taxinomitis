@@ -396,6 +396,7 @@
     "MODELS": {
         "TITLE": "نماذج تعلم الآلة",
         "TRAIN": "تدريب نموذج جديد لتعلم الآلة",
+        "TRAIN_SIMPLE": "Train simplified machine learning model",
         "CANCEL": "إلغاء التدريب",
         "DELETE": "حذف هذا النموذج",
         "TEST_CANVAS": "ارسم شيئًا لاختبار نموذجك باستخدامه",
@@ -587,7 +588,9 @@
             "DETAIL": "التفاصيل:",
             "DELETION": "سيتم حذف النموذج تلقائيًا بعد:",
             "LASTCHECK": "آخر مراجعة للنموذج:",
-            "PROMPTREFRESH": "إذا أخذ الأمر أكثر من دقيقة ، يجب عليك تحديث الصفحة للحصول على حالة محدثة"
+            "PROMPTREFRESH": "إذا أخذ الأمر أكثر من دقيقة ، يجب عليك تحديث الصفحة للحصول على حالة محدثة",
+            "SIMPLIFIED": "Using a simplified machine learning model for this project that can work with a slower CPU and needs less memory to run.",
+            "SIMPLIFIED_TOOLTIP": "Use this button if the normal \"Train new machine learning model\" button doesn't work on your device. This trains a simpler model that works on slower computers and tablets."
         },
         "TESTING": {
             "INTRO": {

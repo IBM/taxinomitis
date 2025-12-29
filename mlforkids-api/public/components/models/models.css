@@ -86,8 +86,15 @@
     }
 }
 
-.trainingserversection .trainbuttons {
-    margin: 4em;
+@media(min-width: 500px) {
+    .trainingserversection .trainbuttons {
+        margin: 4em;
+    }
+}
+@media(max-width: 500px) {
+    .trainingserversection .trainbuttons {
+        margin: 1em 0 1em 1em;
+    }
 }
 
 .trainingserversection.testdata .trainbuttons {
@@ -188,6 +195,7 @@
     float: left;
     cursor: pointer;
 
+    appearance: none;
     -moz-appearance: none;
     -ms-progress-appearance: none;
     -webkit-appearance: none;
@@ -250,4 +258,18 @@
     opacity: 1!important;
     padding: 1em;
     max-width: 300px;
+}
+
+.training-tooltip {
+    position: relative !important;
+}
+@media(min-width: 500px) {
+    .training-tooltip {
+        left: -5.2em !important;
+    }
+}
+@media(max-width: 500px) {
+    .training-tooltip {
+        left: 0 !important;
+    }
 }

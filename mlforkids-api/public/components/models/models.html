@@ -36,6 +36,9 @@
     <div ng-if="models[0].warning" class="alert alert-warning pageheadermsg" role="alert">
         <strong translate="APP.WARNING"></strong> Your model could not be stored. Models are normally saved in the browser, but your web browser would not allow this. <br/>The most likely reason is that you are using a web browser in a secure or private mode. You can use your machine learning model, but it will be lost when you leave this page.
     </div>
+    <div ng-if="models[0].simplified" class="alert alert-warning pageheadermsg" role="alert">
+        <strong>Note:</strong> <span translate="MODELS.TRAINING.SIMPLIFIED"></span>
+    </div>
 
 
     <div ng-if="loading" class="loading"> </div>
@@ -547,11 +550,22 @@
 
         <button ng-if="!loading && status !== 'training' && trainingdatastatus === 'data' && (owner || project.type === 'imgtfjs' || project.type === 'sounds')"
                 class="btn btn-primary trainbuttons"
-                ng-click="vm.createModel($event, project)"
+                ng-click="vm.createModel($event, project, false)"
+                ng-style="constrainedDevice && {'margin-right': 0 }"
                 ng-disabled="submittingTrainingRequest || submittingDeleteRequest"
                 translate="MODELS.TRAIN"
                 aria-label="Train new machine learning model"></button>
-
+        <button ng-if="!loading && status !== 'training' && trainingdatastatus === 'data' && project.type === 'imgtfjs' && constrainedDevice"
+                class="btn trainbuttons"
+                ng-click="vm.createModel($event, project, true)"
+                ng-disabled="submittingTrainingRequest || submittingDeleteRequest"
+                translate="MODELS.TRAIN_SIMPLE"
+                aria-label="Train simplified machine learning model"></button>
+        <md-button ng-if="!loading && status !== 'training' && trainingdatastatus === 'data' && project.type === 'imgtfjs' && constrainedDevice"
+                class="md-icon-button training-tooltip">
+            <md-tooltip md-direction="bottom" class="tooltipBody">{{ 'MODELS.TRAINING.SIMPLIFIED_TOOLTIP' | translate }}</md-tooltip>
+            <span class="glyphicon glyphicon-question-sign"></span>
+        </md-button>
         <md-progress-circular class="progressindicator" ng-if="submittingTrainingRequest" md-mode="indeterminate"></md-progress-circular>
     </div>
 
