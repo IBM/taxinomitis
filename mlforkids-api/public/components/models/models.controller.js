@@ -8,7 +8,8 @@
         'authService',
         'projectsService', 'trainingService', 'quizService',
         'soundTrainingService', 'imageTrainingService', 'regressionTrainingService', 'numberTrainingService',
-        'modelService', 'utilService', 'storageService', 'downloadService', 'imageToolsService', 'webcamsService',
+        'modelService', 'utilService', 'storageService', 'downloadService',
+        'imageToolsService', 'webcamsService', 'gpuDetectionService',
         '$stateParams',
         '$scope',
         '$mdDialog', '$timeout', '$interval', '$q', '$document', '$state', 'loggerService'
@@ -17,7 +18,8 @@
     function ModelsController(authService,
         projectsService, trainingService, quizService,
         soundTrainingService, imageTrainingService, regressionTrainingService, numberTrainingService,
-        modelService, utilService, storageService, downloadService, imageToolsService, webcamsService,
+        modelService, utilService, storageService, downloadService,
+        imageToolsService, webcamsService, gpuDetectionService,
         $stateParams,
         $scope,
         $mdDialog, $timeout, $interval, $q, $document, $state, loggerService)
@@ -213,7 +215,10 @@
                     return setupSoundsProject();
                 }
                 else if ($scope.project.type === 'imgtfjs') {
-                    return setupImagesProject();
+                    return setupImagesProject()
+                        .then(function () {
+                            $scope.constrainedDevice = gpuDetectionService.isConstrained();
+                        });
                 }
                 else if ($scope.project.type === 'regression') {
                     return setupRegressionProject();
@@ -381,8 +386,18 @@
                 $scope.models = models;
                 $scope.status = modelService.getStatus($scope.models);
 
-                if (models && models.length > 0 && models[0].status === 'Training') {
-                    refreshModels();
+                if (models && models.length > 0) {
+                    if (models[0].status === 'Training') {
+                        refreshModels();
+                    }
+                    else if (models[0].error) {
+                        // if we already have a generic placeholder error message, remove it now we
+                        //  have a specific message to display
+                        vm.errors = vm.errors.filter(function (e) { return e.message !== 'Unknown error'; });
+
+                        var errId = displayAlert('errors', models[0].error, models[0].error);
+                        scrollToNewItem('errors' + errId);
+                    }
                 }
 
                 loggerService.debug('[ml4kmodels] model status', $scope.status);
@@ -409,7 +424,7 @@
         }
 
 
-        vm.createModel = function (ev, project) {
+        vm.createModel = function (ev, project, simplified) {
             loggerService.debug('[ml4kmodels] creating model');
 
             // prepare the first question for displaying while
@@ -421,7 +436,7 @@
 
             var modelFnPromise;
             if ($scope.project.type === 'imgtfjs') {
-                modelFnPromise = imageTrainingService.newModel(project.id, $scope.userId, vm.profile.tenant);
+                modelFnPromise = imageTrainingService.newModel(project.id, $scope.userId, vm.profile.tenant, simplified);
             }
             else if ($scope.project.type === 'sounds') {
                 modelFnPromise = soundTrainingService.newModel(project.id, $scope.userId, vm.profile.tenant);
