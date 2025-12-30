@@ -74,6 +74,7 @@
                         var additionalQuery = '';
                         if ($scope.project.type === 'regression' && $scope.project.columns) {
                             $scope.project.labels = [ 'input', 'output' ];
+                            $scope.project.hasOutput = $scope.project.columns.some(function (c) { return c.output; });
                             additionalQuery = 'columns=' + JSON.stringify($scope.project.columns.map(function (c) {
                                 return {
                                     label: c.label,
