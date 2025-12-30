@@ -59,7 +59,7 @@ describe('Utils - wikimedia', () => {
         'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Example_barcode.svg/1200px-Example_barcode.svg.png',
     ];
     const EXPECTED_THUMB_THUMBS = [
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Playing_card_diamond_5.svg/244px-Playing_card_diamond_5.svg.png', // tslint:disable-line
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Playing_card_diamond_5.svg/250px-Playing_card_diamond_5.svg.png', // tslint:disable-line
         'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/2cv-club-red.jpg/250px-2cv-club-red.jpg',
         'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Example_barcode.svg/250px-Example_barcode.svg.png',
     ];
