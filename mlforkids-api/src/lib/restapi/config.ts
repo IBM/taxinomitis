@@ -17,9 +17,6 @@ export const CSP_DIRECTIVES = {
     styleSrc: ["'self'",
         // TODO : https://github.com/IBM/taxinomitis/issues/346 should remove this
         "'unsafe-inline'",
-        // used to embed tweets in the News tab
-        'https://ton.twimg.com',
-        'https://platform.twitter.com',
     ],
     scriptSrc: ["'self'",
         // TODO : https://github.com/IBM/taxinomitis/issues/346 should remove this
@@ -30,32 +27,27 @@ export const CSP_DIRECTIVES = {
         'https://cdn.auth0.com',
         'https://cdn.eu.auth0.com',
         'https://dalelane.eu.auth0.com',
-        // used to embed links in the News tab
-        'http://embed-assets.wakelet.com',
-        // used to embed tweets in the News tab
-        'http://platform.twitter.com',
-        'https://cdn.syndication.twimg.com',
-        // used to embed videos in the News and Worksheets tab
+        // used to embed videos in the Worksheets tab
         'https://www.youtube.com',
         'https://www.youtube-nocookie.com',
-        // used to embed video in the Worksheets tab
-        'https://player.vimeo.com',
         // used for error capturing
         'https://browser.sentry-cdn.com',
         // used for analytics
         'https://scripts.withcabin.com/hello.js',
+        // used for small language models
+        'https://esm.run',
+        'https://cdn.jsdelivr.net/npm/@mlc-ai',
         // useful when running locally
         'https://machinelearningforkids.co.uk',
     ],
+    scriptSrcAttr: [
+        // Required for inline event handlers (onclick, onload, data-toggle, etc.)
+        "'unsafe-inline'",
+    ],
     frameSrc: ["'self'",
-        // used in the News tab
-        'http://embed.wakelet.com',
-        'https://syndication.twitter.com',
-        'https://platform.twitter.com',
+        // used in the About and Worksheets tabs
         'https://www.youtube.com',
         'https://www.youtube-nocookie.com',
-        // used in the Worksheets tab
-        'https://player.vimeo.com',
     ],
     imgSrc: ["'self'",
         // used for auth
@@ -63,11 +55,6 @@ export const CSP_DIRECTIVES = {
         'http://cdn.auth0.com',
         'https://cdn.auth0.com',
         'https://cdn.eu.auth0.com',
-        // used for tweets in the News tab
-        'https://pbs.twimg.com',
-        'https://ton.twimg.com',
-        'https://platform.twitter.com',
-        'https://syndication.twitter.com',
         // used for various things, including training data thumbnails
         'data:', 'blob:',
         // used for training data, which can be used from any site
@@ -82,10 +69,16 @@ export const CSP_DIRECTIVES = {
         'data:',
     ],
     connectSrc: ["'self'",
+        // used for accessing cached APIs
+        'https://proxy.machinelearningforkids.co.uk',
         // used for error capturing
         'https://sentry.io',
         // used for analytics
         'https://ping.withcabin.com',
+        // used for small language models
+        'https://huggingface.co',
+        'https://cas-bridge.xethub.hf.co',
+        'https://raw.githubusercontent.com/mlc-ai',
     ].concat(env.getNumbersServiceHostUrls()), // used for numbers service
 };
 
