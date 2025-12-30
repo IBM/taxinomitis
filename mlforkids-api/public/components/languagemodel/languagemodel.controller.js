@@ -142,10 +142,20 @@
                 version : '2.5',
                 size : '0.5B',
                 billionparameters : 0.5,
-                label : 'Qwen',
+                label : 'Qwen 2.5',
                 developer : 'Alibaba',
                 storage : '289 MB',
                 storagemb : 289
+            },
+            {
+                id : 'Qwen3-0.6B-q4f16_1-MLC',
+                version : '3',
+                size : '0.6B',
+                billionparameters : 0.6,
+                label : 'Qwen 3',
+                developer : 'Alibaba',
+                storage : '353 MB',
+                storagemb : 353
             },
             {
                 id : 'TinyLlama-1.1B-Chat-v1.0-q4f16_1-MLC-1k',
@@ -998,7 +1008,9 @@
             $scope.generating = false;
             $scope.resetContextWindow();
 
-            const modelCfg = {};
+            const modelCfg = {
+                enable_thinking : false
+            };
             if ($scope.project.slm.contextwindow) {
                 modelCfg.context_window_size = parseInt($scope.project.slm.contextwindow, 10);
             }
