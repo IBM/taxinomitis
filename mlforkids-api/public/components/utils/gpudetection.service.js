@@ -195,6 +195,25 @@
 
 
 
+        function isShaderF16Supported() {
+            if (!navigator.gpu) {
+                return Promise.resolve(false);
+            }
+            return navigator.gpu.requestAdapter()
+                .then((adapter) => {
+                    if (!adapter) {
+                        return false;
+                    }
+
+                    return adapter.features.has('shader-f16');
+                })
+                .catch((err) => {
+                    loggerService.error('[ml4kgpu] Error checking GPU supported features', err);
+                    return false;
+                });
+        }
+
+
 
         function isConstrained() {
             var capabilities = getGPUCapabilities();
@@ -217,7 +236,8 @@
 
 
         return {
-            isConstrained: isConstrained
+            isConstrained: isConstrained,
+            isShaderF16Supported: isShaderF16Supported
         };
     }
 })();

@@ -7,13 +7,13 @@
     LanguageModelController.$inject = [
         'authService', 'projectsService', 'trainingService',
         'wikipediaService', 'languageModelService', 'txtService',
-        'utilService', 'loggerService',
+        'gpuDetectionService', 'utilService', 'loggerService',
         '$mdDialog',
         '$stateParams',
         '$scope', '$window', '$timeout'
     ];
 
-    function LanguageModelController(authService, projectsService, trainingService, wikipediaService, languageModelService, txtService, utilService, loggerService, $mdDialog, $stateParams, $scope, $window, $timeout) {
+    function LanguageModelController(authService, projectsService, trainingService, wikipediaService, languageModelService, txtService, gpuDetectionService, utilService, loggerService, $mdDialog, $stateParams, $scope, $window, $timeout) {
         var vm = this;
         vm.authService = authService;
 
@@ -126,7 +126,7 @@
         // SMALL LANGUAGE MODELS - available models
         // ===================================================================
 
-        $scope.slmModels = [
+        const modelsWhenShaderF16Supported = [
             {
                 id : 'SmolLM2-135M-Instruct-q0f16-MLC',
                 version : 'SmolLM2',
@@ -208,13 +208,88 @@
                 storagemb : 1500
             }
         ];
-
-        $scope.sizeChartData = $scope.slmModels.map((m) => {
-            return { id : m.id, label : m.label, value : m.storagemb };
-        });
-        $scope.complexityChartData = $scope.slmModels.map((m) => {
-            return { id : m.id, label : m.label, value : m.billionparameters };
-        });
+        const modelsWhenShaderF16NotSupported = [
+            {
+                id : 'SmolLM2-135M-Instruct-q0f32-MLC',
+                version : 'SmolLM2',
+                size : '135M',
+                billionparameters : 0.135,
+                label : 'Smol',
+                developer : 'Hugging Face',
+                storage : '269 MB',
+                storagemb : 269
+            },
+            {
+                id : 'Qwen2.5-0.5B-Instruct-q4f16_1-MLC',
+                version : '2.5',
+                size : '0.5B',
+                billionparameters : 0.5,
+                label : 'Qwen',
+                developer : 'Alibaba',
+                storage : '289 MB',
+                storagemb : 289
+            },
+            {
+                id : 'TinyLlama-1.1B-Chat-v1.0-q4f32_1-MLC-1k',
+                version : '1.0',
+                size : '1.1B',
+                billionparameters : 1.1,
+                label : 'Tiny Llama',
+                developer : 'Singapore University of Technology and Design',
+                storage : '627 MB',
+                storagemb : 627
+            },
+            {
+                id : 'Llama-3.2-1B-Instruct-q4f16_1-MLC',
+                version : '3.2',
+                size : '1B',
+                billionparameters : 1.0,
+                label : 'Llama',
+                developer : 'Meta',
+                storage : '711 MB',
+                storagemb : 711
+            },
+            {
+                id : 'phi-1_5-q4f32_1-MLC',
+                version : '1.5',
+                size : '1.3B',
+                billionparameters : 1.3,
+                label : 'Phi',
+                developer : 'Microsoft',
+                storage : '806 MB',
+                storagemb : 806
+            },
+            {
+                id : 'stablelm-2-zephyr-1_6b-q4f16_1-MLC-1k',
+                version : '2',
+                size : '1.6B',
+                billionparameters : 1.6,
+                label : 'Zephyr',
+                developer : 'Stability AI',
+                storage : '932 MB',
+                storagemb : 932
+            },
+            {
+                id : 'gemma-2-2b-it-q4f32_1-MLC-1k',
+                version : '2',
+                size : '2B',
+                billionparameters : 2.0,
+                label : 'Gemma',
+                developer : 'Google',
+                storage : '1.5 GB',
+                storagemb : 1494
+            },
+            {
+                id : 'RedPajama-INCITE-Chat-3B-v1-q4f32_1-MLC-1k',
+                version : '1',
+                size : '3B',
+                billionparameters : 3.0,
+                label : 'RedPajama',
+                developer : 'Together',
+                storage : '1.7 GB',
+                storagemb : 1714
+            }
+        ];
 
         // -------------------------------------------------------------------
 
@@ -861,7 +936,19 @@
         // Invoked when creating a new small language model project, or restoring a saved one
         //   Loads the web-llm library used to operate language models
         function setupSlmSupport () {
-            return utilService.loadWebLlmProjectSupport()
+            return gpuDetectionService.isShaderF16Supported()
+                .then((useShaderF16) => {
+                    loggerService.debug('[ml4klanguage] shaderf16 support', useShaderF16);
+                    $scope.slmModels = useShaderF16 ? modelsWhenShaderF16Supported : modelsWhenShaderF16NotSupported;
+                    $scope.sizeChartData = $scope.slmModels.map((m) => {
+                        return { id : m.id, label : m.label, value : m.storagemb };
+                    });
+                    $scope.complexityChartData = $scope.slmModels.map((m) => {
+                        return { id : m.id, label : m.label, value : m.billionparameters };
+                    });
+
+                    return utilService.loadWebLlmProjectSupport();
+                })
                 .then((webllm) => {
                     $scope.webllmEngine = new webllm.MLCEngine({
                         // display download progress
