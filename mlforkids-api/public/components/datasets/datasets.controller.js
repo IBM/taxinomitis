@@ -66,7 +66,8 @@
                     'DATASETS.DATA.ARGO.TITLE', 'DATASETS.DATA.ARGO.SUMMARY', 'DATASETS.DATA.ARGO.DESCRIPTION', 'DATASETS.DATA.ARGO.DETAILS',
                     'DATASETS.DATA.STARS.TITLE', 'DATASETS.DATA.STARS.SUMMARY', 'DATASETS.DATA.STARS.DESCRIPTION', 'DATASETS.DATA.STARS.DETAILS',
                     'DATASETS.DATA.FAKENEWS.ID', 'DATASETS.DATA.FAKENEWS.TITLE', 'DATASETS.DATA.FAKENEWS.SUMMARY', 'DATASETS.DATA.FAKENEWS.DESCRIPTION', 'DATASETS.DATA.FAKENEWS.DETAILS',
-                    'DATASETS.DATA.FAKENEWS.ID', 'DATASETS.DATA.CAPTCHA.TITLE', 'DATASETS.DATA.CAPTCHA.SUMMARY', 'DATASETS.DATA.CAPTCHA.DESCRIPTION', 'DATASETS.DATA.CAPTCHA.DETAILS'
+                    'DATASETS.DATA.CAPTCHA.TITLE', 'DATASETS.DATA.CAPTCHA.SUMMARY', 'DATASETS.DATA.CAPTCHA.DESCRIPTION', 'DATASETS.DATA.CAPTCHA.DETAILS',
+                    'DATASETS.DATA.WILDFIRE.TITLE', 'DATASETS.DATA.WILDFIRE.SUMMARY', 'DATASETS.DATA.WILDFIRE.DESCRIPTION', 'DATASETS.DATA.WILDFIRE.DETAILS'
                 ]).then(function (translations) {
                     vm.datasets = [
                         {
@@ -206,6 +207,15 @@
                             details: translations['DATASETS.DATA.CAPTCHA.DETAILS'],
                             type: 'imgtfjs',
                             image: 'static/images/dataset-captcha.png'
+                        },
+                        {
+                            id: 'wildfire',
+                            title: translations['DATASETS.DATA.WILDFIRE.TITLE'],
+                            summary: translations['DATASETS.DATA.WILDFIRE.SUMMARY'],
+                            description: translations['DATASETS.DATA.WILDFIRE.DESCRIPTION'],
+                            details: translations['DATASETS.DATA.WILDFIRE.DETAILS'],
+                            type: 'imgtfjs',
+                            image: 'static/images/dataset-wildfire.png'
                         }
                     ];
 

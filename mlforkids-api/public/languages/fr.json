@@ -312,6 +312,12 @@
                 "SUMMARY": "Recognise objects in images",
                 "DESCRIPTION": "Train a machine learning model to solve CAPTCHA problems, by recognising objects in photographs. ",
                 "DETAILS": "This is an empty template to help you collect your own training data. For instructions on how to use it, download 'CAPTCHA' from Worksheets."
+            },
+            "WILDFIRE": {
+                "TITLE": "Wildfire detection",
+                "SUMMARY": "Recognise fires in aerial photos",
+                "DESCRIPTION": "Train a machine learning model to recognize a fire in aerial photography. ",
+                "DETAILS": "Use satellite imagery to detect wildfires and help locals and firefighters track and deal with fires around the world. \nThis dataset has been generated using AI tools."
             }
         }
     },

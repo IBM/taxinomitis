@@ -92,6 +92,7 @@ describe('Datasets import', () => {
                 imgtfjs : [
                     'cats-and-dogs',
                     'pokemon',
+                    'wildfire',
                 ],
             };
 
