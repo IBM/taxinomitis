@@ -302,7 +302,13 @@
 
 
         vm.addConfirmedTrainingData = function (resp, label) {
-            loggerService.debug('[ml4ktraining] addConfirmedTrainingData');
+            loggerService.debug('[ml4ktraining] addConfirmedTrainingData', label);
+
+            if (!(label in $scope.training)) {
+                return displayAlert('errors', 500, {
+                    message : 'Project does not appear to have the label ' + label
+                });
+            }
 
             var data;
             var placeholder;
