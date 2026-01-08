@@ -312,5 +312,5 @@ video.webcam-live {
     line-height: 16px;
     padding-top: 3px;
     text-wrap: nowrap;
-    overflow-x: scroll;
+    overflow: hidden;
 }
