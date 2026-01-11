@@ -1051,6 +1051,7 @@
                     maketypes : [ 'scratch3' ],
                     image : 'static/images/project-personas.png',
                     tags : [ 'language models', 'prompt engineering', 'role prompting' ],
+                    teachersnotes : 'https://dalelane.co.uk/blog/?p=5799',
                     downloads : [
                         {
                             worksheet : translations['WORKSHEETS.PERSONAS.WORKSHEET_1.URL']
