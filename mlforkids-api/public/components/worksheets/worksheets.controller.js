@@ -229,8 +229,10 @@
 
             'WORKSHEETS.BENCHMARK.TITLE', 'WORKSHEETS.BENCHMARK.SUMMARY', 'WORKSHEETS.BENCHMARK.DESCRIPTION',
             'WORKSHEETS.BENCHMARK.WORKSHEET_1.URL',
-            'WORKSHEETS.BENCHMARK.TEACHERSNOTES_URL'
+            'WORKSHEETS.BENCHMARK.TEACHERSNOTES_URL',
 
+            'WORKSHEETS.PERSONAS.TITLE', 'WORKSHEETS.PERSONAS.SUMMARY', 'WORKSHEETS.PERSONAS.DESCRIPTION',
+            'WORKSHEETS.PERSONAS.WORKSHEET_1.URL'
 
         ]).then(function (translations) {
             vm.worksheets = [
@@ -1039,6 +1041,27 @@
                         "Learn about <strong>regression</strong> by making an AI-controlled golf game in <strong>Scratch</strong>."
                     ],
                     video : 'OqCULB9VamI'
+                },
+                {
+                    title : translations['WORKSHEETS.PERSONAS.TITLE'],
+                    summary : translations['WORKSHEETS.PERSONAS.SUMMARY'],
+                    description : translations['WORKSHEETS.PERSONAS.DESCRIPTION'],
+                    difficulty : 2,
+                    type : 'language',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-personas.png',
+                    tags : [ 'language models', 'prompt engineering', 'role prompting' ],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.PERSONAS.WORKSHEET_1.URL']
+                        }
+                    ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-personas.docx',
+                    featured : [
+                        "Use <strong>generative AI</strong> to have a conversation with a mystery character in <strong>Scratch</strong>.",
+                        "Learn about the prompt engineering technique 'role prompting' by giving a language model a persona."
+                    ],
+                    video : 'UfW7q9Px8uU'
                 },
                 {
                     title : translations['WORKSHEETS.HEADLINETESTING.TITLE'],

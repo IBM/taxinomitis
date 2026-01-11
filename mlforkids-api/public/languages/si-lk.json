@@ -1748,6 +1748,14 @@
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-benchmark.pdf"
             }
+        },
+        "PERSONAS": {
+            "TITLE": "Personas",
+            "SUMMARY": "Use a computer trained to generate text",
+            "DESCRIPTION": "Make a project in Scratch that can answer questions as a mystery person",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-personas.pdf"
+            }
         }
     },
     "TEACHER": {
