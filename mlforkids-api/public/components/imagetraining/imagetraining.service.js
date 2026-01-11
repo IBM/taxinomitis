@@ -181,13 +181,20 @@
                     return reject(err);
                 };
                 hiddenImg.onload = function () {
-                    var imageData = tf.tidy(function () {
-                        return tf.browser.fromPixels(hiddenImg)
-                                    .expandDims(0)
-                                    .toFloat()
-                                    .div(127)
-                                    .sub(1);
-                    });
+                    var imageData;
+                    try {
+                        imageData = tf.tidy(function () {
+                            return tf.browser.fromPixels(hiddenImg)
+                                        .expandDims(0)
+                                        .toFloat()
+                                        .div(127)
+                                        .sub(1);
+                        });
+                    }
+                    catch (err) {
+                        loggerService.error('[ml4kimages] Failed to create image tensor', imgmetadata);
+                        return reject(err);
+                    }
 
                     const imgid = imgmetadata ? imgmetadata.id : 'test';
                     loggerService.debug('[ml4kimages] tensor image data ' + imgid + ' ' +
@@ -349,13 +356,7 @@
                 })
                 .catch(function (err) {
                     loggerService.error('[ml4kimages] model training failure', err);
-
-                    if (modelStatus) {
-                        modelStatus.status = 'Failed';
-                        modelStatus.updated = new Date();
-                        modelStatus.error = err;
-                    }
-
+                    handleTrainingError(err);
                     return modelStatus;
                 });
         }
@@ -437,31 +438,36 @@
             .catch(function (err) {
                 loggerService.error('[ml4kimages] failed to train model', err);
                 safeDispose(xs, ys);
-                if (modelStatus) {
-                    modelStatus.status = 'Failed';
-                    modelStatus.progress = 100;
-                    modelStatus.updated = new Date();
-
-                    if (err.message &&
-                        (err.message.includes('compile fragment shader') || err.message.includes('link vertex and fragment shaders')))
-                    {
-                        err = new Error(
-                            'Your device does not have enough graphics memory to get ' +
-                            'your training data ready. ' +
-                            'You could remove some of your training images. ' +
-                            'It might help if you close other browser tabs or applications. '
-                        );
-                        err.status = 500;
-                    }
-                    else {
-                        err = new Error('Failed to train machine learning model ' +
-                            err.message ? '(' + err.message + ')' : '');
-                        err.status = 500;
-                    }
-                    modelStatus.error = err;
-                }
+                handleTrainingError(err);
                 usingRestoredModel = false;
             });
+        }
+
+
+        function handleTrainingError(err) {
+            if (modelStatus) {
+                modelStatus.status = 'Failed';
+                modelStatus.progress = 100;
+                modelStatus.updated = new Date();
+
+                if (err.message &&
+                    (err.message.includes('compile fragment shader') || err.message.includes('link vertex and fragment shaders')))
+                {
+                    err = new Error(
+                        'Your device does not have enough graphics memory to get ' +
+                        'your training data ready. ' +
+                        'You could remove some of your training images. ' +
+                        'It might help if you close other browser tabs or applications. '
+                    );
+                    err.status = 500;
+                }
+                else {
+                    err = new Error('Failed to train machine learning model ' +
+                        err.message ? '(' + err.message + ')' : '');
+                    err.status = 500;
+                }
+                modelStatus.error = err;
+            }
         }
 
 
