@@ -1454,8 +1454,12 @@ class ML4KidsImageTraining {
         const imageDataTensor = tf.tidy(() => {
           return tf.browser.fromPixels(imageElement).expandDims(0).toFloat().div(127).sub(1);
         });
-        const baseModelOutput = that.baseModel.predict(imageDataTensor);
-        const transferModelOutput = that.PROJECTS[projectid].transferModel.predict(baseModelOutput);
+        const baseModelOutput = tf.tidy(() => {
+          return that.baseModel.predict(imageDataTensor);
+        });
+        const transferModelOutput = tf.tidy(() => {
+          return that.PROJECTS[projectid].transferModel.predict(baseModelOutput);
+        });
         transferModelOutput.data().then(output => {
           imageDataTensor.dispose();
           that._safeDispose(baseModelOutput, transferModelOutput);
@@ -1767,14 +1771,20 @@ class ML4KidsImageTraining {
         return reject(err);
       };
       hiddenImg.onload = function () {
-        var imageData = tf.tidy(function () {
-          return tf.browser.fromPixels(hiddenImg).expandDims(0).toFloat().div(127).sub(1);
-        });
-        resolve({
-          metadata,
-          data: imageData
-        });
-        URL.revokeObjectURL(imgDataBlob);
+        try {
+          var imageData = tf.tidy(function () {
+            return tf.browser.fromPixels(hiddenImg).expandDims(0).toFloat().div(127).sub(1);
+          });
+          resolve({
+            metadata,
+            data: imageData
+          });
+        } catch (err) {
+          console.log('[mlforkids] ML4KidsImageTraining failed to create image tensor', err);
+          reject(err);
+        } finally {
+          URL.revokeObjectURL(imgDataBlob);
+        }
       };
       hiddenImg.src = imgDataBlob;
     });
@@ -2683,6 +2693,40 @@ class ML4KidsSoundTraining {
       return that.trainNewModel(data, worker);
     });
   }
+  _prepareTrainingConfig(trainingDataSize, numLabels) {
+    console.log('[mlforkids] determining training config', trainingDataSize, numLabels);
+    const avgTrainingExamplesPerLabel = trainingDataSize / numLabels;
+    const tinyDataset = avgTrainingExamplesPerLabel < 15 || trainingDataSize < 30;
+    const hugeDataset = avgTrainingExamplesPerLabel > 50;
+    const defaultBehaviour = !tinyDataset && !hugeDataset;
+    const config = {
+      optimizer: 'sgd'
+    };
+    if (tinyDataset) {
+      config.epochs = 80;
+      config.fineTuningEpochs = null;
+      config.batchSize = 64;
+      config.validationSplit = null;
+      config.windowHopRatio = 0.25;
+      config.augmentByMixingNoiseRatio = null;
+    } else if (defaultBehaviour) {
+      config.epochs = 50;
+      config.fineTuningEpochs = 15;
+      config.batchSize = 128;
+      config.validationSplit = 0.15;
+      config.windowHopRatio = 0.25;
+      config.augmentByMixingNoiseRatio = 0.3;
+    } else if (hugeDataset) {
+      config.epochs = 40;
+      config.fineTuningEpochs = 12;
+      config.batchSize = 128;
+      config.validationSplit = 0.2;
+      config.windowHopRatio = 0.25;
+      config.augmentByMixingNoiseRatio = 0.3;
+    }
+    console.log('[mlforkids] training config', config);
+    return config;
+  }
   trainNewModel(data, worker) {
     if (this.state === 'LISTENING') {
       this.stopListening();
@@ -2692,6 +2736,7 @@ class ML4KidsSoundTraining {
       return;
     }
     this.state = 'TRAINING';
+    var trainingConfig;
     return this.prepareSoundService(worker).then(() => {
       this.transferRecognizer.dataset.clear();
       this.transferRecognizer.dataset.label2Ids = {};
@@ -2707,11 +2752,10 @@ class ML4KidsSoundTraining {
         });
       }
       this.transferRecognizer.collateTransferWords();
+      trainingConfig = this._prepareTrainingConfig(data.length, this.transferRecognizer.wordLabels().length);
       return tf.nextFrame();
     }).then(() => {
-      return this.transferRecognizer.train({
-        epochs: 100
-      });
+      return this.transferRecognizer.train(trainingConfig);
     }).then(() => {
       this.state = 'TRAINED';
       this.usingRestoredModel = false;

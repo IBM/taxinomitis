@@ -212,7 +212,10 @@
                     return setupNumberProject();
                 }
                 else if ($scope.project.type === 'sounds') {
-                    return setupSoundsProject();
+                    return setupSoundsProject()
+                        .then(function () {
+                            $scope.constrainedDevice = gpuDetectionService.isConstrained();
+                        });
                 }
                 else if ($scope.project.type === 'imgtfjs') {
                     return setupImagesProject()
@@ -439,7 +442,7 @@
                 modelFnPromise = imageTrainingService.newModel(project.id, $scope.userId, vm.profile.tenant, simplified);
             }
             else if ($scope.project.type === 'sounds') {
-                modelFnPromise = soundTrainingService.newModel(project.id, $scope.userId, vm.profile.tenant);
+                modelFnPromise = soundTrainingService.newModel(project.id, $scope.userId, vm.profile.tenant, simplified);
             }
             else if ($scope.project.type === 'numbers') {
                 modelFnPromise = numberTrainingService.newModel(project, $scope.userId, vm.profile.tenant);

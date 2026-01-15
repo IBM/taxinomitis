@@ -555,13 +555,13 @@
                 ng-disabled="submittingTrainingRequest || submittingDeleteRequest"
                 translate="MODELS.TRAIN"
                 aria-label="Train new machine learning model"></button>
-        <button ng-if="!loading && status !== 'training' && trainingdatastatus === 'data' && project.type === 'imgtfjs' && constrainedDevice"
+        <button ng-if="!loading && status !== 'training' && trainingdatastatus === 'data' && (project.type === 'imgtfjs' || project.type === 'sounds') && constrainedDevice"
                 class="btn trainbuttons"
                 ng-click="vm.createModel($event, project, true)"
                 ng-disabled="submittingTrainingRequest || submittingDeleteRequest"
                 translate="MODELS.TRAIN_SIMPLE"
                 aria-label="Train simplified machine learning model"></button>
-        <md-button ng-if="!loading && status !== 'training' && trainingdatastatus === 'data' && project.type === 'imgtfjs' && constrainedDevice"
+        <md-button ng-if="!loading && status !== 'training' && trainingdatastatus === 'data' && (project.type === 'imgtfjs' || project.type === 'sounds') && constrainedDevice"
                 class="md-icon-button training-tooltip">
             <md-tooltip md-direction="bottom" class="tooltipBody">{{ 'MODELS.TRAINING.SIMPLIFIED_TOOLTIP' | translate }}</md-tooltip>
             <span class="glyphicon glyphicon-question-sign"></span>

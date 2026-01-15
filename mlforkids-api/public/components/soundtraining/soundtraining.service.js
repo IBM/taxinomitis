@@ -224,9 +224,108 @@
         }
 
 
+        function prepareTrainingConfig(trainingDataSize, numLabels, trainSimplifiedModel) {
+            loggerService.debug('[ml4ksound] determining training config', trainingDataSize, numLabels, trainSimplifiedModel);
+            const avgTrainingExamplesPerLabel = trainingDataSize / numLabels;
+
+            var tinyDataset = avgTrainingExamplesPerLabel < 15 || trainingDataSize < 30;
+            var hugeDataset = avgTrainingExamplesPerLabel > 50;
+            var defaultBehaviour = !tinyDataset && !hugeDataset;
+
+            // 'sgd' is already the default optimizer in speech-commands, but leaving
+            //  this here as a reminder that other optimizers are available
+            var config = { optimizer : 'sgd' };
+
+            if (trainSimplifiedModel) {
+                // optimising for resource-constraints
+
+                if (tinyDataset) {
+                    config.epochs = 40;
+                    config.fineTuningEpochs = null;
+                    config.batchSize = 32;
+                    config.validationSplit = null;
+                    config.windowHopRatio = 0.5;
+                    config.augmentByMixingNoiseRatio = null;
+                }
+                else if (defaultBehaviour) {
+                    config.epochs = 25;
+                    config.fineTuningEpochs = null;
+                    config.batchSize = 64;
+                    config.validationSplit = 0.15;
+                    config.windowHopRatio = 0.5;
+                    config.augmentByMixingNoiseRatio = null;
+                }
+                else if (hugeDataset) {
+                    config.epochs = 20;
+                    config.fineTuningEpochs = null;
+                    config.batchSize = 64;
+                    config.validationSplit = 0.2;
+                    config.windowHopRatio = 0.5;
+                    config.augmentByMixingNoiseRatio = null;
+                }
+            }
+            else {
+                // optimising for accuracy
+
+                if (tinyDataset) {
+                    config.epochs = 80;
+                    config.fineTuningEpochs = null;
+                    config.batchSize = 64;
+                    config.validationSplit = null;
+                    config.windowHopRatio = 0.25;
+                    config.augmentByMixingNoiseRatio = null;
+                }
+                else if (defaultBehaviour) {
+                    config.epochs = 50;
+                    config.fineTuningEpochs = 15;
+                    config.batchSize = 128;
+                    config.validationSplit = 0.15;
+                    config.windowHopRatio = 0.25;
+                    config.augmentByMixingNoiseRatio = 0.3;
+                }
+                else if (hugeDataset) {
+                    config.epochs = 40;
+                    config.fineTuningEpochs = 12;
+                    config.batchSize = 128;
+                    config.validationSplit = 0.2;
+                    config.windowHopRatio = 0.25;
+                    config.augmentByMixingNoiseRatio = 0.3;
+                }
+            }
+
+            loggerService.debug('[ml4ksound] training config', config);
 
 
-        function newModel(projectid, userid, tenantid) {
+            // prepare callbacks that will calculate a percentage-complete
+            //  for the progress bar displayed on the models page
+
+            var totalEpochs = config.epochs + (config.fineTuningEpochs ? config.fineTuningEpochs : 0);
+            config.callback = {
+                onEpochEnd: function (epoch) {
+                    if (modelStatus) {
+                        // remember - epochs are zero-indexed
+                        modelStatus.progress = Math.round(((epoch + 1) / totalEpochs) * 100);
+                    }
+                }
+            };
+            if (config.fineTuningEpochs) {
+                config.fineTuningCallback = {
+                    onEpochEnd: function (fineTuningEpoch) {
+                        if (modelStatus) {
+                            // Fine-tuning epochs come after initial epochs
+                            // remember - epochs are zero-indexed
+                            var currentEpoch = config.epochs + fineTuningEpoch + 1;
+                            modelStatus.progress = Math.round((currentEpoch / totalEpochs) * 100);
+                        }
+                    }
+                };
+            }
+
+            return config;
+        }
+
+
+        function newModel(projectid, userid, tenantid, trainSimplifiedModel) {
             loggerService.debug('[ml4ksound] creating new ML model');
             loggerService.debug('[ml4ksound] tf backend', tf.getBackend());
             loggerService.debug('[ml4ksound] tf precision', tf.ENV.getBool('WEBGL_RENDER_FLOAT32_ENABLED'));
@@ -235,8 +334,11 @@
                 classifierid : projectid,
                 status : 'Training',
                 progress : 0,
-                updated : new Date()
+                updated : new Date(),
+                simplified : trainSimplifiedModel
             };
+
+            var trainingConfig;
 
             loggerService.debug('[ml4ksound] preparing sound service');
             return prepareSoundService()
@@ -268,23 +370,20 @@
                     // rebuild vocab
                     transferRecognizer.collateTransferWords();
 
+                    // customize training config for training set
+                    trainingConfig = prepareTrainingConfig(
+                        trainingdata.length,
+                        transferRecognizer.wordLabels().length,
+                        trainSimplifiedModel
+                    );
+
                     return tf.nextFrame();
                 })
                 .then(function () {
                     loggerService.debug('[ml4ksound] starting transfer learning');
 
                     transferRecognizer
-                        .train({
-                            epochs : 100,
-                            callback: {
-                                onEpochEnd: function (epoch) {
-                                    if (modelStatus) {
-                                        // epochs are zero-indexed
-                                        modelStatus.progress = epoch + 1;
-                                    }
-                                }
-                            }
-                        })
+                        .train(trainingConfig)
                         .then(function () {
                             if (modelStatus) {
                                 modelStatus.status = 'Available';
