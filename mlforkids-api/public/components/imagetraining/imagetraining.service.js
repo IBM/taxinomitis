@@ -461,7 +461,7 @@
                     );
                     err.status = 500;
                 }
-                else {
+                else if (!err.data) {
                     err = new Error('Failed to train machine learning model ' +
                         err.message ? '(' + err.message + ')' : '');
                     err.status = 500;
