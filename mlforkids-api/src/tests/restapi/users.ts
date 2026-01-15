@@ -95,7 +95,7 @@ describe('REST API - users', () => {
                         textTrainingItemsPerProject : 500,
                         numberTrainingItemsPerProject : 1000,
                         numberTrainingItemsPerClassProject : 3000,
-                        imageTrainingItemsPerProject : 100,
+                        imageTrainingItemsPerProject : 250,
                         soundTrainingItemsPerProject : 100,
                     });
 
