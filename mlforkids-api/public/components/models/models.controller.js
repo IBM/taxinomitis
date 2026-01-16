@@ -128,7 +128,7 @@
             var newAlert = {
                 code : errObj.code,
                 alertid : newId,
-                message : errObj.message || errObj.error || 'Unknown error',
+                message : (errObj.status && errObj.status.data ? errObj.status.data.error : undefined) || errObj.message || errObj.error || 'Unknown error',
                 status : status
             };
             vm[type].push(newAlert);
