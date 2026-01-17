@@ -1,0 +1,101 @@
+<div class="mllinechart-container">
+    <div class="mllinechart-title" ng-if="title">{{title}}</div>
+
+    <svg ng-if="chartDimensions"
+         class="mllinechart-svg"
+         viewBox="0 0 800 500"
+         preserveAspectRatio="xMidYMid meet">
+
+        <!-- Chart background -->
+        <rect ng-attr-x="{{chartDimensions.padding.left}}"
+              ng-attr-y="{{chartDimensions.padding.top}}"
+              ng-attr-width="{{chartDimensions.chartWidth}}"
+              ng-attr-height="{{chartDimensions.chartHeight}}"
+              class="mllinechart-background"/>
+
+        <!-- Grid lines (horizontal) -->
+        <g class="mllinechart-grid">
+            <line ng-repeat="label in yAxisLabels"
+                  ng-attr-x1="{{chartDimensions.padding.left}}"
+                  ng-attr-y1="{{chartDimensions.padding.top + label.y}}"
+                  ng-attr-x2="{{chartDimensions.padding.left + chartDimensions.chartWidth}}"
+                  ng-attr-y2="{{chartDimensions.padding.top + label.y}}"
+                  class="mllinechart-grid-line"/>
+        </g>
+
+        <!-- Y-axis -->
+        <line ng-attr-x1="{{chartDimensions.padding.left}}"
+              ng-attr-y1="{{chartDimensions.padding.top}}"
+              ng-attr-x2="{{chartDimensions.padding.left}}"
+              ng-attr-y2="{{chartDimensions.padding.top + chartDimensions.chartHeight}}"
+              class="mllinechart-axis"/>
+
+        <!-- X-axis -->
+        <line ng-attr-x1="{{chartDimensions.padding.left}}"
+              ng-attr-y1="{{chartDimensions.padding.top + chartDimensions.chartHeight}}"
+              ng-attr-x2="{{chartDimensions.padding.left + chartDimensions.chartWidth}}"
+              ng-attr-y2="{{chartDimensions.padding.top + chartDimensions.chartHeight}}"
+              class="mllinechart-axis"/>
+
+        <!-- Y-axis labels -->
+        <g class="mllinechart-y-labels">
+            <text ng-repeat="label in yAxisLabels"
+                  ng-attr-x="{{chartDimensions.padding.left - 10}}"
+                  ng-attr-y="{{chartDimensions.padding.top + label.y}}"
+                  class="mllinechart-axis-label"
+                  text-anchor="end"
+                  dominant-baseline="middle">{{label.value}}</text>
+        </g>
+
+        <!-- X-axis labels -->
+        <g class="mllinechart-x-labels">
+            <text ng-repeat="label in xAxisLabels"
+                  ng-attr-x="{{chartDimensions.padding.left + label.x}}"
+                  ng-attr-y="{{chartDimensions.padding.top + chartDimensions.chartHeight + 20}}"
+                  class="mllinechart-axis-label"
+                  text-anchor="middle">{{label.value}}</text>
+        </g>
+
+        <!-- Y-axis title -->
+        <text ng-if="ylabel"
+              ng-attr-x="{{20}}"
+              ng-attr-y="{{chartDimensions.padding.top + chartDimensions.chartHeight / 2}}"
+              class="mllinechart-axis-title"
+              text-anchor="middle"
+              transform="rotate(-90, 20, {{chartDimensions.padding.top + chartDimensions.chartHeight / 2}})">{{ylabel}}</text>
+
+        <!-- X-axis title -->
+        <text ng-if="xlabel"
+              ng-attr-x="{{chartDimensions.padding.left + chartDimensions.chartWidth / 2}}"
+              ng-attr-y="{{chartDimensions.padding.top + chartDimensions.chartHeight + 50}}"
+              class="mllinechart-axis-title"
+              text-anchor="middle">{{xlabel}}</text>
+
+        <!-- Validation loss line (drawn first so training line is on top) -->
+        <path ng-attr-d="{{validationPath}}"
+              class="mllinechart-line mllinechart-validation-line"
+              ng-attr-transform="translate({{chartDimensions.padding.left}}, {{chartDimensions.padding.top}})"/>
+
+        <!-- Training loss line -->
+        <path ng-attr-d="{{trainingPath}}"
+              class="mllinechart-line mllinechart-training-line"
+              ng-attr-transform="translate({{chartDimensions.padding.left}}, {{chartDimensions.padding.top}})"/>
+
+        <!-- Legend  -->
+        <g class="mllinechart-legend" ng-attr-transform="translate({{chartDimensions.padding.left + chartDimensions.chartWidth / 2 - 150}}, {{chartDimensions.padding.top + chartDimensions.chartHeight + 80}})">
+            <!-- Training loss legend item -->
+            <line x1="0" y1="0" x2="30" y2="0" class="mllinechart-line mllinechart-training-line"/>
+            <text x="35" y="0" class="mllinechart-legend-label" dominant-baseline="middle">Training Loss</text>
+            <text x="35" y="15" class="mllinechart-legend-value" dominant-baseline="middle">{{finalTrainingLoss}}</text>
+
+            <!-- Validation loss legend item -->
+            <line x1="150" y1="0" x2="180" y2="0" class="mllinechart-line mllinechart-validation-line"/>
+            <text x="185" y="0" class="mllinechart-legend-label" dominant-baseline="middle">Validation Loss</text>
+            <text x="185" y="15" class="mllinechart-legend-value" dominant-baseline="middle">{{finalValidationLoss}}</text>
+        </g>
+    </svg>
+
+    <div ng-if="!chartDimensions" class="mllinechart-loading">
+        Loading chart...
+    </div>
+</div>

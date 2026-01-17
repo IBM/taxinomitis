@@ -1,0 +1,57 @@
+<div ng-if="!isAuthenticated">
+    <div class="alert alert-warning pageheadermsg">
+        <strong translate="ERRORS.NOTLOGGEDIN"></strong>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" ng-click="vm.authService.login()" translate="APP.LOGIN"></button>
+    </div>
+</div>
+<div ng-if="isAuthenticated && !projectId" class="alert alert-danger pageheadermsg">
+    <strong translate="APP.ERROR"></strong> <span translate="ERRORS.MISSINGPROJECTID"></span> <a ui-sref="projects" translate="APP.PROJECTS"></a>
+</div>
+<div ng-if="isAuthenticated && projectId" class="describemlmodel describeregression">
+    <div class="jumbotron">
+        <h2 class="text-center">{{ 'DESCRIBEMODEL.TITLE' | translate }} <span class="badge">beta</span></h2>
+    </div>
+    <div class="backbutton">
+        <a ui-sref="mlproject_models({ projectId : projectId, userId : userId })" translate="APP.BACKTOMODEL"></a>
+    </div>
+
+    <div ng-repeat="error in vm.errors"
+         class="alert alert-danger alert-dismissible pageheadermsg" role="alert"
+         ng-click="vm.dismissAlert('errors', $index)"
+         id="errors{{error.alertid}}">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong translate="APP.ERROR"></strong> {{ error.message }}<br/>
+        <em ng-if="error.status >= 500"><span translate="ERRORS.IFPERSISTENT"></span> <a ui-sref="help" translate="ERRORS.LETMEKNOW"></a></em>
+    </div>
+    <div ng-repeat="warning in vm.warnings" class="alert alert-warning alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('warnings', $index)">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong translate="APP.WARNING"></strong> {{ warning.message }}
+    </div>
+
+    <div ng-if="loading" class="loading"> </div>
+
+    <div ng-if="!loading && trainingHistory" class="visualization-section">
+        <div class="losschart-container">
+            <mllinechart
+                chart-data="chartData"
+                title="Loss vs Epochs"
+                xlabel="Epoch"
+                ylabel="Loss (Mean Squared Error)">
+            </mllinechart>
+            <div>
+                <h3 translate="DESCRIBEREGRESSIONMODEL.HEADING_1"></h3>
+                <div translate="DESCRIBEREGRESSIONMODEL.SUMMARY"></div>
+                <div translate="DESCRIBEREGRESSIONMODEL.WHATISLOSS"></div>
+                <div translate="DESCRIBEREGRESSIONMODEL.WHATISEPOCH"></div>
+                <div translate="DESCRIBEREGRESSIONMODEL.TRAININGLOSS"></div>
+                <div translate="DESCRIBEREGRESSIONMODEL.VALIDATIONLOSS"></div>
+                <h3 translate="DESCRIBEREGRESSIONMODEL.HEADING_2"></h3>
+                <div translate="DESCRIBEREGRESSIONMODEL.LINESGODOWN"></div>
+                <div translate="DESCRIBEREGRESSIONMODEL.LINESFLAT"></div>
+                <div translate="DESCRIBEREGRESSIONMODEL.LINEGOESUP"></div>
+            </div>
+        </div>
+    </div>
+</div>

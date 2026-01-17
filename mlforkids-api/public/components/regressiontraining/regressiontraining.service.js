@@ -24,6 +24,8 @@
         const UNITS_PER_LAYER = 50;
         const LEARNING_RATE = 0.01;
         const BATCH_SIZE = 40;
+        // this number is referred to (as the final epoch 199) in public/components/describeregression/describemodel.html
+        //  update the explanation if this is changed
         const EPOCHS = 200;
         const VALIDATION_PROPORTION = 0.2;
         const PERCENT_PER_EPOCH = 100 / EPOCHS;
@@ -106,6 +108,12 @@
             return modelService.deleteModel(MODELTYPE, projectid)
                 .then(function () {
                     return browserStorageService.addMetadataToProject(projectid, 'normalization', null);
+                })
+                .then(function () {
+                    return browserStorageService.deleteAsset(projectid + '-history');
+                })
+                .catch(function (err) {
+                    loggerService.debug('[ml4kregress] error deleting training history', err);
                 });
         }
 
@@ -185,6 +193,21 @@
             utilService.logTfjsMemory('newModel');
 
             resetting = false;
+
+            var trainingHistory = {
+                epochs: [],
+                trainingLoss: [],
+                validationLoss: [],
+                // store this in case we start varying model definition
+                //  for resource constrained devices
+                parameters: {
+                    epochs: EPOCHS,
+                    batchSize: BATCH_SIZE,
+                    learningRate: LEARNING_RATE,
+                    validationSplit: VALIDATION_PROPORTION,
+                    unitsPerLayer: UNITS_PER_LAYER
+                }
+            };
 
             modelStatus = {
                 classifierid : project.id,
@@ -289,6 +312,11 @@
                         callbacks: {
                             onEpochEnd : (epoch, logs) => {
                                 loggerService.debug('[ml4kregress] epoch ' + epoch + ' loss ' + logs.loss);
+
+                                trainingHistory.epochs.push(epoch);
+                                trainingHistory.trainingLoss.push(logs.loss);
+                                trainingHistory.validationLoss.push(logs.val_loss);
+
                                 if (modelStatus) {
                                     modelStatus.progress = (epoch + 1) * PERCENT_PER_EPOCH;
                                 }
@@ -301,6 +329,12 @@
                                     utilService.logTfjsMemory('model trained');
 
                                     return saveModel(project.id)
+                                        .then(function () {
+                                            return browserStorageService.storeAssetData(
+                                                project.id + '-history',
+                                                trainingHistory
+                                            );
+                                        })
                                         .then(function () {
                                             loggerService.debug('[ml4kregress] training complete');
                                             if (modelStatus) {
