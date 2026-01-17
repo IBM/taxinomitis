@@ -5,11 +5,11 @@
         .controller('RegressionDescribeController', RegressionDescribeController);
 
     RegressionDescribeController.$inject = [
-        'authService', 'loggerService', 'browserStorageService', 'projectsService', 'fcnnVisualisationService', 'utilService',
+        'authService', 'loggerService', 'browserStorageService', 'projectsService',
         '$stateParams', '$scope', '$timeout', '$document'
     ];
 
-    function RegressionDescribeController(authService, loggerService, browserStorageService, projectsService, fcnnVisualisationService, utilService, $stateParams, $scope, $timeout, $document) {
+    function RegressionDescribeController(authService, loggerService, browserStorageService, projectsService, $stateParams, $scope, $timeout, $document) {
         var vm = this;
         vm.authService = authService;
 
@@ -72,37 +72,6 @@
                     training: history.trainingLoss,
                     validation: history.validationLoss
                 };
-
-                return utilService.loadScript('/static/bower_components/d3/d3.min.js');
-            })
-            .then(function () {
-                $timeout(function () {
-                    const HIDDEN_LAYER_UNITS = 15;
-
-                    const inputs = $scope.project.columns.filter((c) => { return c.output === false; });
-                    const outputs = $scope.project.columns.filter((c) => { return c.output; });
-
-                    fcnnVisualisationService.init('mlforkidsmodelvizimg');
-                    fcnnVisualisationService.create(
-                        [
-                            inputs.length,
-                            HIDDEN_LAYER_UNITS,
-                            HIDDEN_LAYER_UNITS,
-                            outputs.length,
-                        ],
-                        [ 5, 5, 5, 5 ]
-                    );
-
-                    fcnnVisualisationService.updateNodeLabels(0,
-                        inputs.map((c) => { return c.label; })
-                    );
-                    fcnnVisualisationService.updateNodeLabels(1, Array(HIDDEN_LAYER_UNITS).fill('sigmoid'));
-                    fcnnVisualisationService.updateNodeLabels(2, Array(HIDDEN_LAYER_UNITS).fill('sigmoid'));
-                    fcnnVisualisationService.updateNodeLabels(3,
-                        outputs.map((c) => { return c.label; })
-                    );
-                }, 0);
-
 
                 $scope.loading = false;
                 loggerService.debug('[ml4kregress] training history loaded', history);

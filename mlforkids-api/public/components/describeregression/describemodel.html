@@ -53,48 +53,5 @@
                 <div>If the <strong>validation line goes up</strong> but the <strong>training line goes down</strong>, your model might be memorizing instead of really learning. </div>
             </div>
         </div>
-
-        <div class="training-info">
-            <h4>Training Parameters</h4>
-            <div class="info-grid">
-                <div class="info-item">
-                    <span class="info-label">Total Epochs:</span>
-                    <span class="info-value">{{trainingHistory.parameters.epochs}}</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Batch Size:</span>
-                    <span class="info-value">{{trainingHistory.parameters.batchSize}}</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Learning Rate:</span>
-                    <span class="info-value">{{trainingHistory.parameters.learningRate}}</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Validation Split:</span>
-                    <span class="info-value">{{trainingHistory.parameters.validationSplit * 100}}%</span>
-                </div>
-            </div>
-
-            <h4>Final Results</h4>
-            <div class="info-grid">
-                <div class="info-item">
-                    <span class="info-label">Final Training Loss:</span>
-                    <span class="info-value">{{trainingHistory.trainingLoss[trainingHistory.trainingLoss.length - 1].toFixed(4)}}</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Final Validation Loss:</span>
-                    <span class="info-value">{{trainingHistory.validationLoss[trainingHistory.validationLoss.length - 1].toFixed(4)}}</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="visualisationpage">
-            <div id="mlforkidsmodelvizimghost" class="visualisationimagehost">
-                <div id="mlforkidsmodelvizimg" style="height: 100%;">
-
-                </div>
-                <div style="font-size: 0.6em; color: #666;">Diagram based on <a href="https://alexlenail.me/NN-SVG">NN-SVG library by Alexander Lenail</a></div>
-            </div>
-        </div>
     </div>
 </div>

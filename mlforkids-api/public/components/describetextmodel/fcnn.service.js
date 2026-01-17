@@ -539,43 +539,43 @@
             }
         }
 
-        function updateNodeLabels(layer, labels) {
-            loggerService.debug('[fcnn] Updating node labels');
+        // function updateNodeLabels(layer, labels) {
+        //     loggerService.debug('[fcnn] Updating node labels');
 
-            for (var idx = 0; idx < labels.length; idx++) {
-                var nodeToLabel = getNNNode(layer, idx);
+        //     for (var idx = 0; idx < labels.length; idx++) {
+        //         var nodeToLabel = getNNNode(layer, idx);
 
-                var layerX = parseFloat(nodeToLabel.getAttribute('cx'));
-                var layerY = parseFloat(nodeToLabel.getAttribute('cy'));
+        //         var layerX = parseFloat(nodeToLabel.getAttribute('cx'));
+        //         var layerY = parseFloat(nodeToLabel.getAttribute('cy'));
 
-                var labelWidth = 80;
-                var labelHeight = 70;
+        //         var labelWidth = 80;
+        //         var labelHeight = 70;
 
-                var labelTextX = layerX - (labelWidth / 2);
-                var labelTextY = layerY;
+        //         var labelTextX = layerX - (labelWidth / 2);
+        //         var labelTextY = layerY;
 
-                var labelTextContainer = createSvgElement(NS_SVG, 'foreignObject', {
-                    'id': ID_PREFIX + ELEMENT_IDS.INPUT_TEXT_CONTAINER,
-                    'x': labelTextX,
-                    'y': labelTextY,
-                    'width': labelWidth,
-                    'height': labelHeight,
-                    'dominant-anchor': 'middle',
-                    'text-anchor': 'middle',
-                    'style': 'overflow:visible',
-                    'class': 'additionalnndiagramelement'
-                }, nodeToLabel.parentNode);
+        //         var labelTextContainer = createSvgElement(NS_SVG, 'foreignObject', {
+        //             'id': ID_PREFIX + ELEMENT_IDS.INPUT_TEXT_CONTAINER,
+        //             'x': labelTextX,
+        //             'y': labelTextY,
+        //             'width': labelWidth,
+        //             'height': labelHeight,
+        //             'dominant-anchor': 'middle',
+        //             'text-anchor': 'middle',
+        //             'style': 'overflow:visible',
+        //             'class': 'additionalnndiagramelement'
+        //         }, nodeToLabel.parentNode);
 
-                var labelText = createSvgElement(NS_HTML, 'div', {
-                    'id': ID_PREFIX + ELEMENT_IDS.INPUT_TEXT,
-                    'class': 'inputdata additionalnndiagramelement',
-                    'style' : 'border: none; background-color: transparent;',
-                }, labelTextContainer);
+        //         var labelText = createSvgElement(NS_HTML, 'div', {
+        //             'id': ID_PREFIX + ELEMENT_IDS.INPUT_TEXT,
+        //             'class': 'inputdata additionalnndiagramelement',
+        //             'style' : 'border: none; background-color: transparent;',
+        //         }, labelTextContainer);
 
-                labelText.textContent = labels[idx];
-                labelTextContainer.setAttributeNS(null, 'y', labelTextY - (labelText.clientHeight / 2));
-            }
-        }
+        //         labelText.textContent = labels[idx];
+        //         labelTextContainer.setAttributeNS(null, 'y', labelTextY - (labelText.clientHeight / 2));
+        //     }
+        // }
 
 
         function updateInputText(inputtext) {
@@ -818,7 +818,7 @@
             updateInputText : updateInputText,
             updateOutputHtml : updateOutputHtml,
 
-            updateNodeLabels : updateNodeLabels,
+            // updateNodeLabels : updateNodeLabels,
 
             displayWeights : displayWeights,
 
