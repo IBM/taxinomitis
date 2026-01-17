@@ -24,7 +24,7 @@
 }
 
 .describeregression .losschart-container {
-    margin: 30px 0;
+    margin-bottom: 100px;
     padding: 20px;
     background-color: white;
     display: flex;
