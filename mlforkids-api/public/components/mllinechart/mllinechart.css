@@ -1,0 +1,89 @@
+.mllinechart-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.mllinechart-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.mllinechart-svg {
+    width: 100%;
+    aspect-ratio: auto;
+    display: block;
+}
+
+.mllinechart-background {
+    fill: #fafafa;
+}
+
+.mllinechart-axis {
+    stroke: #333;
+    stroke-width: 2;
+    fill: none;
+}
+
+.mllinechart-grid-line {
+    stroke: #e0e0e0;
+    stroke-width: 1;
+    fill: none;
+}
+
+.mllinechart-axis-label {
+    font-size: 12px;
+    fill: #666;
+    font-family: Arial, sans-serif;
+}
+
+.mllinechart-axis-title {
+    font-size: 14px;
+    font-weight: bold;
+    fill: #333;
+    font-family: Arial, sans-serif;
+}
+
+.mllinechart-line {
+    fill: none;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.mllinechart-training-line {
+    stroke: #1864ab;
+}
+
+.mllinechart-validation-line {
+    stroke: #e67700;
+    stroke-dasharray: 5, 5;
+}
+
+.mllinechart-legend {
+    font-family: Arial, sans-serif;
+}
+
+.mllinechart-legend-label {
+    font-size: 13px;
+    fill: #333;
+    font-weight: bold;
+}
+
+.mllinechart-legend-value {
+    font-size: 12px;
+    fill: #666;
+}
+
+.mllinechart-loading {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+    font-style: italic;
+}

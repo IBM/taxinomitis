@@ -1,0 +1,100 @@
+<div ng-if="!isAuthenticated">
+    <div class="alert alert-warning pageheadermsg">
+        <strong translate="ERRORS.NOTLOGGEDIN"></strong>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" ng-click="vm.authService.login()" translate="APP.LOGIN"></button>
+    </div>
+</div>
+<div ng-if="isAuthenticated && !projectId" class="alert alert-danger pageheadermsg">
+    <strong translate="APP.ERROR"></strong> <span translate="ERRORS.MISSINGPROJECTID"></span> <a ui-sref="projects" translate="APP.PROJECTS"></a>
+</div>
+<div ng-if="isAuthenticated && projectId" class="describemlmodel describeregression">
+    <div class="jumbotron">
+        <h2 class="text-center">{{ 'DESCRIBEMODEL.TITLE' | translate }} <span class="badge">beta</span></h2>
+    </div>
+    <div class="backbutton">
+        <a ui-sref="mlproject_models({ projectId : projectId, userId : userId })" translate="APP.BACKTOMODEL"></a>
+    </div>
+
+    <div ng-repeat="error in vm.errors"
+         class="alert alert-danger alert-dismissible pageheadermsg" role="alert"
+         ng-click="vm.dismissAlert('errors', $index)"
+         id="errors{{error.alertid}}">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong translate="APP.ERROR"></strong> {{ error.message }}<br/>
+        <em ng-if="error.status >= 500"><span translate="ERRORS.IFPERSISTENT"></span> <a ui-sref="help" translate="ERRORS.LETMEKNOW"></a></em>
+    </div>
+    <div ng-repeat="warning in vm.warnings" class="alert alert-warning alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('warnings', $index)">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong translate="APP.WARNING"></strong> {{ warning.message }}
+    </div>
+
+    <div ng-if="loading" class="loading"> </div>
+
+    <div ng-if="!loading && trainingHistory" class="visualization-section">
+        <div class="losschart-container">
+            <mllinechart
+                chart-data="chartData"
+                title="Loss vs Epochs"
+                xlabel="Epoch"
+                ylabel="Loss (Mean Squared Error)">
+            </mllinechart>
+            <div>
+                <h3>What does this graph show?</h3>
+                <div>This graph shows how well your model is learning.</div>
+                <div>"Loss" is a mistake that the model makes. Lower numbers mean fewer mistakes, which is good.</div>
+                <div>"Epoch" is a description of a step in the training. Epoch 0 was the start of the training, Epoch 199 was the final training step.</div>
+                <div><strong>Training loss</strong> (the blue line) shows how many mistakes the model makes when practicing with examples it is learning from.</div>
+                <div><strong>Validation loss</strong> (the orange line) shows how many mistakes it makes when trying examples it hasn't seen before. This checks to see if the model has really learned, or just memorized the training examples.</div>
+                <h3>Understanding the graph</h3>
+                <div>If <strong>both lines go down</strong>, that's good. Your model is learning and getting better at making predictions.</div>
+                <div>If the <strong>lines stay flat</strong>, your model is not getting better and learned as much as it can.</div>
+                <div>If the <strong>validation line goes up</strong> but the <strong>training line goes down</strong>, your model might be memorizing instead of really learning. </div>
+            </div>
+        </div>
+
+        <div class="training-info">
+            <h4>Training Parameters</h4>
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="info-label">Total Epochs:</span>
+                    <span class="info-value">{{trainingHistory.parameters.epochs}}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Batch Size:</span>
+                    <span class="info-value">{{trainingHistory.parameters.batchSize}}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Learning Rate:</span>
+                    <span class="info-value">{{trainingHistory.parameters.learningRate}}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Validation Split:</span>
+                    <span class="info-value">{{trainingHistory.parameters.validationSplit * 100}}%</span>
+                </div>
+            </div>
+
+            <h4>Final Results</h4>
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="info-label">Final Training Loss:</span>
+                    <span class="info-value">{{trainingHistory.trainingLoss[trainingHistory.trainingLoss.length - 1].toFixed(4)}}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Final Validation Loss:</span>
+                    <span class="info-value">{{trainingHistory.validationLoss[trainingHistory.validationLoss.length - 1].toFixed(4)}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="visualisationpage">
+            <div id="mlforkidsmodelvizimghost" class="visualisationimagehost">
+                <div id="mlforkidsmodelvizimg" style="height: 100%;">
+
+                </div>
+                <div style="font-size: 0.6em; color: #666;">Diagram based on <a href="https://alexlenail.me/NN-SVG">NN-SVG library by Alexander Lenail</a></div>
+            </div>
+        </div>
+    </div>
+</div>
