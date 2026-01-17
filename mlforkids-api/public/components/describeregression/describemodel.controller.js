@@ -77,7 +77,15 @@
                 loggerService.debug('[ml4kregress] training history loaded', history);
             })
             .catch(function (err) {
-                var errId = displayAlert('errors', err.status, err.data || err);
+                var errId;
+                if (err && err.status === 404 && $scope.project) {
+                    errId = displayAlert('warnings', 400, {
+                        message : 'Model information is not available. Try training a new model.'
+                    });
+                }
+                else {
+                    errId = displayAlert('errors', err.status, err.data || err);
+                }
                 scrollToNewItem('errors' + errId);
                 $scope.loading = false;
             });
