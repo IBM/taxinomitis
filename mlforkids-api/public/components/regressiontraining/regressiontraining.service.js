@@ -194,11 +194,12 @@
 
             resetting = false;
 
-            // Initialize training history tracking
             var trainingHistory = {
                 epochs: [],
                 trainingLoss: [],
                 validationLoss: [],
+                // store this in case we start varying model definition
+                //  for resource constrained devices
                 parameters: {
                     epochs: EPOCHS,
                     batchSize: BATCH_SIZE,
