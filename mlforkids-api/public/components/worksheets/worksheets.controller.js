@@ -232,7 +232,10 @@
             'WORKSHEETS.BENCHMARK.TEACHERSNOTES_URL',
 
             'WORKSHEETS.PERSONAS.TITLE', 'WORKSHEETS.PERSONAS.SUMMARY', 'WORKSHEETS.PERSONAS.DESCRIPTION',
-            'WORKSHEETS.PERSONAS.WORKSHEET_1.URL'
+            'WORKSHEETS.PERSONAS.WORKSHEET_1.URL',
+
+            'WORKSHEETS.TRANSLATIONTELEPHONE.TITLE', 'WORKSHEETS.TRANSLATIONTELEPHONE.SUMMARY', 'WORKSHEETS.TRANSLATIONTELEPHONE.DESCRIPTION',
+            'WORKSHEETS.TRANSLATIONTELEPHONE.WORKSHEET_1.URL'
 
         ]).then(function (translations) {
             vm.worksheets = [
@@ -1170,6 +1173,28 @@
                         }
                     ],
                     original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-titanic-python.docx'
+                },
+                {
+                    title : translations['WORKSHEETS.TRANSLATIONTELEPHONE.TITLE'],
+                    summary : translations['WORKSHEETS.TRANSLATIONTELEPHONE.SUMMARY'],
+                    description : translations['WORKSHEETS.TRANSLATIONTELEPHONE.DESCRIPTION'],
+                    difficulty : 2,
+                    type : 'language',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-translationtelephone.png',
+                    tags : [ 'one-shot prompting', 'few-shot prompting', 'semantic drift' ],
+                    // teachersnotes : 'https://dalelane.co.uk/blog/?p=',
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.TRANSLATIONTELEPHONE.WORKSHEET_1.URL']
+                        }
+                    ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-translationtelephone.docx',
+                    featured : [
+                        "Use <strong>generative AI</strong> to play a translation Telephone Game in <strong>Scratch</strong>.",
+                        "Learn about the prompt engineering technique 'one-shot prompting' and 'few-shot prompting'."
+                    ],
+                    video : 'MBI-e8_7heE'
                 },
                 {
                     title : translations['WORKSHEETS.VIRTUALPET.TITLE'],
