@@ -81,7 +81,7 @@
     "FORGOT_DETAILS": "Забули свої дані?",
     "TRY_TITLE": "Спробуйте без реєстрації",
     "TRY_NOW": "Спробуйте зараз",
-    "TRY_NOW_EXPLANATION": "Use all features of the website without needing to register or log in. Machine learning projects created using \"Try it now\" will be deleted after (at least) four hours.",
+    "TRY_NOW_EXPLANATION": "Ви можете користуватися всіма функціями сайту без реєстрації. Проєкти машинного навчання, створені за допомогою кнопки «Спробуйте зараз», будуть видалені через (щонайменше) чотири години.",
     "WHO_YOU": "Хто Ви?",
     "TEACHER": "Батько, вчитель або керівник клубу програмування",
     "STUDENT": "Учень",
@@ -105,8 +105,8 @@
       "LISTINTRO": "Вам потрібно буде:",
       "LIST_CREATEACCOUNT": "Створіть безкоштовний обліковий запис у IBM Cloud",
       "LIST_CREATEAPIKEYS": "Створити ключ (і) API для хмарних служб Watson, необхідних для навчання моделей машинного навчання",
-      "LIST_ENTERAPIKEYS": "Введіть ключі API в цей інструмент машинного навчання для дітей",
-      "HELP": "Для всього цього доступні покрокові інструкції (зі знімками екрана)."
+      "LIST_ENTERAPIKEYS": "Додайте ключ(і) API до інструменту Machine Learning for Kids",
+      "HELP": "Для всього цього доступні <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'>покрокові інструкції (зі знімками екрана)</a>."
     },
     "MANAGED": {
       "TITLE": "Створити <strong>керований</strong> обліковий запис класу",
@@ -121,7 +121,7 @@
     "COPYTEMPLATE": "Копіювати шаблон",
     "CREATEFIRSTPROJECT": "Натисніть кнопку плюс праворуч, щоб створити свій перший проект.",
     "RECOGNISING": "Розпізнавання",
-    "PREDICTING": "Predicting",
+    "PREDICTING": "Прогнозування",
     "GENERATING": "Generating",
     "AS": "як",
     "SHARE": "Поділитися",
@@ -129,9 +129,9 @@
     "WHOLE_CLASS_TITLE": "Краудсорсинговий проект",
     "WHOLE_CLASS_NOTES": "Це проект для всього класу. Усі учні вашого класу можуть використовувати його та доповнювати навчальні дані.",
     "CLOUD_STORAGE_TITLE": "Cloud project",
-    "CLOUD_STORAGE_NOTES": "Your training data for this project is stored in the cloud. This project can be accessed from any computer.",
-    "LOCAL_STORAGE_TITLE": "Local project",
-    "LOCAL_STORAGE_NOTES": "Your training data for this project is stored on your computer. This project can only be accessed from this web browser."
+    "CLOUD_STORAGE_NOTES": "Ваші дані тренування для цього проєкту зберігаються у хмарному сховищі. Цей проєкт доступний з будь-якого компʼютера.",
+    "LOCAL_STORAGE_TITLE": "Локальний проєкт",
+    "LOCAL_STORAGE_NOTES": "Ваші дані тренування для цього проєкту зберігаються на вашому компʼютері. Цей проєкт доступний лише в цьому браузері."
   },
   "NEWPROJECT": {
     "TITLE": "Розпочати новий проект машинного навчання",
@@ -151,18 +151,18 @@
       "NOTES_1": "Where do you want to store this project?",
       "NOTES_2": "Storing in your web browser removes limits on how big your project can be.",
       "NOTES_3": "Storing in the cloud will let you access the project from any computer.",
-      "PROMPT": "Please choose where you would like to store your project"
+      "PROMPT": "Оберіть, де ви хочете зберігати свій проєкт"
     },
     "TYPES": {
-      "TYPELABEL": "Project Type",
-      "LABEL": "Розпізнавання",
+      "TYPELABEL": "Тип проєкту",
+      "LABEL": "розпізнавання",
       "GENERATE": "generating",
-      "NOTES_1": "Які типи даних ви хочете навчити комп'ютер розпізнавати?",
-      "NOTES_2": "Для слів, речень або абзаців виберіть «текст»",
-      "NOTES_3": "Для фотографій, схем і малюнків виберіть «зображення»",
-      "NOTES_4": "Для наборів чисел або кількох варіантів виберіть «числа»",
-      "NOTES_5": "Для голосів і звуків виберіть «звуки»",
-      "NOTES_6": "To predict numbers, choose \"predicting numbers\"",
+      "NOTES_1": "Якої дії ви хочете навчити компʼютер?",
+      "NOTES_2": "Щоб він розпізнавав слова, речення або абзаци, виберіть «розпізнавання тексту» ",
+      "NOTES_3": "Щоб він розпізнавав фотографії, схеми або малюнки, виберіть «розпізнавання зображень» ",
+      "NOTES_4": "Щоб він розпізнавав сукупності чисел або варіантів відповідей, виберіть «розпізнавання чисел» ",
+      "NOTES_5": "Щоб він розпізнавав голоси або звуки, виберіть «розпізнавання звуків» ",
+      "NOTES_6": "Щоб він прогнозував числа, виберіть «прогнозування чисел»",
       "NOTES_7": "To generate new text with a language model, choose \"generating text\""
     },
     "LANGUAGE": {
@@ -210,10 +210,10 @@
       "INTRO_3": "Ви зможете вносити зміни в навчальні дані, якщо хочете, або ви можете перейти безпосередньо до навчання моделі машинного навчання з ними."
     },
     "IMPORT": "Імпорт",
-    "PLEASEWAIT": "Importing. Please wait...",
+    "PLEASEWAIT": "Зачекайте, відбувається імпорт...",
     "NEW": {
-        "LOCAL": "Store on your computer",
-        "CLOUD": "Store in the cloud"
+      "LOCAL": "Зберігати на цьому компʼютері",
+      "CLOUD": "Зберігати у хмарному сховищі"
     },
     "TESTING": "Do you want to use some of the data for testing?",
     "MORE": {
@@ -307,10 +307,10 @@
           "DETAILS": "Stellar classification is when astronomers classify a star based on their spectral characteristics. Use this dataset to train a simple machine learning model that can predict some types of stars.\n\nThe 'temperature' field is in degrees Kelvin.\nThe 'radius' field gives the size of the star relative to the Sun.\nThe 'brightness' field gives the luminosity of the star relative to the Sun.\nThe 'colour' field gives the observable colour of the star.\n\nAttribution: \nhttps://www.kaggle.com/datasets/brsdincer/star-type-classification"
       },
       "CAPTCHA": {
-          "TITLE": "CAPTCHA",
-          "SUMMARY": "Recognise objects in images",
-          "DESCRIPTION": "Train a machine learning model to solve CAPTCHA problems, by recognising objects in photographs. ",
-          "DETAILS": "This is an empty template to help you collect your own training data. For instructions on how to use it, download 'CAPTCHA' from Worksheets."
+        "TITLE": "CAPTCHA",
+        "SUMMARY": "Розпізнавання обʼєктів на зображеннях",
+        "DESCRIPTION": "Навчіть модель машинного навчання вирішувати завдання CAPTCHA, де потрібно розпізнавати обʼєкти на фотографіях.",
+        "DETAILS": "Це порожній шаблон, який допоможе вам зібрати власні навчальні дані. Щоб отримати інструкції щодо його використання, завантажте «CAPTCHA» з робочих аркушів."
       },
       "WILDFIRE": {
           "TITLE": "Wildfire detection",
@@ -324,17 +324,17 @@
     "TRAIN": {
       "TITLE": "Навчити",
       "BODY": "Зберіть приклади того, що ви хочете, щоб комп'ютер розпізнав",
-      "REGRESSION": "Collect examples of what you want the computer to predict"
+      "REGRESSION": "Зберіть приклади того, що має спрогнозувати компʼютер"
     },
     "LEARNANDTEST": {
       "TITLE": "Дізнатися та перевірити",
       "BODY": "Використовуйте приклади, щоб навчити комп'ютер розпізнавати",
-      "REGRESSION": "Use the examples to train the computer to make predictions"
+      "REGRESSION": "Використовуйте приклади, щоб навчити комп'ютер робити прогнози"
     },
     "MAKES": {
       "TITLE": "Створити",
-      "BODY": "Використовуйте модель машинного навчання, яку ви навчили, щоб створити гру чи програму в Scratch, App Inventor або Python",
-      "BODY_SCRATCHPYTHONAPPINV": "Use the machine learning model you've trained to make a game or app, in Scratch, Python, or App Inventor",
+      "BODY": "Використовуйте модель машинного навчання, яку ви навчили, щоб створити гру чи програму в Скретчі, App Inventor або Python",
+      "BODY_SCRATCHPYTHONAPPINV": "Використовуйте модель машинного навчання, яку ви навчили, щоб створити гру чи програму в Скретчі чи Python",
       "BODY_SCRATCHONLY": "Використовуйте модель машинного навчання, яку ви навчили, щоб створити гру чи програму в Scratch"
     },
     "SCRATCH": {
@@ -361,23 +361,23 @@
   "TRAINING": {
     "TITLE": "Навчання",
     "ADDLABEL": "Додати нову мітку",
-    "ADDCOLUMN": "Add new column",
+    "ADDCOLUMN": "Додати новий стовпець",
     "CREATEFIRSTLABEL": "Натисніть кнопку «плюс» праворуч, щоб додати своє перше відро.",
     "CROWDSOURCEDEMPTY": "Оновіть цю сторінку після того, як ваш викладач створить навчальні сегменти.",
     "ADDEXAMPLE": "Додати приклад",
-    "ADDFROMFILE": "Add file",
+    "ADDFROMFILE": "Додати файл",
     "ADDURL": "www",
     "ADDWEBCAM": "веб-камера",
     "ADDDRAWING": "малювати",
     "DRAGIMAGES": "Перетягніть зображення з інших вікон браузера та розмітіть їх сюди",
-    "DRAGIMAGESLOCAL": "Drag pictures from files or other browser windows and drop them here",
+    "DRAGIMAGESLOCAL": "Перетягніть зображення з файлів або інших вікон браузера сюди",
     "NEWLABEL": {
       "INTRO": "Введіть нову мітку для розпізнавання",
       "ERROR": "У мітках використовуйте лише літери та цифри"
     },
     "NEWCOLUMN": {
-      "INTRO": "Enter name for a new column",
-      "ERROR": "Only use letters and numbers in column names"
+      "INTRO": "Введіть назву нового стовпця",
+      "ERROR": "У назві стовпців можна використовувати лише літери та цифри"
     },
     "NEWEXAMPLE": {
       "INTRO": "Введіть приклад ",
@@ -393,10 +393,10 @@
     },
     "BACKGROUNDNOISE": "Збір прикладів фонового шуму допоможе комп’ютеру навчитися розпізнавати ваші звуки",
     "REGRESSION": {
-        "NOOUTPUTCOLS": "Tick the column(s) that you want your machine learning model to predict values for.",
-        "NOTRAINING": "Add training examples from Scratch or by uploading a CSV file.",
-        "NOCOLUMNS": "Add columns to use for this project.",
-        "ONECOLUMN": "You need at least two columns to have input and output."
+      "NOOUTPUTCOLS": "Позначте стовпці, значення яких має спрогнозувати ваша модель машинного навчання",
+      "NOTRAINING": "Додайте приклади для навчання зі Скретчу або із завантаженого файлу CSV.",
+      "NOCOLUMNS": "Додайте стовпці, що їх буде використано в цьому проєкті.",
+      "ONECOLUMN": "Вам потрібно принаймні два стовпці для вхідних і вихідних даних."
     }
   },
   "MODELS": {
@@ -438,7 +438,7 @@
           "IMAGES": "Ви навчили модель машинного навчання розпізнавати зображення ",
           "NUMBERS": "Ви навчили модель машинного навчання розпізнавати числа ",
           "SOUNDS": "Ви навчили модель машинного навчання розпізнавати звуки ",
-          "REGRESSION": "You have trained a machine learning model to predict the values of "
+          "REGRESSION": "Ви навчили модель машинного навчання прогнозувати значення"
         },
         "CREATED": {
           "TEACHER": "Ваш учитель створив модель на ",
@@ -498,7 +498,7 @@
             "IMAGES": "Ви сказали, що хочете зібрати приклади зображень, щоб комп’ютер міг їх розпізнавати ",
             "NUMBERS": "Ви сказали, що хочете зібрати приклади чисел, щоб комп’ютер міг розпізнавати, коли числа є ",
             "SOUNDS": "Ви сказали, що хочете зібрати приклади звуків, щоб комп'ютер міг розпізнавати звуки ",
-            "REGRESSION" : "You said that you want to collect examples of numbers for a computer to predict the value of "
+            "REGRESSION" : "Ви сказали, що хочете зібрати приклади чисел, щоб комп’ютер міг спрогнозувати значення"
           }
         },
         "NOEXAMPLES": {
@@ -517,7 +517,7 @@
             "IMAGES": "Ви зібрали приклади зображень, які комп’ютер використовує для розпізнавання зображень ",
             "NUMBERS": "Ви зібрали приклади чисел, які комп'ютер використовує для розпізнавання чисел ",
             "SOUNDS": "Ви зібрали приклади звуків, які комп'ютер використовує для розпізнавання звуків ",
-            "REGRESSION" : "You have collected examples of numbers for a computer to use to predict the value of "
+            "REGRESSION" : "Ви зібрали приклади чисел, які компʼютер використає, щоб спрогнозувати значення"
           },
           "COLLECTED": {
             "CLASS": "Вони зібрали:",
@@ -541,9 +541,9 @@
         },
         "LABELS": {
           "NO_DATA": "Наступним кроком є перехід на сторінку <a href='{{ urls.train }}'>Навчити</a> page. Додайте приклади для кожної з міток.",
-          "NO_DATA_REGRESSION" : "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Add examples of numbers.",
-          "NO_OUTPUT_COLUMNS": "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Choose which value(s) you want the computer to learn to predict, by marking them as output columns.",
-          "MORE_DATA": {
+          "NO_DATA_REGRESSION" : "Тепер перейдіть до сторінки <a href='{{ urls.train }}'>Навчити</a>. Додайте приклади чисел.",
+          "NO_OUTPUT_COLUMNS": "Тепер перейдіть до сторінки <a href='{{ urls.train }}'>Навчити</a>. Виберіть, яке(-і) значення має навчитися прогнозувати компʼютер і позначте їх як стопці з вихідними даними.",
+          "MORE_DATA" : {
             "KEEP_GOING": "Продовжуйте!",
             "MORE_EXAMPLES": {
               "YOU": "Поверніться на сторінку <a href='{{ urls.train }}'>Навчити</a> і зберіть більше прикладів для кожної з міток.",
@@ -571,11 +571,11 @@
           "IMAGES": "Спробуйте перевірити модель машинного навчання нижче. Введіть нижче приклад зображення, яке ви не включили в приклади, які використовували для навчання. Воно розповість вам, як вона її розпізнає та наскільки вона впевнена це.",
           "NUMBERS": "Спробуйте перевірити модель машинного навчання нижче. Введіть нижче приклад чисел, які ви не включили в приклади, які використовували для навчання. Це покаже вам, що вона розпізнає як і наскільки впевнено це у цьому.",
           "SOUNDS": "Спробуйте протестувати модель машинного навчання нижче. Натисніть кнопку «Почати прослуховування». Якщо ваша модель машинного навчання розпізнає будь-які звуки, вона повідомить вам, що саме вона розпізнає та наскільки впевнена в цьому.",
-          "REGRESSION" : "Try testing the machine learning model below. Enter an example of numbers below, that you didn't include in the examples you used to train it. It will tell you what it predicts the output should be."
+          "REGRESSION" : "Спробуйте перевірити модель машинного навчання нижче. Введіть нижче приклад чисел, які ви не включили в приклади для навчання. Модель покаже вам свій прогноз щодо вихідних даних."
         },
         "SCRATCH": "Якщо комп'ютер, здається, навчився розпізнавати речі правильно, тоді ви можете перейти до Scratch і використовувати те, що комп'ютер навчився, щоб створити гру!",
-        "SCRATCH_REGRESSION" : "If the computer seems to have learned to predict things correctly, then you can go to Scratch and use what the computer has learned to make a game!",
-        "ADDITIONAL_TRAINING": {
+        "SCRATCH_REGRESSION" : "Якщо ви вважаєте, що компʼютер навчився робити правильні прогнози, тоді ви можете перейти до Скретчу й використати їх, щоб створити гру!",
+        "ADDITIONAL_TRAINING" : {
           "MORE_EXAMPLES": {
             "CROWDSOURCED": "Якщо комп’ютер забагато помиляється, можливо, ваш клас захоче повернутися на сторінку <a href='{{ urls.train }}'>Навчити</a> і зібрати ще декілька прикладів.",
             "INDIVIDUAL": "Якщо комп’ютер робить занадто багато речей не так, ви можете повернутися до сторінки <a href='{{ urls.train }}'>Навчити</a> та зібрати ще кілька прикладів"
@@ -604,14 +604,14 @@
         "IMAGES": "Спробуйте додати зображення, щоб побачити, як воно розпізнається на основі вашого навчання.",
         "NUMBERS": "Спробуйте ввести кілька цифр, щоб побачити, як це розпізнається на основі вашого навчання.",
         "SOUNDS": "Спробуйте видати звук, щоб побачити, як він розпізнається на основі вашого навчання",
-        "REGRESSION": "Try putting in some numbers to see the prediction based on your training."
+        "REGRESSION": "Спробуйте ввести кілька чисел і подивіться, який прогноз зробить компʼютер на основі вашого навчання."
       },
       "WEBCAM": "Тестувати за допомогою <strong>веб-камери</strong>",
       "DRAWING": "Тестувати за допомогою <strong>малювання</strong>",
       "FILE": "Test with <strong>file</strong>",
       "WWW": "Тестувати за допомогою <strong>www</strong>",
       "RECOGNISED": "Розпізнано як  <strong>{{ testoutput }}</strong>",
-      "PREDICTION": "Prediction:",
+      "PREDICTION": "Прогноз:",
       "STARTLISTENING": "Почати слухати",
       "STOPLISTENING": "Припинити слухати"
     },
@@ -1012,8 +1012,8 @@
     "TESTING": {
         "TITLE": " Prompt ",
         "GENERATE": "Generate",
-        "RESET": "Reset",
-        "CLICK": "Click on a word to see why that word was generated",
+      "RESET": "Скинути",
+      "CLICK": "Click on a word to see why that word was generated",
         "ERROR": {
             "TOOSHORT": "You need to add more words to your prompt for the model to work.",
             "NOTFOUND": "The words at the end of your prompt weren't found anywhere in your corpus."
@@ -1027,14 +1027,15 @@
     "PYTHON": "Напишіть код Python для використання вашої моделі машинного навчання",
     "APPINVENTOR": "Створіть мобільний додаток для свого телефону чи планшета",
     "EDUBLOCKS": "Write Python using a drag and drop coding tool",
-    "REPLIT": "Write Python code in the web browser using replit",
-    "COLAB": "Write Python code in the web browser using Google Colab"
+    "REPLIT": "Написати код Python у браузері за допомогою replit",
+    "COLAB": "Написати код Python у браузері за допомогою Google Colab"
   },
   "PYTHON": {
     "TITLE": "Використання машинного навчання в Python",
     "NOTREADY": "Ваш проект ще не готовий до використання в Python.",
     "NOMODEL": "Ви ще не навчили модель машинного навчання.",
-    "EXPIRED": "Your model is no longer available on the model server.",
+    "EXPIRED": "Ваша модель більше не доступна на сервері моделей.",
+
     "NOSOUND": "Python не можна використовувати зі звуковими проектами.",
     "LAUNCH": "Запустити Python у браузері",
     "LOCAL": "Скопіюйте код для запуску на вашому комп'ютері",
@@ -1103,7 +1104,7 @@
     "MORE_BLOCKS": "Ваш проект додасть ці блоки до <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>Більше блоків</span> у сценаріях.",
     "MORE_BLOCKS_3": "Ваш проект додасть ці блоки до Scratch.",
     "EXPLAIN_RECOGNISE_LABEL": "Вставте {{ type }} у вхідні дані для цього, і він поверне мітку, яку розпізнає ваша модель машинного навчання.",
-    "EXPLAIN_PREDICT": "Put input numbers in this, and it will return a prediction of the output number.",
+    "EXPLAIN_PREDICT": "Введіть сюди вхідні числа, і отримайте прогноз щодо вихідного числа.",
     "EXPLAIN_RECOGNISE_CONFIDENCE": "Це поверне, наскільки впевнено ваша модель машинного навчання розпізнає тип {{ type }}. (Як число від 0 до 100).",
     "EXPLAIN_LABELS": "Ці блоки представляють мітки, які ви створили у своєму проекті, тому ви можете використовувати їх імена у своїх сценаріях.",
     "EXPLAIN_COSTUMEIMAGE": "Цей блок знаходиться в панелі Спрайти і повертає зображення поточного вибраного костюма.",
@@ -1131,8 +1132,8 @@
       "TITLE": "Розпізнавання:",
       "LONGTITLE": "Train a computer to ",
       "ALL": "See worksheets for all types of machine learning project",
-      "PREFIX": "Навчити комп'ютер розпізнавати ",
-      "PREFIXREGRESSION": "Train a computer to predict ",
+      "PREFIX": "Навчити комп'ютер розпізнавати",
+      "PREFIXREGRESSION": "Навчити компʼютер прогнозувати",
       "PREFIXLANGUAGE": "Train a computer to generate ",
       "SHORTPREFIX": "recognise ",
       "SHORTPREFIXREGRESSION": "predict ",
@@ -1142,7 +1143,8 @@
       "NUMBERS": "числа",
       "SOUNDS": "звуки",
       "FACES": "обличчя",
-      "REGRESSION": "predicting numbers",
+      "REGRESSION": "прогнозування чисел",
+
       "DESCRIPTIONTEXT": "In these projects, you will collect examples of text and use these to train a machine learning model that can recognise new examples of text",
       "DESCRIPTIONIMAGES": "In these projects, you will collect examples of images and use these to train a machine learning model that can recognise new examples of images",
       "DESCRIPTIONNUMBERS": "In these projects, you will collect sets of numbers and use these to train a machine learning model that can recognise a set of numbers",
@@ -1661,18 +1663,18 @@
       }
     },
     "CATCHTHEBALL": {
-        "TITLE": "Catch the ball",
-        "SUMMARY": "Teach a computer to predict where a ball will land",
-        "DESCRIPTION": "Make a game in Scratch where you predict where a bouncing ball will go before it moves.",
-        "WORKSHEET_1": {
+      "TITLE": "Спіймай мʼяч",
+      "SUMMARY": "Навчіть компʼютер передбачати, де впаде мʼяч",
+      "DESCRIPTION": "Створіть гру в Скретчі, де ви передбачатиме напрям руху мʼяча до того, як він рухатиметься.",
+      "WORKSHEET_1": {
             "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-catchtheball.pdf"
         }
     },
     "HOOPS": {
-        "TITLE": "Hoops",
-        "SUMMARY": "Teach a computer to shoot hoops",
-        "DESCRIPTION": "Make a game in Scratch that learns how to score basketball hoops.",
-        "WORKSHEET_1": {
+      "TITLE": "Баскетбол",
+      "SUMMARY": "Навчіть компʼютер грати в баскетбол",
+      "DESCRIPTION": "Створіть гру в Скретчі, що вчиться попадати мʼячем у баскетбольну корзину.",
+      "WORKSHEET_1": {
             "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-hoops.pdf"
         }
     },
@@ -1686,17 +1688,17 @@
     },
     "CAPTCHA": {
         "TITLE": "CAPTCHA",
-        "SUMMARY": "Teach a computer to recognise objects in photos",
-        "DESCRIPTION": "Make a game in Scratch that learns to solve CAPTCHA challenges.",
-        "WORKSHEET_1": {
+      "SUMMARY": "Навчіть компʼютер розпізнавати обʼєкти на фотографіях",
+      "DESCRIPTION": "Створіть гру в Скретчі, що вчиться вирішувати завдання CAPTCHA.",
+      "WORKSHEET_1": {
             "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-captcha.pdf"
         }
     },
     "RECOMMENDER": {
-        "TITLE": "Recommender",
-        "SUMMARY": "Teach a computer to recognise visual style",
-        "DESCRIPTION": "Make a game that recommends a book you would like to read.",
-        "WORKSHEET_1": {
+      "TITLE": "Порадник",
+      "SUMMARY": "Навчити комп'ютер розпізнавати візуальний стиль",
+      "DESCRIPTION": "Створіть гру, яка рекомендуватиме книги, що мають вам сподобатися.",
+      "WORKSHEET_1": {
             "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-recommender.pdf"
         }
     },
@@ -1718,8 +1720,8 @@
     },
     "SHOEBOX": {
         "TITLE": "Shoebox",
-        "SUMMARY": "Teach a computer to recognize speech",
-        "DESCRIPTION": "Recreate the world's first speech recognition system from 1961.",
+      "SUMMARY": "Навчити комп'ютер розпізнавати мову",
+      "DESCRIPTION": "Recreate the world's first speech recognition system from 1961.",
         "WORKSHEET_1": {
             "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shoebox.pdf"
         }
@@ -1896,19 +1898,20 @@
         "REMOVE_FROM": "Видалити вибраних студентів із групи"
       },
       "ADD_MULTIPLE": {
-        "BUTTON": "Кілька студентів",
-        "IMPORT": "Import students",
-        "TITLE": "Додати нових студентів",
-        "INTRO": "Ви можете використовувати це, щоб створити більше одного облікового запису студента одночасно.",
-        "USERNAME": "З чого ви хочете починати кожне ім'я користувача?",
-        "USERNAME_REQUIRED": "Будь ласка, виберіть префікс для імен користувачів",
-        "USERNAME_TOOLONG": "Це занадто довго",
-        "USERNAME_INVALID": "Недійсні символи",
-        "NUMBER": "Скільки студентських облікових записів ви хочете?",
-        "NUMBER_REQUIRED": "Будь ласка, введіть кількість студентів для створення",
-        "NUMBER_TOOMANY": "Ваш клас має обмеження на {{userslimit}} учнів.",
-        "PASSWORD": "Пароль, який їм потрібно надати:",
-        "PASSWORD_TOOSHORT": "Занадто короткий"
+        "BUTTON" : "Кілька студентів",
+        "IMPORT": "Імпортувати учнів",
+
+        "TITLE" : "Додати нових студентів",
+        "INTRO" : "Ви можете використовувати це, щоб створити більше одного облікового запису студента одночасно.",
+        "USERNAME" : "З чого ви хочете починати кожне ім'я користувача?",
+        "USERNAME_REQUIRED" : "Будь ласка, виберіть префікс для імен користувачів",
+        "USERNAME_TOOLONG" : "Це занадто довго",
+        "USERNAME_INVALID" : "Недійсні символи",
+        "NUMBER" : "Скільки студентських облікових записів ви хочете?",
+        "NUMBER_REQUIRED" : "Будь ласка, введіть кількість студентів для створення",
+        "NUMBER_TOOMANY" : "Ваш клас має обмеження на {{userslimit}} учнів.",
+        "PASSWORD" : "Пароль, який їм потрібно надати:",
+        "PASSWORD_TOOSHORT" : "Занадто короткий"
       }
     }
   },
