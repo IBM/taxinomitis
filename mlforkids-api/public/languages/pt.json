@@ -763,17 +763,17 @@
         }
     },
     "DESCRIBEREGRESSIONMODEL": {
-        "HEADING_1": "What does this graph show?",
-        "SUMMARY": "This graph shows how well your model is learning.",
-        "WHATISLOSS": "\"Loss\" is a mistake that the model makes. Lower numbers mean fewer mistakes, which is good.",
-        "WHATISEPOCH": "\"Epoch\" is a description of a step in the training. Epoch 0 was the start of the training, Epoch 199 was the final training step.",
-        "TRAININGLOSS": "<strong>Training loss</strong> (the blue line) shows how many mistakes the model makes when practicing with examples it is learning from.",
-        "VALIDATIONLOSS": "<strong>Validation loss</strong> (the orange line) shows how many mistakes it makes when trying examples it hasn't seen before. This checks to see if the model has really learned, or just memorized the training examples.",
+        "HEADING_1": "O que este gráfico mostra?",
+        "SUMMARY": "Este gráfico mostra o desempenho na aprendizagem do teu modelo.",
+        "WHATISLOSS": "\"Perda\" é um erro que o modelo comete. Números mais baixos significam menos erros, o que é bom.",
+        "WHATISEPOCH": "\"Época\" é uma descrição de uma etapa do treino. A Época 0 foi o início do treino, a Época 199 foi a etapa final do treino.",
+        "TRAININGLOSS": "<strong>A perda de treino</strong> (a linha azul) mostra quantos erros o modelo comete ao praticar com os exemplos com os quais está a aprender.",
+        "VALIDATIONLOSS": "<strong>A perda de validação</strong> (a linha laranja) mostra quantos erros são cometidos ao tentar exemplos que não foram vistos anteriormente. Isso verifica se o modelo realmente aprendeu ou apenas memorizou os exemplos de treino.",
 
-        "HEADING_2": "Understanding the graph",
-        "LINESGODOWN": "If <strong>both lines go down</strong>, that's good. Your model is learning and getting better at making predictions.",
-        "LINESFLAT": "If the <strong>lines stay flat</strong>, your model is not getting better and learned as much as it can.",
-        "LINEGOESUP": "If the <strong>validation line goes up</strong> but the <strong>training line goes down</strong>, your model might be memorizing instead of really learning."
+        "HEADING_2": "Compreender o gráfico",
+        "LINESGODOWN": "Se <strong>ambas as linhas caírem</strong>, isso é bom. O teu modelo está a aprender e a melhorar nas previsões.",
+        "LINESFLAT": "Se as <strong>linhas permanecerem planas</strong>, o teu modelo não está a melhorar e aprendeu tudo o que podia.",
+        "LINEGOESUP": "Se a <strong>linha de validação subir</strong>, mas a <strong>linha de treino descer</strong>, o teu modelo pode estar a memorizar em vez de realmente aprender."
     },
     "DESCRIBETEXTMODEL": {
         "ZOOM": "Usa estes controlos para ampliar os diagramas",
@@ -1805,7 +1805,7 @@
         "PERSONAS": {
             "TITLE": "Personas",
             "SUMMARY": "Usa um computador treinado para gerar texto",
-            "DESCRIPTION": "Make a project in Scratch that can answer questions as a mystery person",
+            "DESCRIPTION": "Cria um projeto no Scratch que possa responder perguntas como uma pessoa misteriosa.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-personas.pdf"
             }
