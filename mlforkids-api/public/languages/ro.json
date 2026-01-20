@@ -37,7 +37,7 @@
         "IN20MINS": "În 20 de minute...",
         "WHAT": {
             "TITLE": "Ce?",
-            "BODY" : "This free tool introduces machine learning by providing hands-on experiences for training machine learning systems and building things with them. <br/><br/>It provides an easy-to-use guided environment for training machine learning models to: recognise text, numbers, images, sounds; predict numbers; generate text. <br/><br/>This builds on existing efforts to introduce and teach coding to children, by adding these models to educational coding platforms like <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a>, and helping children build projects and games with the machine learning models they create. <br/><br/>The tool was first made available in 2017, and is now being <a href='https://wakelet.com/wake/4d3680cb-2a11-49ab-9180-fcfeced48393' target='_blank'>used by thousands of schools, code clubs, and families around the world</a>. <br/><br/>To learn more, look at:"
+            "BODY" : "Acest instrument gratuit introduce învățarea automată oferind experiențe practice pentru instruirea sistemelor de învățare automată și construirea lucrurilor cu ele.  <br/><br/>Oferă un mediu ghidat ușor de utilizat pentru instruirea modelelor de învățare automată pentru a recunoaște textul, numerele, imaginile sau sunetele.<br/><br/>Acest lucru se bazează pe eforturile existente de a introduce și de a preda codarea copiilor, adăugând aceste modele la platformele de codare educaționale <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a> și <a href='https://edublocks.org' target='_blank'>EduBlocks</a>, și ajutând copiii să creeze proiecte și să construiască jocuri cu modelele de învățare automată pe care le antrenează. <br/><br/>Instrumentul a fost disponibil pentru prima dată în 2017 și este utilizat acum de <a href='https://wakelet.com/wake/4d3680cb-2a11-49ab-9180-fcfeced48393' target='_blank'>mii de școli, cluburi de coduri și familii din întreaga lume</a>. <br/><br/>Pentru a afla mai multe, consultați: <a target='_blank' class='btn btn-primary' href='https://machinelearningforkids.co.uk/#!/worksheets'>Fișe de lucru</a>"
         },
         "WHY": {
             "TITLE": "De ce?",
@@ -45,7 +45,7 @@
         },
         "TECH": {
             "TITLE": "Tech",
-            "BODY": "The tool is entirely web-based and requires no installs or complicated setup to be able to use. <br/><br/>It can be used without any signup or registration, however was designed for use in the classroom by schools - and so optionally provides an admin page for teachers or group leaders to be able to manage and administer access for their students.<br/><br/>It is being built by <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> using APIs from <a target='_blank' href='https://www.ibm.com/watson/'>IBM Watson</a>.<br/><br/>For more details about the implementation, you can see the <a target='_blank' href='https://github.com/IBM/taxinomitis/'>source code on GitHub</a>, or read some of the <a target='_blank' href='http://dalelane.co.uk/blog/?tag=mlforkids-tech'>blog posts about the tech</a>. ",
+            "BODY": "Instrumentul este în întregime bazat pe web (doar online) și nu necesită instalări sau configurări complicate pentru a putea fi utilizat. <br/><br/>A fost conceput pentru a fi utilizat în clasă de către școli și cluburi de coding pentru copii, organizat de voluntari, și oferă o pagină de administrare pentru profesori sau lideri de grup pentru a putea gestiona și administra accesul elevilor lor. <br/><br/>Este construit de <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> folosind API-uri de la <a target='_blank' href='https://www.ibm.com/watson/developer/'>IBM Watson</a>.<br/><br/>Pentru mai multe detalii despre implementare, puteți vedea <a target='_blank' href='https://github.com/IBM/taxinomitis/'>codul sursă activat pe GitHub</a>, sau citiți câteva dintre <a target='_blank' href='http://dalelane.co.uk/blog/?tag=mlforkids-tech'>postările pe blog despre tehnologie </a>. ",
             "LOGIN": "Pentru a începe: "
         },
         "PRETRAINED": {
@@ -111,7 +111,7 @@
             "LISTINTRO": "Vei avea nevoie să:",
             "LIST_CREATEACCOUNT": "Creezi un cont gratuit pe IBM Cloud",
             "LIST_CREATEAPIKEYS": "Creezi chei API pentru serviciile cloud Watson necesare pentru instruirea modelelor de învățare automată",
-            "LIST_ENTERAPIKEYS": "Enter the API key(s) into this Machine Learning for Kids tool",
+            "LIST_ENTERAPIKEYS": "Introduci cheile API în acest instrument Machine Learning for Kids",
             "HELP": "<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'>Step-by-step instructions (with screenshots)</a> are available for all of this."
         },
         "MANAGED": {
@@ -143,7 +143,7 @@
         "TITLE": "Pornește un nou proiect de învățare automată",
         "PROJECT_NAME": {
             "TITLE": "Denumirea proiectului",
-            "NOTES": "Give your project a name to describe what you'll be teaching the computer."
+            "NOTES": "Dă-i proiectului un nume pentru a descrie ce fel de lucruri vei încerca să înveți computerul să recunoască."
         },
         "WHOLE_CLASS_PROJECT": {
             "TITLE": "Un proiect pentru întreaga clasă?",
@@ -161,13 +161,13 @@
         },
         "TYPES": {
             "TYPELABEL": "Project Type",
-            "LABEL": "recognising",
+            "LABEL": "Recunoaștere",
             "GENERATE": "generating",
-            "NOTES_1": "What do you want to teach the computer to do?",
-            "NOTES_2": "To recognise words, sentences or paragraphs, choose \"recognising text\"",
-            "NOTES_3": "To recognise photos, diagrams or pictures, choose \"recognising images\"",
-            "NOTES_4": "To recognise sets of numbers or multiple choices, choose \"recognising numbers\"",
-            "NOTES_5": "To recognise voices or sounds, choose \"recognising sounds\"",
+            "NOTES_1": "Ce tip de lucru dorești să înveți computerul să recunoască?",
+            "NOTES_2": "Pentru cuvinte, propoziții sau paragrafe, alege \"text\"",
+            "NOTES_3": "Pentru fotografii, diagrame și imagini, alege \"imagini\"",
+            "NOTES_4": "Pentru seturi de numere sau opțiuni multiple, alege \"numere\"",
+            "NOTES_5": "Pentru voci și sunete, alege \"sunete\"",
             "NOTES_6": "To predict numbers, choose \"predicting numbers\"",
             "NOTES_7": "To generate new text with a language model, choose \"generating text\""
         },
@@ -301,7 +301,7 @@
                 "DETAILS": "Argo este un program internațional care colectează informații din interiorul oceanului folosind o flotă de instrumente robotizate care derivă odată cu curenții oceanici și se deplasează în sus și în jos între suprafață și un nivel mediu al apei. Fiecare instrument (plutitor) își petrece aproape toată viața sub suprafață.\n\nUnele plutitoare nu reușesc să raporteze datele despre locație. Antrenați un model de învățare automată pentru a prezice din ce ocean ar fi probabil să fi fost colectată datele plutitoare.\n\n\nAtribuire/Referințe:\nForget, Gaël, 2016, \"MITprof_mar2016_argo0910.nc\", ECCO versiunea 4 ediția 2: date de profil in situ și estimate (seturi de date MITprof), https://doi.org/10.7910/DVN/EE3C40/DQBDDA, Harvard Dataverse, V1\nForget, G., Campin, J.-M., Heimbach, P. , Hill, C. N., Ponte, R. M. și Wunsch, C.: ECCO versiunea 4: un cadru integrat pentru modelarea inversă neliniară și estimarea globală a stării oceanului, Geosci. Model Dev., 8, 3071–3104, https://doi.org/10.5194/gmd-8-3071-2015, 2015.\n\nPregătit de Dani Jones, British Antartic Survey, NERC, UKRI"
             },
             "FAKENEWS": {
-                "ID": "fake-news",
+                "ID": "fake-news-ro",
                 "TITLE": "Știri false",
                 "SUMMARY": "Recunoaştere fake news",
                 "DESCRIPTION": "Antrenați un model de învățare automată pentru a recunoaște tipul de scriere în știrile false.",
@@ -340,8 +340,8 @@
         },
         "MAKES": {
             "TITLE": "Creează",
-            "BODY": "Use the machine learning model you've trained to make a game or app, in Scratch, Python, or EduBlocks",
-            "BODY_SCRATCHPYTHONAPPINV": "Use the machine learning model you've trained to make a game or app, in Scratch or Python",
+            "BODY": "Utilizează modelul de învățare automată pe care l-ai antrenat pentru a crea un joc sau o aplicație, în Scratch, Python sau App Inventor",
+            "BODY_SCRATCHPYTHONAPPINV": "Use the machine learning model you've trained to make a game or app, in Scratch, Python, or App Inventor",
             "BODY_SCRATCHONLY": "Utilizează modelul de învățare automată pe care l-ai antrenat pentru a crea un joc sau o aplicație în Scratch"
         },
         "SCRATCH": {
@@ -413,7 +413,7 @@
         "CANCEL": "Anulează antrenamentul",
         "DELETE": "Șterge acest model",
         "TEST_CANVAS": "Desenează ceva cu care să testați modelul",
-        "TEST_WEBCAM": "Take a photo to test with",
+        "TEST_WEBCAM": "Fă o fotografie pentru a-ți testa modelul",
         "WHATHAVEYOUDONE": {
             "TITLE": "Ce ai facut?",
             "PLEASEWAIT": "În mod normal, această operație durează câteva minute, dar poate dura puțin mai mult dacă computerul de antrenament este foarte ocupat.",
@@ -1830,7 +1830,7 @@
             "APIKEYS": {
                 "TITLE": "API Keys",
                 "TITLELONG": "Watson API Keys",
-                "DESCRIPTION": "Set up IBM watsonx credentials to enable your class to create text machine learning models"
+                "DESCRIPTION": "Configurează acreditările IBM Watson pentru a permite clasei tale să creeze modele de învățare automată"
             },
             "STUDENTS": {
                 "TITLE": "Elevi",
@@ -1839,7 +1839,7 @@
             },
             "SUPERVISION": {
                 "TITLE": "Supervizare",
-                "DESCRIPTION": "Review cloud projects that your students have created"
+                "DESCRIPTION": "Examinează proiectele pe care elevii tăi le-au creat"
             },
 
             "ADVANCEDOPTIONS": "Opțiuni avansate",
@@ -2262,7 +2262,7 @@
         "HOWTO": {
             "TITLE": "Cum se folosește",
             "INTRO": "Faceți clic pe buton pentru a merge la Scratch.",
-            "HOW_1": "Go to the version of <a href='https://machinelearningforkids.co.uk/scratch/'>Scratch 3</a> available from Machine Learning for Kids.",
+            "HOW_1": "Accesați versiunea de <a href='https://machinelearningforkids.co.uk/scratch/'>Scratch 3</a> disponibila de la Machine Learning for Kids.",
             "HOW_2": "Modelele pre-instruite sunt disponibile din panoul Extensii. Faceți clic pe butonul albastru de extensii din partea stângă jos a ferestrei Scratch pentru a le găsi, apoi faceți clic pe cel pe care doriți să îl adăugați la proiect.",
             "HOW_3": "Blocurile pentru modelul pre-antrenat vor fi adăugate în caseta de instrumente Scratch."
         },
