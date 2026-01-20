@@ -1183,7 +1183,7 @@
                     maketypes : [ 'scratch3' ],
                     image : 'static/images/project-translationtelephone.png',
                     tags : [ 'one-shot prompting', 'few-shot prompting', 'semantic drift' ],
-                    // teachersnotes : 'https://dalelane.co.uk/blog/?p=',
+                    teachersnotes : 'https://dalelane.co.uk/blog/?p=5837',
                     downloads : [
                         {
                             worksheet : translations['WORKSHEETS.TRANSLATIONTELEPHONE.WORKSHEET_1.URL']
