@@ -1811,9 +1811,9 @@
             }
         },
         "TRANSLATIONTELEPHONE": {
-            "TITLE": "Translation Telephone",
-            "SUMMARY": "Use a computer trained to generate text",
-            "DESCRIPTION": "Make a project in Scratch that translates a sentence between a series of languages",
+            "TITLE": "Tradução Telefónica",
+            "SUMMARY": "Usa um computador treinado para gerar texto",
+            "DESCRIPTION": "Cria um projeto no Scratch que traduza uma frase entre uma série de idiomas.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-translationtelephone.pdf"
             }
