@@ -8,8 +8,7 @@ import * as store from '../../lib/db/store';
 import * as DbTypes from '../../lib/db/db-types';
 import * as Types from '../../lib/training/training-types';
 import * as conversation from '../../lib/training/conversation';
-
-import * as request from 'request-promise';
+import * as request from '../../lib/utils/request';
 
 
 describe('ScratchKeys store', () => {
@@ -434,7 +433,7 @@ describe('ScratchKeys store', () => {
             assert.strictEqual(verifyBefore.credentials.password, credentials.password);
         }
 
-        const deleteStub = sinon.stub(request, 'delete').resolves();
+        const deleteStub = sinon.stub(request, 'del').resolves();
         await conversation.cleanupExpiredClassifiers();
         assert(deleteStub.called);
         deleteStub.restore();

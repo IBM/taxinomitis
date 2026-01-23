@@ -18,7 +18,7 @@ describe.skip('auth0 users', () => {
 
     function pause() {
         return new Promise((resolve) => {
-            setTimeout(resolve, 1000);
+            setTimeout(resolve, 4000);
         });
     }
 
@@ -119,7 +119,9 @@ describe.skip('auth0 users', () => {
             return createMultipleUsersWithWaits()
                 .then((output) => {
                     testusers = output;
-
+                    return pause();
+                })
+                .then(() => {
                     return users.getAllStudents(TESTTENANT, 'ALL');
                 })
                 .then((resp) => {
@@ -324,9 +326,10 @@ describe.skip('auth0 users', () => {
     (process.env.TRAVIS ? describe.skip : describe)('addGroupToClass', () => {
 
         it('should add a group to an empty class', async () => {
-            const EMAIL = 'myteacher@testing.com';
+            const EMAIL = 'myfirstteacher@testing.com';
 
-            const teacher = await users.createTeacher(TESTTENANT, 'myteacher', EMAIL);
+            const teacher = await users.createTeacher(TESTTENANT, 'firstteacher', EMAIL);
+            await pause();
 
             let verify = await users.getTeacherByEmail(EMAIL);
             assert(verify);
@@ -334,6 +337,7 @@ describe.skip('auth0 users', () => {
             assert.strictEqual('groups' in verify.app_metadata, false);
 
             await users.addGroupToClass(TESTTENANT, 'firstgroup'); await pause();
+            await pause();
 
             verify = await users.getTeacherByEmail(EMAIL);
             assert(verify);
@@ -346,13 +350,15 @@ describe.skip('auth0 users', () => {
         });
 
         it('should add multiple groups to a teacher', async () => {
-            const EMAIL = 'mynewteacher@testing.com';
+            const EMAIL = 'mymultiteacher@testing.com';
 
-            const teacher = await users.createTeacher(TESTTENANT, 'mynewteacher', EMAIL);
+            const teacher = await users.createTeacher(TESTTENANT, 'mymultiteacher', EMAIL);
+            await pause();
 
             await users.addGroupToClass(TESTTENANT, 'alpha'); await pause();
             await users.addGroupToClass(TESTTENANT, 'beta'); await pause();
             await users.addGroupToClass(TESTTENANT, 'gamma'); await pause();
+            await pause();
 
             const verify = await users.getTeacherByEmail(EMAIL);
             assert(verify);
@@ -360,17 +366,16 @@ describe.skip('auth0 users', () => {
             assert(verify.app_metadata.groups);
             log.debug({ verify }, 'verify');
             assert.strictEqual(verify.app_metadata.groups.length, 3);
-            assert.strictEqual(verify.app_metadata.groups[0], 'alpha');
-            assert.strictEqual(verify.app_metadata.groups[1], 'beta');
-            assert.strictEqual(verify.app_metadata.groups[2], 'gamma');
+            assert.deepStrictEqual(verify.app_metadata.groups.sort(), ['alpha', 'beta', 'gamma']);
 
             await users.deleteTeacher(TESTTENANT, teacher.id);
         });
 
         it('should handle duplicate groups', async () => {
-            const EMAIL = 'mynewteacher@testing.com';
+            const EMAIL = 'mydupteacher@testing.com';
 
-            const teacher = await users.createTeacher(TESTTENANT, 'mynewteacher', EMAIL);
+            const teacher = await users.createTeacher(TESTTENANT, 'dupteacher', EMAIL);
+            await pause();
 
             await users.addGroupToClass(TESTTENANT, 'alpha'); await pause();
             await users.addGroupToClass(TESTTENANT, 'beta'); await pause();
@@ -383,9 +388,7 @@ describe.skip('auth0 users', () => {
             assert(verify.app_metadata);
             assert(verify.app_metadata.groups);
             assert.strictEqual(verify.app_metadata.groups.length, 3);
-            assert.strictEqual(verify.app_metadata.groups[0], 'alpha');
-            assert.strictEqual(verify.app_metadata.groups[1], 'beta');
-            assert.strictEqual(verify.app_metadata.groups[2], 'gamma');
+            assert.deepStrictEqual(verify.app_metadata.groups.sort(), ['alpha', 'beta', 'gamma']);
 
             await users.deleteTeacher(TESTTENANT, teacher.id);
         });
@@ -413,7 +416,7 @@ describe.skip('auth0 users', () => {
                 assert(verify.app_metadata);
                 assert(verify.app_metadata.groups);
                 assert.strictEqual(verify.app_metadata.groups.length, 4);
-                assert.deepStrictEqual(verify.app_metadata.groups, [
+                assert.deepStrictEqual(verify.app_metadata.groups.sort(), [
                     'apple', 'banana', 'fish', 'giraffe',
                 ]);
             }
@@ -432,6 +435,7 @@ describe.skip('auth0 users', () => {
 
             const teacher1 = await users.createTeacher(TESTTENANT, 'teacherx1', EMAIL1);
             const teacher2 = await users.createTeacher(TESTTENANT, 'teacherx2', EMAIL2);
+            await pause();
 
             for (const group of GROUPS) {
                 await users.addGroupToClass(TESTTENANT, group); await pause();
@@ -456,7 +460,7 @@ describe.skip('auth0 users', () => {
                 assert(verify.app_metadata);
                 assert(verify.app_metadata.groups);
                 assert.strictEqual(verify.app_metadata.groups.length, 2);
-                assert.deepStrictEqual(verify.app_metadata.groups, [ 'first', 'third' ]);
+                assert.deepStrictEqual(verify.app_metadata.groups.sort(), [ 'first', 'third' ]);
             }
 
             await users.removeGroupFromClass(TESTTENANT, 'first'); await pause();
@@ -486,9 +490,10 @@ describe.skip('auth0 users', () => {
 
 
         it('should handle removing non-existent groups', async () => {
-            const EMAIL = 'mytestteacher@testing.com';
+            const EMAIL = 'testteacher@testing.com';
 
-            const teacher = await users.createTeacher(TESTTENANT, 'mytestteacher', EMAIL);
+            const teacher = await users.createTeacher(TESTTENANT, 'testteacher', EMAIL);
+            await pause();
 
             await users.removeGroupFromClass(TESTTENANT, 'doesnotexist'); await pause();
 
@@ -506,6 +511,7 @@ describe.skip('auth0 users', () => {
             const EMAIL = 'badtest@testing.com';
 
             const teacher = await users.createTeacher(TESTTENANT, 'badtest', EMAIL);
+            await pause();
 
             await users.addGroupToClass(TESTTENANT, 'nonempty'); await pause();
 
@@ -554,6 +560,7 @@ describe.skip('auth0 users', () => {
             const teacheremail = randomstring.generate(6).toLowerCase() + '@unittests.com';
 
             const newTeacher = await users.createTeacher(tenant, teachername, teacheremail);
+            await pause();
 
             const fetched = await users.getTeacherByClassId(tenant);
             assert(fetched);
@@ -577,8 +584,44 @@ describe.skip('auth0 users', () => {
         it('should create a student', async () => {
             const newStudent = await users.createStudent(TESTTENANT, '141' + randomstring.generate({ length : 6 }));
             assert(newStudent.password);
+            await pause();
+
             const retrieved = await users.getStudent(TESTTENANT, newStudent.id);
             assert.strictEqual(retrieved.username, newStudent.username);
+            await users.deleteStudent(TESTTENANT, newStudent.id);
+
+            try {
+                await users.getStudent(TESTTENANT, newStudent.id);
+
+                assert.fail('Failed to delete student');
+            }
+            catch (err) {
+                assert.strictEqual(err.error, 'Not Found');
+                assert.strictEqual(err.statusCode, 404);
+                assert.strictEqual(err.errorCode, 'inexistent_user');
+            }
+        });
+
+        it('should prevent duplicates', async () => {
+            const username = '141' + randomstring.generate({ length : 6 }).toLowerCase();
+
+            const newStudent = await users.createStudent(TESTTENANT, username);
+            await pause();
+
+            const retrieved = await users.getStudent(TESTTENANT, newStudent.id);
+            assert.strictEqual(retrieved.username, username);
+
+            try {
+                await users.createStudent(TESTTENANT, username);
+                assert.fail('Created two students with the same username');
+            }
+            catch (err) {
+                assert.strictEqual(err.statusCode, 409);
+                assert.strictEqual(err.response.body.error, 'Conflict');
+                assert.strictEqual(err.response.body.message, 'The user already exists.');
+                assert.strictEqual(err.response.body.errorCode, 'auth0_idp_error');
+            }
+
             await users.deleteStudent(TESTTENANT, newStudent.id);
 
             try {
@@ -614,6 +657,7 @@ describe.skip('auth0 users', () => {
         it('should reset password', async () => {
             const newStudent = await users.createStudent(TESTTENANT, '184' + randomstring.generate({ length : 6 }));
             assert(newStudent.password);
+            await pause();
 
             const modified = await users.resetStudentPassword(TESTTENANT, newStudent.id);
             assert(modified.password);

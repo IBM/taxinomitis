@@ -1,10 +1,9 @@
-// external dependencies
-import * as _ from 'lodash';
 // local dependencies
 import * as store from '../db/store';
 import * as conversation from '../training/conversation';
 import * as Types from '../db/db-types';
 import * as TrainingTypes from '../training/training-types';
+import { shuffle } from '../utils/helpers';
 import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
@@ -13,7 +12,7 @@ const log = loggerSetup();
 
 function chooseLabelsAtRandom(project: Types.Project | Types.LocalProject): TrainingTypes.Classification[] {
     const confidence = Math.round((1 / project.labels.length) * 100);
-    return _.shuffle(project.labels).map((label) => {
+    return shuffle(project.labels).map((label) => {
         return {
             class_name : label,
             confidence,

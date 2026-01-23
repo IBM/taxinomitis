@@ -1,13 +1,13 @@
 // external dependencies
 import { status as httpStatus } from 'http-status';
 import { v1 as uuid } from 'uuid';
-import * as _ from 'lodash';
 // local dependencies
 import * as store from '../db/store';
 import * as iam from '../iam';
 import * as DbObjects from '../db/db-types';
 import * as TrainingObjects from './training-types';
 import * as notifications from '../notifications/slack';
+import { shuffle } from '../utils/helpers';
 import * as request from '../utils/request';
 import loggerSetup from '../utils/logger';
 
@@ -115,7 +115,7 @@ async function createWorkspace(
         // shuffle the pool of credentials so the usage will be distributed
         //  across the set, rather than always directing training requests to
         //  the first creds in the pool
-        shuffledCredentialsPool = _.shuffle(credentialsPool);
+        shuffledCredentialsPool = shuffle(credentialsPool);
     }
 
 

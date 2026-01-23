@@ -3,12 +3,12 @@
 import * as assert from 'assert';
 import * as sinon from 'sinon';
 import * as uuid from 'uuid';
-import * as request from 'request-promise';
 import * as randomstring from 'randomstring';
 import * as dbobjects from '../../lib/db/objects';
 import * as store from '../../lib/db/store';
 import * as TrainingTypes from '../../lib/training/training-types';
 import * as classifiers from '../../lib/training/classifiers';
+import * as request from '../../lib/utils/request';
 
 
 
@@ -99,7 +99,7 @@ describe('Training - Unmanaged classifiers', () => {
         let deleteClassifiersStub: sinon.SinonStub<any, any>;
 
         before(async () => {
-            deleteClassifiersStub = sinon.stub(request, 'delete');
+            deleteClassifiersStub = sinon.stub(request, 'del');
             deleteClassifiersStub
                 .withArgs(sinon.match(/.*workspaces\/.*/), sinon.match.any)
                 .callsFake(mockConversation.deleteClassifier);

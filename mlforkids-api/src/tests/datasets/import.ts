@@ -1,7 +1,6 @@
 /*eslint-env mocha */
 import * as assert from 'assert';
 import * as sinon from 'sinon';
-import * as requestPromise from 'request-promise';
 import { v1 as uuid } from 'uuid';
 import * as store from '../../lib/db/store';
 import * as datasets from '../../lib/datasets';
@@ -13,34 +12,33 @@ describe('Datasets import', () => {
 
     const TESTCLASS = 'UNIQUECLASSID';
 
-    let numbersTrainingServiceDeleteStub: sinon.SinonStub<any, any>;
+    let fetchStub: sinon.SinonStub<any, any>;
 
 
     before(() => {
         return store.init();
     });
     before(() => {
-        const originalRequestDelete = requestPromise.delete;
-        const stubbedRequestDelete = (url: string, opts?: any) => {
-            if (url === 'undefined/api/models') {
+        const originalFetch = global.fetch;
+        const stubbedFetch = (url: string | URL | Request, init?: RequestInit) => {
+            const urlString = typeof url === 'string' ? url : url.toString();
+            if (urlString === 'undefined/api/models' && init?.method === 'DELETE') {
                 // no test numbers service available
-                return Promise.resolve();
+                return Promise.resolve(new Response(null, { status: 200 }));
             }
             else {
                 // use a real test numbers service
-                return originalRequestDelete(url, opts);
+                return originalFetch(url, init);
             }
         };
-        numbersTrainingServiceDeleteStub = sinon.stub(requestPromise, 'delete')
-                                            // @ts-expect-error TODO
-                                            .callsFake(stubbedRequestDelete);
+        fetchStub = sinon.stub(global, 'fetch').callsFake(stubbedFetch);
 
         return store.deleteProjectsByClassId(TESTCLASS);
     });
 
     after(async () => {
         await store.deleteProjectsByClassId(TESTCLASS);
-        numbersTrainingServiceDeleteStub.restore();
+        fetchStub.restore();
         return store.disconnect();
     });
 

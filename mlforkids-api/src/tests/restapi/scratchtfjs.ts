@@ -53,7 +53,7 @@ describe('REST API - pretrained TensorFlow model support', () => {
             .expect(httpstatus.INTERNAL_SERVER_ERROR)
             .then((resp) => {
                 assert.deepStrictEqual(resp.body, {
-                    error : 'Error: getaddrinfo ENOTFOUND external.model.host',
+                    error : 'getaddrinfo ENOTFOUND external.model.host',
                 });
             });
     });

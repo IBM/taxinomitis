@@ -5,7 +5,6 @@ import * as assert from 'assert';
 import * as request from 'supertest';
 import * as filecompare from 'filecompare';
 import * as tmp from 'tmp';
-import * as requestPromise from 'request-promise';
 import { status as httpstatus } from 'http-status';
 import * as sinon from 'sinon';
 import * as randomstring from 'randomstring';
@@ -16,6 +15,7 @@ import * as limits from '../../lib/db/limits';
 import * as auth from '../../lib/restapi/auth';
 import * as imageCheck from '../../lib/utils/imageCheck';
 import * as visrec from '../../lib/training/visualrecognition';
+import * as requestUtil from '../../lib/utils/request';
 import testapiserver from './testserver';
 
 
@@ -57,10 +57,8 @@ describe('REST API - training', () => {
         checkUserStub = sinon.stub(auth, 'checkValidUser').callsFake(authNoOp);
         requireSupervisorStub = sinon.stub(auth, 'requireSupervisor').callsFake(authNoOp);
 
-        // @ts-expect-error TODO
-        numbersTrainingServicePostStub = sinon.stub(requestPromise, 'post').callsFake(stubbedRequestPost);
-        // @ts-expect-error TODO
-        numbersTrainingServiceDeleteStub = sinon.stub(requestPromise, 'delete').callsFake(stubbedRequestDelete);
+        numbersTrainingServicePostStub = sinon.stub(requestUtil, 'post').callsFake(stubbedRequestPost);
+        numbersTrainingServiceDeleteStub = sinon.stub(requestUtil, 'del').callsFake(stubbedRequestDelete);
 
         await store.init();
 
@@ -1737,16 +1735,16 @@ describe('REST API - training', () => {
 
 
 
-    const originalRequestPost = requestPromise.post;
-    const originalRequestDelete = requestPromise.delete;
-    const stubbedRequestPost = (url: string, opts?: any) => {
+    const originalRequestPost = requestUtil.post;
+    const originalRequestDelete = requestUtil.del;
+    const stubbedRequestPost = (url: string, opts?: any, retryOnTimeout?: boolean) => {
         if (url === 'undefined/api/models') {
             // no test numbers service available
             return Promise.resolve();
         }
         else {
             // use a real test numbers service
-            return originalRequestPost(url, opts);
+            return originalRequestPost(url, opts, retryOnTimeout || false);
         }
     };
     const stubbedRequestDelete = (url: string, opts?: any) => {

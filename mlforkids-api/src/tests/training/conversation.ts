@@ -5,28 +5,26 @@
 import { v1 as uuid } from 'uuid';
 import * as assert from 'assert';
 import * as sinon from 'sinon';
-import * as request from 'request-promise';
 import * as clone from 'clone';
 
 import * as store from '../../lib/db/store';
 import * as conversation from '../../lib/training/conversation';
 import * as DbTypes from '../../lib/db/db-types';
 import * as TrainingTypes from '../../lib/training/training-types';
+import * as requestUtil from '../../lib/utils/request';
 
 import loggerSetup from '../../lib/utils/logger';
 
 import * as mockstore from './mockstore';
-import requestPromise = require('request-promise');
-import requestLegacy = require('request');
 
 const log = loggerSetup();
 
 
 describe('Training - Conversation', () => {
 
-    let getStub: sinon.SinonStub<[string, (requestPromise.RequestPromiseOptions | undefined)?, (requestLegacy.RequestCallback | undefined)?], requestPromise.RequestPromise>;
-    let createStub: sinon.SinonStub<[string, (requestPromise.RequestPromiseOptions | undefined)?, (requestLegacy.RequestCallback | undefined)?], requestPromise.RequestPromise>;
-    let deleteStub: sinon.SinonStub<[string, (requestPromise.RequestPromiseOptions | undefined)?, (requestLegacy.RequestCallback | undefined)?], requestPromise.RequestPromise>;
+    let getStub: sinon.SinonStub<any, any>;
+    let createStub: sinon.SinonStub<any, any>;
+    let deleteStub: sinon.SinonStub<any, any>;
     let getProjectStub: sinon.SinonStub<[string], Promise<DbTypes.Project | undefined>>;
     let authStoreStub: sinon.SinonStub<[DbTypes.ClassTenant, TrainingTypes.BluemixServiceType], Promise<TrainingTypes.BluemixCredentials[]>>;
     let authByIdStoreStub: sinon.SinonStub<[DbTypes.ClassTenantType, string], Promise<TrainingTypes.BluemixCredentials>>;
@@ -43,16 +41,11 @@ describe('Training - Conversation', () => {
 
 
     before(() => {
-        // @ts-expect-error TODO
-        getStub = sinon.stub(request, 'get').callsFake(mockConversation.getClassifier);
-        // @ts-expect-error TODO
-        createStub = sinon.stub(request, 'post');
-        // @ts-expect-error TODO
+        getStub = sinon.stub(requestUtil, 'get').callsFake(mockConversation.getClassifier);
+        createStub = sinon.stub(requestUtil, 'post');
         createStub.withArgs(sinon.match(/.*workspaces/), sinon.match.any).callsFake(mockConversation.createClassifier);
-        // @ts-expect-error TODO
         createStub.withArgs(sinon.match(/.*message/), sinon.match.any).callsFake(mockConversation.testClassifier);
-        // @ts-expect-error TODO
-        deleteStub = sinon.stub(request, 'delete').callsFake(mockConversation.deleteClassifier);
+        deleteStub = sinon.stub(requestUtil, 'del').callsFake(mockConversation.deleteClassifier);
 
         getProjectStub = sinon.stub(store, 'getProject').callsFake(mockstore.getProject);
         authStoreStub = sinon.stub(store, 'getBluemixCredentials').callsFake(mockstore.getBluemixCredentials);
@@ -538,7 +531,7 @@ describe('Training - Conversation', () => {
                     });
                 }
             });
-            return prom as requestPromise.RequestPromise;
+            return prom as Promise<any>;
         },
         deleteClassifier : (url: string) => {
             const prom: unknown = new Promise((resolve, reject) => {
@@ -553,7 +546,7 @@ describe('Training - Conversation', () => {
                     return reject({ error : 'Resource not found' });
                 }
             });
-            return prom as requestPromise.RequestPromise;
+            return prom as Promise<any>;
         },
         createClassifier : (url: string, options: conversation.LegacyTrainingRequest) => {
             log.debug({ url, options }, 'mock create classifier');

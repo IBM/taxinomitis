@@ -1,5 +1,5 @@
-// external dependencies
-import * as _ from 'lodash';
+// local dependencies
+import { shuffle } from './helpers';
 
 
 
@@ -28,5 +28,5 @@ export function ints(num: number): number[] {
     }
     numbers.push(100 - runningTotal);
 
-    return _.shuffle(numbers);
+    return shuffle(numbers);
 }

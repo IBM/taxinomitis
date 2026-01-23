@@ -2,7 +2,6 @@
 import { v1 as uuid } from 'uuid';
 import * as assert from 'assert';
 import * as request from 'supertest';
-import * as requestPromise from 'request-promise';
 import { status as httpstatus } from 'http-status';
 import * as randomstring from 'randomstring';
 import * as sinon from 'sinon';
@@ -12,6 +11,7 @@ import * as store from '../../lib/db/store';
 import * as DbTypes from '../../lib/db/db-types';
 import * as TrainingTypes from '../../lib/training/training-types';
 import * as Express from 'express';
+import * as requestUtil from '../../lib/utils/request';
 import testapiserver from './testserver';
 
 
@@ -70,16 +70,16 @@ describe('REST API - scratchkey models', () => {
             throw new Error('Unexpected project');
         });
 
-        const originalRequestPost = requestPromise.post;
-        const originalRequestDelete = requestPromise.delete;
-        const stubbedRequestPost = (url: string, opts?: any) => {
+        const originalRequestPost = requestUtil.post;
+        const originalRequestDelete = requestUtil.del;
+        const stubbedRequestPost = (url: string, opts?: any, retryOnTimeout?: boolean) => {
             if (url === 'undefined/api/models') {
                 // no test numbers service available
                 return Promise.resolve();
             }
             else {
                 // use a real test numbers service
-                return originalRequestPost(url, opts);
+                return originalRequestPost(url, opts, retryOnTimeout || false);
             }
         };
         const stubbedRequestDelete = (url: string, opts?: any) => {
@@ -93,10 +93,8 @@ describe('REST API - scratchkey models', () => {
             }
         };
 
-        // @ts-expect-error TODO
-        numbersTrainingServicePostStub = sinon.stub(requestPromise, 'post').callsFake(stubbedRequestPost);
-        // @ts-expect-error TODO
-        numbersTrainingServiceDeleteStub = sinon.stub(requestPromise, 'delete').callsFake(stubbedRequestDelete);
+        numbersTrainingServicePostStub = sinon.stub(requestUtil, 'post').callsFake(stubbedRequestPost);
+        numbersTrainingServiceDeleteStub = sinon.stub(requestUtil, 'del').callsFake(stubbedRequestDelete);
 
         proxyquire('../../lib/scratchx/models', {
             '../training/conversation' : mockConversation,

@@ -1,7 +1,5 @@
 // core dependencies
 import * as url from 'url';
-// external dependencies
-import * as request from 'request-promise';
 // local dependencies
 import loggerSetup from './logger';
 
@@ -82,13 +80,16 @@ async function getImageInfo(name: string, width: number): Promise<any> {
         'Accept': 'application/json',
     };
 
-    const options = {
-        headers : apiHeaders,
-        json : true,
-    };
+    const response = await fetch(apiUrl, {
+        headers: apiHeaders,
+    });
 
-    const body = await request.get(apiUrl, options);
-    return body;
+    if (!response.ok) {
+        log.error({ status : response.status }, 'HTTP error');
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return response.json();
 }
 
 function getMostRecentVersion(response: any): string {

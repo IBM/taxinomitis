@@ -3,7 +3,6 @@ import * as assert from 'assert';
 import * as express from 'express';
 import * as sinon from 'sinon';
 import * as uuid from 'uuid';
-import * as request from 'request-promise';
 import * as randomstring from 'randomstring';
 import * as testRequest from 'supertest';
 import { status as httpstatus } from 'http-status';
@@ -15,6 +14,7 @@ import * as Types from '../../lib/db/db-types';
 import * as TrainingTypes from '../../lib/training/training-types';
 import * as store from '../../lib/db/store';
 import * as auth from '../../lib/restapi/auth';
+import * as request from '../../lib/utils/request';
 
 import testapiserver from './testserver';
 
@@ -205,7 +205,7 @@ describe('REST API - classifiers', () => {
         let deleteClassifiersStub: sinon.SinonStub<any, any>;
 
         before(async () => {
-            deleteClassifiersStub = sinon.stub(request, 'delete');
+            deleteClassifiersStub = sinon.stub(request, 'del');
             deleteClassifiersStub
                 .withArgs(sinon.match(/.*workspaces\/.*/), sinon.match.any)
                 .callsFake(mockConversation.deleteClassifier);

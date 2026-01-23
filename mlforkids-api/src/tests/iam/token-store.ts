@@ -1,7 +1,6 @@
 /*eslint-env mocha */
 
 import * as assert from 'assert';
-import * as request from 'request-promise';
 import * as sinon from 'sinon';
 import * as tokens from '../../lib/iam/tokens';
 import * as store from '../../lib/iam/token-store';
@@ -14,22 +13,22 @@ import * as mockIAM from './mock-iam';
 
 describe('IAM - tokens store', () => {
 
-    let getTokenStub: sinon.SinonStub<any, any>;
+    let fetchStub: sinon.SinonStub<any, any>;
     let clock: sinon.SinonFakeTimers;
 
     before(() => {
-        getTokenStub = sinon.stub(request, 'post');
-        getTokenStub.callsFake(mockIAM.request.get);
+        fetchStub = sinon.stub(global, 'fetch');
+        fetchStub.callsFake(mockIAM.fetch.post);
         clock = sinon.useFakeTimers();
     });
     after(() => {
-        getTokenStub.restore();
+        fetchStub.restore();
         clock.restore();
     });
 
     beforeEach(() => {
         store.init();
-        getTokenStub.resetHistory();
+        fetchStub.resetHistory();
     });
 
 
@@ -37,7 +36,7 @@ describe('IAM - tokens store', () => {
         const token = await store.getToken(mockIAM.KEYS.VALID_RAND + '000001');
         assert(token);
         assert.strictEqual(typeof token, 'string');
-        assert(getTokenStub.called);
+        assert(fetchStub.called);
     });
 
     it('should return new tokens from the IAM service', async () => {
@@ -49,12 +48,12 @@ describe('IAM - tokens store', () => {
     it('should return a token from the cache', async () => {
         const APIKEY = mockIAM.KEYS.VALID_RAND + '000004';
         const iamToken = await store.getToken(APIKEY);
-        assert(getTokenStub.called);
+        assert(fetchStub.called);
 
-        getTokenStub.resetHistory();
+        fetchStub.resetHistory();
 
         const cachedToken = await store.getToken(APIKEY);
-        assert.strictEqual(getTokenStub.called, false);
+        assert.strictEqual(fetchStub.called, false);
 
         assert.strictEqual(iamToken, cachedToken);
     });
@@ -63,22 +62,22 @@ describe('IAM - tokens store', () => {
         const APIKEY = mockIAM.KEYS.VALID_RAND + '000005';
 
         const iamToken = await store.getToken(APIKEY);
-        assert(getTokenStub.called);
+        assert(fetchStub.called);
 
-        getTokenStub.resetHistory();
+        fetchStub.resetHistory();
 
         const cachedToken = await store.getToken(APIKEY);
-        assert.strictEqual(getTokenStub.called, false);
+        assert.strictEqual(fetchStub.called, false);
 
         assert.strictEqual(iamToken, cachedToken);
 
         await store.getToken(APIKEY);
-        assert.strictEqual(getTokenStub.called, false);
+        assert.strictEqual(fetchStub.called, false);
 
         clock.tick(constants.ONE_HOUR);
 
         const newToken = await store.getToken(APIKEY);
-        assert(getTokenStub.called);
+        assert(fetchStub.called);
 
         assert.notStrictEqual(newToken, iamToken);
     });

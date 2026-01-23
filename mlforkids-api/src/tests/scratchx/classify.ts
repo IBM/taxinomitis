@@ -3,10 +3,10 @@ import * as assert from 'assert';
 import { v1 as uuid } from 'uuid';
 import * as sinon from 'sinon';
 import * as proxyquire from 'proxyquire';
-import * as request from 'request-promise';
 import * as store from '../../lib/db/store';
 import * as classifier from '../../lib/scratchx/classify';
 import * as Types from '../../lib/db/db-types';
+import * as request from '../../lib/utils/request';
 import loggerSetup from '../../lib/utils/logger';
 
 const log = loggerSetup();
@@ -108,7 +108,7 @@ describe('Scratchx - classify', () => {
 
             stubbedClassifier = proxyquire('../../lib/scratchx/classify', {
                 '../training/conversation' : {
-                    'request-promise' : requestPostStub,
+                    '../utils/request' : requestPostStub,
                 },
             });
 

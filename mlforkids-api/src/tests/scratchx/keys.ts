@@ -3,10 +3,10 @@ import * as assert from 'assert';
 import * as sinon from 'sinon';
 import { v1 as uuid } from 'uuid';
 import * as randomstring from 'randomstring';
-import * as requestPromise from 'request-promise';
 import * as store from '../../lib/db/store';
 import * as keys from '../../lib/scratchx/keys';
 import * as TrainingTypes from '../../lib/training/training-types';
+import * as requestUtil from '../../lib/utils/request';
 
 
 const TESTCLASS = 'UNIQUECLASSID';
@@ -18,8 +18,7 @@ describe('Scratchx - keys', () => {
 
 
     before(() => {
-        // @ts-expect-error TODO
-        numbersTrainingServiceDeleteStub = sinon.stub(requestPromise, 'delete').callsFake(stubbedRequestDelete);
+        numbersTrainingServiceDeleteStub = sinon.stub(requestUtil, 'del').callsFake(stubbedRequestDelete);
 
         return store.init();
     });
@@ -132,7 +131,7 @@ describe('Scratchx - keys', () => {
 
 
 
-    const originalRequestDelete = requestPromise.delete;
+    const originalRequestDelete = requestUtil.del;
     const stubbedRequestDelete = (url: string, opts?: any) => {
         if (url === 'undefined/api/models') {
             // no test numbers service available

@@ -6,8 +6,6 @@ import { status as httpstatus } from 'http-status';
 import * as randomstring from 'randomstring';
 import * as sinon from 'sinon';
 import * as proxyquire from 'proxyquire';
-import * as coreReq from 'request';
-import * as requestPromise from 'request-promise';
 import * as Express from 'express';
 import { readFile } from 'fs/promises';
 import { Buffer } from 'buffer';
@@ -20,6 +18,7 @@ import * as objectstore from '../../lib/objectstore';
 import * as limits from '../../lib/db/limits';
 import * as auth from '../../lib/restapi/auth';
 import * as conversation from '../../lib/training/conversation';
+import * as requestUtil from '../../lib/utils/request';
 import testapiserver from './testserver';
 
 
@@ -56,9 +55,9 @@ describe('REST API - scratch keys', () => {
 
         testServer = testapiserver();
 
-        deleteStub = sinon.stub(requestPromise, 'delete').resolves();
+        deleteStub = sinon.stub(requestUtil, 'del').resolves();
         proxyquire('../../lib/training/conversation', {
-            'request-promise' : deleteStub,
+            '../utils/request' : deleteStub,
         });
 
         objectstore.init();
@@ -885,70 +884,62 @@ describe('REST API - scratch keys', () => {
         });
 
 
-        function mockClassifier(url: string, options?: coreReq.CoreOptions): requestPromise.RequestPromise {
-            // TODO this is ridiculous... do I really have to fight with TypeScript like this?
+        function mockClassifier(url: string, options?: requestUtil.RequestPromiseOptions): Promise<any> {
             const unk: unknown = options as unknown;
             const opts: conversation.LegacyTestRequest = unk as conversation.LegacyTestRequest;
 
-            const prom: unknown = new Promise((resolve) => {
-                resolve({
-                    intents : [
+            return Promise.resolve({
+                intents : [
+                    {
+                        intent : 'temperature',
+                        confidence : 0.638,
+                    },
+                    {
+                        intent : 'conditions',
+                        confidence : 0.362,
+                    },
+                ],
+                entities : [],
+                input : { text : opts.body.input.text },
+                output : {
+                    text : [],
+                    nodes_visited : [],
+                    warning : 'No dialog node matched for the input at a root level. ' +
+                                '(and there is 1 more warning in the log)',
+                    log_messages : [
                         {
-                            intent : 'temperature',
-                            confidence : 0.638,
+                            level : 'warn',
+                            msg : 'No dialog node matched for the input at a root level.',
                         },
                         {
-                            intent : 'conditions',
-                            confidence : 0.362,
+                            level : 'warn',
+                            msg : 'No dialog node condition matched to true in the last dialog round - ' +
+                                    'context.nodes_visited is empty. ' +
+                                    'Falling back to the root node in the next round.',
                         },
                     ],
-                    entities : [],
-                    input : { text : opts.body.input.text },
-                    output : {
-                        text : [],
-                        nodes_visited : [],
-                        warning : 'No dialog node matched for the input at a root level. ' +
-                                    '(and there is 1 more warning in the log)',
-                        log_messages : [
+                },
+                context : {
+                    conversation_id : uuid(),
+                    system : {
+                        dialog_stack : [
                             {
-                                level : 'warn',
-                                msg : 'No dialog node matched for the input at a root level.',
-                            },
-                            {
-                                level : 'warn',
-                                msg : 'No dialog node condition matched to true in the last dialog round - ' +
-                                        'context.nodes_visited is empty. ' +
-                                        'Falling back to the root node in the next round.',
+                                dialog_node : 'root',
                             },
                         ],
+                        dialog_turn_counter : 1,
+                        dialog_request_counter : 1,
                     },
-                    context : {
-                        conversation_id : uuid(),
-                        system : {
-                            dialog_stack : [
-                                {
-                                    dialog_node : 'root',
-                                },
-                            ],
-                            dialog_turn_counter : 1,
-                            dialog_request_counter : 1,
-                        },
-                    },
-                });
+                },
             });
-
-            return prom as requestPromise.RequestPromise;
         }
 
-        function brokenClassifier(/*url: string, options?: coreReq.CoreOptions*/): requestPromise.RequestPromise {
-            const prom: unknown = new Promise((resolve, reject) => {
-                reject({ error : {
-                    code : 500,
-                    error : 'Something bad happened',
-                    description : 'It really was very bad',
-                }});
-            });
-            return prom as requestPromise.RequestPromise;
+        function brokenClassifier(/*url: string, options?: coreReq.CoreOptions*/): Promise<any> {
+            return Promise.reject({ error : {
+                code : 500,
+                error : 'Something bad happened',
+                description : 'It really was very bad',
+            }});
         }
 
 
@@ -991,8 +982,7 @@ describe('REST API - scratch keys', () => {
                 project, storedCredentials,
                 conversationWorkspace.workspace_id, conversationWorkspace.created);
 
-            // @ts-expect-error TODO
-            const conversationStub = sinon.stub(requestPromise, 'post').callsFake(mockClassifier);
+            const conversationStub = sinon.stub(requestUtil, 'post').callsFake(mockClassifier);
 
             conversationStub.resetHistory();
             assert(conversationStub.notCalled);
@@ -1062,8 +1052,7 @@ describe('REST API - scratch keys', () => {
                 project, storedCredentials,
                 conversationWorkspace.workspace_id, conversationWorkspace.created);
 
-            // @ts-expect-error TODO
-            const conversationStub = sinon.stub(requestPromise, 'post').callsFake(mockClassifier);
+            const conversationStub = sinon.stub(requestUtil, 'post').callsFake(mockClassifier);
 
             return request(testServer)
                 .get('/api/scratch/' + scratchKey + '/classify')
@@ -1140,8 +1129,7 @@ describe('REST API - scratch keys', () => {
                 project, storedCredentials,
                 conversationWorkspace.workspace_id, conversationWorkspace.created);
 
-            // @ts-expect-error TODO
-            const conversationStub = sinon.stub(requestPromise, 'post').callsFake(mockClassifier);
+            const conversationStub = sinon.stub(requestUtil, 'post').callsFake(mockClassifier);
 
             return request(testServer)
                 .post('/api/scratch/' + scratchKey + '/classify')
@@ -1198,7 +1186,7 @@ describe('REST API - scratch keys', () => {
                 project, storedCredentials,
                 workspace.workspace_id, workspace.created);
 
-            const conversationStub = sinon.stub(requestPromise, 'post').callsFake(brokenClassifier);
+            const conversationStub = sinon.stub(requestUtil, 'post').callsFake(brokenClassifier);
 
             return request(testServer)
                 .get('/api/scratch/' + scratchKey + '/classify')

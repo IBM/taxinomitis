@@ -1,7 +1,6 @@
 // external dependencies
 import * as bodyParser from 'body-parser';
 import * as Express from 'express';
-import * as query from 'connect-query';
 import helmet from 'helmet';
 // local dependencies
 import registerBluemixApis from './bluemix';
@@ -34,9 +33,12 @@ const log = loggerSetup();
  * Sets up all of the REST API endpoints.
  */
 export default function setup(app: Express.Application): void {
-    // third-party middleware
     log.info('Setting up REST API rules');
-    app.use(query());
+
+    // core middleware
+    app.set('query parser', 'extended');
+
+    // third-party middleware
     app.use(helmet({
         contentSecurityPolicy: {
             // TODO : https://github.com/IBM/taxinomitis/issues/346 will remove this

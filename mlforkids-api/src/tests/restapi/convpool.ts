@@ -3,8 +3,6 @@ import * as assert from 'assert';
 import { v4 as uuid } from 'uuid';
 import { generate as randomstring } from 'randomstring';
 import * as request from 'supertest';
-import * as requestPromise from 'request-promise';
-import * as requestLegacy from 'request';
 import { status as httpstatus } from 'http-status';
 import * as sinon from 'sinon';
 import * as express from 'express';
@@ -16,6 +14,7 @@ import * as auth from '../../lib/restapi/auth';
 import * as conversation from '../../lib/training/conversation';
 import * as trainingtypes from '../../lib/training/training-types';
 import { FIFTY_MINUTES } from '../../lib/utils/constants';
+import * as requestUtil from '../../lib/utils/request';
 import testapiserver from './testserver';
 
 
@@ -31,9 +30,9 @@ describe('REST API - text training for managed pool classes', () => {
     let authStub: sinon.SinonStub<any, any>;
     let checkUserStub: sinon.SinonStub<any, any>;
     let requireSupervisorStub: sinon.SinonStub<any, any>;
-    let getStub: sinon.SinonStub<[string, (requestPromise.RequestPromiseOptions | undefined)?, (requestLegacy.RequestCallback | undefined)?], requestPromise.RequestPromise>;
-    let createStub: sinon.SinonStub<[string, (requestPromise.RequestPromiseOptions | undefined)?, (requestLegacy.RequestCallback | undefined)?], requestPromise.RequestPromise>;
-    let deleteStub: sinon.SinonStub<[string, (requestPromise.RequestPromiseOptions | undefined)?, (requestLegacy.RequestCallback | undefined)?], requestPromise.RequestPromise>;
+    let getStub: sinon.SinonStub<any, any>;
+    let createStub: sinon.SinonStub<any, any>;
+    let deleteStub: sinon.SinonStub<any, any>;
 
 
 
@@ -155,19 +154,14 @@ describe('REST API - text training for managed pool classes', () => {
         checkUserStub = sinon.stub(auth, 'checkValidUser').callsFake(authNoOp);
         requireSupervisorStub = sinon.stub(auth, 'requireSupervisor').callsFake(authNoOp);
 
-        // @ts-expect-error TODO
-        getStub = sinon.stub(requestPromise, 'get');
-        // @ts-expect-error TODO
+        getStub = sinon.stub(requestUtil, 'get');
         getStub.withArgs(sinon.match(/https:\/\/gateway.watsonplatform.net\/conversation\/api\/v1\/workspaces\/.*/), sinon.match.any).callsFake(getClassifier);
         getStub.callThrough();
 
-        // @ts-expect-error TODO
-        createStub = sinon.stub(requestPromise, 'post');
-        // @ts-expect-error TODO
+        createStub = sinon.stub(requestUtil, 'post');
         createStub.withArgs(sinon.match('https://gateway.watsonplatform.net/conversation/api/v1/workspaces'), sinon.match.any).callsFake(createClassifier);
 
-        // @ts-expect-error TODO
-        deleteStub = sinon.stub(requestPromise, 'delete').callsFake(deleteClassifier);
+        deleteStub = sinon.stub(requestUtil, 'del').callsFake(deleteClassifier);
 
         await store.init();
 

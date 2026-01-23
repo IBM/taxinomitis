@@ -1,7 +1,6 @@
 /*eslint-env mocha */
 
 import * as assert from 'assert';
-import * as request from 'request-promise';
 import * as sinon from 'sinon';
 import * as tokens from '../../lib/iam/tokens';
 import * as constants from '../../lib/utils/constants';
@@ -10,14 +9,14 @@ import * as mockIAM from './mock-iam';
 
 describe('IAM - access tokens', () => {
 
-    let getTokenStub: sinon.SinonStub<any, any>;
+    let fetchStub: sinon.SinonStub<any, any>;
 
     before(() => {
-        getTokenStub = sinon.stub(request, 'post');
-        getTokenStub.callsFake(mockIAM.request.get);
+        fetchStub = sinon.stub(global, 'fetch');
+        fetchStub.callsFake(mockIAM.fetch.post);
     });
     after(() => {
-        getTokenStub.restore();
+        fetchStub.restore();
     });
 
 

@@ -1,5 +1,3 @@
-// external dependencies
-import * as request from 'request-promise';
 // local dependencies
 import * as Objects from './auth-types';
 import * as authvalues from './values';
@@ -8,65 +6,77 @@ import * as authvalues from './values';
 //  PUTTING ONLY XHR REQUESTS IN ONE PLACE MAKES IT EASIER TO STUB OUT AUTH0 FOR TEST PURPOSES
 //  ANYTHING THAT LOOKS LIKE APP LOGIC SHOULDN'T GO IN HERE AS IT WON'T BE TESTED AS MUCH
 
+async function handleFetchError(response: Response): Promise<never> {
+    const errorBody = await response.json().catch(() => ({})) as any;
+    const error: any = new Error(errorBody.message || `HTTP ${response.status}`);
+    error.statusCode = response.status;
+    error.response = { body: errorBody, statusCode: response.status };
+    throw error;
+}
 
-export function getOauthToken(): Promise<Objects.Auth0TokenPayload> {
-    const options = {
-        method: 'POST',
-        url: 'https://' + authvalues.DOMAIN + '/oauth/token',
-        headers: { 'content-type': 'application/json' },
-        json : true,
-        body: {
-            client_id : authvalues.API_CLIENTID,
-            client_secret : authvalues.API_CLIENTSECRET,
-            audience : 'https://' + authvalues.DOMAIN + '/api/v2/',
-            grant_type : 'client_credentials',
-        },
+export async function getOauthToken(): Promise<Objects.Auth0TokenPayload> {
+    const url = 'https://' + authvalues.DOMAIN + '/oauth/token';
+    const body = {
+        client_id : authvalues.API_CLIENTID,
+        client_secret : authvalues.API_CLIENTSECRET,
+        audience : 'https://' + authvalues.DOMAIN + '/api/v2/',
+        grant_type : 'client_credentials',
     };
 
-    const resp = request.post(options) as unknown;
-    return resp as Promise<Objects.Auth0TokenPayload>;
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(body),
+    });
+
+    if (!response.ok) {
+        await handleFetchError(response);
+    }
+
+    return await response.json() as Objects.Auth0TokenPayload;
 }
 
 export async function getUser(token: string, userid: string): Promise<Objects.User> {
-    const getoptions = {
+    const url = new URL('https://' + authvalues.DOMAIN + '/api/v2/users/' + userid);
+    url.searchParams.append('fields', 'user_id,username,app_metadata');
+
+    const response = await fetch(url.toString(), {
         method: 'GET',
-        url: 'https://' + authvalues.DOMAIN + '/api/v2/users/' + userid,
         headers: {
             authorization : 'Bearer ' + token,
         },
-        qs : {
-            fields : 'user_id,username,app_metadata',
-        },
-        json : true,
-    };
+    });
 
-    const user = await request.get(getoptions);
-    return user;
+    if (!response.ok) {
+        await handleFetchError(response);
+    }
+
+    return await response.json() as Objects.User;
 }
 
 
-function searchForSupervisor(token: string, query: string): Promise<Objects.SupervisorInfo | undefined> {
-    const getoptions = {
+async function searchForSupervisor(token: string, query: string): Promise<Objects.SupervisorInfo | undefined> {
+    const url = new URL('https://' + authvalues.DOMAIN + '/api/v2/users');
+    url.searchParams.append('q', query);
+    url.searchParams.append('per_page', '1');
+    url.searchParams.append('search_engine', 'v3');
+
+    const response = await fetch(url.toString(), {
         method: 'GET',
-        url: 'https://' + authvalues.DOMAIN + '/api/v2/users',
         headers: {
             authorization : 'Bearer ' + token,
         },
-        qs : {
-            q : query,
-            per_page : 1,
+    });
 
-            search_engine : 'v3',
-        },
-        json : true,
-    };
+    if (!response.ok) {
+        await handleFetchError(response);
+    }
 
-    return request.get(getoptions)
-        .then((users) => {
-            if (users.length > 0) {
-                return users[0];
-            }
-        });
+    const users = await response.json() as Objects.SupervisorInfo[];
+    if (users.length > 0) {
+        return users[0];
+    }
+    return undefined;
 }
 
 export function getSupervisorByEmail(token: string, email: string): Promise<Objects.SupervisorInfo | undefined> {
@@ -88,28 +98,28 @@ export async function getSupervisors(
     batch: number, batchsize: number,
 ): Promise<{ total: number, users: Objects.User[]}>
 {
-    const getoptions = {
+    const url = new URL('https://' + authvalues.DOMAIN + '/api/v2/users');
+    url.searchParams.append('q', 'app_metadata.role:"supervisor"');
+    url.searchParams.append('include_totals', 'true');
+    url.searchParams.append('page', batch.toString());
+    url.searchParams.append('per_page', batchsize.toString());
+    url.searchParams.append('search_engine', 'v3');
+
+    const response = await fetch(url.toString(), {
         method: 'GET',
-        url: 'https://' + authvalues.DOMAIN + '/api/v2/users',
         headers: {
             authorization : 'Bearer ' + token,
         },
-        qs : {
-            q : 'app_metadata.role:"supervisor"',
-            include_totals : true,
+    });
 
-            page: batch,
-            per_page : batchsize,
+    if (!response.ok) {
+        await handleFetchError(response);
+    }
 
-            search_engine : 'v3',
-        },
-        json : true,
-    };
-
-    const response = await request.get(getoptions);
+    const data = await response.json() as { users: Objects.User[], total: number };
     return {
-        users : response.users,
-        total : response.total,
+        users : data.users,
+        total : data.total,
     };
 }
 
@@ -133,115 +143,126 @@ function generateGroupQuery(studentgroup: string | undefined): string {
 export const PAGE_SIZE = 100;
 
 export async function getUsers(token: string, tenant: string, studentgroup: string | undefined, page: number): Promise<Objects.User[]> {
-    const getoptions = {
+    const url = new URL('https://' + authvalues.DOMAIN + '/api/v2/users');
+    url.searchParams.append('q', 'app_metadata.role:"student" AND app_metadata.tenant:"' + tenant + '"' + generateGroupQuery(studentgroup));
+    url.searchParams.append('per_page', PAGE_SIZE.toString());
+    url.searchParams.append('page', page.toString());
+    url.searchParams.append('search_engine', 'v3');
+
+    const response = await fetch(url.toString(), {
         method: 'GET',
-        url: 'https://' + authvalues.DOMAIN + '/api/v2/users',
         headers: {
             authorization : 'Bearer ' + token,
         },
-        qs : {
-            q : 'app_metadata.role:"student" AND app_metadata.tenant:"' + tenant + '"' + generateGroupQuery(studentgroup),
-            per_page : PAGE_SIZE,
-            page,
+    });
 
-            search_engine : 'v3',
-        },
-        json : true,
-    };
+    if (!response.ok) {
+        await handleFetchError(response);
+    }
 
-    const users = await request.get(getoptions);
-    return users;
+    return await response.json() as Objects.User[];
 }
 
 
 export async function getClassSupervisors(token: string, tenant: string): Promise<Objects.SupervisorInfo[]> {
-    const getoptions = {
+    const url = new URL('https://' + authvalues.DOMAIN + '/api/v2/users');
+    url.searchParams.append('q', 'app_metadata.role:"supervisor" AND app_metadata.tenant:"' + tenant + '"');
+    url.searchParams.append('per_page', PAGE_SIZE.toString());
+    url.searchParams.append('search_engine', 'v3');
+
+    const response = await fetch(url.toString(), {
         method: 'GET',
-        url: 'https://' + authvalues.DOMAIN + '/api/v2/users',
         headers: {
             authorization : 'Bearer ' + token,
         },
-        qs : {
-            q : 'app_metadata.role:"supervisor" AND app_metadata.tenant:"' + tenant + '"',
-            per_page : PAGE_SIZE,
+    });
 
-            search_engine : 'v3',
-        },
-        json : true,
-    };
+    if (!response.ok) {
+        await handleFetchError(response);
+    }
 
-    const users = await request.get(getoptions);
-    return users;
+    return await response.json() as Objects.SupervisorInfo[];
 }
 
 
 
 export async function getUserCounts(token: string, tenant: string): Promise<Objects.UsersInfo> {
-    const getoptions = {
+    const url = new URL('https://' + authvalues.DOMAIN + '/api/v2/users');
+    url.searchParams.append('q', 'app_metadata.tenant:"' + tenant + '"');
+    url.searchParams.append('fields', 'id');
+    url.searchParams.append('include_fields', 'true');
+    url.searchParams.append('include_totals', 'true');
+    url.searchParams.append('search_engine', 'v3');
+
+    const response = await fetch(url.toString(), {
         method: 'GET',
-        url: 'https://' + authvalues.DOMAIN + '/api/v2/users',
         headers: {
             authorization : 'Bearer ' + token,
         },
-        qs : {
-            q : 'app_metadata.tenant:"' + tenant + '"',
-            fields : 'id',
-            include_fields : true,
-            include_totals : true,
+    });
 
-            search_engine : 'v3',
-        },
-        json : true,
-    };
+    if (!response.ok) {
+        await handleFetchError(response);
+    }
 
-    const usersInfo = await request.get(getoptions);
-    return usersInfo;
+    return await response.json() as Objects.UsersInfo;
 }
 
 
 
 export async function createUser(token: string, newuser: Objects.NewUser): Promise<Objects.User> {
-    const createoptions = {
+    const url = 'https://' + authvalues.DOMAIN + '/api/v2/users';
+
+    const response = await fetch(url, {
         method: 'POST',
-        url: 'https://' + authvalues.DOMAIN + '/api/v2/users',
         headers: {
             authorization : 'Bearer ' + token,
+            'content-type': 'application/json',
         },
-        body : newuser,
-        json : true,
-    };
+        body: JSON.stringify(newuser),
+    });
 
-    const userInfo = await request.post(createoptions);
-    return userInfo;
+    if (!response.ok) {
+        await handleFetchError(response);
+    }
+
+    return await response.json() as Objects.User;
 }
 
 
 export async function deleteUser(token: string, userid: string): Promise<void> {
-    const deleteoptions = {
+    const url = 'https://' + authvalues.DOMAIN + '/api/v2/users/' + userid;
+
+    const response = await fetch(url, {
         method: 'DELETE',
-        url: 'https://' + authvalues.DOMAIN + '/api/v2/users/' + userid,
         headers: {
             authorization : 'Bearer ' + token,
         },
-    };
+    });
 
-    await request.delete(deleteoptions);
+    if (!response.ok) {
+        await handleFetchError(response);
+    }
 }
 
 export async function modifyUser(token: string, userid: string, modifications: Objects.Modifications)
     : Promise<Objects.User>
 {
-    const modifyoptions = {
+    const url = 'https://' + authvalues.DOMAIN + '/api/v2/users/' + userid;
+
+    const response = await fetch(url, {
         method: 'PATCH',
-        url: 'https://' + authvalues.DOMAIN + '/api/v2/users/' + userid,
         headers: {
             authorization : 'Bearer ' + token,
+            'content-type': 'application/json',
         },
-        body : modifications,
-        json : true,
-    };
+        body: JSON.stringify(modifications),
+    });
 
-    const userInfo = await request.patch(modifyoptions);
-    return userInfo;
+    if (!response.ok) {
+        await handleFetchError(response);
+    }
+
+    return await response.json() as Objects.User;
 }
 
