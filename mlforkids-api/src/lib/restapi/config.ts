@@ -17,6 +17,8 @@ export const CSP_DIRECTIVES: Record<string, string[]> = {
     styleSrc: ["'self'",
         // TODO : https://github.com/IBM/taxinomitis/issues/346 should remove this
         "'unsafe-inline'",
+        // used by in-browser page translations
+        'https://www.gstatic.com',
     ],
     scriptSrc: ["'self'",
         // TODO : https://github.com/IBM/taxinomitis/issues/346 should remove this
@@ -27,6 +29,8 @@ export const CSP_DIRECTIVES: Record<string, string[]> = {
         'https://cdn.auth0.com',
         'https://cdn.eu.auth0.com',
         'https://dalelane.eu.auth0.com',
+        // used to load profile pics in the login dialog
+        'https://secure.gravatar.com',
         // used to embed videos in the Worksheets tab
         'https://www.youtube.com',
         'https://www.youtube-nocookie.com',
@@ -67,6 +71,8 @@ export const CSP_DIRECTIVES: Record<string, string[]> = {
     fontSrc: ["'self'",
         // used in Scratch by Blockly
         'data:',
+        // used by in-browser page translations
+        'https://fonts.gstatic.com',
     ],
     connectSrc: ["'self'",
         // used for accessing cached APIs
