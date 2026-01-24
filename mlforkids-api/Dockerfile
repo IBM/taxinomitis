@@ -29,7 +29,7 @@ RUN ls -l /usr/src/build
 ENV DEPLOYMENT=machinelearningforkids.co.uk
 
 # run the build
-RUN npm run buildprod:new
+RUN npm run buildprod
 
 # confirm the built app details
 RUN ls -l /usr/src/build
