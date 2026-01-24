@@ -72,31 +72,23 @@ webJsFiles.push(...findJsFiles(componentsDir));
 
 console.log(`  Processing ${webJsFiles.length} JavaScript files...`);
 
-// Build source map with original file references
+// Apply ng-annotate to each file individually and build sources object
 const sources = {};
 for (const file of webJsFiles) {
     if (fs.existsSync(file)) {
-        const relativePath = path.relative(path.join(baseDir, 'web', 'static'), file);
-        sources[relativePath] = fs.readFileSync(file, 'utf8');
-    }
-}
-
-// Concatenate all JS for ng-annotate
-let concatenated = '';
-for (const file of webJsFiles) {
-    if (fs.existsSync(file)) {
         const content = fs.readFileSync(file, 'utf8');
-        const relativePath = path.relative(path.join(baseDir, 'web', 'static'), file);
-        concatenated += `\n//# sourceURL=${relativePath}\n`;
-        concatenated += content + '\n';
-    }
-}
 
-// Apply ng-annotate
-const annotated = ngAnnotate(concatenated, { add: true, sourcemap: true });
-if (annotated.errors) {
-    console.error('ng-annotate errors:', annotated.errors);
-    process.exit(1);
+        // Apply ng-annotate to this file
+        const annotated = ngAnnotate(content, { add: true });
+        if (annotated.errors) {
+            console.error(`ng-annotate errors in ${file}:`, annotated.errors);
+            process.exit(1);
+        }
+
+        // Use relative path from web/static for source map
+        const relativePath = path.relative(path.join(baseDir, 'web', 'static'), file);
+        sources[relativePath] = annotated.src;
+    }
 }
 
 // Minify with Terser
