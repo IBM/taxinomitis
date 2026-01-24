@@ -9,7 +9,7 @@
         <webcam
             channel="channel"
             ng-if="channel.videoOptions"
-            ng-hide="webcamerror"
+            ng-hide="webcamerror || !webcamInitComplete"
             on-error="onWebcamError(err)"
             on-access-denied="onWebcamError(err)"
             on-streaming="onWebcamSuccess()"></webcam>
