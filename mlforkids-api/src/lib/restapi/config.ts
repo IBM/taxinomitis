@@ -5,9 +5,9 @@ import * as compression from 'compression';
 // local dependencies
 import * as constants from '../utils/constants';
 import * as env from '../utils/env';
+import * as deployment from '../utils/deployment';
 
-
-export const CSP_DIRECTIVES = {
+export const CSP_DIRECTIVES: Record<string, string[]> = {
     defaultSrc: ["'self'",
         // used for auth
         'http://cdn.auth0.com',
@@ -88,6 +88,10 @@ if (process.env.AUTH0_CUSTOM_DOMAIN) {
     CSP_DIRECTIVES.frameSrc.push(auth0CustomDomain);
 }
 
+if (deployment.isProdDeployment() && process.env.SENTRY_CSP_REPORT_URI) {
+    CSP_DIRECTIVES.reportUri = [ process.env.SENTRY_CSP_REPORT_URI ];
+}
+
 
 function removeFrameBlockingHeaders(req: express.Request, res: express.Response, next: express.NextFunction): void {
     res.removeHeader('x-frame-options');
@@ -161,3 +165,4 @@ export function setupUI(app: express.Application): void {
     const indexHtml: string = path.join(__dirname, '/../../../web/dynamic');
     app.use('/', compression(), express.static(indexHtml, { maxAge : constants.ONE_HOUR }));
 }
+
