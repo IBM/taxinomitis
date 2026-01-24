@@ -41,6 +41,13 @@ for (const file of cssFiles) {
 }
 console.log('  ✓ angular-material');
 
+// auth0-lock (pre-built file from third-party)
+const auth0LockSrc = path.join(baseDir, 'public', 'third-party', 'auth0-lock');
+const auth0LockDest = path.join(bowerDir, 'auth0-lock');
+ensureDir(auth0LockDest);
+copyDir(auth0LockSrc, auth0LockDest);
+console.log('  ✓ auth0-lock');
+
 // papaparse
 const papaparseSrc = path.join(baseDir, 'node_modules', 'papaparse', 'papaparse.min.js');
 const papaparseDest = path.join(bowerDir, 'papaparse');

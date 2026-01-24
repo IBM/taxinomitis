@@ -24,7 +24,6 @@
   },
   "ignorePatterns": [
     "dist/**",
-    "gulpfile.js",
     "node_modules/**",
     "**/node_modules/**",
     "public/**",

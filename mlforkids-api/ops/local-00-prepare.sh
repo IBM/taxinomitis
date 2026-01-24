@@ -14,14 +14,14 @@ export $(grep -v '^#' prod-credentials.env | xargs)
 
 cd ..
 
-# confirm Node 16
+# confirm Node 22
 NODE_VERSION=$(node --version)
-if [ "${NODE_VERSION:0:3}" != "v16" ]; then
-    echo "Node v16 is required"
+if [ "${NODE_VERSION:0:3}" != "v22" ]; then
+    echo "Node v22 is required"
     exit 9
 fi
 
 # run build
-./node_modules/.bin/gulp buildprod
+npm run buildprod
 
 echo "build complete"
