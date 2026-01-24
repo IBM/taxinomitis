@@ -70,18 +70,30 @@ function findJsFiles(dir) {
 
 webJsFiles.push(...findJsFiles(componentsDir));
 
-// Concatenate all JS
-let concatenated = '';
+console.log(`  Processing ${webJsFiles.length} JavaScript files...`);
+
+// Build source map with original file references
+const sources = {};
 for (const file of webJsFiles) {
     if (fs.existsSync(file)) {
-        concatenated += fs.readFileSync(file, 'utf8') + '\n';
+        const relativePath = path.relative(path.join(baseDir, 'web', 'static'), file);
+        sources[relativePath] = fs.readFileSync(file, 'utf8');
     }
 }
 
-console.log(`  Processing ${webJsFiles.length} JavaScript files...`);
+// Concatenate all JS for ng-annotate
+let concatenated = '';
+for (const file of webJsFiles) {
+    if (fs.existsSync(file)) {
+        const content = fs.readFileSync(file, 'utf8');
+        const relativePath = path.relative(path.join(baseDir, 'web', 'static'), file);
+        concatenated += `\n//# sourceURL=${relativePath}\n`;
+        concatenated += content + '\n';
+    }
+}
 
 // Apply ng-annotate
-const annotated = ngAnnotate(concatenated, { add: true });
+const annotated = ngAnnotate(concatenated, { add: true, sourcemap: true });
 if (annotated.errors) {
     console.error('ng-annotate errors:', annotated.errors);
     process.exit(1);
@@ -90,10 +102,11 @@ if (annotated.errors) {
 // Minify with Terser
 (async () => {
     try {
-        const minified = await minify(annotated.src, {
+        const minified = await minify(sources, {
             sourceMap: {
                 filename: 'mlapp.min.js',
-                url: 'mlapp.min.js.map'
+                url: 'mlapp.min.js.map',
+                includeSources: true
             },
             compress: {
                 dead_code: true,
