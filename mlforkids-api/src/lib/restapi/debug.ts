@@ -8,7 +8,7 @@ import * as urls from './urls';
 
 
 function generateError(req: Express.Request, res: Express.Response) {
-    const errorcode = parseInt(req.params.errorcode, 10);
+    const errorcode = parseInt(req.params.errorcode as string, 10);
     switch (errorcode) {
         case httpstatus.BAD_REQUEST:
             return errors.missingData(res);

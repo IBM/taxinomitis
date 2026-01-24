@@ -70,8 +70,8 @@ async function getCredentials(reqWithTenant: auth.RequestWithTenant, res: Expres
 
 
 async function verifyCredentials(reqWithTenant: auth.RequestWithTenant, res: Express.Response) {
-    const tenant = reqWithTenant.params.classid;
-    const credsid = reqWithTenant.params.credentialsid;
+    const tenant = reqWithTenant.params.classid as string;
+    const credsid = reqWithTenant.params.credentialsid as string;
 
     try {
         const credentials = await store.getBluemixCredentialsById(reqWithTenant.tenant.tenantType,
@@ -100,7 +100,7 @@ async function verifyCredentials(reqWithTenant: auth.RequestWithTenant, res: Exp
 
 
 async function checkAvailableCredentials(req: Express.Request, res: Express.Response) {
-    const tenant = req.params.classid;
+    const tenant = req.params.classid as string;
     const type = req.params.type as Types.ProjectTypeLabel;
 
     try {
@@ -141,8 +141,8 @@ async function checkAvailableCredentials(req: Express.Request, res: Express.Resp
 
 
 async function deleteCredentials(reqWithTenant: auth.RequestWithTenant, res: Express.Response) {
-    const tenant = reqWithTenant.params.classid;
-    const credsid = reqWithTenant.params.credentialsid;
+    const tenant = reqWithTenant.params.classid as string;
+    const credsid = reqWithTenant.params.credentialsid as string;
 
     try {
         const credentials = await store.getBluemixCredentialsById(reqWithTenant.tenant.tenantType,
@@ -167,7 +167,7 @@ async function deleteCredentials(reqWithTenant: auth.RequestWithTenant, res: Exp
 
 
 async function addCredentials(req: Express.Request, res: Express.Response) {
-    const tenant = req.params.classid;
+    const tenant = req.params.classid as string;
 
     //
     // check that we've been given something that at least looks like
@@ -223,8 +223,8 @@ async function addCredentials(req: Express.Request, res: Express.Response) {
 
 
 async function modifyCredentials(req: Express.Request, res: Express.Response) {
-    const tenant = req.params.classid;
-    const credsid = req.params.credentialsid;
+    const tenant = req.params.classid as string;
+    const credsid = req.params.credentialsid as string;
 
     let patch;
     try {

@@ -43,8 +43,8 @@ function returnNumberClassifier(classifier: Types.NumbersClassifier) {
 
 
 async function getModels(req: auth.RequestWithProject, res: Express.Response) {
-    const classid = req.params.classid;
-    const projectid = req.params.projectid;
+    const classid = req.params.classid as string;
+    const projectid = req.params.projectid as string;
 
     let classifiers: any[];
     let tenant: DbTypes.ClassTenant;
@@ -105,9 +105,9 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
 
 
 async function deleteModel(req: auth.RequestWithProject, res: Express.Response) {
-    const classid = req.params.classid;
-    const projectid = req.params.projectid;
-    const modelid = req.params.modelid;
+    const classid = req.params.classid as string;
+    const projectid = req.params.projectid as string;
+    const modelid = req.params.modelid as string;
 
     try {
         switch (req.project.type) {
@@ -161,9 +161,9 @@ async function describeModel(req: auth.RequestWithProject, res: Express.Response
 
 
 async function testModel(req: Express.Request, res: Express.Response) {
-    const classid = req.params.classid;
-    const projectid = req.params.projectid;
-    const modelid = req.params.modelid;
+    const classid = req.params.classid as string;
+    const projectid = req.params.projectid as string;
+    const modelid = req.params.modelid as string;
     const type = req.body.type;
     const credsid = req.body.credentialsid;
     const requestTimestamp = new Date();

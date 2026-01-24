@@ -9,18 +9,18 @@ import * as urls from '../../restapi/urls';
 
 export function soundUrl(req: Express.Request): Types.ObjectSpec {
     return {
-        classid : req.params.classid,
-        userid : req.params.studentid,
-        projectid : req.params.projectid,
-        objectid : req.params.soundid,
+        classid : req.params.classid as string,
+        userid : req.params.studentid as string,
+        projectid : req.params.projectid as string,
+        objectid : req.params.soundid as string,
     };
 }
 
 export function soundsUrl(req: Express.Request): Types.ObjectSpec {
     return {
-        classid : req.params.classid,
-        userid : req.params.studentid,
-        projectid : req.params.projectid,
+        classid : req.params.classid as string,
+        userid : req.params.studentid as string,
+        projectid : req.params.projectid as string,
         objectid : uuid(),
     };
 }

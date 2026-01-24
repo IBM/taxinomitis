@@ -19,8 +19,8 @@ const log = loggerSetup();
 
 async function createLocalProject(req: auth.RequestWithUser, res: Express.Response) {
     // path params
-    const classid: string = req.params.classid;
-    const userid: string = req.params.studentid;
+    const classid: string = req.params.classid as string;
+    const userid: string = req.params.studentid as string;
     // payload params
     const type: Objects.ProjectTypeLabel = req.body.type;
     const name: string = req.body.name;
@@ -62,8 +62,8 @@ async function updateLocalProject(req: auth.RequestWithLocalProject, res: Expres
 
 
 async function deleteLocalProject(req: auth.RequestWithLocalProject, res: Express.Response) {
-    const classid = req.params.classid;
-    const userid = req.params.studentid;
+    const classid = req.params.classid as string;
+    const userid = req.params.studentid as string;
 
     try {
         const project: Objects.LocalProject = req.project;
@@ -81,7 +81,8 @@ async function deleteLocalProject(req: auth.RequestWithLocalProject, res: Expres
 function newLocalProjectNumberModel(req: auth.RequestWithUser, res: Express.Response) {
     let request: { project: Objects.Project, training: Objects.NumberTraining[] };
     try {
-        request = numbers.validateLocalProjectTrainingRequest(req.body, req.params.studentid);
+        const studentid = req.params.studentid as string;
+        request = numbers.validateLocalProjectTrainingRequest(req.body, studentid);
     }
     catch (err) {
         log.error({ err, func: 'newLocalProjectNumberModel', payload : req.body }, 'Failed to parse training data');
@@ -138,8 +139,8 @@ async function getLocalProjectModels(req: auth.RequestWithLocalProject, res: Exp
         return errors.unknownError(res, new Error('Unexpected project type'));
     }
 
-    const classid = req.params.classid;
-    const projectid = req.params.projectid;
+    const classid = req.params.classid as string;
+    const projectid = req.params.projectid as string;
 
     try {
         let classifiers: any[];
@@ -161,9 +162,9 @@ async function deleteLocalProjectModel(req: auth.RequestWithLocalProject, res: E
         return errors.unknownError(res, new Error('Unexpected project type'));
     }
 
-    const classid = req.params.classid;
-    const projectid = req.params.projectid;
-    const modelid = req.params.modelid;
+    const classid = req.params.classid as string;
+    const projectid = req.params.projectid as string;
+    const modelid = req.params.modelid as string;
 
     try {
         const tenant = await store.getClassTenant(classid);
@@ -192,9 +193,9 @@ async function testLocalProjectModel(req: auth.RequestWithLocalProject, res: Exp
         return errors.unknownError(res, new Error('Unexpected project type'));
     }
 
-    const classid = req.params.classid;
-    const projectid = req.params.projectid;
-    const modelid = req.params.modelid;
+    const classid = req.params.classid as string;
+    const projectid = req.params.projectid as string;
+    const modelid = req.params.modelid as string;
     const credsid = req.body.credentialsid;
     const requestTimestamp = new Date();
 

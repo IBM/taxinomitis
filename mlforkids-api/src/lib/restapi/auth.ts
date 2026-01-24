@@ -90,7 +90,8 @@ async function sessionusersAuthenticate(
     }
 
     try {
-        const sessionUserIsAuthenticated = await sessionusers.checkSessionToken(req.params.studentid, decoded.token);
+        const studentid = req.params.studentid as string;
+        const sessionUserIsAuthenticated = await sessionusers.checkSessionToken(studentid, decoded.token);
 
         if (sessionUserIsAuthenticated) {
             const reqWithUser = req as RequestWithUser;
@@ -202,7 +203,7 @@ export async function ensureUnmanagedTenant(
     req: Express.Request, res: Express.Response,
     next: (err?: Error) => void)
 {
-    const tenant = req.params.classid;
+    const tenant = req.params.classid as string;
 
     try {
         const policy = await store.getClassTenant(tenant);
@@ -249,9 +250,9 @@ async function verifyProjectAuth(
     next: (e?: Error) => void,
     allowedAccessTypes: ACCESS_TYPE)
 {
-    const classid: string = req.params.classid;
-    const userid: string = req.params.studentid;
-    const projectid: string = req.params.projectid;
+    const classid: string = req.params.classid as string;
+    const userid: string = req.params.studentid as string;
+    const projectid: string = req.params.projectid as string;
 
     const reqWithUser = req as RequestWithUser;
 
@@ -320,9 +321,9 @@ export async function verifyLocalProjectAuth(
     next: (e?: Error) => void,
 )
 {
-    const classid: string = req.params.classid;
-    const userid: string = req.params.studentid;
-    const projectid: string = req.params.projectid;
+    const classid: string = req.params.classid as string;
+    const userid: string = req.params.studentid as string;
+    const projectid: string = req.params.projectid as string;
 
     const reqWithUser = req as RequestWithUser;
 
@@ -362,7 +363,7 @@ export async function verifyLocalModelsAuth(
     next: (e?: Error) => void,
 )
 {
-    const userid: string = req.params.studentid;
+    const userid: string = req.params.studentid as string;
 
     const reqWithUser = req as RequestWithUser;
     try {

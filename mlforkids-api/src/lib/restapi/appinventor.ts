@@ -10,7 +10,7 @@ import * as urls from './urls';
 
 
 async function getAppInventorExtension(req: Express.Request, res: Express.Response) {
-    const apikey = req.params.scratchkey;
+    const apikey = req.params.scratchkey as string;
 
     try {
         const extensionStream = await appinventor.getExtension(apikey);

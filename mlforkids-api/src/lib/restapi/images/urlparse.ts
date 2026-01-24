@@ -9,40 +9,40 @@ import * as urls from '../../restapi/urls';
 
 export function imageUrl(req: Express.Request): Types.ObjectSpec {
     return {
-        classid : req.params.classid,
-        userid : req.params.studentid,
-        projectid : req.params.projectid,
-        objectid : req.params.imageid,
+        classid : req.params.classid as string,
+        userid : req.params.studentid as string,
+        projectid : req.params.projectid as string,
+        objectid : req.params.imageid as string,
     };
 }
 
 export function imagesUrl(req: Express.Request): Types.ObjectSpec {
     return {
-        classid : req.params.classid,
-        userid : req.params.studentid,
-        projectid : req.params.projectid,
+        classid : req.params.classid as string,
+        userid : req.params.studentid as string,
+        projectid : req.params.projectid as string,
         objectid : uuid(),
     };
 }
 
 export function projectUrl(req: Express.Request): Types.ProjectSpec {
     return {
-        classid : req.params.classid,
-        userid : req.params.studentid,
-        projectid : req.params.projectid,
+        classid : req.params.classid as string,
+        userid : req.params.studentid as string,
+        projectid : req.params.projectid as string,
     };
 }
 
 export function userUrl(req: Express.Request): Types.UserSpec {
     return {
-        classid : req.params.classid,
-        userid : req.params.studentid,
+        classid : req.params.classid as string,
+        userid : req.params.studentid as string,
     };
 }
 
 export function classUrl(req: Express.Request): Types.ClassSpec {
     return {
-        classid : req.params.classid,
+        classid : req.params.classid as string,
     };
 }
 

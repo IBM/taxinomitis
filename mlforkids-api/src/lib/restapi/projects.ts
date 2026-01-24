@@ -27,7 +27,7 @@ interface ProjectWithOwner extends Objects.Project {
 
 
 function getProjectsByClassId(req: Express.Request, res: Express.Response) {
-    const classid: string = req.params.classid;
+    const classid: string = req.params.classid as string;
 
     const responsePromises: [Promise<{[id: string]: Users.Student }>,
                              Promise<Objects.Project[]>,
@@ -69,8 +69,8 @@ function getProjectsByClassId(req: Express.Request, res: Express.Response) {
 
 
 function getProjectsByUserId(req: Express.Request, res: Express.Response) {
-    const classid: string = req.params.classid;
-    const userid: string = req.params.studentid;
+    const classid: string = req.params.classid as string;
+    const userid: string = req.params.studentid as string;
 
     store.getProjectsByUserId(userid, classid)
         .then((projects: Objects.Project[]) => {
@@ -88,8 +88,8 @@ function getProjectsByUserId(req: Express.Request, res: Express.Response) {
  *  on a pre-prepared dataset of training data.
  */
 async function createProject(req: auth.RequestWithUser, res: Express.Response) {
-    const classid: string = req.params.classid;
-    const userid: string = req.params.studentid;
+    const classid: string = req.params.classid as string;
+    const userid: string = req.params.studentid as string;
 
     let isImport = false;
 
@@ -215,9 +215,9 @@ function getProject(req: auth.RequestWithProject, res: Express.Response) {
 
 
 function getProjectFields(req: Express.Request, res: Express.Response) {
-    const classid: string = req.params.classid;
-    const userid: string = req.params.studentid;
-    const projectid: string = req.params.projectid;
+    const classid: string = req.params.classid as string;
+    const userid: string = req.params.studentid as string;
+    const projectid: string = req.params.projectid as string;
 
     return store.getNumberProjectFields(userid, classid, projectid)
         .then((fields: Objects.NumbersProjectField[]) => {
@@ -237,9 +237,9 @@ function getProjectFields(req: Express.Request, res: Express.Response) {
 
 
 async function deleteProject(req: auth.RequestWithProject, res: Express.Response) {
-    const classid = req.params.classid;
-    const userid = req.params.studentid;
-    const projectid = req.params.projectid;
+    const classid = req.params.classid as string;
+    const userid = req.params.studentid as string;
+    const projectid = req.params.projectid as string;
 
     try {
         const project: Objects.Project = req.project;
@@ -355,9 +355,9 @@ async function deleteImages(classid: string, userid: string, projectid: string, 
 
 
 async function modifyProject(req: Express.Request, res: Express.Response) {
-    const classid = req.params.classid;
-    const userid = req.params.studentid;
-    const projectid = req.params.projectid;
+    const classid = req.params.classid as string;
+    const userid = req.params.studentid as string;
+    const projectid = req.params.projectid as string;
 
     let patch;
     try {
@@ -408,9 +408,9 @@ async function modifyProject(req: Express.Request, res: Express.Response) {
 
 
 async function shareProject(req: auth.RequestWithProject, res: Express.Response) {
-    const classid = req.params.classid;
-    const userid = req.params.studentid;
-    const projectid = req.params.projectid;
+    const classid = req.params.classid as string;
+    const userid = req.params.studentid as string;
+    const projectid = req.params.projectid as string;
 
     try {
         const project: Objects.Project = req.project;

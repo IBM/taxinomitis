@@ -32,7 +32,7 @@ function getStudents(req: Express.Request, res: Express.Response) {
         studentgroup = req.query.group.trim();
     }
 
-    return auth0.getAllStudents(req.params.classid, studentgroup)
+    return auth0.getAllStudents(req.params.classid as string, studentgroup)
         .then((students) => {
             res.set(headers.NO_CACHE).json(students);
         })
@@ -91,7 +91,7 @@ async function createTeacher(req: Express.Request, res: Express.Response) {
 
 
 async function createStudent(req: Express.Request, res: Express.Response) {
-    const tenant: string = req.params.classid;
+    const tenant: string = req.params.classid as string;
     if (!req.body || !req.body.username) {
         return res.status(httpstatus.BAD_REQUEST)
                    .json({ error : 'Missing required field "username"' });
@@ -137,7 +137,7 @@ async function createStudent(req: Express.Request, res: Express.Response) {
 
 
 async function createStudents(req: Express.Request, res: Express.Response) {
-    const tenant: string = req.params.classid;
+    const tenant: string = req.params.classid as string;
     if (!req.body) {
         return res.status(httpstatus.BAD_REQUEST).json({ error : 'Missing required fields' });
     }
@@ -241,8 +241,8 @@ function passwordRejected(err: any) {
 
 
 async function deleteStudent(req: Express.Request, res: Express.Response) {
-    const tenant = req.params.classid;
-    const userid = req.params.studentid;
+    const tenant = req.params.classid as string;
+    const userid = req.params.studentid as string;
 
     try {
         await auth0.deleteStudent(tenant, userid);
@@ -273,8 +273,8 @@ async function deleteStudent(req: Express.Request, res: Express.Response) {
 
 
 function resetStudentPassword(req: Express.Request, res: Express.Response) {
-    const tenant = req.params.classid;
-    const userid = req.params.studentid;
+    const tenant = req.params.classid as string;
+    const userid = req.params.studentid as string;
 
     return auth0.resetStudentPassword(tenant, userid)
         .then((student) => {
@@ -287,7 +287,7 @@ function resetStudentPassword(req: Express.Request, res: Express.Response) {
 }
 
 function resetStudentsPassword(req: Express.Request, res: Express.Response) {
-    const tenant = req.params.classid;
+    const tenant = req.params.classid as string;
 
     let userPatch: UserPatch;
     try {
@@ -337,7 +337,7 @@ function resetStudentsPassword(req: Express.Request, res: Express.Response) {
 
 
 function modifyPolicy(req: Express.Request, res: Express.Response) {
-    const tenant = req.params.classid;
+    const tenant = req.params.classid as string;
 
     let patch: PolicyPatch;
     try {
@@ -368,7 +368,7 @@ function modifyPolicy(req: Express.Request, res: Express.Response) {
 
 
 function modifyClass(req: Express.Request, res: Express.Response) {
-    const tenant = req.params.classid;
+    const tenant = req.params.classid as string;
 
     let patch: ClassPatch;
     try {
@@ -410,7 +410,7 @@ function modifyClass(req: Express.Request, res: Express.Response) {
 
 
 function deleteClass(req: Express.Request, res: Express.Response) {
-    const tenant = req.params.classid;
+    const tenant = req.params.classid as string;
     const confirm = req.query.confirm;
 
     if (!confirm) {
@@ -434,7 +434,7 @@ function deleteClass(req: Express.Request, res: Express.Response) {
 async function getPolicy(req: Express.Request, res: Express.Response) {
     const reqWithUser = req as auth.RequestWithUser;
 
-    const tenant = req.params.classid;
+    const tenant = req.params.classid as string;
 
     try {
         const policy = await store.getClassTenant(tenant);

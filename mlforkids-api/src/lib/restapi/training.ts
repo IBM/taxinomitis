@@ -89,7 +89,7 @@ function getTrainingItem(req: auth.RequestWithProject, res: Express.Response) {
         return res.status(httpstatus.BAD_REQUEST).json({ error : 'Only supported for image projects' });
     }
 
-    return visrec.getTrainingItemData(req.project, req.params.trainingid)
+    return visrec.getTrainingItemData(req.project, req.params.trainingid as string)
         .then((trainingdata) => {
             res.set(headers.CACHE_1YEAR);
             res.send(trainingdata);
@@ -156,21 +156,21 @@ function editLabel(req: auth.RequestWithProject, res: Express.Response) {
 
 
 async function deleteTraining(req: auth.RequestWithProject, res: Express.Response) {
-    const trainingid: string = req.params.trainingid;
+    const trainingid: string = req.params.trainingid as string;
 
     if (req.project.type === 'images' || req.project.type === 'imgtfjs') {
         const inImageStore = await store.isImageStored(trainingid);
         if (inImageStore) {
-            store.storeDeleteObjectJob(req.params.classid,
-                                       req.params.studentid,
-                                       req.params.projectid,
+            store.storeDeleteObjectJob(req.params.classid as string,
+                                       req.params.studentid as string,
+                                       req.params.projectid as string,
                                        trainingid);
         }
     }
     else if (req.project.type === 'sounds') {
-        store.storeDeleteObjectJob(req.params.classid,
-                                   req.params.studentid,
-                                   req.params.projectid,
+        store.storeDeleteObjectJob(req.params.classid as string,
+                                   req.params.studentid as string,
+                                   req.params.projectid as string,
                                    trainingid);
     }
 

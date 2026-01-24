@@ -72,8 +72,8 @@ async function deleteBluemixClassifier(reqWithTenant: auth.RequestWithTenant, re
     // get the request attributes
     //
 
-    const classid: string = reqWithTenant.params.classid;
-    const classifierid: string = reqWithTenant.params.classifierid;
+    const classid: string = reqWithTenant.params.classid as string;
+    const classifierid: string = reqWithTenant.params.classifierid as string;
 
     const credentialsid: string = reqWithTenant.query.credentialsid as string;
     if (!credentialsid || credentialsid.trim().length === 0) {

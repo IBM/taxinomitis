@@ -32,9 +32,9 @@ const log = loggerSetup();
 
 
 async function getScratchKeys(req: Express.Request, res: Express.Response) {
-    const classid: string = req.params.classid;
-    const userid: string = req.params.studentid;
-    const projectid: string = req.params.projectid;
+    const classid: string = req.params.classid as string;
+    const userid: string = req.params.studentid as string;
+    const projectid: string = req.params.projectid as string;
 
     try {
         const scratchKeys = await store.findScratchKeys(userid, projectid, classid);
@@ -62,7 +62,7 @@ async function getScratchKeys(req: Express.Request, res: Express.Response) {
 
 
 async function classifyWithScratchKey(req: Express.Request, res: Express.Response) {
-    const apikey = req.params.scratchkey;
+    const apikey = req.params.scratchkey as string;
 
     try {
         if (!req.query.data) {
@@ -111,7 +111,7 @@ async function classifyWithScratchKey(req: Express.Request, res: Express.Respons
 
 
 async function postClassifyWithScratchKey(req: Express.Request, res: Express.Response) {
-    const apikey = req.params.scratchkey;
+    const apikey = req.params.scratchkey as string;
 
     try {
         if (!req.body.data) {
@@ -219,7 +219,7 @@ function getImageTrainingItem(scratchKey: Types.ScratchKey, info: Types.ImageTra
 
 
 async function getTrainingData(req: Express.Request, res: Express.Response) {
-    const apikey = req.params.scratchkey;
+    const apikey = req.params.scratchkey as string;
 
     try {
         const scratchKey = await store.getScratchKey(apikey);
@@ -278,16 +278,16 @@ async function getTrainingData(req: Express.Request, res: Express.Response) {
 
 
 async function getImageTrainingDataItem(req: Express.Request, res: Express.Response) {
-    const apikey = req.params.scratchkey;
+    const apikey = req.params.scratchkey as string;
 
     try {
         const scratchKey = await store.getScratchKey(apikey);
 
         const imageKey = {
-            classid : req.params.classid,
-            userid : req.params.studentid,
-            projectid : req.params.projectid,
-            objectid : req.params.imageid,
+            classid : req.params.classid as string,
+            userid : req.params.studentid as string,
+            projectid : req.params.projectid as string,
+            objectid : req.params.imageid as string,
         };
         if (scratchKey.projectid !== imageKey.projectid) {
             return errors.forbidden(res);
@@ -345,7 +345,7 @@ async function getImageTrainingDataItem(req: Express.Request, res: Express.Respo
 
 
 async function storeTrainingData(req: Express.Request, res: Express.Response) {
-    const apikey = req.params.scratchkey;
+    const apikey = req.params.scratchkey as string;
 
     try {
         if (!req.body.data || !req.body.label) {
@@ -443,7 +443,7 @@ async function getScratch3ExtensionLocalData(req: Express.Request, res: Express.
 
 
 async function getScratch3Extension(req: Express.Request, res: Express.Response) {
-    const apikey = req.params.scratchkey;
+    const apikey = req.params.scratchkey as string;
     let extension: string;
     try {
         const scratchKey = await store.getScratchKey(apikey);
@@ -483,8 +483,8 @@ async function getScratch3Extension(req: Express.Request, res: Express.Response)
 
 
 function getSmallLanguageModelExtension(req: Express.Request, res: Express.Response) {
-    const modelid = req.params.modelid;
-    const contextwindow = req.params.contextwindow;
+    const modelid = req.params.modelid as string;
+    const contextwindow = req.params.contextwindow as string;
 
     const intContextWindow = parseInt(contextwindow, 10);
     if (isNaN(intContextWindow)) {
@@ -518,7 +518,7 @@ function handleTfjsException(err: any, res: Express.Response) {
 
 
 function getTfjsExtension(req: Express.Request, res: Express.Response) {
-    const scratchkey = req.params.scratchkey;
+    const scratchkey = req.params.scratchkey as string;
 
     extensions.getScratchTfjsExtension(scratchkey)
         .then((extension) => {
@@ -545,7 +545,7 @@ function generateTfjsExtension(req: Express.Request, res: Express.Response) {
 
 
 async function getScratchxStatus(req: Express.Request, res: Express.Response) {
-    const apikey = req.params.scratchkey;
+    const apikey = req.params.scratchkey as string;
 
     try {
         const scratchKey = await store.getScratchKey(apikey);
@@ -565,7 +565,7 @@ async function getScratchxStatus(req: Express.Request, res: Express.Response) {
 
 
 async function trainNewClassifier(req: Express.Request, res: Express.Response) {
-    const apikey = req.params.scratchkey;
+    const apikey = req.params.scratchkey as string;
 
     try {
         const scratchKey = await store.getScratchKey(apikey);
@@ -585,7 +585,7 @@ async function trainNewClassifier(req: Express.Request, res: Express.Response) {
 
 
 async function trainNewClassifierLocalProject(req: Express.Request, res: Express.Response) {
-    const apikey = req.params.scratchkey;
+    const apikey = req.params.scratchkey as string;
 
     if (!req.body.type) {
         return errors.missingData(res);
