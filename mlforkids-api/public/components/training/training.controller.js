@@ -58,7 +58,7 @@
 
         $scope.projectId = $stateParams.projectId;
         $scope.userId = $stateParams.userId;
-        $scope.training = {};
+        $scope.training = undefined;
 
         var webcams;
         var currentWebcamIdx = 0;
@@ -76,6 +76,13 @@
             .then(function (project) {
                 loggerService.debug('[ml4ktraining] project', project);
                 $scope.project = project;
+
+                if (project.type === 'regression') {
+                    $scope.training = [];
+                }
+                else {
+                    $scope.training = {};
+                }
 
                 // if the user doesn't own the project (it's been shared with them by a teacher
                 //  using the "crowd-sourced" mode) then we need to hide some of the controls

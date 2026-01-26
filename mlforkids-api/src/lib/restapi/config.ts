@@ -20,7 +20,7 @@ export const CSP_DIRECTIVES: Record<string, string[]> = {
         // used by in-browser page translations
         'https://www.gstatic.com',
     ],
-    scriptSrc: ["'self'", 'blob:',
+    scriptSrcElem: ["'self'", 'blob:',
         // TODO : https://github.com/IBM/taxinomitis/issues/346 should remove this
         "'unsafe-eval'",
         "'unsafe-inline'",
@@ -43,6 +43,10 @@ export const CSP_DIRECTIVES: Record<string, string[]> = {
         'https://cdn.jsdelivr.net',
         // useful when running locally
         'https://machinelearningforkids.co.uk',
+    ],
+    scriptSrcAttr: [
+        // Required for inline event handlers (onclick, onload, data-toggle, etc.)
+        "'unsafe-inline'",
     ],
     frameSrc: ["'self'",
         // used in the About and Worksheets tabs

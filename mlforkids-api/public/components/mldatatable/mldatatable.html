@@ -29,7 +29,7 @@
                     ng-change="setMode('init'); onColumnsChanged()"></md-checkbox>
             </th>
             <th class="spacing"> &nbsp; </th>
-            <th ng-repeat="col in project.columns | filter: { output: true }">
+            <th ng-repeat="col in project.columns | filter: { output: true } track by col.label">
                 <div class="tablecollabel">
                     {{ col.label }}
                 </div>
@@ -46,7 +46,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="trainingrow in training | orderBy: sortCol">
+        <tr ng-repeat="trainingrow in training | orderBy: sortCol track by trainingrow.id">
             <td ng-repeat="col in project.columns | filter: { output: false }"
                 class="trainingbucketitem inputcol">{{ trainingrow[col.label] }}</td>
             <td> &nbsp; </td>
