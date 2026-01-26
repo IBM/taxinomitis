@@ -26,7 +26,7 @@
                     ng-model="col.output"
                     ng-hide="col.type !== 'number'"
                     ng-if="mode === 'selectcolumns' || project.columns.filter(isOutputColumn).length === 0"
-                    ng-change="setMode('init')"></md-checkbox>
+                    ng-change="setMode('init'); onColumnsChanged()"></md-checkbox>
             </th>
             <th class="spacing"> &nbsp; </th>
             <th ng-repeat="col in project.columns | filter: { output: true }">
@@ -41,7 +41,7 @@
                     ng-model="col.output"
                     ng-hide="col.type !== 'number'"
                     ng-if="mode === 'selectcolumns' || project.columns.filter(isOutputColumn).length === 0"
-                    ng-change="setMode('init')"></md-checkbox>
+                    ng-change="setMode('init'); onColumnsChanged()"></md-checkbox>
             </th>
         </tr>
     </thead>

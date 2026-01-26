@@ -208,7 +208,7 @@
 
         function getSoundData(soundobj) {
             if (soundobj.audiodata) {
-                return Promise.resolve(soundobj);
+                return $q.resolve(soundobj);
             }
             else {
                 return $http.get(soundobj.audiourl)
@@ -223,10 +223,10 @@
             var url;
             if (project.storage === 'local') {
                 if (project.type !== 'text') {
-                    return Promise.resolve([]);
+                    return $q.resolve([]);
                 }
                 else if (!project.cloudid) {
-                    return Promise.resolve([]);
+                    return $q.resolve([]);
                 }
 
                 url = '/api/classes/' + tenant +

@@ -7,10 +7,10 @@
     browserStorageService.$inject = [
         'loggerService',
         'cleanupService',
-        '$timeout', '$http'
+        '$timeout', '$http', '$q'
     ];
 
-    function browserStorageService(loggerService, cleanupService, $timeout, $http) {
+    function browserStorageService(loggerService, cleanupService, $timeout, $http, $q) {
 
         const SUPPORTED_UNKNOWN = 0;
         const SUPPORTED_OK = 1;
@@ -70,14 +70,14 @@
                 // race condition if refreshing the New Projects wizard - can
                 //  init the new project form before we know if local storage
                 //  is supported
-                return new Promise((resolve) => {
+                return $q((resolve) => {
                     $timeout(() => {
                         resolve(supported);
                     }, 500);
                 });
             }
             else {
-                return Promise.resolve(supported);
+                return $q.resolve(supported);
             }
         }
 

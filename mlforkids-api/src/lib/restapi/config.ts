@@ -20,7 +20,7 @@ export const CSP_DIRECTIVES: Record<string, string[]> = {
         // used by in-browser page translations
         'https://www.gstatic.com',
     ],
-    scriptSrc: ["'self'", "'blob'",
+    scriptSrc: ["'self'", 'blob:',
         // TODO : https://github.com/IBM/taxinomitis/issues/346 should remove this
         "'unsafe-eval'",
         "'unsafe-inline'",

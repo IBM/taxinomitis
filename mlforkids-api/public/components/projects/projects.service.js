@@ -42,7 +42,7 @@
 
         function getFields(project, userid, tenant) {
             if (project.storage === 'local') {
-                return Promise.resolve(project.fields);
+                return $q.resolve(project.fields);
             }
             else {
                 return $http.get('/api/classes/' + tenant + '/students/' + userid + '/projects/' + project.id + '/fields')
@@ -103,7 +103,7 @@
                 else {
                     // PROJECT NOT YET STORED IN CLOUD
                     //  wait until we need to create a Scratch extension
-                    return Promise.resolve(newlabels);
+                    return $q.resolve(newlabels);
 
                     // project.labels = newlabels;
                     // return createLocalProject(project, project.userid, project.classid)
@@ -113,7 +113,7 @@
                 }
             }
             else {
-                return Promise.resolve(newlabels);
+                return $q.resolve(newlabels);
             }
         }
 
@@ -163,19 +163,19 @@
 
         function setLanguageModelType(project, type) {
             if (project.storage !== 'local' || project.type !== 'language') {
-                return Promise.reject(new Error('Unexpected project type'));
+                return $q.reject(new Error('Unexpected project type'));
             }
             return browserStorageService.setLanguageModelType(project.id, type);
         }
         function storeSmallLanguageModelConfig(project, slmConfig) {
             if (project.storage !== 'local' || project.type !== 'language') {
-                return Promise.reject(new Error('Unexpected project type'));
+                return $q.reject(new Error('Unexpected project type'));
             }
             return browserStorageService.storeSmallLanguageModelConfig(project.id, slmConfig);
         }
         function storeToyLanguageModelConfig(project, toyConfig) {
             if (project.storage !== 'local' || project.type !== 'language') {
-                return Promise.reject(new Error('Unexpected project type'));
+                return $q.reject(new Error('Unexpected project type'));
             }
             return browserStorageService.storeToyLanguageModelConfig(project.id, toyConfig);
         }
@@ -186,7 +186,7 @@
                 return browserStorageService.addMetadataToProject(project.id, key, value);
             }
             else {
-                return Promise.reject(new Error('Unexpected project type'));
+                return $q.reject(new Error('Unexpected project type'));
             }
         }
 

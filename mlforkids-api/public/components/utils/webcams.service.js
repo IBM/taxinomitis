@@ -3,9 +3,9 @@
         .module('app')
         .service('webcamsService', webcamsService);
 
-    webcamsService.$inject = [ 'loggerService' ];
+    webcamsService.$inject = [ 'loggerService', '$q' ];
 
-    function webcamsService(loggerService) {
+    function webcamsService(loggerService, $q) {
 
         var webcams;
 
@@ -19,12 +19,12 @@
         function getDevices() {
             if (webcams) {
                 loggerService.debug('[ml4kwebcams] returning cached webcam devices list');
-                return Promise.resolve(webcams);
+                return $q.resolve(webcams);
             }
             else if (!navigator.mediaDevices) {
                 loggerService.error('[ml4kwebcams] navigator.mediaDevices undefined');
                 webcams = [];
-                return Promise.resolve(webcams);
+                return $q.resolve(webcams);
             }
             else {
                 loggerService.debug('[ml4kwebcams] listing webcam devices');

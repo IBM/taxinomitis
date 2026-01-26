@@ -785,9 +785,7 @@
                     };
 
                     $scope.onWebcamSuccess = function () {
-                        $scope.$apply(function() {
-                            $scope.webcamInitComplete = true;
-                        });
+                        $scope.$applyAsync(() => { $scope.webcamInitComplete = true; });
                     };
 
                     function displayWebcamError(err) {
@@ -848,17 +846,19 @@
                         //   so we'll display the error
                         $scope.webcamInitComplete = true;
 
-                        try {
-                            $scope.$apply(
-                                function() {
+                        if (!$scope.$$phase && !$scope.$root.$$phase) {
+                            try {
+                                $scope.$applyAsync(() => { displayWebcamError(err); });
+                            }
+                            catch (applyErr) {
+                                $timeout(function () {
                                     displayWebcamError(err);
-                                }
-                            );
+                                }, 0, false);
+                            }
                         }
-                        catch (applyErr) {
-                            $timeout(function () {
-                                displayWebcamError(err);
-                            }, 0, false);
+                        else {
+                            // Already in digest, just call the function directly
+                            displayWebcamError(err);
                         }
                     };
                 },
@@ -926,11 +926,10 @@
                 $scope.listening = true;
                 soundTrainingService.startTest(function (resp) {
                     loggerService.debug('[ml4kmodels] sound test callback', resp);
-                    $scope.$apply(
-                        function() {
-                            $scope.testoutput = resp[0].class_name;
-                            $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
-                        });
+                    $scope.$applyAsync(() => {
+                        $scope.testoutput = resp[0].class_name;
+                        $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
+                    });
                 });
             }
         };
@@ -941,7 +940,7 @@
                 soundTrainingService.stopTest()
                     .then(function () {
                         loggerService.debug('[ml4kmodels] stop test callback');
-                        $scope.$apply(clearTestOutput);
+                        $scope.$applyAsync(clearTestOutput);
                     })
                     .catch(function (err) {
                         loggerService.error('[ml4kmodels] Failed to stop listening', err);
@@ -1018,7 +1017,7 @@
 
 
         function scrollToNewItem(itemId, retried) {
-            $scope.$applyAsync(function () {
+            $scope.$applyAsync(() => {
                 var newItem = document.getElementById(itemId.toString());
                 if (newItem) {
                     var itemContainer = newItem.parentElement;

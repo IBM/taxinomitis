@@ -76,7 +76,7 @@
                       ng-click="vm.deleteLabel($event, label, $index)"></span>
                 <div class="trainingbucketitems" ng-if="project.type === 'text'">
                     <div class="loading loadingtraining" ng-if="loadingtraining"> </div>
-                    <div class="trainingbucketitem" ng-repeat="item in training[label]" ng-class="{ placeholder : item.isPlaceholder }" id="{{item.id}}">
+                    <div class="trainingbucketitem" ng-repeat="item in training[label] track by item.id" ng-class="{ placeholder : item.isPlaceholder }" id="{{item.id}}">
                         <span class="glyphicon glyphicon-remove-circle deletetext" aria-hidden="true"
                               ng-click="vm.deleteText(label, item, $index)"
                               ng-hide="reviewing"
@@ -86,7 +86,7 @@
                 </div>
                 <div class="trainingbucketitems" ng-if="project.type === 'numbers'">
                     <div class="loading loadingtraining" ng-if="loadingtraining"> </div>
-                    <div class="trainingbucketitem" ng-repeat="item in training[label]" ng-class="{ placeholder : item.isPlaceholder }"  id="{{item.id}}">
+                    <div class="trainingbucketitem" ng-repeat="item in training[label] track by item.id" ng-class="{ placeholder : item.isPlaceholder }"  id="{{item.id}}">
                         <span class="glyphicon glyphicon-remove-circle deletetext" aria-hidden="true"
                               ng-click="vm.deleteText(label, item, $index)"
                               ng-hide="reviewing"
@@ -103,7 +103,7 @@
                 <div class="trainingbucketitems" ng-if="project.type === 'imgtfjs'" ml-image-loader>
                     <div class="loading loadingtraining" ng-if="loadingtraining"> </div>
                     <div class="dragprompt" ng-hide="loadingtraining || training[label].length > 0">{{ project.storage === 'local' ? 'TRAINING.DRAGIMAGESLOCAL' : 'TRAINING.DRAGIMAGES' | translate }}</div>
-                    <div class="trainingbucketitem" ng-repeat="item in training[label]" id="{{item.id}}" ng-class="{ error : item.loadingFailed }">
+                    <div class="trainingbucketitem" ng-repeat="item in training[label] track by item.id" id="{{item.id}}" ng-class="{ error : item.loadingFailed }">
                         <span class="glyphicon glyphicon-remove-circle deletetext" aria-hidden="true"
                               ng-hide="reviewing"
                               ng-click="vm.deleteText(label, item, $index)"></span>
@@ -212,6 +212,7 @@
                     ng-hide="loadingtraining"
                     class="trainingbucketitems"
                     on-delete-item="vm.deleteRegressionItem"
+                    on-columns-changed="vm.onColumnsChanged"
                     mode="regressionmode" set-mode="vm.setRegressionMode"
                     project="project" training="training"></mldatatable>
                 <div class="newexamplesbuttonbar" ng-hide="regressionmode === 'selectcolumns' || loadingtraining">

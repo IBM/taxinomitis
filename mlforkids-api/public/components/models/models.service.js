@@ -5,11 +5,11 @@
         .service('modelService', modelService);
 
     modelService.$inject = [
-        'loggerService', 'storageService', 'utilService'
+        'loggerService', 'storageService', 'utilService', '$q'
     ];
 
 
-    function modelService(loggerService, storageService, utilService) {
+    function modelService(loggerService, storageService, utilService, $q) {
 
         function sortByConfidence(a, b) {
             if (a.confidence < b.confidence) {
@@ -193,7 +193,7 @@
                 clearModelSavedDate(savelocation);
             }
 
-            return Promise.resolve();
+            return $q.resolve();
         }
 
 

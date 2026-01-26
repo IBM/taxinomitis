@@ -187,7 +187,7 @@
 
                             // refresh view
                             if (project.storage === 'local') {
-                                $scope.$apply();
+                                $scope.$applyAsync();
                             }
                         })
                         .catch(function (err) {

@@ -36,7 +36,7 @@
             return loadCsvParser()
                 .then(function () {
                     loggerService.debug('[ml4kcsv] loading csv file');
-                    return $q(function (resolve, reject) {
+                    return $q((resolve, reject) => {
                         var config = Object.assign({
                             complete: resolve,
                             error: reject

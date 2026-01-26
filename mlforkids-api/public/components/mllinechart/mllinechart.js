@@ -15,11 +15,11 @@
                 link: function ($scope, element, attrs) {
                     console.log($scope.title);
 
-                    $scope.$watch('chartData', function (newData) {
-                        if (newData && newData.epochs && newData.epochs.length > 0) {
-                            $scope.prepareChart(newData);
+                    $scope.$watchCollection('chartData.epochs', function (newEpochs) {
+                        if (newEpochs && newEpochs.length > 0) {
+                            $scope.prepareChart($scope.chartData);
                         }
-                    }, true);
+                    });
 
                     $scope.prepareChart = function (data) {
                         var width = 800;

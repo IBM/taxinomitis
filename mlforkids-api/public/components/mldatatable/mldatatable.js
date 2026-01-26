@@ -7,7 +7,8 @@ angular.module('app')
                 training: '=',
                 mode: '=',
                 setMode: '=',
-                onDeleteItem: '='
+                onDeleteItem: '=',
+                onColumnsChanged: '='
             },
             controller: [
                 '$scope',

@@ -14,11 +14,10 @@
         '$scope',
         '$mdDialog',
         '$state',
-        '$timeout',
-        '$q'
+        '$timeout', '$interval'
     ];
 
-    function TrainingController(authService, projectsService, trainingService, modelService, soundTrainingService, utilService, csvService, downloadService, imageToolsService, webcamsService, loggerService, $stateParams, $scope, $mdDialog, $state, $timeout, $q) {
+    function TrainingController(authService, projectsService, trainingService, modelService, soundTrainingService, utilService, csvService, downloadService, imageToolsService, webcamsService, loggerService, $stateParams, $scope, $mdDialog, $state, $timeout, $interval) {
 
         var vm = this;
         vm.authService = authService;
@@ -135,21 +134,6 @@
                 if ($scope.project.type === 'regression') {
                     $scope.training = training;
                     $scope.regressionmode = 'init';
-
-                    $scope.$watch('project.columns', function (columns, previous) {
-                        refreshLabelsSummary();
-
-                        if (columns && !angular.equals(columns, previous)) {
-                            projectsService.addMetadataToProject($scope.project, 'columns', columns)
-                                .catch (function (err) {
-                                    displayAlert('errors', 500, err);
-                                });
-                            modelService.deleteModel($scope.project.type, $scope.project.id)
-                                .catch (function (err) {
-                                    loggerService.error('[ml4ktraining] failed to delete model', err);
-                                });
-                        }
-                    }, true);
                 }
                 else {
                     // all the training data items will be returned in one list
@@ -270,12 +254,6 @@
                             $scope.confirm($scope.example);
                         }
                     };
-
-                    $scope.$watch('example', function (newval, oldval) {
-                        if ($scope && $scope.example && newval !== oldval) {
-                            $scope.example = newval.replace(/[\r\n\t]/g, ' ');
-                        }
-                    }, true);
                 },
                 templateUrl : 'static/components/training/trainingdata.tmpl.html',
                 targetEvent : ev,
@@ -283,16 +261,22 @@
             })
             .then(
                 function (resp) {
-                    if ($scope.project.type === 'imgtfjs') {
-                        try {
-                            // do this to encode any URL characters that might need it
-                            resp = new URL(resp).toString();
+                    if (resp) {
+                        if ($scope.project.type === 'text') {
+                            // remove whitespace characters that cause problems with Watson APIs
+                            resp = resp.replace(/[\r\n\t]/g, ' ');
                         }
-                        catch (err) {
-                            loggerService.debug('[ml4ktraining] unable to escape URL characters, using raw string', err);
+                        else if ($scope.project.type === 'imgtfjs') {
+                            try {
+                                // do this to encode any URL characters that might need it
+                                resp = new URL(resp).toString();
+                            }
+                            catch (err) {
+                                loggerService.debug('[ml4ktraining] unable to escape URL characters, using raw string', err);
+                            }
                         }
+                        vm.addConfirmedTrainingData(resp, label);
                     }
-                    vm.addConfirmedTrainingData(resp, label);
                 },
                 function() {
                     // cancelled. do nothing
@@ -422,15 +406,6 @@
 
 
 
-        function attemptRefresh() {
-            try {
-                $scope.$apply();
-            }
-            catch (refreshErr) {
-                loggerService.debug('[ml4ktraining] unable to refresh', refreshErr);
-            }
-        }
-
 
         function errorSuggestsProjectDeleted(err) {
             return err &&
@@ -485,7 +460,7 @@
                             refreshLabelsSummary();
 
                             if ($scope.project.storage === 'local') {
-                                attemptRefresh();
+                                $scope.$applyAsync();
                             }
                         })
                         .catch(function (err) {
@@ -595,9 +570,7 @@
 
 
                     $scope.onWebcamSuccess = function () {
-                        $scope.$apply(function() {
-                            $scope.webcamInitComplete = true;
-                        });
+                        $scope.$applyAsync(() => { $scope.webcamInitComplete = true; });
                     };
 
                     function displayWebcamError(err) {
@@ -658,17 +631,18 @@
                         //   so we'll display the error
                         $scope.webcamInitComplete = true;
 
-                        try {
-                            $scope.$apply(
-                                function() {
+                        if (!$scope.$$phase && !$scope.$root.$$phase) {
+                            try {
+                                $scope.$applyAsync(() => { displayWebcamError(err); });
+                            }
+                            catch (applyErr) {
+                                $timeout(function () {
                                     displayWebcamError(err);
-                                }
-                            );
+                                }, 0, false);
+                            }
                         }
-                        catch (applyErr) {
-                            $timeout(function () {
-                                displayWebcamError(err);
-                            }, 0, false);
+                        else {
+                            displayWebcamError(err);
                         }
                     };
                 },
@@ -791,32 +765,27 @@
                         $scope.recording = true;
 
                         $scope.recordingprogress = 0;
-                        var progressInterval = setInterval(function () {
-                            $scope.$apply(
-                                function() {
-                                    $scope.recordingprogress += 10;
-                                });
-                        }, 1000 / 10);
+                        var progressInterval = $interval(function () {
+                            $scope.recordingprogress += 10;
+                        }, 100);
 
                         soundTrainingService.collectExample(label)
                             .then(function (spectogram) {
                                 clearInterval(progressInterval);
-                                $scope.$apply(
-                                    function() {
-                                        $scope.recordingprogress = 100;
-                                        if (spectogram && spectogram.data && spectogram.data.length > 0) {
-                                            $scope.example = spectogram.data;
-                                        }
-                                        $scope.recording = false;
-                                    });
+                                $scope.$applyAsync(() => {
+                                    $scope.recordingprogress = 100;
+                                    if (spectogram && spectogram.data && spectogram.data.length > 0) {
+                                        $scope.example = spectogram.data;
+                                    }
+                                    $scope.recording = false;
+                                });
                             })
                             .catch(function (err) {
                                 clearInterval(progressInterval);
-                                $scope.$apply(
-                                    function() {
-                                        $scope.recording = false;
-                                        displayAlert('errors', 500, err);
-                                    });
+                                $scope.$applyAsync(() => {
+                                    $scope.recording = false;
+                                    displayAlert('errors', 500, err);
+                                });
                             });
                     };
                 },
@@ -909,17 +878,19 @@
 
                                     return column;
                                 });
+
+                                vm.onColumnsChanged();
                             }
 
-                            $scope.$applyAsync(() => { $scope.loadingtraining = true; });
+                            $scope.loadingtraining = true;
                             return trainingService.bulkAddTrainingData($scope.project, results.data);
                         })
                         .then(function (stored) {
                             $scope.training = $scope.training.concat(stored);
-                            $scope.$applyAsync(() => { $scope.loadingtraining = false; });
+                            $scope.loadingtraining = false;
                         })
                         .catch(function (err) {
-                            $scope.$applyAsync(() => { $scope.loadingtraining = false; });
+                            $scope.loadingtraining = false;
                             displayAlert('errors', 400, err);
                         });
                 }
@@ -956,9 +927,8 @@
                                         .map(function (line) {
                                             return { label, textdata : line };
                                         }))
-                            .then(function (newitems) {
+                            .then((newitems) => {
                                 $scope.training[label] = $scope.training[label].concat(newitems);
-                                attemptRefresh();
                             })
                             .catch(function (err) {
                                 displayAlert('errors', 500, err);
@@ -1006,6 +976,7 @@
                         output: false,
                         type : 'number'
                     });
+                    vm.onColumnsChanged();
                 },
                 function() {
                     // cancelled. do nothing
@@ -1034,8 +1005,21 @@
             $scope.regressionmode = mode;
         };
 
+        vm.onColumnsChanged = function () {
+            refreshLabelsSummary();
+
+            projectsService.addMetadataToProject($scope.project, 'columns', $scope.project.columns)
+                .catch (function (err) {
+                    displayAlert('errors', 500, err);
+                });
+            modelService.deleteModel($scope.project.type, $scope.project.id)
+                .catch (function (err) {
+                    loggerService.error('[ml4ktraining] failed to delete model', err);
+                });
+        };
+
         function scrollToNewItem(itemId, retried) {
-            $scope.$applyAsync(function () {
+            $scope.$applyAsync(() => {
                 var newItem = document.getElementById(itemId.toString());
                 if (newItem) {
                     var itemContainer = newItem.parentElement;

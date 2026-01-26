@@ -10,10 +10,10 @@
         'gpuDetectionService', 'utilService', 'loggerService',
         '$mdDialog',
         '$stateParams',
-        '$scope', '$window', '$timeout'
+        '$scope', '$window', '$timeout', '$q'
     ];
 
-    function LanguageModelController(authService, projectsService, trainingService, wikipediaService, languageModelService, txtService, gpuDetectionService, utilService, loggerService, $mdDialog, $stateParams, $scope, $window, $timeout) {
+    function LanguageModelController(authService, projectsService, trainingService, wikipediaService, languageModelService, txtService, gpuDetectionService, utilService, loggerService, $mdDialog, $stateParams, $scope, $window, $timeout, $q) {
         var vm = this;
         vm.authService = authService;
 
@@ -359,15 +359,15 @@
                     $scope.project.classid
                 )
                 .then((docs) => {
-                    for (const doc of docs) {
-                        $scope.$applyAsync(() => {
+                    $scope.$applyAsync(() => {
+                        for (const doc of docs) {
                             $scope.corpus.push({
                                 id : doc.id,
                                 title : doc.title,
                                 type : doc.type
                             });
-                        });
-                    }
+                        }
+                    });
 
                     loggerService.debug('[ml4klanguage] restored corpus', docs.length);
 
@@ -437,7 +437,7 @@
             projectsService.setLanguageModelType($scope.project, type)
                 .then(() => {
                     if (type === 'toy') {
-                        return Promise.resolve();
+                        return $q.resolve();
                     }
                     else if (type === 'small') {
                         return setupSlmSupport();
@@ -763,7 +763,7 @@
             let corpusFn;
             if (analyzedCorpus) {
                 // we already have a corpus - no need to parse the corpus again
-                corpusFn = Promise.resolve();
+                corpusFn = $q.resolve();
             }
             else {
                 corpusFn = parseCorpus();
@@ -1543,7 +1543,7 @@
                 const promptTokens = prompt.split(' ');
                 if (promptTokens.length < $scope.project.toy.ngrams) {
                     $scope.testfeedbackmoretokens = true;
-                    return Promise.resolve('');
+                    return $q.resolve('');
                 }
                 const tokensNeededIdx = promptTokens.length - $scope.project.toy.ngrams;
                 const tokensToSubmit = promptTokens.slice(tokensNeededIdx);
@@ -1561,19 +1561,19 @@
                     runTetragrams(generatedTokens, tokensToSubmit[0], tokensToSubmit[1], tokensToSubmit[2]);
                 }
                 else {
-                    return Promise.reject('Context window size not selected');
+                    return $q.reject('Context window size not selected');
                 }
 
                 if (generatedTokens.length === 2) {
                     $scope.testfeedbacknomatch = true;
-                    return Promise.resolve('');
+                    return $q.resolve('');
                 }
 
                 $scope.generatedtokens = generatedTokens;
 
-                return Promise.resolve();
+                return $q.resolve();
             }
-            return Promise.reject('Model not ready');
+            return $q.reject('Model not ready');
         }
 
 
