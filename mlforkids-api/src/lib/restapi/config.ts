@@ -20,7 +20,7 @@ export const CSP_DIRECTIVES: Record<string, string[]> = {
         // used by in-browser page translations
         'https://www.gstatic.com',
     ],
-    scriptSrc: ["'self'",
+    scriptSrc: ["'self'", "'blob'",
         // TODO : https://github.com/IBM/taxinomitis/issues/346 should remove this
         "'unsafe-eval'",
         "'unsafe-inline'",
@@ -37,16 +37,12 @@ export const CSP_DIRECTIVES: Record<string, string[]> = {
         // used for error capturing
         'https://browser.sentry-cdn.com',
         // used for analytics
-        'https://scripts.withcabin.com/hello.js',
+        'https://scripts.withcabin.com',
         // used for small language models
         'https://esm.run',
-        'https://cdn.jsdelivr.net/npm/@mlc-ai',
+        'https://cdn.jsdelivr.net',
         // useful when running locally
         'https://machinelearningforkids.co.uk',
-    ],
-    scriptSrcAttr: [
-        // Required for inline event handlers (onclick, onload, data-toggle, etc.)
-        "'unsafe-inline'",
     ],
     frameSrc: ["'self'",
         // used in the About and Worksheets tabs
@@ -61,8 +57,8 @@ export const CSP_DIRECTIVES: Record<string, string[]> = {
         'https://cdn.eu.auth0.com',
         // used for various things, including training data thumbnails
         'data:', 'blob:',
-        // used for training data, which can be used from any site
-        'https://*', 'http://*',
+        // used for training data, which students can use from any site
+        '*',
     ],
     workerSrc: ["'self'",
         // used for Scratch extensions
@@ -84,7 +80,8 @@ export const CSP_DIRECTIVES: Record<string, string[]> = {
         // used for small language models
         'https://huggingface.co',
         'https://cas-bridge.xethub.hf.co',
-        'https://raw.githubusercontent.com/mlc-ai',
+        'https://raw.githubusercontent.com',
+
     ].concat(env.getNumbersServiceHostUrls()), // used for numbers service
 };
 
