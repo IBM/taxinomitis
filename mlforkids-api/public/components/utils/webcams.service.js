@@ -21,6 +21,11 @@
                 loggerService.debug('[ml4kwebcams] returning cached webcam devices list');
                 return Promise.resolve(webcams);
             }
+            else if (!navigator.mediaDevices) {
+                loggerService.error('[ml4kwebcams] navigator.mediaDevices undefined');
+                webcams = [];
+                return Promise.resolve(webcams);
+            }
             else {
                 loggerService.debug('[ml4kwebcams] listing webcam devices');
                 return navigator.mediaDevices.enumerateDevices()
@@ -41,7 +46,12 @@
                     })
                     .catch((err) => {
                         loggerService.error('[ml4kwebcams] listing webcams error', err);
-                        webcams = getDefaultWebcamOptions();
+                        if (navigator.mediaDevices) {
+                            webcams = getDefaultWebcamOptions();
+                        }
+                        else {
+                            webcams = [];
+                        }
                         return webcams;
                     });
             }

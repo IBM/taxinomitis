@@ -761,10 +761,15 @@
 
                     webcamsService.getDevices()
                         .then((devices) => {
-                            webcams = devices;
-                            $scope.channel.videoOptions = webcams[currentWebcamIdx];
-                            $scope.multipleWebcams = webcams.length > 1;
-                            loggerService.debug('[ml4kmodels] webcam config', $scope.channel.videoOptions);
+                            if (devices.length > 0) {
+                                webcams = devices;
+                                $scope.channel.videoOptions = webcams[currentWebcamIdx];
+                                $scope.multipleWebcams = webcams.length > 1;
+                                loggerService.debug('[ml4kmodels] webcam config', $scope.channel.videoOptions);
+                            }
+                            else {
+                                $scope.onWebcamError(new Error('No webcams available'));
+                            }
                         });
 
                     $scope.webcamCanvas = null;
