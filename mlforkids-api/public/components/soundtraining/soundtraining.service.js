@@ -420,10 +420,20 @@
 
         function startTest(callback) {
             loggerService.debug('[ml4ksound] starting to listen');
+
+            var lastCallbackTime = 0;
+            var CALLBACK_THROTTLE_MS = 500;
+
             var predictionOptions = {
                 probabilityThreshold : 0.7
             };
             return transferRecognizer.listen(function (result) {
+                var now = Date.now();
+                if (now - lastCallbackTime < CALLBACK_THROTTLE_MS) {
+                    return; // skipping to avoid overwhelming UI
+                }
+                lastCallbackTime = now;
+
                 var matches = [];
 
                 var labels = transferRecognizer.wordLabels();
