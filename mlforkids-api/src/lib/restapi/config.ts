@@ -20,6 +20,30 @@ export const CSP_DIRECTIVES: Record<string, string[]> = {
         // used by in-browser page translations
         'https://www.gstatic.com',
     ],
+    scriptSrc: ["'self'", 'blob:',
+        // TODO : https://github.com/IBM/taxinomitis/issues/346 should remove this
+        "'unsafe-eval'",
+        "'unsafe-inline'",
+        // used for auth
+        'http://cdn.auth0.com',
+        'https://cdn.auth0.com',
+        'https://cdn.eu.auth0.com',
+        'https://dalelane.eu.auth0.com',
+        // used to load profile pics in the login dialog
+        'https://secure.gravatar.com',
+        // used to embed videos in the Worksheets tab
+        'https://www.youtube.com',
+        'https://www.youtube-nocookie.com',
+        // used for error capturing
+        'https://browser.sentry-cdn.com',
+        // used for analytics
+        'https://scripts.withcabin.com',
+        // used for small language models
+        'https://esm.run',
+        'https://cdn.jsdelivr.net',
+        // useful when running locally
+        'https://machinelearningforkids.co.uk',
+    ],
     scriptSrcElem: ["'self'", 'blob:',
         // TODO : https://github.com/IBM/taxinomitis/issues/346 should remove this
         "'unsafe-eval'",
@@ -85,7 +109,8 @@ export const CSP_DIRECTIVES: Record<string, string[]> = {
         'https://huggingface.co',
         'https://cas-bridge.xethub.hf.co',
         'https://raw.githubusercontent.com',
-
+        // used by in-browser page translations
+        'https://translate.googleapis.com',
     ].concat(env.getNumbersServiceHostUrls()), // used for numbers service
 };
 
