@@ -638,18 +638,10 @@
                         //   so we'll display the error
                         $scope.webcamInitComplete = true;
 
-                        if (!$scope.$$phase && !$scope.$root.$$phase) {
-                            try {
-                                $scope.$applyAsync(() => { displayWebcamError(err); });
-                            }
-                            catch (applyErr) {
-                                $timeout(function () {
-                                    displayWebcamError(err);
-                                }, 0, false);
-                            }
-                        }
-                        else {
-                            displayWebcamError(err);
+                        if ($scope && !$scope.$$destroyed) {
+                            $scope.$applyAsync(() => {
+                                displayWebcamError(err);
+                            });
                         }
                     };
                 },
