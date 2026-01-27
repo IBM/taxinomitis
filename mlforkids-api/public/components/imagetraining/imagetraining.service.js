@@ -368,6 +368,12 @@
             let aborted = false;
 
             var progressPerEpoch = Math.round(100 / epochs);
+
+            var trainingHistory = {
+                epochs : [],
+                trainingLoss : []
+            };
+
             transferModel.fit(xs, ys, {
                 batchSize : simplified ? 5 : 10,
                 epochs : epochs,
@@ -375,6 +381,10 @@
                     onEpochEnd : function (epoch, logs) {
                         loggerService.debug('[ml4kimages] epoch ' + epoch + ' loss ' + logs.loss);
                         utilService.logTfjsMemory('epoch end');
+
+                        trainingHistory.epochs.push(epoch);
+                        trainingHistory.trainingLoss.push(logs.loss);
+
                         if (modelStatus) {
                             modelStatus.progress = (epoch + 1) * progressPerEpoch;
                         }
@@ -423,6 +433,12 @@
                         }
 
                         return saveModel(projectid)
+                            .then(function () {
+                                return browserStorageService.storeAssetData(
+                                    projectid + '-history',
+                                    trainingHistory
+                                );
+                            })
                             .then(function () {
                                 loggerService.debug('[ml4kimages] training complete');
                                 if (modelStatus) {
@@ -539,7 +555,13 @@
 
         function deleteModel(projectid) {
             modelStatus = null;
-            return modelService.deleteModel(MODELTYPE, projectid);
+            return modelService.deleteModel(MODELTYPE, projectid)
+                .then(function () {
+                    return browserStorageService.deleteAsset(projectid + '-history');
+                })
+                .catch(function (err) {
+                    loggerService.debug('[ml4kimages] error deleting training history', err);
+                });
         }
 
         function saveModel(projectid) {

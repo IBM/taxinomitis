@@ -178,7 +178,7 @@
                                     .then(() => { return browserStorageService.deleteAsset(project.id + '-dot'); })
                                     .then(() => { return browserStorageService.deleteAsset(project.id + '-vocab'); });
                             }
-                            if (project.type === 'regression') {
+                            if (project.type === 'regression' || project.type === 'imgtfjs') {
                                 browserStorageService.deleteAsset(project.id + '-history');
                             }
                             if (project.type === 'language' && project.modeltype === 'toy') {

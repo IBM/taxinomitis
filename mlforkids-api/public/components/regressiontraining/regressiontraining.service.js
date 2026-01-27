@@ -418,7 +418,9 @@
                 resetting = true;
 
                 if (model) {
-                    model.stopTraining = true;
+                    if (model.built) {
+                        model.stopTraining = true;
+                    }
                     tf.dispose(model);
                     model = null;
                 }
@@ -432,12 +434,12 @@
                         tf.dispose(normalization.output.standardDeviation);
                     }
                 }
-                modelStatus = null;
-                normalization = null;
             }
             catch (err) {
                 loggerService.debug('[ml4kregress] error when disposing of models', err);
             }
+            modelStatus = null;
+            normalization = null;
         }
 
 

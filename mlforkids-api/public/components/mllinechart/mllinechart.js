@@ -13,8 +13,6 @@
                 },
 
                 link: function ($scope, element, attrs) {
-                    console.log($scope.title);
-
                     $scope.$watchCollection('chartData.epochs', function (newEpochs) {
                         if (newEpochs && newEpochs.length > 0) {
                             $scope.prepareChart($scope.chartData);
@@ -22,15 +20,20 @@
                     });
 
                     $scope.prepareChart = function (data) {
+                        $scope.ready = false;
+
                         var width = 800;
                         var height = 500;
                         var padding = { top: 10, right: 40, bottom: 20, left: 80 };
                         var chartWidth = width - padding.left - padding.right;
                         var chartHeight = height - padding.top - padding.bottom - 100;
 
-                        var allLossValues = data.training.concat(data.validation);
-                        var minLoss = Math.min.apply(null, allLossValues);
-                        var maxLoss = Math.max.apply(null, allLossValues);
+                        var minLoss = Math.min.apply(null, data.training);
+                        var maxLoss = Math.max.apply(null, data.training);
+                        if (data.validation) {
+                            minLoss = Math.min(minLoss, Math.min.apply(null, data.validation));
+                            maxLoss = Math.max(maxLoss, Math.max.apply(null, data.validation));
+                        }
 
                         var lossRange = maxLoss - minLoss;
                         var yMin = Math.max(0, minLoss - lossRange * 0.1);
@@ -54,10 +57,12 @@
                         }
 
                         var validationPath = '';
-                        for (var i = 0; i < data.epochs.length; i++) {
-                            var x = xScale(data.epochs[i]);
-                            var y = yScale(data.validation[i]);
-                            validationPath += (i === 0 ? 'M' : 'L') + x + ',' + y + ' ';
+                        if (data.validation) {
+                            for (var i = 0; i < data.epochs.length; i++) {
+                                var x = xScale(data.epochs[i]);
+                                var y = yScale(data.validation[i]);
+                                validationPath += (i === 0 ? 'M' : 'L') + x + ',' + y + ' ';
+                            }
                         }
 
                         // Generate y-axis labels (5 ticks)
@@ -101,7 +106,12 @@
                         $scope.xAxisLabels = xAxisLabels;
 
                         $scope.finalTrainingLoss = data.training[data.training.length - 1].toFixed(3);
-                        $scope.finalValidationLoss = data.validation[data.validation.length - 1].toFixed(3);
+                        if (data.validation) {
+                            $scope.finalValidationLoss = data.validation[data.validation.length - 1].toFixed(3);
+                            $scope.hasValidation = true;
+                        }
+
+                        $scope.ready = true;
                     };
                 }
             };
