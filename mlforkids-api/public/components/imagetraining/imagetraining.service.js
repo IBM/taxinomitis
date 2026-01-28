@@ -210,82 +210,96 @@
         }
 
 
-        function getTrainingData(projectid, userid, tenantid, getImageDataFn) {
-            return trainingService.getTraining(projectid, userid, tenantid)
-                .then(function (traininginfo) {
-                    return $q.all(traininginfo.map(getImageDataFn));
-                });
+        // Create a generator that will yield a new training example on each next()
+        //  This is helpful for mobile devices that cannot hold the entire training
+        //  set in memory at once, as TensorFlow can fetch a batch at a time. The
+        //  benefit of this approach is that the memory requirements are greatly
+        //  reduced, especially for large training sets.
+        //  The downside is that tensors will need to be prepared for each training
+        //  example for every epoch. This makes training takes much longer.
+        function createTrainingDataset(traininginfo, getImageDataFn) {
+            const BATCH_SIZE = 20;
+
+            async function* dataGenerator() {
+                for (let i = 0; i < traininginfo.length; i++) {
+                    const imageInfo = traininginfo[i];
+
+                    const imageData = await Promise.resolve(getImageDataFn(imageInfo));
+                    const xs = tf.tidy(() => baseModel.predict(imageData.data));
+                    imageData.data.dispose();
+
+                    const labelIdx = modelClasses.indexOf(imageData.metadata.label);
+                    const ys = tf.tidy(() =>
+                        tf.oneHot(tf.tensor1d([labelIdx]).toInt(), modelNumClasses)
+                    );
+
+
+                    yield { xs, ys };
+                }
+            }
+
+            return tf.data.generator(dataGenerator).batch(BATCH_SIZE);
+        }
+
+        // Build a single concatenated set for the entire training data
+        //  This is helpful for devices with enough memory to hold all of this,
+        //   as it can be reused for every epoch, making training very quick.
+        //  The downside is that this can exhaust the memory of mobile devices.
+        async function createTrainingData(traininginfo, getImageDataFn) {
+            let xs;
+            let ys;
+
+            for (let i = 0; i < traininginfo.length; i++) {
+                const imageInfo = traininginfo[i];
+
+                const imageData = await Promise.resolve(getImageDataFn(imageInfo));
+                const xval = tf.tidy(() => baseModel.predict(imageData.data));
+                imageData.data.dispose();
+
+                const labelIdx = modelClasses.indexOf(imageData.metadata.label);
+                const yval = tf.tidy(() =>
+                    tf.oneHot(tf.tensor1d([labelIdx]).toInt(), modelNumClasses)
+                );
+
+                if (i === 0) {
+                    xs = xval;
+                    ys = yval;
+                }
+                else {
+                    const oldxs = xs;
+                    xs = oldxs.concat(xval, 0);
+                    safeDispose(oldxs, xval);
+
+                    const oldys = ys;
+                    ys = oldys.concat(yval, 0);
+                    safeDispose(oldys, yval);
+                }
+            }
+
+            return { xs, ys };
         }
 
 
-        function prepareTrainingData(trainingdata) {
-            var xs;
-            var ys;
 
-            try {
-                for (var i=0; i < trainingdata.length; i++) {
-                    var trainingdataitem = trainingdata[i];
-                    var labelIdx = modelClasses.indexOf(trainingdataitem.metadata.label);
-
-                    var xval = tf.tidy(function () {
-                        return baseModel.predict(trainingdataitem.data);
-                    });
-                    trainingdataitem.data.dispose();
-
-                    var yval = tf.tidy(function () {
-                        return tf.oneHot(tf.tensor1d([ labelIdx ]).toInt(), modelNumClasses);
-                    });
-
-                    if (i === 0) {
-                        xs = xval;
-                        ys = yval;
-                    }
-                    else {
-                        var oldxs = xs;
-                        var oldys = ys;
-                        xs = oldxs.concat(xval, 0);
-                        ys = oldys.concat(yval, 0);
-
-                        safeDispose(oldxs, xval);
-                        safeDispose(oldys, yval);
-                    }
+        function calculateEpochs(trainingDataLength) {
+            let epochs = 10;
+            if (!simplified) {
+                if (trainingDataLength < 20) {
+                    epochs = 30;
                 }
-
-                let epochs = 10;
-                if (!simplified) {
-                    if (trainingdata.length < 20) {
-                        epochs = 30;
-                    }
-                    else if (trainingdata.length < 50) {
-                        epochs = 20;
-                    }
-                    else if (trainingdata.length < 200) {
-                        epochs = 10;
-                    }
-                    else {
-                        epochs = 8;
-                    }
+                else if (trainingDataLength < 50) {
+                    epochs = 20;
                 }
-
-                loggerService.debug('[ml4kimages] epochs', epochs);
-
-                return { xs, ys, epochs };
+                else if (trainingDataLength < 200) {
+                    epochs = 10;
+                }
+                else {
+                    epochs = 8;
+                }
             }
-            catch (err) {
-                loggerService.error('[ml4kimages] failed to prepare training tensors', err);
-                if (err.message &&
-                    (err.message.includes('compile fragment shader') || err.message.includes('link vertex and fragment shaders')))
-                {
-                    err.data = {
-                        error : 'Your device does not have enough graphics memory to get ' +
-                        'your training data ready. ' +
-                        'You could remove some of your training images. ' +
-                        'It might help if you close other browser tabs or applications. '
-                    };
-                    err.status = 500;
-                }
-                throw err;
-            }
+
+            loggerService.debug('[ml4kimages] epochs', epochs);
+            return epochs;
         }
 
 
@@ -340,42 +354,58 @@
                 };
             }
 
-            loggerService.debug('[ml4kimages] getting training data');
-            return getTrainingData(projectid, userid, tenantid, getImageDataFn)
-                .then(function (trainingdata) {
-                    loggerService.debug('[ml4kimages] retrieved training data');
+            loggerService.debug('[ml4kimages] preparing training dataset');
+            return trainingService.getTraining(projectid, userid, tenantid)
+                .then((traininginfo) => {
+                    loggerService.debug('[ml4kimages] creating dataset from ' + traininginfo.length + ' images');
 
                     utilService.logTfjsMemory('preparing training data');
-                    const { xs, ys, epochs } = prepareTrainingData(trainingdata);
+                    const epochs = calculateEpochs(traininginfo.length);
 
                     // start the training in the background
-                    trainTfjsModel(projectid, epochs, xs, ys);
+                    if (isMobile()) {
+                        loggerService.debug('[ml4kimages] streaming training data');
+                        const dataset = createTrainingDataset(traininginfo, getImageDataFn);
+                        trainTfjsModel(projectid, epochs, dataset, true);
+                    }
+                    else {
+                        loggerService.debug('[ml4kimages] building training data batch');
+                        createTrainingData(traininginfo, getImageDataFn)
+                            .then((data) => {
+                                trainTfjsModel(projectid, epochs, data, false);
+                            })
+                            .catch((err) => {
+                                loggerService.error('[ml4kimages] model training batch train failure', err);
+                                handleTrainingError(err);
+                                return modelStatus;
+                            });
+                    }
 
                     // return the status immediately
                     return modelStatus;
                 })
-                .catch(function (err) {
-                    loggerService.error('[ml4kimages] model training failure', err);
-                    handleTrainingError(err);
+                .catch((dataErr) => {
+                    loggerService.error('[ml4kimages] model training data failure', dataErr);
+                    handleTrainingError(dataErr);
                     return modelStatus;
                 });
         }
 
 
-        function trainTfjsModel(projectid, epochs, xs, ys) {
+        function trainTfjsModel(projectid, epochs, datasource, useStreamingDataset) {
             utilService.logTfjsMemory('training model');
 
             let aborted = false;
 
-            var progressPerEpoch = Math.round(100 / epochs);
+            const STEPS_TO_SAVE = 10;
+            var progressPerEpoch = Math.round((100 - STEPS_TO_SAVE) / epochs);
 
             var trainingHistory = {
                 epochs : [],
                 trainingLoss : []
             };
 
-            transferModel.fit(xs, ys, {
-                batchSize : simplified ? 5 : 10,
+            const trainingConfig = {
                 epochs : epochs,
                 callbacks : {
                     onEpochEnd : function (epoch, logs) {
@@ -396,43 +426,29 @@
                         }
                     },
                     onTrainEnd : function () {
-                        safeDispose(xs, ys);
+                        if (!useStreamingDataset) {
+                            safeDispose(datasource.xs, datasource.ys);
+                        }
 
                         if (resetting) {
                             return;
                         }
 
                         if (aborted) {
-                            if (simplified) {
-                                loggerService.debug('[ml4kimages] training failed on constrained device');
-                                if (modelStatus) {
-                                    modelStatus.status = 'Failed';
-                                    modelStatus.progress = 100;
-                                }
-                                usingRestoredModel = false;
-                                return;
+                            loggerService.debug('[ml4kimages] training failed');
+                            if (modelStatus) {
+                                modelStatus.status = 'Failed';
+                                modelStatus.progress = 100;
                             }
-
-                            if (epochs >= 10) {
-                                // retry with a smaller epoch
-                                transferModel = prepareTransferLearningModel(baseModel, modelNumClasses);
-                                return trainTfjsModel(projectid,
-                                    (epochs > 10) ? 10 : 5,
-                                    xs, ys);
-                            }
-                            else {
-                                // already tried with only 5 epochs - give up
-                                loggerService.debug('[ml4kimages] training failed');
-                                if (modelStatus) {
-                                    modelStatus.status = 'Failed';
-                                    modelStatus.progress = 100;
-                                }
-                                usingRestoredModel = false;
-                                return;
-                            }
+                            usingRestoredModel = false;
+                            return;
                         }
 
-                        return saveModel(projectid)
+                        if (modelStatus) {
+                            modelStatus.progress = 100 - STEPS_TO_SAVE;
+                        }
+
+                        saveModel(projectid)
                             .then(function () {
                                 return browserStorageService.storeAssetData(
                                     projectid + '-history',
@@ -450,13 +466,28 @@
                             });
                     }
                 }
-            })
-            .catch(function (err) {
-                loggerService.error('[ml4kimages] failed to train model', err);
-                safeDispose(xs, ys);
-                handleTrainingError(err);
-                usingRestoredModel = false;
-            });
+            };
+
+
+            if (useStreamingDataset) {
+                transferModel.fitDataset(datasource, trainingConfig)
+                    .catch((err) => {
+                        loggerService.error('[ml4kimages] failed to train model', err);
+                        handleTrainingError(err);
+                        usingRestoredModel = false;
+                    });
+            }
+            else {
+                trainingConfig.batchSize = simplified ? 5 : 10;
+
+                transferModel.fit(datasource.xs, datasource.ys, trainingConfig)
+                    .catch((err) => {
+                        loggerService.error('[ml4kimages] failed to train model', err);
+                        safeDispose(datasource.xs, datasource.ys);
+                        handleTrainingError(err);
+                        usingRestoredModel = false;
+                    });
+            }
         }
 
 
@@ -469,12 +500,12 @@
                 if (err.message &&
                     (err.message.includes('compile fragment shader') || err.message.includes('link vertex and fragment shaders')))
                 {
-                    err = new Error(
-                        'Your device does not have enough graphics memory to get ' +
-                        'your training data ready. ' +
-                        'You could remove some of your training images. ' +
-                        'It might help if you close other browser tabs or applications. '
-                    );
+                    const RESOURCE_MESSAGE = 'Your device does not have enough graphics memory to get your training data ready. ' +
+                        'You could remove some of your training images, or train a simplified model. ' +
+                        'It might help if you close other browser tabs or applications. ';
+                    err = new Error(RESOURCE_MESSAGE);
+                    err.data = { error : RESOURCE_MESSAGE };
+                    err.resourceLimitError = true;
                     err.status = 500;
                 }
                 else if (!err.data) {
@@ -619,6 +650,11 @@
             catch (err) {
                 loggerService.debug('[ml4kimages] error when disposing of models', err);
             }
+        }
+
+        function isMobile() {
+            loggerService.debug('[ml4kimages] user agent ' + navigator.userAgent);
+            return /Android|iPhone|iPad|Mobile/i.test(navigator.userAgent);
         }
 
 

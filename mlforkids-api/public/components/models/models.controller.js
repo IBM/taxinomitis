@@ -400,6 +400,10 @@
 
                         var errId = displayAlert('errors', models[0].error, models[0].error);
                         scrollToNewItem('errors' + errId);
+
+                        if (models[0].error.resourceLimitError) {
+                            $scope.constrainedDevice = true;
+                        }
                     }
                 }
 
