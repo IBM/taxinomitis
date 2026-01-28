@@ -37,12 +37,12 @@
         <a ui-sref="mlproject({ projectId : projectId, userId : userId })" translate="APP.BACKTOPROJECT" ng-hide="reviewing"></a>
     </div>
 
-    <div ng-repeat="error in vm.errors" class="alert alert-danger alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('errors', $index)">
+    <div ng-repeat="error in vm.errors track by $index" class="alert alert-danger alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('errors', $index)">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <strong translate="APP.ERROR"></strong> {{ error.message }}<br/>
         <em ng-if="error.status >= 500"><span translate="ERRORS.IFPERSISTENT"></span> <a ui-sref="help" translate="ERRORS.LETMEKNOW"></a></em>
     </div>
-    <div ng-repeat="warning in vm.warnings" class="alert alert-warning alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('warnings', $index)">
+    <div ng-repeat="warning in vm.warnings track by $index" class="alert alert-warning alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('warnings', $index)">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <strong translate="APP.WARNING"></strong> {{ warning.message }}
     </div>
@@ -66,9 +66,9 @@
         </div>
 
         <div class="trainingbuckets" ng-hide="project.type == 'regression'">
-            <div class="trainingbucket" ng-repeat="label in project.labels">
+            <div class="trainingbucket" ng-repeat="label in project.labels track by label">
                 <div class="trainingbucketheader">
-                    <span class="trainingbucketlabel">{{ label === '_background_noise_' ? 'background noise' : label }}</span>
+                    <span class="trainingbucketlabel">{{ ::(label === '_background_noise_' ? 'background noise' : label) }}</span>
                 </div>
                 <span class="glyphicon glyphicon-remove-circle deletelabel"
                       aria-hidden="true"
@@ -81,7 +81,7 @@
                               ng-click="vm.deleteText(label, item, $index)"
                               ng-hide="reviewing"
                               ng-if="!item.isPlaceholder"></span>
-                        {{ item.textdata }}
+                        {{ ::item.textdata }}
                     </div>
                 </div>
                 <div class="trainingbucketitems" ng-if="project.type === 'numbers'">
@@ -92,32 +92,32 @@
                               ng-hide="reviewing"
                               ng-if="!item.isPlaceholder"></span>
                         <table>
-                            <tr ng-repeat="field in project.fields">
-                                <td class="numberdatalabel"> {{ field.name }} </td>
-                                <td class="numberdatavalue" ng-if="project.fields[$index].type === 'number'"> {{ item.numberdata[$index] }} </td>
-                                <td class="numberdatavalue" ng-if="project.fields[$index].type === 'multichoice'"> {{ project.fields[$index].choices[item.numberdata[$index]] }} </td>
+                            <tr ng-repeat="field in project.fields track by field.name">
+                                <td class="numberdatalabel"> {{ ::field.name }} </td>
+                                <td class="numberdatavalue" ng-if="project.fields[$index].type === 'number'"> {{ ::item.numberdata[$index] }} </td>
+                                <td class="numberdatavalue" ng-if="project.fields[$index].type === 'multichoice'"> {{ ::project.fields[$index].choices[item.numberdata[$index]] }} </td>
                             </tr>
                         </table>
                     </div>
                 </div>
                 <div class="trainingbucketitems" ng-if="project.type === 'imgtfjs'" ml-image-loader>
                     <div class="loading loadingtraining" ng-if="loadingtraining"> </div>
-                    <div class="dragprompt" ng-hide="loadingtraining || training[label].length > 0">{{ project.storage === 'local' ? 'TRAINING.DRAGIMAGESLOCAL' : 'TRAINING.DRAGIMAGES' | translate }}</div>
+                    <div class="dragprompt" ng-hide="loadingtraining || training[label].length > 0">{{ ::(project.storage === 'local' ? 'TRAINING.DRAGIMAGESLOCAL' : 'TRAINING.DRAGIMAGES') | translate }}</div>
                     <div class="trainingbucketitem" ng-repeat="item in training[label] track by item.id" id="{{item.id}}" ng-class="{ error : item.loadingFailed }">
                         <span class="glyphicon glyphicon-remove-circle deletetext" aria-hidden="true"
                               ng-hide="reviewing"
                               ng-click="vm.deleteText(label, item, $index)"></span>
                         <!-- hosted images need to be fetched using the httpSrc directive so that an auth header is included -->
                         <img ng-if="item.imageurl && item.imageurl.substring(0, 4) === '/api'"
-                             http-src="{{ item.imageurl }}"
+                             http-src="{{ ::item.imageurl }}"
                              class="trainingImageThumbnail"
-                             alt="{{ item.imageurl }}"
+                             alt="{{ ::item.imageurl }}"
                              ml-image-on-error="vm.onImageError(item)">
                         <!-- public images can be fetched by the browser - using ngSrc to set the img.src value in a safe way -->
                         <img ng-if="item.imageurl && item.imageurl.substring(0, 4) !== '/api'"
-                             ng-src="{{ item.imageurl }}"
+                             ng-src="{{ ::item.imageurl }}"
                              class="trainingImageThumbnail"
-                             alt="{{ item.imageurl }}"
+                             alt="{{ ::item.imageurl }}"
                              ml-image-on-error="vm.onImageError(item)">
                     </div>
                 </div>
@@ -146,7 +146,7 @@
                         type="file"
                         accept=".txt"
                         style="display: none;"
-                        data-label="{{ label }}"
+                        data-label="{{ ::label }}"
                         onchange="angular.element(this).scope().uploadTrainingData(event, this)"/>
                     <label class="btn newexamplebutton" for="numbers-file-upload-{{$index}}" ng-if="project.type === 'numbers' && project.storage === 'local'">
                         <div class="thin buttonicon glyphicon glyphicon-open-file"></div>
@@ -156,7 +156,7 @@
                         type="file"
                         accept=".csv"
                         style="display: none;"
-                        data-label="{{ label }}"
+                        data-label="{{ ::label }}"
                         onchange="angular.element(this).scope().uploadTrainingData(event, this)"/>
                     <div class="btn newexamplebutton" ng-if="(project.type === 'text' || project.type === 'numbers') && training[label].length > 0 " ng-click="downloadTrainingData($event, label)">
                         <div class="thin buttonicon glyphicon glyphicon-save-file"></div>
@@ -192,7 +192,7 @@
                         accept=".jpeg,.jpg,.png"
                         multiple
                         style="display: none;"
-                        data-label="{{ label }}"
+                        data-label="{{ ::label }}"
                         onchange="angular.element(this).scope().uploadTrainingData(event, this)"/>
                     <div class="btn newexamplebutton" ng-click="vm.useMicrophone($event, label)" ng-if="project.type === 'sounds'" ng-disabled="loadingtraining">
                         <div class="newexampleicon">+</div>

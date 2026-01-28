@@ -16,7 +16,7 @@
         <tr>
             <th ng-repeat="col in project.columns | filter: { output: false }">
                 <div class="tablecollabel">
-                    {{ col.label }}
+                    {{ ::col.label }}
                 </div>
                 <div class="tablecollabel">
                     <span ng-click="sort('\'' + col.label + '\'', 'asc')"  class="sortbutton glyphicon glyphicon-chevron-up"></span>
@@ -31,7 +31,7 @@
             <th class="spacing"> &nbsp; </th>
             <th ng-repeat="col in project.columns | filter: { output: true } track by col.label">
                 <div class="tablecollabel">
-                    {{ col.label }}
+                    {{ ::col.label }}
                 </div>
                 <div class="tablecollabel">
                     <span ng-click="sort('\'' + col.label + '\'', 'asc')"  class="sortbutton glyphicon glyphicon-chevron-up"></span>
@@ -48,10 +48,10 @@
     <tbody>
         <tr ng-repeat="trainingrow in training | orderBy: sortCol track by trainingrow.id">
             <td ng-repeat="col in project.columns | filter: { output: false }"
-                class="trainingbucketitem inputcol">{{ trainingrow[col.label] }}</td>
+                class="trainingbucketitem inputcol">{{ ::trainingrow[col.label] }}</td>
             <td> &nbsp; </td>
             <td ng-repeat="col in project.columns | filter: { output: true }"
-                class="trainingbucketitem outputcol">{{ trainingrow[col.label] }}</td>
+                class="trainingbucketitem outputcol">{{ ::trainingrow[col.label] }}</td>
             <td class="deleteitemcell"><span class="glyphicon glyphicon-remove-circle deletetext" ng-click="onDeleteItem(trainingrow)"></span></td>
         </tr>
     </tbody>

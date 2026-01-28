@@ -14,14 +14,21 @@ angular.module('app')
 
             link: function ($scope, element, attrs, controller, transcludeFn) {
 
-                if ($scope.datatype !== 'sounds') {
+                const spectogram = $scope.spectogram;
+                delete $scope.spectogram;
+                const modelinfo = $scope.modelinfo;
+                delete $scope.modelinfo;
+                const datatype = $scope.datatype;
+                delete $scope.datatype;
+
+                if (datatype !== 'sounds') {
                     return;
                 }
 
                 var min = Infinity;
                 var max = -Infinity;
-                for (var i = 0; i < $scope.spectogram.length; i++) {
-                    var num = $scope.spectogram[i];
+                for (var i = 0; i < spectogram.length; i++) {
+                    var num = spectogram[i];
                     if (num > -Infinity) {
                         min = Math.min(num, min);
                         max = Math.max(num, max);
@@ -36,9 +43,9 @@ angular.module('app')
                 var context = canvas.getContext('2d');
                 context.clearRect(0, 0, canvas.width, canvas.height);
 
-                var fftSize = $scope.modelinfo.fftSize;
+                var fftSize = modelinfo.fftSize;
 
-                var numFrames = $scope.spectogram.length / fftSize;
+                var numFrames = spectogram.length / fftSize;
 
                 var pixelsPerCol = canvas.width / numFrames;
                 var pixelsPerRow = canvas.height / fftSize;
@@ -48,7 +55,7 @@ angular.module('app')
                     var x = pixelsPerCol * i;
 
                     // get values for the column
-                    var columnValues = $scope.spectogram.slice(i * fftSize, (i + 1) * fftSize);
+                    var columnValues = spectogram.slice(i * fftSize, (i + 1) * fftSize);
                     if (columnValues[0] > -Infinity) {
 
                         // for each row in the column

@@ -21,17 +21,17 @@
         <a ui-sref="mlproject({ projectId : projectId, userId : userId })" translate="APP.BACKTOPROJECT"></a>
     </div>
 
-    <div ng-repeat="error in vm.errors"
+    <div ng-repeat="error in vm.errors track by alertid"
          class="alert alert-danger alert-dismissible pageheadermsg" role="alert"
          ng-click="vm.dismissAlert('errors', $index)"
-         id="errors{{error.alertid}}">
+         id="errors{{::error.alertid}}">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong translate="APP.ERROR"></strong> {{ error.message }}<br/>
+        <strong translate="APP.ERROR"></strong> {{ ::error.message }}<br/>
         <em ng-if="error.status >= 500"><span translate="ERRORS.IFPERSISTENT"></span> <a ui-sref="help" translate="ERRORS.LETMEKNOW"></a></em>
     </div>
-    <div ng-repeat="warning in vm.warnings" class="alert alert-warning alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('warnings', $index)">
+    <div ng-repeat="warning in vm.warnings track by $index" class="alert alert-warning alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('warnings', $index)">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong translate="APP.WARNING"></strong> {{ warning.message }}
+        <strong translate="APP.WARNING"></strong> {{ ::warning.message }}
     </div>
     <div ng-if="models[0].warning" class="alert alert-warning pageheadermsg" role="alert">
         <strong translate="APP.WARNING"></strong> Your model could not be stored. Models are normally saved in the browser, but your web browser would not allow this. <br/>The most likely reason is that you are using a web browser in a secure or private mode. You can use your machine learning model, but it will be lost when you leave this page.
@@ -108,7 +108,7 @@
                               translate="MODELS.WHATHAVEYOUDONE.READY.INDIVIDUAL.SOUNDS"></span>
                         <span ng-if="project.type === 'regression'"
                               translate="MODELS.WHATHAVEYOUDONE.READY.INDIVIDUAL.REGRESSION"></span>
-                        {{ projectSummary }}.
+                        {{ ::projectSummary }}.
                     </div>
                     <div class="modelstatusdetail">
                         <span ng-if="owner" translate="MODELS.WHATHAVEYOUDONE.READY.CREATED.YOU"></span>
@@ -120,13 +120,13 @@
                         <span ng-if="project.isCrowdSourced" translate="MODELS.WHATHAVEYOUDONE.READY.TRAINING.CLASS"></span>
                         <span ng-hide="project.isCrowdSourced" translate="MODELS.WHATHAVEYOUDONE.READY.TRAINING.YOU"></span>
                         <ul ng-hide="project.type === 'regression'">
-                            <li ng-repeat="training in trainingcounts">
-                                {{ training.count }}
+                            <li ng-repeat="training in trainingcounts track by training.label">
+                                {{ ::training.count }}
                                 example<span ng-if="training.count !== 1">s</span> of
-                                {{ training.label }}<span ng-if="!$last">, </span>
+                                {{ ::training.label }}<span ng-if="!$last">, </span>
                             </li>
                         </ul>
-                        <span ng-if="project.type === 'regression'">{{ trainingcounts[0].count }} examples of data</span>
+                        <span ng-if="project.type === 'regression'">{{ ::trainingcounts[0].count }} examples of data</span>
                     </div>
                 </div>
 
@@ -207,7 +207,7 @@
                                   translate="MODELS.WHATHAVEYOUDONE.IDLE.NODATA.INDIVIDUAL.SOUNDS"></span>
                             <span ng-if="project.type === 'regression'"
                                   translate="MODELS.WHATHAVEYOUDONE.IDLE.NODATA.INDIVIDUAL.REGRESSION"></span>
-                            {{ projectSummary }}.
+                            {{ ::projectSummary }}.
                         </div>
                         <div class="modelstatusdetail" ng-if="project.isCrowdSourced"
                                                        translate="MODELS.WHATHAVEYOUDONE.IDLE.NOEXAMPLES.CLASS"></div>
@@ -222,7 +222,7 @@
                         </div>
                         <div class="modelstatusdetail">
                             <span translate="MODELS.WHATHAVEYOUDONE.IDLE.DATA.COLLECTED.YOU"></span>
-                            <span ng-if="project.type === 'regression'">{{ trainingcounts[0].count }} examples of data</span>
+                            <span ng-if="project.type === 'regression'">{{ ::trainingcounts[0].count }} examples of data</span>
                         </div>
                     </div>
                     <div ng-if="project.labels.length > 0 && trainingdatastatus !== 'no_data' && trainingdatastatus !== 'no_output_columns'">
@@ -245,19 +245,19 @@
                                   translate="MODELS.WHATHAVEYOUDONE.IDLE.DATA.INDIVIDUAL.SOUNDS"></span>
                             <span ng-if="project.type === 'regression'"
                                   translate="MODELS.WHATHAVEYOUDONE.IDLE.DATA.INDIVIDUAL.REGRESSION"></span>
-                            {{ projectSummary }}.
+                            {{ ::projectSummary }}.
                         </div>
                         <div class="modelstatusdetail">
                             <span ng-if="project.isCrowdSourced" translate="MODELS.WHATHAVEYOUDONE.IDLE.DATA.COLLECTED.CLASS"></span>
                             <span ng-hide="project.isCrowdSourced" translate="MODELS.WHATHAVEYOUDONE.IDLE.DATA.COLLECTED.YOU"></span>
                             <ul ng-hide="project.type === 'regression'">
-                                <li ng-repeat="training in trainingcounts">
-                                    {{ training.count }}
+                                <li ng-repeat="training in trainingcounts track by training.label">
+                                    {{ ::training.count }}
                                     example<span ng-if="training.count !== 1">s</span> of
-                                    {{ training.label }}<span ng-if="!$last">, </span>
+                                    {{ ::training.label }}<span ng-if="!$last">, </span>
                                 </li>
                             </ul>
-                            <span ng-if="project.type === 'regression'">{{ trainingcounts[0].count }} examples of data</span>
+                            <span ng-if="project.type === 'regression'">{{ ::trainingcounts[0].count }} examples of data</span>
                         </div>
                     </div>
                 </div>
@@ -421,8 +421,8 @@
 
 
             <table ng-if="project.type === 'numbers'" class="testnumbers">
-                <tr ng-repeat="field in project.fields">
-                    <td class="testnumberfield">{{ field.name }}</td>
+                <tr ng-repeat="field in project.fields track by field.name">
+                    <td class="testnumberfield">{{ ::field.name }}</td>
                     <td>
                         <input type="text"
                                ng-if="field.type === 'number'"
@@ -433,15 +433,15 @@
                                 ng-model="testformData[field.name]"
                                 ng-init="testformData[field.name] = field.choices[0]">
                             <option ng-repeat="choice in field.choices track by $index"
-                                    value="{{choice}}">{{choice}}</option>
+                                    value="{{::choice}}">{{::choice}}</option>
                         </select>
                     </td>
                 </tr>
             </table>
 
             <table ng-if="project.type === 'regression'" class="testnumbers">
-                <tr ng-repeat="field in project.columns | filter: { output: false, type: 'number' }">
-                    <td class="testnumberfield">{{ field.label }}</td>
+                <tr ng-repeat="field in project.columns | filter: { output: false, type: 'number' } track by field.label">
+                    <td class="testnumberfield">{{ ::field.label }}</td>
                     <td>
                         <input type="text"
                                ng-if="field.type === 'number'"
@@ -466,8 +466,8 @@
             <div ng-hide="project.type === 'regression'" translate="MODELS.TESTING.RECOGNISED" translate-values='{ testoutput : testoutput }'></div>
             <div ng-if="project.type === 'regression'" translate="MODELS.TESTING.PREDICTION" class="answerconfirm"></div>
             <table ng-if="project.type === 'regression'" class="testnumbers">
-                <tr ng-repeat="field in project.columns | filter: { output: true }">
-                    <td class="testnumberfield">{{ field.label }}</td>
+                <tr ng-repeat="field in project.columns | filter: { output: true } track by field.label">
+                    <td class="testnumberfield">{{ ::field.label }}</td>
                     <td>
                         <input type="text"
                                ng-if="field.type === 'number'"
@@ -497,7 +497,7 @@
          ng-hide="(!owner && project.type !== 'imgtfjs' && project.type !== 'sounds') || loading"
          class="trainingserversection">
         <div><strong translate="MODELS.TRAINING.TITLE"></strong></div>
-        <div ng-repeat="model in models">
+        <div ng-repeat="model in models track by $index">
             <table class="modelinfo">
                 <tr>
                     <td><strong translate="MODELS.TRAINING.STARTED"></strong></td>
@@ -509,10 +509,12 @@
                 <tr>
                     <td><strong translate="MODELS.TRAINING.STATUS"></strong></td>
                     <td>
-                        {{ model.status }}
-                        <md-progress-linear ng-if="(project.type === 'sounds' || project.type === 'imgtfjs' || project.type === 'regression') && model.status === 'Training'"
+                        {{ model.status && model.progress === 0 ? 'Preparing data' : model.status }}
+                        <md-progress-linear ng-if="(project.type === 'sounds' || project.type === 'imgtfjs' || project.type === 'regression') && model.status === 'Training' && model.progress > 0"
                             md-mode="determinate"
                             value={{model.progress}}></md-progress-linear>
+                        <md-progress-linear ng-if="(project.type === 'sounds' || project.type === 'imgtfjs' || project.type === 'regression') && model.status === 'Training' && model.progress === 0"
+                            md-mode="indeterminate"></md-progress-linear>
                     </td>
                 </tr>
                 <tr ng-if="model.expiry && model.status !== 'Training'">
@@ -585,12 +587,12 @@
             </div>
             <div class="quizanswer" ng-repeat="answer in quizQuestion.answers" ng-class="{ 'answered' : answered }" >
                 <input type="checkbox" ng-model="answer.selected" ng-disabled="answered" ng-click="vm.checkQuizAnswers(quizQuestion)">
-                <div>{{ answer.text }}</div>
+                <div>{{ ::answer.text }}</div>
             </div>
             <div ng-if="answered">
                 <div class="answerconfirm" ng-if="answerCorrect" translate="MODELS.QUIZ.CORRECT_ANSWER"> </div>
                 <div class="answerconfirm" ng-if="!answerCorrect" translate="MODELS.QUIZ.INCORRECT_ANSWER"> </div>
-                <div class="answernotes" ng-repeat="note in quizQuestion.notes"> {{ note }} </div>
+                <div class="answernotes" ng-repeat="note in quizQuestion.notes track by $index"> {{ ::note }} </div>
                 <button class="btn btn-default" ng-click="vm.nextQuizQuestion()" translate="MODELS.QUIZ.NEXT_QUESTION"></button>
             </div>
         </div>
