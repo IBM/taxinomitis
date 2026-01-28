@@ -612,10 +612,14 @@
                     trainingObject.id = event.target.result;
 
                     if (trainingObject.label) {
-                        addLabel(projectId, trainingObject.label);
+                        return addLabel(projectId, trainingObject.label)
+                            .then(() =>  {
+                                return trainingObject;
+                            });
                     }
-
-                    return trainingObject;
+                    else {
+                        return trainingObject;
+                    }
                 });
         }
 
