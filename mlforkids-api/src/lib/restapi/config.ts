@@ -109,6 +109,8 @@ export const CSP_DIRECTIVES: Record<string, string[]> = {
         'https://huggingface.co',
         'https://cas-bridge.xethub.hf.co',
         'https://raw.githubusercontent.com',
+        // useful when running locally
+        'https://machinelearningforkids.co.uk',
         // used by in-browser page translations
         'https://translate.googleapis.com',
     ].concat(env.getNumbersServiceHostUrls()), // used for numbers service
