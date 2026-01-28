@@ -591,7 +591,7 @@
 
         function resetTransferModel() {
             try {
-                if (transferModel) {
+                if (transferModel && transferModel.built) {
                     transferModel.stopTraining = true;
                 }
                 tf.dispose(transferModel);
