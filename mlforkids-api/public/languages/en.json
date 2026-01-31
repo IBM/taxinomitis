@@ -778,9 +778,9 @@
     "DESCRIBEIMAGEMODEL": {
         "WHATISEPOCH": "\"Epoch\" is a description of a step in the training. Epoch 0 was the start of the training. The final epoch number depends on how much training data you have.",
 
-        "LINESGODOWN": "If the <strong>line goes down</strong>, that's good. Your model is learning and getting better at recognizing images.",
-        "LINESFLAT": "If the <strong>line stays flat</strong>, your model is not getting better and has learned as much as it can. If the model is still not good enough, you will need more training images for the model to learn any more.",
-        "LINEGOESUP": "If the <strong>line goes up</strong>, your model is making more mistakes the more that it learns, which means it might be having trouble learning. Try adding more varied training images. "
+        "LINESGODOWN": "If the <strong>line goes down</strong>, that's good. Your model is learning and getting better at recognizing things.",
+        "LINESFLAT": "If the <strong>line stays flat</strong>, your model is not getting better and has learned as much as it can. If the model is still not good enough, you will need more training examples for the model to learn any more.",
+        "LINEGOESUP": "If the <strong>line goes up</strong>, your model is making more mistakes the more that it learns, which means it might be having trouble learning. Try adding more varied training examples. "
     },
     "DESCRIBETEXTMODEL": {
         "ZOOM": "Use these controls to zoom in on the diagrams",

@@ -171,6 +171,12 @@
                 templateUrl: 'static/components/describeimagemodel/describemodel.html',
                 controllerAs: 'vm'
             })
+            .state('mlproject_sound_model_describe', {
+                url: '/mlproject/:userId/:projectId/models/sound/:modelId',
+                controller: 'SoundDescribeController',
+                templateUrl: 'static/components/describesoundmodel/describemodel.html',
+                controllerAs: 'vm'
+            })
             .state('mlproject_makes', {
                 url: '/mlproject/:userId/:projectId/makes',
                 controller: 'MakesController',
@@ -339,7 +345,7 @@
             .useSanitizeValueStrategy('sanitizeParameters')
             .useStaticFilesLoader({
                 prefix: 'static/languages/',
-                suffix: '.json?v=311'
+                suffix: '.json?v=312'
             })
             .determinePreferredLanguage(function () {
                 var lang = navigator.userLanguage || navigator.language;

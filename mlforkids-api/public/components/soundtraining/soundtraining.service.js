@@ -6,11 +6,11 @@
 
     soundTrainingService.$inject = [
         '$q', '$window', '$location',
-        'trainingService', 'modelService',
+        'trainingService', 'modelService', 'browserStorageService',
         'utilService', 'loggerService',
     ];
 
-    function soundTrainingService($q, $window, $location, trainingService, modelService, utilService, loggerService) {
+    function soundTrainingService($q, $window, $location, trainingService, modelService, browserStorageService, utilService, loggerService) {
 
         var transferRecognizer;
         var transferModelInfo;
@@ -224,7 +224,7 @@
         }
 
 
-        function prepareTrainingConfig(trainingDataSize, numLabels, trainSimplifiedModel) {
+        function prepareTrainingConfig(history, trainingDataSize, numLabels, trainSimplifiedModel) {
             loggerService.debug('[ml4ksound] determining training config', trainingDataSize, numLabels, trainSimplifiedModel);
             const avgTrainingExamplesPerLabel = trainingDataSize / numLabels;
 
@@ -292,6 +292,9 @@
                     config.augmentByMixingNoiseRatio = 0.3;
                 }
             }
+            if (config.validationSplit) {
+                history.validationLoss = [];
+            }
 
             loggerService.debug('[ml4ksound] training config', config);
 
@@ -301,21 +304,31 @@
 
             var totalEpochs = config.epochs + (config.fineTuningEpochs ? config.fineTuningEpochs : 0);
             config.callback = {
-                onEpochEnd: function (epoch) {
+                onEpochEnd: function (epoch, logs) {
                     if (modelStatus) {
                         // remember - epochs are zero-indexed
                         modelStatus.progress = Math.round(((epoch + 1) / totalEpochs) * 100);
+                    }
+                    history.epochs.push(epoch);
+                    history.trainingLoss.push(logs.loss);
+                    if (history.validationLoss) {
+                        history.validationLoss.push(logs.val_loss);
                     }
                 }
             };
             if (config.fineTuningEpochs) {
                 config.fineTuningCallback = {
-                    onEpochEnd: function (fineTuningEpoch) {
+                    onEpochEnd: function (fineTuningEpoch, fineTuningLogs) {
+                        var currentEpoch = config.epochs + fineTuningEpoch;
                         if (modelStatus) {
                             // Fine-tuning epochs come after initial epochs
                             // remember - epochs are zero-indexed
-                            var currentEpoch = config.epochs + fineTuningEpoch + 1;
-                            modelStatus.progress = Math.round((currentEpoch / totalEpochs) * 100);
+                            modelStatus.progress = Math.round(((currentEpoch + 1) / totalEpochs) * 100);
+                        }
+                        history.epochs.push(currentEpoch);
+                        history.trainingLoss.push(fineTuningLogs.loss);
+                        if (history.validationLoss) {
+                            history.validationLoss.push(fineTuningLogs.val_loss);
                         }
                     }
                 };
@@ -339,6 +352,11 @@
             };
 
             var trainingConfig;
+            var trainingHistory = {
+                epochs: [],
+                trainingLoss: []
+                // validationLoss: []
+            };
 
             loggerService.debug('[ml4ksound] preparing sound service');
             return prepareSoundService()
@@ -372,6 +390,7 @@
 
                     // customize training config for training set
                     trainingConfig = prepareTrainingConfig(
+                        trainingHistory,
                         trainingdata.length,
                         transferRecognizer.wordLabels().length,
                         trainSimplifiedModel
@@ -385,12 +404,21 @@
                     transferRecognizer
                         .train(trainingConfig)
                         .then(function () {
+                            loggerService.debug('[ml4ksound] storing model');
+                            return saveModel(projectid);
+                        })
+                        .then(function () {
+                            return browserStorageService.storeAssetData(
+                                projectid + '-history',
+                                trainingHistory
+                            );
+                        })
+                        .then(function () {
+                            loggerService.debug('[ml4ksound] training complete');
                             if (modelStatus) {
                                 modelStatus.status = 'Available';
                                 modelStatus.progress = 100;
-                                usingRestoredModel = false;
-
-                                return saveModel(projectid);
+                                usingRestoredModel = false;;
                             }
                         })
                         .catch(function (err) {

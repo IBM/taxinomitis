@@ -65,7 +65,7 @@
                             }
                         }
 
-                        // Generate y-axis labels (5 ticks)
+                        // Generate y-axis labels
                         var yAxisLabels = [];
                         for (var i = 0; i <= 5; i++) {
                             var value = yMin + (yMax - yMin) * (i / 5);
@@ -75,20 +75,13 @@
                             });
                         }
 
-                        // Generate x-axis labels (show every 20th epoch or so)
+                        // Generate x-axis labels
                         var xAxisLabels = [];
                         var step = Math.ceil(maxEpoch / 10);
                         for (var i = 0; i <= maxEpoch; i += step) {
                             xAxisLabels.push({
                                 value: i,
                                 x: xScale(i)
-                            });
-                        }
-                        // add the last epoch
-                        if (xAxisLabels[xAxisLabels.length - 1].value !== maxEpoch) {
-                            xAxisLabels.push({
-                                value: maxEpoch,
-                                x: xScale(maxEpoch)
                             });
                         }
 
