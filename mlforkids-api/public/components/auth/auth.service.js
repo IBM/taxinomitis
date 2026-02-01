@@ -194,11 +194,16 @@
 
             authManager.unauthenticate();
 
+            const wasAuthenticated = $rootScope.isAuthenticated;
+            const wasTeacher = $rootScope.isTeacher;
+
             userProfile = null;
             $rootScope.isTeacher = false;
             $rootScope.isAuthenticated = false;
 
-            $rootScope.$broadcast('authStateChange', 'cleared auth data');
+            if (wasAuthenticated || wasTeacher) {
+                $rootScope.$broadcast('authStateChange', 'cleared auth data');
+            }
         }
 
         function logout() {
@@ -327,7 +332,9 @@
                                 'Please click on the Help tab for more info');
                         }
                     }
-                    $rootScope.$broadcast('authStateChange', 'authorization error');
+                    $timeout(function () {
+                        $rootScope.$broadcast('authStateChange', 'authorization error');
+                    });
                 });
 
                 // auth0 looks completely broken so try starting again
