@@ -1,7 +1,7 @@
 if (Sentry) {
     Sentry.init({
         dsn: 'https://b4bbe1a8fbce473cb9eb089652848a1e@sentry.io/202347',
-        release: '313',
+        release: '315',
         // https://docs.sentry.io/platforms/javascript/configuration/filtering/#decluttering-sentry
         ignoreErrors: [
             "top.GLOBALS",
@@ -18,7 +18,8 @@ if (Sentry) {
             "bmi_SafeAddOnload",
             "EBCallBackMessageReceived",
             "conduitPage",
-            "Cannot redefine property: googletag"
+            "Cannot redefine property: googletag",
+            "zaloJSV2 is not defined"
         ],
         denyUrls: [
             /graph\.facebook\.com/i,

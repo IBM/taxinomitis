@@ -345,7 +345,7 @@
             .useSanitizeValueStrategy('sanitizeParameters')
             .useStaticFilesLoader({
                 prefix: 'static/languages/',
-                suffix: '.json?v=314'
+                suffix: '.json?v=315'
             })
             .determinePreferredLanguage(function () {
                 var lang = navigator.userLanguage || navigator.language;
@@ -353,8 +353,8 @@
                 // if it is set via query, use that
                 const queries = document.location.search.substring(1).split('&');
                 for (var i = 0; i < queries.length; i++) {
-                    var query = queries[0];
-                    if (query.indexOf('lang=') === 0) {
+                    var query = queries[i];
+                    if (query && query.indexOf('lang=') === 0) {
                         lang = query.substring('lang='.length);
                         break;
                     }

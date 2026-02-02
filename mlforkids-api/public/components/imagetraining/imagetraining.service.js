@@ -463,6 +463,16 @@
                                 }
                                 usingRestoredModel = false;
                                 utilService.logTfjsMemory('training complete');
+                            })
+                            .catch(function (err) {
+                                loggerService.error('[ml4kimages] failed to save model', err);
+                                if (modelStatus) {
+                                    modelStatus.status = 'Available';
+                                    modelStatus.progress = 100;
+                                    modelStatus.warning = 'Not stored';
+                                }
+                                usingRestoredModel = false;
+                                utilService.logTfjsMemory('training complete');
                             });
                     }
                 }
@@ -625,7 +635,9 @@
                 if (transferModel && transferModel.built) {
                     transferModel.stopTraining = true;
                 }
-                tf.dispose(transferModel);
+                if (tf) {
+                    tf.dispose(transferModel);
+                }
 
                 transferModel = null;
             }

@@ -378,7 +378,7 @@
                     .catch(function (err) {
                         loggerService.error('[ml4kds] Import failed', err);
 
-                        displayAlert('errors', err.status, err.data);
+                        displayAlert('errors', err.status, attemptParseError(err.data));
 
                         vm.creating = false;
                     });
@@ -386,5 +386,28 @@
         };
 
 
+        // when downloading an image, we set up the HTTP client
+        //  to expect binary data
+        // if something goes wrong, we might get a JSON string error
+        //  response, so this method tries to turn the error data
+        //  into a parsed object
+        function attemptParseError(errdata) {
+            try {
+                let errorString;
+                if (errdata instanceof ArrayBuffer) {
+                    var decoder = new TextDecoder('utf-8');
+                    errorString = decoder.decode(new Uint8Array(errdata));
+                }
+                else if (typeof(errdata) === 'string') {
+                    errorString = errdata;
+                }
+
+                return JSON.parse(errorString);
+            }
+            catch (err) {
+                // unable to parse - return as-is
+                return errdata;
+            }
+        }
     }
 }());
