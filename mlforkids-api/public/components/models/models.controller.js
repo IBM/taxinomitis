@@ -10,9 +10,10 @@
         'soundTrainingService', 'imageTrainingService', 'regressionTrainingService', 'numberTrainingService',
         'modelService', 'utilService', 'storageService', 'downloadService',
         'imageToolsService', 'webcamsService', 'gpuDetectionService',
-        '$stateParams',
+        'loggerService',
+        '$stateParams', '$location',
         '$scope',
-        '$mdDialog', '$timeout', '$interval', '$q', '$document', '$state', 'loggerService'
+        '$mdDialog', '$timeout', '$interval', '$q', '$state'
     ];
 
     function ModelsController(authService,
@@ -20,9 +21,10 @@
         soundTrainingService, imageTrainingService, regressionTrainingService, numberTrainingService,
         modelService, utilService, storageService, downloadService,
         imageToolsService, webcamsService, gpuDetectionService,
-        $stateParams,
+        loggerService,
+        $stateParams, $location,
         $scope,
-        $mdDialog, $timeout, $interval, $q, $document, $state, loggerService)
+        $mdDialog, $timeout, $interval, $q, $state)
     {
 
         var vm = this;
@@ -214,13 +216,13 @@
                 else if ($scope.project.type === 'sounds') {
                     return setupSoundsProject()
                         .then(function () {
-                            $scope.constrainedDevice = gpuDetectionService.isConstrained();
+                            $scope.constrainedDevice = $location.search().simplified || gpuDetectionService.isConstrained();
                         });
                 }
                 else if ($scope.project.type === 'imgtfjs') {
                     return setupImagesProject()
                         .then(function () {
-                            $scope.constrainedDevice = gpuDetectionService.isConstrained();
+                            $scope.constrainedDevice = $location.search().simplified || gpuDetectionService.isConstrained();
                         });
                 }
                 else if ($scope.project.type === 'regression') {
@@ -1009,27 +1011,6 @@
                 $document.duScrollToElementAnimated(angular.element(newItem));
             }, 0);
         }
-
-
-        function scrollToNewItem(itemId, retried) {
-            $scope.$applyAsync(() => {
-                var newItem = document.getElementById(itemId.toString());
-                if (newItem) {
-                    var itemContainer = newItem.parentElement;
-                    angular.element(itemContainer).duScrollToElementAnimated(angular.element(newItem));
-                }
-                else if (!retried) {
-                    $timeout(function () {
-                        scrollToNewItem(itemId, true);
-                    }, 0);
-                }
-                else {
-                    loggerService.error('[ml4kmodels] unable to scroll to new item', itemId);
-                }
-            });
-        }
-
-
 
         $scope.getController = function() {
             return vm;
