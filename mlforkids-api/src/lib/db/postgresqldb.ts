@@ -26,7 +26,7 @@ export async function connect(): Promise<any> {
 
         let connectionOptions: pg.PoolConfig;
 
-        // Use DATABASE_URL if available, otherwise use individual env vars
+        // use DATABASE_URL if available, otherwise use individual env vars
         if (process.env.DATABASE_URL) {
             connectionOptions = parseConnectionUrl(process.env.DATABASE_URL);
             // require SSL for DATABASE_URL connections
