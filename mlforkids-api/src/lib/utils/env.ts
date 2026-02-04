@@ -61,9 +61,21 @@ export function confirmRequiredEnvironment() {
 
 
 function checkEnv(env: string) {
+    if (process.env.DATABASE_URL && isPostgresEnvVar(env)) {
+        return;
+    }
     if (!process.env[env]) {
         throw new Error('Missing required environment variable ' + env);
     }
+}
+
+function isPostgresEnvVar(env: string): boolean {
+    return env === POSTGRESQLHOST ||
+           env === POSTGRESQLPORT ||
+           env === POSTGRESQLUSER ||
+           env === POSTGRESQLPASSWORD ||
+           env === POSTGRESQLDATABASE ||
+           env === POSTGRESQLCERT;
 }
 
 export function inMaintenanceMode() {
