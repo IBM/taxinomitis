@@ -2,12 +2,15 @@
 
 The Machine Learning for Kids site is made up of a few different pieces. This document is here to describe what they all are and where they go.
 
-- [The bits that make up the site](#the-bits-that-make-up-the-site)
-- [Where HTTP requests go](#where-http-requests-go)
-- [Where data lives](#where-data-lives)
-- [Where users are authenticated](#where-users-are-authenticated)
-- [Where third-party APIs are accessed](#where-third-party-apis-are-accessed)
-
+- [Machine Learning for Kids production deployment](#machine-learning-for-kids-production-deployment)
+  - [The bits that make up the site](#the-bits-that-make-up-the-site)
+  - [Where HTTP requests go](#where-http-requests-go)
+  - [Where data lives](#where-data-lives)
+  - [Where users are authenticated](#where-users-are-authenticated)
+  - [Where third-party APIs are accessed](#where-third-party-apis-are-accessed)
+  - [Deploying mlforkids-api to Heroku (Docker)](#deploying-mlforkids-api-to-heroku-docker)
+    - [Setup Steps](#setup-steps)
+    - [Minimum Configuration for Heroku](#minimum-configuration-for-heroku)
 ---
 ## The bits that make up the site
 
@@ -82,3 +85,50 @@ Data from third-party services (Spotify and Wikipedia) is made available in Scra
 ![deployment components](./docs/05-third-party.png)
 
 ---
+
+## Deploying mlforkids-api to Heroku (Docker)
+
+The **mlforkids-api** service can be deployed to Heroku using the Dockerfile in `./mlforkids-api` directory with the Heroku Container Registry.
+
+### Setup Steps
+
+1. From the repository root, change into `mlforkids-api`:
+   ```sh
+   cd mlforkids-api
+   ```
+
+2. Create a Heroku app:
+   ```sh
+   heroku create your-app-name
+   ```
+
+3. Add Heroku Postgres addon (automatically sets `DATABASE_URL`):
+   ```sh
+   heroku addons:create heroku-postgresql:essential-0 -a your-app-name
+   ```
+
+4. Set required config vars (see [Minimum Configuration](#minimum-configuration-for-heroku) below):
+   ```sh
+   heroku config:set DEPLOYMENT=heroku AUTH0_DOMAIN=your.auth0.com -a your-app-name
+   # ... set other required vars
+   ```
+
+5. Build and deploy with Docker:
+   ```sh
+   npm run build
+   docker build -t mlforkids-api .
+   heroku container:push web -a your-app-name
+   heroku container:release web -a your-app-name
+   ```
+
+6. View logs to verify startup:
+   ```sh
+   heroku logs --tail -a your-app-name
+   ```
+
+### Minimum Configuration for Heroku
+
+Since `DATABASE_URL` is being used, individual PostgreSQL environment variables (`POSTGRESQLHOST`, `POSTGRESQLPORT`, etc.) are automatically skipped. The Heroku Postgres addon provides `DATABASE_URL` automatically.
+
+**Minimum required config vars** (aside from `DATABASE_URL`):
+- `HOST` - Set to `0.0.0.0`
