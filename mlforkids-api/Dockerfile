@@ -69,4 +69,8 @@ COPY --from=builder --chown=node:node /usr/src/build/dist/lib dist/lib
 # confirm prepared app
 RUN ls -l /usr/src/app
 
+# handle dynamically assigned ports in certain environments / on certain platforms (via the $PORT environment variable)
+# otherwise default to 3000
+EXPOSE ${PORT:-3000}
+
 CMD ["npm", "start"]
