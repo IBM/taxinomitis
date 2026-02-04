@@ -103,3 +103,35 @@ npm start
 ```
 
 The website should be running at the host and port you requested in the environment variables.
+
+## Alternative: Running mlforkids-api with Docker
+
+If you prefer to run the API in a Docker container locally, you can build and run the Dockerfile directly.
+
+### Building the Docker image
+
+From the `mlforkids-api` directory:
+
+```sh
+docker build -t mlforkids-api .
+```
+
+### Running the Docker container
+
+Make sure PostgreSQL is running on your host machine, then run:
+
+```sh
+docker run -p 3000:3000 \
+  -e POSTGRESQLHOST=host.docker.internal \
+  -e POSTGRESQLPORT=5432 \
+  -e POSTGRESQLUSER=ml4kdbuser \
+  -e POSTGRESQLPASSWORD=ml4kdbpwd \
+  -e POSTGRESQLDATABASE=mlforkidsdb \
+  -e PORT=3000 \
+  -e HOST=0.0.0.0 \
+  mlforkids-api
+```
+
+**Note:** Use `host.docker.internal` on macOS and Windows, or `172.17.0.1` on Linux to reference the host's PostgreSQL server from within the container.
+
+The website will be running at `http://localhost:3000`.
