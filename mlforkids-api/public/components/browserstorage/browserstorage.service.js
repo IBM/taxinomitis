@@ -173,7 +173,6 @@
                     loggerService.debug('[ml4kstorage] external change to projects database');
                     if (projectsDbHandle) {
                         projectsDbHandle.close();
-                        projectsDbHandle = null;
                     }
                 };
                 projectsDbHandle.onclose = () => {
@@ -189,7 +188,6 @@
                     loggerService.debug('[ml4kstorage] external change to training database');
                     if (trainingDataDatabases[projectId]) {
                         trainingDataDatabases[projectId].close();
-                        delete trainingDataDatabases[projectId];
                     }
                 };
                 trainingDataDatabases[projectId].onclose = () => {
@@ -205,7 +203,6 @@
                     loggerService.debug('[ml4kstorage] external change to assets database');
                     if (assetsDbHandle) {
                         assetsDbHandle.close();
-                        assetsDbHandle = null;
                     }
                 };
                 assetsDbHandle.onclose = () => {
