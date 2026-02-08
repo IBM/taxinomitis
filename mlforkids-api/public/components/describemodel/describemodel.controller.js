@@ -6,10 +6,11 @@
 
         ModelDescribeController.$inject = [
             'authService', 'loggerService', 'browserStorageService', 'projectsService',
-            '$stateParams', '$scope', '$timeout', '$interval', '$document'
+            'scrollService',
+            '$stateParams', '$scope', '$timeout', '$interval'
         ];
 
-    function ModelDescribeController(authService, loggerService, browserStorageService, projectsService, $stateParams, $scope, $timeout, $interval, $document) {
+    function ModelDescribeController(authService, loggerService, browserStorageService, projectsService, scrollService, $stateParams, $scope, $timeout, $interval) {
         var vm = this;
         vm.authService = authService;
 
@@ -47,13 +48,6 @@
             vm[type].push(newAlert);
 
             return newId;
-        }
-
-        function scrollToNewItem(itemId) {
-            $timeout(function () {
-                var newItem = document.getElementById(itemId);
-                $document.duScrollToElementAnimated(angular.element(newItem));
-            }, 0);
         }
 
         function getAssetAsJson(key) {
@@ -100,7 +94,7 @@
             })
             .catch(function (err) {
                 var errId = displayAlert('errors', err.status, err.data);
-                scrollToNewItem('errors' + errId);
+                scrollService.scrollToNewItem('errors' + errId);
                 $scope.loading = false;
             });
 

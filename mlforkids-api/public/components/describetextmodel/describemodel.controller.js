@@ -6,10 +6,11 @@
 
         ModelTextDescribeController.$inject = [
             'authService', 'projectsService', 'trainingService', 'fcnnVisualisationService', 'loggerService', 'utilService',
-            '$stateParams', '$scope', '$timeout', '$interval', '$document'
+            'scrollService',
+            '$stateParams', '$scope', '$timeout', '$interval'
         ];
 
-    function ModelTextDescribeController(authService, projectsService, trainingService, fcnnVisualisationService, loggerService, utilService, $stateParams, $scope, $timeout, $interval, $document) {
+    function ModelTextDescribeController(authService, projectsService, trainingService, fcnnVisualisationService, loggerService, utilService, scrollService, $stateParams, $scope, $timeout, $interval) {
         var vm = this;
         vm.authService = authService;
 
@@ -47,12 +48,6 @@
             return newId;
         }
 
-        function scrollToNewItem(itemId) {
-            $timeout(function () {
-                var newItem = document.getElementById(itemId);
-                $document.duScrollToElementAnimated(angular.element(newItem));
-            }, 0);
-        }
 
         utilService.loadScript('/static/bower_components/d3/d3.min.js')
             .then(function () {
@@ -77,7 +72,7 @@
                 }
                 else {
                     var errId = displayAlert('errors', 400, { message : 'Model not ready to be described' });
-                    scrollToNewItem('errors' + errId);
+                    scrollService.scrollToNewItem('errors' + errId);
                     $scope.loading = false;
                 }
             })
@@ -90,7 +85,7 @@
             })
             .catch(function (err) {
                 var errId = displayAlert('errors', err.status, err.data);
-                scrollToNewItem('errors' + errId);
+                scrollService.scrollToNewItem('errors' + errId);
                 $scope.loading = false;
             });
 

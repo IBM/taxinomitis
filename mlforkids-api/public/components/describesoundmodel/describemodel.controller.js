@@ -6,10 +6,11 @@
 
     SoundDescribeController.$inject = [
         'authService', 'loggerService', 'browserStorageService', 'projectsService',
-        '$stateParams', '$scope', '$timeout', '$document'
+        'scrollService',
+        '$stateParams', '$scope'
     ];
 
-    function SoundDescribeController(authService, loggerService, browserStorageService, projectsService, $stateParams, $scope, $timeout, $document) {
+    function SoundDescribeController(authService, loggerService, browserStorageService, projectsService, scrollService, $stateParams, $scope) {
         var vm = this;
         vm.authService = authService;
 
@@ -48,13 +49,6 @@
             return newId;
         }
 
-        function scrollToNewItem(itemId) {
-            $timeout(function () {
-                var newItem = document.getElementById(itemId);
-                $document.duScrollToElementAnimated(angular.element(newItem));
-            }, 0);
-        }
-
 
         authService.getProfileDeferred()
             .then(function (profile) {
@@ -86,7 +80,7 @@
                 else {
                     errId = displayAlert('errors', err.status, err.data || err);
                 }
-                scrollToNewItem('errors' + errId);
+                scrollService.scrollToNewItem('errors' + errId);
                 $scope.loading = false;
             });
     }

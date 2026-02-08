@@ -9,7 +9,7 @@
         'projectsService', 'trainingService', 'modelService',
         'soundTrainingService',
         'utilService', 'csvService', 'downloadService', 'imageToolsService', 'webcamsService',
-        'loggerService',
+        'scrollService', 'loggerService',
         '$stateParams',
         '$scope',
         '$mdDialog',
@@ -17,7 +17,7 @@
         '$timeout', '$interval'
     ];
 
-    function TrainingController(authService, projectsService, trainingService, modelService, soundTrainingService, utilService, csvService, downloadService, imageToolsService, webcamsService, loggerService, $stateParams, $scope, $mdDialog, $state, $timeout, $interval) {
+    function TrainingController(authService, projectsService, trainingService, modelService, soundTrainingService, utilService, csvService, downloadService, imageToolsService, webcamsService, scrollService, loggerService, $stateParams, $scope, $mdDialog, $state, $timeout, $interval) {
 
         var vm = this;
         vm.authService = authService;
@@ -1017,21 +1017,10 @@
                 });
         };
 
-        function scrollToNewItem(itemId, retried) {
-            $scope.$applyAsync(() => {
-                var newItem = document.getElementById(itemId.toString());
-                if (newItem) {
-                    var itemContainer = newItem.parentElement;
-                    angular.element(itemContainer).duScrollToElementAnimated(angular.element(newItem));
-                }
-                else if (!retried) {
-                    $timeout(function () {
-                        scrollToNewItem(itemId, true);
-                    }, 0);
-                }
-                else {
-                    loggerService.error('[ml4ktraining] unable to scroll to new item', itemId);
-                }
+        function scrollToNewItem(itemId) {
+            scrollService.scrollToNewItem(itemId, {
+                useParentScroll: true,
+                $scope: $scope
             });
         }
 

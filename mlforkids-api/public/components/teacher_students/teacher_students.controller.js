@@ -7,10 +7,11 @@
     TeacherStudentsController.$inject = [
         'authService',
         'usersService',
-        '$scope', '$mdDialog', '$document', '$timeout', 'loggerService'
+        'scrollService',
+        '$scope', '$mdDialog', 'loggerService'
     ];
 
-    function TeacherStudentsController(authService, usersService, $scope, $mdDialog, $document, $timeout, loggerService) {
+    function TeacherStudentsController(authService, usersService, scrollService, $scope, $mdDialog, loggerService) {
 
         var vm = this;
         vm.authService = authService;
@@ -46,7 +47,7 @@
         function assumeok() { return true; }
         function handleerr(err) {
             var errId = displayAlert('errors', err.status, err.data);
-            scrollToNewItem('errors' + errId);
+            scrollService.scrollToNewItem('errors' + errId);
         }
 
 
@@ -104,7 +105,7 @@
                         onfail(err);
 
                         var errId = displayAlert('errors', err.status, err.data);
-                        scrollToNewItem('errors' + errId);
+                        scrollService.scrollToNewItem('errors' + errId);
 
                         $scope.busy = false;
                     });
@@ -288,7 +289,7 @@
 
                 if (studentsToDelete.length !== deletedUserIds.length) {
                     var errId = displayAlert('warnings', 400, { message : 'Not all selected students could be deleted' });
-                    scrollToNewItem('warnings' + errId);
+                    scrollService.scrollToNewItem('warnings' + errId);
                 }
             };
 
@@ -926,7 +927,7 @@
             }
             else {
                 var errId = displayAlert('errors', 500, { error : 'Unexpected response' });
-                scrollToNewItem('errors' + errId);
+                scrollService.scrollToNewItem('errors' + errId);
             }
         }
 
@@ -939,13 +940,6 @@
                     .ok('OK')
                     .targetEvent(ev)
                 );
-        }
-
-        function scrollToNewItem(itemId) {
-            $timeout(function () {
-                var newItem = document.getElementById(itemId);
-                $document.duScrollToElementAnimated(angular.element(newItem));
-            }, 0);
         }
     }
 }());

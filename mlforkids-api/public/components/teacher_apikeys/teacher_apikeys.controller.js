@@ -7,10 +7,11 @@
     TeacherApiKeysController.$inject = [
         'authService',
         'usersService',
-        '$mdDialog', '$document', '$timeout', 'loggerService'
+        'scrollService',
+        '$mdDialog', 'loggerService'
     ];
 
-    function TeacherApiKeysController(authService, usersService, $mdDialog, $document, $timeout, loggerService) {
+    function TeacherApiKeysController(authService, usersService, scrollService, $mdDialog, loggerService) {
 
         var vm = this;
         vm.authService = authService;
@@ -242,7 +243,7 @@
                             loggerService.error('[ml4kapi] failed to store', err);
 
                             var errId = displayAlert('errors', err.status, err.data);
-                            scrollToNewItem('errors' + errId);
+                            scrollService.scrollToNewItem('errors' + errId);
 
                             vm.credentials[type] = vm.credentials[type].filter(function (c) {
                                 return c.uniq !== placeholder;
@@ -292,7 +293,7 @@
                             loggerService.error('[ml4kapi] failed to update', err);
 
                             var errId = displayAlert('errors', err.status, err.data);
-                            scrollToNewItem('errors' + errId);
+                            scrollService.scrollToNewItem('errors' + errId);
                         });
                 },
                 function() {
@@ -313,13 +314,5 @@
                             .ok('OK');
             $mdDialog.show(alert);
         };
-
-
-        function scrollToNewItem(itemId) {
-            $timeout(function () {
-                var newItem = document.getElementById(itemId);
-                $document.duScrollToElementAnimated(angular.element(newItem));
-            }, 0);
-        }
     }
 }());

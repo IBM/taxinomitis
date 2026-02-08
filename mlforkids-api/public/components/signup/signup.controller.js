@@ -7,10 +7,11 @@
         SignupController.$inject = [
             'authService',
             'usersService',
-            '$document', '$timeout', 'loggerService'
+            'scrollService',
+            'loggerService'
         ];
 
-        function SignupController(authService, usersService, $document, $timeout, loggerService) {
+        function SignupController(authService, usersService, scrollService, loggerService) {
             var vm = this;
             vm.authService = authService;
 
@@ -32,13 +33,7 @@
                     message : errObj.message || errObj.error || 'Unknown error',
                     status : status
                 });
-                scrollToNewItem(type + newId);
-            }
-            function scrollToNewItem(itemId) {
-                $timeout(function () {
-                    var newItem = document.getElementById(itemId);
-                    $document.duScrollToElementAnimated(angular.element(newItem));
-                }, 0);
+                scrollService.scrollToNewItem(type + newId);
             }
 
             vm.creating = false;
@@ -58,7 +53,7 @@
                             alertid : newId,
                             password : resp.password
                         });
-                        scrollToNewItem('infos' + newId);
+                        scrollService.scrollToNewItem('infos' + newId);
 
                         vm.complete = true;
                     })

@@ -10,7 +10,7 @@
         'soundTrainingService', 'imageTrainingService', 'regressionTrainingService', 'numberTrainingService',
         'modelService', 'utilService', 'storageService', 'downloadService',
         'imageToolsService', 'webcamsService', 'gpuDetectionService',
-        'loggerService',
+        'scrollService', 'loggerService',
         '$stateParams', '$location',
         '$scope',
         '$mdDialog', '$timeout', '$interval', '$q', '$state'
@@ -21,7 +21,7 @@
         soundTrainingService, imageTrainingService, regressionTrainingService, numberTrainingService,
         modelService, utilService, storageService, downloadService,
         imageToolsService, webcamsService, gpuDetectionService,
-        loggerService,
+        scrollService, loggerService,
         $stateParams, $location,
         $scope,
         $mdDialog, $timeout, $interval, $q, $state)
@@ -238,7 +238,7 @@
             })
             .catch(function (err) {
                 var errId = displayAlert('errors', err.status, err.data ? err.data : err);
-                scrollToNewItem('errors' + errId);
+                scrollService.scrollToNewItem('errors' + errId);
             });
 
 
@@ -401,7 +401,7 @@
                         vm.errors = vm.errors.filter(function (e) { return e.message !== 'Unknown error'; });
 
                         var errId = displayAlert('errors', models[0].error, models[0].error);
-                        scrollToNewItem('errors' + errId);
+                        scrollService.scrollToNewItem('errors' + errId);
 
                         if (models[0].error.resourceLimitError) {
                             $scope.constrainedDevice = true;
@@ -486,7 +486,7 @@
                     else {
                         // general training error
                         var errId = displayAlert('errors', err.status, err.data);
-                        scrollToNewItem('errors' + errId);
+                        scrollService.scrollToNewItem('errors' + errId);
                     }
                 });
         };
@@ -542,7 +542,7 @@
                             })
                             .catch(function (e) {
                                 var errId = displayAlert('errors', e.status, e.data);
-                                scrollToNewItem('errors' + errId);
+                                scrollService.scrollToNewItem('errors' + errId);
                             });
                     }
                 },
@@ -576,7 +576,7 @@
                     var errId = displayAlert('errors', 400, {
                         message : 'Invalid URL. Please enter the web address for a picture that you want to test your machine learning model on'
                     });
-                    return scrollToNewItem('errors' + errId);
+                    return scrollService.scrollToNewItem('errors' + errId);
                 }
 
                 try {
@@ -705,7 +705,7 @@
                     }
 
                     var errId = displayAlert('errors', err.status, err.data);
-                    scrollToNewItem('errors' + errId);
+                    scrollService.scrollToNewItem('errors' + errId);
                 });
         };
 
@@ -913,7 +913,7 @@
             delete $scope.testoutput;
 
             var errId = displayAlert('errors', err.status, err.data);
-            scrollToNewItem('errors' + errId);
+            scrollService.scrollToNewItem('errors' + errId);
         }
 
 
@@ -1004,13 +1004,6 @@
             }
         });
 
-
-        function scrollToNewItem(itemId) {
-            $timeout(function () {
-                var newItem = document.getElementById(itemId);
-                $document.duScrollToElementAnimated(angular.element(newItem));
-            }, 0);
-        }
 
         $scope.getController = function() {
             return vm;
