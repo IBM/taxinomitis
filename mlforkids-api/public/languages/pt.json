@@ -778,9 +778,9 @@
     "DESCRIBEIMAGEMODEL": {
         "WHATISEPOCH": "\"Época\" é uma descrição de uma etapa do treino. A época 0 foi o início do treino. O número final da época depende da quantidade de dados de treino que tens.",
 
-        "LINESGODOWN": "Se a <strong>linha cair</strong>, isso é bom. O teu modelo está a aprender e a melhorar no reconhecimento de imagens.",
-        "LINESFLAT": "Se a <strong>linha permanecer plana</strong>, o teu modelo não está a melhorar e já aprendeu tudo o que podia. Se o modelo ainda não estiver bom o suficiente, vais precisar de mais imagens de treino para que ele aprenda mais.",
-        "LINEGOESUP": "Se a <strong>linha subir</strong>, o teu modelo está a cometer mais erros à medida que aprende, o que significa que pode estar com dificuldades para aprender. Tenta adicionar imagens de treino mais diversificadas."
+        "LINESGODOWN": "Se a <strong>linha descer</strong>, isso é bom. O teu modelo está a aprender e a melhorar no reconhecimento de coisas.",
+        "LINESFLAT": "Se a linha <strong>permanecer constante</strong>, o teu modelo não está a melhorar e já aprendeu tudo o que podia. Se o modelo ainda não estiver bom o suficiente, vais precisar de mais exemplos de treino para que ele aprenda mais.",
+        "LINEGOESUP": "Se a <strong>linha subir</strong>, o teu modelo está a cometer mais erros à medida que aprende, o que significa que pode estar com dificuldades para aprender. Tenta adicionar exemplos de treino diferentes."
     },
     "DESCRIBETEXTMODEL": {
         "ZOOM": "Usa estes controlos para ampliar os diagramas",
