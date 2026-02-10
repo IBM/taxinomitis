@@ -298,7 +298,7 @@
 
         async function getProjects(userid) {
             loggerService.debug('[ml4kstorage] getProjects');
-            if (isSupported === SUPPORTED_NO) {
+            if (supported === SUPPORTED_NO) {
                 return Promise.resolve([]);
             }
 
@@ -841,6 +841,10 @@
 
         async function deleteAsset(id) {
             loggerService.debug('[ml4kstorage] deleteAsset', id);
+
+            if (supported === SUPPORTED_NO) {
+                return Promise.resolve();
+            }
 
             await requiresAssetsDatabase();
 
