@@ -718,25 +718,32 @@
 
             const trainingByLabel = {};
             const duplicatesCheck = {};
+            const labelCaseMapping = {};
 
             for (const item of allTraining) {
                 const label = item.label;
+                const labelLowerCase = label.toLowerCase();
                 const text = item.textdata.substring(0, 1024);
 
-                if (!(label in trainingByLabel)) {
-                    trainingByLabel[label] = {
-                        intent : label.replace(/\s/g, '_'),
+                const canonicalLabel = labelCaseMapping[labelLowerCase] || label;
+                if (!(labelLowerCase in labelCaseMapping)) {
+                    labelCaseMapping[labelLowerCase] = label;
+                }
+
+                if (!(canonicalLabel in trainingByLabel)) {
+                    trainingByLabel[canonicalLabel] = {
+                        intent : canonicalLabel.replace(/\s/g, '_'),
                         examples : []
                     };
                 }
-                if (!(label in duplicatesCheck)) {
-                    duplicatesCheck[label] = [];
+                if (!(canonicalLabel in duplicatesCheck)) {
+                    duplicatesCheck[canonicalLabel] = [];
                 }
 
                 const caseInsensitiveText = text.toLowerCase();
-                if (!duplicatesCheck[label].includes(caseInsensitiveText)) {
-                    trainingByLabel[label].examples.push({ text });
-                    duplicatesCheck[label].push(caseInsensitiveText);
+                if (!duplicatesCheck[canonicalLabel].includes(caseInsensitiveText)) {
+                    trainingByLabel[canonicalLabel].examples.push({ text });
+                    duplicatesCheck[canonicalLabel].push(caseInsensitiveText);
                 }
             }
 
