@@ -590,7 +590,7 @@
                     var operation = 'creating multiple students';
 
                     var prechecks = function () {
-                        if (vm.groupedStudents[group] && dialogResp.number && dialogResp.number < $scope.MAX_PER_GROUP) {
+                        if (vm.groupedStudents[group] && dialogResp.number && dialogResp.number <= $scope.MAX_PER_GROUP) {
                             for (var i = 1; i <= dialogResp.number; i++) {
                                 var newUserObj = {
                                     id : placeholderId++,
