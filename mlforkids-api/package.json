@@ -99,7 +99,7 @@
     "eslint": "9.39.2",
     "eslint-plugin-node": "11.1.0",
     "filecompare": "1.0.4",
-    "glob": "13.0.2",
+    "glob": "13.0.3",
     "html-minifier-terser": "7.2.0",
     "mocha": "11.7.5",
     "ng-annotate-patched": "1.15.0",
