@@ -314,19 +314,14 @@
                 const transaction = projectsDbHandle.transaction([ PROJECTS_TABLE ], 'readonly');
                 const request = transaction.objectStore(PROJECTS_TABLE).getAll();
 
-                return promisifyIndexedDbRequest(request)
-                    .then(function (event) {
-                        return event.target.result.filter(function (project) {
-                            return project.userid === userid;
-                        });
-                    })
-                    .catch(function (err) {
-                        loggerService.error('[ml4kstorage] unable to get local projects info.', err);
-                        return [];
-                    });
+                const event = await promisifyIndexedDbRequest(request)
+
+                return event.target.result.filter(function (project) {
+                    return project.userid === userid;
+                });
             }
             catch (err) {
-                loggerService.error('[ml4kstorage] unable to access projects database.', err);
+                loggerService.error('[ml4kstorage] unable to get local projects info.', err);
                 return [];
             }
         }
@@ -608,15 +603,15 @@
                 .then(function (event) {
                     trainingObject.id = event.target.result;
 
-                    if (trainingObject.label) {
-                        return addLabel(projectId, trainingObject.label)
-                            .then(() =>  {
-                                return trainingObject;
-                            });
-                    }
-                    else {
+                    // if (trainingObject.label) {
+                    //     return addLabel(projectId, trainingObject.label)
+                    //         .then(() =>  {
+                    //             return trainingObject;
+                    //         });
+                    // }
+                    // else {
                         return trainingObject;
-                    }
+                    // }
                 });
         }
 
