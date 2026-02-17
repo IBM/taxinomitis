@@ -5,10 +5,11 @@
         .service('imageToolsService', imageToolsService);
 
     imageToolsService.$inject = [
+        'readersService',
         '$q'
     ];
 
-    function imageToolsService($q) {
+    function imageToolsService(readersService, $q) {
 
         const MAX_SIZE = 224;
 
@@ -45,19 +46,27 @@
 
 
         function getDataFromFile(file) {
-            return $q(function (resolve) {
-                var imageFileReader = new FileReader();
-                imageFileReader.readAsDataURL(file);
-                imageFileReader.onloadend = function() {
-                    var resizedImg = document.createElement("img");
-                    resizedImg.onload = function () {
-                        getDataFromImageSource(resizedImg, file.type)
-                            .then(function (data) {
-                                resolve(data);
-                            });
+            return $q(function (resolve, reject) {
+                try {
+                    var imageFileReader = readersService.createFileReader();
+                    imageFileReader.readAsDataURL(file);
+                    imageFileReader.onloadend = function() {
+                        var resizedImg = document.createElement("img");
+                        resizedImg.onload = function () {
+                            getDataFromImageSource(resizedImg, file.type)
+                                .then(function (data) {
+                                    resolve(data);
+                                });
+                        };
+                        resizedImg.src = imageFileReader.result;
                     };
-                    resizedImg.src = imageFileReader.result;
-                };
+                    imageFileReader.onerror = function(imageErr) {
+                        reject(imageErr);
+                    };
+                }
+                catch (readerErr) {
+                    reject(readerErr);
+                }
             });
         }
 

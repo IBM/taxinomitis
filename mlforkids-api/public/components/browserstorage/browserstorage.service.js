@@ -6,11 +6,11 @@
 
     browserStorageService.$inject = [
         'loggerService',
-        'cleanupService',
+        'cleanupService', 'readersService',
         '$timeout', '$http', '$q'
     ];
 
-    function browserStorageService(loggerService, cleanupService, $timeout, $http, $q) {
+    function browserStorageService(loggerService, cleanupService, readersService, $timeout, $http, $q) {
 
         const SUPPORTED_UNKNOWN = 0;
         const SUPPORTED_OK = 1;
@@ -832,16 +832,22 @@
             }
             else {
                 // some browsers don't have a text() method, so this is a workaround
-                const blobReader = new FileReader();
                 return new Promise((resolve, reject) => {
-                    blobReader.addEventListener('load', () => {
-                        resolve(blobReader.result);
-                    }, false);
-                    blobReader.addEventListener('error', (err) => {
-                        reject(err);
-                    }, false);
+                    try {
+                        const blobReader = readersService.createFileReader();
+                        blobReader.addEventListener('load', () => {
+                            resolve(blobReader.result);
+                        }, false);
+                        blobReader.addEventListener('error', (err) => {
+                            reject(err);
+                        }, false);
 
-                    blobReader.readAsText(asset);
+                        blobReader.readAsText(asset);
+                    }
+                    catch (error) {
+                        loggerService.error('[ml4kstorage] FileReader not supported', error);
+                        reject(error);
+                    }
                 });
             }
         }

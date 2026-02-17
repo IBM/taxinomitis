@@ -8,10 +8,11 @@
         'authService',
         'usersService',
         'scrollService',
+        'readersService',
         '$scope', '$mdDialog', 'loggerService'
     ];
 
-    function TeacherStudentsController(authService, usersService, scrollService, $scope, $mdDialog, loggerService) {
+    function TeacherStudentsController(authService, usersService, scrollService, readersService, $scope, $mdDialog, loggerService) {
 
         var vm = this;
         vm.authService = authService;
@@ -673,24 +674,29 @@
                         if (files && files.length > 0) {
                             var file = ev.currentTarget.files[0];
 
-                            const txtfilereader = new FileReader();
-                            txtfilereader.readAsText(file);
-                            txtfilereader.onload = function () {
-                                const NEWLINES = /[\r\n]+/;
-                                const INVALID_USERNAME_CHARS = /[^\w.\-_]/g;
-                                const usernames = txtfilereader.result
-                                                    .split(NEWLINES)
-                                                    .map(line => line.trim().substring(0, 15).trim())
-                                                    .filter(line => line.length > 2)
-                                                    .map(line => line.replaceAll(INVALID_USERNAME_CHARS, ''))
-                                                    .reduce((acc, cur) => acc.includes(cur) ? acc : [...acc, cur], []);
-                                $scope.$applyAsync(() => {
-                                    $scope.userstoimport = usernames.slice(0, remaining);
-                                });
-                            };
-                            txtfilereader.onerror = function () {
-                                displayAlert('errors', 500, txtfilereader.error);
-                            };
+                            try {
+                                const txtfilereader = readersService.createFileReader();
+                                txtfilereader.readAsText(file);
+                                txtfilereader.onload = function () {
+                                    const NEWLINES = /[\r\n]+/;
+                                    const INVALID_USERNAME_CHARS = /[^\w.\-_]/g;
+                                    const usernames = txtfilereader.result
+                                                        .split(NEWLINES)
+                                                        .map(line => line.trim().substring(0, 15).trim())
+                                                        .filter(line => line.length > 2)
+                                                        .map(line => line.replaceAll(INVALID_USERNAME_CHARS, ''))
+                                                        .reduce((acc, cur) => acc.includes(cur) ? acc : [...acc, cur], []);
+                                    $scope.$applyAsync(() => {
+                                        $scope.userstoimport = usernames.slice(0, remaining);
+                                    });
+                                };
+                                txtfilereader.onerror = function () {
+                                    displayAlert('errors', 500, txtfilereader.error);
+                                };
+                            }
+                            catch (readerErr) {
+                                displayAlert('errors', 400, readerErr);
+                            }
                         }
                     };
 

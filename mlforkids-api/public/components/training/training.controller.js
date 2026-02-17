@@ -10,6 +10,7 @@
         'soundTrainingService',
         'utilService', 'csvService', 'downloadService', 'imageToolsService', 'webcamsService',
         'scrollService', 'loggerService',
+        'readersService',
         '$stateParams',
         '$scope',
         '$mdDialog',
@@ -17,7 +18,7 @@
         '$timeout', '$interval'
     ];
 
-    function TrainingController(authService, projectsService, trainingService, modelService, soundTrainingService, utilService, csvService, downloadService, imageToolsService, webcamsService, scrollService, loggerService, $stateParams, $scope, $mdDialog, $state, $timeout, $interval) {
+    function TrainingController(authService, projectsService, trainingService, modelService, soundTrainingService, utilService, csvService, downloadService, imageToolsService, webcamsService, scrollService, loggerService, readersService, $stateParams, $scope, $mdDialog, $state, $timeout, $interval) {
 
         var vm = this;
         vm.authService = authService;
@@ -528,6 +529,9 @@
             imageToolsService.getDataFromFile(file)
                 .then(function (data) {
                     vm.addImageData(data, label, scrollto);
+                })
+                .catch(function (err) {
+                    displayAlert('errors', 400, err);
                 });
         };
 
@@ -914,28 +918,39 @@
                 else if ($scope.project.type === 'text') {
                     const label = elem.dataset.label;
 
-                    const txtfilereader = new FileReader();
-                    txtfilereader.readAsText(file);
-                    txtfilereader.onload = function () {
-                        trainingService.bulkAddTrainingData($scope.project,
-                                    txtfilereader.result
-                                        .split(/[\r\n]+/)
-                                        .map(line => line.substring(0, 1024).trim())
-                                        .filter(line => line.length > 0)
-                                        .reduce((acc, cur) => acc.includes(cur) ? acc : [...acc, cur], [])
-                                        .map(function (line) {
-                                            return { label, textdata : line };
-                                        }))
-                            .then((newitems) => {
-                                $scope.training[label] = $scope.training[label].concat(newitems);
-                            })
-                            .catch(function (err) {
-                                displayAlert('errors', 500, err);
+                    try {
+                        const txtfilereader = readersService.createFileReader();
+                        txtfilereader.readAsText(file);
+                        txtfilereader.onload = function () {
+                            trainingService.bulkAddTrainingData($scope.project,
+                                        txtfilereader.result
+                                            .split(/[\r\n]+/)
+                                            .map(line => line.substring(0, 1024).trim())
+                                            .filter(line => line.length > 0)
+                                            .reduce((acc, cur) => acc.includes(cur) ? acc : [...acc, cur], [])
+                                            .map(function (line) {
+                                                return { label, textdata : line };
+                                            }))
+                                .then((newitems) => {
+                                    $scope.$applyAsync(() => {
+                                        $scope.training[label] = $scope.training[label].concat(newitems);
+                                    });
+                                })
+                                .catch(function (err) {
+                                    displayAlert('errors', 500, err);
+                                });
+                        };
+                        txtfilereader.onerror = function () {
+                            $scope.$applyAsync(() => {
+                                displayAlert('errors', 500, txtfilereader.error);
                             });
-                    };
-                    txtfilereader.onerror = function () {
-                        displayAlert('errors', 500, txtfilereader.error);
-                    };
+                        };
+                    }
+                    catch (readerErr) {
+                        $scope.$applyAsync(() => {
+                            displayAlert('errors', 400, readerErr);
+                        });
+                    }
                 }
                 else if ($scope.project.type === 'imgtfjs') {
                     const label = elem.dataset.label;
