@@ -14,25 +14,34 @@
 
         var logs = [];
 
+        function safeStringify(obj) {
+            try {
+                return JSON.stringify(obj);
+            }
+            catch (err) {
+                return 'Unable to stringify object';
+            }
+        }
+
         function capture() {
             for (var i = 0; i < arguments.length; i++) {
                 var nextarg = arguments[i];
                 if (nextarg instanceof Error) {
-                    nextarg = JSON.stringify({
+                    nextarg = safeStringify({
                         name: nextarg.name,
                         message: nextarg.message,
                         stack: nextarg.stack
                     });
                 }
                 else if (nextarg && nextarg.reason && nextarg.reason.name && nextarg.reason.message) {
-                    nextarg = JSON.stringify({
+                    nextarg = safeStringify({
                         name: nextarg.reason.name,
                         message: nextarg.reason.message,
                         stack: nextarg.reason.stack
                     });
                 }
                 else if (typeof nextarg !== 'string') {
-                    nextarg = JSON.stringify(nextarg);
+                    nextarg = safeStringify(nextarg);
                 }
                 logs.push(Date.now() + ' ' + nextarg + '\n');
             }
