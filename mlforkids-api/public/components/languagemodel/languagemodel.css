@@ -309,3 +309,170 @@
         flex: 3; height: 270px;
     }
 }
+
+.languagemodelpage .model-type-buttons {
+    margin: 1em 0;
+}
+
+.languagemodelpage .model-name-label {
+    color: #00008b;
+    margin-left: 1em;
+}
+
+.languagemodelpage .wikipedia-icon {
+    font-family: serif;
+    font-size: 2em;
+}
+
+.languagemodelpage .context-image {
+    max-width: 150px;
+}
+
+.languagemodelpage .context-change-button {
+    margin-top: 1em;
+}
+
+.languagemodelpage .context-explanation {
+    flex: 3;
+}
+
+.languagemodelpage .token-display-container {
+    min-height: 320px;
+    max-height: 340px;
+    height: unset;
+}
+
+.languagemodelpage .token-items-scrollable {
+    max-height: 267px;
+    height: unset;
+    overflow-y: scroll;
+    padding-top: 0;
+}
+
+.languagemodelpage .token-table {
+    padding-top: 0;
+}
+
+.languagemodelpage .token-cell {
+    width: calc(23vw - 20px);
+}
+
+.languagemodelpage .token-tooltip-wide {
+    max-width: 380px;
+}
+
+.languagemodelpage .slider-labels {
+    margin-bottom: 1em;
+    display: flex;
+    flex-direction: row;
+    padding: 0 1em;
+    font-size: 0.9em;
+    color: #2e6da4;
+}
+
+.languagemodelpage .slider-label-left {
+    flex: 1;
+    text-align: left;
+}
+
+.languagemodelpage .slider-label-right {
+    flex: 1;
+    text-align: right;
+}
+
+.languagemodelpage .topp-controls {
+    padding-left: 2em;
+    padding-right: 0.5em;
+}
+
+.languagemodelpage .probability-display-container {
+    min-height: 410px;
+    max-height: 430px;
+    height: unset;
+}
+
+.languagemodelpage .probability-items-scrollable {
+    max-height: 357px;
+    height: unset;
+    overflow-y: scroll;
+    padding-top: 0;
+}
+
+.languagemodelpage .probability-result {
+    text-align: right;
+}
+
+.languagemodelpage .download-progress {
+    width: 80%;
+}
+
+.languagemodelpage .chart-container {
+    padding: 1em;
+}
+
+.languagemodelpage .chart-explanation {
+    flex: 1;
+    padding: 1em;
+}
+
+.languagemodelpage .chart-title {
+    font-weight: bold;
+}
+
+.languagemodelpage .chart-container-top {
+    padding: 1em 1em 0 1em;
+}
+
+.languagemodelpage .context-controls {
+    padding-left: 0.5em;
+    padding-right: 2em;
+}
+
+.languagemodelpage .context-buttons {
+    background-color: white;
+    margin: 1em;
+    padding: 1em;
+}
+
+.languagemodelpage .file-upload-hidden {
+    display: none !important;
+}
+
+.languagemodelpage .testing-container {
+    margin-top: 2em;
+}
+
+.languagemodelpage .testing-input-row {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 8px;
+}
+
+.languagemodelpage .testing-input {
+    flex: 3;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.languagemodelpage .token-no-margin {
+    margin-left: 0;
+}
+
+.languagemodelpage .token-highlighted {
+    background-color: black;
+    color: white;
+    margin-left: 1em;
+}
+
+.languagemodelpage .dialog-content-padded {
+    padding: 1em;
+}
+
+.languagemodelpage .wikipedia-textarea {
+    padding: 0.5em;
+    border: thin #c0c0c0 solid;
+}
+
+.languagemodelpage .hover-explanation-content {
+    margin-bottom: 15px;
+}

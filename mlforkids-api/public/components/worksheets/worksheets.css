@@ -60,6 +60,7 @@
 .worksheetsheader .worksheetfeature .worksheetfeaturevideofallback {
     position: relative;
     z-index: 1;
+    display: none;
 }
 
 .worksheetsheader .worksheetfeature .worksheetfeaturevideofallback img {
@@ -444,3 +445,103 @@
     font-weight: bold;
 }
 
+.worksheetfeaturevideo-hidden {
+    display: none !important;
+}
+
+.worksheetfeaturevideofallback-visible {
+    display: block !important;
+}
+
+.worksheet-download-dialog .md-dialog-content {
+    min-width: 300px;
+    max-width: 1000px;
+}
+
+.worksheet-video-container {
+    border-radius: 0.4em;
+    background-color: #84cbcc;
+    padding: 0.6em;
+    margin-bottom: 1em;
+    text-align: center;
+}
+
+.worksheet-video-iframe {
+    display: none;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.worksheet-featured-container {
+    border-radius: 0.4em;
+    background-color: #84cbcc;
+    padding: 0.6em;
+    margin-bottom: 1em;
+    font-size: 1.2em;
+}
+
+.worksheet-featured-text {
+    padding-bottom: 1em;
+}
+
+.worksheet-section-title {
+    padding-top: 0.5em;
+}
+
+.worksheet-download-item {
+    border-radius: 1em;
+    background-color: #eeeeee;
+    padding: 1em;
+    margin-bottom: 1em;
+}
+
+.worksheet-download-description {
+    margin-bottom: 1em;
+}
+
+.worksheet-download-button-container {
+    margin: 1em 0;
+}
+
+.worksheet-resources-container {
+    margin-top: 1em;
+}
+
+.worksheet-resources-detail {
+    padding-bottom: 1em;
+    margin-top: 0.5em;
+}
+
+.worksheet-guidance-button {
+    max-width: 100%;
+    white-space: normal;
+}
+
+.worksheet-guidance-detail {
+    margin-top: 1em;
+}
+
+.worksheet-guidance-divider {
+    border-top: 3px double #8c8b8b;
+}
+
+.worksheet-notes-container {
+    margin-bottom: 1em;
+}
+
+.worksheet-note-item {
+    margin-bottom: 0.5em;
+}
+
+.worksheet-author-container {
+    margin: 1em;
+}
+
+.worksheet-embed-container {
+    margin: 1em;
+}
+
+.worksheet-embed-content {
+    min-width: 400px;
+}

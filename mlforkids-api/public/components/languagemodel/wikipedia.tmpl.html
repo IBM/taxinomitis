@@ -6,7 +6,7 @@
     </md-toolbar>
     <form name="newTextCorpusData" ng-submit="confirm({ title, contents })">
         <md-dialog-content>
-            <div style="padding: 1em;">
+            <div class="dialog-content-padded">
                 <div>
                     <md-input-container class="trainingtextinput">
                         <input placeholder="Wikipedia page name" ng-model="title" ng-required="true">
@@ -16,7 +16,7 @@
                 <div>
                     <md-input-container class="trainingtextinput">
                         <textarea type="text" name="text"
-                            style="padding: 0.5em; border: thin #c0c0c0 solid;"
+                            class="wikipedia-textarea"
                             placeholder="Wikipedia page contents"
                             ng-disabled="contents.length === 0"
                             ng-required="true"

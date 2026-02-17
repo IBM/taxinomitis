@@ -1,4 +1,4 @@
-<md-dialog aria-label="TensorFlow models" style="min-width: 450px; max-width: 650px;">
+<md-dialog aria-label="TensorFlow models" class="tensorflow-dialog">
     <md-toolbar>
         <div class="md-toolbar-tools">
             <h2>Use a pre-trained TensorFlow model in Scratch</h2>
@@ -7,21 +7,21 @@
     <md-dialog-content>
         <div class="md-dialog-content">
             <md-card-content>
-                <div style="padding: 1em;">
+                <div class="tensorflow-content-section">
                     This is a new, experimental feature. Not all TensorFlow models work
                     with Scratch here today, so if you have a model that doesn't work, please
                     <a href="https://groups.google.com/d/forum/mlforkids">let me know</a>.
                 </div>
-                <div style="padding: 1em;">
+                <div class="tensorflow-content-section">
                     <div>Where is the TensorFlow model?</div>
-                    <div style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 20px;">
-                        <input placeholder="URL for where the model is hosted" name="modeljson" ng-model="modeljson" ng-change="generateScratchKey(modeljson, modeltypeid)" style="width: 95%;">
-                        <div ng-if="error" style="color: #bb1b1b"><small>Model could not be found</small></div>
+                    <div class="tensorflow-input-container">
+                        <input placeholder="URL for where the model is hosted" name="modeljson" ng-model="modeljson" ng-change="generateScratchKey(modeljson, modeltypeid)" class="tensorflow-input-field">
+                        <div ng-if="error" class="tensorflow-error-message"><small>Model could not be found</small></div>
                     </div>
                 </div>
-                <div style="padding: 1em;">
+                <div class="tensorflow-content-section">
                     <div>What type of model is it?</div>
-                    <md-select name="modeltypeid" ng-model="modeltypeid" ng-change="generateScratchKey(modeljson, modeltypeid)" style="padding-left: 20px;">
+                    <md-select name="modeltypeid" ng-model="modeltypeid" ng-change="generateScratchKey(modeljson, modeltypeid)" class="tensorflow-select">
                         <md-option value="10">Teachable Machine (image or pose)</md-option>
                         <md-option value="11">TensorFlow GraphDef (image)</md-option>
                     </md-select>

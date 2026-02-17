@@ -103,17 +103,16 @@
     <div class="worksheetfeature">
         <div class="title"><a ng-click="vm.downloadWorksheet($event, featuredWorksheet)">{{ featuredWorksheet.title }}</a></div>
         <div class="worksheetframe-container">
-            <iframe class="worksheetfeaturevideo"
+            <iframe class="worksheetfeaturevideo worksheetfeaturevideo-hidden"
                 ng-src="{{featuredWorksheetVideo}}"
                 title="YouTube video player"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerpolicy="strict-origin-when-cross-origin"
                 allowfullscreen
-                style="display: none;"
-                onload="this.style.display='block'; document.getElementById('worksheetfeaturevideofallback').style.display='none';"
-                onerror="this.style.display='none'; document.getElementById('worksheetfeaturevideofallback').style.display='block';"></iframe>
-            <div id="worksheetfeaturevideofallback" class="worksheetfeaturevideo worksheetfeaturevideofallback" style="display: block;">
+                onload="this.classList.remove('worksheetfeaturevideo-hidden'); document.getElementById('worksheetfeaturevideofallback').classList.remove('worksheetfeaturevideofallback-visible');"
+                onerror="this.classList.add('worksheetfeaturevideo-hidden'); document.getElementById('worksheetfeaturevideofallback').classList.add('worksheetfeaturevideofallback-visible');"></iframe>
+            <div id="worksheetfeaturevideofallback" class="worksheetfeaturevideo worksheetfeaturevideofallback worksheetfeaturevideofallback-visible">
                 <img ng-src="{{featuredWorksheet.image}}" alt="screenshot">
             </div>
         </div>

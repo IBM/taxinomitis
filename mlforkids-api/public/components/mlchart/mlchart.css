@@ -82,6 +82,7 @@
     transition: opacity 0.3s;
     position: absolute;
     bottom: 0;
+    height: var(--bar-height, 0%);
 }
 
 .mlchart-bar:hover {

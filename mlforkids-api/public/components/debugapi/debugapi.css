@@ -1,0 +1,18 @@
+/* styles shared with resetstorage */
+
+.debug-button-container {
+    padding: 2em;
+}
+
+.debug-output-container {
+    padding: 1em;
+    margin-bottom: 3em;
+}
+
+.debug-output-display {
+    background-color: #f0f0f0;
+    border: medium black solid;
+    width: 100%;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}

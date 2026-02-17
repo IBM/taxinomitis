@@ -36,14 +36,14 @@
         </div>
     </div>
 
-    <div ng-if="!loading && project && project.labels.length > 1 && !modelSource && !expiredModel && !scratchkey" style="margin: 2em;">
+    <div ng-if="!loading && project && project.labels.length > 1 && !modelSource && !expiredModel && !scratchkey" class="model-status-container">
         <div class="alert alert-info" role="alert" translate="PYTHON.NOMODEL"></div>
         <div ng-if="project.type !== 'text'">
             You can <strong><a href="" ui-sref="mlproject_models({ projectId : projectId, userId : userId })">train one now</a></strong> and then come back to start your Python project.
         </div>
     </div>
 
-    <div ng-if="!loading && expiredModel && !scratchkey" style="margin: 2em;">
+    <div ng-if="!loading && expiredModel && !scratchkey" class="model-status-container">
         <div class="alert alert-info" role="alert" translate="PYTHON.EXPIRED"></div>
         <div ng-if="project.type !== 'text'">
             You can <strong><a href="" ui-sref="mlproject_models({ projectId : projectId, userId : userId })">train a new model now</a></strong> and then come back to start your Python project.
@@ -51,10 +51,10 @@
     </div>
 
     <div class="modelguidancecontainer" ng-if="modelSource || scratchkey">
-        <div class="modelguidance" style="flex: 2; min-width: 300px;">
+        <div class="modelguidance instructions-guidance">
             <div class="modelstatusdetail">
                 To use this code, you need to:
-                <ol style="margin-bottom: 0; padding-left: 20px;">
+                <ol class="setup-instructions">
                     <li class="mainlistitem">Download both of these files (<em>try right-clicking on the links</em>):
                         <ul>
                             <li><a href="https://raw.githubusercontent.com/IBM/taxinomitis/master/resources/mlforkidsnumbers.py">mlforkidsnumbers.py</a></li>
@@ -100,7 +100,7 @@ from mlforkidsnumbers import MLforKidsNumbers</pre></div>
                             ng-model="testdata.fields[$index]"
                             ng-options="value for value in field.choices"
                             ng-init="testdata.fields[$index] = field.choices[0]"
-                            style="height: 24px">
+                            class="field-select">
                     </select>
                 </div>
             </div>
@@ -110,7 +110,7 @@ from mlforkidsnumbers import MLforKidsNumbers</pre></div>
             <div class="modelstatusdetail"><pre>$ python yourscript.py
 result: '{{ project.labels[0] }}' with 81% confidence</pre></div>
         </div>
-        <div class="modelguidance" style="flex: 3">
+        <div class="modelguidance code-example-guidance">
 <div class="pythoncodebox"><pre class="pythoncode">project <span class="pythonop">=</span> <span class="pythonfuncname">MLforKidsNumbers</span>(<span ng-if="scratchkey">
     key<span class="pythonop">=</span>&quot;{{ scratchkey }}&quot;,</span>
     modelurl=&quot;{{ modelSource }}&quot;</span>
@@ -118,7 +118,7 @@ result: '{{ project.labels[0] }}' with 81% confidence</pre></div>
 
 <span class="pythoncomments"># CHANGE THIS to something you want your</span>
 <span class="pythoncomments"># machine learning model to classify</span>
-testvalue <span class="pythonop">=</span> {<div ng-repeat="field in testdata.fields track by $index">    "{{ fields[$index].name }}" <span class="pythonop">:</span> <span style="background-color: #fff0f0"><strong><span ng-if="fields[$index].type === 'multichoice'">"</span>{{ field ? field : 0 }}<span ng-if="fields[$index].type === 'multichoice'">"</span></strong></span>,</div>}
+testvalue <span class="pythonop">=</span> {<div ng-repeat="field in testdata.fields track by $index">    "{{ fields[$index].name }}" <span class="pythonop">:</span> <span class="highlighted-value"><strong><span ng-if="fields[$index].type === 'multichoice'">"</span>{{ field ? field : 0 }}<span ng-if="fields[$index].type === 'multichoice'">"</span></strong></span>,</div>}
 
 response <span class="pythonop">=</span> project<span class="pythonop">.</span>classify(testvalue)
 top_match <span class="pythonop">=</span> response[<span class="pythonint">0</span>]
@@ -151,12 +151,12 @@ confidence <span class="pythonop">=</span> top_match[&quot;confidence&quot;]
                             ng-model="trainingdata.fields[$index]"
                             ng-options="value for value in field.choices"
                             ng-init="trainingdata.fields[$index] = field.choices[0]"
-                            style="height: 24px">
+                            class="field-select">
                     </select>
                 </div>
             </div>
         </div>
-        <div class="modelguidance" style="flex: 3">
+        <div class="modelguidance code-example-guidance">
 <div class="pythoncodebox"><pre class="pythoncode">project <span class="pythonop">=</span> <span class="pythonfuncname">MLforKidsNumbers</span>(
     key<span class="pythonop">=</span>&quot;{{ scratchkey }}&quot;<span ng-if="modelSource">,
     modelurl=&quot;{{ modelSource }}&quot;</span>
@@ -164,7 +164,7 @@ confidence <span class="pythonop">=</span> top_match[&quot;confidence&quot;]
 
 <span class="pythoncomments"># CHANGE THIS to something you want to</span>
 <span class="pythoncomments"># add to your training examples</span>
-trainingvalue <span class="pythonop">=</span> [<div ng-repeat="field in trainingdata.fields track by $index">    <span style="background-color: #fff0f0"><strong><span ng-if="fields[$index].type === 'multichoice'">"</span>{{ field ? field : 0 }}<span ng-if="fields[$index].type === 'multichoice'">"</span></strong></span>,</div>]
+trainingvalue <span class="pythonop">=</span> [<div ng-repeat="field in trainingdata.fields track by $index">    <span class="highlighted-value"><strong><span ng-if="fields[$index].type === 'multichoice'">"</span>{{ field ? field : 0 }}<span ng-if="fields[$index].type === 'multichoice'">"</span></strong></span>,</div>]
 
 project<span class="pythonop">.</span>store(trainingvalue, &quot;{{ trainingdata.label }}&quot;)
 </pre></div>

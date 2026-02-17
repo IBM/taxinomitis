@@ -54,3 +54,59 @@
     padding-left: 4px;
     padding-right: 4px;
 }
+
+.python-guidance-flex-2 {
+    flex: 2;
+}
+
+.python-guidance-flex-3 {
+    flex: 3;
+}
+
+.python-guidance-full-width {
+    flex-basis: 100%;
+}
+
+.python-guidance-min-width {
+    min-width: 300px;
+}
+
+.python-guidance-min-width-wide {
+    min-width: 350px;
+}
+
+.python-input-field {
+    padding-left: 1em;
+    padding-right: 1em;
+    width: 80%;
+}
+
+.python-select-field {
+    height: 24px;
+}
+
+.pythoncodebox-spaced {
+    margin-bottom: 10px;
+}
+
+.python-alert-container {
+    margin: 2em;
+}
+
+.python-requirements-text {
+    font-size: 1em;
+    padding-bottom: 0;
+}
+
+.python-requirements-list {
+    margin-bottom: 0;
+    padding-left: 20px;
+}
+
+.python-code-highlight-pink {
+    background-color: #fff0f0;
+}
+
+.python-code-highlight-gray {
+    background-color: #eeeeee;
+}

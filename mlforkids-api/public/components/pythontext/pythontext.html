@@ -36,7 +36,7 @@
         </div>
     </div>
 
-    <div ng-if="project && project.labels.length > 1 && scratchkey && !scratchkey.model" style="margin: 2em;">
+    <div ng-if="project && project.labels.length > 1 && scratchkey && !scratchkey.model" class="python-alert-container">
         <div class="alert alert-info" role="alert" translate="PYTHON.NOMODEL"></div>
     </div>
 
@@ -48,10 +48,10 @@
                 <span ng-if="functionType === 'store'">add text examples to your training data.</span>
             </div>
             <div class="modelstatusdetail" ng-if="functionType === 'classify'">
-                Enter the text: <input style="padding-left: 1em; padding-right: 1em; width: 80%;" ng-model="testdata.text"></input>
+                Enter the text: <input class="python-input-field" ng-model="testdata.text"></input>
             </div>
             <div class="modelstatusdetail" ng-if="functionType === 'store'">
-                Enter the text: <input style="padding-left: 1em; padding-right: 1em; width: 80%;" ng-model="testdata.storetext"></input>
+                Enter the text: <input class="python-input-field" ng-model="testdata.storetext"></input>
             </div>
             <div class="modelstatusdetail" ng-if="functionType === 'store'">
                 Enter the label:
@@ -77,7 +77,7 @@ result: '{{ project.labels[0] }}' with 81% confidence</pre></div>
                 Ask your teacher for help if you're not sure how to do that.
             </div>
         </div>
-        <div class="modelguidance" style="flex: 2">
+        <div class="modelguidance python-guidance-flex-2">
 <div class="pythoncodebox" ng-if="scratchkey.model && functionType === 'classify'"><pre class="pythoncode"><span class="pythonfunc">import</span> <span class="pythonimport">requests</span>
 
 <span class="pythoncomments"># This function will pass your text to the machine learning model</span>
@@ -97,7 +97,7 @@ result: '{{ project.labels[0] }}' with 81% confidence</pre></div>
 
 
 <span class="pythoncomments"># <strong>CHANGE THIS</strong> to something you want your machine learning model to classify</span>
-demo <span class="pythonop">=</span> classify(<span style="background-color: #fff0f0">&quot;<strong>{{ testdata.text }}</strong>&quot;</span>)
+demo <span class="pythonop">=</span> classify(<span class="python-code-highlight-pink">&quot;<strong>{{ testdata.text }}</strong>&quot;</span>)
 
 label <span class="pythonop">=</span> demo[&quot;class_name&quot;]
 confidence <span class="pythonop">=</span> demo[&quot;confidence&quot;]
@@ -122,16 +122,16 @@ confidence <span class="pythonop">=</span> demo[&quot;confidence&quot;]
 
 
 <span class="pythoncomments"># <strong>CHANGE THIS</strong> to the text that you want to store</span>
-training <span class="pythonop">=</span> <span style="background-color: #fff0f0">&quot;<strong>{{ testdata.storetext }}</strong>&quot;</span>
+training <span class="pythonop">=</span> <span class="python-code-highlight-pink">&quot;<strong>{{ testdata.storetext }}</strong>&quot;</span>
 
 <span class="pythoncomments"># <strong>CHANGE THIS</strong> to the training bucket to store it in</span>
-label <span class="pythonop">=</span> <span style="background-color: #fff0f0">&quot;<strong>{{ testdata.label }}</strong>&quot;</span>
+label <span class="pythonop">=</span> <span class="python-code-highlight-pink">&quot;<strong>{{ testdata.label }}</strong>&quot;</span>
 
 storeTraining(training, label)
 </pre></div>
 
         </div>
-        <div class="modelguidance" style="flex-basis: 100%">
+        <div class="modelguidance python-guidance-full-width">
             <div class="modelstatusdetail">
                 If you know how to use it, your API key for this project is:
             </div>
@@ -144,4 +144,3 @@ storeTraining(training, label)
         </div>
     </div>
 </div>
-

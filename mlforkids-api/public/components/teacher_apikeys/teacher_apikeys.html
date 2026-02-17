@@ -40,18 +40,18 @@
     </div>
 
     <div ng-if="vm && vm.credentials" class="credentialsinfo">
-        <div ng-if="vm.credentials.loading.conv === false" style="border-top: thin #444 solid; padding-top: 1em; margin-bottom: 2em;">
+        <div ng-if="vm.credentials.loading.conv === false" class="apikeys-section">
             <div translate="TEACHER.APIKEYS.INTRO_WATSONASSISTANT"></div>
             <div ng-if="vm.credentials.failed.conv" class="credserror" translate="TEACHER.APIKEYS.ERROR_FETCHING_WATSONASSISTANT"></div>
             <div class="newlabelbuttons">
-                <div class="newlabelbutton" ng-click="vm.addCredentials($event, 'conv')" style="margin-right: 1.5em;">
+                <div class="newlabelbutton apikeys-add-button" ng-click="vm.addCredentials($event, 'conv')">
                     <div class="newlabelicon">+</div>
                     <div class="newlabellabel" translate="TEACHER.APIKEYS.ADDNEWCREDENTIALS"></div>
                 </div>
             </div>
-            <table ng-if="vm.credentials.conv && vm.credentials.conv.length > 0" class="studentslist" style="margin-bottom: 1em; min-width: 95%">
+            <table ng-if="vm.credentials.conv && vm.credentials.conv.length > 0" class="studentslist apikeys-credentials-table">
                 <tr ng-repeat="creds in vm.credentials.conv" ng-class-even="'even'" ng-class-odd="'odd'">
-                    <td class="additionalDialogInfo" style="width: 60px;">
+                    <td class="additionalDialogInfo apikeys-icon-cell">
                         <img width=50 height=50 src="static/images/conversation.jpg" alt="Watson Assistant">
                     </td>
                     <td class="studentslistdetail" ng-class="{ 'placeholder' : creds.isPlaceholder }">
@@ -59,7 +59,7 @@
                         <div class="listmain" ng-if="creds.username">
                             {{ creds.username }}
                         </div>
-                        <div class="listheading" ng-if="creds.password" translate="TEACHER.APIKEYS.PASSWORD" style="padding-top: 0.5em;" ></div>
+                        <div class="listheading apikeys-password-heading" ng-if="creds.password" translate="TEACHER.APIKEYS.PASSWORD"></div>
                         <div class="listmain" ng-if="creds.password">
                             {{ creds.password }}
                         </div>
@@ -68,25 +68,25 @@
                             {{ creds.apikey }}
                         </div>
                     </td>
-                    <td class="studentslistdetail" style="cursor: pointer" ng-click="vm.modifyCredentials($event, creds, 'conv')" ng-hide="creds.isPlaceholder">
+                    <td class="studentslistdetail apikeys-clickable-row" ng-click="vm.modifyCredentials($event, creds, 'conv')" ng-hide="creds.isPlaceholder">
                         <div class="listheading" translate="TEACHER.APIKEYS.NUMBER_OF_ML_MODELS"></div>
                         <div class="listmain" ng-switch="creds.credstype">
-                            <span style="font-size: 1.2em;" ng-switch-when="conv_lite">5</span>
+                            <span class="apikeys-model-count" ng-switch-when="conv_lite">5</span>
                             <span class="glyphicon glyphicon-alert apikeywarning" ng-if="creds.credstype === 'conv_lite'">
-                                <md-tooltip style="font-size: 1.2em;">{{ 'TEACHER.APIKEYS.LITE_30_DAYS_EXPIRE' | translate }}</md-tooltip>
+                                <md-tooltip class="apikeys-tooltip-text">{{ 'TEACHER.APIKEYS.LITE_30_DAYS_EXPIRE' | translate }}</md-tooltip>
                             </span>
-                            <span style="font-size: 1.2em;" ng-switch-when="conv_standard">20</span>
-                            <span style="font-size: 1.2em;" ng-switch-when="conv_plus">50</span>
-                            <span style="font-size: 1.2em;" ng-switch-when="conv_plustrial">50</span>
+                            <span class="apikeys-model-count" ng-switch-when="conv_standard">20</span>
+                            <span class="apikeys-model-count" ng-switch-when="conv_plus">50</span>
+                            <span class="apikeys-model-count" ng-switch-when="conv_plustrial">50</span>
                             <span class="glyphicon glyphicon-alert apikeywarning" ng-if="creds.credstype === 'conv_plustrial'">
-                                <md-tooltip style="font-size: 1.2em;">{{ 'TEACHER.APIKEYS.TRIAL_30_DAYS_EXPIRE' | translate }}</md-tooltip>
+                                <md-tooltip class="apikeys-tooltip-text">{{ 'TEACHER.APIKEYS.TRIAL_30_DAYS_EXPIRE' | translate }}</md-tooltip>
                             </span>
-                            <span style="font-size: 1.4em; font-style: italic" ng-switch-default translate="TEACHER.APIKEYS.UNKNOWN"></span>
+                            <span class="apikeys-model-count-large" ng-switch-default translate="TEACHER.APIKEYS.UNKNOWN"></span>
                         </div>
                     </td>
                     <td class="studentslistactions" ng-hide="creds.isPlaceholder">
                         <button class="btn btn-default" ng-click="vm.verifyCredentials($event, creds)" ng-disabled="creds.verifying || creds.verified">
-                            <md-progress-circular ng-if="creds.verifying" style="display: inline" class="md-hue-2" md-diameter="12px"></md-progress-circular>
+                            <md-progress-circular ng-if="creds.verifying" class="apikeys-verify-progress md-hue-2" md-diameter="12px"></md-progress-circular>
                             <span class="verifybutton" ng-hide="creds.verified" translate="TEACHER.APIKEYS.VERIFY">Verify</span>
                             <span class="glyphicon glyphicon-ok" ng-if="creds.verified"></span>
                         </button>
@@ -94,12 +94,12 @@
                     </td>
                 </tr>
             </table>
-            <div style="font-size: 1.25em; text-align: right; margin-right: 1em; cursor: pointer;"
+            <div class="apikeys-limit-display"
                  ng-if="vm.credentials.conv && vm.credentials.conv.length > 0"
                  ng-click="vm.explainLimit()">
                 {{ 'TEACHER.APIKEYS.LIMIT_TEXT_PROJECTS' | translate }}
-                <span style="font-size: 1.15em; font-style: italic" ng-if="vm.credentials.totals.conv === vm.CONSTANTS.UNKNOWN" translate="TEACHER.APIKEYS.UNKNOWN"></span>
-                <span style="font-size: 1.15em; font-weight: bold;" ng-if="vm.credentials.totals.conv >= 0">{{ vm.credentials.totals.conv }}</span>
+                <span class="apikeys-limit-unknown" ng-if="vm.credentials.totals.conv === vm.CONSTANTS.UNKNOWN" translate="TEACHER.APIKEYS.UNKNOWN"></span>
+                <span class="apikeys-limit-value" ng-if="vm.credentials.totals.conv >= 0">{{ vm.credentials.totals.conv }}</span>
             </div>
             <div class="credserror" ng-if="vm.credentials.conv && vm.credentials.conv.length === 0">
                 <div translate="TEACHER.APIKEYS.NO_TEXT_CREDENTIALS"></div>
@@ -107,16 +107,14 @@
             </div>
         </div>
 
-        <div style="border-top: thin #444 solid; padding-top: 1em; margin-bottom: 2em;">
+        <div class="apikeys-section">
             <div translate="TEACHER.APIKEYS.INTRO_IMAGES"></div>
         </div>
-        <div style="border-top: thin #444 solid; padding-top: 1em; margin-bottom: 2em;">
+        <div class="apikeys-section">
             <div translate="TEACHER.APIKEYS.INTRO_NUMBERS"></div>
         </div>
-        <div style="border-top: thin #444 solid; padding-top: 1em; margin-bottom: 2em;">
+        <div class="apikeys-section">
             <div translate="TEACHER.APIKEYS.INTRO_SOUNDS"></div>
         </div>
     </div>
-
 </div>
-

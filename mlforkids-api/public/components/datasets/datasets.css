@@ -188,3 +188,8 @@
         max-width: 160px;
     }
 }
+
+/* Dialog slider control - unscoped as md-dialog renders outside component DOM */
+.test-ratio-slider {
+    flex-grow: 3;
+}

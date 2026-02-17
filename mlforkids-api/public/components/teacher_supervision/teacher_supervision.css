@@ -62,3 +62,24 @@
 .unmanagedClassifiersTable td {
     padding-bottom: 5px;
 }
+
+.adminpage .full-width-table {
+    width: 100%;
+}
+
+.adminpage .delete-button-spacing {
+    margin-left: 1em;
+}
+
+.adminpage .table-header-note {
+    font-weight: normal;
+    font-size: 0.8em;
+}
+
+.adminpage .clickable-link {
+    cursor: pointer;
+}
+
+.adminpage .clickable-icon {
+    cursor: pointer;
+}

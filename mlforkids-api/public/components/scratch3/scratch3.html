@@ -50,7 +50,7 @@
 
 
     <div ng-if="scratchkey && project && project.labels.length > 1 && (project.type !== 'regression' || project.hasOutput)"
-         style="margin: 2em;">
+         class="scratch3-content">
         <!-- ------------------------------------- -->
         <!--  page state :   NO MODEL              -->
         <!--                                       -->
@@ -101,8 +101,8 @@
             <div ng-hide="project.type === 'regression'">
                 <img src="static/images/scratch3-sample-{{ project.type }}.png">
             </div>
-            <div style="padding: 0; margin: 10px 0 0 0" ng-hide="project.type === 'imgtfjs'">
-                <hr style="border-top: 1px solid #999999"/><br/>
+            <div class="training-section-separator" ng-hide="project.type === 'imgtfjs'">
+                <hr/><br/>
                 <div ng-if="project.type === 'text'">
                     <img src="static/images/scratch3-addtraining-text.png">
                 </div>

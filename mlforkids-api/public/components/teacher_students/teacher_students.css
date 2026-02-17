@@ -57,3 +57,79 @@
     margin-right: 1em;
     font-weight: bold;
 }
+
+.adminpage .groups-panel-container {
+    padding-bottom: 150px;
+}
+
+.adminpage .action-buttons-container {
+    margin-right: 0;
+}
+
+.adminpage .action-button-inline {
+    margin-right: 1em;
+    clear: initial;
+}
+
+.adminpage .group-panel {
+    margin-top: 15px;
+}
+
+.adminpage .delete-button-spacing {
+    margin-top: 18px;
+}
+
+.dialog-intro-text {
+    margin: 1em;
+}
+
+.dialog-content-container {
+    min-width: 300px;
+}
+
+.dialog-input-container {
+    min-width: 280px;
+}
+
+.monospace-input {
+    font-family: monospace;
+}
+
+.username-list-container {
+    max-height: 200px;
+    overflow-y: scroll;
+    margin-top: -12px;
+    margin-bottom: 20px;
+}
+
+.username-list-item {
+    width: 100%;
+    border: thin black solid;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.8em;
+    padding: 6px;
+}
+
+.file-upload-hidden {
+    display: none !important;
+}
+
+.upload-button-label {
+    margin-right: 1em;
+    clear: initial;
+}
+
+.upload-icon {
+    padding-top: 0.3em;
+    font-size: 2em;
+}
+
+.upload-text {
+    padding: 1em;
+    float: left;
+    font-weight: normal;
+}
+
+.dialog-error-content {
+    padding: 1em;
+}

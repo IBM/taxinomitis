@@ -33,7 +33,7 @@
     </form>
     <form ng-cloak name="newNumbersTrainingData" ng-hide="project.type !== 'numbers'">
         <md-dialog-content>
-            <div class="md-dialog-content" style="min-width: 500px">
+            <div class="md-dialog-content">
                 <md-card-content>
                     <label>{{ 'TRAINING.NEWEXAMPLE.INTRO' | translate }} '{{ label }}'</label>
                     <div layout="row" ng-repeat="field in project.fields">
@@ -69,10 +69,10 @@
     </form>
     <form ng-cloak name="newImagesTrainingData" ng-hide="project.type !== 'imgtfjs'" ng-submit="confirm(example)">
         <md-dialog-content>
-            <div class="md-dialog-content" style="min-width: 600px">
+            <div class="md-dialog-content">
                 <md-card-content>
                     <div layout="row">
-                        <md-input-container style="min-width: 580px">
+                        <md-input-container>
                             <label>{{ 'TRAINING.NEWEXAMPLE.INTROURL' | translate }} '{{ label }}'</label>
                             <input type="url" name="url"
                                    md-autofocus="project.type === 'imgtfjs'"
@@ -95,13 +95,13 @@
     </form>
     <form ng-cloak name="newSoundsTrainingData" ng-hide="project.type !== 'sounds'">
         <md-dialog-content>
-            <div class="md-dialog-content" style="min-width: 330px">
+            <div class="md-dialog-content">
                 <md-card-content>
                     <div>Record an example of '{{ label === '_background_noise_' ? 'background noise' : label }}'</div>
                     <div layout="row">
-                        <md-progress-linear ng-if="recording" md-mode="determinate" value="{{recordingprogress}}" style="height: 49px; margin-top: 50px; vertical-align: middle;"></md-progress-linear>
+                        <md-progress-linear ng-if="recording" md-mode="determinate" value="{{recordingprogress}}" class="sound-recording-progress"></md-progress-linear>
                         <mlsoundvis ng-if="project.type === 'sounds' && example" ng-hide="recording" datatype="'sounds'" spectogram="example" modelinfo="soundModelInfo"></mlsoundvis>
-                        <div style="flex-grow: 1; height: 100px;" ng-hide="recording"></div>
+                        <div class="sound-recording-spacer" ng-hide="recording"></div>
                         <button class="btn btn-primary" ng-click="recordSound(label)" ng-hide="recording || example"><img src="static/images/microphone.png" alt="record"/></button>
                         <button class="btn btn-primary" ng-click="recordSound(label)" ng-hide="recording || !example"><img src="static/images/microphone.png" alt="record"/></button>
                     </div>

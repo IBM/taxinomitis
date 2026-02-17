@@ -61,7 +61,7 @@
             mean fewer models that your students can create.
         </div>
 
-        <table style="width: 100%;" class="unmanagedClassifiersTable">
+        <table class="unmanagedClassifiersTable full-width-table">
             <tr ng-repeat="classifier in vm.classifiers.conv">
                 <td><img class="mediumwatsonicon" hspace=10
                         src="static/images/conversation.jpg"
@@ -69,8 +69,7 @@
                 <td><strong>watsonx Assistant</strong> workspace
                         (<small>{{ classifier.id }}</small>) called
                         <strong>"{{ classifier.name }}"</strong></td>
-                <td><button class="btn btn-danger"
-                            style="margin-left: 1em"
+                <td><button class="btn btn-danger delete-button-spacing"
                             ng-click="vm.deleteClassifier($event, classifier)"
                             ng-disabled="submittingDeleteRequest"
                             translate="APP.DELETE">
@@ -114,14 +113,14 @@
                     {{ 'TEACHER.SUPERVISION.MODELS' | translate }}
                     <span class="glyphicon glyphicon-triangle-top" ng-click="vm.orderBy = ['-hasModel', 'type']"></span>
                     <br/>
-                    <em style="font-weight: normal; font-size: 0.8em;" translate>TEACHER.SUPERVISION.DELETE</em>
+                    <em class="table-header-note" translate>TEACHER.SUPERVISION.DELETE</em>
                 </th>
             </tr>
             <tr ng-repeat="project in vm.projects | orderBy : vm.orderBy" ng-class-even="'even'" ng-class-odd="'odd'">
                 <!-- Project name -->
                 <td class="projectslistname" ng-hide="project.owner">{{ project.name }}</td>
                 <td class="projectslistname" ng-if="project.owner">
-                    <a style="cursor: pointer" ui-sref="teacher_review_training({ projectId : project.id, userId : project.owner.id })">
+                    <a class="clickable-link" ui-sref="teacher_review_training({ projectId : project.id, userId : project.owner.id })">
                         {{ project.name }}
                     </a>
                 </td>
@@ -138,7 +137,7 @@
                 <!-- If it has a trained model -->
                 <td class="studentslistdetail detail" ng-hide="project.hasModel"> </td>
                 <td class="studentslistdetail detail" ng-if="project.hasModel && project.type === 'text'">
-                    <img class="miniwatsonicon" style="cursor: pointer"
+                    <img class="miniwatsonicon clickable-icon"
                             src="static/images/conversation.jpg"
                             ng-click="vm.deleteModel($event, project)"
                             alt="Model using a Watson Assistant API key">

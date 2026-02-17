@@ -6,7 +6,7 @@
     </md-toolbar>
     <form name="newTextCorpusData" ng-submit="confirm({ title, contents })">
         <md-dialog-content>
-            <div style="padding: 1em;">
+            <div class="dialog-content-padded">
                 <div ng-hide="initialcontext">
                     <md-input-container class="trainingtextinput">
                         <input placeholder="Title" ng-model="title" ng-required="!initialcontext">

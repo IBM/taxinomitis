@@ -1,4 +1,4 @@
-<md-dialog aria-label="Modify project expiry" style="max-width: 98%; max-height: 95%">
+<md-dialog aria-label="Modify project expiry" class="expiry-dialog">
     <md-toolbar>
         <div class="md-toolbar-tools"><h2>Change when models are deleted</h2></div>
     </md-toolbar>
@@ -6,16 +6,16 @@
         <md-dialog-content>
             <div layout="column">
                 <div layout="row">
-                    <div style="width: 380px; padding: 1em;">
-                        <div style="padding-right: 1em;">Machine learning models created by your students are temporary.  </div>
-                        <div style="padding-right: 1em;">You can control how long they will be available for here.</div>
+                    <div class="expiry-dialog-content">
+                        <div class="expiry-text-padding">Machine learning models created by your students are temporary.  </div>
+                        <div class="expiry-text-padding">You can control how long they will be available for here.</div>
 
                         <hr/>
 
-                        <div style="margin-top: 1em; font-weight: bold;">
+                        <div class="expiry-section-heading">
                             Text projects
                         </div>
-                        <div style="margin-top: 0.2em; margin-left: 1em;">
+                        <div class="expiry-slider-container">
                             <md-slider ng-model="textexpiry" min="1" max="255" aria-label="blue" id="blue-slider" class="md-primary"></md-slider>
                             <div>Models deleted after <strong>{{ hoursfilter(textexpiry) }}</strong></div>
                         </div>
@@ -24,10 +24,10 @@
 
                     </div>
                     <div class="additionalDialogInfo">
-                        <div style="padding: 1em; margin: 0.5em; border: thin #3C70B1 solid; background-color: #EAEBF0; font-size: 0.8em;">
-                            <div style="margin-bottom: 0.8em;" translate="HELP.TEACHERUI.Q4-A-1"></div>
-                            <div style="margin-bottom: 0.8em;" translate="HELP.TEACHERUI.Q4-A-2"></div>
-                            <div style="margin-bottom: 0.8em;" translate="HELP.TEACHERUI.Q4-A-3"></div>
+                        <div class="expiry-info-box">
+                            <div class="expiry-info-text" translate="HELP.TEACHERUI.Q4-A-1"></div>
+                            <div class="expiry-info-text" translate="HELP.TEACHERUI.Q4-A-2"></div>
+                            <div class="expiry-info-text" translate="HELP.TEACHERUI.Q4-A-3"></div>
                             <div translate="HELP.TEACHERUI.Q4-A-6"></div>
                         </div>
                     </div>

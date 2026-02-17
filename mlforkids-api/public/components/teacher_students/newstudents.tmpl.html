@@ -6,11 +6,11 @@
     </md-toolbar>
     <form ng-cloak name="newStudents" ng-submit="confirm(newstudent, numstudents, password)">
         <md-dialog-content>
-            <div style="margin: 1em;" translate="TEACHER.STUDENTMANAGEMENT.ADD_MULTIPLE.INTRO"></div>
-            <div class="md-dialog-content" style="min-width: 300px">
+            <div class="dialog-intro-text" translate="TEACHER.STUDENTMANAGEMENT.ADD_MULTIPLE.INTRO"></div>
+            <div class="md-dialog-content dialog-content-container">
                 <md-card-content>
                     <div layout="column">
-                        <md-input-container style="min-width: 280px">
+                        <md-input-container class="dialog-input-container">
                             <label translate="TEACHER.STUDENTMANAGEMENT.ADD_MULTIPLE.USERNAME"></label>
                             <input type="text" name="text"
                                    md-autofocus
@@ -42,14 +42,14 @@
                         </md-input-container>
                     </div>
                     <div layout="row">
-                        <md-input-container style="min-width: 280px">
+                        <md-input-container class="dialog-input-container">
                             <label translate="TEACHER.STUDENTMANAGEMENT.ADD_MULTIPLE.PASSWORD"></label>
                             <input type="text" name="password"
                                     readonly
                                     ng-required="true"
                                     ng-model="password"
                                     placeholder="password"
-                                    style="font-family: monospace"
+                                    class="monospace-input"
                                     md-minlength="8"></input>
                             <div ng-messages="newStudents.password.$error" ng-show="newStudents.password.$touched">
                                 <div ng-message="minlength" translate="TEACHER.STUDENTMANAGEMENT.ADD_MULTIPLE.PASSWORD_TOOSHORT"></div>

@@ -36,14 +36,14 @@
         </div>
     </div>
 
-    <div ng-if="!loading && project && project.labels.length > 1 && !modelSource && !expiredModel && !scratchkey" style="margin: 2em;">
+    <div ng-if="!loading && project && project.labels.length > 1 && !modelSource && !expiredModel && !scratchkey" class="python-alert-container">
         <div class="alert alert-info" role="alert" translate="PYTHON.NOMODEL"></div>
         <div ng-if="project.type !== 'text'">
             You can <strong><a href="" ui-sref="mlproject_models({ projectId : projectId, userId : userId })">train one now</a></strong> and then come back to start your Python project.
         </div>
     </div>
 
-    <div ng-if="!loading && expiredModel && !scratchkey" style="margin: 2em;">
+    <div ng-if="!loading && expiredModel && !scratchkey" class="python-alert-container">
         <div class="alert alert-info" role="alert" translate="PYTHON.EXPIRED"></div>
         <div ng-if="project.type !== 'text'">
             You can <strong><a href="" ui-sref="mlproject_models({ projectId : projectId, userId : userId })">train a new model now</a></strong> and then come back to start your Python project.
@@ -69,7 +69,7 @@
                             ng-model="testdata.fields[$index]"
                             ng-options="value for value in field.choices"
                             ng-init="testdata.fields[$index] = field.choices[0]"
-                            style="height: 24px">
+                            class="python-select-field">
                     </select>
                 </div>
             </div>
@@ -79,7 +79,7 @@
             <div class="modelstatusdetail"><pre>$ python yourscript.py
 result: '{{ project.labels[0] }}' with 81% confidence</pre></div>
         </div>
-        <div class="modelguidance" style="flex: 3">
+        <div class="modelguidance python-guidance-flex-3">
 <div class="pythoncodebox"><pre class="pythoncode"><span class="pythonfunc">from</span> <span class="pythonimport">mlforkidsnumbers</span> <span class="pythonfunc">import</span> <span class="pythonimport">MLforKidsNumbers</span>
 
 project <span class="pythonop">=</span> <span class="pythonfuncname">MLforKidsNumbers</span>(<span ng-if="scratchkey">
@@ -89,7 +89,7 @@ project <span class="pythonop">=</span> <span class="pythonfuncname">MLforKidsNu
 
 <span class="pythoncomments"># CHANGE THIS to something you want your</span>
 <span class="pythoncomments"># machine learning model to classify</span>
-testvalue <span class="pythonop">=</span> {<div ng-repeat="field in testdata.fields track by $index">    "{{ fields[$index].name }}" <span class="pythonop">:</span> <span style="background-color: #fff0f0"><strong><span ng-if="fields[$index].type === 'multichoice'">"</span>{{ field ? field : 0 }}<span ng-if="fields[$index].type === 'multichoice'">"</span></strong></span>,</div>}
+testvalue <span class="pythonop">=</span> {<div ng-repeat="field in testdata.fields track by $index">    "{{ fields[$index].name }}" <span class="pythonop">:</span> <span class="python-code-highlight-pink"><strong><span ng-if="fields[$index].type === 'multichoice'">"</span>{{ field ? field : 0 }}<span ng-if="fields[$index].type === 'multichoice'">"</span></strong></span>,</div>}
 
 response <span class="pythonop">=</span> project<span class="pythonop">.</span>classify(testvalue)
 top_match <span class="pythonop">=</span> response[<span class="pythonint">0</span>]
@@ -122,12 +122,12 @@ confidence <span class="pythonop">=</span> top_match[&quot;confidence&quot;]
                             ng-model="trainingdata.fields[$index]"
                             ng-options="value for value in field.choices"
                             ng-init="trainingdata.fields[$index] = field.choices[0]"
-                            style="height: 24px">
+                            class="python-select-field">
                     </select>
                 </div>
             </div>
         </div>
-        <div class="modelguidance" style="flex: 3">
+        <div class="modelguidance python-guidance-flex-3">
 <div class="pythoncodebox"><pre class="pythoncode"><span class="pythonfunc">from</span> <span class="pythonimport">mlforkidsnumbers</span> <span class="pythonfunc">import</span> <span class="pythonimport">MLforKidsNumbers</span>
 
 project <span class="pythonop">=</span> <span class="pythonfuncname">MLforKidsNumbers</span>(
@@ -137,7 +137,7 @@ project <span class="pythonop">=</span> <span class="pythonfuncname">MLforKidsNu
 
 <span class="pythoncomments"># CHANGE THIS to something you want to</span>
 <span class="pythoncomments"># add to your training examples</span>
-trainingvalue <span class="pythonop">=</span> [<div ng-repeat="field in trainingdata.fields track by $index">    <span style="background-color: #fff0f0"><strong><span ng-if="fields[$index].type === 'multichoice'">"</span>{{ field ? field : 0 }}<span ng-if="fields[$index].type === 'multichoice'">"</span></strong></span>,</div>]
+trainingvalue <span class="pythonop">=</span> [<div ng-repeat="field in trainingdata.fields track by $index">    <span class="python-code-highlight-pink"><strong><span ng-if="fields[$index].type === 'multichoice'">"</span>{{ field ? field : 0 }}<span ng-if="fields[$index].type === 'multichoice'">"</span></strong></span>,</div>]
 
 project<span class="pythonop">.</span>store(trainingvalue, &quot;{{ trainingdata.label }}&quot;)
 </pre></div>
@@ -145,10 +145,10 @@ project<span class="pythonop">.</span>store(trainingvalue, &quot;{{ trainingdata
     </div>
 
     <div class="modelguidancecontainer" ng-if="modelSource || scratchkey">
-        <div class="modelguidance" style="min-width: 300px">
-            <div class="modelstatusdetail" style="font-size: 1em; padding-bottom: 0;">
+        <div class="modelguidance python-guidance-min-width">
+            <div class="modelstatusdetail python-requirements-text">
                 To use this code, you need to:
-                <ul style="margin-bottom: 0; padding-left: 20px;">
+                <ul class="python-requirements-list">
                     <li>Use Python 3.12</li>
                     <li>Download this <a href="https://raw.githubusercontent.com/IBM/taxinomitis/master/resources/mlforkids-numbers-requirements.txt" download>list of other Python modules you need</a></li>
                     <li>Install the other Python modules by running <br/><code>pip3 install -r mlforkids-numbers-requirements.txt</code></li>
@@ -158,4 +158,3 @@ project<span class="pythonop">.</span>store(trainingvalue, &quot;{{ trainingdata
         </div>
     </div>
 </div>
-

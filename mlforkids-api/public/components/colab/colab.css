@@ -2,3 +2,29 @@
     padding-top: 0.5em;
     padding-bottom: 1em;
 }
+
+.colab .model-status-container {
+    margin: 2em;
+}
+
+.colab .instructions-guidance {
+    flex: 2;
+    min-width: 300px;
+}
+
+.colab .code-example-guidance {
+    flex: 3;
+}
+
+.colab .setup-instructions {
+    margin-bottom: 0;
+    padding-left: 20px;
+}
+
+.colab .field-select {
+    height: 24px;
+}
+
+.colab .highlighted-value {
+    background-color: #fff0f0;
+}

@@ -1,4 +1,4 @@
-<md-dialog aria-label="Modify Watson Assistant API key" style="max-width: 98%; max-height: 95%">
+<md-dialog aria-label="Modify Watson Assistant API key" class="apikeys-dialog-large">
     <md-toolbar>
         <div class="md-toolbar-tools">
             <h2>Modify Watson Assistant credentials</h2>
@@ -9,23 +9,23 @@
         <md-dialog-content>
             <div layout="column">
                 <div layout="row">
-                    <div style="width: 380px; padding: 1em;">
-                        <div style="padding-right: 1em;">
+                    <div class="apikeys-dialog-form-section">
+                        <div class="apikeys-dialog-text-padded">
                             Limits on models that can be trained
                             are enforced by IBM Cloud (not Machine Learning
                             for Kids).
                         </div>
-                        <div style="padding-right: 1em;">
+                        <div class="apikeys-dialog-text-padded">
                             Answering this question is only used to display the
                             correct limit on the number of models.
                         </div>
 
                         <hr/>
 
-                        <div style="margin-top: 1em; font-weight: bold;">
+                        <div class="apikeys-dialog-section-heading">
                             Which Pricing Plan did you use?
                         </div>
-                        <div style="margin-top: 0.2em; margin-left: 1em;">
+                        <div class="apikeys-dialog-radio-group">
                             <md-radio-group ng-model="credstype" ng-required="true">
                                 <md-radio-button value="conv_lite" class="md-primary">Lite <em>(free)</em></md-radio-button>
                                 <md-radio-button value="conv_standard" class="md-primary">Standard <em>(paid)</em></md-radio-button>
@@ -38,15 +38,15 @@
 
                     </div>
                     <div class="additionalDialogInfo">
-                        <div style="font-style: italic; padding: 0.5em; margin: 0.5em; border: thin #3C70B1 solid; background-color: #EAEBF0; font-size: 0.7em;">
+                        <div class="apikeys-dialog-help-box">
                             This screenshot is intended to be illustrative only. Refer to IBM Cloud
                             for current details of pricing plans.
                         </div>
-                        <img ng-hide="credstype !== 'unknown'"        src="static/images/modifycreds-conv_lite.png" style="width: 100%" class="dialoghelpimages" alt="screenshot of the Watson Assistant screen"/>
-                        <img ng-hide="credstype !== 'conv_lite'"      src="static/images/modifycreds-conv_lite.png" style="width: 100%" class="dialoghelpimages" alt="screenshot of the Watson Assistant screen"/>
-                        <img ng-hide="credstype !== 'conv_standard'"  src="static/images/modifycreds-conv_standard.jpg" style="width: 100%" class="dialoghelpimages" alt="screenshot of the Watson Assistant screen"/>
-                        <img ng-hide="credstype !== 'conv_plus'"      src="static/images/modifycreds-conv_plus.png" style="width: 100%" class="dialoghelpimages" alt="screenshot of the Watson Assistant screen"/>
-                        <img ng-hide="credstype !== 'conv_plustrial'" src="static/images/modifycreds-conv_plustrial.png" style="width: 100%" class="dialoghelpimages" alt="screenshot of the Watson Assistant screen"/>
+                        <img ng-hide="credstype !== 'unknown'"        src="static/images/modifycreds-conv_lite.png" class="dialoghelpimages apikeys-dialog-image-full" alt="screenshot of the Watson Assistant screen"/>
+                        <img ng-hide="credstype !== 'conv_lite'"      src="static/images/modifycreds-conv_lite.png" class="dialoghelpimages apikeys-dialog-image-full" alt="screenshot of the Watson Assistant screen"/>
+                        <img ng-hide="credstype !== 'conv_standard'"  src="static/images/modifycreds-conv_standard.jpg" class="dialoghelpimages apikeys-dialog-image-full" alt="screenshot of the Watson Assistant screen"/>
+                        <img ng-hide="credstype !== 'conv_plus'"      src="static/images/modifycreds-conv_plus.png" class="dialoghelpimages apikeys-dialog-image-full" alt="screenshot of the Watson Assistant screen"/>
+                        <img ng-hide="credstype !== 'conv_plustrial'" src="static/images/modifycreds-conv_plustrial.png" class="dialoghelpimages apikeys-dialog-image-full" alt="screenshot of the Watson Assistant screen"/>
                     </div>
                 </div>
                 <md-dialog-actions layout="row">

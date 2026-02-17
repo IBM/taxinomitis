@@ -37,7 +37,7 @@
     </div>
 
     <div class="modelguidancecontainer" ng-if="scratchkey && project && project.labels.length > 1">
-        <div class="modelguidance" style="flex: 2">
+        <div class="modelguidance python-guidance-flex-2">
             <div class="modelstatusdetail" translate="PYTHON.REPLIT.TIP"></div>
         </div>
         <div class="modelguidance">
@@ -59,7 +59,7 @@
             <div class="modelstatusdetail" translate="PYTHON.APIKEY_INSTRUCTION"></div>
             <div class="modelstatusdetail"><em translate="PYTHON.APIKEY_WARNING"></em></div>
         </div>
-        <div class="modelguidance" style="flex: 2">
+        <div class="modelguidance python-guidance-flex-2">
             <div translate="PYTHON.REPLACE_THIS"></div>
             <div class="pythoncodebox"><pre class="pythoncode">API_KEY <span class="pythonop">=</span> &quot;<b>CHANGE THIS TO YOUR PROJECT API KEY</b>&quot;</pre></div>
             <div translate="PYTHON.WITH_THIS"></div>
@@ -77,7 +77,7 @@
             <div class="modelstatusdetail" translate="PYTHON.RECOGNIZE.TEXT.INTRO"></div>
             <div class="modelstatusdetail" translate="PYTHON.RECOGNIZE.INSTRUCTION"></div>
         </div>
-        <div class="modelguidance" style="flex: 2">
+        <div class="modelguidance python-guidance-flex-2">
             <div translate="PYTHON.RECOGNIZE.TEXT.REPLACE"></div>
             <div class="pythoncodebox"><pre class="pythoncode">test_text <span class="pythonop">=</span> &quot;<b>The text that you want to test</b>&quot;</pre></div>
         </div>
@@ -92,19 +92,19 @@
             <div class="modelstatusdetail" translate="PYTHON.STORE.TEXT.INTRO"></div>
             <div class="modelstatusdetail" translate="PYTHON.STORE.INSTRUCTION"></div>
             <div class="modelstatusdetail">
-                Text you want to add: <input style="padding-left: 1em; padding-right: 1em; width: 80%;" ng-model="testdata.storetext"></input>
+                Text you want to add: <input class="python-input-field" ng-model="testdata.storetext"></input>
             </div>
             <div class="modelstatusdetail">
                 Label for the text:
-                <select ng-model="testdata.label" style="padding-left: 1em; padding-right: 1em; width: 80%;" >
+                <select ng-model="testdata.label" class="python-input-field">
                     <option ng-repeat="label in project.labels" value="{{ label }}">{{label}}</option>
                 </select>
             </div>
             <div class="modelstatusdetail"><em translate="PYTHON.UNCOMMENT"></em></div>
         </div>
-        <div class="modelguidance" style="flex: 2">
+        <div class="modelguidance python-guidance-flex-2">
             <div translate="PYTHON.REPLACE_THIS"></div>
-            <div class="pythoncodebox" style="margin-bottom: 10px;"><pre class="pythoncode"><span class="pythoncomments"># CHANGE THIS to the text that you want to add </span>
+            <div class="pythoncodebox pythoncodebox-spaced"><pre class="pythoncode"><span class="pythoncomments"># CHANGE THIS to the text that you want to add </span>
 <span class="pythoncomments"># to your project training data</span>
 training_text <span class="pythonop">=</span> &quot;<b>Training Example From Python</b>&quot;
 

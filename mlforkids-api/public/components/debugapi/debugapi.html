@@ -4,7 +4,7 @@
 <div class="helpsection">
     <div class="apikeysguideinfo">Please don't use this page unless explicitly requested to. </div>
 </div>
-<div style="padding: 2em;">
+<div class="debug-button-container">
     <button class="btn btn-primary" ng-click="geterror(200)">ok</button>
     <button class="btn btn-primary" ng-click="geterror(400)">bad request</button>
     <button class="btn btn-primary" ng-click="geterror(404)">not found</button>
@@ -15,8 +15,8 @@
     <button class="btn btn-primary" ng-click="geterror(503)">service unavailable</button>
     <button class="btn btn-primary" ng-click="geterror(500)">server error</button>
 </div>
-<div style="padding: 1em; margin-bottom: 3em;">
-    <pre style="background-color: #f0f0f0; border: medium black solid; width: 100%; font-family: 'Courier New', Courier, monospace; font-weight: bold;">
+<div class="debug-output-container">
+    <pre class="debug-output-display">
         {{ apioutput.text }}
     </pre>
 </div>

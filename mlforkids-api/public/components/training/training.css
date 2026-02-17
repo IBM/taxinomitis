@@ -314,3 +314,58 @@ video.webcam-live {
     text-wrap: nowrap;
     overflow: hidden;
 }
+
+.trainingbucketitems > div[ng-if*="_background_noise_"] {
+    text-align: center;
+    padding: 0.5em;
+}
+
+input[type="file"]#text-file-upload-0,
+input[type="file"][id^="text-file-upload-"],
+input[type="file"]#numbers-file-upload-0,
+input[type="file"][id^="numbers-file-upload-"],
+input[type="file"]#image-file-upload-0,
+input[type="file"][id^="image-file-upload-"],
+input[type="file"]#regression-file-upload {
+    display: none !important;
+}
+
+md-dialog.newtrainingdatadialog .md-dialog-content {
+    min-width: 300px;
+}
+
+md-dialog.newtrainingdatadialog md-input-container {
+    min-width: 280px;
+}
+
+form[name="newNumbersTrainingData"] .md-dialog-content {
+    min-width: 500px;
+}
+
+form[name="newImagesTrainingData"] .md-dialog-content {
+    min-width: 600px;
+}
+
+form[name="newImagesTrainingData"] md-input-container {
+    min-width: 580px;
+}
+
+form[name="newSoundsTrainingData"] .md-dialog-content {
+    min-width: 330px;
+}
+
+.sound-recording-progress {
+    height: 49px;
+    margin-top: 50px;
+    vertical-align: middle;
+}
+
+.sound-recording-spacer {
+    flex-grow: 1;
+    height: 100px;
+}
+
+.webcam-loading-image {
+    margin: 1em auto;
+    width: 320px;
+}

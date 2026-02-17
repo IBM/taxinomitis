@@ -60,7 +60,7 @@
                     <div class="mlprojectmenutitle" translate="TEACHER.MENU.CANYOUHELP.TITLE"></div>
                     <div class="mlprojectmenudescription" translate="TEACHER.MENU.CANYOUHELP.DESCRIPTION"></div>
                     <div class="mlprojectmenubutton">
-                        <a class="btn btn-primary" style="width: 240px;"
+                        <a class="btn btn-primary help-button-width"
                            translate="TEACHER.MENU.CANYOUHELP.TITLE" target="_blank"
                            href="https://github.com/IBM/taxinomitis/wiki/Input-from-teachers-and-group-leaders"></a>
                     </div>
@@ -71,7 +71,7 @@
                     <div class="mlprojectmenubutton" ng-hide="vm.busy">
                         <button type="button" class="btn btn-danger" ng-click="vm.deleteClass($event)" ng-disabled="vm.busy" translate="TEACHER.MENU.DELETECLASS.TITLE"></button>
                     </div>
-                    <md-progress-circular style="margin-left: auto; margin-right: auto;" ng-if="vm.busy" md-mode="indeterminate"></md-progress-circular>
+                    <md-progress-circular class="progress-centered" ng-if="vm.busy" md-mode="indeterminate"></md-progress-circular>
                 </div>
             </div>
         </div>

@@ -4,15 +4,15 @@
 <div class="helpsection">
     <div class="apikeysguideinfo">Please don't use this page unless explicitly requested to. </div>
 </div>
-<div style="padding: 2em;">
+<div class="debug-button-container">
     <button class="btn btn-primary" ng-click="listDatabases()">List IndexedDB stores</button>
     <button class="btn btn-primary" ng-click="resetAssetsStore()">Reset ASSETS store</button>
     <button class="btn btn-primary" ng-click="resetProjectsStore()">Reset PROJECTS store</button>
     <button class="btn btn-primary" ng-click="clearTensorflowStore()">Delete TENSORFLOW store</button>
     <button class="btn btn-primary" ng-click="clearLocalStorage()">Reset LOCAL STORAGE</button>
 </div>
-<div style="padding: 1em; margin-bottom: 3em;">
-    <pre style="background-color: #f0f0f0; border: medium black solid; width: 100%; font-family: 'Courier New', Courier, monospace; font-weight: bold;">
+<div class="debug-output-container">
+    <pre class="debug-output-display">
         {{ debugoutput.text }}
     </pre>
 </div>

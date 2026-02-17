@@ -11,3 +11,12 @@
     max-width: 400px;
     margin-bottom: 1em;
 }
+
+.adminpage .help-button-width {
+    width: 240px;
+}
+
+.adminpage .progress-centered {
+    margin-left: auto;
+    margin-right: auto;
+}

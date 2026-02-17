@@ -1,4 +1,4 @@
-<md-dialog aria-label="Store new watsonx Assistant API key" style="max-width: 98%; max-height: 95%">
+<md-dialog aria-label="Store new watsonx Assistant API key" class="apikeys-dialog-large">
     <md-toolbar>
         <div class="md-toolbar-tools">
             <h2 translate>TEACHER.APIKEYS.ADD_API_KEYS.ASSISTANT_TITLE</h2>
@@ -9,14 +9,14 @@
         <md-dialog-content>
             <div layout="column">
                 <div layout="row">
-                    <div style="min-width: 380px; padding: 1em;">
-                        <div style="padding-right: 1em;" translate>TEACHER.APIKEYS.ADD_API_KEYS.USED_FOR_TEXT_PROJECTS</div>
-                        <div style="padding-right: 1em;" translate>TEACHER.APIKEYS.ADD_API_KEYS.HIDDEN_FROM_STUDENTS</div>
+                    <div class="apikeys-dialog-form-section-wide">
+                        <div class="apikeys-dialog-text-padded" translate>TEACHER.APIKEYS.ADD_API_KEYS.USED_FOR_TEXT_PROJECTS</div>
+                        <div class="apikeys-dialog-text-padded" translate>TEACHER.APIKEYS.ADD_API_KEYS.HIDDEN_FROM_STUDENTS</div>
 
                         <hr/>
 
-                        <div style="margin-top: 1em; font-weight: bold;" translate>TEACHER.APIKEYS.ADD_API_KEYS.PRICING_PLAN</div>
-                        <div style="margin-top: 0.2em; margin-left: 1em;">
+                        <div class="apikeys-dialog-section-heading" translate>TEACHER.APIKEYS.ADD_API_KEYS.PRICING_PLAN</div>
+                        <div class="apikeys-dialog-radio-group">
                             <md-radio-group ng-model="credstype" ng-required="true">
                                 <md-radio-button value="conv_lite" class="md-primary">Lite <em>(free)</em></md-radio-button>
                                 <md-radio-button value="conv_standard" class="md-primary">Standard <em>(paid)</em></md-radio-button>
@@ -27,10 +27,10 @@
 
                         <hr/>
 
-                        <div style="margin-top: 1em; font-weight: bold;" translate>TEACHER.APIKEYS.ADD_API_KEYS.ENTER_APIKEY</div>
+                        <div class="apikeys-dialog-section-heading" translate>TEACHER.APIKEYS.ADD_API_KEYS.ENTER_APIKEY</div>
 
-                        <div style="margin-top: 0.2em; margin-left: 1em;">
-                            <md-input-container style="width: 100%; padding-right: 1.1em;">
+                        <div class="apikeys-dialog-radio-group">
+                            <md-input-container class="apikeys-input-full-width">
                                 <input type="text" name="text"
                                     md-autofocus
                                     ng-required="true"
@@ -42,11 +42,11 @@
                         </div>
                     </div>
                     <div class="additionalDialogInfo">
-                        <div style="padding: 0.5em; margin: 0.5em; border: thin #3C70B1 solid; background-color: #EAEBF0; font-size: 0.8em;">
+                        <div class="apikeys-dialog-help-box-large">
                             For help creating a username and password or API key, download the &nbsp;
                             <a ui-sref="apikeysguide" target="_blank"> step by step guide </a>.
                         </div>
-                        <img src="static/images/creds-conv-apikey.jpg" style="width: 100%" class="dialoghelpimages" alt="screenshot of the watsonx Assistant screen"/>
+                        <img src="static/images/creds-conv-apikey.jpg" class="dialoghelpimages apikeys-dialog-image-full" alt="screenshot of the watsonx Assistant screen"/>
                     </div>
                 </div>
                 <md-dialog-actions layout="row">

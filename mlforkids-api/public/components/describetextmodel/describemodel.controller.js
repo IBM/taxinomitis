@@ -673,7 +673,7 @@
             var working = "<table>";
             if (includes.bias) {
                 working += ("<tr><td>" + BIAS[targetId] + "</td><td></td><td></td><td></td><td>+</td></tr>");
-                working += ("<tr><td colspan=5 style='font-size: 0.2em;'> &nbsp; </td></tr>");
+                working += ("<tr><td colspan=5 class='nn-table-spacer-small'> &nbsp; </td></tr>");
             }
             for (var i = 0; i < numInputNodes; i++) {
                 var tablerow = "<tr>";
@@ -688,7 +688,7 @@
                 working += tablerow;
             }
             if (includes.finalvalue) {
-                working += ("<tr><td colspan=5 style='font-size: 0.25em;'> &nbsp; </td></tr>");
+                working += ("<tr><td colspan=5 class='nn-table-spacer-medium'> &nbsp; </td></tr>");
                 working += ("<tr><td colspan=5> = " + values[targetId].value + "</td></tr>");
             }
             working += "</table>";

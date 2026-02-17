@@ -273,3 +273,31 @@
         left: 0 !important;
     }
 }
+
+.models-file-upload-hidden {
+    display: none !important;
+}
+
+.models-badge-beta {
+    background-color: #777;
+}
+
+.models-describe-margin-top {
+    margin-top: 1em;
+}
+
+.models-constrained-device-no-margin {
+    margin-right: 0;
+}
+
+.models-downloadfail-dialog {
+    max-width: 550px;
+}
+
+.models-error-image {
+    max-width: 100%;
+}
+
+.models-error-question {
+    font-size: 1.1em;
+}

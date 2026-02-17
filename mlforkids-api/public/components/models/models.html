@@ -401,7 +401,7 @@
             <input id="image-testing-upload" ng-if="project.type === 'imgtfjs'"
                 type="file"
                 accept=".jpeg,.jpg,.png"
-                style="display: none;"
+                class="models-file-upload-hidden"
                 data-label="test image"
                 onchange="angular.element(this).scope().testUsingFile(event, this)"/>
             <br ng-if="project.type === 'imgtfjs'"/>
@@ -455,13 +455,13 @@
             <input ng-if="project.type === 'text' || project.type === 'numbers' || project.type === 'regression'" type="submit" class="btn btn-primary describetextmodelbutton" value="{{ 'APP.TEST' | translate }}" ng-disabled="testform.$invalid">
             <div ng-if="project.type === 'numbers'" class="btn btn-default describemodelbuttons" ui-sref="mlproject_model_describe({ projectId : projectId, userId : userId, modelId : projectId })">Describe your model!</div>
             <div ng-if="project.type === 'text' && project.storage !== 'local'" class="btn btn-default describemodelbuttons" ui-sref="mlproject_text_model_describe({ projectId : projectId, userId : userId, modelId : projectId })">Describe your model!</div>
-            <div ng-if="project.type === 'imgtfjs'" class="btn btn-default describemodelbuttons" ui-sref="mlproject_image_model_describe({ projectId : projectId, userId : userId, modelId : projectId })">Describe your model! <span class="badge" style="background-color: #777;">beta</span></div>
-            <div ng-if="project.type === 'regression'" class="btn btn-default describemodelbuttons" ui-sref="mlproject_regression_model_describe({ projectId : projectId, userId : userId, modelId : projectId })">Describe your model! <span class="badge" style="background-color: #777;">beta</span></div>
+            <div ng-if="project.type === 'imgtfjs'" class="btn btn-default describemodelbuttons" ui-sref="mlproject_image_model_describe({ projectId : projectId, userId : userId, modelId : projectId })">Describe your model! <span class="badge models-badge-beta">beta</span></div>
+            <div ng-if="project.type === 'regression'" class="btn btn-default describemodelbuttons" ui-sref="mlproject_regression_model_describe({ projectId : projectId, userId : userId, modelId : projectId })">Describe your model! <span class="badge models-badge-beta">beta</span></div>
             <div ng-if="project.type === 'sounds'" class="describetextmodelbutton">
                 <button ng-disabled="listening"  ng-click="vm.startListening()" class="btn btn-primary" translate="MODELS.TESTING.STARTLISTENING"></button>
                 <button ng-disabled="!listening" ng-click="vm.stopListening()" class="btn btn-primary" translate="MODELS.TESTING.STOPLISTENING"></button>
             </div>
-            <div ng-if="project.type === 'sounds'" class="btn btn-default describetextmodelbutton" style="margin-top: 1em;" ui-sref="mlproject_sound_model_describe({ projectId : projectId, userId : userId, modelId : projectId })">Describe your model! <span class="badge" style="background-color: #777;">beta</span></div>
+            <div ng-if="project.type === 'sounds'" class="btn btn-default describetextmodelbutton models-describe-margin-top" ui-sref="mlproject_sound_model_describe({ projectId : projectId, userId : userId, modelId : projectId })">Describe your model! <span class="badge models-badge-beta">beta</span></div>
         </form>
         <div class="testoutput" ng-if="testoutput">
             <div ng-hide="project.type === 'regression'" translate="MODELS.TESTING.RECOGNISED" translate-values='{ testoutput : testoutput }'></div>
@@ -555,8 +555,8 @@
 
         <button ng-if="!loading && status !== 'training' && trainingdatastatus === 'data' && (owner || project.type === 'imgtfjs' || project.type === 'sounds')"
                 class="btn btn-primary trainbuttons"
+                ng-class="{ 'models-constrained-device-no-margin': constrainedDevice }"
                 ng-click="vm.createModel($event, project, false)"
-                ng-style="constrainedDevice && {'margin-right': 0 }"
                 ng-disabled="submittingTrainingRequest || submittingDeleteRequest"
                 translate="MODELS.TRAIN"
                 aria-label="Train new machine learning model"></button>

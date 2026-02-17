@@ -106,3 +106,21 @@ md-input-container .md-input.newprojectname {
 .newprojectlanguage {
     margin-top: 2.5em;
 }
+
+
+.newprojectpage .storage-prompt-alert {
+    margin-top: -2em;
+    margin-bottom: 2em;
+}
+
+.newprojectpage .help-text-spacing {
+    margin-bottom: 1em;
+}
+
+.newprojectpage .field-input-flex {
+    flex: 1;
+}
+
+.newprojectpage .add-value-row {
+    margin-bottom: 2em;
+}

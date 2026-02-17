@@ -12,8 +12,7 @@
 <div ng-if="isAuthenticated" class="newprojectpage">
     <div ng-if="projectName && projectType && !projectStorage"
          ng-hide="projectType === 'numbers' && (vm.fields.length === 0 || !vm.fields[0].name || !vm.fields[0].type || vm.fields[0].type === 'numbers')"
-         style="margin-top: -2em; margin-bottom: 2em;"
-         class="alert alert-info alert-dismissible pageheadermsg page-header-alert-info" translate="NEWPROJECT.STORAGE.PROMPT"></div>
+         class="alert alert-info alert-dismissible pageheadermsg page-header-alert-info storage-prompt-alert" translate="NEWPROJECT.STORAGE.PROMPT"></div>
     <div ng-repeat="error in vm.errors" class="alert alert-danger alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('errors', $index)">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <strong translate="APP.ERROR"></strong> {{ error.message }}<br/>
@@ -42,7 +41,7 @@
                 </md-checkbox>
             </md-input-container>
             <div class="well newprojecthelp" ng-if="vm.focused === 'crowdsourced' && !creating">
-                <div style="margin-bottom: 1em" translate="NEWPROJECT.WHOLE_CLASS_PROJECT.NOTES_1"></div>
+                <div class="help-text-spacing" translate="NEWPROJECT.WHOLE_CLASS_PROJECT.NOTES_1"></div>
                 <div translate="NEWPROJECT.WHOLE_CLASS_PROJECT.NOTES_2"></div>
             </div>
         </div>
@@ -165,7 +164,7 @@
                 <!-- ----------------- -->
                 <!--  FIELD NAME       -->
                 <!-- ----------------- -->
-                <md-input-container class="newprojectform" style="flex: 1;">
+                <md-input-container class="newprojectform field-input-flex">
                     <label>Value {{ $index + 1 }}</label>
                     <input ng-minlength="1" ng-maxlength="12"
                            name="numfield_{{$index}}"
@@ -183,7 +182,7 @@
                 <!-- ----------------- -->
                 <!--  FIELD TYPE       -->
                 <!-- ----------------- -->
-                <md-input-container class="newprojectform"  style="flex: 1;">
+                <md-input-container class="newprojectform field-input-flex">
                     <label translate="NEWPROJECT.FIELDS.TYPE.TITLE"></label>
                     <md-select ng-required="true"
                                ng-model="field.type"
@@ -234,7 +233,7 @@
                      translate="NEWPROJECT.FIELDS.NEWFIELD.DESCRIBE_FIELD"></div>
                 <div class="well newprojecthelp"
                      ng-if="vm.focused === 'fieldtype' + $index">
-                    <div style="margin-bottom: 1em">
+                    <div class="help-text-spacing">
                     If {{ field.name === '' ? 'this field' : field.name }} can be described as
                     numbers, choose "number".
                     </div>
@@ -255,7 +254,7 @@
                       aria-hidden="true"></span>
             </div>
         </div>
-        <div class="newprojectrow" ng-show="projectType === 'numbers'" style="margin-bottom: 2em;">
+        <div class="newprojectrow add-value-row" ng-show="projectType === 'numbers'">
             <div class="newprojectform">
                 <md-button
                     class="md-raised md-primary"

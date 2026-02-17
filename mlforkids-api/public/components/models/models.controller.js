@@ -401,7 +401,14 @@
                         vm.errors = vm.errors.filter(function (e) { return e.message !== 'Unknown error'; });
 
                         var errId = displayAlert('errors', models[0].error, models[0].error);
-                        scrollService.scrollToNewItem('errors' + errId);
+
+                        if (createModelFailedDueToDownloadFail(models[0].error)) {
+                            // training error that is because of bad training data
+                            allowUserToDeleteTrainingItemThatCausedTrainingFail(models[0].error);
+                        }
+                        else {
+                            scrollService.scrollToNewItem('errors' + errId);
+                        }
 
                         if (models[0].error.resourceLimitError) {
                             $scope.constrainedDevice = true;

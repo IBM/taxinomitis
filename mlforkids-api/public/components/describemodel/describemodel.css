@@ -50,3 +50,36 @@
     max-width: 500px;
     min-width: 300px;
 }
+
+.describemlmodel .tryitout-heading {
+    margin-top: 40px;
+    margin-bottom: 5px;
+}
+
+.describemlmodel .tryitout-table {
+    font-size: 0.9em;
+    margin-bottom: 5px;
+}
+
+.describemlmodel .tryitout-field-label {
+    padding-right: 1em;
+    font-size: 0.9em;
+}
+
+.describemlmodel .tryitout-button {
+    margin: 5px;
+}
+
+.describemlmodel .describeintro-flex {
+    display: flex;
+    padding-bottom: 0;
+}
+
+.describemlmodel .text-italic {
+    font-style: italic;
+}
+
+.describemlmodel .attribution-text {
+    font-size: 0.6em;
+    color: #666;
+}

@@ -15,7 +15,7 @@
 <div ng-repeat="info in vm.infos"
     id="infos{{info.alertid}}"
     class="alert alert-info pageheadermsg" role="alert">
-    <div>Your account has been created - your password is <strong style="font-size: 1.4em;">{{info.password}}</strong></div>
+    <div>Your account has been created - your password is <strong class="password-display">{{info.password}}</strong></div>
     <div>Check your inbox for a confirmation email. You need to click the link in the email to activate your class account.</div>
 </div>
 
@@ -63,10 +63,10 @@
                 </div>
             </md-input-container>
             <div class="well newprojecthelp" ng-if="vm.focused === 'email'">
-                <div style="margin-bottom: 1em">
+                <div class="help-text-spacing">
                     <strong>This will need to be verified before you'll be able to log in.</strong>
                 </div>
-                <div style="margin-bottom: 1em">
+                <div class="help-text-spacing">
                     I won't spam you - honest! But I need a way to get in touch if there are any problems. It's also useful to be able to reset your password if you forget it.
                 </div>
                 <div>
@@ -90,7 +90,7 @@
                         class="signuptextentry"/>
             </md-input-container>
             <div class="well newprojecthelp" ng-if="vm.focused === 'intendeduse'">
-                <div style="margin-bottom: 1em">
+                <div class="help-text-spacing">
                     I'd love to know a little about how this tool is being used, so if you don't mind sharing how you think you might use this, I'd appreciate it.
                 </div>
                 <div>
@@ -115,7 +115,7 @@
         </div>
 
         <div class="well terms">
-            <div style="margin-bottom: 1em">
+            <div class="terms-text-spacing">
                 <strong>Setting up this tool to allow your students to train machine learning models will require some access codes (called "API keys") from IBM Cloud. </strong>
             </div>
             <div>"Do I have to pay for that?"</div>
@@ -141,7 +141,7 @@
                 <li>No. Machine learning projects to recognize or predict numbers, images or sounds do not require API keys. Projects using pre-trained models do not require API keys.</li>
                 <li>Only machine learning projects to recognize text require IBM Cloud API keys.</li>
             </ul>
-            <div style="margin-bottom: 1em">
+            <div class="terms-text-spacing">
                 If you're concerned about any of this, or have any questions, please
                 <a ui-sref="help">get in touch</a>.
             </div>

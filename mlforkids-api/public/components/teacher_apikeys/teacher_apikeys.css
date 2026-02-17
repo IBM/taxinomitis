@@ -39,3 +39,119 @@
         display: none;
     }
 }
+
+.adminpage .apikeys-section {
+    border-top: thin #444 solid;
+    padding-top: 1em;
+    margin-bottom: 2em;
+}
+
+.adminpage .apikeys-add-button {
+    margin-right: 1.5em;
+}
+
+.adminpage .apikeys-credentials-table {
+    margin-bottom: 1em;
+    min-width: 95%;
+}
+
+.adminpage .apikeys-icon-cell {
+    width: 60px;
+}
+
+.adminpage .apikeys-password-heading {
+    padding-top: 0.5em;
+}
+
+.adminpage .apikeys-clickable-row {
+    cursor: pointer;
+}
+
+.adminpage .apikeys-model-count {
+    font-size: 1.2em;
+}
+
+.adminpage .apikeys-model-count-large {
+    font-size: 1.4em;
+    font-style: italic;
+}
+
+.adminpage .apikeys-tooltip-text {
+    font-size: 1.2em;
+}
+
+.adminpage .apikeys-verify-progress {
+    display: inline;
+}
+
+.adminpage .apikeys-limit-display {
+    font-size: 1.25em;
+    text-align: right;
+    margin-right: 1em;
+    cursor: pointer;
+}
+
+.adminpage .apikeys-limit-unknown {
+    font-size: 1.15em;
+    font-style: italic;
+}
+
+.adminpage .apikeys-limit-value {
+    font-size: 1.15em;
+    font-weight: bold;
+}
+
+.apikeys-dialog-large {
+    max-width: 98%;
+    max-height: 95%;
+}
+
+.apikeys-dialog-form-section {
+    width: 380px;
+    padding: 1em;
+}
+
+.apikeys-dialog-form-section-wide {
+    min-width: 380px;
+    padding: 1em;
+}
+
+.apikeys-dialog-text-padded {
+    padding-right: 1em;
+}
+
+.apikeys-dialog-section-heading {
+    margin-top: 1em;
+    font-weight: bold;
+}
+
+.apikeys-dialog-radio-group {
+    margin-top: 0.2em;
+    margin-left: 1em;
+}
+
+.apikeys-dialog-help-box {
+    font-style: italic;
+    padding: 0.5em;
+    margin: 0.5em;
+    border: thin #3C70B1 solid;
+    background-color: #EAEBF0;
+    font-size: 0.7em;
+}
+
+.apikeys-dialog-help-box-large {
+    padding: 0.5em;
+    margin: 0.5em;
+    border: thin #3C70B1 solid;
+    background-color: #EAEBF0;
+    font-size: 0.8em;
+}
+
+.apikeys-dialog-image-full {
+    width: 100%;
+}
+
+.apikeys-input-full-width {
+    width: 100%;
+    padding-right: 1.1em;
+}

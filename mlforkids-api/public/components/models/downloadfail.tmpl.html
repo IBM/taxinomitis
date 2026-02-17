@@ -1,4 +1,4 @@
-<md-dialog aria-label="Training error" style="max-width: 550px;">
+<md-dialog aria-label="Training error" class="models-downloadfail-dialog">
     <md-toolbar>
         <div class="md-toolbar-tools">
             <h2>Your machine learning model could not be trained</h2>
@@ -12,7 +12,7 @@
                     prevented your machine learning model being created.
                 </div>
                 <div class="errdetail">
-                    <img style="max-width: 100%" src="{{ location.url }}">
+                    <img class="models-error-image" src="{{ location.url }}">
                 </div>
                 <div class="errdetail wraplongurls" >
                     {{ location.url }}
@@ -23,7 +23,7 @@
                 <div class="errdetail">
                     {{ recommendation }}
                 </div>
-                <div class="errdetail" style="font-size: 1.1em;">
+                <div class="errdetail models-error-question">
                     <strong>Would you like to delete this image?</strong>
                 </div>
             </md-card-content>

@@ -29,8 +29,8 @@
         <strong translate="APP.WARNING"></strong> {{ warning.message }}
     </div>
 
-    <div class="panel-group" ng-if="vm.profile" style="padding-bottom: 150px;">
-        <div class="newlabelbuttons" style="margin-right: 0">
+    <div class="panel-group groups-panel-container" ng-if="vm.profile">
+        <div class="newlabelbuttons action-buttons-container">
             <div class="newlabelbutton"
                  ng-disabled="busy"
                  ng-click="createStudentGroup($event)">
@@ -43,7 +43,7 @@
                 <span class="glyphicon glyphicon-arrow-right"></span>
             </div>
         </div>
-        <div class="panel panel-default" ng-repeat="group in vm.profile.groups" style="margin-top: 15px;">
+        <div class="panel panel-default group-panel" ng-repeat="group in vm.profile.groups">
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" href="#group{{$index}}" target="_self" ng-click="collapsePanel(group)">
@@ -57,20 +57,20 @@
                 <div class="panel-body">
                     <div ng-hide="vm.groupedStudents[group]" class="loading"> </div>
 
-                    <div class="newlabelbuttons" style="margin-right: 0" ng-if="vm.groupedStudents[group]">
-                        <div class="newlabelbutton" style="margin-right: 1em; clear: initial;"
+                    <div class="newlabelbuttons action-buttons-container" ng-if="vm.groupedStudents[group]">
+                        <div class="newlabelbutton action-button-inline"
                              ng-disabled="busy || vm.groupedStudents[group].length >= MAX_PER_GROUP"
                              ng-click="vm.importMultipleUsers($event, group)">
                             <div class="newlabelicon">+</div>
                             <div class="newlabellabel" translate="TEACHER.STUDENTMANAGEMENT.ADD_MULTIPLE.IMPORT"></div>
                         </div>
-                        <div class="newlabelbutton" style="margin-right: 1em; clear: initial;"
+                        <div class="newlabelbutton action-button-inline"
                              ng-disabled="busy || vm.groupedStudents[group].length >= MAX_PER_GROUP"
                              ng-click="vm.createMultipleUsers($event, group)">
                             <div class="newlabelicon">+</div>
                             <div class="newlabellabel" translate="TEACHER.STUDENTMANAGEMENT.ADD_MULTIPLE.BUTTON"></div>
                         </div>
-                        <div class="newlabelbutton" style="margin-right: 1em; clear: initial;"
+                        <div class="newlabelbutton action-button-inline"
                              ng-disabled="busy || vm.groupedStudents[group].length >= MAX_PER_GROUP"
                              ng-click="vm.createUser($event, group)">
                             <div class="newlabelicon">+</div>
@@ -147,7 +147,7 @@
                                     ng-click="removeStudentsFromGroup(group)"
                                     translate="TEACHER.STUDENTMANAGEMENT.GROUPS.REMOVE_FROM"></button>
                             </div>
-                            <div style="margin-top: 18px;">
+                            <div class="delete-button-spacing">
                                 <button class="btn btn-default"
                                     ng-click="vm.deleteUsers($event, group)"
                                     ng-disabled="busy || !areStudentsSelected(group)"
@@ -158,7 +158,7 @@
                 </div>
             </div>
         </div>
-        <div class="panel panel-default" style="margin-top: 15px;">
+        <div class="panel panel-default group-panel">
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" href="#ungrouped" target="_self" ng-click="fetchAndDisplayUngroupedStudents()">

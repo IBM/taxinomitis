@@ -122,7 +122,7 @@
                     </div>
                 </div>
                 <div class="trainingbucketitems" ng-if="project.type === 'sounds'">
-                    <div ng-if="label === '_background_noise_'" style="text-align: center; padding: 0.5em;" translate="TRAINING.BACKGROUNDNOISE"></div>
+                    <div ng-if="label === '_background_noise_'" translate="TRAINING.BACKGROUNDNOISE"></div>
                     <div class="loading loadingtraining" ng-if="loadingtraining"> </div>
                     <div class="trainingbucketitem" ng-repeat="item in training[label] track by item.id" ng-class="{ placeholder : item.isPlaceholder }" id="{{item.id}}">
                         <span class="glyphicon glyphicon-remove-circle deletetext" aria-hidden="true"
@@ -145,7 +145,6 @@
                     <input id="text-file-upload-{{$index}}" ng-if="project.type === 'text' && project.storage === 'local'"
                         type="file"
                         accept=".txt"
-                        style="display: none;"
                         data-label="{{ ::label }}"
                         onchange="angular.element(this).scope().uploadTrainingData(event, this)"/>
                     <label class="btn newexamplebutton" for="numbers-file-upload-{{$index}}" ng-if="project.type === 'numbers' && project.storage === 'local'">
@@ -155,7 +154,6 @@
                     <input id="numbers-file-upload-{{$index}}" ng-if="project.type === 'numbers' && project.storage === 'local'"
                         type="file"
                         accept=".csv"
-                        style="display: none;"
                         data-label="{{ ::label }}"
                         onchange="angular.element(this).scope().uploadTrainingData(event, this)"/>
                     <div class="btn newexamplebutton" ng-if="(project.type === 'text' || project.type === 'numbers') && training[label].length > 0 " ng-click="downloadTrainingData($event, label)">
@@ -191,7 +189,6 @@
                         type="file"
                         accept=".jpeg,.jpg,.png"
                         multiple
-                        style="display: none;"
                         data-label="{{ ::label }}"
                         onchange="angular.element(this).scope().uploadTrainingData(event, this)"/>
                     <div class="btn newexamplebutton" ng-click="vm.useMicrophone($event, label)" ng-if="project.type === 'sounds'" ng-disabled="loadingtraining">
@@ -240,7 +237,6 @@
                     <input id="regression-file-upload"
                         type="file"
                         accept=".csv"
-                        style="display: none;"
                         onchange="angular.element(this).scope().uploadTrainingData(event)"/>
                 </div>
                 <div class="trainingcountlabel">{{ training.length }}</div>

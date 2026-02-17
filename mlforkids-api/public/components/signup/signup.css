@@ -15,3 +15,15 @@
 .signuptextentry {
     font-size: 1.2em;
 }
+
+.signupPage .password-display {
+    font-size: 1.4em;
+}
+
+.signupPage .help-text-spacing {
+    margin-bottom: 1em;
+}
+
+.signupPage .terms-text-spacing {
+    margin-bottom: 1em;
+}

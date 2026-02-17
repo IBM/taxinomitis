@@ -916,7 +916,7 @@
                                 '</div>';
                     }
 
-                    displayCreateErrorMessage(ev, title, '<div style="padding: 1em">' + message + '</div>');
+                    displayCreateErrorMessage(ev, title, '<div class="dialog-error-content">' + message + '</div>');
                 }
                 else if (resp.successes.length > 0) {
                     displayPassword(ev, {

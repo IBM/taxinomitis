@@ -58,12 +58,12 @@
                     <div class="btn btn-default glyphicon glyphicon-arrow-right" ng-mousedown="vm.goright()" ng-mouseup="vm.stop()" ng-mouseleave="vm.stop()"></div>
                 </div>
 
-                <div style="margin-top: 40px; margin-bottom: 5px;" translate="DESCRIBEMODEL.TRYITOUT"></div>
+                <div class="tryitout-heading" translate="DESCRIBEMODEL.TRYITOUT"></div>
 
                 <form ng-if="project.fields" name="treetestform" ng-submit="vm.highlight(testformData)">
-                    <table style="font-size: 0.9em; margin-bottom: 5px;">
+                    <table class="tryitout-table">
                         <tr ng-repeat="field in project.fields">
-                            <td style="padding-right: 1em; font-size: 0.9em;">{{ field.name }}</td>
+                            <td class="tryitout-field-label">{{ field.name }}</td>
                             <td>
                                 <input type="text"
                                         ng-if="field.type === 'number'"
@@ -80,8 +80,8 @@
                             </td>
                         </tr>
                     </table>
-                    <input type="submit" class="btn btn-primary" value="{{ 'APP.TEST' | translate }}" ng-disabled="treetestform.$invalid" style="margin: 5px;">
-                    <div class="btn btn-default" style="margin: 5px;" ng-click="vm.resetTree()" translate="APP.RESET"></div>
+                    <input type="submit" class="btn btn-primary tryitout-button" value="{{ 'APP.TEST' | translate }}" ng-disabled="treetestform.$invalid">
+                    <div class="btn btn-default tryitout-button" ng-click="vm.resetTree()" translate="APP.RESET"></div>
                 </form>
             </div>
         </div>

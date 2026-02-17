@@ -31,7 +31,7 @@
         <strong translate="APP.WARNING"></strong> {{ warning.message }}
     </div>
 
-    <div class="describeintro" style="display: flex; padding-bottom: 0" ng-switch="vm.wizardPage">
+    <div class="describeintro describeintro-flex" ng-switch="vm.wizardPage">
         <div class="nnexplanation" ng-switch-when="1">
             <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE1.TEXT1"></div>
             <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE1.TEXT2"></div>
@@ -60,7 +60,7 @@
         </div>
         <div class="nnexplanation" ng-switch-when="7">
             <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE7.TEXT1"></div>
-            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE7.TEXT2" style="font-style: italic;"></div>
+            <div class="bodytext text-italic" translate="DESCRIBETEXTMODEL.PAGE7.TEXT2"></div>
         </div>
         <div class="nnexplanation" ng-switch-when="8">
             <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE8.TEXT1"></div>
@@ -69,15 +69,15 @@
         <div class="nnexplanation" ng-switch-when="9">
             <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE9.TEXT1"></div>
             <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE9.TEXT2"></div>
-            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE9.TEXT3" style="font-style: italic;"></div>
+            <div class="bodytext text-italic" translate="DESCRIBETEXTMODEL.PAGE9.TEXT3"></div>
         </div>
         <div class="nnexplanation" ng-switch-when="10">
             <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE10.TEXT1"></div>
-            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE10.TEXT2" style="font-style: italic;"></div>
+            <div class="bodytext text-italic" translate="DESCRIBETEXTMODEL.PAGE10.TEXT2"></div>
         </div>
         <div class="nnexplanation" ng-switch-when="11">
             <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE11.TEXT1"></div>
-            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE11.TEXT2" style="font-style: italic;"></div>
+            <div class="bodytext text-italic" translate="DESCRIBETEXTMODEL.PAGE11.TEXT2"></div>
             <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE11.TEXT3"></div>
         </div>
         <div class="nnexplanation" ng-switch-when="12">
@@ -100,7 +100,7 @@
         </div>
         <div class="nnexplanation" ng-switch-when="15">
             <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE15.TEXT1"></div>
-            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE15.TEXT2" style="font-style: italic;"></div>
+            <div class="bodytext text-italic" translate="DESCRIBETEXTMODEL.PAGE15.TEXT2"></div>
         </div>
         <div class="nnexplanation" ng-switch-when="16">
             <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE16.TEXT1"></div>
@@ -120,7 +120,7 @@
         <div class="nnexplanation" ng-switch-when="20">
             <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE20.TEXT1"></div>
             <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE20.TEXT2"></div>
-            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE20.TEXT3" style="font-style: italic;"></div>
+            <div class="bodytext text-italic" translate="DESCRIBETEXTMODEL.PAGE20.TEXT3"></div>
         </div>
         <div class="nnexplanation" ng-switch-when="21">
             <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE21.TEXT1"></div>
@@ -134,7 +134,7 @@
         </div>
         <div class="nnexplanation" ng-switch-when="24">
             <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE24.TEXT1"></div>
-            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE24.TEXT2" style="font-style: italic;"></div>
+            <div class="bodytext text-italic" translate="DESCRIBETEXTMODEL.PAGE24.TEXT2"></div>
         </div>
         <div class="nnexplanation" ng-switch-when="25">
             <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE25.TEXT1"></div>
@@ -220,7 +220,7 @@
                 <div id="mlforkidsmodelvizimg">
 
                 </div>
-                <div style="font-size: 0.6em; color: #666;">Diagram based on <a href="https://alexlenail.me/NN-SVG">NN-SVG library by Alexander Lenail</a></div>
+                <div class="attribution-text">Diagram based on <a href="https://alexlenail.me/NN-SVG">NN-SVG library by Alexander Lenail</a></div>
             </div>
             <div class="sidepanel">
                 <div class="btn-group btn-group-lg" role="group">
@@ -235,7 +235,7 @@
                     <div class="btn btn-default glyphicon glyphicon-arrow-right" ng-mousedown="vm.goright()" ng-mouseup="vm.stop()" ng-mouseleave="vm.stop()"></div>
                 </div>
 
-                <div style="margin-top: 40px; margin-bottom: 5px;" translate="DESCRIBETEXTMODEL.ZOOM"></div>
+                <div class="tryitout-heading" translate="DESCRIBETEXTMODEL.ZOOM"></div>
             </div>
         </div>
     </div>

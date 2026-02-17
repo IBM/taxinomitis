@@ -13,3 +13,39 @@
     padding-left: 1.2em;
     padding-right: 1.2em;
 }
+
+.expiry-dialog {
+    max-width: 98%;
+    max-height: 95%;
+}
+
+.expiry-dialog-content {
+    width: 380px;
+    padding: 1em;
+}
+
+.expiry-text-padding {
+    padding-right: 1em;
+}
+
+.expiry-section-heading {
+    margin-top: 1em;
+    font-weight: bold;
+}
+
+.expiry-slider-container {
+    margin-top: 0.2em;
+    margin-left: 1em;
+}
+
+.expiry-info-box {
+    padding: 1em;
+    margin: 0.5em;
+    border: thin #3C70B1 solid;
+    background-color: #EAEBF0;
+    font-size: 0.8em;
+}
+
+.expiry-info-text {
+    margin-bottom: 0.8em;
+}

@@ -152,3 +152,11 @@
 
     font-weight: bold;
 }
+
+.nn-table-spacer-small {
+    font-size: 0.2em;
+}
+
+.nn-table-spacer-medium {
+    font-size: 0.25em;
+}

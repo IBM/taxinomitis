@@ -16,10 +16,23 @@ angular.module('app')
                 for (let i = $scope.yAxisTicks; i >= 0; i--) {
                     $scope.yAxisLabels.push($scope.maxValue * i / $scope.yAxisTicks);
                 }
-
-                $scope.getBarHeight = function(value) {
-                    return (value / $scope.maxValue * 100) + '%';
-                };
+            }
+        };
+    })
+    .directive('mlchartBarHeight', function () {
+        return {
+            restrict: 'A',
+            scope: {
+                mlchartBarHeight: '=',
+                maxValue: '='
+            },
+            link: function (scope, element, attrs) {
+                scope.$watch('mlchartBarHeight', function(value) {
+                    if (value !== undefined && scope.maxValue) {
+                        const heightPercent = (value / scope.maxValue * 100);
+                        element[0].style.setProperty('--bar-height', heightPercent + '%');
+                    }
+                });
             }
         };
     });

@@ -11,3 +11,7 @@
     width: 100%;
     border: thin #c9c9c9 solid;
 }
+
+.appinventorpage .api-key-guidance {
+    flex-basis: 100%;
+}

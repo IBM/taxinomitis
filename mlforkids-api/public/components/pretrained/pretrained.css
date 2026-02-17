@@ -11,3 +11,31 @@
     max-width: 95%;
     border: thin black solid;
 }
+
+.tensorflow-dialog {
+    min-width: 450px;
+    max-width: 650px;
+}
+
+.tensorflow-content-section {
+    padding: 1em;
+}
+
+.tensorflow-input-container {
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 20px;
+}
+
+.tensorflow-input-field {
+    width: 95%;
+}
+
+.tensorflow-error-message {
+    color: #bb1b1b;
+}
+
+.tensorflow-select {
+    padding-left: 20px;
+}

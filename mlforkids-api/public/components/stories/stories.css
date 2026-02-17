@@ -202,3 +202,15 @@
         content: "• ";
     }
 }
+
+.story-image-550 {
+    width: 550px;
+}
+
+.story-image-600 {
+    width: 600px;
+}
+
+.story-clear-both {
+    clear: both;
+}
