@@ -4,8 +4,9 @@
 
 const fs = require('fs');
 const path = require('path');
-const { copyDir, ensureDir, copyFiles } = require('./utils');
+const { copyDir, ensureDir } = require('./utils');
 const CleanCSS = require('clean-css');
+const { minify } = require('terser');
 
 console.log('Copying bower component overrides...');
 
@@ -45,8 +46,57 @@ console.log('  ✓ angular-material');
 const auth0LockSrc = path.join(baseDir, 'public', 'third-party', 'auth0-lock');
 const auth0LockDest = path.join(bowerDir, 'auth0-lock');
 ensureDir(auth0LockDest);
-copyDir(auth0LockSrc, auth0LockDest);
-console.log('  ✓ auth0-lock');
+
+// Copy most files as-is
+const auth0LockFiles = fs.readdirSync(auth0LockSrc);
+for (const file of auth0LockFiles) {
+    const srcPath = path.join(auth0LockSrc, file);
+    const destPath = path.join(auth0LockDest, file);
+
+    // Skip files that shouldn't be deployed
+    if (file === 'auth0-lock-csp-shim.js') {
+        continue; // Minified separately below
+    }
+    if (file === 'prepare-css.html') {
+        continue; // Development tool, not for production
+    }
+
+    const stat = fs.statSync(srcPath);
+    if (stat.isDirectory()) {
+        copyDir(srcPath, destPath);
+    } else {
+        fs.copyFileSync(srcPath, destPath);
+    }
+}
+
+// Minify the CSP shim file
+(async () => {
+    try {
+        const shimSrc = path.join(auth0LockSrc, 'auth0-lock-csp-shim.js');
+        const shimDest = path.join(auth0LockDest, 'auth0-lock-csp-shim.js');
+        const shimCode = fs.readFileSync(shimSrc, 'utf8');
+
+        const minified = await minify(shimCode, {
+            compress: {
+                dead_code: true,
+                drop_console: false,
+                drop_debugger: true
+            },
+            mangle: true
+        });
+
+        if (minified.error) {
+            console.error('Terser error minifying auth0-lock-csp-shim.js:', minified.error);
+            process.exit(1);
+        }
+
+        fs.writeFileSync(shimDest, minified.code);
+        console.log('  ✓ auth0-lock (with minified CSP shim)');
+    } catch (error) {
+        console.error('Error minifying auth0-lock-csp-shim.js:', error);
+        process.exit(1);
+    }
+})();
 
 // papaparse
 const papaparseSrc = path.join(baseDir, 'node_modules', 'papaparse', 'papaparse.min.js');

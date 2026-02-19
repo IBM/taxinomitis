@@ -33,7 +33,7 @@
         <meta property="og:video" content="https://machinelearningforkids.co.uk/static/images/machinelearningforkids.gif" />
 
     </head>
-    <body ng-csp="no-unsafe-eval">
+    <body ng-csp="no-inline-style; no-unsafe-eval">
         <div ng-app="app">
             <nav class="navbar navbar-default">
                 <div class="container-fluid">
@@ -135,6 +135,9 @@
 
         <script type="text/javascript" src="/static/bower_components/webcam-directive/dist/webcam.js?v=3"></script>
 
+        <style id="auth0-lock-style"></style>
+        <link rel="stylesheet" href="/static/bower_components/auth0-lock/auth0-lock.min.css">
+        <script type="text/javascript" src="/static/bower_components/auth0-lock/auth0-lock-csp-shim.js"></script>
         <script type="text/javascript" src="/static/bower_components/auth0-lock/build/lock.min.js?v=3"></script>
         <script type="text/javascript" src="/static/bower_components/angular-lock/dist/angular-lock.min.js?v=3"></script>
         <script type="text/javascript" src="/static/bower_components/auth0.js/dist/auth0.min.js?v=3"></script>

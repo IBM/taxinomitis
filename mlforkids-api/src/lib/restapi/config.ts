@@ -15,8 +15,9 @@ export const CSP_DIRECTIVES: Record<string, string[]> = {
         'https://cdn.eu.auth0.com',
     ],
     styleSrc: ["'self'",
-        // TODO : https://github.com/IBM/taxinomitis/issues/346 should remove this
-        "'unsafe-inline'",
+        // Angular UI Router adds empty style="" attribute to ui-view elements
+        // This hash allows only empty inline styles (sha256 of empty string)
+        "'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU='",
         // used by in-browser page translations
         'https://www.gstatic.com',
     ],
