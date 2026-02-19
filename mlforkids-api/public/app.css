@@ -86,3 +86,27 @@ md-dialog.md-transition-in,md-dialog.md-transition-out {
     height: 24px;
     width: 24px;
 }
+
+/* styles from https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular-csp.css */
+
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak,
+.ng-hide:not(.ng-hide-animate) {
+  display: none !important;
+}
+
+ng\:form {
+  display: block;
+}
+
+.ng-animate-shim {
+  visibility:hidden;
+}
+
+.ng-anchor {
+  position:absolute;
+}
