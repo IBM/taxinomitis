@@ -165,4 +165,5 @@ export function register404Handler(app: Express.Application) {
 // 404's from these URLs don't suggest a problem
 const common404Urls = [
     '/.well-known/assetlinks.json',
+    '/.well-known/passkey-endpoints',
 ];

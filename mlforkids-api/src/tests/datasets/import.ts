@@ -1,7 +1,7 @@
 /*eslint-env mocha */
 import * as assert from 'assert';
 import * as sinon from 'sinon';
-import { v1 as uuid } from 'uuid';
+import { randomUUID } from 'node:crypto';
 import * as store from '../../lib/db/store';
 import * as datasets from '../../lib/datasets';
 import * as dbtypes from '../../lib/db/db-types';
@@ -48,7 +48,7 @@ describe('Datasets import', () => {
     describe('Errors', () => {
 
         it('should handle requests to import non-existent datasets', () => {
-            return datasets.importDataset(uuid(), TESTCLASS, DEFAULT_IMPORT, 'text', 'not-a-real-dataset')
+            return datasets.importDataset(randomUUID(), TESTCLASS, DEFAULT_IMPORT, 'text', 'not-a-real-dataset')
                 .then(() => {
                     assert.fail('should not get here');
                 })
@@ -58,7 +58,7 @@ describe('Datasets import', () => {
         });
 
         it('should handle requests to import non-existent dataset types', () => {
-            return datasets.importDataset(uuid(), TESTCLASS, DEFAULT_IMPORT,
+            return datasets.importDataset(randomUUID(), TESTCLASS, DEFAULT_IMPORT,
                                           '../../../' as dbtypes.ProjectTypeLabel, 'not-a-real-dataset')
                 .then(() => {
                     assert.fail('should not get here');
@@ -73,7 +73,7 @@ describe('Datasets import', () => {
 
     describe('Verify datasets', () => {
         it('should be able to import all prod datasets', async () => {
-            const user = uuid();
+            const user = randomUUID();
 
             const prodDatasets: {[type: string]: string[]; } = {
                 numbers : [
@@ -109,7 +109,7 @@ describe('Datasets import', () => {
     describe('Text datasets', () => {
 
         it('should import a text dataset', async () => {
-            const user = uuid();
+            const user = randomUUID();
 
             const project = await datasets.importDataset(user, TESTCLASS, DEFAULT_IMPORT, 'text', 'test-only-txt');
 
@@ -153,7 +153,7 @@ describe('Datasets import', () => {
     describe('Numbers datasets', () => {
 
         it('should import a numbers dataset', async () => {
-            const user = uuid();
+            const user = randomUUID();
 
             const project = await datasets.importDataset(user, TESTCLASS, DEFAULT_IMPORT, 'numbers', 'test-only-num');
 
@@ -196,7 +196,7 @@ describe('Datasets import', () => {
     describe('Images datasets', () => {
 
         it('should import an images dataset', async () => {
-            const user = uuid();
+            const user = randomUUID();
 
             const project = await datasets.importDataset(user, TESTCLASS, DEFAULT_IMPORT, 'imgtfjs', 'test-only-img');
 
@@ -258,7 +258,7 @@ describe('Datasets import', () => {
             ];
             const expectedtotal = 278;
 
-            const user = uuid();
+            const user = randomUUID();
 
             for (const test of TESTS) {
                 const project = await datasets.importDataset(user, TESTCLASS, { crowdsourced: false, testratio: test.ratio }, 'text', 'uk-newspaper-headlines');
@@ -289,7 +289,7 @@ describe('Datasets import', () => {
             ];
             const expectedtotal = 40;
 
-            const user = uuid();
+            const user = randomUUID();
 
             for (const test of TESTS) {
                 const project = await datasets.importDataset(user, TESTCLASS, { crowdsourced: false, testratio: test.ratio }, 'imgtfjs', 'cats-and-dogs');
@@ -320,7 +320,7 @@ describe('Datasets import', () => {
             ];
             const expectedtotal = 334;
 
-            const user = uuid();
+            const user = randomUUID();
 
             for (const test of TESTS) {
                 const project = await datasets.importDataset(user, TESTCLASS, { crowdsourced: false, testratio: test.ratio }, 'numbers', 'pokemon-stats');
@@ -342,7 +342,7 @@ describe('Datasets import', () => {
         });
 
         it('should return string labels for multi-choice test values', async () => {
-            const user = uuid();
+            const user = randomUUID();
 
             const project = await datasets.importDataset(user, TESTCLASS, { crowdsourced: false, testratio: 90 }, 'numbers', 'test-only-num');
             assert(project.testdata);
@@ -362,7 +362,7 @@ describe('Datasets import', () => {
         });
 
         it('should not overlap test and train data', async () => {
-            const user = uuid();
+            const user = randomUUID();
 
             const project = await datasets.importDataset(user, TESTCLASS, { crowdsourced: false, testratio: 33 }, 'imgtfjs', 'test-only-img');
             const trainingdata = await store.getImageTraining(project.id, { limit: 1000, start: 0 });

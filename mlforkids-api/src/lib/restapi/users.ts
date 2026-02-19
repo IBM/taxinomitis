@@ -1,7 +1,8 @@
+// core dependencies
+import { randomUUID } from 'node:crypto';
 // external dependencies
 import { status as httpstatus } from 'http-status';
 import * as Express from 'express';
-import { v4 as uuid } from 'uuid';
 // local dependencies
 import * as auth0 from '../auth0/users';
 import * as auth from './auth';
@@ -53,7 +54,7 @@ async function createTeacher(req: Express.Request, res: Express.Response) {
                    .send({ error : 'Invalid username. Use letters, numbers, hyphens and underscores, only.' });
     }
 
-    const tenant: string = uuid();
+    const tenant: string = randomUUID();
 
     try {
         const teacher = await auth0.createTeacher(tenant,

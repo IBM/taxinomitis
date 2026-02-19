@@ -7,22 +7,6 @@ const path = require('path');
 const https = require('https');
 
 
-/** Copy files matching a pattern to a destination */
-async function copyFiles(srcPattern, destDir, options = {}) {
-    const glob = await import('glob');
-    const files = glob.globSync(srcPattern, { nodir: true, ...options });
-    if (!fs.existsSync(destDir)) {
-        fs.mkdirSync(destDir, { recursive: true });
-    }
-
-    for (const file of files) {
-        const destFile = path.join(destDir, path.basename(file));
-        fs.copyFileSync(file, destFile);
-    }
-
-    return files.length;
-}
-
 /** Copy directory recursively */
 function copyDir(src, dest) {
     if (!fs.existsSync(dest)) {
@@ -100,7 +84,6 @@ function isProd() {
 }
 
 module.exports = {
-    copyFiles,
     copyDir,
     downloadFile,
     ensureDir,

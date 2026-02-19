@@ -1,5 +1,5 @@
-// external dependencies
-import { v4 as uuid } from 'uuid';
+// core dependencies
+import { randomUUID } from 'node:crypto';
 // local dependencies
 import * as env from '../utils/env';
 
@@ -7,27 +7,27 @@ import * as env from '../utils/env';
 
 const AUTH0_CLIENT_SECRET = process.env[env.AUTH0_CLIENT_SECRET] ?
                                 process.env[env.AUTH0_CLIENT_SECRET] :
-                                uuid();
+                                randomUUID();
 
 const AUTH0_DOMAIN = process.env[env.AUTH0_DOMAIN] ?
                          process.env[env.AUTH0_DOMAIN] :
-                         uuid();
+                         randomUUID();
 
 const AUTH0_CUSTOM_DOMAIN = process.env[env.AUTH0_CUSTOM_DOMAIN] ?
                                 process.env[env.AUTH0_CUSTOM_DOMAIN] :
-                                uuid();
+                                randomUUID();
 
 const AUTH0_AUDIENCE = process.env[env.AUTH0_AUDIENCE] ?
                            process.env[env.AUTH0_AUDIENCE] :
-                           uuid();
+                           randomUUID();
 
 const AUTH0_API_CLIENTID = process.env[env.AUTH0_API_CLIENTID] ?
                                process.env[env.AUTH0_API_CLIENTID] :
-                               uuid();
+                               randomUUID();
 
 const AUTH0_API_CLIENTSECRET = process.env[env.AUTH0_API_CLIENTSECRET] ?
                                    process.env[env.AUTH0_API_CLIENTSECRET] :
-                                   uuid();
+                                   randomUUID();
 
 
 export const CLIENT_SECRET = AUTH0_CLIENT_SECRET;

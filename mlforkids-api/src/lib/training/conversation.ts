@@ -1,6 +1,7 @@
+// core dependencies
+import { randomUUID } from 'node:crypto';
 // external dependencies
 import { status as httpStatus } from 'http-status';
-import { v1 as uuid } from 'uuid';
 // local dependencies
 import * as store from '../db/store';
 import * as iam from '../iam';
@@ -91,7 +92,7 @@ async function createWorkspace(
 {
     let workspace;
 
-    const id: string = uuid();
+    const id: string = randomUUID();
 
     let finalError:string;
     let shuffledCredentialsPool: TrainingObjects.BluemixCredentials[];

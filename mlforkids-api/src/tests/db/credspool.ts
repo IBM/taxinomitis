@@ -1,7 +1,7 @@
 /*eslint-env mocha */
 import * as assert from 'assert';
 import * as randomstring from 'randomstring';
-import { v4 as uuid } from 'uuid';
+import { randomUUID } from 'node:crypto';
 
 import * as store from '../../lib/db/store';
 import * as dbObjects from '../../lib/db/objects';
@@ -117,7 +117,7 @@ describe('DB credentials pool store', () => {
         });
 
         it('should handle requests to delete unknown pool credentials', () => {
-            return store.deleteBluemixCredentialsPool(uuid());
+            return store.deleteBluemixCredentialsPool(randomUUID());
         });
 
         it('should delete pooled credentials', async () => {

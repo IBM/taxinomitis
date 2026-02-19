@@ -1,6 +1,6 @@
 /*eslint-env mocha */
 import * as assert from 'assert';
-import { v1 as uuid } from 'uuid';
+import { randomUUID } from 'node:crypto';
 import * as store from '../../lib/db/store';
 
 
@@ -9,7 +9,7 @@ const TESTCLASS = 'UNIQUECLASSID';
 
 describe.skip('DB store - accents and other character types', () => {
 
-    const user = uuid();
+    const user = randomUUID();
 
     before(() => {
         return store.init();
@@ -71,7 +71,7 @@ describe.skip('DB store - accents and other character types', () => {
 
         it('should correctly store label names', async () => {
             for (const labelname of SUPPORTED) {
-                const project = await store.storeProject(user, TESTCLASS, 'text', uuid(), 'en', [], false);
+                const project = await store.storeProject(user, TESTCLASS, 'text', randomUUID(), 'en', [], false);
                 await store.addLabelToProject(user, TESTCLASS, project.id, labelname);
                 const retrieved = await store.getProject(project.id);
                 if (retrieved) {
@@ -86,7 +86,7 @@ describe.skip('DB store - accents and other character types', () => {
 
         it('should use placeholders for special characters', async () => {
             for (const labelname of UNSUPPORTED) {
-                const project = await store.storeProject(user, TESTCLASS, 'text', uuid(), 'en', [], false);
+                const project = await store.storeProject(user, TESTCLASS, 'text', randomUUID(), 'en', [], false);
                 await store.addLabelToProject(user, TESTCLASS, project.id, labelname);
                 const retrieved = await store.getProject(project.id);
                 if (retrieved) {
@@ -128,7 +128,7 @@ describe.skip('DB store - accents and other character types', () => {
 
         it('should correctly store training data', async () => {
             for (const training of SUPPORTED) {
-                const project = await store.storeProject(user, TESTCLASS, 'text', uuid(), 'en', [], false);
+                const project = await store.storeProject(user, TESTCLASS, 'text', randomUUID(), 'en', [], false);
                 await store.addLabelToProject(user, TESTCLASS, project.id, 'mylabel');
                 await store.storeTextTraining(project.id, training, 'mylabel');
                 const retrieved = await store.getTextTraining(project.id, { limit: 1, start: 0 });
