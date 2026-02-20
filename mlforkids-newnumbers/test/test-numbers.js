@@ -439,7 +439,7 @@ describe('verify new number service API', () => {
                             "name": "ticket_class"
                         },
                         "gender": {
-                            "type": "object",
+                            "type": "str",
                             "name": "gender"
                         },
                         "age": {
@@ -459,11 +459,11 @@ describe('verify new number service API', () => {
                             "name": "ticket_fare"
                         },
                         "embarked": {
-                            "type": "object",
+                            "type": "str",
                             "name": "embarked"
                         },
                         "mlforkids_outcome_label": {
-                            "type": "object",
+                            "type": "str",
                             "name": "mlforkids_outcome_label"
                         }
                     });
@@ -488,39 +488,39 @@ describe('verify new number service API', () => {
                     assert.deepStrictEqual(modelinfo.labels, [ 'phishing', 'safe' ]);
                     assert.deepStrictEqual(modelinfo.features, {
                         "address type": {
-                            "type": "object",
+                            "type": "str",
                             "name": "address_type"
                         },
                         "url length": {
-                            "type": "object",
+                            "type": "str",
                             "name": "url_length"
                         },
                         "shortening": {
-                            "type": "object",
+                            "type": "str",
                             "name": "shortening"
                         },
                         "includes @": {
-                            "type": "object",
+                            "type": "str",
                             "name": "includes__"
                         },
                         "port number": {
-                            "type": "object",
+                            "type": "str",
                             "name": "port_number"
                         },
                         "domain age": {
-                            "type": "object",
+                            "type": "str",
                             "name": "domain_age"
                         },
                         "redirects": {
-                            "type": "object",
+                            "type": "str",
                             "name": "redirects"
                         },
                         "domain reg": {
-                            "type": "object",
+                            "type": "str",
                             "name": "domain_reg"
                         },
                         "mlforkids_outcome_label": {
-                            "type": "object",
+                            "type": "str",
                             "name": "mlforkids_outcome_label"
                         }
                     });
@@ -575,7 +575,7 @@ describe('verify new number service API', () => {
                             "name": "capture_rate"
                         },
                         "mlforkids_outcome_label": {
-                            "type": "object",
+                            "type": "str",
                             "name": "mlforkids_outcome_label"
                         }
                     });

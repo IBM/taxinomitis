@@ -355,6 +355,11 @@ export function createTextTraining(projectid: string, data: string, label: strin
     }
 
     const object: any = {
+        // UUID v1 - timestamp-based unique ID
+        //  training items are fetched sorted by ID - so this
+        //  means items are retrieved in creation order
+        // Don't change UUID type without updating how collections
+        //  are retrieved
         id : uuid(),
         projectid,
         textdata : data.replace(INVALID_TEXT_CHARS, ' '),
@@ -412,6 +417,11 @@ export function createNumberTraining(projectid: string, data: number[], label: s
     }
 
     const object: any = {
+        // UUID v1 - timestamp-based unique ID
+        //  training items are fetched sorted by ID - so this
+        //  means items are retrieved in creation order
+        // Don't change UUID type without updating how collections
+        //  are retrieved
         id : uuid(),
         projectid,
         numberdata : data,
@@ -461,6 +471,11 @@ export function createImageTraining(
     }
 
     const object: any = {
+        // UUID v1 - timestamp-based unique ID
+        //  training items are fetched sorted by ID - so this
+        //  means items are retrieved in creation order
+        // Don't change UUID type without updating how collections
+        //  are retrieved
         id : imageid ? imageid : uuid(),
         projectid,
         imageurl,

@@ -1,6 +1,5 @@
 // external dependencies
-import * as emoticons from 'emoticon';
-
+import { emoticon as emoticons } from 'emoticon';
 
 export function getAllKnownEmoticons(): string[] {
     let allEmoticons: string[] = [];
