@@ -1,10 +1,10 @@
-/*eslint-env mocha */
+import { describe, it, before, after } from 'node:test';
 import * as assert from 'assert';
 import { randomUUID } from 'node:crypto';
 import * as store from '../../lib/db/store';
 
 
-const TESTCLASS = 'UNIQUECLASSID';
+const TESTCLASS = 'UNIQUECLASSIDCH';
 
 
 describe.skip('DB store - accents and other character types', () => {
@@ -45,13 +45,10 @@ describe.skip('DB store - accents and other character types', () => {
         });
         it('should handle unsupported project names', async () => {
             for (const projectname of UNSUPPORTED) {
-                try {
-                    await store.storeProject(user, TESTCLASS, 'text', projectname, 'en', [], false);
-                    assert.fail('should not reach here for ' + projectname);
-                }
-                catch (err) {
-                    assert.strictEqual(err.message, 'Sorry, some of those letters can\'t be used in project names');
-                }
+                await assert.rejects(
+                    () => store.storeProject(user, TESTCLASS, 'text', projectname, 'en', [], false),
+                    { message: 'Sorry, some of those letters can\'t be used in project names' }
+                );
             }
         });
     });

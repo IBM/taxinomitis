@@ -1,4 +1,4 @@
-/*eslint-env mocha */
+import { describe, it, before, after } from 'node:test';
 import * as assert from 'assert';
 import { v1 as uuid } from 'uuid';
 
@@ -8,11 +8,11 @@ import * as store from '../../lib/db/store';
 
 describe('DB store - numbers training', () => {
 
-    before(() => {
-        return store.init();
+    before(async () => {
+        await store.init();
     });
-    after(() => {
-        return store.disconnect();
+    after(async () => {
+        await store.disconnect();
     });
 
     const DEFAULT_PAGING: Objects.PagingOptions = {
@@ -42,14 +42,10 @@ describe('DB store - numbers training', () => {
             const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
             const label = uuid();
 
-            try {
-                await store.storeNumberTraining(projectid, false, data, label);
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Number of data items exceeded maximum');
-                return;
-            }
-            assert.fail('Failed to reject training');
+            await assert.rejects(
+                () => store.storeNumberTraining(projectid, false, data, label),
+                { message: 'Number of data items exceeded maximum' }
+            );
         });
     });
 
@@ -90,7 +86,7 @@ describe('DB store - numbers training', () => {
 
         it('should delete training by label', async () => {
             const userid = uuid();
-            const classid = 'UNIQUECLASSID';
+            const classid = uuid();
 
             const project = await store.storeProject(
                 userid, classid,
@@ -108,12 +104,12 @@ describe('DB store - numbers training', () => {
             await store.addLabelToProject(userid, classid, project.id, 'HUNDREDS');
             await store.addLabelToProject(userid, classid, project.id, 'THOUSANDS');
 
-            store.storeNumberTraining(project.id, false, [1000, 2000, 3000], 'THOUSANDS');
-            store.storeNumberTraining(project.id, false, [10, 20, 30], 'TENS');
-            store.storeNumberTraining(project.id, false, [100, 300, 500], 'HUNDREDS');
-            store.storeNumberTraining(project.id, false, [50, 60, 70], 'TENS');
-            store.storeNumberTraining(project.id, false, [200, 300, 400], 'HUNDREDS');
-            store.storeNumberTraining(project.id, false, [20, 40, 60], 'TENS');
+            await store.storeNumberTraining(project.id, false, [1000, 2000, 3000], 'THOUSANDS');
+            await store.storeNumberTraining(project.id, false, [10, 20, 30], 'TENS');
+            await store.storeNumberTraining(project.id, false, [100, 300, 500], 'HUNDREDS');
+            await store.storeNumberTraining(project.id, false, [50, 60, 70], 'TENS');
+            await store.storeNumberTraining(project.id, false, [200, 300, 400], 'HUNDREDS');
+            await store.storeNumberTraining(project.id, false, [20, 40, 60], 'TENS');
 
             await wait();
 

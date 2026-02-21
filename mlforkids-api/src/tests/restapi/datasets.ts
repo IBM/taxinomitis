@@ -1,4 +1,4 @@
-/*eslint-env mocha */
+import { describe, it, before, beforeEach, after } from 'node:test';
 import { v1 as uuid } from 'uuid';
 import * as assert from 'assert';
 import * as sinon from 'sinon';
@@ -15,7 +15,7 @@ import testapiserver from './testserver';
 let testServer: express.Express;
 
 
-const TESTCLASS = 'UNIQUECLASSID';
+const TESTCLASS = 'UNIQUECLASSIDIMP';
 
 
 describe('REST API - imported projects', () => {
@@ -75,7 +75,7 @@ describe('REST API - imported projects', () => {
 
     describe('imports', () => {
 
-        it('should create a text project from a predefined dataset', () => {
+        it('should create a text project from a predefined dataset', async () => {
             const userid = uuid();
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + userid + '/projects';
@@ -85,45 +85,43 @@ describe('REST API - imported projects', () => {
 
             const type = 'text';
 
-            return request(testServer)
+            let resp = await request(testServer)
                 .post(url)
                 .send({ dataset : 'test-only-txt', type })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then((resp) => {
-                    const body = resp.body;
-                    const id = body.id;
-                    delete body.id;
-                    assert.deepStrictEqual(body, {
-                        userid,
-                        classid: TESTCLASS,
-                        type,
-                        name: 'Test project',
-                        labels: ['compliment', 'insult'],
-                        language: 'en',
-                        numfields: 0,
-                        fields: [],
-                        isCrowdSourced: false,
-                    });
+                .expect(httpstatus.CREATED);
 
-                    return request(testServer)
-                        .get(url + '/' + id + '/training')
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((resp) => {
-                    const body = resp.body;
-                    assert.strictEqual(body.length, 7);
-                    body.forEach((item: any) => {
-                        assert(item.id);
-                        assert(item.textdata);
-                        assert(item.label === 'compliment' || item.label === 'insult');
-                    });
-                });
+            const body = resp.body;
+            const id = body.id;
+            delete body.id;
+            assert.deepStrictEqual(body, {
+                userid,
+                classid: TESTCLASS,
+                type,
+                name: 'Test project',
+                labels: ['compliment', 'insult'],
+                language: 'en',
+                numfields: 0,
+                fields: [],
+                isCrowdSourced: false,
+            });
+
+            resp = await request(testServer)
+                .get(url + '/' + id + '/training')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            const trainingBody = resp.body;
+            assert.strictEqual(trainingBody.length, 7);
+            trainingBody.forEach((item: any) => {
+                assert(item.id);
+                assert(item.textdata);
+                assert(item.label === 'compliment' || item.label === 'insult');
+            });
         });
 
 
-        it('should hold out test data for an imported text project from a predefined dataset', () => {
+        it('should hold out test data for an imported text project from a predefined dataset', async () => {
             const userid = uuid();
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + userid + '/projects';
@@ -133,58 +131,56 @@ describe('REST API - imported projects', () => {
 
             const type = 'text';
 
-            return request(testServer)
+            let resp = await request(testServer)
                 .post(url)
                 .send({ dataset : 'test-only-txt', type, testratio: 50 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then((resp) => {
-                    const body = resp.body;
+                .expect(httpstatus.CREATED);
 
-                    const id = body.id;
-                    delete body.id;
+            const body = resp.body;
 
-                    const testdata = body.testdata;
-                    const firstTestRow = testdata.shift();
-                    assert.deepStrictEqual(firstTestRow, [ 'text', 'label' ]);
-                    assert.strictEqual(testdata.length, 4);
-                    testdata.forEach((item: any) => {
-                        assert.strictEqual(item.length, 2);
-                        assert.strictEqual(typeof item[0], 'string');
-                        assert(item[1] === 'compliment' || item[1] === 'insult');
-                    });
-                    delete body.testdata;
+            const id = body.id;
+            delete body.id;
 
-                    assert.deepStrictEqual(body, {
-                        userid,
-                        classid: TESTCLASS,
-                        type,
-                        name: 'Test project',
-                        labels: ['compliment', 'insult'],
-                        language: 'en',
-                        numfields: 0,
-                        fields: [],
-                        isCrowdSourced: false,
-                    });
+            const testdata = body.testdata;
+            const firstTestRow = testdata.shift();
+            assert.deepStrictEqual(firstTestRow, [ 'text', 'label' ]);
+            assert.strictEqual(testdata.length, 4);
+            testdata.forEach((item: any) => {
+                assert.strictEqual(item.length, 2);
+                assert.strictEqual(typeof item[0], 'string');
+                assert(item[1] === 'compliment' || item[1] === 'insult');
+            });
+            delete body.testdata;
 
-                    return request(testServer)
-                        .get(url + '/' + id + '/training')
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((resp) => {
-                    const body = resp.body;
-                    assert.strictEqual(body.length, 3);
-                    body.forEach((item: any) => {
-                        assert(item.id);
-                        assert(item.textdata);
-                        assert(item.label === 'compliment' || item.label === 'insult');
-                    });
-                });
+            assert.deepStrictEqual(body, {
+                userid,
+                classid: TESTCLASS,
+                type,
+                name: 'Test project',
+                labels: ['compliment', 'insult'],
+                language: 'en',
+                numfields: 0,
+                fields: [],
+                isCrowdSourced: false,
+            });
+
+            resp = await request(testServer)
+                .get(url + '/' + id + '/training')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            const trainingBody = resp.body;
+            assert.strictEqual(trainingBody.length, 3);
+            trainingBody.forEach((item: any) => {
+                assert(item.id);
+                assert(item.textdata);
+                assert(item.label === 'compliment' || item.label === 'insult');
+            });
         });
 
 
-        it('should create a whole-class numbers project from a predefined dataset', () => {
+        it('should create a whole-class numbers project from a predefined dataset', async () => {
             const userid = uuid();
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + userid + '/projects';
@@ -196,54 +192,52 @@ describe('REST API - imported projects', () => {
             const type = 'numbers';
             const isCrowdSourced = true;
 
-            return request(testServer)
+            let resp = await request(testServer)
                 .post(url)
                 .send({ dataset : 'test-only-num', type, isCrowdSourced })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then((resp) => {
-                    const body = resp.body;
-                    const id = body.id;
-                    delete body.id;
-                    assert.deepStrictEqual(body, {
-                        userid,
-                        classid: TESTCLASS,
-                        type,
-                        name: 'My project',
-                        labels: ['first', 'second', 'third'],
-                        language: '',
-                        numfields: 4,
-                        fields: [
-                            { choices: [], type: 'number', name : 'count' },
-                            { choices: ['BIG', 'SMALL'], type: 'multichoice', name: 'size' },
-                            { choices: [], type: 'number', name: 'age' },
-                            { choices: ['RED', 'GREEN', 'BLUE'], type: 'multichoice', name: 'colour' },
-                        ],
-                        isCrowdSourced,
-                    });
+                .expect(httpstatus.CREATED);
 
-                    return request(testServer)
-                        .get(url + '/' + id + '/training')
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((resp) => {
-                    const body = resp.body;
-                    assert.strictEqual(body.length, 7);
-                    body.forEach((item: any) => {
-                        assert(item.id);
-                        assert(item.numberdata);
-                        item.numberdata.forEach((num: number) => {
-                            assert.strictEqual(typeof num, 'number');
-                        });
-                        assert(item.label === 'first' || item.label === 'second' || item.label === 'third');
-                    });
+            const body = resp.body;
+            const id = body.id;
+            delete body.id;
+            assert.deepStrictEqual(body, {
+                userid,
+                classid: TESTCLASS,
+                type,
+                name: 'My project',
+                labels: ['first', 'second', 'third'],
+                language: '',
+                numfields: 4,
+                fields: [
+                    { choices: [], type: 'number', name : 'count' },
+                    { choices: ['BIG', 'SMALL'], type: 'multichoice', name: 'size' },
+                    { choices: [], type: 'number', name: 'age' },
+                    { choices: ['RED', 'GREEN', 'BLUE'], type: 'multichoice', name: 'colour' },
+                ],
+                isCrowdSourced,
+            });
+
+            resp = await request(testServer)
+                .get(url + '/' + id + '/training')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            const trainingBody = resp.body;
+            assert.strictEqual(trainingBody.length, 7);
+            trainingBody.forEach((item: any) => {
+                assert(item.id);
+                assert(item.numberdata);
+                item.numberdata.forEach((num: number) => {
+                    assert.strictEqual(typeof num, 'number');
                 });
+                assert(item.label === 'first' || item.label === 'second' || item.label === 'third');
+            });
         });
 
 
 
-        it('should create an images project from a predefined dataset', () => {
+        it('should create an images project from a predefined dataset', async () => {
             const userid = uuid();
             const classid = 'TESTTENANT';
 
@@ -255,41 +249,39 @@ describe('REST API - imported projects', () => {
 
             const type = 'imgtfjs';
 
-            return request(testServer)
+            let resp = await request(testServer)
                 .post(url)
                 .send({ dataset : 'test-only-img', type })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then((resp) => {
-                    const body = resp.body;
-                    const id = body.id;
-                    delete body.id;
-                    assert.deepStrictEqual(body, {
-                        userid,
-                        classid,
-                        type,
-                        name: 'Pictures project',
-                        labels: ['cat', 'dog'],
-                        language: '',
-                        numfields: 0,
-                        fields: [],
-                        isCrowdSourced: false,
-                    });
+                .expect(httpstatus.CREATED);
 
-                    return request(testServer)
-                        .get(url + '/' + id + '/training')
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((resp) => {
-                    const body = resp.body;
-                    assert.strictEqual(body.length, 9);
-                    body.forEach((item: any) => {
-                        assert(item.id);
-                        assert(item.imageurl);
-                        assert(item.label === 'cat' || item.label === 'dog');
-                    });
-                });
+            const body = resp.body;
+            const id = body.id;
+            delete body.id;
+            assert.deepStrictEqual(body, {
+                userid,
+                classid,
+                type,
+                name: 'Pictures project',
+                labels: ['cat', 'dog'],
+                language: '',
+                numfields: 0,
+                fields: [],
+                isCrowdSourced: false,
+            });
+
+            resp = await request(testServer)
+                .get(url + '/' + id + '/training')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            const trainingBody = resp.body;
+            assert.strictEqual(trainingBody.length, 9);
+            trainingBody.forEach((item: any) => {
+                assert(item.id);
+                assert(item.imageurl);
+                assert(item.label === 'cat' || item.label === 'dog');
+            });
         });
     });
 
@@ -297,7 +289,7 @@ describe('REST API - imported projects', () => {
 
     describe('errors', () => {
 
-        it('should handle requests to import non-existent datasets', () => {
+        it('should handle requests to import non-existent datasets', async () => {
             const studentId = uuid();
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
@@ -305,17 +297,16 @@ describe('REST API - imported projects', () => {
             nextAuth0UserId = studentId;
             nextAuth0UserTenant = TESTCLASS;
 
-            return request(testServer)
+            const err = await request(testServer)
                 .post(url)
                 .send({ dataset : 'i-dont-really-exist', type : 'text' })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((err) => {
-                    assert.strictEqual(err.body.error, 'The requested dataset could not be found');
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.strictEqual(err.body.error, 'The requested dataset could not be found');
         });
 
-        it('should handle requests to import invalid dataset ids', () => {
+        it('should handle requests to import invalid dataset ids', async () => {
             const studentId = uuid();
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
@@ -323,17 +314,16 @@ describe('REST API - imported projects', () => {
             nextAuth0UserId = studentId;
             nextAuth0UserTenant = TESTCLASS;
 
-            return request(testServer)
+            const err = await request(testServer)
                 .post(url)
                 .send({ dataset : '../../../../', type : 'text' })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((err) => {
-                    assert.strictEqual(err.body.error, 'The requested dataset ID is not valid');
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.strictEqual(err.body.error, 'The requested dataset ID is not valid');
         });
 
-        it('should handle requests to import datasets without a valid type', () => {
+        it('should handle requests to import datasets without a valid type', async () => {
             const studentId = uuid();
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
@@ -341,14 +331,14 @@ describe('REST API - imported projects', () => {
             nextAuth0UserId = studentId;
             nextAuth0UserTenant = TESTCLASS;
 
-            return request(testServer)
+            await request(testServer)
                 .post(url)
                 .send({ dataset : 'i-dont-really-exist', type : '..' })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.FORBIDDEN);
         });
 
-        it('should handle requests to import datasets with a non-numeric test ratio', () => {
+        it('should handle requests to import datasets with a non-numeric test ratio', async () => {
             const userid = uuid();
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + userid + '/projects';
@@ -358,20 +348,19 @@ describe('REST API - imported projects', () => {
 
             const type = 'text';
 
-            return request(testServer)
+            const resp = await request(testServer)
                 .post(url)
                 .send({ dataset : 'test-only-txt', type, testratio : 'hello' })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((resp) => {
-                    const body = resp.body;
-                    assert.deepStrictEqual(body, {
-                        error: 'Test ratio must be an integer between 0 and 100',
-                    });
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            const body = resp.body;
+            assert.deepStrictEqual(body, {
+                error: 'Test ratio must be an integer between 0 and 100',
+            });
         });
 
-        it('should handle requests to import datasets with an invalid test ratio', () => {
+        it('should handle requests to import datasets with an invalid test ratio', async () => {
             const userid = uuid();
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + userid + '/projects';
@@ -381,20 +370,19 @@ describe('REST API - imported projects', () => {
 
             const type = 'text';
 
-            return request(testServer)
+            const resp = await request(testServer)
                 .post(url)
                 .send({ dataset : 'test-only-txt', type, testratio : -10 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((resp) => {
-                    const body = resp.body;
-                    assert.deepStrictEqual(body, {
-                        error: 'Test ratio must be an integer between 0 and 100',
-                    });
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            const body = resp.body;
+            assert.deepStrictEqual(body, {
+                error: 'Test ratio must be an integer between 0 and 100',
+            });
         });
 
-        it('should handle requests to import datasets without a type', () => {
+        it('should handle requests to import datasets without a type', async () => {
             const studentId = uuid();
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
@@ -402,14 +390,13 @@ describe('REST API - imported projects', () => {
             nextAuth0UserId = studentId;
             nextAuth0UserTenant = TESTCLASS;
 
-            return request(testServer)
+            const err = await request(testServer)
                 .post(url)
                 .send({ dataset : 'i-dont-really-exist' })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((err) => {
-                    assert.strictEqual(err.body.error, 'Missing required field');
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.strictEqual(err.body.error, 'Missing required field');
         });
 
     });

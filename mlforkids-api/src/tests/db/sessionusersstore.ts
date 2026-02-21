@@ -1,4 +1,4 @@
-/*eslint-env mocha */
+import { describe, it, before, after } from 'node:test';
 import * as assert from 'assert';
 
 import * as store from '../../lib/db/store';
@@ -6,7 +6,7 @@ import * as Objects from '../../lib/db/db-types';
 
 
 
-describe('temporary users store', () => {
+describe('temporary users store', { concurrency: false }, () => {
 
     const ONE_SECOND = 1000;
     const FIVE_SECONDS = 5000;

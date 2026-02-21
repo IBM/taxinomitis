@@ -1,6 +1,6 @@
-/*eslint-env mocha */
+import { describe, it, before, beforeEach, after } from 'node:test';
+import * as assert from 'node:assert';
 import { v1 as uuid } from 'uuid';
-import * as assert from 'assert';
 import * as sinon from 'sinon';
 import * as request from 'supertest';
 import { status as httpstatus } from 'http-status';
@@ -62,105 +62,98 @@ describe('REST API - tenants', () => {
         authStub.restore();
         getOauthToken.restore();
         getUserCounts.restore();
-        return store.disconnect();
+        await store.disconnect();
     });
 
 
     describe('get policy', () => {
 
-        it('should only allow students to query project types', () => {
+        it('should only allow students to query project types', async () => {
             const tenant = uuid();
             const url = '/api/classes/' + tenant + '/policy';
             nextAuth0UserTenant = tenant;
             nextAuth0UserRole = 'student';
-            return request(testServer)
+            const res = await request(testServer)
                 .get(url)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    assert.deepStrictEqual(Object.keys(res.body),
-                        [ 'supportedProjectTypes' ]);
-                    assert.deepStrictEqual(res.body.supportedProjectTypes,
-                        [ 'text', 'imgtfjs', 'numbers', 'sounds' ]);
-                });
+                .expect(httpstatus.OK);
+
+            assert.deepStrictEqual(Object.keys(res.body),
+                [ 'supportedProjectTypes' ]);
+            assert.deepStrictEqual(res.body.supportedProjectTypes,
+                [ 'text', 'imgtfjs', 'numbers', 'sounds' ]);
         });
 
-        it('should allow teachers to query detailed policy info', () => {
+        it('should allow teachers to query detailed policy info', async () => {
             const tenant = uuid();
             const url = '/api/classes/' + tenant + '/policy';
             nextAuth0UserTenant = tenant;
             nextAuth0UserRole = 'supervisor';
-            return request(testServer)
+            const res = await request(testServer)
                 .get(url)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    assert.deepStrictEqual(Object.keys(res.body),
-                        [
-                            'isManaged',
-                            'tenantType',
-                            'maxTextModels',
-                            'maxUsers',
-                            'supportedProjectTypes',
-                            'maxProjectsPerUser',
-                            'textClassifierExpiry',
-                            'textTrainingItemsPerProject',
-                            'numberTrainingItemsPerProject',
-                            'numberTrainingItemsPerClassProject',
-                            'imageTrainingItemsPerProject',
-                            'soundTrainingItemsPerProject',
-                        ]);
-                    assert.deepStrictEqual(res.body.supportedProjectTypes,
-                        [ 'text', 'imgtfjs', 'numbers', 'sounds' ]);
-                });
+                .expect(httpstatus.OK);
+
+            assert.deepStrictEqual(Object.keys(res.body),
+                [
+                    'isManaged',
+                    'tenantType',
+                    'maxTextModels',
+                    'maxUsers',
+                    'supportedProjectTypes',
+                    'maxProjectsPerUser',
+                    'textClassifierExpiry',
+                    'textTrainingItemsPerProject',
+                    'numberTrainingItemsPerProject',
+                    'numberTrainingItemsPerClassProject',
+                    'imageTrainingItemsPerProject',
+                    'soundTrainingItemsPerProject',
+                ]);
+            assert.deepStrictEqual(res.body.supportedProjectTypes,
+                [ 'text', 'imgtfjs', 'numbers', 'sounds' ]);
         });
     });
 
 
     describe('set policy', () => {
 
-        it('should not allow students to modify expiry limits', () => {
+        it('should not allow students to modify expiry limits', async () => {
             const tenant = uuid();
             const url = '/api/classes/' + tenant + '/policy';
             nextAuth0UserTenant = tenant;
             nextAuth0UserRole = 'student';
 
-            return request(testServer)
+            const forbiddenRes = await request(testServer)
                 .patch(url)
                 .send([
                     { op : 'replace', path : '/textClassifierExpiry', value : 1 },
                 ])
-                .expect(httpstatus.FORBIDDEN)
-                .then((res) => {
-                    assert.strictEqual(res.body.error, 'Only supervisors are allowed to invoke this');
+                .expect(httpstatus.FORBIDDEN);
 
-                    nextAuth0UserRole = 'supervisor';
-                    return request(testServer)
-                        .get(url)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.textClassifierExpiry, 24);
-                });
+            assert.strictEqual(forbiddenRes.body.error, 'Only supervisors are allowed to invoke this');
+
+            nextAuth0UserRole = 'supervisor';
+            const getRes = await request(testServer)
+                .get(url)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            assert.strictEqual(getRes.body.textClassifierExpiry, 24);
         });
 
 
         async function verifyRejectedModification(url: string, patch: any, expected: string) {
-            return request(testServer)
+            const patchRes = await request(testServer)
                 .patch(url)
                 .send(patch)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    assert.strictEqual(res.body.error, expected);
-                    return request(testServer)
-                        .get(url)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.textClassifierExpiry, 24);
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.strictEqual(patchRes.body.error, expected);
+
+            const getRes = await request(testServer)
+                .get(url)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            assert.strictEqual(getRes.body.textClassifierExpiry, 24);
         }
 
 
@@ -219,7 +212,7 @@ describe('REST API - tenants', () => {
         });
 
 
-        it('should modify a tenant', () => {
+        it('should modify a tenant', async () => {
             const tenant = uuid();
             const url = '/api/classes/' + tenant + '/policy';
             nextAuth0UserTenant = tenant;
@@ -227,73 +220,62 @@ describe('REST API - tenants', () => {
             //
             // GET THE DEFAULT TENANT
             //
-            return request(testServer)
+            const defaultRes = await request(testServer)
                 .get(url)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.textClassifierExpiry, 24);
+                .expect(httpstatus.OK);
+
+            assert.strictEqual(defaultRes.body.textClassifierExpiry, 24);
 
             //
             // MODIFY A NON-EXISTENT TENANT
             //
-                    return request(testServer)
-                        .patch(url)
-                        .send([
-                            { op : 'replace', path : '/textClassifierExpiry', value : 100 },
-                        ])
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    assert.strictEqual(res.body.textClassifierExpiry, 100);
+            const patchRes1 = await request(testServer)
+                .patch(url)
+                .send([
+                    { op : 'replace', path : '/textClassifierExpiry', value : 100 },
+                ])
+                .expect(httpstatus.OK);
 
-                    return request(testServer)
-                        .get(url)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.textClassifierExpiry, 100);
+            assert.strictEqual(patchRes1.body.textClassifierExpiry, 100);
+
+            const getRes1 = await request(testServer)
+                .get(url)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            assert.strictEqual(getRes1.body.textClassifierExpiry, 100);
 
             //
             // MODIFY AN EXISTING TENANT
             //
-                    return request(testServer)
-                        .patch(url)
-                        .send([
-                            { op : 'replace', path : '/textClassifierExpiry', value : 16 },
-                        ])
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    assert.strictEqual(res.body.textClassifierExpiry, 16);
+            const patchRes2 = await request(testServer)
+                .patch(url)
+                .send([
+                    { op : 'replace', path : '/textClassifierExpiry', value : 16 },
+                ])
+                .expect(httpstatus.OK);
 
-                    return request(testServer)
-                        .get(url)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.textClassifierExpiry, 16);
+            assert.strictEqual(patchRes2.body.textClassifierExpiry, 16);
+
+            const getRes2 = await request(testServer)
+                .get(url)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            assert.strictEqual(getRes2.body.textClassifierExpiry, 16);
 
             //
             // CLEAN-UP
             //
-                    return store.deleteClassTenant(tenant);
-                })
-                .then(() => {
-                    return request(testServer)
-                        .get(url)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.textClassifierExpiry, 24);
-                });
+            await store.deleteClassTenant(tenant);
+
+            const finalRes = await request(testServer)
+                .get(url)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            assert.strictEqual(finalRes.body.textClassifierExpiry, 24);
         });
     });
 

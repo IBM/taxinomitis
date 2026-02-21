@@ -1,4 +1,4 @@
-/*eslint-env mocha */
+import { describe, it } from 'node:test';
 import * as assert from 'assert';
 import * as Express from 'express';
 
@@ -27,49 +27,57 @@ describe('REST API - Error Handling', () => {
 
     describe('Internal Server Errors', () => {
 
-        it('DB errors', (done) => {
-            const validator = validate(
-                500,
-                {
-                    error : 'Error accessing the database used to store data',
-                    detail : {
-                        code : 1234,
-                        errno : '9876',
-                        sqlState : 'something',
-                        message : 'DB go boom',
+        it('DB errors', async () => {
+            await new Promise<void>((resolve) => {
+                const validator = validate(
+                    500,
+                    {
+                        error : 'Error accessing the database used to store data',
+                        detail : {
+                            code : 1234,
+                            errno : '9876',
+                            sqlState : 'something',
+                            message : 'DB go boom',
+                        },
                     },
-                },
-                done);
+                    resolve);
 
-            const testError: any = new Error('DB go boom');
-            testError.code = 1234;
-            testError.errno = '9876';
-            testError.sqlState = 'something';
+                const testError: any = new Error('DB go boom');
+                testError.code = 1234;
+                testError.errno = '9876';
+                testError.sqlState = 'something';
 
-            errors.unknownError(validator, testError);
+                errors.unknownError(validator, testError);
+            });
         });
 
-        it('Bluemix errors', (done) => {
-            const validator = validate(
-                500,
-                {
-                    error : 'Something about Watson',
-                },
-                done);
+        it('Bluemix errors', async () => {
+            await new Promise<void>((resolve) => {
+                const validator = validate(
+                    500,
+                    {
+                        error : 'Something about Watson',
+                    },
+                    resolve);
 
-            const testError: any = new Error('Something about Watson');
+                const testError: any = new Error('Something about Watson');
 
-            errors.unknownError(validator, testError);
+                errors.unknownError(validator, testError);
+            });
         });
 
-        it('Empty errors', (done) => {
-            const validator = validate(500, { error : 'Unknown error' }, done);
-            errors.unknownError(validator, {});
+        it('Empty errors', async () => {
+            await new Promise<void>((resolve) => {
+                const validator = validate(500, { error : 'Unknown error' }, resolve);
+                errors.unknownError(validator, {});
+            });
         });
 
-        it('Undefined errors', (done) => {
-            const validator = validate(500, { error : 'Unknown error' }, done);
-            errors.unknownError(validator, null);
+        it('Undefined errors', async () => {
+            await new Promise<void>((resolve) => {
+                const validator = validate(500, { error : 'Unknown error' }, resolve);
+                errors.unknownError(validator, null);
+            });
         });
 
     });

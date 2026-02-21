@@ -1,5 +1,4 @@
-/*eslint-env mocha */
-
+import { describe, it, before, beforeEach, after } from 'node:test';
 import * as assert from 'assert';
 import * as sinon from 'sinon';
 import * as tokens from '../../lib/iam/tokens';
@@ -83,22 +82,16 @@ describe('IAM - tokens store', () => {
     });
 
     it('should handle invalid API keys', async () => {
-        try {
-            await store.getToken(mockIAM.KEYS.INVALID);
-            assert.fail('should not reach here');
-        }
-        catch (err) {
-            assert.strictEqual(err.message, tokens.ERRORS.INVALID_API_KEY);
-        }
+        await assert.rejects(
+            () => store.getToken(mockIAM.KEYS.INVALID),
+            { message: tokens.ERRORS.INVALID_API_KEY }
+        );
     });
 
     it('should handle IAM failures', async () => {
-        try {
-            await store.getToken(mockIAM.KEYS.FAIL);
-            assert.fail('should not reach here');
-        }
-        catch (err) {
-            assert.strictEqual(err.message, tokens.ERRORS.UNKNOWN);
-        }
+        await assert.rejects(
+            () => store.getToken(mockIAM.KEYS.FAIL),
+            { message: tokens.ERRORS.UNKNOWN }
+        );
     });
 });

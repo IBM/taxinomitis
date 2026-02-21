@@ -1,4 +1,4 @@
-/*eslint-env mocha */
+import { describe, it, before, after } from 'node:test';
 import * as assert from 'assert';
 import { v1 as uuid } from 'uuid';
 import * as randomstring from 'randomstring';
@@ -7,7 +7,7 @@ import * as store from '../../lib/db/store';
 import * as Objects from '../../lib/db/db-types';
 
 
-const TESTCLASS = 'UNIQUECLASSID';
+const TESTCLASS = 'UNIQUECLASSIDPROJ';
 
 
 describe('DB store', () => {
@@ -262,16 +262,12 @@ describe('DB store', () => {
 
     describe('storeProject', () => {
 
-        it.skip('should recognise SQL errors about unsupported characters', () => {
-            return store.storeProject('USERID', 'CLASSID', 'text',
-                                      'ğooğle', 'en', [], false)
-                        .then(() => {
-                            assert.fail('Should not have stored a project with this name');
-                        })
-                        .catch((err) => {
-                            assert.strictEqual(err.message,
-                                'Sorry, some of those letters can\'t be used in project names');
-                        });
+        it.skip('should recognise SQL errors about unsupported characters', async () => {
+            await assert.rejects(
+                () => store.storeProject('USERID', 'CLASSID', 'text',
+                                      'ğooğle', 'en', [], false),
+                { message: 'Sorry, some of those letters can\'t be used in project names' }
+            );
         });
 
         it('should return an empty list for unknown users', async () => {
@@ -345,12 +341,10 @@ describe('DB store', () => {
             return store.deleteProjectsByClassId(CLASSID);
         });
 
-        function getNumProjects(userid: string, classid: string): Promise<number> {
-            return store.getProjectsByUserId(userid, classid)
-                .then((projects) => {
-                    assert(Array.isArray(projects));
-                    return projects.length;
-                });
+        async function getNumProjects(userid: string, classid: string): Promise<number> {
+            const projects = await store.getProjectsByUserId(userid, classid);
+            assert(Array.isArray(projects));
+            return projects.length;
         }
 
         interface ProjsCount {
@@ -418,15 +412,11 @@ describe('DB store', () => {
 
     describe('addLabelToProject', () => {
 
-        it('should handle non-existent projects', (done) => {
-            store.addLabelToProject(uuid(), TESTCLASS, 'text', 'MYNEWLABEL')
-                .then(() => {
-                    assert.fail('should not have let this happen');
-                })
-                .catch((err) => {
-                    assert.strictEqual(err.message, 'Project not found');
-                    done();
-                });
+        it('should handle non-existent projects', async () => {
+            await assert.rejects(
+                () => store.addLabelToProject(uuid(), TESTCLASS, 'text', 'MYNEWLABEL'),
+                { message: 'Project not found' }
+            );
         });
 
         it('should ignore (case-insensitive) duplicate labels', async () => {
@@ -545,15 +535,11 @@ describe('DB store', () => {
         }
 
 
-        it('should handle non-existent projects', (done) => {
-            store.removeLabelFromProject(uuid(), TESTCLASS, 'text', 'MYOLDLABEL')
-                .then(() => {
-                    assert.fail('should not have let this happen');
-                })
-                .catch((err) => {
-                    assert.strictEqual(err.message, 'Project not found');
-                    done();
-                });
+        it('should handle non-existent projects', async () => {
+            await assert.rejects(
+                () => store.removeLabelFromProject(uuid(), TESTCLASS, 'text', 'MYOLDLABEL'),
+                { message: 'Project not found' }
+            );
         });
 
         it('should remove a label from a text project', async () => {
@@ -638,14 +624,11 @@ describe('DB store', () => {
 
     describe('updateProjectCrowdSourced', () => {
 
-        it('should handle updates to known projects', () => {
-            return store.updateProjectCrowdSourced(uuid(), uuid(), uuid(), false)
-                .then(() => {
-                    assert.fail('should have reported an error');
-                })
-                .catch((err) => {
-                    assert.strictEqual(err.message, 'Project not found');
-                });
+        it('should handle updates to known projects', async () => {
+            await assert.rejects(
+                () => store.updateProjectCrowdSourced(uuid(), uuid(), uuid(), false),
+                { message: 'Project not found' }
+            );
         });
     });
 

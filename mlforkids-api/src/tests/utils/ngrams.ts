@@ -1,4 +1,4 @@
-/*eslint-env mocha */
+import { describe, it } from 'node:test';
 import * as assert from 'assert';
 
 import { read, readJson } from '../../lib/utils/fileutils';
@@ -7,12 +7,10 @@ import * as ngrams from '../../lib/utils/ngrams';
 
 describe('Utils - ngrams', () => {
 
-    function runTest(input: string[], n: number, expectedOutputFile: string): Promise<void> {
+    async function runTest(input: string[], n: number, expectedOutputFile: string): Promise<void> {
         const output = ngrams.countNgrams(input, n);
-        return readJson(expectedOutputFile)
-            .then((expected) => {
-                assert.deepStrictEqual(output, expected);
-            });
+        const expected = await readJson(expectedOutputFile);
+        assert.deepStrictEqual(output, expected);
     }
 
     function verifyOrder(sortedNgrams: ngrams.SortedNgramCountWithCumulativeProbabilities[]) {
@@ -88,56 +86,44 @@ describe('Utils - ngrams', () => {
 
     describe('bigrams', () => {
         const n = 2;
-        it('should return counts from a short string', () => {
-            return runTest(SIMPLE, n, './src/tests/utils/resources/ngrams/simple-bigram.json');
+        it('should return counts from a short string', async () => {
+            await runTest(SIMPLE, n, './src/tests/utils/resources/ngrams/simple-bigram.json');
         });
-        it('should handle unusual punctuation', () => {
-            return runTest(UNUSUAL_PUNCTUATION, n, './src/tests/utils/resources/ngrams/unusual-bigram.json');
+        it('should handle unusual punctuation', async () => {
+            await runTest(UNUSUAL_PUNCTUATION, n, './src/tests/utils/resources/ngrams/unusual-bigram.json');
         });
-        it('should return counts from A Scandal in Bohemia', () => {
-            return getTestStrings([ TEST_INPUT_FILES.BOHEMIA ])
-                .then((input) => {
-                    return runTest(input, n, './src/tests/utils/resources/ngrams/bohemia-bigram.json');
-                })
+        it('should return counts from A Scandal in Bohemia', async () => {
+            const input = await getTestStrings([ TEST_INPUT_FILES.BOHEMIA ]);
+            await runTest(input, n, './src/tests/utils/resources/ngrams/bohemia-bigram.json');
         });
-        it('should return counts from The Boscombe Valley Mystery', () => {
-            return getTestStrings([ TEST_INPUT_FILES.BOSCOMBE ])
-                .then((input) => {
-                    return runTest(input, n, './src/tests/utils/resources/ngrams/boscombe-bigram.json');
-                })
+        it('should return counts from The Boscombe Valley Mystery', async () => {
+            const input = await getTestStrings([ TEST_INPUT_FILES.BOSCOMBE ]);
+            await runTest(input, n, './src/tests/utils/resources/ngrams/boscombe-bigram.json');
         });
-        it('should return counts from A Case of Identity', () => {
-            return getTestStrings([ TEST_INPUT_FILES.IDENTITY ])
-                .then((input) => {
-                    return runTest(input, n, './src/tests/utils/resources/ngrams/identity-bigram.json');
-                })
+        it('should return counts from A Case of Identity', async () => {
+            const input = await getTestStrings([ TEST_INPUT_FILES.IDENTITY ]);
+            await runTest(input, n, './src/tests/utils/resources/ngrams/identity-bigram.json');
         });
-        it('should return counts from The Man With The Twisted Lip', () => {
-            return getTestStrings([ TEST_INPUT_FILES.TWISTEDLIP ])
-                .then((input) => {
-                    return runTest(input, n, './src/tests/utils/resources/ngrams/twistedlip-bigram.json');
-                })
+        it('should return counts from The Man With The Twisted Lip', async () => {
+            const input = await getTestStrings([ TEST_INPUT_FILES.TWISTEDLIP ]);
+            await runTest(input, n, './src/tests/utils/resources/ngrams/twistedlip-bigram.json');
         });
-        it('should return ngrams in reverse-sorted order', () => {
-            return getTestStrings([ TEST_INPUT_FILES.BOHEMIA ])
-                .then((input) => {
-                    const output = ngrams.countNgrams(input, n);
-                    verifyOrder(output.summary);
-                });
+        it('should return ngrams in reverse-sorted order', async () => {
+            const input = await getTestStrings([ TEST_INPUT_FILES.BOHEMIA ]);
+            const output = ngrams.countNgrams(input, n);
+            verifyOrder(output.summary);
         });
-        it('should return consistent results between lookup and summary', () => {
-            return getTestStrings([ TEST_INPUT_FILES.BOHEMIA, TEST_INPUT_FILES.BOSCOMBE,
-                                    TEST_INPUT_FILES.IDENTITY, TEST_INPUT_FILES.TWISTEDLIP ])
-                .then((input) => {
-                    const output = ngrams.countNgrams(input, n);
-                    verifySummary(output);
-                });
+        it('should return consistent results between lookup and summary', async () => {
+            const input = await getTestStrings([ TEST_INPUT_FILES.BOHEMIA, TEST_INPUT_FILES.BOSCOMBE,
+                                    TEST_INPUT_FILES.IDENTITY, TEST_INPUT_FILES.TWISTEDLIP ]);
+            const output = ngrams.countNgrams(input, n);
+            verifySummary(output);
         });
 
-        it('should return consistent results from multiple files', () => {
-            return getTestStrings([ TEST_INPUT_FILES.BOHEMIA, TEST_INPUT_FILES.BOSCOMBE,
-                                    TEST_INPUT_FILES.IDENTITY, TEST_INPUT_FILES.TWISTEDLIP ])
-                .then((inputs) => {
+        it('should return consistent results from multiple files', async () => {
+            const inputs = await getTestStrings([ TEST_INPUT_FILES.BOHEMIA, TEST_INPUT_FILES.BOSCOMBE,
+                                    TEST_INPUT_FILES.IDENTITY, TEST_INPUT_FILES.TWISTEDLIP ]);
+
                     const output_1_0 = ngrams.countNgrams([ inputs[0] ], n);
                     const output_1_1 = ngrams.countNgrams([ inputs[1] ], n);
                     const output_1_2 = ngrams.countNgrams([ inputs[2] ], n);
@@ -173,11 +159,10 @@ describe('Utils - ngrams', () => {
                                        count_output_4);
                     assert.strictEqual(count_output_1_0 + count_output_1_1,
                                        count_output_2_0);
-                    assert.strictEqual(count_output_1_2 + count_output_1_3,
-                                       count_output_2_1);
-                    assert.strictEqual(count_output_1_0 + count_output_1_1 + count_output_1_2,
-                                       count_output_3_0);
-                });
+            assert.strictEqual(count_output_1_2 + count_output_1_3,
+                               count_output_2_1);
+            assert.strictEqual(count_output_1_0 + count_output_1_1 + count_output_1_2,
+                               count_output_3_0);
         });
         it('should handle empty strings', () => {
             const output = ngrams.countNgrams([''], n);
@@ -206,52 +191,40 @@ describe('Utils - ngrams', () => {
 
     describe('trigrams', () => {
         const n = 3;
-        it('should return counts from a short string', () => {
-            return runTest(SIMPLE, n, './src/tests/utils/resources/ngrams/simple-trigram.json');
+        it('should return counts from a short string', async () => {
+            await runTest(SIMPLE, n, './src/tests/utils/resources/ngrams/simple-trigram.json');
         });
-        it('should return counts from A Scandal in Bohemia', () => {
-            return getTestStrings([ TEST_INPUT_FILES.BOHEMIA ])
-                .then((input) => {
-                    return runTest(input, n, './src/tests/utils/resources/ngrams/bohemia-trigram.json');
-                })
+        it('should return counts from A Scandal in Bohemia', async () => {
+            const input = await getTestStrings([ TEST_INPUT_FILES.BOHEMIA ]);
+            await runTest(input, n, './src/tests/utils/resources/ngrams/bohemia-trigram.json');
         });
-        it('should return counts from The Boscombe Valley Mystery', () => {
-            return getTestStrings([ TEST_INPUT_FILES.BOSCOMBE ])
-                .then((input) => {
-                    return runTest(input, n, './src/tests/utils/resources/ngrams/boscombe-trigram.json');
-                })
+        it('should return counts from The Boscombe Valley Mystery', async () => {
+            const input = await getTestStrings([ TEST_INPUT_FILES.BOSCOMBE ]);
+            await runTest(input, n, './src/tests/utils/resources/ngrams/boscombe-trigram.json');
         });
-        it('should return counts from A Case of Identity', () => {
-            return getTestStrings([ TEST_INPUT_FILES.IDENTITY ])
-                .then((input) => {
-                    return runTest(input, n, './src/tests/utils/resources/ngrams/identity-trigram.json');
-                })
+        it('should return counts from A Case of Identity', async () => {
+            const input = await getTestStrings([ TEST_INPUT_FILES.IDENTITY ]);
+            await runTest(input, n, './src/tests/utils/resources/ngrams/identity-trigram.json');
         });
-        it('should return counts from The Man With The Twisted Lip', () => {
-            return getTestStrings([ TEST_INPUT_FILES.TWISTEDLIP ])
-                .then((input) => {
-                    return runTest(input, n, './src/tests/utils/resources/ngrams/twistedlip-trigram.json');
-                })
+        it('should return counts from The Man With The Twisted Lip', async () => {
+            const input = await getTestStrings([ TEST_INPUT_FILES.TWISTEDLIP ]);
+            await runTest(input, n, './src/tests/utils/resources/ngrams/twistedlip-trigram.json');
         });
-        it('should return ngrams in reverse-sorted order', () => {
-            return getTestStrings([ TEST_INPUT_FILES.IDENTITY ])
-                .then((input) => {
-                    const output = ngrams.countNgrams(input, n);
-                    verifyOrder(output.summary);
-                });
+        it('should return ngrams in reverse-sorted order', async () => {
+            const input = await getTestStrings([ TEST_INPUT_FILES.IDENTITY ]);
+            const output = ngrams.countNgrams(input, n);
+            verifyOrder(output.summary);
         });
-        it('should return consistent results between lookup and summary', () => {
-            return getTestStrings([ TEST_INPUT_FILES.BOHEMIA, TEST_INPUT_FILES.BOSCOMBE,
-                                    TEST_INPUT_FILES.IDENTITY, TEST_INPUT_FILES.TWISTEDLIP ])
-                .then((input) => {
-                    const output = ngrams.countNgrams(input, n);
-                    verifySummary(output);
-                });
+        it('should return consistent results between lookup and summary', async () => {
+            const input = await getTestStrings([ TEST_INPUT_FILES.BOHEMIA, TEST_INPUT_FILES.BOSCOMBE,
+                                    TEST_INPUT_FILES.IDENTITY, TEST_INPUT_FILES.TWISTEDLIP ]);
+            const output = ngrams.countNgrams(input, n);
+            verifySummary(output);
         });
-        it('should return consistent results from multiple files', () => {
-            return getTestStrings([ TEST_INPUT_FILES.BOHEMIA, TEST_INPUT_FILES.BOSCOMBE,
-                                    TEST_INPUT_FILES.IDENTITY, TEST_INPUT_FILES.TWISTEDLIP ])
-                .then((inputs) => {
+        it('should return consistent results from multiple files', async () => {
+            const inputs = await getTestStrings([ TEST_INPUT_FILES.BOHEMIA, TEST_INPUT_FILES.BOSCOMBE,
+                                    TEST_INPUT_FILES.IDENTITY, TEST_INPUT_FILES.TWISTEDLIP ]);
+
                     const output_1_0 = ngrams.countNgrams([ inputs[0] ], n);
                     const output_1_1 = ngrams.countNgrams([ inputs[1] ], n);
                     const output_1_2 = ngrams.countNgrams([ inputs[2] ], n);
@@ -288,11 +261,10 @@ describe('Utils - ngrams', () => {
                                        count_output_4);
                     assert.strictEqual(count_output_1_0 + count_output_1_1,
                                        count_output_2_0);
-                    assert.strictEqual(count_output_1_2 + count_output_1_3,
-                                       count_output_2_1);
-                    assert.strictEqual(count_output_1_0 + count_output_1_1 + count_output_1_2,
-                                       count_output_3_0);
-                });
+            assert.strictEqual(count_output_1_2 + count_output_1_3,
+                               count_output_2_1);
+            assert.strictEqual(count_output_1_0 + count_output_1_1 + count_output_1_2,
+                               count_output_3_0);
         });
         it('should handle empty strings', () => {
             const output = ngrams.countNgrams([''], n);
@@ -322,52 +294,40 @@ describe('Utils - ngrams', () => {
 
     describe('tetragrams', () => {
         const n = 4;
-        it('should return counts from a short string', () => {
-            return runTest(SIMPLE, n, './src/tests/utils/resources/ngrams/simple-tetragram.json');
+        it('should return counts from a short string', async () => {
+            await runTest(SIMPLE, n, './src/tests/utils/resources/ngrams/simple-tetragram.json');
         });
-        it('should return counts from A Scandal in Bohemia', () => {
-            return getTestStrings([ TEST_INPUT_FILES.BOHEMIA ])
-                .then((input) => {
-                    return runTest(input, n, './src/tests/utils/resources/ngrams/bohemia-tetragram.json');
-                })
+        it('should return counts from A Scandal in Bohemia', async () => {
+            const input = await getTestStrings([ TEST_INPUT_FILES.BOHEMIA ]);
+            await runTest(input, n, './src/tests/utils/resources/ngrams/bohemia-tetragram.json');
         });
-        it('should return counts from The Boscombe Valley Mystery', () => {
-            return getTestStrings([ TEST_INPUT_FILES.BOSCOMBE ])
-                .then((input) => {
-                    return runTest(input, n, './src/tests/utils/resources/ngrams/boscombe-tetragram.json');
-                })
+        it('should return counts from The Boscombe Valley Mystery', async () => {
+            const input = await getTestStrings([ TEST_INPUT_FILES.BOSCOMBE ]);
+            await runTest(input, n, './src/tests/utils/resources/ngrams/boscombe-tetragram.json');
         });
-        it('should return counts from A Case of Identity', () => {
-            return getTestStrings([ TEST_INPUT_FILES.IDENTITY ])
-                .then((input) => {
-                    return runTest(input, n, './src/tests/utils/resources/ngrams/identity-tetragram.json');
-                })
+        it('should return counts from A Case of Identity', async () => {
+            const input = await getTestStrings([ TEST_INPUT_FILES.IDENTITY ]);
+            await runTest(input, n, './src/tests/utils/resources/ngrams/identity-tetragram.json');
         });
-        it('should return counts from The Man With The Twisted Lip', () => {
-            return getTestStrings([ TEST_INPUT_FILES.TWISTEDLIP ])
-                .then((input) => {
-                    return runTest(input, n, './src/tests/utils/resources/ngrams/twistedlip-tetragram.json');
-                })
+        it('should return counts from The Man With The Twisted Lip', async () => {
+            const input = await getTestStrings([ TEST_INPUT_FILES.TWISTEDLIP ]);
+            await runTest(input, n, './src/tests/utils/resources/ngrams/twistedlip-tetragram.json');
         });
-        it('should return ngrams in reverse-sorted order', () => {
-            return getTestStrings([ TEST_INPUT_FILES.BOSCOMBE ])
-                .then((input) => {
-                    const output = ngrams.countNgrams(input, n);
-                    verifyOrder(output.summary);
-                });
+        it('should return ngrams in reverse-sorted order', async () => {
+            const input = await getTestStrings([ TEST_INPUT_FILES.BOSCOMBE ]);
+            const output = ngrams.countNgrams(input, n);
+            verifyOrder(output.summary);
         });
-        it('should return consistent results between lookup and summary', () => {
-            return getTestStrings([ TEST_INPUT_FILES.BOHEMIA, TEST_INPUT_FILES.BOSCOMBE,
-                                    TEST_INPUT_FILES.IDENTITY, TEST_INPUT_FILES.TWISTEDLIP ])
-                .then((input) => {
-                    const output = ngrams.countNgrams(input, n);
-                    verifySummary(output);
-                });
+        it('should return consistent results between lookup and summary', async () => {
+            const input = await getTestStrings([ TEST_INPUT_FILES.BOHEMIA, TEST_INPUT_FILES.BOSCOMBE,
+                                    TEST_INPUT_FILES.IDENTITY, TEST_INPUT_FILES.TWISTEDLIP ]);
+            const output = ngrams.countNgrams(input, n);
+            verifySummary(output);
         });
-        it('should return consistent results from multiple files', () => {
-            return getTestStrings([ TEST_INPUT_FILES.BOHEMIA, TEST_INPUT_FILES.BOSCOMBE,
-                                    TEST_INPUT_FILES.IDENTITY, TEST_INPUT_FILES.TWISTEDLIP ])
-                .then((inputs) => {
+        it('should return consistent results from multiple files', async () => {
+            const inputs = await getTestStrings([ TEST_INPUT_FILES.BOHEMIA, TEST_INPUT_FILES.BOSCOMBE,
+                                    TEST_INPUT_FILES.IDENTITY, TEST_INPUT_FILES.TWISTEDLIP ]);
+
                     const output_1_0 = ngrams.countNgrams([ inputs[0] ], n);
                     const output_1_1 = ngrams.countNgrams([ inputs[1] ], n);
                     const output_1_2 = ngrams.countNgrams([ inputs[2] ], n);
@@ -406,11 +366,10 @@ describe('Utils - ngrams', () => {
                                        count_output_4);
                     assert.strictEqual(count_output_1_0 + count_output_1_1,
                                        count_output_2_0);
-                    assert.strictEqual(count_output_1_2 + count_output_1_3,
-                                       count_output_2_1);
-                    assert.strictEqual(count_output_1_0 + count_output_1_1 + count_output_1_2,
-                                       count_output_3_0);
-                });
+            assert.strictEqual(count_output_1_2 + count_output_1_3,
+                               count_output_2_1);
+            assert.strictEqual(count_output_1_0 + count_output_1_1 + count_output_1_2,
+                               count_output_3_0);
         });
         it('should handle empty strings', () => {
             const output = ngrams.countNgrams([''], n);
@@ -440,27 +399,26 @@ describe('Utils - ngrams', () => {
 
 
     describe('different n-grams', () => {
-        it('should return consistent results for different values of n', () => {
-            return getTestStrings([ TEST_INPUT_FILES.BOHEMIA, TEST_INPUT_FILES.BOSCOMBE,
-                                    TEST_INPUT_FILES.IDENTITY, TEST_INPUT_FILES.TWISTEDLIP ])
-                .then((inputs) => {
-                    const bigrams = ngrams.countNgrams(inputs, 2);
-                    const trigrams = ngrams.countNgrams(inputs, 3);
-                    const tetragrams = ngrams.countNgrams(inputs, 4);
+        it('should return consistent results for different values of n', async () => {
+            const inputs = await getTestStrings([ TEST_INPUT_FILES.BOHEMIA, TEST_INPUT_FILES.BOSCOMBE,
+                                    TEST_INPUT_FILES.IDENTITY, TEST_INPUT_FILES.TWISTEDLIP ]);
 
-                    const tokensToVerify = [ 'I', 'do', 'not', 'know' ];
+            const bigrams = ngrams.countNgrams(inputs, 2);
+            const trigrams = ngrams.countNgrams(inputs, 3);
+            const tetragrams = ngrams.countNgrams(inputs, 4);
 
-                    assert.strictEqual(lookupCount(tetragrams.lookup, [ tokensToVerify[0], tokensToVerify[1], tokensToVerify[2], tokensToVerify[3]]), 4);
+            const tokensToVerify = [ 'I', 'do', 'not', 'know' ];
 
-                    for (const ngramResults of [ trigrams, tetragrams ]) {
-                        assert.strictEqual(lookupCount(ngramResults.lookup, [ tokensToVerify[0], tokensToVerify[1], tokensToVerify[2] ]), 11);
-                    }
+            assert.strictEqual(lookupCount(tetragrams.lookup, [ tokensToVerify[0], tokensToVerify[1], tokensToVerify[2], tokensToVerify[3]]), 4);
 
-                    for (const ngramResults of [ bigrams, trigrams, tetragrams ]) {
-                        assert.strictEqual(lookupCount(ngramResults.lookup, [ tokensToVerify[0], tokensToVerify[1] ]), 16);
-                        assert.strictEqual(lookupCount(ngramResults.lookup, [ tokensToVerify[0] ]),                    935);
-                    }
-                });
+            for (const ngramResults of [ trigrams, tetragrams ]) {
+                assert.strictEqual(lookupCount(ngramResults.lookup, [ tokensToVerify[0], tokensToVerify[1], tokensToVerify[2] ]), 11);
+            }
+
+            for (const ngramResults of [ bigrams, trigrams, tetragrams ]) {
+                assert.strictEqual(lookupCount(ngramResults.lookup, [ tokensToVerify[0], tokensToVerify[1] ]), 16);
+                assert.strictEqual(lookupCount(ngramResults.lookup, [ tokensToVerify[0] ]),                    935);
+            }
         });
     });
 });

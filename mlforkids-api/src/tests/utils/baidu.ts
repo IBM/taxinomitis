@@ -1,4 +1,4 @@
-/*eslint-env mocha */
+import { describe, it } from 'node:test';
 import * as assert from 'assert';
 import * as baidu from '../../lib/utils/baidu';
 
@@ -18,18 +18,14 @@ describe('Utils - baidu', () => {
         }
     });
 
-    it('should get source URL of Baidu image search results', () => {
-        return Promise.all(VALID_URLS.map((url) => baidu.getSource(url)))
-            .then((responses) => {
-                assert.deepStrictEqual(responses, EXPECTED_URL_SRCS);
-            });
+    it('should get source URL of Baidu image search results', async () => {
+        const responses = await Promise.all(VALID_URLS.map((url) => baidu.getSource(url)));
+        assert.deepStrictEqual(responses, EXPECTED_URL_SRCS);
     });
 
-    it('should ignore non-Baidu image search results', () => {
-        return Promise.all(INVALID_URLS.map((url) => baidu.getSource(url)))
-            .then((responses) => {
-                assert.deepStrictEqual(responses, INVALID_URLS);
-            });
+    it('should ignore non-Baidu image search results', async () => {
+        const responses = await Promise.all(INVALID_URLS.map((url) => baidu.getSource(url)));
+        assert.deepStrictEqual(responses, INVALID_URLS);
     });
 
 

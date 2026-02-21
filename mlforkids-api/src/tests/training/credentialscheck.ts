@@ -1,5 +1,4 @@
-/*eslint-env mocha */
-
+import { describe, it, before, after } from 'node:test';
 import { v1 as uuid } from 'uuid';
 import * as assert from 'assert';
 
@@ -10,13 +9,13 @@ import * as checker from '../../lib/training/credentialscheck';
 
 describe('Training - Watson credentials checker', () => {
 
-    before(() => {
+    before(async () => {
         checker.init();
-        return store.init();
+        await store.init();
     });
 
-    after(() => {
-        return store.disconnect();
+    after(async () => {
+        await store.disconnect();
     });
 
     describe('try-it-now tenant', () => {
@@ -115,8 +114,8 @@ describe('Training - Watson credentials checker', () => {
         const convid = uuid();
         const visrecid = uuid();
 
-        before(() => {
-            return store.storeBluemixCredentials(classid, {
+        before(async () => {
+            await store.storeBluemixCredentials(classid, {
                 id : convid,
                 classid,
                 username : 'fakeuser',
@@ -127,8 +126,8 @@ describe('Training - Watson credentials checker', () => {
             });
         });
 
-        before(() => {
-            return store.storeBluemixCredentials(classid, {
+        before(async () => {
+            await store.storeBluemixCredentials(classid, {
                 id : visrecid,
                 classid,
                 username : 'fakeuser',
@@ -139,11 +138,11 @@ describe('Training - Watson credentials checker', () => {
             });
         });
 
-        after(() => {
-            return store.deleteBluemixCredentials(convid);
+        after(async () => {
+            await store.deleteBluemixCredentials(convid);
         });
-        after(() => {
-            return store.deleteBluemixCredentials(visrecid);
+        after(async () => {
+            await store.deleteBluemixCredentials(visrecid);
         });
 
 

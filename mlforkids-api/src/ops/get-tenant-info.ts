@@ -77,6 +77,8 @@ async function getCloudCreds(tenantinfo: any) {
     try {
         assistant = await store.getBluemixCredentials(tenantinfo, 'conv');
     }
-    catch (err) { /* */ }
+    catch (err) {
+        console.debug(err.message);
+    }
     return { assistant };
 }

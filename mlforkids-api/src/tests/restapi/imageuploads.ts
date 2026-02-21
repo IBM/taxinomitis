@@ -1,5 +1,4 @@
-/*eslint-env mocha */
-
+import { describe, it, before, beforeEach, after, afterEach } from 'node:test';
 import * as assert from 'assert';
 import * as fs from 'fs';
 import { v1 as uuid } from 'uuid';
@@ -103,72 +102,64 @@ describe('REST API - image uploads', () => {
 
         let projectid = '';
 
-        before(() => {
-            return store.storeProject('studentid', TESTCLASS, 'images', 'invalids', 'en', [], false)
-                .then((proj) => {
-                    projectid = proj.id;
-                    return store.addLabelToProject('studentid', TESTCLASS, projectid, 'KNOWN');
-                });
+        before(async () => {
+            const proj = await store.storeProject('studentid', TESTCLASS, 'images', 'invalids', 'en', [], false);
+            projectid = proj.id;
+            await store.addLabelToProject('studentid', TESTCLASS, projectid, 'KNOWN');
         });
 
-        it('should require a valid project', () => {
-            return request(testServer)
+        it('should require a valid project', async () => {
+            const res = await request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/studentid/projects/NOTAREALPROJECT/images')
-                .expect(httpStatus.NOT_FOUND)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, { error : 'Not found' });
-                });
+                .expect(httpStatus.NOT_FOUND);
+
+            assert.deepStrictEqual(res.body, { error : 'Not found' });
         });
 
-        it('should require a file', () => {
-            return request(testServer)
+        it('should require a file', async () => {
+            const res = await request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/studentid/projects/' + projectid + '/images')
-                .expect(httpStatus.BAD_REQUEST)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, { error : 'File not provided' });
-                });
+                .expect(httpStatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, { error : 'File not provided' });
         });
 
-        it('should require an image file', () => {
-            return request(testServer)
+        it('should require an image file', async () => {
+            const res = await request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/studentid/projects/' + projectid + '/images')
                 .attach('image', './package.json')
-                .expect(httpStatus.BAD_REQUEST)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, { error : 'Unsupported file type application/json' });
-                });
+                .expect(httpStatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, { error : 'Unsupported file type application/json' });
         });
 
-        it('should require a label', () => {
-            return request(testServer)
+        it('should require a label', async () => {
+            const res = await request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/studentid/projects/' + projectid + '/images')
                 .attach('image', './src/tests/utils/resources/test-02.jpg')
-                .expect(httpStatus.BAD_REQUEST)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, { error : 'Image label not provided' });
-                });
+                .expect(httpStatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, { error : 'Image label not provided' });
         });
 
         it('should only support image projects', async () => {
             const project = await store.storeProject('studentid', TESTCLASS, 'text', 'invalid', 'en', [], false);
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/studentid/projects/' + project.id + '/images')
                 .attach('image', './src/tests/utils/resources/test-04.jpg')
-                .expect(httpStatus.BAD_REQUEST)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, { error : 'Only images projects allow image uploads' });
-                });
+                .expect(httpStatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, { error : 'Only images projects allow image uploads' });
         });
 
-        it('should require a known label', () => {
-            return request(testServer)
+        it('should require a known label', async () => {
+            const res = await request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/studentid/projects/' + projectid + '/images')
                 .attach('image', './src/tests/utils/resources/test-02.jpg')
                 .field('label', 'MYSTERY')
-                .expect(httpStatus.BAD_REQUEST)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, { error : 'Unrecognised label' });
-                });
+                .expect(httpStatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, { error : 'Unrecognised label' });
         });
     });
 
@@ -187,26 +178,25 @@ describe('REST API - image uploads', () => {
 
             NEXT_USERID = USER;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post(IMAGESURL)
                 .attach('image', './src/tests/utils/resources/test-01.jpg')
                 .field('label', LABEL)
-                .expect(httpStatus.CREATED)
-                .then((res) => {
-                    assert(res.body.id);
+                .expect(httpStatus.CREATED);
 
-                    assert.strictEqual(res.body.isstored, true);
-                    assert.strictEqual(res.body.label, LABEL);
-                    assert.strictEqual(res.body.projectid, project.id);
+            assert(res.body.id);
 
-                    assert(res.body.imageurl.startsWith(IMAGESURL));
+            assert.strictEqual(res.body.isstored, true);
+            assert.strictEqual(res.body.label, LABEL);
+            assert.strictEqual(res.body.projectid, project.id);
 
-                    assert.strictEqual(res.body.imageurl, IMAGESURL + '/' + res.body.id);
+            assert(res.body.imageurl.startsWith(IMAGESURL));
 
-                    assert(res.header.etag);
+            assert.strictEqual(res.body.imageurl, IMAGESURL + '/' + res.body.id);
 
-                    return store.deleteTraining('images', 'TESTPROJECT', res.body.id);
-                });
+            assert(res.header.etag);
+
+            await store.deleteTraining('images', 'TESTPROJECT', res.body.id);
         });
 
     });
@@ -217,20 +207,17 @@ describe('REST API - image uploads', () => {
 
         let projectid = '';
 
-        before(() => {
-            return store.storeProject('studentid', TESTCLASS, 'images', 'invalids', 'en', [], false)
-                .then((proj) => {
-                    projectid = proj.id;
-                });
+        before(async () => {
+            const proj = await store.storeProject('studentid', TESTCLASS, 'images', 'invalids', 'en', [], false);
+            projectid = proj.id;
         });
 
-        it('should handle non-existent images', () => {
-            return request(testServer)
+        it('should handle non-existent images', async () => {
+            const res = await request(testServer)
                 .get('/api/classes/' + TESTCLASS + '/students/studentid/projects/' + projectid + '/images/someimageid')
-                .expect(httpStatus.NOT_FOUND)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, { error : 'File not found' });
-                });
+                .expect(httpStatus.NOT_FOUND);
+
+            assert.deepStrictEqual(res.body, { error : 'File not found' });
         });
     });
 
@@ -250,7 +237,6 @@ describe('REST API - image uploads', () => {
         }
 
         it('should download a file', async () => {
-            let id;
             const filepath = './src/tests/utils/resources/test-01.jpg';
             const contents = await readFileToBuffer(filepath);
 
@@ -269,26 +255,24 @@ describe('REST API - image uploads', () => {
                                 '/projects/' + projectid +
                                 '/images';
 
-            await request(testServer)
+            let res = await request(testServer)
                 .post(imagesurl)
                 .attach('image', filepath)
                 .field('label', label)
-                .expect(httpStatus.CREATED)
-                .then((res) => {
-                    assert(res.body.id);
-                    id = res.body.id;
+                .expect(httpStatus.CREATED);
 
-                    assert.strictEqual(res.body.projectid, projectid);
-                });
+            assert(res.body.id);
+            const id = res.body.id;
 
-            await request(testServer)
+            assert.strictEqual(res.body.projectid, projectid);
+
+            res = await request(testServer)
                 .get(imagesurl + '/' + id)
-                .expect(httpStatus.OK)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, contents);
-                    assert.strictEqual(res.header['content-type'], 'image/jpeg');
-                    assert.strictEqual(res.header['cache-control'], 'max-age=31536000');
-                });
+                .expect(httpStatus.OK);
+
+            assert.deepStrictEqual(res.body, contents);
+            assert.strictEqual(res.header['content-type'], 'image/jpeg');
+            assert.strictEqual(res.header['cache-control'], 'max-age=31536000');
 
             if (id) {
                 return store.deleteTraining('images', projectid, id);
@@ -296,7 +280,6 @@ describe('REST API - image uploads', () => {
         });
 
         it('should download a resized version of a file ready for client-side training', async () => {
-            let id;
             const filepath = './src/tests/utils/resources/test-01.jpg';
             const expectedResizedContents = await readFileToBuffer('./src/tests/utils/resources/book-small-01.jpg');
 
@@ -315,26 +298,24 @@ describe('REST API - image uploads', () => {
                                 '/projects/' + projectid +
                                 '/images';
 
-            await request(testServer)
+            let res = await request(testServer)
                 .post(imagesurl)
                 .attach('image', filepath)
                 .field('label', label)
-                .expect(httpStatus.CREATED)
-                .then((res) => {
-                    assert(res.body.id);
-                    id = res.body.id;
+                .expect(httpStatus.CREATED);
 
-                    assert.strictEqual(res.body.projectid, projectid);
-                });
+            assert(res.body.id);
+            const id = res.body.id;
 
-            await request(testServer)
+            assert.strictEqual(res.body.projectid, projectid);
+
+            res = await request(testServer)
                 .get('/api/classes/' + TESTCLASS + '/students/' + userid + '/projects/' + projectid + '/training/' + id)
-                .expect(httpStatus.OK)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, expectedResizedContents);
-                    assert.strictEqual(res.header['content-type'], 'application/octet-stream');
-                    assert.strictEqual(res.header['cache-control'], 'max-age=31536000');
-                });
+                .expect(httpStatus.OK);
+
+            assert.deepStrictEqual(res.body, expectedResizedContents);
+            assert.strictEqual(res.header['content-type'], 'application/octet-stream');
+            assert.strictEqual(res.header['cache-control'], 'max-age=31536000');
 
             if (id) {
                 return store.deleteTraining('images', projectid, id);
@@ -356,20 +337,18 @@ describe('REST API - image uploads', () => {
                                     '/projects/' + testProject.id +
                                     '/images/' + uuid();
 
-            await request(testServer)
+            const res = await request(testServer)
                 .get(fakeImageUrl)
                 .expect('Content-Type', /json/)
-                .expect(httpStatus.NOT_FOUND)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, { error : 'File not found' })
-                });
+                .expect(httpStatus.NOT_FOUND);
+
+            assert.deepStrictEqual(res.body, { error : 'File not found' });
 
             await store.deleteEntireProject(userid, TESTCLASS, testProject);
         });
 
 
         it('should download a file using a Scratch key', async () => {
-            let id;
             const filepath = './src/tests/utils/resources/test-01.jpg';
             const contents = await readFileToBuffer(filepath);
 
@@ -388,38 +367,35 @@ describe('REST API - image uploads', () => {
                                 '/projects/' + projectid +
                                 '/images';
 
-            await request(testServer)
+            let res = await request(testServer)
                 .post(imagesurl)
                 .attach('image', filepath)
                 .field('label', label)
-                .expect(httpStatus.CREATED)
-                .then((res) => {
-                    assert(res.body.id);
-                    id = res.body.id;
+                .expect(httpStatus.CREATED);
 
-                    assert.strictEqual(res.body.projectid, projectid);
-                });
+            assert(res.body.id);
+            const id = res.body.id;
+
+            assert.strictEqual(res.body.projectid, projectid);
 
             const scratchKey = await store.storeUntrainedScratchKey(project);
 
             const expectedUrl = '/api/scratch/' + scratchKey + '/images' + imagesurl + '/' + id;
 
-            await request(testServer)
+            res = await request(testServer)
                 .get('/api/scratch/' + scratchKey + '/train')
                 .expect('Content-Type', /json/)
-                .expect(httpStatus.OK)
-                .then((res) => {
-                    assert(res.body[0].imageurl.includes(expectedUrl));
-                });
+                .expect(httpStatus.OK);
 
-            await request(testServer)
+            assert(res.body[0].imageurl.includes(expectedUrl));
+
+            res = await request(testServer)
                 .get(expectedUrl)
-                .expect(httpStatus.OK)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, contents);
-                    assert.strictEqual(res.header['content-type'], 'image/jpeg');
-                    assert.strictEqual(res.header['cache-control'], 'max-age=31536000');
-                });
+                .expect(httpStatus.OK);
+
+            assert.deepStrictEqual(res.body, contents);
+            assert.strictEqual(res.header['content-type'], 'image/jpeg');
+            assert.strictEqual(res.header['cache-control'], 'max-age=31536000');
 
             if (id) {
                 return store.deleteTraining('images', projectid, id);
@@ -428,7 +404,6 @@ describe('REST API - image uploads', () => {
 
 
         it('should reject requests for images from other projects', async () => {
-            let id;
             const filepath = './src/tests/utils/resources/test-01.jpg';
 
             const userid = uuid();
@@ -446,34 +421,31 @@ describe('REST API - image uploads', () => {
                                 '/projects/' + projectid +
                                 '/images';
 
-            await request(testServer)
+            let res = await request(testServer)
                 .post(imagesurl)
                 .attach('image', filepath)
                 .field('label', label)
-                .expect(httpStatus.CREATED)
-                .then((res) => {
-                    assert(res.body.id);
-                    id = res.body.id;
+                .expect(httpStatus.CREATED);
 
-                    assert.strictEqual(res.body.projectid, projectid);
-                });
+            assert(res.body.id);
+            const id = res.body.id;
+
+            assert.strictEqual(res.body.projectid, projectid);
 
             const secondProject = await store.storeProject(userid, TESTCLASS, 'imgtfjs', uuid(), 'en', [], false);
             const scratchKey = await store.storeUntrainedScratchKey(secondProject);
 
             const expectedUrl = '/api/scratch/' + scratchKey + '/images' + imagesurl + '/' + id;
 
-            await request(testServer)
+            res = await request(testServer)
                 .get(expectedUrl)
-                .expect(httpStatus.FORBIDDEN)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, { error : 'Invalid access' });
-                });
+                .expect(httpStatus.FORBIDDEN);
+
+            assert.deepStrictEqual(res.body, { error : 'Invalid access' });
 
             if (id) {
                 return store.deleteTraining('images', projectid, id);
             }
         });
     });
-
 });

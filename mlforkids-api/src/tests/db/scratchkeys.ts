@@ -1,4 +1,4 @@
-/*eslint-env mocha */
+import { describe, it, before, beforeEach, after, afterEach } from 'node:test';
 import * as assert from 'assert';
 import { v1 as uuid } from 'uuid';
 import * as randomstring from 'randomstring';
@@ -121,14 +121,10 @@ describe('ScratchKeys store', () => {
 
         await store.deleteScratchKey(keyid);
 
-        try {
-            await store.getScratchKey(keyid);
-
-            assert.fail('Should not have been able to retrieve a key');
-        }
-        catch (err) {
-            assert.strictEqual(err.message, 'Unexpected response when retrieving credentials for Scratch');
-        }
+        await assert.rejects(
+            () => store.getScratchKey(keyid),
+            { message: 'Unexpected response when retrieving credentials for Scratch' }
+        );
     });
 
 
@@ -344,14 +340,10 @@ describe('ScratchKeys store', () => {
 
         await store.deleteScratchKey(keyid);
 
-        try {
-            await store.getScratchKey(keyid);
-
-            assert.fail('Should not have been able to retrieve a key');
-        }
-        catch (err) {
-            assert.strictEqual(err.message, 'Unexpected response when retrieving credentials for Scratch');
-        }
+        await assert.rejects(
+            () => store.getScratchKey(keyid),
+            { message: 'Unexpected response when retrieving credentials for Scratch' }
+        );
     });
 
 
@@ -377,14 +369,10 @@ describe('ScratchKeys store', () => {
 
         await store.deleteScratchKeysByProjectId(project.id);
 
-        try {
-            await store.getScratchKey(keyid);
-
-            assert.fail('Should not have been able to retrieve a key');
-        }
-        catch (err) {
-            assert.strictEqual(err.message, 'Unexpected response when retrieving credentials for Scratch');
-        }
+        await assert.rejects(
+            () => store.getScratchKey(keyid),
+            { message: 'Unexpected response when retrieving credentials for Scratch' }
+        );
     });
 
 

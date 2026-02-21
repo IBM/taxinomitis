@@ -1,5 +1,4 @@
-/*eslint-env mocha */
-
+import { describe, it, before, after } from 'node:test';
 import * as assert from 'assert';
 import * as request from 'supertest';
 import { status as httpstatus } from 'http-status';
@@ -15,7 +14,7 @@ import testapiserver from './testserver';
 let testServer: express.Express;
 
 
-describe('REST API - session users auth', () => {
+describe('REST API - session users auth', { concurrency: false }, () => {
 
     before(() => {
         testServer = testapiserver();
@@ -40,33 +39,31 @@ describe('REST API - session users auth', () => {
         });
 
 
-        it('authenticate API calls from session users - empty projects list', () => {
+        it('authenticate API calls from session users - empty projects list', async () => {
             const jwt = jsonwebtoken.sign(user, 'placeholdersecret');
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + sessionusers.CLASS_NAME + '/students/' + user.id + '/projects')
                 .set('Authorization', 'Bearer ' + jwt)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, []);
-                });
+                .expect(httpstatus.OK);
+
+            const body = res.body;
+            assert.deepStrictEqual(body, []);
         });
 
 
-        it('authenticate API calls from session users - fetch non-existent project', () => {
+        it('authenticate API calls from session users - fetch non-existent project', async () => {
             const jwt = jsonwebtoken.sign(user, 'placeholdersecret');
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + sessionusers.CLASS_NAME + '/students/' + user.id + '/projects/DOES-NOT-EXIST')
                 .set('Authorization', 'Bearer ' + jwt)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_FOUND)
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, { error : 'Not found' });
-                });
+                .expect(httpstatus.NOT_FOUND);
+
+            const body = res.body;
+            assert.deepStrictEqual(body, { error : 'Not found' });
         });
 
 
@@ -80,17 +77,16 @@ describe('REST API - session users auth', () => {
                 'my test',
                 'en', [], false);
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + sessionusers.CLASS_NAME + '/students/' + user.id + '/projects/' + project.id)
                 .set('Authorization', 'Bearer ' + jwt)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, project);
+                .expect(httpstatus.OK);
 
-                    return store.deleteEntireProject(user.id, sessionusers.CLASS_NAME, project);
-                });
+            const body = res.body;
+            assert.deepStrictEqual(body, project);
+
+            await store.deleteEntireProject(user.id, sessionusers.CLASS_NAME, project);
         });
 
 
@@ -105,33 +101,31 @@ describe('REST API - session users auth', () => {
             const diffUser = await store.storeTemporaryUser(100000);
             const jwt = jsonwebtoken.sign(diffUser, 'placeholdersecret');
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + sessionusers.CLASS_NAME + '/students/' + user.id + '/projects/' + project.id)
                 .set('Authorization', 'Bearer ' + jwt)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.UNAUTHORIZED)
-                .then(async (res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, { error : 'Not authorised' });
+                .expect(httpstatus.UNAUTHORIZED);
 
-                    await store.deleteTemporaryUser(diffUser);
-                    await store.deleteEntireProject(user.id, sessionusers.CLASS_NAME, project);
-                });
+            const body = res.body;
+            assert.deepStrictEqual(body, { error : 'Not authorised' });
+
+            await store.deleteTemporaryUser(diffUser);
+            await store.deleteEntireProject(user.id, sessionusers.CLASS_NAME, project);
         });
 
 
         it('authenticate API calls from session users - handle invalid JWT tokens', async () => {
             const jwt = 'This is not a valid token, but it is lovely';
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + sessionusers.CLASS_NAME + '/students/' + user.id + '/projects')
                 .set('Authorization', 'Bearer ' + jwt)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.UNAUTHORIZED)
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, { error : 'Not authorised' });
-                });
+                .expect(httpstatus.UNAUTHORIZED);
+
+            const body = res.body;
+            assert.deepStrictEqual(body, { error : 'Not authorised' });
         });
 
 
@@ -139,17 +133,16 @@ describe('REST API - session users auth', () => {
             const expiredUser = await store.storeTemporaryUser(-1000);
             const jwt = jsonwebtoken.sign(expiredUser, 'placeholdersecret');
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + sessionusers.CLASS_NAME + '/students/' + expiredUser.id + '/projects')
                 .set('Authorization', 'Bearer ' + jwt)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.UNAUTHORIZED)
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, { error : 'Not authorised' });
+                .expect(httpstatus.UNAUTHORIZED);
 
-                    return store.deleteTemporaryUser(expiredUser);
-                });
+            const body = res.body;
+            assert.deepStrictEqual(body, { error : 'Not authorised' });
+
+            await store.deleteTemporaryUser(expiredUser);
         });
 
     });

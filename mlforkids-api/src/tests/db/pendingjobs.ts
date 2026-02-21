@@ -1,4 +1,4 @@
-/*eslint-env mocha */
+import { describe, it, before, beforeEach, after } from 'node:test';
 import * as assert from 'assert';
 import { v1 as uuid } from 'uuid';
 

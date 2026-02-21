@@ -1,4 +1,4 @@
-/*eslint-env mocha */
+import { describe, it, before } from 'node:test';
 import * as assert from 'assert';
 import * as request from 'supertest';
 import * as fs from 'fs';
@@ -33,39 +33,44 @@ describe('REST API - App Inventor', () => {
     };
 
 
-    it('should get a modified extension', (done) => {
+    it('should get a modified extension', async () => {
         const apikey = 'This-is-an-API-key.Sort-of.';
 
         const zipfile = tmp.fileSync();
         const apifile = tmp.fileSync();
 
-        request(testServer)
+        const res = await request(testServer)
             .get('/api/appinventor/' + apikey + '/extension')
             .expect('Content-Disposition', 'attachment; filename=ml4k.aix;')
             .expect(httpstatus.OK)
             .buffer()
-            .parse(binaryParser)
-            .end((err, res) => {
-                assert(!err);
+            .parse(binaryParser);
 
-                fs.writeFileSync(zipfile.name, res.body);
+        fs.writeFileSync(zipfile.name, res.body);
 
-                fs.createReadStream(zipfile.name)
-                    .pipe(unzip.Parse())
-                    .on('entry', (entry) => {
-                        if (entry.path === 'com.kylecorry.ml4k/assets/api.txt') {
-                            entry.pipe(fs.createWriteStream(apifile.name))
-                                .on('finish', () => {
+        await new Promise<void>((resolve, reject) => {
+            fs.createReadStream(zipfile.name)
+                .pipe(unzip.Parse())
+                .on('entry', (entry) => {
+                    if (entry.path === 'com.kylecorry.ml4k/assets/api.txt') {
+                        entry.pipe(fs.createWriteStream(apifile.name))
+                            .on('finish', () => {
+                                try {
                                     const contents = fs.readFileSync(apifile.name, 'utf8');
                                     assert.strictEqual(contents, apikey);
-                                    done();
-                                });
-                        }
-                        else {
-                            entry.autodrain();
-                        }
-                    });
-            });
+                                    resolve();
+                                } catch (err) {
+                                    reject(err);
+                                }
+                            })
+                            .on('error', reject);
+                    }
+                    else {
+                        entry.autodrain();
+                    }
+                })
+                .on('error', reject);
+        });
     });
 
 });

@@ -1,4 +1,5 @@
-/*eslint-env mocha */
+import { describe, it, before, after, beforeEach } from 'node:test';
+import { promisify } from 'node:util';
 import * as fs from 'fs';
 import { v1 as uuid } from 'uuid';
 import * as assert from 'assert';
@@ -88,7 +89,7 @@ describe('REST API - training', () => {
 
     describe('getLabels()', () => {
 
-        it('should verify project exists', () => {
+        it('should verify project exists', async () => {
             const classid = uuid();
             const studentid = uuid();
             const projectid = uuid();
@@ -96,14 +97,12 @@ describe('REST API - training', () => {
             nextAuth0UserId = studentid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + classid + '/students/' + studentid + '/projects/' + projectid + '/labels')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_FOUND)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.error, 'Not found');
-                });
+                .expect(httpstatus.NOT_FOUND);
+
+            assert.strictEqual(res.body.error, 'Not found');
         });
 
 
@@ -117,16 +116,14 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/labels')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, {});
+                .expect(httpstatus.OK);
 
-                    return store.deleteEntireProject(userid, classid, project);
-                });
+            assert.deepStrictEqual(res.body, {});
+
+            await store.deleteEntireProject(userid, classid, project);
         });
 
 
@@ -140,13 +137,12 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            await request(testServer)
                 .get('/api/classes/' + classid + '/students/DIFFERENTUSER/projects/' + projectid + '/labels')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.FORBIDDEN)
-                .then(() => {
-                    return store.deleteEntireProject(userid, classid, project);
-                });
+                .expect(httpstatus.FORBIDDEN);
+
+            await store.deleteEntireProject(userid, classid, project);
         });
 
 
@@ -170,18 +166,16 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/labels')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, {
-                        fruit : 2, vegetable : 3, meat : 1,
-                    });
+                .expect(httpstatus.OK);
 
-                    return store.deleteEntireProject(userid, classid, project);
-                });
+            assert.deepStrictEqual(res.body, {
+                fruit : 2, vegetable : 3, meat : 1,
+            });
+
+            await store.deleteEntireProject(userid, classid, project);
         });
 
 
@@ -204,25 +198,23 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/labels')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, {
-                        fruit : 1, vegetable : 3,
-                    });
+                .expect(httpstatus.OK);
 
-                    return store.deleteEntireProject(userid, classid, project);
-                });
+            assert.deepStrictEqual(res.body, {
+                fruit : 1, vegetable : 3,
+            });
+
+            await store.deleteEntireProject(userid, classid, project);
         });
     });
 
 
     describe('storeTraining()', () => {
 
-        it('should verify project exists', () => {
+        it('should verify project exists', async () => {
             const classid = uuid();
             const studentid = uuid();
             const projectid = uuid();
@@ -230,15 +222,13 @@ describe('REST API - training', () => {
             nextAuth0UserId = studentid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/classes/' + classid + '/students/' + studentid + '/projects/' + projectid + '/training')
                 .send({ data : 'abc' })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_FOUND)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.error, 'Not found');
-                });
+                .expect(httpstatus.NOT_FOUND);
+
+            assert.strictEqual(res.body.error, 'Not found');
         });
 
         it('should verify user id', async () => {
@@ -251,14 +241,13 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            await request(testServer)
                 .post('/api/classes/' + classid + '/students/DIFFERENTUSER/projects/' + projectid + '/training')
                 .send({ data : 'abc' })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.FORBIDDEN)
-                .then(() => {
-                    return store.deleteEntireUser(userid, classid);
-                });
+                .expect(httpstatus.FORBIDDEN);
+
+            await store.deleteEntireUser(userid, classid);
         });
 
 
@@ -277,19 +266,17 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post(trainingurl)
                 .send({
                     label : 'nothing-to-label',
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, { error : 'Missing data' });
+                .expect(httpstatus.BAD_REQUEST);
 
-                    return store.deleteEntireProject(userid, classid, project);
-                });
+            assert.deepStrictEqual(res.body, { error : 'Missing data' });
+
+            await store.deleteEntireProject(userid, classid, project);
         });
 
 
@@ -308,20 +295,18 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post(trainingurl)
                 .send({
                     label : 'nothing-to-label',
                     data : '    ',
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, { error : 'Empty text is not allowed' });
+                .expect(httpstatus.BAD_REQUEST);
 
-                    return store.deleteEntireProject(userid, classid, project);
-                });
+            assert.deepStrictEqual(res.body, { error : 'Empty text is not allowed' });
+
+            await store.deleteEntireProject(userid, classid, project);
         });
 
 
@@ -342,19 +327,17 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post(trainingurl)
                 .send({
                     label : 'nothing-to-label',
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, { error : 'Missing data' });
+                .expect(httpstatus.BAD_REQUEST);
 
-                    return store.deleteEntireProject(userid, classid, project);
-                });
+            assert.deepStrictEqual(res.body, { error : 'Missing data' });
+
+            await store.deleteEntireProject(userid, classid, project);
         });
 
 
@@ -375,20 +358,18 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post(trainingurl)
                 .send({
                     label : 'nothing-to-label',
                     data : [],
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, { error : 'Missing data' });
+                .expect(httpstatus.BAD_REQUEST);
 
-                    return store.deleteEntireProject(userid, classid, project);
-                });
+            assert.deepStrictEqual(res.body, { error : 'Missing data' });
+
+            await store.deleteEntireProject(userid, classid, project);
         });
 
 
@@ -407,20 +388,17 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post(trainingurl)
                 .send({
                     data : randomstring.generate({ length : 1100 }),
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    const body = res.body;
+                .expect(httpstatus.BAD_REQUEST);
 
-                    assert.deepStrictEqual(body, { error : 'Text exceeds maximum allowed length (1024 characters)' });
+            assert.deepStrictEqual(res.body, { error : 'Text exceeds maximum allowed length (1024 characters)' });
 
-                    return store.deleteEntireProject(userid, classid, project);
-                });
+            await store.deleteEntireProject(userid, classid, project);
         });
 
 
@@ -442,20 +420,17 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post(trainingurl)
                 .send({
                     data : [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100],
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    const body = res.body;
+                .expect(httpstatus.BAD_REQUEST);
 
-                    assert.deepStrictEqual(body, { error : 'Missing data' });
+            assert.deepStrictEqual(res.body, { error : 'Missing data' });
 
-                    return store.deleteEntireProject(userid, classid, project);
-                });
+            await store.deleteEntireProject(userid, classid, project);
         });
 
 
@@ -478,16 +453,15 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            await request(testServer)
                 .post(trainingurl)
                 .send({
                     data : [1, 2, 3],
                     label : 'fruit',
                 })
-                .expect(httpstatus.CREATED)
-                .then(() => {
-                    return store.deleteEntireUser(userid, classid);
-                });
+                .expect(httpstatus.CREATED);
+
+            await store.deleteEntireUser(userid, classid);
         });
 
 
@@ -510,18 +484,17 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post(trainingurl)
                 .send({
                     data : [1, 2, ' '],
                     label : 'fruit',
                 })
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, {
-                        error : 'Data contains non-numeric items',
-                    });
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, {
+                error : 'Data contains non-numeric items',
+            });
         });
 
 
@@ -543,18 +516,17 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post(trainingurl)
                 .send({
                     data : [350000000000000000000000000000000000000],
                     label : 'fruit',
                 })
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, {
-                        error : 'Number is too big',
-                    });
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, {
+                error : 'Number is too big',
+            });
         });
 
         it('should reject tiny numbers in numeric training', async () => {
@@ -575,18 +547,17 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post(trainingurl)
                 .send({
                     data : [-350000000000000000000000000000000000000],
                     label : 'fruit',
                 })
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, {
-                        error : 'Number is too small',
-                    });
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, {
+                error : 'Number is too small',
+            });
         });
 
 
@@ -605,19 +576,18 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post(trainingurl)
                 .send({
                     data : 'not a valid url',
                     label : 'fruit',
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, { error: 'Not a valid web address' });
+                .expect(httpstatus.BAD_REQUEST);
 
-                    return store.deleteEntireProject(userid, classid, project);
-                });
+            assert.deepStrictEqual(res.body, { error: 'Not a valid web address' });
+
+            await store.deleteEntireProject(userid, classid, project);
         });
 
 
@@ -636,21 +606,20 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post(trainingurl)
                 .send({
                     data : 'http://info.cern.ch/hypertext/WWW/TheProject.html',
                     label : 'fruit',
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, {
-                        error: 'Unsupported file type (unknown). Only jpg and png images are supported.',
-                    });
+                .expect(httpstatus.BAD_REQUEST);
 
-                    return store.deleteEntireProject(userid, classid, project);
-                });
+            assert.deepStrictEqual(res.body, {
+                error: 'Unsupported file type (unknown). Only jpg and png images are supported.',
+            });
+
+            await store.deleteEntireProject(userid, classid, project);
         });
 
 
@@ -669,25 +638,24 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            const reduceMaxFileSize = sinon.stub(visrec, 'getMaxImageFileSize').returns(2000);
+            const reduceMaxFileSize = sinon.stub(visrec, 'getMaxImageFileSize').returns(1000);
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post(trainingurl)
                 .send({
                     data : 'https://www.w3.org/html/logo/downloads/HTML5_Logo_128.png',
                     label : 'test',
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    reduceMaxFileSize.restore();
+                .expect(httpstatus.BAD_REQUEST);
 
-                    assert.deepStrictEqual({
-                        error : 'Image file size (2.22 kB) is too big. Please choose images smaller than 2 kB',
-                    }, res.body);
+            reduceMaxFileSize.restore();
 
-                    return store.deleteEntireProject(userid, classid, project);
-                });
+            assert.deepStrictEqual({
+                error : 'Image file size (1.43 kB) is too big. Please choose images smaller than 1 kB',
+            }, res.body);
+
+            await store.deleteEntireProject(userid, classid, project);
         });
 
 
@@ -706,30 +674,26 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            await request(testServer)
                 .post(trainingurl)
                 .send({
                     data : 'https://www.w3.org/html/logo/downloads/HTML5_Logo_128.png',
                     label : 'test',
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then(() => {
-                    return request(testServer)
-                        .get(trainingurl)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const body = res.body;
+                .expect(httpstatus.CREATED);
 
-                    assert.strictEqual(body.length, 1);
-                    assert.strictEqual(body[0].label, 'test');
-                    assert.strictEqual(body[0].imageurl, 'https://www.w3.org/html/logo/downloads/HTML5_Logo_128.png');
-                    assert.strictEqual(body[0].isstored, false);
+            const getRes = await request(testServer)
+                .get(trainingurl)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
 
-                    return store.deleteEntireProject(userid, classid, project);
-                });
+            assert.strictEqual(getRes.body.length, 1);
+            assert.strictEqual(getRes.body[0].label, 'test');
+            assert.strictEqual(getRes.body[0].imageurl, 'https://www.w3.org/html/logo/downloads/HTML5_Logo_128.png');
+            assert.strictEqual(getRes.body[0].isstored, false);
+
+            await store.deleteEntireProject(userid, classid, project);
         });
 
 
@@ -751,16 +715,15 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post(trainingurl)
                 .send({
                     data : [1234],
                     label : 'fruit',
                 })
-                .expect(httpstatus.CREATED)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body.numberdata[0], 1234);
-                });
+                .expect(httpstatus.CREATED);
+
+            assert.deepStrictEqual(res.body.numberdata[0], 1234);
         });
 
         it('should store text training', async () => {
@@ -778,30 +741,27 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            await request(testServer)
                 .post(trainingurl)
                 .send({
                     data : 'apple',
                     label : 'fruit',
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then(() => {
-                    return request(testServer)
-                        .get(trainingurl)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.length, 1);
-                    assert.strictEqual(res.header['content-range'], 'items 0-0/1');
+                .expect(httpstatus.CREATED);
 
-                    assert.strictEqual(body[0].textdata, 'apple');
-                    assert.strictEqual(body[0].label, 'fruit');
+            const getRes = await request(testServer)
+                .get(trainingurl)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
 
-                    return store.deleteEntireProject(userid, classid, project);
-                });
+            assert.strictEqual(getRes.body.length, 1);
+            assert.strictEqual(getRes.header['content-range'], 'items 0-0/1');
+
+            assert.strictEqual(getRes.body[0].textdata, 'apple');
+            assert.strictEqual(getRes.body[0].label, 'fruit');
+
+            await store.deleteEntireProject(userid, classid, project);
         });
 
 
@@ -820,7 +780,7 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post(trainingurl)
                 .send({
                     data : 'https://lh4.googleusercontent.com/ytIqqhmtwSe-0fG_' +
@@ -828,17 +788,14 @@ describe('REST API - training', () => {
                     label : 'test',
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    const body = res.body;
+                .expect(httpstatus.BAD_REQUEST);
 
-                    assert.deepStrictEqual(body, {
-                        error : 'lh4.googleusercontent.com would not allow ' +
-                                '"Machine Learning for Kids" to use that image',
-                    });
+            assert.deepStrictEqual(res.body, {
+                error : 'lh4.googleusercontent.com would not allow ' +
+                        '"Machine Learning for Kids" to use that image',
+            });
 
-                    return store.deleteEntireProject(userid, classid, project);
-                });
+            await store.deleteEntireProject(userid, classid, project);
         });
 
 
@@ -869,25 +826,22 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post(trainingurl)
                 .send({
                     data : 'apple',
                     label : 'fruit',
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CONFLICT)
-                .then((res) => {
-                    const body = res.body;
+                .expect(httpstatus.CONFLICT);
 
-                    assert.deepStrictEqual(body, {
-                        error: 'Project already has maximum allowed amount of training data',
-                    });
+            assert.deepStrictEqual(res.body, {
+                error: 'Project already has maximum allowed amount of training data',
+            });
 
-                    limitsStub.restore();
+            limitsStub.restore();
 
-                    return store.deleteEntireProject(userid, classid, project);
-                });
+            await store.deleteEntireProject(userid, classid, project);
         });
     });
 
@@ -911,42 +865,36 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            await request(testServer)
                 .post(projecturl + '/training')
                 .send({
                     data : [0.01, 0.02],
                     label : 'fruit',
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then(() => {
-                    return request(testServer)
-                        .put(projecturl + '/labels')
-                        .send({
-                            after : 'healthy',
-                        })
-                        .expect(httpstatus.BAD_REQUEST);
+                .expect(httpstatus.CREATED);
+
+            const badReqRes = await request(testServer)
+                .put(projecturl + '/labels')
+                .send({
+                    after : 'healthy',
                 })
-                .then((res) => {
-                    const body = res.body;
+                .expect(httpstatus.BAD_REQUEST);
 
-                    assert.deepStrictEqual(body, { error : 'Missing data' });
+            assert.deepStrictEqual(badReqRes.body, { error : 'Missing data' });
 
-                    return request(testServer)
-                        .get(projecturl + '/training')
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.length, 1);
-                    assert.strictEqual(res.header['content-range'], 'items 0-0/1');
+            const getRes = await request(testServer)
+                .get(projecturl + '/training')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
 
-                    assert.deepStrictEqual(body[0].numberdata, [0.01, 0.02]);
-                    assert.strictEqual(body[0].label, 'fruit');
+            assert.strictEqual(getRes.body.length, 1);
+            assert.strictEqual(getRes.header['content-range'], 'items 0-0/1');
 
-                    return store.deleteEntireProject(userid, classid, project);
-                });
+            assert.deepStrictEqual(getRes.body[0].numberdata, [0.01, 0.02]);
+            assert.strictEqual(getRes.body[0].label, 'fruit');
+
+            await store.deleteEntireProject(userid, classid, project);
         });
 
 
@@ -964,39 +912,35 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            await request(testServer)
                 .post(projecturl + '/training')
                 .send({
                     data : 'apple',
                     label : 'fruit',
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then(() => {
-                    return request(testServer)
-                        .put(projecturl + '/labels')
-                        .send({
-                            before : 'fruit',
-                            after : 'healthy',
-                        })
-                        .expect(httpstatus.OK);
-                })
-                .then(() => {
-                    return request(testServer)
-                        .get(projecturl + '/training')
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.length, 1);
-                    assert.strictEqual(res.header['content-range'], 'items 0-0/1');
+                .expect(httpstatus.CREATED);
 
-                    assert.strictEqual(body[0].textdata, 'apple');
-                    assert.strictEqual(body[0].label, 'healthy');
+            await request(testServer)
+                .put(projecturl + '/labels')
+                .send({
+                    before : 'fruit',
+                    after : 'healthy',
+                })
+                .expect(httpstatus.OK);
 
-                    return store.deleteEntireUser(userid, classid);
-                });
+            const getRes = await request(testServer)
+                .get(projecturl + '/training')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            assert.strictEqual(getRes.body.length, 1);
+            assert.strictEqual(getRes.header['content-range'], 'items 0-0/1');
+
+            assert.strictEqual(getRes.body[0].textdata, 'apple');
+            assert.strictEqual(getRes.body[0].label, 'healthy');
+
+            await store.deleteEntireUser(userid, classid);
         });
 
     });
@@ -1005,7 +949,7 @@ describe('REST API - training', () => {
 
     describe('getTraining()', () => {
 
-        it('should verify project exists', () => {
+        it('should verify project exists', async () => {
             const classid = uuid();
             const studentid = uuid();
             const projectid = uuid();
@@ -1013,14 +957,12 @@ describe('REST API - training', () => {
             nextAuth0UserId = studentid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + classid + '/students/' + studentid + '/projects/' + projectid + '/training')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_FOUND)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.error, 'Not found');
-                });
+                .expect(httpstatus.NOT_FOUND);
+
+            assert.strictEqual(res.body.error, 'Not found');
         });
 
 
@@ -1034,16 +976,14 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/training')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, []);
+                .expect(httpstatus.OK);
 
-                    return store.deleteEntireProject(userid, classid, project);
-                });
+            assert.deepStrictEqual(res.body, []);
+
+            await store.deleteEntireProject(userid, classid, project);
         });
 
 
@@ -1057,13 +997,12 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            await request(testServer)
                 .get('/api/classes/' + classid + '/students/DIFFERENTUSER/projects/' + projectid + '/training')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.FORBIDDEN)
-                .then(() => {
-                    return store.deleteEntireProject(userid, classid, project);
-                });
+                .expect(httpstatus.FORBIDDEN);
+
+            await store.deleteEntireProject(userid, classid, project);
         });
 
 
@@ -1091,22 +1030,21 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/training')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const body: { id: string, label: string, textdata: string }[] = res.body;
-                    assert.strictEqual(body.length, 6);
+                .expect(httpstatus.OK);
 
-                    body.forEach((item) => {
-                        assert(item.id);
-                        assert(item.label);
-                        assert(item.textdata);
-                    });
+            const body: { id: string, label: string, textdata: string }[] = res.body;
+            assert.strictEqual(body.length, 6);
 
-                    return store.deleteEntireProject(userid, classid, project);
-                });
+            body.forEach((item) => {
+                assert(item.id);
+                assert(item.label);
+                assert(item.textdata);
+            });
+
+            await store.deleteEntireProject(userid, classid, project);
         });
 
         it('should ensure access is prevented to other students', async () => {
@@ -1135,26 +1073,24 @@ describe('REST API - training', () => {
 
             const trainingurl = '/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/training';
 
-            return request(testServer)
+            const firstRes = await request(testServer)
                 .get(trainingurl)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const body: { id: string, label: string, textdata: string }[] = res.body;
-                    assert.strictEqual(body.length, 6);
+                .expect(httpstatus.OK);
 
-                    nextAuth0UserId = 'a-different-user';
+            const body: { id: string, label: string, textdata: string }[] = firstRes.body;
+            assert.strictEqual(body.length, 6);
 
-                    return request(testServer)
-                        .get(trainingurl)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.FORBIDDEN);
-                })
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, { error : 'Invalid access' });
+            nextAuth0UserId = 'a-different-user';
 
-                    return store.deleteEntireProject(userid, classid, project);
-                });
+            const forbiddenRes = await request(testServer)
+                .get(trainingurl)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.FORBIDDEN);
+
+            assert.deepStrictEqual(forbiddenRes.body, { error : 'Invalid access' });
+
+            await store.deleteEntireProject(userid, classid, project);
         });
 
         it('should ensure allow teachers to have read-only access to training data', async () => {
@@ -1183,25 +1119,23 @@ describe('REST API - training', () => {
 
             const trainingurl = '/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/training';
 
-            return request(testServer)
+            await request(testServer)
                 .get(trainingurl)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then(() => {
-                    nextAuth0UserId = 'yet-another-different-user';
-                    nextAuth0UserRole = 'supervisor';
+                .expect(httpstatus.OK);
 
-                    return request(testServer)
-                        .get(trainingurl)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const body: { id: string, label: string, textdata: string }[] = res.body;
-                    assert.strictEqual(body.length, 6);
+            nextAuth0UserId = 'yet-another-different-user';
+            nextAuth0UserRole = 'supervisor';
 
-                    return store.deleteEntireProject(userid, classid, project);
-                });
+            const supervisorRes = await request(testServer)
+                .get(trainingurl)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            const body: { id: string, label: string, textdata: string }[] = supervisorRes.body;
+            assert.strictEqual(body.length, 6);
+
+            await store.deleteEntireProject(userid, classid, project);
         });
 
         it('should get a page of training', async () => {
@@ -1228,25 +1162,24 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/training')
                 .set('Range', 'items=0-9')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const body: { id: string, label: string, textdata: string }[] = res.body;
-                    assert.strictEqual(body.length, 10);
+                .expect(httpstatus.OK);
 
-                    body.forEach((item) => {
-                        assert(item.id);
-                        assert(item.label);
-                        assert(item.textdata);
-                    });
+            const body: { id: string, label: string, textdata: string }[] = res.body;
+            assert.strictEqual(body.length, 10);
 
-                    assert.strictEqual(res.header['content-range'], 'items 0-9/20');
+            body.forEach((item) => {
+                assert(item.id);
+                assert(item.label);
+                assert(item.textdata);
+            });
 
-                    return store.deleteEntireProject(userid, classid, project);
-                });
+            assert.strictEqual(res.header['content-range'], 'items 0-9/20');
+
+            await store.deleteEntireProject(userid, classid, project);
         });
 
 
@@ -1280,29 +1213,28 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/training')
                 .set('Range', 'items=0-9')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const body: { id: string, label: string, numberdata: number[] }[] = res.body;
-                    assert.strictEqual(body.length, 10);
+                .expect(httpstatus.OK);
 
-                    body.forEach((item) => {
-                        assert(item.id);
-                        assert(item.label);
-                        assert(item.numberdata);
-                        assert.strictEqual(item.numberdata.length, 5);
-                        for (const num of item.numberdata) {
-                            assert(!isNaN(num));
-                        }
-                    });
+            const body: { id: string, label: string, numberdata: number[] }[] = res.body;
+            assert.strictEqual(body.length, 10);
 
-                    assert.strictEqual(res.header['content-range'], 'items 0-9/20');
+            body.forEach((item) => {
+                assert(item.id);
+                assert(item.label);
+                assert(item.numberdata);
+                assert.strictEqual(item.numberdata.length, 5);
+                for (const num of item.numberdata) {
+                    assert(!isNaN(num));
+                }
+            });
 
-                    return store.deleteEntireProject(userid, classid, project);
-                });
+            assert.strictEqual(res.header['content-range'], 'items 0-9/20');
+
+            await store.deleteEntireProject(userid, classid, project);
         });
     });
 
@@ -1327,63 +1259,52 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            const getRes1 = await request(testServer)
                 .get(trainingurl)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.length, 2);
-                    assert.strictEqual(res.header['content-range'], 'items 0-1/2');
+                .expect(httpstatus.OK);
 
-                    return request(testServer)
-                        .delete('/api/classes/' + classid +
-                                '/students/' + 'differentuserid' +
-                                '/projects/' + projectid +
-                                '/training/' + apple.id)
-                        .expect(httpstatus.FORBIDDEN);
-                })
-                .then(() => {
-                    return request(testServer)
-                        .delete('/api/classes/' + classid +
-                                '/students/' + userid +
-                                '/projects/' + 'differentprojectid' +
-                                '/training/' + banana.id)
-                        .expect(httpstatus.NOT_FOUND);
-                })
-                .then(() => {
-                    return request(testServer)
-                        .get(trainingurl)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK)
-                        .then((res) => {
-                            const body = res.body;
-                            assert.strictEqual(body.length, 2);
-                            assert.strictEqual(res.header['content-range'], 'items 0-1/2');
-                        });
-                })
-                .then(() => {
-                    return request(testServer)
-                        .delete('/api/classes/' + classid +
-                                '/students/' + userid +
-                                '/projects/' + projectid +
-                                '/training/' + banana.id)
-                        .expect(httpstatus.NO_CONTENT);
-                })
-                .then(() => {
-                    return request(testServer)
-                        .get(trainingurl)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK)
-                        .then((res) => {
-                            const body = res.body;
-                            assert.strictEqual(body.length, 1);
-                            assert.strictEqual(res.header['content-range'], 'items 0-0/1');
-                        });
-                })
-                .then(() => {
-                    return store.deleteEntireUser(userid, classid);
-                });
+            assert.strictEqual(getRes1.body.length, 2);
+            assert.strictEqual(getRes1.header['content-range'], 'items 0-1/2');
+
+            await request(testServer)
+                .delete('/api/classes/' + classid +
+                        '/students/' + 'differentuserid' +
+                        '/projects/' + projectid +
+                        '/training/' + apple.id)
+                .expect(httpstatus.FORBIDDEN);
+
+            await request(testServer)
+                .delete('/api/classes/' + classid +
+                        '/students/' + userid +
+                        '/projects/' + 'differentprojectid' +
+                        '/training/' + banana.id)
+                .expect(httpstatus.NOT_FOUND);
+
+            const getRes2 = await request(testServer)
+                .get(trainingurl)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            assert.strictEqual(getRes2.body.length, 2);
+            assert.strictEqual(getRes2.header['content-range'], 'items 0-1/2');
+
+            await request(testServer)
+                .delete('/api/classes/' + classid +
+                        '/students/' + userid +
+                        '/projects/' + projectid +
+                        '/training/' + banana.id)
+                .expect(httpstatus.NO_CONTENT);
+
+            const getRes3 = await request(testServer)
+                .get(trainingurl)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            assert.strictEqual(getRes3.body.length, 1);
+            assert.strictEqual(getRes3.header['content-range'], 'items 0-0/1');
+
+            await store.deleteEntireUser(userid, classid);
         });
 
 
@@ -1407,36 +1328,30 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            const getRes1 = await request(testServer)
                 .get(trainingurl)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.length, 2);
-                    assert.strictEqual(res.header['content-range'], 'items 0-1/2');
+                .expect(httpstatus.OK);
 
-                    return request(testServer)
-                        .delete(trainingurl + '/' + body[0].id)
-                        .expect(httpstatus.NO_CONTENT);
-                })
-                .then(() => {
-                    return request(testServer)
-                        .get(trainingurl)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK)
-                        .then((res) => {
-                            const body = res.body;
-                            assert.strictEqual(body.length, 1);
-                            assert.strictEqual(res.header['content-range'], 'items 0-0/1');
-                        });
-                })
-                .then(async () => {
-                    const job = await store.getNextPendingJob();
-                    assert(!job);
+            assert.strictEqual(getRes1.body.length, 2);
+            assert.strictEqual(getRes1.header['content-range'], 'items 0-1/2');
 
-                    return store.deleteEntireProject(userid, classid, project);
-                });
+            await request(testServer)
+                .delete(trainingurl + '/' + getRes1.body[0].id)
+                .expect(httpstatus.NO_CONTENT);
+
+            const getRes2 = await request(testServer)
+                .get(trainingurl)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            assert.strictEqual(getRes2.body.length, 1);
+            assert.strictEqual(getRes2.header['content-range'], 'items 0-0/1');
+
+            const job = await store.getNextPendingJob();
+            assert(!job);
+
+            await store.deleteEntireProject(userid, classid, project);
         });
 
 
@@ -1460,54 +1375,47 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            const getRes1 = await request(testServer)
                 .get(trainingurl)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.length, 2);
-                    assert.strictEqual(res.header['content-range'], 'items 0-1/2');
+                .expect(httpstatus.OK);
 
-                    return request(testServer)
-                        .delete(trainingurl + '/' + trainingOne.id)
-                        .expect(httpstatus.NO_CONTENT);
-                })
-                .then(async () => {
-                    const job = await store.getNextPendingJob();
-                    assert(job);
-                    if (job) {
-                        assert.strictEqual(job.jobtype, 1);
-                        assert.strictEqual(job.attempts, 0);
-                        assert.deepStrictEqual(job.jobdata, {
-                            projectid, userid, classid,
-                            objectid : trainingOne.id,
-                        });
+            assert.strictEqual(getRes1.body.length, 2);
+            assert.strictEqual(getRes1.header['content-range'], 'items 0-1/2');
 
-                        await store.deletePendingJob(job);
-                    }
+            await request(testServer)
+                .delete(trainingurl + '/' + trainingOne.id)
+                .expect(httpstatus.NO_CONTENT);
 
-                    return request(testServer)
-                        .get(trainingurl)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK)
-                        .then((res) => {
-                            const body = res.body;
-                            assert.strictEqual(body.length, 1);
-                            assert.strictEqual(res.header['content-range'], 'items 0-0/1');
-                        });
-                })
-                .then(() => {
-                    return request(testServer)
-                        .delete(trainingurl + '/' + trainingTwo.id)
-                        .expect(httpstatus.NO_CONTENT);
-                })
-                .then(async () => {
-                    const job = await store.getNextPendingJob();
-                    assert(!job);
-
-                    return store.deleteEntireProject(userid, classid, project);
+            const job = await store.getNextPendingJob();
+            assert(job);
+            if (job) {
+                assert.strictEqual(job.jobtype, 1);
+                assert.strictEqual(job.attempts, 0);
+                assert.deepStrictEqual(job.jobdata, {
+                    projectid, userid, classid,
+                    objectid : trainingOne.id,
                 });
+
+                await store.deletePendingJob(job);
+            }
+
+            const getRes2 = await request(testServer)
+                .get(trainingurl)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            assert.strictEqual(getRes2.body.length, 1);
+            assert.strictEqual(getRes2.header['content-range'], 'items 0-0/1');
+
+            await request(testServer)
+                .delete(trainingurl + '/' + trainingTwo.id)
+                .expect(httpstatus.NO_CONTENT);
+
+            const job2 = await store.getNextPendingJob();
+            assert(!job2);
+
+            await store.deleteEntireProject(userid, classid, project);
         });
 
 
@@ -1531,33 +1439,27 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            const getRes1 = await request(testServer)
                 .get(trainingurl)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.length, 2);
-                    assert.strictEqual(res.header['content-range'], 'items 0-1/2');
+                .expect(httpstatus.OK);
 
-                    return request(testServer)
-                        .delete(trainingurl + '/' + body[0].id)
-                        .expect(httpstatus.NO_CONTENT);
-                })
-                .then(() => {
-                    return request(testServer)
-                        .get(trainingurl)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK)
-                        .then((res) => {
-                            const body = res.body;
-                            assert.strictEqual(body.length, 1);
-                            assert.strictEqual(res.header['content-range'], 'items 0-0/1');
-                        });
-                })
-                .then(() => {
-                    return store.deleteEntireProject(userid, classid, project);
-                });
+            assert.strictEqual(getRes1.body.length, 2);
+            assert.strictEqual(getRes1.header['content-range'], 'items 0-1/2');
+
+            await request(testServer)
+                .delete(trainingurl + '/' + getRes1.body[0].id)
+                .expect(httpstatus.NO_CONTENT);
+
+            const getRes2 = await request(testServer)
+                .get(trainingurl)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            assert.strictEqual(getRes2.body.length, 1);
+            assert.strictEqual(getRes2.header['content-range'], 'items 0-0/1');
+
+            await store.deleteEntireProject(userid, classid, project);
         });
 
     });
@@ -1590,21 +1492,15 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            await request(testServer)
                 .delete(projecturl)
-                .expect(httpstatus.NO_CONTENT)
-                .then(async () => {
-                    const count = await store.countTraining('text', projectid);
-                    assert.strictEqual(count, 0);
+                .expect(httpstatus.NO_CONTENT);
 
-                    try {
-                        await store.getProject(projectid);
-                        assert.fail('should not be here');
-                    }
-                    catch (err) {
-                        assert(err);
-                    }
-                });
+            const count = await store.countTraining('text', projectid);
+            assert.strictEqual(count, 0);
+
+            const check = await store.getProject(projectid)
+            assert.ifError(check);
         });
 
     });
@@ -1629,19 +1525,14 @@ describe('REST API - training', () => {
                 'testlabel',
                 false);
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/training/' + trainingitem.id)
                 .expect('Content-Type', /octet-stream/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    return writeDataToTempFile(res.body);
-                })
-                .then((retrievedFile) => {
-                    return filecomparepromise('./src/tests/utils/resources/mccarthy.jpg', retrievedFile);
-                })
-                .then(() => {
-                    return store.deleteEntireProject(userid, classid, project);
-                });
+                .expect(httpstatus.OK);
+
+            const retrievedFile = await writeDataToTempFile(res.body);
+            await filecomparepromise('./src/tests/utils/resources/mccarthy.jpg', retrievedFile);
+            await store.deleteEntireProject(userid, classid, project);
         });
 
 
@@ -1661,22 +1552,21 @@ describe('REST API - training', () => {
                 'testlabel',
                 false);
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/training/' + trainingitem.id)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CONFLICT)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, {
-                        code: 'MLMOD12',
-                        error: 'One of your training images could not be downloaded',
-                        location: {
-                            type: 'download',
-                            imageid: trainingitem.id,
-                            url: 'https://this-is-not-a-real-web-address/pretend-image.png'
-                        }
-                    });
-                    return store.deleteEntireProject(userid, classid, project);
-                });
+                .expect(httpstatus.CONFLICT);
+
+            assert.deepStrictEqual(res.body, {
+                code: 'MLMOD12',
+                error: 'One of your training images could not be downloaded',
+                location: {
+                    type: 'download',
+                    imageid: trainingitem.id,
+                    url: 'https://this-is-not-a-real-web-address/pretend-image.png'
+                }
+            });
+            await store.deleteEntireProject(userid, classid, project);
         });
 
 
@@ -1690,47 +1580,33 @@ describe('REST API - training', () => {
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/training/' + uuid())
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_FOUND)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, {
-                        error : 'Not found',
-                    });
-                    return store.deleteEntireProject(userid, classid, project);
-                });
+                .expect(httpstatus.NOT_FOUND);
+
+            assert.deepStrictEqual(res.body, {
+                error : 'Not found',
+            });
+            await store.deleteEntireProject(userid, classid, project);
         });
 
     });
 
 
-    function writeDataToTempFile(data: Buffer): Promise<string> {
-        return new Promise((resolve, reject) => {
-            tmp.file((err, path) => {
-                if (err) {
-                    return reject(err);
-                }
-                fs.writeFile(path, data, (fserr) => {
-                    if (fserr) {
-                        return reject(fserr);
-                    }
-                    return resolve(path);
-                });
-            });
-        });
+    const tmpFile = promisify(tmp.file);
+    const fsWriteFile = promisify(fs.writeFile);
+    const filecomparePromise = promisify(filecompare);
+
+    async function writeDataToTempFile(data: Buffer): Promise<string> {
+        const path = await tmpFile();
+        await fsWriteFile(path, data);
+        return path;
     }
 
-    function filecomparepromise(filea: string, fileb: string): Promise<void> {
-        return new Promise((resolve, reject) => {
-            filecompare(filea, fileb, (isEq: boolean) => {
-                if (isEq) {
-                    return resolve();
-                }
-                assert(isEq, filea + ' ' + fileb);
-                return reject(new Error('files do not match'));
-            });
-        });
+    async function filecomparepromise(filea: string, fileb: string): Promise<void> {
+        const isEq = await filecomparePromise(filea, fileb);
+        assert(isEq, filea + ' ' + fileb);
     }
 
 

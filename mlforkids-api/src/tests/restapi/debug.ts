@@ -1,5 +1,4 @@
-/*eslint-env mocha */
-
+import { describe, it, before } from 'node:test';
 import * as request from 'supertest';
 import { status as httpStatus } from 'http-status';
 import * as express from 'express';
@@ -16,22 +15,22 @@ describe('REST API - debug', () => {
         testServer = testServerSetup();
     });
 
-    function checkDebug(code: number) {
-        return request(testServer)
+    async function checkDebug(code: number) {
+        await request(testServer)
             .get('/api/debug/errors/' + code)
             .expect('Content-Type', /json/)
             .expect(code);
     }
 
     describe('debug APIs', () => {
-        it('200', () => { return checkDebug(httpStatus.OK); });
-        it('400', () => { return checkDebug(httpStatus.BAD_REQUEST); });
-        it('401', () => { return checkDebug(httpStatus.UNAUTHORIZED); });
-        it('403', () => { return checkDebug(httpStatus.FORBIDDEN); });
-        it('404', () => { return checkDebug(httpStatus.NOT_FOUND); });
-        it('413', () => { return checkDebug(httpStatus.REQUEST_ENTITY_TOO_LARGE); });
-        it('500', () => { return checkDebug(httpStatus.INTERNAL_SERVER_ERROR); });
-        it('501', () => { return checkDebug(httpStatus.NOT_IMPLEMENTED); });
-        it('503', () => { return checkDebug(httpStatus.SERVICE_UNAVAILABLE); });
+        it('200', async () => { await checkDebug(httpStatus.OK); });
+        it('400', async () => { await checkDebug(httpStatus.BAD_REQUEST); });
+        it('401', async () => { await checkDebug(httpStatus.UNAUTHORIZED); });
+        it('403', async () => { await checkDebug(httpStatus.FORBIDDEN); });
+        it('404', async () => { await checkDebug(httpStatus.NOT_FOUND); });
+        it('413', async () => { await checkDebug(httpStatus.REQUEST_ENTITY_TOO_LARGE); });
+        it('500', async () => { await checkDebug(httpStatus.INTERNAL_SERVER_ERROR); });
+        it('501', async () => { await checkDebug(httpStatus.NOT_IMPLEMENTED); });
+        it('503', async () => { await checkDebug(httpStatus.SERVICE_UNAVAILABLE); });
     });
 });

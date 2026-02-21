@@ -28,6 +28,8 @@
     "**/node_modules/**",
     "public/**",
     "resources/**",
-    "web/**"
+    "web/**",
+    "build-scripts/*",
+    "custom_typings/**"
   ]
 }

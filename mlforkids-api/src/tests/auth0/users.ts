@@ -1,4 +1,4 @@
-/*eslint-env mocha */
+import { describe, it } from 'node:test';
 import * as assert from 'assert';
 import * as sinon from 'sinon';
 import * as randomstring from 'randomstring';
@@ -26,54 +26,46 @@ describe.skip('auth0 users', () => {
 
     describe('getStudents()', () => {
 
-        it('should return an empty list', () => {
+        it('should return an empty list', async () => {
             const stubs = {
                 getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
                 getUsers : sinon.stub(auth0, 'getUsers').callsFake(mocks.getUsers.empty),
             };
 
-            return users.getAllStudents('empty', authtypes.ALL_STUDENTS)
-                .then((students) => {
-                    assert(Array.isArray(students));
-                    assert.strictEqual(students.length, 0);
-                })
-                .then(function restore() {
-                    stubs.getOauthToken.restore();
-                    stubs.getUsers.restore();
-                });
+            const students = await users.getAllStudents('empty', authtypes.ALL_STUDENTS);
+            assert(Array.isArray(students));
+            assert.strictEqual(students.length, 0);
+
+            stubs.getOauthToken.restore();
+            stubs.getUsers.restore();
         });
 
 
-        it('should return student objects', () => {
+        it('should return student objects', async () => {
             const stubs = {
                 getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
                 getUsers : sinon.stub(auth0, 'getUsers').callsFake(mocks.getUsers.single),
             };
 
-            return users.getAllStudents('single', authtypes.ALL_STUDENTS)
-                .then((students) => {
-                    assert(Array.isArray(students));
-                    assert.strictEqual(students.length, 1);
-                    assert.strictEqual(Object.keys(students[0]).length, 3);
-                    assert(students[0].id);
-                    assert(students[0].username);
-                    assert(students[0].last_login);
-                })
-                .then(function restore() {
-                    stubs.getOauthToken.restore();
-                    stubs.getUsers.restore();
-                });
+            const students = await users.getAllStudents('single', authtypes.ALL_STUDENTS);
+            assert(Array.isArray(students));
+            assert.strictEqual(students.length, 1);
+            assert.strictEqual(Object.keys(students[0]).length, 3);
+            assert(students[0].id);
+            assert(students[0].username);
+            assert(students[0].last_login);
+
+            stubs.getOauthToken.restore();
+            stubs.getUsers.restore();
         });
 
-        (process.env.TRAVIS ? it.skip : it)('should fetch students', () => {
-            return users.getAllStudents(TESTTENANT, authtypes.ALL_STUDENTS)
-                .then((students) => {
-                    assert(Array.isArray(students));
-                    students.forEach((student) => {
-                        assert(student.id);
-                        assert(student.username);
-                    });
-                });
+        (process.env.TRAVIS ? it.skip : it)('should fetch students', async () => {
+            const students = await users.getAllStudents(TESTTENANT, authtypes.ALL_STUDENTS);
+            assert(Array.isArray(students));
+            students.forEach((student) => {
+                assert(student.id);
+                assert(student.username);
+            });
         });
 
         async function createMultipleUsersWithWaits() {
@@ -113,154 +105,98 @@ describe.skip('auth0 users', () => {
             }
         }
 
-        it.skip('should fetch students in a group', () => {
-            let testusers: authtypes.UserCreds[];
+        it.skip('should fetch students in a group', async () => {
+            const testusers = await createMultipleUsersWithWaits();
+            await pause();
 
-            return createMultipleUsersWithWaits()
-                .then((output) => {
-                    testusers = output;
-                    return pause();
-                })
-                .then(() => {
-                    return users.getAllStudents(TESTTENANT, 'ALL');
-                })
-                .then((resp) => {
-                    assert.strictEqual(resp.length, 6);
-                    return pause();
-                })
-                .then(() => {
-                    return users.getAllStudents(TESTTENANT, 'fruit');
-                })
-                .then((resp) => {
-                    assert.strictEqual(resp.length, 3);
-                    return pause();
-                })
-                .then(() => {
-                    return users.getAllStudents(TESTTENANT, 'animal');
-                })
-                .then((resp) => {
-                    assert.strictEqual(resp.length, 2);
-                    return pause();
-                })
-                .then(() => {
-                    return users.getAllStudents(TESTTENANT, '');
-                })
-                .then((resp) => {
-                    assert.strictEqual(resp.length, 1);
-                    assert.strictEqual(resp[0].username, 'notinagroup');
-                    return pause();
-                })
-                .then(() => {
-                    return users.getAllStudents(TESTTENANT, authtypes.UNGROUPED_STUDENTS);
-                })
-                .then((resp) => {
-                    assert.strictEqual(resp.length, 1);
-                    assert.strictEqual(resp[0].username, 'notinagroup');
-                    return pause();
-                })
-                .then(() => {
-                    return deleteMultipleStudentsWithWaits(testusers);
-                });
+            let resp = await users.getAllStudents(TESTTENANT, 'ALL');
+            assert.strictEqual(resp.length, 6);
+            await pause();
+
+            resp = await users.getAllStudents(TESTTENANT, 'fruit');
+            assert.strictEqual(resp.length, 3);
+            await pause();
+
+            resp = await users.getAllStudents(TESTTENANT, 'animal');
+            assert.strictEqual(resp.length, 2);
+            await pause();
+
+            resp = await users.getAllStudents(TESTTENANT, '');
+            assert.strictEqual(resp.length, 1);
+            assert.strictEqual(resp[0].username, 'notinagroup');
+            await pause();
+
+            resp = await users.getAllStudents(TESTTENANT, authtypes.UNGROUPED_STUDENTS);
+            assert.strictEqual(resp.length, 1);
+            assert.strictEqual(resp[0].username, 'notinagroup');
+            await pause();
+
+            await deleteMultipleStudentsWithWaits(testusers);
         });
     });
 
 
     (process.env.TRAVIS ? describe.skip : describe)('addStudentToGroup', () => {
 
-        it('should add a student to a group', () => {
-            let testuser: authtypes.UserCreds;
+        it('should add a student to a group', async () => {
             const MYGROUP = 'Friendly Students';
-            return users.createStudent(TESTTENANT, 'mytestuser')
-                .then((created) => {
-                    testuser = created;
-                    return pause();
-                })
-                .then(() => {
-                    return users.getAllStudents(TESTTENANT, MYGROUP);
-                })
-                .then((fetched) => {
-                    assert.strictEqual(fetched.length, 0);
-                    return pause();
-                })
-                .then(() => {
-                    return users.addStudentsToGroup(TESTTENANT, [ testuser.id ], MYGROUP);
-                })
-                .then((upd) => {
-                    assert.strictEqual(upd.length, 1);
-                    assert.deepStrictEqual(upd[0].app_metadata, {
-                        tenant : TESTTENANT,
-                        role : 'student',
-                        group : MYGROUP,
-                    });
-                    return pause();
-                })
-                .then(() => {
-                    return users.getAllStudents(TESTTENANT, MYGROUP);
-                })
-                .then((fetched) => {
-                    assert.strictEqual(fetched.length, 1);
-                    assert.strictEqual(fetched[0].id, testuser.id);
-                    return pause();
-                })
-                .then(() => {
-                    return users.deleteStudent(TESTTENANT, testuser.id);
-                });
+            const testuser = await users.createStudent(TESTTENANT, 'mytestuser');
+            await pause();
+
+            let fetched = await users.getAllStudents(TESTTENANT, MYGROUP);
+            assert.strictEqual(fetched.length, 0);
+            await pause();
+
+            const upd = await users.addStudentsToGroup(TESTTENANT, [ testuser.id ], MYGROUP);
+            assert.strictEqual(upd.length, 1);
+            assert.deepStrictEqual(upd[0].app_metadata, {
+                tenant : TESTTENANT,
+                role : 'student',
+                group : MYGROUP,
+            });
+            await pause();
+
+            fetched = await users.getAllStudents(TESTTENANT, MYGROUP);
+            assert.strictEqual(fetched.length, 1);
+            assert.strictEqual(fetched[0].id, testuser.id);
+            await pause();
+
+            await users.deleteStudent(TESTTENANT, testuser.id);
         });
 
 
-        it('should remove a student from a group', () => {
-            let testuser: authtypes.UserCreds;
+        it('should remove a student from a group', async () => {
             const MYGROUP = 'Unfriendly Students';
-            return users.createStudent(TESTTENANT, 'myothertestuser', MYGROUP)
-                .then((created) => {
-                    testuser = created;
-                    return pause();
-                })
-                .then(() => {
-                    return users.getAllStudents(TESTTENANT, MYGROUP);
-                })
-                .then((fetched) => {
-                    assert.strictEqual(fetched.length, 1);
-                    assert.strictEqual(fetched[0].id, testuser.id);
-                    return pause();
-                })
-                .then(() => {
-                    return users.getAllStudents(TESTTENANT, authtypes.UNGROUPED_STUDENTS);
-                })
-                .then((fetched) => {
-                    assert.strictEqual(fetched.length, 0);
-                    return pause();
-                })
+            const testuser = await users.createStudent(TESTTENANT, 'myothertestuser', MYGROUP);
+            await pause();
 
-                .then(() => {
-                    return users.addStudentsToGroup(TESTTENANT, [ testuser.id ], authtypes.UNGROUPED_STUDENTS);
-                })
-                .then((upd) => {
-                    assert.strictEqual(upd.length, 1);
-                    assert.deepStrictEqual(upd[0].app_metadata, {
-                        tenant : TESTTENANT,
-                        role : 'student'
-                    });
-                    return pause();
-                })
-                .then(() => {
-                    return users.getAllStudents(TESTTENANT, MYGROUP);
-                })
-                .then((fetched) => {
-                    assert.strictEqual(fetched.length, 0);
-                    return pause();
-                })
-                .then(() => {
-                    return users.getAllStudents(TESTTENANT, authtypes.UNGROUPED_STUDENTS);
-                })
-                .then((fetched) => {
-                    assert.strictEqual(fetched.length, 1);
-                    assert.strictEqual(fetched[0].id, testuser.id);
-                    return pause();
-                })
-                .then(() => {
-                    return users.deleteStudent(TESTTENANT, testuser.id);
-                });
+            let fetched = await users.getAllStudents(TESTTENANT, MYGROUP);
+            assert.strictEqual(fetched.length, 1);
+            assert.strictEqual(fetched[0].id, testuser.id);
+            await pause();
+
+            fetched = await users.getAllStudents(TESTTENANT, authtypes.UNGROUPED_STUDENTS);
+            assert.strictEqual(fetched.length, 0);
+            await pause();
+
+            const upd = await users.addStudentsToGroup(TESTTENANT, [ testuser.id ], authtypes.UNGROUPED_STUDENTS);
+            assert.strictEqual(upd.length, 1);
+            assert.deepStrictEqual(upd[0].app_metadata, {
+                tenant : TESTTENANT,
+                role : 'student'
+            });
+            await pause();
+
+            fetched = await users.getAllStudents(TESTTENANT, MYGROUP);
+            assert.strictEqual(fetched.length, 0);
+            await pause();
+
+            fetched = await users.getAllStudents(TESTTENANT, authtypes.UNGROUPED_STUDENTS);
+            assert.strictEqual(fetched.length, 1);
+            assert.strictEqual(fetched[0].id, testuser.id);
+            await pause();
+
+            await users.deleteStudent(TESTTENANT, testuser.id);
         });
     });
 
@@ -268,19 +204,17 @@ describe.skip('auth0 users', () => {
 
     describe('countStudents', () => {
 
-        it('should fetch a count of students', () => {
+        it('should fetch a count of students', async () => {
             const stubs = {
                 getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
                 getUserCountsStub : sinon.stub(auth0, 'getUserCounts').callsFake(mocks.getUserCounts),
             };
 
-            return users.countUsers(TESTTENANT)
-                .then((count) => {
-                    assert.strictEqual(count, 5);
+            const count = await users.countUsers(TESTTENANT);
+            assert.strictEqual(count, 5);
 
-                    stubs.getOauthToken.restore();
-                    stubs.getUserCountsStub.restore();
-                });
+            stubs.getOauthToken.restore();
+            stubs.getUserCountsStub.restore();
         });
     });
 

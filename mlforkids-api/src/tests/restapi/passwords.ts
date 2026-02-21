@@ -1,5 +1,4 @@
-/*eslint-env mocha */
-
+import { describe, it, before, after } from 'node:test';
 import * as assert from 'assert';
 import * as sinon from 'sinon';
 import * as request from 'supertest';
@@ -57,46 +56,43 @@ describe('REST API - users', () => {
 
     describe('generatePassword()', () => {
 
-        it('should check the class matches', () => {
+        it('should check the class matches', async () => {
             nextUser = AUTH_USERS.OTHERCLASS;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/CLASSID/passwords')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.FORBIDDEN)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, {
-                        error : 'Invalid access',
-                    });
-                });
+                .expect(httpstatus.FORBIDDEN);
+
+            assert.deepStrictEqual(res.body, {
+                error : 'Invalid access',
+            });
         });
 
-        it('should reject requests from students', () => {
+        it('should reject requests from students', async () => {
             nextUser = AUTH_USERS.STUDENT;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/CLASSID/passwords')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.FORBIDDEN)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, {
-                        error : 'Only supervisors are allowed to invoke this',
-                    });
-                });
+                .expect(httpstatus.FORBIDDEN);
+
+            assert.deepStrictEqual(res.body, {
+                error : 'Only supervisors are allowed to invoke this',
+            });
         });
 
-        it('should return a password', () => {
+        it('should return a password', async () => {
             nextUser = AUTH_USERS.TEACHER;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/CLASSID/passwords')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    assert(res.body.password);
-                    assert.strictEqual(typeof res.body.password, 'string');
-                    assert(res.body.password.length > 8);
-                });
+                .expect(httpstatus.OK);
+
+            assert(res.body.password);
+            assert.strictEqual(typeof res.body.password, 'string');
+            assert(res.body.password.length > 8);
         });
 
         it('should return unique passwords', async () => {

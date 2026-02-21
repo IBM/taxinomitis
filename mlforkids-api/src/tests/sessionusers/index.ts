@@ -1,4 +1,4 @@
-/*eslint-env mocha */
+import { describe, it, before, beforeEach, after } from 'node:test';
 import * as assert from 'assert';
 import * as sinon from 'sinon';
 import * as store from '../../lib/db/store';
@@ -8,7 +8,7 @@ import * as sessionusers from '../../lib/sessionusers';
 
 
 
-describe('session users', () => {
+describe('session users', { concurrency: false }, () => {
 
     let clock: sinon.SinonFakeTimers;
 
@@ -29,7 +29,7 @@ describe('session users', () => {
     after(async () => {
         clock.restore();
 
-        return store.disconnect();
+        await store.disconnect();
     });
 
 
@@ -56,15 +56,12 @@ describe('session users', () => {
 
             const fillers: Objects.TemporaryUser[] = await Promise.all(setupPromises);
 
-            try {
-                await sessionusers.createSessionUser();
-                assert.fail('should not get here');
-            }
-            catch (e) {
-                assert.strictEqual(e.message, sessionusers.ERROR_MESSAGES.CLASS_FULL);
+            await assert.rejects(
+                () => sessionusers.createSessionUser(),
+                { message: sessionusers.ERROR_MESSAGES.CLASS_FULL }
+            );
 
-                await store.bulkDeleteTemporaryUsers(fillers);
-            }
+            await store.bulkDeleteTemporaryUsers(fillers);
         });
     });
 
@@ -92,18 +89,12 @@ describe('session users', () => {
 
 
         it('should handle deleting non-existing users', async () => {
-            try {
-                await sessionusers.deleteSessionUser({
-                    id : 'DOES-NOT-EXIST',
-                    token : 'DOES-NOT-EXIST',
-                    sessionExpiry : new Date(),
-                });
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Failed to delete temporary user');
-            }
+            await sessionusers.deleteSessionUser({
+                id : 'DOES-NOT-EXIST',
+                token : 'DOES-NOT-EXIST',
+                sessionExpiry : new Date(),
+            });
         });
-
     });
 
 

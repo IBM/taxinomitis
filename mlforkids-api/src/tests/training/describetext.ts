@@ -1,5 +1,4 @@
-/*eslint-env mocha */
-
+import { describe, it, before, after } from 'node:test';
 import { v1 as uuid } from 'uuid';
 import * as assert from 'assert';
 
@@ -42,11 +41,9 @@ describe('Training - describe text models', () => {
             vizInfo = await modeldescriber.getModelVisualisation(project);
         });
 
-        after(() => {
-            return store.deleteEntireProject(userid, classid, project)
-                .then(() => {
-                    return store.disconnect();
-                });
+        after(async () => {
+            await store.deleteEntireProject(userid, classid, project);
+            await store.disconnect();
         });
 
 
@@ -178,11 +175,9 @@ describe('Training - describe text models', () => {
             vizInfo = await modeldescriber.getModelVisualisation(project);
         });
 
-        after(() => {
-            return store.deleteEntireProject(userid, classid, project)
-                .then(() => {
-                    return store.disconnect();
-                });
+        after(async () => {
+            await store.deleteEntireProject(userid, classid, project);
+            await store.disconnect();
         });
 
 

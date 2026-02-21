@@ -432,6 +432,7 @@ export async function deleteProjectsByClassId(classid: string): Promise<void>
         await dbExecute(queryName, queryString, queryValues);
     }
     catch (err) {
+        log.error({ err }, 'Failed to delete projects');
         throw new Error('Failed to delete projects');
     }
 }
@@ -637,6 +638,7 @@ export async function deleteTraining(
         await dbExecute(queryName, queryString, queryValues);
     }
     catch (err) {
+        log.error({ err }, 'Failed to delete training');
         throw new Error('Failed to delete training');
     }
 }
@@ -657,6 +659,7 @@ async function deleteTrainingLabel(
         await dbExecute(queryName, queryString, queryValues);
     }
     catch (err) {
+        log.error({ err }, 'Failed to delete label');
         throw new Error('Failed to delete label');
     }
 }
@@ -674,6 +677,7 @@ export async function deleteTrainingByProjectId(type: Objects.ProjectTypeLabel, 
         await dbExecute(queryName, queryString, queryValues);
     }
     catch (err) {
+        log.error({ err }, 'Failed to delete training');
         throw new Error('Failed to delete training');
     }
 }
@@ -1575,6 +1579,7 @@ export async function deleteBluemixCredentials(credentialsid: string): Promise<v
         await dbExecute(queryName, queryString, queryValues);
     }
     catch (err) {
+        log.error({ err }, 'Failed to delete credentials info');
         throw new Error('Failed to delete credentials info');
     }
 }
@@ -1589,6 +1594,7 @@ export async function deleteBluemixCredentialsPool(credentialsid: string): Promi
         await dbExecute(queryName, queryString, queryValues);
     }
     catch (err) {
+        log.error({ err }, 'Failed to delete credentials info');
         throw new Error('Failed to delete credentials info');
     }
 }
@@ -1621,6 +1627,7 @@ export async function deleteClassifiersByCredentials(credentials: TrainingObject
         await dbExecute(queryName, queryString, queryValues);
     }
     catch (err) {
+        log.error({ err }, 'Failed to delete classifiers info');
         throw new Error('Failed to delete classifiers info');
     }
 }
@@ -1757,6 +1764,7 @@ export async function storeNumbersClassifier(
         await dbExecute(queryName, queryString, queryValues);
     }
     catch (err) {
+        log.error({ err }, 'Failed to store classifier');
         throw new Error('Failed to store classifier');
     }
 
@@ -1778,6 +1786,7 @@ export async function deleteNumberClassifier(
         await dbExecute(queryName, queryString, queryValues);
     }
     catch (err) {
+        log.error({ err }, 'Failed to delete classifiers info');
         throw new Error('Failed to delete classifiers info');
     }
 }
@@ -1825,6 +1834,7 @@ export async function deleteConversationWorkspace(id: string): Promise<void>
         await dbExecute(queryName, queryString, queryValues);
     }
     catch (err) {
+        log.error({ err }, 'Failed to delete classifiers info');
         throw new Error('Failed to delete classifiers info');
     }
 }
@@ -1840,6 +1850,7 @@ export async function deleteConversationWorkspacesByProjectId(projectid: string)
         await dbExecute(queryName, queryString, queryValues);
     }
     catch (err) {
+        log.error({ err }, 'Failed to delete classifiers info');
         throw new Error('Failed to delete classifiers info');
     }
 }
@@ -2161,6 +2172,7 @@ export async function deleteScratchKey(id: string): Promise<void>
         await dbExecute(queryName, queryString, queryValues);
     }
     catch (err) {
+        log.error({ err }, 'Failed to delete scratch key info');
         throw new Error('Failed to delete scratch key info');
     }
 }
@@ -2176,6 +2188,7 @@ export async function deleteScratchKeysByProjectId(projectid: string): Promise<v
         await dbExecute(queryName, queryString, queryValues);
     }
     catch (err) {
+        log.error({ err }, 'Failed to delete scratch key info');
         throw new Error('Failed to delete scratch key info');
     }
 }
@@ -2298,7 +2311,7 @@ export async function deletePendingJob(job: Objects.PendingJob): Promise<void>
         await dbExecute(queryName, queryString, queryValues);
     }
     catch (err) {
-        log.error({ job, queryValues }, 'Failed to delete pending job');
+        log.error({ err, job, queryValues }, 'Failed to delete pending job');
         throw new Error('Failed to delete pending job');
     }
 }
@@ -2466,6 +2479,7 @@ export async function deleteClassTenant(classid: string): Promise<void>
         await dbExecute(queryName, queryString, queryValues);
     }
     catch (err) {
+        log.error({ err }, 'Failed to delete class tenant');
         throw new Error('Failed to delete class tenant');
     }
 }
@@ -2543,6 +2557,7 @@ export async function deleteTemporaryUser(user: Objects.TemporaryUser): Promise<
         await dbExecute(queryName, queryString, queryValues);
     }
     catch (err) {
+        log.error({ err }, 'Failed to delete temporary user');
         throw new Error('Failed to delete temporary user');
     }
 }

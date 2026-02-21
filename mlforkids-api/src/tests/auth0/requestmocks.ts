@@ -1,4 +1,3 @@
-/*eslint-env mocha */
 /*eslint no-unused-vars: 0 */
 
 import * as Objects from '../../lib/auth0/auth-types';

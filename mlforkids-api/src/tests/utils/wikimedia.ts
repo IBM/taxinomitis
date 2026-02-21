@@ -1,4 +1,4 @@
-/*eslint-env mocha */
+import { describe, it } from 'node:test';
 import * as assert from 'assert';
 import * as wikimedia from '../../lib/utils/wikimedia';
 
@@ -16,18 +16,14 @@ describe('Utils - wikimedia', () => {
         assert.strictEqual(wikimedia.isWikimedia(INVALID_URLS[0]), false);
     });
 
-    it('should get smaller version of Wikimedia images', () => {
-        return Promise.all(VALID_URLS.map((url) => wikimedia.getThumbnail(url, 244)))
-            .then((responses) => {
-                assert.deepStrictEqual(responses, EXPECTED_URL_THUMBS);
-            });
+    it('should get smaller version of Wikimedia images', async () => {
+        const responses = await Promise.all(VALID_URLS.map((url) => wikimedia.getThumbnail(url, 244)));
+        assert.deepStrictEqual(responses, EXPECTED_URL_THUMBS);
     });
 
-    it('should get smaller version of Wikimedia thumbs', () => {
-        return Promise.all(VALID_THUMBS.map((url) => wikimedia.getThumbnail(url, 244)))
-            .then((responses) => {
-                assert.deepStrictEqual(responses, EXPECTED_THUMB_THUMBS);
-            });
+    it('should get smaller version of Wikimedia thumbs', async () => {
+        const responses = await Promise.all(VALID_THUMBS.map((url) => wikimedia.getThumbnail(url, 244)));
+        assert.deepStrictEqual(responses, EXPECTED_THUMB_THUMBS);
     });
 
     it('should return errors', async () => {

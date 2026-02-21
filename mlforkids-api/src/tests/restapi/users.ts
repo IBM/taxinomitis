@@ -1,5 +1,4 @@
-/*eslint-env mocha */
-
+import { describe, it, before, beforeEach, after, afterEach } from 'node:test';
 import * as assert from 'assert';
 import * as sinon from 'sinon';
 import * as request from 'supertest';
@@ -26,6 +25,7 @@ describe('REST API - users', () => {
     };
 
     let tenantId: string;
+    let sandbox: sinon.SinonSandbox;
 
     let authStub: sinon.SinonStub<[express.Request, express.Response, express.NextFunction], void>;
     let requireSupervisorStub: sinon.SinonStub<[express.Request, express.Response, express.NextFunction], void>;
@@ -57,6 +57,14 @@ describe('REST API - users', () => {
         testServer = testapiserver();
     });
 
+    beforeEach(() => {
+        sandbox = sinon.createSandbox();
+    });
+
+    afterEach(() => {
+        sandbox.restore();
+    });
+
     after(() => {
         authStub.restore();
         requireSupervisorStub.restore();
@@ -66,45 +74,36 @@ describe('REST API - users', () => {
 
     describe('getPolicy()', () => {
 
-        it('should get the restrictions policy', () => {
-            const stubs = {
-                getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
-                createUser : sinon.stub(auth0, 'createUser').callsFake(mocks.createUser.good),
-                getUserCounts : sinon.stub(auth0, 'getUserCounts').callsFake(mocks.getUserCounts),
-            };
+        it('should get the restrictions policy', async () => {
+            sandbox.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good);
+            sandbox.stub(auth0, 'createUser').callsFake(mocks.createUser.good);
+            sandbox.stub(auth0, 'getUserCounts').callsFake(mocks.getUserCounts);
+
             tenantId = 'AN_UNKNOWN_TENANT_ID';
 
-            return store.init()
-                .then(() => {
-                    return request(testServer)
-                        .get('/api/classes/AN_UNKNOWN_TENANT_ID/policy')
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const body = res.body;
+            await store.init();
 
-                    assert.deepStrictEqual(body, {
-                        maxTextModels : 0,
-                        maxUsers: 31,
-                        supportedProjectTypes: [ 'text', 'imgtfjs', 'numbers', 'sounds' ],
-                        tenantType : Types.ClassTenantType.UnManaged,
-                        isManaged : false,
-                        maxProjectsPerUser: 3,
-                        textClassifierExpiry: 24,
-                        textTrainingItemsPerProject : 500,
-                        numberTrainingItemsPerProject : 1000,
-                        numberTrainingItemsPerClassProject : 3000,
-                        imageTrainingItemsPerProject : 250,
-                        soundTrainingItemsPerProject : 100,
-                    });
+            const res = await request(testServer)
+                .get('/api/classes/AN_UNKNOWN_TENANT_ID/policy')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
 
-                    stubs.getOauthToken.restore();
-                    stubs.createUser.restore();
-                    stubs.getUserCounts.restore();
+            assert.deepStrictEqual(res.body, {
+                maxTextModels : 0,
+                maxUsers: 31,
+                supportedProjectTypes: [ 'text', 'imgtfjs', 'numbers', 'sounds' ],
+                tenantType : Types.ClassTenantType.UnManaged,
+                isManaged : false,
+                maxProjectsPerUser: 3,
+                textClassifierExpiry: 24,
+                textTrainingItemsPerProject : 500,
+                numberTrainingItemsPerProject : 1000,
+                numberTrainingItemsPerClassProject : 3000,
+                imageTrainingItemsPerProject : 250,
+                soundTrainingItemsPerProject : 100,
+            });
 
-                    return store.disconnect();
-                });
+            await store.disconnect();
         });
 
     });
@@ -115,11 +114,9 @@ describe('REST API - users', () => {
     describe('deleteStudent()', () => {
 
         it('should delete a student', async () => {
-            const stubs = {
-                getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
-                getUser : sinon.stub(auth0, 'getUser').callsFake(mocks.getUser.johndoe),
-                deleteUser : sinon.stub(auth0, 'deleteUser').callsFake(mocks.deleteUser.good),
-            };
+            sandbox.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good);
+            sandbox.stub(auth0, 'getUser').callsFake(mocks.getUser.johndoe);
+            sandbox.stub(auth0, 'deleteUser').callsFake(mocks.deleteUser.good);
             tenantId = TENANTS.correct;
 
             const userid = 'auth0|58dd72d0b2e87002695249b6';
@@ -144,10 +141,6 @@ describe('REST API - users', () => {
                 });
             }
 
-            stubs.getOauthToken.restore();
-            stubs.getUser.restore();
-            stubs.deleteUser.restore();
-
             return store.disconnect();
         });
 
@@ -159,28 +152,20 @@ describe('REST API - users', () => {
         }
 
 
-        it('should refuse to delete students from a different tenant', () => {
-            const stubs = {
-                getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
-                getUser : sinon.stub(auth0, 'getUser').callsFake(mocks.getUser.johndoe),
-                deleteUser : sinon.stub(auth0, 'deleteUser').callsFake(mocks.deleteUser.good),
-            };
+        it('should refuse to delete students from a different tenant', async () => {
+            sandbox.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good);
+            sandbox.stub(auth0, 'getUser').callsFake(mocks.getUser.johndoe);
+            sandbox.stub(auth0, 'deleteUser').callsFake(mocks.deleteUser.good);
+
             tenantId = TENANTS.incorrect;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .del('/api/classes/' + TENANTS.incorrect + '/students/auth0|58dd72d0b2e87002695249b6')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_FOUND)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.statusCode, 404);
-                    assert.strictEqual(body.error, 'Not Found');
-                })
-                .then(function restore() {
-                    stubs.getOauthToken.restore();
-                    stubs.getUser.restore();
-                    stubs.deleteUser.restore();
-                });
+                .expect(httpstatus.NOT_FOUND);
+
+            assert.strictEqual(res.body.statusCode, 404);
+            assert.strictEqual(res.body.error, 'Not Found');
         });
 
     });
@@ -188,122 +173,103 @@ describe('REST API - users', () => {
 
     describe('createTeacher()', () => {
 
-        it('should require a payload', () => {
-            return request(testServer)
+        it('should require a payload', async () => {
+            const res = await request(testServer)
                 .post('/api/teachers')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, { error: 'Missing data' });
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, { error: 'Missing data' });
         });
 
-        it('should require a username', () => {
-            return request(testServer)
+        it('should require a username', async () => {
+            const res = await request(testServer)
                 .post('/api/teachers')
                 .send({
                     email : 'mickey@disney.com',
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, {
-                        error: 'A username and email address for a class leader ' +
-                               'is required to create a new class',
-                    });
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, {
+                error: 'A username and email address for a class leader ' +
+                       'is required to create a new class',
+            });
         });
 
-        it('should require an email address', () => {
-            return request(testServer)
+        it('should require an email address', async () => {
+            const res = await request(testServer)
                 .post('/api/teachers')
                 .send({
                     username : 'mickeymouse',
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, {
-                        error: 'A username and email address for a class leader ' +
-                               'is required to create a new class',
-                    });
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, {
+                error: 'A username and email address for a class leader ' +
+                       'is required to create a new class',
+            });
         });
 
-        it('should enforce username rules', () => {
-            return request(testServer)
+        it('should enforce username rules', async () => {
+            const res = await request(testServer)
                 .post('/api/teachers')
                 .send({
                     username : 'Mickey Mouse!',
                     email : 'mickey@disney.com',
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, {
-                        error: 'Invalid username. Use letters, numbers, hyphens and underscores, only.',
-                    });
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, {
+                error: 'Invalid username. Use letters, numbers, hyphens and underscores, only.',
+            });
         });
 
-        it('should create a new teacher', () => {
-            const stubs = {
-                getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
-                createUser : sinon.stub(auth0, 'createUser').callsFake(mocks.createUser.good),
-                getUserCounts : sinon.stub(auth0, 'getUserCounts').callsFake(mocks.getUserCounts),
-            };
+        it('should create a new teacher', async () => {
+            sandbox.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good);
+            sandbox.stub(auth0, 'createUser').callsFake(mocks.createUser.good);
+            sandbox.stub(auth0, 'getUserCounts').callsFake(mocks.getUserCounts);
 
-            return request(testServer)
-                    .post('/api/teachers')
-                    .send({
-                        username : 'mickeymouse',
-                        email : 'mickey@disney.com',
-                    })
-                    .expect('Content-Type', /json/)
-                    .expect(httpstatus.CREATED)
-                    .then((res) => {
-                        const body = res.body;
-                        assert(body.id);
-                        assert(body.password);
-                        assert.strictEqual(body.username, 'mickeymouse');
+            const res = await request(testServer)
+                .post('/api/teachers')
+                .send({
+                    username : 'mickeymouse',
+                    email : 'mickey@disney.com',
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CREATED);
 
-                        stubs.getOauthToken.restore();
-                        stubs.createUser.restore();
-                        stubs.getUserCounts.restore();
+            assert(res.body.id);
+            assert(res.body.password);
+            assert.strictEqual(res.body.username, 'mickeymouse');
 
-                        return store.disconnect();
-                    });
+            await store.disconnect();
         });
 
 
-        it('should create a new teacher with explanations', () => {
-            const stubs = {
-                getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
-                createUser : sinon.stub(auth0, 'createUser').callsFake(mocks.createUser.good),
-                getUserCounts : sinon.stub(auth0, 'getUserCounts').callsFake(mocks.getUserCounts),
-            };
+        it('should create a new teacher with explanations', async () => {
+            sandbox.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good);
+            sandbox.stub(auth0, 'createUser').callsFake(mocks.createUser.good);
+            sandbox.stub(auth0, 'getUserCounts').callsFake(mocks.getUserCounts);
 
-            return request(testServer)
-                    .post('/api/teachers')
-                    .send({
-                        username : 'mickeymouse',
-                        email : 'mickey@disney.com',
-                        notes : 'Hello Mickey',
-                    })
-                    .expect('Content-Type', /json/)
-                    .expect(httpstatus.CREATED)
-                    .then((res) => {
-                        const body = res.body;
-                        assert(body.id);
-                        assert(body.password);
-                        assert.strictEqual(body.username, 'mickeymouse');
+            const res = await request(testServer)
+                .post('/api/teachers')
+                .send({
+                    username : 'mickeymouse',
+                    email : 'mickey@disney.com',
+                    notes : 'Hello Mickey',
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CREATED);
 
-                        stubs.getOauthToken.restore();
-                        stubs.createUser.restore();
-                        stubs.getUserCounts.restore();
+            assert(res.body.id);
+            assert(res.body.password);
+            assert.strictEqual(res.body.username, 'mickeymouse');
 
-                        return store.disconnect();
-                    });
+
+            await store.disconnect();
         });
 
     });
@@ -311,238 +277,174 @@ describe('REST API - users', () => {
 
     describe('createStudent()', () => {
 
-        it('should create a new user', () => {
-            const stubs = {
-                getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
-                createUser : sinon.stub(auth0, 'createUser').callsFake(mocks.createUser.good),
-                getUserCounts : sinon.stub(auth0, 'getUserCounts').callsFake(mocks.getUserCounts),
-            };
+        it('should create a new user', async () => {
+
+            sandbox.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good);
+            sandbox.stub(auth0, 'createUser').callsFake(mocks.createUser.good);
+            sandbox.stub(auth0, 'getUserCounts').callsFake(mocks.getUserCounts);
             tenantId = 'mytesttenant';
 
             const username = 'R129' + randomstring.generate({ length : 9, readable : true });
 
-            return store.init()
-                .then(() => {
-                    return request(testServer)
-                        .post('/api/classes/mytesttenant/students')
-                        .send({ username })
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.CREATED);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert(body.id);
-                    assert(body.password);
-                    assert.strictEqual(body.username, username);
+            await store.init();
 
-                    stubs.getOauthToken.restore();
-                    stubs.createUser.restore();
-                    stubs.getUserCounts.restore();
+            const res = await request(testServer)
+                .post('/api/classes/mytesttenant/students')
+                .send({ username })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CREATED);
 
-                    return store.disconnect();
-                });
+            assert(res.body.id);
+            assert(res.body.password);
+            assert.strictEqual(res.body.username, username);
+
+
+            await store.disconnect();
         });
 
 
-        it('should require a username', () => {
-            const stubs = {
-                getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
-                createUser : sinon.stub(auth0, 'createUser').callsFake(mocks.createUser.good),
-            };
+        it('should require a username', async () => {
+
+            sandbox.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good);
+            sandbox.stub(auth0, 'createUser').callsFake(mocks.createUser.good);
             tenantId = 'mytesttenant';
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/classes/mytesttenant/students')
                 .send({})
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.error, 'Missing required field "username"');
-                })
-                .then(function restore() {
-                    stubs.getOauthToken.restore();
-                    stubs.createUser.restore();
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.strictEqual(res.body.error, 'Missing required field "username"');
+
         });
 
 
-        it('should require a valid username', () => {
-            const stubs = {
-                getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
-                createUser : sinon.stub(auth0, 'createUser').callsFake(mocks.createUser.good),
-            };
+        it('should require a valid username', async () => {
+
+            sandbox.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good);
+            sandbox.stub(auth0, 'createUser').callsFake(mocks.createUser.good);
             tenantId = 'mytesttenant';
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/classes/mytesttenant/students')
                 .send({ username : 'Hello World' })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.error,
-                                       'Invalid username. Use letters, numbers, hyphens and underscores, only.');
-                })
-                .then(function restore() {
-                    stubs.getOauthToken.restore();
-                    stubs.createUser.restore();
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.strictEqual(res.body.error,
+                               'Invalid username. Use letters, numbers, hyphens and underscores, only.');
+
         });
 
 
-        it('should enforce limits on number of users in a class', () => {
-            const stubs = {
-                getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
-                createUser : sinon.stub(auth0, 'createUser').callsFake(mocks.createUser.good),
-                getUserCounts : sinon.stub(auth0, 'getUserCounts').resolves({
-                    users: [], total : 31, start : 0, limit : 31, length : 31 }),
-            };
+        it('should enforce limits on number of users in a class', async () => {
+
+            sandbox.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good);
+            sandbox.stub(auth0, 'createUser').callsFake(mocks.createUser.good);
+            sandbox.stub(auth0, 'getUserCounts').resolves({ users: [], total : 31, start : 0, limit : 31, length : 31 });
             tenantId = 'mytesttenant';
 
-            return store.init()
-                .then(() => {
-                    return request(testServer)
-                        .post('/api/classes/mytesttenant/students')
-                        .send({ username : 'HelloWorld' })
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.CONFLICT);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.error, 'Class already has maximum allowed number of students');
+            await store.init();
 
-                    stubs.getOauthToken.restore();
-                    stubs.createUser.restore();
-                    stubs.getUserCounts.restore();
+            const res = await request(testServer)
+                .post('/api/classes/mytesttenant/students')
+                .send({ username : 'HelloWorld' })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CONFLICT);
 
-                    return store.disconnect();
-                });
+            assert.strictEqual(res.body.error, 'Class already has maximum allowed number of students');
+
+
+            await store.disconnect();
         });
     });
 
 
     describe('getStudents()', () => {
 
-        it('should cope with an empty list', () => {
-            const stubs = {
-                getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
-                getUsers : sinon.stub(auth0, 'getUsers').callsFake(mocks.getUsers.empty),
-            };
+        it('should cope with an empty list', async () => {
+
+            sandbox.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good);
+            sandbox.stub(auth0, 'getUsers').callsFake(mocks.getUsers.empty);
             tenantId = 'empty';
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/empty/students')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.length, 0);
-                    assert(Array.isArray(body));
-                })
-                .then(function restore() {
-                    stubs.getOauthToken.restore();
-                    stubs.getUsers.restore();
-                });
+                .expect(httpstatus.OK);
+
+            assert.strictEqual(res.body.length, 0);
+            assert(Array.isArray(res.body));
         });
 
-        it('should cope with a class with one student', () => {
-            const stubs = {
-                getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
-                getUsers : sinon.stub(auth0, 'getUsers').callsFake(mocks.getUsers.single),
-            };
+        it('should cope with a class with one student', async () => {
+
+            sandbox.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good);
+            sandbox.stub(auth0, 'getUsers').callsFake(mocks.getUsers.single);
             tenantId = 'single';
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/single/students')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.length, 1);
-                    assert(Array.isArray(body));
-                })
-                .then(function restore() {
-                    stubs.getOauthToken.restore();
-                    stubs.getUsers.restore();
-                });
+                .expect(httpstatus.OK);
+
+            assert.strictEqual(res.body.length, 1);
+            assert(Array.isArray(res.body));
+
         });
 
-        it('should cope with errors', () => {
-            const stubs = {
-                getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
-                getUsers : sinon.stub(auth0, 'getUsers').callsFake(mocks.getUsers.error),
-            };
+        it('should cope with errors', async () => {
+
+            sandbox.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good);
+            sandbox.stub(auth0, 'getUsers').callsFake(mocks.getUsers.error);
             tenantId = 'single';
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/single/students')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.INTERNAL_SERVER_ERROR)
-                .then((res) => {
-                    const body = res.body;
-                    assert(body.error);
-                })
-                .then(function restore() {
-                    stubs.getOauthToken.restore();
-                    stubs.getUsers.restore();
-                });
+                .expect(httpstatus.INTERNAL_SERVER_ERROR);
+
+            assert(res.body.error);
         });
     });
 
     describe('resetPassword()', () => {
 
-        it('should reset passwords for a user', () => {
-            const stubs = {
-                getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
-                getUser : sinon.stub(auth0, 'getUser').callsFake(mocks.getUser.johndoe),
-                modifyUser : sinon.stub(auth0, 'modifyUser').callsFake(mocks.modifyUser.good),
-            };
+        it('should reset passwords for a user', async () => {
+
+            sandbox.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good);
+            sandbox.stub(auth0, 'getUser').callsFake(mocks.getUser.johndoe);
+            sandbox.stub(auth0, 'modifyUser').callsFake(mocks.modifyUser.good);
             tenantId = TENANTS.correct;
 
             const userid = 'auth0|58dd72d0b2e87002695249b6';
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/classes/' + TENANTS.correct + '/students/' + userid + '/password')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.id, userid);
-                    assert(body.username);
-                    assert(body.password);
-                })
-                .then(function restore() {
-                    stubs.getOauthToken.restore();
-                    stubs.getUser.restore();
-                    stubs.modifyUser.restore();
-                });
+                .expect(httpstatus.OK);
+
+            assert.strictEqual(res.body.id, userid);
+            assert(res.body.username);
+            assert(res.body.password);
         });
 
-        it('should refuse to reset passwords for students in a different tenant', () => {
-            const stubs = {
-                getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
-                getUser : sinon.stub(auth0, 'getUser').callsFake(mocks.getUser.johndoe),
-                modifyUser : sinon.stub(auth0, 'modifyUser').callsFake(mocks.modifyUser.good),
-            };
+        it('should refuse to reset passwords for students in a different tenant', async () => {
+
+            sandbox.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good);
+            sandbox.stub(auth0, 'getUser').callsFake(mocks.getUser.johndoe);
+            sandbox.stub(auth0, 'modifyUser').callsFake(mocks.modifyUser.good);
             tenantId = TENANTS.incorrect;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/classes/' + TENANTS.incorrect + '/students/auth0|58dd72d0b2e87002695249b6/password')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_FOUND)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.statusCode, 404);
-                    assert.strictEqual(body.error, 'Not Found');
-                })
-                .then(function restore() {
-                    stubs.getOauthToken.restore();
-                    stubs.getUser.restore();
-                    stubs.modifyUser.restore();
-                });
+                .expect(httpstatus.NOT_FOUND);
+
+            assert.strictEqual(res.body.statusCode, 404);
+            assert.strictEqual(res.body.error, 'Not Found');
         });
 
     });
-
 });

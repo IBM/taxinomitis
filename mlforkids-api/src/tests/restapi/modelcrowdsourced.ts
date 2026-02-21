@@ -1,4 +1,4 @@
-/*eslint-env mocha */
+import { describe, it, before, beforeEach, after } from 'node:test';
 import { v1 as uuid } from 'uuid';
 import * as assert from 'assert';
 import * as sinon from 'sinon';
@@ -17,7 +17,7 @@ import testapiserver from './testserver';
 let testServer: express.Express;
 
 
-const TESTCLASS = 'UNIQUECLASSID';
+const TESTCLASS = 'UNIQUECLASSIDCRD';
 
 
 describe('REST API - shared models', () => {
@@ -131,31 +131,30 @@ describe('REST API - shared models', () => {
         nextAuth0UserTenant = requester.class;
         nextAuth0UserRole = requester.role;
 
-        return request(testServer)
+        const res = await request(testServer)
             .post('/api/classes/' + project.classid + '/students/' + project.userid + '/projects/' + project.id + '/models')
             .expect('Content-Type', /json/)
-            .expect(expectedStatus)
-            .then((res) => {
-                const body = res.body;
+            .expect(expectedStatus);
 
-                if (expectedStatus === httpstatus.CREATED) {
-                    assert.strictEqual(body.status, 'Training');
-                    assert.strictEqual(body.key, project.id);
-                    assert(body.urls.status);
-                    assert(body.urls.model);
-                    assert(body.urls.tree);
-                    assert(body.urls.dot);
-                    assert(body.urls.vocab);
+        const body = res.body;
 
-                    const created = new Date(body.lastupdate);
-                    assert.strictEqual(isNaN(created.getDate()), false);
-                }
-                else if (expectedStatus === httpstatus.FORBIDDEN) {
-                    assert.deepStrictEqual(body, { error : 'Invalid access' });
-                }
+        if (expectedStatus === httpstatus.CREATED) {
+            assert.strictEqual(body.status, 'Training');
+            assert.strictEqual(body.key, project.id);
+            assert(body.urls.status);
+            assert(body.urls.model);
+            assert(body.urls.tree);
+            assert(body.urls.dot);
+            assert(body.urls.vocab);
 
-                return body;
-            });
+            const created = new Date(body.lastupdate);
+            assert.strictEqual(isNaN(created.getDate()), false);
+        }
+        else if (expectedStatus === httpstatus.FORBIDDEN) {
+            assert.deepStrictEqual(body, { error : 'Invalid access' });
+        }
+
+        return body;
     }
 
     async function getModel(
@@ -168,27 +167,26 @@ describe('REST API - shared models', () => {
         nextAuth0UserTenant = requester.class;
         nextAuth0UserRole = requester.role;
 
-        return request(testServer)
+        const res = await request(testServer)
             .get('/api/classes/' + project.classid + '/students/' + project.userid + '/projects/' + project.id + '/models')
             .expect('Content-Type', /json/)
-            .expect(expectedStatus)
-            .then((res) => {
-                const body = res.body;
+            .expect(expectedStatus);
 
-                if (expectedStatus === httpstatus.OK) {
-                    if (expectedModelUrl) {
-                        assert.strictEqual(body[0].status, 'Unknown');
-                        assert.strictEqual(body[0].key, project.id);
-                        assert.strictEqual(body[0].urls.status, expectedModelUrl);
-                    }
-                    else {
-                        assert.deepStrictEqual(body, []);
-                    }
-                }
-                else if (expectedStatus === httpstatus.FORBIDDEN) {
-                    assert.deepStrictEqual(body, { error : 'Invalid access' });
-                }
-            });
+        const body = res.body;
+
+        if (expectedStatus === httpstatus.OK) {
+            if (expectedModelUrl) {
+                assert.strictEqual(body[0].status, 'Unknown');
+                assert.strictEqual(body[0].key, project.id);
+                assert.strictEqual(body[0].urls.status, expectedModelUrl);
+            }
+            else {
+                assert.deepStrictEqual(body, []);
+            }
+        }
+        else if (expectedStatus === httpstatus.FORBIDDEN) {
+            assert.deepStrictEqual(body, { error : 'Invalid access' });
+        }
     }
 
     async function deleteModel(
@@ -200,175 +198,101 @@ describe('REST API - shared models', () => {
         nextAuth0UserTenant = requester.class;
         nextAuth0UserRole = requester.role;
 
-        return request(testServer)
+        const res = await request(testServer)
             .delete('/api/classes/' + project.classid + '/students/' + project.userid + '/projects/' + project.id + '/models/' + project.id)
-            .expect(expectedStatus)
-            .then((res) => {
-                const body = res.body;
+            .expect(expectedStatus);
 
-                if (expectedStatus === httpstatus.FORBIDDEN) {
-                    assert.deepStrictEqual(body, { error : 'Invalid access' });
-                }
-            });
+        const body = res.body;
+
+        if (expectedStatus === httpstatus.FORBIDDEN) {
+            assert.deepStrictEqual(body, { error : 'Invalid access' });
+        }
     }
 
 
     describe('train model', () => {
-        it('teachers can train models', () => {
-            return prepareSharedNumberProject(TEACHER)
-                .then((project) => {
-                    return newModel(project, TEACHER, httpstatus.CREATED);
-                });
+        it('teachers can train models', async () => {
+            const project = await prepareSharedNumberProject(TEACHER);
+            await newModel(project, TEACHER, httpstatus.CREATED);
         });
 
-        it('students cannot train models', () => {
-            return prepareSharedNumberProject(TEACHER)
-                .then((project) => {
-                    return newModel(project, STUDENT, httpstatus.FORBIDDEN);
-                });
+        it('students cannot train models', async () => {
+            const project = await prepareSharedNumberProject(TEACHER);
+            await newModel(project, STUDENT, httpstatus.FORBIDDEN);
         });
     });
 
 
 
     describe('get model', () => {
-        it('teachers can get models', () => {
-            let project: Objects.Project;
-            let modelurl: string;
-            return prepareSharedNumberProject(TEACHER)
-                .then((p) => {
-                    project = p;
-                    return newModel(project, TEACHER, httpstatus.CREATED);
-                })
-                .then((modelinfo) => {
-                    modelurl = modelinfo.urls.status;
-                    return getModel(project, TEACHER, httpstatus.OK, modelurl);
-                });
+        it('teachers can get models', async () => {
+            const project = await prepareSharedNumberProject(TEACHER);
+            const modelinfo = await newModel(project, TEACHER, httpstatus.CREATED);
+            const modelurl = modelinfo.urls.status;
+            await getModel(project, TEACHER, httpstatus.OK, modelurl);
         });
 
-        it('students can get models', () => {
-            let project: Objects.Project;
-            let modelurl: string;
-            return prepareSharedNumberProject(TEACHER)
-                .then((p) => {
-                    project = p;
-                    return newModel(project, TEACHER, httpstatus.CREATED);
-                })
-                .then((modelinfo) => {
-                    modelurl = modelinfo.urls.status;
-                    return getModel(project, STUDENT, httpstatus.OK, modelurl);
-                });
+        it('students can get models', async () => {
+            const project = await prepareSharedNumberProject(TEACHER);
+            const modelinfo = await newModel(project, TEACHER, httpstatus.CREATED);
+            const modelurl = modelinfo.urls.status;
+            await getModel(project, STUDENT, httpstatus.OK, modelurl);
         });
     });
 
 
     describe('delete model', () => {
-        it('teachers can delete models', () => {
-            let project: Objects.Project;
-            return prepareSharedNumberProject(TEACHER)
-                .then((p) => {
-                    project = p;
-                    return newModel(project, TEACHER, httpstatus.CREATED);
-                })
-                .then(() => {
-                    return deleteModel(project, TEACHER, httpstatus.NO_CONTENT);
-                })
-                .then(() => {
-                    return getModel(project, TEACHER, httpstatus.OK, undefined);
-                });
+        it('teachers can delete models', async () => {
+            const project = await prepareSharedNumberProject(TEACHER);
+            await newModel(project, TEACHER, httpstatus.CREATED);
+            await deleteModel(project, TEACHER, httpstatus.NO_CONTENT);
+            await getModel(project, TEACHER, httpstatus.OK, undefined);
         });
 
-        it('students cannot delete models', () => {
-            let project: Objects.Project;
-            let modelurl: string;
-            return prepareSharedNumberProject(TEACHER)
-                .then((p) => {
-                    project = p;
-                    return newModel(project, TEACHER, httpstatus.CREATED);
-                })
-                .then((modelinfo) => {
-                    modelurl = modelinfo.urls.status;
-                    return deleteModel(project, STUDENT, httpstatus.FORBIDDEN);
-                })
-                .then(() => {
-                    return getModel(project, STUDENT, httpstatus.OK, modelurl);
-                });
+        it('students cannot delete models', async () => {
+            const project = await prepareSharedNumberProject(TEACHER);
+            const modelinfo = await newModel(project, TEACHER, httpstatus.CREATED);
+            const modelurl = modelinfo.urls.status;
+            await deleteModel(project, STUDENT, httpstatus.FORBIDDEN);
+            await getModel(project, STUDENT, httpstatus.OK, modelurl);
         });
     });
 
     describe('scratch keys', () => {
 
-        it('scratch keys can be used to train a model', () => {
-            let project: Objects.Project;
-            return prepareSharedNumberProject(TEACHER)
-                .then((p) => {
-                    project = p;
-                    return store.storeUntrainedScratchKey(project);
-                })
-                .then((scratchkey) => {
-                    return request(testServer).post('/api/scratch/' + scratchkey + '/models');
-                })
-                .then(() => {
-                    return getModel(project, STUDENT, httpstatus.OK, 'http://127.0.0.1:8000/saved-models/' + project.id + '/status');
-                });
+        it('scratch keys can be used to train a model', async () => {
+            const project = await prepareSharedNumberProject(TEACHER);
+            const scratchkey = await store.storeUntrainedScratchKey(project);
+            await request(testServer).post('/api/scratch/' + scratchkey + '/models');
+            await getModel(project, STUDENT, httpstatus.OK, 'http://127.0.0.1:8000/saved-models/' + project.id + '/status');
         });
     });
 
 
     describe('unknown users', () => {
-        it('other teachers cannot access projects', () => {
-            let project: Objects.Project;
-            return prepareSharedNumberProject(TEACHER)
-                .then((p) => {
-                    project = p;
-                    return newModel(project, TEACHER, httpstatus.CREATED);
-                })
-                .then(() => {
-                    return getModel(project, UNKNOWN_TEACHER, httpstatus.FORBIDDEN, undefined);
-                });
+        it('other teachers cannot access projects', async () => {
+            const project = await prepareSharedNumberProject(TEACHER);
+            await newModel(project, TEACHER, httpstatus.CREATED);
+            await getModel(project, UNKNOWN_TEACHER, httpstatus.FORBIDDEN, undefined);
         });
-        it('other students cannot access projects', () => {
-            let project: Objects.Project;
-            return prepareSharedNumberProject(TEACHER)
-                .then((p) => {
-                    project = p;
-                    return newModel(project, TEACHER, httpstatus.CREATED);
-                })
-                .then(() => {
-                    return getModel(project, UNKNOWN_STUDENT, httpstatus.FORBIDDEN, undefined);
-                });
+        it('other students cannot access projects', async () => {
+            const project = await prepareSharedNumberProject(TEACHER);
+            await newModel(project, TEACHER, httpstatus.CREATED);
+            await getModel(project, UNKNOWN_STUDENT, httpstatus.FORBIDDEN, undefined);
         });
-        it('other teachers cannot delete projects', () => {
-            let project: Objects.Project;
-            let modelurl: string;
-            return prepareSharedNumberProject(TEACHER)
-                .then((p) => {
-                    project = p;
-                    return newModel(project, TEACHER, httpstatus.CREATED);
-                })
-                .then((modelinfo) => {
-                    modelurl = modelinfo.urls.status;
-                    return deleteModel(project, UNKNOWN_TEACHER, httpstatus.FORBIDDEN);
-                })
-                .then(() => {
-                    return getModel(project, TEACHER, httpstatus.OK, modelurl);
-                });
+        it('other teachers cannot delete projects', async () => {
+            const project = await prepareSharedNumberProject(TEACHER);
+            const modelinfo = await newModel(project, TEACHER, httpstatus.CREATED);
+            const modelurl = modelinfo.urls.status;
+            await deleteModel(project, UNKNOWN_TEACHER, httpstatus.FORBIDDEN);
+            await getModel(project, TEACHER, httpstatus.OK, modelurl);
         });
-        it('other students cannot delete projects', () => {
-            let project: Objects.Project;
-            let modelurl: string;
-            return prepareSharedNumberProject(TEACHER)
-                .then((p) => {
-                    project = p;
-                    return newModel(project, TEACHER, httpstatus.CREATED);
-                })
-                .then((modelinfo) => {
-                    modelurl = modelinfo.urls.status;
-                    return deleteModel(project, UNKNOWN_STUDENT, httpstatus.FORBIDDEN);
-                })
-                .then(() => {
-                    return getModel(project, TEACHER, httpstatus.OK, modelurl);
-                });
+        it('other students cannot delete projects', async () => {
+            const project = await prepareSharedNumberProject(TEACHER);
+            const modelinfo = await newModel(project, TEACHER, httpstatus.CREATED);
+            const modelurl = modelinfo.urls.status;
+            await deleteModel(project, UNKNOWN_STUDENT, httpstatus.FORBIDDEN);
+            await getModel(project, TEACHER, httpstatus.OK, modelurl);
         });
     });
 });

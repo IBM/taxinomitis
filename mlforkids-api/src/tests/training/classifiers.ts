@@ -1,5 +1,4 @@
-/*eslint-env mocha */
-
+import { describe, it, before, after } from 'node:test';
 import * as assert from 'assert';
 import * as sinon from 'sinon';
 import * as uuid from 'uuid';
@@ -110,8 +109,8 @@ describe('Training - Unmanaged classifiers', () => {
         });
 
 
-        it('should delete a text classifier', () => {
-            return classifiers.deleteClassifier('conv', convCredentials, validWorkspace.workspace_id);
+        it('should delete a text classifier', async () => {
+            await classifiers.deleteClassifier('conv', convCredentials, validWorkspace.workspace_id);
         });
     });
 

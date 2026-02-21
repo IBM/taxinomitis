@@ -1,4 +1,4 @@
-/*eslint-env mocha */
+import { describe, it, before, after } from 'node:test';
 import * as assert from 'assert';
 import * as sinon from 'sinon';
 import { v1 as uuid } from 'uuid';
@@ -9,7 +9,7 @@ import * as TrainingTypes from '../../lib/training/training-types';
 import * as requestUtil from '../../lib/utils/request';
 
 
-const TESTCLASS = 'UNIQUECLASSID';
+const TESTCLASS = 'UNIQUECLASSIDKEY';
 
 
 describe('Scratchx - keys', () => {
@@ -17,18 +17,16 @@ describe('Scratchx - keys', () => {
     let numbersTrainingServiceDeleteStub: sinon.SinonStub<any, any>;
 
 
-    before(() => {
+    before(async () => {
         numbersTrainingServiceDeleteStub = sinon.stub(requestUtil, 'del').callsFake(stubbedRequestDelete);
 
-        return store.init();
+        await store.init();
     });
 
-    after(() => {
-        return store.deleteProjectsByClassId(TESTCLASS)
-            .then(() => {
-                numbersTrainingServiceDeleteStub.restore();
-                return store.disconnect();
-            });
+    after(async () => {
+        await store.deleteProjectsByClassId(TESTCLASS);
+        numbersTrainingServiceDeleteStub.restore();
+        await store.disconnect();
     });
 
 

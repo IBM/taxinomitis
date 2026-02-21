@@ -1,4 +1,4 @@
-/*eslint-env mocha */
+import { describe, it, before, after } from 'node:test';
 import * as assert from 'assert';
 import { TEST_INPUT_FILES, getTestStrings } from '../utils/ngrams';
 import { NgramLookupTable } from '../../lib/utils/ngrams';
@@ -21,9 +21,9 @@ describe('REST API - ngrams', () => {
     let authStub: sinon.SinonStub<any, any>;
     let checkUserStub: sinon.SinonStub<any, any>;
 
-    let nextAuth0UserId = 'userid';
-    let nextAuth0UserTenant = 'tenant';
-    let nextAuth0UserRole: 'student' = 'student';
+    const nextAuth0UserId = 'userid';
+    const nextAuth0UserTenant = 'tenant';
+    const nextAuth0UserRole = 'student';
 
     function authNoOp(
         req: Express.Request, res: Express.Response,
@@ -76,115 +76,107 @@ describe('REST API - ngrams', () => {
 
     describe('invalid input', () => {
 
-        it('should require a request payload', () => {
-            return request(testServer)
+        it('should require a request payload', async () => {
+            const res = await request(testServer)
                 .post('/api/classes/' + nextAuth0UserTenant + '/students/' + nextAuth0UserId + '/training/ngrams')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, { error : 'Missing data' });
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, { error : 'Missing data' });
         });
 
-        it('should reject unexpected object payloads', () => {
-            return request(testServer)
+        it('should reject unexpected object payloads', async () => {
+            const res = await request(testServer)
                 .post('/api/classes/' + nextAuth0UserTenant + '/students/' + nextAuth0UserId + '/training/ngrams')
                 .send({ invalid : 'hello' })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, { error : 'Missing data' });
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, { error : 'Missing data' });
         });
 
-        it('should reject unexpected input payloads', () => {
-            return request(testServer)
+        it('should reject unexpected input payloads', async () => {
+            const res = await request(testServer)
                 .post('/api/classes/' + nextAuth0UserTenant + '/students/' + nextAuth0UserId + '/training/ngrams')
                 .send({ input : 'hello' })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, { error : 'Missing data' });
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, { error : 'Missing data' });
         });
     });
 
 
     describe('submit text', () => {
 
-        it('should return output for a single file', () => {
-            let expected: any;
-            return Promise.all([
-                    readJson('./src/tests/utils/resources/ngrams/bohemia-bigram.json'),
-                    readJson('./src/tests/utils/resources/ngrams/bohemia-trigram.json'),
-                    readJson('./src/tests/utils/resources/ngrams/bohemia-tetragram.json'),
-                ])
-                .then((expectedBits) => {
-                    expected = {
-                        bigrams    : expectedBits[0],
-                        trigrams   : expectedBits[1],
-                        tetragrams : expectedBits[2],
-                    };
-                    return getTestStrings([ TEST_INPUT_FILES.BOHEMIA ]);
-                })
-                .then((input) => {
-                    return request(testServer)
-                        .post('/api/classes/' + nextAuth0UserTenant + '/students/' + nextAuth0UserId + '/training/ngrams')
-                        .send({ input })
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const output = res.body;
-                    assert.deepStrictEqual(output, expected);
-                });
+        it('should return output for a single file', async () => {
+            const expectedBits = await Promise.all([
+                readJson('./src/tests/utils/resources/ngrams/bohemia-bigram.json'),
+                readJson('./src/tests/utils/resources/ngrams/bohemia-trigram.json'),
+                readJson('./src/tests/utils/resources/ngrams/bohemia-tetragram.json'),
+            ]);
+
+            const expected = {
+                bigrams    : expectedBits[0],
+                trigrams   : expectedBits[1],
+                tetragrams : expectedBits[2],
+            };
+
+            const input = await getTestStrings([ TEST_INPUT_FILES.BOHEMIA ]);
+
+            const res = await request(testServer)
+                .post('/api/classes/' + nextAuth0UserTenant + '/students/' + nextAuth0UserId + '/training/ngrams')
+                .send({ input })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            const output = res.body;
+            assert.deepStrictEqual(output, expected);
         });
 
-        it('should return output for multiple files', () => {
-            return getTestStrings([
-                    TEST_INPUT_FILES.BOHEMIA,  TEST_INPUT_FILES.BOSCOMBE,
-                    TEST_INPUT_FILES.IDENTITY, TEST_INPUT_FILES.TWISTEDLIP,
-                ])
-                .then((input) => {
-                    return request(testServer)
-                        .post('/api/classes/' + nextAuth0UserTenant + '/students/' + nextAuth0UserId + '/training/ngrams')
-                        .send({ input })
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const output = res.body;
-                    assert(output.bigrams);
-                    assert(output.trigrams);
-                    assert(output.tetragrams);
+        it('should return output for multiple files', async () => {
+            const input = await getTestStrings([
+                TEST_INPUT_FILES.BOHEMIA,  TEST_INPUT_FILES.BOSCOMBE,
+                TEST_INPUT_FILES.IDENTITY, TEST_INPUT_FILES.TWISTEDLIP,
+            ]);
 
-                    const tokensToVerify = [ 'I', 'do', 'not', 'know' ];
+            const res = await request(testServer)
+                .post('/api/classes/' + nextAuth0UserTenant + '/students/' + nextAuth0UserId + '/training/ngrams')
+                .send({ input })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
 
-                    assert.strictEqual(
-                        lookupCount(output.tetragrams.lookup, [ tokensToVerify[0], tokensToVerify[1], tokensToVerify[2], tokensToVerify[3] ]),
-                        4);
+            const output = res.body;
+            assert(output.bigrams);
+            assert(output.trigrams);
+            assert(output.tetragrams);
 
-                    for (const ngramResults of [ output.trigrams, output.tetragrams ]) {
-                        assert.strictEqual(
-                            lookupCount(ngramResults.lookup, [ tokensToVerify[0], tokensToVerify[1], tokensToVerify[2] ]),
-                            11);
-                    }
+            const tokensToVerify = [ 'I', 'do', 'not', 'know' ];
 
-                    for (const ngramResults of [ output.bigrams, output.trigrams, output.tetragrams ]) {
-                        assert.strictEqual(
-                            lookupCount(ngramResults.lookup, [ tokensToVerify[0], tokensToVerify[1] ]),
-                            16);
+            assert.strictEqual(
+                lookupCount(output.tetragrams.lookup, [ tokensToVerify[0], tokensToVerify[1], tokensToVerify[2], tokensToVerify[3] ]),
+                4);
 
-                        assert.strictEqual(
-                            ngramResults.lookup[tokensToVerify[0]].count,
-                            935);
-                    }
-                });
+            for (const ngramResults of [ output.trigrams, output.tetragrams ]) {
+                assert.strictEqual(
+                    lookupCount(ngramResults.lookup, [ tokensToVerify[0], tokensToVerify[1], tokensToVerify[2] ]),
+                    11);
+            }
+
+            for (const ngramResults of [ output.bigrams, output.trigrams, output.tetragrams ]) {
+                assert.strictEqual(
+                    lookupCount(ngramResults.lookup, [ tokensToVerify[0], tokensToVerify[1] ]),
+                    16);
+
+                assert.strictEqual(
+                    ngramResults.lookup[tokensToVerify[0]].count,
+                    935);
+            }
         });
 
 
-        it('should return output for very large requests', () => {
-            return getTestStrings([
+        it('should return output for very large requests', async () => {
+            const input = await getTestStrings([
                 TEST_INPUT_FILES.BOHEMIA,  TEST_INPUT_FILES.BOSCOMBE, TEST_INPUT_FILES.IDENTITY, TEST_INPUT_FILES.TWISTEDLIP,
                 TEST_INPUT_FILES.BOHEMIA,  TEST_INPUT_FILES.BOSCOMBE, TEST_INPUT_FILES.IDENTITY, TEST_INPUT_FILES.TWISTEDLIP,
                 TEST_INPUT_FILES.BOHEMIA,  TEST_INPUT_FILES.BOSCOMBE, TEST_INPUT_FILES.IDENTITY, TEST_INPUT_FILES.TWISTEDLIP,
@@ -193,20 +185,18 @@ describe('REST API - ngrams', () => {
                 TEST_INPUT_FILES.BOHEMIA,  TEST_INPUT_FILES.BOSCOMBE, TEST_INPUT_FILES.IDENTITY, TEST_INPUT_FILES.TWISTEDLIP,
                 TEST_INPUT_FILES.BOHEMIA,  TEST_INPUT_FILES.BOSCOMBE, TEST_INPUT_FILES.IDENTITY, TEST_INPUT_FILES.TWISTEDLIP,
                 TEST_INPUT_FILES.BOHEMIA,  TEST_INPUT_FILES.BOSCOMBE, TEST_INPUT_FILES.IDENTITY, TEST_INPUT_FILES.TWISTEDLIP,
-            ])
-                .then((input) => {
-                    return request(testServer)
-                        .post('/api/classes/' + nextAuth0UserTenant + '/students/' + nextAuth0UserId + '/training/ngrams')
-                        .send({ input })
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const output = res.body;
-                    assert(output.bigrams);
-                    assert(output.trigrams);
-                    assert(output.tetragrams);
-                });
+            ]);
+
+            const res = await request(testServer)
+                .post('/api/classes/' + nextAuth0UserTenant + '/students/' + nextAuth0UserId + '/training/ngrams')
+                .send({ input })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            const output = res.body;
+            assert(output.bigrams);
+            assert(output.trigrams);
+            assert(output.tetragrams);
         });
     });
 });

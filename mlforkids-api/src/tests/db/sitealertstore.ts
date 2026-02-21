@@ -1,4 +1,4 @@
-/*eslint-env mocha */
+import { describe, it, before, beforeEach, after } from 'node:test';
 import * as assert from 'assert';
 import * as randomstring from 'randomstring';
 import * as store from '../../lib/db/store';
@@ -24,99 +24,81 @@ describe('DB store - site alerts', () => {
             return new Promise((resolve) => setTimeout(resolve, 1100));
         }
 
-        it('should handle empty site alert stores', () => {
-            return store.getLatestSiteAlert()
-                .then((obj) => {
-                    assert.strictEqual(obj, undefined);
-                });
+        it('should handle empty site alert stores', async () => {
+            const obj = await store.getLatestSiteAlert();
+            assert.strictEqual(obj, undefined);
         });
 
-        it('should retrieve a site alert message', () => {
+        it('should retrieve a site alert message', async () => {
             const message = randomstring.generate();
             const url = randomstring.generate();
             const expiry = constants.ONE_HOUR;
 
-            return store.storeSiteAlert(message, url, 'public', 'info', expiry)
-                .then(() => {
-                    return store.getLatestSiteAlert();
-                })
-                .then((retrieved) => {
-                    assert(retrieved);
-                    if (retrieved) {
-                        assert.strictEqual(retrieved.message, message);
-                        assert.strictEqual(retrieved.url, url);
-                        assert.strictEqual(retrieved.severity, 'info');
-                        assert.strictEqual(retrieved.audience, 'public');
-                    }
-                });
+            await store.storeSiteAlert(message, url, 'public', 'info', expiry);
+
+            const retrieved = await store.getLatestSiteAlert();
+            assert(retrieved);
+            if (retrieved) {
+                assert.strictEqual(retrieved.message, message);
+                assert.strictEqual(retrieved.url, url);
+                assert.strictEqual(retrieved.severity, 'info');
+                assert.strictEqual(retrieved.audience, 'public');
+            }
         });
 
-        it('should retrieve a site alert warning', () => {
+        it('should retrieve a site alert warning', async () => {
             const message = randomstring.generate();
             const url = randomstring.generate();
             const expiry = constants.ONE_HOUR;
 
-            return store.storeSiteAlert(message, url, 'student', 'warning', expiry)
-                .then(() => {
-                    return store.getLatestSiteAlert();
-                })
-                .then((retrieved) => {
-                    assert(retrieved);
-                    if (retrieved) {
-                        assert.strictEqual(retrieved.message, message);
-                        assert.strictEqual(retrieved.url, url);
-                        assert.strictEqual(retrieved.severity, 'warning');
-                        assert.strictEqual(retrieved.audience, 'student');
-                    }
-                });
+            await store.storeSiteAlert(message, url, 'student', 'warning', expiry);
+
+            const retrieved = await store.getLatestSiteAlert();
+            assert(retrieved);
+            if (retrieved) {
+                assert.strictEqual(retrieved.message, message);
+                assert.strictEqual(retrieved.url, url);
+                assert.strictEqual(retrieved.severity, 'warning');
+                assert.strictEqual(retrieved.audience, 'student');
+            }
         });
 
-        it('should retrieve a site alert error', () => {
+        it('should retrieve a site alert error', async () => {
             const message = randomstring.generate();
             const url = randomstring.generate();
             const expiry = constants.ONE_HOUR;
 
-            return store.storeSiteAlert(message, url, 'supervisor', 'error', expiry)
-                .then(() => {
-                    return store.getLatestSiteAlert();
-                })
-                .then((retrieved) => {
-                    assert(retrieved);
-                    if (retrieved) {
-                        assert.strictEqual(retrieved.message, message);
-                        assert.strictEqual(retrieved.url, url);
-                        assert.strictEqual(retrieved.severity, 'error');
-                        assert.strictEqual(retrieved.audience, 'supervisor');
-                    }
-                });
+            await store.storeSiteAlert(message, url, 'supervisor', 'error', expiry);
+
+            const retrieved = await store.getLatestSiteAlert();
+            assert(retrieved);
+            if (retrieved) {
+                assert.strictEqual(retrieved.message, message);
+                assert.strictEqual(retrieved.url, url);
+                assert.strictEqual(retrieved.severity, 'error');
+                assert.strictEqual(retrieved.audience, 'supervisor');
+            }
         });
 
-        it('should return the latest alert', () => {
+        it('should return the latest alert', async () => {
             const message = randomstring.generate();
             const url = randomstring.generate();
             const expiry = constants.ONE_HOUR;
 
-            return store.storeSiteAlert('first', 'first url', 'supervisor', 'error', 100000)
-                .then(() => pause())
-                .then(() => {
-                    return store.storeSiteAlert('second', 'second url', 'public', 'info', 200000);
-                })
-                .then(() => pause())
-                .then(() => {
-                    return store.storeSiteAlert(message, url, 'public', 'error', expiry);
-                })
-                .then(() => {
-                    return store.getLatestSiteAlert();
-                })
-                .then((retrieved) => {
-                    assert(retrieved);
-                    if (retrieved) {
-                        assert.strictEqual(retrieved.message, message);
-                        assert.strictEqual(retrieved.url, url);
-                        assert.strictEqual(retrieved.severity, 'error');
-                        assert.strictEqual(retrieved.audience, 'public');
-                    }
-                });
+            await store.storeSiteAlert('first', 'first url', 'supervisor', 'error', 100000);
+            await pause();
+            await store.storeSiteAlert('second', 'second url', 'public', 'info', 200000);
+            await pause();
+            await store.storeSiteAlert(message, url, 'public', 'error', expiry);
+
+            const retrieved = await store.getLatestSiteAlert();
+            assert(retrieved);
+            if (retrieved) {
+                assert.strictEqual(retrieved.message, message);
+                assert.strictEqual(retrieved.url, url);
+                assert.strictEqual(retrieved.severity, 'error');
+                assert.strictEqual(retrieved.audience, 'public');
+            }
         });
     });
 
@@ -188,14 +170,11 @@ describe('DB store - site alerts', () => {
             assert.strictEqual(alert.audience, 'public');
         });
 
-        it('should reject invalid input', () => {
-            return store.storeSiteAlert('', '', 'public', 'info', 0)
-                .then(() => {
-                    assert.fail('should not reach here');
-                })
-                .catch((err) => {
-                    assert.strictEqual(err.message, 'Missing required attributes');
-                });
+        it('should reject invalid input', async () => {
+            await assert.rejects(
+                () => store.storeSiteAlert('', '', 'public', 'info', 0),
+                { message: 'Missing required attributes' }
+            );
         });
     });
 

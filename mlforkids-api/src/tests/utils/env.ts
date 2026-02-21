@@ -1,4 +1,4 @@
-/*eslint-env mocha */
+import { describe, it, before, after } from 'node:test';
 import * as assert from 'assert';
 
 import * as env from '../../lib/utils/env';
@@ -26,16 +26,13 @@ describe('Utils - env', () => {
         env.confirmRequiredEnvironment();
     });
 
-    it('should fail if variables are missing', (done) => {
+    it('should fail if variables are missing', () => {
         delete process.env.POSTGRESQLUSER;
 
-        try {
-            env.confirmRequiredEnvironment();
-        }
-        catch (err) {
-            assert.strictEqual(err.message, 'Missing required environment variable POSTGRESQLUSER');
-            done();
-        }
+        assert.throws(
+            () => env.confirmRequiredEnvironment(),
+            { message: 'Missing required environment variable POSTGRESQLUSER' }
+        );
     });
 
 });

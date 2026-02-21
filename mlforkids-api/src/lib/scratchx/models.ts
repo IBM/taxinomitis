@@ -5,6 +5,9 @@ import * as ScratchTypes from './scratchx-types';
 import * as db from '../db/store';
 import * as conversation from '../training/conversation';
 import * as numbers from '../training/numbers';
+import loggerSetup from '../utils/logger';
+
+const log = loggerSetup();
 
 
 
@@ -48,6 +51,7 @@ export async function trainTextModelLocalProject(scratchKey: Types.ScratchKey, t
         }
     }
     catch (err) {
+        log.error({ err, scratchKey }, 'Failed to train model');
         return {
             status : 0,
             msg : 'Failed to train machine learning model',
@@ -94,6 +98,7 @@ export async function trainModel(scratchKey: Types.ScratchKey): Promise<ScratchT
         }
     }
     catch (err) {
+        log.error({ err, scratchKey }, 'Failed to train model');
         return {
             status : 0,
             msg : 'Failed to train machine learning model',

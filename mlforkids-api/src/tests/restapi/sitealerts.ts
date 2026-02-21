@@ -1,4 +1,4 @@
-/*eslint-env mocha */
+import { describe, it, before, beforeEach, after } from 'node:test';
 import { v1 as uuid } from 'uuid';
 import * as assert from 'assert';
 import * as request from 'supertest';
@@ -26,8 +26,8 @@ describe('REST API - site alerts', () => {
         return store.disconnect();
     });
 
-    beforeEach(() => {
-        return new Promise((resolve) => setTimeout(resolve, 1000));
+    beforeEach(async () => {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
     });
 
 
@@ -38,81 +38,70 @@ describe('REST API - site alerts', () => {
             testServer = testapiserver();
         });
 
-        it('should allow unauthenticated users to fetch public messages', () => {
-            return store.storeSiteAlert('my public message', 'http://web.com', 'public', 'info', 5000)
-                .then(() => {
-                    return sitealerts.refreshCache();
-                })
-                .then(() => {
-                    return request(testServer)
-                        .get('/api/sitealerts/public')
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    assert.strictEqual(res.header['cache-control'], 'max-age=60');
+        it('should allow unauthenticated users to fetch public messages', async () => {
+            await store.storeSiteAlert('my public message', 'http://web.com', 'public', 'info', 5000);
+            await sitealerts.refreshCache();
 
-                    const body = res.body;
-                    assert.strictEqual(body[0].message, 'my public message');
-                    assert.strictEqual(body[0].url, 'http://web.com');
-                });
+            const res = await request(testServer)
+                .get('/api/sitealerts/public')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            assert.strictEqual(res.header['cache-control'], 'max-age=60');
+
+            const body = res.body;
+            assert.strictEqual(body[0].message, 'my public message');
+            assert.strictEqual(body[0].url, 'http://web.com');
         });
 
-        it('should not allow unauthenticated users to fetch student messages', () => {
-            return store.storeSiteAlert('my student message', 'http://web.com', 'student', 'warning', 5000)
-                .then(() => {
-                    return sitealerts.refreshCache();
-                })
-                .then(() => {
-                    return request(testServer)
-                        .get('/api/sitealerts/public')
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, []);
-                });
+        it('should not allow unauthenticated users to fetch student messages', async () => {
+            await store.storeSiteAlert('my student message', 'http://web.com', 'student', 'warning', 5000);
+            await sitealerts.refreshCache();
+
+            const res = await request(testServer)
+                .get('/api/sitealerts/public')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            const body = res.body;
+            assert.deepStrictEqual(body, []);
         });
 
-        it('should not allow unauthenticated users to create alerts', () => {
-            return request(testServer)
-                    .post('/api/sitealerts')
-                    .send({
-                        message : 'Please reject this',
-                        url : 'http://website.com',
-                        expiry : 15000,
-                        audience : 'student',
-                        severity : 'info',
-                    })
-                    .expect('Content-Type', /json/)
-                    .expect(httpstatus.UNAUTHORIZED)
-                    .then((res) => {
-                        const body = res.body;
-                        assert.deepStrictEqual(body, { error : 'Not authorised' });
-                    });
+        it('should not allow unauthenticated users to create alerts', async () => {
+            const res = await request(testServer)
+                .post('/api/sitealerts')
+                .send({
+                    message : 'Please reject this',
+                    url : 'http://website.com',
+                    expiry : 15000,
+                    audience : 'student',
+                    severity : 'info',
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.UNAUTHORIZED);
+
+            const body = res.body;
+            assert.deepStrictEqual(body, { error : 'Not authorised' });
         });
 
-        it('should not allow unauthenticated users to fetch student alerts', () => {
-            return request(testServer)
+        it('should not allow unauthenticated users to fetch student alerts', async () => {
+            const res = await request(testServer)
                 .get('/api/sitealerts/alerts/UNKNOWNCLASSID/students/UNKNOWNSTUDENTID')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.UNAUTHORIZED)
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, { error : 'Not authorised' });
-                });
+                .expect(httpstatus.UNAUTHORIZED);
+
+            const body = res.body;
+            assert.deepStrictEqual(body, { error : 'Not authorised' });
         });
 
-        it('should not allow unauthenticated users to fetch student alerts', () => {
-            return request(testServer)
+        it('should not allow unauthenticated users to fetch student alerts', async () => {
+            const res = await request(testServer)
                 .get('/api/sitealerts/alerts/UNKNOWNCLASSID/supervisors/UNKNOWNUSERID')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.UNAUTHORIZED)
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, { error : 'Not authorised' });
-                });
+                .expect(httpstatus.UNAUTHORIZED);
+
+            const body = res.body;
+            assert.deepStrictEqual(body, { error : 'Not authorised' });
         });
     });
 
@@ -169,36 +158,31 @@ describe('REST API - site alerts', () => {
             const message = 'I will expire after 1 second';
             const url = 'http://super-short-lived.com';
 
-            it('should not fetched an expired alert', () => {
+            it('should not fetched an expired alert', async () => {
                 nextUser = AUTH_USERS.STUDENT;
-                return store.storeSiteAlert(message, url, 'student', 'error', 1000)
-                    .then(() => {
-                        return sitealerts.refreshCache();
-                    })
-                    .then(() => {
-                        return request(testServer)
-                            .get('/api/sitealerts/alerts/' + CLASSID + '/students/' + AUTH_USERS.STUDENT.sub)
-                            .expect('Content-Type', /json/)
-                            .expect(httpstatus.OK);
-                    })
-                    .then((res) => {
-                        const body = res.body;
-                        assert.strictEqual(body[0].message, message);
-                        assert.strictEqual(body[0].url, url);
-                        return new Promise((resolve) => {
-                            setTimeout(resolve, 1500);
-                        });
-                    })
-                    .then(() => {
-                        return request(testServer)
-                            .get('/api/sitealerts/alerts/' + CLASSID + '/students/' + AUTH_USERS.STUDENT.sub)
-                            .expect('Content-Type', /json/)
-                            .expect(httpstatus.OK);
-                    })
-                    .then((res) => {
-                        const body = res.body;
-                        assert.deepStrictEqual(body, []);
-                    });
+                await store.storeSiteAlert(message, url, 'student', 'error', 1000);
+                await sitealerts.refreshCache();
+
+                let res = await request(testServer)
+                    .get('/api/sitealerts/alerts/' + CLASSID + '/students/' + AUTH_USERS.STUDENT.sub)
+                    .expect('Content-Type', /json/)
+                    .expect(httpstatus.OK);
+
+                let body = res.body;
+                assert.strictEqual(body[0].message, message);
+                assert.strictEqual(body[0].url, url);
+
+                await new Promise((resolve) => {
+                    setTimeout(resolve, 1500);
+                });
+
+                res = await request(testServer)
+                    .get('/api/sitealerts/alerts/' + CLASSID + '/students/' + AUTH_USERS.STUDENT.sub)
+                    .expect('Content-Type', /json/)
+                    .expect(httpstatus.OK);
+
+                body = res.body;
+                assert.deepStrictEqual(body, []);
             });
 
         });
@@ -208,53 +192,48 @@ describe('REST API - site alerts', () => {
             const message = 'I am a public message';
             const url = 'http://webaddress.com/public';
 
-            before(() => {
-                return store.storeSiteAlert(message, url, 'public', 'info', 15000)
-                    .then(() => {
-                        return sitealerts.refreshCache();
-                    });
+            before(async () => {
+                await store.storeSiteAlert(message, url, 'public', 'info', 15000);
+                await sitealerts.refreshCache();
             });
 
-            it('should allow students to get public messages', () => {
+            it('should allow students to get public messages', async () => {
                 nextUser = AUTH_USERS.STUDENT;
-                return request(testServer)
+                const res = await request(testServer)
                     .get('/api/sitealerts/alerts/' + CLASSID + '/students/' + AUTH_USERS.STUDENT.sub)
                     .expect('Content-Type', /json/)
-                    .expect(httpstatus.OK)
-                    .then((res) => {
-                        assert.strictEqual(res.header['cache-control'], 'max-age=60');
+                    .expect(httpstatus.OK);
 
-                        const body = res.body;
-                        assert.strictEqual(body[0].message, message);
-                        assert.strictEqual(body[0].url, url);
-                    });
+                assert.strictEqual(res.header['cache-control'], 'max-age=60');
+
+                const body = res.body;
+                assert.strictEqual(body[0].message, message);
+                assert.strictEqual(body[0].url, url);
             });
 
-            it('should allow teachers to get public messages', () => {
+            it('should allow teachers to get public messages', async () => {
                 nextUser = AUTH_USERS.TEACHER;
-                return request(testServer)
+                const res = await request(testServer)
                     .get('/api/sitealerts/alerts/' + CLASSID + '/supervisors/' + AUTH_USERS.TEACHER.sub)
                     .expect('Content-Type', /json/)
-                    .expect(httpstatus.OK)
-                    .then((res) => {
-                        assert.strictEqual(res.header['cache-control'], 'max-age=60');
+                    .expect(httpstatus.OK);
 
-                        const body = res.body;
-                        assert.strictEqual(body[0].message, message);
-                        assert.strictEqual(body[0].url, url);
-                    });
+                assert.strictEqual(res.header['cache-control'], 'max-age=60');
+
+                const body = res.body;
+                assert.strictEqual(body[0].message, message);
+                assert.strictEqual(body[0].url, url);
             });
 
-            it('should not allow students to use teacher URL', () => {
+            it('should not allow students to use teacher URL', async () => {
                 nextUser = AUTH_USERS.STUDENT;
-                return request(testServer)
+                const res = await request(testServer)
                     .get('/api/sitealerts/alerts/' + CLASSID + '/supervisors/' + AUTH_USERS.TEACHER.sub)
                     .expect('Content-Type', /json/)
-                    .expect(httpstatus.FORBIDDEN)
-                    .then((res) => {
-                        const body = res.body;
-                        assert.deepStrictEqual(body, { error : 'Only supervisors are allowed to invoke this' });
-                    });
+                    .expect(httpstatus.FORBIDDEN);
+
+                const body = res.body;
+                assert.deepStrictEqual(body, { error : 'Only supervisors are allowed to invoke this' });
             });
         });
 
@@ -263,37 +242,33 @@ describe('REST API - site alerts', () => {
             const message = 'I am a message for students';
             const url = 'http://webaddress.com/student';
 
-            before(() => {
-                return store.storeSiteAlert(message, url, 'student', 'info', 15000)
-                    .then(() => {
-                        return sitealerts.refreshCache();
-                    });
+            before(async () => {
+                await store.storeSiteAlert(message, url, 'student', 'info', 15000);
+                await sitealerts.refreshCache();
             });
 
-            it('should allow students to get student messages', () => {
+            it('should allow students to get student messages', async () => {
                 nextUser = AUTH_USERS.STUDENT;
-                return request(testServer)
+                const res = await request(testServer)
                     .get('/api/sitealerts/alerts/' + CLASSID + '/students/' + AUTH_USERS.STUDENT.sub)
                     .expect('Content-Type', /json/)
-                    .expect(httpstatus.OK)
-                    .then((res) => {
-                        const body = res.body;
-                        assert.strictEqual(body[0].message, message);
-                        assert.strictEqual(body[0].url, url);
-                    });
+                    .expect(httpstatus.OK);
+
+                const body = res.body;
+                assert.strictEqual(body[0].message, message);
+                assert.strictEqual(body[0].url, url);
             });
 
-            it('should allow teachers to get student messages', () => {
+            it('should allow teachers to get student messages', async () => {
                 nextUser = AUTH_USERS.TEACHER;
-                return request(testServer)
+                const res = await request(testServer)
                     .get('/api/sitealerts/alerts/' + CLASSID + '/supervisors/' + AUTH_USERS.TEACHER.sub)
                     .expect('Content-Type', /json/)
-                    .expect(httpstatus.OK)
-                    .then((res) => {
-                        const body = res.body;
-                        assert.strictEqual(body[0].message, message);
-                        assert.strictEqual(body[0].url, url);
-                    });
+                    .expect(httpstatus.OK);
+
+                const body = res.body;
+                assert.strictEqual(body[0].message, message);
+                assert.strictEqual(body[0].url, url);
             });
         });
 
@@ -302,36 +277,32 @@ describe('REST API - site alerts', () => {
             const message = 'I am a supervisor message for teachers only';
             const url = 'http://webaddress.com/teacher';
 
-            before(() => {
-                return store.storeSiteAlert(message, url, 'supervisor', 'warning', 15000)
-                    .then(() => {
-                        return sitealerts.refreshCache();
-                    });
+            before(async () => {
+                await store.storeSiteAlert(message, url, 'supervisor', 'warning', 15000);
+                await sitealerts.refreshCache();
             });
 
-            it('should not allow students to get student messages', () => {
+            it('should not allow students to get student messages', async () => {
                 nextUser = AUTH_USERS.STUDENT;
-                return request(testServer)
+                const res = await request(testServer)
                     .get('/api/sitealerts/alerts/' + CLASSID + '/students/' + AUTH_USERS.STUDENT.sub)
                     .expect('Content-Type', /json/)
-                    .expect(httpstatus.OK)
-                    .then((res) => {
-                        const body = res.body;
-                        assert.deepStrictEqual(body, []);
-                    });
+                    .expect(httpstatus.OK);
+
+                const body = res.body;
+                assert.deepStrictEqual(body, []);
             });
 
-            it('should allow teachers to get teacher messages', () => {
+            it('should allow teachers to get teacher messages', async () => {
                 nextUser = AUTH_USERS.TEACHER;
-                return request(testServer)
+                const res = await request(testServer)
                     .get('/api/sitealerts/alerts/' + CLASSID + '/supervisors/' + AUTH_USERS.TEACHER.sub)
                     .expect('Content-Type', /json/)
-                    .expect(httpstatus.OK)
-                    .then((res) => {
-                        const body = res.body;
-                        assert.strictEqual(body[0].message, message);
-                        assert.strictEqual(body[0].url, url);
-                    });
+                    .expect(httpstatus.OK);
+
+                const body = res.body;
+                assert.strictEqual(body[0].message, message);
+                assert.strictEqual(body[0].url, url);
             });
         });
 
@@ -447,9 +418,9 @@ describe('REST API - site alerts', () => {
                     });
             });
 
-            it('should allow a site admin to store a message', () => {
+            it('should allow a site admin to store a message', async () => {
                 nextUser = AUTH_USERS.SITEADMIN;
-                return request(testServer)
+                const res = await request(testServer)
                     .post('/api/sitealerts')
                     .send({
                         message : 'Final',
@@ -459,19 +430,18 @@ describe('REST API - site alerts', () => {
                         severity : 'info',
                     })
                     .expect('Content-Type', /json/)
-                    .expect(httpstatus.OK)
-                    .then((res) => {
-                        const body = res.body;
-                        assert.strictEqual(body.message, 'Final');
-                        assert.strictEqual(body.url, 'http://website.com');
-                        assert.strictEqual(body.audience, 'student');
-                        assert.strictEqual(body.severity, 'info');
-                    });
+                    .expect(httpstatus.OK);
+
+                const body = res.body;
+                assert.strictEqual(body.message, 'Final');
+                assert.strictEqual(body.url, 'http://website.com');
+                assert.strictEqual(body.audience, 'student');
+                assert.strictEqual(body.severity, 'info');
             });
 
-            it('should require all fields', () => {
+            it('should require all fields', async () => {
                 nextUser = AUTH_USERS.SITEADMIN;
-                return request(testServer)
+                const res = await request(testServer)
                     .post('/api/sitealerts')
                     .send({
                         url : 'http://website.com',
@@ -480,16 +450,15 @@ describe('REST API - site alerts', () => {
                         severity : 'info',
                     })
                     .expect('Content-Type', /json/)
-                    .expect(httpstatus.BAD_REQUEST)
-                    .then((res) => {
-                        const body = res.body;
-                        assert.deepStrictEqual(body, { error : 'Missing required field' });
-                    });
+                    .expect(httpstatus.BAD_REQUEST);
+
+                const body = res.body;
+                assert.deepStrictEqual(body, { error : 'Missing required field' });
             });
 
-            it('should reject invalid messages', () => {
+            it('should reject invalid messages', async () => {
                 nextUser = AUTH_USERS.SITEADMIN;
-                return request(testServer)
+                const res = await request(testServer)
                     .post('/api/sitealerts')
                     .send({
                         message : 'Final',
@@ -499,15 +468,14 @@ describe('REST API - site alerts', () => {
                         severity : 'info',
                     })
                     .expect('Content-Type', /json/)
-                    .expect(httpstatus.BAD_REQUEST)
-                    .then((res) => {
-                        assert.deepStrictEqual(res.body, { error : 'Invalid audience type everyone' });
-                    });
+                    .expect(httpstatus.BAD_REQUEST);
+
+                assert.deepStrictEqual(res.body, { error : 'Invalid audience type everyone' });
             });
 
-            it.skip('should reject duplicates', () => {
+            it.skip('should reject duplicates', async () => {
                 nextUser = AUTH_USERS.SITEADMIN;
-                return request(testServer)
+                await request(testServer)
                     .post('/api/sitealerts')
                     .send({
                         message : 'Final',
@@ -517,28 +485,26 @@ describe('REST API - site alerts', () => {
                         severity : 'info',
                     })
                     .expect('Content-Type', /json/)
-                    .expect(httpstatus.OK)
-                    .then(() => {
-                        return request(testServer)
-                            .post('/api/sitealerts')
-                            .send({
-                                message : 'Final',
-                                url : 'http://website.com',
-                                expiry : 15000,
-                                audience : 'student',
-                                severity : 'info',
-                            })
-                            .expect('Content-Type', /json/)
-                            .expect(httpstatus.INTERNAL_SERVER_ERROR);
+                    .expect(httpstatus.OK);
+
+                const res = await request(testServer)
+                    .post('/api/sitealerts')
+                    .send({
+                        message : 'Final',
+                        url : 'http://website.com',
+                        expiry : 15000,
+                        audience : 'student',
+                        severity : 'info',
                     })
-                    .then((res) => {
-                        assert.strictEqual(res.body.error, 'Error accessing the database used to store data');
-                    });
+                    .expect('Content-Type', /json/)
+                    .expect(httpstatus.INTERNAL_SERVER_ERROR);
+
+                assert.strictEqual(res.body.error, 'Error accessing the database used to store data');
             });
 
-            it('should not allow a student to store a message', () => {
+            it('should not allow a student to store a message', async () => {
                 nextUser = AUTH_USERS.STUDENT;
-                return request(testServer)
+                const res = await request(testServer)
                     .post('/api/sitealerts')
                     .send({
                         message : 'Please reject this',
@@ -548,16 +514,15 @@ describe('REST API - site alerts', () => {
                         severity : 'info',
                     })
                     .expect('Content-Type', /json/)
-                    .expect(httpstatus.FORBIDDEN)
-                    .then((res) => {
-                        const body = res.body;
-                        assert.deepStrictEqual(body, { error : 'Forbidden' });
-                    });
+                    .expect(httpstatus.FORBIDDEN);
+
+                const body = res.body;
+                assert.deepStrictEqual(body, { error : 'Forbidden' });
             });
 
-            it('should not allow a teacher to store a message', () => {
+            it('should not allow a teacher to store a message', async () => {
                 nextUser = AUTH_USERS.TEACHER;
-                return request(testServer)
+                const res = await request(testServer)
                     .post('/api/sitealerts')
                     .send({
                         message : 'Please reject this',
@@ -567,22 +532,20 @@ describe('REST API - site alerts', () => {
                         severity : 'info',
                     })
                     .expect('Content-Type', /json/)
-                    .expect(httpstatus.FORBIDDEN)
-                    .then((res) => {
-                        const body = res.body;
-                        assert.deepStrictEqual(body, { error : 'Forbidden' });
-                    });
+                    .expect(httpstatus.FORBIDDEN);
+
+                const body = res.body;
+                assert.deepStrictEqual(body, { error : 'Forbidden' });
             });
 
-            it('should not allow a teacher to refresh the cache', () => {
+            it('should not allow a teacher to refresh the cache', async () => {
                 nextUser = AUTH_USERS.TEACHER;
-                return request(testServer)
+                const res = await request(testServer)
                     .put('/api/sitealerts/actions/refresh')
-                    .expect(httpstatus.FORBIDDEN)
-                    .then((res) => {
-                        const body = res.body;
-                        assert.deepStrictEqual(body, { error : 'Forbidden' });
-                    });
+                    .expect(httpstatus.FORBIDDEN);
+
+                const body = res.body;
+                assert.deepStrictEqual(body, { error : 'Forbidden' });
             });
         });
     });

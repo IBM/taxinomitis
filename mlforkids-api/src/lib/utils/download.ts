@@ -104,7 +104,9 @@ function cleanupStream(str: Readable | Writable): void {
         try {
             str.destroy();
         }
-        catch (err) {}
+        catch (err) {
+            log.error({ err }, 'failed to destroy stream');
+        }
     }
 }
 
@@ -240,7 +242,7 @@ function safeGetHost(url: string): string {
         return parsed.hostname;
     }
     catch (err) {
-        log.debug({ url }, 'Failed to parse url');
+        log.debug({ err, url }, 'Failed to parse url');
         return 'The website';
     }
 }

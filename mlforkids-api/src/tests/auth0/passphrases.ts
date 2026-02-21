@@ -1,4 +1,4 @@
-/*eslint-env mocha */
+import { describe, it } from 'node:test';
 import * as assert from 'assert';
 import * as passphrases from '../../lib/auth0/passphrases';
 import { WORDS } from '../../lib/utils/dictionary';

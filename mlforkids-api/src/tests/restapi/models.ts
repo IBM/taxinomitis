@@ -1,4 +1,5 @@
-/*eslint-env mocha */
+import { describe, it, before, after } from 'node:test';
+import { promisify } from 'node:util';
 import { v1 as uuid } from 'uuid';
 import * as fs from 'fs';
 import * as filecompare from 'filecompare';
@@ -156,7 +157,7 @@ describe('REST API - models', () => {
 
     describe('getModels', () => {
 
-        it('should verify project exists', () => {
+        it('should verify project exists', async () => {
             const classid = uuid();
             const studentid = uuid();
             const projectid = uuid();
@@ -164,14 +165,12 @@ describe('REST API - models', () => {
             nextAuth0Userid = studentid;
             nextAuth0Role = 'student';
             nextAuth0Class = classid;
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + classid + '/students/' + studentid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_FOUND)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.error, 'Not found');
-                });
+                .expect(httpstatus.NOT_FOUND);
+
+            assert.strictEqual(res.body.error, 'Not found');
         });
 
         it('should verify user id', async () => {
@@ -184,13 +183,12 @@ describe('REST API - models', () => {
             nextAuth0Userid = userid;
             nextAuth0Role = 'student';
             nextAuth0Class = classid;
-            return request(testServer)
+            await request(testServer)
                 .get('/api/classes/' + classid + '/students/DIFFERENTUSER/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.FORBIDDEN)
-                .then(() => {
-                    return store.deleteEntireUser(userid, classid);
-                });
+                .expect(httpstatus.FORBIDDEN);
+
+            await store.deleteEntireUser(userid, classid);
         });
 
 
@@ -204,16 +202,14 @@ describe('REST API - models', () => {
             nextAuth0Userid = userid;
             nextAuth0Role = 'student';
             nextAuth0Class = classid;
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, []);
+                .expect(httpstatus.OK);
 
-                    return store.deleteEntireUser(userid, classid);
-                });
+            assert.deepStrictEqual(res.body, []);
+
+            await store.deleteEntireUser(userid, classid);
         });
 
 
@@ -228,16 +224,14 @@ describe('REST API - models', () => {
             nextAuth0Userid = userid;
             nextAuth0Role = 'student';
             nextAuth0Class = classid;
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, []);
+                .expect(httpstatus.OK);
 
-                    return store.deleteEntireUser(userid, classid);
-                });
+            assert.deepStrictEqual(res.body, []);
+
+            await store.deleteEntireUser(userid, classid);
         });
 
 
@@ -256,22 +250,20 @@ describe('REST API - models', () => {
             nextAuth0Userid = userid;
             nextAuth0Role = 'student';
             nextAuth0Class = classid;
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then(async (res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, [ {
-                        key : projectid,
-                        status : 'Unknown',
-                        urls : {
-                            status : 'https://mlforkids-newnumbers.not-a-real-region.cloud-region.codeengine.appdomain.cloud/saved-models/' + projectid + '/status',
-                        },
-                    }]);
+                .expect(httpstatus.OK);
 
-                    await store.deleteEntireProject(userid, classid, project);
-                });
+            assert.deepStrictEqual(res.body, [ {
+                key : projectid,
+                status : 'Unknown',
+                urls : {
+                    status : 'https://mlforkids-newnumbers.not-a-real-region.cloud-region.codeengine.appdomain.cloud/saved-models/' + projectid + '/status',
+                },
+            }]);
+
+            await store.deleteEntireProject(userid, classid, project);
         });
 
 
@@ -285,14 +277,13 @@ describe('REST API - models', () => {
             nextAuth0Userid = userid;
             nextAuth0Role = 'student';
             nextAuth0Class = classid;
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then(async (res) => {
-                    assert.deepStrictEqual(res.body, []);
-                    await store.deleteEntireProject(userid, classid, project);
-                });
+                .expect(httpstatus.OK);
+
+            assert.deepStrictEqual(res.body, []);
+            await store.deleteEntireProject(userid, classid, project);
         });
 
 
@@ -348,54 +339,50 @@ describe('REST API - models', () => {
             nextAuth0Userid = userid;
             nextAuth0Role = 'student';
             nextAuth0Class = classid;
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then(async (res) => {
+                .expect(httpstatus.OK);
 
-                    assert.deepStrictEqual(res.body, [
-                        {
-                            classifierid : 'good',
-                            credentialsid : credentials.id,
-                            updated : updated.toISOString(),
-                            expiry : createdA.toISOString(),
-                            name : 'DUMMY ONE',
-                            status : 'Available',
-                        },
-                        {
-                            classifierid : 'busy',
-                            credentialsid : credentials.id,
-                            updated : updated.toISOString(),
-                            expiry : createdB.toISOString(),
-                            name : 'DUMMY TWO',
-                            status : 'Training',
-                        },
-                    ]);
+            assert.deepStrictEqual(res.body, [
+                {
+                    classifierid : 'good',
+                    credentialsid : credentials.id,
+                    updated : updated.toISOString(),
+                    expiry : createdA.toISOString(),
+                    name : 'DUMMY ONE',
+                    status : 'Available',
+                },
+                {
+                    classifierid : 'busy',
+                    credentialsid : credentials.id,
+                    updated : updated.toISOString(),
+                    expiry : createdB.toISOString(),
+                    name : 'DUMMY TWO',
+                    status : 'Training',
+                },
+            ]);
 
-                    await store.deleteEntireUser(userid, classid);
-                });
+            await store.deleteEntireUser(userid, classid);
         });
 
     });
 
     describe('newModel', () => {
 
-        it('should verify project exists', () => {
+        it('should verify project exists', async () => {
             const classid = uuid();
             const studentid = uuid();
             const projectid = uuid();
             nextAuth0Userid = studentid;
             nextAuth0Role = 'student';
             nextAuth0Class = classid;
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/classes/' + classid + '/students/' + studentid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_FOUND)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.error, 'Not found');
-                });
+                .expect(httpstatus.NOT_FOUND);
+
+            assert.strictEqual(res.body.error, 'Not found');
         });
 
         it('should verify user id', async () => {
@@ -408,13 +395,12 @@ describe('REST API - models', () => {
             nextAuth0Userid = 'DIFFERENTUSER';
             nextAuth0Role = 'student';
             nextAuth0Class = classid;
-            return request(testServer)
+            await request(testServer)
                 .post('/api/classes/' + classid + '/students/DIFFERENTUSER/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.FORBIDDEN)
-                .then(() => {
-                    return store.deleteEntireUser(userid, classid);
-                });
+                .expect(httpstatus.FORBIDDEN);
+
+            await store.deleteEntireUser(userid, classid);
         });
 
         it('should verify user', async () => {
@@ -427,13 +413,12 @@ describe('REST API - models', () => {
             nextAuth0Userid = 'SOMEUSER';
             nextAuth0Role = 'student';
             nextAuth0Class = classid;
-            return request(testServer)
+            await request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.FORBIDDEN)
-                .then(() => {
-                    return store.deleteEntireUser(userid, classid);
-                });
+                .expect(httpstatus.FORBIDDEN);
+
+            await store.deleteEntireUser(userid, classid);
         });
 
         it('should enforce tenant policies on number of Conversation classifiers', async () => {
@@ -447,17 +432,14 @@ describe('REST API - models', () => {
             nextAuth0Userid = userid;
             nextAuth0Role = 'student';
             nextAuth0Class = classid;
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CONFLICT)
-                .then(async (res) => {
-                    const body = res.body;
+                .expect(httpstatus.CONFLICT);
 
-                    assert.strictEqual(body.error, conversation.ERROR_MESSAGES.INSUFFICIENT_API_KEYS);
+            assert.strictEqual(res.body.error, conversation.ERROR_MESSAGES.INSUFFICIENT_API_KEYS);
 
-                    await store.deleteEntireUser(userid, classid);
-                });
+            await store.deleteEntireUser(userid, classid);
         });
 
 
@@ -472,19 +454,16 @@ describe('REST API - models', () => {
             nextAuth0Userid = userid;
             nextAuth0Role = 'student';
             nextAuth0Class = classid;
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CONFLICT)
-                .then(async (res) => {
-                    const body = res.body;
+                .expect(httpstatus.CONFLICT);
 
-                    assert.strictEqual(body.error,
-                        'The Watson credentials being used by your class were rejected. ' +
-                        'Please let your teacher or group leader know.');
+            assert.strictEqual(res.body.error,
+                'The Watson credentials being used by your class were rejected. ' +
+                'Please let your teacher or group leader know.');
 
-                    await store.deleteEntireUser(userid, classid);
-                });
+            await store.deleteEntireUser(userid, classid);
         });
 
 
@@ -499,19 +478,17 @@ describe('REST API - models', () => {
             nextAuth0Userid = userid;
             nextAuth0Role = 'student';
             nextAuth0Class = classid;
-            return request(testServer)
+
+            const res = await request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CONFLICT)
-                .then(async (res) => {
-                    const body = res.body;
+                .expect(httpstatus.CONFLICT);
 
-                    assert.strictEqual(body.error,
-                        'No Watson credentials have been set up for training text projects. ' +
-                        'Please let your teacher or group leader know.');
+            assert.strictEqual(res.body.error,
+                'No Watson credentials have been set up for training text projects. ' +
+                'Please let your teacher or group leader know.');
 
-                    await store.deleteEntireUser(userid, classid);
-                });
+            await store.deleteEntireUser(userid, classid);
         });
 
 
@@ -526,18 +503,16 @@ describe('REST API - models', () => {
             nextAuth0Userid = userid;
             nextAuth0Role = 'student';
             nextAuth0Class = classid;
-            return request(testServer)
+
+            const res = await request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_FOUND)
-                .then(async (res) => {
-                    const body = res.body;
+                .expect(httpstatus.NOT_FOUND);
 
-                    assert.strictEqual(body.error,
-                        'Your machine learning model could not be found on the training server. Please try again');
+            assert.strictEqual(res.body.error,
+                'Your machine learning model could not be found on the training server. Please try again');
 
-                    await store.deleteEntireUser(userid, classid);
-                });
+            await store.deleteEntireUser(userid, classid);
         });
 
 
@@ -552,21 +527,19 @@ describe('REST API - models', () => {
             nextAuth0Userid = userid;
             nextAuth0Role = 'student';
             nextAuth0Class = classid;
-            return request(testServer)
+
+            const res = await request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.TOO_MANY_REQUESTS)
-                .then(async (res) => {
-                    const body = res.body;
+                .expect(httpstatus.TOO_MANY_REQUESTS);
 
-                    assert.strictEqual(body.error,
-                        'Your class is making too many requests to create machine learning models ' +
-                         'at too fast a rate. ' +
-                         'Please stop now and let your teacher or group leader know that ' +
-                         '"the Watson Assistant service is currently rate limiting their API key"');
+            assert.strictEqual(res.body.error,
+                'Your class is making too many requests to create machine learning models ' +
+                 'at too fast a rate. ' +
+                 'Please stop now and let your teacher or group leader know that ' +
+                 '"the Watson Assistant service is currently rate limiting their API key"');
 
-                    await store.deleteEntireUser(userid, classid);
-                });
+            await store.deleteEntireUser(userid, classid);
         });
 
 
@@ -581,24 +554,22 @@ describe('REST API - models', () => {
             nextAuth0Userid = userid;
             nextAuth0Role = 'student';
             nextAuth0Class = classid;
-            return request(testServer)
+
+            const res = await request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then((res) => {
-                    const body = res.body;
+                .expect(httpstatus.CREATED);
 
-                    assert.deepStrictEqual(body, {
-                        updated : '2017-05-04T12:01:00.000Z',
-                        expiry : '2017-05-04T13:00:00.000Z',
-                        name : projName,
-                        status : 'Training',
-                        classifierid : 'NEW-CREATED',
-                        credentialsid : '123',
-                    });
+            assert.deepStrictEqual(res.body, {
+                updated : '2017-05-04T12:01:00.000Z',
+                expiry : '2017-05-04T13:00:00.000Z',
+                name : projName,
+                status : 'Training',
+                classifierid : 'NEW-CREATED',
+                credentialsid : '123',
+            });
 
-                    return store.deleteEntireUser(userid, classid);
-                });
+            await store.deleteEntireUser(userid, classid);
         });
 
 
@@ -614,19 +585,17 @@ describe('REST API - models', () => {
             nextAuth0Userid = userid;
             nextAuth0Role = 'student';
             nextAuth0Class = classid;
-            return request(testServer)
+
+            const res = await request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_IMPLEMENTED)
-                .then((res) => {
-                    const body = res.body;
+                .expect(httpstatus.NOT_IMPLEMENTED);
 
-                    assert.deepStrictEqual(body, {
-                        error : 'Not implemented',
-                    });
+            assert.deepStrictEqual(res.body, {
+                error : 'Not implemented',
+            });
 
-                    return store.deleteEntireUser(userid, classid);
-                });
+            await store.deleteEntireUser(userid, classid);
         });
 
 
@@ -641,19 +610,17 @@ describe('REST API - models', () => {
             nextAuth0Userid = userid;
             nextAuth0Role = 'student';
             nextAuth0Class = classid;
-            return request(testServer)
+
+            const res = await request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_IMPLEMENTED)
-                .then((res) => {
-                    const body = res.body;
+                .expect(httpstatus.NOT_IMPLEMENTED);
 
-                    assert.deepStrictEqual(body, {
-                        error : 'Not implemented',
-                    });
+            assert.deepStrictEqual(res.body, {
+                error : 'Not implemented',
+            });
 
-                    return store.deleteEntireUser(userid, classid);
-                });
+            await store.deleteEntireUser(userid, classid);
         });
 
 
@@ -682,44 +649,41 @@ describe('REST API - models', () => {
             nextAuth0Userid = userid;
             nextAuth0Role = 'student';
             nextAuth0Class = classid;
-            return request(testServer)
+
+            const res = await request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then((res) => {
-                    const body = res.body;
+                .expect(httpstatus.CREATED);
 
-                    assert.strictEqual(body.status, 'Training');
-                    assert.strictEqual(body.key, projectid);
+            assert.strictEqual(res.body.status, 'Training');
+            assert.strictEqual(res.body.key, projectid);
 
-                    const created = new Date(body.lastupdate);
-                    assert.strictEqual(isNaN(created.getDate()), false);
+            const created = new Date(res.body.lastupdate);
+            assert.strictEqual(isNaN(created.getDate()), false);
 
-                    return store.getNumbersClassifiers(projectid);
-                })
-                .then((models) => {
-                    assert.strictEqual(models.length, 1);
+            const models = await store.getNumbersClassifiers(projectid);
+            assert.strictEqual(models.length, 1);
 
-                    const model = models[0];
-                    assert.strictEqual(model.userid, userid);
-                    assert.strictEqual(model.classid, classid);
-                    assert.strictEqual(model.projectid, projectid);
-                    assert(model.url.startsWith('http'));
-                    assert(model.url.endsWith('/saved-models/' + projectid + '/status'));
+            const model = models[0];
+            assert.strictEqual(model.userid, userid);
+            assert.strictEqual(model.classid, classid);
+            assert.strictEqual(model.projectid, projectid);
+            assert(model.url.startsWith('http'));
+            assert(model.url.endsWith('/saved-models/' + projectid + '/status'));
 
-                    return store.deleteEntireProject(userid, classid, project);
-                });
+            await store.deleteEntireProject(userid, classid, project);
         });
     });
 
 
     describe('testModel', () => {
 
-        it('should require a model type', () => {
+        it('should require a model type', async () => {
             nextAuth0Userid = 'userid';
             nextAuth0Role = 'student';
             nextAuth0Class = 'classid';
-            return request(testServer)
+
+            const resp = await request(testServer)
                 .post('/api/classes/' + 'classid' +
                         '/students/' + 'userid' +
                         '/projects/' + 'projectid' +
@@ -730,18 +694,18 @@ describe('REST API - models', () => {
                     credentialsid : 'HELLO',
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((resp) => {
-                    assert.deepStrictEqual(resp.body, { error : 'Missing data' });
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(resp.body, { error : 'Missing data' });
         });
 
 
-        it('should require text to test with', () => {
+        it('should require text to test with', async () => {
             nextAuth0Userid = 'userid';
             nextAuth0Role = 'student';
             nextAuth0Class = 'classid';
-            return request(testServer)
+
+            const resp = await request(testServer)
                 .post('/api/classes/' + 'classid' +
                         '/students/' + 'userid' +
                         '/projects/' + 'projectid' +
@@ -752,17 +716,17 @@ describe('REST API - models', () => {
                     credentialsid : 'HELLO',
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((resp) => {
-                    assert.deepStrictEqual(resp.body, { error : 'Missing data' });
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(resp.body, { error : 'Missing data' });
         });
 
-        it('should require images to test with', () => {
+        it('should require images to test with', async () => {
             nextAuth0Userid = 'userid';
             nextAuth0Role = 'student';
             nextAuth0Class = 'classid';
-            return request(testServer)
+
+            const resp = await request(testServer)
                 .post('/api/classes/' + 'classid' +
                         '/students/' + 'userid' +
                         '/projects/' + 'projectid' +
@@ -773,20 +737,20 @@ describe('REST API - models', () => {
                     credentialsid : 'HELLO',
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((resp) => {
-                    assert.deepStrictEqual(resp.body, { error : 'Missing data' });
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(resp.body, { error : 'Missing data' });
         });
 
 
 
 
-        it('should require credentials to test with', () => {
+        it('should require credentials to test with', async () => {
             nextAuth0Userid = 'userid';
             nextAuth0Role = 'student';
             nextAuth0Class = 'classid';
-            return request(testServer)
+
+            const resp = await request(testServer)
                 .post('/api/classes/' + 'classid' +
                         '/students/' + 'userid' +
                         '/projects/' + 'projectid' +
@@ -797,18 +761,18 @@ describe('REST API - models', () => {
                     text : 'HELLO',
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((resp) => {
-                    assert.deepStrictEqual(resp.body, { error : 'Missing data' });
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(resp.body, { error : 'Missing data' });
         });
 
 
-        it('should require valid credentials to test text with', () => {
+        it('should require valid credentials to test text with', async () => {
             nextAuth0Userid = 'userid';
             nextAuth0Role = 'student';
             nextAuth0Class = 'classid';
-            return request(testServer)
+
+            const resp = await request(testServer)
                 .post('/api/classes/' + 'classid' +
                         '/students/' + 'userid' +
                         '/projects/' + 'projectid' +
@@ -820,18 +784,18 @@ describe('REST API - models', () => {
                     credentialsid : 'blahblahblah',
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_FOUND)
-                .then((resp) => {
-                    assert.deepStrictEqual(resp.body, { error : 'Not found' });
-                });
+                .expect(httpstatus.NOT_FOUND);
+
+            assert.deepStrictEqual(resp.body, { error : 'Not found' });
         });
 
 
-        it('should require credentials to test images with', () => {
+        it('should require credentials to test images with', async () => {
             nextAuth0Userid = 'userid';
             nextAuth0Role = 'student';
             nextAuth0Class = 'classid';
-            return request(testServer)
+
+            const resp = await request(testServer)
                 .post('/api/classes/' + 'classid' +
                         '/students/' + 'userid' +
                         '/projects/' + 'projectid' +
@@ -842,10 +806,9 @@ describe('REST API - models', () => {
                     text : 'HELLO',
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((resp) => {
-                    assert.deepStrictEqual(resp.body, { error : 'Missing data' });
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(resp.body, { error : 'Missing data' });
         });
 
 
@@ -888,7 +851,8 @@ describe('REST API - models', () => {
             nextAuth0Userid = userid;
             nextAuth0Role = 'student';
             nextAuth0Class = classid;
-            return request(testServer)
+
+            const res = await request(testServer)
                 .post('/api/classes/' + classid +
                         '/students/' + userid +
                         '/projects/' + projectid +
@@ -900,22 +864,19 @@ describe('REST API - models', () => {
                     credentialsid : credentials.id,
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then(async (res) => {
-                    const body = res.body;
+                .expect(httpstatus.OK);
 
-                    const classifierTimestamp = body[0].classifierTimestamp;
-                    assert(classifierTimestamp);
+            const classifierTimestamp = res.body[0].classifierTimestamp;
+            assert(classifierTimestamp);
 
-                    assert.deepStrictEqual(body, [
-                        { class_name : 'first', confidence : 0.8, classifierTimestamp },
-                        { class_name : 'second', confidence : 0.15, classifierTimestamp },
-                        { class_name : 'third', confidence : 0.05, classifierTimestamp },
-                    ]);
+            assert.deepStrictEqual(res.body, [
+                { class_name : 'first', confidence : 0.8, classifierTimestamp },
+                { class_name : 'second', confidence : 0.15, classifierTimestamp },
+                { class_name : 'third', confidence : 0.05, classifierTimestamp },
+            ]);
 
-                    await store.deleteEntireUser(userid, classid);
-                    await store.deleteBluemixCredentials(credentials.id);
-                });
+            await store.deleteEntireUser(userid, classid);
+            await store.deleteBluemixCredentials(credentials.id);
         });
 
 
@@ -934,7 +895,7 @@ describe('REST API - models', () => {
             nextAuth0Role = 'student';
             nextAuth0Class = classid;
 
-            return request(testServer)
+            await request(testServer)
                 .post('/api/classes/' + classid +
                       '/students/' + userid +
                       '/projects/' + projectid +
@@ -944,10 +905,9 @@ describe('REST API - models', () => {
                     type : 'sounds',
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_IMPLEMENTED)
-                .then(() => {
-                    return store.deleteEntireUser(userid, classid);
-                });
+                .expect(httpstatus.NOT_IMPLEMENTED);
+
+            await store.deleteEntireUser(userid, classid);
         });
 
 
@@ -964,7 +924,7 @@ describe('REST API - models', () => {
             nextAuth0Role = 'student';
             nextAuth0Class = classid;
 
-            return request(testServer)
+            await request(testServer)
                 .post('/api/classes/' + classid +
                       '/students/' + userid +
                       '/projects/' + projectid +
@@ -974,10 +934,9 @@ describe('REST API - models', () => {
                     type : 'sounds',
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_IMPLEMENTED)
-                .then(() => {
-                    return store.deleteEntireUser(userid, classid);
-                });
+                .expect(httpstatus.NOT_IMPLEMENTED);
+
+            await store.deleteEntireUser(userid, classid);
         });
 
 
@@ -994,7 +953,7 @@ describe('REST API - models', () => {
             nextAuth0Role = 'student';
             nextAuth0Class = classid;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/classes/' + classid +
                       '/students/' + userid +
                       '/projects/' + projectid +
@@ -1004,16 +963,11 @@ describe('REST API - models', () => {
                     image : 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/John_McCarthy_%28computer_scientist%29_Stanford_2006_%28272020300%29.jpg/1280px-John_McCarthy_%28computer_scientist%29_Stanford_2006_%28272020300%29.jpg',
                 })
                 .expect('Content-Type', /octet-stream/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    return writeDataToTempFile(res.body);
-                })
-                .then((retrievedFile) => {
-                    return filecomparepromise('./src/tests/utils/resources/mccarthy.jpg', retrievedFile);
-                })
-                .then(() => {
-                    return store.deleteEntireUser(userid, classid);
-                });
+                .expect(httpstatus.OK);
+
+            const retrievedFile = await writeDataToTempFile(res.body);
+            await filecomparepromise('./src/tests/utils/resources/mccarthy.jpg', retrievedFile);
+            await store.deleteEntireUser(userid, classid);
         });
 
         it('should return errors getting unknown images ready for testing for imgtfjs models', async () => {
@@ -1029,7 +983,7 @@ describe('REST API - models', () => {
             nextAuth0Role = 'student';
             nextAuth0Class = classid;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/classes/' + classid +
                       '/students/' + userid +
                       '/projects/' + projectid +
@@ -1039,15 +993,13 @@ describe('REST API - models', () => {
                     image : 'https://not-a-real-imagehost.com/testimage',
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, {
-                        error : 'The test image could not be downloaded',
-                    });
-                })
-                .then(() => {
-                    return store.deleteEntireUser(userid, classid);
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, {
+                error : 'The test image could not be downloaded',
+            });
+
+            await store.deleteEntireUser(userid, classid);
         });
 
         it('should return errors getting invalid URLs ready for testing for imgtfjs models', async () => {
@@ -1063,8 +1015,8 @@ describe('REST API - models', () => {
             nextAuth0Role = 'student';
             nextAuth0Class = classid;
 
-            function verifyInvalidURL(invalidurl: string) {
-                return request(testServer)
+            async function verifyInvalidURL(invalidurl: string) {
+                const res = await request(testServer)
                     .post('/api/classes/' + classid +
                         '/students/' + userid +
                         '/projects/' + projectid +
@@ -1074,27 +1026,18 @@ describe('REST API - models', () => {
                         image : invalidurl,
                     })
                     .expect('Content-Type', /json/)
-                    .expect(httpstatus.BAD_REQUEST)
-                    .then((res) => {
-                        assert.deepStrictEqual(res.body, {
-                            error : 'The test image address is not a valid web address',
-                        });
-                    });
+                    .expect(httpstatus.BAD_REQUEST);
+
+                assert.deepStrictEqual(res.body, {
+                    error : 'The test image address is not a valid web address',
+                });
             }
 
-            return verifyInvalidURL('file:///C:/temp/images.jpg')
-                .then(() => {
-                    return verifyInvalidURL('This is not a URL');
-                })
-                .then(() => {
-                    return verifyInvalidURL('www.sorry.com');
-                })
-                .then(() => {
-                    return verifyInvalidURL('dhttps://something.com/image.png');
-                })
-                .then(() => {
-                    return store.deleteEntireUser(userid, classid);
-                });
+            await verifyInvalidURL('file:///C:/temp/images.jpg');
+            await verifyInvalidURL('This is not a URL');
+            await verifyInvalidURL('www.sorry.com');
+            await verifyInvalidURL('dhttps://something.com/image.png');
+            await store.deleteEntireUser(userid, classid);
         });
 
         it('should return errors getting resources that are not valid images ready for testing for imgtfjs models', async () => {
@@ -1110,7 +1053,7 @@ describe('REST API - models', () => {
             nextAuth0Role = 'student';
             nextAuth0Class = classid;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/classes/' + classid +
                       '/students/' + userid +
                       '/projects/' + projectid +
@@ -1120,21 +1063,19 @@ describe('REST API - models', () => {
                     image : 'https://ibm.com',
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, {
-                        error : 'The test image is a type that cannot be used',
-                    });
-                })
-                .then(() => {
-                    return store.deleteEntireUser(userid, classid);
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, {
+                error : 'The test image is a type that cannot be used',
+            });
+
+            await store.deleteEntireUser(userid, classid);
         });
     });
 
     describe('deleteModel', () => {
 
-        it('should verify project exists', () => {
+        it('should verify project exists', async () => {
             const classid = uuid();
             const studentid = uuid();
             const projectid = uuid();
@@ -1142,17 +1083,16 @@ describe('REST API - models', () => {
             nextAuth0Userid = studentid;
             nextAuth0Role = 'student';
             nextAuth0Class = classid;
-            return request(testServer)
+
+            const res = await request(testServer)
                 .delete('/api/classes/' + classid +
                         '/students/' + studentid +
                         '/projects/' + projectid +
                         '/models/' + modelid)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_FOUND)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.error, 'Not found');
-                });
+                .expect(httpstatus.NOT_FOUND);
+
+            assert.strictEqual(res.body.error, 'Not found');
         });
 
         it('should verify user id', async () => {
@@ -1166,15 +1106,15 @@ describe('REST API - models', () => {
             nextAuth0Userid = 'DIFFERENTUSER';
             nextAuth0Role = 'student';
             nextAuth0Class = classid;
-            return request(testServer)
+
+            await request(testServer)
                 .delete('/api/classes/' + classid +
                         '/students/DIFFERENTUSER/projects/' + projectid +
                         '/models/' + modelid)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.FORBIDDEN)
-                .then(() => {
-                    return store.deleteEntireUser(userid, classid);
-                });
+                .expect(httpstatus.FORBIDDEN);
+
+            await store.deleteEntireUser(userid, classid);
         });
 
         it('should allow teachers to delete models', async () => {
@@ -1215,16 +1155,16 @@ describe('REST API - models', () => {
             nextAuth0Userid = 'teacheruserid';
             nextAuth0Role = 'supervisor';
             nextAuth0Class = classid;
-            return request(testServer)
+
+            await request(testServer)
                 .delete('/api/classes/' + classid +
                         '/students/' + userid +
                         '/projects/' + projectid +
                         '/models/' + modelid)
-                .expect(httpstatus.NO_CONTENT)
-                .then(async () => {
-                    await store.deleteEntireUser(userid, classid);
-                    await store.deleteBluemixCredentials(credentials.id);
-                });
+                .expect(httpstatus.NO_CONTENT);
+
+            await store.deleteEntireUser(userid, classid);
+            await store.deleteBluemixCredentials(credentials.id);
         });
 
 
@@ -1266,15 +1206,15 @@ describe('REST API - models', () => {
             nextAuth0Userid = 'teacheruserid';
             nextAuth0Role = 'supervisor';
             nextAuth0Class = 'DIFFERENTCLASSID';
-            return request(testServer)
+
+            await request(testServer)
                 .delete('/api/classes/' + classid +
                         '/students/teacheruserid/projects/' + projectid +
                         '/models/' + modelid)
                 .expect(httpstatus.FORBIDDEN)
-                .expect('Content-Type', /json/)
-                .then(() => {
-                    return store.deleteEntireUser(userid, classid);
-                });
+                .expect('Content-Type', /json/);
+
+            await store.deleteEntireUser(userid, classid);
         });
 
 
@@ -1296,19 +1236,16 @@ describe('REST API - models', () => {
             await store.storeNumbersClassifier(userid, classid, project.id,
                 'https://mlforkids-newnumbers.not-a-real-region.cloud-region.codeengine.appdomain.cloud/saved-models/741120a0-f38a-11ee-872d-a10721b23614/status');
 
-            return request(testServer)
+            await request(testServer)
                 .delete('/api/classes/' + classid +
                         '/students/' + userid +
                         '/projects/' + projectid +
                         '/models/' + modelid)
-                .expect(httpstatus.NO_CONTENT)
-                .then(() => {
-                    return store.getNumbersClassifiers(projectid);
-                })
-                .then((output) => {
-                    assert.deepStrictEqual(output, []);
-                    return store.deleteEntireUser(userid, classid);
-                });
+                .expect(httpstatus.NO_CONTENT);
+
+            const output = await store.getNumbersClassifiers(projectid);
+            assert.deepStrictEqual(output, []);
+            await store.deleteEntireUser(userid, classid);
         });
 
 
@@ -1324,15 +1261,15 @@ describe('REST API - models', () => {
             nextAuth0Userid = userid;
             nextAuth0Role = 'student';
             nextAuth0Class = classid;
-            return request(testServer)
+
+            await request(testServer)
                 .delete('/api/classes/' + classid +
                         '/students/' + userid +
                         '/projects/' + projectid +
                         '/models/' + modelid)
-                .expect(httpstatus.NOT_FOUND)
-                .then(async () => {
-                    await store.deleteEntireUser(userid, classid);
-                });
+                .expect(httpstatus.NOT_FOUND);
+
+            await store.deleteEntireUser(userid, classid);
         });
 
 
@@ -1374,45 +1311,32 @@ describe('REST API - models', () => {
             nextAuth0Userid = userid;
             nextAuth0Role = 'student';
             nextAuth0Class = classid;
-            return request(testServer)
+
+            await request(testServer)
                 .delete('/api/classes/' + classid +
                         '/students/' + userid +
                         '/projects/' + projectid +
                         '/models/' + modelid)
-                .expect(httpstatus.NO_CONTENT)
-                .then(async () => {
-                    await store.deleteEntireUser(userid, classid);
-                    await store.deleteBluemixCredentials(credentials.id);
-                });
+                .expect(httpstatus.NO_CONTENT);
+
+            await store.deleteEntireUser(userid, classid);
+            await store.deleteBluemixCredentials(credentials.id);
         });
     });
 
 
-    function writeDataToTempFile(data: Buffer): Promise<string> {
-        return new Promise((resolve, reject) => {
-            tmp.file((err, path) => {
-                if (err) {
-                    return reject(err);
-                }
-                fs.writeFile(path, data, (fserr) => {
-                    if (fserr) {
-                        return reject(fserr);
-                    }
-                    return resolve(path);
-                });
-            });
-        });
+    const tmpFilePromise = promisify(tmp.file);
+    const fsWriteFilePromise = promisify(fs.writeFile);
+    const filecomparePromise = promisify(filecompare);
+
+    async function writeDataToTempFile(data: Buffer): Promise<string> {
+        const path = await tmpFilePromise();
+        await fsWriteFilePromise(path, data);
+        return path;
     }
 
-    function filecomparepromise(filea: string, fileb: string): Promise<void> {
-        return new Promise((resolve, reject) => {
-            filecompare(filea, fileb, (isEq: boolean) => {
-                if (isEq) {
-                    return resolve();
-                }
-                assert(isEq, filea + ' ' + fileb);
-                return reject(new Error('files do not match'));
-            });
-        });
+    async function filecomparepromise(filea: string, fileb: string): Promise<void> {
+        const isEq = await filecomparePromise(filea, fileb);
+        assert(isEq, filea + ' ' + fileb);
     }
 });

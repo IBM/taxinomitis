@@ -1,4 +1,4 @@
-/*eslint-env mocha */
+import { describe, it, before, after } from 'node:test';
 import * as assert from 'assert';
 import { v1 as uuid } from 'uuid';
 import * as randomstring from 'randomstring';
@@ -79,11 +79,9 @@ describe('DB store - image training', () => {
             return store.deleteTrainingByProjectId('images', projectid);
         });
 
-        it('should recognize non-existent images are not stored', () => {
-            return store.isImageStored(uuid())
-                .then((resp) => {
-                    assert.strictEqual(resp, false);
-                });
+        it('should recognize non-existent images are not stored', async () => {
+            const resp = await store.isImageStored(uuid());
+            assert.strictEqual(resp, false);
         });
 
         it('should store image data', async () => {
@@ -110,17 +108,13 @@ describe('DB store - image training', () => {
             const url = randomstring.generate({ length : 1500 });
             const label = uuid();
 
-            try {
-                await store.storeImageTraining(projectid, url, label, false);
-                assert.fail('should not reach here');
-            }
-            catch (err) {
-                assert(err);
-                assert.strictEqual(err.message, 'Image URL exceeds maximum allowed length (1024 characters)');
+            await assert.rejects(
+                () => store.storeImageTraining(projectid, url, label, false),
+                { message: 'Image URL exceeds maximum allowed length (1024 characters)' }
+            );
 
-                const count = await store.countTraining('text', projectid);
-                assert.strictEqual(count, 0);
-            }
+            const count = await store.countTraining('text', projectid);
+            assert.strictEqual(count, 0);
         });
     });
 

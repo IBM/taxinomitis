@@ -75,6 +75,7 @@ export function verifyImage(url: string, maxAllowedSizeBytes: number): Promise<v
             imageurl = urlchecker.check(url);
         }
         catch (err) {
+            log.debug({ err }, 'Failed to check URL');
             return reject(new Error(ERROR_PREFIXES.INVALID_URL));
         }
 

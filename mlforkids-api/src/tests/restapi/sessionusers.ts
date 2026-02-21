@@ -1,5 +1,4 @@
-/*eslint-env mocha */
-
+import { describe, it, before, beforeEach, after } from 'node:test';
 import * as assert from 'assert';
 import * as sinon from 'sinon';
 import * as request from 'supertest';
@@ -14,7 +13,7 @@ import testapiserver from './testserver';
 let testServer: express.Express;
 
 
-describe('REST API - session users', () => {
+describe('REST API - session users', { concurrency: false }, () => {
 
     let authStub: sinon.SinonStub<[express.Request, express.Response, express.NextFunction], void>;
 

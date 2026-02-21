@@ -1,4 +1,4 @@
-/*eslint-env mocha */
+import { describe, it, before, after } from 'node:test';
 import * as assert from 'assert';
 import * as express from 'express';
 import * as sinon from 'sinon';
@@ -120,7 +120,6 @@ describe('REST API - classifiers', () => {
         });
 
         after(() => {
-            authStub.restore();
             getClassifiersStub.restore();
             getClassStub.restore();
         });
@@ -131,7 +130,7 @@ describe('REST API - classifiers', () => {
             nextAuth0Userid = 'managed-user';
             nextAuth0Role = 'supervisor';
             nextAuth0Class = 'managed';
-            return testRequest(testServer)
+            await testRequest(testServer)
                 .get('/api/classes/' + CLASSID + '/classifiers')
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.FORBIDDEN);
@@ -141,7 +140,7 @@ describe('REST API - classifiers', () => {
             nextAuth0Userid = USERID;
             nextAuth0Role = 'supervisor';
             nextAuth0Class = CLASSID;
-            return testRequest(testServer)
+            await testRequest(testServer)
                 .get('/api/classes/' + CLASSID + '/classifiers')
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST);
@@ -151,7 +150,7 @@ describe('REST API - classifiers', () => {
             nextAuth0Userid = USERID;
             nextAuth0Role = 'supervisor';
             nextAuth0Class = CLASSID;
-            return testRequest(testServer)
+            await testRequest(testServer)
                 .get('/api/classes/' + CLASSID + '/classifiers?type=managed')
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST);
@@ -161,7 +160,7 @@ describe('REST API - classifiers', () => {
             nextAuth0Userid = USERID;
             nextAuth0Role = 'student';
             nextAuth0Class = CLASSID;
-            return testRequest(testServer)
+            await testRequest(testServer)
                 .get('/api/classes/' + CLASSID + '/classifiers?type=unmanaged')
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.FORBIDDEN);
@@ -171,7 +170,7 @@ describe('REST API - classifiers', () => {
             nextAuth0Userid = USERID;
             nextAuth0Role = 'supervisor';
             nextAuth0Class = CLASSID;
-            return testRequest(testServer)
+            await testRequest(testServer)
                 .get('/api/classes/' + 'WRONG' + '/classifiers?type=unmanaged')
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.FORBIDDEN);
@@ -181,20 +180,19 @@ describe('REST API - classifiers', () => {
             nextAuth0Userid = USERID;
             nextAuth0Role = 'supervisor';
             nextAuth0Class = CLASSID;
-            return testRequest(testServer)
+            const resp = await testRequest(testServer)
                 .get('/api/classes/' + CLASSID + '/classifiers?type=unmanaged')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((resp) => {
-                    assert.strictEqual(resp.header['cache-control'], 'max-age=3600');
+                .expect(httpstatus.OK);
 
-                    const allUnknowns = resp.body;
+            assert.strictEqual(resp.header['cache-control'], 'max-age=3600');
 
-                    assert.strictEqual(allUnknowns.conv.length, 3);
-                    assert(allUnknowns.conv.some((unknown: any) => unknown.name === 'First API test'));
-                    assert(allUnknowns.conv.some((unknown: any) => unknown.name === 'Second API test'));
-                    assert(allUnknowns.conv.some((unknown: any) => unknown.name === 'Third API test'));
-                });
+            const allUnknowns = resp.body;
+
+            assert.strictEqual(allUnknowns.conv.length, 3);
+            assert(allUnknowns.conv.some((unknown: any) => unknown.name === 'First API test'));
+            assert(allUnknowns.conv.some((unknown: any) => unknown.name === 'Second API test'));
+            assert(allUnknowns.conv.some((unknown: any) => unknown.name === 'Third API test'));
         });
     });
 
@@ -220,7 +218,7 @@ describe('REST API - classifiers', () => {
             nextAuth0Userid = 'managed-user';
             nextAuth0Role = 'supervisor';
             nextAuth0Class = 'managed';
-            return testRequest(testServer)
+            await testRequest(testServer)
                 .del('/api/classes/' + CLASSID + '/classifiers/classifierid')
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.FORBIDDEN);
@@ -230,7 +228,7 @@ describe('REST API - classifiers', () => {
             nextAuth0Userid = 'managed-user';
             nextAuth0Role = 'supervisor';
             nextAuth0Class = CLASSID;
-            return testRequest(testServer)
+            await testRequest(testServer)
                 .del('/api/classes/' + CLASSID + '/classifiers/' + validWorkspace.workspace_id +
                      '?type=conv')
                 .expect('Content-Type', /json/)
@@ -241,7 +239,7 @@ describe('REST API - classifiers', () => {
             nextAuth0Userid = 'managed-user';
             nextAuth0Role = 'supervisor';
             nextAuth0Class = CLASSID;
-            return testRequest(testServer)
+            await testRequest(testServer)
                 .del('/api/classes/' + CLASSID + '/classifiers/classifierid' +
                      '?type=conv&credentialsid=' + 'DOESNOTEXIST')
                 .expect('Content-Type', /json/)
@@ -252,7 +250,7 @@ describe('REST API - classifiers', () => {
             nextAuth0Userid = 'managed-user';
             nextAuth0Role = 'supervisor';
             nextAuth0Class = 'DIFFERENT';
-            return testRequest(testServer)
+            await testRequest(testServer)
                 .del('/api/classes/' + 'DIFFERENT' + '/classifiers/' + validWorkspace.workspace_id +
                      '?type=conv&credentialsid=' + convCredentials.id)
                 .expect('Content-Type', /json/)
@@ -263,7 +261,7 @@ describe('REST API - classifiers', () => {
             nextAuth0Userid = 'managed-user';
             nextAuth0Role = 'supervisor';
             nextAuth0Class = CLASSID;
-            return testRequest(testServer)
+            await testRequest(testServer)
                 .del('/api/classes/' + CLASSID + '/classifiers/' + validWorkspace.workspace_id +
                      '?type=conv&credentialsid=' + convCredentials.id)
                 .expect(httpstatus.NO_CONTENT);

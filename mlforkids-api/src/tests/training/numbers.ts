@@ -1,5 +1,4 @@
-/*eslint-env mocha */
-
+import { describe, it, before, after } from 'node:test';
 import * as assert from 'assert';
 import * as store from '../../lib/db/store';
 import * as dbtypes from '../../lib/db/db-types';
@@ -13,31 +12,25 @@ import * as request from '../../lib/utils/request';
     const USERID = 'TESTUSER';
     const CLASSID = 'TESTTENANT';
 
-    before(() => {
-        return store.init();
+    before(async () => {
+        await store.init();
     });
-    after(() => {
-        return store.deleteEntireUser(USERID, CLASSID)
-            .then(() => {
-                return store.disconnect();
-            });
+    after(async () => {
+        await store.deleteEntireUser(USERID, CLASSID);
+        await store.disconnect();
     });
 
 
     function pause() {
         return new Promise((resolve) => { setTimeout(resolve, 2000); });
     }
-    function waitForModel(statusUrl: string): Promise<numbers.NumbersApiResponsePayloadClassifierItem> {
-        return pause()
-            .then(() => {
-                return request.get(statusUrl, { json : true });
-            })
-            .then((resp) => {
-                if (resp.status === 'training') {
-                    return waitForModel(statusUrl);
-                }
-                return resp;
-            });
+    async function waitForModel(statusUrl: string): Promise<numbers.NumbersApiResponsePayloadClassifierItem> {
+        await pause();
+        const resp = await request.get(statusUrl, { json : true });
+        if (resp.status === 'training') {
+            return waitForModel(statusUrl);
+        }
+        return resp;
     }
 
 

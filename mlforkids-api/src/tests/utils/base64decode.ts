@@ -1,23 +1,22 @@
-/*eslint-env mocha */
+import { describe, it } from 'node:test';
 import * as assert from 'assert';
 import * as fs from 'fs';
+import { promisify } from 'node:util';
 import * as filecompare from 'filecompare';
 
 import * as decoder from '../../lib/utils/base64decode';
 
-
+const filecompareAsync = promisify(filecompare);
+const unlinkAsync = promisify(fs.unlink);
 
 
 describe('Utils - base64decode', () => {
 
-    it('should decode a jpg file', (done) => {
-        decoder.run(TESTDATA)
-            .then((path) => {
-                filecompare('./src/tests/utils/resources/test.jpg', path, (isEqual: boolean) => {
-                    assert(isEqual);
-                    fs.unlink(path, done);
-                });
-            });
+    it('should decode a jpg file', async () => {
+        const path = await decoder.run(TESTDATA);
+        const isEqual = await filecompareAsync('./src/tests/utils/resources/test.jpg', path);
+        assert(isEqual);
+        await unlinkAsync(path);
     });
 
 });

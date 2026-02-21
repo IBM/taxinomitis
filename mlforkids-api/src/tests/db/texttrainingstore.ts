@@ -1,4 +1,4 @@
-/*eslint-env mocha */
+import { describe, it, before, after } from 'node:test';
 import * as assert from 'assert';
 import { v1 as uuid } from 'uuid';
 import * as randomstring from 'randomstring';
@@ -43,17 +43,13 @@ describe('DB store - text training', () => {
             const text = '     ';
             const label = uuid();
 
-            try {
-                await store.storeTextTraining(projectid, text, label);
-                assert.fail('should not reach here');
-            }
-            catch (err) {
-                assert(err);
-                assert.strictEqual(err.message, 'Empty text is not allowed');
+            await assert.rejects(
+                () => store.storeTextTraining(projectid, text, label),
+                { message: 'Empty text is not allowed' }
+            );
 
-                const count = await store.countTraining('text', projectid);
-                assert.strictEqual(count, 0);
-            }
+            const count = await store.countTraining('text', projectid);
+            assert.strictEqual(count, 0);
         });
 
         it('should limit maximum training data length', async () => {
@@ -61,17 +57,13 @@ describe('DB store - text training', () => {
             const text = randomstring.generate({ length : 1200 });
             const label = uuid();
 
-            try {
-                await store.storeTextTraining(projectid, text, label);
-                assert.fail('should not reach here');
-            }
-            catch (err) {
-                assert(err);
-                assert.strictEqual(err.message, 'Text exceeds maximum allowed length (1024 characters)');
+            await assert.rejects(
+                () => store.storeTextTraining(projectid, text, label),
+                { message: 'Text exceeds maximum allowed length (1024 characters)' }
+            );
 
-                const count = await store.countTraining('text', projectid);
-                assert.strictEqual(count, 0);
-            }
+            const count = await store.countTraining('text', projectid);
+            assert.strictEqual(count, 0);
         });
     });
 
@@ -175,7 +167,7 @@ describe('DB store - text training', () => {
 
         it('should count training data by label', async () => {
             const userid = uuid();
-            const project = await store.storeProject(userid, 'UNIQUECLASSID', 'text', 'name', 'en', [], false);
+            const project = await store.storeProject(userid, 'UNIQUECLASSIDTXT', 'text', 'name', 'en', [], false);
             const projectid = project.id;
             let counts = await store.countTrainingByLabel(project);
             assert.deepStrictEqual(counts, {});
@@ -187,7 +179,7 @@ describe('DB store - text training', () => {
             for (let labelIdx = 0; labelIdx < 5; labelIdx++) {
                 const label = uuid();
 
-                await store.addLabelToProject(userid, 'UNIQUECLASSID', projectid, label);
+                await store.addLabelToProject(userid, 'UNIQUECLASSIDTXT', projectid, label);
 
                 const num = 8 + labelIdx;
 
@@ -340,7 +332,7 @@ describe('DB store - text training', () => {
     describe('renameTextTrainingLabel', () => {
 
         it('should rename a label', async () => {
-            const project = await store.storeProject(uuid(), 'UNIQUECLASSID', 'text', 'name', 'en', [], false);
+            const project = await store.storeProject(uuid(), 'UNIQUECLASSIDTXT', 'text', 'name', 'en', [], false);
 
             const BEFORE = uuid();
             const AFTER = uuid();

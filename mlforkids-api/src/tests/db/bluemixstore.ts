@@ -1,4 +1,4 @@
-/*eslint-env mocha */
+import { describe, it, before, after } from 'node:test';
 import * as assert from 'assert';
 import * as randomstring from 'randomstring';
 import * as sinon from 'sinon';
@@ -203,13 +203,10 @@ describe('DB store', () => {
 
             await store.deleteBluemixCredentials(creds.id);
 
-            return store.getBluemixCredentials(testTenant, 'conv')
-                .then(() => {
-                    assert.fail('Should not reach here');
-                })
-                .catch((err) => {
-                    assert.strictEqual(err.message, 'Unexpected response when retrieving service credentials');
-                });
+            await assert.rejects(
+                () => store.getBluemixCredentials(testTenant, 'conv'),
+                { message: 'Unexpected response when retrieving service credentials' }
+            );
         });
 
         it('should retrieve credentials for a classifier', async () => {
@@ -309,14 +306,11 @@ describe('DB store', () => {
 
 
         it('should reject modifications for invalid credentials types', async () => {
-            try {
-                await store.setBluemixCredentialsType('classid', 'credsid', 'conv',
-                    'fish' as Types.BluemixCredentialsTypeLabel);
-                assert.fail('Should not reach here');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Unrecognised credentials type');
-            }
+            await assert.rejects(
+                () => store.setBluemixCredentialsType('classid', 'credsid', 'conv',
+                    'fish' as Types.BluemixCredentialsTypeLabel),
+                { message: 'Unrecognised credentials type' }
+            );
         });
     });
 

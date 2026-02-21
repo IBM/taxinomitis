@@ -1,4 +1,4 @@
-/*eslint-env mocha */
+import { describe, it, before, beforeEach, after } from 'node:test';
 import * as express from 'express';
 import * as sinon from 'sinon';
 import { v1 as uuid } from 'uuid';
@@ -16,7 +16,7 @@ import testapiserver from './testserver';
 let testServer: express.Express;
 
 
-const TESTCLASS = 'UNIQUECLASSID';
+const TESTCLASS = 'UNIQUECLASSIDLCL';
 
 
 describe('REST API - local projects', () => {
@@ -139,97 +139,90 @@ describe('REST API - local projects', () => {
 
 
     describe('createLocalProject', () => {
-        it('should validate missing input', () => {
-            return request(testServer)
+        it('should validate missing input', async () => {
+            const res = await request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/userid/localprojects')
                 .send({})
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.error, 'Invalid project type undefined');
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            const body = res.body;
+            assert.strictEqual(body.error, 'Invalid project type undefined');
         });
 
-        it('should only support text projects for local projects', () => {
-            return request(testServer)
+        it('should only support text projects for local projects', async () => {
+            const res = await request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/student/localprojects')
                 .send({ type : 'imgtfjs', name : 'invalid type', labels : [] })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.error, 'Local projects not supported for non-text projects');
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            const body = res.body;
+            assert.strictEqual(body.error, 'Local projects not supported for non-text projects');
         });
 
-        it('should verify class ids', () => {
+        it('should verify class ids', async () => {
             nextAuth0UserTenant = 'different-class';
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/student/localprojects')
                 .send({ type : 'text' })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.FORBIDDEN)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.error, 'Invalid access');
-                });
+                .expect(httpstatus.FORBIDDEN);
+
+            const body = res.body;
+            assert.strictEqual(body.error, 'Invalid access');
         });
 
-        it('should create long expiry times for regular classes', () => {
-            return request(testServer)
+        it('should create long expiry times for regular classes', async () => {
+            const res = await request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/student/localprojects')
                 .send({ type : 'text', name : 'expiry check', labels : [ 'one', 'two' ] })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then((res) => {
-                    const body = res.body;
-                    assert(body.id);
-                    assert.strictEqual(body.name, 'expiry check');
-                    assert.deepStrictEqual(body.labels, [ 'one', 'two' ]);
+                .expect(httpstatus.CREATED);
 
-                    const fiftydays = 4320000000;
-                    assert(new Date(body.expiry).getTime() > (Date.now() + fiftydays));
-                });
+            const body = res.body;
+            assert(body.id);
+            assert.strictEqual(body.name, 'expiry check');
+            assert.deepStrictEqual(body.labels, [ 'one', 'two' ]);
+
+            const fiftydays = 4320000000;
+            assert(new Date(body.expiry).getTime() > (Date.now() + fiftydays));
         });
     });
 
 
     describe('deleteLocalProject', () => {
-        it('should return not found for non-existent local projects', () => {
-            return request(testServer)
+        it('should return not found for non-existent local projects', async () => {
+            const res = await request(testServer)
                 .del('/api/classes/' + TESTCLASS + '/students/userid/localprojects/not-a-real-project')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_FOUND)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.error, 'Not found');
-                });
+                .expect(httpstatus.NOT_FOUND);
+
+            const body = res.body;
+            assert.strictEqual(body.error, 'Not found');
         });
 
-        it('should delete projects', () => {
-            let projectid: string;
-            return request(testServer)
+        it('should delete projects', async () => {
+            const res = await request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/userid/localprojects')
                 .send({ type : 'text', name : 'delete me', labels : [] })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then((res) => {
-                    const body = res.body;
-                    assert(body.id);
-                    assert.strictEqual(body.name, 'delete me');
-                    assert.deepStrictEqual(body.labels, []);
-                    projectid = body.id;
-                    return request(testServer)
-                        .del('/api/classes/' + TESTCLASS + '/students/userid/localprojects/' + projectid)
-                        .expect(httpstatus.NO_CONTENT);
-                })
-                .then(() => {
-                    return request(testServer)
-                        .del('/api/classes/' + TESTCLASS + '/students/userid/localprojects/' + projectid)
-                        .expect(httpstatus.NOT_FOUND);
-                });
+                .expect(httpstatus.CREATED);
+
+            const body = res.body;
+            assert(body.id);
+            assert.strictEqual(body.name, 'delete me');
+            assert.deepStrictEqual(body.labels, []);
+            const projectid = body.id;
+
+            await request(testServer)
+                .del('/api/classes/' + TESTCLASS + '/students/userid/localprojects/' + projectid)
+                .expect(httpstatus.NO_CONTENT);
+
+            await request(testServer)
+                .del('/api/classes/' + TESTCLASS + '/students/userid/localprojects/' + projectid)
+                .expect(httpstatus.NOT_FOUND);
         });
     });
 
@@ -258,108 +251,91 @@ describe('REST API - local projects', () => {
     };
 
     describe('newLocalProjectModel', () => {
-        it('should update project expiry and labels after new models', () => {
-            let projectid: string;
-            let expiry: Date;
-            return request(testServer)
+        it('should update project expiry and labels after new models', async () => {
+            let res = await request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/userid/localprojects')
                 .send({ type : 'text', name : 'update this project', labels : [ 'this' ] })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then((res) => {
-                    const body = res.body;
-                    assert(body.id);
-                    assert.strictEqual(body.name, 'update this project');
-                    assert.deepStrictEqual(body.labels, [ 'this' ]);
-                    projectid = body.id;
-                    expiry = new Date(body.expiry);
-                    return store.getLocalProject(projectid);
-                })
-                .then((proj) => {
-                    assert(proj);
-                    assert.strictEqual(proj.expiry.getTime(), expiry.getTime());
+                .expect(httpstatus.CREATED);
 
-                    return request(testServer)
-                        .post('/api/classes/' + TESTCLASS + '/students/userid/localprojects/' + projectid + '/models')
-                        .send({ training: VALID_TEXT_TRAINING_DATA })
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.CREATED)
-                        .then((res) => {
-                            assert(res.body.classifierid);
-                            assert(res.body.credentialsid);
-                            assert.strictEqual(res.body.status, 'Training');
-                        });
-                })
-                .then(() => {
-                    return store.getLocalProject(projectid);
-                })
-                .then((proj) => {
-                    assert(proj);
-                    assert(proj.expiry.getTime() > expiry.getTime());
-                    assert.deepStrictEqual(proj.labels, [ 'this', 'that' ]);
-                });
+            const body = res.body;
+            assert(body.id);
+            assert.strictEqual(body.name, 'update this project');
+            assert.deepStrictEqual(body.labels, [ 'this' ]);
+            const projectid = body.id;
+            const expiry = new Date(body.expiry);
+
+            let proj = await store.getLocalProject(projectid);
+            assert(proj);
+            assert.strictEqual(proj.expiry.getTime(), expiry.getTime());
+
+            res = await request(testServer)
+                .post('/api/classes/' + TESTCLASS + '/students/userid/localprojects/' + projectid + '/models')
+                .send({ training: VALID_TEXT_TRAINING_DATA })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CREATED);
+
+            assert(res.body.classifierid);
+            assert(res.body.credentialsid);
+            assert.strictEqual(res.body.status, 'Training');
+
+            proj = await store.getLocalProject(projectid);
+            assert(proj);
+            assert(proj.expiry.getTime() > expiry.getTime());
+            assert.deepStrictEqual(proj.labels, [ 'this', 'that' ]);
         });
 
-        it('should reject requests for non-text projects', () => {
-            return request(testServer)
+        it('should reject requests for non-text projects', async () => {
+            const res = await request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/userid/localprojects')
                 .send({ type : 'numbers', name : 'numeric project', labels : [ 'this' ] })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, { error : 'Local projects not supported for non-text projects' });
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            const body = res.body;
+            assert.deepStrictEqual(body, { error : 'Local projects not supported for non-text projects' });
         });
     });
 
     describe('updateLocalProject', () => {
-        it('should return not-found for unknown projects', () => {
-            return request(testServer)
+        it('should return not-found for unknown projects', async () => {
+            const res = await request(testServer)
                 .put('/api/classes/' + TESTCLASS + '/students/userid/localprojects/' + 'UNKNOWN')
                 .send({ labels : [ 'this', 'that', 'the other' ] })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_FOUND)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, { error : 'Not found' });
-                });
+                .expect(httpstatus.NOT_FOUND);
+
+            assert.deepStrictEqual(res.body, { error : 'Not found' });
         });
 
-        it('should update project expiry and labels after project updates', () => {
-            let projectid: string;
-            let expiry: Date;
-            return request(testServer)
+        it('should update project expiry and labels after project updates', async () => {
+            const res = await request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/userid/localprojects')
                 .send({ type : 'text', name : 'updating this project', labels : [ 'this' ] })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then((res) => {
-                    const body = res.body;
-                    assert(body.id);
-                    assert.strictEqual(body.name, 'updating this project');
-                    assert.deepStrictEqual(body.labels, [ 'this' ]);
-                    projectid = body.id;
-                    expiry = new Date(body.expiry);
-                    return store.getLocalProject(projectid);
-                })
-                .then((proj) => {
-                    assert(proj);
-                    assert.strictEqual(proj.expiry.getTime(), expiry.getTime());
+                .expect(httpstatus.CREATED);
 
-                    return request(testServer)
-                        .put('/api/classes/' + TESTCLASS + '/students/userid/localprojects/' + projectid)
-                        .send({ labels : [ 'this', 'that', 'the other' ] })
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then(() => {
-                    return store.getLocalProject(projectid);
-                })
-                .then((proj) => {
-                    assert(proj);
-                    assert(proj.expiry.getTime() > expiry.getTime());
-                    assert.deepStrictEqual(proj.labels, [ 'this', 'that', 'the other' ]);
-                });
+            const body = res.body;
+            assert(body.id);
+            assert.strictEqual(body.name, 'updating this project');
+            assert.deepStrictEqual(body.labels, [ 'this' ]);
+            const projectid = body.id;
+            const expiry = new Date(body.expiry);
+
+            let proj = await store.getLocalProject(projectid);
+            assert(proj);
+            assert.strictEqual(proj.expiry.getTime(), expiry.getTime());
+
+            await request(testServer)
+                .put('/api/classes/' + TESTCLASS + '/students/userid/localprojects/' + projectid)
+                .send({ labels : [ 'this', 'that', 'the other' ] })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            proj = await store.getLocalProject(projectid);
+            assert(proj);
+            assert(proj.expiry.getTime() > expiry.getTime());
+            assert.deepStrictEqual(proj.labels, [ 'this', 'that', 'the other' ]);
         });
     });
 
@@ -413,15 +389,14 @@ describe('REST API - local projects', () => {
 
 
     describe('getLocalProjectScratchKeys', () => {
-        it('should return not found for non-existent local projects', () => {
-            return request(testServer)
+        it('should return not found for non-existent local projects', async () => {
+            const res = await request(testServer)
                 .get('/api/classes/' + TESTCLASS + '/students/userid/localprojects/not-a-real-project/scratchkeys')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_FOUND)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.error, 'Not found');
-                });
+                .expect(httpstatus.NOT_FOUND);
+
+            const body = res.body;
+            assert.strictEqual(body.error, 'Not found');
         });
 
         it('should return the same scratch key each time', async () => {
@@ -453,7 +428,7 @@ describe('REST API - local projects', () => {
 
     describe('numbers projects', () => {
 
-        it('should train a model', () => {
+        it('should train a model', async () => {
             const projectid = 1;
             const training = [
                 { id : 1, numberdata : [ 1, 1 ], label : 'one' },
@@ -481,18 +456,17 @@ describe('REST API - local projects', () => {
                 training,
             };
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/userid/localnumbersprojects')
                 .send(payload)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.key, 'userid-1');
-                    assert.strictEqual(body.status, 'Training');
-                    assert(body.urls.status.startsWith('http'));
-                    assert(body.urls.status.endsWith('/saved-models/userid-1/status'));
-                });
+                .expect(httpstatus.CREATED);
+
+            const body = res.body;
+            assert.strictEqual(body.key, 'userid-1');
+            assert.strictEqual(body.status, 'Training');
+            assert(body.urls.status.startsWith('http'));
+            assert(body.urls.status.endsWith('/saved-models/userid-1/status'));
         });
 
 
@@ -523,8 +497,8 @@ describe('REST API - local projects', () => {
                 .expect('Content-Type', /json/);
         }
 
-        it('should check for number data', () => {
-            return submitInvalidTrainingData(
+        it('should check for number data', async () => {
+            const res = await submitInvalidTrainingData(
                 [
                     { id : 1, numberdata : [ 1, 1 ], label : 'one' },
                     { id : 2, numberdata : [ 2, 2 ], label : 'one' },
@@ -533,37 +507,34 @@ describe('REST API - local projects', () => {
                     { id : 5, numberdata : [ 2, 20 ], label : 'two' },
                     { id : 6, numberdata : [ 3, 30 ], label : 'two' },
                 ])
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, { error : 'Missing data' });
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            const body = res.body;
+            assert.deepStrictEqual(body, { error : 'Missing data' });
         });
 
-        it('should check for training data', () => {
-            return submitInvalidTrainingData(undefined)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, { error : 'Missing data' });
-                });
+        it('should check for training data', async () => {
+            const res = await submitInvalidTrainingData(undefined)
+                .expect(httpstatus.BAD_REQUEST);
+
+            const body = res.body;
+            assert.deepStrictEqual(body, { error : 'Missing data' });
         });
 
-        it('should check for empty training data', () => {
-            return submitInvalidTrainingData([])
-                .expect(httpstatus.CREATED)
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, {
-                        key: 'userid-2',
-                        status: 'Failed',
-                        error: { message: 'More training data needed to train a model' },
-                    });
-                });
+        it('should check for empty training data', async () => {
+            const res = await submitInvalidTrainingData([])
+                .expect(httpstatus.CREATED);
+
+            const body = res.body;
+            assert.deepStrictEqual(body, {
+                key: 'userid-2',
+                status: 'Failed',
+                error: { message: 'More training data needed to train a model' },
+            });
         });
 
-        it('should check for numbers that are too big', () => {
-            return submitInvalidTrainingData(
+        it('should check for numbers that are too big', async () => {
+            const res = await submitInvalidTrainingData(
                 [
                     { id : 1, numberdata : [ 1, 1 ], label : 'one' },
                     { id : 2, numberdata : [ 2, 2 ], label : 'one' },
@@ -572,19 +543,18 @@ describe('REST API - local projects', () => {
                     { id : 5, numberdata : [ 2, 20 ], label : 'two' },
                     { id : 6, numberdata : [ 3, 999999999999999999999999999999999999999999999999999 ], label : 'two' },
                 ])
-                .expect(httpstatus.CREATED)
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, {
-                        key: 'userid-2',
-                        status: 'Failed',
-                        error: { message: 'Value (1e+51) is too big' },
-                    });
-                });
+                .expect(httpstatus.CREATED);
+
+            const body = res.body;
+            assert.deepStrictEqual(body, {
+                key: 'userid-2',
+                status: 'Failed',
+                error: { message: 'Value (1e+51) is too big' },
+            });
         });
 
-        it('should check for numbers that are too small', () => {
-            return submitInvalidTrainingData(
+        it('should check for numbers that are too small', async () => {
+            const res = await submitInvalidTrainingData(
                 [
                     { id : 1, numberdata : [ 1, 1 ], label : 'one' },
                     { id : 2, numberdata : [ 2, 2 ], label : 'one' },
@@ -593,18 +563,17 @@ describe('REST API - local projects', () => {
                     { id : 5, numberdata : [ 2, 20 ], label : 'two' },
                     { id : 6, numberdata : [ 3, -999999999999999999999999999999999999999999999999999 ], label : 'two' },
                 ])
-                .expect(httpstatus.CREATED)
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, {
-                        key: 'userid-2',
-                        status: 'Failed',
-                        error: { message: 'Value (-1e+51) is too small' },
-                    });
-                });
+                .expect(httpstatus.CREATED);
+
+            const body = res.body;
+            assert.deepStrictEqual(body, {
+                key: 'userid-2',
+                status: 'Failed',
+                error: { message: 'Value (-1e+51) is too small' },
+            });
         });
 
-        it('should check for project info', () => {
+        it('should check for project info', async () => {
             const projectid = 2;
             const fields = [
                 { name : 'first', type : 'number' },
@@ -629,15 +598,14 @@ describe('REST API - local projects', () => {
                 ],
             };
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/userid/localnumbersprojects')
                 .send(payload)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, { error : 'Missing data' });
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            const body = res.body;
+            assert.deepStrictEqual(body, { error : 'Missing data' });
         });
     });
 });

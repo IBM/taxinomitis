@@ -1,5 +1,4 @@
-/*eslint-env mocha */
-
+import { describe, it, before, beforeEach, after, afterEach } from 'node:test';
 import * as assert from 'assert';
 import { v1 as uuid } from 'uuid';
 import * as express from 'express';
@@ -77,7 +76,7 @@ describe('REST API - sound uploads', () => {
 
         await store.deleteProjectsByClassId(TESTCLASS);
 
-        return store.disconnect();
+        await store.disconnect();
     });
 
 
@@ -103,71 +102,63 @@ describe('REST API - sound uploads', () => {
 
         let projectid = '';
 
-        before(() => {
-            return store.storeProject('studentid', TESTCLASS, 'sounds', 'invalids', 'en', [], false)
-                .then((proj) => {
-                    projectid = proj.id;
-                    return store.addLabelToProject('studentid', TESTCLASS, projectid, 'KNOWN');
-                });
+        before(async () => {
+            const proj = await store.storeProject('studentid', TESTCLASS, 'sounds', 'invalids', 'en', [], false);
+            projectid = proj.id;
+            await store.addLabelToProject('studentid', TESTCLASS, projectid, 'KNOWN');
         });
 
-        it('should require a valid project', () => {
-            return request(testServer)
+        it('should require a valid project', async () => {
+            const res = await request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/studentid/projects/NOTAREALPROJECT/sounds')
-                .expect(httpStatus.NOT_FOUND)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, { error : 'Not found' });
-                });
+                .expect(httpStatus.NOT_FOUND);
+
+            assert.deepStrictEqual(res.body, { error : 'Not found' });
         });
 
-        it('should require data', () => {
-            return request(testServer)
+        it('should require data', async () => {
+            const res = await request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/studentid/projects/' + projectid + '/sounds')
-                .expect(httpStatus.BAD_REQUEST)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, { error : 'Audio label not provided' });
-                });
+                .expect(httpStatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, { error : 'Audio label not provided' });
         });
 
-        it('should require audio data', () => {
-            return request(testServer)
+        it('should require audio data', async () => {
+            const res = await request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/studentid/projects/' + projectid + '/sounds')
                 .send({ label : 'KNOWN' })
-                .expect(httpStatus.BAD_REQUEST)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, { error : 'Missing data' });
-                });
+                .expect(httpStatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, { error : 'Missing data' });
         });
 
-        it('should require a label', () => {
-            return request(testServer)
+        it('should require a label', async () => {
+            const res = await request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/studentid/projects/' + projectid + '/sounds')
                 .send({ data : [ 1, 2, 3, 4 ]})
-                .expect(httpStatus.BAD_REQUEST)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, { error : 'Audio label not provided' });
-                });
+                .expect(httpStatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, { error : 'Audio label not provided' });
         });
 
         it('should only support sound projects', async () => {
             const project = await store.storeProject('studentid', TESTCLASS, 'text', 'invalid', 'en', [], false);
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/studentid/projects/' + project.id + '/sounds')
                 .send({ label : 'label', data : [ 1, 2, 3 ]})
-                .expect(httpStatus.BAD_REQUEST)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, { error : 'Only sounds projects allow sound uploads' });
-                });
+                .expect(httpStatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, { error : 'Only sounds projects allow sound uploads' });
         });
 
-        it('should require a known label', () => {
-            return request(testServer)
+        it('should require a known label', async () => {
+            const res = await request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/studentid/projects/' + projectid + '/sounds')
                 .send({ label : 'MYSTERY', data : [ 1, 2, 3 ]})
-                .expect(httpStatus.BAD_REQUEST)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, { error : 'Unrecognised label' });
-                });
+                .expect(httpStatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, { error : 'Unrecognised label' });
         });
     });
 
@@ -191,23 +182,22 @@ describe('REST API - sound uploads', () => {
                 numbers.push(Math.random());
             }
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post(SOUNDSURL)
                 .send({ label : LABEL, data : numbers })
-                .expect(httpStatus.CREATED)
-                .then((res) => {
-                    assert(res.body.id);
+                .expect(httpStatus.CREATED);
 
-                    assert.strictEqual(res.body.label, LABEL);
-                    assert.strictEqual(res.body.projectid, project.id);
+            assert(res.body.id);
+
+            assert.strictEqual(res.body.label, LABEL);
+            assert.strictEqual(res.body.projectid, project.id);
 
 
-                    assert.strictEqual(res.body.audiourl, SOUNDSURL + '/' + res.body.id);
+            assert.strictEqual(res.body.audiourl, SOUNDSURL + '/' + res.body.id);
 
-                    assert(res.header.etag);
+            assert(res.header.etag);
 
-                    return store.deleteTraining('sounds', 'TESTPROJECT', res.body.id);
-                });
+            await store.deleteTraining('sounds', 'TESTPROJECT', res.body.id);
         });
 
 
@@ -230,16 +220,15 @@ describe('REST API - sound uploads', () => {
                 numbers.push(1234567890.0123456);
             }
 
-            return request(testServer)
+            await request(testServer)
                 .post(trainingurl)
                 .send({
                     data : numbers,
                     label : 'fruit',
                 })
-                .expect(httpStatus.CREATED)
-                .then(() => {
-                    return store.deleteEntireUser(USER, TESTCLASS);
-                });
+                .expect(httpStatus.CREATED);
+
+            await store.deleteEntireUser(USER, TESTCLASS);
         });
 
     });
@@ -250,20 +239,17 @@ describe('REST API - sound uploads', () => {
 
         let projectid = '';
 
-        before(() => {
-            return store.storeProject('studentid', TESTCLASS, 'sounds', 'invalids', 'en', [], false)
-                .then((proj) => {
-                    projectid = proj.id;
-                });
+        before(async () => {
+            const proj = await store.storeProject('studentid', TESTCLASS, 'sounds', 'invalids', 'en', [], false);
+            projectid = proj.id;
         });
 
-        it('should handle non-existent images', () => {
-            return request(testServer)
+        it('should handle non-existent images', async () => {
+            const res = await request(testServer)
                 .get('/api/classes/' + TESTCLASS + '/students/studentid/projects/' + projectid + '/sounds/anaudioid')
-                .expect(httpStatus.NOT_FOUND)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, { error : 'File not found' });
-                });
+                .expect(httpStatus.NOT_FOUND);
+
+            assert.deepStrictEqual(res.body, { error : 'File not found' });
         });
     });
 
@@ -272,7 +258,6 @@ describe('REST API - sound uploads', () => {
     describe('valid downloads', () => {
 
         it('should download a file', async () => {
-            let id;
             const userid = uuid();
 
             const testdata: number[] = [];
@@ -293,29 +278,27 @@ describe('REST API - sound uploads', () => {
                                 '/projects/' + projectid +
                                 '/sounds';
 
-            await request(testServer)
+            let res = await request(testServer)
                 .post(soundsurl)
                 .send({ label, data : testdata })
-                .expect(httpStatus.CREATED)
-                .then((res) => {
-                    assert(res.body.id);
-                    id = res.body.id;
+                .expect(httpStatus.CREATED);
 
-                    assert.strictEqual(res.body.projectid, projectid);
-                    assert.strictEqual(res.body.audiourl, soundsurl + '/' + id);
-                });
+            assert(res.body.id);
+            const id = res.body.id;
 
-            await request(testServer)
+            assert.strictEqual(res.body.projectid, projectid);
+            assert.strictEqual(res.body.audiourl, soundsurl + '/' + id);
+
+            res = await request(testServer)
                 .get(soundsurl + '/' + id)
                 .expect(httpStatus.OK)
-                .expect('Content-Type', /json/)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, testdata);
-                    assert.strictEqual(res.header['cache-control'], 'max-age=31536000');
-                });
+                .expect('Content-Type', /json/);
+
+            assert.deepStrictEqual(res.body, testdata);
+            assert.strictEqual(res.header['cache-control'], 'max-age=31536000');
 
             if (id) {
-                return store.deleteTraining('sounds', projectid, id);
+                await store.deleteTraining('sounds', projectid, id);
             }
         });
 
@@ -342,36 +325,34 @@ describe('REST API - sound uploads', () => {
                                 '/projects/' + projectid +
                                 '/sounds';
 
-            await request(testServer)
+            let res = await request(testServer)
                 .post(soundsurl)
                 .send({ label, data : testdata })
-                .expect(httpStatus.CREATED)
-                .then((res) => {
-                    assert(res.body.id);
-                    id = res.body.id;
+                .expect(httpStatus.CREATED);
 
-                    assert.strictEqual(res.body.projectid, projectid);
-                    assert.strictEqual(res.body.audiourl, soundsurl + '/' + id);
-                });
+            assert(res.body.id);
+            id = res.body.id;
+
+            assert.strictEqual(res.body.projectid, projectid);
+            assert.strictEqual(res.body.audiourl, soundsurl + '/' + id);
 
             const scratchKey = await store.storeUntrainedScratchKey(project);
 
-            await request(testServer)
+            res = await request(testServer)
                 .get('/api/scratch/' + scratchKey + '/train')
                 .expect(httpStatus.OK)
-                .expect('Content-Type', /json/)
-                .then((res) => {
-                    const body = res.body;
-                    assert(Array.isArray(body));
-                    assert.strictEqual(body.length, 1);
-                    assert.strictEqual(body[0].id, id);
-                    assert.strictEqual(body[0].label, label);
-                    assert.strictEqual(body[0].audiourl, soundsurl + '/' + id);
-                    assert.deepStrictEqual(body[0].audiodata, testdata);
-                    assert.strictEqual(res.header['cache-control'], 'max-age=120');
-                });
+                .expect('Content-Type', /json/);
 
-            return store.deleteTraining('sounds', projectid, id);
+            const body = res.body;
+            assert(Array.isArray(body));
+            assert.strictEqual(body.length, 1);
+            assert.strictEqual(body[0].id, id);
+            assert.strictEqual(body[0].label, label);
+            assert.strictEqual(body[0].audiourl, soundsurl + '/' + id);
+            assert.deepStrictEqual(body[0].audiodata, testdata);
+            assert.strictEqual(res.header['cache-control'], 'max-age=120');
+
+            await store.deleteTraining('sounds', projectid, id);
         });
 
     });

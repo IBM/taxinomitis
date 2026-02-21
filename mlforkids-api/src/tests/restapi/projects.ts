@@ -1,6 +1,6 @@
-/*eslint-env mocha */
+import { describe, it, before, after, beforeEach } from 'node:test';
+import * as assert from 'node:assert';
 import { v1 as uuid } from 'uuid';
-import * as assert from 'assert';
 import * as sinon from 'sinon';
 import * as request from 'supertest';
 import { status as httpstatus } from 'http-status';
@@ -18,7 +18,7 @@ import testapiserver from './testserver';
 let testServer: express.Express;
 
 
-const TESTCLASS = 'UNIQUECLASSID';
+const TESTCLASS = 'UNIQUECLASSIDPROJ';
 
 
 describe('REST API - projects', () => {
@@ -56,7 +56,7 @@ describe('REST API - projects', () => {
 
         testServer = testapiserver();
 
-        return store.deleteProjectsByClassId(TESTCLASS);
+        await store.deleteProjectsByClassId(TESTCLASS);
     });
 
     beforeEach(() => {
@@ -71,59 +71,53 @@ describe('REST API - projects', () => {
 
         await store.deleteProjectsByClassId(TESTCLASS);
         await store.deleteAllPendingJobs();
-        return store.disconnect();
+        await store.disconnect();
     });
 
 
     describe('getProject()', () => {
 
-        it('should handle requests for non-existent projects', () => {
+        it('should handle requests for non-existent projects', async () => {
             const classid = uuid();
             const studentid = uuid();
             const projectid = uuid();
             nextAuth0UserId = studentid;
             nextAuth0UserTenant = classid;
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + classid + '/students/' + studentid + '/projects/' + projectid)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_FOUND)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.error, 'Not found');
-                });
+                .expect(httpstatus.NOT_FOUND);
+
+            assert.strictEqual(res.body.error, 'Not found');
         });
 
-        it('should verify class id', () => {
+        it('should verify class id', async () => {
             const studentId = uuid();
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
             const INCORRECT_CLASS = uuid();
 
             nextAuth0UserId = studentId;
             nextAuth0UserTenant = TESTCLASS;
-            return request(testServer)
+            const createRes = await request(testServer)
                 .post(url)
                 .send({ name : uuid(), type : 'text', language : 'en' })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then((res) => {
-                    const body = res.body;
-                    assert(body.id);
-                    const projectId = body.id;
+                .expect(httpstatus.CREATED);
 
-                    nextAuth0UserTenant = INCORRECT_CLASS;
+            assert(createRes.body.id);
+            const projectId = createRes.body.id;
 
-                    return request(testServer)
-                        .get('/api/classes/' + INCORRECT_CLASS + '/students/' + studentId + '/projects/' + projectId)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.FORBIDDEN);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.error, 'Invalid access');
-                });
+            nextAuth0UserTenant = INCORRECT_CLASS;
+
+            const forbiddenRes = await request(testServer)
+                .get('/api/classes/' + INCORRECT_CLASS + '/students/' + studentId + '/projects/' + projectId)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.FORBIDDEN);
+
+            assert.strictEqual(forbiddenRes.body.error, 'Invalid access');
         });
 
-        it('should fetch crowd-sourced projects', () => {
+        it('should fetch crowd-sourced projects', async () => {
             const studentId = uuid();
             const teacherId = uuid();
 
@@ -132,34 +126,28 @@ describe('REST API - projects', () => {
             nextAuth0UserId = teacherId;
             nextAuth0UserRole = 'supervisor';
 
-            let projectInfo: any;
-
-            return request(testServer)
+            const createRes = await request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/' + teacherId + '/projects')
                 .send({ name : uuid(), type : 'text', language : 'en', isCrowdSourced : true })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then((res) => {
-                    const body = res.body;
-                    assert(body.id);
-                    const projectId = body.id;
-                    projectInfo = body;
+                .expect(httpstatus.CREATED);
 
-                    nextAuth0UserId = studentId;
-                    nextAuth0UserRole = 'student';
+            assert(createRes.body.id);
+            const projectId = createRes.body.id;
+            const projectInfo = createRes.body;
 
-                    return request(testServer)
-                        .get('/api/classes/' + TESTCLASS + '/students/' + teacherId + '/projects/' + projectId)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, projectInfo);
-                });
+            nextAuth0UserId = studentId;
+            nextAuth0UserRole = 'student';
+
+            const getRes = await request(testServer)
+                .get('/api/classes/' + TESTCLASS + '/students/' + teacherId + '/projects/' + projectId)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            assert.deepStrictEqual(getRes.body, projectInfo);
         });
 
-        it('should fetch own crowd-sourced projects', () => {
+        it('should fetch own crowd-sourced projects', async () => {
             const teacherId = uuid();
 
             nextAuth0UserTenant = TESTCLASS;
@@ -167,32 +155,26 @@ describe('REST API - projects', () => {
             nextAuth0UserId = teacherId;
             nextAuth0UserRole = 'supervisor';
 
-            let projectInfo: any;
-
-            return request(testServer)
+            const createRes = await request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/' + teacherId + '/projects')
                 .send({ name : uuid(), type : 'text', language : 'en', isCrowdSourced : true })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then((res) => {
-                    const body = res.body;
-                    assert(body.id);
-                    const projectId = body.id;
-                    projectInfo = body;
+                .expect(httpstatus.CREATED);
 
-                    return request(testServer)
-                        .get('/api/classes/' + TESTCLASS + '/students/' + teacherId + '/projects/' + projectId)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, projectInfo);
-                });
+            assert(createRes.body.id);
+            const projectId = createRes.body.id;
+            const projectInfo = createRes.body;
+
+            const getRes = await request(testServer)
+                .get('/api/classes/' + TESTCLASS + '/students/' + teacherId + '/projects/' + projectId)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            assert.deepStrictEqual(getRes.body, projectInfo);
         });
 
 
-        it('should verify fetching crowd-sourced projects', () => {
+        it('should verify fetching crowd-sourced projects', async () => {
             const studentId = uuid();
             const teacherId = uuid();
 
@@ -201,33 +183,29 @@ describe('REST API - projects', () => {
             nextAuth0UserId = teacherId;
             nextAuth0UserRole = 'supervisor';
 
-            return request(testServer)
+            const createRes = await request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/' + teacherId + '/projects')
                 .send({ name : uuid(), type : 'text', language : 'en', isCrowdSourced : false })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then((res) => {
-                    const body = res.body;
-                    assert(body.id);
-                    const projectId = body.id;
+                .expect(httpstatus.CREATED);
 
-                    nextAuth0UserId = studentId;
-                    nextAuth0UserRole = 'student';
+            assert(createRes.body.id);
+            const projectId = createRes.body.id;
 
-                    return request(testServer)
-                        .get('/api/classes/' + TESTCLASS + '/students/' + teacherId + '/projects/' + projectId)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.FORBIDDEN);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, {
-                        error : 'Invalid access',
-                    });
-                });
+            nextAuth0UserId = studentId;
+            nextAuth0UserRole = 'student';
+
+            const forbiddenRes = await request(testServer)
+                .get('/api/classes/' + TESTCLASS + '/students/' + teacherId + '/projects/' + projectId)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.FORBIDDEN);
+
+            assert.deepStrictEqual(forbiddenRes.body, {
+                error : 'Invalid access',
+            });
         });
 
-        it('should allow teachers to fetch non-crowd-sourced project for review', () => {
+        it('should allow teachers to fetch non-crowd-sourced project for review', async () => {
             const studentId = uuid();
             const teacherId = uuid();
 
@@ -236,27 +214,25 @@ describe('REST API - projects', () => {
             nextAuth0UserId = teacherId;
             nextAuth0UserRole = 'student';
 
-            return request(testServer)
+            const createRes = await request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects')
                 .send({ name : uuid(), type : 'text', language : 'en', isCrowdSourced : false })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then((res) => {
-                    const body = res.body;
-                    assert(body.id);
-                    const projectId = body.id;
+                .expect(httpstatus.CREATED);
 
-                    nextAuth0UserId = teacherId;
-                    nextAuth0UserRole = 'supervisor';
+            assert(createRes.body.id);
+            const projectId = createRes.body.id;
 
-                    return request(testServer)
-                        .get('/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects/' + projectId)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                });
+            nextAuth0UserId = teacherId;
+            nextAuth0UserRole = 'supervisor';
+
+            await request(testServer)
+                .get('/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects/' + projectId)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
         });
 
-        it('should prevent students fetching non-crowd-sourced project for review', () => {
+        it('should prevent students fetching non-crowd-sourced project for review', async () => {
             const studentId = uuid();
             const teacherId = uuid();
 
@@ -265,90 +241,76 @@ describe('REST API - projects', () => {
             nextAuth0UserId = teacherId;
             nextAuth0UserRole = 'student';
 
-            return request(testServer)
+            const createRes = await request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects')
                 .send({ name : uuid(), type : 'text', language : 'en', isCrowdSourced : false })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then((res) => {
-                    const body = res.body;
-                    assert(body.id);
-                    const projectId = body.id;
+                .expect(httpstatus.CREATED);
 
-                    nextAuth0UserId = teacherId;
-                    nextAuth0UserRole = 'student';
+            assert(createRes.body.id);
+            const projectId = createRes.body.id;
 
-                    return request(testServer)
-                        .get('/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects/' + projectId)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.FORBIDDEN);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, {
-                        error : 'Invalid access',
-                    });
-                });
+            nextAuth0UserId = teacherId;
+            nextAuth0UserRole = 'student';
+
+            const forbiddenRes = await request(testServer)
+                .get('/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects/' + projectId)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.FORBIDDEN);
+
+            assert.deepStrictEqual(forbiddenRes.body, {
+                error : 'Invalid access',
+            });
         });
     });
 
 
     describe('deleteProject()', () => {
 
-        it('should handle requests for non-existent projects', () => {
+        it('should handle requests for non-existent projects', async () => {
             const classid = uuid();
             const studentid = uuid();
             const projectid = uuid();
             nextAuth0UserId = studentid;
             nextAuth0UserTenant = classid;
-            return request(testServer)
+            const res = await request(testServer)
                 .del('/api/classes/' + classid + '/students/' + studentid + '/projects/' + projectid)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_FOUND)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.error, 'Not found');
-                });
+                .expect(httpstatus.NOT_FOUND);
+
+            assert.strictEqual(res.body.error, 'Not found');
         });
 
-        it('should delete project details', () => {
-            let projectId: string;
-
+        it('should delete project details', async () => {
             const studentId = uuid();
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
             nextAuth0UserId = studentId;
             nextAuth0UserTenant = TESTCLASS;
-            return request(testServer)
+            const createRes = await request(testServer)
                 .post(url)
                 .send({ name : uuid(), type : 'text', language : 'en' })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then((res) => {
-                    const body = res.body;
-                    assert(body.id);
-                    projectId = body.id;
+                .expect(httpstatus.CREATED);
 
-                    return request(testServer)
-                        .get(url + '/' + projectId)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then(() => {
-                    return request(testServer)
-                        .del(url + '/' + projectId)
-                        .expect(httpstatus.NO_CONTENT);
-                })
-                .then(() => {
-                    return request(testServer)
-                        .get(url + '/' + projectId)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.NOT_FOUND);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.error, 'Not found');
-                });
+            assert(createRes.body.id);
+            const projectId = createRes.body.id;
+
+            await request(testServer)
+                .get(url + '/' + projectId)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            await request(testServer)
+                .del(url + '/' + projectId)
+                .expect(httpstatus.NO_CONTENT);
+
+            const notFoundRes = await request(testServer)
+                .get(url + '/' + projectId)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.NOT_FOUND);
+
+            assert.strictEqual(notFoundRes.body.error, 'Not found');
         });
 
 
@@ -389,50 +351,44 @@ describe('REST API - projects', () => {
                 assert.deepStrictEqual(jobAfter.jobdata, { projectid, userid, classid });
             }
 
-            return request(testServer)
+            const notFoundRes = await request(testServer)
                 .get(url + '/' + projectid)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_FOUND)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.error, 'Not found');
-                });
+                .expect(httpstatus.NOT_FOUND);
+
+            assert.strictEqual(notFoundRes.body.error, 'Not found');
         });
 
 
-        it('should verify class id', () => {
+        it('should verify class id', async () => {
             const studentId = uuid();
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
             const INCORRECT_CLASS = uuid();
             nextAuth0UserId = studentId;
             nextAuth0UserTenant = TESTCLASS;
 
-            return request(testServer)
+            const createRes = await request(testServer)
                 .post(url)
                 .send({ name : uuid(), type : 'text', language : 'en' })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then((res) => {
-                    const body = res.body;
-                    assert(body.id);
-                    const projectId = body.id;
+                .expect(httpstatus.CREATED);
 
-                    return request(testServer)
-                        .del('/api/classes/' + INCORRECT_CLASS + '/students/' + studentId + '/projects/' + projectId)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.FORBIDDEN);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.error, 'Invalid access');
-                });
+            assert(createRes.body.id);
+            const projectId = createRes.body.id;
+
+            const forbiddenRes = await request(testServer)
+                .del('/api/classes/' + INCORRECT_CLASS + '/students/' + studentId + '/projects/' + projectId)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.FORBIDDEN);
+
+            assert.strictEqual(forbiddenRes.body.error, 'Invalid access');
         });
     });
 
 
     describe('createProject()', () => {
 
-        it('should reject unicode names that cannot be stored by in the DB', () => {
+        it('should reject unicode names that cannot be stored by in the DB', async () => {
             const studentId = uuid();
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
@@ -440,17 +396,16 @@ describe('REST API - projects', () => {
             nextAuth0UserId = studentId;
             nextAuth0UserTenant = TESTCLASS;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post(url)
                 .send({ name : '⚽', type : 'text', language : 'en' })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((err) => {
-                    assert.strictEqual(err.body.error, 'Invalid project name');
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.strictEqual(res.body.error, 'Invalid project name');
         });
 
-        it('should respect tenant policies on project types', () => {
+        it('should respect tenant policies on project types', async () => {
             const studentId = uuid();
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
@@ -458,19 +413,18 @@ describe('REST API - projects', () => {
             nextAuth0UserId = studentId;
             nextAuth0UserTenant = TESTCLASS;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post(url)
                 .send({ name : uuid(), type : 'images' })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.FORBIDDEN)
-                .then((err) => {
-                    assert.strictEqual(err.body.error, 'Support for images projects is not enabled for your class');
-                });
+                .expect(httpstatus.FORBIDDEN);
+
+            assert.strictEqual(res.body.error, 'Support for images projects is not enabled for your class');
         });
 
 
 
-        it('should respect tenant policies on number of projects', () => {
+        it('should respect tenant policies on number of projects', async () => {
             const studentId = uuid();
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
@@ -478,39 +432,35 @@ describe('REST API - projects', () => {
             nextAuth0UserId = studentId;
             nextAuth0UserTenant = TESTCLASS;
 
-            return request(testServer)
+            await request(testServer)
                 .post(url)
                 .send({ name : uuid(), type : 'text', language : 'en' })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then(() => {
-                    return request(testServer)
-                        .post(url)
-                        .send({ name : uuid(), type : 'text', language : 'en'  })
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.CREATED);
-                })
-                .then(() => {
-                    return request(testServer)
-                        .post(url)
-                        .send({ name : uuid(), type : 'text', language : 'en'  })
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.CREATED);
-                })
-                .then(() => {
-                    return request(testServer)
-                        .post(url)
-                        .send({ name : uuid(), type : 'text', language : 'en'  })
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.CONFLICT);
-                })
-                .then((err) => {
-                    assert.strictEqual(err.body.error, 'User already has maximum number of projects');
-                });
+                .expect(httpstatus.CREATED);
+
+            await request(testServer)
+                .post(url)
+                .send({ name : uuid(), type : 'text', language : 'en'  })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CREATED);
+
+            await request(testServer)
+                .post(url)
+                .send({ name : uuid(), type : 'text', language : 'en'  })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CREATED);
+
+            const conflictRes = await request(testServer)
+                .post(url)
+                .send({ name : uuid(), type : 'text', language : 'en'  })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CONFLICT);
+
+            assert.strictEqual(conflictRes.body.error, 'User already has maximum number of projects');
         });
 
 
-        it('should require a project type', () => {
+        it('should require a project type', async () => {
             const projectDetails = { name : uuid() };
             const studentId = uuid();
 
@@ -519,19 +469,17 @@ describe('REST API - projects', () => {
             nextAuth0UserId = studentId;
             nextAuth0UserTenant = TESTCLASS;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post(url)
                 .send(projectDetails)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.error, 'Missing required field');
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.strictEqual(res.body.error, 'Missing required field');
         });
 
 
-        it('should require fields for numbers projects', () => {
+        it('should require fields for numbers projects', async () => {
             const projectDetails = {
                 name : uuid(),
                 type : 'numbers',
@@ -543,18 +491,17 @@ describe('REST API - projects', () => {
             nextAuth0UserId = studentId;
             nextAuth0UserTenant = TESTCLASS;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post(url)
                 .send(projectDetails)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, { error : 'Fields required for numbers projects' });
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, { error : 'Fields required for numbers projects' });
         });
 
 
-        it('should require non-empty fields for numbers projects', () => {
+        it('should require non-empty fields for numbers projects', async () => {
             const projectDetails = {
                 name : uuid(),
                 type : 'numbers',
@@ -567,18 +514,17 @@ describe('REST API - projects', () => {
             nextAuth0UserId = studentId;
             nextAuth0UserTenant = TESTCLASS;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post(url)
                 .send(projectDetails)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, { error : 'Fields required for numbers projects' });
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, { error : 'Fields required for numbers projects' });
         });
 
 
-        it('should require really non-empty fields for numbers projects', () => {
+        it('should require really non-empty fields for numbers projects', async () => {
             const projectDetails = {
                 name : uuid(),
                 type : 'numbers',
@@ -591,18 +537,17 @@ describe('REST API - projects', () => {
             nextAuth0UserId = studentId;
             nextAuth0UserTenant = TESTCLASS;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post(url)
                 .send(projectDetails)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, { error : 'Missing required attributes' });
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, { error : 'Missing required attributes' });
         });
 
 
-        it('should validate length of fields for numbers projects', () => {
+        it('should validate length of fields for numbers projects', async () => {
             const projectDetails = {
                 name : uuid(),
                 type : 'numbers',
@@ -615,18 +560,17 @@ describe('REST API - projects', () => {
             nextAuth0UserId = studentId;
             nextAuth0UserTenant = TESTCLASS;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post(url)
                 .send(projectDetails)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, { error : 'Invalid field name' });
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, { error : 'Invalid field name' });
         });
 
 
-        it('should verify the type of fields for numbers projects', () => {
+        it('should verify the type of fields for numbers projects', async () => {
             const projectDetails = {
                 name : uuid(),
                 type : 'numbers',
@@ -639,18 +583,17 @@ describe('REST API - projects', () => {
             nextAuth0UserId = studentId;
             nextAuth0UserTenant = TESTCLASS;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post(url)
                 .send(projectDetails)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, { error : 'Invalid field type something' });
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, { error : 'Invalid field type something' });
         });
 
 
-        it('should store project details', () => {
+        it('should store project details', async () => {
             const projectDetails = {
                 name : uuid(),
                 type : 'text',
@@ -663,38 +606,34 @@ describe('REST API - projects', () => {
             nextAuth0UserId = studentId;
             nextAuth0UserTenant = TESTCLASS;
 
-            return request(testServer)
+            const createRes = await request(testServer)
                 .post(url)
                 .send(projectDetails)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.userid, studentId);
-                    assert.strictEqual(body.classid, TESTCLASS);
-                    assert.strictEqual(body.type, projectDetails.type);
-                    assert.strictEqual(body.name, projectDetails.name);
-                    assert.strictEqual(body.language, projectDetails.language);
-                    assert.strictEqual(body.isCrowdSourced, false);
-                    assert(body.id);
+                .expect(httpstatus.CREATED);
 
-                    return request(testServer)
-                        .get(url + '/' + body.id)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.userid, studentId);
-                    assert.strictEqual(body.classid, TESTCLASS);
-                    assert.strictEqual(body.type, projectDetails.type);
-                    assert.strictEqual(body.name, projectDetails.name);
-                    assert.strictEqual(body.language, projectDetails.language);
-                    assert.strictEqual(body.isCrowdSourced, false);
-                });
+            assert.strictEqual(createRes.body.userid, studentId);
+            assert.strictEqual(createRes.body.classid, TESTCLASS);
+            assert.strictEqual(createRes.body.type, projectDetails.type);
+            assert.strictEqual(createRes.body.name, projectDetails.name);
+            assert.strictEqual(createRes.body.language, projectDetails.language);
+            assert.strictEqual(createRes.body.isCrowdSourced, false);
+            assert(createRes.body.id);
+
+            const getRes = await request(testServer)
+                .get(url + '/' + createRes.body.id)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            assert.strictEqual(getRes.body.userid, studentId);
+            assert.strictEqual(getRes.body.classid, TESTCLASS);
+            assert.strictEqual(getRes.body.type, projectDetails.type);
+            assert.strictEqual(getRes.body.name, projectDetails.name);
+            assert.strictEqual(getRes.body.language, projectDetails.language);
+            assert.strictEqual(getRes.body.isCrowdSourced, false);
         });
 
-        it('should store sounds project details', () => {
+        it('should store sounds project details', async () => {
             const projectDetails = {
                 name : uuid(),
                 type : 'sounds',
@@ -707,37 +646,33 @@ describe('REST API - projects', () => {
             nextAuth0UserId = studentId;
             nextAuth0UserTenant = classid;
 
-            return request(testServer)
+            const createRes = await request(testServer)
                 .post(url)
                 .send(projectDetails)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.userid, studentId);
-                    assert.strictEqual(body.classid, classid);
-                    assert.strictEqual(body.type, projectDetails.type);
-                    assert.strictEqual(body.name, projectDetails.name);
-                    assert.strictEqual(body.isCrowdSourced, false);
-                    assert(body.id);
+                .expect(httpstatus.CREATED);
 
-                    return request(testServer)
-                        .get(url + '/' + body.id)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.userid, studentId);
-                    assert.strictEqual(body.classid, classid);
-                    assert.strictEqual(body.type, projectDetails.type);
-                    assert.strictEqual(body.name, projectDetails.name);
-                    assert.strictEqual(body.isCrowdSourced, false);
-                    assert.deepStrictEqual(body.labels, ['_background_noise_']);
-                });
+            assert.strictEqual(createRes.body.userid, studentId);
+            assert.strictEqual(createRes.body.classid, classid);
+            assert.strictEqual(createRes.body.type, projectDetails.type);
+            assert.strictEqual(createRes.body.name, projectDetails.name);
+            assert.strictEqual(createRes.body.isCrowdSourced, false);
+            assert(createRes.body.id);
+
+            const getRes = await request(testServer)
+                .get(url + '/' + createRes.body.id)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            assert.strictEqual(getRes.body.userid, studentId);
+            assert.strictEqual(getRes.body.classid, classid);
+            assert.strictEqual(getRes.body.type, projectDetails.type);
+            assert.strictEqual(getRes.body.name, projectDetails.name);
+            assert.strictEqual(getRes.body.isCrowdSourced, false);
+            assert.deepStrictEqual(getRes.body.labels, ['_background_noise_']);
         });
 
-        it('should only allow teachers to create crowd-sourced projects', () => {
+        it('should only allow teachers to create crowd-sourced projects', async () => {
             const projectDetails = {
                 name : uuid(),
                 type : 'text',
@@ -751,20 +686,18 @@ describe('REST API - projects', () => {
             nextAuth0UserId = studentId;
             nextAuth0UserTenant = TESTCLASS;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post(url)
                 .send(projectDetails)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.FORBIDDEN)
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, {
-                        error : 'Only teachers or group leaders can create crowd-sourced projects',
-                    });
-                });
+                .expect(httpstatus.FORBIDDEN);
+
+            assert.deepStrictEqual(res.body, {
+                error : 'Only teachers or group leaders can create crowd-sourced projects',
+            });
         });
 
-        it('should store crowd-sourced projects', () => {
+        it('should store crowd-sourced projects', async () => {
             const projectDetails = {
                 name : uuid(),
                 type : 'text',
@@ -779,35 +712,31 @@ describe('REST API - projects', () => {
             nextAuth0UserTenant = TESTCLASS;
             nextAuth0UserRole = 'supervisor';
 
-            return request(testServer)
+            const createRes = await request(testServer)
                 .post(url)
                 .send(projectDetails)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.userid, studentId);
-                    assert.strictEqual(body.classid, TESTCLASS);
-                    assert.strictEqual(body.type, projectDetails.type);
-                    assert.strictEqual(body.name, projectDetails.name);
-                    assert.strictEqual(body.language, projectDetails.language);
-                    assert.strictEqual(body.isCrowdSourced, true);
-                    assert(body.id);
+                .expect(httpstatus.CREATED);
 
-                    return request(testServer)
-                        .get(url + '/' + body.id)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.userid, studentId);
-                    assert.strictEqual(body.classid, TESTCLASS);
-                    assert.strictEqual(body.type, projectDetails.type);
-                    assert.strictEqual(body.name, projectDetails.name);
-                    assert.strictEqual(body.language, projectDetails.language);
-                    assert.strictEqual(body.isCrowdSourced, true);
-                });
+            assert.strictEqual(createRes.body.userid, studentId);
+            assert.strictEqual(createRes.body.classid, TESTCLASS);
+            assert.strictEqual(createRes.body.type, projectDetails.type);
+            assert.strictEqual(createRes.body.name, projectDetails.name);
+            assert.strictEqual(createRes.body.language, projectDetails.language);
+            assert.strictEqual(createRes.body.isCrowdSourced, true);
+            assert(createRes.body.id);
+
+            const getRes = await request(testServer)
+                .get(url + '/' + createRes.body.id)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            assert.strictEqual(getRes.body.userid, studentId);
+            assert.strictEqual(getRes.body.classid, TESTCLASS);
+            assert.strictEqual(getRes.body.type, projectDetails.type);
+            assert.strictEqual(getRes.body.name, projectDetails.name);
+            assert.strictEqual(getRes.body.language, projectDetails.language);
+            assert.strictEqual(getRes.body.isCrowdSourced, true);
         });
 
     });
@@ -815,88 +744,74 @@ describe('REST API - projects', () => {
 
     describe('getProjectsByUserId()', () => {
 
-        it('should cope with an empty list', () => {
+        it('should cope with an empty list', async () => {
             const classid = uuid();
             const studentid = uuid();
             nextAuth0UserId = studentid;
             nextAuth0UserTenant = classid;
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + classid + '/students/' + studentid + '/projects')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const body = res.body;
-                    assert(Array.isArray(body));
-                    assert.strictEqual(body.length, 0);
-                });
+                .expect(httpstatus.OK);
+
+            assert(Array.isArray(res.body));
+            assert.strictEqual(res.body.length, 0);
         });
 
 
-        it('should return projects for a user', () => {
+        it('should return projects for a user', async () => {
             const studentId = uuid();
-
-            let count = 0;
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
             nextAuth0UserId = studentId;
             nextAuth0UserTenant = TESTCLASS;
 
-            return request(testServer)
+            await request(testServer)
                 .post(url)
                 .send({ name : uuid(), type : 'text', language : 'en' })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then(() => {
-                    return request(testServer)
-                        .get(url)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert(Array.isArray(body));
-                    assert(body.length > 0);
-                    count = body.length;
+                .expect(httpstatus.CREATED);
 
-                    return request(testServer)
-                        .post(url)
-                        .send({ name : uuid(), type : 'text', language : 'en' })
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.CREATED);
-                })
-                .then(() => {
-                    return request(testServer)
-                        .get(url)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert(Array.isArray(body));
-                    assert.strictEqual(body.length, count + 1);
-                });
+            const firstGetRes = await request(testServer)
+                .get(url)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            assert(Array.isArray(firstGetRes.body));
+            assert(firstGetRes.body.length > 0);
+            const count = firstGetRes.body.length;
+
+            await request(testServer)
+                .post(url)
+                .send({ name : uuid(), type : 'text', language : 'en' })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CREATED);
+
+            const secondGetRes = await request(testServer)
+                .get(url)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            assert(Array.isArray(secondGetRes.body));
+            assert.strictEqual(secondGetRes.body.length, count + 1);
         });
 
 
-        function testCreateProject(classid: string, user: string, crowd: boolean): Promise<any> {
-            return request(testServer)
+        async function testCreateProject(classid: string, user: string, crowd: boolean): Promise<any> {
+            const res = await request(testServer)
                     .post('/api/classes/' + classid + '/students/' + user + '/projects')
                     .send({ name : uuid(), type : 'text', language : 'en', isCrowdSourced : crowd })
                     .expect('Content-Type', /json/)
-                    .expect(httpstatus.CREATED)
-                    .then((res) => {
-                        return res.body;
-                    });
+                    .expect(httpstatus.CREATED);
+            return res.body;
         }
-        function testGetProjects(classid: string, user: string): Promise<any> {
-            return request(testServer)
+        async function testGetProjects(classid: string, user: string): Promise<any> {
+            const res = await request(testServer)
                     .get('/api/classes/' + classid + '/students/' + user + '/projects')
                     .expect('Content-Type', /json/)
-                    .expect(httpstatus.OK)
-                    .then((res) => {
-                        return res.body;
-                    });
+                    .expect(httpstatus.OK);
+            return res.body;
         }
         function testSetUser(classid: string, user: string) {
             nextAuth0UserTenant = classid;
@@ -943,7 +858,7 @@ describe('REST API - projects', () => {
             assert.deepStrictEqual(projects, expected.teacher);
         }
 
-        it('should return crowd-sourced projects', () => {
+        it('should return crowd-sourced projects', async () => {
             const classId = uuid();
 
             const studentA = uuid();
@@ -960,47 +875,31 @@ describe('REST API - projects', () => {
                 teacher : expectedTeacher,
             };
 
-            return testVerifyAll(classId, studentA, studentB, teacherId, expected)
-                .then(() => {
-                    return testCreateProject(classId, studentA, false);
-                })
-                .then((newproj) => {
-                    expected.studentA.push(newproj);
-                    return testVerifyAll(classId, studentA, studentB, teacherId, expected);
-                })
-                .then(() => {
-                    return testCreateProject(classId, studentA, false);
-                })
-                .then((newproj) => {
-                    expected.studentA.push(newproj);
-                    return testVerifyAll(classId, studentA, studentB, teacherId, expected);
-                })
-                .then(() => {
-                    return testCreateProject(classId, teacherId, true);
-                })
-                .then((newproj) => {
-                    expected.studentA.push(newproj);
-                    expected.studentB.push(newproj);
-                    expected.teacher.push(newproj);
-                    return testVerifyAll(classId, studentA, studentB, teacherId, expected);
-                })
-                .then(() => {
-                    return testCreateProject(classId, studentB, false);
-                })
-                .then((newproj) => {
-                    expected.studentB.push(newproj);
-                    return testVerifyAll(classId, studentA, studentB, teacherId, expected);
-                })
-                .then(() => {
-                    return testCreateProject(classId, teacherId, false);
-                })
-                .then((newproj) => {
-                    expected.teacher.push(newproj);
-                    return testVerifyAll(classId, studentA, studentB, teacherId, expected);
-                })
-                .then(() => {
-                    return store.deleteProjectsByClassId(classId);
-                });
+            await testVerifyAll(classId, studentA, studentB, teacherId, expected);
+
+            let newproj = await testCreateProject(classId, studentA, false);
+            expected.studentA.push(newproj);
+            await testVerifyAll(classId, studentA, studentB, teacherId, expected);
+
+            newproj = await testCreateProject(classId, studentA, false);
+            expected.studentA.push(newproj);
+            await testVerifyAll(classId, studentA, studentB, teacherId, expected);
+
+            newproj = await testCreateProject(classId, teacherId, true);
+            expected.studentA.push(newproj);
+            expected.studentB.push(newproj);
+            expected.teacher.push(newproj);
+            await testVerifyAll(classId, studentA, studentB, teacherId, expected);
+
+            newproj = await testCreateProject(classId, studentB, false);
+            expected.studentB.push(newproj);
+            await testVerifyAll(classId, studentA, studentB, teacherId, expected);
+
+            newproj = await testCreateProject(classId, teacherId, false);
+            expected.teacher.push(newproj);
+            await testVerifyAll(classId, studentA, studentB, teacherId, expected);
+
+            await store.deleteProjectsByClassId(classId);
         });
 
     });
@@ -1008,76 +907,65 @@ describe('REST API - projects', () => {
 
     describe('getProjectsByClassId()', () => {
 
-        it('should cope with an empty list', () => {
+        it('should cope with an empty list', async () => {
             const classid = uuid();
             nextAuth0UserRole = 'supervisor';
             nextAuth0UserTenant = classid;
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + classid + '/projects')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const body = res.body;
-                    assert(Array.isArray(body));
-                    assert.strictEqual(body.length, 0);
-                });
+                .expect(httpstatus.OK);
+
+            assert(Array.isArray(res.body));
+            assert.strictEqual(res.body.length, 0);
         });
 
 
-        it('should return projects for a class', () => {
+        it('should return projects for a class', async () => {
             const studentA = uuid();
             const studentB = uuid();
-
-            let count: number;
 
             nextAuth0UserId = 'teacher';
             nextAuth0UserRole = 'supervisor';
             nextAuth0UserTenant = TESTCLASS;
-            return request(testServer)
+
+            const firstGetRes = await request(testServer)
                 .get('/api/classes/' + TESTCLASS + '/projects')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const body = res.body;
-                    assert(Array.isArray(body));
-                    count = body.length;
+                .expect(httpstatus.OK);
 
-                    return request(testServer)
-                        .post('/api/classes/' + TESTCLASS + '/students/' + studentA + '/projects')
-                        .send({ name : uuid(), type : 'text', language : 'en' })
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.CREATED);
-                })
-                .then(() => {
-                    return request(testServer)
-                        .get('/api/classes/' + TESTCLASS + '/projects')
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert(Array.isArray(body));
-                    assert.strictEqual(body.length, count + 1);
+            assert(Array.isArray(firstGetRes.body));
+            let count = firstGetRes.body.length;
 
-                    count = body.length;
+            await request(testServer)
+                .post('/api/classes/' + TESTCLASS + '/students/' + studentA + '/projects')
+                .send({ name : uuid(), type : 'text', language : 'en' })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CREATED);
 
-                    return request(testServer)
-                        .post('/api/classes/' + TESTCLASS + '/students/' + studentB + '/projects')
-                        .send({ name : uuid(), type : 'text', language : 'en' })
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.CREATED);
-                })
-                .then(() => {
-                    return request(testServer)
-                        .get('/api/classes/' + TESTCLASS + '/projects')
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert(Array.isArray(body));
-                    assert.strictEqual(body.length, count + 1);
-                });
+            const secondGetRes = await request(testServer)
+                .get('/api/classes/' + TESTCLASS + '/projects')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            assert(Array.isArray(secondGetRes.body));
+            assert.strictEqual(secondGetRes.body.length, count + 1);
+
+            count = secondGetRes.body.length;
+
+            await request(testServer)
+                .post('/api/classes/' + TESTCLASS + '/students/' + studentB + '/projects')
+                .send({ name : uuid(), type : 'text', language : 'en' })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CREATED);
+
+            const thirdGetRes = await request(testServer)
+                .get('/api/classes/' + TESTCLASS + '/projects')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            assert(Array.isArray(thirdGetRes.body));
+            assert.strictEqual(thirdGetRes.body.length, count + 1);
         });
 
 
@@ -1086,10 +974,9 @@ describe('REST API - projects', () => {
 
     describe('modifyProjectLabels()', () => {
 
-        it('should add a label', () => {
+        it('should add a label', async () => {
             const projectDetails = { type : 'text', name : uuid(), language : 'en' };
             const studentId = uuid();
-            let projectId: string;
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
@@ -1097,88 +984,74 @@ describe('REST API - projects', () => {
             nextAuth0UserTenant = TESTCLASS;
             nextAuth0UserRole = 'student';
 
-            return request(testServer)
+            const createRes = await request(testServer)
                 .post(url)
                 .send(projectDetails)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then((res) => {
-                    const body = res.body;
-                    projectId = body.id;
+                .expect(httpstatus.CREATED);
 
-                    return request(testServer)
-                        .get(url + '/' + projectId)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body.labels, []);
+            const projectId = createRes.body.id;
 
-                    return request(testServer)
-                        .patch(url + '/' + projectId)
-                        .send([{
-                            path : '/labels', op : 'add',
-                            value : 'newlabel',
-                        }])
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then(() => {
-                    return request(testServer)
-                        .get(url + '/' + projectId)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body.labels, [ 'newlabel' ]);
+            let getRes = await request(testServer)
+                .get(url + '/' + projectId)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
 
-                    return request(testServer)
-                        .patch(url + '/' + projectId)
-                        .send([{
-                            path : '/labels', op : 'add',
-                            value : 'different',
-                        }])
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then(() => {
-                    return request(testServer)
-                        .get(url + '/' + projectId)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body.labels, [ 'newlabel', 'different' ]);
+            assert.deepStrictEqual(getRes.body.labels, []);
 
-                    return request(testServer)
-                        .patch(url + '/' + projectId)
-                        .send([{
-                            path : '/labels', op : 'add',
-                            value : 'newlabel',
-                        }])
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then(() => {
-                    return request(testServer)
-                        .get(url + '/' + projectId)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body.labels, [ 'newlabel', 'different' ]);
-                });
+            await request(testServer)
+                .patch(url + '/' + projectId)
+                .send([{
+                    path : '/labels', op : 'add',
+                    value : 'newlabel',
+                }])
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            getRes = await request(testServer)
+                .get(url + '/' + projectId)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            assert.deepStrictEqual(getRes.body.labels, [ 'newlabel' ]);
+
+            await request(testServer)
+                .patch(url + '/' + projectId)
+                .send([{
+                    path : '/labels', op : 'add',
+                    value : 'different',
+                }])
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            getRes = await request(testServer)
+                .get(url + '/' + projectId)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            assert.deepStrictEqual(getRes.body.labels, [ 'newlabel', 'different' ]);
+
+            await request(testServer)
+                .patch(url + '/' + projectId)
+                .send([{
+                    path : '/labels', op : 'add',
+                    value : 'newlabel',
+                }])
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            getRes = await request(testServer)
+                .get(url + '/' + projectId)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            assert.deepStrictEqual(getRes.body.labels, [ 'newlabel', 'different' ]);
         });
 
 
-        it('should remove a label', () => {
+        it('should remove a label', async () => {
             const projectDetails = { type : 'text', name : uuid(), language : 'en' };
             const studentId = uuid();
-            let projectId: string;
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
@@ -1186,62 +1059,52 @@ describe('REST API - projects', () => {
             nextAuth0UserTenant = TESTCLASS;
             nextAuth0UserRole = 'student';
 
-            return request(testServer)
+            const createRes = await request(testServer)
                 .post(url)
                 .send(projectDetails)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then((res) => {
-                    const body = res.body;
-                    projectId = body.id;
+                .expect(httpstatus.CREATED);
 
-                    return request(testServer)
-                        .get(url + '/' + projectId)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body.labels, []);
+            const projectId = createRes.body.id;
 
-                    return request(testServer)
-                        .patch(url + '/' + projectId)
-                        .send([{
-                            path : '/labels', op : 'add',
-                            value : 'newlabel',
-                        }])
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then(() => {
-                    return request(testServer)
-                        .get(url + '/' + projectId)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body.labels, [ 'newlabel' ]);
+            let getRes = await request(testServer)
+                .get(url + '/' + projectId)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
 
-                    return request(testServer)
-                        .patch(url + '/' + projectId)
-                        .send([{
-                            path : '/labels', op : 'remove',
-                            value : 'newlabel',
-                        }])
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then(() => {
-                    return request(testServer)
-                        .get(url + '/' + projectId)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body.labels, []);
-                });
+            assert.deepStrictEqual(getRes.body.labels, []);
+
+            await request(testServer)
+                .patch(url + '/' + projectId)
+                .send([{
+                    path : '/labels', op : 'add',
+                    value : 'newlabel',
+                }])
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            getRes = await request(testServer)
+                .get(url + '/' + projectId)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            assert.deepStrictEqual(getRes.body.labels, [ 'newlabel' ]);
+
+            await request(testServer)
+                .patch(url + '/' + projectId)
+                .send([{
+                    path : '/labels', op : 'remove',
+                    value : 'newlabel',
+                }])
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            getRes = await request(testServer)
+                .get(url + '/' + projectId)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            assert.deepStrictEqual(getRes.body.labels, []);
         });
 
 
@@ -1338,10 +1201,9 @@ describe('REST API - projects', () => {
 
 
 
-        it('should replace labels', () => {
+        it('should replace labels', async () => {
             const projectDetails = { type : 'text', name : uuid(), language : 'en'  };
             const studentId = uuid();
-            let projectId: string;
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
@@ -1349,70 +1211,59 @@ describe('REST API - projects', () => {
             nextAuth0UserTenant = TESTCLASS;
             nextAuth0UserRole = 'student';
 
-            return request(testServer)
+            const createRes = await request(testServer)
                 .post(url)
                 .send(projectDetails)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then((res) => {
-                    const body = res.body;
-                    projectId = body.id;
+                .expect(httpstatus.CREATED);
 
-                    return request(testServer)
-                        .get(url + '/' + projectId)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body.labels, []);
+            const projectId = createRes.body.id;
 
-                    return request(testServer)
-                        .patch(url + '/' + projectId)
-                        .send([{
-                            path : '/labels', op : 'add',
-                            value : 'newlabel',
-                        }])
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then(() => {
-                    return request(testServer)
-                        .get(url + '/' + projectId)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body.labels, [ 'newlabel' ]);
+            let getRes = await request(testServer)
+                .get(url + '/' + projectId)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
 
-                    return request(testServer)
-                        .patch(url + '/' + projectId)
-                        .send([{
-                            path : '/labels', op : 'replace',
-                            value : [ 'apple', 'banana', 'tomato' ],
-                        }])
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then(() => {
-                    return request(testServer)
-                        .get(url + '/' + projectId)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body.labels, [ 'apple', 'banana', 'tomato' ]);
-                });
+            assert.deepStrictEqual(getRes.body.labels, []);
+
+            await request(testServer)
+                .patch(url + '/' + projectId)
+                .send([{
+                    path : '/labels', op : 'add',
+                    value : 'newlabel',
+                }])
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            getRes = await request(testServer)
+                .get(url + '/' + projectId)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            assert.deepStrictEqual(getRes.body.labels, [ 'newlabel' ]);
+
+            await request(testServer)
+                .patch(url + '/' + projectId)
+                .send([{
+                    path : '/labels', op : 'replace',
+                    value : [ 'apple', 'banana', 'tomato' ],
+                }])
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            getRes = await request(testServer)
+                .get(url + '/' + projectId)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            assert.deepStrictEqual(getRes.body.labels, [ 'apple', 'banana', 'tomato' ]);
         });
 
 
 
-        it('should verify PATCH requests', () => {
+        it('should verify PATCH requests', async () => {
             const projectDetails = { type : 'text', name : uuid(), language : 'en'  };
             const studentId = uuid();
-            let projectId: string;
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
@@ -1420,176 +1271,150 @@ describe('REST API - projects', () => {
             nextAuth0UserRole = 'student';
             nextAuth0UserTenant = TESTCLASS;
 
-            return request(testServer)
+            const createRes = await request(testServer)
                 .post(url)
                 .send(projectDetails)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then((res) => {
-                    const body = res.body;
-                    projectId = body.id;
+                .expect(httpstatus.CREATED);
 
-                    return request(testServer)
-                        .patch(url + '/' + projectId)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.BAD_REQUEST);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, {
-                        error: 'Missing data',
-                    });
+            const projectId = createRes.body.id;
 
-                    return request(testServer)
-                        .patch(url + '/' + projectId)
-                        .send({})
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.BAD_REQUEST);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, {
-                        error: 'PATCH body should be an array',
-                    });
+            let res = await request(testServer)
+                .patch(url + '/' + projectId)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST);
 
-                    return request(testServer)
-                        .patch(url + '/' + projectId)
-                        .send([])
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.BAD_REQUEST);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, {
-                        error: 'Only individual PATCH requests are supported',
-                    });
+            assert.deepStrictEqual(res.body, {
+                error: 'Missing data',
+            });
 
-                    return request(testServer)
-                        .patch(url + '/' + projectId)
-                        .send([{ }])
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.BAD_REQUEST);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, {
-                        error: 'PATCH requests must include an op',
-                    });
+            res = await request(testServer)
+                .patch(url + '/' + projectId)
+                .send({})
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST);
 
-                    return request(testServer)
-                        .patch(url + '/' + projectId)
-                        .send([{ path : '/labels' }])
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.BAD_REQUEST);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, {
-                        error: 'PATCH requests must include an op',
-                    });
+            assert.deepStrictEqual(res.body, {
+                error: 'PATCH body should be an array',
+            });
 
-                    return request(testServer)
-                        .patch(url + '/' + projectId)
-                        .send([{ path : '/labels', op : 'INVALID', value : [ 'BAD' ] }])
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.BAD_REQUEST);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, {
-                        error: 'Invalid PATCH op',
-                    });
+            res = await request(testServer)
+                .patch(url + '/' + projectId)
+                .send([])
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST);
 
-                    return request(testServer)
-                        .patch(url + '/' + projectId)
-                        .send([{ path : '/labels', op : 'add' }])
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.BAD_REQUEST);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, {
-                        error: 'PATCH requests must include a value',
-                    });
+            assert.deepStrictEqual(res.body, {
+                error: 'Only individual PATCH requests are supported',
+            });
 
-                    return request(testServer)
-                        .patch(url + '/' + projectId)
-                        .send([{ path : '/labels', op : 'add', value : [ 'BAD' ] }])
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.BAD_REQUEST);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, {
-                        error: 'PATCH requests to add or remove a label should specify a string',
-                    });
+            res = await request(testServer)
+                .patch(url + '/' + projectId)
+                .send([{ }])
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST);
 
-                    return request(testServer)
-                        .patch(url + '/' + projectId)
-                        .send([{ path : '/labels', op : 'add', value : ' ' }])
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.BAD_REQUEST);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, {
-                        error: 'Cannot add an empty label',
-                    });
+            assert.deepStrictEqual(res.body, {
+                error: 'PATCH requests must include an op',
+            });
 
-                    return request(testServer)
-                        .patch(url + '/' + projectId)
-                        .send([{
-                            path : '/labels', op : 'add',
-                            value : randomstring.generate({ length : 100 }),
-                        }])
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.BAD_REQUEST);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, {
-                        error: 'Label exceeds max length',
-                    });
+            res = await request(testServer)
+                .patch(url + '/' + projectId)
+                .send([{ path : '/labels' }])
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST);
 
-                    return request(testServer)
-                        .patch(url + '/' + projectId)
-                        .send([{
-                            path : '/labels', op : 'replace',
-                            value : 'should be an array',
-                        }])
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.BAD_REQUEST);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, {
-                        error: 'PATCH requests to replace labels should specify an array',
-                    });
+            assert.deepStrictEqual(res.body, {
+                error: 'PATCH requests must include an op',
+            });
 
-                    return request(testServer)
-                        .patch(url + '/' + projectId)
-                        .send([{
-                            path : '/labels', op : 'replace',
-                            value : [ 'test', randomstring.generate({ length : 100 }) ],
-                        }])
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.BAD_REQUEST);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, {
-                        error: 'Label exceeds max length',
-                    });
+            res = await request(testServer)
+                .patch(url + '/' + projectId)
+                .send([{ path : '/labels', op : 'INVALID', value : [ 'BAD' ] }])
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST);
 
-                    return request(testServer)
-                        .patch('/api/classes/' + TESTCLASS + '/students/' + 'different' + '/projects' + '/' + projectId)
-                        .send([{
-                            path : '/labels', op : 'add',
-                            value : 'newlabel',
-                        }])
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.FORBIDDEN);
-                });
+            assert.deepStrictEqual(res.body, {
+                error: 'Invalid PATCH op',
+            });
+
+            res = await request(testServer)
+                .patch(url + '/' + projectId)
+                .send([{ path : '/labels', op : 'add' }])
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, {
+                error: 'PATCH requests must include a value',
+            });
+
+            res = await request(testServer)
+                .patch(url + '/' + projectId)
+                .send([{ path : '/labels', op : 'add', value : [ 'BAD' ] }])
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, {
+                error: 'PATCH requests to add or remove a label should specify a string',
+            });
+
+            res = await request(testServer)
+                .patch(url + '/' + projectId)
+                .send([{ path : '/labels', op : 'add', value : ' ' }])
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, {
+                error: 'Cannot add an empty label',
+            });
+
+            res = await request(testServer)
+                .patch(url + '/' + projectId)
+                .send([{
+                    path : '/labels', op : 'add',
+                    value : randomstring.generate({ length : 100 }),
+                }])
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, {
+                error: 'Label exceeds max length',
+            });
+
+            res = await request(testServer)
+                .patch(url + '/' + projectId)
+                .send([{
+                    path : '/labels', op : 'replace',
+                    value : 'should be an array',
+                }])
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, {
+                error: 'PATCH requests to replace labels should specify an array',
+            });
+
+            res = await request(testServer)
+                .patch(url + '/' + projectId)
+                .send([{
+                    path : '/labels', op : 'replace',
+                    value : [ 'test', randomstring.generate({ length : 100 }) ],
+                }])
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, {
+                error: 'Label exceeds max length',
+            });
+
+            await request(testServer)
+                .patch('/api/classes/' + TESTCLASS + '/students/' + 'different' + '/projects' + '/' + projectId)
+                .send([{
+                    path : '/labels', op : 'add',
+                    value : 'newlabel',
+                }])
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.FORBIDDEN);
         });
 
     });

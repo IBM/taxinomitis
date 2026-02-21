@@ -1,5 +1,4 @@
-/*eslint-env mocha */
-
+import { describe, it } from 'node:test';
 import * as dbpool from '../../lib/db/postgresqldb';
 import * as store from '../../lib/db/store';
 

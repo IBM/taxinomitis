@@ -1,4 +1,4 @@
-/*eslint-env mocha */
+import { describe, it, before, after } from 'node:test';
 import { v1 as uuid } from 'uuid';
 import * as assert from 'assert';
 import * as request from 'supertest';
@@ -18,7 +18,7 @@ import testapiserver from './testserver';
 
 let testServer: Express.Express;
 
-const TESTCLASS = 'UNIQUECLASSID';
+const TESTCLASS = 'UNIQUECLASSIDSCMOD';
 
 
 describe('REST API - scratchkey models', () => {
@@ -119,19 +119,18 @@ describe('REST API - scratchkey models', () => {
 
         const key = await store.storeUntrainedScratchKey(project);
 
-        return request(testServer)
+        const res = await request(testServer)
             .post('/api/scratch/' + key + '/models')
             .expect('Content-Type', /json/)
-            .expect(httpstatus.OK)
-            .then(async (res) => {
-                assert.deepStrictEqual(res.body, {
-                    status : 0,
-                    msg : 'Failed to train machine learning model',
-                    type : typelabel,
-                });
+            .expect(httpstatus.OK);
 
-                await store.deleteEntireUser(userid, TESTCLASS);
-            });
+        assert.deepStrictEqual(res.body, {
+            status : 0,
+            msg : 'Failed to train machine learning model',
+            type : typelabel,
+        });
+
+        await store.deleteEntireUser(userid, TESTCLASS);
     });
 
 
@@ -146,19 +145,18 @@ describe('REST API - scratchkey models', () => {
 
         const key = await store.storeUntrainedScratchKey(project);
 
-        return request(testServer)
+        const res = await request(testServer)
             .post('/api/scratch/' + key + '/models')
             .expect('Content-Type', /json/)
-            .expect(httpstatus.OK)
-            .then(async (res) => {
-                assert.deepStrictEqual(res.body, {
-                    status : 0,
-                    msg : 'Model Failed',
-                    type : typelabel,
-                });
+            .expect(httpstatus.OK);
 
-                await store.deleteEntireUser(userid, TESTCLASS);
-            });
+        assert.deepStrictEqual(res.body, {
+            status : 0,
+            msg : 'Model Failed',
+            type : typelabel,
+        });
+
+        await store.deleteEntireUser(userid, TESTCLASS);
     });
 
 
@@ -173,19 +171,18 @@ describe('REST API - scratchkey models', () => {
 
         const key = await store.storeUntrainedScratchKey(project);
 
-        return request(testServer)
+        const res = await request(testServer)
             .post('/api/scratch/' + key + '/models')
             .expect('Content-Type', /json/)
-            .expect(httpstatus.OK)
-            .then(async (res) => {
-                assert.deepStrictEqual(res.body, {
-                    status : 1,
-                    msg : 'Model not ready yet',
-                    type : typelabel,
-                });
+            .expect(httpstatus.OK);
 
-                await store.deleteEntireUser(userid, TESTCLASS);
-            });
+        assert.deepStrictEqual(res.body, {
+            status : 1,
+            msg : 'Model not ready yet',
+            type : typelabel,
+        });
+
+        await store.deleteEntireUser(userid, TESTCLASS);
     });
 
     it('should train a numbers ML model using Scratch keys', async () => {
@@ -210,18 +207,17 @@ describe('REST API - scratchkey models', () => {
 
         const key = await store.storeUntrainedScratchKey(project);
 
-        return request(testServer)
+        const res = await request(testServer)
             .post('/api/scratch/' + key + '/models')
             .expect('Content-Type', /json/)
-            .expect(httpstatus.OK)
-            .then(async (res) => {
-                assert.strictEqual(project.id, res.body.key);
-                assert.strictEqual('Training', res.body.status);
-                assert(res.body.lastupdate);
-                assert(res.body.urls);
+            .expect(httpstatus.OK);
 
-                await store.deleteEntireUser(userid, TESTCLASS);
-            });
+        assert.strictEqual(project.id, res.body.key);
+        assert.strictEqual('Training', res.body.status);
+        assert(res.body.lastupdate);
+        assert(res.body.urls);
+
+        await store.deleteEntireUser(userid, TESTCLASS);
     });
 
 

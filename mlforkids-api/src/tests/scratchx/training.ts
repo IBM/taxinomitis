@@ -1,4 +1,4 @@
-/*eslint-env mocha */
+import { describe, it, before, after } from 'node:test';
 import * as assert from 'assert';
 import * as sinon from 'sinon';
 import { v1 as uuid } from 'uuid';
@@ -8,7 +8,7 @@ import * as training from '../../lib/scratchx/training';
 import * as requestUtil from '../../lib/utils/request';
 
 const TESTUSER = 'UNIQUEUSERID';
-const TESTCLASS = 'UNIQUECLASSID';
+const TESTCLASS = 'UNIQUECLASSIDTRN';
 
 
 describe('Scratchx - training', () => {
@@ -16,16 +16,16 @@ describe('Scratchx - training', () => {
     let numbersTrainingServiceDeleteStub: sinon.SinonStub<any, any>;
 
 
-    before(() => {
+    before(async () => {
         numbersTrainingServiceDeleteStub = sinon.stub(requestUtil, 'del').callsFake(stubbedRequestDelete);
 
-        return store.init();
+        await store.init();
     });
 
     after(async () => {
         await store.deleteEntireUser(TESTUSER, TESTCLASS);
         numbersTrainingServiceDeleteStub.restore();
-        return store.disconnect();
+        await store.disconnect();
     });
 
 
@@ -63,13 +63,10 @@ describe('Scratchx - training', () => {
                 updated : new Date(),
             };
 
-            try {
-                await training.storeTrainingData(scratchKey, 'MYLAB', 'wootywootwoot');
-                assert.fail('should not reach here');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Project not found');
-            }
+            await assert.rejects(
+                () => training.storeTrainingData(scratchKey, 'MYLAB', 'wootywootwoot'),
+                { message: 'Project not found' }
+            );
         });
 
         it('should require data to store text training', async () => {
@@ -83,22 +80,15 @@ describe('Scratchx - training', () => {
             const scratchKeyId = await store.storeUntrainedScratchKey(testProject);
             const scratchKey = await store.getScratchKey(scratchKeyId);
 
-            try {
-                await training.storeTrainingData(scratchKey, 'MYLAB', ' ');
-                assert.fail('should not reach here');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Missing data');
-            }
+            await assert.rejects(
+                () => training.storeTrainingData(scratchKey, 'MYLAB', ' '),
+                { message: 'Missing data' }
+            );
 
-            try {
-                await training.storeTrainingData(scratchKey, 'MYLAB', '');
-                assert.fail('should not reach here');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Missing data');
-            }
-
+            await assert.rejects(
+                () => training.storeTrainingData(scratchKey, 'MYLAB', ''),
+                { message: 'Missing data' }
+            );
         });
     });
 
@@ -116,13 +106,10 @@ describe('Scratchx - training', () => {
                 updated : new Date(),
             };
 
-            try {
-                await training.storeTrainingData(scratchKey, 'MYLAB', 'wootywootwoot');
-                assert.fail('should not reach here');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Project not found');
-            }
+            await assert.rejects(
+                () => training.storeTrainingData(scratchKey, 'MYLAB', 'wootywootwoot'),
+                { message: 'Project not found' }
+            );
         });
 
 
@@ -137,29 +124,20 @@ describe('Scratchx - training', () => {
             const scratchKeyId = await store.storeUntrainedScratchKey(testProject);
             const scratchKey = await store.getScratchKey(scratchKeyId);
 
-            try {
-                await training.storeTrainingData(scratchKey, 'MYLAB', ' ');
-                assert.fail('should not reach here');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Missing data');
-            }
+            await assert.rejects(
+                () => training.storeTrainingData(scratchKey, 'MYLAB', ' '),
+                { message: 'Missing data' }
+            );
 
-            try {
-                await training.storeTrainingData(scratchKey, 'MYLAB', '');
-                assert.fail('should not reach here');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Missing data');
-            }
+            await assert.rejects(
+                () => training.storeTrainingData(scratchKey, 'MYLAB', ''),
+                { message: 'Missing data' }
+            );
 
-            try {
-                await training.storeTrainingData(scratchKey, 'NOTCORRECT', 'valid');
-                assert.fail('should not reach here');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Invalid label');
-            }
+            await assert.rejects(
+                () => training.storeTrainingData(scratchKey, 'NOTCORRECT', 'valid'),
+                { message: 'Invalid label' }
+            );
         });
 
     });
@@ -200,13 +178,10 @@ describe('Scratchx - training', () => {
                 updated : new Date(),
             };
 
-            try {
-                await training.storeTrainingData(scratchKey, 'MYLAB', 'wootywootwoot');
-                assert.fail('should not reach here');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Project not found');
-            }
+            await assert.rejects(
+                () => training.storeTrainingData(scratchKey, 'MYLAB', 'wootywootwoot'),
+                { message: 'Project not found' }
+            );
         });
 
 
@@ -221,21 +196,15 @@ describe('Scratchx - training', () => {
             const scratchKeyId = await store.storeUntrainedScratchKey(testProject);
             const scratchKey = await store.getScratchKey(scratchKeyId);
 
-            try {
-                await training.storeTrainingData(scratchKey, 'NUMLAB', []);
-                assert.fail('should not reach here');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Missing data');
-            }
+            await assert.rejects(
+                () => training.storeTrainingData(scratchKey, 'NUMLAB', []),
+                { message: 'Missing data' }
+            );
 
-            try {
-                await training.storeTrainingData(scratchKey, 'NUMLAB', null);
-                assert.fail('should not reach here');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Missing data');
-            }
+            await assert.rejects(
+                () => training.storeTrainingData(scratchKey, 'NUMLAB', null),
+                { message: 'Missing data' }
+            );
         });
     });
 

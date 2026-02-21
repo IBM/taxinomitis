@@ -1,5 +1,5 @@
-/*eslint-env mocha */
-import * as assert from 'assert';
+import { describe, it } from 'node:test';
+import * as assert from 'node:assert';
 import { v1 as uuid } from 'uuid';
 import * as randomstring from 'randomstring';
 
@@ -246,17 +246,14 @@ describe('DB objects', () => {
     describe('getLabelListFromArray()', () => {
 
         it('should protect against long lists', () => {
-            const labelsList = [];
+            const labelsList: string[] = [];
             for (let i = 0; i < 50; i++) {
                 labelsList.push(randomstring.generate({ length : 12 }));
             }
-            try {
-                dbobjects.getLabelListFromArray(labelsList);
-                assert.fail('Should not have reached here');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'No room for the label');
-            }
+            assert.throws(
+                () => dbobjects.getLabelListFromArray(labelsList),
+                { message: 'No room for the label' }
+            );
         });
 
     });
@@ -277,72 +274,48 @@ describe('DB objects', () => {
 
 
     describe('createProject()', () => {
-        it('should reject invalid project types', (done) => {
-            try {
-                dbobjects.createProject('bob', 'bobclass', 'invalidtype', 'projectname', 'en', [], false);
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Invalid project type invalidtype');
-                return done();
-            }
-            assert.fail('Failed to reject project');
+        it('should reject invalid project types', () => {
+            assert.throws(
+                () => dbobjects.createProject('bob', 'bobclass', 'invalidtype', 'projectname', 'en', [], false),
+                { message: 'Invalid project type invalidtype' }
+            );
         });
 
-        it('should require user id', (done) => {
-            try {
-                dbobjects.createProject('', 'myclass', 'text', 'projectname', 'en', [], false);
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Missing required attributes');
-                return done();
-            }
-            assert.fail('Failed to reject project');
+        it('should require user id', () => {
+            assert.throws(
+                () => dbobjects.createProject('', 'myclass', 'text', 'projectname', 'en', [], false),
+                { message: 'Missing required attributes' }
+            );
         });
 
-        it('should require class id', (done) => {
-            try {
-                dbobjects.createProject('bob', '', 'text', 'projectname', 'en', [], false);
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Missing required attributes');
-                return done();
-            }
-            assert.fail('Failed to reject project');
+        it('should require class id', () => {
+            assert.throws(
+                () => dbobjects.createProject('bob', '', 'text', 'projectname', 'en', [], false),
+                { message: 'Missing required attributes' }
+            );
         });
 
-        it('should require project name', (done) => {
-            try {
-                dbobjects.createProject('bob', 'bobclass', 'text', UNDEFINED_STRING, 'en', [], false);
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Missing required attributes');
-                return done();
-            }
-            assert.fail('Failed to reject project');
+        it('should require project name', () => {
+            assert.throws(
+                () => dbobjects.createProject('bob', 'bobclass', 'text', UNDEFINED_STRING, 'en', [], false),
+                { message: 'Missing required attributes' }
+            );
         });
 
-        it('should require a language', (done) => {
-            try {
-                dbobjects.createProject('bob', 'bobclass', 'text', 'project', UNDEFINED_LANG, [], false);
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Language not supported');
-                return done();
-            }
-            assert.fail('Failed to reject project');
+        it('should require a language', () => {
+            assert.throws(
+                () => dbobjects.createProject('bob', 'bobclass', 'text', 'project', UNDEFINED_LANG, [], false),
+                { message: 'Language not supported' }
+            );
         });
 
-        it('should require a valid language', (done) => {
-            try {
-                dbobjects.createProject('bob', 'bobclass', 'text', 'project',
+        it('should require a valid language', () => {
+            assert.throws(
+                () => dbobjects.createProject('bob', 'bobclass', 'text', 'project',
                                         'xxx' as Objects.TextProjectLanguage,
-                                        [], false);
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Language not supported');
-                return done();
-            }
-            assert.fail('Failed to reject project');
+                                        [], false),
+                { message: 'Language not supported' }
+            );
         });
 
         it('should create a project object', () => {
@@ -367,127 +340,111 @@ describe('DB objects', () => {
             assert.strictEqual(project.iscrowdsourced, true);
         });
 
-        it('should need options for multichoice fields in numbers projects', (done) => {
-            try {
-                const field: Objects.NumbersProjectFieldSummary = { name : 'a', type : 'multichoice' };
-                dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', [ field ], false);
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Not enough choices provided');
-                return done();
-            }
-            assert.fail('Failed to reject project');
+        it('should need options for multichoice fields in numbers projects', () => {
+            assert.throws(
+                () => {
+                    const field: Objects.NumbersProjectFieldSummary = { name : 'a', type : 'multichoice' };
+                    dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', [ field ], false);
+                },
+                { message: 'Not enough choices provided' }
+            );
         });
 
-        it('should need enough options for multichoice fields in numbers projects', (done) => {
-            try {
-                const field: Objects.NumbersProjectFieldSummary = {
-                    name : 'a', type : 'multichoice', choices : [ 'onlyone' ],
-                };
-                dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', [ field ], false);
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Not enough choices provided');
-                return done();
-            }
-            assert.fail('Failed to reject project');
+        it('should need enough options for multichoice fields in numbers projects', () => {
+            assert.throws(
+                () => {
+                    const field: Objects.NumbersProjectFieldSummary = {
+                        name : 'a', type : 'multichoice', choices : [ 'onlyone' ],
+                    };
+                    dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', [ field ], false);
+                },
+                { message: 'Not enough choices provided' }
+            );
         });
 
-        it('should prevent duplicate fields in numbers projects', (done) => {
-            try {
-                const fields: Objects.NumbersProjectFieldSummary[] = [
-                    { name : 'a', type : 'multichoice', choices : [ 'onlyone' ] },
-                    { name : 'b', type : 'number', choices : [] },
-                    { name : 'a', type : 'number', choices : [] },
-                    { name : 'c', type : 'multichoice', choices : [ 'yes', 'no' ] },
-                ];
-                dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', fields, false);
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Fields all need different names');
-                return done();
-            }
-            assert.fail('Failed to reject project');
+        it('should prevent duplicate fields in numbers projects', () => {
+            assert.throws(
+                () => {
+                    const fields: Objects.NumbersProjectFieldSummary[] = [
+                        { name : 'a', type : 'multichoice', choices : [ 'onlyone' ] },
+                        { name : 'b', type : 'number', choices : [] },
+                        { name : 'a', type : 'number', choices : [] },
+                        { name : 'c', type : 'multichoice', choices : [ 'yes', 'no' ] },
+                    ];
+                    dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', fields, false);
+                },
+                { message: 'Fields all need different names' }
+            );
         });
 
-        it('should prevent too many options for multichoice fields in numbers projects', (done) => {
-            try {
-                const field: Objects.NumbersProjectFieldSummary = {
-                    name : 'a', type : 'multichoice',
-                    choices : [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm' ],
-                };
-                dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', [ field ], false);
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Too many choices specified');
-                return done();
-            }
-            assert.fail('Failed to reject project');
+        it('should prevent too many options for multichoice fields in numbers projects', () => {
+            assert.throws(
+                () => {
+                    const field: Objects.NumbersProjectFieldSummary = {
+                        name : 'a', type : 'multichoice',
+                        choices : [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm' ],
+                    };
+                    dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', [ field ], false);
+                },
+                { message: 'Too many choices specified' }
+            );
         });
 
-        it('should prevent empty options for multichoice fields in numbers projects', (done) => {
-            try {
-                const field: Objects.NumbersProjectFieldSummary = {
-                    name : 'a', type : 'multichoice',
-                    choices : [ 'a', '', 'c' ],
-                };
-                dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', [ field ], false);
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Invalid choice value');
-                return done();
-            }
-            assert.fail('Failed to reject project');
+        it('should prevent empty options for multichoice fields in numbers projects', () => {
+            assert.throws(
+                () => {
+                    const field: Objects.NumbersProjectFieldSummary = {
+                        name : 'a', type : 'multichoice',
+                        choices : [ 'a', '', 'c' ],
+                    };
+                    dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', [ field ], false);
+                },
+                { message: 'Invalid choice value' }
+            );
         });
 
-        it('should prevent choices that start with numbers in numbers projects', (done) => {
-            try {
-                const field: Objects.NumbersProjectFieldSummary = {
-                    name : 'a', type : 'multichoice',
-                    choices : [ 'a', '1Boo' ],
-                };
-                dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', [ field ], false);
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Invalid choice value');
-                return done();
-            }
-            assert.fail('Failed to reject project');
+        it('should prevent choices that start with numbers in numbers projects', () => {
+            assert.throws(
+                () => {
+                    const field: Objects.NumbersProjectFieldSummary = {
+                        name : 'a', type : 'multichoice',
+                        choices : [ 'a', '1Boo' ],
+                    };
+                    dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', [ field ], false);
+                },
+                { message: 'Invalid choice value' }
+            );
         });
 
-        it('should prevent commas in choices in multichoice fields in numbers projects', (done) => {
-            try {
-                const field: Objects.NumbersProjectFieldSummary = {
-                    name : 'a', type : 'multichoice',
-                    choices : [ 'a', 'This , Should', 'c' ],
-                };
-                dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', [ field ], false);
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Invalid choice value');
-                return done();
-            }
-            assert.fail('Failed to reject project');
+        it('should prevent commas in choices in multichoice fields in numbers projects', () => {
+            assert.throws(
+                () => {
+                    const field: Objects.NumbersProjectFieldSummary = {
+                        name : 'a', type : 'multichoice',
+                        choices : [ 'a', 'This , Should', 'c' ],
+                    };
+                    dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', [ field ], false);
+                },
+                { message: 'Invalid choice value' }
+            );
         });
 
-        it('should prevent over long options for multichoice fields in numbers projects', (done) => {
-            try {
-                const field: Objects.NumbersProjectFieldSummary = {
-                    name : 'a', type : 'multichoice',
-                    choices : [ 'a', 'This Is A Stupidly Long Option To Include', 'c' ],
-                };
-                dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', [ field ], false);
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Invalid choice value');
-                return done();
-            }
-            assert.fail('Failed to reject project');
+        it('should prevent over long options for multichoice fields in numbers projects', () => {
+            assert.throws(
+                () => {
+                    const field: Objects.NumbersProjectFieldSummary = {
+                        name : 'a', type : 'multichoice',
+                        choices : [ 'a', 'This Is A Stupidly Long Option To Include', 'c' ],
+                    };
+                    dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', [ field ], false);
+                },
+                { message: 'Invalid choice value' }
+            );
         });
 
-        it('should limit the number of fields for numbers projects', (done) => {
-            try {
-                dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en',
+        it('should limit the number of fields for numbers projects', () => {
+            assert.throws(
+                () => dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en',
                     [
                         { name : 'a', type : 'number' }, { name : 'b', type : 'number' },
                         { name : 'c', type : 'number' }, { name : 'd', type : 'number' },
@@ -496,27 +453,19 @@ describe('DB objects', () => {
                         { name : 'i', type : 'number' }, { name : 'j', type : 'number' },
                         { name : 'k', type : 'number' }, { name : 'l', type : 'number' },
                         { name : 'm', type : 'number' }, { name : 'n', type : 'number' },
-                    ], false);
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Too many fields specified');
-                return done();
-            }
-            assert.fail('Failed to reject project');
+                    ], false),
+                { message: 'Too many fields specified' }
+            );
         });
 
-        it('should restrict fields to numbers projects', (done) => {
-            try {
-                dbobjects.createProject('testuser', 'testclass', 'text', 'testproject', 'en', [
+        it('should restrict fields to numbers projects', () => {
+            assert.throws(
+                () => dbobjects.createProject('testuser', 'testclass', 'text', 'testproject', 'en', [
                     { name : 'a', type : 'number' }, { name : 'b', type : 'number' },
                     { name : 'c', type : 'number' },
-                ], false);
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Fields not supported for non-numbers projects');
-                return done();
-            }
-            assert.fail('Failed to reject project');
+                ], false),
+                { message: 'Fields not supported for non-numbers projects' }
+            );
         });
 
 
@@ -552,26 +501,18 @@ describe('DB objects', () => {
 
 
     describe('createTextTraining()', () => {
-        it('should require project id', (done) => {
-            try {
-                dbobjects.createTextTraining('', 'text', 'label');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Missing required attributes');
-                return done();
-            }
-            assert.fail('Failed to reject training');
+        it('should require project id', () => {
+            assert.throws(
+                () => dbobjects.createTextTraining('', 'text', 'label'),
+                { message: 'Missing required attributes' }
+            );
         });
 
-        it('should require text data', (done) => {
-            try {
-                dbobjects.createTextTraining('testproject', UNDEFINED_STRING, UNDEFINED_STRING);
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Missing required attributes');
-                return done();
-            }
-            assert.fail('Failed to reject training');
+        it('should require text data', () => {
+            assert.throws(
+                () => dbobjects.createTextTraining('testproject', UNDEFINED_STRING, UNDEFINED_STRING),
+                { message: 'Missing required attributes' }
+            );
         });
 
         it('should remove tabs from text data', () => {
@@ -604,48 +545,32 @@ describe('DB objects', () => {
 
 
     describe('createNumberTraining()', () => {
-        it('should require project id', (done) => {
-            try {
-                dbobjects.createNumberTraining('', [1], 'label');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Missing required attributes');
-                return done();
-            }
-            assert.fail('Failed to reject training');
+        it('should require project id', () => {
+            assert.throws(
+                () => dbobjects.createNumberTraining('', [1], 'label'),
+                { message: 'Missing required attributes' }
+            );
         });
 
-        it('should require number data', (done) => {
-            try {
-                dbobjects.createNumberTraining('testproject', UNDEFINED_NUMBERS, UNDEFINED_STRING);
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Missing required attributes');
-                return done();
-            }
-            assert.fail('Failed to reject training');
+        it('should require number data', () => {
+            assert.throws(
+                () => dbobjects.createNumberTraining('testproject', UNDEFINED_NUMBERS, UNDEFINED_STRING),
+                { message: 'Missing required attributes' }
+            );
         });
 
-        it('should require at least one number data item', (done) => {
-            try {
-                dbobjects.createNumberTraining('testproject', [], UNDEFINED_STRING);
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Missing required attributes');
-                return done();
-            }
-            assert.fail('Failed to reject training');
+        it('should require at least one number data item', () => {
+            assert.throws(
+                () => dbobjects.createNumberTraining('testproject', [], UNDEFINED_STRING),
+                { message: 'Missing required attributes' }
+            );
         });
 
-        it('should require valid number data', (done) => {
-            try {
-                dbobjects.createNumberTraining('testproject', [10, 'HELLO', 34] as any, UNDEFINED_STRING);
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Data contains non-numeric items');
-                return done();
-            }
-            assert.fail('Failed to reject training');
+        it('should require valid number data', () => {
+            assert.throws(
+                () => dbobjects.createNumberTraining('testproject', [10, 'HELLO', 34] as any, UNDEFINED_STRING),
+                { message: 'Data contains non-numeric items' }
+            );
         });
 
         it('should allow training data without labels', () => {
@@ -655,19 +580,14 @@ describe('DB objects', () => {
             assert.deepStrictEqual(training.numberdata, [123, 456]);
         });
 
-        it('should limit the number of training data objects', (done) => {
-            try {
-                dbobjects.createNumberTraining(
+        it('should limit the number of training data objects', () => {
+            assert.throws(
+                () => dbobjects.createNumberTraining(
                     'testproject',
                     [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
-                    'mylabel');
-                assert.fail('Should not have allowed this');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Number of data items exceeded maximum');
-                return done();
-            }
-            assert.fail('Failed to reject training');
+                    'mylabel'),
+                { message: 'Number of data items exceeded maximum' }
+            );
         });
 
 
@@ -682,15 +602,11 @@ describe('DB objects', () => {
 
 
     describe('createImageTraining()', () => {
-        it('should require project id', (done) => {
-            try {
-                dbobjects.createImageTraining('', 'myimageurl', 'label', false);
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Missing required attributes');
-                return done();
-            }
-            assert.fail('Failed to reject training');
+        it('should require project id', () => {
+            assert.throws(
+                () => dbobjects.createImageTraining('', 'myimageurl', 'label', false),
+                { message: 'Missing required attributes' }
+            );
         });
 
         it('should not require an image label', () => {
@@ -710,26 +626,18 @@ describe('DB objects', () => {
         });
 
 
-        it('should require an image url', (done) => {
-            try {
-                dbobjects.createImageTraining('projectid', UNDEFINED_STRING, UNDEFINED_STRING, false);
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Missing required attributes');
-                return done();
-            }
-            assert.fail('Failed to reject training');
+        it('should require an image url', () => {
+            assert.throws(
+                () => dbobjects.createImageTraining('projectid', UNDEFINED_STRING, UNDEFINED_STRING, false),
+                { message: 'Missing required attributes' }
+            );
         });
 
-        it('should require a storable image url', (done) => {
-            try {
-                dbobjects.createImageTraining('projectid', randomstring.generate({ length : 1500 }), 'label', false);
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Image URL exceeds maximum allowed length (1024 characters)');
-                return done();
-            }
-            assert.fail('Failed to reject training');
+        it('should require a storable image url', () => {
+            assert.throws(
+                () => dbobjects.createImageTraining('projectid', randomstring.generate({ length : 1500 }), 'label', false),
+                { message: 'Image URL exceeds maximum allowed length (1024 characters)' }
+            );
         });
     });
 
@@ -767,74 +675,50 @@ describe('DB objects', () => {
 
     describe('createBluemixCredentials', () => {
 
-        it('should require a service type', (done) => {
-            try {
-                dbobjects.createBluemixCredentials(UNDEFINED_STRING,
-                    'class', 'apikey', UNDEFINED_STRING, UNDEFINED_STRING, 'unknown');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Missing required attributes');
-                return done();
-            }
-            assert.fail('Failed to reject request');
+        it('should require a service type', () => {
+            assert.throws(
+                () => dbobjects.createBluemixCredentials(UNDEFINED_STRING,
+                    'class', 'apikey', UNDEFINED_STRING, UNDEFINED_STRING, 'unknown'),
+                { message: 'Missing required attributes' }
+            );
         });
 
-        it('should require a valid service type', (done) => {
-            try {
-                dbobjects.createBluemixCredentials('blah',
-                    'class', 'apikey', UNDEFINED_STRING, UNDEFINED_STRING, 'unknown');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Invalid service type');
-                return done();
-            }
-            assert.fail('Failed to reject request');
+        it('should require a valid service type', () => {
+            assert.throws(
+                () => dbobjects.createBluemixCredentials('blah',
+                    'class', 'apikey', UNDEFINED_STRING, UNDEFINED_STRING, 'unknown'),
+                { message: 'Invalid service type' }
+            );
         });
 
 
-        it('should require a username for conversation credentials', (done) => {
-            try {
-                dbobjects.createBluemixCredentials('conv', 'class', undefined, undefined, 'password', 'unknown');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Missing required attributes');
-                return done();
-            }
-            assert.fail('Failed to reject request');
+        it('should require a username for conversation credentials', () => {
+            assert.throws(
+                () => dbobjects.createBluemixCredentials('conv', 'class', undefined, undefined, 'password', 'unknown'),
+                { message: 'Missing required attributes' }
+            );
         });
 
-        it('should require a password for conversation credentials', (done) => {
-            try {
-                dbobjects.createBluemixCredentials('conv', 'class', undefined, 'username', undefined, 'unknown');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Missing required attributes');
-                return done();
-            }
-            assert.fail('Failed to reject request');
+        it('should require a password for conversation credentials', () => {
+            assert.throws(
+                () => dbobjects.createBluemixCredentials('conv', 'class', undefined, 'username', undefined, 'unknown'),
+                { message: 'Missing required attributes' }
+            );
         });
 
-        it('should require a valid username for conversation credentials', (done) => {
-            try {
-                dbobjects.createBluemixCredentials('conv', 'class', undefined, 'username', 'password', 'unknown');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Invalid credentials');
-                return done();
-            }
-            assert.fail('Failed to reject request');
+        it('should require a valid username for conversation credentials', () => {
+            assert.throws(
+                () => dbobjects.createBluemixCredentials('conv', 'class', undefined, 'username', 'password', 'unknown'),
+                { message: 'Invalid credentials' }
+            );
         });
 
-        it('should require a valid password for conversation credentials', (done) => {
-            try {
-                dbobjects.createBluemixCredentials('conv', 'class', undefined,
-                    'Mhtugfiuq6DNTMFRrwdMk2DUcvgAWj7W9jOL', 'password', 'unknown');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Invalid credentials');
-                return done();
-            }
-            assert.fail('Failed to reject request');
+        it('should require a valid password for conversation credentials', () => {
+            assert.throws(
+                () => dbobjects.createBluemixCredentials('conv', 'class', undefined,
+                    'Mhtugfiuq6DNTMFRrwdMk2DUcvgAWj7W9jOL', 'password', 'unknown'),
+                { message: 'Invalid credentials' }
+            );
         });
 
         it('should require 44 char API keys for conversation credentials', () => {
@@ -884,147 +768,107 @@ describe('DB objects', () => {
         const projectid = 'projectid';
         const imageid = 'imageid';
 
-        it('should require a class id for image jobs', (done) => {
-            try {
-                dbobjects.createDeleteObjectStoreJob({
+        it('should require a class id for image jobs', () => {
+            assert.throws(
+                () => dbobjects.createDeleteObjectStoreJob({
                     classid : UNDEFINED_STRING,
                     userid, projectid, objectid: imageid,
-                });
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Missing required class id');
-                return done();
-            }
-            assert.fail('Failed to reject request');
+                }),
+                { message: 'Missing required class id' }
+            );
         });
 
-        it('should require a userid id for image jobs', (done) => {
-            try {
-                dbobjects.createDeleteObjectStoreJob({
+        it('should require a userid id for image jobs', () => {
+            assert.throws(
+                () => dbobjects.createDeleteObjectStoreJob({
                     userid : UNDEFINED_STRING,
                     classid, projectid, objectid: imageid,
-                });
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Missing required user id');
-                return done();
-            }
-            assert.fail('Failed to reject request');
+                }),
+                { message: 'Missing required user id' }
+            );
         });
 
-        it('should require a project id for image jobs', (done) => {
-            try {
-                dbobjects.createDeleteObjectStoreJob({
+        it('should require a project id for image jobs', () => {
+            assert.throws(
+                () => dbobjects.createDeleteObjectStoreJob({
                     projectid : UNDEFINED_STRING,
                     classid, userid, objectid: imageid,
-                });
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Missing required project id');
-                return done();
-            }
-            assert.fail('Failed to reject request');
+                }),
+                { message: 'Missing required project id' }
+            );
         });
 
-        it('should require a image id for image jobs', (done) => {
-            try {
-                dbobjects.createDeleteObjectStoreJob({
+        it('should require a image id for image jobs', () => {
+            assert.throws(
+                () => dbobjects.createDeleteObjectStoreJob({
                     objectid : UNDEFINED_STRING,
                     classid, userid, projectid,
-                });
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Missing required object id');
-                return done();
-            }
-            assert.fail('Failed to reject request');
+                }),
+                { message: 'Missing required object id' }
+            );
         });
 
 
 
-        it('should require a class id for project jobs', (done) => {
-            try {
-                dbobjects.createDeleteProjectObjectsJob({
+        it('should require a class id for project jobs', () => {
+            assert.throws(
+                () => dbobjects.createDeleteProjectObjectsJob({
                     classid : UNDEFINED_STRING,
                     userid, projectid,
-                });
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Missing required class id');
-                return done();
-            }
-            assert.fail('Failed to reject request');
+                }),
+                { message: 'Missing required class id' }
+            );
         });
 
-        it('should require a userid id for project jobs', (done) => {
-            try {
-                dbobjects.createDeleteProjectObjectsJob({
+        it('should require a userid id for project jobs', () => {
+            assert.throws(
+                () => dbobjects.createDeleteProjectObjectsJob({
                     userid : UNDEFINED_STRING,
                     classid, projectid,
-                });
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Missing required user id');
-                return done();
-            }
-            assert.fail('Failed to reject request');
+                }),
+                { message: 'Missing required user id' }
+            );
         });
 
-        it('should require a project id for project jobs', (done) => {
-            try {
-                dbobjects.createDeleteProjectObjectsJob({
+        it('should require a project id for project jobs', () => {
+            assert.throws(
+                () => dbobjects.createDeleteProjectObjectsJob({
                     projectid : UNDEFINED_STRING,
                     classid, userid,
-                });
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Missing required project id');
-                return done();
-            }
-            assert.fail('Failed to reject request');
+                }),
+                { message: 'Missing required project id' }
+            );
         });
 
 
-        it('should require a class id for user jobs', (done) => {
-            try {
-                dbobjects.createDeleteUserObjectsJob({
+        it('should require a class id for user jobs', () => {
+            assert.throws(
+                () => dbobjects.createDeleteUserObjectsJob({
                     classid : UNDEFINED_STRING,
                     userid,
-                });
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Missing required class id');
-                return done();
-            }
-            assert.fail('Failed to reject request');
+                }),
+                { message: 'Missing required class id' }
+            );
         });
 
-        it('should require a userid id for user jobs', (done) => {
-            try {
-                dbobjects.createDeleteUserObjectsJob({
+        it('should require a userid id for user jobs', () => {
+            assert.throws(
+                () => dbobjects.createDeleteUserObjectsJob({
                     userid : UNDEFINED_STRING,
                     classid,
-                });
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Missing required user id');
-                return done();
-            }
-            assert.fail('Failed to reject request');
+                }),
+                { message: 'Missing required user id' }
+            );
         });
 
 
-        it('should require a class id for class jobs', (done) => {
-            try {
-                dbobjects.createDeleteClassObjectsJob({
+        it('should require a class id for class jobs', () => {
+            assert.throws(
+                () => dbobjects.createDeleteClassObjectsJob({
                     classid : UNDEFINED_STRING,
-                });
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Missing required class id');
-                return done();
-            }
-            assert.fail('Failed to reject request');
+                }),
+                { message: 'Missing required class id' }
+            );
         });
     });
 
@@ -1079,59 +923,39 @@ describe('DB objects', () => {
 
     describe('createClassTenant', () => {
 
-        it('should require a class id', (done) => {
-            try {
-                dbobjects.createClassTenant(UNDEFINED_STRING);
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Missing required class id');
-                return done();
-            }
-            assert.fail('Failed to reject request');
+        it('should require a class id', () => {
+            assert.throws(
+                () => dbobjects.createClassTenant(UNDEFINED_STRING),
+                { message: 'Missing required class id' }
+            );
         });
 
-        it('should require a long enough class id', (done) => {
-            try {
-                dbobjects.createClassTenant('x');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Not a valid class id');
-                return done();
-            }
-            assert.fail('Failed to reject request');
+        it('should require a long enough class id', () => {
+            assert.throws(
+                () => dbobjects.createClassTenant('x'),
+                { message: 'Not a valid class id' }
+            );
         });
 
-        it('should require a short enough class id', (done) => {
-            try {
-                dbobjects.createClassTenant('abcdefghijklmnopqrstuvwxyzabcdefghijk');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Not a valid class id');
-                return done();
-            }
-            assert.fail('Failed to reject request');
+        it('should require a short enough class id', () => {
+            assert.throws(
+                () => dbobjects.createClassTenant('abcdefghijklmnopqrstuvwxyzabcdefghijk'),
+                { message: 'Not a valid class id' }
+            );
         });
 
-        it('should require lowercase class ids', (done) => {
-            try {
-                dbobjects.createClassTenant('HELLO');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Not a valid class id');
-                return done();
-            }
-            assert.fail('Failed to reject request');
+        it('should require lowercase class ids', () => {
+            assert.throws(
+                () => dbobjects.createClassTenant('HELLO'),
+                { message: 'Not a valid class id' }
+            );
         });
 
-        it('should require only letters in class ids', (done) => {
-            try {
-                dbobjects.createClassTenant('hello world');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Not a valid class id');
-                return done();
-            }
-            assert.fail('Failed to reject request');
+        it('should require only letters in class ids', () => {
+            assert.throws(
+                () => dbobjects.createClassTenant('hello world'),
+                { message: 'Not a valid class id' }
+            );
         });
 
         it('should require a valid class id', () => {
@@ -1214,35 +1038,29 @@ describe('DB objects', () => {
         });
 
         it('should reject messages that wont fit in the DB', () => {
-            try {
-                dbobjects.createSiteAlert(
+            assert.throws(
+                () => dbobjects.createSiteAlert(
                     'This is my message. It is very long. This is my message. It is very long. This is my message. ' +
                     'This is my message. It is very long. This is my message. It is very long. This is my message. ' +
                     'This is my message. It is very long. This is my message. It is very long. This is my message. ',
                     'http://go.here.com',
                     'student',
                     'info',
-                    constants.ONE_HOUR);
-                assert.fail('should not get here');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Invalid message');
-            }
+                    constants.ONE_HOUR),
+                { message: 'Invalid message' }
+            );
         });
 
         it('should reject empty messages', () => {
-            try {
-                dbobjects.createSiteAlert(
+            assert.throws(
+                () => dbobjects.createSiteAlert(
                     '',
                     'http://go.here.com',
                     'student',
                     'info',
-                    constants.ONE_HOUR);
-                assert.fail('should not get here');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Missing required attributes');
-            }
+                    constants.ONE_HOUR),
+                { message: 'Missing required attributes' }
+            );
         });
 
         it('should reject URLs that wont fit in the DB', () => {

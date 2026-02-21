@@ -1,4 +1,4 @@
-/*eslint-env mocha */
+import { describe, it, before, beforeEach, after } from 'node:test';
 import { v1 as uuid } from 'uuid';
 import * as assert from 'assert';
 import * as sinon from 'sinon';
@@ -16,7 +16,7 @@ import testapiserver from './testserver';
 let testServer: express.Express;
 
 
-const TESTCLASS = 'UNIQUECLASSID';
+const TESTCLASS = 'UNIQUECLASSIDSHARE';
 
 
 describe('REST API - share projects', () => {
@@ -74,82 +74,75 @@ describe('REST API - share projects', () => {
 
     describe('shareProject()', () => {
 
-        it('should handle requests for non-existent projects', () => {
+        it('should handle requests for non-existent projects', async () => {
             const studentid = uuid();
             const projectid = uuid();
             nextAuth0UserId = studentid;
             nextAuth0UserTenant = TESTCLASS;
             nextAuth0UserRole = 'supervisor';
-            return request(testServer)
+
+            const res = await request(testServer)
                 .patch('/api/classes/' + TESTCLASS + '/students/' + studentid + '/projects/' + projectid + '/iscrowdsourced')
                 .send([{ op : 'replace', path : '/isCrowdSourced', value : true }])
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_FOUND)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.error, 'Not found');
-                });
+                .expect(httpstatus.NOT_FOUND);
+
+            const body = res.body;
+            assert.strictEqual(body.error, 'Not found');
         });
 
-        it('should only allow project owner to make changes', () => {
+        it('should only allow project owner to make changes', async () => {
             const studentId = uuid();
             nextAuth0UserId = studentId;
             nextAuth0UserTenant = TESTCLASS;
             nextAuth0UserRole = 'supervisor';
 
-            return store.storeProject(studentId, TESTCLASS, 'text', 'test project', 'en', [], false)
-                .then((project) => {
-                    const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects/' + project.id + '/iscrowdsourced';
+            const project = await store.storeProject(studentId, TESTCLASS, 'text', 'test project', 'en', [], false);
+            const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects/' + project.id + '/iscrowdsourced';
 
-                    nextAuth0UserId = uuid();
+            nextAuth0UserId = uuid();
 
-                    return request(testServer)
-                        .patch(url)
-                        .send([{ op : 'replace', path : '/isCrowdSourced', value : true }])
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.FORBIDDEN);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.error, 'Invalid access');
-                });
+            const res = await request(testServer)
+                .patch(url)
+                .send([{ op : 'replace', path : '/isCrowdSourced', value : true }])
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.FORBIDDEN);
+
+            const body = res.body;
+            assert.strictEqual(body.error, 'Invalid access');
         });
 
-        it('should only allow teachers to make changes', () => {
+        it('should only allow teachers to make changes', async () => {
             const studentId = uuid();
             nextAuth0UserId = studentId;
             nextAuth0UserTenant = TESTCLASS;
             nextAuth0UserRole = 'student';
 
-            return store.storeProject(studentId, TESTCLASS, 'text', 'test project', 'en', [], false)
-                .then((project) => {
-                    const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects/' + project.id + '/iscrowdsourced';
+            const project = await store.storeProject(studentId, TESTCLASS, 'text', 'test project', 'en', [], false);
+            const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects/' + project.id + '/iscrowdsourced';
 
-                    return request(testServer)
-                        .patch(url)
-                        .send([{ op : 'replace', path : '/isCrowdSourced', value : true }])
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.FORBIDDEN);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.error, 'Only supervisors are allowed to invoke this');
-                });
+            const res = await request(testServer)
+                .patch(url)
+                .send([{ op : 'replace', path : '/isCrowdSourced', value : true }])
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.FORBIDDEN);
+
+            const body = res.body;
+            assert.strictEqual(body.error, 'Only supervisors are allowed to invoke this');
         });
 
-        function checkInvalidPatch(url: string, payload: object, expected: string) {
-            return request(testServer)
-                    .patch(url)
-                    .send(payload)
-                    .expect('Content-Type', /json/)
-                    .expect(httpstatus.BAD_REQUEST)
-                    .then((res) => {
-                        const body = res.body;
-                        assert.deepStrictEqual(body, { error : expected });
-                    });
+        async function checkInvalidPatch(url: string, payload: object, expected: string) {
+            const res = await request(testServer)
+                .patch(url)
+                .send(payload)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST);
+
+            const body = res.body;
+            assert.deepStrictEqual(body, { error : expected });
         }
 
-        it('should check patch request', () => {
+        it('should check patch request', async () => {
             const studentId = uuid();
             nextAuth0UserId = studentId;
             nextAuth0UserTenant = TESTCLASS;
@@ -164,88 +157,61 @@ describe('REST API - share projects', () => {
                 { op : 'replace', path : '/isCrowdSourced', value : true }
             ];
 
-            let url: string;
+            const project = await store.storeProject(studentId, TESTCLASS, 'text', 'test project', 'en', [], false);
+            const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects/' + project.id + '/iscrowdsourced';
 
-            return store.storeProject(studentId, TESTCLASS, 'text', 'test project', 'en', [], false)
-                .then((project) => {
-                    url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects/' + project.id + '/iscrowdsourced';
-
-                    return checkInvalidPatch(url, INVALID_REQUESTS[0], 'PATCH requests must include an op');
-                })
-                .then(() => {
-                    return checkInvalidPatch(url, INVALID_REQUESTS[1], 'Invalid PATCH op');
-                })
-                .then(() => {
-                    return checkInvalidPatch(url, INVALID_REQUESTS[2], 'Only individual PATCH requests are supported');
-                })
-                .then(() => {
-                    return checkInvalidPatch(url, INVALID_REQUESTS[3], 'Only modifications to project isCrowdSourced are supported');
-                })
-                .then(() => {
-                    return checkInvalidPatch(url, INVALID_REQUESTS[4], 'Invalid PATCH op');
-                })
-                .then(() => {
-                    return checkInvalidPatch(url, INVALID_REQUESTS[5], 'PATCH body should be an array');
-                });
+            await checkInvalidPatch(url, INVALID_REQUESTS[0], 'PATCH requests must include an op');
+            await checkInvalidPatch(url, INVALID_REQUESTS[1], 'Invalid PATCH op');
+            await checkInvalidPatch(url, INVALID_REQUESTS[2], 'Only individual PATCH requests are supported');
+            await checkInvalidPatch(url, INVALID_REQUESTS[3], 'Only modifications to project isCrowdSourced are supported');
+            await checkInvalidPatch(url, INVALID_REQUESTS[4], 'Invalid PATCH op');
+            await checkInvalidPatch(url, INVALID_REQUESTS[5], 'PATCH body should be an array');
         });
 
-        it('should check current share status', () => {
+        it('should check current share status', async () => {
             const studentId = uuid();
             nextAuth0UserId = studentId;
             nextAuth0UserTenant = TESTCLASS;
             nextAuth0UserRole = 'supervisor';
 
-            return store.storeProject(studentId, TESTCLASS, 'text', 'test project', 'en', [], false)
-                .then((project) => {
-                    const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects/' + project.id + '/iscrowdsourced';
+            const project = await store.storeProject(studentId, TESTCLASS, 'text', 'test project', 'en', [], false);
+            const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects/' + project.id + '/iscrowdsourced';
 
-                    return request(testServer)
-                        .patch(url)
-                        .send([ { op : 'replace', path : '/isCrowdSourced', value : false } ])
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.CONFLICT);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, { error : 'isCrowdSourced already set' });
-                    return store.deleteProjectsByClassId(TESTCLASS);
-                });
+            const res = await request(testServer)
+                .patch(url)
+                .send([ { op : 'replace', path : '/isCrowdSourced', value : false } ])
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CONFLICT);
+
+            const body = res.body;
+            assert.deepStrictEqual(body, { error : 'isCrowdSourced already set' });
+            await store.deleteProjectsByClassId(TESTCLASS);
         });
 
-        it('should modify share status', () => {
+        it('should modify share status', async () => {
             const studentId = uuid();
             nextAuth0UserId = studentId;
             nextAuth0UserTenant = TESTCLASS;
             nextAuth0UserRole = 'supervisor';
 
-            let projecturl: string;
+            const project = await store.storeProject(studentId, TESTCLASS, 'text', 'test project', 'en', [], false);
+            const projecturl = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects/' + project.id;
 
-            return store.storeProject(studentId, TESTCLASS, 'text', 'test project', 'en', [], false)
-                .then((project) => {
-                    projecturl = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects/' + project.id;
+            await request(testServer)
+                .patch(projecturl + '/iscrowdsourced')
+                .send([ { op : 'replace', path : '/isCrowdSourced', value : true } ])
+                .expect(httpstatus.NO_CONTENT);
 
-                    return request(testServer)
-                        .patch(projecturl + '/iscrowdsourced')
-                        .send([ { op : 'replace', path : '/isCrowdSourced', value : true } ])
-                        .expect(httpstatus.NO_CONTENT);
-                })
-                .then(() => {
-                    return request(testServer).get(projecturl);
-                })
-                .then((res) => {
-                    assert.strictEqual(res.body.isCrowdSourced, true);
+            let res = await request(testServer).get(projecturl);
+            assert.strictEqual(res.body.isCrowdSourced, true);
 
-                    return request(testServer)
-                        .patch(projecturl + '/iscrowdsourced')
-                        .send([ { op : 'replace', path : '/isCrowdSourced', value : false } ])
-                        .expect(httpstatus.NO_CONTENT);
-                })
-                .then(() => {
-                    return request(testServer).get(projecturl);
-                })
-                .then((res) => {
-                    assert.strictEqual(res.body.isCrowdSourced, false);
-                });
+            await request(testServer)
+                .patch(projecturl + '/iscrowdsourced')
+                .send([ { op : 'replace', path : '/isCrowdSourced', value : false } ])
+                .expect(httpstatus.NO_CONTENT);
+
+            res = await request(testServer).get(projecturl);
+            assert.strictEqual(res.body.isCrowdSourced, false);
         });
 
     });

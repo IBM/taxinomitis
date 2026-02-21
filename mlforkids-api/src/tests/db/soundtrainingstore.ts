@@ -1,4 +1,4 @@
-/*eslint-env mocha */
+import { describe, it, before, after } from 'node:test';
 import * as assert from 'assert';
 import { v1 as uuid } from 'uuid';
 import * as Objects from '../../lib/db/db-types';
@@ -254,7 +254,7 @@ describe('DB store - sound training', () => {
     // describe('renameSoundTrainingLabel', () => {
 
     //     it('should rename a label', async () => {
-    //         const project = await store.storeProject(uuid(), 'UNIQUECLASSID', 'sounds', 'name', 'en', [], false);
+    //         const project = await store.storeProject(uuid(), 'UNIQUECLASSIDSOUND', 'sounds', 'name', 'en', [], false);
 
     //         const BEFORE = uuid();
     //         const AFTER = uuid();

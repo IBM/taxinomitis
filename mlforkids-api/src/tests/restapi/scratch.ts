@@ -1,4 +1,4 @@
-/*eslint-env mocha */
+import { describe, it, before, after } from 'node:test';
 import { v1 as uuid } from 'uuid';
 import * as assert from 'assert';
 import * as request from 'supertest';
@@ -26,7 +26,7 @@ import testapiserver from './testserver';
 let testServer: Express.Express;
 
 
-const TESTCLASS = 'UNIQUECLASSID';
+const TESTCLASS = 'UNIQUECLASSIDSCR';
 
 
 
@@ -84,20 +84,19 @@ describe('REST API - scratch keys', () => {
 
             const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [], false);
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + TESTCLASS + '/students/' + userid + '/projects/' + project.id + '/scratchkeys')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then(async (res) => {
-                    const body = res.body;
-                    assert(Array.isArray(body));
-                    assert.strictEqual(body.length, 1);
-                    assert(body[0].id);
-                    assert.strictEqual(body[0].id.length, 72);
-                    assert(!body[0].model);
+                .expect(httpstatus.OK);
 
-                    await store.deleteEntireUser(userid, TESTCLASS);
-                });
+            const body = res.body;
+            assert(Array.isArray(body));
+            assert.strictEqual(body.length, 1);
+            assert(body[0].id);
+            assert.strictEqual(body[0].id.length, 72);
+            assert(!body[0].model);
+
+            await store.deleteEntireUser(userid, TESTCLASS);
         });
 
 
@@ -131,22 +130,20 @@ describe('REST API - scratch keys', () => {
             const storedCredentials = await store.storeBluemixCredentials(TESTCLASS, credentials);
             await store.storeConversationWorkspace(storedCredentials, project, workspace);
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + TESTCLASS + '/students/' + userid + '/projects/' + project.id + '/scratchkeys')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then(async (res) => {
-                    const body = res.body;
-                    assert(Array.isArray(body));
-                    assert.strictEqual(body.length, 1);
-                    assert(body[0].id);
-                    assert.strictEqual(body[0].id.length, 72);
-                    assert.strictEqual(body[0].model, workspace.workspace_id);
+                .expect(httpstatus.OK);
 
-                    await store.deleteEntireProject(userid, TESTCLASS, project);
-                    await store.deleteBluemixCredentials(credentials.id);
-                });
+            const body = res.body;
+            assert(Array.isArray(body));
+            assert.strictEqual(body.length, 1);
+            assert(body[0].id);
+            assert.strictEqual(body[0].id.length, 72);
+            assert.strictEqual(body[0].model, workspace.workspace_id);
 
+            await store.deleteEntireProject(userid, TESTCLASS, project);
+            await store.deleteBluemixCredentials(credentials.id);
         });
 
 
@@ -160,22 +157,21 @@ describe('REST API - scratch keys', () => {
             const projectid = project.id;
             const keyId = await store.storeUntrainedScratchKey(project);
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + TESTCLASS + '/students/' + userid + '/projects/' + projectid + '/scratchkeys')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then(async (res) => {
-                    const body = res.body;
+                .expect(httpstatus.OK);
 
-                    assert(Array.isArray(body));
-                    assert.strictEqual(body.length, 1);
-                    assert(body[0].id);
-                    assert.strictEqual(body[0].id, keyId);
-                    assert(!body[0].model);
+            const body = res.body;
 
-                    await store.deleteScratchKey(keyId);
-                    await store.deleteEntireProject(userid, TESTCLASS, project);
-                });
+            assert(Array.isArray(body));
+            assert.strictEqual(body.length, 1);
+            assert(body[0].id);
+            assert.strictEqual(body[0].id, keyId);
+            assert(!body[0].model);
+
+            await store.deleteScratchKey(keyId);
+            await store.deleteEntireProject(userid, TESTCLASS, project);
         });
 
         it('should return an existing trained scratch key', async () => {
@@ -202,22 +198,21 @@ describe('REST API - scratch keys', () => {
 
             const keyId = await store.storeScratchKey(project, credentials, classifierid, ts);
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + TESTCLASS + '/students/' + userid + '/projects/' + projectid + '/scratchkeys')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then(async (res) => {
-                    const body = res.body;
+                .expect(httpstatus.OK);
 
-                    assert(Array.isArray(body));
-                    assert.strictEqual(body.length, 1);
-                    assert(body[0].id);
-                    assert.strictEqual(body[0].id, keyId);
-                    assert.strictEqual(body[0].model, classifierid);
+            const body = res.body;
 
-                    await store.deleteScratchKey(keyId);
-                    await store.deleteEntireProject(userid, TESTCLASS, project);
-                });
+            assert(Array.isArray(body));
+            assert.strictEqual(body.length, 1);
+            assert(body[0].id);
+            assert.strictEqual(body[0].id, keyId);
+            assert.strictEqual(body[0].model, classifierid);
+
+            await store.deleteScratchKey(keyId);
+            await store.deleteEntireProject(userid, TESTCLASS, project);
         });
     });
 
@@ -241,14 +236,13 @@ describe('REST API - scratch keys', () => {
 
             const key = await store.storeUntrainedScratchKey(project);
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/scratch/' + key + '/classify')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then(async (res) => {
-                    await store.deleteScratchKey(key);
-                    assert.deepStrictEqual({ error : 'Missing data' }, res.body);
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            await store.deleteScratchKey(key);
+            assert.deepStrictEqual({ error : 'Missing data' }, res.body);
         });
 
 
@@ -269,17 +263,16 @@ describe('REST API - scratch keys', () => {
 
             const key = await store.storeUntrainedScratchKey(project);
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/scratch/' + key + '/models')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.INTERNAL_SERVER_ERROR)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, {
-                        error : 'Project not found',
-                    });
+                .expect(httpstatus.INTERNAL_SERVER_ERROR);
 
-                    return store.deleteScratchKey(key);
-                });
+            assert.deepStrictEqual(res.body, {
+                error : 'Project not found',
+            });
+
+            await store.deleteScratchKey(key);
         });
 
         it('should treat image projects as not implemented yet for creating ML models', async () => {
@@ -299,17 +292,16 @@ describe('REST API - scratch keys', () => {
 
             const key = await store.storeUntrainedScratchKey(project);
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/scratch/' + key + '/models')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_IMPLEMENTED)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, {
-                        error : 'Only text or numbers models can be trained using a Scratch key',
-                    });
+                .expect(httpstatus.NOT_IMPLEMENTED);
 
-                    return store.deleteScratchKey(key);
-                });
+            assert.deepStrictEqual(res.body, {
+                error : 'Only text or numbers models can be trained using a Scratch key',
+            });
+
+            await store.deleteScratchKey(key);
         });
 
         it('should not allow scratch keys to make classify calls for imgtfjs models', async () => {
@@ -329,18 +321,17 @@ describe('REST API - scratch keys', () => {
 
             const key = await store.storeUntrainedScratchKey(project);
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/scratch/' + key + '/classify')
                 .send({ data : 'haddock' })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, {
-                        error : 'Classification for this project is only available in the browser',
-                    });
+                .expect(httpstatus.BAD_REQUEST);
 
-                    return store.deleteScratchKey(key);
-                });
+            assert.deepStrictEqual(res.body, {
+                error : 'Classification for this project is only available in the browser',
+            });
+
+            await store.deleteScratchKey(key);
         });
 
         it('should not allow scratch keys to make classify calls for sound models', async () => {
@@ -360,40 +351,37 @@ describe('REST API - scratch keys', () => {
 
             const key = await store.storeUntrainedScratchKey(project);
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/scratch/' + key + '/classify')
                 .send({ data : 'haddock' })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, {
-                        error : 'Sound classification is only available in the browser',
-                    });
+                .expect(httpstatus.BAD_REQUEST);
 
-                    return store.deleteScratchKey(key);
-                });
+            assert.deepStrictEqual(res.body, {
+                error : 'Sound classification is only available in the browser',
+            });
+
+            await store.deleteScratchKey(key);
         });
 
         it('should handle unknown scratch keys', async () => {
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/scratch/' + 'THIS-DOES-NOT-REALLY-EXIST' + '/classify')
                 .query({ data : 'haddock' })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_FOUND)
-                .then(async (res) => {
-                    assert.deepStrictEqual(res.body, { error : 'Scratch key not found' });
-                });
+                .expect(httpstatus.NOT_FOUND);
+
+            assert.deepStrictEqual(res.body, { error : 'Scratch key not found' });
         });
 
         it('should handle unknown scratch keys', async () => {
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/scratch/' + 'THIS-DOES-NOT-REALLY-EXIST' + '/classify')
                 .send({ data : 'haddock' })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_FOUND)
-                .then(async (res) => {
-                    assert.deepStrictEqual(res.body, { error : 'Scratch key not found' });
-                });
+                .expect(httpstatus.NOT_FOUND);
+
+            assert.deepStrictEqual(res.body, { error : 'Scratch key not found' });
         });
 
 
@@ -411,23 +399,22 @@ describe('REST API - scratch keys', () => {
 
             const keyId = await store.storeUntrainedScratchKey(project);
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/scratch/' + keyId + '/classify')
                 .query({ data : 'haddock' })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then(async (res) => {
-                    await store.deleteEntireProject(userid, TESTCLASS, project);
+                .expect(httpstatus.OK);
 
-                    const payload = res.body;
+            await store.deleteEntireProject(userid, TESTCLASS, project);
 
-                    assert.strictEqual(payload.length, 3);
-                    payload.forEach((item: any) => {
-                        assert.strictEqual(item.confidence, 33);
-                        assert(item.random);
-                        assert(['animal', 'vegetable', 'mineral'].indexOf(item.class_name) >= 0);
-                    });
-                });
+            const payload = res.body;
+
+            assert.strictEqual(payload.length, 3);
+            payload.forEach((item: any) => {
+                assert.strictEqual(item.confidence, 33);
+                assert(item.random);
+                assert(['animal', 'vegetable', 'mineral'].indexOf(item.class_name) >= 0);
+            });
         });
 
 
@@ -448,30 +435,28 @@ describe('REST API - scratch keys', () => {
             };
             const keyId = await store.storeUntrainedScratchKey(project);
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/scratch/' + keyId + '/status')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, {
-                        msg : 'No models trained yet - only random answers can be chosen',
-                        status : 0,
-                        type : 'text',
-                    });
+                .expect(httpstatus.OK);
 
-                    return store.deleteScratchKey(keyId);
-                });
+            assert.deepStrictEqual(res.body, {
+                msg : 'No models trained yet - only random answers can be chosen',
+                status : 0,
+                type : 'text',
+            });
+
+            await store.deleteScratchKey(keyId);
         });
 
 
         it('should handle Scratch 3 extension requests for unknown Scratch keys', async () => {
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/scratch/' + 'THIS-DOES-NOT-EXIST' + '/extension3.js')
-                .expect(httpstatus.NOT_FOUND)
-                .then(async (res) => {
-                    const body: string = res.body;
-                    assert.deepStrictEqual(body, { error : 'Scratch key not found' });
-                });
+                .expect(httpstatus.NOT_FOUND);
+
+            const body: string = res.body;
+            assert.deepStrictEqual(body, { error : 'Scratch key not found' });
         });
 
 
@@ -485,21 +470,20 @@ describe('REST API - scratch keys', () => {
 
             const keyId = await store.storeUntrainedScratchKey(project);
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/scratch/' + keyId + '/extension3.js')
-                .expect(httpstatus.OK)
-                .then(async (res) => {
-                    const body: string = res.text;
+                .expect(httpstatus.OK);
 
-                    assert(body.startsWith('class MachineLearningText {'));
-                    assert(body.indexOf('text: \' LABEL_NUMBER_ONE\'') > 0);
-                    assert(body.indexOf('text: \' SECOND_LABEL\'') > 0);
-                    assert(body.indexOf('// the name of the student project') < body.indexOf('name: \'dummyproject\''));
-                    assert(body.indexOf('name: \'dummyproject\'') < body.indexOf('colour for the blocks'));
-                    assert(body.endsWith('Scratch.extensions.register(new MachineLearningText());\n'));
+            const body: string = res.text;
 
-                    await store.deleteEntireProject(userid, TESTCLASS, project);
-                });
+            assert(body.startsWith('class MachineLearningText {'));
+            assert(body.indexOf('text: \' LABEL_NUMBER_ONE\'') > 0);
+            assert(body.indexOf('text: \' SECOND_LABEL\'') > 0);
+            assert(body.indexOf('// the name of the student project') < body.indexOf('name: \'dummyproject\''));
+            assert(body.indexOf('name: \'dummyproject\'') < body.indexOf('colour for the blocks'));
+            assert(body.endsWith('Scratch.extensions.register(new MachineLearningText());\n'));
+
+            await store.deleteEntireProject(userid, TESTCLASS, project);
         });
 
 
@@ -515,28 +499,26 @@ describe('REST API - scratch keys', () => {
 
             const keyId = await store.storeUntrainedScratchKey(project);
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/scratch/' + keyId + '/train')
                 .send({ data : '', label : 'animal' })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then(async (res) => {
-                    await store.deleteEntireProject(userid, TESTCLASS, project);
+                .expect(httpstatus.BAD_REQUEST);
 
-                    assert.deepStrictEqual(res.body, { error : 'Missing data' });
-                });
+            await store.deleteEntireProject(userid, TESTCLASS, project);
+
+            assert.deepStrictEqual(res.body, { error : 'Missing data' });
         });
 
 
         it('should handle unknown Scratch keys when storing text using a Scratch key', async () => {
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/scratch/' + 'THIS-ALSO-DOES-NOT-EXIST' + '/train')
                 .send({ data : 'Data To Store', label : 'label' })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_FOUND)
-                .then(async (res) => {
-                    assert.deepStrictEqual(res.body, { error : 'Scratch key not found' });
-                });
+                .expect(httpstatus.NOT_FOUND);
+
+            assert.deepStrictEqual(res.body, { error : 'Scratch key not found' });
         });
 
 
@@ -551,17 +533,15 @@ describe('REST API - scratch keys', () => {
 
             const keyId = await store.storeUntrainedScratchKey(project);
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/scratch/' + keyId + '/train')
                 .send({ data : 'Data To Store', label : 'not_an_animal' })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then(async (res) => {
+                .expect(httpstatus.BAD_REQUEST);
 
-                    await store.deleteEntireProject(userid, TESTCLASS, project);
+            await store.deleteEntireProject(userid, TESTCLASS, project);
 
-                    assert.deepStrictEqual(res.body, { error : 'Invalid label' });
-                });
+            assert.deepStrictEqual(res.body, { error : 'Invalid label' });
         });
 
 
@@ -588,21 +568,19 @@ describe('REST API - scratch keys', () => {
 
             const keyId = await store.storeUntrainedScratchKey(project);
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/scratch/' + keyId + '/train')
                 .send({ data : 'inserted', label : 'animal' })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CONFLICT)
-                .then(async (res) => {
+                .expect(httpstatus.CONFLICT);
 
-                    await store.deleteEntireProject(userid, TESTCLASS, project);
+            await store.deleteEntireProject(userid, TESTCLASS, project);
 
-                    assert.deepStrictEqual(res.body, {
-                        error: 'Project already has maximum allowed amount of training data',
-                    });
+            assert.deepStrictEqual(res.body, {
+                error: 'Project already has maximum allowed amount of training data',
+            });
 
-                    limitsStub.restore();
-                });
+            limitsStub.restore();
         });
 
 
@@ -617,28 +595,26 @@ describe('REST API - scratch keys', () => {
 
             const keyId = await store.storeUntrainedScratchKey(project);
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/scratch/' + keyId + '/train')
                 .send({ data : 'inserted', label : 'animal' })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then(async (res) => {
+                .expect(httpstatus.OK);
 
-                    const count = await store.countTraining('text', project.id);
-                    assert.strictEqual(count, 1);
+            const count = await store.countTraining('text', project.id);
+            assert.strictEqual(count, 1);
 
-                    const retrieved = await store.getTextTraining(project.id, { start : 0, limit : 10 });
-                    assert.strictEqual(retrieved[0].textdata, 'inserted');
-                    assert.strictEqual(retrieved[0].label, 'animal');
+            const retrieved = await store.getTextTraining(project.id, { start : 0, limit : 10 });
+            assert.strictEqual(retrieved[0].textdata, 'inserted');
+            assert.strictEqual(retrieved[0].label, 'animal');
 
-                    await store.deleteEntireProject(userid, TESTCLASS, project);
+            await store.deleteEntireProject(userid, TESTCLASS, project);
 
-                    const payload = res.body;
-                    assert(payload.id);
-                    assert.strictEqual(payload.textdata, 'inserted');
-                    assert.strictEqual(payload.label, 'animal');
-                    assert.strictEqual(payload.projectid, project.id);
-                });
+            const payload = res.body;
+            assert(payload.id);
+            assert.strictEqual(payload.textdata, 'inserted');
+            assert.strictEqual(payload.label, 'animal');
+            assert.strictEqual(payload.projectid, project.id);
         });
 
 
@@ -657,29 +633,27 @@ describe('REST API - scratch keys', () => {
 
             const keyId = await store.storeUntrainedScratchKey(project);
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/scratch/' + keyId + '/train')
                 .send({ data : ['1', '2.2', 'bong' ], label : 'TOP' })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then(async (res) => {
+                .expect(httpstatus.OK);
 
-                    const count = await store.countTraining('numbers', project.id);
-                    assert.strictEqual(count, 1);
+            const count = await store.countTraining('numbers', project.id);
+            assert.strictEqual(count, 1);
 
-                    const retrieved = await store.getNumberTraining(project.id, { start : 0, limit : 10 });
-                    assert.deepStrictEqual(retrieved[0].numberdata, [1, 2.2, 1]);
-                    assert.strictEqual(retrieved[0].label, 'TOP');
+            const retrieved = await store.getNumberTraining(project.id, { start : 0, limit : 10 });
+            assert.deepStrictEqual(retrieved[0].numberdata, [1, 2.2, 1]);
+            assert.strictEqual(retrieved[0].label, 'TOP');
 
-                    await store.deleteEntireProject(userid, TESTCLASS, project);
+            await store.deleteEntireProject(userid, TESTCLASS, project);
 
-                    const payload = res.body;
+            const payload = res.body;
 
-                    assert(payload.id);
-                    assert.deepStrictEqual(payload.numberdata, [1, 2.2, 1]);
-                    assert.strictEqual(payload.label, 'TOP');
-                    assert.strictEqual(payload.projectid, project.id);
-                });
+            assert(payload.id);
+            assert.deepStrictEqual(payload.numberdata, [1, 2.2, 1]);
+            assert.strictEqual(payload.label, 'TOP');
+            assert.strictEqual(payload.projectid, project.id);
         });
 
 
@@ -696,17 +670,15 @@ describe('REST API - scratch keys', () => {
 
             const keyId = await store.storeUntrainedScratchKey(project);
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/scratch/' + keyId + '/train')
                 .send({ data : [], label : 'animal' })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then(async (res) => {
+                .expect(httpstatus.BAD_REQUEST);
 
-                    await store.deleteEntireProject(userid, TESTCLASS, project);
+            await store.deleteEntireProject(userid, TESTCLASS, project);
 
-                    assert.deepStrictEqual(res.body, { error : 'Missing data' });
-                });
+            assert.deepStrictEqual(res.body, { error : 'Missing data' });
         });
 
 
@@ -723,16 +695,15 @@ describe('REST API - scratch keys', () => {
 
             const keyId = await store.storeUntrainedScratchKey(project);
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/scratch/' + keyId + '/train')
                 .send({ data : ['This is not a number'], label : 'animal' })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then(async (res) => {
-                    await store.deleteEntireProject(userid, TESTCLASS, project);
+                .expect(httpstatus.BAD_REQUEST);
 
-                    assert.deepStrictEqual(res.body, { error : 'Invalid data' });
-                });
+            await store.deleteEntireProject(userid, TESTCLASS, project);
+
+            assert.deepStrictEqual(res.body, { error : 'Invalid data' });
         });
 
 
@@ -751,16 +722,15 @@ describe('REST API - scratch keys', () => {
 
             const keyId = await store.storeUntrainedScratchKey(project);
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/scratch/' + keyId + '/train')
                 .send({ data : [123, 'invalid'], label : 'animal' })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then(async (res) => {
-                    await store.deleteEntireProject(userid, TESTCLASS, project);
+                .expect(httpstatus.BAD_REQUEST);
 
-                    assert.deepStrictEqual(res.body, { error : 'Invalid data' });
-                });
+            await store.deleteEntireProject(userid, TESTCLASS, project);
+
+            assert.deepStrictEqual(res.body, { error : 'Invalid data' });
         });
 
 
@@ -778,17 +748,15 @@ describe('REST API - scratch keys', () => {
 
             const keyId = await store.storeUntrainedScratchKey(project);
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/scratch/' + keyId + '/train')
                 .send({ data : [], label : 'animal' })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then(async (res) => {
+                .expect(httpstatus.BAD_REQUEST);
 
-                    await store.deleteEntireProject(userid, TESTCLASS, project);
+            await store.deleteEntireProject(userid, TESTCLASS, project);
 
-                    assert.deepStrictEqual(res.body, { error : 'Missing data' });
-                });
+            assert.deepStrictEqual(res.body, { error : 'Missing data' });
         });
 
 
@@ -807,19 +775,18 @@ describe('REST API - scratch keys', () => {
 
             const keyId = await store.storeUntrainedScratchKey(project);
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/scratch/' + keyId + '/train')
                 .send({
                     data : ['123', '45'],
                     label : 'animal',
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then(async (res) => {
-                    await store.deleteEntireProject(userid, TESTCLASS, project);
+                .expect(httpstatus.BAD_REQUEST);
 
-                    assert.deepStrictEqual(res.body, { error : 'Missing data' });
-                });
+            await store.deleteEntireProject(userid, TESTCLASS, project);
+
+            assert.deepStrictEqual(res.body, { error : 'Missing data' });
         });
 
 
@@ -838,19 +805,18 @@ describe('REST API - scratch keys', () => {
 
             const keyId = await store.storeUntrainedScratchKey(project);
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/scratch/' + keyId + '/train')
                 .send({
                     data : ['123', '45', 'x'],
                     label : 'animal',
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then(async (res) => {
-                    await store.deleteEntireProject(userid, TESTCLASS, project);
+                .expect(httpstatus.BAD_REQUEST);
 
-                    assert.deepStrictEqual(res.body, { error : 'Invalid data' });
-                });
+            await store.deleteEntireProject(userid, TESTCLASS, project);
+
+            assert.deepStrictEqual(res.body, { error : 'Invalid data' });
         });
 
 
@@ -868,19 +834,18 @@ describe('REST API - scratch keys', () => {
 
             const keyId = await store.storeUntrainedScratchKey(project);
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/scratch/' + keyId + '/train')
                 .send({
                     data : ['123', '45'],
                     label : 'NOT_VALID',
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then(async (res) => {
-                    await store.deleteEntireProject(userid, TESTCLASS, project);
+                .expect(httpstatus.BAD_REQUEST);
 
-                    assert.deepStrictEqual(res.body, { error : 'Invalid label' });
-                });
+            await store.deleteEntireProject(userid, TESTCLASS, project);
+
+            assert.deepStrictEqual(res.body, { error : 'Invalid label' });
         });
 
 
@@ -1054,39 +1019,37 @@ describe('REST API - scratch keys', () => {
 
             const conversationStub = sinon.stub(requestUtil, 'post').callsFake(mockClassifier);
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/scratch/' + scratchKey + '/classify')
                 .query({ data : 'haddock' })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then(async (res) => {
-                    const payload = res.body;
+                .expect(httpstatus.OK);
 
-                    assert.deepStrictEqual(payload, [
-                        { class_name: 'temperature', confidence: 64, classifierTimestamp : ts.toISOString() },
-                        { class_name: 'conditions', confidence: 36, classifierTimestamp : ts.toISOString() },
-                    ]);
+            const payload = res.body;
 
-                    await store.deleteEntireProject(userid, TESTCLASS, project);
-                    await store.deleteBluemixCredentials(credentials.id);
+            assert.deepStrictEqual(payload, [
+                { class_name: 'temperature', confidence: 64, classifierTimestamp : ts.toISOString() },
+                { class_name: 'conditions', confidence: 36, classifierTimestamp : ts.toISOString() },
+            ]);
 
-                    conversationStub.restore();
-                });
+            await store.deleteEntireProject(userid, TESTCLASS, project);
+            await store.deleteBluemixCredentials(credentials.id);
+
+            conversationStub.restore();
         });
 
 
-        it('should require data from POST for returning classes from a classifier', () => {
+        it('should require data from POST for returning classes from a classifier', async () => {
             const scratchKey = randomstring.generate({ length : 60 });
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/scratch/' + scratchKey + '/classify')
                 .send()
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    const payload = res.body;
-                    assert.deepStrictEqual(payload, { error : 'Missing data' });
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            const payload = res.body;
+            assert.deepStrictEqual(payload, { error : 'Missing data' });
         });
 
 
@@ -1131,24 +1094,23 @@ describe('REST API - scratch keys', () => {
 
             const conversationStub = sinon.stub(requestUtil, 'post').callsFake(mockClassifier);
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/scratch/' + scratchKey + '/classify')
                 .send({ data : 'haddock' })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then(async (res) => {
-                    const payload = res.body;
+                .expect(httpstatus.OK);
 
-                    assert.deepStrictEqual(payload, [
-                        { class_name: 'temperature', confidence: 64, classifierTimestamp : ts.toISOString() },
-                        { class_name: 'conditions', confidence: 36, classifierTimestamp : ts.toISOString() },
-                    ]);
+            const payload = res.body;
 
-                    await store.deleteEntireProject(userid, TESTCLASS, project);
-                    await store.deleteBluemixCredentials(credentials.id);
+            assert.deepStrictEqual(payload, [
+                { class_name: 'temperature', confidence: 64, classifierTimestamp : ts.toISOString() },
+                { class_name: 'conditions', confidence: 36, classifierTimestamp : ts.toISOString() },
+            ]);
 
-                    conversationStub.restore();
-                });
+            await store.deleteEntireProject(userid, TESTCLASS, project);
+            await store.deleteBluemixCredentials(credentials.id);
+
+            conversationStub.restore();
         });
 
 
@@ -1188,27 +1150,26 @@ describe('REST API - scratch keys', () => {
 
             const conversationStub = sinon.stub(requestUtil, 'post').callsFake(brokenClassifier);
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/scratch/' + scratchKey + '/classify')
                 .query({ data : 'haddock' })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.INTERNAL_SERVER_ERROR)
-                .then(async (res) => {
-                    const payload = res.body;
+                .expect(httpstatus.INTERNAL_SERVER_ERROR);
 
-                    assert.deepStrictEqual(payload, {
-                        error : {
-                            code : 500,
-                            error : 'Something bad happened',
-                            description: 'It really was very bad',
-                        },
-                    });
+            const payload = res.body;
 
-                    await store.deleteEntireProject(userid, TESTCLASS, project);
-                    await store.deleteBluemixCredentials(credentials.id);
+            assert.deepStrictEqual(payload, {
+                error : {
+                    code : 500,
+                    error : 'Something bad happened',
+                    description: 'It really was very bad',
+                },
+            });
 
-                    conversationStub.restore();
-                });
+            await store.deleteEntireProject(userid, TESTCLASS, project);
+            await store.deleteBluemixCredentials(credentials.id);
+
+            conversationStub.restore();
         });
 
 
@@ -1226,7 +1187,7 @@ describe('REST API - scratch keys', () => {
 
             await store.storeUntrainedScratchKey(testProject);
 
-            await request(testServer)
+            const res = await request(testServer)
                 .get('/api/scratch/' + 'NOT-THE-SCRATCH-KEY' +
                      '/images/api' +
                      '/classes/' + TESTCLASS +
@@ -1234,10 +1195,9 @@ describe('REST API - scratch keys', () => {
                      '/projects/' + testProject.id +
                      '/images/' + storedText.id +
                      '?proxy=true')
-                .expect(httpstatus.NOT_FOUND)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, { error : 'Scratch key not found' });
-                });
+                .expect(httpstatus.NOT_FOUND);
+
+            assert.deepStrictEqual(res.body, { error : 'Scratch key not found' });
 
             await store.deleteEntireProject(userid, TESTCLASS, testProject);
         });
@@ -1251,7 +1211,7 @@ describe('REST API - scratch keys', () => {
 
             const scratchKey = await store.storeUntrainedScratchKey(testProject);
 
-            await request(testServer)
+            const res = await request(testServer)
                 .get('/api/scratch/' + scratchKey +
                      '/images/api' +
                      '/classes/' + TESTCLASS +
@@ -1259,10 +1219,9 @@ describe('REST API - scratch keys', () => {
                      '/projects/' + testProject.id +
                      '/images/' + storedText.id +
                      '?proxy=true')
-                .expect(httpstatus.FORBIDDEN)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, { error : 'Invalid access' });
-                });
+                .expect(httpstatus.FORBIDDEN);
+
+            assert.deepStrictEqual(res.body, { error : 'Invalid access' });
 
             await store.deleteEntireProject(userid, TESTCLASS, testProject);
         });
@@ -1277,7 +1236,7 @@ describe('REST API - scratch keys', () => {
 
             const scratchKey = await store.storeUntrainedScratchKey(testProject);
 
-            await request(testServer)
+            const res = await request(testServer)
                 .get('/api/scratch/' + scratchKey +
                      '/images/api' +
                      '/classes/' + TESTCLASS +
@@ -1285,10 +1244,9 @@ describe('REST API - scratch keys', () => {
                      '/projects/' + testProject.id +
                      '/images/' + storedImage.id +
                      '?proxy=true')
-                .expect(httpstatus.FORBIDDEN)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, { error : 'Invalid access' });
-                });
+                .expect(httpstatus.FORBIDDEN);
+
+            assert.deepStrictEqual(res.body, { error : 'Invalid access' });
 
             await store.deleteEntireProject(userid, TESTCLASS, testProject);
         });
@@ -1305,7 +1263,7 @@ describe('REST API - scratch keys', () => {
 
             const testFileData = await readFile('./src/tests/utils/resources/watson-2.jpg');
 
-            await request(testServer)
+            const res = await request(testServer)
                 .get('/api/scratch/' + scratchKey +
                      '/images/api' +
                      '/classes/' + TESTCLASS +
@@ -1313,11 +1271,10 @@ describe('REST API - scratch keys', () => {
                      '/projects/' + testProject.id +
                      '/images/' + storedImage.id +
                      '?proxy=true')
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const isEq = Buffer.compare(res.body, testFileData);
-                    assert.strictEqual(isEq, 0);
-                });
+                .expect(httpstatus.OK);
+
+            const isEq = Buffer.compare(res.body, testFileData);
+            assert.strictEqual(isEq, 0);
 
             await store.deleteEntireProject(userid, TESTCLASS, testProject);
         });
@@ -1332,17 +1289,16 @@ describe('REST API - scratch keys', () => {
 
             const scratchKey = await store.storeUntrainedScratchKey(testProject);
 
-            await request(testServer)
+            const res = await request(testServer)
                 .get('/api/scratch/' + scratchKey +
                      '/images/api' +
                      '/classes/' + TESTCLASS +
                      '/students/' + userid +
                      '/projects/' + testProject.id +
                      '/images/' + storedImage.id)
-                .expect(httpstatus.NOT_FOUND)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, { error : 'File not found' });
-                });
+                .expect(httpstatus.NOT_FOUND);
+
+            assert.deepStrictEqual(res.body, { error : 'File not found' });
 
             await store.deleteEntireProject(userid, TESTCLASS, testProject);
         });
@@ -1365,18 +1321,17 @@ describe('REST API - scratch keys', () => {
 
             const scratchKey = await store.storeUntrainedScratchKey(testProject);
 
-            await request(testServer)
+            const res = await request(testServer)
                 .get('/api/scratch/' + scratchKey +
                      '/images/api' +
                      '/classes/' + TESTCLASS +
                      '/students/' + userid +
                      '/projects/' + testProject.id +
                      '/images/' + storedImage.id)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const isEq = Buffer.compare(res.body, testFileData);
-                    assert.strictEqual(isEq, 0);
-                });
+                .expect(httpstatus.OK);
+
+            const isEq = Buffer.compare(res.body, testFileData);
+            assert.strictEqual(isEq, 0);
 
             await objectstore.deleteObject(spec);
             await store.deleteEntireProject(userid, TESTCLASS, testProject);
@@ -1400,18 +1355,17 @@ describe('REST API - scratch keys', () => {
 
             const scratchKey = await store.storeUntrainedScratchKey(testProject);
 
-            await request(testServer)
+            const res = await request(testServer)
                 .get('/api/scratch/' + scratchKey +
                      '/images/api' +
                      '/classes/' + TESTCLASS +
                      '/students/' + userid +
                      '/projects/' + testProject.id +
                      '/images/' + storedImage.id)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const isEq = Buffer.compare(res.body, testFileData);
-                    assert.strictEqual(isEq, 0);
-                });
+                .expect(httpstatus.OK);
+
+            const isEq = Buffer.compare(res.body, testFileData);
+            assert.strictEqual(isEq, 0);
 
             await objectstore.deleteObject(spec);
             await store.deleteEntireProject(userid, TESTCLASS, testProject);
@@ -1437,17 +1391,16 @@ describe('REST API - scratch keys', () => {
 
             await objectstore.deleteObject(spec);
 
-            await request(testServer)
+            const res = await request(testServer)
                 .get('/api/scratch/' + scratchKey +
                      '/images/api' +
                      '/classes/' + TESTCLASS +
                      '/students/' + userid +
                      '/projects/' + testProject.id +
                      '/images/' + storedImage.id)
-                .expect(httpstatus.NOT_FOUND)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, { error : 'File not found' });
-                });
+                .expect(httpstatus.NOT_FOUND);
+
+            assert.deepStrictEqual(res.body, { error : 'File not found' });
 
             await store.deleteEntireProject(userid, TESTCLASS, testProject);
         });
@@ -1464,7 +1417,7 @@ describe('REST API - scratch keys', () => {
 
             const testFileData = await readFile('./src/tests/utils/resources/watson-2.jpg');
 
-            await request(testServer)
+            const res = await request(testServer)
                 .get('/api/scratch/' + scratchKey +
                      '/images/api' +
                      '/classes/' + TESTCLASS +
@@ -1472,11 +1425,10 @@ describe('REST API - scratch keys', () => {
                      '/projects/' + testProject.id +
                      '/images/' + storedImage.id +
                      '?proxy=true')
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const isEq = Buffer.compare(res.body, testFileData);
-                    assert.strictEqual(isEq, 0);
-                });
+                .expect(httpstatus.OK);
+
+            const isEq = Buffer.compare(res.body, testFileData);
+            assert.strictEqual(isEq, 0);
 
             await store.deleteEntireProject(userid, TESTCLASS, testProject);
         });
@@ -1493,17 +1445,16 @@ describe('REST API - scratch keys', () => {
             const itemOne = await store.storeTextTraining(testProject.id, 'Hello', 'one');
             const itemTwo = await store.storeTextTraining(testProject.id, 'World', 'two');
 
-            await request(testServer)
+            const res = await request(testServer)
                 .get('/api/scratch/' + scratchKey + '/train')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, [
-                        { id : itemOne.id, label : 'one', textdata : 'Hello' },
-                        { id : itemTwo.id, label : 'two', textdata : 'World' },
-                    ]);
-                });
+                .expect(httpstatus.OK);
+
+            const body = res.body;
+            assert.deepStrictEqual(body, [
+                { id : itemOne.id, label : 'one', textdata : 'Hello' },
+                { id : itemTwo.id, label : 'two', textdata : 'World' },
+            ]);
 
             await store.deleteEntireProject(userid, TESTCLASS, testProject);
         });
@@ -1516,14 +1467,13 @@ describe('REST API - scratch keys', () => {
 
             const scratchKey = await store.storeUntrainedScratchKey(testProject);
 
-            await request(testServer)
+            const res = await request(testServer)
                 .get('/api/scratch/' + scratchKey + '/train')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.METHOD_NOT_ALLOWED)
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, { error : 'Method not allowed' });
-                });
+                .expect(httpstatus.METHOD_NOT_ALLOWED);
+
+            const body = res.body;
+            assert.deepStrictEqual(body, { error : 'Method not allowed' });
 
             await store.deleteEntireProject(userid, TESTCLASS, testProject);
         });
@@ -1537,14 +1487,13 @@ describe('REST API - scratch keys', () => {
 
             const scratchKey = await store.storeUntrainedScratchKey(testProject);
 
-            await request(testServer)
+            const res = await request(testServer)
                 .get('/api/scratch/' + scratchKey + '/train')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, []);
-                });
+                .expect(httpstatus.OK);
+
+            const body = res.body;
+            assert.deepStrictEqual(body, []);
 
             await store.deleteEntireProject(userid, TESTCLASS, testProject);
         });
@@ -1567,23 +1516,22 @@ describe('REST API - scratch keys', () => {
 
             const scratchKey = await store.storeUntrainedScratchKey(testProject);
 
-            await request(testServer)
+            const res = await request(testServer)
                 .get('/api/scratch/' + scratchKey + '/train')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const body = res.body;
-                    assert(Array.isArray(body));
-                    assert.strictEqual(body.length, 4);
-                    assert(body.every((item) => {
-                        return Object.keys(item).length === 3 &&
-                               item.id && item.imageurl &&
-                               item.label === 'test';
-                    }));
-                    for (const url of urls) {
-                        assert.strictEqual(body.filter((item) => { return item.imageurl === url; }).length, 1);
-                    }
-                });
+                .expect(httpstatus.OK);
+
+            const body = res.body;
+            assert(Array.isArray(body));
+            assert.strictEqual(body.length, 4);
+            assert(body.every((item) => {
+                return Object.keys(item).length === 3 &&
+                       item.id && item.imageurl &&
+                       item.label === 'test';
+            }));
+            for (const url of urls) {
+                assert.strictEqual(body.filter((item) => { return item.imageurl === url; }).length, 1);
+            }
 
             await store.deleteEntireProject(userid, TESTCLASS, testProject);
         });
@@ -1606,36 +1554,34 @@ describe('REST API - scratch keys', () => {
 
             const scratchKey = await store.storeUntrainedScratchKey(testProject);
 
-            await request(testServer)
+            const res = await request(testServer)
                 .get('/api/scratch/' + scratchKey + '/train?proxy=true')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const body = res.body;
-                    assert(Array.isArray(body));
-                    assert.strictEqual(body.length, 4);
-                    assert.strictEqual(body.filter((item) => {
-                        return item.imageurl.includes('/api/scratch/' + scratchKey +
-                            '/images/api/classes/classid' +
-                            '/students/userid' +
-                            '/projects/' + testProject.id +
-                            '/images/' + item.id +
-                            '?proxy=true');
-                    }).length, 3);
-                });
+                .expect(httpstatus.OK);
+
+            const body = res.body;
+            assert(Array.isArray(body));
+            assert.strictEqual(body.length, 4);
+            assert.strictEqual(body.filter((item) => {
+                return item.imageurl.includes('/api/scratch/' + scratchKey +
+                    '/images/api/classes/classid' +
+                    '/students/userid' +
+                    '/projects/' + testProject.id +
+                    '/images/' + item.id +
+                    '?proxy=true');
+            }).length, 3);
 
             await store.deleteEntireProject(userid, TESTCLASS, testProject);
         });
 
 
-        it('should handle requests for training data with invalid scratch keys', () => {
-            return request(testServer)
+        it('should handle requests for training data with invalid scratch keys', async () => {
+            const res = await request(testServer)
                 .get('/api/scratch/' + uuid() + '/train')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_FOUND)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, { error : 'Scratch key not found' });
-                });
+                .expect(httpstatus.NOT_FOUND);
+
+            assert.deepStrictEqual(res.body, { error : 'Scratch key not found' });
         });
     });
 });

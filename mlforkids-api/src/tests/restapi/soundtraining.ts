@@ -1,6 +1,6 @@
-/*eslint-env mocha */
-import { v1 as uuid } from 'uuid';
+import { describe, it, before, beforeEach, after } from 'node:test';
 import * as assert from 'assert';
+import { v1 as uuid } from 'uuid';
 import * as request from 'supertest';
 import { status as httpstatus } from 'http-status';
 import * as sinon from 'sinon';
@@ -69,17 +69,15 @@ describe('REST API - sound training', () => {
         testServer = testapiserver();
     });
 
-    beforeEach(() => {
-        return store.deleteClassResources(CLASSID);
+    beforeEach(async () => {
+        await store.deleteClassResources(CLASSID);
     });
 
-    after(() => {
+    after(async () => {
         authStub.restore();
 
-        return store.deleteClassResources(CLASSID)
-            .then(() => {
-                return store.disconnect();
-            });
+        await store.deleteClassResources(CLASSID);
+        await store.disconnect();
     });
 
 
@@ -93,19 +91,18 @@ describe('REST API - sound training', () => {
 
     describe('getLabels()', () => {
 
-        it('should verify project exists', () => {
+        it('should verify project exists', async () => {
             const projectid = uuid();
 
             nextUser = AUTH_USERS.STUDENT;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + CLASSID + '/students/' + USERID + '/projects/' + projectid + '/labels')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_FOUND)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.error, 'Not found');
-                });
+                .expect(httpstatus.NOT_FOUND);
+
+            const body = res.body;
+            assert.strictEqual(body.error, 'Not found');
         });
 
 
@@ -115,16 +112,15 @@ describe('REST API - sound training', () => {
 
             nextUser = AUTH_USERS.STUDENT;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + CLASSID + '/students/' + USERID + '/projects/' + projectid + '/labels')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, {});
+                .expect(httpstatus.OK);
 
-                    return store.deleteEntireProject(USERID, CLASSID, project);
-                });
+            const body = res.body;
+            assert.deepStrictEqual(body, {});
+
+            await store.deleteEntireProject(USERID, CLASSID, project);
         });
 
         it('should verify user id', async () => {
@@ -133,13 +129,12 @@ describe('REST API - sound training', () => {
 
             nextUser = AUTH_USERS.OTHERSTUDENT;
 
-            return request(testServer)
+            await request(testServer)
                 .get('/api/classes/' + CLASSID + '/students/' + nextUser.sub + '/projects/' + projectid + '/labels')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.FORBIDDEN)
-                .then(() => {
-                    return store.deleteEntireProject(USERID, CLASSID, project);
-                });
+                .expect(httpstatus.FORBIDDEN);
+
+            await store.deleteEntireProject(USERID, CLASSID, project);
         });
 
         it('should get sound training labels', async () => {
@@ -159,37 +154,35 @@ describe('REST API - sound training', () => {
 
             nextUser = AUTH_USERS.STUDENT;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + CLASSID + '/students/' + USERID + '/projects/' + projectid + '/labels')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, {
-                        first : 3, second : 2, third : 1, fourth : 0,
-                    });
+                .expect(httpstatus.OK);
 
-                    return store.deleteEntireProject(USERID, CLASSID, project);
-                });
+            const body = res.body;
+            assert.deepStrictEqual(body, {
+                first : 3, second : 2, third : 1, fourth : 0,
+            });
+
+            await store.deleteEntireProject(USERID, CLASSID, project);
         });
     });
 
 
     describe('storeTraining()', () => {
 
-        it('should verify project exists', () => {
+        it('should verify project exists', async () => {
             const projectid = uuid();
 
             nextUser = AUTH_USERS.STUDENT;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/classes/' + CLASSID + '/students/' + USERID + '/projects/' + projectid + '/sounds')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_FOUND)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.error, 'Not found');
-                });
+                .expect(httpstatus.NOT_FOUND);
+
+            const body = res.body;
+            assert.strictEqual(body.error, 'Not found');
         });
 
         it('should verify user id', async () => {
@@ -198,13 +191,12 @@ describe('REST API - sound training', () => {
 
             nextUser = AUTH_USERS.OTHERSTUDENT;
 
-            return request(testServer)
+            await request(testServer)
                 .post('/api/classes/' + CLASSID + '/students/' + USERID + '/projects/' + projectid + '/sounds')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.FORBIDDEN)
-                .then(() => {
-                    return store.deleteEntireUser(USERID, CLASSID);
-                });
+                .expect(httpstatus.FORBIDDEN);
+
+            await store.deleteEntireUser(USERID, CLASSID);
         });
 
         it('should require audio data in training', async () => {
@@ -221,19 +213,18 @@ describe('REST API - sound training', () => {
 
             nextUser = AUTH_USERS.STUDENT;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post(trainingurl)
                 .send({
                     label : 'FIRST',
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, { error : 'Missing data' });
+                .expect(httpstatus.BAD_REQUEST);
 
-                    return store.deleteEntireProject(USERID, CLASSID, project);
-                });
+            const body = res.body;
+            assert.deepStrictEqual(body, { error : 'Missing data' });
+
+            await store.deleteEntireProject(USERID, CLASSID, project);
         });
 
 
@@ -250,20 +241,19 @@ describe('REST API - sound training', () => {
 
             nextUser = AUTH_USERS.STUDENT;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post(trainingurl)
                 .send({
                     label : 'FIRST',
                     data : [],
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, { error : 'Empty audio is not allowed' });
+                .expect(httpstatus.BAD_REQUEST);
 
-                    return store.deleteEntireProject(USERID, CLASSID, project);
-                });
+            const body = res.body;
+            assert.deepStrictEqual(body, { error : 'Empty audio is not allowed' });
+
+            await store.deleteEntireProject(USERID, CLASSID, project);
         });
 
 
@@ -280,20 +270,19 @@ describe('REST API - sound training', () => {
 
             nextUser = AUTH_USERS.STUDENT;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post(trainingurl)
                 .send({
                     label : 'FIRST',
                     data : [ 'abc' ],
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, { error : 'Invalid audio input' });
+                .expect(httpstatus.BAD_REQUEST);
 
-                    return store.deleteEntireProject(USERID, CLASSID, project);
-                });
+            const body = res.body;
+            assert.deepStrictEqual(body, { error : 'Invalid audio input' });
+
+            await store.deleteEntireProject(USERID, CLASSID, project);
         });
 
         it('should limit maximum length of audio training data', async () => {
@@ -314,21 +303,20 @@ describe('REST API - sound training', () => {
                 numbers.push(0);
             }
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post(trainingurl)
                 .send({
                     data : numbers,
                     label : 'FIRST',
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    const body = res.body;
+                .expect(httpstatus.BAD_REQUEST);
 
-                    assert.deepStrictEqual(body, { error : 'Audio exceeds maximum allowed length' });
+            const body = res.body;
 
-                    return store.deleteEntireProject(USERID, CLASSID, project);
-                });
+            assert.deepStrictEqual(body, { error : 'Audio exceeds maximum allowed length' });
+
+            await store.deleteEntireProject(USERID, CLASSID, project);
         });
 
 
@@ -346,18 +334,17 @@ describe('REST API - sound training', () => {
 
             nextUser = AUTH_USERS.STUDENT;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post(trainingurl)
                 .send({
                     data : [1, 2, ' '],
                     label : 'fruit',
                 })
-                .expect(httpstatus.BAD_REQUEST)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, {
-                        error : 'Invalid audio input',
-                    });
-                });
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, {
+                error : 'Invalid audio input',
+            });
         });
 
 
@@ -386,25 +373,24 @@ describe('REST API - sound training', () => {
                 soundTrainingItemsPerProject : 2,
             });
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post(trainingurl)
                 .send({
                     data : createTraining(),
                     label : 'label',
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CONFLICT)
-                .then((res) => {
-                    const body = res.body;
+                .expect(httpstatus.CONFLICT);
 
-                    assert.deepStrictEqual(body, {
-                        error: 'Project already has maximum allowed amount of training data',
-                    });
+            const body = res.body;
 
-                    limitsStub.restore();
+            assert.deepStrictEqual(body, {
+                error: 'Project already has maximum allowed amount of training data',
+            });
 
-                    return store.deleteEntireProject(USERID, CLASSID, project);
-                });
+            limitsStub.restore();
+
+            await store.deleteEntireProject(USERID, CLASSID, project);
         });
     });
 
@@ -413,19 +399,18 @@ describe('REST API - sound training', () => {
 
     describe('getTraining()', () => {
 
-        it('should verify project exists', () => {
+        it('should verify project exists', async () => {
             const projectid = uuid();
 
             nextUser = AUTH_USERS.STUDENT;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + CLASSID + '/students/' + USERID + '/projects/' + projectid + '/training')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_FOUND)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.error, 'Not found');
-                });
+                .expect(httpstatus.NOT_FOUND);
+
+            const body = res.body;
+            assert.strictEqual(body.error, 'Not found');
         });
 
 
@@ -435,16 +420,15 @@ describe('REST API - sound training', () => {
 
             nextUser = AUTH_USERS.STUDENT;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + CLASSID + '/students/' + USERID + '/projects/' + projectid + '/training')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, []);
+                .expect(httpstatus.OK);
 
-                    return store.deleteEntireProject(USERID, CLASSID, project);
-                });
+            const body = res.body;
+            assert.deepStrictEqual(body, []);
+
+            await store.deleteEntireProject(USERID, CLASSID, project);
         });
 
 
@@ -454,13 +438,12 @@ describe('REST API - sound training', () => {
 
             nextUser = AUTH_USERS.OTHERSTUDENT;
 
-            return request(testServer)
+            await request(testServer)
                 .get('/api/classes/' + CLASSID + '/students/' + USERID + '/projects/' + projectid + '/training')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.FORBIDDEN)
-                .then(() => {
-                    return store.deleteEntireProject(USERID, CLASSID, project);
-                });
+                .expect(httpstatus.FORBIDDEN);
+
+            await store.deleteEntireProject(USERID, CLASSID, project);
         });
 
 
@@ -478,22 +461,21 @@ describe('REST API - sound training', () => {
 
             nextUser = AUTH_USERS.STUDENT;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + CLASSID + '/students/' + USERID + '/projects/' + projectid + '/training')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const body: { id: string, label: string, audiourl: number[] }[] = res.body;
-                    assert.strictEqual(body.length, 6);
+                .expect(httpstatus.OK);
 
-                    body.forEach((item) => {
-                        assert(item.id);
-                        assert(item.label);
-                        assert(item.audiourl);
-                    });
+            const body: { id: string, label: string, audiourl: number[] }[] = res.body;
+            assert.strictEqual(body.length, 6);
 
-                    return store.deleteEntireProject(USERID, CLASSID, project);
-                });
+            body.forEach((item) => {
+                assert(item.id);
+                assert(item.label);
+                assert(item.audiourl);
+            });
+
+            await store.deleteEntireProject(USERID, CLASSID, project);
         });
 
 
@@ -511,25 +493,24 @@ describe('REST API - sound training', () => {
 
             nextUser = AUTH_USERS.STUDENT;
 
-            return request(testServer)
+            const res = await request(testServer)
                 .get('/api/classes/' + CLASSID + '/students/' + USERID + '/projects/' + projectid + '/training')
                 .set('Range', 'items=0-9')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const body: { id: string, label: string, audiourl: number[] }[] = res.body;
-                    assert.strictEqual(body.length, 10);
+                .expect(httpstatus.OK);
 
-                    body.forEach((item) => {
-                        assert(item.id);
-                        assert(item.label);
-                        assert(item.audiourl);
-                    });
+            const body: { id: string, label: string, audiourl: number[] }[] = res.body;
+            assert.strictEqual(body.length, 10);
 
-                    assert.strictEqual(res.header['content-range'], 'items 0-9/20');
+            body.forEach((item) => {
+                assert(item.id);
+                assert(item.label);
+                assert(item.audiourl);
+            });
 
-                    return store.deleteEntireProject(USERID, CLASSID, project);
-                });
+            assert.strictEqual(res.header['content-range'], 'items 0-9/20');
+
+            await store.deleteEntireProject(USERID, CLASSID, project);
         });
     });
 
@@ -551,68 +532,60 @@ describe('REST API - sound training', () => {
             const second = await store.storeSoundTraining(projectid, 'url', 'label', uuid());
 
 
-            return request(testServer)
+            let res = await request(testServer)
                 .get(trainingurl)
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.length, 2);
-                    assert.strictEqual(res.header['content-range'], 'items 0-1/2');
+                .expect(httpstatus.OK);
 
-                    nextUser = AUTH_USERS.OTHERSTUDENT;
+            let body = res.body;
+            assert.strictEqual(body.length, 2);
+            assert.strictEqual(res.header['content-range'], 'items 0-1/2');
 
-                    return request(testServer)
-                        .delete('/api/classes/' + CLASSID +
-                                '/students/' + USERID +
-                                '/projects/' + projectid +
-                                '/training/' + first.id)
-                        .expect(httpstatus.FORBIDDEN);
-                })
-                .then(() => {
-                    nextUser = AUTH_USERS.STUDENT;
+            nextUser = AUTH_USERS.OTHERSTUDENT;
 
-                    return request(testServer)
-                        .delete('/api/classes/' + CLASSID +
-                                '/students/' + USERID +
-                                '/projects/' + 'differentprojectid' +
-                                '/training/' + second.id)
-                        .expect(httpstatus.NOT_FOUND);
-                })
-                .then(() => {
-                    return request(testServer)
-                        .get(trainingurl)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK)
-                        .then((res) => {
-                            const body = res.body;
-                            assert.strictEqual(body.length, 2);
-                            assert.strictEqual(res.header['content-range'], 'items 0-1/2');
-                        });
-                })
-                .then(() => {
-                    return request(testServer)
-                        .delete('/api/classes/' + CLASSID +
-                                '/students/' + USERID +
-                                '/projects/' + projectid +
-                                '/training/' + second.id)
-                        .expect(httpstatus.NO_CONTENT);
-                })
-                .then(() => {
-                    return request(testServer)
-                        .get(trainingurl)
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK)
-                        .then((res) => {
-                            const body = res.body;
-                            assert.strictEqual(body.length, 1);
-                            assert.deepStrictEqual(body[0].audiourl, first.audiourl);
-                            assert.strictEqual(res.header['content-range'], 'items 0-0/1');
-                        });
-                })
-                .then(() => {
-                    return store.deleteEntireUser(USERID, CLASSID);
-                });
+            await request(testServer)
+                .delete('/api/classes/' + CLASSID +
+                        '/students/' + USERID +
+                        '/projects/' + projectid +
+                        '/training/' + first.id)
+                .expect(httpstatus.FORBIDDEN);
+
+            nextUser = AUTH_USERS.STUDENT;
+
+            await request(testServer)
+                .delete('/api/classes/' + CLASSID +
+                        '/students/' + USERID +
+                        '/projects/' + 'differentprojectid' +
+                        '/training/' + second.id)
+                .expect(httpstatus.NOT_FOUND);
+
+            res = await request(testServer)
+                .get(trainingurl)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            body = res.body;
+            assert.strictEqual(body.length, 2);
+            assert.strictEqual(res.header['content-range'], 'items 0-1/2');
+
+            await request(testServer)
+                .delete('/api/classes/' + CLASSID +
+                        '/students/' + USERID +
+                        '/projects/' + projectid +
+                        '/training/' + second.id)
+                .expect(httpstatus.NO_CONTENT);
+
+            res = await request(testServer)
+                .get(trainingurl)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            body = res.body;
+            assert.strictEqual(body.length, 1);
+            assert.deepStrictEqual(body[0].audiourl, first.audiourl);
+            assert.strictEqual(res.header['content-range'], 'items 0-0/1');
+
+            await store.deleteEntireUser(USERID, CLASSID);
         });
     });
 
@@ -640,21 +613,20 @@ describe('REST API - sound training', () => {
 
             nextUser = AUTH_USERS.STUDENT;
 
-            return request(testServer)
+            await request(testServer)
                 .delete(projecturl)
-                .expect(httpstatus.NO_CONTENT)
-                .then(async () => {
-                    const count = await store.countTraining('sounds', projectid);
-                    assert.strictEqual(count, 0);
+                .expect(httpstatus.NO_CONTENT);
 
-                    try {
-                        await store.getProject(projectid);
-                        assert.fail('should not be here');
-                    }
-                    catch (err) {
-                        assert(err);
-                    }
-                });
+            const count = await store.countTraining('sounds', projectid);
+            assert.strictEqual(count, 0);
+
+            try {
+                await store.getProject(projectid);
+                assert.fail('should not be here');
+            }
+            catch (err) {
+                assert(err);
+            }
         });
 
     });

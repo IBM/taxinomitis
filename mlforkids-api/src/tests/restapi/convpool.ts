@@ -1,4 +1,4 @@
-/*eslint-env mocha */
+import { describe, it, before, after } from 'node:test';
 import * as assert from 'assert';
 import { v4 as uuid } from 'uuid';
 import { generate as randomstring } from 'randomstring';
@@ -61,7 +61,7 @@ describe('REST API - text training for managed pool classes', () => {
     let thirdProject: types.Project;
     let workspaceId: string;
 
-    function setupPoolCreds() {
+    async function setupPoolCreds() {
         const firstCredsSvc = 'conv';
         const firstCredsApi = undefined;
         const firstCredsPass = '56789abcdef0';
@@ -84,33 +84,22 @@ describe('REST API - text training for managed pool classes', () => {
         secondCredsId = secondCreds.id;
         const secondCredsObj = dbobjects.getCredentialsPoolAsDbRow(secondCreds);
 
-        return store.storeBluemixCredentialsPool(firstCredsObj)
-            .then(() => {
-                return store.storeBluemixCredentialsPool(secondCredsObj);
-            });
+        await store.storeBluemixCredentialsPool(firstCredsObj);
+        await store.storeBluemixCredentialsPool(secondCredsObj);
     }
 
-    function setupProjects() {
+    async function setupProjects() {
         const firstProjectName = 'my project';
         const secondProjectName = 'my other project';
         const thirdProjectName = 'my final project';
         const projType = 'text';
 
-        return store.storeProject(userid, classid, projType, firstProjectName, 'en', [], false)
-            .then((proj) => {
-                firstProject = proj;
-                return store.storeProject(userid, classid, projType, secondProjectName, 'en', [], false);
-            })
-            .then((proj) => {
-                secondProject = proj;
-                return store.storeProject(userid, classid, projType, thirdProjectName, 'en', [], false);
-            })
-            .then((proj) => {
-                thirdProject = proj;
-            });
+        firstProject = await store.storeProject(userid, classid, projType, firstProjectName, 'en', [], false);
+        secondProject = await store.storeProject(userid, classid, projType, secondProjectName, 'en', [], false);
+        thirdProject = await store.storeProject(userid, classid, projType, thirdProjectName, 'en', [], false);
     }
 
-    function setupTrainingData() {
+    async function setupTrainingData() {
         const firstLabel = randomstring(8);
         const secondLabel = randomstring(6);
 
@@ -121,31 +110,15 @@ describe('REST API - text training for managed pool classes', () => {
             data.push({ textdata : randomstring(30), label : secondLabel });
         }
 
-        return store.addLabelToProject(userid, classid, firstProject.id, firstLabel)
-            .then(() => {
-                return store.addLabelToProject(userid, classid, secondProject.id, firstLabel);
-            })
-            .then(() => {
-                return store.addLabelToProject(userid, classid, thirdProject.id, firstLabel);
-            })
-            .then(() => {
-                return store.addLabelToProject(userid, classid, firstProject.id, secondLabel);
-            })
-            .then(() => {
-                return store.addLabelToProject(userid, classid, secondProject.id, secondLabel);
-            })
-            .then(() => {
-                return store.addLabelToProject(userid, classid, thirdProject.id, secondLabel);
-            })
-            .then(() => {
-                return store.bulkStoreTextTraining(firstProject.id, data);
-            })
-            .then(() => {
-                return store.bulkStoreTextTraining(secondProject.id, data);
-            })
-            .then(() => {
-                return store.bulkStoreTextTraining(thirdProject.id, data);
-            });
+        await store.addLabelToProject(userid, classid, firstProject.id, firstLabel);
+        await store.addLabelToProject(userid, classid, secondProject.id, firstLabel);
+        await store.addLabelToProject(userid, classid, thirdProject.id, firstLabel);
+        await store.addLabelToProject(userid, classid, firstProject.id, secondLabel);
+        await store.addLabelToProject(userid, classid, secondProject.id, secondLabel);
+        await store.addLabelToProject(userid, classid, thirdProject.id, secondLabel);
+        await store.bulkStoreTextTraining(firstProject.id, data);
+        await store.bulkStoreTextTraining(secondProject.id, data);
+        await store.bulkStoreTextTraining(thirdProject.id, data);
     }
 
 
@@ -167,19 +140,11 @@ describe('REST API - text training for managed pool classes', () => {
 
         testServer = testapiserver();
 
-        return store.deleteBluemixCredentialsPoolForTests()
-            .then(() => {
-                return store.storeManagedClassTenant(classid, 10, 3, types.ClassTenantType.ManagedPool);
-            })
-            .then(() => {
-                return setupPoolCreds();
-            })
-            .then(() => {
-                return setupProjects();
-            })
-            .then(() => {
-                return setupTrainingData();
-            });
+        await store.deleteBluemixCredentialsPoolForTests();
+        await store.storeManagedClassTenant(classid, 10, 3, types.ClassTenantType.ManagedPool);
+        await setupPoolCreds();
+        await setupProjects();
+        await setupTrainingData();
     });
 
     after(async () => {
@@ -205,52 +170,49 @@ describe('REST API - text training for managed pool classes', () => {
 
     describe('conversation', () => {
 
-        it('should train a model', () => {
-            return request(testServer)
+        it('should train a model', async () => {
+            const res = await request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + firstProject.id + '/models')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then((res) => {
-                    assert(res.body.classifierid);
-                    assert(res.body.updated);
-                    assert(res.body.expiry);
-                    assert(new Date(res.body.updated).getTime() < new Date(res.body.expiry).getTime());
-                    assert(res.body.credentialsid === firstCredsId || res.body.credentialsid === secondCredsId);
-                    assert.strictEqual(res.body.name, 'my project');
-                    assert.strictEqual(res.body.status, 'Training');
-                });
+                .expect(httpstatus.CREATED);
+
+            assert(res.body.classifierid);
+            assert(res.body.updated);
+            assert(res.body.expiry);
+            assert(new Date(res.body.updated).getTime() < new Date(res.body.expiry).getTime());
+            assert(res.body.credentialsid === firstCredsId || res.body.credentialsid === secondCredsId);
+            assert.strictEqual(res.body.name, 'my project');
+            assert.strictEqual(res.body.status, 'Training');
         });
 
-        it('should get a model status', () => {
-            return request(testServer)
+        it('should get a model status', async () => {
+            const res = await request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + firstProject.id + '/models')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    assert.strictEqual(res.body.length, 1);
-                    assert(res.body[0].classifierid);
-                    assert(res.body[0].updated);
-                    assert(res.body[0].expiry);
-                    assert(res.body[0].credentialsid === firstCredsId || res.body[0].credentialsid === secondCredsId);
-                    assert.strictEqual(res.body[0].name, 'my project');
-                    assert.strictEqual(res.body[0].status, 'Available');
-                });
+                .expect(httpstatus.OK);
+
+            assert.strictEqual(res.body.length, 1);
+            assert(res.body[0].classifierid);
+            assert(res.body[0].updated);
+            assert(res.body[0].expiry);
+            assert(res.body[0].credentialsid === firstCredsId || res.body[0].credentialsid === secondCredsId);
+            assert.strictEqual(res.body[0].name, 'my project');
+            assert(res.body[0].status, 'Available');
         });
 
-        it('should update a model', () => {
-            return request(testServer)
+        it('should update a model', async () => {
+            const res = await request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + firstProject.id + '/models')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then((res) => {
-                    assert(res.body.classifierid);
-                    assert(res.body.updated);
-                    assert(res.body.expiry);
-                    assert(new Date(res.body.updated).getTime() < new Date(res.body.expiry).getTime());
-                    assert(res.body.credentialsid === firstCredsId || res.body.credentialsid === secondCredsId);
-                    assert.strictEqual(res.body.name, 'my project');
-                    assert.strictEqual(res.body.status, 'Training');
-                });
+                .expect(httpstatus.CREATED);
+
+            assert(res.body.classifierid);
+            assert(res.body.updated);
+            assert(res.body.expiry);
+            assert(new Date(res.body.updated).getTime() < new Date(res.body.expiry).getTime());
+            assert(res.body.credentialsid === firstCredsId || res.body.credentialsid === secondCredsId);
+            assert.strictEqual(res.body.name, 'my project');
+            assert.strictEqual(res.body.status, 'Training');
         });
 
         it('should record failures', async () => {
@@ -272,38 +234,37 @@ describe('REST API - text training for managed pool classes', () => {
             assert(firstCredsCheckTime < timestamp);
             assert(secondCredsCheckTime < timestamp);
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + secondProject.id + '/models')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then(async (res) => {
-                    assert(res.body.classifierid);
-                    assert(res.body.updated);
-                    assert(res.body.expiry);
-                    assert(new Date(res.body.updated).getTime() < new Date(res.body.expiry).getTime());
-                    assert(res.body.credentialsid === firstCredsId || res.body.credentialsid === secondCredsId);
-                    assert(res.body.credentialsid !== failCredsId);
-                    assert.strictEqual(res.body.name, 'my other project');
-                    assert.strictEqual(res.body.status, 'Training');
+                .expect(httpstatus.CREATED);
 
-                    first = await store.getBluemixCredentialsById(types.ClassTenantType.ManagedPool, firstCredsId);
-                    second = await store.getBluemixCredentialsById(types.ClassTenantType.ManagedPool, secondCredsId);
+            assert(res.body.classifierid);
+            assert(res.body.updated);
+            assert(res.body.expiry);
+            assert(new Date(res.body.updated).getTime() < new Date(res.body.expiry).getTime());
+            assert(res.body.credentialsid === firstCredsId || res.body.credentialsid === secondCredsId);
+            assert(res.body.credentialsid !== failCredsId);
+            assert.strictEqual(res.body.name, 'my other project');
+            assert.strictEqual(res.body.status, 'Training');
 
-                    firstCredsCheck = first as trainingtypes.BluemixCredentialsPool;
-                    secondCredsCheck = second as trainingtypes.BluemixCredentialsPool;
+            first = await store.getBluemixCredentialsById(types.ClassTenantType.ManagedPool, firstCredsId);
+            second = await store.getBluemixCredentialsById(types.ClassTenantType.ManagedPool, secondCredsId);
 
-                    if (failCredsId === firstCredsId) {
-                        assert(firstCredsCheck.lastfail.getTime() > timestamp);
-                        assert(secondCredsCheck.lastfail.getTime() === secondCredsCheckTime);
-                    }
-                    else if (failCredsId === secondCredsId) {
-                        assert(secondCredsCheck.lastfail.getTime() > timestamp);
-                        assert(firstCredsCheck.lastfail.getTime() === firstCredsCheckTime);
-                    }
-                    else {
-                        assert.fail('No credentials recorded failure');
-                    }
-                });
+            firstCredsCheck = first as trainingtypes.BluemixCredentialsPool;
+            secondCredsCheck = second as trainingtypes.BluemixCredentialsPool;
+
+            if (failCredsId === firstCredsId) {
+                assert(firstCredsCheck.lastfail.getTime() > timestamp);
+                assert(secondCredsCheck.lastfail.getTime() === secondCredsCheckTime);
+            }
+            else if (failCredsId === secondCredsId) {
+                assert(secondCredsCheck.lastfail.getTime() > timestamp);
+                assert(firstCredsCheck.lastfail.getTime() === firstCredsCheckTime);
+            }
+            else {
+                assert.fail('No credentials recorded failure');
+            }
         });
 
 
@@ -313,32 +274,29 @@ describe('REST API - text training for managed pool classes', () => {
             const credentialsUsed = await store.getBluemixCredentialsById(types.ClassTenantType.ManagedPool, credentialsUsedId);
             const credentialsTimestamp = (credentialsUsed as trainingtypes.BluemixCredentialsPool).lastfail.getTime();
 
-            return request(testServer)
+            let res = await request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + secondProject.id + '/models')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    assert.strictEqual(res.body.length, 1);
-                    return request(testServer)
-                        .delete('/api/classes/' + classid + '/students/' + userid + '/projects/' + secondProject.id + '/models/' + res.body[0].classifierid)
-                        .expect(httpstatus.NO_CONTENT);
-                })
-                .then(() => {
-                    return request(testServer)
-                        .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + secondProject.id + '/models')
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    assert.strictEqual(res.body.length, 0);
-                    return store.getBluemixCredentialsById(types.ClassTenantType.ManagedPool, credentialsUsedId);
-                })
-                .then((updatedCreds) => {
-                    // check that the timestamp for the credentials was updated to reflect the credentials
-                    //  have freed up space for another model now
-                    const newTimestamp = (updatedCreds as trainingtypes.BluemixCredentialsPool).lastfail.getTime();
-                    assert(newTimestamp < (credentialsTimestamp - FIFTY_MINUTES));
-                });
+                .expect(httpstatus.OK);
+
+            assert.strictEqual(res.body.length, 1);
+
+            await request(testServer)
+                .delete('/api/classes/' + classid + '/students/' + userid + '/projects/' + secondProject.id + '/models/' + res.body[0].classifierid)
+                .expect(httpstatus.NO_CONTENT);
+
+            res = await request(testServer)
+                .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + secondProject.id + '/models')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            assert.strictEqual(res.body.length, 0);
+
+            const updatedCreds = await store.getBluemixCredentialsById(types.ClassTenantType.ManagedPool, credentialsUsedId);
+            // check that the timestamp for the credentials was updated to reflect the credentials
+            //  have freed up space for another model now
+            const newTimestamp = (updatedCreds as trainingtypes.BluemixCredentialsPool).lastfail.getTime();
+            assert(newTimestamp < (credentialsTimestamp - FIFTY_MINUTES));
         });
 
         it('should handle exhausted pool creds', async() => {
@@ -353,35 +311,34 @@ describe('REST API - text training for managed pool classes', () => {
             const firstCredsCheckTime = firstCredsCheck.lastfail.getTime();
             const secondCredsCheckTime = secondCredsCheck.lastfail.getTime();
 
-            return request(testServer)
+            const res = await request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + thirdProject.id + '/models')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.CONFLICT)
-                .then(async (res) => {
-                    assert.deepStrictEqual(res.body, {
-                        code: 'MLMOD15',
-                        error: 'Your class is sharing Watson Assistant "API keys" with many other schools, and ' +
-                                'unfortunately there are currently none available. ' +
-                                'Please let your teacher or group leader know that you will have to train ' +
-                                'your machine learning model later',
-                    });
+                .expect(httpstatus.CONFLICT);
 
-                    first = await store.getBluemixCredentialsById(types.ClassTenantType.ManagedPool, firstCredsId);
-                    second = await store.getBluemixCredentialsById(types.ClassTenantType.ManagedPool, secondCredsId);
+            assert.deepStrictEqual(res.body, {
+                code: 'MLMOD15',
+                error: 'Your class is sharing Watson Assistant "API keys" with many other schools, and ' +
+                        'unfortunately there are currently none available. ' +
+                        'Please let your teacher or group leader know that you will have to train ' +
+                        'your machine learning model later',
+            });
 
-                    firstCredsCheck = first as trainingtypes.BluemixCredentialsPool;
-                    secondCredsCheck = second as trainingtypes.BluemixCredentialsPool;
+            first = await store.getBluemixCredentialsById(types.ClassTenantType.ManagedPool, firstCredsId);
+            second = await store.getBluemixCredentialsById(types.ClassTenantType.ManagedPool, secondCredsId);
 
-                    assert(firstCredsCheck.lastfail.getTime() > firstCredsCheckTime);
-                    assert(secondCredsCheck.lastfail.getTime() > secondCredsCheckTime);
+            firstCredsCheck = first as trainingtypes.BluemixCredentialsPool;
+            secondCredsCheck = second as trainingtypes.BluemixCredentialsPool;
 
-                    // more than one day
-                    assert(firstCredsCheck.lastfail.getTime() > (firstCredsCheckTime + 86400000));
-                    assert(secondCredsCheck.lastfail.getTime() > (secondCredsCheckTime + 86400000));
-                    // less than two days
-                    assert(firstCredsCheck.lastfail.getTime() < (firstCredsCheckTime + 172800000));
-                    assert(secondCredsCheck.lastfail.getTime() < (secondCredsCheckTime + 172800000));
-                });
+            assert(firstCredsCheck.lastfail.getTime() > firstCredsCheckTime);
+            assert(secondCredsCheck.lastfail.getTime() > secondCredsCheckTime);
+
+            // more than one day
+            assert(firstCredsCheck.lastfail.getTime() > (firstCredsCheckTime + 86400000));
+            assert(secondCredsCheck.lastfail.getTime() > (secondCredsCheckTime + 86400000));
+            // less than two days
+            assert(firstCredsCheck.lastfail.getTime() < (firstCredsCheckTime + 172800000));
+            assert(secondCredsCheck.lastfail.getTime() < (secondCredsCheckTime + 172800000));
         });
     });
 

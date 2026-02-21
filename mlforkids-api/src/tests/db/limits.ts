@@ -1,4 +1,4 @@
-/*eslint-env mocha */
+import { describe, it, before, after } from 'node:test';
 import * as assert from 'assert';
 import { v1 as uuid } from 'uuid';
 import * as sinon from 'sinon';
@@ -48,14 +48,10 @@ describe('DB store - limits', () => {
         assert.strictEqual(training.projectid, projectid);
         assert.strictEqual(training.label, 'label');
 
-        try {
-            await store.storeTextTraining(projectid, uuid(), 'label');
-            assert.fail('should not have reached here');
-        }
-        catch (err) {
-            assert.strictEqual(err.message,
-                         'Project already has maximum allowed amount of training data');
-        }
+        await assert.rejects(
+            () => store.storeTextTraining(projectid, uuid(), 'label'),
+            { message: 'Project already has maximum allowed amount of training data' }
+        );
 
         return store.deleteTrainingByProjectId('text', projectid);
     });
@@ -74,14 +70,10 @@ describe('DB store - limits', () => {
         assert.strictEqual(training.projectid, projectid);
         assert.strictEqual(training.label, 'label');
 
-        try {
-            await store.storeNumberTraining(projectid, false, [3], 'label');
-            assert.fail('should not have reached here');
-        }
-        catch (err) {
-            assert.strictEqual(err.message,
-                         'Project already has maximum allowed amount of training data');
-        }
+        await assert.rejects(
+            () => store.storeNumberTraining(projectid, false, [3], 'label'),
+            { message: 'Project already has maximum allowed amount of training data' }
+        );
 
         return store.deleteTrainingByProjectId('numbers', projectid);
     });

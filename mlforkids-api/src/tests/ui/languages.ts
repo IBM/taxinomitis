@@ -1,4 +1,4 @@
-/*eslint-env mocha */
+import { describe, it, before } from 'node:test';
 import * as assert from 'assert';
 import * as fs from 'fs';
 

@@ -1,8 +1,9 @@
-/*eslint-env mocha */
+import { describe, it, before, after } from 'node:test';
 import * as assert from 'assert';
 import { v1 as uuid } from 'uuid';
 import * as sinon from 'sinon';
 import * as proxyquire from 'proxyquire';
+import { setTimeout } from 'node:timers/promises';
 import * as store from '../../lib/db/store';
 import * as classifier from '../../lib/scratchx/classify';
 import * as Types from '../../lib/db/db-types';
@@ -12,18 +13,18 @@ import loggerSetup from '../../lib/utils/logger';
 const log = loggerSetup();
 
 
-const TESTCLASS = 'UNIQUECLASSID';
+const TESTCLASS = 'UNIQUECLASSIDCLS';
 
 
 describe('Scratchx - classify', () => {
 
-    before(() => {
-        return store.init();
+    before(async () => {
+        await store.init();
     });
 
     after(async () => {
         await store.deleteProjectsByClassId(TESTCLASS);
-        return store.disconnect();
+        await store.disconnect();
     });
 
 
@@ -39,13 +40,10 @@ describe('Scratchx - classify', () => {
                 updated : new Date(),
             };
 
-            try {
-                await classifier.classify(key, '  ');
-                assert.fail('Should not reach here');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Classification for this project is only available in the browser');
-            }
+            await assert.rejects(
+                () => classifier.classify(key, '  '),
+                { message: 'Classification for this project is only available in the browser' }
+            );
         });
     });
 
@@ -53,7 +51,9 @@ describe('Scratchx - classify', () => {
     describe('text projects', () => {
 
         let requestPostStub: sinon.SinonStub<any, any>;
-        before((done) => {
+        let stubbedClassifier: any;
+
+        before(async () => {
             requestPostStub = sinon.stub(request, 'post');
             requestPostStub.callsFake((url, requestBody) => {
                 log.debug('Calling the mock conversation API');
@@ -112,13 +112,11 @@ describe('Scratchx - classify', () => {
                 },
             });
 
-            setTimeout(done, 1000);
+            await setTimeout(1000);
         });
         after(() => {
             requestPostStub.restore();
         });
-
-        let stubbedClassifier: any;
 
         it('should require text', async () => {
             const key: Types.ScratchKey = {
@@ -129,13 +127,10 @@ describe('Scratchx - classify', () => {
                 updated : new Date(),
             };
 
-            try {
-                await classifier.classify(key, '  ');
-                assert.fail('Should not reach here');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Missing data');
-            }
+            await assert.rejects(
+                () => classifier.classify(key, '  '),
+                { message: 'Missing data' }
+            );
         });
 
 
@@ -148,13 +143,10 @@ describe('Scratchx - classify', () => {
                 updated : new Date(),
             };
 
-            try {
-                await classifier.classify(key, 'HELLO');
-                assert.fail('Should not reach here');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Project not found');
-            }
+            await assert.rejects(
+                () => classifier.classify(key, 'HELLO'),
+                { message: 'Project not found' }
+            );
         });
 
 
@@ -289,13 +281,10 @@ describe('Scratchx - classify', () => {
                 updated : new Date(),
             };
 
-            try {
-                await classifier.classify(key, '  ');
-                assert.fail('Should not reach here');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Classification for numbers project is only available in the browser or from Python projects');
-            }
+            await assert.rejects(
+                () => classifier.classify(key, '  '),
+                { message: 'Classification for numbers project is only available in the browser or from Python projects' }
+            );
         });
     });
 });
