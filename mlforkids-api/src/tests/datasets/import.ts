@@ -200,24 +200,15 @@ describe('Datasets import', () => {
 
             const verify = await store.getImageTraining(projectid, { start: 0, limit : 10 });
                     assert.strictEqual(verify.length, 9);
-                    // tslint:disable-next-line:max-line-length
-                    assert(confirmItemPresent(verify, 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Gillie_hunting_%282292639848%29.jpg/867px-Gillie_hunting_%282292639848%29.jpg', 'cat'));
-                    // tslint:disable-next-line:max-line-length
-                    assert(confirmItemPresent(verify, 'https://upload.wikimedia.org/wikipedia/commons/4/4c/Blackcat-Lilith.jpg', 'cat'));
-                    // tslint:disable-next-line:max-line-length
-                    assert(confirmItemPresent(verify, 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Britishblue.jpg/744px-Britishblue.jpg', 'cat'));
-                    // tslint:disable-next-line:max-line-length
-                    assert(confirmItemPresent(verify, 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Brown_and_white_tabby_cat_with_green_eyes-Hisashi-03.jpg/1599px-Brown_and_white_tabby_cat_with_green_eyes-Hisashi-03.jpg', 'cat'));
-                    // tslint:disable-next-line:max-line-length
-                    assert(confirmItemPresent(verify, 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Orange_tabby_cat_sitting_on_fallen_leaves-Hisashi-01A.jpg/900px-Orange_tabby_cat_sitting_on_fallen_leaves-Hisashi-01A.jpg', 'cat'));
-                    // tslint:disable-next-line:max-line-length
-                    assert(confirmItemPresent(verify, 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Racib%C3%B3rz_2007_082.jpg/1599px-Racib%C3%B3rz_2007_082.jpg', 'dog'));
-                    // tslint:disable-next-line:max-line-length
-                    assert(confirmItemPresent(verify, 'https://upload.wikimedia.org/wikipedia/commons/4/47/Golden_retriever.jpg', 'dog'));
-                    // tslint:disable-next-line:max-line-length
-                    assert(confirmItemPresent(verify, 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Deutscher_Schaeferhund_Presley_von_Beluga.jpg/1600px-Deutscher_Schaeferhund_Presley_von_Beluga.jpg', 'dog'));
-                    // tslint:disable-next-line:max-line-length
-                    assert(confirmItemPresent(verify, 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Brittany_Spaniel_standing.jpg/1583px-Brittany_Spaniel_standing.jpg', 'dog'));
+                    assert(confirmItemPresent(verify, 'https://i.allthepics.net/2026/03/08/217540f7ff8d.jpeg', 'cat'));
+                    assert(confirmItemPresent(verify, 'https://i.allthepics.net/2026/03/08/2b6e745533cb.jpeg', 'cat'));
+                    assert(confirmItemPresent(verify, 'https://i.allthepics.net/2026/03/08/ad060b2eda5d.jpeg', 'cat'));
+                    assert(confirmItemPresent(verify, 'https://i.allthepics.net/2026/03/08/c8175c27db70.jpeg', 'cat'));
+                    assert(confirmItemPresent(verify, 'https://i.allthepics.net/2026/03/08/ae40c5dbd5d0.jpeg', 'cat'));
+                    assert(confirmItemPresent(verify, 'https://i.allthepics.net/2026/03/08/834e22c84d81.jpeg', 'dog'));
+                    assert(confirmItemPresent(verify, 'https://i.allthepics.net/2026/03/08/812ed8b00e9b.jpeg', 'dog'));
+                    assert(confirmItemPresent(verify, 'https://i.allthepics.net/2026/03/08/f75d4b1d8eb3.jpeg', 'dog'));
+                    assert(confirmItemPresent(verify, 'https://i.allthepics.net/2026/03/08/24a85e5c67b0.jpeg', 'dog'));
         }
 
         function confirmItemPresent(list: any[], imageurl: string, label: string) {

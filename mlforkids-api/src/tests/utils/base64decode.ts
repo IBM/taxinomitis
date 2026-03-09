@@ -1,22 +1,23 @@
 import { describe, it } from 'node:test';
 import * as assert from 'assert';
 import * as fs from 'fs';
-import { promisify } from 'node:util';
 import * as filecompare from 'filecompare';
 
 import * as decoder from '../../lib/utils/base64decode';
-
-const filecompareAsync = promisify(filecompare);
-const unlinkAsync = promisify(fs.unlink);
 
 
 describe('Utils - base64decode', () => {
 
     it('should decode a jpg file', async () => {
         const path = await decoder.run(TESTDATA);
-        const isEqual = await filecompareAsync('./src/tests/utils/resources/test.jpg', path);
-        assert(isEqual);
-        await unlinkAsync(path);
+        return new Promise((resolve) => {
+            filecompare(path, './src/tests/utils/resources/test.jpg', (isEqual: boolean) => {
+                fs.unlink(path, () => {});
+                assert(isEqual);
+
+                resolve();
+            });
+        });
     });
 
 });

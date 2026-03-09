@@ -1229,7 +1229,7 @@ describe('REST API - scratch keys', () => {
         it('should only allow training downloads for Vis Rec projects', async () => {
             const userid = uuid();
             const label = 'MYLAB';
-            const imgurl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Thomas_J_Watson_Sr.jpg/148px-Thomas_J_Watson_Sr.jpg';
+            const imgurl = 'https://i.allthepics.net/2026/03/08/830907dcbb80.jpeg';
             const testProject = await store.storeProject(userid, TESTCLASS, 'images', 'name', 'en', [], false);
             await store.addLabelToProject(userid, TESTCLASS, testProject.id, label);
             const storedImage = await store.storeImageTraining(testProject.id, imgurl, label, false);
@@ -1254,7 +1254,7 @@ describe('REST API - scratch keys', () => {
         it('should retrieve resized images ready for use in training', async () => {
             const userid = uuid();
             const label = 'MYLAB';
-            const imgurl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Thomas_J_Watson_Sr.jpg/148px-Thomas_J_Watson_Sr.jpg';
+            const imgurl = 'https://i.allthepics.net/2026/03/08/830907dcbb80.jpeg';
             const testProject = await store.storeProject(userid, TESTCLASS, 'imgtfjs', 'name', 'en', [], false);
             await store.addLabelToProject(userid, TESTCLASS, testProject.id, label);
             const storedImage = await store.storeImageTraining(testProject.id, imgurl, label, false);
@@ -1282,7 +1282,7 @@ describe('REST API - scratch keys', () => {
         it('should require a proxy query parameter to retrieve resized images', async () => {
             const userid = uuid();
             const label = 'MYLAB';
-            const imgurl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Thomas_J_Watson_Sr.jpg/148px-Thomas_J_Watson_Sr.jpg';
+            const imgurl = 'https://i.allthepics.net/2026/03/08/830907dcbb80.jpeg';
             const testProject = await store.storeProject(userid, TESTCLASS, 'imgtfjs', 'name', 'en', [], false);
             await store.addLabelToProject(userid, TESTCLASS, testProject.id, label);
             const storedImage = await store.storeImageTraining(testProject.id, imgurl, label, false);
@@ -1408,7 +1408,7 @@ describe('REST API - scratch keys', () => {
         it('should retrieve resized images ready for use in training', async () => {
             const userid = uuid();
             const label = 'MYLAB';
-            const imgurl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Thomas_J_Watson_Sr.jpg/148px-Thomas_J_Watson_Sr.jpg';
+            const imgurl = 'https://i.allthepics.net/2026/03/08/830907dcbb80.jpeg';
             const testProject = await store.storeProject(userid, TESTCLASS, 'imgtfjs', 'name', 'en', [], false);
             await store.addLabelToProject(userid, TESTCLASS, testProject.id, label);
             const storedImage = await store.storeImageTraining(testProject.id, imgurl, label, false);
@@ -1505,9 +1505,9 @@ describe('REST API - scratch keys', () => {
             const testProject = await store.storeProject(userid, TESTCLASS, 'imgtfjs', name, 'en', [], false);
             await store.addLabelToProject(userid, TESTCLASS, testProject.id, 'test');
             const urls = [
-                'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/IBM_logo.svg/320px-IBM_logo.svg.png',
-                'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Thomas_J_Watson_Sr.jpg/148px-Thomas_J_Watson_Sr.jpg',
-                'https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Old_Map_Hursley_1607.jpg/218px-Old_Map_Hursley_1607.jpg?download',
+                'https://i.allthepics.net/2026/03/08/ffc66eed9fa9.png',
+                'https://i.allthepics.net/2026/03/08/830907dcbb80.jpeg',
+                'https://i.allthepics.net/2026/03/08/5057fb23fd04.jpeg',
             ];
             await Promise.all(urls.map((url) => {
                 return store.storeImageTraining(testProject.id, url, 'test', false);
@@ -1543,9 +1543,9 @@ describe('REST API - scratch keys', () => {
             const testProject = await store.storeProject(userid, TESTCLASS, 'imgtfjs', name, 'en', [], false);
             await store.addLabelToProject(userid, TESTCLASS, testProject.id, 'test');
             const urls = [
-                'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/IBM_logo.svg/320px-IBM_logo.svg.png',
-                'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Thomas_J_Watson_Sr.jpg/148px-Thomas_J_Watson_Sr.jpg',
-                'https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Old_Map_Hursley_1607.jpg/218px-Old_Map_Hursley_1607.jpg?download',
+                'https://i.allthepics.net/2026/03/08/ffc66eed9fa9.png',
+                'https://i.allthepics.net/2026/03/08/830907dcbb80.jpeg',
+                'https://i.allthepics.net/2026/03/08/5057fb23fd04.jpeg',
             ];
             await Promise.all(urls.map((url) => {
                 return store.storeImageTraining(testProject.id, url, 'test', false);

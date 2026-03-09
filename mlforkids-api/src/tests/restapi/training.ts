@@ -652,7 +652,7 @@ describe('REST API - training', () => {
             reduceMaxFileSize.restore();
 
             assert.deepStrictEqual({
-                error : 'Image file size (1.43 kB) is too big. Please choose images smaller than 1 kB',
+                error : 'Image file size (2.22 kB) is too big. Please choose images smaller than 1 kB',
             }, res.body);
 
             await store.deleteEntireProject(userid, classid, project);
@@ -1521,7 +1521,7 @@ describe('REST API - training', () => {
 
             await store.addLabelToProject(userid, classid, projectid, 'testlabel');
             const trainingitem = await store.storeImageTraining(project.id,
-                'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/John_McCarthy_%28computer_scientist%29_Stanford_2006_%28272020300%29.jpg/1280px-John_McCarthy_%28computer_scientist%29_Stanford_2006_%28272020300%29.jpg',
+                'https://i.allthepics.net/2026/03/08/0ac1a1865221.jpeg',
                 'testlabel',
                 false);
 
@@ -1596,7 +1596,6 @@ describe('REST API - training', () => {
 
     const tmpFile = promisify(tmp.file);
     const fsWriteFile = promisify(fs.writeFile);
-    const filecomparePromise = promisify(filecompare);
 
     async function writeDataToTempFile(data: Buffer): Promise<string> {
         const path = await tmpFile();
@@ -1604,9 +1603,13 @@ describe('REST API - training', () => {
         return path;
     }
 
-    async function filecomparepromise(filea: string, fileb: string): Promise<void> {
-        const isEq = await filecomparePromise(filea, fileb);
-        assert(isEq, filea + ' ' + fileb);
+    function filecomparepromise(filea: string, fileb: string): Promise<void> {
+        return new Promise((resolve) => {
+            filecompare(filea, fileb, (isEqual: boolean) => {
+                assert(isEqual);
+                resolve();
+            });
+        });
     }
 
 

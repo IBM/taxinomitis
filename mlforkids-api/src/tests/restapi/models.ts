@@ -960,7 +960,7 @@ describe('REST API - models', () => {
                       '/models/' + modelid + '/label')
                 .send({
                     type : 'imgtfjs',
-                    image : 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/John_McCarthy_%28computer_scientist%29_Stanford_2006_%28272020300%29.jpg/1280px-John_McCarthy_%28computer_scientist%29_Stanford_2006_%28272020300%29.jpg',
+                    image : 'https://i.allthepics.net/2026/03/08/0ac1a1865221.jpeg',
                 })
                 .expect('Content-Type', /octet-stream/)
                 .expect(httpstatus.OK);
@@ -1327,7 +1327,6 @@ describe('REST API - models', () => {
 
     const tmpFilePromise = promisify(tmp.file);
     const fsWriteFilePromise = promisify(fs.writeFile);
-    const filecomparePromise = promisify(filecompare);
 
     async function writeDataToTempFile(data: Buffer): Promise<string> {
         const path = await tmpFilePromise();
@@ -1335,8 +1334,12 @@ describe('REST API - models', () => {
         return path;
     }
 
-    async function filecomparepromise(filea: string, fileb: string): Promise<void> {
-        const isEq = await filecomparePromise(filea, fileb);
-        assert(isEq, filea + ' ' + fileb);
+    function filecomparepromise(filea: string, fileb: string): Promise<void> {
+        return new Promise((resolve) => {
+            filecompare(filea, fileb, (isEqual: boolean) => {
+                assert(isEqual);
+                resolve();
+            });
+        });
     }
 });
