@@ -20,5 +20,6 @@ const outDir = tsconfig.compilerOptions.outDir || 'dist';
 
 deleteRecursive(path.join(__dirname, '..', outDir));
 deleteRecursive(path.join(__dirname, '..', 'web'));
+deleteRecursive(path.join(__dirname, '..', 'coverage'));
 
 console.log('Clean complete');
