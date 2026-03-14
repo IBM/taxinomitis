@@ -69,7 +69,7 @@
         "TITLE": "Začněte se strojovým učením",
         "WELCOME": "Vítejte!  Je skvělé, že máte zájem o účet, kterým se můžete přihlásit do programu Machine Learning for Kids.",
         "ALREADY_LOGGEDIN": "<strong>Informace: </strong> Již jste přihlášeni",
-        "ERROR": "<strong>Chyba:</strong> {{ zpráva }}",
+        "ERROR": "<strong>Chyba:</strong> {{ message }}",
         "ERROR_HELP": "Pokud k tomu dochází i nadále, navštivte naši nápovědu",
         "FIRST_TIME": "Jste tu poprvé?",
         "SIGN_UP": "Zaregistrujte se",
@@ -537,7 +537,7 @@
                     "EXPLANATION": "Uvedli jste pouze jednu věc, kterou má počítač rozpoznat: {{ label }}",
                     "ISTHATALL": "Je to jediná věc, kterou má počítač rozpoznat?",
                     "NO": "<strong>Ne?</strong><br/>Vraťte se na stránku <a href='{{ urls.train }}'>Trénovat</a>.<br/>Přidejte další štítky pro každou z věcí, které chcete počítač naučit rozpoznávat.<br/><br/>",
-                    "YES": "<strong>Ano?</strong><br/>Nejdříve musíte udělat ještě trochu práce.<br/>Aby se počítač naučil rozpoznávat \"{{ štítek }}\", musíte mu dát nějaké příklady věcí, které nejsou {{ štítek }}.<br/>Vraťte se na stránku <a href='{{ urls.train }}'>Trénovat</a> a vytvořte nový štítek pro příklady věcí, které nejsou {{ štítek }}. Můžete ho nazvat \"ne-{{ štítek }}\"."
+                    "YES": "<strong>Ano?</strong><br/>Nejdříve musíte udělat ještě trochu práce.<br/>Aby se počítač naučil rozpoznávat \"{{ label }}\", musíte mu dát nějaké příklady věcí, které nejsou {{ label }}.<br/>Vraťte se na stránku <a href='{{ urls.train }}'>Trénovat</a> a vytvořte nový štítek pro příklady věcí, které nejsou {{ label }}. Můžete ho nazvat \"ne-{{ label }}\"."
                 },
                 "LABELS": {
                     "NO_DATA": "Dalším krokem je přechod na stránku <a href='{{ urls.train }}'>Trénovat</a>. Přidejte příklady pro jednotlivé štítky.",
@@ -1109,9 +1109,9 @@
         "GO_TO_LEARNANDTEST": "Nebo přejděte na stránku <a href='{{ urls.learnandtest }}'>Naučte se a otestujte</a>, kde najdete tipy, co dělat dál.",
         "MORE_BLOCKS": "Váš projekt přidá tyto bloky na kartu <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>Další bloky</span> v části Skripty.",
         "MORE_BLOCKS_3": "Váš projekt přidá tyto bloky do Scratche.",
-        "EXPLAIN_RECOGNISE_LABEL": "Vložte do vstupu {{ typ }} a vrátí se štítek, který váš model strojového učení rozpozná.",
+        "EXPLAIN_RECOGNISE_LABEL": "Vložte do vstupu {{ type }} a vrátí se štítek, který váš model strojového učení rozpozná.",
         "EXPLAIN_PREDICT": "Put input numbers in this, and it will return a prediction of the output number.",
-        "EXPLAIN_RECOGNISE_CONFIDENCE": "Tato hodnota vrátí, s jakou jistotou váš model strojového učení rozpozná typ {{ typ }}. (Jako číslo od 0 do 100).",
+        "EXPLAIN_RECOGNISE_CONFIDENCE": "Tato hodnota vrátí, s jakou jistotou váš model strojového učení rozpozná typ {{ type }}. (Jako číslo od 0 do 100).",
         "EXPLAIN_LABELS": "Tyto bloky představují štítky, které jste vytvořili ve svém projektu, takže jejich názvy můžete používat ve svých skriptech.",
         "EXPLAIN_COSTUMEIMAGE": "Tento blok se nachází v paletě Vzhledy pro sprity a vrátí obrázek aktuálně vybraného kostýmu.",
         "EXPLAIN_ADD_TRAINING": "Pomocí této funkce přidáte do trénovacích dat nový příklad. (Tréninková data se projeví až poté, co s nimi natrénujete model strojového učení)",
@@ -1857,18 +1857,18 @@
             "ASK_FOR_CHANGES": "Pokud některá z těchto omezení způsobují vaší skupině problémy, <strong><a href='/help'>kontaktujte</a></strong> nás.",
             "CLASS_LIMITS": {
                 "TITLE": "Limity pro vaši třídu",
-                "NUM_USERS": "Ve skupině můžete mít až <span class='mlprojecttype'>{{ počet }}</span> uživatelů (včetně studentů a učitelů).",
+                "NUM_USERS": "Ve skupině můžete mít až <span class='mlprojecttype'>{{ num }}</span> uživatelů (včetně studentů a učitelů).",
                 "NUM_TEXT_MODELS": "Vaše třída může mít ve všech svých <span class='mlprojecttype'>textových</span> projektech celkem až <span class='mlprojecttype'>{{ num }}</span> modelů strojového učení.",
                 "NUM_IMAGE_MODELS": "Vaše třída může mít ve všech svých projektech s <span class='mlprojecttype'>obrázky</span> celkem až <span class='mlprojecttype'>{{ num }}</span> modelů strojového učení.</div>"
             },
             "PROJECT_LIMITS": {
                 "TITLE": "Limity pro projekty vytvořené vašimi studenty",
-                "NUM_PROJECTS": "Každý z vašich studentů může mít až <span class='mlprojecttype'>{{ počet }}</span> projektů.",
-                "TRAINING_DATA": "Každý projekt <span class='mlprojecttype'>{{ typ }}</span> může mít až <span class='mlprojecttype'>{{ počet }}</span> příkladů trénovacích dat. "
+                "NUM_PROJECTS": "Každý z vašich studentů může mít až <span class='mlprojecttype'>{{ num }}</span> projektů.",
+                "TRAINING_DATA": "Každý projekt <span class='mlprojecttype'>{{ type }}</span> může mít až <span class='mlprojecttype'>{{ num }}</span> příkladů trénovacích dat. "
             },
             "EXPIRY": {
                 "TITLE": "Pomůže vám vyhnout se omezením počtu modelů strojového učení:",
-                "TIME_LIMIT": "Modely strojového učení vytvořené pro projekty <span class='mlprojecttype'>{{ typ }}</span> budou automaticky odstraněny po uplynutí <span class='mlprojecttype'>{{ počet }}</span> hodin.",
+                "TIME_LIMIT": "Modely strojového učení vytvořené pro projekty <span class='mlprojecttype'>{{ type }}</span> budou automaticky odstraněny po uplynutí <span class='mlprojecttype'>{{ num }}</span> hodin.",
                 "DONT_WORRY": "(Nebojte se! Tréninková data nebudou smazána, takže studenti mohou vždy znovu trénovat nový model strojového učení, pokud je budou potřebovat i poté.)"
             },
             "NOT_AUTHORIZED": "Nejste oprávněni přistupovat k omezením platným pro vaši třídu."

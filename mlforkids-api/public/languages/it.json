@@ -537,7 +537,7 @@
                     "EXPLANATION": "Hai detto solo una cosa che vuoi che il computer sia in grado di riconoscere: {{ label }}",
                     "ISTHATALL": "È l'unica cosa che vuoi che il computer sia in grado di riconoscere?",
                     "NO": "<strong>No?</strong><br/> Torna alla pagina <a href='{{ urls.train }}}'>Addestramento</a>.<br/>Aggiungi più etichette per ogni cosa che vuoi insegnare al computer a riconoscere.<br/><br/><br/><br/>.",
-                    "YES": "<strong>Sì?</strong><br/>È necessario fare un po' più di lavoro prima.<br/>Perché il computer sia in grado di imparare a riconoscere \"{{ label }}}\", è necessario dare alcuni esempi di cose che non sono {{ label }}}}.<br/> Torna alla pagina <a href='{{ urls.train }}'>Addestramento</a> e crea una nuova etichetta per esempi di cose che non sono {{ label }}}. Si potrebbe chiamare \"non-{{{{{{ label }}}\"."
+                    "YES": "<strong>Sì?</strong><br/>È necessario fare un po' più di lavoro prima.<br/>Perché il computer sia in grado di imparare a riconoscere \"{{ label }}\", è necessario dare alcuni esempi di cose che non sono {{ label }}.<br/> Torna alla pagina <a href='{{ urls.train }}'>Addestramento</a> e crea una nuova etichetta per esempi di cose che non sono {{ label }}. Si potrebbe chiamare \"non-{{ label }}\"."
                 },
                 "LABELS": {
                     "NO_DATA": "Il prossimo passo è andare alla pagina <a href='{{ urls.train }}'>Addestramento</a>. Aggiungi esempi per ciascuna delle etichette.",

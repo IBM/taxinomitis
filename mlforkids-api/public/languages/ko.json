@@ -1130,7 +1130,7 @@
         "LAUNCH": "스크래치에서 열기",
 
         "LAUNCH_SCRATCH_BY_ITSELF": "(원한다면 머신러닝 모델이 없는 <a href='{{ url }}' class='btn btn-default' target='_blank'>스크래치</a> 만을 사용할 수 있습니다.)",
-        "GO_TO_LEARNANDTEST": "혹은 <strong>학습 &amp; 테스트</strong> 페이지로 이동하여 다음에 무엇을 해야하는지에 대한 팁을 얻어보세요.",
+        "GO_TO_LEARNANDTEST": "Or go to the <a href='{{ urls.learnandtest }}'>Learn &amp; Test</a> page for some tips on what to do next.",
 
         "MORE_BLOCKS": "<span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>More Blocks</span> 탭에 다음의 블록이 추가됩니다.",
         "MORE_BLOCKS_3": "Your project will add these blocks to Scratch.",
@@ -1147,7 +1147,7 @@
         "EXPLAIN_STATUS": "동그라미의 색깔은 여러분의 머신러닝 모델이 어떠한 상태인지 나타냅니다.",
         "STATUS_GREEN": "모델을 사용할 수 있다는 의미입니다.",
         "STATUS_YELLOW": "아직 모델 학습이 완료되지 않았다는 의미입니다.",
-        "STATUS_RED": "무엇인가 잘못되었다는 표시입니다. <strong>학습 &amp; 테스트</strong> 페이지로 이동하여 무엇이 잘못되었는지 확인해보세요."
+        "STATUS_RED": "means something went wrong. Go back to the <a href='{{ urls.learnandtest }}'>Learn &amp; Test</a> page to see what went wrong with training."
     },
     "SCRATCH3": {
         "TITLE": "스크래치 3에서 머신러닝 사용하기",
@@ -2002,7 +2002,7 @@
                 "USERNAME_INVALID" : "잘못된 문자입니다.",
                 "NUMBER" : "몇개의 계정을 생성하고 싶습니까?",
                 "NUMBER_REQUIRED" : "만들고자 하는 학생 계정의 수를 입력하세요.",
-                "NUMBER_TOOMANY" : "이 그룹의 학생 수는 {{userlimit}} 명으로 제한됩니다.",
+                "NUMBER_TOOMANY" : "이 그룹의 학생 수는 {{userslimit}} 명으로 제한됩니다.",
                 "PASSWORD" : "비밀번호:",
                 "PASSWORD_TOOSHORT" : "너무 짧습니다."
             }

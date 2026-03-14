@@ -90,83 +90,214 @@ describe('UI - NLS', () => {
         }
     }
 
-    it('German', () => {
-        compareKeys(en, de, 'de');
-    });
-    it('French', () => {
-        compareKeys(en, fr, 'fr');
-    });
-    it('Italian', () => {
-        compareKeys(en, ital, 'it');
-    });
-    it('Spanish', () => {
-        compareKeys(en, es, 'es');
-    });
-    it('Korean', () => {
-        compareKeys(en, ko, 'ko');
-    });
-    it('Brazillian Portuguese', () => {
-        compareKeys(en, br, 'br');
-    });
-    it('Portuguese', () => {
-        compareKeys(en, pt, 'pt');
-    });
-    it('Swedish', () => {
-        compareKeys(en, se, 'se');
-    });
-    it('Turkish', () => {
-        compareKeys(en, tr, 'tr');
-    });
-    it('Chinese (simplified)', () => {
-        compareKeys(en, cn, 'cn');
-    });
-    it('Chinese (traditional)', () => {
-        compareKeys(en, tw, 'tw');
-    });
-    it('Sinhalese', () => {
-        compareKeys(en, si, 'si');
-    });
-    it('Dutch', () => {
-        compareKeys(en, nl, 'nl');
-    });
-    it('Japanese', () => {
-        compareKeys(en, ja, 'ja');
-    });
-    it('Greek', () => {
-        compareKeys(en, el, 'el');
-    });
-    it('Czech', () => {
-        compareKeys(en, cs, 'cs');
-    });
-    it('Arabic', () => {
-        compareKeys(en, ar, 'ar');
-    });
-    it('Croatian', () => {
-        compareKeys(en, hr, 'hr');
-    });
-    it('Polish', () => {
-        compareKeys(en, pl, 'pl');
-    });
-    it('Russian', () => {
-        compareKeys(en, ru, 'ru');
-    });
-    it('Welsh', () => {
-        compareKeys(en, cy, 'cy');
-    });
-    it('Romanian', () => {
-        compareKeys(en, ro, 'ro');
-    });
-    it('Farsi', () => {
-        compareKeys(en, fa, 'fa');
-    });
-    it('Hungarian', () => {
-        compareKeys(en, hu, 'hu');
-    });
-    it('Ukrainian', () => {
-        compareKeys(en, uk, 'uk');
-    });
-    it('Armenian', () => {
-        compareKeys(en, hy, 'hy');
+    function extractTemplateVariables(text: string): string[] {
+        const regex = /\{\{\s*([^}]+?)\s*\}\}/g;
+        const variables: string[] = [];
+        let match;
+        while ((match = regex.exec(text)) !== null) {
+            variables.push(match[1].trim());
+        }
+        return variables;
+    }
+
+    function compareTemplateVariables(obj1: any, obj2: any, obj2name: string, keypath = '') {
+        for (const key of Object.keys(obj1)) {
+            const currentPath = keypath + '.' + key;
+
+            if (typeof obj1[key] === 'string' && typeof obj2[key] === 'string') {
+                const enVars = extractTemplateVariables(obj1[key]);
+                const translatedVars = extractTemplateVariables(obj2[key]);
+
+                if (enVars.length > 0) {
+                    // Check that all English template variables exist in the translation
+                    for (const enVar of enVars) {
+                        if (!translatedVars.includes(enVar)) {
+                            assert.fail(
+                                `Template variable mismatch at ${currentPath} in ${obj2name}: ` +
+                                `English has {{ ${enVar} }} but translation has {{ ${translatedVars.join(', ')} }}`
+                            );
+                        }
+                    }
+
+                    // Check that translation doesn't have extra variables
+                    for (const translatedVar of translatedVars) {
+                        if (!enVars.includes(translatedVar)) {
+                            assert.fail(
+                                `Extra template variable at ${currentPath} in ${obj2name}: ` +
+                                `Translation has {{ ${translatedVar} }} but English expects {{ ${enVars.join(', ')} }}`
+                            );
+                        }
+                    }
+                }
+            }
+            else if (typeof obj1[key] === 'object' && obj1[key] !== null) {
+                if (typeof obj2[key] === 'object' && obj2[key] !== null) {
+                    compareTemplateVariables(obj1[key], obj2[key], obj2name, currentPath);
+                }
+            }
+        }
+    }
+
+    describe('compare keys', () => {
+
+        it('German', () => {
+            compareKeys(en, de, 'de');
+        });
+        it('French', () => {
+            compareKeys(en, fr, 'fr');
+        });
+        it('Italian', () => {
+            compareKeys(en, ital, 'it');
+        });
+        it('Spanish', () => {
+            compareKeys(en, es, 'es');
+        });
+        it('Korean', () => {
+            compareKeys(en, ko, 'ko');
+        });
+        it('Brazillian Portuguese', () => {
+            compareKeys(en, br, 'br');
+        });
+        it('Portuguese', () => {
+            compareKeys(en, pt, 'pt');
+        });
+        it('Swedish', () => {
+            compareKeys(en, se, 'se');
+        });
+        it('Turkish', () => {
+            compareKeys(en, tr, 'tr');
+        });
+        it('Chinese (simplified)', () => {
+            compareKeys(en, cn, 'cn');
+        });
+        it('Chinese (traditional)', () => {
+            compareKeys(en, tw, 'tw');
+        });
+        it('Sinhalese', () => {
+            compareKeys(en, si, 'si');
+        });
+        it('Dutch', () => {
+            compareKeys(en, nl, 'nl');
+        });
+        it('Japanese', () => {
+            compareKeys(en, ja, 'ja');
+        });
+        it('Greek', () => {
+            compareKeys(en, el, 'el');
+        });
+        it('Czech', () => {
+            compareKeys(en, cs, 'cs');
+        });
+        it('Arabic', () => {
+            compareKeys(en, ar, 'ar');
+        });
+        it('Croatian', () => {
+            compareKeys(en, hr, 'hr');
+        });
+        it('Polish', () => {
+            compareKeys(en, pl, 'pl');
+        });
+        it('Russian', () => {
+            compareKeys(en, ru, 'ru');
+        });
+        it('Welsh', () => {
+            compareKeys(en, cy, 'cy');
+        });
+        it('Romanian', () => {
+            compareKeys(en, ro, 'ro');
+        });
+        it('Farsi', () => {
+            compareKeys(en, fa, 'fa');
+        });
+        it('Hungarian', () => {
+            compareKeys(en, hu, 'hu');
+        });
+        it('Ukrainian', () => {
+            compareKeys(en, uk, 'uk');
+        });
+        it('Armenian', () => {
+            compareKeys(en, hy, 'hy');
+        });
     });
 
+    describe('template variables', () => {
+        it('German', () => {
+            compareTemplateVariables(en, de, 'de');
+        });
+        it('French', () => {
+            compareTemplateVariables(en, fr, 'fr');
+        });
+        it('Italian', () => {
+            compareTemplateVariables(en, ital, 'it');
+        });
+        it('Spanish', () => {
+            compareTemplateVariables(en, es, 'es');
+        });
+        it('Korean', () => {
+            compareTemplateVariables(en, ko, 'ko');
+        });
+        it('Brazillian Portuguese', () => {
+            compareTemplateVariables(en, br, 'br');
+        });
+        it('Portuguese', () => {
+            compareTemplateVariables(en, pt, 'pt');
+        });
+        it('Swedish', () => {
+            compareTemplateVariables(en, se, 'se');
+        });
+        it('Turkish', () => {
+            compareTemplateVariables(en, tr, 'tr');
+        });
+        it('Chinese (simplified)', () => {
+            compareTemplateVariables(en, cn, 'cn');
+        });
+        it('Chinese (traditional)', () => {
+            compareTemplateVariables(en, tw, 'tw');
+        });
+        it('Sinhalese', () => {
+            compareTemplateVariables(en, si, 'si');
+        });
+        it('Dutch', () => {
+            compareTemplateVariables(en, nl, 'nl');
+        });
+        it('Japanese', () => {
+            compareTemplateVariables(en, ja, 'ja');
+        });
+        it('Greek', () => {
+            compareTemplateVariables(en, el, 'el');
+        });
+        it('Czech', () => {
+            compareTemplateVariables(en, cs, 'cs');
+        });
+        it('Arabic', () => {
+            compareTemplateVariables(en, ar, 'ar');
+        });
+        it('Croatian', () => {
+            compareTemplateVariables(en, hr, 'hr');
+        });
+        it('Polish', () => {
+            compareTemplateVariables(en, pl, 'pl');
+        });
+        it('Russian', () => {
+            compareTemplateVariables(en, ru, 'ru');
+        });
+        it('Welsh', () => {
+            compareTemplateVariables(en, cy, 'cy');
+        });
+        it('Romanian', () => {
+            compareTemplateVariables(en, ro, 'ro');
+        });
+        it('Farsi', () => {
+            compareTemplateVariables(en, fa, 'fa');
+        });
+        it('Hungarian', () => {
+            compareTemplateVariables(en, hu, 'hu');
+        });
+        it('Ukrainian', () => {
+            compareTemplateVariables(en, uk, 'uk');
+        });
+        it('Armenian', () => {
+            compareTemplateVariables(en, hy, 'hy');
+        });
+    });
 });

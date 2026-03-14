@@ -540,14 +540,14 @@
                     "YES": " <strong>对？</strong>你需要先做一点额外的事情。<br/>为了让电脑能够学会如何识别\" {{label}} \",你需要给它一些不是{{label}}的东西的例子。<br/>回到<a href='{{ urls.train }}'>训练</a>页面，并为不是\" {{label}} \"的一些东西创建一个新的标签。你可以叫他\"not- {{label}}\" 。"
                 },
                 "LABELS": {
-                    "NO_DATA": "下一步是转到<strong>训练</strong>页面。为每个标签添加示例。",
+                    "NO_DATA": "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Add examples for each of the labels.",
                     "NO_DATA_REGRESSION" : "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Add examples of numbers.",
                     "NO_OUTPUT_COLUMNS": "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Choose which value(s) you want the computer to learn to predict, by marking them as output columns.",
                     "MORE_DATA": {
                         "KEEP_GOING": "继续！",
                         "MORE_EXAMPLES": {
-                            "YOU": "返回<strong>训练</strong>页面,为每个标签收集更多示例。",
-                            "CLASS": "让您的班级返回<strong>培训</strong>页面,并为每个标签收集更多示例。"
+                            "YOU": "Go back to the <a href='{{ urls.train }}'>Train</a> page and collect more examples for each of the labels.",
+                            "CLASS": "Ask your class to go back to the <a href='{{ urls.train }}'>Train</a> page and collect more examples for each of the labels."
                         },
                         "MORE_IS_BETTER": "你获得的越多,它应该学得越好,但你至少需要{{minimumExamples}}个例子作为绝对最小值。"
                     },
@@ -577,8 +577,8 @@
                 "SCRATCH_REGRESSION" : "If the computer seems to have learned to predict things correctly, then you can go to Scratch and use what the computer has learned to make a game!",
                 "ADDITIONAL_TRAINING": {
                     "MORE_EXAMPLES": {
-                        "CROWDSOURCED": "如果计算机出现太多问题,您的班级可能会想回到<strong>培训</strong>页面并收集更多示例。",
-                        "INDIVIDUAL": "如果计算机出现太多错误,您可能需要返回<strong>训练</strong>页面并收集更多示例"
+                        "CROWDSOURCED": "If the computer is getting too many things wrong, your class might want to go back to the <a href='{{ urls.train }}'>Train</a> page and collect some more examples.",
+                        "INDIVIDUAL": "If the computer is getting too many things wrong, you might want to go back to the <a href='{{ urls.train }}'>Train</a> page and collect some more examples"
                     },
                     "RETRAIN": {
                         "YOU": "完成后,点击下面的按钮来训练一个新的机器学习模型,看看额外的例子会有什么不同！",
@@ -1106,7 +1106,7 @@
         "NOMODEL": "你还没有训练过机器学习模型。",
         "LAUNCH": "在Scratch打开",
         "LAUNCH_SCRATCH_BY_ITSELF": "(如果你愿意的话，你可以使用 <a href='{{ url }}' class='btn btn-default' target='_blank'>Scratch by itself</a>.)",
-        "GO_TO_LEARNANDTEST": "或者转到<strong>学习和测试</strong>页面，了解有关下一步操作的一些提示。",
+        "GO_TO_LEARNANDTEST": "Or go to the <a href='{{ urls.learnandtest }}'>Learn &amp; Test</a> page for some tips on what to do next.",
         "MORE_BLOCKS": "你的项目将在脚本的 <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>More Blocks</span> 选项卡中添加这些积木。",
         "MORE_BLOCKS_3": "你的项目会把这些积木加到Scratch里。",
         "EXPLAIN_RECOGNISE_LABEL": "将{{type}}放到这个积木的空位，它会输出你的模型识别出的标签",

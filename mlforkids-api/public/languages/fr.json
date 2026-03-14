@@ -550,7 +550,7 @@
                             "YOU": "Retournez à la page d'<a href='{{ urls.train}}'>Entraînement</a> et accumulez des exemples pour chacune des étiquettes.",
                             "CLASS": "Demandez à votre classe de retourner à la page d'<a href='{{ urls.train}}'>Entraînement</a> et d'accumuler plus exemples pour chacune des étiquettes."
                         },
-                        "MORE_IS_BETTER": "Plus vous pouvez en obtenir, mieux il devrait apprendre, mais vous avez besoin d'au moins {{ minimumExemples}} exemples de chacun comme un minimum absolu."
+                        "MORE_IS_BETTER": "Plus vous pouvez en obtenir, mieux il devrait apprendre, mais vous avez besoin d'au moins {{ minimumExamples }} exemples de chacun comme un minimum absolu."
                     },
                     "ENOUGH_DATA": {
                         "READY_TO_START": "Prêt à commencer l'entraînement de l'ordinateur ?",
@@ -560,7 +560,7 @@
                         },
                         "MORE_EXAMPLES": {
                             "CROWDSOURCED": "(Ou demandez à votre classe de retourner à la page d'<a href='{{ urls.train}}'>Entraînement</a> si vous voulez qu'ils collectent d'abord plus d'exemples.)",
-                            "INDIVIDUAL": "(Ou retournez à la page d'<a href='{{{ urls.train}}}'>Entraîneme</a> si vous voulez d'abord collecter quelques exemples supplémentaires.)"
+                            "INDIVIDUAL": "(Ou retournez à la page d'<a href='{{ urls.train }}'>Entraîneme</a> si vous voulez d'abord collecter quelques exemples supplémentaires.)"
                         },
                         "WAITING_FOR_TEACHER": "Attendre que votre professeur commence l'entraînement de l'ordinateur."
                     }
@@ -1923,7 +1923,7 @@
                 "USERNAME_INVALID": "Caractères non valides",
                 "NUMBER": "Combien de comptes élèves voulez-vous ?",
                 "NUMBER_REQUIRED": "Veuillez entrer le nombre d'élèves à créer",
-                "NUMBER_TOOMANY": "Votre classe a une limite de {{limite utilisateur}} élèves.",
+                "NUMBER_TOOMANY": "Votre classe a une limite de {{ userslimit }} élèves.",
                 "PASSWORD": "Le mot de passe à leur donner :",
                 "PASSWORD_TOOSHORT": "Trop court"
             }

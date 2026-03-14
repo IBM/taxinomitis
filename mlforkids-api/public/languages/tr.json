@@ -532,22 +532,22 @@
             "OFFERQUIZ": "Veya neler öğrendiğinizi kontrol etmek için aşağıdaki makine öğrenimi testini çözebilirsiniz.",
             "FAIL": "Eğitim bilgisayarından alınan hata iletisi aşağıdadır. Sizin için anlamlı geliyorsa, sorunu çözmeyi deneyin. Veya sıradan bir hataysa yeniden denemeye değebilir.",
             "IDLE": {
-                "NOLABELS": "The next step is to go to the <strong>Train</strong> page. Add some labels for each of the things that you want to teach the computer to be able to recognise.",
+                "NOLABELS" : "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Add some labels for each of the things that you want to teach the computer to be able to recognise.",
                 "ONELABEL": {
                     "EXPLANATION": "You've only said one thing that you want the computer to be able to recognise: {{ label }}",
                     "ISTHATALL": "Is that the only thing you want the computer to be able to recognise?",
-                    "NO": "<strong>No?</strong><br/>Go back to the <strong>Train</strong> page.<br/>Add more labels for each of the things that you want to teach the computer to be able to recognise.<br/><br/>",
-                    "YES": "<strong>Yes?</strong><br/>You need to do a little more work first.<br/>For the computer to be able to learn how to recognise \"{{ label }}\", you need to give it some examples of things that aren't {{ label }}.<br/>Go back to the <strong>Train</strong> page and create a new label for examples of things that aren't {{ label }}. You could call it \"not-{{ label }}\"."
+                    "NO": "<strong>No?</strong><br/>Go back to the <a href='{{ urls.train }}'>Train</a> page.<br/>Add more labels for each of the things that you want to teach the computer to be able to recognise.<br/><br/>",
+                    "YES": "<strong>Yes?</strong><br/>You need to do a little more work first.<br/>For the computer to be able to learn how to recognise \"{{ label }}\", you need to give it some examples of things that aren't {{ label }}.<br/>Go back to the <a href='{{ urls.train }}'>Train</a> page and create a new label for examples of things that aren't {{ label }}. You could call it \"not-{{ label }}\"."
                 },
                 "LABELS": {
-                    "NO_DATA": "The next step is to go to the <strong>Train</strong> page. Add examples for each of the labels.",
+                    "NO_DATA": "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Add examples for each of the labels.",
                     "NO_DATA_REGRESSION" : "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Add examples of numbers.",
                     "NO_OUTPUT_COLUMNS": "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Choose which value(s) you want the computer to learn to predict, by marking them as output columns.",
                     "MORE_DATA": {
                         "KEEP_GOING": "Keep going!",
                         "MORE_EXAMPLES": {
-                            "YOU": "Go back to the <strong>Train</strong> page and collect more examples for each of the labels.",
-                            "CLASS": "Ask your class to go back to the <strong>Train</strong> page and collect more examples for each of the labels."
+                            "YOU": "Go back to the <a href='{{ urls.train }}'>Train</a> page and collect more examples for each of the labels.",
+                            "CLASS": "Ask your class to go back to the <a href='{{ urls.train }}'>Train</a> page and collect more examples for each of the labels."
                         },
                         "MORE_IS_BETTER": "The more you can get, the better it should learn, but you need at least {{ minimumExamples }} examples of each as an absolute minimum."
                     },
@@ -558,8 +558,8 @@
                             "INDIVIDUAL": "Click the button below to start training a machine learning model using the examples you have collected so far"
                         },
                         "MORE_EXAMPLES": {
-                            "CROWDSOURCED": "(Or ask your class to go back to the <strong>Train</strong> page if you want them to collect more examples first.)",
-                            "INDIVIDUAL": "(Or go back to the <strong>Train</strong> page if you want to collect some more examples first.)"
+                            "CROWDSOURCED": "(Or ask your class to go back to the <a href='{{ urls.train }}'>Train</a> page if you want them to collect more examples first.)",
+                            "INDIVIDUAL": "(Or go back to the <a href='{{ urls.train }}'>Train</a> page if you want to collect some more examples first.)"
                         },
                         "WAITING_FOR_TEACHER": "Waiting for your teacher to start the computer's training."
                     }
@@ -577,8 +577,8 @@
                 "SCRATCH_REGRESSION" : "If the computer seems to have learned to predict things correctly, then you can go to Scratch and use what the computer has learned to make a game!",
                 "ADDITIONAL_TRAINING": {
                     "MORE_EXAMPLES": {
-                        "CROWDSOURCED": "If the computer is getting too many things wrong, your class might want to go back to the <strong>Train</strong> page and collect some more examples.",
-                        "INDIVIDUAL": "If the computer is getting too many things wrong, you might want to go back to the <strong>Train</strong> page and collect some more examples"
+                        "CROWDSOURCED": "If the computer is getting too many things wrong, your class might want to go back to the <a href='{{ urls.train }}'>Train</a> page and collect some more examples.",
+                        "INDIVIDUAL": "If the computer is getting too many things wrong, you might want to go back to the <a href='{{ urls.train }}'>Train</a> page and collect some more examples"
                     },
                     "RETRAIN": {
                         "YOU": "Once you've done that, click on the button below to train a new machine learning model and see what difference the extra examples will make!",
@@ -1106,7 +1106,7 @@
         "NOMODEL": " Henüz bir makine öğrenimi modelini eğitmediniz.",
         "LAUNCH": "Scratch'de aç",
         "LAUNCH_SCRATCH_BY_ITSELF": "(You can use <a href='{{ url }}' class='btn btn-default' target='_blank'>Scratch by itself</a> if you want.)",
-        "GO_TO_LEARNANDTEST": "Or go to the <strong>Learn &amp; Test</strong> page for some tips on what to do next.",
+        "GO_TO_LEARNANDTEST": "Or go to the <a href='{{ urls.learnandtest }}'>Learn &amp; Test</a> page for some tips on what to do next.",
         "MORE_BLOCKS": "Your project will add these blocks to the <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>More Blocks</span> tab in Scripts.",
         "MORE_BLOCKS_3": "Your project will add these blocks to Scratch.",
         "EXPLAIN_RECOGNISE_LABEL": "Put {{ type }} in the input for this, and it will return the label that your machine learning model recognises it as.",
@@ -1122,7 +1122,7 @@
         "EXPLAIN_STATUS": "The coloured circle next to your project name tells you if your machine learning model is okay.",
         "STATUS_GREEN": "means your model is trained and ready to go",
         "STATUS_YELLOW": "means your model hasn't finished training yet",
-        "STATUS_RED": "means something went wrong. Go back to the <strong>Learn &amp; Test</strong> page to see what went wrong with training."
+        "STATUS_RED": "means something went wrong. Go back to the <a href='{{ urls.learnandtest }}'>Learn &amp; Test</a> page to see what went wrong with training."
     },
     "SCRATCH3": {
         "TITLE": "Scratch 3'te makine öğrenimini kullanma",
