@@ -18,8 +18,6 @@ export const CSP_DIRECTIVES: Record<string, string[]> = {
         // Angular UI Router adds empty style="" attribute to ui-view elements
         // This hash allows only empty inline styles (sha256 of empty string)
         "'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU='",
-        // used by in-browser page translations
-        'https://www.gstatic.com',
     ],
     scriptSrc: ["'self'", 'blob:',
         // TODO : https://github.com/IBM/taxinomitis/issues/346 should remove this
@@ -96,8 +94,6 @@ export const CSP_DIRECTIVES: Record<string, string[]> = {
     fontSrc: ["'self'",
         // used in Scratch by Blockly
         'data:',
-        // used by in-browser page translations
-        'https://fonts.gstatic.com',
     ],
     connectSrc: ["'self'",
         // used for accessing cached APIs
@@ -112,8 +108,6 @@ export const CSP_DIRECTIVES: Record<string, string[]> = {
         'https://raw.githubusercontent.com',
         // useful when running locally
         'https://machinelearningforkids.co.uk',
-        // used by in-browser page translations
-        'https://translate.googleapis.com',
     ].concat(env.getNumbersServiceHostUrls()), // used for numbers service
 };
 
