@@ -1991,7 +1991,7 @@
             "MANAGED": "Учетные записи контролируемого класса",
             "MANAGEDEXPL": "Для школьных учителей, руководителей групп по программированию или других добровольцев",
             "UNMANAGED": "Учетные записи неконтролируемого класса",
-            "UNMANAGEDEXPL": "For IBM employees, or teachers and coding group leaders who manage their own class accounts"
+            "UNMANAGEDEXPL": "For IBM employees, or users who manage their own class accounts"
         },
         "FAQS": {
             "TITLE": "Хотите узнать больше?",

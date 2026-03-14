@@ -38,6 +38,11 @@
                 <div class="newlabellabel" translate="TEACHER.STUDENTMANAGEMENT.GROUPS.CREATE"></div>
             </div>
             <div class="alert alert-info pageheadermsg page-header-alert-info"
+                 ng-if="vm.profile.groups.length > 0">
+                 <span translate="TEACHER.RESTRICTIONS.CLASS_LIMITS.NUM_USERS" translate-values="{ num : vm.policy.maxUsers }"></span>
+                 <span>If you would like this limit to be increased, please <a ui-sref="help">get in touch</a>.</span>
+            </div>
+            <div class="alert alert-info pageheadermsg page-header-alert-info"
                  ng-if="!vm.profile.groups || vm.profile.groups.length === 0">
                  {{ 'TEACHER.STUDENTMANAGEMENT.CREATE_FIRST_GROUP' | translate }}
                 <span class="glyphicon glyphicon-arrow-right"></span>

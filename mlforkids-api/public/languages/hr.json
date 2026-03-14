@@ -1994,7 +1994,7 @@
             "MANAGED": "Managed class accounts",
             "MANAGEDEXPL": "For school teachers, coding group leaders, or other volunteers",
             "UNMANAGED": "Unmanaged class accounts",
-            "UNMANAGEDEXPL": "For IBM employees, or teachers and coding group leaders who manage their own class accounts"
+            "UNMANAGEDEXPL": "For IBM employees, or users who manage their own class accounts"
         },
         "FAQS": {
             "TITLE": "Want to know more?",
