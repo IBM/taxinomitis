@@ -8,7 +8,7 @@
         'authService',
         'projectsService', 'trainingService', 'quizService',
         'soundTrainingService', 'imageTrainingService', 'regressionTrainingService', 'numberTrainingService',
-        'modelService', 'utilService', 'storageService', 'downloadService',
+        'modelService', 'utilService', 'storageService', 'downloadService', 'browserStorageService',
         'imageToolsService', 'webcamsService', 'gpuDetectionService',
         'scrollService', 'loggerService',
         '$stateParams', '$location',
@@ -19,7 +19,7 @@
     function ModelsController(authService,
         projectsService, trainingService, quizService,
         soundTrainingService, imageTrainingService, regressionTrainingService, numberTrainingService,
-        modelService, utilService, storageService, downloadService,
+        modelService, utilService, storageService, downloadService, browserStorageService,
         imageToolsService, webcamsService, gpuDetectionService,
         scrollService, loggerService,
         $stateParams, $location,
@@ -449,6 +449,10 @@
 
             $scope.submittingTrainingRequest = true;
             clearTestOutput();
+
+            if (project.storage === 'local') {
+                browserStorageService.requestPersistentStorage();
+            }
 
             var modelFnPromise;
             if ($scope.project.type === 'imgtfjs') {

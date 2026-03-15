@@ -89,6 +89,47 @@
                     err.message === "IDBDatabase.transaction: 'assets' is not a known object store name");
         }
 
+
+        // request that the browser treats data stored by mlforkids as
+        //  persistent, rather than best effort
+        // the request is more likely to be granted after the user has
+        //  interacted with the site for a while, so call this after
+        //  a signal that indicates the user has created a significant
+        //  amount of locally stored data
+        async function requestPersistentStorage() {
+            try {
+                const storageSupported = await isSupported();
+
+                if (storageSupported !== SUPPORTED_OK) {
+                    loggerService.debug('[ml4kstorage] will not request persistent storage');
+                    return;
+                }
+
+                if (!(navigator.storage && navigator.storage.persist)) {
+                    loggerService.debug('[ml4kstorage] requesting persistent storage unsupported');
+                    return;
+                }
+
+                const alreadyRequested = await navigator.storage.persisted();
+                if (alreadyRequested) {
+                    loggerService.debug('[ml4kstorage] already stored as persistent');
+                    return;
+                }
+
+                const requestOutcome = await navigator.storage.persist();
+                if (requestOutcome) {
+                    loggerService.debug('[ml4kstorage] storage will not be cleared except by explicit user action');
+                }
+                else {
+                    loggerService.debug('[ml4kstorage] storage may be cleared by the UA under storage pressure');
+                }
+            }
+            catch (err) {
+                loggerService.error('[ml4kstorage] failed to request persistent storage', err);
+            }
+        }
+
+
         //-----------------------------------------------------------
         //  common functions
         //-----------------------------------------------------------
@@ -897,6 +938,7 @@
 
         return {
             isSupported,
+            requestPersistentStorage,
             isCorruptedDatabase,
             idIsLocal,
             sanitizeLabel,
