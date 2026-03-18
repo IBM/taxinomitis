@@ -120,6 +120,10 @@
 
                         if (vm.highlightId === project.id) {
                             checkApiKeys(profile, project);
+
+                            if (project.storage === 'local') {
+                                browserStorageService.requestPersistentStorage();
+                            }
                         }
                     }
                 })
