@@ -2073,7 +2073,7 @@
             "MANAGED": "Contas de turma com gestão",
             "MANAGEDEXPL": "Para professores, líderes de grupos de programação ou outros voluntários",
             "UNMANAGED": "Contas de turma sem gestão",
-            "UNMANAGEDEXPL": "Para funcionários da IBM, professores e líderes de grupos de programação que fazem a gestão das contas das suas próprias turmas"
+            "UNMANAGEDEXPL": "Para funcionários da IBM ou utilizadores que façam a gestão das contas das suas próprias turmas"
         },
         "FAQS": {
             "TITLE": "Queres saber mais?",
