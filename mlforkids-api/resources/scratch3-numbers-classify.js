@@ -245,7 +245,7 @@ class MachineLearningNumbers {
 
     addTraining(args) {
         const label = new String(args.LABEL);
-        if (!this.isKnownLabel(label)) {
+        if (this.isKnownLabel(label) === false) {
             // the student has used a training label that is
             //  not in this project
             return;

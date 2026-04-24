@@ -216,7 +216,7 @@ class MachineLearningImagesTfjs {
             //  so there is no point in submitting an xhr request
             return;
         }
-        if (!this.isKnownLabel(LABEL)) {
+        if (this.isKnownLabel(LABEL) === false) {
             // the student has used a training label that is
             //  not in this project
             return;

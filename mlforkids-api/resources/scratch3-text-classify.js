@@ -174,7 +174,7 @@ class MachineLearningText {
         if (txt.length === 0) {
             return;
         }
-        if (!this.isKnownLabel(LABEL)) {
+        if (this.isKnownLabel(LABEL) === false) {
             // the student has used a training label that is
             //  not in this project
             return;
