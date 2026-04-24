@@ -245,6 +245,12 @@ class MachineLearningNumbers {
 
     addTraining(args) {
         const label = new String(args.LABEL);
+        if (!this.isKnownLabel(label)) {
+            // the student has used a training label that is
+            //  not in this project
+            return;
+        }
+
         {{#storeurl}}
         const numbers = this.getRawFieldValuesAsAry(args);
 
@@ -285,6 +291,11 @@ class MachineLearningNumbers {
         {{/storeurl}}
         {{^storeurl}}
         const numbers = this.getFieldValuesAsAry(args);
+
+        // Check if any values are null or undefined
+        if (numbers.some(num => num == null)) {
+            return;
+        }
 
         postMessage({
             mlforkidsstorage : {
@@ -420,6 +431,11 @@ class MachineLearningNumbers {
             };
             callback(NOT_READY[valueToReturn]);
         }
+    }
+
+
+    isKnownLabel(labeltext) {
+        return this._labels.items.includes(labeltext);
     }
 
 

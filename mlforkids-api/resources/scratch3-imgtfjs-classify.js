@@ -216,6 +216,11 @@ class MachineLearningImagesTfjs {
             //  so there is no point in submitting an xhr request
             return;
         }
+        if (!this.isKnownLabel(LABEL)) {
+            // the student has used a training label that is
+            //  not in this project
+            return;
+        }
 
         {{#storeurl}}
         var url = new URL('{{{ storeurl }}}');
@@ -475,6 +480,10 @@ class MachineLearningImagesTfjs {
     }
     {{/storeurl}}
 
+
+    isKnownLabel(labeltext) {
+        return this._labels.items.includes(labeltext);
+    }
 }
 
 

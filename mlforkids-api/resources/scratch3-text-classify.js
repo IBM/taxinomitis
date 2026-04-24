@@ -174,6 +174,12 @@ class MachineLearningText {
         if (txt.length === 0) {
             return;
         }
+        if (!this.isKnownLabel(LABEL)) {
+            // the student has used a training label that is
+            //  not in this project
+            return;
+        }
+
 
         {{#storeurl}}
         var url = new URL('{{{ storeurl }}}');
@@ -299,6 +305,11 @@ class MachineLearningText {
         }
     }
     {{/storeurl}}
+
+
+    isKnownLabel(labeltext) {
+        return this._labels.items.includes(labeltext);
+    }
 }
 
 

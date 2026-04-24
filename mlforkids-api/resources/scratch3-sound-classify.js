@@ -144,7 +144,7 @@ class MachineLearningSound {
         this.training = true;
 
         var urlstr = '{{{ storeurl }}}';
-        urlstr = urlstr.replace('ml-for-kids-local.net', 'localhost');
+        // urlstr = urlstr.replace('ml-for-kids-local.net', 'localhost');
         var url = new URL(urlstr);
         var options = {
             headers : {
