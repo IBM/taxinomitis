@@ -40,6 +40,23 @@
                         stack: nextarg.reason.stack
                     });
                 }
+                else if (nextarg instanceof ErrorEvent) {
+                    nextarg = safeStringify({
+                        evt: 'ErrorEvent',
+                        message: nextarg.message,
+                        filename: nextarg.filename,
+                        lineno: nextarg.lineno,
+                        colno: nextarg.colno
+                    });
+                }
+                else if (nextarg instanceof Event) {
+                    var target = nextarg.target;
+                    nextarg = safeStringify({
+                        evt: 'Event',
+                        type: nextarg.type,
+                        src: target && (target.src || target.href || target.nodeName)
+                    });
+                }
                 else if (typeof nextarg !== 'string') {
                     nextarg = safeStringify(nextarg);
                 }
@@ -54,7 +71,7 @@
             logs.push(JSON.stringify(urlParms));
             logs.push('\n[ml4klog] browser ');
             logs.push(navigator.userAgent);
-            logs.push('\n[ml4klog] version v=333');
+            logs.push('\n[ml4klog] version v=334');
 
             downloadService.downloadFile(logs, 'text/plain', 'mlforkids.log');
         }
