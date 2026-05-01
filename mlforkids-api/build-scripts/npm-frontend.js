@@ -103,7 +103,8 @@ const copyOperations = [
     {
         name: 'angular-ui-router',
         operations: [
-            { type: 'file', from: '@uirouter/angularjs', fromPath: 'release/angular-ui-router.min.js', to: 'angular-ui-router', toPath: 'release/angular-ui-router.min.js' }
+            { type: 'file', from: '@uirouter/angularjs', fromPath: 'release/angular-ui-router.min.js', to: 'angular-ui-router', toPath: 'release/angular-ui-router.min.js' },
+            { type: 'file', from: '@uirouter/angularjs', fromPath: 'release/angular-ui-router.min.js.map', to: 'angular-ui-router', toPath: 'release/angular-ui-router.min.js.map' }
         ]
     },
 
@@ -111,7 +112,8 @@ const copyOperations = [
     {
         name: 'angular-scroll',
         operations: [
-            { type: 'file', from: 'angular-scroll', fromPath: 'angular-scroll.min.js', to: 'angular-scroll', toPath: 'angular-scroll.min.js' }
+            { type: 'file', from: 'angular-scroll', fromPath: 'angular-scroll.min.js', to: 'angular-scroll', toPath: 'angular-scroll.min.js' },
+            { type: 'file', from: 'angular-scroll', fromPath: 'angular-scroll.min.js.map', to: 'angular-scroll', toPath: 'angular-scroll.min.js.map' }
         ]
     },
     {
@@ -137,7 +139,8 @@ const copyOperations = [
     {
         name: 'auth0.js',
         operations: [
-            { type: 'file', from: 'auth0-js', fromPath: 'dist/auth0.min.js', to: 'auth0.js', toPath: 'dist/auth0.min.js' }
+            { type: 'file', from: 'auth0-js', fromPath: 'dist/auth0.min.js', to: 'auth0.js', toPath: 'dist/auth0.min.js' },
+            { type: 'file', from: 'auth0-js', fromPath: 'dist/auth0.min.js.map', to: 'auth0.js', toPath: 'dist/auth0.min.js.map' }
         ]
     },
     // Note: auth0-lock is handled by boweroverrides.js (pre-built file from public/third-party)
@@ -166,7 +169,8 @@ const copyOperations = [
     {
         name: 'jquery',
         operations: [
-            { type: 'file', from: 'jquery', fromPath: 'dist/jquery.min.js', to: 'jquery', toPath: 'dist/jquery.min.js' }
+            { type: 'file', from: 'jquery', fromPath: 'dist/jquery.min.js', to: 'jquery', toPath: 'dist/jquery.min.js' },
+            { type: 'file', from: 'jquery', fromPath: 'dist/jquery.min.map', to: 'jquery', toPath: 'dist/jquery.min.map' }
         ]
     },
 
@@ -182,7 +186,8 @@ const copyOperations = [
     {
         name: 'blueimp-canvas-to-blob',
         operations: [
-            { type: 'file', from: 'blueimp-canvas-to-blob', fromPath: 'js/canvas-to-blob.min.js', to: 'blueimp-canvas-to-blob', toPath: 'js/canvas-to-blob.min.js' }
+            { type: 'file', from: 'blueimp-canvas-to-blob', fromPath: 'js/canvas-to-blob.min.js', to: 'blueimp-canvas-to-blob', toPath: 'js/canvas-to-blob.min.js' },
+            { type: 'file', from: 'blueimp-canvas-to-blob', fromPath: 'js/canvas-to-blob.min.js.map', to: 'blueimp-canvas-to-blob', toPath: 'js/canvas-to-blob.min.js.map' }
         ]
     }
 ];
