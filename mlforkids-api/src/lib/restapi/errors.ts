@@ -145,7 +145,7 @@ export function register404Handler(app: Express.Application) {
              res: Express.Response,
              /*next: (e?: Error) => void*/) =>
     {
-        if (common404Urls.includes(req.url)) {
+        if (req.url.endsWith('.php') || common404Urls.includes(req.url)) {
             return notFound(res);
         }
 
