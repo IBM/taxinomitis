@@ -12,6 +12,9 @@
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     <strong translate="APP.ERROR"></strong> {{ error.message }}
 </div>
+<div ng-if="turnstileerror" class="alert alert-danger pageheadermsg" role="alert">
+    <strong translate="APP.ERROR"></strong> Unable to verify that you are human ({{ turnstileerror }})
+</div>
 <div ng-repeat="info in vm.infos"
     id="infos{{info.alertid}}"
     class="alert alert-info pageheadermsg" role="alert">
@@ -149,9 +152,10 @@
 
         <div class="newprojectrow">
             <span flex></span>
+            <div id="turnstile-container"></div>
             <md-button
                 class="md-raised md-primary"
-                ng-disabled="vm.complete || vm.creating || newClass.$invalid || terms !== true"
+                ng-disabled="vm.complete || vm.creating || newClass.$invalid || terms !== true || turnstileerror"
                 ng-click="vm.confirm({ username : username, email : email, intendeduse : intendeduse })">
                 Create class account
             </md-button>

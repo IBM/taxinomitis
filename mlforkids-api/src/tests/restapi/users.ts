@@ -173,6 +173,25 @@ describe('REST API - users', () => {
 
     describe('createTeacher()', () => {
 
+        // test turnstile secrets defined in
+        //  https://developers.cloudflare.com/turnstile/troubleshooting/testing/
+        let originalTurnstileSecret: string | undefined;
+
+        beforeEach(() => {
+            // Save original env var
+            originalTurnstileSecret = process.env.CLOUDFLARE_TURNSTILE_SECRET_KEY;
+        });
+
+        afterEach(() => {
+            // Restore original env var
+            if (originalTurnstileSecret !== undefined) {
+                process.env.CLOUDFLARE_TURNSTILE_SECRET_KEY = originalTurnstileSecret;
+            }
+            else {
+                delete process.env.CLOUDFLARE_TURNSTILE_SECRET_KEY;
+            }
+        });
+
         it('should require a payload', async () => {
             const res = await request(testServer)
                 .post('/api/teachers')
@@ -227,7 +246,44 @@ describe('REST API - users', () => {
             });
         });
 
+        it('should require a turnstile token', async () => {
+            const res = await request(testServer)
+                .post('/api/teachers')
+                .send({
+                    username : 'mickeymouse',
+                    email : 'mickey@disney.com',
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, {
+                error: 'A turnstile token is required to create a new class',
+            });
+        });
+
+        it('should reject an invalid turnstile token', async () => {
+            // Configure turnstile to reject any token
+            process.env.CLOUDFLARE_TURNSTILE_SECRET_KEY = '2x0000000000000000000000000000000AA';
+
+            const res = await request(testServer)
+                .post('/api/teachers')
+                .send({
+                    username : 'mickeymouse',
+                    email : 'mickey@disney.com',
+                    turnstile : 'invalid-token',
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(res.body, {
+                error: 'A valid turnstile token is required to create a new class',
+            });
+        });
+
         it('should create a new teacher', async () => {
+            // Configure turnstile to accept any token
+            process.env.CLOUDFLARE_TURNSTILE_SECRET_KEY = '1x0000000000000000000000000000000AA';
+
             sandbox.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good);
             sandbox.stub(auth0, 'createUser').callsFake(mocks.createUser.good);
             sandbox.stub(auth0, 'getUserCounts').callsFake(mocks.getUserCounts);
@@ -237,6 +293,7 @@ describe('REST API - users', () => {
                 .send({
                     username : 'mickeymouse',
                     email : 'mickey@disney.com',
+                    turnstile : 'valid-token',
                 })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.CREATED);
@@ -250,6 +307,9 @@ describe('REST API - users', () => {
 
 
         it('should create a new teacher with explanations', async () => {
+            // Configure turnstile to accept any token
+            process.env.CLOUDFLARE_TURNSTILE_SECRET_KEY = '1x0000000000000000000000000000000AA';
+
             sandbox.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good);
             sandbox.stub(auth0, 'createUser').callsFake(mocks.createUser.good);
             sandbox.stub(auth0, 'getUserCounts').callsFake(mocks.getUserCounts);
@@ -260,6 +320,7 @@ describe('REST API - users', () => {
                     username : 'mickeymouse',
                     email : 'mickey@disney.com',
                     notes : 'Hello Mickey',
+                    turnstile : 'valid-token',
                 })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.CREATED);

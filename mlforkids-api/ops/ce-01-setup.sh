@@ -45,6 +45,7 @@ function setup_batch_job {
         --env-from-secret $DOCKER_IMAGE-numbers \
         --env-from-secret $DOCKER_IMAGE-postgresql \
         --env-from-secret $DOCKER_IMAGE-slack \
+        --env-from-secret $DOCKER_IMAGE-cloudflare \
         --env NUMBERS_SERVICE=$(ibmcloud ce application get --name mlforkids-numbers -o json | jq -r .status.url) \
         --mount-secret "/usr/src/app/pgsqlcerts"=$DOCKER_IMAGE-postgresql-cert \
         --maxexecutiontime 1800 \
@@ -83,6 +84,9 @@ function create_app {
     ibmcloud ce secret create \
         --name $DOCKER_IMAGE-slack \
         --from-env-file slack-credentials.env
+    ibmcloud ce secret create \
+        --name $DOCKER_IMAGE-cloudflare \
+        --from-env-file cloudflare-credentials.env
 
     echo "Deploying version $DOCKER_VERSION of the $DOCKER_IMAGE image"
     ibmcloud ce application create \
@@ -98,6 +102,7 @@ function create_app {
         --env-from-secret $DOCKER_IMAGE-numbers \
         --env-from-secret $DOCKER_IMAGE-postgresql \
         --env-from-secret $DOCKER_IMAGE-slack \
+        --env-from-secret $DOCKER_IMAGE-cloudflare \
         --env NUMBERS_SERVICE=$(ibmcloud ce application get --name mlforkids-newnumbers -o json | jq -r .status.url) \
         --mount-secret "/usr/src/app/pgsqlcerts"=$DOCKER_IMAGE-postgresql-cert \
         --min-scale $MIN_INSTANCES  --max-scale $MAX_INSTANCES \

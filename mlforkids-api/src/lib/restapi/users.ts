@@ -8,6 +8,7 @@ import * as auth0 from '../auth0/users';
 import * as auth from './auth';
 import * as authtypes from '../auth0/auth-types';
 import * as passphrases from '../auth0/passphrases';
+import * as turnstile from '../cloudflare/turnstile';
 import * as store from '../db/store';
 import * as classdeleter from '../classdeleter';
 import * as dblimits from '../db/limits';
@@ -52,6 +53,16 @@ async function createTeacher(req: Express.Request, res: Express.Response) {
     if (VALID_USERNAME.test(req.body.username) === false) {
         return res.status(httpstatus.BAD_REQUEST)
                    .send({ error : 'Invalid username. Use letters, numbers, hyphens and underscores, only.' });
+    }
+    if (!req.body.turnstile) {
+        return res.status(httpstatus.BAD_REQUEST)
+            .send({ error: 'A turnstile token is required to create a new class' });
+    }
+
+    const validRequest = await turnstile.validate(req.body.turnstile);
+    if (!validRequest) {
+        return res.status(httpstatus.BAD_REQUEST)
+            .send({ error: 'A valid turnstile token is required to create a new class' });
     }
 
     const tenant: string = randomUUID();

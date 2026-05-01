@@ -28,11 +28,12 @@
                 .then(returnData);
         }
 
-        function createTeacher(username, email, notes) {
+        function createTeacher(username, email, notes, token) {
             var newteacher = {
                 username : username,
                 email : email,
-                notes : notes
+                notes : notes,
+                turnstile : token
             };
 
             return $http.post('/api/teachers', newteacher)

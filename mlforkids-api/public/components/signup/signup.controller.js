@@ -8,10 +8,11 @@
             'authService',
             'usersService',
             'scrollService',
-            'loggerService'
+            'loggerService',
+            '$scope'
         ];
 
-        function SignupController(authService, usersService, scrollService, loggerService) {
+        function SignupController(authService, usersService, scrollService, loggerService, $scope) {
             var vm = this;
             vm.authService = authService;
 
@@ -43,27 +44,49 @@
                 vm.creating = true;
 
                 loggerService.debug('[ml4ksignup] Creating new class', newClassDetails);
+                turnstile.render("#turnstile-container", {
+                    sitekey: TURNSTILE_SITE_KEY,
+                    'error-callback': function (err) {
+                        loggerService.error('[ml4ksignup] Failed to get turnstile token', err);
 
-                usersService.createTeacher(newClassDetails.username, newClassDetails.email, newClassDetails.intendeduse)
-                    .then(function (resp) {
-                        loggerService.debug('[ml4ksignup] Created class', resp);
-
-                        var newId = alertId++;
-                        vm.infos.push({
-                            alertid : newId,
-                            password : resp.password
-                        });
-                        scrollService.scrollToNewItem('infos' + newId);
-
-                        vm.complete = true;
-                    })
-                    .catch(function (err) {
+                        $scope.turnstileerror = err;
                         vm.creating = false;
+                    },
+                    callback: function (token) {
+                        if (!vm.complete) {
+                            usersService.createTeacher(
+                                newClassDetails.username,
+                                newClassDetails.email,
+                                newClassDetails.intendeduse,
+                                token
+                            )
+                                .then(function (resp) {
+                                    loggerService.debug('[ml4ksignup] Created class', resp);
 
-                        loggerService.error('[ml4ksignup] Failed to create class', err);
+                                    var newId = alertId++;
+                                    vm.infos.push({
+                                        alertid : newId,
+                                        password : resp.password
+                                    });
+                                    scrollService.scrollToNewItem('infos' + newId);
 
-                        displayAlert('errors', 500, err.data);
-                    });
+                                    vm.complete = true;
+                                })
+                                .catch(function (err) {
+                                    vm.creating = false;
+
+                                    loggerService.error('[ml4ksignup] Failed to create class', err);
+
+                                    if (err && err.data && err.data.error && err.data.error.includes('turnstile')) {
+                                        $scope.turnstileerror = err.data.error;
+                                    }
+                                    else {
+                                        displayAlert('errors', 500, err.data);
+                                    }
+                                });
+                        }
+                    }
+                });
             };
         }
 

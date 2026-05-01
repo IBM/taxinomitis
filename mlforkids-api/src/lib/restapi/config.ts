@@ -64,6 +64,8 @@ export const CSP_DIRECTIVES: Record<string, string[]> = {
         // used for small language models
         'https://esm.run',
         'https://cdn.jsdelivr.net',
+        // used for CloudFlare Turnstile (captcha)
+        'https://challenges.cloudflare.com',
         // useful when running locally
         'https://machinelearningforkids.co.uk',
     ],
@@ -75,6 +77,8 @@ export const CSP_DIRECTIVES: Record<string, string[]> = {
         // used in the About and Worksheets tabs
         'https://www.youtube.com',
         'https://www.youtube-nocookie.com',
+        // used for CloudFlare Turnstile (captcha)
+        'https://challenges.cloudflare.com',
     ],
     imgSrc: ["'self'",
         // used for auth
@@ -108,7 +112,13 @@ export const CSP_DIRECTIVES: Record<string, string[]> = {
         'https://raw.githubusercontent.com',
         // useful when running locally
         'https://machinelearningforkids.co.uk',
+        // used for CloudFlare Turnstile (captcha)
+        'https://challenges.cloudflare.com',
     ].concat(env.getNumbersServiceHostUrls()), // used for numbers service
+    trustedTypes: [
+        // used by Auth0
+        'dompurify',
+    ],
 };
 
 if (process.env.AUTH0_CUSTOM_DOMAIN) {
@@ -119,6 +129,9 @@ if (process.env.AUTH0_CUSTOM_DOMAIN) {
 
 if (deployment.isProdDeployment() && process.env.SENTRY_CSP_REPORT_URI) {
     CSP_DIRECTIVES.reportUri = [ process.env.SENTRY_CSP_REPORT_URI ];
+}
+if (deployment.isProdDeployment() && process.env.CLOUDFLARE_TURNSTILE_SECRET_KEY) {
+    CSP_DIRECTIVES.trustedTypes.push('challenges.cloudflare.com');
 }
 
 
