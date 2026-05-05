@@ -43,6 +43,13 @@
             vm.confirm = function (newClassDetails) {
                 vm.creating = true;
 
+                if (!document.getElementById('turnstile-container')) {
+                    displayAlert('errors', 500, {
+                        message : 'Update required. Please refresh the page. If this persists, please clear your cache.'
+                    });
+                    return;
+                }
+
                 loggerService.debug('[ml4ksignup] Creating new class', newClassDetails);
                 turnstile.render("#turnstile-container", {
                     sitekey: TURNSTILE_SITE_KEY,

@@ -5,6 +5,7 @@ import * as Express from 'express';
 import * as errors from './errors';
 import * as urls from './urls';
 import * as auth from './auth';
+import * as turnstile from '../cloudflare/turnstile';
 import * as sessionusers from '../sessionusers';
 import * as Objects from '../db/db-types';
 import * as notifications from '../notifications/slack';
@@ -21,14 +22,28 @@ function createSessionUser(req: Express.Request, res: Express.Response)
 {
     const requestOrigin = req.header('cf-ipcountry');
 
-    sessionusers.createSessionUser(requestOrigin)
-        .then((user) => {
-            return res.status(httpstatus.CREATED).json({
-                id : user.id,
-                token : user.token,
-                sessionExpiry : user.sessionExpiry,
-                jwt : auth.generateJwt(user),
-            });
+    if (!req.body.turnstile) {
+        return res.status(httpstatus.BAD_REQUEST)
+            .json({ error: 'A turnstile token is required to start a session' });
+    }
+
+    turnstile.validate(req.body.turnstile)
+        .then((validRequest) => {
+            if (validRequest) {
+                return sessionusers.createSessionUser(requestOrigin)
+                    .then((user) => {
+                        return res.status(httpstatus.CREATED).json({
+                            id : user.id,
+                            token : user.token,
+                            sessionExpiry : user.sessionExpiry,
+                            jwt : auth.generateJwt(user),
+                        });
+                    });
+            }
+            else {
+                return res.status(httpstatus.BAD_REQUEST)
+                    .json({ error: 'A valid turnstile token is required to start a session' });
+            }
         })
         .catch((err) => {
             notifications.notify('Failed to create "Try it now" session for ' + requestOrigin + ' : ' + err.message,

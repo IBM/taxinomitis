@@ -1,4 +1,4 @@
-import { describe, it, before, beforeEach, after } from 'node:test';
+import { describe, it, before, beforeEach, after, afterEach } from 'node:test';
 import * as assert from 'assert';
 import * as sinon from 'sinon';
 import * as request from 'supertest';
@@ -69,8 +69,30 @@ describe('REST API - session users', { concurrency: false }, () => {
 
     describe('createSessionUser', () => {
 
+        // test turnstile secrets defined in
+        //  https://developers.cloudflare.com/turnstile/troubleshooting/testing/
+        let originalTurnstileSecret: string | undefined;
+
+        beforeEach(() => {
+            // Save original env var
+            originalTurnstileSecret = process.env.CLOUDFLARE_TURNSTILE_SECRET_KEY;
+        });
+
+        afterEach(() => {
+            // Restore original env var
+            if (originalTurnstileSecret !== undefined) {
+                process.env.CLOUDFLARE_TURNSTILE_SECRET_KEY = originalTurnstileSecret;
+            }
+            else {
+                delete process.env.CLOUDFLARE_TURNSTILE_SECRET_KEY;
+            }
+        });
+
 
         it('should create users', async () => {
+            // Configure turnstile to accept any token
+            process.env.CLOUDFLARE_TURNSTILE_SECRET_KEY = '1x0000000000000000000000000000000AA';
+
             const count = await store.countTemporaryUsers();
 
             const timeBefore = new Date();
@@ -79,6 +101,7 @@ describe('REST API - session users', { concurrency: false }, () => {
 
             const resp = await request(testServer)
                                 .post('/api/sessionusers')
+                                .send({ turnstile: 'valid-turnstile-token' })
                                 .expect('Content-Type', /json/)
                                 .expect(httpstatus.CREATED);
 
@@ -111,16 +134,65 @@ describe('REST API - session users', { concurrency: false }, () => {
 
 
         it('should limit the number of users', async () => {
+            // Configure turnstile to accept any token
+            process.env.CLOUDFLARE_TURNSTILE_SECRET_KEY = '1x0000000000000000000000000000000AA';
+
             await fillSessionUsersClass();
 
             const resp = await request(testServer)
                                 .post('/api/sessionusers')
+                                .send({ turnstile: 'valid-turnstile-token' })
                                 .expect('Content-Type', /json/)
                                 .expect(httpstatus.PRECONDITION_FAILED);
 
             assert.deepStrictEqual(resp.body, { error : 'Class full' });
 
             await store.testonly_resetSessionUsersStore();
+        });
+
+
+        it('should require a turnstile token', async () => {
+            const resp = await request(testServer)
+                                .post('/api/sessionusers')
+                                .send({})
+                                .expect('Content-Type', /json/)
+                                .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(resp.body, {
+                error: 'A turnstile token is required to start a session',
+            });
+        });
+
+
+        it('should reject an invalid turnstile token', async () => {
+            // Configure turnstile to reject any token
+            process.env.CLOUDFLARE_TURNSTILE_SECRET_KEY = '2x0000000000000000000000000000000AA';
+
+            const resp = await request(testServer)
+                                .post('/api/sessionusers')
+                                .send({ turnstile: 'invalid-turnstile-token' })
+                                .expect('Content-Type', /json/)
+                                .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(resp.body, {
+                error: 'A valid turnstile token is required to start a session',
+            });
+        });
+
+
+        it('should reject an already-used turnstile token', async () => {
+            // Configure turnstile to reject token as already used
+            process.env.CLOUDFLARE_TURNSTILE_SECRET_KEY = '3x0000000000000000000000000000000AA';
+
+            const resp = await request(testServer)
+                                .post('/api/sessionusers')
+                                .send({ turnstile: 'already-used-turnstile-token' })
+                                .expect('Content-Type', /json/)
+                                .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(resp.body, {
+                error: 'A valid turnstile token is required to start a session',
+            });
         });
 
     });

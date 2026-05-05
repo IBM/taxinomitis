@@ -444,9 +444,9 @@
 
 
 
-        function createSessionUser() {
+        function createSessionUser(token) {
             loggerService.debug('[ml4kauth] Creating session user');
-            return $http.post('/api/sessionusers')
+            return $http.post('/api/sessionusers', { turnstile : token })
                 .then(function (resp) {
                     loggerService.debug('[ml4kauth] Session user created');
 

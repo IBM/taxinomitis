@@ -14,6 +14,8 @@
         var vm = this;
         vm.authService = authService;
 
+        $scope.busy = false;
+
         vm.loginstate = 'login';
         readFocusFromUrl();
 
@@ -34,34 +36,61 @@
 
         vm.startTryItNowSession = function (ev) {
             loggerService.debug('[ml4klogin] starting Try It Now');
+
+            if (!document.getElementById('tryitnow-turnstile-container')) {
+                $scope.failure = {
+                    message : 'Update required. Please refresh the page. If this persists, please clear your cache.'
+                };
+                return;
+            }
+
+            $scope.busy = true;
+            let submitted = false;
             $scope.failure = null;
 
-            authService.createSessionUser()
-                .then(function (/* newUser */) {
-                    // can't rely on session users to log out,
-                    //  so we clean up after the last session user
-                    //  when the next one logs in
-                    return attemptSessionUserCleanup();
-                })
-                .then(function () {
-                    $timeout(function () {
-                        $state.go('projects');
-                    });
-                })
-                .catch(function (err) {
-                    loggerService.error('[ml4klogin] session creation failed', err);
+            turnstile.render("#tryitnow-turnstile-container", {
+                sitekey: TURNSTILE_SITE_KEY,
+                'error-callback': function (err) {
+                    loggerService.error('[ml4klogin] Failed to get turnstile token', err);
+                    $scope.turnstileerror = err;
+                },
+                callback: function (token) {
+                    if (!submitted) {
+                        submitted = true;
+                        authService.createSessionUser(token)
+                            .then(function (/* newUser */) {
+                                // can't rely on session users to log out,
+                                //  so we clean up after the last session user
+                                //  when the next one logs in
+                                return attemptSessionUserCleanup();
+                            })
+                            .then(function () {
+                                $timeout(function () {
+                                    $state.go('projects');
+                                });
+                            })
+                            .catch(function (err) {
+                                loggerService.error('[ml4klogin] session creation failed', err);
 
-                    var errObj = err.data;
+                                if (err && err.data && err.data.error && err.data.error.includes('turnstile')) {
+                                    $scope.turnstileerror = err.data.error;
+                                }
+                                else {
+                                    var errObj = err.data;
 
-                    $scope.failure = {
-                        message : getErrorMessage(errObj),
-                        status : err.status
-                    };
-                    $timeout(function () {
-                        var newItem = document.getElementById('sessionuserfailure');
-                        $document.duScrollToElementAnimated(angular.element(newItem));
-                    }, 0);
-                });
+                                    $scope.failure = {
+                                        message : getErrorMessage(errObj),
+                                        status : err.status
+                                    };
+                                    $timeout(function () {
+                                        var newItem = document.getElementById('sessionuserfailure');
+                                        $document.duScrollToElementAnimated(angular.element(newItem));
+                                    }, 0);
+                                }
+                            });
+                    }
+                }
+            });
         };
 
 

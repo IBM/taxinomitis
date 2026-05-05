@@ -9,6 +9,9 @@
     <span translate translate-values="{ message: failure.message }">LOGIN.ERROR</span><br/>
     <em ng-if="failure.status >= 500" translate>LOGIN.ERROR_HELP</em>
 </div>
+<div ng-if="turnstileerror" class="alert alert-danger pageheadermsg" role="alert">
+    <strong translate="APP.ERROR"></strong> Unable to verify that you are human ({{ turnstileerror }})
+</div>
 
 
 <div ng-if="!isAuthenticated" class="loginPage"
@@ -43,8 +46,9 @@
                     <span class="glyphicon glyphicon-question-sign"></span>
                 </md-button>
             </label>
-            <button class="btn btn-primary login-button" ng-click="vm.startTryItNowSession()" translate>LOGIN.TRY_NOW</button>
+            <button class="btn btn-primary login-button" ng-click="vm.startTryItNowSession()" ng-disabled="busy" translate>LOGIN.TRY_NOW</button>
         </div>
+        <div id="tryitnow-turnstile-container"></div>
     </div>
 
 
