@@ -1,0 +1,70 @@
+<div class="jumbotron">
+    <h2 class="text-center" translate="LANGUAGEMODEL.MANAGE.TITLE"></h2>
+</div>
+
+<div class="alert alert-danger" ng-if="error">
+    {{ error }}
+</div>
+
+<div class="worksheetsintro">
+    <p translate="LANGUAGEMODEL.MANAGE.INTRO_DOWNLOAD"></p>
+    <p translate="LANGUAGEMODEL.MANAGE.INTRO_BROWSER"></p>
+    <p>To make it easier to do this quickly on multiple computers, this page can be accessed from <a href="/teacher/languagemodels">{{ publicAccessUrl }}</a> without needing to log in first.</p>
+</div>
+
+
+<div class="loading" ng-if="loading"></div>
+
+<div ng-if="!loading" class="teacher-langmodels-table-wrapper">
+    <table class="teacher-langmodels-table">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                <th translate="LANGUAGEMODEL.MANAGE.DOWNLOAD"></th>
+                <th translate="LANGUAGEMODEL.MANAGE.CURRENTSTORAGE"></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="model in models track by model.id">
+                <td>{{ model.label }}</td>
+                <td class="teacher-langmodels-model-id">{{ model.id }}</td>
+                <td ng-if="!model.supported" colspan="3" class="teacher-langmodels-unsupported-text" translate="LANGUAGEMODEL.MANAGE.UNSUPPORTED"></td>
+                <td ng-if="model.supported" class="teacher-langmodels-storage-cell">{{ model.storage }}</td>
+                <td ng-if="model.supported" class="teacher-langmodels-storage-cell">
+                    <span ng-if="!model.refreshing">{{ model.cachedStorage }}</span>
+                    <span ng-if="model.refreshing" translate="LANGUAGEMODEL.MANAGE.CHECKINGCACHE"></span>
+                </td>
+                <td ng-if="model.supported">
+                    <div class="teacher-langmodels-actions">
+                        <md-button class="md-raised md-primary"
+                                    ng-click="downloadModel(model)"
+                                    ng-disabled="downloadInProgress || model.downloading || model.deleting">
+                            <span ng-if="!model.downloading" translate="LANGUAGEMODEL.MANAGE.DOWNLOAD_BUTTON"></span>
+                            <span ng-if="model.downloading">{{ "LANGUAGEMODEL.MANAGE.DOWNLOADING" | translate }} {{ model.downloadProgress | number:0 }}%</span>
+                        </md-button>
+
+                        <md-button class="md-raised"
+                                    ng-click="deleteModel(model)"
+                                    ng-disabled="model.downloading || model.deleting || downloadAllInProgress">
+                            <span ng-if="!model.deleting" translate="LANGUAGEMODEL.MANAGE.DELETE_BUTTON"></span>
+                            <span ng-if="model.deleting" translate="LANGUAGEMODEL.MANAGE.DELETING"></span>
+                        </md-button>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" class="teacher-langmodels-total-label" translate="LANGUAGEMODEL.MANAGE.TOTAL"></td>
+                <td>{{ totalCachedStorage }}</td>
+                <td>
+                    <md-button class="md-raised md-primary"
+                                ng-click="downloadAllModels()"
+                                ng-disabled="downloadInProgress || downloadAllInProgress">
+                        <span translate="LANGUAGEMODEL.MANAGE.DOWNLOAD_ALL"></span>
+                    </md-button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

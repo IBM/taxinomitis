@@ -1,0 +1,49 @@
+.teacher-langmodels-table-wrapper {
+    overflow-x: auto;
+    padding: 1em;
+}
+
+.teacher-langmodels-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    margin-bottom: 6em;
+}
+
+.teacher-langmodels-table th,
+.teacher-langmodels-table td {
+    padding: 6px 12px;
+    border: 1px solid #ddd;
+    vertical-align: middle;
+}
+
+.teacher-langmodels-table th {
+    font-weight: 600;
+}
+
+.teacher-langmodels-model-id {
+    word-break: break-word;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9em;
+}
+
+.teacher-langmodels-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.teacher-langmodels-unsupported-text {
+    font-style: italic;
+    text-align: center;
+}
+
+.teacher-langmodels-total-label {
+    text-align: right;
+    font-weight: bold;
+}
+
+.teacher-langmodels-storage-cell {
+    text-align: right;
+}

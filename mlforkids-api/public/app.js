@@ -105,6 +105,11 @@
                     review: true
                 }
             })
+            .state('teacher_language_models', {
+                url: '/teacher/languagemodels',
+                controller: 'TeacherLangModelsController',
+                templateUrl: 'static/components/teacher_langmodels/teacher_langmodels.html'
+            })
             .state('newproject', {
                 url: '/newproject',
                 controller: 'NewProjectController',

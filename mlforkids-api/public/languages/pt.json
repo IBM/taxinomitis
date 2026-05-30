@@ -1036,6 +1036,21 @@
                 "NOTFOUND": "As palavras no final da tua prompt não foram encontradas em nenhum lugar do teu corpus."
             },
             "SCRATCH": "Usa o teu modelo de linguagem no Scratch"
+        },
+        "MANAGE": {
+            "TITLE": "Small language models management",
+            "INTRO_DOWNLOAD": "Use this page to prepare for a language model lesson by downloading models in advance.",
+            "INTRO_BROWSER": "Changes made on this page affect all users who use this web browser.",
+            "DOWNLOAD": "download size",
+            "CURRENTSTORAGE": "current storage",
+            "UNSUPPORTED": "Unsupported on this browser / device",
+            "CHECKINGCACHE": "Checking cache...",
+            "DOWNLOAD_BUTTON": "Download",
+            "DOWNLOAD_ALL": "Download All",
+            "DOWNLOADING": "Downloading",
+            "DELETE_BUTTON": "Delete",
+            "DELETING": "Deleting...",
+            "TOTAL": "Total"
         }
     },
     "MAKES": {

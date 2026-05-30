@@ -169,6 +169,7 @@ export function setupUI(app: express.Application): void {
     app.get('/about', (req, res) => { res.redirect('/#!/about'); });
     app.get('/projects', (req, res) => { res.redirect('/#!/projects'); });
     app.get('/teacher', (req, res) => { res.redirect('/#!/teacher'); });
+    app.get('/teacher/languagemodels', (req, res) => { res.redirect('/#!/teacher/languagemodels'); });    
     app.get('/worksheets', (req, res) => { res.redirect('/#!/worksheets'); });
     app.get('/help', (req, res) => { res.redirect('/#!/help'); });
     app.get('/signup', (req, res) => { res.redirect('/#!/signup'); });
