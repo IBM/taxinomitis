@@ -29,6 +29,7 @@ const TITANIC  = './data/titanic.csv';
 const POKEMON  = './data/pokemon.csv';
 const PHISHING = './data/phishing.csv';
 const SINGLECLASS  = './data/singleclass.csv';
+const NUMERIC_LABELS = './data/numeric-labels.csv';
 const INVALID = './package.json';
 
 
@@ -582,6 +583,81 @@ describe('verify new number service API', () => {
                 });
         });
 
+        it('should handle numeric labels and convert them to strings', () => {
+            const key = newScratchKey();
+            const trainingRequest = {
+                ...DEFAULT_REQUEST,
+                ...DEV_CREDENTIALS,
+                formData : {
+                    csvfile : fs.createReadStream(NUMERIC_LABELS)
+                },
+            };
+            let modelUrl;
+
+            return request.post(NEW_MODEL_API + key, trainingRequest)
+                .then((resp) => {
+                    modelUrl = resp.urls.model;
+                    return waitForModel(resp.urls.status);
+                })
+                .then((modelinfo) => {
+                    // Verify labels are strings, not numbers
+                    assert.deepStrictEqual(modelinfo.labels, [ '1', '2', '3', '4', '5' ]);
+                    assert.strictEqual(typeof modelinfo.labels[0], 'string');
+                    assert.strictEqual(typeof modelinfo.labels[1], 'string');
+
+                    // Verify feature types
+                    assert.deepStrictEqual(modelinfo.features, {
+                        "100": {
+                            "type": "int64",
+                            "name": "100"
+                        },
+                        "200": {
+                            "type": "int64",
+                            "name": "200"
+                        },
+                        "300": {
+                            "type": "int64",
+                            "name": "300"
+                        },
+                        "mlforkids_outcome_label": {
+                            "type": "str",
+                            "name": "mlforkids_outcome_label"
+                        }
+                    });
+
+                    // Download and test the model
+                    return request.get(modelUrl, { encoding : null });
+                })
+                .then((resp) => {
+                    return ydf.loadModelFromZipBlob(resp);
+                })
+                .then((model) => {
+                    // Verify model structure
+                    assert.deepStrictEqual(model.inputFeatures, [
+                        { name : '100', type : 'NUMERICAL', internalIdx : 0, specIdx : 1 },
+                        { name : '200', type : 'NUMERICAL', internalIdx : 1, specIdx : 2 },
+                        { name : '300', type : 'NUMERICAL', internalIdx : 2, specIdx : 3 },
+                    ]);
+
+                    // Verify label classes are strings (mapped to indices)
+                    assert.deepStrictEqual(model.labelClasses, [ '0', '1', '2', '3', '4' ]);
+
+                    // Test prediction with sample data
+                    const predictions = model.predict({
+                        '100' : [ 689, 894, 1035 ],
+                        '200' : [ 43,  69,  15 ],
+                        '300' : [ 524, 278, 254 ]
+                    });
+
+                    // verify predictions return valid probabilities
+                    assert.strictEqual(predictions.length, 15);
+                    predictions.forEach(pred => {
+                        assert(pred >= 0 && pred <= 1, 'Prediction should be a probability between 0 and 1');
+                    });
+
+                    model.unload();
+                });
+        });
     });
 
 

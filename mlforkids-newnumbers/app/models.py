@@ -61,8 +61,13 @@ def train_model(modelinfo: ModelInfo, dataframe: DataFrame):
     outcome_label = "mlforkids_outcome_label"
 
     try:
+        # Identify classification target label and convert to strings first
+        info("%s : Identifying target label", key)
+        # Convert outcome labels to strings to ensure consistency
+        dataframe[outcome_label] = dataframe[outcome_label].astype(str)
+
         # Attempt to create a visualisation of the data
-        #  using original feature names
+        #  using string versions of original feature names
         create_visualisation(key, dataframe, outcome_label, download_folder)
 
         # Identify feature types for preparing test data
@@ -75,8 +80,8 @@ def train_model(modelinfo: ModelInfo, dataframe: DataFrame):
         for name in feature_names:
             modelinfo["features"][name]["name"] = feature_names[name]
 
-        # Identify classification target label
-        info("%s : Identifying target label", key)
+        # Extract (unique) classes 
+        info("%s : Extracting unique classes", key)
         classes = list(dataframe[outcome_label].unique())
         modelinfo["labels"] = classes
         info("%s : classes in target label : %s", key, classes)
