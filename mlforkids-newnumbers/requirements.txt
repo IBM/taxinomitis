@@ -3,23 +3,23 @@
 #
 
 # REST API support
-fastapi==0.129.0
-uvicorn==0.41.0
-python-multipart==0.0.22
+fastapi==0.136.3
+uvicorn==0.48.0
+python-multipart==0.0.30
 
 # LRU cache
-cachetools==7.0.1
+cachetools==7.1.4
 
 # ML model support
 ydf==0.12.0
 
 # Visualisation support
-scikit-learn==1.8.0
+scikit-learn==1.9.0
 pydotplus==2.0.2
-pandas==3.0.1
+pandas==3.0.3
 
 #
 # dependencies automatically dragged in
 #
-matplotlib==3.10.8
-numpy==2.4.2
+matplotlib==3.10.9
+numpy==2.4.6
