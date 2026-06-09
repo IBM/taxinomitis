@@ -110,6 +110,9 @@ export const CSP_DIRECTIVES: Record<string, string[]> = {
         'https://huggingface.co',
         'https://cas-bridge.xethub.hf.co',
         'https://raw.githubusercontent.com',
+        // used for accessing iTunes from Scratch
+        'https://itunes.apple.com',
+        'https://audio-ssl.itunes.apple.com',
         // useful when running locally
         'https://machinelearningforkids.co.uk',
         // used for CloudFlare Turnstile (captcha)
