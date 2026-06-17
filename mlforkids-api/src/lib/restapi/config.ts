@@ -144,6 +144,18 @@ function removeFrameBlockingHeaders(req: express.Request, res: express.Response,
 }
 
 
+function redirectToScratch(req: express.Request, res: express.Response): void {
+    if (req.query.project) {
+        // keep the URL to an sb3 file if provided
+        res.redirect('/scratch/?project=' + req.query.project);
+    }
+    else {
+        res.redirect('/scratch/');
+    }
+}
+
+
+
 export function setupUI(app: express.Application): void {
     const tfjslocation: string = path.join(__dirname, '/../../../web/static/bower_components/tensorflow-models');
     app.use('/static/bower_components/tensorflow-models', compression(), express.static(tfjslocation, { maxAge : constants.ONE_YEAR }));
@@ -181,8 +193,8 @@ export function setupUI(app: express.Application): void {
     app.get('/pretrained', (req, res) => { res.redirect('/#!/pretrained'); });
     app.get('/book', (req, res) => { res.redirect('/#!/book'); });
 
-    app.get('/scratch', (req, res) => { res.redirect('/scratch/'); });
-    app.get('/scratch3', (req, res) => { res.redirect('/scratch/'); });
+    app.get('/scratch', redirectToScratch);
+    app.get('/scratch3', redirectToScratch);
 
     const stories = [
         'ml-hasnt-replaced-coding',

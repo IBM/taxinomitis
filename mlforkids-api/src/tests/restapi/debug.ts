@@ -34,3 +34,34 @@ describe('REST API - debug', () => {
         it('503', async () => { await checkDebug(httpStatus.SERVICE_UNAVAILABLE); });
     });
 });
+
+
+describe('REST API - scratch redirects', () => {
+
+    let testServer: express.Express;
+
+    before(() => {
+        testServer = testServerSetup();
+    });
+
+    it('redirects with no query params', async () => {
+        await request(testServer)
+            .get('/scratch')
+            .expect(302)
+            .expect('Location', '/scratch/');
+    });
+
+    it('redirects with project query param', async () => {
+        await request(testServer)
+            .get('/scratch?project=abc123')
+            .expect(302)
+            .expect('Location', '/scratch/?project=abc123');
+    });
+
+    it('redirects with multiple query params', async () => {
+        await request(testServer)
+            .get('/scratch?foo=bar&project=abc123')
+            .expect(302)
+            .expect('Location', '/scratch/?project=abc123');
+    });
+});
