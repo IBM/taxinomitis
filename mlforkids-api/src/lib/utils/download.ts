@@ -195,7 +195,7 @@ export function resizeUrl(url: string, width: number, height: number): Promise<B
         const shrinkStream = sharp()
                                 .resize(width, height, RESIZE_OPTIONS)
                                 .on('error', reject)
-                                .toBuffer((err, buff) => {
+                                .toBuffer((err: Error, buff: Buffer) => {
                                     if (err) {
                                         if (err.message === 'Input buffer contains unsupported image format' ||
                                             err.message.startsWith('Input buffer has corrupt header')) {
@@ -220,7 +220,7 @@ export function resizeBuffer(imagedata: Buffer, width: number, height: number): 
         sharp(imagedata)
             .resize(width, height, RESIZE_OPTIONS)
             .on('error', reject)
-            .toBuffer((err, buff) => {
+            .toBuffer((err: Error, buff: Buffer) => {
                 if (err) {
                     log.error({ err }, 'Resize fail');
                     return reject(err);

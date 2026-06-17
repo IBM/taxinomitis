@@ -6,6 +6,10 @@
     ],
     "moduleResolution": "node",
     "module": "commonjs",
+    "paths": {
+      "sharp": ["./node_modules/sharp/dist/index.d.cts"]
+    },
+    "rootDir": "src",
     "outDir": "dist",
     "alwaysStrict": true,
     "removeComments": false,
