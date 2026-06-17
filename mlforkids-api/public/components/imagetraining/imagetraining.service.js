@@ -228,7 +228,7 @@
                     const xs = tf.tidy(() => baseModel.predict(imageData.data));
                     imageData.data.dispose();
 
-                    const labelIdx = modelClasses.indexOf(imageData.metadata.label);
+                    const labelIdx = modelClasses.indexOf(String(imageData.metadata.label));
                     const ys = tf.tidy(() =>
                         tf.oneHot(tf.tensor1d([labelIdx]).toInt(), modelNumClasses)
                     );
@@ -256,7 +256,7 @@
                 const xval = tf.tidy(() => baseModel.predict(imageData.data));
                 imageData.data.dispose();
 
-                const labelIdx = modelClasses.indexOf(imageData.metadata.label);
+                const labelIdx = modelClasses.indexOf(String(imageData.metadata.label));
                 const yval = tf.tidy(() =>
                     tf.oneHot(tf.tensor1d([labelIdx]).toInt(), modelNumClasses)
                 );
