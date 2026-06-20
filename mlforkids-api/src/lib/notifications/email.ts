@@ -37,6 +37,7 @@ export function init(): Promise<void> {
             secure : true,
             auth : { user, pass },
             pool : true,
+            tls : { rejectUnauthorized : false },
         };
         const mailDefaults = {
             from : 'Machine Learning for Kids <' + process.env[env.SMTP_USER] + '>',
