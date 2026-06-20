@@ -18,7 +18,7 @@ export interface RequestPromiseOptions {
     };
     form?: Record<string, any>;
     formData?: Record<string, {
-        value: string | Buffer;
+        value: string;
         options?: {
             filename?: string;
             contentType?: string;
