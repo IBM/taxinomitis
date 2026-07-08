@@ -301,11 +301,28 @@ async function getRegressionExtensionLocalData(projectid: string, projectname: s
 
 
 
+// models that support tool calling
+//
+// copied from functionCallingModelIds in web-llm (src/config.ts)
+//
+// should correspond with toolsupport flags in
+//  public/components/languagemodel/languagemodel.service.js
+const TOOL_SUPPORTING_MODELS: string[] = [
+    'Hermes-2-Pro-Llama-3-8B-q4f16_1-MLC',
+    'Hermes-2-Pro-Llama-3-8B-q4f32_1-MLC',
+    'Hermes-2-Pro-Mistral-7B-q4f16_1-MLC',
+    'Hermes-3-Llama-3.1-8B-q4f32_1-MLC',
+    'Hermes-3-Llama-3.1-8B-q4f16_1-MLC',
+];
+
 export async function getSmallLanguageModelExtension(modelid: string, contextwindow: number): Promise<string>
 {
     const template: string = await fileutils.read('./resources/scratch3-language.js');
     Mustache.parse(template);
-    return Mustache.render(template, { modelid, contextwindow });
+    return Mustache.render(template, {
+        modelid, contextwindow,
+        includeTools : TOOL_SUPPORTING_MODELS.includes(modelid),
+    });
 }
 
 

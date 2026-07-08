@@ -81,6 +81,29 @@ class Scratch3ML4KSmallLanguageModelBlocks {
                         }
                     }
                 },
+{{#includeTools}}
+                {
+                    opcode: 'modelPromptWithTools',
+                    blockType: Scratch.BlockType.REPORTER,
+                    text: 'submit [PROMPT] with tools, using temperature [TEMP] and top-p [TOPP]',
+                    arguments: {
+                        PROMPT: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: 'prompt'
+                        },
+                        TEMP: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: this._modelconfig[0].value,
+                            menu: 'modelconfig'
+                        },
+                        TOPP: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: this._modelconfig[0].value,
+                            menu: 'modelconfig'
+                        }
+                    }
+                },
+{{/includeTools}}
                 {
                     opcode: 'clearContext',
                     blockType: Scratch.BlockType.COMMAND,
@@ -219,6 +242,43 @@ class Scratch3ML4KSmallLanguageModelBlocks {
     }
 
 
+{{#includeTools}}
+    modelPromptWithTools({ PROMPT, TEMP, TOPP, _ml4kTargetId }) {
+        if (this._modelState === 'Ready') {
+            return new Promise((resolve) => {
+                var requestId = this.nextPromptRequest;
+                this.nextPromptRequest += 1;
+
+                this.promptRequests[requestId] = function (response) {
+                    return resolve(response);
+                };
+
+                postMessage({
+                    mlforkidswebllm : {
+                        command : 'prompttools',
+                        data : {
+                            modelid : '{{{ modelid }}}',
+                            contextwindow : {{{contextwindow}}},
+                            requestid : requestId,
+                            input : PROMPT,
+                            temperature: this._sanitisedConfig(TEMP),
+                            top_p: this._sanitisedConfig(TOPP),
+
+                            // _ml4kTargetId identifies the sprite whose tools should
+                            //  be used. It is not a declared block argument: it is
+                            //  injected into the args on the main thread by
+                            //  _prepareBlockInfo in ML4K's
+                            //  scratch-vm/src/extension-support/extension-manager.js,
+                            targetid : _ml4kTargetId
+                        }
+                    }
+                });
+            });
+        }
+    }
+
+
+{{/includeTools}}
     checkModelStatus({ STATUS }) {
         return STATUS === this._modelState;
     }
