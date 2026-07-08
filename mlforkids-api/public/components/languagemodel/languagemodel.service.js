@@ -20,7 +20,8 @@
                 label : 'Smol',
                 developer : 'Hugging Face',
                 storage : '276 MB',
-                storagemb : 276
+                storagemb : 276,
+                toolsupport : false
             },
             {
                 id : 'Qwen2.5-0.5B-Instruct-q4f16_1-MLC',
@@ -30,7 +31,8 @@
                 label : 'Qwen',
                 developer : 'Alibaba',
                 storage : '289 MB',
-                storagemb : 289
+                storagemb : 289,
+                toolsupport : false
             },
             {
                 id : 'TinyLlama-1.1B-Chat-v1.0-q4f16_1-MLC-1k',
@@ -40,7 +42,8 @@
                 label : 'Tiny Llama',
                 developer : 'Singapore University of Technology and Design',
                 storage : '625 MB',
-                storagemb : 625
+                storagemb : 625,
+                toolsupport : false
             },
             {
                 id : 'Llama-3.2-1B-Instruct-q4f16_1-MLC',
@@ -50,7 +53,8 @@
                 label : 'Llama',
                 developer : 'Meta',
                 storage : '711 MB',
-                storagemb : 711
+                storagemb : 711,
+                toolsupport : false
             },
             {
                 id : 'phi-1_5-q4f16_1-MLC',
@@ -60,7 +64,8 @@
                 label : 'Phi',
                 developer : 'Microsoft',
                 storage : '806 MB',
-                storagemb : 806
+                storagemb : 806,
+                toolsupport : false
             },
             {
                 id : 'stablelm-2-zephyr-1_6b-q4f16_1-MLC-1k',
@@ -70,7 +75,8 @@
                 label : 'Zephyr',
                 developer : 'Stability AI',
                 storage : '932 MB',
-                storagemb : 932
+                storagemb : 932,
+                toolsupport : false
             },
             {
                 id : 'gemma-2-2b-it-q4f16_1-MLC-1k',
@@ -80,7 +86,8 @@
                 label : 'Gemma',
                 developer : 'Google',
                 storage : '1.5 GB',
-                storagemb : 1500
+                storagemb : 1500,
+                toolsupport : false
             },
             {
                 id : 'RedPajama-INCITE-Chat-3B-v1-q4f16_1-MLC-1k',
@@ -90,7 +97,19 @@
                 label : 'RedPajama',
                 developer : 'Together',
                 storage : '1.5 GB',
-                storagemb : 1500
+                storagemb : 1500,
+                toolsupport : false
+            },
+            {
+                id : 'Hermes-3-Llama-3.1-8B-q4f16_1-MLC',
+                version : '3.1',
+                size : '8B', 
+                billionparameters : 8.0, 
+                label : 'Hermes',
+                developer : 'Nous Research',
+                storage : '4.2 GB',
+                storagemb : 4200,
+                toolsupport : true
             }
         ];
 
@@ -103,7 +122,8 @@
                 label : 'Smol',
                 developer : 'Hugging Face',
                 storage : '269 MB',
-                storagemb : 269
+                storagemb : 269,
+                toolsupport : false
             },
             {
                 id : 'Qwen2.5-0.5B-Instruct-q4f16_1-MLC',
@@ -113,7 +133,8 @@
                 label : 'Qwen',
                 developer : 'Alibaba',
                 storage : '289 MB',
-                storagemb : 289
+                storagemb : 289,
+                toolsupport : false
             },
             {
                 id : 'TinyLlama-1.1B-Chat-v1.0-q4f32_1-MLC-1k',
@@ -123,7 +144,8 @@
                 label : 'Tiny Llama',
                 developer : 'Singapore University of Technology and Design',
                 storage : '627 MB',
-                storagemb : 627
+                storagemb : 627,
+                toolsupport : false
             },
             {
                 id : 'Llama-3.2-1B-Instruct-q4f16_1-MLC',
@@ -133,7 +155,8 @@
                 label : 'Llama',
                 developer : 'Meta',
                 storage : '711 MB',
-                storagemb : 711
+                storagemb : 711,
+                toolsupport : false
             },
             {
                 id : 'phi-1_5-q4f32_1-MLC',
@@ -143,7 +166,8 @@
                 label : 'Phi',
                 developer : 'Microsoft',
                 storage : '806 MB',
-                storagemb : 806
+                storagemb : 806,
+                toolsupport : false
             },
             {
                 id : 'stablelm-2-zephyr-1_6b-q4f16_1-MLC-1k',
@@ -153,7 +177,8 @@
                 label : 'Zephyr',
                 developer : 'Stability AI',
                 storage : '932 MB',
-                storagemb : 932
+                storagemb : 932,
+                toolsupport : false
             },
             {
                 id : 'gemma-2-2b-it-q4f32_1-MLC-1k',
@@ -163,7 +188,8 @@
                 label : 'Gemma',
                 developer : 'Google',
                 storage : '1.5 GB',
-                storagemb : 1494
+                storagemb : 1494,
+                toolsupport : false
             },
             {
                 id : 'RedPajama-INCITE-Chat-3B-v1-q4f32_1-MLC-1k',
@@ -173,7 +199,19 @@
                 label : 'RedPajama',
                 developer : 'Together',
                 storage : '1.7 GB',
-                storagemb : 1714
+                storagemb : 1714,
+                toolsupport : false
+            },
+            {
+                id : 'Hermes-3-Llama-3.1-8B-q4f16_1-MLC',
+                version : '3.1',
+                size : '8B', 
+                billionparameters : 8.0, 
+                label : 'Hermes',
+                developer : 'Nous Research',
+                storage : '4.2 GB',
+                storagemb : 4200,
+                toolsupport : true
             }
         ];
 
@@ -275,7 +313,7 @@
         }
 
         function getCacheStorageForRequest(cacheName, requestUrl) {
-            return caches.open(cacheName)
+            return window.caches.open(cacheName)
                 .then((cache) => cache.match(requestUrl))
                 .then((response) => {
                     if (!response) {
@@ -286,12 +324,12 @@
         }
 
         function getCacheStorageForPrefix(cacheName, urlPrefix) {
-            return caches.open(cacheName)
+            return window.caches.open(cacheName)
                 .then((cache) => cache.keys())
                 .then((requests) => {
                     const matchingRequests = requests.filter((request) => request.url.indexOf(urlPrefix) === 0);
                     return Promise.all(matchingRequests.map((request) => {
-                        return cacheName && caches.open(cacheName)
+                        return cacheName && window.caches.open(cacheName)
                             .then((cache) => cache.match(request))
                             .then((response) => response ? getResponseSize(response) : 0);
                     }));

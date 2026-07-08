@@ -340,7 +340,7 @@
         <!-- ******************************************************* -->
 
         <div class="modelstep" ng-hide="loading"
-            ng-if="phase === PHASES.SMALL.ARCHITECTURE || phase === PHASES.SMALL.CONTEXTWINDOW || phase === PHASES.SMALL.TEMPERATURE || phase === PHASES.SMALL.RAGCONTEXT || phase === PHASES.SMALL.READY">
+            ng-if="phase === PHASES.SMALL.ARCHITECTURE || phase === PHASES.SMALL.CONTEXTWINDOW || phase === PHASES.SMALL.TEMPERATURE || phase === PHASES.SMALL.RAGCONTEXT || phase === PHASES.SMALL.TOOLS || phase === PHASES.SMALL.READY">
             <div class="resetlink" ng-if="phase === PHASES.SMALL.READY" ng-click="review(PHASES.SMALL.ARCHITECTURE)" translate="LANGUAGEMODEL.REVIEW">Review</div>
             <div class="stepheading" translate="LANGUAGEMODEL.SMALL.TYPE"></div>
             <div class="steprow">
@@ -377,7 +377,7 @@
             <div class="steprow modeldetails chart-container" ng-if="phase === PHASES.SMALL.ARCHITECTURE">
                 <mlchart class="mlchart"
                     chart-data="sizeChartData"
-                    max-value="1500" y-axis-ticks="6"
+                    max-value="sizeChartMax" y-axis-ticks="6"
                     selected-column="project.slm.id"></mlchart>
                 <div class="chart-explanation">
                     <div class="stepexplanation chart-title" translate="LANGUAGEMODEL.SMALL.DISKSPACE.TITLE"></div>
@@ -388,7 +388,7 @@
             <div class="steprow modeldetails chart-container-top" ng-if="phase === PHASES.SMALL.ARCHITECTURE">
                 <mlchart class="mlchart"
                     chart-data="complexityChartData"
-                    max-value="3.0" y-axis-ticks="6"
+                    max-value="complexityChartMax" y-axis-ticks="6"
                     selected-column="project.slm.id"></mlchart>
                 <div class="chart-explanation">
                     <div class="stepexplanation chart-title" translate="LANGUAGEMODEL.SMALL.PARAMETERS.TITLE"></div>
@@ -414,9 +414,9 @@
         <!--   SLM models - choose context window size               -->
         <!-- ******************************************************* -->
 
-        <div class="modelstep" ng-if="phase === PHASES.SMALL.CONTEXTWINDOW || phase === PHASES.SMALL.TEMPERATURE || phase === PHASES.SMALL.RAGCONTEXT || phase === PHASES.SMALL.READY">
+        <div class="modelstep" ng-if="phase === PHASES.SMALL.CONTEXTWINDOW || phase === PHASES.SMALL.TEMPERATURE || phase === PHASES.SMALL.RAGCONTEXT || phase === PHASES.SMALL.TOOLS || phase === PHASES.SMALL.READY">
             <div class="resetlink" ng-if="phase === PHASES.SMALL.READY" ng-click="review(PHASES.SMALL.CONTEXTWINDOW)" translate="LANGUAGEMODEL.REVIEW">Review</div>
-            <div class="stepheading" translate="LANGUAGEMODEL.CONTEXTWINDOW.TITLE" translate="LANGUAGEMODEL.CONTEXTWINDOW.TITLE"></div>
+            <div class="stepheading" translate="LANGUAGEMODEL.CONTEXTWINDOW.TITLE"></div>
             <div class="steprow">
                 <md-select class="rowitem" ng-model="project.slm.contextwindow" ng-required="true" ng-change="modifySmallModelContextWindow()">
                     <md-option ng-value="512">512</md-option>
@@ -442,7 +442,7 @@
         <!--   SLM models - set temperature and top-p                -->
         <!-- ******************************************************* -->
 
-        <div class="modelstep" ng-if="phase === PHASES.SMALL.TEMPERATURE || phase === PHASES.SMALL.RAGCONTEXT || phase === PHASES.SMALL.READY" ng-hide="loading">
+        <div class="modelstep" ng-if="phase === PHASES.SMALL.TEMPERATURE || phase === PHASES.SMALL.RAGCONTEXT || phase === PHASES.SMALL.TOOLS || phase === PHASES.SMALL.READY" ng-hide="loading">
             <div class="resetlink" ng-if="phase === PHASES.SMALL.READY" ng-click="review(PHASES.SMALL.TEMPERATURE)" translate="LANGUAGEMODEL.REVIEW"></div>
             <div class="steprow">
                 <div class="rowitem multicol">
@@ -484,11 +484,11 @@
         <!--   SLM models - add context (RAG)                        -->
         <!-- ******************************************************* -->
 
-        <div class="modelstep" ng-if="phase === PHASES.SMALL.RAGCONTEXT || phase === PHASES.SMALL.READY" ng-hide="loading">
+        <div class="modelstep" ng-if="phase === PHASES.SMALL.RAGCONTEXT || phase === PHASES.SMALL.TOOLS || phase === PHASES.SMALL.READY" ng-hide="loading">
             <div class="resetlink" ng-if="phase === PHASES.SMALL.READY" ng-click="review(PHASES.SMALL.RAGCONTEXT)" translate="LANGUAGEMODEL.REVIEW"></div>
+            <div class="stepheading" translate="LANGUAGEMODEL.INITIALCONTEXT.TITLE"></div>
             <div class="steprow">
                 <div class="rowitem context-controls">
-                    <div class="stepheading" translate="LANGUAGEMODEL.INITIALCONTEXT.TITLE"></div>
                     <button type="button"
                         class="btn btn-default btn-wide"
                         ng-class="{'btn-primary' : project.slm.initialcontext && project.slm.initialcontext.state === 'none' }"
@@ -547,6 +547,82 @@
                 class="btn btn-primary"
                 ng-disabled="!project.slm.initialcontext || (project.slm.initialcontext.state === 'provide' && !project.slm.initialcontext.doc) || reconfiguring"
                 translate="APP.NEXT"
+                ng-click="initSmallModelTools()"></button>
+        </div>
+
+        <!-- ******************************************************* -->
+        <!--   SLM models - tools                                    -->
+        <!-- ******************************************************* -->
+
+        <div class="modelstep" ng-if="phase === PHASES.SMALL.TOOLS || phase === PHASES.SMALL.READY" ng-hide="loading">
+            <div class="resetlink" ng-if="phase === PHASES.SMALL.READY && project.slm.toolsupport" ng-click="review(PHASES.SMALL.TOOLS)" translate="LANGUAGEMODEL.REVIEW"></div>
+            <div class="stepheading" translate="LANGUAGEMODEL.TOOLS.TITLE"></div>
+            <div class="stepexplanation notools" ng-if="!project.slm.toolsupport" translate="LANGUAGEMODEL.TOOLS.UNSUPPORTED"></div>
+            <div class="steprow" ng-if="project.slm.toolsupport">
+                <div class="rowitem tools-controls">
+                    <button type="button"
+                        class="btn btn-default btn-wide"
+                        translate="LANGUAGEMODEL.TOOLS.ENABLE"
+                        ng-class="{'btn-primary' : project.slm.toolsenabled === true }"
+                        ng-click="setSmallModelToolsEnabled(true)"
+                        ng-disabled="loading || reconfiguring || generating || project.slm.toolsenabled === true"></button>
+                    <button type="button"
+                        class="btn btn-default btn-wide"
+                        translate="LANGUAGEMODEL.TOOLS.DISABLE"
+                        ng-class="{'btn-primary' : project.slm.toolsenabled === false }"
+                        ng-click="setSmallModelToolsEnabled(false)"
+                        ng-disabled="loading || reconfiguring || generating || project.slm.toolsenabled === false"></button>
+                    <div class="stepexplanation" ng-if="phase === PHASES.SMALL.TOOLS" translate="LANGUAGEMODEL.TOOLS.DESCRIPTION_1"></div>
+                    <div class="stepexplanation" ng-if="phase === PHASES.SMALL.TOOLS" translate="LANGUAGEMODEL.TOOLS.DESCRIPTION_2"></div>
+                    <div class="stepexplanation" ng-if="phase === PHASES.SMALL.TOOLS" translate="LANGUAGEMODEL.TOOLS.DESCRIPTION_3"></div>
+                    <div class="stepexplanation" ng-if="phase === PHASES.SMALL.TOOLS" translate="LANGUAGEMODEL.TOOLS.DESCRIPTION_4"></div>
+                    <div class="stepexplanation" ng-if="phase === PHASES.SMALL.READY && project.slm.toolsenabled" translate="LANGUAGEMODEL.TOOLS.ENABLED"></div>
+                    <div class="stepexplanation" ng-if="phase === PHASES.SMALL.READY && !project.slm.toolsenabled" translate="LANGUAGEMODEL.TOOLS.DISABLED"></div>
+                </div>
+                <div class="rowitem">
+                    <div class="toolslist" ng-class="{'toolsdisabled' : project.slm.toolsenabled === false }">
+                        <div class="tooldefinition" ng-repeat="tool in slmTools">
+                            <div class="tooltitle">{{ tool.title }}</div>
+                            <div class="tooldescription">{{ tool.description }}</div>
+                            <div class="toolparameters" ng-if="tool.parameters.length > 0">
+                                <div class="toolparameter" ng-repeat="param in tool.parameters">
+                                    <div>
+                                        <span class="toolparametername">{{ param.name }}</span>
+                                    </div>
+                                    <div class="toolparameterdescription">{{ param.description }}</div>
+                                    <input class="toolparameterinput"
+                                        ng-if="param.type === 'Number'"
+                                        type="number"
+                                        placeholder="{{ param.name }}"
+                                        ng-model="param.testvalue"
+                                        ng-disabled="project.slm.toolsenabled === false || loading || generating">
+                                    <input class="toolparameterinput"
+                                        ng-if="param.type !== 'Number'"
+                                        type="text"
+                                        placeholder="{{ param.name }}"
+                                        ng-model="param.testvalue"
+                                        ng-disabled="project.slm.toolsenabled === false || loading || generating">
+                                </div>
+                            </div>
+                            <div class="tooltest">
+                                <button type="button"
+                                    class="btn btn-default"
+                                    translate="LANGUAGEMODEL.TOOLS.TRY"
+                                    ng-click="tryTool(tool)"
+                                    ng-disabled="project.slm.toolsenabled === false || loading || generating || !canRunTool(tool)"></button>
+                                <div class="tooltestoutput" ng-if="tool.testoutput !== undefined">{{ tool.testoutput }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="nextstep" ng-if="phase === PHASES.SMALL.TOOLS" ng-hide="loading">
+            <button type="button"
+                class="btn btn-primary"
+                translate="APP.NEXT"
+                ng-disabled="project.slm.toolsenabled === null || reconfiguring"
                 ng-click="setProjectReady()"></button>
         </div>
 
@@ -622,7 +698,20 @@
                     <div ng-if="generatedmessage.role === 'user'" class="userpromptcontainer">
                         <div class="userprompt" ng-bind-html="generatedmessage.render"></div>
                     </div>
-                    <div ng-if="generatedmessage.role === 'assistant'" class="systemmessage" ng-bind-html="generatedmessage.render"></div>
+                    <div ng-if="generatedmessage.role === 'assistant' && !generatedmessage.tool_calls" class="systemmessage" ng-bind-html="generatedmessage.render"></div>
+                    <div ng-if="generatedmessage.role === 'assistant' && generatedmessage.tool_calls" class="toolmessage">
+                        <div ng-repeat="toolcall in generatedmessage.tool_calls">
+                            <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+                            <span translate="LANGUAGEMODEL.TOOLS.RUNNING"></span>
+                            <span class="toolmessagename">{{ toolcall.function.name }}</span>
+                            <span class="toolmessageargs" ng-if="toolcall.function.arguments && toolcall.function.arguments !== '{}'">{{ toolcall.function.arguments }}</span>
+                        </div>
+                    </div>
+                    <div ng-if="generatedmessage.role === 'tool'" class="toolmessage">
+                        <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+                        <span translate="LANGUAGEMODEL.TOOLS.OUTPUT"></span>
+                        <span class="toolmessageoutput">{{ generatedmessage.content }}</span>
+                    </div>
                 </div>
             </div>
         </div>

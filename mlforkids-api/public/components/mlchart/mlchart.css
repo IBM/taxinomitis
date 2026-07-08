@@ -78,7 +78,7 @@
     width: 100%;
     max-width: 80px;
     background: linear-gradient(to top, #84cbcc, #1864ab);
-    border-radius: 4px 4px 0 0;
+    border-radius: 10px 10px 0 0;
     transition: opacity 0.3s;
     position: absolute;
     bottom: 0;
@@ -87,6 +87,17 @@
 
 .mlchart-bar:hover {
     opacity: 0.8;
+}
+
+.mlchart-bar-cropped {
+    border-radius: 0;
+    clip-path: polygon(
+        0% 7px, 7.14% 0%, 14.29% 7px, 21.43% 0%, 28.57% 7px,
+        35.71% 0%, 42.86% 7px, 50% 0%, 57.14% 7px, 64.29% 0%,
+        71.43% 7px, 78.57% 0%, 85.71% 7px, 92.86% 0%, 100% 7px,
+        100% 100%, 0% 100%);
+    -webkit-mask-image: linear-gradient(to bottom, rgb(0 0 0 / 30%) 0, #000 30px);
+    mask-image: linear-gradient(to bottom, rgb(0 0 0 / 30%) 0, #000 30px);
 }
 
 .mlchart-x-label {
@@ -102,12 +113,12 @@
 
 @media(min-width: 1100px) {
     .mlchart-x-label {
-        font-size: 14px;
+        font-size: 13px;
     }
 }
 @media(max-width: 1100px) {
     .mlchart-x-label {
-        font-size: 11px;
+        font-size: 10px;
     }
 }
 

@@ -179,6 +179,11 @@
     margin-bottom: 0.2em;
 }
 
+.languagemodelpage .modelstep .stepexplanation.notools {
+    color: #707070;
+    font-style: italic;
+}
+
 .languagemodelpage .modelstep .stepcontrols {
     margin-bottom: 1em;
 }
@@ -259,6 +264,20 @@
 
 .languagemodelpage .generatedtext .systemmessage {
     margin-bottom: 15px;
+}
+
+.languagemodelpage .generatedtext .toolmessage {
+    margin-bottom: 15px;
+    padding: 0.25em 0.75em;
+    border-left: 3px solid #999;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.languagemodelpage .generatedtext .toolmessage .toolmessagename,
+.languagemodelpage .generatedtext .toolmessage .toolmessageargs,
+.languagemodelpage .generatedtext .toolmessage .toolmessageoutput {
+    font-weight: bold;
 }
 
 .languagemodelpage .generatedtext .generatedtoken {
@@ -440,6 +459,87 @@
 
 .languagemodelpage .testing-container {
     margin-top: 2em;
+}
+
+.languagemodelpage .tools-controls {
+    padding-left: 0.5em;
+    padding-right: 2em;
+    flex: initial;
+    max-width: 22em;
+}
+
+.languagemodelpage .tools-controls .stepexplanation:first-of-type {
+    margin-top: 1em;
+}
+
+.languagemodelpage .toolslist {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1em;
+}
+
+.languagemodelpage .toolslist .tooldefinition {
+    flex: 1;
+    min-width: 15em;
+    max-width: 25em;
+    padding: 1em;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+}
+
+.languagemodelpage .toolslist.toolsdisabled .tooldefinition {
+    opacity: 0.4;
+    filter: grayscale(1);
+}
+
+.languagemodelpage .tooldefinition .tooltitle {
+    font-family: monospace;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+}
+
+.languagemodelpage .tooldefinition .toolparameters {
+    margin-top: 0.5em;
+}
+
+.languagemodelpage .tooldefinition .toolparameter {
+    margin-top: 0.5em;
+}
+
+.languagemodelpage .tooldefinition .toolparametername {
+    font-family: monospace;
+}
+
+.languagemodelpage .tooldefinition .toolparameterdescription {
+    color: #666;
+    font-size: 0.9em;
+}
+
+.languagemodelpage .tooldefinition .toolparameterinput {
+    width: 100%;
+    padding: 0.25em 0.5em;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 0.25em;
+}
+
+.languagemodelpage .tooldefinition .tooltest {
+    margin-top: auto;
+    padding-top: 1em;
+}
+
+.languagemodelpage .tooldefinition .tooltestoutput {
+    margin-top: 0.5em;
+    padding: 0.5em;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: monospace;
+    overflow-wrap: break-word;
 }
 
 .languagemodelpage .testing-input-row {

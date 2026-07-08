@@ -972,6 +972,22 @@
             "DESCRIPTION": "Additional text that is included with the first prompt, to provide additional knowledge that is missing from the model."
         },
 
+        "TOOLS": {
+            "TITLE": "Tools",
+            "UNSUPPORTED": "This model does not support using tools.",
+            "ENABLE": "Enable",
+            "DISABLE": "Disable",
+            "DESCRIPTION_1": "Some models can use 'tools' to get information not already in their knowledge.",
+            "DESCRIPTION_2": "Three simple tools are provided here to try.",
+            "DESCRIPTION_3": "Normally language models decide for themselves when to use tools. For this example, when you enable tools, the model will always use a tool to respond to your prompt.",
+            "DESCRIPTION_4": "Disable it when you want it to use its own knowledge.",
+            "ENABLED": "The model will use a tool to respond to the next prompt.",
+            "DISABLED": "The model will <strong>not</strong> use tools to respond to the next prompt.",
+            "TRY": "try this tool",
+            "RUNNING": "running tool",
+            "OUTPUT": "tool output"
+        },
+
         "CONTEXTWINDOW": {
             "TITLE": "Size of context window",
             "DESCRIPTION": "How much text the model looks at before generating the next word. A smaller window means it works with less previous text. A larger window allows it to use more, which can make responses more accurate but needs more computer memory."

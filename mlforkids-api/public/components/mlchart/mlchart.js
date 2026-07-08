@@ -12,10 +12,12 @@ angular.module('app')
             },
 
             link : function ($scope, element, attrs, controller, transcludeFn) {
-                $scope.yAxisLabels = [];
-                for (let i = $scope.yAxisTicks; i >= 0; i--) {
-                    $scope.yAxisLabels.push($scope.maxValue * i / $scope.yAxisTicks);
-                }
+                $scope.$watch('maxValue', function (maxValue) {
+                    $scope.yAxisLabels = [];
+                    for (let i = $scope.yAxisTicks; i >= 0; i--) {
+                        $scope.yAxisLabels.push(Math.round(maxValue * i / $scope.yAxisTicks * 100) / 100);
+                    }
+                });
             }
         };
     })
@@ -27,10 +29,12 @@ angular.module('app')
                 maxValue: '='
             },
             link: function (scope, element, attrs) {
-                scope.$watch('mlchartBarHeight', function(value) {
+                scope.$watchGroup(['mlchartBarHeight', 'maxValue'], function() {
+                    const value = scope.mlchartBarHeight;
                     if (value !== undefined && scope.maxValue) {
                         const heightPercent = (value / scope.maxValue * 100);
-                        element[0].style.setProperty('--bar-height', heightPercent + '%');
+                        element[0].style.setProperty('--bar-height', Math.min(100, heightPercent) + '%');
+                        element.toggleClass('mlchart-bar-cropped', heightPercent > 100);
                     }
                 });
             }

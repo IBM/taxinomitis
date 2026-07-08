@@ -973,6 +973,22 @@
             "DESCRIPTION": "Texto adicional incluído na primeira prompt, para fornecer conhecimentos adicionais que estão em falta no modelo."
         },
 
+        "TOOLS": {
+            "TITLE": "Tools",
+            "UNSUPPORTED": "This model does not support using tools.",
+            "ENABLE": "Enable",
+            "DISABLE": "Disable",
+            "DESCRIPTION_1": "Some models can use 'tools' to get information not already in their knowledge.",
+            "DESCRIPTION_2": "Three simple tools are provided here to try.",
+            "DESCRIPTION_3": "Normally language models decide for themselves when to use tools. For this example, when you enable tools, the model will always use a tool to respond to your prompt.",
+            "DESCRIPTION_4": "Disable it when you want it to use its own knowledge.",
+            "ENABLED": "The model will use a tool to respond to the next prompt.",
+            "DISABLED": "The model will <strong>not</strong> use tools to respond to the next prompt.",
+            "TRY": "try this tool",
+            "RUNNING": "running tool",
+            "OUTPUT": "tool output"
+        },
+
         "CONTEXTWINDOW": {
             "TITLE": "Tamanho da janela de contexto",
             "DESCRIPTION": "A quantidade de texto que o modelo analisa antes de gerar a próxima palavra. Uma janela menor significa que ele trabalha com menos texto anterior. Uma janela maior permite que ele use mais, o que pode tornar as respostas mais precisas, mas requer mais memória do computador."
