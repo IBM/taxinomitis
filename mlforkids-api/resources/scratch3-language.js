@@ -85,7 +85,7 @@ class Scratch3ML4KSmallLanguageModelBlocks {
                 {
                     opcode: 'modelPromptWithTools',
                     blockType: Scratch.BlockType.REPORTER,
-                    text: 'submit [PROMPT] with tools, using temperature [TEMP] and top-p [TOPP]',
+                    text: 'submit [PROMPT] with tools, temperature [TEMP] top-p [TOPP]',
                     arguments: {
                         PROMPT: {
                             type: Scratch.ArgumentType.STRING,
@@ -93,12 +93,12 @@ class Scratch3ML4KSmallLanguageModelBlocks {
                         },
                         TEMP: {
                             type: Scratch.ArgumentType.NUMBER,
-                            defaultValue: this._modelconfig[0].value,
+                            defaultValue: '0.2',
                             menu: 'modelconfig'
                         },
                         TOPP: {
                             type: Scratch.ArgumentType.NUMBER,
-                            defaultValue: this._modelconfig[0].value,
+                            defaultValue: '0.2',
                             menu: 'modelconfig'
                         }
                     }
