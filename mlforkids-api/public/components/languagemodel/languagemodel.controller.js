@@ -936,6 +936,19 @@
                 });
         };
 
+        // invoked when the user picks a different model from the list
+        //  (not used when restoring a saved project, so that the saved
+        //   tools choice is kept)
+        $scope.changeSmallLanguageModel = function () {
+            loggerService.debug('[ml4klanguage] changeSmallLanguageModel');
+
+            $scope.lookupSmallLanguageModelDetails();
+
+            // the tools choice needs to be made again for the new model
+            //  (models without tool support have tools disabled)
+            $scope.project.slm.toolsenabled = $scope.project.slm.toolsupport ? null : false;
+        };
+
         // the selected model has changed - update the UI with info about the new model
         $scope.lookupSmallLanguageModelDetails = function () {
             loggerService.debug('[ml4klanguage] lookupSmallLanguageModelDetails');
@@ -1681,7 +1694,19 @@
         //  own system prompt) so a copy of the messages is always returned
         function getMessagesPayload(usingTools) {
             return $scope.generatedmessages
-                .filter((m) => !m.inprogress)
+                .filter((m) => {
+                    if (m.inprogress) {
+                        return false;
+                    }
+                    // tool-calling exchanges are only submitted when tools
+                    //  are enabled - no information is lost by leaving them
+                    //  out, as the outcome of each exchange is repeated in
+                    //  a regular assistant message
+                    if (!usingTools && (m.tool_calls || m.role === 'tool')) {
+                        return false;
+                    }
+                    return true;
+                })
                 .map((m) => {
                     const message = { role : m.role, content : m.content };
                     // WebLLM does not allow a custom system prompt to be used

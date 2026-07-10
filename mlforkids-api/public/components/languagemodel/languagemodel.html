@@ -345,7 +345,7 @@
             <div class="stepheading" translate="LANGUAGEMODEL.SMALL.TYPE"></div>
             <div class="steprow">
                 <md-select class="rowitem"
-                    ng-model="project.slm.id" ng-change="lookupSmallLanguageModelDetails()"
+                    ng-model="project.slm.id" ng-change="changeSmallLanguageModel()"
                     ng-required="true"
                     placeholder="choose a small language model"
                     ng-disabled="project.slm.download >= 0 && project.slm.download !== 100">
