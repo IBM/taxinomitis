@@ -8,6 +8,7 @@
     "codeenginejob": "node dist/lib/batch.js",
     "___comment1": "=== BUILD SYSTEM ===",
     "clean": "node build-scripts/clean.js",
+    "prepare-release": "node build-scripts/prepare-release.js",
     "compile": "tsc",
     "compile:watch": "tsc --watch",
     "___comment2": "--- UI Dependencies ---",
