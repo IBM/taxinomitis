@@ -114,6 +114,7 @@
 
             if (confirmation) {
                 requestConfirmationBeforeFunction(confirmation, runOp, function () {
+                    onfail();
                     $scope.busy = false;
                 });
             }
@@ -169,7 +170,7 @@
                 if (!selections[fromgroup]) {
                     selections[fromgroup] = [];
                 }
-                return true;
+                return selections[fromgroup].length > 0;
             };
 
             var movingStudents = getAndMarkSelectedStudents(fromgroup);
@@ -218,7 +219,7 @@
                 if (!selections[group]) {
                     selections[group] = [];
                 }
-                return true;
+                return selections[group].length > 0;
             };
 
             var movingStudents = getAndMarkSelectedStudents(group);
@@ -683,8 +684,8 @@
                                     const usernames = txtfilereader.result
                                                         .split(NEWLINES)
                                                         .map(line => line.trim().substring(0, 15).trim())
-                                                        .filter(line => line.length > 2)
                                                         .map(line => line.replaceAll(INVALID_USERNAME_CHARS, ''))
+                                                        .filter(line => line.length > 2)
                                                         .reduce((acc, cur) => acc.includes(cur) ? acc : [...acc, cur], []);
                                     $scope.$applyAsync(() => {
                                         $scope.userstoimport = usernames.slice(0, remaining);

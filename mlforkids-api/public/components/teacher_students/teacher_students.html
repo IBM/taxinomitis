@@ -51,14 +51,14 @@
         <div class="panel panel-default group-panel" ng-repeat="group in vm.profile.groups">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" href="#group{{$index}}" target="_self" ng-click="collapsePanel(group)">
+                    <a ng-click="collapsePanel(group)">
                         <span ng-click="" ng-hide="isPanelCollapsed(group)" class="glyphicon glyphicon-chevron-right"></span>
                         <span ng-click="" ng-if="isPanelCollapsed(group)" class="glyphicon glyphicon-chevron-down"></span>
                         {{ 'TEACHER.STUDENTMANAGEMENT.GROUPS.LABEL' | translate }}: {{ group }}
                     </a>
                 </h4>
             </div>
-            <div id="group{{$index}}" class="panel-collapse collapse">
+            <div id="group{{$index}}" class="panel-collapse collapse" ng-class="{in: isPanelCollapsed(group)}">
                 <div class="panel-body">
                     <div ng-hide="vm.groupedStudents[group]" class="loading"> </div>
 
@@ -166,14 +166,14 @@
         <div class="panel panel-default group-panel">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" href="#ungrouped" target="_self" ng-click="fetchAndDisplayUngroupedStudents()">
+                    <a ng-click="fetchAndDisplayUngroupedStudents()">
                         <span ng-hide="ungroupedStudentsExpanded" class="glyphicon glyphicon-chevron-right" ng-click=""></span>
                         <span ng-if="ungroupedStudentsExpanded" class="glyphicon glyphicon-chevron-down"    ng-click=""></span>
                         {{ 'TEACHER.STUDENTMANAGEMENT.GROUPS.UNGROUPED' | translate }}
                     </a>
                 </h4>
             </div>
-            <div id="ungrouped" class="panel-collapse collapse">
+            <div id="ungrouped" class="panel-collapse collapse" ng-class="{in: ungroupedStudentsExpanded}">
                 <div class="panel-body">
                     <div ng-hide="vm.ungroupedStudents" class="loading"> </div>
 

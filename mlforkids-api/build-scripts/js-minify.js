@@ -62,7 +62,7 @@ function findJsFiles(dir) {
         const fullPath = path.join(dir, entry.name);
         if (entry.isDirectory()) {
             files.push(...findJsFiles(fullPath));
-        } else if (entry.name.endsWith('.js')) {
+        } else if (entry.name.endsWith('.js') && !entry.name.endsWith('.spec.js')) {
             files.push(fullPath);
         }
     }

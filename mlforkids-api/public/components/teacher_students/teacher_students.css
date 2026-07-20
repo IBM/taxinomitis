@@ -74,6 +74,9 @@
 .adminpage .group-panel {
     margin-top: 15px;
 }
+.adminpage .group-panel .panel-title a {
+    cursor: pointer;
+}
 
 .adminpage .delete-button-spacing {
     margin-top: 18px;
