@@ -34,6 +34,19 @@
 
         vm.deployment = $stateParams.DEPLOYMENT;
 
+        vm.showTurnstileErrorHelp = function (ev) {
+            $mdDialog.show({
+                templateUrl : 'static/components/login/turnstileerror.tmpl.html',
+                autoWrap : false,
+                targetEvent : ev,
+                controller : function ($scope) {
+                    $scope.close = function() {
+                        $mdDialog.hide();
+                    };
+                }
+            });
+        };
+
         vm.startTryItNowSession = function (ev) {
             loggerService.debug('[ml4klogin] starting Try It Now');
 

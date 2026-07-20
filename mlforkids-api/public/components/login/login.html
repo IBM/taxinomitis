@@ -10,7 +10,9 @@
     <em ng-if="failure.status >= 500" translate>LOGIN.ERROR_HELP</em>
 </div>
 <div ng-if="turnstileerror" class="alert alert-danger pageheadermsg" role="alert">
-    <strong translate="APP.ERROR"></strong> Unable to verify that you are human ({{ turnstileerror }})
+    <strong translate="APP.ERROR"></strong>
+    <span translate translate-values="{ code: turnstileerror }">LOGIN.TURNSTILE_ERROR</span>
+    (<a href="" ng-click="vm.showTurnstileErrorHelp($event)" translate>LOGIN.TURNSTILE_ERROR_MORE</a>)
 </div>
 
 
