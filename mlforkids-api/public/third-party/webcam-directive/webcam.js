@@ -98,7 +98,10 @@ angular.module('webcam', [])
           }
 
           /* Start playing the video to show the stream from the webcam */
-          videoElem.play();
+          var playPromise = videoElem.play();
+          if (playPromise && typeof playPromise.catch === 'function') {
+            playPromise.catch(onFailure);
+          }
           $scope.config.video = videoElem;
 
           /* Call custom callback */
