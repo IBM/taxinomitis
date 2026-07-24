@@ -14,32 +14,42 @@
         const MAX_SIZE = 224;
 
         function getDataFromImageSource(imagesource, format) {
-            return $q(function (resolve) {
-                // --- calculate dimensions of the image
-                var width = imagesource.width;
-                var height = imagesource.height;
-                if (width > height) {
-                    if (width > MAX_SIZE) {
-                        height = height * (MAX_SIZE / width);
-                        width = MAX_SIZE;
+            return $q(function (resolve, reject) {
+                try {
+                    // --- calculate dimensions of the image
+                    var width = imagesource.width;
+                    var height = imagesource.height;
+                    if (width > height) {
+                        if (width > MAX_SIZE) {
+                            height = height * (MAX_SIZE / width);
+                            width = MAX_SIZE;
+                        }
                     }
-                }
-                else if (height > MAX_SIZE) {
-                    width = width * (MAX_SIZE / height);
-                    height = MAX_SIZE;
-                }
+                    else if (height > MAX_SIZE) {
+                        width = width * (MAX_SIZE / height);
+                        height = MAX_SIZE;
+                    }
 
-                // --- resize the image
-                var hiddenCanvas = document.createElement('canvas');
-                hiddenCanvas.width = width;
-                hiddenCanvas.height = height;
-                var ctx = hiddenCanvas.getContext('2d');
-                ctx.drawImage(imagesource, 0, 0, width, height);
+                    // --- resize the image
+                    var hiddenCanvas = document.createElement('canvas');
+                    hiddenCanvas.width = width;
+                    hiddenCanvas.height = height;
+                    var ctx = hiddenCanvas.getContext('2d');
+                    ctx.drawImage(imagesource, 0, 0, width, height);
 
-                // --- get resized image data
-                hiddenCanvas.toBlob(function (output) {
-                    resolve(output);
-                }, format);
+                    // --- get resized image data
+                    hiddenCanvas.toBlob(function (output) {
+                        if (output) {
+                            resolve(output);
+                        }
+                        else {
+                            reject(new Error('Unable to create image data from file'));
+                        }
+                    }, format);
+                }
+                catch (resizeErr) {
+                    reject(resizeErr);
+                }
             });
         }
 
@@ -56,7 +66,13 @@
                             getDataFromImageSource(resizedImg, file.type)
                                 .then(function (data) {
                                     resolve(data);
+                                })
+                                .catch(function (resizeErr) {
+                                    reject(resizeErr);
                                 });
+                        };
+                        resizedImg.onerror = function (imageErr) {
+                            reject(imageErr);
                         };
                         resizedImg.src = imageFileReader.result;
                     };
