@@ -90,6 +90,17 @@
         }
 
 
+        // a cached db handle can be in the process of closing (its onversionchange
+        // fired and called close()) before its onclose has fired to clear the cache -
+        // trying to start a transaction on it in that window throws this
+        function isClosingDatabase(err) {
+            return err &&
+                   err.name === 'InvalidStateError' &&
+                   err.message &&
+                   err.message.indexOf('The database connection is closing') !== -1;
+        }
+
+
         // request that the browser treats data stored by mlforkids as
         //  persistent, rather than best effort
         // the request is more likely to be granted after the user has
@@ -235,6 +246,23 @@
                     loggerService.debug('[ml4kstorage] training database closed', projectId);
                     delete trainingDataDatabases[projectId];
                 };
+            }
+        }
+        // starts a transaction on the cached training db handle, reopening it once
+        // if the cached handle turns out to already be closing (see isClosingDatabase)
+        async function getTrainingTableTransaction(projectId, mode) {
+            await requiresTrainingDatabase(projectId);
+            try {
+                return trainingDataDatabases[projectId].transaction([ TRAINING_TABLE ], mode);
+            }
+            catch (err) {
+                if (isClosingDatabase(err)) {
+                    loggerService.debug('[ml4kstorage] cached training db handle is closing - reopening', projectId);
+                    delete trainingDataDatabases[projectId];
+                    await requiresTrainingDatabase(projectId);
+                    return trainingDataDatabases[projectId].transaction([ TRAINING_TABLE ], mode);
+                }
+                throw err;
             }
         }
         async function requiresAssetsDatabase() {
@@ -552,7 +580,7 @@
             await promisifyIndexedDbRequest(updateRequest);
 
             // -- update training data items
-            const trainingTransaction = trainingDataDatabases[projectId].transaction([ TRAINING_TABLE ], 'readwrite');
+            const trainingTransaction = await getTrainingTableTransaction(projectId, 'readwrite');
             const trainingTable = trainingTransaction.objectStore(TRAINING_TABLE);
             trainingTable.index('label').openCursor(IDBKeyRange.only(removedlabel)).onsuccess = function (event) {
                 const cursor = event.target.result;
@@ -573,10 +601,8 @@
         async function getTrainingData(projectId) {
             loggerService.debug('[ml4kstorage] getTrainingData', projectId);
 
-            await requiresTrainingDatabase(projectId);
-
             try {
-                const transaction = trainingDataDatabases[projectId].transaction([ TRAINING_TABLE ], 'readonly');
+                const transaction = await getTrainingTableTransaction(projectId, 'readonly');
                 const request = transaction.objectStore(TRAINING_TABLE).getAll();
 
                 return promisifyIndexedDbRequest(request)
@@ -605,9 +631,7 @@
         async function countTrainingData(projectId) {
             loggerService.debug('[ml4kstorage] countTrainingData', projectId);
 
-            await requiresTrainingDatabase(projectId);
-
-            const transaction = trainingDataDatabases[projectId].transaction([ TRAINING_TABLE ], 'readonly');
+            const transaction = await getTrainingTableTransaction(projectId, 'readonly');
             const request = transaction.objectStore(TRAINING_TABLE).count();
 
             return promisifyIndexedDbRequest(request)
@@ -620,9 +644,7 @@
         async function getTrainingDataItem(projectId, trainingDataId) {
             loggerService.debug('[ml4kstorage] getTrainingDataItem');
 
-            await requiresTrainingDatabase(projectId);
-
-            const transaction = trainingDataDatabases[projectId].transaction([ TRAINING_TABLE ], 'readonly');
+            const transaction = await getTrainingTableTransaction(projectId, 'readonly');
             const request = transaction.objectStore(TRAINING_TABLE).get(requiresIntegerId(trainingDataId));
 
             return promisifyIndexedDbRequest(request)
@@ -635,9 +657,7 @@
         async function addTrainingData(projectId, trainingObject) {
             loggerService.debug('[ml4kstorage] addTrainingData');
 
-            await requiresTrainingDatabase(projectId);
-
-            const transaction = trainingDataDatabases[projectId].transaction([ TRAINING_TABLE ], 'readwrite');
+            const transaction = await getTrainingTableTransaction(projectId, 'readwrite');
             const request = transaction.objectStore(TRAINING_TABLE).add(trainingObject);
 
             return promisifyIndexedDbRequest(request)
@@ -660,9 +680,7 @@
         async function bulkAddTrainingData(projectId, trainingObjects) {
             loggerService.debug('[ml4kstorage] bulkAddTrainingData');
 
-            await requiresTrainingDatabase(projectId);
-
-            const transaction = trainingDataDatabases[projectId].transaction([ TRAINING_TABLE ], 'readwrite');
+            const transaction = await getTrainingTableTransaction(projectId, 'readwrite');
             const trainingTable = transaction.objectStore(TRAINING_TABLE)
 
             return new Promise(function (resolve, reject) {
@@ -700,9 +718,7 @@
         async function deleteTrainingData(projectId, trainingDataId) {
             loggerService.debug('[ml4kstorage] deleteTrainingData');
 
-            await requiresTrainingDatabase(projectId);
-
-            const transaction = trainingDataDatabases[projectId].transaction([ TRAINING_TABLE ], 'readwrite');
+            const transaction = await getTrainingTableTransaction(projectId, 'readwrite');
             transaction.objectStore(TRAINING_TABLE).delete(requiresIntegerId(trainingDataId));
 
             return promisifyIndexedDbTransaction(transaction);
@@ -712,9 +728,7 @@
         async function clearTrainingData(projectId) {
             loggerService.debug('[ml4kstorage] clearTrainingData');
 
-            await requiresTrainingDatabase(projectId);
-
-            const transaction = trainingDataDatabases[projectId].transaction([ TRAINING_TABLE ], 'readwrite');
+            const transaction = await getTrainingTableTransaction(projectId, 'readwrite');
             transaction.objectStore(TRAINING_TABLE).clear();
 
             return promisifyIndexedDbTransaction(transaction);
