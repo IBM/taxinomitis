@@ -17,26 +17,30 @@ module.exports = function (config) {
 
             'test/karma/fake-app-module.js',
 
-            'public/components/projects/*.js',
             'public/components/newproject/*.js',
+            'public/components/projects/*.js',
             'public/components/teacher_students/*.js',
+            'public/components/training/*.js',
+            'public/components/worksheets/*.js',
             'public/components/utils/*.js',
             'public/third-party/webcam-directive/*.js',
 
             // loaded into $templateCache (via ngHtml2JsPreprocessor below) so
             // DOM-level tests can compile fragments of the *real* template
             // instead of a hand-copied - and driftable - duplicate of it
-            'public/components/teacher_students/teacher_students.html'
+            'public/components/teacher_students/teacher_students.html',
+            'public/components/training/training.html'
         ],
 
         exclude : [],
 
         preprocessors : {
-            'public/components/teacher_students/teacher_students.html' : ['ng-html2js']
+            'public/components/teacher_students/teacher_students.html' : ['ng-html2js'],
+            'public/components/training/training.html' : ['ng-html2js']
         },
 
         ngHtml2JsPreprocessor : {
-            moduleName : 'teacherStudentsTemplates'
+            moduleName : 'ml4kTemplates'
         },
 
         reporters : ['progress'],

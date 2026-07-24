@@ -69,7 +69,7 @@ describe('TeacherStudentsController - group twisty click handling', function () 
     }
 
     beforeEach(module('app'));
-    beforeEach(module('teacherStudentsTemplates'));
+    beforeEach(module('ml4kTemplates'));
 
     // The real markup includes a `| translate` filter, which this test
     // doesn't otherwise load (see test/karma/fake-app-module.js) - stub it
