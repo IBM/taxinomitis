@@ -305,6 +305,7 @@
             var data;
             var placeholder;
 
+            var invalid = false;
             var duplicate = false;
 
             var storeTrainingDataFn = trainingService.newTrainingData;
@@ -312,10 +313,15 @@
             if ($scope.project.type === 'text') {
                 data = resp;
 
-                var lc = data.toLowerCase();
-                duplicate = $scope.training[label].some(function (existingitem) {
-                    return existingitem.textdata.toLowerCase() === lc;
-                });
+                if (!data || data.trim().length === 0) {
+                    invalid = true;
+                }
+                else {
+                    var lc = data.toLowerCase();
+                    duplicate = $scope.training[label].some(function (existingitem) {
+                        return existingitem.textdata.toLowerCase() === lc;
+                    });
+                }
 
                 placeholder = {
                     id : 'placeholder_' + (placeholderId++),
@@ -328,6 +334,10 @@
             else if ($scope.project.type === 'numbers') {
                 data = getNumberValues(resp);
 
+                invalid = data.some(function (value) {
+                    return typeof value !== 'number' || isNaN(value);
+                });
+
                 placeholder = {
                     id : 'placeholder_' + (placeholderId++),
                     label : label,
@@ -339,9 +349,14 @@
             else if ($scope.project.type === 'imgtfjs') {
                 data = resp;
 
-                duplicate = $scope.training[label].some(function (existingitem) {
-                    return existingitem.imageurl === data;
-                });
+                if (!data || data.trim().length === 0) {
+                    invalid = true;
+                }
+                else {
+                    duplicate = $scope.training[label].some(function (existingitem) {
+                        return existingitem.imageurl === data;
+                    });
+                }
 
                 placeholder = {
                     id : 'placeholder_' + (placeholderId++),
@@ -357,6 +372,8 @@
                 // (could use Array.from(resp) but IE doesnt like it)
                 data = Array.prototype.slice.call(resp);
 
+                invalid = data.length === 0;
+
                 // duplicates are super unlikely so we're not going to
                 //  waste time checking
 
@@ -370,6 +387,12 @@
 
                 // IMPORTANT - we use a different API for uploading sound
                 storeTrainingDataFn = trainingService.uploadSound;
+            }
+
+            if (invalid) {
+                return displayAlert('errors', 400, {
+                    message : 'That does not look like a valid training example'
+                });
             }
 
             if (duplicate) {
@@ -555,6 +578,10 @@
                         .then((devices) => {
                             if (devices.length > 0) {
                                 webcams = devices;
+                                if (currentWebcamIdx >= webcams.length) {
+                                    // the remembered camera from a previous session no longer exists
+                                    currentWebcamIdx = 0;
+                                }
                                 $scope.channel.videoOptions = webcams[currentWebcamIdx];
                                 $scope.multipleWebcams = webcams.length > 1;
                                 loggerService.debug('[ml4ktraining] webcam config', $scope.channel.videoOptions);
@@ -774,7 +801,7 @@
 
                         soundTrainingService.collectExample(label)
                             .then(function (spectogram) {
-                                clearInterval(progressInterval);
+                                $interval.cancel(progressInterval);
                                 $scope.$applyAsync(() => {
                                     $scope.recordingprogress = 100;
                                     if (spectogram && spectogram.data && spectogram.data.length > 0) {
@@ -784,7 +811,7 @@
                                 });
                             })
                             .catch(function (err) {
-                                clearInterval(progressInterval);
+                                $interval.cancel(progressInterval);
                                 $scope.$applyAsync(() => {
                                     $scope.recording = false;
                                     displayAlert('errors', 500, err);
@@ -920,6 +947,9 @@
 
                     try {
                         const txtfilereader = readersService.createFileReader();
+                        var existingTextLower = $scope.training[label].map(function (item) {
+                            return item.textdata.toLowerCase();
+                        });
                         txtfilereader.readAsText(file);
                         txtfilereader.onload = function () {
                             trainingService.bulkAddTrainingData($scope.project,
@@ -928,6 +958,7 @@
                                             .map(line => line.substring(0, 1024).trim())
                                             .filter(line => line.length > 0)
                                             .reduce((acc, cur) => acc.includes(cur) ? acc : [...acc, cur], [])
+                                            .filter(line => existingTextLower.indexOf(line.toLowerCase()) === -1)
                                             .map(function (line) {
                                                 return { label, textdata : line };
                                             }))
@@ -999,9 +1030,23 @@
         };
 
         vm.deleteAllRegression = function (ev) {
-            // TODO ask for confirmation?
-            $scope.training = [];
-            trainingService.clearTrainingData($scope.project);
+            var confirm = $mdDialog.confirm()
+                .title('Are you sure?')
+                .textContent('Do you want to delete all of your training data? (This cannot be undone)')
+                .ariaLabel('Confirm')
+                .targetEvent(ev)
+                .ok('Yes')
+                .cancel('No');
+
+            $mdDialog.show(confirm).then(
+                function() {
+                    $scope.training = [];
+                    trainingService.clearTrainingData($scope.project);
+                },
+                function() {
+                    // cancelled. do nothing
+                }
+            );
         };
 
         vm.deleteRegressionItem = function (item) {

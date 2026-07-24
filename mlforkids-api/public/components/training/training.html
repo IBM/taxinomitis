@@ -146,7 +146,7 @@
                         type="file"
                         accept=".txt"
                         data-label="{{ ::label }}"
-                        onchange="angular.element(this).scope().uploadTrainingData(event, this)"/>
+                        onchange="var s = angular.element(this).scope(); if (s) { s.uploadTrainingData(event, this); }"/>
                     <label class="btn newexamplebutton" for="numbers-file-upload-{{$index}}" ng-if="project.type === 'numbers' && project.storage === 'local'">
                         <div class="thin buttonicon glyphicon glyphicon-open-file"></div>
                         <div class="newexamplelabel" translate="TRAINING.ADDFROMFILE"></div>
@@ -155,7 +155,7 @@
                         type="file"
                         accept=".csv"
                         data-label="{{ ::label }}"
-                        onchange="angular.element(this).scope().uploadTrainingData(event, this)"/>
+                        onchange="var s = angular.element(this).scope(); if (s) { s.uploadTrainingData(event, this); }"/>
                     <div class="btn newexamplebutton" ng-if="(project.type === 'text' || project.type === 'numbers') && training[label].length > 0 " ng-click="downloadTrainingData($event, label)">
                         <div class="thin buttonicon glyphicon glyphicon-save-file"></div>
                         <div class="newexamplelabel" translate="WORKSHEETS.DOWNLOAD"></div>
@@ -190,7 +190,7 @@
                         accept=".jpeg,.jpg,.png"
                         multiple
                         data-label="{{ ::label }}"
-                        onchange="angular.element(this).scope().uploadTrainingData(event, this)"/>
+                        onchange="var s = angular.element(this).scope(); if (s) { s.uploadTrainingData(event, this); }"/>
                     <div class="btn newexamplebutton" ng-click="vm.useMicrophone($event, label)" ng-if="project.type === 'sounds'" ng-disabled="loadingtraining">
                         <div class="newexampleicon">+</div>
                         <div class="newexamplelabel" translate="TRAINING.ADDEXAMPLE"></div>
@@ -237,7 +237,7 @@
                     <input id="regression-file-upload"
                         type="file"
                         accept=".csv"
-                        onchange="angular.element(this).scope().uploadTrainingData(event)"/>
+                        onchange="var s = angular.element(this).scope(); if (s) { s.uploadTrainingData(event); }"/>
                 </div>
                 <div class="trainingcountlabel">{{ training.length }}</div>
             </div>
