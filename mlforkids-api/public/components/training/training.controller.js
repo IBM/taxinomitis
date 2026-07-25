@@ -799,6 +799,16 @@
                             $scope.recordingprogress += 10;
                         }, 100);
 
+                        loggerService.debug('[ml4ksound] recordSound clicked', label);
+                        if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
+                            navigator.mediaDevices.enumerateDevices()
+                                .then(function (devices) {
+                                    var audioInputs = devices.filter(function (d) { return d.kind === 'audioinput'; });
+                                    loggerService.debug('[ml4ksound] audio input devices at recording start', audioInputs.length);
+                                })
+                                .catch(function () { /* best-effort diagnostic only */ });
+                        }
+
                         soundTrainingService.collectExample(label)
                             .then(function (spectogram) {
                                 $interval.cancel(progressInterval);
