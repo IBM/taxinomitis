@@ -225,9 +225,11 @@
                         $scope.lookupSmallLanguageModelDetails();
                         $scope.project.slm.toolsenabled ??= false;
                         return $scope.downloadModel()
-                            .then(() => {
-                                $scope.project.slm.ready = true;
-                                $scope.phase = $scope.PHASES.SMALL.READY;
+                            .then((succeeded) => {
+                                if (succeeded) {
+                                    $scope.project.slm.ready = true;
+                                    $scope.phase = $scope.PHASES.SMALL.READY;
+                                }
                             });
                     }
                     else {
@@ -380,6 +382,11 @@
                 return parseCorpus()
                     .then(() => {
                         $scope.$applyAsync(() => { $scope.loading = false; });
+                    })
+                    .catch((err) => {
+                        loggerService.error('[ml4klanguage] error parsing corpus', err);
+                        $scope.loading = false;
+                        displayAlert('errors', 500, err);
                     });
             }
         }
@@ -557,10 +564,19 @@
         // TOY LANGUAGE MODEL - CORPUS PROCESSING - turning into n-grams
         // ===================================================================
 
+        // an empty corpus can never produce any tokens, so this is used to
+        //  skip calling the ngrams API when there's obviously nothing to analyze
+        const EMPTY_NGRAMS_OUTPUT = {
+            bigrams : { count : 0 }, trigrams : { count : 0 }, tetragrams : { count : 0 }
+        };
+
         function parseCorpus() {
             loggerService.debug('[ml4klanguage] parseCorpus');
             return trainingService.getTraining($scope.projectId, $scope.userId, $scope.project.classid)
                 .then((corpus) => {
+                    if (corpus.length === 0) {
+                        return EMPTY_NGRAMS_OUTPUT;
+                    }
                     const text = corpus.map((doc) => doc.contents);
                     return languageModelService.generateNgrams($scope.userId, $scope.project.classid, text);
                 })
@@ -568,6 +584,12 @@
                     if (output.bigrams.count === 0) {
                         displayAlert('warnings', 400, { message : 'Please add more text to your corpus' });
                         $scope.phase = $scope.PHASES.TOY.CORPUS;
+
+                        // discard any previous analysis 
+                        analyzedCorpus = undefined;
+                        delete $scope.project.toy.tokens;
+                        $scope.project.toy.ready = false;
+
                         return;
                     }
 
@@ -902,6 +924,7 @@
                     if (!$scope.reconfiguring) {
                         $scope.phase = $scope.PHASES.SMALL.CONTEXTWINDOW;
                     }
+                    return true;
                 })
                 .catch((err) => {
                     loggerService.error('[ml4klanguage] Failed to download model', err);
@@ -931,8 +954,11 @@
                                         'requirements. '});
                     }
                     else {
-                        displayAlert('errors', 500, err);
+                        displayAlert('errors', 500,
+                            { message : (err.message || 'Something went wrong.') +
+                                        ' It might help to refresh the page.'});
                     }
+                    return false;
                 });
         };
 
@@ -1048,6 +1074,8 @@
             }
         };
         $scope.removeContextDoc = function () {
+            $scope.resetContextWindow();
+
             if ($scope.project.slm.initialcontext) {
                 delete $scope.project.slm.initialcontext.doc;
             }
@@ -1354,7 +1382,19 @@
                 })
                 .catch((err) => {
                     loggerService.error('[ml4klanguage] error submitting prompt', err);
-                    displayAlert('errors', 500, err);
+
+                    if ($scope.project.modeltype === 'small') {
+                        displayAlert('errors', 500, {
+                            message : (err.message || 'Something went wrong.') +
+                                      ' Please refresh the page.'
+                        });
+                    }
+                    else {
+                        $scope.$applyAsync(() => {
+                            $scope.generating = false;
+                        });
+                        displayAlert('errors', 500, err);
+                    }
                 });
         };
 
@@ -1522,7 +1562,7 @@
             $scope.generatedtokens = [ { idx : 0, text : '...' } ];
 
             if ($scope.project.toy.ready && analyzedCorpus) {
-                const promptTokens = prompt.split(' ');
+                const promptTokens = prompt.trim().split(/\s+/);
                 if (promptTokens.length < $scope.project.toy.ngrams) {
                     $scope.testfeedbackmoretokens = true;
                     return $q.resolve('');
@@ -1642,7 +1682,7 @@
                 loggerService.error('[ml4klanguage] failure from small language model', err);
                 $scope.generatedmessages = $scope.generatedmessages.filter((m) => !m.inprogress);
 
-                if (err.message.includes('tokens exceed context window size') && $scope.generatedmessages.length > 1)
+                if (err.message && err.message.includes('tokens exceed context window size') && $scope.generatedmessages.length > 1)
                 {
                     if (ragPrompt) {
                         displayAlert('errors', err.status, { message : simplifyError(err.message) });

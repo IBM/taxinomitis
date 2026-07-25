@@ -22,9 +22,14 @@ module.exports = function (config) {
 
             'test/karma/fake-app-module.js',
 
+            'public/components/datasets/*.js',
+            'public/components/languagemodel/*.js',
+            'public/components/makes/*.js',
             'public/components/models/*.js',
             'public/components/newproject/*.js',
+            'public/components/pretrained/*.js',
             'public/components/projects/*.js',
+            'public/components/scratch3/*.js',
             'public/components/teacher_apikeys/*.js',
             'public/components/teacher_students/*.js',
             'public/components/training/*.js',
