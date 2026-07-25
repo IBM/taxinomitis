@@ -272,6 +272,7 @@
                         return utilService.loadImageProjectSupport();
                     });
             }
+            return $q.resolve();
         }
         function setupSoundsProject () {
             $scope.listening = false;
@@ -385,7 +386,11 @@
             else {
                 modelFnPromise = trainingService.getModels($scope.project, $scope.userId, vm.profile.tenant);
             }
-            return modelFnPromise.then(function (models) {
+            // some type-specific services (browser/IndexedDB-backed local
+            //  training) resolve with native Promises rather than $q ones,
+            //  which wouldn't trigger a digest on their own - $q.when()
+            //  normalises either into a proper $q promise
+            return $q.when(modelFnPromise).then(function (models) {
                 loggerService.debug('[ml4kmodels] models info', models);
 
                 $scope.models = models;
@@ -471,7 +476,8 @@
                 modelFnPromise = regressionTrainingService.newModel(project);
             }
 
-            modelFnPromise.then(function (newmodel) {
+            // see the comment on the equivalent wrap in fetchModels() above
+            $q.when(modelFnPromise).then(function (newmodel) {
                     loggerService.debug('[ml4kmodels] model training', newmodel);
 
                     $scope.models = [ newmodel ];
@@ -659,7 +665,8 @@
                     testdata);
             }
 
-            testFnPromise
+            // see the comment on the equivalent wrap in fetchModels() above
+            $q.when(testFnPromise)
                 .then(displayTestResult)
                 .catch(displayTestError);
         };
@@ -694,16 +701,15 @@
                 modelFnPromise = trainingService.deleteModel(project, $scope.userId, vm.profile.tenant, classifierid);
             }
 
-            modelFnPromise.then(function () {
+            // see the comment on the equivalent wrap in fetchModels() above -
+            //  this is what actually keeps the UI in sync after a delete now
+            //  that there's no longer a follow-up poll to paper over it
+            $q.when(modelFnPromise).then(function () {
                     $scope.models = [];
                     $scope.status = modelService.getStatus($scope.models);
 
-                    if ($scope.status === 'training' || project.type === 'numbers' || project.type === 'imgtfjs' || project.type === 'sounds' || project.type === 'regression') {
-                        refreshModels();
-                    }
-                    else {
-                        stopRefreshing();
-                    }
+                    // nothing left to poll for immediately after a delete
+                    stopRefreshing();
 
                     $scope.submittingDeleteRequest = false;
                 })

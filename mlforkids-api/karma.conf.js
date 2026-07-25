@@ -15,10 +15,17 @@ module.exports = function (config) {
             'public/bower_components/angular/angular.js',
             'node_modules/angular-mocks/angular-mocks.js',
 
+            // defines the global `Sentry` var (as `null`) that some controllers
+            // reference directly - without this, referencing it in a test that
+            // exercises a 500-status error path throws a ReferenceError
+            'public/init.js',
+
             'test/karma/fake-app-module.js',
 
+            'public/components/models/*.js',
             'public/components/newproject/*.js',
             'public/components/projects/*.js',
+            'public/components/teacher_apikeys/*.js',
             'public/components/teacher_students/*.js',
             'public/components/training/*.js',
             'public/components/worksheets/*.js',
