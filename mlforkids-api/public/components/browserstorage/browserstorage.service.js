@@ -248,6 +248,23 @@
                 };
             }
         }
+        // starts a transaction on the cached projects db handle, reopening it once
+        // if the cached handle turns out to already be closing (see isClosingDatabase)
+        async function getProjectsTableTransaction(mode) {
+            await requiresProjectsDatabase();
+            try {
+                return projectsDbHandle.transaction([ PROJECTS_TABLE ], mode);
+            }
+            catch (err) {
+                if (isClosingDatabase(err)) {
+                    loggerService.debug('[ml4kstorage] cached projects db handle is closing - reopening');
+                    projectsDbHandle = null;
+                    await requiresProjectsDatabase();
+                    return projectsDbHandle.transaction([ PROJECTS_TABLE ], mode);
+                }
+                throw err;
+            }
+        }
         // starts a transaction on the cached training db handle, reopening it once
         // if the cached handle turns out to already be closing (see isClosingDatabase)
         async function getTrainingTableTransaction(projectId, mode) {
@@ -280,6 +297,23 @@
                 };
             }
         }
+        // starts a transaction on the cached assets db handle, reopening it once
+        // if the cached handle turns out to already be closing (see isClosingDatabase)
+        async function getAssetsTableTransaction(mode) {
+            await requiresAssetsDatabase();
+            try {
+                return assetsDbHandle.transaction([ ASSETS_TABLE ], mode);
+            }
+            catch (err) {
+                if (isClosingDatabase(err)) {
+                    loggerService.debug('[ml4kstorage] cached assets db handle is closing - reopening');
+                    assetsDbHandle = null;
+                    await requiresAssetsDatabase();
+                    return assetsDbHandle.transaction([ ASSETS_TABLE ], mode);
+                }
+                throw err;
+            }
+        }
 
 
         function requiresResult(event) {
@@ -310,57 +344,51 @@
         async function deleteSessionUserProjects() {
             loggerService.debug('[ml4kstorage] deleteSessionUserProjects');
 
+            let projectTransaction;
             try {
-                await requiresProjectsDatabase();
+                projectTransaction = await getProjectsTableTransaction('readwrite');
             }
             catch (err) {
-                loggerService.error('[ml4kstorage] unable to get projects database. exiting.', err);
+                if (isCorruptedDatabase(err)) {
+                    loggerService.error('[ml4kstorage] projects database corrupted', err);
+                }
+                else {
+                    loggerService.error('[ml4kstorage] unable to get projects database. exiting.', err);
+                }
                 return;
             }
 
             return new Promise(function (resolve, reject) {
-                try {
-                    const projectTransaction = projectsDbHandle.transaction([ PROJECTS_TABLE ], 'readwrite');
-                    const projectsTable = projectTransaction.objectStore(PROJECTS_TABLE);
-                    const request = projectsTable.index('classid').openCursor(IDBKeyRange.only('session-users'));
-                    request.onsuccess = function (event) {
-                        const cursor = event.target.result;
-                        if (cursor) {
-                            // delete any local data for this project
-                            cleanupService.deleteProject(cursor.value);
+                const projectsTable = projectTransaction.objectStore(PROJECTS_TABLE);
+                const request = projectsTable.index('classid').openCursor(IDBKeyRange.only('session-users'));
+                request.onsuccess = function (event) {
+                    const cursor = event.target.result;
+                    if (cursor) {
+                        // delete any local data for this project
+                        cleanupService.deleteProject(cursor.value);
 
-                            // delete the training data database
-                            delete trainingDataDatabases[cursor.value.id];
-                            window.indexedDB.deleteDatabase(TRAINING_DB_NAME_PREFIX + cursor.value.id);
+                        // delete the training data database
+                        delete trainingDataDatabases[cursor.value.id];
+                        window.indexedDB.deleteDatabase(TRAINING_DB_NAME_PREFIX + cursor.value.id);
 
-                            // delete any saved language model data
-                            deleteAsset('language-model-' + cursor.value.id);
+                        // delete any saved language model data
+                        deleteAsset('language-model-' + cursor.value.id);
 
-                            // delete the project itself
-                            projectsTable.delete(cursor.primaryKey);
+                        // delete the project itself
+                        projectsTable.delete(cursor.primaryKey);
 
-                            // move to the next project
-                            cursor.continue();
-                        }
-                        else {
-                            // nothing left to delete
-                            resolve();
-                        }
-                    };
-                    request.onerror = function (err) {
-                        loggerService.error('[ml4kstorage] failed to get cursor.', err);
-                        reject(err);
-                    };
-                }
-                catch (err) {
-                    if (isCorruptedDatabase(err)) {
-                        loggerService.error('[ml4kstorage] projects database corrupted', err);
+                        // move to the next project
+                        cursor.continue();
                     }
                     else {
-                        loggerService.error('[ml4kstorage] failed to run session user cleanup.', err);
+                        // nothing left to delete
+                        resolve();
                     }
+                };
+                request.onerror = function (err) {
+                    loggerService.error('[ml4kstorage] failed to get cursor.', err);
                     reject(err);
-                }
+                };
             });
         }
 
@@ -372,15 +400,7 @@
             }
 
             try {
-                await requiresProjectsDatabase();
-            }
-            catch (err) {
-                loggerService.error('[ml4kstorage] unable to get projects database.', err);
-                return [];
-            }
-
-            try {
-                const transaction = projectsDbHandle.transaction([ PROJECTS_TABLE ], 'readonly');
+                const transaction = await getProjectsTableTransaction('readonly');
                 const request = transaction.objectStore(PROJECTS_TABLE).getAll();
 
                 const event = await promisifyIndexedDbRequest(request)
@@ -399,9 +419,7 @@
         async function getProject(projectId) {
             loggerService.debug('[ml4kstorage] getProject', projectId);
 
-            await requiresProjectsDatabase();
-
-            const transaction = projectsDbHandle.transaction([ PROJECTS_TABLE ], 'readonly');
+            const transaction = await getProjectsTableTransaction('readonly');
             const request = transaction.objectStore(PROJECTS_TABLE).get(requiresIntegerId(projectId));
 
             return promisifyIndexedDbRequest(request)
@@ -414,8 +432,6 @@
         async function addProject(projectInfo) {
             loggerService.debug('[ml4kstorage] addProject', projectInfo);
 
-            await requiresProjectsDatabase();
-
             if (!projectInfo.labels) {
                 projectInfo.labels = [];
             }
@@ -423,7 +439,7 @@
                 projectInfo.labels.push('_background_noise_');
             }
 
-            const transaction = projectsDbHandle.transaction([ PROJECTS_TABLE ], 'readwrite');
+            const transaction = await getProjectsTableTransaction('readwrite');
             const request = transaction.objectStore(PROJECTS_TABLE).add(projectInfo);
 
             return promisifyIndexedDbRequest(request)
@@ -442,9 +458,7 @@
         async function addMetadataToProject(projectid, key, value) {
             loggerService.debug('[ml4kstorage] addMetadataToProject', arguments);
 
-            await requiresProjectsDatabase();
-
-            const transaction = projectsDbHandle.transaction([ PROJECTS_TABLE ], 'readwrite');
+            const transaction = await getProjectsTableTransaction('readwrite');
             const projectsTable = transaction.objectStore(PROJECTS_TABLE);
             const readRequest = projectsTable.get(requiresIntegerId(projectid));
             const readEvent = await promisifyIndexedDbRequest(readRequest);
@@ -462,9 +476,7 @@
         async function deleteProject(projectId) {
             loggerService.debug('[ml4kstorage] deleteProject');
 
-            await requiresProjectsDatabase();
-
-            const transaction = projectsDbHandle.transaction([ PROJECTS_TABLE ], 'readwrite');
+            const transaction = await getProjectsTableTransaction('readwrite');
             transaction.objectStore(PROJECTS_TABLE).delete(requiresIntegerId(projectId));
 
             window.indexedDB.deleteDatabase(TRAINING_DB_NAME_PREFIX + projectId);
@@ -477,9 +489,7 @@
         async function updateLocalProject(projectId, updateFn) {
             loggerService.debug('[ml4kstorage] updateLocalProject');
 
-            await requiresProjectsDatabase();
-
-            const transaction = projectsDbHandle.transaction([ PROJECTS_TABLE ], 'readwrite');
+            const transaction = await getProjectsTableTransaction('readwrite');
             const projectsTable = transaction.objectStore(PROJECTS_TABLE);
             const readRequest = projectsTable.get(requiresIntegerId(projectId));
             const readEvent = await promisifyIndexedDbRequest(readRequest);
@@ -534,8 +544,6 @@
         async function addLabel(projectId, newlabel) {
             loggerService.debug('[ml4kstorage] addLabel');
 
-            await requiresProjectsDatabase();
-
             let label = newlabel;
             try {
                 label = sanitizeLabel(newlabel);
@@ -544,7 +552,7 @@
                 loggerService.error('[ml4kstorage] Failed to sanitize label, leaving as-is');
             }
 
-            const transaction = projectsDbHandle.transaction([ PROJECTS_TABLE ], 'readwrite');
+            const transaction = await getProjectsTableTransaction('readwrite');
             const projectsTable = transaction.objectStore(PROJECTS_TABLE);
             const readRequest = projectsTable.get(requiresIntegerId(projectId));
             const readEvent = await promisifyIndexedDbRequest(readRequest);
@@ -564,11 +572,10 @@
         async function deleteLabel(projectId, removedlabel) {
             loggerService.debug('[ml4kstorage] deleteLabel');
 
-            await requiresProjectsDatabase();
             await requiresTrainingDatabase(projectId);
 
             // -- update project definition
-            const projectTransaction = projectsDbHandle.transaction([ PROJECTS_TABLE ], 'readwrite');
+            const projectTransaction = await getProjectsTableTransaction('readwrite');
             const projectsTable = projectTransaction.objectStore(PROJECTS_TABLE);
             const readRequest = projectsTable.get(requiresIntegerId(projectId));
             const readEvent = await promisifyIndexedDbRequest(readRequest);
@@ -825,7 +832,7 @@
             const zipdata = resp.data;
 
             try {
-                const transaction = assetsDbHandle.transaction([ ASSETS_TABLE ], 'readwrite');
+                const transaction = await getAssetsTableTransaction('readwrite');
                 const request = transaction.objectStore(ASSETS_TABLE).put(zipdata, id);
                 return promisifyIndexedDbRequest(request);
             }
@@ -845,7 +852,7 @@
             await requiresAssetsDatabase();
 
             try {
-                const transaction = assetsDbHandle.transaction([ ASSETS_TABLE ], 'readwrite');
+                const transaction = await getAssetsTableTransaction('readwrite');
                 const request = transaction.objectStore(ASSETS_TABLE).put(data, id);
                 return promisifyIndexedDbRequest(request);
             }
@@ -863,9 +870,7 @@
         async function retrieveAsset(id) {
             loggerService.debug('[ml4kstorage] retrieveAsset', id);
 
-            await requiresAssetsDatabase();
-
-            const transaction = assetsDbHandle.transaction([ ASSETS_TABLE ], 'readonly');
+            const transaction = await getAssetsTableTransaction('readonly');
             const request = transaction.objectStore(ASSETS_TABLE).get(id);
             return promisifyIndexedDbRequest(request)
                 .then(function (event) {
@@ -909,10 +914,8 @@
                 return Promise.resolve();
             }
 
-            await requiresAssetsDatabase();
-
             try {
-                const transaction = assetsDbHandle.transaction([ ASSETS_TABLE ], 'readwrite');
+                const transaction = await getAssetsTableTransaction('readwrite');
                 transaction.objectStore(ASSETS_TABLE).delete(id);
 
                 return promisifyIndexedDbTransaction(transaction);
