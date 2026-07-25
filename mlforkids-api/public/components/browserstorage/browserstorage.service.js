@@ -86,7 +86,7 @@
             return err &&
                    err.name === 'NotFoundError' &&
                    (err.message === "Failed to execute 'transaction' on 'IDBDatabase': One of the specified object stores was not found." ||
-                    err.message === "IDBDatabase.transaction: 'assets' is not a known object store name");
+                    /^IDBDatabase\.transaction: '.+' is not a known object store name$/.test(err.message));
         }
 
 
