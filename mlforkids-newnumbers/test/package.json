@@ -9,7 +9,7 @@
     "node": "20.x",
     "npm": "10.x"
   },
-  "dependencies": {
+  "devDependencies": {
     "mocha": "^11.7.6",
     "request-promise": "^4.2.6",
     "uuid": "^13.0.2",
