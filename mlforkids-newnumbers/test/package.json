@@ -10,9 +10,9 @@
     "npm": "10.x"
   },
   "dependencies": {
-    "mocha": "^10.3.0",
+    "mocha": "^11.7.6",
     "request-promise": "^4.2.6",
-    "uuid": "^9.0.1",
+    "uuid": "^13.0.2",
     "xmldom": "^0.6.0",
     "ydf-inference": "^0.0.4"
   }
