@@ -76,11 +76,12 @@
                     errId = displayAlert('warnings', 400, {
                         message : 'Model information is not available. Try training a new model.'
                     });
+                    scrollService.scrollToNewItem('warnings' + errId);
                 }
                 else {
                     errId = displayAlert('errors', err.status, err.data || err);
+                    scrollService.scrollToNewItem('errors' + errId);
                 }
-                scrollService.scrollToNewItem('errors' + errId);
                 $scope.loading = false;
             });
     }

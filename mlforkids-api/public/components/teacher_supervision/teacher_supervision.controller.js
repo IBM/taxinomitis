@@ -164,8 +164,6 @@
         vm.deleteClassifier = function (ev, classifier) {
             loggerService.debug('[ml4ksupervise] deleting classifier');
 
-            $scope.submittingDeleteRequest = true;
-
             var confirm = $mdDialog.confirm()
                 .title('Are you sure?')
                 .textContent('Do you want to delete ' + classifier.name + '?')
@@ -177,6 +175,8 @@
             $mdDialog.show(confirm).then(
                 function() {
                     loggerService.debug('[ml4ksupervise] submitting classifier deletion request');
+
+                    $scope.submittingDeleteRequest = true;
 
                     trainingService.deleteBluemixClassifier(vm.profile.tenant, classifier.id, classifier.credentials.id, classifier.type)
                         .then(function () {

@@ -93,8 +93,17 @@
                 $scope.project.fields = fields;
             })
             .catch(function (err) {
-                var errId = displayAlert('errors', err.status, err.data);
-                scrollService.scrollToNewItem('errors' + errId);
+                var errId;
+                if (err && err.status === 404 && $scope.project) {
+                    errId = displayAlert('warnings', 400, {
+                        message : 'Model information is not available. Try training a new model.'
+                    });
+                    scrollService.scrollToNewItem('warnings' + errId);
+                }
+                else {
+                    errId = displayAlert('errors', err.status, err.data || err);
+                    scrollService.scrollToNewItem('errors' + errId);
+                }
                 $scope.loading = false;
             });
 
