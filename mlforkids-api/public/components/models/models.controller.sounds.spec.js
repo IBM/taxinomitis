@@ -54,6 +54,7 @@ describe('ModelsController (sound projects)', function () {
         ]);
         soundTrainingServiceMock.initSoundSupport.and.returnValue($q.resolve({}));
         soundTrainingServiceMock.getModels.and.returnValue($q.resolve([]));
+        soundTrainingServiceMock.startTest.and.returnValue($q.resolve());
         soundTrainingServiceMock.stopTest.and.returnValue($q.resolve());
         imageTrainingServiceMock = jasmine.createSpyObj('imageTrainingService', [
             'initImageSupport', 'getModels', 'newModel', 'deleteModel', 'testCanvas', 'testBase64ImageData', 'reset'
@@ -285,7 +286,7 @@ describe('ModelsController (sound projects)', function () {
         it('starts listening and displays predictions as they arrive', function () {
             var vm = readyController(soundsProject());
             var callback;
-            soundTrainingServiceMock.startTest.and.callFake(function (cb) { callback = cb; });
+            soundTrainingServiceMock.startTest.and.callFake(function (cb) { callback = cb; return $q.resolve(); });
 
             vm.startListening();
 
@@ -343,6 +344,24 @@ describe('ModelsController (sound projects)', function () {
             $rootScope.$digest();
 
             expect(vm.errors).toEqual([]);
+        });
+
+        it('resets listening state and alerts the user if starting to listen fails', function () {
+            var vm = readyController(soundsProject());
+            soundTrainingServiceMock.startTest.and.returnValue($q.reject({
+                status : 400,
+                data : { message : 'Sorry! Machine Learning for Kids was not allowed to use your microphone' }
+            }));
+
+            vm.startListening();
+            $rootScope.$digest();
+            // startTest().catch() schedules $applyAsync, which (like the
+            // stopTest().then() case above) needs a flush to run
+            $timeout.flush();
+
+            expect($scope.listening).toBe(false);
+            expect(vm.errors.length).toBe(1);
+            expect(vm.errors[0].message).toBe('Sorry! Machine Learning for Kids was not allowed to use your microphone');
         });
 
     });

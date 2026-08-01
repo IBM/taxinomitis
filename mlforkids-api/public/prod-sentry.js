@@ -19,7 +19,8 @@ if (Sentry) {
             "EBCallBackMessageReceived",
             "conduitPage",
             "Cannot redefine property: googletag",
-            "zaloJSV2 is not defined"
+            "zaloJSV2 is not defined",
+            "AbortError: The play() request was interrupted"
         ],
         denyUrls: [
             /graph\.facebook\.com/i,
