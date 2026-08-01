@@ -444,6 +444,24 @@ describe('LanguageModelController - small model setup', function () {
             expect($scope.reconfiguring).toBe(false);
         });
 
+        it('ignores a second call while a reload is still in progress', function () {
+            createSlmArchitectureController();
+
+            $scope.modifySmallModelContextWindow();
+            expect(reloadSpy.calls.count()).toBe(1);
+
+            // reload() has not resolved yet - webllmEngine.reload() cannot
+            //  tolerate being called again before that happens
+            $scope.modifySmallModelContextWindow();
+            expect(reloadSpy.calls.count()).toBe(1);
+
+            digestTwice();
+
+            // once the first reload has finished, a new one is allowed again
+            $scope.modifySmallModelContextWindow();
+            expect(reloadSpy.calls.count()).toBe(2);
+        });
+
     });
 
 

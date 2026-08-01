@@ -1011,6 +1011,16 @@
         $scope.modifySmallModelContextWindow = function () {
             loggerService.debug('[ml4klanguage] modifySmallModelContextWindow');
 
+            // guard against overlapping calls to webllmEngine.reload() -
+            //  the underlying WebGPU device cannot tolerate two reloads
+            //  running concurrently, and can be left in an unrecoverable
+            //  state (surfaced as an unhandled "OperationError: A valid
+            //  external Instance reference no longer exists" rejection
+            //  from deep inside the webllm library - MACHINELEARNINGFORKIDS-6ZG)
+            if ($scope.reconfiguring) {
+                return;
+            }
+
             $scope.reconfiguring = true;
             $scope.downloadModel()
                 .then(() => {
