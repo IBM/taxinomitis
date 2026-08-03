@@ -295,6 +295,9 @@
                             mean : normalizedTarget.mean.arraySync(),
                             standardDeviation : normalizedTarget.standardDeviation.arraySync()
                         }
+                    })
+                    .catch(function (err) {
+                        loggerService.debug('[ml4kregress] failed to save normalization metadata', err);
                     });
 
                     // create the model

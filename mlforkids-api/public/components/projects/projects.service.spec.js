@@ -10,7 +10,7 @@ describe('projectsService', function () {
 
     beforeEach(function () {
         browserStorageServiceMock = jasmine.createSpyObj('browserStorageService', [
-            'getProjects', 'idIsLocal', 'getProject', 'deleteProject'
+            'getProjects', 'idIsLocal', 'getProject', 'deleteProject', 'addLabel', 'addCloudRefToProject'
         ]);
 
         module('app', function ($provide) {
@@ -92,6 +92,42 @@ describe('projectsService', function () {
             projectsService.deleteProject(project, 'user1', 'class1');
 
             $httpBackend.flush();
+        });
+
+    });
+
+
+    describe('addLabelToProject', function () {
+
+        it('recovers when the local project no longer has a cloud reference to clear', function () {
+            // e.g. the project was deleted locally between the cloud PUT 404-ing
+            //  and the clean-up call running - browserStorageService.addCloudRefToProject
+            //  then rejects with a "not found" error, which must not go unhandled
+            var project = {
+                id : 'proj4', storage : 'local', type : 'text',
+                cloudid : 'cloudref1', classid : 'class1', userid : 'user1'
+            };
+
+            browserStorageServiceMock.addLabel.and.returnValue($q.resolve([ 'labelA', 'labelB' ]));
+            browserStorageServiceMock.addCloudRefToProject.and.returnValue(
+                $q.reject({ status : 404, data : { error : 'not found' } })
+            );
+
+            $httpBackend.expectPUT('/api/classes/class1/students/user1/localprojects/cloudref1')
+                .respond(404);
+
+            var result;
+            projectsService.addLabelToProject(project, 'user1', 'class1', 'labelC')
+                .then(function (labels) {
+                    result = labels;
+                });
+
+            $httpBackend.flush();
+            $rootScope.$digest();
+
+            expect(result).toEqual([ 'labelA', 'labelB' ]);
+            expect(project.cloudid).toBeUndefined();
+            expect(browserStorageServiceMock.addCloudRefToProject).toHaveBeenCalledWith('proj4', null);
         });
 
     });

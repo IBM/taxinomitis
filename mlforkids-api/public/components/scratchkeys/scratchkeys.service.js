@@ -33,7 +33,8 @@
                 .catch(function (err) {
                     if (project.storage === 'local' && project.type === 'text') {
                         // cloud reference for this project has expired - remove
-                        browserStorageService.addCloudRefToProject(project.id, null);
+                        browserStorageService.addCloudRefToProject(project.id, null)
+                            .catch(function () {});
                         delete project.cloudid;
                     }
                     throw err;

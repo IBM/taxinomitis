@@ -255,7 +255,8 @@
                 .catch(function (err) {
                     if (project.storage === 'local' && project.type === 'text') {
                         // cloud reference for this project has expired - remove
-                        browserStorageService.addCloudRefToProject(project.id, null);
+                        browserStorageService.addCloudRefToProject(project.id, null)
+                            .catch(function () {});
                         delete project.cloudid;
                         return [];
                     }
@@ -307,7 +308,8 @@
                 .catch(function (err) {
                     if (err.status === 404) {
                         // cloud reference for this project has expired - remove
-                        browserStorageService.addCloudRefToProject(project.id, null);
+                        browserStorageService.addCloudRefToProject(project.id, null)
+                            .catch(function () {});
                         delete project.cloudid;
                     }
                     throw err;
@@ -329,7 +331,8 @@
                 })
                 .then(function (resp) {
                     resp.data.lastPollTime = new Date();
-                    browserStorageService.addCloudRefToProject(project.id, resp.data.key);
+                    browserStorageService.addCloudRefToProject(project.id, resp.data.key)
+                        .catch(function () {});
                     project.cloudid = resp.key;
                     return resp.data;
                 });

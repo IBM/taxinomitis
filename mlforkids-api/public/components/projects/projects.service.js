@@ -83,7 +83,8 @@
                 .catch(function (err) {
                     if (err.status === 404) {
                         // cloud reference for this project has expired - remove
-                        browserStorageService.addCloudRefToProject(project.id, null);
+                        browserStorageService.addCloudRefToProject(project.id, null)
+                            .catch(function () {});
                         delete project.cloudid;
                     }
                     return newlabels;
