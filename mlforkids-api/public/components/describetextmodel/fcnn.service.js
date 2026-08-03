@@ -417,6 +417,8 @@
                     }
                 }
             }
+
+            loggerService.debug('[fcnn] Finished adding weights');
         }
 
         function addInputOutputLabel(layerIdx, nodeIdx, nodeid, isInput) {
@@ -635,7 +637,7 @@
             var inputElem = getNNNode(LAYER_IDS.INPUT_TEXT, 0);
             var outputElem = document.getElementById(ID_PREFIX + ELEMENT_IDS.OUTPUT_LAYER_CONTAINER);
             var topHiddenElem = getNNNode(largestLayerIdx.idx, 0);
-            var bottomHiddenElem = getNNNode(largestLayerIdx.idx, architecture[largestLayerIdx.idx - 1]);
+            var bottomHiddenElem = getNNNode(largestLayerIdx.idx, largestLayerIdx.size - 1);
 
             var left = parseFloat(inputElem.getAttribute('cx'));
             var right = parseFloat(outputElem.getAttribute('x'));
@@ -780,6 +782,8 @@
                 var inputDataNode = getNNNode(LAYER_IDS.INPUT_TEXT, 0);
                 inputDataNode.classList.remove('hiddendiagramelement');
             }
+
+            loggerService.debug('[fcnn] decorate complete');
         }
 
         function removeValues() {
@@ -803,9 +807,35 @@
             architecture = arch;
             betweenNodesInLayer = spacing;
 
-            redraw();
-            redistribute();
-            decorate();
+            // logged so that if diagram rendering fails, Sentry breadcrumbs show
+            // the requested architecture and whatever nodes/links were already
+            // in the DOM from a previous (differently-shaped) diagram, without
+            // needing to reproduce the failure locally
+            loggerService.debug('[fcnn] create() starting', {
+                architecture : arch,
+                spacing : spacing,
+                existingNodeCount : node ? node.size() : 0,
+                existingLinkCount : link ? link.size() : 0
+            });
+
+            try {
+                redraw();
+                redistribute();
+                decorate();
+            }
+            catch (err) {
+                var diagnosticContext = {
+                    architecture : architecture,
+                    spacing : betweenNodesInLayer,
+                    nodeCount : node ? node.size() : 0,
+                    linkCount : link ? link.size() : 0
+                };
+                loggerService.error('[fcnn] create() failed', diagnosticContext, err);
+                if (Sentry && Sentry.captureException) {
+                    Sentry.captureException(err, { extra : diagnosticContext });
+                }
+                throw err;
+            }
         }
 
 
