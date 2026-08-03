@@ -109,9 +109,16 @@ describe('projectsService', function () {
             };
 
             browserStorageServiceMock.addLabel.and.returnValue($q.resolve([ 'labelA', 'labelB' ]));
-            browserStorageServiceMock.addCloudRefToProject.and.returnValue(
-                $q.reject({ status : 404, data : { error : 'not found' } })
-            );
+            // built lazily (not a pre-built $q.reject() passed to returnValue) so the
+            // rejected promise is created in the same digest turn that consumes it -
+            // otherwise $q's errorOnUnhandledRejections watchdog can flag it as
+            // unhandled before submitLocalProjectLabels()'s .catch() gets attached,
+            // throwing from deep inside a digest and leaving $rootScope.$$phase stuck,
+            // which then makes the afterEach's $httpBackend.verifyNoOutstandingExpectation()
+            // fail with "$digest already in progress"
+            browserStorageServiceMock.addCloudRefToProject.and.callFake(function () {
+                return $q.reject({ status : 404, data : { error : 'not found' } });
+            });
 
             $httpBackend.expectPUT('/api/classes/class1/students/user1/localprojects/cloudref1')
                 .respond(404);
