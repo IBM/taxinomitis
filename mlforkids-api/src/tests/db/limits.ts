@@ -22,7 +22,9 @@ describe('DB store - limits', () => {
         limitsStub.returns({
             textTrainingItemsPerProject : 2,
             numberTrainingItemsPerProject : 2,
-            numberTrainingItemsPerClassProject : 0,
+            // deliberately larger than numberTrainingItemsPerProject, so the
+            //  crowd-sourced test below proves the class branch is taken
+            numberTrainingItemsPerClassProject : 4,
             imageTrainingItemsPerProject : 0,
             soundTrainingItemsPerProject : 0,
         });
@@ -74,6 +76,47 @@ describe('DB store - limits', () => {
             () => store.storeNumberTraining(projectid, false, [3], 'label'),
             { message: 'Project already has maximum allowed amount of training data' }
         );
+
+        return store.deleteTrainingByProjectId('numbers', projectid);
+    });
+
+
+    it('should give crowd-sourced number projects a bigger allowance', async () => {
+        // a whole class contributes to a crowd-sourced project, so it gets
+        //  numberTrainingItemsPerClassProject instead of the per-user limit
+        const projectid = uuid();
+
+        // the per-user limit is 2 - go past it
+        for (let i = 0; i < 4; i++) {
+            const training = await store.storeNumberTraining(projectid, true, [ i ], 'label');
+            assert(training);
+            assert.strictEqual(training.projectid, projectid);
+        }
+
+        await assert.rejects(
+            () => store.storeNumberTraining(projectid, true, [ 99 ], 'label'),
+            { message: 'Project already has maximum allowed amount of training data' }
+        );
+
+        return store.deleteTrainingByProjectId('numbers', projectid);
+    });
+
+
+    it('should apply the smaller limit to the same project when it is not crowd-sourced', async () => {
+        // same call, only the isClassProject flag differs
+        const projectid = uuid();
+
+        await store.storeNumberTraining(projectid, false, [ 1 ], 'label');
+        await store.storeNumberTraining(projectid, false, [ 2 ], 'label');
+
+        await assert.rejects(
+            () => store.storeNumberTraining(projectid, false, [ 3 ], 'label'),
+            { message: 'Project already has maximum allowed amount of training data' }
+        );
+
+        // ...but the same project can still accept more as a class project
+        const training = await store.storeNumberTraining(projectid, true, [ 3 ], 'label');
+        assert(training);
 
         return store.deleteTrainingByProjectId('numbers', projectid);
     });

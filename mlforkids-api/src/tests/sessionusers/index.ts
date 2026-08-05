@@ -3,7 +3,31 @@ import * as assert from 'assert';
 import * as sinon from 'sinon';
 import * as store from '../../lib/db/store';
 import * as Objects from '../../lib/db/db-types';
+import * as keys from '../../lib/objectstore/keys';
+import * as ObjectStoreTypes from '../../lib/objectstore/types';
 import * as sessionusers from '../../lib/sessionusers';
+
+
+
+
+/**
+ * Empties the pending jobs queue, returning everything that was on it.
+ *
+ * Used instead of store.deleteAllPendingJobs() because that is a no-op
+ *  unless the tests are running against a localhost database.
+ */
+async function drainPendingJobs(): Promise<Objects.PendingJob[]> {
+    const drained: Objects.PendingJob[] = [];
+
+    let job = await store.getNextPendingJob();
+    while (job) {
+        drained.push(job);
+        await store.deletePendingJob(job);
+        job = await store.getNextPendingJob();
+    }
+
+    return drained;
+}
 
 
 
@@ -164,6 +188,56 @@ describe('session users', { concurrency: false }, () => {
             assert.deepStrictEqual(user, verifyUser);
 
             await sessionusers.deleteSessionUser(user);
+        });
+
+
+        // REGRESSION TEST
+        //
+        // cleanupExpiredSessionUsers() used to call
+        //     storeDeleteUserObjectsJob(expiredUser.id, CLASS_NAME)
+        // but the signature is
+        //     storeDeleteUserObjectsJob(classid, userid)
+        //
+        // The reversed arguments produced a job asking object storage to
+        //  delete everything under "<userid>/session-users/" instead of
+        //  "session-users/<userid>/". Nothing is ever stored under a
+        //  top-level prefix equal to a user id, so the job matched nothing,
+        //  silently succeeded, and was dequeued - leaving every expired
+        //  session user's images and sounds behind in object storage
+        //  forever, even though their database rows were deleted correctly.
+        //
+        // Asserting on the resulting prefix (rather than only on the
+        //  argument order) keeps this test tied to the behaviour that
+        //  actually matters.
+        it('should queue an object storage cleanup job for the prefix where the user data really is', async () => {
+            // clear out any jobs queued by earlier tests
+            await drainPendingJobs();
+
+            const user = await store.storeTemporaryUser(-1000);
+
+            await sessionusers.cleanupExpiredSessionUsers();
+
+            const queued = await drainPendingJobs();
+
+            // deliberately matches the user id in EITHER position, so that
+            //  reversed arguments fail on the assertions below - which show
+            //  what went where - rather than on "no job found"
+            const job = queued.find((candidate) => {
+                const spec = candidate.jobdata as ObjectStoreTypes.UserSpec;
+                return candidate.jobtype === Objects.PendingJobType.DeleteUserObjectsFromObjectStorage &&
+                       (spec.userid === user.id || spec.classid === user.id);
+            });
+            assert(job, 'expected a job to delete the expired user\'s objects from object storage');
+
+            assert.deepStrictEqual(job.jobdata, {
+                classid : sessionusers.CLASS_NAME,
+                userid : user.id,
+            });
+
+            // the assertion that would have caught the original bug
+            assert.strictEqual(
+                keys.getUserPrefix(job.jobdata as ObjectStoreTypes.UserSpec),
+                sessionusers.CLASS_NAME + '/' + user.id + '/');
         });
 
     });

@@ -333,7 +333,7 @@
                     resp.data.lastPollTime = new Date();
                     browserStorageService.addCloudRefToProject(project.id, resp.data.key)
                         .catch(function () {});
-                    project.cloudid = resp.key;
+                    project.cloudid = resp.data.key;
                     return resp.data;
                 });
         }

@@ -101,14 +101,49 @@ function getMostRecentVersion(response: any): string {
     return versions[versions.length - 1];
 }
 
-function getThumbUrl(response: any, version: string) {
+function getThumbUrl(response: any, version: string): string {
     if (response.query.pages[version].imageinfo &&
         response.query.pages[version].imageinfo.length > 0 &&
         response.query.pages[version].imageinfo[0].thumburl)
     {
-        return response.query.pages[version].imageinfo[0].thumburl;
+        return removeTrackingParameters(response.query.pages[version].imageinfo[0].thumburl);
     }
+    // this used to fall off the end and return undefined, which getThumbnail
+    //  would then hand back as if it were a string. Throwing matches how the
+    //  rest of this module reports not being able to find a smaller image, and
+    //  callers already fall back to the full-size URL when it happens.
     log.error({ response, version }, 'Failed to get thumbnail from response');
+    throw new Error(FAIL);
+}
+
+
+/**
+ * Wikimedia appends its own analytics parameters to the thumbnail URLs it
+ *  returns, e.g.
+ *    ...250px-Narval.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+ *
+ * They are not needed to fetch the image, and they make the URL we hand back
+ *  depend on Wikimedia's analytics choices rather than on the image itself, so
+ *  they are removed.
+ *
+ * Only utm_* parameters are dropped. Anything else is left alone, in case a
+ *  thumbnail URL ever genuinely needs a query parameter to resolve.
+ */
+function removeTrackingParameters(thumburl: string): string {
+    try {
+        const parsed = new url.URL(thumburl);
+        for (const param of Array.from(parsed.searchParams.keys())) {
+            if (param.startsWith('utm_')) {
+                parsed.searchParams.delete(param);
+            }
+        }
+        return parsed.toString();
+    }
+    catch (err) {
+        // not worth failing the whole lookup over - the URL works either way
+        log.error({ err, thumburl }, 'Unable to parse thumbnail url to remove tracking parameters');
+        return thumburl;
+    }
 }
 
 function isExpectedImageInfo(response: any): boolean {

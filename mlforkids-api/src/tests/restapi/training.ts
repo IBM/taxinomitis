@@ -843,6 +843,33 @@ describe('REST API - training', () => {
 
             await store.deleteEntireProject(userid, classid, project);
         });
+
+
+        it('should refuse sound training through the general training API', async () => {
+            // sound data has to go through POST .../sounds instead, so that the
+            //  spectrogram can be written to object storage. Anything that
+            //  replays training data through this endpoint - an import, say -
+            //  has to special-case sounds.
+            const classid = uuid();
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'sounds', 'demo', 'en', [], false);
+            await store.addLabelToProject(userid, classid, project.id, 'meow');
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
+
+            const res = await request(testServer)
+                .post('/api/classes/' + classid + '/students/' + userid +
+                      '/projects/' + project.id + '/training')
+                .send({ data : [ 0.1, 0.2, 0.3 ], label : 'meow' })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.NOT_IMPLEMENTED);
+
+            assert.deepStrictEqual(res.body, { error : 'Not implemented' });
+
+            await store.deleteEntireProject(userid, classid, project);
+        });
     });
 
 
@@ -943,11 +970,97 @@ describe('REST API - training', () => {
             await store.deleteEntireUser(userid, classid);
         });
 
+
+        it('should rename training data WITHOUT updating the labels on the project', async () => {
+            // documented current behaviour, not an endorsement: editLabel only
+            //  touches the training table, so after a rename the project's own
+            //  label list still has the old name and none of the new one. The
+            //  UI works around it by updating its own copy.
+            const classid = uuid();
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', [], false);
+            await store.addLabelToProject(userid, classid, project.id, 'fruit');
+
+            const projecturl = '/api/classes/' + classid +
+                               '/students/' + userid +
+                               '/projects/' + project.id;
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
+
+            await request(testServer)
+                .post(projecturl + '/training')
+                .send({ data : 'apple', label : 'fruit' })
+                .expect(httpstatus.CREATED);
+
+            await request(testServer)
+                .put(projecturl + '/labels')
+                .send({ before : 'fruit', after : 'healthy' })
+                .expect(httpstatus.OK);
+
+            // the training data has moved...
+            const trainingRes = await request(testServer)
+                .get(projecturl + '/training')
+                .expect(httpstatus.OK);
+            assert.strictEqual(trainingRes.body[0].label, 'healthy');
+
+            // ...but the project still lists the old label
+            const projectRes = await request(testServer)
+                .get(projecturl)
+                .expect(httpstatus.OK);
+            assert.deepStrictEqual(projectRes.body.labels, [ 'fruit' ]);
+
+            await store.deleteEntireUser(userid, classid);
+        });
+
     });
 
 
 
     describe('getTraining()', () => {
+
+        it('should return only the first 50 items when no Range header is sent', async () => {
+            // easy to miss: without a Range header the API quietly returns a
+            //  page of 50, so anything reading a whole project's training data
+            //  (an export, say) has to ask for more. The Content-Range header
+            //  is how a caller can tell it has been truncated.
+            const classid = uuid();
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', [], false);
+
+            const training: { textdata: string, label: string }[] = [];
+            for (let i = 0; i < 60; i++) {
+                training.push({ textdata : 'example ' + i, label : 'label' });
+            }
+            await store.bulkStoreTextTraining(project.id, training);
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
+
+            const projecturl = '/api/classes/' + classid + '/students/' + userid +
+                               '/projects/' + project.id + '/training';
+
+            const defaultRes = await request(testServer)
+                .get(projecturl)
+                .expect(httpstatus.OK);
+
+            assert.strictEqual(defaultRes.body.length, 50);
+            assert.strictEqual(defaultRes.header['content-range'], 'items 0-49/60');
+
+            // ...and the caller can get the rest by asking
+            const allRes = await request(testServer)
+                .get(projecturl)
+                .set('Range', 'items=0-3000')
+                .expect(httpstatus.OK);
+
+            assert.strictEqual(allRes.body.length, 60);
+            assert.strictEqual(allRes.header['content-range'], 'items 0-59/60');
+
+            await store.deleteEntireProject(userid, classid, project);
+        });
+
 
         it('should verify project exists', async () => {
             const classid = uuid();

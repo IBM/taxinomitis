@@ -265,6 +265,186 @@ describe('REST API - projects', () => {
     });
 
 
+    describe('getProjectFields()', () => {
+
+        // Creates a numbers project owned by the given user, and returns its id.
+        async function createNumbersProject(
+            classid: string, userid: string,
+            crowdsourced: boolean = false,
+        ): Promise<string>
+        {
+            const previousRole = nextAuth0UserRole;
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
+            if (crowdsourced) {
+                // only teachers can create crowd-sourced projects
+                nextAuth0UserRole = 'supervisor';
+            }
+
+            const res = await request(testServer)
+                .post('/api/classes/' + classid + '/students/' + userid + '/projects')
+                .send({
+                    name : uuid(),
+                    type : 'numbers',
+                    isCrowdSourced : crowdsourced,
+                    fields : [
+                        { name : 'height', type : 'number' },
+                        { name : 'colour', type : 'multichoice', choices : [ 'red', 'green' ] },
+                    ],
+                })
+                .expect(httpstatus.CREATED);
+
+            nextAuth0UserRole = previousRole;
+
+            return res.body.id;
+        }
+
+
+        it('should return the fields of a numbers project', async () => {
+            const userid = uuid();
+            const projectid = await createNumbersProject(TESTCLASS, userid);
+
+            const res = await request(testServer)
+                .get('/api/classes/' + TESTCLASS + '/students/' + userid + '/projects/' + projectid + '/fields')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            assert.strictEqual(res.body.length, 2);
+
+            // order matters - multichoice training values are stored as
+            //  indices into the choices array of the field at that position
+            assert.strictEqual(res.body[0].name, 'height');
+            assert.strictEqual(res.body[0].type, 'number');
+            assert.strictEqual(res.body[1].name, 'colour');
+            assert.strictEqual(res.body[1].type, 'multichoice');
+            assert.deepStrictEqual(res.body[1].choices, [ 'red', 'green' ]);
+        });
+
+
+        it('should return not found for a project with no fields', async () => {
+            // only numbers projects have fields, so a text project has none
+            const userid = uuid();
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = TESTCLASS;
+
+            const createRes = await request(testServer)
+                .post('/api/classes/' + TESTCLASS + '/students/' + userid + '/projects')
+                .send({ name : uuid(), type : 'text', language : 'en' })
+                .expect(httpstatus.CREATED);
+
+            const res = await request(testServer)
+                .get('/api/classes/' + TESTCLASS + '/students/' + userid +
+                     '/projects/' + createRes.body.id + '/fields')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.NOT_FOUND);
+
+            assert.deepStrictEqual(res.body, { error : 'Not found' });
+        });
+
+
+        it('should return not found for a non-existent project', async () => {
+            const userid = uuid();
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = TESTCLASS;
+
+            const res = await request(testServer)
+                .get('/api/classes/' + TESTCLASS + '/students/' + userid + '/projects/' + uuid() + '/fields')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.NOT_FOUND);
+
+            assert.deepStrictEqual(res.body, { error : 'Not found' });
+        });
+
+
+        it('should refuse a request from a different class', async () => {
+            const userid = uuid();
+            const projectid = await createNumbersProject(TESTCLASS, userid);
+
+            // same user id, but their token says they belong somewhere else
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = 'A-DIFFERENT-CLASS';
+
+            const res = await request(testServer)
+                .get('/api/classes/' + TESTCLASS + '/students/' + userid + '/projects/' + projectid + '/fields')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.FORBIDDEN);
+
+            assert.deepStrictEqual(res.body, { error : 'Invalid access' });
+        });
+
+
+        it('should let a classmate read the fields of a crowd-sourced project', async () => {
+            // crowd-sourced projects are shared with the whole class, and the
+            //  UI fetches their fields using the OWNER's id in the path - so
+            //  this has to keep working. Any ownership check added to this
+            //  route must be one that permits crowd-sourced access.
+            const teacherid = uuid();
+            const studentid = uuid();
+            const projectid = await createNumbersProject(TESTCLASS, teacherid, true);
+
+            nextAuth0UserId = studentid;
+            nextAuth0UserTenant = TESTCLASS;
+            nextAuth0UserRole = 'student';
+
+            const res = await request(testServer)
+                .get('/api/classes/' + TESTCLASS + '/students/' + teacherid + '/projects/' + projectid + '/fields')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            assert.strictEqual(res.body.length, 2);
+        });
+
+
+        // REGRESSION TEST
+        //
+        // urls.FIELDS used to be the only project-scoped route registered with
+        //  no verifyProject* middleware - just authenticate + checkValidUser,
+        //  and checkValidUser validates ONLY that the caller's tenant matches
+        //  params.classid. It never checks params.studentid against the caller,
+        //  so anyone in the class who knew the owner and project ids could read
+        //  another student's project fields.
+        //
+        // Now guarded by verifyProjectAccessOrTeacher. Note the pairing with
+        //  the crowd-sourced test above: the check has to be AccessOrTeacher
+        //  rather than Owner, or sharing breaks.
+        it('should refuse a classmate the fields of a project they do NOT own', async () => {
+            const ownerid = uuid();
+            const snooperid = uuid();
+            const projectid = await createNumbersProject(TESTCLASS, ownerid);
+
+            nextAuth0UserId = snooperid;
+            nextAuth0UserTenant = TESTCLASS;
+            nextAuth0UserRole = 'student';
+
+            const res = await request(testServer)
+                .get('/api/classes/' + TESTCLASS + '/students/' + ownerid + '/projects/' + projectid + '/fields')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.FORBIDDEN);
+
+            assert.deepStrictEqual(res.body, { error : 'Invalid access' });
+        });
+
+
+        it('should let a teacher read the fields of their student\'s project', async () => {
+            const studentid = uuid();
+            const teacherid = uuid();
+            const projectid = await createNumbersProject(TESTCLASS, studentid);
+
+            nextAuth0UserId = teacherid;
+            nextAuth0UserTenant = TESTCLASS;
+            nextAuth0UserRole = 'supervisor';
+
+            const res = await request(testServer)
+                .get('/api/classes/' + TESTCLASS + '/students/' + studentid + '/projects/' + projectid + '/fields')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            assert.strictEqual(res.body.length, 2);
+        });
+    });
+
+
     describe('deleteProject()', () => {
 
         it('should handle requests for non-existent projects', async () => {
@@ -1259,6 +1439,52 @@ describe('REST API - projects', () => {
             assert.deepStrictEqual(getRes.body.labels, [ 'apple', 'banana', 'tomato' ]);
         });
 
+
+
+        it('should refuse a label once the whole list would be too long to store', async () => {
+            // labels are stored as one comma-joined string, capped just under
+            //  490 characters. Individually every one of these is legal - it is
+            //  the total that fails, which is easy to hit with a lot of long
+            //  labels and surfaces as a 400 rather than anything more helpful.
+            const studentId = uuid();
+            nextAuth0UserId = studentId;
+            nextAuth0UserTenant = TESTCLASS;
+
+            const createRes = await request(testServer)
+                .post('/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects')
+                .send({ name : uuid(), type : 'text', language : 'en' })
+                .expect(httpstatus.CREATED);
+            const projectId = createRes.body.id;
+            const projecturl = '/api/classes/' + TESTCLASS + '/students/' + studentId +
+                               '/projects/' + projectId;
+
+            // 29 characters each, so joined with commas 16 of them is 479
+            //  characters, and a 17th would take it to 509
+            function labelNumber(idx: number): string {
+                return 'label' + idx + 'x'.repeat(29 - ('label' + idx).length);
+            }
+
+            for (let i = 0; i < 16; i++) {
+                await request(testServer)
+                    .patch(projecturl)
+                    .send([ { op : 'add', path : '/labels', value : labelNumber(i) } ])
+                    .expect(httpstatus.OK);
+            }
+
+            const tooManyRes = await request(testServer)
+                .patch(projecturl)
+                .send([ { op : 'add', path : '/labels', value : labelNumber(16) } ])
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(tooManyRes.body, { error : 'No room for the label' });
+
+            // the project still has the sixteen that did fit
+            const projectRes = await request(testServer)
+                .get(projecturl)
+                .expect(httpstatus.OK);
+            assert.strictEqual(projectRes.body.labels.length, 16);
+        });
 
 
         it('should verify PATCH requests', async () => {

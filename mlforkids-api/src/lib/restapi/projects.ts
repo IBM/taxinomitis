@@ -471,6 +471,13 @@ export default function registerApis(app: Express.Application) {
     app.get(urls.FIELDS,
             auth.authenticate,
             auth.checkValidUser,
+            // checkValidUser only verifies the caller's tenant against the
+            //  classid in the path - it does not check the studentid - so
+            //  without this the fields of any project in the class could be
+            //  read by anyone who knew the owner and project ids.
+            // AccessOrTeacher (rather than Owner) because the UI fetches the
+            //  fields of a crowd-sourced project using its OWNER's id.
+            auth.verifyProjectAccessOrTeacher,
             getProjectFields);
 
     app.delete(urls.PROJECT,

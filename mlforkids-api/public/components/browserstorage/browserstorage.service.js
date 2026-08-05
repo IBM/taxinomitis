@@ -248,6 +248,28 @@
                 };
             }
         }
+        // deletes the training database for a project, closing our own connection
+        //  to it first
+        //
+        // closing first is essential: IndexedDB blocks a deleteDatabase request
+        //  for as long as any connection to it is still open. The onversionchange
+        //  handler above cannot do it for us, because it is guarded on the cache
+        //  entry - and every caller of this function needs that entry gone. If we
+        //  removed the entry and left the closing to the handler, the guard would
+        //  be false by the time the event fired, close() would never be called,
+        //  and the delete would stay blocked forever - silently leaving the whole
+        //  training database (including image and audio data) on disk.
+        function deleteTrainingDatabase(projectId) {
+            loggerService.debug('[ml4kstorage] deleteTrainingDatabase', projectId);
+
+            const openDatabase = trainingDataDatabases[projectId];
+            if (openDatabase) {
+                openDatabase.close();
+            }
+            delete trainingDataDatabases[projectId];
+
+            window.indexedDB.deleteDatabase(TRAINING_DB_NAME_PREFIX + projectId);
+        }
         // starts a transaction on the cached projects db handle, reopening it once
         // if the cached handle turns out to already be closing (see isClosingDatabase)
         async function getProjectsTableTransaction(mode) {
@@ -368,8 +390,7 @@
                         cleanupService.deleteProject(cursor.value);
 
                         // delete the training data database
-                        delete trainingDataDatabases[cursor.value.id];
-                        window.indexedDB.deleteDatabase(TRAINING_DB_NAME_PREFIX + cursor.value.id);
+                        deleteTrainingDatabase(cursor.value.id);
 
                         // delete any saved language model data
                         deleteAsset('language-model-' + cursor.value.id);
@@ -479,8 +500,7 @@
             const transaction = await getProjectsTableTransaction('readwrite');
             transaction.objectStore(PROJECTS_TABLE).delete(requiresIntegerId(projectId));
 
-            window.indexedDB.deleteDatabase(TRAINING_DB_NAME_PREFIX + projectId);
-            delete trainingDataDatabases[projectId];
+            deleteTrainingDatabase(projectId);
 
             return promisifyIndexedDbTransaction(transaction);
         }

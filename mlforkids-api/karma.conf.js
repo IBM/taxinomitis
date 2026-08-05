@@ -22,6 +22,7 @@ module.exports = function (config) {
 
             'test/karma/fake-app-module.js',
 
+            'public/components/browserstorage/*.js',
             'public/components/datasets/*.js',
             'public/components/describeimagemodel/*.js',
             'public/components/describemodel/*.js',
