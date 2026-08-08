@@ -2,7 +2,7 @@ import { describe, it, before, after, beforeEach, afterEach } from 'node:test';
 import * as assert from 'assert';
 import * as sinon from 'sinon';
 import { v4 as uuid } from 'uuid';
-import * as IBMCosSDK from 'ibm-cos-sdk';
+import * as IBMCosSDK from 'ibm-cos-sdk-v2';
 
 import * as processor from '../../lib/pendingjobs/processor';
 import * as objectstore from '../../lib/objectstore';
@@ -56,7 +56,7 @@ describe('Pending jobs - processor', () => {
 
     beforeEach(() => {
         mock.reset();
-        cosStub = sinon.stub(IBMCosSDK, 'S3');
+        cosStub = sinon.stub(IBMCosSDK, 'S3Client');
         cosStub.returns(mock.mockS3);
         objectstore.init();
     });

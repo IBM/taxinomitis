@@ -1,5 +1,10 @@
 // external dependencies
-import * as IBMCosSDK from 'ibm-cos-sdk';
+import {
+    S3Client,
+    DeleteObjectsCommand,
+    ListObjectsCommand, type ListObjectsCommandInput,
+    type CommonPrefix,
+} from 'ibm-cos-sdk-v2';
 // local dependencies
 import * as keys from './keys';
 // type definitions
@@ -14,12 +19,12 @@ import * as Types from './types';
 
 
 export async function deleteProject(
-    cos: IBMCosSDK.S3,
+    cos: S3Client,
     bucket: string,
     project: Types.ProjectSpec,
 ): Promise<void>
 {
-    const req: IBMCosSDK.S3.ListObjectsRequest = {
+    const req: ListObjectsCommandInput = {
         Bucket: bucket,
         Prefix: keys.getProjectPrefix(project),
         Delimiter: keys.SEPARATOR,
@@ -34,7 +39,7 @@ export async function deleteProject(
 }
 
 export async function deleteUser(
-    cos: IBMCosSDK.S3,
+    cos: S3Client,
     bucket: string,
     user: Types.UserSpec,
 ): Promise<void>
@@ -52,7 +57,7 @@ export async function deleteUser(
 }
 
 export async function deleteClass(
-    cos: IBMCosSDK.S3,
+    cos: S3Client,
     bucket: string,
     clazz: Types.ClassSpec,
 ): Promise<void>
@@ -74,7 +79,7 @@ export async function deleteClass(
 
 
 
-function getPrefixes(commonPrefixes: IBMCosSDK.S3.CommonPrefix[] | undefined): string[] {
+function getPrefixes(commonPrefixes: CommonPrefix[] | undefined): string[] {
     if (commonPrefixes) {
         return commonPrefixes
             .filter(notEmpty)
@@ -89,21 +94,21 @@ function getPrefixes(commonPrefixes: IBMCosSDK.S3.CommonPrefix[] | undefined): s
 }
 
 
-async function getProjectPrefixes(cos: IBMCosSDK.S3, bucket: string, spec: Types.UserSpec): Promise<string[]> {
-    const projectsOutput = await cos.listObjects({
+async function getProjectPrefixes(cos: S3Client, bucket: string, spec: Types.UserSpec): Promise<string[]> {
+    const projectsOutput = await cos.send(new ListObjectsCommand({
         Bucket: bucket,
         Prefix: keys.getUserPrefix(spec),
         Delimiter: keys.SEPARATOR,
-    }).promise();
+    }));
     return getPrefixes(projectsOutput.CommonPrefixes);
 }
 
-async function getUserPrefixes(cos: IBMCosSDK.S3, bucket: string, spec: Types.ClassSpec): Promise<string[]> {
-    const usersOutput = await cos.listObjects({
+async function getUserPrefixes(cos: S3Client, bucket: string, spec: Types.ClassSpec): Promise<string[]> {
+    const usersOutput = await cos.send(new ListObjectsCommand({
         Bucket: bucket,
         Prefix: keys.getClassPrefix(spec),
         Delimiter: keys.SEPARATOR,
-    }).promise();
+    }));
     return getPrefixes(usersOutput.CommonPrefixes);
 }
 
@@ -112,17 +117,30 @@ async function getUserPrefixes(cos: IBMCosSDK.S3, bucket: string, spec: Types.Cl
 
 
 
-function bulkDelete(
-    cos: IBMCosSDK.S3, bucket: string,
+async function bulkDelete(
+    cos: S3Client, bucket: string,
     imageKeys: string[],
-): Promise<IBMCosSDK.S3.DeleteObjectOutput[]>
+): Promise<void>
 {
-    return Promise.all(imageKeys.map((imagekey: string) => {
-        return cos.deleteObject({
-            Bucket: bucket,
-            Key: imagekey,
-        }).promise();
+    if (imageKeys.length === 0) {
+        return;
+    }
+
+    // imageKeys comes from a single ListObjects page, which is capped at
+    //  1,000 keys - the same limit DeleteObjects allows in one request
+    const response = await cos.send(new DeleteObjectsCommand({
+        Bucket: bucket,
+        Delete: {
+            Objects: imageKeys.map((imagekey: string) => {
+                return { Key: imagekey };
+            }),
+        },
     }));
+
+    if (response.Errors && response.Errors.length > 0) {
+        throw new Error('Failed to delete ' + response.Errors.length + ' object(s) from ' + bucket +
+                         ' : ' + JSON.stringify(response.Errors));
+    }
 }
 
 
@@ -130,12 +148,12 @@ function bulkDelete(
 
 
 
-function getObjectKeys(cos: IBMCosSDK.S3, req: IBMCosSDK.S3.ListObjectsRequest): Promise<string[]> {
-    return cos.listObjects(req).promise()
-        .then((response: IBMCosSDK.S3.ListObjectsOutput) => {
+function getObjectKeys(cos: S3Client, req: ListObjectsCommandInput): Promise<string[]> {
+    return cos.send(new ListObjectsCommand(req))
+        .then((response) => {
             return response.Contents;
         })
-        .then((contents: IBMCosSDK.S3.Object[] | undefined) => {
+        .then((contents) => {
             if (contents) {
                 return contents.map((content) => {
                     return content.Key;
