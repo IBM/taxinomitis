@@ -65,6 +65,9 @@ export function watsonAssistantModelCreationFailure(res: Express.Response, err: 
                         'Please let your teacher or group leader know.',
             });
     }
+    else if (err.message === conversation.ERROR_MESSAGES.MAINTENANCE) {
+        return res.status(httpstatus.SERVICE_UNAVAILABLE).send({ code : 'MLMOD11', error : err.message });
+    }
     else {
         return unknownError(res, err);
     }

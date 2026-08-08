@@ -32,9 +32,17 @@ export const ERROR_MESSAGES = {
     MODEL_NOT_FOUND : 'Your machine learning model could not be found on the training server.',
     TEXT_TOO_LONG : 'text cannot be longer than 2048 characters',
     SERVICE_ERROR : 'The Watson Assistant service that runs your machine learning model reported an unexpected error',
+    MAINTENANCE : 'Sorry, the IBM Watson Assistant service used to train models to recognise text is currently undergoing maintenance',
     SKILL_IN_USE : 'Machine Learning for Kids is not allowed to delete this Watson Assistant workspace because ' +
                    'it is being used. Please delete it from IBM Cloud.',
 };
+
+
+function isMaintenanceError(err: any): boolean {
+    return err.statusCode === httpStatus.INTERNAL_SERVER_ERROR &&
+           err.error &&
+           err.error.error === 'Service is currently undergoing maintenance.';
+}
 
 
 export async function trainClassifier(
@@ -167,6 +175,14 @@ async function createWorkspace(
                 log.warn({ err, project, credentials }, 'Watson Assistant credentials rejected');
                 throw err;
             }
+            else if (isMaintenanceError(err))
+            {
+                // IBM is doing planned maintenance on the Watson Assistant service.
+                // This isn't something we (or the user) can do anything about, so
+                //  we don't need to notify the Slack bot - just let the user know.
+                log.warn({ err, project, credentials : credentials.id }, 'Watson Assistant service is in maintenance mode');
+                throw new Error(ERROR_MESSAGES.MAINTENANCE);
+            }
             else {
                 // Otherwise - rethrow it so we can bug out.
                 log.error({ err, project, credentials : credentials.id }, 'Unhandled Conversation exception');
@@ -270,6 +286,13 @@ async function updateWorkspace(
 
             // fail, so the user can try again and this time create a new workspace
             throw new Error(ERROR_MESSAGES.MODEL_NOT_FOUND);
+        }
+        else if (isMaintenanceError(err)) {
+            // IBM is doing planned maintenance on the Watson Assistant service.
+            // This isn't something we (or the user) can do anything about, so
+            //  we don't need to notify the Slack bot - just let the user know.
+            log.warn({ err }, 'Watson Assistant service is in maintenance mode');
+            throw new Error(ERROR_MESSAGES.MAINTENANCE);
         }
         else {
             // Otherwise - rethrow it so we can bug out.
