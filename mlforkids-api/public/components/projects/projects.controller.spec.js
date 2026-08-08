@@ -241,24 +241,30 @@ describe('ProjectsController', function () {
         });
 
 
-        it('does not offer cloning for a project that is already local', function () {
-            $mdDialogMock.alert.and.returnValue({
-                clickOutsideToClose : function () { return this; },
-                title : function () { return this; },
-                htmlContent : function () { return this; },
-                ariaLabel : function () { return this; },
-                ok : function () { return this; },
-                targetEvent : function () { return this; }
-            });
+        it('opens the storage dialog for a local project too', function () {
+            // a local project used to get a plain alert with nothing on it but
+            //  an explanation. it gets the same dialog as a cloud project now,
+            //  because a local project can be exported - the dialog decides
+            //  for itself that cloning is not on offer
             $mdDialogMock.show.and.returnValue($q.resolve());
+
+            var localProject = { id : 3, storage : 'local', type : 'text' };
 
             var vm = createController();
             $rootScope.$digest();
 
-            vm.displayProjectTypeInfo(ev, 'local', { id : 3, storage : 'local' });
+            vm.displayProjectTypeInfo(ev, 'local', localProject);
             $rootScope.$digest();
 
-            expect($mdDialogMock.alert).toHaveBeenCalled();
+            expect($mdDialogMock.show).toHaveBeenCalled();
+
+            var dialogspec = $mdDialogMock.show.calls.mostRecent().args[0];
+            expect(dialogspec.templateUrl)
+                .toBe('static/components/projectclone/projectclone.tmpl.html');
+            expect(dialogspec.locals.storage).toBe('local');
+            expect(dialogspec.locals.project).toBe(localProject);
+
+            // nothing was cloned, so there is nothing to navigate to
             expect($stateMock.go).not.toHaveBeenCalled();
         });
 

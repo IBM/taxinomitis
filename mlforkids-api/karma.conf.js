@@ -19,6 +19,13 @@ module.exports = function (config) {
             'public/bower_components/angular-ui-router/release/angular-ui-router.js',
             'node_modules/angular-mocks/angular-mocks.js',
 
+            // project archives are zip files. in production JSZip is lazy
+            // loaded on demand (utilService.loadZipSupport), but the archive
+            // tests need the real library to build and read fixture archives -
+            // a mocked zip would only ever test our own assumptions about the
+            // format rather than the format itself
+            'node_modules/jszip/dist/jszip.min.js',
+
             // defines the global `Sentry` var (as `null`) that some controllers
             // reference directly - without this, referencing it in a test that
             // exercises a 500-status error path throws a ReferenceError
@@ -39,6 +46,7 @@ module.exports = function (config) {
             'public/components/newproject/*.js',
             'public/components/pretrained/*.js',
             'public/components/projectclone/*.js',
+            'public/components/projectimport/*.js',
             'public/components/projects/*.js',
             'public/components/scratch3/*.js',
             'public/components/teacher_apikeys/*.js',

@@ -122,6 +122,12 @@
                 templateUrl: 'static/components/datasets/datasets.html',
                 controllerAs: 'vm'
             })
+            .state('importproject', {
+                url: '/importproject',
+                controller: 'ProjectImportController',
+                templateUrl: 'static/components/projectimport/projectimport.html',
+                controllerAs: 'vm'
+            })
             .state('projects', {
                 url: '/projects',
                 controller: 'ProjectsController',

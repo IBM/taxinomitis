@@ -16,7 +16,7 @@ describe('cloned projects match natively-created ones', function () {
 
     var $httpBackend, $q, $rootScope, $parse, $templateCache;
     var projectCloneService, projectsService;
-    var browserStorageServiceMock, loggerServiceMock;
+    var browserStorageServiceMock, loggerServiceMock, utilServiceMock;
 
     var profile = { user_id : 'user1', tenant : 'class1' };
 
@@ -27,13 +27,17 @@ describe('cloned projects match natively-created ones', function () {
 
     beforeEach(function () {
         browserStorageServiceMock = jasmine.createSpyObj('browserStorageService', [
-            'isSupported', 'addProject', 'bulkAddTrainingData', 'idIsLocal'
+            'isSupported', 'addProject', 'bulkAddTrainingData', 'idIsLocal', 'sanitizeLabel'
         ]);
         loggerServiceMock = jasmine.createSpyObj('loggerService', ['debug', 'error']);
+        // karma has already loaded the real JSZip, so the lazy load importing
+        //  does is a no-op here
+        utilServiceMock = jasmine.createSpyObj('utilService', ['loadZipSupport']);
 
         module('app', function ($provide) {
             $provide.value('browserStorageService', browserStorageServiceMock);
             $provide.value('loggerService', loggerServiceMock);
+            $provide.value('utilService', utilServiceMock);
         });
 
         inject(function (_$httpBackend_, _$q_, _$rootScope_, _$parse_, _$templateCache_,
@@ -50,6 +54,10 @@ describe('cloned projects match natively-created ones', function () {
 
         browserStorageServiceMock.isSupported.and.returnValue($q.resolve(1));
         browserStorageServiceMock.bulkAddTrainingData.and.returnValue($q.resolve());
+        browserStorageServiceMock.sanitizeLabel.and.callFake(function (label) {
+            return label.replace(/[^\w.]/g, '_').substring(0, 30);
+        });
+        utilServiceMock.loadZipSupport.and.returnValue($q.resolve());
         // mimics the real addProject: assigns the auto-increment key and
         //  returns the record it was given
         browserStorageServiceMock.addProject.and.callFake(function (projectInfo) {
@@ -138,6 +146,56 @@ describe('cloned projects match natively-created ones', function () {
     }
 
 
+    // an imported project has to clear the same bar as a clone: it is a
+    //  project the child now owns, and nothing downstream should be able to
+    //  tell it came out of a file
+    function createProjectByImporting(type) {
+        var zip = new JSZip();
+        zip.file('manifest.json', JSON.stringify({
+            formatversion : 1,
+            exported : '2026-08-08T12:00:00.000Z',
+            application : 'machinelearningforkids'
+        }));
+        zip.file('project.json', JSON.stringify({
+            id : 'projectid', userid : 'userid', classid : 'classid',
+            type : type, name : 'Example', labels : [],
+            language : 'en', numfields : 0, fields : [], isCrowdSourced : false
+        }));
+        zip.file('training.json', JSON.stringify([]));
+
+        var created;
+        var finished = false;
+
+        zip.generateAsync({ type : 'blob' })
+            .then(function (archive) {
+                return projectCloneService.importProject(archive, profile);
+            })
+            .then(function (result) {
+                created = result.project;
+                finished = true;
+            })
+            .catch(function (err) {
+                finished = true;
+                fail(err);
+            });
+
+        // JSZip works in native promises, so the digest that settles the $q
+        //  chain has to be pumped from a macrotask
+        return new Promise(function (resolve) {
+            (function pump() {
+                if (finished) {
+                    return resolve(created);
+                }
+                try {
+                    $rootScope.$digest();
+                }
+                catch (alreadyInDigest) { /* expected */ }
+                setTimeout(pump, 1);
+            }());
+        });
+    }
+
+
     [ 'text', 'numbers', 'sounds', 'imgtfjs' ].forEach(function (type) {
 
         it('a cloned ' + type + ' project has every field a new ' + type + ' project has', function () {
@@ -149,6 +207,22 @@ describe('cloned projects match natively-created ones', function () {
 
             var missing = Object.keys(native).filter(function (field) {
                 return !(field in cloned);
+            });
+
+            expect(missing).toEqual([]);
+        });
+
+
+        it('an imported ' + type + ' project has every field a new ' + type + ' project has',
+        async function () {
+            var native = createProjectNatively(type);
+            var imported = await createProjectByImporting(type);
+
+            expect(native).toBeDefined();
+            expect(imported).toBeDefined();
+
+            var missing = Object.keys(native).filter(function (field) {
+                return !(field in imported);
             });
 
             expect(missing).toEqual([]);

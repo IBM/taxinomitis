@@ -46,6 +46,12 @@
                 });
         }
 
+        // project archives are zip files. the same copy of JSZip that
+        //  ydf-inference needs is reused here rather than shipping a second
+        function loadZipSupport() {
+            return loadScript('/static/bower_components/ydf-inference/jszip.min.js?v=1');
+        }
+
         function loadWebLlmProjectSupport() {
             loggerService.debug('[ml4kutils] loading web-llm script');
             return import("https://esm.run/@mlc-ai/web-llm")
@@ -97,6 +103,7 @@
             logTfjsMemory : logTfjsMemory,
             loadImageProjectSupport : loadImageProjectSupport,
             loadNumberProjectSupport : loadNumberProjectSupport,
+            loadZipSupport : loadZipSupport,
             loadWebLlmProjectSupport : loadWebLlmProjectSupport,
             isInternetExplorer : isInternetExplorer,
             isGoogleFilesUrl : isGoogleFilesUrl

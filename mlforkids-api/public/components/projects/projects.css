@@ -130,7 +130,8 @@
     margin-right: 10px;
     color: black;
 }
-.newprojecticon.glyphicon.glyphicon-import {
+.newprojecticon.glyphicon.glyphicon-import, 
+.newprojecticon.glyphicon.glyphicon-folder-open {
     font-size: 2em;
 }
 .newprojectlabel {

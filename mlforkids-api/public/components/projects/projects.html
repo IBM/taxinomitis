@@ -25,6 +25,10 @@
             <div class="newprojecticon glyphicon glyphicon-import"></div>
             <div class="newprojectlabel" translate="PROJECTS.COPYTEMPLATE"></div>
         </div>
+        <div class="newprojectbutton" ui-sref="importproject">
+            <div class="newprojecticon glyphicon glyphicon-folder-open"></div>
+            <div class="newprojectlabel" translate="PROJECTS.IMPORTPROJECT"></div>
+        </div>
         <div class="newprojectbutton" ui-sref="newproject">
             <div class="newprojecticon">+</div>
             <div class="newprojectlabel" translate="PROJECTS.ADDNEWPROJECT"></div>
@@ -65,7 +69,7 @@
                 </div>
                 <div class="mlprojecticon mlprojectcrowd" ng-if="project.isCrowdSourced"      ng-click="vm.displayCrowdSourcedInfo($event)"> </div>
                 <div class="mlprojecticon mlprojectcloud" ng-if="project.storage !== 'local'" ng-click="vm.displayProjectTypeInfo($event, 'cloud', project)"> </div>
-                <div class="mlprojecticon mlprojectlocal" ng-if="project.storage === 'local'" ng-click="vm.displayProjectTypeInfo($event, 'local')"> </div>
+                <div class="mlprojecticon mlprojectlocal" ng-if="project.storage === 'local'" ng-click="vm.displayProjectTypeInfo($event, 'local', project)"> </div>
             </div>
             <div class="mlprojectdetails" ng-if="!project.isPlaceholder && project.type === 'language'"
                  ui-sref="mlproject_slm({ projectId : project.id, userId : project.userid })"
@@ -78,7 +82,7 @@
                         ( {{ project.modeltype }} language model )
                     </span>
                 </div>
-                <div class="mlprojecticon mlprojectlocal" ng-click="vm.displayProjectTypeInfo($event, 'local')"> </div>
+                <div class="mlprojecticon mlprojectlocal" ng-click="vm.displayProjectTypeInfo($event, 'local', project)"> </div>
             </div>
             <div class="mlprojectdelete">
                 <button type="button"

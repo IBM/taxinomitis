@@ -1,7 +1,8 @@
-<md-dialog aria-label="{{ 'PROJECTS.CLOUD_STORAGE_TITLE' | translate }}" class="mlclonedialog">
+<md-dialog aria-label="{{ (vm.storage === 'local' ? 'PROJECTS.LOCAL_STORAGE_TITLE' : 'PROJECTS.CLOUD_STORAGE_TITLE') | translate }}" class="mlclonedialog">
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h2 translate="PROJECTS.CLOUD_STORAGE_TITLE"></h2>
+            <h2 ng-if="vm.storage !== 'local'" translate="PROJECTS.CLOUD_STORAGE_TITLE"></h2>
+            <h2 ng-if="vm.storage === 'local'" translate="PROJECTS.LOCAL_STORAGE_TITLE"></h2>
         </div>
     </md-toolbar>
 
@@ -9,15 +10,18 @@
         <div class="md-dialog-content">
             <md-card-content>
 
-                <p translate="PROJECTS.CLOUD_STORAGE_NOTES"></p>
+                <p ng-if="vm.storage !== 'local'" translate="PROJECTS.CLOUD_STORAGE_NOTES"></p>
+                <p ng-if="vm.storage === 'local'" translate="PROJECTS.LOCAL_STORAGE_NOTES"></p>
                 <p>(See "<a href="/help" translate="HELP.PROJECTS.Q5"></a>")</p>
 
-                <div class="mlcloneinset">
+                <!-- only a cloud project can be copied into browser storage -->
+                <div class="mlcloneinset" ng-if="vm.storage !== 'local'">
                     <h3 class="mlcloneinsettitle" translate="PROJECTS.CLONE_SUBTITLE"></h3>
 
                     <div ng-if="vm.state === 'info'">
                         <p translate="PROJECTS.CLONE_EXPLANATION"></p>
                         <md-button ng-click="vm.clone()"
+                                   ng-disabled="vm.exportstate === 'exporting'"
                                    class="md-raised md-primary mlclonebutton"
                                    translate="PROJECTS.CLONE_BUTTON"></md-button>
                     </div>
@@ -48,6 +52,44 @@
                     </div>
                 </div>
 
+                <!-- a project in either storage can be saved to a file -->
+                <div class="mlcloneinset" ng-if="vm.canExport">
+                    <h3 class="mlcloneinsettitle" translate="PROJECTS.EXPORT_SUBTITLE"></h3>
+
+                    <div ng-if="vm.exportstate === 'info'">
+                        <p translate="PROJECTS.EXPORT_EXPLANATION"></p>
+                        <md-button ng-click="vm.export()"
+                                   ng-disabled="vm.state === 'cloning'"
+                                   class="md-raised md-primary mlclonebutton"
+                                   translate="PROJECTS.EXPORT_BUTTON"></md-button>
+                    </div>
+
+                    <div ng-if="vm.exportstate === 'exporting'">
+                        <p translate="PROJECTS.EXPORT_INPROGRESS"></p>
+                        <md-progress-linear ng-if="vm.exporttotal > 0"
+                                            md-mode="determinate"
+                                            value="{{ 100 * vm.exportcopied / vm.exporttotal }}"></md-progress-linear>
+                        <md-progress-linear ng-if="!vm.exporttotal"
+                                            md-mode="indeterminate"></md-progress-linear>
+                        <p ng-if="vm.exporttotal > 0"
+                           translate="PROJECTS.EXPORT_PROGRESS_COUNT"
+                           translate-values="{ copied : vm.exportcopied, total : vm.exporttotal }"></p>
+                    </div>
+
+                    <div ng-if="vm.exportstate === 'done'">
+                        <p translate="PROJECTS.EXPORT_DONE"
+                           translate-values="{ filename : vm.exportfilename }"></p>
+                        <p ng-if="vm.exportskipped > 0"
+                           translate="PROJECTS.EXPORT_SKIPPED"
+                           translate-values="{ skipped : vm.exportskipped }"></p>
+                    </div>
+
+                    <div ng-if="vm.exportstate === 'error'">
+                        <p translate="PROJECTS.EXPORT_FAILED"></p>
+                        <p class="mlclonedialogerror">{{ vm.exporterrormessage }}</p>
+                    </div>
+                </div>
+
             </md-card-content>
         </div>
     </md-dialog-content>
@@ -55,7 +97,7 @@
     <md-dialog-actions layout="row">
         <span flex></span>
         <md-button ng-click="vm.close()"
-                   ng-disabled="vm.state === 'cloning'"
+                   ng-disabled="vm.state === 'cloning' || vm.exportstate === 'exporting'"
                    translate="PROJECTS.CLONE_CLOSE"></md-button>
     </md-dialog-actions>
 </md-dialog>

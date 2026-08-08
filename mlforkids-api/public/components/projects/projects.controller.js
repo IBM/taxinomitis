@@ -248,37 +248,20 @@
             ev.stopPropagation();
             ev.preventDefault();
 
-            let notes = '<p>(See "<a href="/help">' + translatedStrings['HELP.PROJECTS.Q5'] + '</a>")</p>';
-
-            if (type === 'local') {
-                let title = translatedStrings['PROJECTS.LOCAL_STORAGE_TITLE'];
-                notes = '<div><p>' + translatedStrings['PROJECTS.LOCAL_STORAGE_NOTES'] + '</p>' + notes + '</div>';
-
-                return $mdDialog.show(
-                    $mdDialog.alert()
-                      .clickOutsideToClose(true)
-                      .title(title)
-                      .htmlContent(notes)
-                      .ariaLabel(title)
-                      .ok('OK')
-                      .targetEvent(ev)
-                  );
-            }
-
-            // cloud projects get a dialog that can also copy the project into
-            //  browser storage - see projectclone.dialog.controller.js
             $mdDialog.show({
                     templateUrl : 'static/components/projectclone/projectclone.tmpl.html',
                     controller : 'ProjectCloneDialogController',
                     controllerAs : 'vm',
                     targetEvent : ev,
-                    // the clone can run for minutes on a project with a lot of
-                    //  images, so it must not be dismissable by a stray click
+                    // cloning and exporting can both run for minutes on a
+                    //  project with a lot of images, so the dialog must not be
+                    //  dismissable by a stray click
                     clickOutsideToClose : false,
                     escapeToClose : false,
                     locals : {
                         project : project,
-                        profile : vm.profile
+                        profile : vm.profile,
+                        storage : type
                     }
                 })
                 .then(function (clonedproject) {

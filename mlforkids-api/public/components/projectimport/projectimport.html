@@ -1,0 +1,55 @@
+<div class="jumbotron">
+    <h2 class="text-center" translate="PROJECTS.IMPORT_TITLE"></h2>
+</div>
+<div ng-if="!isAuthenticated">
+    <div class="alert alert-warning pageheadermsg">
+        <strong translate="ERRORS.NOTLOGGEDIN"></strong>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" ng-click="vm.authService.login()" translate="APP.LOGIN"></button>
+    </div>
+</div>
+<div ng-repeat="error in vm.errors" class="alert alert-danger alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('errors', $index)">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong translate="APP.ERROR"></strong> {{ error.message }}<br/>
+    <em ng-if="error.status >= 500"><span translate="ERRORS.IFPERSISTENT"></span> <a ui-sref="help" translate="ERRORS.LETMEKNOW"></a></em>
+</div>
+
+<div ng-if="isAuthenticated">
+
+    <div class="datasetsintro" ng-if="vm.state === 'choosing' || vm.state === 'error'">
+        <p translate="PROJECTS.IMPORT_INTRO_1"></p>
+        <p translate="PROJECTS.IMPORT_INTRO_2"></p>
+    </div>
+
+    <div class="mlimportchooser" ng-if="vm.state === 'choosing' || vm.state === 'error'"
+         ml-project-archive-chooser on-archive-chosen="vm.importArchive(file)">
+
+        <div class="mlimportdropicon glyphicon glyphicon-import"></div>
+        <p class="mlimportdrophint" translate="PROJECTS.IMPORT_DROP"></p>
+
+        <label class="btn btn-primary mlimportchoosebutton">
+            <span translate="PROJECTS.IMPORT_CHOOSE"></span>
+            <input type="file" accept=".zip,application/zip" class="mlimportfileinput" />
+        </label>
+    </div>
+
+    <div class="mlimportprogress text-center" ng-if="vm.state === 'importing'">
+        <p translate="PROJECTS.IMPORT_INPROGRESS" translate-values="{ filename : vm.filename }"></p>
+        <md-progress-linear ng-if="vm.total > 0"
+                            md-mode="determinate"
+                            value="{{ 100 * vm.imported / vm.total }}"></md-progress-linear>
+        <md-progress-linear ng-if="!vm.total"
+                            md-mode="indeterminate"></md-progress-linear>
+        <p ng-if="vm.total > 0"
+           translate="PROJECTS.IMPORT_PROGRESS_COUNT"
+           translate-values="{ copied : vm.imported, total : vm.total }"></p>
+    </div>
+
+    <div class="mlimportprogress text-center" ng-if="vm.state === 'reporting'">
+        <p translate="PROJECTS.IMPORT_DONE"></p>
+        <p translate="PROJECTS.IMPORT_SKIPPED" translate-values="{ skipped : vm.skipped, imported : vm.imported }"></p>
+        <button class="btn btn-primary" ng-click="vm.goToProject()" translate="PROJECTS.IMPORT_CONTINUE"></button>
+    </div>
+
+</div>

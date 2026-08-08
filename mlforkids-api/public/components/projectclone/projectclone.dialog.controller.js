@@ -6,23 +6,38 @@
 
     ProjectCloneDialogController.$inject = [
         '$mdDialog',
-        'projectCloneService',
+        'projectCloneService', 'downloadService',
         'loggerService',
-        'project', 'profile'
+        'project', 'profile', 'storage'
     ];
 
-    // the dialog shown when the cloud-storage icon on the projects page is
-    //  clicked. it explains what cloud storage means, and offers to clone the
-    //  project into browser storage.
+    // the dialog shown when the storage icon on a project is clicked. it
+    //  explains what that kind of storage means, and offers what can be done
+    //  with a project held in it:
     //
-    // If the user clones their cloud project, the dialog will remain open 
-    //  while the clone runs. The projects page reloads once it closes,
-    //  so a report shown anywhere else would be destroyed by the reload
-    function ProjectCloneDialogController($mdDialog, projectCloneService, loggerService, project, profile) {
-
+    //   cloud projects - can be cloned into browser storage, and exported
+    //   local projects - can be exported
+    //
+    // both operations can run for minutes on a project with a lot of images,
+    //  so the dialog stays open while they run. the projects page reloads
+    //  after a clone, so a report shown anywhere else would be destroyed by
+    //  the reload
+    function ProjectCloneDialogController(
+        $mdDialog,
+        projectCloneService, downloadService,
+        loggerService,
+        project, profile, storage)
+    {
         var vm = this;
 
         vm.project = project;
+        vm.storage = storage;
+
+        var EXPORTABLE_TYPES = ['text', 'numbers', 'sounds', 'imgtfjs'];
+        vm.canExport = EXPORTABLE_TYPES.indexOf(project.type) >= 0;
+
+
+        // ---- cloning (cloud projects only) ----
 
         // info -> cloning -> done | error
         vm.state = 'info';
@@ -41,7 +56,7 @@
 
 
         vm.clone = function () {
-            if (vm.state === 'cloning') {
+            if (vm.state === 'cloning' || vm.exportstate === 'exporting') {
                 return;
             }
 
@@ -78,6 +93,60 @@
                     vm.errormessage = (err && err.message) ?
                                         err.message :
                                         'Something went wrong copying this project';
+                });
+        };
+
+
+        // ---- exporting (both storages) ----
+
+        // info -> exporting -> done | error
+        vm.exportstate = 'info';
+
+        vm.exportcopied = 0;
+        vm.exporttotal = 0;
+        vm.exportskipped = 0;
+        vm.exportfilename = undefined;
+        vm.exporterrormessage = undefined;
+
+
+        vm.export = function () {
+            if (vm.exportstate === 'exporting' || vm.state === 'cloning') {
+                return;
+            }
+
+            loggerService.debug('[ml4kclonedlg] starting export', project.id);
+
+            vm.exportstate = 'exporting';
+            vm.exportcopied = 0;
+            vm.exporttotal = 0;
+            vm.exportskipped = 0;
+
+            projectCloneService.exportProject(project, profile, function (completed, total) {
+                    vm.exportcopied = completed;
+                    vm.exporttotal = total;
+                })
+                .then(function (result) {
+                    loggerService.debug('[ml4kclonedlg] export complete', result);
+
+                    downloadService.downloadFile([ result.blob ], 'application/zip', result.filename);
+
+                    vm.exportstate = 'done';
+                    vm.exportskipped = result.skipped;
+                    vm.exportfilename = result.filename;
+
+                    // deliberately never closes itself, unlike cloning. a
+                    //  clone visibly appears on the projects page behind the
+                    //  dialog, but an export silently goes in downloads
+                    // a dialog that vanished would leave a child with no sign 
+                    //  that anything had happened
+                })
+                .catch(function (err) {
+                    loggerService.error('[ml4kclonedlg] export failed', err);
+
+                    vm.exportstate = 'error';
+                    vm.exporterrormessage = (err && err.message) ?
+                                                err.message :
+                                                'Something went wrong saving this project';
                 });
         };
 
