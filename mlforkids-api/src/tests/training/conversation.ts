@@ -226,6 +226,35 @@ describe('Training - Conversation', () => {
                 assert.strictEqual(err.message, conversation.ERROR_MESSAGES.API_KEY_RATE_LIMIT);
             }
         });
+
+
+        it('should handle maintenance errors when creating a classifier', async () => {
+            storeScratchKeyStub.reset();
+
+            const classid = TESTTENANT.id;
+            const userid = 'unluckybob';
+            const projectid = 'projectbob';
+            const projectname = 'Watson Under Maintenance';
+
+            const project: DbTypes.Project = {
+                id : projectid,
+                name : projectname,
+                userid, classid,
+                type : 'text',
+                language : 'en',
+                labels : ['this', 'that'],
+                numfields : 0,
+                isCrowdSourced : false,
+            };
+
+            try {
+                await conversation.trainClassifier(project);
+                assert.fail('should not have allowed this');
+            }
+            catch (err) {
+                assert.strictEqual(err.message, conversation.ERROR_MESSAGES.MAINTENANCE);
+            }
+        });
     });
 
 
@@ -258,6 +287,35 @@ describe('Training - Conversation', () => {
             assert.notStrictEqual(existingClassifier.expiry.getTime(),
                                   classifier.expiry.getTime());
             assert(classifier.expiry.getTime() > before.getTime());
+        });
+
+
+        it('should handle maintenance errors when updating a classifier', async () => {
+            storeScratchKeyStub.reset();
+
+            const classid = 'classid';
+            const userid = 'bob';
+            const projectid = 'existingprojectid-maintenance';
+            const projectname = 'existing';
+
+            const project: DbTypes.Project = {
+                id : projectid,
+                name : projectname,
+                userid, classid,
+                type : 'text',
+                language : 'de',
+                labels : ['big', 'small'],
+                numfields : 0,
+                isCrowdSourced : false,
+            };
+
+            try {
+                await conversation.trainClassifier(project);
+                assert.fail('should not have allowed this');
+            }
+            catch (err) {
+                assert.strictEqual(err.message, conversation.ERROR_MESSAGES.MAINTENANCE);
+            }
         });
 
     });
@@ -309,6 +367,27 @@ describe('Training - Conversation', () => {
             assert.strictEqual(classes.length, 1);
             assert.strictEqual(classes[0].confidence, 0);
             assert.strictEqual(classes[0].random, true);
+        });
+
+
+        it('should handle unexpected server errors from Conversation', async () => {
+            const creds: TrainingTypes.BluemixCredentials = {
+                id : '123',
+                username : 'useruseruseruseruseruseruseruseruser',
+                password : 'passpasspass',
+                servicetype : 'conv',
+                url : 'http://conversation.service',
+                classid : 'classid',
+                credstype : 'unknown',
+            };
+
+            try {
+                await conversation.testClassifier(creds, 'broken500', new Date(), 'projectbob', 'Hello');
+                assert.fail('should not have allowed this');
+            }
+            catch (err) {
+                assert.strictEqual(err.message, conversation.ERROR_MESSAGES.SERVICE_ERROR);
+            }
         });
     });
 
@@ -586,6 +665,15 @@ describe('Training - Conversation', () => {
                         },
                     });
                 }
+                else if (options.body.name === 'Watson Under Maintenance') {
+                    reject({
+                        statusCode : 500,
+                        error : {
+                            error : 'Service is currently undergoing maintenance.',
+                            code : 500,
+                        },
+                    });
+                }
                 else if (options.body.name === 'existing' &&
                          url.endsWith('/existing-classifier'))
                 {
@@ -597,6 +685,15 @@ describe('Training - Conversation', () => {
                         metadata : null,
                         description : null,
                         workspace_id : 'existing-classifier',
+                    });
+                }
+                else if (url.endsWith('/existing-classifier-maintenance')) {
+                    reject({
+                        statusCode : 500,
+                        error : {
+                            error : 'Service is currently undergoing maintenance.',
+                            code : 500,
+                        },
                     });
                 }
                 else {
@@ -616,8 +713,16 @@ describe('Training - Conversation', () => {
         },
         testClassifier : (url: string, opts: conversation.LegacyTestRequest) => {
             assert.strictEqual(opts.headers['X-Watson-Learning-Opt-Out'], 'true');
-            return new Promise((resolve) => {
+            return new Promise((resolve, reject) => {
                 switch (url) {
+                case 'http://conversation.service/v1/workspaces/broken500/message':
+                    return reject({
+                        statusCode : 500,
+                        error : {
+                            error : 'Classification Error: A runtime error occurred',
+                            code : 500,
+                        },
+                    });
                 case 'http://conversation.service/v1/workspaces/good/message':
                     return resolve({
                         intents : [

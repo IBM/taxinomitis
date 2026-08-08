@@ -710,7 +710,8 @@ export async function testClassifier(
             throw new Error(ERROR_MESSAGES.TEXT_TOO_LONG);
         }
         if (err.statusCode === httpStatus.SERVICE_UNAVAILABLE ||
-            err.statusCode === httpStatus.BAD_GATEWAY)
+            err.statusCode === httpStatus.BAD_GATEWAY ||
+            err.statusCode === httpStatus.INTERNAL_SERVER_ERROR)
         {
             throw new Error(ERROR_MESSAGES.SERVICE_ERROR);
         }

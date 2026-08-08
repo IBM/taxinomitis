@@ -49,7 +49,7 @@ export function watsonAssistantModelCreationFailure(res: Express.Response, err: 
         return res.status(httpstatus.NOT_FOUND)
                   .send({ code : 'MLMOD03', error : err.message + ' Please try again' });
     }
-    else if (err.statusCode === httpstatus.UNAUTHORIZED) {
+    else if (err.statusCode === httpstatus.UNAUTHORIZED || err.statusCode === httpstatus.FORBIDDEN) {
         return res.status(httpstatus.CONFLICT)
                 .send({
                     code : 'MLMOD04',
