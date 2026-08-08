@@ -1,0 +1,23 @@
+.mlcloneinset {
+    margin-top: 1.5em;
+    padding: 1em 1.5em;
+    border: thin solid #1864ab;
+    border-radius: 0.5em;
+    background-color: #f1f1fb;
+}
+
+.mlcloneinsettitle {
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.mlclonedialog .mlclonebutton {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.mlclonedialogerror {
+    color: #8b0000;
+}

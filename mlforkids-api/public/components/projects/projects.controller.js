@@ -5,15 +5,18 @@
         .controller('ProjectsController', ProjectsController);
 
     ProjectsController.$inject = [
-        'authService',
-        'projectsService',
-        'modelService',
-        'browserStorageService',
-        '$stateParams', '$translate', '$mdDialog', '$scope', 'cleanupService', 'loggerService'
+        'projectsService', 'modelService', 
+        'authService', 'browserStorageService',
+        'cleanupService', 'loggerService',
+        '$state', '$stateParams', '$translate', '$mdDialog', '$scope'
     ];
 
-    function ProjectsController(authService, projectsService, modelService, browserStorageService, $stateParams, $translate, $mdDialog, $scope, cleanupService, loggerService) {
-
+    function ProjectsController(
+        projectsService, modelService, 
+        authService, browserStorageService, 
+        cleanupService, loggerService, 
+        $state, $stateParams, $translate, $mdDialog, $scope) 
+    {
         var vm = this;
         vm.authService = authService;
 
@@ -241,30 +244,56 @@
               );
         };
 
-        vm.displayProjectTypeInfo = function (ev, type) {
+        vm.displayProjectTypeInfo = function (ev, type, project) {
             ev.stopPropagation();
             ev.preventDefault();
 
-            let title;
             let notes = '<p>(See "<a href="/help">' + translatedStrings['HELP.PROJECTS.Q5'] + '</a>")</p>';
+
             if (type === 'local') {
-                title = translatedStrings['PROJECTS.LOCAL_STORAGE_TITLE'];
+                let title = translatedStrings['PROJECTS.LOCAL_STORAGE_TITLE'];
                 notes = '<div><p>' + translatedStrings['PROJECTS.LOCAL_STORAGE_NOTES'] + '</p>' + notes + '</div>';
-            }
-            else {
-                title = translatedStrings['PROJECTS.CLOUD_STORAGE_TITLE'];
-                notes = '<div><p>' + translatedStrings['PROJECTS.CLOUD_STORAGE_NOTES'] + '</p>' + notes + '</div>';
+
+                return $mdDialog.show(
+                    $mdDialog.alert()
+                      .clickOutsideToClose(true)
+                      .title(title)
+                      .htmlContent(notes)
+                      .ariaLabel(title)
+                      .ok('OK')
+                      .targetEvent(ev)
+                  );
             }
 
-            $mdDialog.show(
-                $mdDialog.alert()
-                  .clickOutsideToClose(true)
-                  .title(title)
-                  .htmlContent(notes)
-                  .ariaLabel(title)
-                  .ok('OK')
-                  .targetEvent(ev)
-              );
+            // cloud projects get a dialog that can also copy the project into
+            //  browser storage - see projectclone.dialog.controller.js
+            $mdDialog.show({
+                    templateUrl : 'static/components/projectclone/projectclone.tmpl.html',
+                    controller : 'ProjectCloneDialogController',
+                    controllerAs : 'vm',
+                    targetEvent : ev,
+                    // the clone can run for minutes on a project with a lot of
+                    //  images, so it must not be dismissable by a stray click
+                    clickOutsideToClose : false,
+                    escapeToClose : false,
+                    locals : {
+                        project : project,
+                        profile : vm.profile
+                    }
+                })
+                .then(function (clonedproject) {
+                    if (clonedproject) {
+                        loggerService.debug('[ml4kprojects] cloned project', clonedproject.id);
+
+                        // reloading with the new project highlighted is what
+                        //  prompts the browser for persistent storage - without
+                        //  it, the clone is the most evictable thing on the page
+                        $state.go('projects', { id : clonedproject.id });
+                    }
+                })
+                .catch(function () {
+                    // dialog dismissed without cloning - nothing to do
+                });
         };
 
         function findProjectIndex(id) {

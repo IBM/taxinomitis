@@ -1,0 +1,61 @@
+<md-dialog aria-label="{{ 'PROJECTS.CLOUD_STORAGE_TITLE' | translate }}" class="mlclonedialog">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2 translate="PROJECTS.CLOUD_STORAGE_TITLE"></h2>
+        </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+        <div class="md-dialog-content">
+            <md-card-content>
+
+                <p translate="PROJECTS.CLOUD_STORAGE_NOTES"></p>
+                <p>(See "<a href="/help" translate="HELP.PROJECTS.Q5"></a>")</p>
+
+                <div class="mlcloneinset">
+                    <h3 class="mlcloneinsettitle" translate="PROJECTS.CLONE_SUBTITLE"></h3>
+
+                    <div ng-if="vm.state === 'info'">
+                        <p translate="PROJECTS.CLONE_EXPLANATION"></p>
+                        <md-button ng-click="vm.clone()"
+                                   class="md-raised md-primary mlclonebutton"
+                                   translate="PROJECTS.CLONE_BUTTON"></md-button>
+                    </div>
+
+                    <div ng-if="vm.state === 'cloning'">
+                        <p translate="PROJECTS.CLONE_INPROGRESS"></p>
+                        <md-progress-linear ng-if="vm.total > 0"
+                                            md-mode="determinate"
+                                            value="{{ 100 * vm.copied / vm.total }}"></md-progress-linear>
+                        <md-progress-linear ng-if="!vm.total"
+                                            md-mode="indeterminate"></md-progress-linear>
+                        <p ng-if="vm.total > 0"
+                           translate="PROJECTS.CLONE_PROGRESS_COUNT"
+                           translate-values="{ copied : vm.copied, total : vm.total }"></p>
+                    </div>
+
+                    <div ng-if="vm.state === 'done'">
+                        <p translate="PROJECTS.CLONE_DONE"></p>
+                        <p ng-if="vm.skipped > 0"
+                           translate="PROJECTS.CLONE_SKIPPED"
+                           translate-values="{ skipped : vm.skipped }"></p>
+                        <p ng-if="vm.testdata" translate="PROJECTS.CLONE_TESTDATA"></p>
+                    </div>
+
+                    <div ng-if="vm.state === 'error'">
+                        <p translate="PROJECTS.CLONE_FAILED"></p>
+                        <p class="mlclonedialogerror">{{ vm.errormessage }}</p>
+                    </div>
+                </div>
+
+            </md-card-content>
+        </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+        <span flex></span>
+        <md-button ng-click="vm.close()"
+                   ng-disabled="vm.state === 'cloning'"
+                   translate="PROJECTS.CLONE_CLOSE"></md-button>
+    </md-dialog-actions>
+</md-dialog>

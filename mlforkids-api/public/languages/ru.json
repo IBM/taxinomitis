@@ -147,7 +147,17 @@
         "CLOUD_STORAGE_TITLE": "Проект из облака",
         "CLOUD_STORAGE_NOTES": "Данные модели обучения хрянятся в облаке. Доступ с любого компьютера.",
         "LOCAL_STORAGE_TITLE": "Проект локальный",
-        "LOCAL_STORAGE_NOTES": "Данные модели обучения на Вашем компьютере. Доступ только с этого компьютера."
+        "LOCAL_STORAGE_NOTES": "Данные модели обучения на Вашем компьютере. Доступ только с этого компьютера.",
+        "CLONE_SUBTITLE": "Copy project to this computer",
+        "CLONE_BUTTON": "Copy",
+        "CLONE_EXPLANATION": "You can make a copy of this project that will be stored in this web browser.",
+        "CLONE_INPROGRESS": "Copying...",
+        "CLONE_PROGRESS_COUNT": "Copied {{copied}} of {{total}} training items",
+        "CLONE_DONE": "Your project has been copied.",
+        "CLONE_SKIPPED": "{{skipped}} of your training examples could not be copied, so they have been left out.",
+        "CLONE_TESTDATA": "Your test data was copied too.",
+        "CLONE_FAILED": "Sorry, your project could not be copied.",
+        "CLONE_CLOSE": "Close"
     },
     "NEWPROJECT": {
         "TITLE": "Начать новый проект машинного обучения",

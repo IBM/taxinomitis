@@ -13,6 +13,10 @@ module.exports = function (config) {
             'public/bower_components/bootstrap/dist/js/bootstrap.js',
 
             'public/bower_components/angular/angular.js',
+            // real ui-router, so that the projects page's same-state
+            // navigation (projects -> projects, with a different highlight id)
+            // can be exercised for real rather than against a mocked $state
+            'public/bower_components/angular-ui-router/release/angular-ui-router.js',
             'node_modules/angular-mocks/angular-mocks.js',
 
             // defines the global `Sentry` var (as `null`) that some controllers
@@ -34,6 +38,7 @@ module.exports = function (config) {
             'public/components/models/*.js',
             'public/components/newproject/*.js',
             'public/components/pretrained/*.js',
+            'public/components/projectclone/*.js',
             'public/components/projects/*.js',
             'public/components/scratch3/*.js',
             'public/components/teacher_apikeys/*.js',
@@ -49,14 +54,19 @@ module.exports = function (config) {
             // DOM-level tests can compile fragments of the *real* template
             // instead of a hand-copied - and driftable - duplicate of it
             'public/components/teacher_students/teacher_students.html',
-            'public/components/training/training.html'
+            'public/components/training/training.html',
+            // the new-project form builds its project spec inline in an
+            // ng-click expression, so the clone parity spec evaluates that
+            // real expression rather than duplicating the field list
+            'public/components/newproject/newproject.html'
         ],
 
         exclude : [],
 
         preprocessors : {
             'public/components/teacher_students/teacher_students.html' : ['ng-html2js'],
-            'public/components/training/training.html' : ['ng-html2js']
+            'public/components/training/training.html' : ['ng-html2js'],
+            'public/components/newproject/newproject.html' : ['ng-html2js']
         },
 
         ngHtml2JsPreprocessor : {

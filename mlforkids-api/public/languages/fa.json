@@ -147,7 +147,17 @@
         "CLOUD_STORAGE_TITLE": "Cloud project",
         "CLOUD_STORAGE_NOTES": "Your training data for this project is stored in the cloud. This project can be accessed from any computer.",
         "LOCAL_STORAGE_TITLE": "Local project",
-        "LOCAL_STORAGE_NOTES": "Your training data for this project is stored on your computer. This project can only be accessed from this web browser."
+        "LOCAL_STORAGE_NOTES": "Your training data for this project is stored on your computer. This project can only be accessed from this web browser.",
+        "CLONE_SUBTITLE": "Copy project to this computer",
+        "CLONE_BUTTON": "Copy",
+        "CLONE_EXPLANATION": "You can make a copy of this project that will be stored in this web browser.",
+        "CLONE_INPROGRESS": "Copying...",
+        "CLONE_PROGRESS_COUNT": "Copied {{copied}} of {{total}} training items",
+        "CLONE_DONE": "Your project has been copied.",
+        "CLONE_SKIPPED": "{{skipped}} of your training examples could not be copied, so they have been left out.",
+        "CLONE_TESTDATA": "Your test data was copied too.",
+        "CLONE_FAILED": "Sorry, your project could not be copied.",
+        "CLONE_CLOSE": "Close"
     },
     "NEWPROJECT": {
         "TITLE": ".یک پروژه جدید یادگیری ماشین را شروع کنید ",
