@@ -432,6 +432,7 @@
                         'pt-br': 'pt-br',
                         'pt': 'pt',
                         'fr': 'fr',
+                        'fi': 'fi',
                         'ko': 'ko',
                         'nl': 'nl-be',
                         'ja': 'ja',
