@@ -1,5 +1,6 @@
 # core dependencies
 from logging import info, exception
+from os import makedirs
 from os.path import join
 from pathlib import Path
 from unicodedata import normalize, combining
@@ -61,6 +62,10 @@ def train_model(modelinfo: ModelInfo, dataframe: DataFrame):
     outcome_label = "mlforkids_outcome_label"
 
     try:
+        # Create the folder for the files that the browser will download
+        info("%s : Creating download folder", key)
+        makedirs(download_folder, exist_ok=True)
+
         # Identify classification target label and convert to strings first
         info("%s : Identifying target label", key)
         # Convert outcome labels to strings to ensure consistency

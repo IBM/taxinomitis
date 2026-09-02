@@ -30,6 +30,7 @@ const POKEMON  = './data/pokemon.csv';
 const PHISHING = './data/phishing.csv';
 const SINGLECLASS  = './data/singleclass.csv';
 const NUMERIC_LABELS = './data/numeric-labels.csv';
+const MISSING_VALUE_LABELS = './data/missing-value-labels.csv';
 const INVALID = './package.json';
 
 
@@ -815,6 +816,169 @@ describe('verify new number service API', () => {
                     assert(pokemonConfidence[3] < 0.12);
                     assert(pokemonConfidence[4] < 0.12);
                     assert(pokemonConfidence[5] < 0.12);
+
+                    model.unload();
+                });
+        });
+    });
+
+
+
+    // Some of the values that children use as labels (or as choices in a
+    //  multi-choice field) are values that mean "missing data" to pandas -
+    //  the most common being "None". If they are treated as missing values,
+    //  the training data is corrupted, model training fails, and the status
+    //  is written to file with a NaN in it - which means the web page can't
+    //  even parse the status to display the error.
+    describe('labels that look like missing values', () => {
+
+        function trainMissingValueLabelsModel() {
+            const key = newScratchKey();
+            const trainingRequest = {
+                ...DEFAULT_REQUEST,
+                ...DEV_CREDENTIALS,
+                formData : {
+                    csvfile : fs.createReadStream(MISSING_VALUE_LABELS)
+                },
+            };
+            return request.post(NEW_MODEL_API + key, trainingRequest);
+        }
+
+        it('should train a model where a label means missing data', () => {
+            let statusUrl;
+
+            return trainMissingValueLabelsModel()
+                .then((resp) => {
+                    statusUrl = resp.urls.status;
+                    return waitForModel(statusUrl);
+                })
+                .then((modelinfo) => {
+                    assert.strictEqual(modelinfo.status, 'Available');
+
+                    // "None" should be kept as the name of a class, not
+                    //  turned into a missing value
+                    assert.deepStrictEqual(modelinfo.labels, [ 'None', 'Left', 'Right' ]);
+
+                    // "None" should also be usable as a value in a field
+                    assert.deepStrictEqual(modelinfo.features, {
+                        'speed' : {
+                            'type' : 'float64',
+                            'name' : 'speed'
+                        },
+                        'power up?' : {
+                            'type' : 'str',
+                            'name' : 'power_up_'
+                        },
+                        'distance' : {
+                            'type' : 'float64',
+                            'name' : 'distance'
+                        },
+                        'mlforkids_outcome_label' : {
+                            'type' : 'str',
+                            'name' : 'mlforkids_outcome_label'
+                        }
+                    });
+                });
+        });
+
+        it('should write a status that web pages can parse', () => {
+            let statusUrl;
+
+            return trainMissingValueLabelsModel()
+                .then((resp) => {
+                    statusUrl = resp.urls.status;
+                    return waitForModel(statusUrl);
+                })
+                .then(() => {
+                    // deliberately not using the json option, so that we
+                    //  can verify the raw contents of the status file
+                    return request.get(statusUrl);
+                })
+                .then((resp) => {
+                    assert.strictEqual(typeof resp, 'string');
+
+                    let status;
+                    try {
+                        status = JSON.parse(resp);
+                    }
+                    catch (err) {
+                        assert.fail('status should be valid JSON : ' + err.message);
+                    }
+                    assert.strictEqual(status.status, 'Available');
+                    assert.deepStrictEqual(status.labels, [ 'None', 'Left', 'Right' ]);
+                });
+        });
+
+        it('should create a visualisation where a label means missing data', () => {
+            let treeUrl, dotUrl, vocabUrl;
+
+            return trainMissingValueLabelsModel()
+                .then((resp) => {
+                    treeUrl = resp.urls.tree;
+                    dotUrl = resp.urls.dot;
+                    vocabUrl = resp.urls.vocab;
+                    return waitForModel(resp.urls.status);
+                })
+                .then(() => {
+                    return request.get(treeUrl);
+                })
+                .then((resp) => {
+                    xmlParser.parseFromString(resp, 'text/xml');
+
+                    return request.get(dotUrl);
+                })
+                .then((resp) => {
+                    assert(resp.startsWith('digraph Tree {'));
+
+                    return request.get(vocabUrl, { json : true });
+                })
+                .then((resp) => {
+                    assert.deepStrictEqual(resp.sort(), [
+                        'distance',
+                        'power up?=None',
+                        'power up?=Yes',
+                        'speed',
+                    ]);
+                });
+        });
+
+        it('should download a model where a label means missing data', () => {
+            let modelUrl;
+
+            return trainMissingValueLabelsModel()
+                .then((resp) => {
+                    modelUrl = resp.urls.model;
+                    return waitForModel(resp.urls.status);
+                })
+                .then(() => {
+                    return request.get(modelUrl, { encoding : null });
+                })
+                .then((resp) => {
+                    return ydf.loadModelFromZipBlob(resp);
+                })
+                .then((model) => {
+                    assert.deepStrictEqual(model.inputFeatures, [
+                        { name : 'speed',     type : 'NUMERICAL',   internalIdx : 0, specIdx : 1 },
+                        { name : 'power_up_', type : 'CATEGORICAL', internalIdx : 1, specIdx : 2 },
+                        { name : 'distance',  type : 'NUMERICAL',   internalIdx : 2, specIdx : 3 },
+                    ]);
+                    assert.deepStrictEqual(model.labelClasses, [ '0', '1', '2' ]);
+
+                    // labels are [ 'None', 'Left', 'Right' ] so the
+                    //  confidences are returned in that order
+                    const confidences = model.predict({
+                        speed :     [ 12,   12,  12 ],
+                        power_up_ : [ 'None', 'Yes', 'Yes' ],
+                        distance :  [ 0,   -40,  40 ]
+                    });
+                    assert.strictEqual(confidences.length, 9);
+
+                    // should be "None"
+                    assert(confidences[0] > 0.5);
+                    // should be "Left"
+                    assert(confidences[4] > 0.5);
+                    // should be "Right"
+                    assert(confidences[8] > 0.5);
 
                     model.unload();
                 });

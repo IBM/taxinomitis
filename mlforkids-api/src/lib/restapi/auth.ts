@@ -85,7 +85,7 @@ async function sessionusersAuthenticate(
     try {
         decoded = jwtDecode(jwtTokenString);
     }
-    catch (err) {
+    catch {
         return errors.notAuthorised(res);
     }
 

@@ -95,6 +95,15 @@ describe('REST API - models', () => {
                 err.statusCode = httpstatus.UNAUTHORIZED;
                 return Promise.reject(err);
             }
+            else if (project.name === 'forbidden creds') {
+                const err: any = new Error('Forbidden');
+                err.statusCode = httpstatus.FORBIDDEN;
+                return Promise.reject(err);
+            }
+            else if (project.name === 'watson maintenance') {
+                const err = new Error(conversation.ERROR_MESSAGES.MAINTENANCE);
+                return Promise.reject(err);
+            }
             else if (project.name === 'no creds') {
                 const err: any = new Error('Unexpected response when retrieving service credentials');
                 return Promise.reject(err);
@@ -467,6 +476,30 @@ describe('REST API - models', () => {
         });
 
 
+        it('should handle forbidden text credentials in unmanaged classes', async () => {
+            const classid = uuid();
+            const userid = uuid();
+            const projName = 'forbidden creds';
+
+            const project = await store.storeProject(userid, classid, 'text', projName, 'en', [], false);
+            const projectid = project.id;
+
+            nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
+            const res = await request(testServer)
+                .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CONFLICT);
+
+            assert.strictEqual(res.body.error,
+                'The Watson credentials being used by your class were rejected. ' +
+                'Please let your teacher or group leader know.');
+
+            await store.deleteEntireUser(userid, classid);
+        });
+
+
         it('should handle missing text credentials in unmanaged classes', async () => {
             const classid = uuid();
             const userid = uuid();
@@ -538,6 +571,32 @@ describe('REST API - models', () => {
                  'at too fast a rate. ' +
                  'Please stop now and let your teacher or group leader know that ' +
                  '"the Watson Assistant service is currently rate limiting their API key"');
+
+            await store.deleteEntireUser(userid, classid);
+        });
+
+
+        it('should handle Watson Assistant maintenance errors', async () => {
+            const classid = uuid();
+            const userid = uuid();
+            const projName = 'watson maintenance';
+
+            const project = await store.storeProject(userid, classid, 'text', projName, 'en', [], false);
+            const projectid = project.id;
+
+            nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
+
+            const res = await request(testServer)
+                .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.SERVICE_UNAVAILABLE);
+
+            assert.strictEqual(res.body.code, 'MLMOD11');
+            assert.strictEqual(res.body.error,
+                'Sorry, the IBM Watson Assistant service used to train models to recognise text ' +
+                'is currently undergoing maintenance');
 
             await store.deleteEntireUser(userid, classid);
         });

@@ -1,0 +1,48 @@
+.mlimportchooser {
+    max-width: 80%;
+    margin: 2em auto;
+    padding: 2.5em 1.5em;
+    text-align: center;
+
+    border: 3px dashed #cccccc;
+    border-radius: 1em;
+
+    transition: border-color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+}
+
+.mlimportchooser.mlimportdragover {
+    border-color: #3f51b5;
+    background-color: #f2f4fc;
+}
+
+.mlimportdropicon {
+    font-size: 3em;
+    color: #cccccc;
+}
+
+.mlimportdrophint {
+    margin: 0.75em 0 1.25em 0;
+    color: #666666;
+}
+
+.mlimportchoosebutton {
+    cursor: pointer;
+    margin-bottom: 0;
+}
+
+.mlimportfileinput {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.mlimportprogress {
+    max-width: 40em;
+    margin: 2em auto;
+}

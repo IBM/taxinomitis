@@ -944,6 +944,13 @@
                         $scope.testoutput = resp[0].class_name;
                         $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
                     });
+                })
+                .catch(function (err) {
+                    loggerService.error('[ml4kmodels] failed to start listening', err);
+                    $scope.$applyAsync(function () {
+                        $scope.listening = false;
+                        displayTestError(err);
+                    });
                 });
             }
         };

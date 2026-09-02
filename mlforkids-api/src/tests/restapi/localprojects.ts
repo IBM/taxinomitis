@@ -541,7 +541,7 @@ describe('REST API - local projects', () => {
                     { id : 3, numberdata : [ 3, 3 ], label : 'one' },
                     { id : 4, numberdata : [ 1, 10 ], label : 'two' },
                     { id : 5, numberdata : [ 2, 20 ], label : 'two' },
-                    { id : 6, numberdata : [ 3, 999999999999999999999999999999999999999999999999999 ], label : 'two' },
+                    { id : 6, numberdata : [ 3, 1e51 ], label : 'two' },
                 ])
                 .expect(httpstatus.CREATED);
 
@@ -561,7 +561,7 @@ describe('REST API - local projects', () => {
                     { id : 3, numberdata : [ 3, 3 ], label : 'one' },
                     { id : 4, numberdata : [ 1, 10 ], label : 'two' },
                     { id : 5, numberdata : [ 2, 20 ], label : 'two' },
-                    { id : 6, numberdata : [ 3, -999999999999999999999999999999999999999999999999999 ], label : 'two' },
+                    { id : 6, numberdata : [ 3, -1e51 ], label : 'two' },
                 ])
                 .expect(httpstatus.CREATED);
 

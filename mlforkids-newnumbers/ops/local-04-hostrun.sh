@@ -16,4 +16,4 @@ MODE=development \
     PUBLIC_API_URL=http://127.0.0.1:8000 \
     VERIFY_USER=testuser \
     VERIFY_PASSWORD=testpass \
-    uvicorn app.main:app --reload --port 8000
+    uvicorn app.main:app --reload --reload-dir app --port 8000

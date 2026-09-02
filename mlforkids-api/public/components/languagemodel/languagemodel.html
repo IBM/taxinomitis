@@ -418,7 +418,7 @@
             <div class="resetlink" ng-if="phase === PHASES.SMALL.READY" ng-click="review(PHASES.SMALL.CONTEXTWINDOW)" translate="LANGUAGEMODEL.REVIEW">Review</div>
             <div class="stepheading" translate="LANGUAGEMODEL.CONTEXTWINDOW.TITLE"></div>
             <div class="steprow">
-                <md-select class="rowitem" ng-model="project.slm.contextwindow" ng-required="true" ng-change="modifySmallModelContextWindow()">
+                <md-select class="rowitem" ng-model="project.slm.contextwindow" ng-required="true" ng-disabled="reconfiguring" ng-change="modifySmallModelContextWindow()">
                     <md-option ng-value="512">512</md-option>
                     <md-option ng-value="1024">1024</md-option>
                     <md-option ng-value="2048">2048</md-option>

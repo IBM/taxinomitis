@@ -221,4 +221,41 @@ describe('DB store - tenants', () => {
         );
     });
 
+    it('should update an existing class tenant', async () => {
+        const id = 'thisisthetenantidbeingupdated';
+
+        const original = await store.storeManagedClassTenant(id, 10, 3, Types.ClassTenantType.UnManaged);
+        assert.deepStrictEqual(original, {
+            id,
+            maxProjectsPerUser : 3,
+            textClassifierExpiry : 24,
+            maxUsers : 11,
+            tenantType : Types.ClassTenantType.UnManaged,
+            supportedProjectTypes : [ 'text', 'numbers', 'sounds', 'imgtfjs' ],
+        });
+
+        const updated = await store.updateManagedClassTenant(id, 123, 6, Types.ClassTenantType.ManagedPool);
+        assert.deepStrictEqual(updated, {
+            id,
+            maxProjectsPerUser : 6,
+            textClassifierExpiry : 24,
+            maxUsers : 124,
+            tenantType : Types.ClassTenantType.ManagedPool,
+            supportedProjectTypes : [ 'text', 'numbers', 'sounds', 'imgtfjs' ],
+        });
+
+        const fetched = await store.getClassTenant(id);
+        assert.deepStrictEqual(fetched, updated);
+
+        return store.deleteClassTenant(id);
+    });
+
+    it('should fail to update a class tenant that does not exist', async () => {
+        const id = 'thisisatenantidwithnorowinthedb';
+        await assert.rejects(
+            store.updateManagedClassTenant(id, 10, 3, Types.ClassTenantType.ManagedPool),
+            { message : 'Failed to update managed tenant' },
+        );
+    });
+
 });

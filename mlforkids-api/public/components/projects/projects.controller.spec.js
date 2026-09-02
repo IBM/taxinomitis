@@ -7,7 +7,7 @@ describe('ProjectsController', function () {
 
     var authServiceMock, projectsServiceMock, modelServiceMock, browserStorageServiceMock;
     var cleanupServiceMock, loggerServiceMock;
-    var $stateParamsMock, $translateMock, $mdDialogMock;
+    var $stateParamsMock, $translateMock, $mdDialogMock, $stateMock;
 
     var profile = { user_id : 'user1', tenant : 'class1' };
 
@@ -37,6 +37,7 @@ describe('ProjectsController', function () {
         $stateParamsMock = { id : undefined };
         $translateMock = jasmine.createSpy('$translate').and.returnValue($q.resolve({}));
         $mdDialogMock = jasmine.createSpyObj('$mdDialog', ['confirm', 'show', 'alert']);
+        $stateMock = jasmine.createSpyObj('$state', ['go']);
     });
 
     function createController() {
@@ -50,7 +51,8 @@ describe('ProjectsController', function () {
             $mdDialog : $mdDialogMock,
             $scope : $scope,
             cleanupService : cleanupServiceMock,
-            loggerService : loggerServiceMock
+            loggerService : loggerServiceMock,
+            $state : $stateMock
         });
     }
 
@@ -157,6 +159,113 @@ describe('ProjectsController', function () {
 
             expect(vm.projects.length).toBe(1);
             expect(projectsServiceMock.deleteProject).not.toHaveBeenCalled();
+        });
+
+    });
+
+
+    describe('displayProjectTypeInfo', function () {
+
+        var cloudProject = { id : 'cloud1', name : 'Sentiment', type : 'text' };
+
+        var ev = {
+            stopPropagation : function () {},
+            preventDefault : function () {}
+        };
+
+        beforeEach(function () {
+            projectsServiceMock.getProjects.and.returnValue($q.resolve([]));
+        });
+
+
+        it('offers to clone a cloud project, giving the dialog the project and profile', function () {
+            $mdDialogMock.show.and.callFake(function () { return $q.reject(); });
+
+            var vm = createController();
+            $rootScope.$digest();
+
+            vm.displayProjectTypeInfo(ev, 'cloud', cloudProject);
+            $rootScope.$digest();
+
+            expect($mdDialogMock.show).toHaveBeenCalledTimes(1);
+
+            var dialogspec = $mdDialogMock.show.calls.mostRecent().args[0];
+            expect(dialogspec.controller).toBe('ProjectCloneDialogController');
+            // templates are served from static/, and a wrong path here fails
+            //  silently at runtime rather than at build time
+            expect(dialogspec.templateUrl).toBe('static/components/projectclone/projectclone.tmpl.html');
+            expect(dialogspec.locals.project).toBe(cloudProject);
+            expect(dialogspec.locals.profile).toEqual(profile);
+        });
+
+
+        it('reloads the projects page on the new project when a clone was made', function () {
+            // navigating is what highlights the new project, and the highlight
+            //  is what requests persistent storage for it - so this must
+            //  happen, and only after the dialog has been dismissed
+            $mdDialogMock.show.and.returnValue($q.resolve({ id : 12 }));
+
+            var vm = createController();
+            $rootScope.$digest();
+
+            vm.displayProjectTypeInfo(ev, 'cloud', cloudProject);
+            $rootScope.$digest();
+
+            expect($stateMock.go).toHaveBeenCalledWith('projects', { id : 12 });
+        });
+
+
+        it('does not navigate when the dialog was closed without cloning', function () {
+            $mdDialogMock.show.and.returnValue($q.resolve(undefined));
+
+            var vm = createController();
+            $rootScope.$digest();
+
+            vm.displayProjectTypeInfo(ev, 'cloud', cloudProject);
+            $rootScope.$digest();
+
+            expect($stateMock.go).not.toHaveBeenCalled();
+        });
+
+
+        it('does not navigate when the dialog was cancelled', function () {
+            $mdDialogMock.show.and.callFake(function () { return $q.reject(); });
+
+            var vm = createController();
+            $rootScope.$digest();
+
+            vm.displayProjectTypeInfo(ev, 'cloud', cloudProject);
+            $rootScope.$digest();
+
+            expect($stateMock.go).not.toHaveBeenCalled();
+        });
+
+
+        it('opens the storage dialog for a local project too', function () {
+            // a local project used to get a plain alert with nothing on it but
+            //  an explanation. it gets the same dialog as a cloud project now,
+            //  because a local project can be exported - the dialog decides
+            //  for itself that cloning is not on offer
+            $mdDialogMock.show.and.returnValue($q.resolve());
+
+            var localProject = { id : 3, storage : 'local', type : 'text' };
+
+            var vm = createController();
+            $rootScope.$digest();
+
+            vm.displayProjectTypeInfo(ev, 'local', localProject);
+            $rootScope.$digest();
+
+            expect($mdDialogMock.show).toHaveBeenCalled();
+
+            var dialogspec = $mdDialogMock.show.calls.mostRecent().args[0];
+            expect(dialogspec.templateUrl)
+                .toBe('static/components/projectclone/projectclone.tmpl.html');
+            expect(dialogspec.locals.storage).toBe('local');
+            expect(dialogspec.locals.project).toBe(localProject);
+
+            // nothing was cloned, so there is nothing to navigate to
+            expect($stateMock.go).not.toHaveBeenCalled();
         });
 
     });

@@ -1,5 +1,5 @@
 # core dependencies
-from logging import info
+from logging import info, exception
 from os.path import isdir, join, exists
 from os import environ, mkdir
 from pathlib import Path
@@ -116,13 +116,35 @@ def create_status_file(location: Path, scratchkey: str) -> ModelInfo:
 
 # writes the new status for a model to a file that can be
 #  used as a status API response
-def update_status_file(model_folder: Path, info: ModelInfo):
+def update_status_file(model_folder: Path, modelinfo: ModelInfo):
     # if the model has been cleaned out, ignore
     if Path(model_folder).exists():
         # create status file
         with open(join(model_folder, "status"), "w") as statusfile:
-            # write JSON payload to file
-            dump(info, statusfile, default=json_serializer)
+            try:
+                # write JSON payload to file
+                #  allow_nan is disabled because values like NaN can be
+                #  written to a JSON file but not read back out of one,
+                #  which would leave clients unable to get any status at all
+                dump(modelinfo, statusfile, default=json_serializer, allow_nan=False)
+            except ValueError as statuserr:
+                exception("%s : Unable to write status", modelinfo.get("key"))
+
+                # discard whatever was written before the error
+                statusfile.seek(0)
+                statusfile.truncate()
+
+                # replace it with a status that clients can display
+                dump({
+                    "key": modelinfo.get("key"),
+                    "status": "Failed",
+                    "urls": modelinfo.get("urls"),
+                    "lastupdate": datetime.now(),
+                    "error": {
+                        "message": "Unable to prepare the status of the model",
+                        "stack": str(statuserr)
+                    }
+                }, statusfile, default=json_serializer)
 
 
 # Create a new saved model for the specified project

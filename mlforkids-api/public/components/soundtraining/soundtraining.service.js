@@ -31,6 +31,36 @@
         }
 
 
+        // maps a getUserMedia() failure (e.g. permission denied, no
+        //  microphone found) onto the { status, data } shape the UI
+        //  uses to display friendly alerts
+        function mapMicrophoneError(err) {
+            if (err.name === 'NotAllowedError' || err.name === 'SecurityError') {
+                return { status : 400, data : {
+                    message : 'Sorry! Machine Learning for Kids was not allowed to use your microphone'
+                }};
+            }
+            else if (err.name === 'NotFoundError' || err.name === 'TypeError') {
+                return { status : 400, data : {
+                    message : 'Sorry! Machine Learning for Kids could not find a microphone to use'
+                }};
+            }
+            else if (err.name === 'NotReadableError') {
+                return { status : 400, data : {
+                    message : 'Sorry! There was a problem with your microphone'
+                }};
+            }
+            else {
+                // record the error
+                loggerService.error('[ml4ksound] Unexpected permissions error');
+                if (err && Sentry && Sentry.captureException) {
+                    Sentry.captureException(err);
+                }
+
+                return { status : 500, data : err };
+            }
+        }
+
         // easiest way to see if we're allowed to access the microphone
         //  is to try and access the microphone   ¯\_(ツ)_/¯
         function permissionsCheck() {
@@ -45,31 +75,7 @@
                 })
                 .catch(function (err) {
                     loggerService.error('[ml4ksound] permissions check failed', err);
-
-                    if (err.name === 'NotAllowedError' || err.name === 'SecurityError') {
-                        throw { status : 400, data : {
-                            message : 'Sorry! Machine Learning for Kids was not allowed to use your microphone'
-                        }};
-                    }
-                    else if (err.name === 'NotFoundError' || err.name === 'TypeError') {
-                        throw { status : 400, data : {
-                            message : 'Sorry! Machine Learning for Kids could not find a microphone to use'
-                        }};
-                    }
-                    else if (err.name === 'NotReadableError') {
-                        throw { status : 400, data : {
-                            message : 'Sorry! There was a problem with your microphone'
-                        }};
-                    }
-                    else {
-                        // record the error
-                        loggerService.error('[ml4ksound] Unexpected permissions error');
-                        if (err && Sentry && Sentry.captureException) {
-                            Sentry.captureException(err);
-                        }
-
-                        throw { status : 500, data : err };
-                    }
+                    throw mapMicrophoneError(err);
                 });
         }
 
@@ -486,7 +492,11 @@
                 matches.sort(modelService.sortByConfidence);
 
                 callback(matches);
-            }, predictionOptions);
+            }, predictionOptions)
+            .catch(function (err) {
+                loggerService.error('[ml4ksound] failed to start listening', err);
+                throw mapMicrophoneError(err);
+            });
         }
 
         function stopTest() {

@@ -11,6 +11,7 @@ describe('UI - NLS', () => {
     let es: any;
     let fa: any;
     let fr: any;
+    let fi: any;
     let ital: any;
     let ko: any;
     let br: any;
@@ -41,6 +42,7 @@ describe('UI - NLS', () => {
         es = JSON.parse(fs.readFileSync('./public/languages/es.json', 'utf8'));
         fa = JSON.parse(fs.readFileSync('./public/languages/fa.json', 'utf8'));
         fr = JSON.parse(fs.readFileSync('./public/languages/fr.json', 'utf8'));
+        fi = JSON.parse(fs.readFileSync('./public/languages/fi.json', 'utf8'));
         ital = JSON.parse(fs.readFileSync('./public/languages/it.json', 'utf8'));
         ko = JSON.parse(fs.readFileSync('./public/languages/ko.json', 'utf8'));
         br = JSON.parse(fs.readFileSync('./public/languages/pt-br.json', 'utf8'));
@@ -146,6 +148,9 @@ describe('UI - NLS', () => {
         it('French', () => {
             compareKeys(en, fr, 'fr');
         });
+        it('Finnish', () => {
+            compareKeys(en, fi, 'fi');
+        });
         it('Italian', () => {
             compareKeys(en, ital, 'it');
         });
@@ -226,6 +231,9 @@ describe('UI - NLS', () => {
         });
         it('French', () => {
             compareTemplateVariables(en, fr, 'fr');
+        });
+        it('Finnish', () => {
+            compareTemplateVariables(en, fi, 'fi');
         });
         it('Italian', () => {
             compareTemplateVariables(en, ital, 'it');

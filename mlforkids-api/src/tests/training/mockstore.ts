@@ -147,6 +147,20 @@ export function getConversationWorkspaces(projectid: string): Promise<TrainingTy
                 },
             ]);
         }
+        if (projectid === 'existingprojectid-maintenance') {
+            return resolve([
+                {
+                    id : 'existingworkspacedbid-maintenance',
+                    workspace_id : 'existing-classifier-maintenance',
+                    credentialsid : '123',
+                    url : 'http://conversation.service/v1/workspaces/existing-classifier-maintenance',
+                    name : 'existing',
+                    language : 'de',
+                    created : new Date(),
+                    expiry : new Date(),
+                },
+            ]);
+        }
         resolve([]);
     });
 }

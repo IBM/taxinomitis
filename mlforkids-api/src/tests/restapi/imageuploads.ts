@@ -4,7 +4,7 @@ import * as fs from 'fs';
 import { v1 as uuid } from 'uuid';
 import * as express from 'express';
 import * as sinon from 'sinon';
-import * as IBMCosSDK from 'ibm-cos-sdk';
+import * as IBMCosSDK from 'ibm-cos-sdk-v2';
 import * as request from 'supertest';
 import { status as httpStatus } from 'http-status';
 
@@ -84,7 +84,7 @@ describe('REST API - image uploads', () => {
 
     beforeEach(() => {
         mock.reset();
-        cosStub = sinon.stub(IBMCosSDK, 'S3');
+        cosStub = sinon.stub(IBMCosSDK, 'S3Client');
         cosStub.returns(mock.mockS3);
         imagestore.init();
 

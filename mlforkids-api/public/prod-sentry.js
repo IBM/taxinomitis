@@ -1,7 +1,7 @@
 if (Sentry) {
     Sentry.init({
         dsn: 'https://b4bbe1a8fbce473cb9eb089652848a1e@sentry.io/202347',
-        release: '352',
+        release: '360',
         // https://docs.sentry.io/platforms/javascript/configuration/filtering/#decluttering-sentry
         ignoreErrors: [
             "top.GLOBALS",
@@ -19,7 +19,8 @@ if (Sentry) {
             "EBCallBackMessageReceived",
             "conduitPage",
             "Cannot redefine property: googletag",
-            "zaloJSV2 is not defined"
+            "zaloJSV2 is not defined",
+            "AbortError: The play() request was interrupted"
         ],
         denyUrls: [
             /graph\.facebook\.com/i,

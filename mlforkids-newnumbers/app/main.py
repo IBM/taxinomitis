@@ -63,7 +63,16 @@ async def model_training_request(scratch_key: str, csvfile: UploadFile,
     info("%s : New training request", scratch_key)
     try:
         # read the CSV file into a pandas dataframe
-        df = read_csv(csvfile.file)
+        #
+        # every value in the file is a value that a child has chosen to use
+        #  as a label, or as a choice in a multi-choice field, so we disable
+        #  the default handling of missing values - otherwise labels like
+        #  "None", "NA" or "null" would be turned into NaN
+        #
+        # empty values are the exception - they are used for fields that were
+        #  added to a project after some training data had been collected, so
+        #  they are the only values that really are missing
+        df = read_csv(csvfile.file, keep_default_na=False, na_values=[""])
     except:
         exception("Failed to parse CSV for %s", scratch_key)
         raise HTTPException(

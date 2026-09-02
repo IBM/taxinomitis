@@ -1,3 +1,4 @@
+/* global angular */
 // Minimal stand-in for the real 'app' module (defined in public/app.js).
 //
 // The real module depends on ngMaterial, ui.router, pascalprecht.translate

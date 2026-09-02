@@ -1,5 +1,11 @@
 // external dependencies
-import * as IBMCosSDK from 'ibm-cos-sdk';
+import {
+    S3Client,
+    PutObjectCommand, type PutObjectCommandInput,
+    GetObjectCommand, type GetObjectCommandInput, type GetObjectCommandOutput,
+    DeleteObjectCommand, type DeleteObjectCommandInput,
+    ListObjectsCommand, type ListObjectsCommandInput,
+} from 'ibm-cos-sdk-v2';
 // local dependencies
 import * as keys from './keys';
 import * as deletes from './bulkdelete';
@@ -11,8 +17,19 @@ import * as Types from './types';
 
 const log = loggerSetup();
 
+// the token endpoint stored in OBJECT_STORE_CREDS is the legacy Bluemix IAM
+//  host, which the v2 SDK's token manager can't reach - the modern endpoint
+//  is used instead regardless of what's in the stored credentials
+const IAM_AUTH_ENDPOINT = 'https://iam.cloud.ibm.com/identity/token';
 
-let cos: IBMCosSDK.S3;
+interface RawCosCreds {
+    endpoint: string;
+    apiKeyId: string;
+    serviceInstanceId: string;
+}
+
+
+let cos: S3Client;
 let BUCKET: string;
 let creds: object;
 
@@ -29,21 +46,35 @@ export function init(): void {
 
     const credsString = process.env[env.OBJECT_STORE_CREDS];
     if (credsString) {
+        let rawCreds: RawCosCreds;
         try {
-            creds = JSON.parse(credsString);
+            rawCreds = JSON.parse(credsString);
+            creds = rawCreds;
         }
         catch (err) {
             log.error({ err, credsString }, 'Invalid OBJECT_STORE_CREDS');
             throw new Error('Invalid OBJECT_STORE_CREDS');
         }
-        cos = new IBMCosSDK.S3(creds);
+        cos = new S3Client({
+            endpoint : rawCreds.endpoint.startsWith('http') ? rawCreds.endpoint : `https://${rawCreds.endpoint}`,
+            region : 'us-standard',
+            credentials : {
+                apiKey : rawCreds.apiKeyId,
+                serviceInstanceId : rawCreds.serviceInstanceId,
+                authEndpoint : IAM_AUTH_ENDPOINT,
+                // unused by the IAM credential provider, but required by the
+                //  AwsCredentialIdentity type that IbmAwsCredentialIdentity extends
+                accessKeyId : '',
+                secretAccessKey : '',
+            },
+        });
     }
     else {
         log.debug('Missing OBJECT_STORE_CREDS');
     }
 
     if (BUCKET && creds) {
-        verifyBucket();
+        void verifyBucket();
     }
 }
 
@@ -63,7 +94,7 @@ export async function storeImage(
 {
     verifyCosClient();
 
-    const objectDefinition: IBMCosSDK.S3.PutObjectRequest = {
+    const objectDefinition: PutObjectCommandInput = {
         Bucket: BUCKET,
         Key: keys.get(spec),
         Body: contents,
@@ -71,7 +102,7 @@ export async function storeImage(
             filetype : type,
         },
     };
-    const stored = await cos.putObject(objectDefinition).promise();
+    const stored = await cos.send(new PutObjectCommand(objectDefinition));
     return stored.ETag;
 }
 
@@ -82,12 +113,12 @@ export async function storeSound(
 {
     verifyCosClient();
 
-    const objectDefinition: IBMCosSDK.S3.PutObjectRequest = {
+    const objectDefinition: PutObjectCommandInput = {
         Bucket: BUCKET,
         Key: keys.get(spec),
         Body: contents.join(','),
     };
-    const stored = await cos.putObject(objectDefinition).promise();
+    const stored = await cos.send(new PutObjectCommand(objectDefinition));
     return stored.ETag;
 }
 
@@ -96,25 +127,25 @@ export async function storeSound(
 export async function getImage(spec: Types.ObjectSpec): Promise<Types.Image> {
     verifyCosClient();
 
-    const objectDefinition: IBMCosSDK.S3.GetObjectRequest = {
+    const objectDefinition: GetObjectCommandInput = {
         Bucket: BUCKET,
         Key: keys.get(spec),
     };
 
-    const response = await cos.getObject(objectDefinition).promise();
-    return getImageObject(objectDefinition.Key, response);
+    const response = await cos.send(new GetObjectCommand(objectDefinition));
+    return await getImageObject(objectDefinition.Key as string, response);
 }
 
 export async function getSound(spec: Types.ObjectSpec): Promise<Types.Sound> {
     verifyCosClient();
 
-    const objectDefinition: IBMCosSDK.S3.GetObjectRequest = {
+    const objectDefinition: GetObjectCommandInput = {
         Bucket: BUCKET,
         Key: keys.get(spec),
     };
 
-    const response = await cos.getObject(objectDefinition).promise();
-    return getSoundObject(objectDefinition.Key, response);
+    const response = await cos.send(new GetObjectCommand(objectDefinition));
+    return await getSoundObject(objectDefinition.Key as string, response);
 }
 
 
@@ -122,11 +153,11 @@ export async function getSound(spec: Types.ObjectSpec): Promise<Types.Sound> {
 
 
 export async function deleteObject(spec: Types.ObjectSpec): Promise<void> {
-    const objectDefinition: IBMCosSDK.S3.DeleteObjectRequest = {
+    const objectDefinition: DeleteObjectCommandInput = {
         Bucket: BUCKET,
         Key: keys.get(spec),
     };
-    await cos.deleteObject(objectDefinition).promise();
+    await cos.send(new DeleteObjectCommand(objectDefinition));
 }
 
 export function deleteProject(spec: Types.ProjectSpec): Promise<void> {
@@ -149,7 +180,7 @@ function verifyCosClient() {
 
 
 
-function getImageType(key: string, response: IBMCosSDK.S3.GetObjectOutput): Types.ImageFileType {
+function getImageType(key: string, response: GetObjectCommandOutput): Types.ImageFileType {
     if (response.Metadata) {
         if (config.SUPPORTED_IMAGE_MIMETYPES.includes(response.Metadata.filetype)) {
             return response.Metadata.filetype as Types.ImageFileType;
@@ -165,20 +196,28 @@ function getImageType(key: string, response: IBMCosSDK.S3.GetObjectOutput): Type
     }
 }
 
-function getImageObject(key: string, response: IBMCosSDK.S3.GetObjectOutput): Types.Image {
+async function getObjectBody(response: GetObjectCommandOutput): Promise<Buffer | undefined> {
+    if (!response.Body) {
+        return undefined;
+    }
+    const bytes = await response.Body.transformToByteArray();
+    return Buffer.from(bytes);
+}
+
+async function getImageObject(key: string, response: GetObjectCommandOutput): Promise<Types.Image> {
     return {
         size : response.ContentLength ? response.ContentLength : -1,
-        body : response.Body as Buffer,
+        body : await getObjectBody(response) as Buffer,
         modified : response.LastModified ? response.LastModified.toString() : '',
         etag : response.ETag,
         filetype : getImageType(key, response),
     };
 }
 
-function getSoundObject(key: string, response: IBMCosSDK.S3.GetObjectOutput): Types.Sound {
+async function getSoundObject(key: string, response: GetObjectCommandOutput): Promise<Types.Sound> {
     return {
         size : response.ContentLength ? response.ContentLength : -1,
-        body : getSoundData(response.Body as Buffer),
+        body : getSoundData(await getObjectBody(response)),
         modified : response.LastModified ? response.LastModified.toString() : '',
         etag : response.ETag,
     };
@@ -196,17 +235,18 @@ function getSoundData(raw: Buffer | undefined): number[] {
 
 
 
-function verifyBucket(): void {
-    const req: IBMCosSDK.S3.ListObjectsRequest = {
+async function verifyBucket(): Promise<void> {
+    const req: ListObjectsCommandInput = {
         Bucket: BUCKET,
         MaxKeys: 1,
     };
 
-    cos.listObjects(req, (err: IBMCosSDK.AWSError/*, output: IBMCosSDK.S3.ListObjectsOutput*/) => {
-        if (err) {
-            log.error({ err }, 'Unable to query Object Storage');
-            throw new Error('Failed to verify Object Store config : ' + err.message);
-        }
-    });
+    try {
+        await cos.send(new ListObjectsCommand(req));
+    }
+    catch (err) {
+        log.error({ err }, 'Unable to query Object Storage');
+        throw new Error('Failed to verify Object Store config : ' + (err as Error).message);
+    }
 }
 

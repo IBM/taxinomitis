@@ -41,8 +41,10 @@ console.log(`Bumping version ${currentVersion} -> ${newVersion}`);
 writeFile(APP_ENV, readFile(APP_ENV).replace(
     `DOCKER_VERSION=${currentVersion}`, `DOCKER_VERSION=${newVersion}`));
 
-writeFile(APP_JS, readFile(APP_JS).replace(
-    `.json?v=${currentVersion}'`, `.json?v=${newVersion}'`));
+// app.js has more than one version reference - the translation files loader
+//  and the template request interceptor - so they all need updating
+writeFile(APP_JS, replaceAll(readFile(APP_JS), 
+    `?v=${currentVersion}`, `?v=${newVersion}`, APP_JS));
 
 writeFile(LOGGER_SERVICE_JS, readFile(LOGGER_SERVICE_JS).replace(
     `version v=${currentVersion}`, `version v=${newVersion}`));

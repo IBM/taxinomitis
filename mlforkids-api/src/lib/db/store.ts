@@ -1334,6 +1334,21 @@ export async function getBluemixCredentials(
     return response.rows.map(dbobjects.getCredentialsFromDbRow);
 }
 
+export async function getBluemixCredentialsByClassId(
+    classid: string, service: TrainingObjects.BluemixServiceType,
+): Promise<TrainingObjects.BluemixCredentials[]>
+{
+    const queryName = 'dbqn-select-bluemixcredentials-classid-safe';
+    const queryString = 'SELECT id, classid, servicetype, url, username, password, credstypeid ' +
+                        'FROM bluemixcredentials ' +
+                        'WHERE classid = $1 AND servicetype = $2';
+    const queryValues = [ classid, service ];
+
+    const response = await dbExecute(queryName, queryString, queryValues);
+    return response.rows.map(dbobjects.getCredentialsFromDbRow);
+}
+
+
 export async function getBluemixCredentialsPoolBatch(
     service: TrainingObjects.BluemixServiceType,
 ): Promise<TrainingObjects.BluemixCredentials[]>
@@ -1614,6 +1629,26 @@ export function deleteBluemixCredentialsPoolForTests(): Promise<void> {
         log.error('deleteBluemixCredentialsPoolForTests called on production system');
         return Promise.resolve();
     }
+}
+
+
+/**
+ * The classifier rows that would be deleted by deleteClassifiersByCredentials -
+ *  so that the deletion can be reversed if needed.
+ */
+export async function getClassifiersUsingCredentials(
+    credentials: TrainingObjects.BluemixCredentials,
+): Promise<TrainingObjects.ClassifierDbRow[]>
+{
+    const queryName = 'dbqn-select-bluemixclassifiers-bycredentials';
+    const queryString = 'SELECT id, credentialsid, userid, projectid, classid, servicetype, ' +
+                            'classifierid, url, name, language, created, expiry ' +
+                        'FROM bluemixclassifiers ' +
+                        'WHERE credentialsid = $1';
+    const queryValues = [ credentials.id ];
+
+    const response = await dbExecute(queryName, queryString, queryValues);
+    return response.rows;
 }
 
 
@@ -1961,6 +1996,28 @@ export function resetExpiredScratchKey(id: string, projecttype: Objects.ProjectT
 
     return dbExecute(queryName, queryString, queryValues)
         .then(() => { return; });
+}
+
+
+/**
+ * The scratch key rows that would be reset by removeCredentialsFromScratchKeys,
+ *  with their current (pre-reset) field values - so that the reset can be
+ *  reversed if needed.
+ */
+export async function getScratchKeysUsingCredentials(
+    credentials: TrainingObjects.BluemixCredentials,
+): Promise<Objects.ScratchKeyDbRow[]>
+{
+    const queryName = 'dbqn-select-scratchkeys-bycredentials';
+    const queryString = 'SELECT id, classid, projectid, projectname, projecttype, ' +
+                            'serviceurl, serviceusername, servicepassword, ' +
+                            'classifierid, updated ' +
+                        'FROM scratchkeys ' +
+                        'WHERE serviceusername = $1 AND servicepassword = $2 AND classid = $3';
+    const queryValues = [ credentials.username, credentials.password, credentials.classid ];
+
+    const response = await dbExecute(queryName, queryString, queryValues);
+    return response.rows;
 }
 
 
@@ -2382,6 +2439,41 @@ export async function storeManagedClassTenant(classid: string, numstudents: numb
         textClassifierExpiry : obj.textclassifiersexpiry,
     };
     return created;
+}
+
+
+export async function updateManagedClassTenant(classid: string, numstudents: number, maxprojects: number, type: Objects.ClassTenantType): Promise<Objects.ClassTenant>
+{
+    const obj = dbobjects.createClassTenant(classid, [ 'text', 'numbers', 'sounds', 'imgtfjs' ]);
+    const NUM_USERS = numstudents + 1;
+
+    const queryName = 'dbqn-update-tenants';
+    const queryString = 'UPDATE tenants SET ' +
+                            'projecttypes = $2, ismanaged = $3, ' +
+                            'maxusers = $4, maxprojectsperuser = $5, ' +
+                            'textclassifiersexpiry = $6 ' +
+                        'WHERE id = $1';
+    const queryValues = [
+        obj.id, obj.projecttypes,
+        type, NUM_USERS,
+        maxprojects,
+        obj.textclassifiersexpiry,
+    ];
+
+    const response = await dbExecute(queryName, queryString, queryValues);
+    if (response.rowCount !== 1) {
+        log.error({ response, queryValues }, 'Failed to update managed tenant');
+        throw new Error('Failed to update managed tenant');
+    }
+    const updated = {
+        id : obj.id,
+        supportedProjectTypes : obj.projecttypes.split(',') as Objects.ProjectTypeLabel[],
+        tenantType : type,
+        maxUsers : NUM_USERS,
+        maxProjectsPerUser : maxprojects,
+        textClassifierExpiry : obj.textclassifiersexpiry,
+    };
+    return updated;
 }
 
 

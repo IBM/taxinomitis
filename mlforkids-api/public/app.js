@@ -14,6 +14,32 @@
         '$mdThemingProvider'
     ];
 
+    // angular fetches the templates for pages, dialogs and directives over
+    //  http, so they need handling differently to requests for the REST API.
+    //  the query string is ignored because template requests are versioned
+    function isTemplateRequest(url) {
+        var urlpath = url ? url.split('?')[0] : '';
+        return urlpath.substring(urlpath.length - 5) === '.html';
+    }
+
+    // templates get a version cache-busting query string added to the request
+    //  templateUrl values are all currently written as relative urls, but 
+    //  this is written as a future-proof function to handle a future 
+    //  absolute template url
+    function isVersionableTemplate(url) {
+        try {
+            if (!url || url.indexOf('?') !== -1 || !isTemplateRequest(url)) {
+                return false;
+            }
+            return url.indexOf('static/components/') === 0 ||
+                url.indexOf('/static/components/') === 0;
+        }
+        catch (err) {
+            console.error(err);
+            return false;
+        }
+    }
+
     function config($stateProvider, lockProvider, $urlRouterProvider, jwtOptionsProvider, $httpProvider, $translateProvider, $mdThemingProvider) {
 
         // theme has been hard-coded in the angular-material folder, so
@@ -120,6 +146,12 @@
                 url: '/importdataset',
                 controller: 'DatasetsController',
                 templateUrl: 'static/components/datasets/datasets.html',
+                controllerAs: 'vm'
+            })
+            .state('importproject', {
+                url: '/importproject',
+                controller: 'ProjectImportController',
+                templateUrl: 'static/components/projectimport/projectimport.html',
                 controllerAs: 'vm'
             })
             .state('projects', {
@@ -334,7 +366,9 @@
         jwtOptionsProvider.config({
             whiteListedDomains: AUTH0_WHITELISTED_DOMAINS,
             tokenGetter: ['options', 'storageService', function (options, storageService) {
-                if (options && options.url.substring(options.url.length - 5) == '.html') {
+                // templates are fetched with a version query string so 
+                // the check has to ignore any query
+                if (options && isTemplateRequest(options.url)) {
                     return null;
                 }
                 return storageService.getItem('id_token');
@@ -346,11 +380,22 @@
 
         $httpProvider.interceptors.push('jwtInterceptor');
 
+        $httpProvider.interceptors.push(function () {
+            return {
+                request : function (httpconfig) {
+                    if (isVersionableTemplate(httpconfig.url)) {
+                        httpconfig.url = httpconfig.url + '?v=360';
+                    }
+                    return httpconfig;
+                }
+            };
+        });
+
         $translateProvider
             .useSanitizeValueStrategy('sanitizeParameters')
             .useStaticFilesLoader({
                 prefix: 'static/languages/',
-                suffix: '.json?v=352'
+                suffix: '.json?v=360'
             })
             .determinePreferredLanguage(function () {
                 var lang = navigator.userLanguage || navigator.language;
@@ -387,6 +432,7 @@
                         'pt-br': 'pt-br',
                         'pt': 'pt',
                         'fr': 'fr',
+                        'fi': 'fi',
                         'ko': 'ko',
                         'nl': 'nl-be',
                         'ja': 'ja',
