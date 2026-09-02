@@ -177,5 +177,25 @@
   },
   "allowScripts": {
     "dtrace-provider@0.8.8": true
+  },
+  "overrides": {
+    "@ibm-cos/credential-provider-iam": {
+      "axios": "1.18.0"
+    },
+    "@slack/webhook": {
+      "axios": "1.18.0"
+    },
+    "axios": {
+      "axios": "1.18.0"
+    },
+    "ibm-cloud-sdk-core": {
+      "axios": "1.18.0"
+    },
+    "ibm-cos-sdk-v2": {
+      "axios": "1.18.0"
+    },
+    "retry-axios": {
+      "axios": "1.18.0"
+    }
   }
 }
