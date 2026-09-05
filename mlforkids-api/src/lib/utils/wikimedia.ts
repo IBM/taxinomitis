@@ -14,7 +14,8 @@ export const FAIL = 'Unable to find smaller version of image';
 
 export function isWikimedia(imageurl: string): boolean {
     return !!imageurl &&
-           imageurl.startsWith('https://upload.wikimedia.org/wikipedia/commons/');
+           (imageurl.startsWith('https://upload.wikimedia.org/wikipedia/commons/') ||
+            imageurl.startsWith('https://thumb.wikimedia.org/wikipedia/commons/'));
 }
 
 
@@ -52,7 +53,8 @@ function getImageName(imageurl: string): string {
     const imageAddress = new url.URL(imageurl);
     if (imageAddress && imageAddress.pathname) {
         const segments = imageAddress.pathname.split('/');
-        if (imageurl.startsWith('https://upload.wikimedia.org/wikipedia/commons/thumb/')) {
+        if (imageurl.startsWith('https://upload.wikimedia.org/wikipedia/commons/thumb/') ||
+            imageurl.startsWith('https://thumb.wikimedia.org/wikipedia/commons/thumb/')) {
             return segments[segments.length - 2];
         }
         else {
