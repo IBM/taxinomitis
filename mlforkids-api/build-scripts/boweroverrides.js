@@ -57,8 +57,11 @@ for (const file of auth0LockFiles) {
     if (file === 'auth0-lock-csp-shim.js') {
         continue; // Minified separately below
     }
-    if (file === 'prepare-css.html') {
-        continue; // Development tool, not for production
+    if (file === 'prepare-css.js') {
+        continue; // Maintenance tool, not for production
+    }
+    if (file === 'README.md') {
+        continue; // Documentation, not for production
     }
 
     const stat = fs.statSync(srcPath);
@@ -94,6 +97,37 @@ for (const file of auth0LockFiles) {
         console.log('  ✓ auth0-lock (with minified CSP shim)');
     } catch (error) {
         console.error('Error minifying auth0-lock-csp-shim.js:', error);
+        process.exit(1);
+    }
+})();
+
+// angular-lock (locally maintained replacement for the abandoned npm package)
+(async () => {
+    try {
+        const angularLockSrc = path.join(baseDir, 'public', 'third-party', 'angular-lock', 'angular-lock.js');
+        const angularLockDest = path.join(bowerDir, 'angular-lock');
+        ensureDir(angularLockDest);
+
+        const angularLockCode = fs.readFileSync(angularLockSrc, 'utf8');
+
+        const minified = await minify(angularLockCode, {
+            compress: {
+                dead_code: true,
+                drop_console: false,
+                drop_debugger: true
+            },
+            mangle: true
+        });
+
+        if (minified.error) {
+            console.error('Terser error minifying angular-lock.js:', minified.error);
+            process.exit(1);
+        }
+
+        fs.writeFileSync(path.join(angularLockDest, 'angular-lock.min.js'), minified.code);
+        console.log('  ✓ angular-lock');
+    } catch (error) {
+        console.error('Error minifying angular-lock.js:', error);
         process.exit(1);
     }
 })();

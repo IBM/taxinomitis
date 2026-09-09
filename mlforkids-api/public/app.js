@@ -327,6 +327,7 @@
                         responseType: 'token id_token',
                         audience: 'https://' + AUTH0_DOMAIN + '/userinfo',
                         redirectUrl: AUTH0_CALLBACK_URL,
+                        autoParseHash: false,
                         params: {
                             scope: 'openid email app_metadata'
                         }

@@ -57,6 +57,7 @@ module.exports = function (config) {
             'public/components/worksheets/*.js',
             'public/components/utils/*.js',
             'public/third-party/webcam-directive/*.js',
+            'public/third-party/angular-lock/*.js',
 
             // loaded into $templateCache (via ngHtml2JsPreprocessor below) so
             // DOM-level tests can compile fragments of the *real* template

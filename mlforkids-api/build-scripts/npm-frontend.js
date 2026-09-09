@@ -144,12 +144,7 @@ const copyOperations = [
         ]
     },
     // Note: auth0-lock is handled by boweroverrides.js (pre-built file from public/third-party)
-    {
-        name: 'angular-lock',
-        operations: [
-            { type: 'file', from: 'angular-lock', fromPath: 'dist/angular-lock.min.js', to: 'angular-lock', toPath: 'dist/angular-lock.min.js' }
-        ]
-    },
+    // Note: angular-lock is handled by boweroverrides.js (locally maintained, from public/third-party)
     {
         name: 'angular-jwt',
         operations: [

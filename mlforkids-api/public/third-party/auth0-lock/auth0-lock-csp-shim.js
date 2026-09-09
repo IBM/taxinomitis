@@ -5,7 +5,7 @@
  * and BEFORE lock.min.js is loaded.
  *
  * Purpose:
- *   auth0-lock v11 unconditionally calls injectStyles() on initialisation, which:
+ *   auth0-lock unconditionally calls injectStyles() on initialisation, which:
  *     1. Creates a <style> tag via appendChild (CSP violation) — unless one already exists in DOM
  *     2. Writes the bundled CSS into style.innerHTML (CSP violation regardless)
  *   It also calls setWindowHeightStyle(), which writes an inline style to <html> (CSP violation).
@@ -14,7 +14,9 @@
  *   before Lock runs. Lock's CSS is instead loaded via an external <link> stylesheet
  *   referencing auth0-lock.min.css in the same directory.
  *
- * See: https://github.com/auth0/lock/blob/v11.35.1/src/core.js#L234-L251
+ * Verified against auth0-lock v11.35.1 and v15.0.1 - injectStyles() and
+ * setWindowHeightStyle() behave identically in both.
+ * See: https://github.com/auth0/lock/blob/v15.0.1/src/core.js
  */
 
 (function () {
