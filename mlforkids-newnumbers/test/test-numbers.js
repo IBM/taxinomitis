@@ -1,8 +1,8 @@
-const request = require('request-promise');
 const assert = require('assert');
 const uuid = require('uuid').v4;
 const fs = require('fs');
-const { DOMParser } = require('xmldom');
+const path = require('path');
+const { DOMParser } = require('@xmldom/xmldom');
 let ydf;
 require('ydf-inference')()
     .then((mod) => {
@@ -35,6 +35,82 @@ const INVALID = './package.json';
 
 
 const xmlParser = new DOMParser();
+
+
+//    json:true            - send Accept: application/json and parse the response body
+//    gzip:true            - no-op (fetch negotiates and decompresses automatically)
+//    auth:{user,pass}     - HTTP Basic auth header
+//    formData:{ field : string
+//               | fs.ReadStream
+//               | { value, options : { filename, contentType } } }  - multipart body
+//    encoding:null        - resolve with a Buffer instead of a parsed/text body
+//  On a non-2xx response it rejects with an error carrying { statusCode,
+//  response : { body } }, matching what the tests expected from request-promise.
+function apiRequest(method, url, options) {
+    const opts = options || {};
+    const headers = {};
+    const init = { method, headers };
+
+    if (opts.auth) {
+        headers.Authorization = 'Basic ' +
+            Buffer.from(opts.auth.user + ':' + opts.auth.pass).toString('base64');
+    }
+    if (opts.json) {
+        headers.Accept = 'application/json';
+    }
+    if (opts.formData) {
+        const form = new FormData();
+        for (const [ field, value ] of Object.entries(opts.formData)) {
+            if (value && typeof value.pipe === 'function' && value.path) {
+                // an fs.createReadStream(...)
+                form.append(field,
+                            new Blob([ fs.readFileSync(value.path) ]),
+                            path.basename(value.path));
+            }
+            else if (value && typeof value === 'object' && 'value' in value) {
+                // request's verbose form: { value, options : { filename, contentType } }
+                const fileOpts = value.options || {};
+                form.append(field,
+                            new Blob([ value.value ], { type : fileOpts.contentType }),
+                            fileOpts.filename);
+            }
+            else {
+                form.append(field, value);
+            }
+        }
+        init.body = form;
+    }
+
+    return fetch(url, init).then((res) => {
+        const contentType = res.headers.get('content-type') || '';
+        const wantsJson = opts.json || contentType.includes('application/json');
+
+        let bodyPromise;
+        if (opts.encoding === null) {
+            bodyPromise = res.arrayBuffer().then((buf) => Buffer.from(buf));
+        }
+        else if (wantsJson) {
+            bodyPromise = res.text().then((text) => (text ? JSON.parse(text) : undefined));
+        }
+        else {
+            bodyPromise = res.text();
+        }
+
+        return bodyPromise.then((body) => {
+            if (!res.ok) {
+                const err = new Error('Request failed with status code ' + res.status);
+                err.statusCode = res.status;
+                err.response = { body };
+                throw err;
+            }
+            return body;
+        });
+    });
+}
+
+const request = (url, options) => apiRequest('GET', url, options);
+request.get = (url, options) => apiRequest('GET', url, options);
+request.post = (url, options) => apiRequest('POST', url, options);
 
 
 

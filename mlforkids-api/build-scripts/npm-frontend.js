@@ -174,11 +174,14 @@ const copyOperations = [
         ]
     },
 
-    // D3
+    // D3 - only d3-selection is used (d3.select + selection chaining in the
+    //  FCNN visualisation on the describe-text-model page). Copied to the same
+    //  d3/d3.min.js path so the lazy loader in describemodel.controller.js is
+    //  unchanged; the UMD build still registers the global `d3`.
     {
-        name: 'd3',
+        name: 'd3-selection',
         operations: [
-            { type: 'file', from: 'd3', fromPath: 'dist/d3.min.js', to: 'd3', toPath: 'd3.min.js' }
+            { type: 'file', from: 'd3-selection', fromPath: 'dist/d3-selection.min.js', to: 'd3', toPath: 'd3.min.js' }
         ]
     },
 
