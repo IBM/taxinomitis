@@ -18,11 +18,19 @@ Mustache.templateCache = undefined;
 
 const ROOT_URL = process.env[env.AUTH0_CALLBACK_URL];
 
-function escapeProjectName(name: string): string {
+export function escapeProjectName(name: string): string {
     // Scratch 3 needs HTML encoding (e.g. '&lt;') as special
     //  characters (e.g. '<') will prevent extensions from
     //  loading
+    //
+    // The result is embedded unescaped into a single-quoted JS string
+    //  literal (name: '{{{ projectname }}}',) in the generated extension
+    //  file, so backslashes MUST be escaped before quotes - escaping a
+    //  quote to \' while leaving a preceding backslash alone lets that
+    //  backslash cancel out the escape, ending the string literal early
+    //  and injecting whatever follows as executable code
     return name.replace(/[&<>"]/g, ' ')
+               .replace(/\\/g, '\\\\')
                .replace(/[']/g, '\\\'');
 }
 

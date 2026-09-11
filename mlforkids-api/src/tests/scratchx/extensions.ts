@@ -7,6 +7,61 @@ import * as Types from '../../lib/db/db-types';
 
 describe('Scratchx - extensions', () => {
 
+    describe('escapeProjectName()', () => {
+
+        // escapeProjectName()'s output is embedded, unescaped, directly
+        //  into a single-quoted JS string literal in the generated
+        //  extension file (`name: '{{{ projectname }}}',`), so the only
+        //  way to prove the escaping is actually safe is to round-trip
+        //  it through a real JS parser, the same way a browser loading
+        //  the extension would - a naive string comparison could miss
+        //  an escaping bug that a JS parser would still be tricked by
+        function evalAsJsStringLiteral(escaped: string): string {
+            // eslint-disable-next-line no-eval
+            return eval("'" + escaped + "'");
+        }
+
+        it('should round-trip plain names unchanged', () => {
+            const name = 'My Project';
+            assert.strictEqual(evalAsJsStringLiteral(extensions.escapeProjectName(name)), name);
+        });
+
+        it('should round-trip apostrophes', () => {
+            const name = "This is Dale's test";
+            assert.strictEqual(evalAsJsStringLiteral(extensions.escapeProjectName(name)), name);
+        });
+
+        it('should not allow a backslash to break out of the string literal', () => {
+            // a name ending in a single backslash immediately before a
+            //  quote-escaping backslash would - if backslashes aren't
+            //  escaped first - cancel out the quote-escaping and let the
+            //  string literal terminate early, injecting whatever
+            //  follows as executable code
+            const payload = "\\';alert(document.cookie);//";
+            const escaped = extensions.escapeProjectName(payload);
+
+            // if the escaping is broken, this throws (a syntax error from
+            //  the injected code) or returns something other than the
+            //  original payload (having been truncated at the injected
+            //  quote) - either way, it proves the string literal was
+            //  escaped from
+            assert.strictEqual(evalAsJsStringLiteral(escaped), payload);
+        });
+
+        it('should not allow a backslash to break out when followed directly by more content', () => {
+            const payload = "\\'});alert(1);({a:'";
+            const escaped = extensions.escapeProjectName(payload);
+            assert.strictEqual(evalAsJsStringLiteral(escaped), payload);
+        });
+
+        it('should preserve multiple consecutive backslashes', () => {
+            const name = 'back\\\\slash\\\\name';
+            assert.strictEqual(evalAsJsStringLiteral(extensions.escapeProjectName(name)), name);
+        });
+
+    });
+
+
     describe('text projects', () => {
 
         it('should create a text classify extension for Scratch 3', async () => {
