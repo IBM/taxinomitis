@@ -1,4 +1,5 @@
 // core dependencies
+import * as dns from 'node:dns';
 import * as fs from 'fs';
 import { IncomingHttpHeaders, IncomingMessage } from 'http';
 import { pipeline, Writable, Readable } from 'node:stream';
@@ -9,6 +10,7 @@ import * as got from 'mlforkids-got';
 import * as googleDns from 'mlforkids-google-dns';
 // local dependencies
 import loggerSetup from './logger';
+import * as urlsafety from './urlsafety';
 
 const log = loggerSetup();
 
@@ -21,10 +23,17 @@ sharp.cache(false);
 // prevent sharp using multiple cores in parallel to reduce memory use
 sharp.concurrency(1);
 
+// used as a got beforeRequest/beforeRedirect hook, so a literal-IP target
+//  is checked on the initial request and on every redirect hop - dnsLookup
+//  never sees a literal IP, as got connects directly without DNS lookup
+function checkRequestUrl(options: { url: URL }): void {
+    urlsafety.assertSafeUrl(options.url);
+}
+
 // standard options for downloading images
 const REQUEST_OPTIONS = {
     http2 : true,
-    dnsCache : true, // replaced once googleDns module has loaded
+    dnsLookup : urlsafety.wrapDnsLookup(dns.lookup), // replaced once googleDns module has loaded
     timeout : { request : 20000 },
     https : { rejectUnauthorized : false },
     decompress : true,
@@ -39,12 +48,32 @@ const REQUEST_OPTIONS = {
         'Accept-Language': '*',
     },
     throwHttpErrors: false,
+    hooks : {
+        beforeRequest : [ checkRequestUrl ],
+        beforeRedirect : [ checkRequestUrl ],
+    },
 };
 
 const RESIZE_OPTIONS = {
     // skew, don't crop, when resizing
     fit : 'fill',
 } as sharp.ResizeOptions;
+
+
+/**
+ * The dnsLookup/hooks options that protect outgoing requests against
+ *  SSRF for reuse by other modules that also fetch from arbitrary,
+ *  user-supplied URLs via got.
+ *
+ * Returned fresh on every call, since REQUEST_OPTIONS.dnsLookup is
+ *  replaced in place once the Google DNS cache has finished loading.
+ */
+export function getSsrfProtectionOptions() {
+    return {
+        dnsLookup : REQUEST_OPTIONS.dnsLookup,
+        hooks : REQUEST_OPTIONS.hooks,
+    };
+}
 
 
 export interface ML4KError extends Error {
@@ -85,7 +114,7 @@ export function file(url: string, targetFilePath: string, callback: IErrCallback
             }
         })
         .on('error', (err: Error) => {
-            resolve(err as ML4KError);
+            resolve(toDownloadError(url, err));
         });
     // writing to file
     const writeStream = fs.createWriteStream(targetFilePath)
@@ -127,6 +156,29 @@ function returnAsMl4kError(err: Error): ML4KError {
     const modifyErr = err as ML4KError;
     modifyErr.ml4k = true;
     return modifyErr;
+}
+
+// got wraps an error thrown from a dnsLookup/beforeRequest/beforeRedirect
+//  hook in its own RequestError, with the original error preserved as
+//  .cause - unwrap that here so callers can recognize an SSRF refusal
+function unsafeAddressCause(err: any): urlsafety.UnsafeAddressError | undefined {
+    if (err instanceof urlsafety.UnsafeAddressError) {
+        return err;
+    }
+    if (err && err.cause instanceof urlsafety.UnsafeAddressError) {
+        return err.cause;
+    }
+    return undefined;
+}
+
+function toDownloadError(url: string, err: any): ML4KError {
+    const cause = unsafeAddressCause(err);
+    if (cause) {
+        const blockedErr = returnAsMl4kError(new Error(safeGetHost(url) + ERRORS.DOWNLOAD_FORBIDDEN));
+        blockedErr.cause = cause;
+        return blockedErr;
+    }
+    return err as ML4KError;
 }
 
 
@@ -208,6 +260,12 @@ export function resizeUrl(url: string, width: number, height: number): Promise<B
 
         got.stream(url, REQUEST_OPTIONS)
             .on('error', (err: any) => {
+                const cause = unsafeAddressCause(err);
+                if (cause) {
+                    const blockedErr: any = new Error(safeGetHost(url) + ERRORS.DOWNLOAD_FORBIDDEN);
+                    blockedErr.cause = cause;
+                    return reject(blockedErr);
+                }
                 log.warn({ err, url }, 'Download fail');
                 return reject(new Error(ERRORS.DOWNLOAD_FAIL + url));
             })
@@ -260,7 +318,7 @@ export const ERRORS = {
 log.debug('setting up alternate DNS cache');
 googleDns.getCacheableLookup()
     .then((dnsCache: any) => {
-        REQUEST_OPTIONS.dnsCache = dnsCache;
+        REQUEST_OPTIONS.dnsLookup = urlsafety.wrapDnsLookup(dnsCache.lookup.bind(dnsCache));
         log.info('using Google DNS for downloading images');
     })
     .catch((err: Error) => {
