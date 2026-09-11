@@ -65,14 +65,14 @@
 
 
         // is it an image search result from Google?
-        var GOOG_IMG_REGEX = /^https:\/\/www\.google\.co[a-z.]+\/imgres\?(imgurl=.*)/;
+        var GOOG_IMG_REGEX = mlImageLoaderPatterns.GOOG_IMG_REGEX;
 
         // is it an image search result from Baidu?
-        var BAIDU_IMG_REGEX = /^https:\/\/timgsa.baidu.com\/timg\?.*/;
-        var BAIDU_IMG_SRCH_REGEX = /^https:\/\/images?.baidu.com\/search\/detail.*/;
+        var BAIDU_IMG_REGEX = mlImageLoaderPatterns.BAIDU_IMG_REGEX;
+        var BAIDU_IMG_SRCH_REGEX = mlImageLoaderPatterns.BAIDU_IMG_SRCH_REGEX;
 
         // is it a URL ending with .png or .jpg ?
-        var IMG_URL_REGEX = /^https?:\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)(\.jpg|\.png)\??.*$/;
+        var IMG_URL_REGEX = mlImageLoaderPatterns.IMG_URL_REGEX;
 
         function getType(types, type) {
             if (types && types.indexOf && types.indexOf(type) !== -1) {
