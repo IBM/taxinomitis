@@ -20,42 +20,7 @@
         }
 
 
-        function parseUrl(url) {
-            var result = {};
-            url.split('&').forEach(function(part) {
-                if (!part) {
-                    return;
-                }
-
-                part = part.split('+').join(' ');
-
-                var eq = part.indexOf('=');
-                var key = eq > -1 ? part.substring(0, eq) : part;
-                var val = eq > -1 ? decodeURIComponent(part.substring(eq + 1)) : '';
-
-                var from = key.indexOf('[');
-                if (from === -1) {
-                    result[decodeURIComponent(key)] = val;
-                }
-                else {
-                    var to = key.indexOf(']', from);
-                    var index = decodeURIComponent(key.substring(from + 1, to));
-                    key = decodeURIComponent(key.substring(0, from));
-
-                    if (!result[key]) {
-                        result[key] = [];
-                    }
-
-                    if (!index) {
-                        result[key].push(val);
-                    }
-                    else {
-                        result[key][index] = val;
-                    }
-                }
-            });
-            return result;
-        }
+        var parseUrl = mlImageLoaderParseUrl;
 
         function parseHTML(str) {
             var tmp = document.implementation.createHTMLDocument('title');
