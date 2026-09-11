@@ -168,6 +168,52 @@ describe('REST API - users', () => {
             assert.strictEqual(res.body.error, 'Not Found');
         });
 
+
+        it('should reject student ids containing path traversal sequences', async () => {
+            const getUserStub = sandbox.stub(auth0, 'getUser').callsFake(mocks.getUser.johndoe);
+            const deleteUserStub = sandbox.stub(auth0, 'deleteUser').callsFake(mocks.deleteUser.good);
+            tenantId = TENANTS.correct;
+
+            const maliciousId = encodeURIComponent('../../v2/clients');
+            await request(testServer)
+                .del('/api/classes/' + TENANTS.correct + '/students/' + maliciousId)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert(getUserStub.notCalled);
+            assert(deleteUserStub.notCalled);
+        });
+
+        it('should reject student ids containing encoded slashes', async () => {
+            const getUserStub = sandbox.stub(auth0, 'getUser').callsFake(mocks.getUser.johndoe);
+            const deleteUserStub = sandbox.stub(auth0, 'deleteUser').callsFake(mocks.deleteUser.good);
+            tenantId = TENANTS.correct;
+
+            const maliciousId = encodeURIComponent('auth0|58dd72d0b2e87002695249b6/roles');
+            await request(testServer)
+                .del('/api/classes/' + TENANTS.correct + '/students/' + maliciousId)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert(getUserStub.notCalled);
+            assert(deleteUserStub.notCalled);
+        });
+
+        it('should reject student ids containing query string injection', async () => {
+            const getUserStub = sandbox.stub(auth0, 'getUser').callsFake(mocks.getUser.johndoe);
+            const deleteUserStub = sandbox.stub(auth0, 'deleteUser').callsFake(mocks.deleteUser.good);
+            tenantId = TENANTS.correct;
+
+            const maliciousId = encodeURIComponent('auth0|58dd72d0b2e87002695249b6?extra=param');
+            await request(testServer)
+                .del('/api/classes/' + TENANTS.correct + '/students/' + maliciousId)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert(getUserStub.notCalled);
+            assert(deleteUserStub.notCalled);
+        });
+
     });
 
 
@@ -505,6 +551,37 @@ describe('REST API - users', () => {
 
             assert.strictEqual(res.body.statusCode, 404);
             assert.strictEqual(res.body.error, 'Not Found');
+        });
+
+
+        it('should reject student ids containing path traversal sequences', async () => {
+            const getUserStub = sandbox.stub(auth0, 'getUser').callsFake(mocks.getUser.johndoe);
+            const modifyUserStub = sandbox.stub(auth0, 'modifyUser').callsFake(mocks.modifyUser.good);
+            tenantId = TENANTS.correct;
+
+            const maliciousId = encodeURIComponent('../../v2/clients');
+            await request(testServer)
+                .post('/api/classes/' + TENANTS.correct + '/students/' + maliciousId + '/password')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert(getUserStub.notCalled);
+            assert(modifyUserStub.notCalled);
+        });
+
+        it('should reject student ids containing query string injection', async () => {
+            const getUserStub = sandbox.stub(auth0, 'getUser').callsFake(mocks.getUser.johndoe);
+            const modifyUserStub = sandbox.stub(auth0, 'modifyUser').callsFake(mocks.modifyUser.good);
+            tenantId = TENANTS.correct;
+
+            const maliciousId = encodeURIComponent('auth0|58dd72d0b2e87002695249b6?extra=param');
+            await request(testServer)
+                .post('/api/classes/' + TENANTS.correct + '/students/' + maliciousId + '/password')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST);
+
+            assert(getUserStub.notCalled);
+            assert(modifyUserStub.notCalled);
         });
 
     });

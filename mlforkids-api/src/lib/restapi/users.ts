@@ -24,6 +24,14 @@ const log = loggerSetup();
 
 const VALID_USERNAME = /^[A-Za-z0-9\-_]+$/;
 
+// studentid is an Auth0 user id (e.g. "auth0|58dd72d0b2e87002695249b6") taken
+//  from the URL, and gets used to build the URL of outgoing requests to
+//  Auth0, so it needs to be restricted to a safe set of path-segment
+//  characters - not a hard assumption about Auth0's own id format, just
+//  ruling out anything that could change the shape of the request
+//  (path traversal, extra path segments, query strings, etc)
+const SAFE_USERID_REGEX = /^[A-Za-z0-9|_-]{1,100}$/;
+
 
 function getStudents(req: Express.Request, res: Express.Response) {
     let studentgroup: string | undefined = authtypes.UNGROUPED_STUDENTS;
@@ -255,6 +263,9 @@ function passwordRejected(err: any) {
 async function deleteStudent(req: Express.Request, res: Express.Response) {
     const tenant = req.params.classid as string;
     const userid = req.params.studentid as string;
+    if (!userid || !SAFE_USERID_REGEX.test(userid)) {
+        return errors.missingData(res);
+    }
 
     try {
         await auth0.deleteStudent(tenant, userid);
@@ -287,6 +298,9 @@ async function deleteStudent(req: Express.Request, res: Express.Response) {
 function resetStudentPassword(req: Express.Request, res: Express.Response) {
     const tenant = req.params.classid as string;
     const userid = req.params.studentid as string;
+    if (!userid || !SAFE_USERID_REGEX.test(userid)) {
+        return errors.missingData(res);
+    }
 
     return auth0.resetStudentPassword(tenant, userid)
         .then((student) => {

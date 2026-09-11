@@ -13,6 +13,12 @@ import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
 
+// classifierid taken from the URL gets used to build the URL of outgoing 
+//  requests to IBM Cloud, so it needs to be restricted to a safe set of 
+//  path-segment characters 
+//  (e.g. preventing path traversal, extra path segments, query strings, etc)
+const SAFE_ID_REGEX = /^[A-Za-z0-9_-]{1,100}$/;
+
 
 
 
@@ -74,6 +80,9 @@ async function deleteBluemixClassifier(reqWithTenant: auth.RequestWithTenant, re
 
     const classid: string = reqWithTenant.params.classid as string;
     const classifierid: string = reqWithTenant.params.classifierid as string;
+    if (!classifierid || !SAFE_ID_REGEX.test(classifierid)) {
+        return errors.missingData(res);
+    }
 
     const credentialsid: string = reqWithTenant.query.credentialsid as string;
     if (!credentialsid || credentialsid.trim().length === 0) {

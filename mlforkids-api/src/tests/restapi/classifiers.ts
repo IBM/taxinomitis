@@ -224,6 +224,58 @@ describe('REST API - classifiers', () => {
                 .expect(httpstatus.FORBIDDEN);
         });
 
+        it('should reject classifier ids containing path traversal sequences', async () => {
+            nextAuth0Userid = 'managed-user';
+            nextAuth0Role = 'supervisor';
+            nextAuth0Class = CLASSID;
+            const maliciousId = encodeURIComponent('../../v1/assistants');
+            await testRequest(testServer)
+                .del('/api/classes/' + CLASSID + '/classifiers/' + maliciousId +
+                     '?type=conv&credentialsid=' + convCredentials.id)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST);
+            assert(deleteClassifiersStub.notCalled);
+        });
+
+        it('should reject classifier ids containing encoded slashes', async () => {
+            nextAuth0Userid = 'managed-user';
+            nextAuth0Role = 'supervisor';
+            nextAuth0Class = CLASSID;
+            const maliciousId = encodeURIComponent(validWorkspace.workspace_id + '/message');
+            await testRequest(testServer)
+                .del('/api/classes/' + CLASSID + '/classifiers/' + maliciousId +
+                     '?type=conv&credentialsid=' + convCredentials.id)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST);
+            assert(deleteClassifiersStub.notCalled);
+        });
+
+        it('should reject classifier ids containing query string injection', async () => {
+            nextAuth0Userid = 'managed-user';
+            nextAuth0Role = 'supervisor';
+            nextAuth0Class = CLASSID;
+            const maliciousId = encodeURIComponent(validWorkspace.workspace_id + '?extra=param');
+            await testRequest(testServer)
+                .del('/api/classes/' + CLASSID + '/classifiers/' + maliciousId +
+                     '?type=conv&credentialsid=' + convCredentials.id)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST);
+            assert(deleteClassifiersStub.notCalled);
+        });
+
+        it('should reject classifier ids containing a fragment identifier', async () => {
+            nextAuth0Userid = 'managed-user';
+            nextAuth0Role = 'supervisor';
+            nextAuth0Class = CLASSID;
+            const maliciousId = encodeURIComponent(validWorkspace.workspace_id + '#frag');
+            await testRequest(testServer)
+                .del('/api/classes/' + CLASSID + '/classifiers/' + maliciousId +
+                     '?type=conv&credentialsid=' + convCredentials.id)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST);
+            assert(deleteClassifiersStub.notCalled);
+        });
+
         it('should reject requests without credentials', async () => {
             nextAuth0Userid = 'managed-user';
             nextAuth0Role = 'supervisor';

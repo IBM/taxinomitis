@@ -38,6 +38,14 @@ export const ERROR_MESSAGES = {
 };
 
 
+// Builds the URL of a Watson Assistant workspace, safely encoding the
+//  workspace id so it cannot be used to redirect the request to a
+//  different path or endpoint on the IBM Cloud service.
+function workspaceUrl(baseUrl: string, workspaceId: string): string {
+    return baseUrl + '/v1/workspaces/' + encodeURIComponent(workspaceId);
+}
+
+
 function isMaintenanceError(err: any): boolean {
     return err.statusCode === httpStatus.INTERNAL_SERVER_ERROR &&
            err.error &&
@@ -253,7 +261,7 @@ async function updateWorkspace(
     tenantPolicy: DbObjects.ClassTenant,
 ): Promise<TrainingObjects.ConversationWorkspace>
 {
-    const url = credentials.url + '/v1/workspaces/' + workspace.workspace_id;
+    const url = workspaceUrl(credentials.url, workspace.workspace_id);
 
     try {
         const modified = await submitTrainingToConversation(
@@ -366,7 +374,7 @@ export async function deleteClassifierFromBluemix(
     const req = await createBaseRequest(credentials);
 
     try {
-        const url = credentials.url + '/v1/workspaces/' + classifierId;
+        const url = workspaceUrl(credentials.url, classifierId);
         await request.del(url, req);
     }
     catch (err) {
@@ -626,7 +634,7 @@ async function submitTrainingToConversation(
             workspace_id : body.workspace_id,
             credentialsid : credentials.id,
             status : body.status ? body.status : 'Training',
-            url : credentials.url + '/v1/workspaces/' + body.workspace_id,
+            url : workspaceUrl(credentials.url, body.workspace_id),
         };
 
         return workspace;
@@ -672,7 +680,7 @@ export async function testClassifier(
             },
         };
 
-        const body = await request.post(credentials.url + '/v1/workspaces/' + classifierId + '/message', req, true);
+        const body = await request.post(workspaceUrl(credentials.url, classifierId) + '/message', req, true);
         if (body.intents.length === 0) {
             const project = await store.getProject(projectid);
             if (project) {

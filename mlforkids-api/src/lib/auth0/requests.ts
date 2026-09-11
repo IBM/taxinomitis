@@ -6,6 +6,13 @@ import * as authvalues from './values';
 //  PUTTING ONLY XHR REQUESTS IN ONE PLACE MAKES IT EASIER TO STUB OUT AUTH0 FOR TEST PURPOSES
 //  ANYTHING THAT LOOKS LIKE APP LOGIC SHOULDN'T GO IN HERE AS IT WON'T BE TESTED AS MUCH
 
+// Builds the URL of an Auth0 user, safely encoding the user id so it
+//  cannot be used to redirect the request to a different path or
+//  endpoint on the Auth0 API.
+function userUrl(userid: string): string {
+    return 'https://' + authvalues.DOMAIN + '/api/v2/users/' + encodeURIComponent(userid);
+}
+
 async function handleFetchError(response: Response): Promise<never> {
     const errorBody = await response.json().catch(() => ({})) as any;
     const error: any = new Error(errorBody.message || `HTTP ${response.status}`);
@@ -37,7 +44,7 @@ export async function getOauthToken(): Promise<Objects.Auth0TokenPayload> {
 }
 
 export async function getUser(token: string, userid: string): Promise<Objects.User> {
-    const url = new URL('https://' + authvalues.DOMAIN + '/api/v2/users/' + userid);
+    const url = new URL(userUrl(userid));
     url.searchParams.append('fields', 'user_id,username,app_metadata');
 
     const response = await fetch(url.toString(), {
@@ -231,7 +238,7 @@ export async function createUser(token: string, newuser: Objects.NewUser): Promi
 
 
 export async function deleteUser(token: string, userid: string): Promise<void> {
-    const url = 'https://' + authvalues.DOMAIN + '/api/v2/users/' + userid;
+    const url = userUrl(userid);
 
     const response = await fetch(url, {
         method: 'DELETE',
@@ -248,7 +255,7 @@ export async function deleteUser(token: string, userid: string): Promise<void> {
 export async function modifyUser(token: string, userid: string, modifications: Objects.Modifications)
     : Promise<Objects.User>
 {
-    const url = 'https://' + authvalues.DOMAIN + '/api/v2/users/' + userid;
+    const url = userUrl(userid);
 
     const response = await fetch(url, {
         method: 'PATCH',
