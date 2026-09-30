@@ -607,5 +607,38 @@ describe('REST API - local projects', () => {
             const body = res.body;
             assert.deepStrictEqual(body, { error : 'Missing data' });
         });
+
+        it('should check for invalid project ids', async () => {
+            const invalidIds = [ '../../x', 'abc', '1', 1.5, -1, undefined ];
+
+            for (const projectid of invalidIds) {
+                const payload = {
+                    project : {
+                        id : projectid,
+                        labels : [ 'one', 'two'],
+                        fields : [
+                            { name : 'first', type : 'number' },
+                            { name : 'second', type : 'number' },
+                        ],
+                        classid : TESTCLASS,
+                        storage : 'local',
+                        type : 'numbers',
+                        userid : 'userid',
+                    },
+                    training : [
+                        { id : 1, numberdata : [ 1, 1 ], label : 'one' },
+                        { id : 2, numberdata : [ 1, 10 ], label : 'two' },
+                    ],
+                };
+
+                const res = await request(testServer)
+                    .post('/api/classes/' + TESTCLASS + '/students/userid/localnumbersprojects')
+                    .send(payload)
+                    .expect('Content-Type', /json/)
+                    .expect(httpstatus.BAD_REQUEST);
+
+                assert.deepStrictEqual(res.body, { error : 'Missing data' });
+            }
+        });
     });
 });

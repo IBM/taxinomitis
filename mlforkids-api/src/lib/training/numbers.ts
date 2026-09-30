@@ -118,7 +118,7 @@ function submitTraining(
         gzip : true,
     };
 
-    const url = process.env[env.NUMBERS_SERVICE] + '/model-requests/' + projectid;
+    const url = process.env[env.NUMBERS_SERVICE] + '/model-requests/' + encodeURIComponent(projectid);
 
     const DO_NOT_RETRY = false;
 
@@ -214,14 +214,13 @@ export function validateLocalProjectTrainingRequest(input: any, userid: string):
             input.project.labels.every(isString) &&
         input.project.fields &&
             Array.isArray(input.project.fields) &&
-            input.project.fields.every(isNumbersProjectFieldSummary))
+            input.project.fields.every(isNumbersProjectFieldSummary) &&
+            Number.isSafeInteger(input.project.id) && input.project.id >= 0)
     {
         // valid project
 
-        // replace the id if it isn't something that we can rely on as unique
-        if (typeof input.project.id !== 'string') {
-            input.project.id = userid + '-' + input.project.id;
-        }
+        // local project ids are only per-user unique, make it globally unique
+        input.project.id = userid + '-' + input.project.id;
     }
     else {
         throw new Error('Missing required project info');
