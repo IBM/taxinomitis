@@ -72,7 +72,7 @@ function releaseExistsForVersion(refs, version) {
 }
 
 async function fetchPackageMetadata(pkgName) {
-    const encoded = pkgName.startsWith('@') ? pkgName.replace('/', '%2f') : pkgName;
+    const encoded = pkgName.startsWith('@') ? pkgName.replaceAll('/', '%2f') : pkgName;
     const res = await fetch(`${REGISTRY}/${encoded}`);
     if (!res.ok) {
         throw new Error(`npm registry returned ${res.status}`);
