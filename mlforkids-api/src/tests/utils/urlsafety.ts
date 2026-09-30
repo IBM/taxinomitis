@@ -94,8 +94,8 @@ describe('Utils - urlsafety', () => {
             }
             catch (err) {
                 assert(err instanceof urlsafety.UnsafeAddressError);
-                assert(err.message.includes('internal.example.com'));
-                assert(err.message.includes('10.0.0.1'));
+                assert.strictEqual(err.message,
+                    'Refusing to connect to internal.example.com (10.0.0.1) as it is not a public address');
             }
         });
 
