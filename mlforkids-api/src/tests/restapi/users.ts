@@ -191,7 +191,7 @@ describe('REST API - users', () => {
 
             assert.deepStrictEqual(res.body, {
                 statusCode : 503,
-                message : 'Something went wrong in Auth0',
+                message : 'There was a problem with the authentication service. Please try again later.',
             });
         });
 
@@ -210,7 +210,29 @@ describe('REST API - users', () => {
                 .expect(httpstatus.INTERNAL_SERVER_ERROR);
 
             assert.deepStrictEqual(res.body, {
-                message : 'Unable to reach Auth0',
+                message : 'Unable to contact the authentication service. Please try again later.',
+            });
+        });
+
+
+        it('should return network error codes from Auth0 without internal details', async () => {
+            sandbox.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good);
+            sandbox.stub(auth0, 'getUser').callsFake(mocks.getUser.johndoe);
+            sandbox.stub(auth0, 'deleteUser').callsFake(() => {
+                const err: any = new Error('connect ECONNREFUSED 10.0.0.1:443');
+                err.code = 'ECONNREFUSED';
+                return Promise.reject(err);
+            });
+            tenantId = TENANTS.correct;
+
+            const res = await request(testServer)
+                .del('/api/classes/' + TENANTS.correct + '/students/auth0|58dd72d0b2e87002695249b6')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.INTERNAL_SERVER_ERROR);
+
+            assert.deepStrictEqual(res.body, {
+                errorCode : 'ECONNREFUSED',
+                message : 'Unable to contact the authentication service. Please try again later.',
             });
         });
 

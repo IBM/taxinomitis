@@ -261,16 +261,33 @@ function passwordRejected(err: any) {
 
 
 function auth0Error(res: Express.Response, err: any) {
+    const statusCode = err && typeof err.statusCode === 'number' ? err.statusCode : undefined;
     const safe: { [key: string]: string | number } = {};
-    if (err) {
-        for (const key of [ 'statusCode', 'error', 'message', 'errorCode' ]) {
-            if (typeof err[key] === 'string' || typeof err[key] === 'number') {
-                safe[key] = err[key];
-            }
+    if (statusCode) {
+        safe.statusCode = statusCode;
+        if (typeof err.error === 'string') {
+            safe.error = err.error;
+        }
+        if (typeof err.errorCode === 'string') {
+            safe.errorCode = err.errorCode;
         }
     }
-    const statusCode = typeof safe.statusCode === 'number' ? safe.statusCode : httpstatus.INTERNAL_SERVER_ERROR;
-    return res.status(statusCode).json(safe);
+    else if (err && typeof err.code === 'string' && /^E[A-Z]+$/.test(err.code)) {
+        safe.errorCode = err.code;
+    }
+
+    if (statusCode && statusCode >= 400 && statusCode < 500) {
+        if (typeof err.message === 'string') {
+            safe.message = err.message;
+        }
+        return res.status(statusCode).json(safe);
+    }
+
+    log.error({ err }, 'Unexpected error from auth0');
+    safe.message = statusCode ?
+        'There was a problem with the authentication service. Please try again later.' :
+        'Unable to contact the authentication service. Please try again later.';
+    return res.status(statusCode || httpstatus.INTERNAL_SERVER_ERROR).json(safe);
 }
 
 
