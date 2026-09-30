@@ -164,8 +164,54 @@ describe('REST API - users', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.NOT_FOUND);
 
-            assert.strictEqual(res.body.statusCode, 404);
-            assert.strictEqual(res.body.error, 'Not Found');
+            assert.deepStrictEqual(res.body, {
+                statusCode : 404,
+                error : 'Not Found',
+                message : 'Userid with this tenant not found',
+                errorCode : 'inexistent_user',
+            });
+        });
+
+
+        it('should not return internal details of errors from Auth0', async () => {
+            sandbox.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good);
+            sandbox.stub(auth0, 'getUser').callsFake(mocks.getUser.johndoe);
+            sandbox.stub(auth0, 'deleteUser').callsFake(() => {
+                const err: any = new Error('Something went wrong in Auth0');
+                err.statusCode = 503;
+                err.response = { body : { internal : 'should not be returned' }, statusCode : 503 };
+                return Promise.reject(err);
+            });
+            tenantId = TENANTS.correct;
+
+            const res = await request(testServer)
+                .del('/api/classes/' + TENANTS.correct + '/students/auth0|58dd72d0b2e87002695249b6')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.SERVICE_UNAVAILABLE);
+
+            assert.deepStrictEqual(res.body, {
+                statusCode : 503,
+                message : 'Something went wrong in Auth0',
+            });
+        });
+
+
+        it('should handle errors from Auth0 without a status code', async () => {
+            sandbox.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good);
+            sandbox.stub(auth0, 'getUser').callsFake(mocks.getUser.johndoe);
+            sandbox.stub(auth0, 'deleteUser').callsFake(() => {
+                return Promise.reject(new Error('Unable to reach Auth0'));
+            });
+            tenantId = TENANTS.correct;
+
+            const res = await request(testServer)
+                .del('/api/classes/' + TENANTS.correct + '/students/auth0|58dd72d0b2e87002695249b6')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.INTERNAL_SERVER_ERROR);
+
+            assert.deepStrictEqual(res.body, {
+                message : 'Unable to reach Auth0',
+            });
         });
 
 

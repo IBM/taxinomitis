@@ -105,7 +105,7 @@ async function classifyWithScratchKey(req: Express.Request, res: Express.Respons
                                   req.query.data.substr(0, 100) :
                                   typeof req.query.data;
         log.error({ err, data : safeDataDebug, agent : req.header('X-User-Agent') }, 'Classify error (get)');
-        return res.status(httpstatus.INTERNAL_SERVER_ERROR).json(err);
+        return errors.unknownError(res, err);
     }
 }
 
@@ -166,7 +166,7 @@ async function postClassifyWithScratchKey(req: Express.Request, res: Express.Res
         }
 
         log.error({ err, data : safeDataDebug, agent : req.header('X-User-Agent') }, 'Classify error (post)');
-        return res.status(httpstatus.INTERNAL_SERVER_ERROR).json(err);
+        return errors.unknownError(res, err);
     }
 }
 
@@ -272,7 +272,7 @@ async function getTrainingData(req: Express.Request, res: Express.Response) {
         }
 
         log.error({ err, agent : req.header('X-User-Agent') }, 'Fetch error');
-        return res.status(httpstatus.INTERNAL_SERVER_ERROR).json(err);
+        return errors.unknownError(res, err);
     }
 }
 
@@ -379,7 +379,7 @@ async function storeTrainingData(req: Express.Request, res: Express.Response) {
         }
 
         log.error({ err, datatype : typeof(req.body.data), agent : req.header('X-User-Agent') }, 'Store error');
-        return res.status(httpstatus.INTERNAL_SERVER_ERROR).json(err);
+        return errors.unknownError(res, err);
     }
 }
 

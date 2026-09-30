@@ -80,6 +80,53 @@ describe('REST API - Error Handling', () => {
             });
         });
 
+        it('Errors without a message', async () => {
+            await new Promise<void>((resolve) => {
+                const validator = validate(500, { error : 'Something about Watson' }, resolve);
+                errors.unknownError(validator, {
+                    error : 'Something about Watson',
+                    code : 401,
+                    statusCode : 401,
+                    stack : 'should not be returned',
+                });
+            });
+        });
+
+        it('Errors with nested details', async () => {
+            await new Promise<void>((resolve) => {
+                const validator = validate(
+                    500,
+                    {
+                        error : {
+                            code : 500,
+                            error : 'Something bad happened',
+                            description : 'It really was very bad',
+                        },
+                    },
+                    resolve);
+                errors.unknownError(validator, {
+                    error : {
+                        code : 500,
+                        error : 'Something bad happened',
+                        description : 'It really was very bad',
+                        stack : 'should not be returned',
+                        other : { nested : 'should not be returned' },
+                    },
+                    stack : 'should not be returned',
+                });
+            });
+        });
+
+        it('Errors without a usable description', async () => {
+            await new Promise<void>((resolve) => {
+                const validator = validate(500, { error : 'Unknown error' }, resolve);
+                errors.unknownError(validator, {
+                    error : { stack : 'should not be returned', code : { nested : 'should not be returned' } },
+                    stack : 'should not be returned',
+                });
+            });
+        });
+
     });
 
 });

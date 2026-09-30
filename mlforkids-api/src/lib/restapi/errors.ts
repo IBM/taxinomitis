@@ -103,11 +103,30 @@ export function unknownError(res: Express.Response, err: NodeJS.ErrnoException |
     else if (err && err.message) {
         err = { error : err.message };
     }
-    else if (!err || Object.keys(err).length === 0) {
-        err = { error : 'Unknown error' };
+    else {
+        err = { error : getSafeErrorDetail(err) };
     }
 
     return res.status(httpstatus.INTERNAL_SERVER_ERROR).json(err);
+}
+
+function getSafeErrorDetail(err: any): string | object {
+    const detail = err ? err.error : undefined;
+    if (typeof detail === 'string') {
+        return detail;
+    }
+    if (detail && typeof detail === 'object') {
+        const safe: { [key: string]: string | number } = {};
+        for (const key of [ 'code', 'error', 'description' ]) {
+            if (typeof detail[key] === 'string' || typeof detail[key] === 'number') {
+                safe[key] = detail[key];
+            }
+        }
+        if (Object.keys(safe).length > 0) {
+            return safe;
+        }
+    }
+    return 'Unknown error';
 }
 
 export function expectsBody(req: Express.Request, res: Express.Response, next: Express.NextFunction) {

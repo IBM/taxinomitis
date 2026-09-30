@@ -260,6 +260,20 @@ function passwordRejected(err: any) {
 }
 
 
+function auth0Error(res: Express.Response, err: any) {
+    const safe: { [key: string]: string | number } = {};
+    if (err) {
+        for (const key of [ 'statusCode', 'error', 'message', 'errorCode' ]) {
+            if (typeof err[key] === 'string' || typeof err[key] === 'number') {
+                safe[key] = err[key];
+            }
+        }
+    }
+    const statusCode = typeof safe.statusCode === 'number' ? safe.statusCode : httpstatus.INTERNAL_SERVER_ERROR;
+    return res.status(statusCode).json(safe);
+}
+
+
 async function deleteStudent(req: Express.Request, res: Express.Response) {
     const tenant = req.params.classid as string;
     const userid = req.params.studentid as string;
@@ -272,7 +286,7 @@ async function deleteStudent(req: Express.Request, res: Express.Response) {
         res.sendStatus(httpstatus.NO_CONTENT);
     }
     catch (err) {
-        res.status(err.statusCode).json(err);
+        auth0Error(res, err);
     }
 
     try {
@@ -307,8 +321,7 @@ function resetStudentPassword(req: Express.Request, res: Express.Response) {
             res.json(student);
         })
         .catch((err) => {
-            res.status(err.statusCode)
-                .json(err);
+            auth0Error(res, err);
         });
 }
 
@@ -332,8 +345,7 @@ function resetStudentsPassword(req: Express.Request, res: Express.Response) {
                 res.json({ password });
             })
             .catch((err) => {
-                res.status(err.statusCode)
-                    .json(err);
+                auth0Error(res, err);
             });
     }
     else if (userPatch.type === 'groupadd') {
@@ -342,8 +354,7 @@ function resetStudentsPassword(req: Express.Request, res: Express.Response) {
                 return res.status(httpstatus.OK).json(userPatch);
             })
             .catch((err) => {
-                res.status(err.statusCode)
-                    .json(err);
+                auth0Error(res, err);
             });
     }
     else if (userPatch.type === 'groupremove') {
@@ -352,8 +363,7 @@ function resetStudentsPassword(req: Express.Request, res: Express.Response) {
                 return res.status(httpstatus.OK).json(userPatch);
             })
             .catch((err) => {
-                res.status(err.statusCode)
-                    .json(err);
+                auth0Error(res, err);
             });
     }
     else {
