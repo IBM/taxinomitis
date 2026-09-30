@@ -2,6 +2,7 @@ const assert = require('assert');
 const uuid = require('uuid').v4;
 const fs = require('fs');
 const path = require('path');
+const http = require('http');
 const { DOMParser } = require('@xmldom/xmldom');
 let ydf;
 require('ydf-inference')()
@@ -335,6 +336,56 @@ describe('verify new number service API', () => {
                     assert.strictEqual(err.statusCode, 400);
                     assert.deepStrictEqual(err.response.body, { detail : 'Invalid CSV file' });
                 });
+        });
+
+        it('should reject keys that do not identify a model folder', async () => {
+            // fetch normalizes "." and ".." out of URLs before sending
+            //  them, so these requests have to be sent using http.request
+            //
+            // a CSV file that cannot be used for training is submitted so
+            //  that a server that doesn't check the key will still reject
+            //  the request before it modifies any model folders
+            function postWithRawPath(requestPath) {
+                const form = new FormData();
+                form.append('csvfile',
+                            new Blob([ fs.readFileSync(SINGLECLASS) ]),
+                            path.basename(SINGLECLASS));
+                const encodedForm = new Response(form);
+
+                return encodedForm.arrayBuffer().then((body) => {
+                    return new Promise((resolve, reject) => {
+                        const api = new URL(API);
+                        const req = http.request({
+                            hostname : api.hostname,
+                            port : api.port,
+                            // provided separately to the host, as
+                            //  the path is sent without being parsed
+                            path : requestPath,
+                            method : 'POST',
+                            headers : {
+                                'Accept' : 'application/json',
+                                'Authorization' : 'Basic ' +
+                                    Buffer.from(DEV_CREDENTIALS.auth.user + ':' + DEV_CREDENTIALS.auth.pass).toString('base64'),
+                                'Content-Type' : encodedForm.headers.get('content-type'),
+                            },
+                        }, (res) => {
+                            let responseBody = '';
+                            res.on('data', (chunk) => { responseBody += chunk; });
+                            res.on('end', () => {
+                                resolve({ statusCode : res.statusCode, body : JSON.parse(responseBody) });
+                            });
+                        });
+                        req.on('error', reject);
+                        req.end(Buffer.from(body));
+                    });
+                });
+            }
+
+            for (const key of [ '..', '.' ]) {
+                const resp = await postWithRawPath('/model-requests/' + key);
+                assert.strictEqual(resp.statusCode, 400);
+                assert.deepStrictEqual(resp.body, { detail : 'Invalid model key' });
+            }
         });
     });
 

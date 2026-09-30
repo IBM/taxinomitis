@@ -14,7 +14,7 @@ if getenv("MODE") == "development":
     print("Logging to file mlforkids.log")
 
 # local dependencies
-from app.savedmodels import create
+from app.savedmodels import create, get_location
 from app.models import train_model
 from app.auth import validate_password
 
@@ -57,7 +57,11 @@ async def model_training_request(scratch_key: str, csvfile: UploadFile,
             headers={"WWW-Authenticate": "Basic"},
         )
 
-    # credentials okay - check we have been given a
+    # credentials okay - check the key can be used to
+    #  identify a model folder before going any further
+    get_location(scratch_key)
+
+    # key okay - check we have been given a
     #  usable CSV file before letting the user think
     #  that training will be attempted
     info("%s : New training request", scratch_key)

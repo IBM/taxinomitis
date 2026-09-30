@@ -1,7 +1,7 @@
 # core dependencies
 from logging import info, exception
-from os.path import isdir, join, exists
-from os import environ, mkdir
+from os.path import isdir, join, exists, normpath
+from os import environ, mkdir, sep
 from pathlib import Path
 from datetime import datetime
 from json import dump
@@ -14,9 +14,10 @@ from app.utils import recursive_delete, json_serializer
 
 
 # initialising saved models folder
-if not exists("saved-models"):
+MODELS_ROOT = "saved-models"
+if not exists(MODELS_ROOT):
     info("Creating models folder")
-    mkdir("saved-models")
+    mkdir(MODELS_ROOT)
 
 # identifying direct URL for saved models
 hostname = environ["PUBLIC_API_URL"]
@@ -34,8 +35,16 @@ saved_models_cache = cache_with_cleanup(maxsize=cachesize)
 
 
 # returns relative location of the model folder for a project
+#  raises an exception if the key doesn't identify a folder
+#   inside the saved models folder
 def get_location(scratchkey: str):
-    return join("saved-models", scratchkey)
+    location = normpath(join(MODELS_ROOT, scratchkey))
+    if not location.startswith(MODELS_ROOT + sep):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid model key"
+        )
+    return location
 
 
 # Deletes files for a previous saved model
