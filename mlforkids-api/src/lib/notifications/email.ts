@@ -116,7 +116,7 @@ async function sendEmailToUser(
 
     log.info({ tenant, email : teacher.email, subject : templateinfo.subject }, 'Sending email');
 
-    return transporter.sendMail(email);
+    await transporter.sendMail(email);
 }
 
 
