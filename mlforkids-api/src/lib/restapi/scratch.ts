@@ -17,6 +17,7 @@ import * as keys from '../scratchx/keys';
 import * as classifier from '../scratchx/classify';
 import * as training from '../scratchx/training';
 import * as conversation from '../training/conversation';
+import * as wausage from '../training/wausage';
 import * as numbers from '../training/numbers';
 import * as visrec from '../training/visualrecognition';
 import * as urls from './urls';
@@ -27,6 +28,28 @@ import loggerSetup from '../utils/logger';
 const log = loggerSetup();
 
 
+
+
+// records use of text projects through Scratch keys, which are used by
+//  clients such as Scratch, Python and App Inventor
+function recordTextUsage(
+    req: Express.Request, scratchKey: Types.ScratchKey,
+    event: Types.WaUsageEventType, outcome: string,
+    sizes: { chars?: number, examples?: number } = {},
+): void
+{
+    if (scratchKey.type === 'text') {
+        wausage.record({
+            recorded : new Date(),
+            event,
+            outcome,
+            modelid : scratchKey.classifierid,
+            projectid : scratchKey.projectid,
+            ...sizes,
+            client : wausage.getScratchKeyClient(req),
+        });
+    }
+}
 
 
 
@@ -80,10 +103,11 @@ async function classifyWithScratchKey(req: Express.Request, res: Express.Respons
             scratchKey.updated &&
             scratchKey.updated.toISOString() === req.header('if-modified-since'))
         {
+            recordTextUsage(req, scratchKey, 'classify', 'not-modified', { chars : String(req.query.data).length });
             return res.sendStatus(httpstatus.NOT_MODIFIED);
         }
 
-        const classes = await classifier.classify(scratchKey, req.query.data);
+        const classes = await classifier.classify(scratchKey, req.query.data, wausage.getScratchKeyClient(req));
 
         return res.set(headers.CACHE_10SECONDS).json(classes);
     }
@@ -129,10 +153,11 @@ async function postClassifyWithScratchKey(req: Express.Request, res: Express.Res
             scratchKey.updated &&
             scratchKey.updated.toISOString() === req.header('if-modified-since'))
         {
+            recordTextUsage(req, scratchKey, 'classify', 'not-modified', { chars : String(req.body.data).length });
             return res.sendStatus(httpstatus.NOT_MODIFIED);
         }
 
-        const classes = await classifier.classify(scratchKey, req.body.data);
+        const classes = await classifier.classify(scratchKey, req.body.data, wausage.getScratchKeyClient(req));
 
         return res.json(classes);
     }
@@ -254,6 +279,7 @@ async function getTrainingData(req: Express.Request, res: Express.Response) {
                 start : 0,
                 limit : limits.getStoreLimits().textTrainingItemsPerProject,
             });
+            recordTextUsage(req, scratchKey, 'fetch-training', 'ok', { examples : trainingData.length });
 
             res.set(headers.CACHE_2MINUTES);
 
@@ -346,6 +372,7 @@ async function getImageTrainingDataItem(req: Express.Request, res: Express.Respo
 
 async function storeTrainingData(req: Express.Request, res: Express.Response) {
     const apikey = req.params.scratchkey as string;
+    let scratchKey: Types.ScratchKey | undefined;
 
     try {
         if (!req.body.data || !req.body.label) {
@@ -357,12 +384,18 @@ async function storeTrainingData(req: Express.Request, res: Express.Response) {
             throw new Error('Missing data');
         }
 
-        const scratchKey = await store.getScratchKey(apikey);
+        scratchKey = await store.getScratchKey(apikey);
         const stored = await training.storeTrainingData(scratchKey, req.body.label, req.body.data);
+        recordTextUsage(req, scratchKey, 'store-training', 'ok', { chars : String(req.body.data).length });
 
         return res.set(headers.NO_CACHE).json(stored);
     }
     catch (err) {
+        if (scratchKey) {
+            const outcome = err.message === 'Project already has maximum allowed amount of training data' ? 'limit' : 'error';
+            recordTextUsage(req, scratchKey, 'store-training', outcome, { chars : String(req.body.data).length });
+        }
+
         if (err.message === 'Missing data' ||
             err.message === 'Invalid data' ||
             err.message === 'Invalid label' ||
@@ -569,7 +602,7 @@ async function trainNewClassifier(req: Express.Request, res: Express.Response) {
 
     try {
         const scratchKey = await store.getScratchKey(apikey);
-        const classifierStatus = await models.trainModel(scratchKey);
+        const classifierStatus = await models.trainModel(scratchKey, wausage.getScratchKeyClient(req));
 
         return res.set(headers.NO_CACHE).json(classifierStatus);
     }
@@ -598,7 +631,7 @@ async function trainNewClassifierLocalProject(req: Express.Request, res: Express
             }
 
             const scratchKey = await store.getScratchKey(apikey);
-            const classifierStatus = await models.trainTextModelLocalProject(scratchKey, req.body.training);
+            const classifierStatus = await models.trainTextModelLocalProject(scratchKey, req.body.training, wausage.getScratchKeyClient(req));
 
             return res.set(headers.NO_CACHE).json(classifierStatus);
         }

@@ -3,6 +3,7 @@ import * as Express from 'express';
 import { status as httpstatus } from 'http-status';
 // local dependencies
 import * as conversation from '../training/conversation';
+import * as wausage from '../training/wausage';
 import * as numbers from '../training/numbers';
 import * as auth from './auth';
 import * as store from '../db/store';
@@ -118,7 +119,7 @@ async function newLocalProjectModel(req: auth.RequestWithLocalProject, res: Expr
     }
 
     try {
-        const model = await conversation.trainClassifierForProject(req.project, training);
+        const model = await conversation.trainClassifierForProject(req.project, training, wausage.WEBSITE);
         res.status(httpstatus.CREATED).json(returnConversationWorkspace(model));
 
         // lazily (after returning response to the user) update
@@ -208,7 +209,7 @@ async function testLocalProjectModel(req: auth.RequestWithLocalProject, res: Exp
         const tenant = await store.getClassTenant(classid);
         const creds = await store.getBluemixCredentialsById(tenant.tenantType, credsid);
 
-        const classes = await conversation.testClassifier(creds, modelid, requestTimestamp, projectid, text);
+        const classes = await conversation.testClassifier(creds, modelid, requestTimestamp, projectid, text, wausage.WEBSITE);
         return res.json(classes);
     }
     catch (err) {
