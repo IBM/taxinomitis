@@ -1,6 +1,77 @@
 addEventListener('fetch', event => {
-  event.respondWith(handle(event.request));
+  event.respondWith(handleWithStaticCache(event));
 });
+
+
+// static assets (third-party libraries and Scratch build chunks)
+//  that are safe to cache at the edge
+//
+// Page Rules can't do this, because requests are forwarded to the
+//  Code Engine hostnames, so the edge cache never sees them as
+//  machinelearningforkids.co.uk URLs
+const STATIC_CACHE_PREFIXES = [
+  '/scratch/chunks/',
+  '/static/bower_components/'
+];
+const STATIC_CACHE_SECONDS = 7 * 24 * 60 * 60;
+
+
+async function handleWithStaticCache(event) {
+  const request = event.request;
+  if (!isStaticCacheable(request)) {
+    return handle(request);
+  }
+
+  const cacheKey = new Request(request.url, { method: 'GET' });
+  let cache = null;
+
+  try {
+    cache = caches.default;
+    const cached = await cache.match(cacheKey);
+    if (cached) {
+      const hit = new Response(cached.body, cached);
+      hit.headers.set('x-mlforkids-edge-cache', 'HIT');
+      return hit;
+    }
+  }
+  catch (err) {
+    // cache unavailable - fall through and fetch from the origin
+  }
+
+  const response = await handle(request);
+  if (!cache || response.status !== 200) {
+    // only cache successful responses, so that a missing file
+    //  during a deployment doesn't get cached
+    return response;
+  }
+
+  const cacheable = new Response(response.body, response);
+  cacheable.headers.set('cache-control', 'public, max-age=' + STATIC_CACHE_SECONDS);
+  try {
+    event.waitUntil(cache.put(cacheKey, cacheable.clone()).catch(() => {}));
+  }
+  catch (err) {
+    // couldn't cache it - still return the response
+  }
+  cacheable.headers.set('x-mlforkids-edge-cache', 'MISS');
+  return cacheable;
+}
+
+
+function isStaticCacheable(request) {
+  try {
+    if (request.method !== 'GET') {
+      return false;
+    }
+    const url = new URL(request.url);
+    return url.hostname === 'machinelearningforkids.co.uk' &&
+           STATIC_CACHE_PREFIXES.some((prefix) => url.pathname.startsWith(prefix));
+  }
+  catch (err) {
+    // we couldn't check - let's assume it isn't
+    return false;
+  }
+}
 
 
 async function handle(request) {
