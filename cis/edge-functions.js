@@ -172,6 +172,12 @@ function forwardRequest(request, targetHost, customPath) {
     //  clients (Python/Tensorflow/AppInventor/etc) so for these we
     //  add a user-agent to pretend to be curl, so that the Cloudflare
     //  in-front of Code Engine is less likely to block them
+    // The original user-agent is kept in a separate header, so the
+    //  app can still see which client made the request
+    const originalUserAgent = request.headers.get('user-agent');
+    if (originalUserAgent) {
+      newRequest.headers.set('x-original-user-agent', originalUserAgent);
+    }
     newRequest.headers.set('user-agent', 'curl/7.79.1');
   }
 
