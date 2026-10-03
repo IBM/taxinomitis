@@ -282,6 +282,39 @@ describe('Training - Conversation', () => {
         });
 
 
+        it('should record failures to create a classifier for classes without API keys', async () => {
+            const project: DbTypes.Project = {
+                id : 'projectbob',
+                name : 'No API keys',
+                userid : 'bob', classid : TESTTENANT.id,
+                type : 'text',
+                language : 'en',
+                labels : ['this', 'that'],
+                numfields : 0,
+                isCrowdSourced : false,
+            };
+
+            authStoreStub.rejects(new Error('Unexpected response when retrieving service credentials'));
+            storeUsageStub.resetHistory();
+
+            try {
+                await conversation.trainClassifier(project, wausage.WEBSITE);
+                assert.fail('should not have allowed this');
+            }
+            catch (err) {
+                assert.strictEqual(err.message, 'Unexpected response when retrieving service credentials');
+            }
+            finally {
+                authStoreStub.callsFake(mockstore.getBluemixCredentials);
+            }
+
+            const usage = recordedUsage();
+            assert.strictEqual(usage.length, 1);
+            assert.strictEqual(usage[0].event, 'train-new');
+            assert.strictEqual(usage[0].outcome, 'no-creds');
+        });
+
+
         it('should handle maintenance errors when creating a classifier', async () => {
             storeScratchKeyStub.reset();
 

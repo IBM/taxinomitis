@@ -67,6 +67,9 @@ function getTrainingOutcome(err: any): string {
         return 'not-found';
     case ERROR_MESSAGES.MAINTENANCE:
         return 'maintenance';
+    case 'Unexpected response when retrieving service credentials':
+        // the class hasn't set up any API keys
+        return 'no-creds';
     }
     if (err.statusCode === httpStatus.UNAUTHORIZED || err.statusCode === httpStatus.FORBIDDEN) {
         return 'creds-rejected';
