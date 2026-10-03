@@ -286,3 +286,63 @@ export interface SiteAlertDbRow {
     readonly url: string;
     readonly expiry: Date;
 }
+
+
+
+
+
+
+// how text models are being used - collected to inform choices about
+//  how text models are trained and hosted
+export type WaUsageEventType = 'train-new' | 'train-update' | 'classify' |
+                               'delete' | 'expire' |
+                               'store-training' | 'fetch-training';
+
+// where a request came from
+//   website    - the main ML for Kids site
+//   scratchkey - the Scratch key API (used by Scratch, Python, App Inventor, etc.)
+//   server     - not triggered by a user request (e.g. scheduled clean-ups)
+export type WaUsageSource = 'website' | 'scratchkey' | 'server';
+
+export interface WaUsageClient {
+    readonly source: WaUsageSource;
+    readonly useragent?: string;
+    readonly xuseragent?: string;
+    readonly origin?: string;
+}
+
+export interface WaUsageEvent {
+    readonly recorded: Date;
+    readonly event: WaUsageEventType;
+    readonly outcome: string;
+    readonly modelid?: string;
+    readonly projectid?: string;
+    readonly classid?: string;
+    readonly tenanttype?: ClassTenantType;
+    readonly language?: string;
+    readonly labels?: number;
+    readonly examples?: number;
+    readonly chars?: number;
+    readonly durationms?: number;
+    readonly client: WaUsageClient;
+}
+
+export interface WaUsageEventDbRow {
+    readonly id: number;
+    readonly recorded: Date;
+    readonly event: WaUsageEventType;
+    readonly outcome: string;
+    readonly modelid: string | null;
+    readonly projectid: string | null;
+    readonly classid: string | null;
+    readonly tenanttype: number | null;
+    readonly language: string | null;
+    readonly labels: number | null;
+    readonly examples: number | null;
+    readonly chars: number | null;
+    readonly durationms: number | null;
+    readonly source: WaUsageSource;
+    readonly useragent: string | null;
+    readonly xuseragent: string | null;
+    readonly origin: string | null;
+}

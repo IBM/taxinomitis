@@ -2837,6 +2837,127 @@ export async function getLatestSiteAlert(): Promise<Objects.SiteAlert | undefine
 
 // -----------------------------------------------------------------------------
 //
+// TEXT MODEL USAGE
+//
+// -----------------------------------------------------------------------------
+
+export function testonly_resetWaUsageStore(): Promise<void>
+{
+    // ensure this function is only used in tests, so we don't
+    //  accidentally trash a production database table
+    /* istanbul ignore else */
+    if (process.env.POSTGRESQLHOST === 'localhost' || process.env.POSTGRESQLHOST === 'host.docker.internal') {
+        const queryName = 'dbqn-delete-wausage-all';
+        const queryString = 'DELETE FROM wausage';
+        const queryValues: any[] = [];
+
+        return dbExecute(queryName, queryString, queryValues)
+            .then(() => { return; });
+    }
+    else {
+        log.error('testonly_resetWaUsageStore called on production system');
+        return Promise.resolve();
+    }
+}
+
+
+// header values are supplied by clients, so are truncated to fit
+//  the DB columns rather than rejected
+function truncate(value: string | undefined, maxlength: number): string | null {
+    if (typeof value !== 'string' || value.length === 0) {
+        return null;
+    }
+    return value.substring(0, maxlength);
+}
+
+export async function storeWaUsageEvent(event: Objects.WaUsageEvent): Promise<void>
+{
+    const queryName = 'dbqn-insert-wausage';
+    const queryString = 'INSERT INTO wausage ' +
+                            '(recorded, event, outcome, ' +
+                             'modelid, projectid, classid, tenanttype, language, ' +
+                             'labels, examples, chars, durationms, ' +
+                             'source, useragent, xuseragent, origin) ' +
+                        'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)';
+    const queryValues = [
+        event.recorded, event.event, truncate(event.outcome, 16),
+        event.modelid ?? null, event.projectid ?? null, event.classid ?? null, event.tenanttype ?? null, truncate(event.language, 6),
+        event.labels ?? null, event.examples ?? null, event.chars ?? null, event.durationms ?? null,
+        event.client.source,
+        truncate(event.client.useragent, 200),
+        truncate(event.client.xuseragent, 50),
+        truncate(event.client.origin, 100),
+    ];
+
+    const response = await dbExecute(queryName, queryString, queryValues);
+    if (response.rowCount !== 1) {
+        throw new Error('Failed to store usage event');
+    }
+}
+
+
+/**
+ * Returns the id of the most recently stored usage event, or 0
+ *  if there are no usage events stored.
+ */
+export async function getLatestWaUsageEventId(): Promise<number>
+{
+    const queryName = 'dbqn-select-wausage-maxid';
+    const queryString = 'SELECT MAX(id) AS maxid FROM wausage';
+    const queryValues: any[] = [];
+
+    const response = await dbExecute(queryName, queryString, queryValues);
+    const maxid = response.rows[0].maxid;
+    return maxid ? Number(maxid) : 0;
+}
+
+
+/**
+ * Returns a page of usage events, in the order they were stored.
+ *
+ * @param afterId - only return events with an id greater than this
+ * @param maxId - only return events with an id less than or equal to this
+ * @param limit - maximum number of events to return
+ */
+export async function getWaUsageEvents(afterId: number, maxId: number, limit: number): Promise<Objects.WaUsageEventDbRow[]>
+{
+    const queryName = 'dbqn-select-wausage';
+    const queryString = 'SELECT id, recorded, event, outcome, ' +
+                               'modelid, projectid, classid, tenanttype, language, ' +
+                               'labels, examples, chars, durationms, ' +
+                               'source, useragent, xuseragent, origin ' +
+                        'FROM wausage ' +
+                        'WHERE id > $1 AND id <= $2 ' +
+                        'ORDER BY id ' +
+                        'LIMIT $3';
+    const queryValues = [ afterId, maxId, limit ];
+
+    const response = await dbExecute(queryName, queryString, queryValues);
+    return response.rows.map((row: any) => {
+        return { ...row, id : Number(row.id) };
+    });
+}
+
+
+/**
+ * Deletes usage events with an id less than or equal to the provided id.
+ *
+ * @returns the number of events deleted
+ */
+export async function deleteWaUsageEvents(maxId: number): Promise<number>
+{
+    const queryName = 'dbqn-delete-wausage-maxid';
+    const queryString = 'DELETE FROM wausage WHERE id <= $1';
+    const queryValues = [ maxId ];
+
+    const response = await dbExecute(queryName, queryString, queryValues);
+    return response.rowCount ?? 0;
+}
+
+
+
+// -----------------------------------------------------------------------------
+//
 // UBER DELETERS
 //
 // -----------------------------------------------------------------------------
