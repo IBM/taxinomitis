@@ -1,8 +1,11 @@
 import { describe, it, before, beforeEach, after } from 'node:test';
 import * as assert from 'assert';
 import * as sinon from 'sinon';
+import { randomUUID } from 'node:crypto';
 import * as store from '../../lib/db/store';
 import * as Objects from '../../lib/db/db-types';
+import * as conversation from '../../lib/training/conversation';
+import * as TrainingTypes from '../../lib/training/training-types';
 import * as keys from '../../lib/objectstore/keys';
 import * as ObjectStoreTypes from '../../lib/objectstore/types';
 import * as sessionusers from '../../lib/sessionusers';
@@ -27,6 +30,29 @@ async function drainPendingJobs(): Promise<Objects.PendingJob[]> {
     }
 
     return drained;
+}
+
+
+
+
+// stores a record of a text model, without training one, so that
+//  tests can check how the model would be deleted
+async function storeTextModel(project: Objects.Project): Promise<string> {
+    const workspaceId = randomUUID();
+    await store.storeConversationWorkspace(
+        { id : randomUUID() } as TrainingTypes.BluemixCredentials,
+        project,
+        {
+            id : randomUUID(),
+            workspace_id : workspaceId,
+            credentialsid : '',
+            url : 'http://conversation.service/v1/workspaces/' + workspaceId,
+            name : 'TEST',
+            language : 'en',
+            created : new Date(),
+            expiry : new Date(Date.now() + (1000 * 60 * 60)),
+        });
+    return workspaceId;
 }
 
 
@@ -112,6 +138,26 @@ describe('session users', { concurrency: false }, () => {
         });
 
 
+        it('should record deleting models for users who log off as deletions', async () => {
+            const user = await sessionusers.createSessionUser();
+            const project = await store.storeProject(user.id, sessionusers.CLASS_NAME, 'text', 'TEST', 'en', [], false);
+            const workspaceId = await storeTextModel(project);
+
+            const deleteStub = sinon.stub(conversation, 'deleteClassifier').resolves();
+            try {
+                await sessionusers.deleteSessionUser(user);
+
+                assert(deleteStub.calledOnceWith(
+                    sinon.match.any,
+                    sinon.match({ workspace_id : workspaceId }),
+                    'delete'));
+            }
+            finally {
+                deleteStub.restore();
+            }
+        });
+
+
         it('should handle deleting non-existing users', async () => {
             await sessionusers.deleteSessionUser({
                 id : 'DOES-NOT-EXIST',
@@ -173,6 +219,25 @@ describe('session users', { concurrency: false }, () => {
 
             const verifyUser = await store.getTemporaryUser(user.id);
             assert(!verifyUser);
+        });
+
+        it('should record deleting models for expired users as expiries', async () => {
+            const user = await store.storeTemporaryUser(-1000);
+            const project = await store.storeProject(user.id, sessionusers.CLASS_NAME, 'text', 'TEST', 'en', [], false);
+            const workspaceId = await storeTextModel(project);
+
+            const deleteStub = sinon.stub(conversation, 'deleteClassifier').resolves();
+            try {
+                await sessionusers.cleanupExpiredSessionUsers();
+
+                assert(deleteStub.calledOnceWith(
+                    sinon.match.any,
+                    sinon.match({ workspace_id : workspaceId }),
+                    'expire'));
+            }
+            finally {
+                deleteStub.restore();
+            }
         });
 
         it('should not remove resources for active users', async () => {

@@ -6,6 +6,8 @@ import { v1 as uuid } from 'uuid';
 import * as store from '../../lib/db/store';
 import * as expirer from '../../lib/db/expirer';
 import * as Objects from '../../lib/db/db-types';
+import * as conversation from '../../lib/training/conversation';
+import * as TrainingTypes from '../../lib/training/training-types';
 import { CLASS_NAME as SESSION_USERS_CLASSID } from '../../lib/sessionusers';
 import { TWO_MONTHS, TWELVE_HOURS } from '../../lib/utils/constants';
 
@@ -153,6 +155,39 @@ describe('DB store - expirer', () => {
             await expirer.deleteExpiredProjects();
 
             assert.strictEqual(await store.getLocalProject(project.id), undefined);
+        });
+
+        it('should record deleting models for expired projects as expiries', async () => {
+            const project = await createLocalProject(uuid());
+            const workspaceId = uuid();
+            await store.storeConversationWorkspace(
+                { id : uuid() } as TrainingTypes.BluemixCredentials,
+                project,
+                {
+                    id : uuid(),
+                    workspace_id : workspaceId,
+                    credentialsid : '',
+                    url : 'http://conversation.service/v1/workspaces/' + workspaceId,
+                    name : 'TEST',
+                    language : 'en',
+                    created : new Date(),
+                    expiry : new Date(),
+                });
+
+            const deleteStub = sinon.stub(conversation, 'deleteClassifier').resolves();
+            try {
+                useFakeClock().tick(TWO_MONTHS + 60000);
+
+                await expirer.deleteExpiredProjects();
+
+                assert(deleteStub.calledOnceWith(
+                    sinon.match.any,
+                    sinon.match({ workspace_id : workspaceId }),
+                    'expire'));
+            }
+            finally {
+                deleteStub.restore();
+            }
         });
 
         it('should leave projects that have not expired alone', async () => {

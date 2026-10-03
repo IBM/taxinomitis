@@ -2963,7 +2963,11 @@ export async function deleteWaUsageEvents(maxId: number): Promise<number>
 // -----------------------------------------------------------------------------
 
 
-export async function deleteEntireProject(userid: string, classid: string, project: Objects.Project | Objects.LocalProject): Promise<void> {
+export async function deleteEntireProject(
+    userid: string, classid: string,
+    project: Objects.Project | Objects.LocalProject,
+    usageEvent: Objects.WaUsageDeletionEventType = 'delete',
+): Promise<void> {
     // delete stored models
     switch (project.type) {
     case 'text': {
@@ -2971,7 +2975,7 @@ export async function deleteEntireProject(userid: string, classid: string, proje
         const tenant = await getClassTenant(classid);
         for (const classifier of classifiers) {
             try {
-                await conversation.deleteClassifier(tenant, classifier);
+                await conversation.deleteClassifier(tenant, classifier, usageEvent);
             }
             catch (err) {
                 log.error({ err, userid, classid, projectid : project.id }, 'Failed to delete Assistant workspace');
@@ -3007,10 +3011,13 @@ export async function deleteEntireProject(userid: string, classid: string, proje
 }
 
 
-export async function deleteEntireUser(userid: string, classid: string): Promise<void> {
+export async function deleteEntireUser(
+    userid: string, classid: string,
+    usageEvent: Objects.WaUsageDeletionEventType = 'delete',
+): Promise<void> {
     const projects = await getProjectsOwnedByUserId(userid, classid);
     for (const project of projects) {
-        await deleteEntireProject(userid, classid, project);
+        await deleteEntireProject(userid, classid, project, usageEvent);
     }
 
     const deleteQueries = [

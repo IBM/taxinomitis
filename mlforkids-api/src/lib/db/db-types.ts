@@ -298,6 +298,12 @@ export type WaUsageEventType = 'train-new' | 'train-update' | 'classify' |
                                'delete' | 'expire' |
                                'store-training' | 'fetch-training';
 
+// why a model was deleted
+//   delete - by a user, or because a user deleted its project, user or class
+//   expire - by a scheduled clean-up, because the model, its local project,
+//             or its session user expired
+export type WaUsageDeletionEventType = 'delete' | 'expire';
+
 // where a request came from
 //   website    - the main ML for Kids site
 //   scratchkey - the Scratch key API (used by Scratch, Python, App Inventor, etc.)

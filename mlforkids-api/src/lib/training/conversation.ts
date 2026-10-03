@@ -363,7 +363,7 @@ async function updateWorkspace(
 }
 
 async function deleteClassifierUsingCredentials(classifier: TrainingObjects.ConversationWorkspace,
-                                                usageEvent: 'delete' | 'expire',
+                                                usageEvent: DbObjects.WaUsageDeletionEventType,
                                                 credentials?: TrainingObjects.BluemixCredentials)
 {
     let outcome = 'no-creds';
@@ -410,14 +410,18 @@ async function deleteClassifierUnknownClass(classifier: TrainingObjects.Conversa
  *  This deletes both the classifier from Bluemix, and the record of it
  *  stored in the app's database.
  */
-export function deleteClassifier(tenant: DbObjects.ClassTenant, classifier: TrainingObjects.ConversationWorkspace): Promise<void>
+export function deleteClassifier(
+    tenant: DbObjects.ClassTenant,
+    classifier: TrainingObjects.ConversationWorkspace,
+    usageEvent: DbObjects.WaUsageDeletionEventType = 'delete',
+): Promise<void>
 {
     let credentials: TrainingObjects.BluemixCredentials;
 
     return store.getBluemixCredentialsById(tenant.tenantType, classifier.credentialsid)
         .then((creds) => {
             credentials = creds;
-            return deleteClassifierUsingCredentials(classifier, 'delete', credentials);
+            return deleteClassifierUsingCredentials(classifier, usageEvent, credentials);
         })
         .then(async () => {
             if (tenant.tenantType === DbObjects.ClassTenantType.ManagedPool) {

@@ -540,6 +540,18 @@ describe('Training - Conversation', () => {
         });
 
 
+        it('should record deleting expired classifiers as expiries', async () => {
+            storeUsageStub.resetHistory();
+
+            await conversation.deleteClassifier(TESTTENANT, goodClassifier, 'expire');
+
+            const usage = recordedUsage();
+            assert.strictEqual(usage.length, 1);
+            assert.strictEqual(usage[0].event, 'expire');
+            assert.strictEqual(usage[0].modelid, 'good');
+        });
+
+
         it('should cope with deleting a classifier missing from Bluemix', async () => {
             deleteStub.reset();
             deleteStoreStub.reset();

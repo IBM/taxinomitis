@@ -114,7 +114,7 @@ export async function cleanupExpiredSessionUsers(): Promise<void>
 
         // delete resources for each expired user
         for (const expiredUser of expiredUsers) {
-            await store.deleteEntireUser(expiredUser.id, CLASS_NAME);
+            await store.deleteEntireUser(expiredUser.id, CLASS_NAME, 'expire');
             await store.storeDeleteUserObjectsJob(CLASS_NAME, expiredUser.id);
         }
 

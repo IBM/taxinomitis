@@ -18,7 +18,8 @@ export async function deleteExpiredProjects() {
         for (const expiredProject of expiredProjects) {
             await store.deleteEntireProject(expiredProject.userid,
                                             expiredProject.classid,
-                                            expiredProject);
+                                            expiredProject,
+                                            'expire');
         }
         count += expiredProjects.length;
 
