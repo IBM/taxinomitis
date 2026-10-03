@@ -184,7 +184,26 @@
         }
 
         function collectExample(label) {
-            return transferRecognizer.collectExample(label);
+            var collecting = transferRecognizer.collectExample(label);
+
+            // the speech-commands library can fire its spectrogram callback a
+            //  second time if reading the first one back from the GPU is slow,
+            //  and that second callback then tries to stop an already-stopped
+            //  extractor - throwing an unhandled rejection we can't catch
+            //  so make stop() safe to call more than once
+            var extractor = transferRecognizer.audioDataExtractor;
+            if (extractor && extractor.stop) {
+                var originalStop = extractor.stop.bind(extractor);
+                extractor.stop = function () {
+                    if (extractor.frameIntervalTask == null) {
+                        loggerService.debug('[ml4ksound] ignoring repeated request to stop extractor');
+                        return Promise.resolve();
+                    }
+                    return originalStop();
+                };
+            }
+
+            return collecting;
         }
 
         function getModelInfo() {

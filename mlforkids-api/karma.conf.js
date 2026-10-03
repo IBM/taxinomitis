@@ -49,6 +49,7 @@ module.exports = function (config) {
             'public/components/projectimport/*.js',
             'public/components/projects/*.js',
             'public/components/scratch3/*.js',
+            'public/components/soundtraining/*.js',
             'public/components/teacher_apikeys/*.js',
             'public/components/teacher_restrictions/*.js',
             'public/components/teacher_students/*.js',
