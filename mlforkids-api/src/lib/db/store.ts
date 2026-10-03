@@ -2877,8 +2877,10 @@ export async function storeWaUsageEvent(event: Objects.WaUsageEvent): Promise<vo
                             '(recorded, event, outcome, ' +
                              'modelid, projectid, classid, tenanttype, language, ' +
                              'labels, examples, chars, durationms, ' +
-                             'source, useragent, xuseragent, origin) ' +
-                        'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)';
+                             'source, useragent, xuseragent, origin, ' +
+                             'country, method, fetchsite, fetchmode, referrer) ' +
+                        'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, ' +
+                                '$17, $18, $19, $20, $21)';
     const queryValues = [
         event.recorded, event.event, truncate(event.outcome, 16),
         event.modelid ?? null, event.projectid ?? null, event.classid ?? null, event.tenanttype ?? null, truncate(event.language, 6),
@@ -2887,6 +2889,11 @@ export async function storeWaUsageEvent(event: Objects.WaUsageEvent): Promise<vo
         truncate(event.client.useragent, 200),
         truncate(event.client.xuseragent, 50),
         truncate(event.client.origin, 100),
+        truncate(event.client.country, 2),
+        truncate(event.client.method, 7),
+        truncate(event.client.fetchsite, 12),
+        truncate(event.client.fetchmode, 12),
+        truncate(event.client.referrer, 100),
     ];
 
     const response = await dbExecute(queryName, queryString, queryValues);
@@ -2925,7 +2932,8 @@ export async function getWaUsageEvents(afterId: number, maxId: number, limit: nu
     const queryString = 'SELECT id, recorded, event, outcome, ' +
                                'modelid, projectid, classid, tenanttype, language, ' +
                                'labels, examples, chars, durationms, ' +
-                               'source, useragent, xuseragent, origin ' +
+                               'source, useragent, xuseragent, origin, ' +
+                               'country, method, fetchsite, fetchmode, referrer ' +
                         'FROM wausage ' +
                         'WHERE id > $1 AND id <= $2 ' +
                         'ORDER BY id ' +

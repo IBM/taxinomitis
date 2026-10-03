@@ -27,11 +27,27 @@ export const SERVER: DbObjects.WaUsageClient = { source : 'server' };
 
 
 /**
+ * Identifies the client making a request from the main ML for Kids website.
+ *
+ * Only the country is recorded for website requests.
+ */
+export function getWebsiteClient(req: Express.Request): DbObjects.WaUsageClient {
+    return {
+        source : 'website',
+        country : req.header('cf-ipcountry'),
+    };
+}
+
+
+/**
  * Identifies the client making a Scratch key API request.
  *
  * The Scratch extensions identify themselves with an X-User-Agent header.
  *  Other clients (e.g. Python, App Inventor) can only be identified by
  *  their User-Agent header.
+ *
+ * Browsers always send the Sec-Fetch-* headers, and web pages can't
+ *  set them, so these help to identify requests from browsers.
  */
 export function getScratchKeyClient(req: Express.Request): DbObjects.WaUsageClient {
     return {
@@ -39,7 +55,34 @@ export function getScratchKeyClient(req: Express.Request): DbObjects.WaUsageClie
         useragent : req.header('User-Agent'),
         xuseragent : req.header('X-User-Agent'),
         origin : req.header('Origin'),
+        country : req.header('cf-ipcountry'),
+        method : req.method,
+        fetchsite : req.header('Sec-Fetch-Site'),
+        fetchmode : req.header('Sec-Fetch-Mode'),
+        referrer : getReferrerHost(req.header('Referer')),
     };
+}
+
+
+/**
+ * Returns the host name from a Referer header.
+ *
+ * Only the host name is recorded, as the full URL can include
+ *  identifiers (e.g. Scratch pages include the URL of the
+ *  extension being loaded).
+ */
+export function getReferrerHost(referer?: string): string | undefined {
+    if (!referer) {
+        return undefined;
+    }
+    try {
+        // some clients send a host name without a scheme
+        const url = referer.includes('://') ? new URL(referer) : new URL('https://' + referer);
+        return url.hostname.toLowerCase() || undefined;
+    }
+    catch {
+        return undefined;
+    }
 }
 
 

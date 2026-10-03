@@ -80,7 +80,7 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
     switch (req.project.type) {
     case 'text': {
         try {
-            const model = await conversation.trainClassifier(req.project, wausage.WEBSITE);
+            const model = await conversation.trainClassifier(req.project, wausage.getWebsiteClient(req));
             return res.status(httpstatus.CREATED).json(returnConversationWorkspace(model));
         }
         catch (err) {
@@ -179,7 +179,7 @@ async function testModel(req: Express.Request, res: Express.Response) {
             const tenant = await store.getClassTenant(classid);
             const creds = await store.getBluemixCredentialsById(tenant.tenantType, credsid);
 
-            const classes = await conversation.testClassifier(creds, modelid, requestTimestamp, projectid, text, wausage.WEBSITE);
+            const classes = await conversation.testClassifier(creds, modelid, requestTimestamp, projectid, text, wausage.getWebsiteClient(req));
             return res.json(classes);
         }
         else if (type === 'numbers') {

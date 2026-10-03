@@ -315,6 +315,13 @@ export interface WaUsageClient {
     readonly useragent?: string;
     readonly xuseragent?: string;
     readonly origin?: string;
+    // two-letter country code, from the Cloudflare cf-ipcountry header
+    readonly country?: string;
+    readonly method?: string;
+    readonly fetchsite?: string;
+    readonly fetchmode?: string;
+    // host name only, from the Referer header
+    readonly referrer?: string;
 }
 
 export interface WaUsageEvent {
@@ -351,4 +358,9 @@ export interface WaUsageEventDbRow {
     readonly useragent: string | null;
     readonly xuseragent: string | null;
     readonly origin: string | null;
+    readonly country: string | null;
+    readonly method: string | null;
+    readonly fetchsite: string | null;
+    readonly fetchmode: string | null;
+    readonly referrer: string | null;
 }

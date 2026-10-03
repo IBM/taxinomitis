@@ -74,6 +74,8 @@ describe('DB store - text model usage', () => {
                 client : {
                     source : 'scratchkey',
                     useragent : 'python-requests/2.32.3',
+                    country : 'GB',
+                    method : 'GET',
                 },
             });
 
@@ -96,6 +98,11 @@ describe('DB store - text model usage', () => {
                 useragent : 'python-requests/2.32.3',
                 xuseragent : null,
                 origin : null,
+                country : 'GB',
+                method : 'GET',
+                fetchsite : null,
+                fetchmode : null,
+                referrer : null,
             });
         });
 
@@ -131,6 +138,11 @@ describe('DB store - text model usage', () => {
                     useragent : 'u'.repeat(500),
                     xuseragent : 'x'.repeat(500),
                     origin : 'o'.repeat(500),
+                    country : 'c'.repeat(500),
+                    method : 'm'.repeat(500),
+                    fetchsite : 's'.repeat(500),
+                    fetchmode : 'f'.repeat(500),
+                    referrer : 'r'.repeat(500),
                 },
             }));
 
@@ -138,6 +150,11 @@ describe('DB store - text model usage', () => {
             assert.strictEqual(events[0].useragent, 'u'.repeat(200));
             assert.strictEqual(events[0].xuseragent, 'x'.repeat(50));
             assert.strictEqual(events[0].origin, 'o'.repeat(100));
+            assert.strictEqual(events[0].country, 'cc');
+            assert.strictEqual(events[0].method, 'm'.repeat(7));
+            assert.strictEqual(events[0].fetchsite, 's'.repeat(12));
+            assert.strictEqual(events[0].fetchmode, 'f'.repeat(12));
+            assert.strictEqual(events[0].referrer, 'r'.repeat(100));
         });
 
         it('should store empty header values as nulls', async () => {

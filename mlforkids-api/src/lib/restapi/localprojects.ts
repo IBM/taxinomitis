@@ -119,7 +119,7 @@ async function newLocalProjectModel(req: auth.RequestWithLocalProject, res: Expr
     }
 
     try {
-        const model = await conversation.trainClassifierForProject(req.project, training, wausage.WEBSITE);
+        const model = await conversation.trainClassifierForProject(req.project, training, wausage.getWebsiteClient(req));
         res.status(httpstatus.CREATED).json(returnConversationWorkspace(model));
 
         // lazily (after returning response to the user) update
@@ -209,7 +209,7 @@ async function testLocalProjectModel(req: auth.RequestWithLocalProject, res: Exp
         const tenant = await store.getClassTenant(classid);
         const creds = await store.getBluemixCredentialsById(tenant.tenantType, credsid);
 
-        const classes = await conversation.testClassifier(creds, modelid, requestTimestamp, projectid, text, wausage.WEBSITE);
+        const classes = await conversation.testClassifier(creds, modelid, requestTimestamp, projectid, text, wausage.getWebsiteClient(req));
         return res.json(classes);
     }
     catch (err) {

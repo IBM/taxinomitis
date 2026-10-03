@@ -1002,6 +1002,11 @@ describe('REST API - scratch keys', () => {
                 useragent : 'python-requests/2.32.3',
                 xuseragent : undefined,
                 origin : undefined,
+                country : undefined,
+                method : 'GET',
+                fetchsite : undefined,
+                fetchmode : undefined,
+                referrer : undefined,
             });
 
             conversationStub.resetHistory();
@@ -1013,6 +1018,10 @@ describe('REST API - scratch keys', () => {
                 .set('If-Modified-Since', ts.toISOString())
                 .set('X-User-Agent', 'mlforkids-scratch3-text')
                 .set('Origin', 'https://machinelearningforkids.co.uk')
+                .set('cf-ipcountry', 'SG')
+                .set('Sec-Fetch-Site', 'same-origin')
+                .set('Sec-Fetch-Mode', 'cors')
+                .set('Referer', 'https://machinelearningforkids.co.uk/scratch/?url=https://machinelearningforkids.co.uk/api/scratch/' + scratchKey + '/extension3.js')
                 .query({ data : 'haddock' })
                 .expect(httpstatus.NOT_MODIFIED);
 
@@ -1024,6 +1033,10 @@ describe('REST API - scratch keys', () => {
             assert.strictEqual(cachedUsage.outcome, 'not-modified');
             assert.strictEqual(cachedUsage.client.xuseragent, 'mlforkids-scratch3-text');
             assert.strictEqual(cachedUsage.client.origin, 'https://machinelearningforkids.co.uk');
+            assert.strictEqual(cachedUsage.client.country, 'SG');
+            assert.strictEqual(cachedUsage.client.fetchsite, 'same-origin');
+            assert.strictEqual(cachedUsage.client.fetchmode, 'cors');
+            assert.strictEqual(cachedUsage.client.referrer, 'machinelearningforkids.co.uk');
 
             usageSpy.restore();
 
