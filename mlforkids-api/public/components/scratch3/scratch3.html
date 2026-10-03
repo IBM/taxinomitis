@@ -63,7 +63,7 @@
                 You can <strong><a href="" ui-sref="mlproject_models({ projectId : projectId, userId : userId })">train one now</a></strong> and then come back to open Scratch.
             </div>
             <div>
-                Or you can go <a class="btn btn-default" target="_blank" href="/scratch/?url={{ scratchkey.extensionurl }}">straight into Scratch</a> now.
+                Or you can go <a class="btn btn-default" target="_blank" ng-href="/scratch/?url={{ scratchkey.extensionurl }}">straight into Scratch</a> now.
             </div>
         </div>
 
@@ -74,7 +74,7 @@
         <!-- ------------------------------------- -->
         <div ng-if="scratchkey.model">
             <a target="_blank" class="btn btn-primary"
-               href="/scratch/?url={{ scratchkey.extensionurl }}"
+               ng-href="/scratch/?url={{ scratchkey.extensionurl }}"
                translate="SCRATCH3.LAUNCH"></a>
         </div>
     </div>
@@ -85,12 +85,12 @@
             <div class="modelstatusdetail" translate="SCRATCH.MORE_BLOCKS_3"></div>
             <br/>
             <div>
-                <img src="static/images/scratch3-recognise-label-{{ project.type }}.png">
+                <img ng-src="static/images/scratch3-recognise-label-{{ project.type }}.png">
             </div>
             <div class="modelstatusdetail" ng-hide="project.type === 'regression'" translate="SCRATCH.EXPLAIN_RECOGNISE_LABEL" translate-values='{ "type" : project.type === "imgtfjs" ? "images" : project.type }'></div>
             <div class="modelstatusdetail" ng-if="project.type === 'regression'" translate="SCRATCH.EXPLAIN_PREDICT"></div>
             <div ng-hide="project.type === 'regression'">
-                <img src="static/images/scratch3-recognise-confidence-{{ project.type }}.png">
+                <img ng-src="static/images/scratch3-recognise-confidence-{{ project.type }}.png">
             </div>
             <div class="modelstatusdetail" ng-hide="project.type === 'regression'" translate="SCRATCH.EXPLAIN_RECOGNISE_CONFIDENCE" translate-values='{ "type" : project.type === "imgtfjs" ? "images" : project.type }'></div>
             <div ng-hide="project.type === 'regression'">
@@ -99,7 +99,7 @@
             <div class="modelstatusdetail" ng-hide="project.type === 'regression'" translate="SCRATCH.EXPLAIN_LABELS"></div>
             <div class="modelstatusdetail" ng-hide="project.type === 'regression'" ><strong translate="SCRATCH.SAMPLE_SCRIPT"></strong></div>
             <div ng-hide="project.type === 'regression'">
-                <img src="static/images/scratch3-sample-{{ project.type }}.png">
+                <img ng-src="static/images/scratch3-sample-{{ project.type }}.png">
             </div>
             <div class="training-section-separator" ng-hide="project.type === 'imgtfjs'">
                 <hr/><br/>

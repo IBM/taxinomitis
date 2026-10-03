@@ -111,7 +111,7 @@
                 <div class="alert alert-dismissible" role="alert" ng-class="{ 'alert-danger' : siteAlert.severity === 'error', 'alert-warning' : siteAlert.severity === 'warning', 'alert-info' : siteAlert.severity === 'info' }">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="clearSiteAlert && clearSiteAlert()"><span aria-hidden="true">X</span></button>
                     {{ siteAlert.message }}
-                    <a ng-if="siteAlert.url" href="{{siteAlert.url}}" target="_blank">More...</a>
+                    <a ng-if="siteAlert.url" ng-href="{{siteAlert.url}}" target="_blank">More...</a>
                 </div>
             </div>
 

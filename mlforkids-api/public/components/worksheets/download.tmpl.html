@@ -33,12 +33,12 @@
                         <strong>{{download.description}}</strong>
                     </div>
                     <div class="worksheet-download-button-container">
-                        <a class="btn btn-primary" href="{{download.worksheet}}">
+                        <a class="btn btn-primary" ng-href="{{download.worksheet}}">
                             <span class="glyphicon glyphicon-print"> </span>
                             <span translate="WORKSHEETS.DOWNLOADS.WORKSHEET.TITLE"></span>                        </a>
                     </div>
                     <div ng-if="download.resources" class="worksheet-resources-container">
-                        <a class="btn btn-primary" href="{{download.resources}}">
+                        <a class="btn btn-primary" ng-href="{{download.resources}}">
                             <span class="glyphicon glyphicon-print"> </span>
                             <span translate="WORKSHEETS.DOWNLOADS.RESOURCES.TITLE"></span>
                         </a>
@@ -47,13 +47,13 @@
                 </div>
                 <h4 translate="WORKSHEETS.DOWNLOADS.AUDIENCE.TEACHERS"></h4>
                 <div class="worksheet-download-item">
-                    <a class="btn btn-info worksheet-guidance-button" href="{{worksheet.original}}">
+                    <a class="btn btn-info worksheet-guidance-button" ng-href="{{worksheet.original}}">
                         <span class="glyphicon glyphicon-align-left"> </span>
                         <span translate="WORKSHEETS.DOWNLOADS.GUIDANCE.ORIGINALDOWNLOAD"></span>
                     </a>
                     <div class="worksheet-guidance-detail" translate="WORKSHEETS.DOWNLOADS.GUIDANCE.ORIGINALNOTES"></div>
                     <hr ng-if="worksheet.teachersnotes" class="worksheet-guidance-divider"/>
-                    <a ng-if="worksheet.teachersnotes" class="btn btn-info worksheet-guidance-button" href="{{worksheet.teachersnotes}}">
+                    <a ng-if="worksheet.teachersnotes" class="btn btn-info worksheet-guidance-button" ng-href="{{worksheet.teachersnotes}}">
                         <span class="glyphicon glyphicon-check"> </span>
                         <span translate="WORKSHEETS.DOWNLOADS.GUIDANCE.TITLE"></span>
                     </a>
@@ -67,7 +67,7 @@
                 </div>
                 <div ng-if="worksheet.providedby" class="worksheet-author-container">
                     <strong translate="WORKSHEETS.DOWNLOADS.WORKSHEET.AUTHOR"></strong>
-                    <a target="_blank" href="{{ worksheet.providedby.url }}">{{ worksheet.providedby.name }}</a>
+                    <a target="_blank" ng-href="{{ worksheet.providedby.url }}">{{ worksheet.providedby.name }}</a>
                 </div>
                 <div ng-if="worksheet.providedby && worksheet.providedby.embed" class="worksheet-embed-container">
                     <div ng-bind-html="worksheet.providedby.embed" class="worksheet-embed-content">loading...</div>
