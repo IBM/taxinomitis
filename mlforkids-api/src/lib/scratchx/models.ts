@@ -12,7 +12,11 @@ const log = loggerSetup();
 
 
 
-export async function trainTextModelLocalProject(scratchKey: Types.ScratchKey, trainingData: TrainingTypes.ConversationTrainingData): Promise<ScratchTypes.Status> {
+export async function trainTextModelLocalProject(
+    scratchKey: Types.ScratchKey,
+    trainingData: TrainingTypes.ConversationTrainingData,
+    client: Types.WaUsageClient,
+): Promise<ScratchTypes.Status> {
     if (scratchKey.type !== 'text') {
         return Promise.reject(new Error('Only text models can be trained using a Scratch key'));
     }
@@ -24,7 +28,7 @@ export async function trainTextModelLocalProject(scratchKey: Types.ScratchKey, t
         }
 
         if (project.type === 'text') {
-            const model = await conversation.trainClassifierForProject(project, trainingData);
+            const model = await conversation.trainClassifierForProject(project, trainingData, client);
 
             // lazily (after returning response to the user) update
             //  the expiry date and labels for the project
@@ -62,7 +66,7 @@ export async function trainTextModelLocalProject(scratchKey: Types.ScratchKey, t
 
 
 
-export async function trainModel(scratchKey: Types.ScratchKey): Promise<ScratchTypes.Status | numbers.NumbersApiResponsePayloadClassifierItem> {
+export async function trainModel(scratchKey: Types.ScratchKey, client: Types.WaUsageClient): Promise<ScratchTypes.Status | numbers.NumbersApiResponsePayloadClassifierItem> {
     if (scratchKey.type !== 'text' && scratchKey.type !== 'numbers') {
         return Promise.reject(new Error('Only text or numbers models can be trained using a Scratch key'));
     }
@@ -74,7 +78,7 @@ export async function trainModel(scratchKey: Types.ScratchKey): Promise<ScratchT
         }
 
         if (project.type === 'text') {
-            const model = await conversation.trainClassifier(project);
+            const model = await conversation.trainClassifier(project, client);
             if (model.status === 'Training') {
                 return {
                     status : 1,

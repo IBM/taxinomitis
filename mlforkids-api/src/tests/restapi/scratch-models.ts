@@ -23,7 +23,7 @@ const TESTCLASS = 'UNIQUECLASSIDSCMOD';
 
 describe('REST API - scratchkey models', () => {
 
-    let mockConversation: sinon.SinonStub<[DbTypes.Project], Promise<TrainingTypes.ConversationWorkspace>>;
+    let mockConversation: sinon.SinonStub<[DbTypes.Project, DbTypes.WaUsageClient], Promise<TrainingTypes.ConversationWorkspace>>;
     let numbersTrainingServicePostStub: sinon.SinonStub<any, any>;
     let numbersTrainingServiceDeleteStub: sinon.SinonStub<any, any>;
 

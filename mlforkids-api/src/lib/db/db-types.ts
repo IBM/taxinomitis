@@ -301,7 +301,7 @@ export type WaUsageEventType = 'train-new' | 'train-update' | 'classify' |
 // where a request came from
 //   website    - the main ML for Kids site
 //   scratchkey - the Scratch key API (used by Scratch, Python, App Inventor, etc.)
-//   server     - not triggered by a user request (e.g. scheduled clean-ups)
+//   server     - not recorded with a request (e.g. deleting models)
 export type WaUsageSource = 'website' | 'scratchkey' | 'server';
 
 export interface WaUsageClient {

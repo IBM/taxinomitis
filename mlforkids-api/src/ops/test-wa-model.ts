@@ -3,6 +3,7 @@
 import * as store from '../lib/db/store';
 import * as iam from '../lib/iam';
 import * as wa from '../lib/training/conversation';
+import * as wausage from '../lib/training/wausage';
 import loggerSetup from '../lib/utils/logger';
 
 const log = loggerSetup();
@@ -31,7 +32,7 @@ store.init()
         if (!project) {
             throw new Error('Unable to retrieve project info');
         }
-        return wa.trainClassifier(project);
+        return wa.trainClassifier(project, wausage.SERVER);
     })
     .then((workspace) => {
         log.info({ workspace }, 'training in progress');
