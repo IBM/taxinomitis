@@ -615,7 +615,9 @@ describe('REST API - scratch keys', () => {
 
             const res = await request(testServer)
                 .post('/api/scratch/' + keyId + '/train')
-                .set('User-Agent', 'MIT App Inventor (ML4K extension)')
+                // the edge worker replaces the user agent for this URL
+                .set('User-Agent', 'curl/7.79.1')
+                .set('X-Original-User-Agent', 'MIT App Inventor (ML4K extension)')
                 .send({ data : 'inserted', label : 'animal' })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.OK);

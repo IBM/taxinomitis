@@ -46,13 +46,17 @@ export function getWebsiteClient(req: Express.Request): DbObjects.WaUsageClient 
  *  Other clients (e.g. Python, App Inventor) can only be identified by
  *  their User-Agent header.
  *
+ * For some URLs, the edge worker replaces the User-Agent header (so
+ *  that non-browser clients aren't blocked), and moves the original
+ *  to an X-Original-User-Agent header.
+ *
  * Browsers always send the Sec-Fetch-* headers, and web pages can't
  *  set them, so these help to identify requests from browsers.
  */
 export function getScratchKeyClient(req: Express.Request): DbObjects.WaUsageClient {
     return {
         source : 'scratchkey',
-        useragent : req.header('User-Agent'),
+        useragent : req.header('X-Original-User-Agent') || req.header('User-Agent'),
         xuseragent : req.header('X-User-Agent'),
         origin : req.header('Origin'),
         country : req.header('cf-ipcountry'),

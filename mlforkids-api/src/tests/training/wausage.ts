@@ -72,6 +72,14 @@ describe('Training - text model usage', () => {
             });
         });
 
+        it('should use the original user agent if the edge worker replaced it', () => {
+            const client = wausage.getScratchKeyClient(mockRequest('POST', {
+                'user-agent' : 'curl/7.79.1',
+                'x-original-user-agent' : 'python-requests/2.32.3',
+            }));
+            assert.strictEqual(client.useragent, 'python-requests/2.32.3');
+        });
+
         it('should handle clients without identifying headers', () => {
             const client = wausage.getScratchKeyClient(mockRequest('POST', {}));
             assert.deepStrictEqual(client, {
