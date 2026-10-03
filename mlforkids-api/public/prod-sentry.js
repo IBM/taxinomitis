@@ -1,7 +1,7 @@
 if (Sentry) {
     Sentry.init({
         dsn: 'https://b4bbe1a8fbce473cb9eb089652848a1e@sentry.io/202347',
-        release: '364',
+        release: '365',
         // https://docs.sentry.io/platforms/javascript/configuration/filtering/#decluttering-sentry
         ignoreErrors: [
             "top.GLOBALS",
@@ -20,7 +20,10 @@ if (Sentry) {
             "conduitPage",
             "Cannot redefine property: googletag",
             "zaloJSV2 is not defined",
-            "AbortError: The play() request was interrupted"
+            "xbrowser is not defined",
+            "AbortError: The play() request was interrupted",
+            // angular-material md-select type-to-search when a media key is held down
+            /Invalid regular expression: \/\^(Audio|Media)/
         ],
         denyUrls: [
             /graph\.facebook\.com/i,

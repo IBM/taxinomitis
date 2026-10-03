@@ -34,6 +34,35 @@ describe('REST API - UI', () => {
         });
     });
 
+    describe('unknown urls', () => {
+        it('should redirect page navigations to the 404 page', async () => {
+            const res = await request(testServer)
+                .get('/no-such-page')
+                .set('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8')
+                .expect(httpStatus.FOUND);
+
+            assert.strictEqual(res.header.location, '/#!/404');
+        });
+        it('should return a 404 for script requests', async () => {
+            // the Accept header jQuery sends when loading a script
+            await request(testServer)
+                .get('/translationFile.js')
+                .set('Accept', 'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript, */*; q=0.01')
+                .expect(httpStatus.NOT_FOUND);
+        });
+        it('should return a 404 for wildcard requests', async () => {
+            await request(testServer)
+                .get('/static/components/no-such-template.html')
+                .set('Accept', '*/*')
+                .expect(httpStatus.NOT_FOUND);
+        });
+        it('should return a 404 for requests with no Accept header', async () => {
+            await request(testServer)
+                .get('/no-such-file.css')
+                .expect(httpStatus.NOT_FOUND);
+        });
+    });
+
     describe('caching headers', () => {
         it('should set required headers on HTML responses', async () => {
             const res = await request(testServer)

@@ -173,7 +173,12 @@ export function register404Handler(app: Express.Application) {
 
         log.info({ req, res }, '404');
 
-        if (req.accepts('html')) {
+        // only redirect browser page navigations, which explicitly ask for
+        //  text/html. script, XHR and fetch requests send Accept: */* which
+        //  req.accepts('html') would match, so they would get index.html
+        //  back with a 200 - causing "Unexpected token '<'" errors if the
+        //  browser tries to run it as a script
+        if (req.headers.accept && req.headers.accept.includes('text/html')) {
             res.redirect('/#!/404');
         }
         else {
