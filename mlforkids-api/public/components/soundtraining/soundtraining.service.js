@@ -111,6 +111,17 @@
                     return utilService.loadScript('/static/bower_components/tensorflow-models/speech-commands/speech-commands.min.js?v=2');
                 })
                 .then(function () {
+                    // the script can load without the library being usable
+                    //  - e.g. it throws while it is being set up if the
+                    //  browser blocks access to localStorage
+                    if (typeof speechCommands === 'undefined' || typeof speechCommands.create !== 'function') {
+                        loggerService.error('[ml4ksound] speech-commands library failed to initialise');
+                        throw ({
+                            status : 400,
+                            data : { message : 'Sorry! Machine Learning for Kids could not start sounds projects in this web browser. Try a different browser, or ask your teacher to check if this website is allowed to save data' }
+                        });
+                    }
+
                     loggerService.debug('[ml4ksound] loaded speech-commands', speechCommands.version);
 
                     loggerService.debug('[ml4ksound] enabling tf prod mode');

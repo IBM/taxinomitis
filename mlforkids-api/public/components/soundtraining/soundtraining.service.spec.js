@@ -10,6 +10,7 @@ describe('soundTrainingService', function () {
 
     var soundTrainingService;
     var fakeTransferRecognizer;
+    var loggerServiceMock;
     var originalSpeechCommands, originalTf;
 
     function FakeExtractor() {
@@ -77,12 +78,14 @@ describe('soundTrainingService', function () {
         utilServiceMock.loadTensorFlow.and.returnValue(Promise.resolve());
         utilServiceMock.loadScript.and.returnValue(Promise.resolve());
 
+        loggerServiceMock = jasmine.createSpyObj('loggerService', [ 'debug', 'error', 'warn' ]);
+
         module('app', function ($provide) {
             $provide.value('trainingService', {});
             $provide.value('modelService', {});
             $provide.value('browserStorageService', {});
             $provide.value('utilService', utilServiceMock);
-            $provide.value('loggerService', jasmine.createSpyObj('loggerService', [ 'debug', 'error', 'warn' ]));
+            $provide.value('loggerService', loggerServiceMock);
         });
 
         inject(function (_soundTrainingService_) {
@@ -93,6 +96,24 @@ describe('soundTrainingService', function () {
     afterEach(function () {
         window.speechCommands = originalSpeechCommands;
         window.tf = originalTf;
+    });
+
+
+    describe('initSoundSupport', function () {
+
+        it('explains when the speech-commands library failed to load', async function () {
+            // the UMD wrapper creates an empty speechCommands object before
+            //  running the library code, so if that code throws (e.g. when
+            //  the browser blocks localStorage) this is what's left behind
+            window.speechCommands = {};
+
+            await expectAsync(soundTrainingService.initSoundSupport('project-1', [ 'cat', 'dog' ], false))
+                .toBeRejectedWith({
+                    status : 400,
+                    data : { message : jasmine.stringMatching(/^Sorry! /) }
+                });
+            expect(loggerServiceMock.error).toHaveBeenCalledWith('[ml4ksound] speech-commands library failed to initialise');
+        });
     });
 
 
