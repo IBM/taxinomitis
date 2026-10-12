@@ -197,19 +197,19 @@ async function executeFetch(url: string, fetchOptions: RequestInit, opts: Reques
 
     // error response
     if (!response.ok) {
-        let errorBody: any;
+        // the body can only be read once, so read it as text and then
+        //  try to parse it - error responses aren't always JSON, even
+        //  when that is what was asked for
+        let errorBody: any = await response.text();
         const contentType = response.headers.get('content-type');
 
         if (opts.json || (contentType && contentType.includes('application/json'))) {
             try {
-                errorBody = await response.json();
+                errorBody = JSON.parse(errorBody);
             }
             catch {
-                errorBody = await response.text();
+                // leave the body as text
             }
-        }
-        else {
-            errorBody = await response.text();
         }
 
         throw new StatusCodeError(response.status, errorBody, opts, response);

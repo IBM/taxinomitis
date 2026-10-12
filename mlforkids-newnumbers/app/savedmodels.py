@@ -29,7 +29,18 @@ info("Preparing models cache for %d models", cachesize)
 class cache_with_cleanup(LRUCache):
     def popitem(self):
         key, value = super().popitem()
-        delete(key)
+        # a model that is still training is writing to its folder,
+        #  so deleting it now would break that model, and could
+        #  fail the request that caused it to be evicted
+        if value["status"] == "Training":
+            info("%s : Evicted from cache while training, keeping files", key)
+        else:
+            try:
+                delete(key)
+            except OSError:
+                # cleaning up is best-effort - it shouldn't stop the
+                #  new model that caused the eviction from training
+                exception("%s : Failed to delete evicted model", key)
         return key, value
 saved_models_cache = cache_with_cleanup(maxsize=cachesize)
 

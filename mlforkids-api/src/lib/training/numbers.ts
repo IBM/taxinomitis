@@ -23,8 +23,10 @@ export async function trainClassifierCloudProject(project: Objects.Project): Pro
 
     if (model.urls && model.urls.status && model.status !== 'error')
     {
-        // don't wait for the model url to be stored, as this is not critical
-        store.storeNumbersClassifier(project.userid, project.classid, project.id, model.urls.status)
+        // wait for the model url to be stored, so that it is included
+        //  if the client asks for the project's models straight away,
+        //  but failing to store it is not critical so don't throw
+        await store.storeNumbersClassifier(project.userid, project.classid, project.id, model.urls.status)
             .catch((err) => {
                 log.error({ err, project }, 'Failed to store classifier info');
             });

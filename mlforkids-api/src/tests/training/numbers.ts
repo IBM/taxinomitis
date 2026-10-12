@@ -1,5 +1,6 @@
 import { describe, it, before, after } from 'node:test';
 import * as assert from 'assert';
+import * as sinon from 'sinon';
 import * as store from '../../lib/db/store';
 import * as dbtypes from '../../lib/db/db-types';
 import * as numbers from '../../lib/training/numbers';
@@ -72,6 +73,49 @@ import * as request from '../../lib/utils/request';
                 '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">'));
 
             await store.deleteEntireProject(USERID, CLASSID, project);
+        });
+
+
+        it('should store the model url before returning', async () => {
+            const fields: dbtypes.NumbersProjectFieldSummary[] = [
+                { name : 'a', type : 'number' }, { name : 'b', type : 'number' },
+            ];
+
+            const project = await store.storeProject(USERID, CLASSID, 'numbers', 'stored project', 'en', fields, false);
+            await store.addLabelToProject(USERID, CLASSID, project.id, 'one');
+            await store.addLabelToProject(USERID, CLASSID, project.id, 'two');
+            project.labels = ['one', 'two'];
+
+            await store.bulkStoreNumberTraining(project.id, [
+                { label : 'one', numberdata : [1, 1] },
+                { label : 'one', numberdata : [2, 2] },
+                { label : 'one', numberdata : [3, 3] },
+                { label : 'two', numberdata : [1, 10] },
+                { label : 'two', numberdata : [2, 20] },
+                { label : 'two', numberdata : [3, 30] },
+            ]);
+
+            // slow down storing the url, so that a caller that doesn't
+            //  wait for it would always see it missing
+            const realStore = store.storeNumbersClassifier;
+            const slowStore = sinon.stub(store, 'storeNumbersClassifier').callsFake(async (userid, classid, projectid, url) => {
+                await new Promise((resolve) => { setTimeout(resolve, 500); });
+                return realStore(userid, classid, projectid, url);
+            });
+
+            try {
+                const classifier = await numbers.trainClassifierCloudProject(project);
+                assert.strictEqual('Training', classifier.status);
+                assert(classifier.urls);
+
+                const stored = await store.getNumbersClassifiers(project.id);
+                assert.strictEqual(stored.length, 1);
+                assert.strictEqual(stored[0].url, classifier.urls.status);
+            }
+            finally {
+                slowStore.restore();
+                await store.deleteEntireProject(USERID, CLASSID, project);
+            }
         });
     });
 });
