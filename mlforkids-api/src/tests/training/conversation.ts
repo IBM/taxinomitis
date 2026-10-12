@@ -752,6 +752,28 @@ describe('Training - Conversation', () => {
                 [ 'feo', 'tonto', 'tontorron', 'aburrido', 'autista',
                   'retrasado', 'malo' ]);
         });
+
+        it('should keep the project name', () => {
+            const language: DbTypes.TextProjectLanguage = 'en';
+            const TESTS = [
+                { input : 'My project', expected : 'My project' },
+                { input : 'My\tproject\nname', expected : 'My_project_name' },
+                { input : 'x'.repeat(64), expected : 'x'.repeat(64) },
+                { input : 'a'.repeat(64) + 'b'.repeat(10), expected : 'a'.repeat(64) },
+            ];
+            for (const test of TESTS) {
+                const output = conversation.sanitizeTraining({
+                    name : test.input,
+                    language,
+                    intents : [ { intent : 'label', examples : [ { text : 'example' } ] } ],
+                    dialog_nodes : [],
+                    counterexamples : [],
+                    entities : [],
+                    metadata : { createdby : 'machinelearningforkids' },
+                });
+                assert.strictEqual(output.name, test.expected);
+            }
+        });
     });
 
     const newClassifierDate = new Date();

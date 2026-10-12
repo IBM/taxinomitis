@@ -606,7 +606,7 @@ export function sanitizeTraining(obj:TrainingObjects.ConversationTrainingData): 
 {
     // https://cloud.ibm.com/apidocs/assistant-v1#createworkspace
     return {
-        name : obj.name.replace(/[\t\n]/g, '_').substring(64),
+        name : obj.name.replace(/[\t\n]/g, '_').substring(0, 64),
         language : obj.language,
         intents : obj.intents.map((origintent) => {
             const normalizedExamples: string[] = [];
