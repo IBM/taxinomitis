@@ -24,6 +24,13 @@ ensureDir(path.dirname(appJsDest));
 fs.writeFileSync(appJsDest, appJs);
 console.log('  ✓ app.js');
 
+// startup-check.js is loaded on its own (not bundled into mlapp.min.js) as it
+//  has to run before the app code, and can't depend on anything else loading
+const startupCheckSrc = path.join(baseDir, 'public', 'startup-check.js');
+const startupCheckDest = path.join(baseDir, 'web', 'static', 'startup-check.js');
+fs.copyFileSync(startupCheckSrc, startupCheckDest);
+console.log('  ✓ startup-check.js');
+
 // Determine which auth0 variables to use
 let additionalVariables = [];
 if (DEPLOYMENT === 'machinelearningforkids.co.uk') {
