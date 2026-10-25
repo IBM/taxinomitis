@@ -36,6 +36,28 @@ if (Sentry && !window.mlforkidsStartupFailed) {
             /127\.0\.0\.1:4001\/isrunning/i,
             /webappstoolbarba\.texthelp\.com\//i,
             /metrics\.itunes\.apple\.com\.edgesuite\.net\//i,
-        ]
+        ],
+        // in-app browsers (e.g. Snapchat, Zalo) inject scripts that call a
+        // bridge function "post" before it exists - reported against the page
+        // itself, which is only possible for injected code as index.html has
+        // no inline scripts
+        beforeSend: function (event) {
+            var values = event.exception && event.exception.values;
+            if (values && values.length === 1) {
+                var ex = values[0];
+                var frames = (ex.stacktrace && ex.stacktrace.frames) || [];
+                if (ex.type === 'ReferenceError' &&
+                    ex.value === "Can't find variable: post" &&
+                    ex.mechanism && ex.mechanism.type === 'auto.browser.global_handlers.onerror' &&
+                    frames.length === 1 &&
+                    frames[0].lineno === 1 &&
+                    typeof frames[0].filename === 'string' &&
+                    frames[0].filename.split(/[?#]/)[0] === window.location.origin + '/')
+                {
+                    return null;
+                }
+            }
+            return event;
+        }
     });
 }
