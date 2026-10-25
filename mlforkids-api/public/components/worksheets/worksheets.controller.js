@@ -235,8 +235,9 @@
             'WORKSHEETS.PERSONAS.WORKSHEET_1.URL',
 
             'WORKSHEETS.TRANSLATIONTELEPHONE.TITLE', 'WORKSHEETS.TRANSLATIONTELEPHONE.SUMMARY', 'WORKSHEETS.TRANSLATIONTELEPHONE.DESCRIPTION',
-            'WORKSHEETS.TRANSLATIONTELEPHONE.WORKSHEET_1.URL'
+            'WORKSHEETS.TRANSLATIONTELEPHONE.WORKSHEET_1.URL',
 
+            'WORKSHEETS.UKPLACESQUIZ.TITLE', 'WORKSHEETS.UKPLACESQUIZ.SUMMARY', 'WORKSHEETS.UKPLACESQUIZ.DESCRIPTION'
         ]).then(function (translations) {
             vm.worksheets = [
                 {
@@ -1251,6 +1252,28 @@
                         }
                     ],
                     original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-sortinghat.docx'
+                },
+                {
+                    title : translations['WORKSHEETS.UKPLACESQUIZ.TITLE'],
+                    summary : translations['WORKSHEETS.UKPLACESQUIZ.SUMMARY'],
+                    description : translations['WORKSHEETS.UKPLACESQUIZ.DESCRIPTION'],
+                    difficulty : 2,
+                    type : 'language',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-ukplacesquiz.png',
+                    tags : [ 'language models', 'LLM', 'tool calling' ],
+                    teachersnotes : 'https://dalelane.co.uk/blog/?p=6116',
+                    downloads : [
+                        {
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-ukplacesquiz.pdf'
+                        }
+                    ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-ukplacesquiz.docx',
+                    featured : [
+                        "Use <strong>generative AI</strong> to create an interactive guide to the UK in <strong>Scratch</strong>.",
+                        "Learn about how tool calling has transformed how we use language models by creating your own tools for a small language model to use."
+                    ],
+                    video : 'f_ImFTorf2s'
                 },
                 {
                     title : translations['WORKSHEETS.BENCHMARK.TITLE'],
