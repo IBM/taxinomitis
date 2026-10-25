@@ -1,7 +1,7 @@
 if (Sentry && !window.mlforkidsStartupFailed) {
     Sentry.init({
         dsn: 'https://b4bbe1a8fbce473cb9eb089652848a1e@sentry.io/202347',
-        release: '368',
+        release: '369',
         // https://docs.sentry.io/platforms/javascript/configuration/filtering/#decluttering-sentry
         ignoreErrors: [
             "top.GLOBALS",
