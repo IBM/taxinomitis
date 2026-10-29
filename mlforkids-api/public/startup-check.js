@@ -31,7 +31,10 @@
     ];
 
     // Angular modules that the 'app' module depends on
+    //  (including ngAnimate and ngAria, which ngMaterial depends on)
     var REQUIRED_MODULES = [
+        { module: 'ngAnimate',              name: 'angular-animate' },
+        { module: 'ngAria',                 name: 'angular-aria' },
         { module: 'ngMaterial',             name: 'angular-material' },
         { module: 'ngMessages',             name: 'angular-messages' },
         { module: 'ngSanitize',             name: 'angular-sanitize' },
@@ -44,6 +47,25 @@
         { module: 'yaru22.angular-timeago', name: 'angular-timeago' }
     ];
 
+    // services added to a module that a different script creates, so the
+    //  module check can't tell if the script that adds them is missing
+    var REQUIRED_SERVICES = [
+        { module: 'pascalprecht.translate', service: '$translateStaticFilesLoader', name: 'angular-translate-loader-static-files' }
+    ];
+
+
+    function isServiceRegistered(moduleName, serviceName) {
+        try {
+            // _invokeQueue is private, but won't change as 1.8.3 is the
+            //  final AngularJS release
+            return window.angular.module(moduleName)._invokeQueue.some(function (item) {
+                return item[2] && item[2][0] === serviceName;
+            });
+        }
+        catch (err) {
+            return false;
+        }
+    }
 
     function findMissing() {
         var missing = [];
@@ -61,6 +83,12 @@
                     window.angular.module(req.module);
                 }
                 catch (err) {
+                    missing.push(req.name);
+                }
+            });
+
+            REQUIRED_SERVICES.forEach(function (req) {
+                if (!isServiceRegistered(req.module, req.service)) {
                     missing.push(req.name);
                 }
             });

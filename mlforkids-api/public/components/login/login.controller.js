@@ -57,6 +57,13 @@
                 return;
             }
 
+            // some school networks block the Turnstile script
+            if (typeof turnstile === 'undefined') {
+                loggerService.error('[ml4klogin] Turnstile script not loaded');
+                $scope.turnstileerror = 'not-loaded';
+                return;
+            }
+
             $scope.busy = true;
             let submitted = false;
             $scope.failure = null;

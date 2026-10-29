@@ -50,6 +50,14 @@
                     return;
                 }
 
+                // some school networks block the Turnstile script
+                if (typeof turnstile === 'undefined') {
+                    loggerService.error('[ml4ksignup] Turnstile script not loaded');
+                    $scope.turnstileerror = 'not-loaded';
+                    vm.creating = false;
+                    return;
+                }
+
                 loggerService.debug('[ml4ksignup] Creating new class', newClassDetails);
                 turnstile.render("#turnstile-container", {
                     sitekey: TURNSTILE_SITE_KEY,
