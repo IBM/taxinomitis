@@ -6,6 +6,7 @@ import * as errors from './errors';
 import * as urls from './urls';
 import * as auth from './auth';
 import * as turnstile from '../cloudflare/turnstile';
+import * as cloudflare from '../cloudflare/country';
 import * as sessionusers from '../sessionusers';
 import * as Objects from '../db/db-types';
 import * as notifications from '../notifications/slack';
@@ -20,7 +21,7 @@ const log = loggerSetup();
 
 function createSessionUser(req: Express.Request, res: Express.Response)
 {
-    const requestOrigin = req.header('cf-ipcountry');
+    const requestOrigin = cloudflare.getCountry(req);
 
     if (!req.body.turnstile) {
         return res.status(httpstatus.BAD_REQUEST)

@@ -4,6 +4,7 @@ import * as Express from 'express';
 import * as store from '../db/store';
 import * as DbObjects from '../db/db-types';
 import * as TrainingObjects from './training-types';
+import * as cloudflare from '../cloudflare/country';
 import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
@@ -34,7 +35,7 @@ export const SERVER: DbObjects.WaUsageClient = { source : 'server' };
 export function getWebsiteClient(req: Express.Request): DbObjects.WaUsageClient {
     return {
         source : 'website',
-        country : req.header('cf-ipcountry'),
+        country : cloudflare.getCountry(req),
     };
 }
 
@@ -59,7 +60,7 @@ export function getScratchKeyClient(req: Express.Request): DbObjects.WaUsageClie
         useragent : req.header('X-Original-User-Agent') || req.header('User-Agent'),
         xuseragent : req.header('X-User-Agent'),
         origin : req.header('Origin'),
-        country : req.header('cf-ipcountry'),
+        country : cloudflare.getCountry(req),
         method : req.method,
         fetchsite : req.header('Sec-Fetch-Site'),
         fetchmode : req.header('Sec-Fetch-Mode'),

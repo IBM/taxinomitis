@@ -167,6 +167,11 @@ function forwardRequest(request, targetHost, customPath) {
   // newRequest.headers.set('X-Forwarded-Host', request.url.hostname);
   newRequest.headers.set('host', targetHost);
 
+  // the cf-ipcountry header doesn't reach the app through the
+  //  Cloudflare in-front of Code Engine, so the country is passed
+  //  on in a separate header
+  newRequest.headers.set('x-mlforkids-country', getCountryCode(request));
+
   if (isUrlExemptFromBrowserIntegrityCheck(request)) {
     // URLs for some Scratch APIs are commonly accessed by non-browser
     //  clients (Python/Tensorflow/AppInventor/etc) so for these we
