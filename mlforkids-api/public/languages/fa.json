@@ -1841,6 +1841,11 @@
       "WORKSHEET_1": {
         "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-translationtelephone.pdf"
       }
+    },
+    "UKPLACESQUIZ": {
+        "TITLE": "UK Places Quiz",
+        "SUMMARY": "Use a computer trained to generate text",
+        "DESCRIPTION": "Make an interactive guide to the UK in Scratch"
     }
   },
   "TEACHER": {
