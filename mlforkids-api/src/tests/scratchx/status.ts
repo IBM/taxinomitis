@@ -2,7 +2,7 @@ import { describe, it, before, after } from 'node:test';
 import * as assert from 'assert';
 import { v1 as uuid } from 'uuid';
 import * as sinon from 'sinon';
-import * as conversation from '../../lib/training/conversation';
+import * as textmodels from '../../lib/training/textmodels';
 import * as status from '../../lib/scratchx/status';
 import * as Types from '../../lib/db/db-types';
 import * as TrainingTypes from '../../lib/training/training-types';
@@ -103,7 +103,7 @@ describe('Scratchx - status', () => {
                                            Promise<TrainingTypes.ConversationWorkspace>>;
 
         before(() => {
-            getStatusStub = sinon.stub(conversation, 'getStatus').resolves(testStatus);
+            getStatusStub = sinon.stub(textmodels, 'getStatus').resolves(testStatus);
         });
         after(() => {
             getStatusStub.restore();

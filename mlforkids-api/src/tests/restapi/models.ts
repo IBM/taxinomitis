@@ -47,10 +47,10 @@ describe('REST API - models', () => {
         next();
     }
 
-    let conversationStubGetClassifiersStub: sinon.SinonStub<any, any>;
-    let conversationStubTrainClassifierStub: sinon.SinonStub<any, any>;
-    let conversationStubTestClassifierStub: sinon.SinonStub<any, any>;
-    let conversationStubDeleteClassifierStub: sinon.SinonStub<any, any>;
+    let textmodelsStubGetClassifiersStub: sinon.SinonStub<any, any>;
+    let textmodelsStubTrainClassifierStub: sinon.SinonStub<any, any>;
+    let textmodelsStubTestClassifierStub: sinon.SinonStub<any, any>;
+    let textmodelsStubDeleteClassifierStub: sinon.SinonStub<any, any>;
 
     const updated = new Date();
     updated.setMilliseconds(0);
@@ -59,12 +59,12 @@ describe('REST API - models', () => {
     before(async () => {
         authStub = sinon.stub(auth, 'authenticate').callsFake(authNoOp);
 
-        conversationStubGetClassifiersStub = sinon.stub(conversation, 'getClassifierStatuses');
-        conversationStubTrainClassifierStub = sinon.stub(conversation, 'trainClassifier');
-        conversationStubTestClassifierStub = sinon.stub(conversation, 'testClassifier');
-        conversationStubDeleteClassifierStub = sinon.stub(conversation, 'deleteClassifier');
+        textmodelsStubGetClassifiersStub = sinon.stub(textmodels, 'getClassifierStatuses');
+        textmodelsStubTrainClassifierStub = sinon.stub(textmodels, 'trainClassifier');
+        textmodelsStubTestClassifierStub = sinon.stub(textmodels, 'testClassifier');
+        textmodelsStubDeleteClassifierStub = sinon.stub(textmodels, 'deleteClassifier');
 
-        conversationStubGetClassifiersStub.callsFake((tenant, classifiers: Types.ConversationWorkspace[]) =>  {
+        textmodelsStubGetClassifiersStub.callsFake((tenant, classifiers: Types.ConversationWorkspace[]) =>  {
             return new Promise((resolve) => {
                 let output: Types.ConversationWorkspace[] = [];
 
@@ -86,7 +86,7 @@ describe('REST API - models', () => {
             });
         });
 
-        conversationStubTrainClassifierStub.callsFake((project: DbTypes.Project) => {
+        textmodelsStubTrainClassifierStub.callsFake((project: DbTypes.Project) => {
             if (project.name === 'no more room') {
                 const err = new Error(conversation.ERROR_MESSAGES.INSUFFICIENT_API_KEYS);
                 return Promise.reject(err);
@@ -133,7 +133,7 @@ describe('REST API - models', () => {
                 return Promise.resolve(workspace);
             }
         });
-        conversationStubTestClassifierStub.callsFake(() => {
+        textmodelsStubTestClassifierStub.callsFake(() => {
             const classifierTimestamp = new Date(Date.UTC(2017, 4, 4, 12, 1));
             const classifications: Types.Classification[] = [
                 { class_name : 'first', confidence : 0.8, classifierTimestamp },
@@ -142,7 +142,7 @@ describe('REST API - models', () => {
             ];
             return Promise.resolve(classifications);
         });
-        conversationStubDeleteClassifierStub.callsFake(() => {
+        textmodelsStubDeleteClassifierStub.callsFake(() => {
             return Promise.resolve();
         });
 
@@ -155,10 +155,10 @@ describe('REST API - models', () => {
     after(() => {
         authStub.restore();
 
-        conversationStubGetClassifiersStub.restore();
-        conversationStubTrainClassifierStub.restore();
-        conversationStubTestClassifierStub.restore();
-        conversationStubDeleteClassifierStub.restore();
+        textmodelsStubGetClassifiersStub.restore();
+        textmodelsStubTrainClassifierStub.restore();
+        textmodelsStubTestClassifierStub.restore();
+        textmodelsStubDeleteClassifierStub.restore();
 
         return store.disconnect();
     });

@@ -6,7 +6,7 @@ import * as assert from 'assert';
 import * as request from 'supertest';
 import { status as httpstatus } from 'http-status';
 import * as auth from '../../lib/restapi/auth';
-import * as conversation from '../../lib/training/conversation';
+import * as textmodels from '../../lib/training/textmodels';
 import * as DbTypes from '../../lib/db/db-types';
 import * as Types from '../../lib/training/training-types';
 import * as store from '../../lib/db/store';
@@ -49,12 +49,12 @@ describe('REST API - local projects', () => {
     before(async () => {
         authStub = sinon.stub(auth, 'authenticate').callsFake(authNoOp);
 
-        conversationStubGetClassifiersStub = sinon.stub(conversation, 'getClassifierStatuses');
-        conversationStubTrainClassifierStub = sinon.stub(conversation, 'trainClassifierForProject');
-        conversationStubTestClassifierStub = sinon.stub(conversation, 'testClassifier');
-        conversationStubDeleteClassifierStub = sinon.stub(conversation, 'deleteClassifier');
+        textmodelsStubGetClassifiersStub = sinon.stub(textmodels, 'getClassifierStatuses');
+        textmodelsStubTrainClassifierStub = sinon.stub(textmodels, 'trainClassifierForProject');
+        textmodelsStubTestClassifierStub = sinon.stub(textmodels, 'testClassifier');
+        textmodelsStubDeleteClassifierStub = sinon.stub(textmodels, 'deleteClassifier');
 
-        conversationStubGetClassifiersStub.callsFake((tenant, classifiers: Types.ConversationWorkspace[]) =>  {
+        textmodelsStubGetClassifiersStub.callsFake((tenant, classifiers: Types.ConversationWorkspace[]) =>  {
             return new Promise((resolve) => {
                 let output: Types.ConversationWorkspace[] = [];
 
@@ -76,7 +76,7 @@ describe('REST API - local projects', () => {
             });
         });
 
-        conversationStubTrainClassifierStub.callsFake((project: DbTypes.LocalProject /*, training: Types.ConversationTrainingData*/) => {
+        textmodelsStubTrainClassifierStub.callsFake((project: DbTypes.LocalProject /*, training: Types.ConversationTrainingData*/) => {
             const workspace: Types.ConversationWorkspace = {
                 id : uuid(),
                 workspace_id : 'NEW-CREATED',
@@ -91,7 +91,7 @@ describe('REST API - local projects', () => {
             };
             return Promise.resolve(workspace);
         });
-        conversationStubTestClassifierStub.callsFake(() => {
+        textmodelsStubTestClassifierStub.callsFake(() => {
             const classifierTimestamp = new Date(Date.UTC(2017, 4, 4, 12, 1));
             const classifications: Types.Classification[] = [
                 { class_name : 'first', confidence : 0.8, classifierTimestamp },
@@ -100,7 +100,7 @@ describe('REST API - local projects', () => {
             ];
             return Promise.resolve(classifications);
         });
-        conversationStubDeleteClassifierStub.callsFake(() => {
+        textmodelsStubDeleteClassifierStub.callsFake(() => {
             return Promise.resolve();
         });
 
@@ -123,19 +123,19 @@ describe('REST API - local projects', () => {
         await store.deleteProjectsByClassId(TESTCLASS);
         await store.deleteAllPendingJobs();
 
-        conversationStubGetClassifiersStub.restore();
-        conversationStubTrainClassifierStub.restore();
-        conversationStubTestClassifierStub.restore();
-        conversationStubDeleteClassifierStub.restore();
+        textmodelsStubGetClassifiersStub.restore();
+        textmodelsStubTrainClassifierStub.restore();
+        textmodelsStubTestClassifierStub.restore();
+        textmodelsStubDeleteClassifierStub.restore();
 
         return store.disconnect();
     });
 
 
-    let conversationStubGetClassifiersStub: sinon.SinonStub<any, any>;
-    let conversationStubTrainClassifierStub: sinon.SinonStub<any, any>;
-    let conversationStubTestClassifierStub: sinon.SinonStub<any, any>;
-    let conversationStubDeleteClassifierStub: sinon.SinonStub<any, any>;
+    let textmodelsStubGetClassifiersStub: sinon.SinonStub<any, any>;
+    let textmodelsStubTrainClassifierStub: sinon.SinonStub<any, any>;
+    let textmodelsStubTestClassifierStub: sinon.SinonStub<any, any>;
+    let textmodelsStubDeleteClassifierStub: sinon.SinonStub<any, any>;
 
 
     describe('createLocalProject', () => {
