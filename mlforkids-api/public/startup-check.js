@@ -23,11 +23,16 @@
     'use strict';
 
     // globals that the app needs, with the name to display if they are missing
+    //
+    //  checking the global exists isn't enough, as a script can leave a
+    //  half-initialised global behind if it throws while it is loading
+    //  (e.g. auth0.js sets window.auth0 = {} before it adds WebAuth to it)
+    //  so each global is checked for what the app needs from it
     var REQUIRED_GLOBALS = [
-        { global: 'jQuery',    name: 'jquery' },
-        { global: 'angular',   name: 'angular' },
-        { global: 'Auth0Lock', name: 'auth0-lock' },
-        { global: 'auth0',     name: 'auth0.js' }
+        { global: 'jQuery',    name: 'jquery',     check: function (g) { return typeof g === 'function'; } },
+        { global: 'angular',   name: 'angular',    check: function (g) { return typeof g.module === 'function'; } },
+        { global: 'Auth0Lock', name: 'auth0-lock', check: function (g) { return typeof g === 'function'; } },
+        { global: 'auth0',     name: 'auth0.js',   check: function (g) { return typeof g.WebAuth === 'function'; } }
     ];
 
     // Angular modules that the 'app' module depends on
@@ -71,7 +76,8 @@
         var missing = [];
 
         REQUIRED_GLOBALS.forEach(function (req) {
-            if (!window[req.global]) {
+            var g = window[req.global];
+            if (!g || !req.check(g)) {
                 missing.push(req.name);
             }
         });
