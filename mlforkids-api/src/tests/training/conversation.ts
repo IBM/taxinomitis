@@ -432,6 +432,33 @@ describe('Training - Conversation', () => {
 
     describe('test classifier', () => {
 
+        it('should not send text from binary files to the Conversation service', async () => {
+            const creds: TrainingTypes.BluemixCredentials = {
+                id : '123',
+                username : 'useruseruseruseruseruseruseruseruser',
+                password : 'passpasspass',
+                servicetype : 'conv',
+                url : 'http://conversation.service',
+                classid : 'classid',
+                credstype : 'unknown',
+            };
+            const client: DbTypes.WaUsageClient = { source : 'website' };
+
+            storeUsageStub.resetHistory();
+            createStub.resetHistory();
+
+            await assert.rejects(
+                () => conversation.testClassifier(creds, 'good', new Date(), 'projectbob', 'PK\u0003\u0004\u0014\u0000', client),
+                { message : conversation.ERROR_MESSAGES.TEXT_NOT_PLAIN });
+
+            assert.strictEqual(createStub.called, false);
+
+            const usage = recordedUsage();
+            assert.strictEqual(usage.length, 1);
+            assert.strictEqual(usage[0].event, 'classify');
+            assert.strictEqual(usage[0].outcome, 'not-text');
+        });
+
         it('should return classes from Conversation service', async () => {
             const creds: TrainingTypes.BluemixCredentials = {
                 id : '123',
@@ -773,6 +800,48 @@ describe('Training - Conversation', () => {
                 });
                 assert.strictEqual(output.name, test.expected);
             }
+        });
+
+        it('should truncate long examples', () => {
+            const language: DbTypes.TextProjectLanguage = 'en';
+            const output = conversation.sanitizeTraining({
+                name : 'test',
+                language,
+                intents : [ { intent : 'label', examples : [ { text : 'x'.repeat(1100) }, { text : 'short' } ] } ],
+                dialog_nodes : [],
+                counterexamples : [],
+                entities : [],
+                metadata : { createdby : 'machinelearningforkids' },
+            });
+            assert.deepStrictEqual(output.intents[0].examples.map(e => e.text), [ 'x'.repeat(1024), 'short' ]);
+        });
+    });
+
+    describe('check training is plain text', () => {
+        const language: DbTypes.TextProjectLanguage = 'en';
+        function training(examples: string[]) {
+            return {
+                name : 'test',
+                language,
+                intents : [
+                    { intent : 'safe', examples : [ { text : 'www.google.com' } ] },
+                    { intent : 'phishing', examples : examples.map((text) => { return { text }; }) },
+                ],
+                dialog_nodes : [],
+                counterexamples : [],
+                entities : [],
+                metadata : { createdby : 'machinelearningforkids' },
+            };
+        }
+
+        it('should allow plain text', () => {
+            assert.strictEqual(conversation.isPlainTextTraining(training([ 'www.goagle.com' ])), true);
+        });
+
+        it('should reject training with the contents of a binary file', () => {
+            assert.strictEqual(conversation.isPlainTextTraining(training([
+                'www.goagle.com', 'PK\u0003\u0004\u0014\u0000\u0006\u0000',
+            ])), false);
         });
     });
 

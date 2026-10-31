@@ -680,6 +680,14 @@ describe('TeacherStudentsController', function () {
             expect(dialogScope.userstoimport).toEqual(['alice', 'bob']);
         });
 
+        it('does not import usernames from a file that is not a text file', function () {
+            // how a Word 97-2003 document starts, once read as text
+            simulateFileUpload('��\u0011ࡱ\u001a�\u0000\u0000\u0000\u0000alice\nbob');
+
+            expect(dialogScope.userstoimport).toEqual([]);
+            expect(vm.errors.length).toBe(1);
+        });
+
         it('filters out lines that are blank once invalid characters are stripped', function () {
             simulateFileUpload('alice\n!!!\nbob');
 

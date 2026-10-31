@@ -4,12 +4,16 @@ import { status as httpstatus } from 'http-status';
 // local dependencies
 import * as conversation from '../training/conversation';
 import * as notifications from '../notifications/slack';
+import * as plaintext from '../utils/plaintext';
 import loggerSetup from '../utils/logger';
 const log = loggerSetup();
 
 
 export function missingData(res: Express.Response) {
     return res.status(httpstatus.BAD_REQUEST).json({ error : 'Missing data' });
+}
+export function notPlainText(res: Express.Response) {
+    return res.status(httpstatus.BAD_REQUEST).json({ error : plaintext.NOT_PLAIN_TEXT });
 }
 export function notFound(res: Express.Response) {
     return res.status(httpstatus.NOT_FOUND).json({ error : 'Not found' });
@@ -76,7 +80,9 @@ export function watsonAssistantModelTestFailure(res: Express.Response, err: Node
     if (err.message === conversation.ERROR_MESSAGES.MODEL_NOT_FOUND) {
         return res.status(httpstatus.NOT_FOUND).send({ error : err.message + ' Refresh the page' });
     }
-    if (err.message === conversation.ERROR_MESSAGES.TEXT_TOO_LONG) {
+    if (err.message === conversation.ERROR_MESSAGES.TEXT_TOO_LONG ||
+        err.message === conversation.ERROR_MESSAGES.TEXT_NOT_PLAIN)
+    {
         return res.status(httpstatus.BAD_REQUEST).send({ error : err.message });
     }
     if (err.message === 'Unexpected response when retrieving the service credentials') {

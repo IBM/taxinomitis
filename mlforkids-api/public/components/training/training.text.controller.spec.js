@@ -547,6 +547,23 @@ describe('TrainingController - text projects', function () {
             expect(vm.errors.length).toBe(1);
         });
 
+        it('shows an alert and stores nothing if the file is not a text file', function () {
+            var vm = createController();
+            $rootScope.$digest();
+
+            var elem = { dataset : { label : 'cat' } };
+            $scope.uploadTrainingData(uploadEvent({}), elem);
+
+            // how a .docx file starts, once read as text
+            fileReaderMock.result = 'PK\u0003\u0004\u0014\u0000\u0006\u0000[Content_Types].xml';
+            fileReaderMock.onload();
+            $rootScope.$digest();
+
+            expect(trainingServiceMock.bulkAddTrainingData).not.toHaveBeenCalled();
+            expect(vm.errors.length).toBe(1);
+            expect(vm.errors[0].message).toContain('isn\'t a text file');
+        });
+
         it('shows an alert if bulk storage fails', function () {
             var vm = createController();
             $rootScope.$digest();

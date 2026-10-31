@@ -12,6 +12,7 @@ import * as headers from './headers';
 import * as visrec from '../training/visualrecognition';
 import * as imageCheck from '../utils/imageCheck';
 import * as imageDownload from '../utils/download';
+import * as plaintext from '../utils/plaintext';
 import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
@@ -263,6 +264,7 @@ function returnTrainingDataError(err: any, res: Express.Response) {
         (
         err.message === 'Text exceeds maximum allowed length (1024 characters)' ||
         err.message === 'Empty text is not allowed' ||
+        err.message === plaintext.NOT_PLAIN_TEXT ||
         err.message === 'Number of data items exceeded maximum' ||
         err.message === 'Data contains non-numeric items' ||
         err.message === 'Number is too small' ||

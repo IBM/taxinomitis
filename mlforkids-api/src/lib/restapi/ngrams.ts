@@ -5,6 +5,7 @@ import * as auth from './auth';
 import * as urls from './urls';
 import * as errors from './errors';
 import * as ngrams from '../utils/ngrams';
+import * as plaintext from '../utils/plaintext';
 import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
@@ -24,6 +25,10 @@ async function generateNgrams(req: Express.Request, res: Express.Response) {
     }
 
     const input: string[] = req.body.input;
+    if (!input.every(plaintext.isPlainText)) {
+        return errors.notPlainText(res);
+    }
+
     return res.json({
         bigrams    : ngrams.countNgrams(input, 2),
         trigrams   : ngrams.countNgrams(input, 3),

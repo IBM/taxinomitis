@@ -9,6 +9,7 @@ import * as TrainingObjects from '../training/training-types';
 import * as ObjectStoreTypes from '../objectstore/types';
 import { CLASS_NAME as SESSION_USERS_CLASSID } from '../sessionusers';
 import { TWELVE_HOURS, TWO_MONTHS } from '../utils/constants';
+import * as plaintext from '../utils/plaintext';
 
 
 // -----------------------------------------------------------------------------
@@ -348,6 +349,10 @@ export function createTextTraining(projectid: string, data: string, label: strin
 
     if (data.length === 0) {
         throw new Error('Empty text is not allowed');
+    }
+
+    if (!plaintext.isPlainText(data)) {
+        throw new Error(plaintext.NOT_PLAIN_TEXT);
     }
 
     if (data.length > MAX_CONTENTS_LENGTH) {

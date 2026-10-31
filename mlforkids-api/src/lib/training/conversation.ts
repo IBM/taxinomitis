@@ -10,6 +10,7 @@ import * as TrainingObjects from './training-types';
 import * as notifications from '../notifications/slack';
 import * as wausage from './wausage';
 import { shuffle } from '../utils/helpers';
+import * as plaintext from '../utils/plaintext';
 import * as request from '../utils/request';
 import loggerSetup from '../utils/logger';
 
@@ -32,6 +33,7 @@ export const ERROR_MESSAGES = {
                          '"the Watson Assistant service is currently rate limiting their API key"',
     MODEL_NOT_FOUND : 'Your machine learning model could not be found on the training server.',
     TEXT_TOO_LONG : 'text cannot be longer than 2048 characters',
+    TEXT_NOT_PLAIN : 'Text to classify must be plain text',
     SERVICE_ERROR : 'The Watson Assistant service that runs your machine learning model reported an unexpected error',
     MAINTENANCE : 'Sorry, the IBM Watson Assistant service used to train models to recognise text is currently undergoing maintenance',
     SKILL_IN_USE : 'Machine Learning for Kids is not allowed to delete this Watson Assistant workspace because ' +
@@ -602,6 +604,13 @@ export function validateTraining(obj: TrainingObjects.ConversationTrainingData):
            obj.dialog_nodes && Array.isArray(obj.dialog_nodes);
 }
 
+export function isPlainTextTraining(obj: TrainingObjects.ConversationTrainingData): boolean
+{
+    return obj.intents.every((intent) => {
+        return intent.examples.every((example) => plaintext.isPlainText(example.text));
+    });
+}
+
 export function sanitizeTraining(obj:TrainingObjects.ConversationTrainingData): TrainingObjects.ConversationTrainingData
 {
     // https://cloud.ibm.com/apidocs/assistant-v1#createworkspace
@@ -613,7 +622,7 @@ export function sanitizeTraining(obj:TrainingObjects.ConversationTrainingData): 
             return {
                 intent : origintent.intent.replace(/[^A-Za-z0-9_\-.]/g, '_').substring(0, 128),
                 examples : origintent.examples
-                            .map(example => example.text.replace(/[\t\n]/g, ' ').trim())
+                            .map(example => example.text.replace(/[\t\n]/g, ' ').trim().substring(0, 1024).trim())
                             .filter(txt => txt.length > 0)
                             .filter((txt) => {
                                 const normalized = normalizeText(txt);
@@ -753,6 +762,11 @@ export async function testClassifier(
             client,
         });
     };
+
+    if (!plaintext.isPlainText(text)) {
+        recordUsage('not-text');
+        throw new Error(ERROR_MESSAGES.TEXT_NOT_PLAIN);
+    }
 
     try {
         const basereq = await createBaseRequest(credentials);

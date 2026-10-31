@@ -23,6 +23,7 @@ import * as visrec from '../training/visualrecognition';
 import * as urls from './urls';
 import * as headers from './headers';
 import * as env from '../utils/env';
+import * as plaintext from '../utils/plaintext';
 import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
@@ -115,7 +116,9 @@ async function classifyWithScratchKey(req: Express.Request, res: Express.Respons
         if (err.message === 'Missing data') {
             return res.status(httpstatus.BAD_REQUEST).json({ error : 'Missing data' });
         }
-        if (err.message === conversation.ERROR_MESSAGES.TEXT_TOO_LONG) {
+        if (err.message === conversation.ERROR_MESSAGES.TEXT_TOO_LONG ||
+            err.message === conversation.ERROR_MESSAGES.TEXT_NOT_PLAIN)
+        {
             return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
         }
         if (err.message === 'Unexpected response when retrieving credentials for Scratch') {
@@ -165,7 +168,9 @@ async function postClassifyWithScratchKey(req: Express.Request, res: Express.Res
         if (err.message === 'Unexpected response when retrieving credentials for Scratch') {
             return res.status(httpstatus.NOT_FOUND).json({ error : 'Scratch key not found' });
         }
-        if (err.message === conversation.ERROR_MESSAGES.TEXT_TOO_LONG) {
+        if (err.message === conversation.ERROR_MESSAGES.TEXT_TOO_LONG ||
+            err.message === conversation.ERROR_MESSAGES.TEXT_NOT_PLAIN)
+        {
             return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
         }
         if (err.statusCode === httpstatus.BAD_REQUEST) {
@@ -399,6 +404,7 @@ async function storeTrainingData(req: Express.Request, res: Express.Response) {
         if (err.message === 'Missing data' ||
             err.message === 'Invalid data' ||
             err.message === 'Invalid label' ||
+            err.message === plaintext.NOT_PLAIN_TEXT ||
             err.message === 'Number is too small' ||
             err.message === 'Number is too big')
         {
@@ -628,6 +634,9 @@ async function trainNewClassifierLocalProject(req: Express.Request, res: Express
         if (req.body.type === 'text') {
             if (!conversation.validateTraining(req.body.training)) {
                 return errors.missingData(res);
+            }
+            if (!conversation.isPlainTextTraining(req.body.training)) {
+                return errors.notPlainText(res);
             }
 
             const scratchKey = await store.getScratchKey(apikey);

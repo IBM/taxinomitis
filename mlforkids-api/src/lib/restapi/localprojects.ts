@@ -109,6 +109,9 @@ async function newLocalProjectModel(req: auth.RequestWithLocalProject, res: Expr
     if (!conversation.validateTraining(req.body.training)) {
         return errors.missingData(res);
     }
+    if (!conversation.isPlainTextTraining(req.body.training)) {
+        return errors.notPlainText(res);
+    }
     let training: TrainingTypes.ConversationTrainingData;
     try {
         training = conversation.sanitizeTraining(req.body.training);

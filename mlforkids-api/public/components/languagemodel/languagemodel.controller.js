@@ -550,8 +550,13 @@
                     .then((allFiles) => {
                         addToyCorpusItems(allFiles);
                     })
-                    .catch(() => {
-                        displayAlert('errors', 500, { message : 'There was a problem reading one of your files' });
+                    .catch((err) => {
+                        if (err && err.message === txtService.NOT_TEXT_FILE) {
+                            displayAlert('errors', 400, err);
+                        }
+                        else {
+                            displayAlert('errors', 500, { message : 'There was a problem reading one of your files' });
+                        }
                     });
             }
         };
@@ -1151,8 +1156,13 @@
                         saveSmallLanguageModel();
                         $scope.resetContextWindow();
                     })
-                    .catch(() => {
-                        displayAlert('errors', 500, { message : 'There was a problem reading your file' });
+                    .catch((err) => {
+                        if (err && err.message === txtService.NOT_TEXT_FILE) {
+                            displayAlert('errors', 400, err);
+                        }
+                        else {
+                            displayAlert('errors', 500, { message : 'There was a problem reading your file' });
+                        }
                     });
             }
         };

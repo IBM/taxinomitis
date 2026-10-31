@@ -527,6 +527,24 @@ describe('DB objects', () => {
             assert.strictEqual(training.textdata, 'This should include a new line. Do not remove it.');
         });
 
+        it('should reject the contents of binary files', () => {
+            assert.throws(
+                () => dbobjects.createTextTraining('testproject', 'PK\u0003\u0004\u0014\u0000\u0006\u0000', 'mylabel'),
+                { message: 'Training data must be plain text' }
+            );
+            assert.throws(
+                () => dbobjects.createTextTraining('testproject', 'hello\u0000world', 'mylabel'),
+                { message: 'Training data must be plain text' }
+            );
+        });
+
+        it('should report binary files as not text, even when they are too long', () => {
+            assert.throws(
+                () => dbobjects.createTextTraining('testproject', 'PK\u0003\u0004' + 'x'.repeat(2000), 'mylabel'),
+                { message: 'Training data must be plain text' }
+            );
+        });
+
         it('should allow training data without labels', () => {
             const training = dbobjects.createTextTraining('testproject', 'mytext', UNDEFINED_STRING);
             assert(training.id);

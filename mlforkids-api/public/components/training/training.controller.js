@@ -10,7 +10,7 @@
         'soundTrainingService',
         'utilService', 'csvService', 'downloadService', 'imageToolsService', 'webcamsService',
         'scrollService', 'loggerService',
-        'readersService',
+        'readersService', 'plainTextService',
         '$stateParams',
         '$scope',
         '$mdDialog',
@@ -18,7 +18,7 @@
         '$timeout', '$interval'
     ];
 
-    function TrainingController(authService, projectsService, trainingService, modelService, soundTrainingService, utilService, csvService, downloadService, imageToolsService, webcamsService, scrollService, loggerService, readersService, $stateParams, $scope, $mdDialog, $state, $timeout, $interval) {
+    function TrainingController(authService, projectsService, trainingService, modelService, soundTrainingService, utilService, csvService, downloadService, imageToolsService, webcamsService, scrollService, loggerService, readersService, plainTextService, $stateParams, $scope, $mdDialog, $state, $timeout, $interval) {
 
         var vm = this;
         vm.authService = authService;
@@ -962,6 +962,11 @@
                         });
                         txtfilereader.readAsText(file);
                         txtfilereader.onload = function () {
+                            if (!plainTextService.isPlainText(txtfilereader.result)) {
+                                return $scope.$applyAsync(() => {
+                                    displayAlert('errors', 400, { message : plainTextService.NOT_TEXT_FILE });
+                                });
+                            }
                             trainingService.bulkAddTrainingData($scope.project,
                                         txtfilereader.result
                                             .split(/[\r\n]+/)

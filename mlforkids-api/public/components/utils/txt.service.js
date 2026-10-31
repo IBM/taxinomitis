@@ -4,11 +4,11 @@
         .service('txtService', txtService);
 
     txtService.$inject = [
-        'loggerService', 'readersService',
+        'loggerService', 'readersService', 'plainTextService',
         '$q'
     ];
 
-    function txtService(loggerService, readersService, $q) {
+    function txtService(loggerService, readersService, plainTextService, $q) {
 
         function readFile(file) {
             loggerService.debug('[ml4ktxt] reading txt file', file.name);
@@ -16,6 +16,10 @@
                 try {
                     const reader = readersService.createFileReader();
                     reader.onload = (evt) => {
+                        if (!plainTextService.isPlainText(evt.target.result)) {
+                            loggerService.error('[ml4ktxt] not a text file', file.name);
+                            return reject(new Error(plainTextService.NOT_TEXT_FILE));
+                        }
                         resolve({
                             type : 'text',
                             title : file.name,
@@ -47,6 +51,7 @@
         }
 
         return {
+            NOT_TEXT_FILE : plainTextService.NOT_TEXT_FILE,
             getContents
         };
     }

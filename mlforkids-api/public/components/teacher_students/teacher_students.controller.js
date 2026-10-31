@@ -8,11 +8,11 @@
         'authService',
         'usersService',
         'scrollService',
-        'readersService',
+        'readersService', 'plainTextService',
         '$scope', '$mdDialog', 'loggerService'
     ];
 
-    function TeacherStudentsController(authService, usersService, scrollService, readersService, $scope, $mdDialog, loggerService) {
+    function TeacherStudentsController(authService, usersService, scrollService, readersService, plainTextService, $scope, $mdDialog, loggerService) {
 
         var vm = this;
         vm.authService = authService;
@@ -679,6 +679,9 @@
                                 const txtfilereader = readersService.createFileReader();
                                 txtfilereader.readAsText(file);
                                 txtfilereader.onload = function () {
+                                    if (!plainTextService.isPlainText(txtfilereader.result)) {
+                                        return displayAlert('errors', 400, { message : plainTextService.NOT_TEXT_FILE });
+                                    }
                                     const NEWLINES = /[\r\n]+/;
                                     const INVALID_USERNAME_CHARS = /[^\w.\-_]/g;
                                     const usernames = txtfilereader.result
