@@ -37,7 +37,7 @@ export function isPublicAddress(address: string): boolean {
     try {
         return ipaddr.process(address).range() === 'unicast';
     }
-    catch (err) {
+    catch {
         return false;
     }
 }
