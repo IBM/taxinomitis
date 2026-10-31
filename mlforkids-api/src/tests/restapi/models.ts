@@ -616,14 +616,8 @@ describe('REST API - models', () => {
 
             const res = await request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
-                .set('cf-ipcountry', 'GB')
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.CREATED);
-
-            assert.deepStrictEqual(conversationStubTrainClassifierStub.lastCall.args[1], {
-                source : 'website',
-                country : 'GB',
-            });
 
             assert.deepStrictEqual(res.body, {
                 updated : '2017-05-04T12:01:00.000Z',
@@ -923,7 +917,6 @@ describe('REST API - models', () => {
                         '/projects/' + projectid +
                         '/models/' + modelid +
                         '/label')
-                .set('cf-ipcountry', 'IN')
                 .send({
                     text : 'my test text',
                     type : 'text',
@@ -931,11 +924,6 @@ describe('REST API - models', () => {
                 })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.OK);
-
-            assert.deepStrictEqual(conversationStubTestClassifierStub.lastCall.args[5], {
-                source : 'website',
-                country : 'IN',
-            });
 
             const classifierTimestamp = res.body[0].classifierTimestamp;
             assert(classifierTimestamp);

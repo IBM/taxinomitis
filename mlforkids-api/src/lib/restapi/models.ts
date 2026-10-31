@@ -7,7 +7,6 @@ import * as store from '../db/store';
 import * as DbTypes from '../db/db-types';
 import * as Types from '../training/training-types';
 import * as conversation from '../training/conversation';
-import * as wausage from '../training/wausage';
 import * as visualrec from '../training/visualrecognition';
 import * as numbers from '../training/numbers';
 import * as textmodels from '../training/describetext';
@@ -80,7 +79,7 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
     switch (req.project.type) {
     case 'text': {
         try {
-            const model = await conversation.trainClassifier(req.project, wausage.getWebsiteClient(req));
+            const model = await conversation.trainClassifier(req.project);
             return res.status(httpstatus.CREATED).json(returnConversationWorkspace(model));
         }
         catch (err) {
@@ -179,7 +178,7 @@ async function testModel(req: Express.Request, res: Express.Response) {
             const tenant = await store.getClassTenant(classid);
             const creds = await store.getBluemixCredentialsById(tenant.tenantType, credsid);
 
-            const classes = await conversation.testClassifier(creds, modelid, requestTimestamp, projectid, text, wausage.getWebsiteClient(req));
+            const classes = await conversation.testClassifier(creds, modelid, requestTimestamp, projectid, text);
             return res.json(classes);
         }
         else if (type === 'numbers') {

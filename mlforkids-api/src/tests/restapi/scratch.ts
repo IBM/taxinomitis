@@ -399,20 +399,11 @@ describe('REST API - scratch keys', () => {
 
             const keyId = await store.storeUntrainedScratchKey(project);
 
-            const usageSpy = sinon.spy(store, 'storeWaUsageEvent');
-
             const res = await request(testServer)
                 .get('/api/scratch/' + keyId + '/classify')
                 .query({ data : 'haddock' })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.OK);
-
-            assert(usageSpy.calledOnce);
-            assert.strictEqual(usageSpy.firstCall.args[0].event, 'classify');
-            assert.strictEqual(usageSpy.firstCall.args[0].outcome, 'no-model');
-            assert.strictEqual(usageSpy.firstCall.args[0].projectid, project.id);
-            assert.strictEqual(usageSpy.firstCall.args[0].client.source, 'scratchkey');
-            usageSpy.restore();
 
             await store.deleteEntireProject(userid, TESTCLASS, project);
 
@@ -577,18 +568,11 @@ describe('REST API - scratch keys', () => {
 
             const keyId = await store.storeUntrainedScratchKey(project);
 
-            const usageSpy = sinon.spy(store, 'storeWaUsageEvent');
-
             const res = await request(testServer)
                 .post('/api/scratch/' + keyId + '/train')
                 .send({ data : 'inserted', label : 'animal' })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.CONFLICT);
-
-            assert(usageSpy.calledOnce);
-            assert.strictEqual(usageSpy.firstCall.args[0].event, 'store-training');
-            assert.strictEqual(usageSpy.firstCall.args[0].outcome, 'limit');
-            usageSpy.restore();
 
             await store.deleteEntireProject(userid, TESTCLASS, project);
 
@@ -611,25 +595,11 @@ describe('REST API - scratch keys', () => {
 
             const keyId = await store.storeUntrainedScratchKey(project);
 
-            const usageSpy = sinon.spy(store, 'storeWaUsageEvent');
-
             const res = await request(testServer)
                 .post('/api/scratch/' + keyId + '/train')
-                // the edge worker replaces the user agent for this URL
-                .set('User-Agent', 'curl/7.79.1')
-                .set('X-Original-User-Agent', 'MIT App Inventor (ML4K extension)')
                 .send({ data : 'inserted', label : 'animal' })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.OK);
-
-            assert(usageSpy.calledOnce);
-            const usage = usageSpy.firstCall.args[0];
-            assert.strictEqual(usage.event, 'store-training');
-            assert.strictEqual(usage.outcome, 'ok');
-            assert.strictEqual(usage.projectid, project.id);
-            assert.strictEqual(usage.chars, 8);
-            assert.strictEqual(usage.client.useragent, 'MIT App Inventor (ML4K extension)');
-            usageSpy.restore();
 
             const count = await store.countTraining('text', project.id);
             assert.strictEqual(count, 1);
@@ -978,69 +948,28 @@ describe('REST API - scratch keys', () => {
                 conversationWorkspace.workspace_id, conversationWorkspace.created);
 
             const conversationStub = sinon.stub(requestUtil, 'post').callsFake(mockClassifier);
-            const usageSpy = sinon.spy(store, 'storeWaUsageEvent');
 
             conversationStub.resetHistory();
             assert(conversationStub.notCalled);
 
             await request(testServer)
                 .get('/api/scratch/' + scratchKey + '/classify')
-                .set('User-Agent', 'python-requests/2.32.3')
                 .query({ data : 'haddock' })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.OK);
 
             assert(conversationStub.calledOnce);
 
-            assert(usageSpy.calledOnce);
-            const classifyUsage = usageSpy.firstCall.args[0];
-            assert.strictEqual(classifyUsage.event, 'classify');
-            assert.strictEqual(classifyUsage.outcome, 'ok');
-            assert.strictEqual(classifyUsage.modelid, workspaceId);
-            assert.strictEqual(classifyUsage.projectid, project.id);
-            assert.strictEqual(classifyUsage.chars, 7);
-            assert.deepStrictEqual(classifyUsage.client, {
-                source : 'scratchkey',
-                useragent : 'python-requests/2.32.3',
-                xuseragent : undefined,
-                origin : undefined,
-                country : undefined,
-                method : 'GET',
-                fetchsite : undefined,
-                fetchmode : undefined,
-                referrer : undefined,
-            });
-
             conversationStub.resetHistory();
-            usageSpy.resetHistory();
             assert(conversationStub.notCalled);
 
             await request(testServer)
                 .get('/api/scratch/' + scratchKey + '/classify')
                 .set('If-Modified-Since', ts.toISOString())
-                .set('X-User-Agent', 'mlforkids-scratch3-text')
-                .set('Origin', 'https://machinelearningforkids.co.uk')
-                .set('cf-ipcountry', 'SG')
-                .set('Sec-Fetch-Site', 'same-origin')
-                .set('Sec-Fetch-Mode', 'cors')
-                .set('Referer', 'https://machinelearningforkids.co.uk/scratch/?url=https://machinelearningforkids.co.uk/api/scratch/' + scratchKey + '/extension3.js')
                 .query({ data : 'haddock' })
                 .expect(httpstatus.NOT_MODIFIED);
 
             assert(conversationStub.notCalled);
-
-            assert(usageSpy.calledOnce);
-            const cachedUsage = usageSpy.firstCall.args[0];
-            assert.strictEqual(cachedUsage.event, 'classify');
-            assert.strictEqual(cachedUsage.outcome, 'not-modified');
-            assert.strictEqual(cachedUsage.client.xuseragent, 'mlforkids-scratch3-text');
-            assert.strictEqual(cachedUsage.client.origin, 'https://machinelearningforkids.co.uk');
-            assert.strictEqual(cachedUsage.client.country, 'SG');
-            assert.strictEqual(cachedUsage.client.fetchsite, 'same-origin');
-            assert.strictEqual(cachedUsage.client.fetchmode, 'cors');
-            assert.strictEqual(cachedUsage.client.referrer, 'machinelearningforkids.co.uk');
-
-            usageSpy.restore();
 
             await store.deleteEntireProject(userid, TESTCLASS, project);
             await store.deleteBluemixCredentials(credentials.id);
@@ -1516,18 +1445,10 @@ describe('REST API - scratch keys', () => {
             const itemOne = await store.storeTextTraining(testProject.id, 'Hello', 'one');
             const itemTwo = await store.storeTextTraining(testProject.id, 'World', 'two');
 
-            const usageSpy = sinon.spy(store, 'storeWaUsageEvent');
-
             const res = await request(testServer)
                 .get('/api/scratch/' + scratchKey + '/train')
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.OK);
-
-            assert(usageSpy.calledOnce);
-            assert.strictEqual(usageSpy.firstCall.args[0].event, 'fetch-training');
-            assert.strictEqual(usageSpy.firstCall.args[0].outcome, 'ok');
-            assert.strictEqual(usageSpy.firstCall.args[0].examples, 2);
-            usageSpy.restore();
 
             const body = res.body;
             assert.deepStrictEqual(body, [

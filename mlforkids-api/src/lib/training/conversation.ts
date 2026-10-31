@@ -8,7 +8,6 @@ import * as iam from '../iam';
 import * as DbObjects from '../db/db-types';
 import * as TrainingObjects from './training-types';
 import * as notifications from '../notifications/slack';
-import * as wausage from './wausage';
 import { shuffle } from '../utils/helpers';
 import * as plaintext from '../utils/plaintext';
 import * as request from '../utils/request';
@@ -56,100 +55,46 @@ function isMaintenanceError(err: any): boolean {
 }
 
 
-// summarises why a training request failed, for recording usage
-function getTrainingOutcome(err: any): string {
-    switch (err.message) {
-    case ERROR_MESSAGES.POOL_EXHAUSTED:
-        return 'pool-exhausted';
-    case ERROR_MESSAGES.INSUFFICIENT_API_KEYS:
-        return 'no-api-keys';
-    case ERROR_MESSAGES.API_KEY_RATE_LIMIT:
-        return 'rate-limit';
-    case ERROR_MESSAGES.MODEL_NOT_FOUND:
-        return 'not-found';
-    case ERROR_MESSAGES.MAINTENANCE:
-        return 'maintenance';
-    case 'Unexpected response when retrieving service credentials':
-        // the class hasn't set up any API keys
-        return 'no-creds';
-    }
-    if (err.statusCode === httpStatus.UNAUTHORIZED || err.statusCode === httpStatus.FORBIDDEN) {
-        return 'creds-rejected';
-    }
-    return 'error';
-}
-
-
 export async function trainClassifier(
     project: DbObjects.Project,
-    client: DbObjects.WaUsageClient,
 ): Promise<TrainingObjects.ConversationWorkspace>
 {
     const training = await getTraining(project);
 
-    return trainClassifierForProject(project, training, client);
+    return trainClassifierForProject(project, training);
 }
 
 
 export async function trainClassifierForProject(
     project: DbObjects.Project | DbObjects.LocalProject,
     training: TrainingObjects.ConversationTrainingData,
-    client: DbObjects.WaUsageClient,
 ): Promise<TrainingObjects.ConversationWorkspace>
 {
-    let workspace: TrainingObjects.ConversationWorkspace | undefined;
+    let workspace: TrainingObjects.ConversationWorkspace;
 
-    const started = new Date();
-    let usageEvent: DbObjects.WaUsageEventType = 'train-new';
-    let tenantType: DbObjects.ClassTenantType | undefined;
-    const recordUsage = (outcome: string) => {
-        wausage.record({
-            recorded : started,
-            event : usageEvent,
-            outcome,
-            modelid : workspace ? workspace.workspace_id : undefined,
-            projectid : project.id,
-            classid : project.classid,
-            tenanttype : tenantType,
-            language : training.language,
-            ...wausage.describeTraining(training),
-            durationms : Date.now() - started.getTime(),
-            client,
-        });
-    };
+    // determine when the Conversation workspace should be deleted
+    const tenantPolicy = await store.getClassTenant(project.classid);
 
-    try {
-        // determine when the Conversation workspace should be deleted
-        const tenantPolicy = await store.getClassTenant(project.classid);
-        tenantType = tenantPolicy.tenantType;
+    const existingWorkspaces = await store.getConversationWorkspaces(project.id);
+    if (existingWorkspaces.length > 0) {
+        workspace = existingWorkspaces[0];
 
-        const existingWorkspaces = await store.getConversationWorkspaces(project.id);
-        if (existingWorkspaces.length > 0) {
-            usageEvent = 'train-update';
-            workspace = existingWorkspaces[0];
+        const credentials = await store.getBluemixCredentialsById(tenantPolicy.tenantType, workspace.credentialsid);
 
-            const credentials = await store.getBluemixCredentialsById(tenantPolicy.tenantType, workspace.credentialsid);
-
-            workspace = await updateWorkspace(project, credentials, workspace, training, tenantPolicy);
+        workspace = await updateWorkspace(project, credentials, workspace, training, tenantPolicy);
+    }
+    else {
+        let credentials;
+        if (tenantPolicy.tenantType === DbObjects.ClassTenantType.ManagedPool) {
+            credentials = await store.getBluemixCredentialsPoolBatch('conv');
         }
         else {
-            let credentials;
-            if (tenantPolicy.tenantType === DbObjects.ClassTenantType.ManagedPool) {
-                credentials = await store.getBluemixCredentialsPoolBatch('conv');
-            }
-            else {
-                credentials = await store.getBluemixCredentials(tenantPolicy, 'conv');
-            }
-
-            workspace = await createWorkspace(project, credentials, training, tenantPolicy);
+            credentials = await store.getBluemixCredentials(tenantPolicy, 'conv');
         }
-    }
-    catch (err) {
-        recordUsage(getTrainingOutcome(err));
-        throw err;
+
+        workspace = await createWorkspace(project, credentials, training, tenantPolicy);
     }
 
-    recordUsage('ok');
     return workspace;
 }
 
@@ -368,31 +313,19 @@ async function updateWorkspace(
 }
 
 async function deleteClassifierUsingCredentials(classifier: TrainingObjects.ConversationWorkspace,
-                                                usageEvent: DbObjects.WaUsageDeletionEventType,
                                                 credentials?: TrainingObjects.BluemixCredentials)
 {
-    let outcome = 'no-creds';
     if (credentials) {
         try {
             await deleteClassifierFromBluemix(credentials, classifier.workspace_id);
-            outcome = 'ok';
         }
         catch (err) {
             log.error({ err, classifier }, 'Unable to delete Conversation workspace');
-            outcome = 'error';
         }
     }
 
     await store.deleteConversationWorkspace(classifier.id);
     await store.resetExpiredScratchKey(classifier.workspace_id, 'text');
-
-    wausage.record({
-        recorded : new Date(),
-        event : usageEvent,
-        outcome,
-        modelid : classifier.workspace_id,
-        client : wausage.SERVER,
-    });
 }
 
 
@@ -400,11 +333,11 @@ async function deleteClassifierUnknownClass(classifier: TrainingObjects.Conversa
 {
     return store.getCombinedBluemixCredentialsById(classifier.credentialsid)
         .then((creds) => {
-            return deleteClassifierUsingCredentials(classifier, 'expire', creds);
+            return deleteClassifierUsingCredentials(classifier, creds);
         })
         .catch((err) => {
             log.error({ err, classifier }, 'Could not find credentials to delete classifier from Bluemix');
-            return deleteClassifierUsingCredentials(classifier, 'expire');
+            return deleteClassifierUsingCredentials(classifier);
         });
 }
 
@@ -415,18 +348,14 @@ async function deleteClassifierUnknownClass(classifier: TrainingObjects.Conversa
  *  This deletes both the classifier from Bluemix, and the record of it
  *  stored in the app's database.
  */
-export function deleteClassifier(
-    tenant: DbObjects.ClassTenant,
-    classifier: TrainingObjects.ConversationWorkspace,
-    usageEvent: DbObjects.WaUsageDeletionEventType = 'delete',
-): Promise<void>
+export function deleteClassifier(tenant: DbObjects.ClassTenant, classifier: TrainingObjects.ConversationWorkspace): Promise<void>
 {
     let credentials: TrainingObjects.BluemixCredentials;
 
     return store.getBluemixCredentialsById(tenant.tenantType, classifier.credentialsid)
         .then((creds) => {
             credentials = creds;
-            return deleteClassifierUsingCredentials(classifier, usageEvent, credentials);
+            return deleteClassifierUsingCredentials(classifier, credentials);
         })
         .then(async () => {
             if (tenant.tenantType === DbObjects.ClassTenantType.ManagedPool) {
@@ -746,25 +675,9 @@ export async function testClassifier(
     classifierId: string, classifierTimestamp: Date,
     projectid: string,
     text: string,
-    client: DbObjects.WaUsageClient,
 ): Promise<TrainingObjects.Classification[]>
 {
-    const started = new Date();
-    const recordUsage = (outcome: string) => {
-        wausage.record({
-            recorded : started,
-            event : 'classify',
-            outcome,
-            modelid : classifierId,
-            projectid,
-            chars : text.length,
-            durationms : Date.now() - started.getTime(),
-            client,
-        });
-    };
-
     if (!plaintext.isPlainText(text)) {
-        recordUsage('not-text');
         throw new Error(ERROR_MESSAGES.TEXT_NOT_PLAIN);
     }
 
@@ -781,7 +694,6 @@ export async function testClassifier(
         };
 
         const body = await request.post(workspaceUrl(credentials.url, classifierId) + '/message', req, true);
-        recordUsage(body.intents.length === 0 ? 'no-intents' : 'ok');
         if (body.intents.length === 0) {
             const project = await store.getProject(projectid);
             if (project) {
@@ -803,13 +715,11 @@ export async function testClassifier(
     catch (err) {
         if (err.statusCode === httpStatus.TOO_MANY_REQUESTS)
         {
-            recordUsage('rate-limit');
             throw new Error(ERROR_MESSAGES.API_KEY_RATE_LIMIT);
         }
         if (err.statusCode === httpStatus.NOT_FOUND &&
             err.error && err.error.code && err.error.code === httpStatus.NOT_FOUND)
         {
-            recordUsage('not-found');
             throw new Error(ERROR_MESSAGES.MODEL_NOT_FOUND);
         }
         if (err.statusCode === httpStatus.BAD_REQUEST &&
@@ -818,18 +728,15 @@ export async function testClassifier(
             err.error.errors && Array.isArray(err.error.errors) && err.error.errors.length > 0 &&
             err.error.errors[0].message === ERROR_MESSAGES.TEXT_TOO_LONG)
         {
-            recordUsage('too-long');
             throw new Error(ERROR_MESSAGES.TEXT_TOO_LONG);
         }
         if (err.statusCode === httpStatus.SERVICE_UNAVAILABLE ||
             err.statusCode === httpStatus.BAD_GATEWAY ||
             err.statusCode === httpStatus.INTERNAL_SERVER_ERROR)
         {
-            recordUsage('service-error');
             throw new Error(ERROR_MESSAGES.SERVICE_ERROR);
         }
 
-        recordUsage('error');
         log.error({ err, classifierId, credentials, projectid, text }, 'Failed to classify text');
         throw err;
     }

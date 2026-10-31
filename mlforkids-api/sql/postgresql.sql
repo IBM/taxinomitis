@@ -175,38 +175,31 @@ CREATE TABLE mlforkidsdb.texttraining (
     label character varying(100)
 );
 
-CREATE TABLE mlforkidsdb.wausage (
-    id bigserial NOT NULL PRIMARY KEY,
-    recorded timestamp with time zone NOT NULL,
-    event character varying(16) NOT NULL,
-    outcome character varying(16) NOT NULL,
-    modelid character varying(52),
-    projectid character varying(36),
-    classid character varying(36),
-    tenanttype smallint,
-    language character varying(6),
-    labels smallint,
-    examples integer,
-    chars integer,
-    durationms integer,
-    source character varying(10) NOT NULL,
-    useragent character varying(200),
-    xuseragent character varying(50),
-    origin character varying(100),
-    country character varying(2),
-    method character varying(7),
-    fetchsite character varying(12),
-    fetchmode character varying(12),
-    referrer character varying(100)
-);
--- update (3 Oct 2026) - new table
--- update (3 Oct 2026) - new columns
--- ALTER TABLE mlforkidsdb.wausage
---     ADD COLUMN country character varying(2),
---     ADD COLUMN method character varying(7),
---     ADD COLUMN fetchsite character varying(12),
---     ADD COLUMN fetchmode character varying(12),
---     ADD COLUMN referrer character varying(100);
+-- CREATE TABLE mlforkidsdb.wausage (
+--     id bigserial NOT NULL PRIMARY KEY,
+--     recorded timestamp with time zone NOT NULL,
+--     event character varying(16) NOT NULL,
+--     outcome character varying(16) NOT NULL,
+--     modelid character varying(52),
+--     projectid character varying(36),
+--     classid character varying(36),
+--     tenanttype smallint,
+--     language character varying(6),
+--     labels smallint,
+--     examples integer,
+--     chars integer,
+--     durationms integer,
+--     source character varying(10) NOT NULL,
+--     useragent character varying(200),
+--     xuseragent character varying(50),
+--     origin character varying(100),
+--     country character varying(2),
+--     method character varying(7),
+--     fetchsite character varying(12),
+--     fetchmode character varying(12),
+--     referrer character varying(100)
+-- );
+-- update (31 Oct 2026) - deleted table
 
 CREATE INDEX bluemixclassifiers_countnlcclassifiers ON mlforkidsdb.bluemixclassifiers USING btree (classid);
 CREATE INDEX bluemixclassifiers_deletenlcclassifier ON mlforkidsdb.bluemixclassifiers USING btree (projectid, userid, classid, classifierid);

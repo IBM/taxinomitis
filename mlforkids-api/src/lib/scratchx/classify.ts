@@ -1,7 +1,6 @@
 // local dependencies
 import * as store from '../db/store';
 import * as conversation from '../training/conversation';
-import * as wausage from '../training/wausage';
 import * as Types from '../db/db-types';
 import * as TrainingTypes from '../training/training-types';
 import { shuffle } from '../utils/helpers';
@@ -26,7 +25,7 @@ function chooseLabelsAtRandom(project: Types.Project | Types.LocalProject): Trai
 
 const TABS_OR_NEWLINES = /\r?\n|\r|\t/gm;
 
-async function classifyText(key: Types.ScratchKey, text: string, client: Types.WaUsageClient): Promise<TrainingTypes.Classification[]> {
+async function classifyText(key: Types.ScratchKey, text: string): Promise<TrainingTypes.Classification[]> {
     if (!text || typeof text !== 'string' || text.trim().length === 0) {
         throw new Error('Missing data');
     }
@@ -41,19 +40,10 @@ async function classifyText(key: Types.ScratchKey, text: string, client: Types.W
         // submit the text to the classifier
         const resp = await conversation.testClassifier(
             key.credentials, key.classifierid, key.updated,
-            key.projectid, text, client);
+            key.projectid, text);
         return resp;
     }
     else {
-        wausage.record({
-            recorded : new Date(),
-            event : 'classify',
-            outcome : 'no-model',
-            projectid : key.projectid,
-            chars : text.length,
-            client,
-        });
-
         // we don't have a Conversation workspace yet, so we resort to random
         let project: Types.Project | Types.LocalProject | undefined = await store.getProject(key.projectid);
         if (!project) {
@@ -93,10 +83,10 @@ async function classifyImageTfjs(key: Types.ScratchKey): Promise<TrainingTypes.C
 
 
 
-export function classify(scratchKey: Types.ScratchKey, data: any, client: Types.WaUsageClient): Promise<TrainingTypes.Classification[]> {
+export function classify(scratchKey: Types.ScratchKey, data: any): Promise<TrainingTypes.Classification[]> {
     switch (scratchKey.type) {
     case 'text':
-        return classifyText(scratchKey, data as string, client);
+        return classifyText(scratchKey, data as string);
     case 'numbers':
         return classifyNumbers(scratchKey);
     case 'sounds':

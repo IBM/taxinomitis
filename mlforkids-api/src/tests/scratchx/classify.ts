@@ -6,7 +6,6 @@ import * as proxyquire from 'proxyquire';
 import { setTimeout } from 'node:timers/promises';
 import * as store from '../../lib/db/store';
 import * as classifier from '../../lib/scratchx/classify';
-import * as wausage from '../../lib/training/wausage';
 import * as Types from '../../lib/db/db-types';
 import * as request from '../../lib/utils/request';
 import loggerSetup from '../../lib/utils/logger';
@@ -42,7 +41,7 @@ describe('Scratchx - classify', () => {
             };
 
             await assert.rejects(
-                () => classifier.classify(key, '  ', wausage.WEBSITE),
+                () => classifier.classify(key, '  '),
                 { message: 'Classification for this project is only available in the browser' }
             );
         });
@@ -129,7 +128,7 @@ describe('Scratchx - classify', () => {
             };
 
             await assert.rejects(
-                () => classifier.classify(key, '  ', wausage.WEBSITE),
+                () => classifier.classify(key, '  '),
                 { message: 'Missing data' }
             );
         });
@@ -145,7 +144,7 @@ describe('Scratchx - classify', () => {
             };
 
             await assert.rejects(
-                () => classifier.classify(key, 'HELLO', wausage.WEBSITE),
+                () => classifier.classify(key, 'HELLO'),
                 { message: 'Project not found' }
             );
         });
@@ -166,7 +165,7 @@ describe('Scratchx - classify', () => {
                 updated : new Date(),
             };
 
-            const classifications = await classifier.classify(key, 'text to be classified', wausage.WEBSITE);
+            const classifications = await classifier.classify(key, 'text to be classified');
             assert.strictEqual(classifications.length, 3);
             for (const classification of classifications) {
                 assert(classification.random);
@@ -283,7 +282,7 @@ describe('Scratchx - classify', () => {
             };
 
             await assert.rejects(
-                () => classifier.classify(key, '  ', wausage.WEBSITE),
+                () => classifier.classify(key, '  '),
                 { message: 'Classification for numbers project is only available in the browser or from Python projects' }
             );
         });

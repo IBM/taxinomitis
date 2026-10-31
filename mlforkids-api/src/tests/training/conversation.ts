@@ -9,7 +9,6 @@ import * as clone from 'clone';
 
 import * as store from '../../lib/db/store';
 import * as conversation from '../../lib/training/conversation';
-import * as wausage from '../../lib/training/wausage';
 import * as DbTypes from '../../lib/db/db-types';
 import * as TrainingTypes from '../../lib/training/training-types';
 import * as requestUtil from '../../lib/utils/request';
@@ -39,12 +38,6 @@ describe('Training - Conversation', () => {
     let resetExpiredScratchKeyStub: sinon.SinonStub<[string, DbTypes.ProjectTypeLabel], Promise<void>>;
     let updateScratchKeyTimestampStub: sinon.SinonStub<[DbTypes.Project | DbTypes.LocalProject, Date], Promise<void>>;
     let getClassStub: sinon.SinonStub<[string], Promise<DbTypes.ClassTenant>>;
-    let storeUsageStub: sinon.SinonStub<[DbTypes.WaUsageEvent], Promise<void>>;
-
-    // returns the usage events recorded since the stub was last reset
-    function recordedUsage(): DbTypes.WaUsageEvent[] {
-        return storeUsageStub.getCalls().map((call) => call.args[0]);
-    }
 
 
     before(() => {
@@ -67,7 +60,6 @@ describe('Training - Conversation', () => {
         updateScratchKeyTimestampStub = sinon.stub(store, 'updateScratchKeyTimestamp').callsFake(mockstore.updateScratchKeyTimestamp);
         resetExpiredScratchKeyStub = sinon.stub(store, 'resetExpiredScratchKey').callsFake(mockstore.resetExpiredScratchKey);
         getClassStub = sinon.stub(store, 'getClassTenant').callsFake(mockstore.getClassTenant);
-        storeUsageStub = sinon.stub(store, 'storeWaUsageEvent').resolves();
     });
     after(() => {
         getStub.restore();
@@ -86,7 +78,6 @@ describe('Training - Conversation', () => {
         updateScratchKeyTimestampStub.restore();
         resetExpiredScratchKeyStub.restore();
         getClassStub.restore();
-        storeUsageStub.restore();
     });
 
 
@@ -128,9 +119,7 @@ describe('Training - Conversation', () => {
                 isCrowdSourced : false,
             };
 
-            storeUsageStub.resetHistory();
-
-            const classifier = await conversation.trainClassifier(project, wausage.WEBSITE);
+            const classifier = await conversation.trainClassifier(project);
             assert(classifier.id);
 
             assert.deepStrictEqual(classifier, {
@@ -149,25 +138,6 @@ describe('Training - Conversation', () => {
             assert(
                 storeScratchKeyStub.calledWith(project, mockstore.creds,
                     '04f2d303-16fd-4f2e-80f4-2c66784cc0fe', sinon.match.any));
-
-            const usage = recordedUsage();
-            assert.strictEqual(usage.length, 1);
-            const { recorded, durationms, ...event } = usage[0];
-            assert(recorded instanceof Date);
-            assert(typeof durationms === 'number' && durationms >= 0);
-            assert.deepStrictEqual(event, {
-                event : 'train-new',
-                outcome : 'ok',
-                modelid : '04f2d303-16fd-4f2e-80f4-2c66784cc0fe',
-                projectid, classid,
-                tenanttype : DbTypes.ClassTenantType.UnManaged,
-                language : 'fr',
-                // 18 + 16 examples of 'sample text N'
-                labels : 2,
-                examples : 34,
-                chars : 456,
-                client : { source : 'website' },
-            });
         });
 
 
@@ -190,21 +160,13 @@ describe('Training - Conversation', () => {
                 isCrowdSourced : false,
             };
 
-            storeUsageStub.resetHistory();
-
             try {
-                await conversation.trainClassifier(project, wausage.WEBSITE);
+                await conversation.trainClassifier(project);
                 assert.fail('should not have allowed this');
             }
             catch (err) {
                 assert.strictEqual(err.message, conversation.ERROR_MESSAGES.UNKNOWN);
             }
-
-            const usage = recordedUsage();
-            assert.strictEqual(usage.length, 1);
-            assert.strictEqual(usage[0].event, 'train-new');
-            assert.strictEqual(usage[0].outcome, 'error');
-            assert.strictEqual(usage[0].modelid, undefined);
         });
 
 
@@ -227,21 +189,13 @@ describe('Training - Conversation', () => {
                 isCrowdSourced : false,
             };
 
-            storeUsageStub.resetHistory();
-
             try {
-                await conversation.trainClassifier(project, wausage.WEBSITE);
+                await conversation.trainClassifier(project);
                 assert.fail('should not have allowed this');
             }
             catch (err) {
                 assert.strictEqual(err.message, conversation.ERROR_MESSAGES.INSUFFICIENT_API_KEYS);
             }
-
-            const usage = recordedUsage();
-            assert.strictEqual(usage.length, 1);
-            assert.strictEqual(usage[0].event, 'train-new');
-            assert.strictEqual(usage[0].outcome, 'no-api-keys');
-            assert.strictEqual(usage[0].modelid, undefined);
         });
 
 
@@ -264,54 +218,13 @@ describe('Training - Conversation', () => {
                 isCrowdSourced : false,
             };
 
-            storeUsageStub.resetHistory();
-
             try {
-                await conversation.trainClassifier(project, wausage.WEBSITE);
+                await conversation.trainClassifier(project);
                 assert.fail('should not have allowed this');
             }
             catch (err) {
                 assert.strictEqual(err.message, conversation.ERROR_MESSAGES.API_KEY_RATE_LIMIT);
             }
-
-            const usage = recordedUsage();
-            assert.strictEqual(usage.length, 1);
-            assert.strictEqual(usage[0].event, 'train-new');
-            assert.strictEqual(usage[0].outcome, 'rate-limit');
-            assert.strictEqual(usage[0].modelid, undefined);
-        });
-
-
-        it('should record failures to create a classifier for classes without API keys', async () => {
-            const project: DbTypes.Project = {
-                id : 'projectbob',
-                name : 'No API keys',
-                userid : 'bob', classid : TESTTENANT.id,
-                type : 'text',
-                language : 'en',
-                labels : ['this', 'that'],
-                numfields : 0,
-                isCrowdSourced : false,
-            };
-
-            authStoreStub.rejects(new Error('Unexpected response when retrieving service credentials'));
-            storeUsageStub.resetHistory();
-
-            try {
-                await conversation.trainClassifier(project, wausage.WEBSITE);
-                assert.fail('should not have allowed this');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Unexpected response when retrieving service credentials');
-            }
-            finally {
-                authStoreStub.callsFake(mockstore.getBluemixCredentials);
-            }
-
-            const usage = recordedUsage();
-            assert.strictEqual(usage.length, 1);
-            assert.strictEqual(usage[0].event, 'train-new');
-            assert.strictEqual(usage[0].outcome, 'no-creds');
         });
 
 
@@ -334,19 +247,13 @@ describe('Training - Conversation', () => {
                 isCrowdSourced : false,
             };
 
-            storeUsageStub.resetHistory();
-
             try {
-                await conversation.trainClassifier(project, wausage.WEBSITE);
+                await conversation.trainClassifier(project);
                 assert.fail('should not have allowed this');
             }
             catch (err) {
                 assert.strictEqual(err.message, conversation.ERROR_MESSAGES.MAINTENANCE);
             }
-
-            const usage = recordedUsage();
-            assert.strictEqual(usage.length, 1);
-            assert.strictEqual(usage[0].outcome, 'maintenance');
         });
     });
 
@@ -374,21 +281,12 @@ describe('Training - Conversation', () => {
             };
 
             const before = new Date();
-            storeUsageStub.resetHistory();
 
-            const classifier = await conversation.trainClassifier(project, wausage.WEBSITE);
+            const classifier = await conversation.trainClassifier(project);
 
             assert.notStrictEqual(existingClassifier.expiry.getTime(),
                                   classifier.expiry.getTime());
             assert(classifier.expiry.getTime() > before.getTime());
-
-            const usage = recordedUsage();
-            assert.strictEqual(usage.length, 1);
-            assert.strictEqual(usage[0].event, 'train-update');
-            assert.strictEqual(usage[0].outcome, 'ok');
-            assert.strictEqual(usage[0].modelid, 'existing-classifier');
-            assert.strictEqual(usage[0].projectid, projectid);
-            assert.strictEqual(usage[0].language, 'de');
         });
 
 
@@ -411,19 +309,13 @@ describe('Training - Conversation', () => {
                 isCrowdSourced : false,
             };
 
-            storeUsageStub.resetHistory();
-
             try {
-                await conversation.trainClassifier(project, wausage.WEBSITE);
+                await conversation.trainClassifier(project);
                 assert.fail('should not have allowed this');
             }
             catch (err) {
                 assert.strictEqual(err.message, conversation.ERROR_MESSAGES.MAINTENANCE);
             }
-
-            const usage = recordedUsage();
-            assert.strictEqual(usage.length, 1);
-            assert.strictEqual(usage[0].outcome, 'maintenance');
         });
 
     });
@@ -442,21 +334,13 @@ describe('Training - Conversation', () => {
                 classid : 'classid',
                 credstype : 'unknown',
             };
-            const client: DbTypes.WaUsageClient = { source : 'website' };
-
-            storeUsageStub.resetHistory();
             createStub.resetHistory();
 
             await assert.rejects(
-                () => conversation.testClassifier(creds, 'good', new Date(), 'projectbob', 'PK\u0003\u0004\u0014\u0000', client),
+                () => conversation.testClassifier(creds, 'good', new Date(), 'projectbob', 'PK\u0003\u0004\u0014\u0000'),
                 { message : conversation.ERROR_MESSAGES.TEXT_NOT_PLAIN });
 
             assert.strictEqual(createStub.called, false);
-
-            const usage = recordedUsage();
-            assert.strictEqual(usage.length, 1);
-            assert.strictEqual(usage[0].event, 'classify');
-            assert.strictEqual(usage[0].outcome, 'not-text');
         });
 
         it('should return classes from Conversation service', async () => {
@@ -472,28 +356,7 @@ describe('Training - Conversation', () => {
             const classifierTimestamp = new Date();
             classifierTimestamp.setMilliseconds(0);
 
-            storeUsageStub.resetHistory();
-
-            const client: DbTypes.WaUsageClient = {
-                source : 'scratchkey',
-                useragent : 'MIT App Inventor (ML4K extension)',
-            };
-            const classes = await conversation.testClassifier(creds, 'good', classifierTimestamp, 'projectbob', 'Hello', client);
-
-            const usage = recordedUsage();
-            assert.strictEqual(usage.length, 1);
-            const { recorded, durationms, ...event } = usage[0];
-            assert(recorded instanceof Date);
-            assert(typeof durationms === 'number' && durationms >= 0);
-            assert.deepStrictEqual(event, {
-                event : 'classify',
-                outcome : 'ok',
-                modelid : 'good',
-                projectid : 'projectbob',
-                chars : 5,
-                client,
-            });
-
+            const classes = await conversation.testClassifier(creds, 'good', classifierTimestamp, 'projectbob', 'Hello');
             assert.deepStrictEqual(classes, [
                 {
                     class_name : 'temperature',
@@ -519,14 +382,8 @@ describe('Training - Conversation', () => {
                 classid : 'classid',
                 credstype : 'unknown',
             };
-            storeUsageStub.resetHistory();
-
-            const classes = await conversation.testClassifier(creds, 'bad', new Date(), 'projectbob', 'Hello', wausage.WEBSITE);
+            const classes = await conversation.testClassifier(creds, 'bad', new Date(), 'projectbob', 'Hello');
             assert.strictEqual(classes.length, 1);
-
-            const usage = recordedUsage();
-            assert.strictEqual(usage.length, 1);
-            assert.strictEqual(usage[0].outcome, 'no-intents');
             assert.strictEqual(classes[0].confidence, 0);
             assert.strictEqual(classes[0].random, true);
         });
@@ -543,19 +400,13 @@ describe('Training - Conversation', () => {
                 credstype : 'unknown',
             };
 
-            storeUsageStub.resetHistory();
-
             try {
-                await conversation.testClassifier(creds, 'broken500', new Date(), 'projectbob', 'Hello', wausage.WEBSITE);
+                await conversation.testClassifier(creds, 'broken500', new Date(), 'projectbob', 'Hello');
                 assert.fail('should not have allowed this');
             }
             catch (err) {
                 assert.strictEqual(err.message, conversation.ERROR_MESSAGES.SERVICE_ERROR);
             }
-
-            const usage = recordedUsage();
-            assert.strictEqual(usage.length, 1);
-            assert.strictEqual(usage[0].outcome, 'service-error');
         });
     });
 
@@ -571,20 +422,7 @@ describe('Training - Conversation', () => {
             assert.strictEqual(deleteStub.called, false);
             assert.strictEqual(deleteStoreStub.called, false);
 
-            storeUsageStub.resetHistory();
-
             await conversation.deleteClassifier(TESTTENANT, goodClassifier);
-
-            const usage = recordedUsage();
-            assert.strictEqual(usage.length, 1);
-            const { recorded, ...event } = usage[0];
-            assert(recorded instanceof Date);
-            assert.deepStrictEqual(event, {
-                event : 'delete',
-                outcome : 'ok',
-                modelid : 'good',
-                client : { source : 'server' },
-            });
 
             assert(deleteStub.calledOnce);
             assert(deleteStoreStub.calledOnce);
@@ -597,18 +435,6 @@ describe('Training - Conversation', () => {
             }));
             assert(deleteStoreStub.calledWith(goodClassifier.id));
             assert(resetExpiredScratchKeyStub.called);
-        });
-
-
-        it('should record deleting expired classifiers as expiries', async () => {
-            storeUsageStub.resetHistory();
-
-            await conversation.deleteClassifier(TESTTENANT, goodClassifier, 'expire');
-
-            const usage = recordedUsage();
-            assert.strictEqual(usage.length, 1);
-            assert.strictEqual(usage[0].event, 'expire');
-            assert.strictEqual(usage[0].modelid, 'good');
         });
 
 
