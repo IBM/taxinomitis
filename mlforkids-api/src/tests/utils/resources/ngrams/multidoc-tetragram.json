@@ -1,0 +1,1788 @@
+{
+    "count": 67,
+    "lookup": {
+        "2": {
+            "count": 1,
+            "next": {
+                "<STOP>": {
+                    "count": 1,
+                    "next": {
+                        "It": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "'s",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "10": {
+            "count": 1,
+            "next": {
+                "and": {
+                    "count": 1,
+                    "next": {
+                        "room": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "2",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "101": {
+            "count": 1,
+            "next": {
+                "is": {
+                    "count": 1,
+                    "next": {
+                        "next": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "to",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "The": {
+            "count": 6,
+            "next": {
+                "cat": {
+                    "count": 4,
+                    "next": {
+                        "sat": {
+                            "count": 3,
+                            "next": [
+                                {
+                                    "token": "on",
+                                    "count": 3,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        },
+                        "ran": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "away",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                },
+                "dog": {
+                    "count": 2,
+                    "next": {
+                        "barked": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "at",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        },
+                        "sat": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "on",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "cat": {
+            "count": 5,
+            "next": {
+                "sat": {
+                    "count": 3,
+                    "next": {
+                        "on": {
+                            "count": 3,
+                            "next": [
+                                {
+                                    "token": "the",
+                                    "count": 3,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                },
+                "ran": {
+                    "count": 1,
+                    "next": {
+                        "away": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "<STOP>",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                },
+                "'s": {
+                    "count": 1,
+                    "next": {
+                        "room": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "and",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "sat": {
+            "count": 5,
+            "next": {
+                "on": {
+                    "count": 5,
+                    "next": {
+                        "the": {
+                            "count": 5,
+                            "next": [
+                                {
+                                    "token": "mat",
+                                    "count": 4,
+                                    "prob": 0.8,
+                                    "cumprob": 0.8
+                                },
+                                {
+                                    "token": "cat",
+                                    "count": 1,
+                                    "prob": 0.2,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "on": {
+            "count": 5,
+            "next": {
+                "the": {
+                    "count": 5,
+                    "next": {
+                        "mat": {
+                            "count": 4,
+                            "next": [
+                                {
+                                    "token": "<STOP>",
+                                    "count": 4,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        },
+                        "cat": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "<STOP>",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "the": {
+            "count": 5,
+            "next": {
+                "mat": {
+                    "count": 4,
+                    "next": {
+                        "<STOP>": {
+                            "count": 4,
+                            "next": [
+                                {
+                                    "token": "The",
+                                    "count": 4,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                },
+                "cat": {
+                    "count": 1,
+                    "next": {
+                        "'s": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "room",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "mat": {
+            "count": 4,
+            "next": {
+                "<STOP>": {
+                    "count": 4,
+                    "next": {
+                        "The": {
+                            "count": 4,
+                            "next": [
+                                {
+                                    "token": "cat",
+                                    "count": 2,
+                                    "prob": 0.5,
+                                    "cumprob": 0.5
+                                },
+                                {
+                                    "token": "dog",
+                                    "count": 2,
+                                    "prob": 0.5,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "<STOP>": {
+            "count": 7,
+            "next": {
+                "The": {
+                    "count": 4,
+                    "next": {
+                        "cat": {
+                            "count": 2,
+                            "next": [
+                                {
+                                    "token": "ran",
+                                    "count": 1,
+                                    "prob": 0.5,
+                                    "cumprob": 0.5
+                                },
+                                {
+                                    "token": "sat",
+                                    "count": 1,
+                                    "prob": 0.5,
+                                    "cumprob": 1
+                                }
+                            ]
+                        },
+                        "dog": {
+                            "count": 2,
+                            "next": [
+                                {
+                                    "token": "barked",
+                                    "count": 1,
+                                    "prob": 0.5,
+                                    "cumprob": 0.5
+                                },
+                                {
+                                    "token": "sat",
+                                    "count": 1,
+                                    "prob": 0.5,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                },
+                "It": {
+                    "count": 1,
+                    "next": {
+                        "'s": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "the",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                },
+                "Привет": {
+                    "count": 1,
+                    "next": {
+                        "кот": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "<STOP>",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                },
+                "лка": {
+                    "count": 1,
+                    "next": {
+                        "и": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "кот",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "A": {
+            "count": 1,
+            "next": {
+                "dog": {
+                    "count": 1,
+                    "next": {
+                        "sat": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "on",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "dog": {
+            "count": 3,
+            "next": {
+                "sat": {
+                    "count": 2,
+                    "next": {
+                        "on": {
+                            "count": 2,
+                            "next": [
+                                {
+                                    "token": "the",
+                                    "count": 2,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                },
+                "barked": {
+                    "count": 1,
+                    "next": {
+                        "at": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "the",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "barked": {
+            "count": 1,
+            "next": {
+                "at": {
+                    "count": 1,
+                    "next": {
+                        "the": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "cat",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "at": {
+            "count": 1,
+            "next": {
+                "the": {
+                    "count": 1,
+                    "next": {
+                        "cat": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "<STOP>",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "Room": {
+            "count": 1,
+            "next": {
+                "101": {
+                    "count": 1,
+                    "next": {
+                        "is": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "next",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "is": {
+            "count": 1,
+            "next": {
+                "next": {
+                    "count": 1,
+                    "next": {
+                        "to": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "room",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "next": {
+            "count": 1,
+            "next": {
+                "to": {
+                    "count": 1,
+                    "next": {
+                        "room": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "10",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "to": {
+            "count": 1,
+            "next": {
+                "room": {
+                    "count": 1,
+                    "next": {
+                        "10": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "and",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "room": {
+            "count": 3,
+            "next": {
+                "2": {
+                    "count": 1,
+                    "next": {
+                        "<STOP>": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "It",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                },
+                "10": {
+                    "count": 1,
+                    "next": {
+                        "and": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "room",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                },
+                "and": {
+                    "count": 1,
+                    "next": {
+                        "it": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "'s",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "and": {
+            "count": 2,
+            "next": {
+                "room": {
+                    "count": 1,
+                    "next": {
+                        "2": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "<STOP>",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                },
+                "it": {
+                    "count": 1,
+                    "next": {
+                        "'s": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "007",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "It": {
+            "count": 1,
+            "next": {
+                "'s": {
+                    "count": 1,
+                    "next": {
+                        "the": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "cat",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "'s": {
+            "count": 4,
+            "next": {
+                "the": {
+                    "count": 1,
+                    "next": {
+                        "cat": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "'s",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                },
+                "room": {
+                    "count": 2,
+                    "next": {
+                        "and": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "it",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        },
+                        "too": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "<STOP>",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                },
+                "007": {
+                    "count": 1,
+                    "next": {
+                        "'s": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "room",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "it": {
+            "count": 1,
+            "next": {
+                "'s": {
+                    "count": 1,
+                    "next": {
+                        "007": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "'s",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "007": {
+            "count": 1,
+            "next": {
+                "'s": {
+                    "count": 1,
+                    "next": {
+                        "room": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "too",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "Привет": {
+            "count": 2,
+            "next": {
+                "мир": {
+                    "count": 1,
+                    "next": {
+                        "<STOP>": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "Привет",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                },
+                "кот": {
+                    "count": 1,
+                    "next": {
+                        "<STOP>": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "лка",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "мир": {
+            "count": 1,
+            "next": {
+                "<STOP>": {
+                    "count": 1,
+                    "next": {
+                        "Привет": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "кот",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "кот": {
+            "count": 1,
+            "next": {
+                "<STOP>": {
+                    "count": 1,
+                    "next": {
+                        "лка": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "и",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "лка": {
+            "count": 1,
+            "next": {
+                "и": {
+                    "count": 1,
+                    "next": {
+                        "кот": {
+                            "count": 1,
+                            "next": [
+                                {
+                                    "token": "<STOP>",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "summary": [
+        {
+            "token": "<STOP>",
+            "count": 7,
+            "prob": 0.104,
+            "cumprob": 0.104,
+            "next": [
+                {
+                    "token": "The",
+                    "count": 4,
+                    "prob": 0.571,
+                    "cumprob": 0.571,
+                    "next": [
+                        {
+                            "token": "cat",
+                            "count": 2,
+                            "prob": 0.5,
+                            "cumprob": 0.5,
+                            "next": [
+                                {
+                                    "token": "ran",
+                                    "count": 1,
+                                    "prob": 0.5,
+                                    "cumprob": 0.5,
+                                    "next": []
+                                },
+                                {
+                                    "token": "sat",
+                                    "count": 1,
+                                    "prob": 0.5,
+                                    "cumprob": 1,
+                                    "next": []
+                                }
+                            ]
+                        },
+                        {
+                            "token": "dog",
+                            "count": 2,
+                            "prob": 0.5,
+                            "cumprob": 1,
+                            "next": [
+                                {
+                                    "token": "barked",
+                                    "count": 1,
+                                    "prob": 0.5,
+                                    "cumprob": 0.5,
+                                    "next": []
+                                },
+                                {
+                                    "token": "sat",
+                                    "count": 1,
+                                    "prob": 0.5,
+                                    "cumprob": 1,
+                                    "next": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "token": "It",
+                    "count": 1,
+                    "prob": 0.143,
+                    "cumprob": 0.714,
+                    "next": [
+                        {
+                            "token": "'s",
+                            "count": 1,
+                            "prob": 1,
+                            "cumprob": 1,
+                            "next": [
+                                {
+                                    "token": "the",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1,
+                                    "next": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "token": "Привет",
+                    "count": 1,
+                    "prob": 0.143,
+                    "cumprob": 0.857,
+                    "next": [
+                        {
+                            "token": "кот",
+                            "count": 1,
+                            "prob": 1,
+                            "cumprob": 1,
+                            "next": [
+                                {
+                                    "token": "<STOP>",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1,
+                                    "next": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "token": "лка",
+                    "count": 1,
+                    "prob": 0.143,
+                    "cumprob": 1,
+                    "next": [
+                        {
+                            "token": "и",
+                            "count": 1,
+                            "prob": 1,
+                            "cumprob": 1,
+                            "next": [
+                                {
+                                    "token": "кот",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1,
+                                    "next": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "token": "The",
+            "count": 6,
+            "prob": 0.09,
+            "cumprob": 0.194,
+            "next": [
+                {
+                    "token": "cat",
+                    "count": 4,
+                    "prob": 0.667,
+                    "cumprob": 0.667,
+                    "next": [
+                        {
+                            "token": "sat",
+                            "count": 3,
+                            "prob": 0.75,
+                            "cumprob": 0.75,
+                            "next": [
+                                {
+                                    "token": "on",
+                                    "count": 3,
+                                    "prob": 1,
+                                    "cumprob": 1,
+                                    "next": []
+                                }
+                            ]
+                        },
+                        {
+                            "token": "ran",
+                            "count": 1,
+                            "prob": 0.25,
+                            "cumprob": 1,
+                            "next": [
+                                {
+                                    "token": "away",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1,
+                                    "next": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "token": "dog",
+                    "count": 2,
+                    "prob": 0.333,
+                    "cumprob": 1,
+                    "next": [
+                        {
+                            "token": "barked",
+                            "count": 1,
+                            "prob": 0.5,
+                            "cumprob": 0.5,
+                            "next": [
+                                {
+                                    "token": "at",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1,
+                                    "next": []
+                                }
+                            ]
+                        },
+                        {
+                            "token": "sat",
+                            "count": 1,
+                            "prob": 0.5,
+                            "cumprob": 1,
+                            "next": [
+                                {
+                                    "token": "on",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1,
+                                    "next": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "token": "cat",
+            "count": 5,
+            "prob": 0.075,
+            "cumprob": 0.269,
+            "next": [
+                {
+                    "token": "sat",
+                    "count": 3,
+                    "prob": 0.6,
+                    "cumprob": 0.6,
+                    "next": [
+                        {
+                            "token": "on",
+                            "count": 3,
+                            "prob": 1,
+                            "cumprob": 1,
+                            "next": [
+                                {
+                                    "token": "the",
+                                    "count": 3,
+                                    "prob": 1,
+                                    "cumprob": 1,
+                                    "next": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "token": "ran",
+                    "count": 1,
+                    "prob": 0.2,
+                    "cumprob": 0.8,
+                    "next": [
+                        {
+                            "token": "away",
+                            "count": 1,
+                            "prob": 1,
+                            "cumprob": 1,
+                            "next": [
+                                {
+                                    "token": "<STOP>",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1,
+                                    "next": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "token": "'s",
+                    "count": 1,
+                    "prob": 0.2,
+                    "cumprob": 1,
+                    "next": [
+                        {
+                            "token": "room",
+                            "count": 1,
+                            "prob": 1,
+                            "cumprob": 1,
+                            "next": [
+                                {
+                                    "token": "and",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1,
+                                    "next": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "token": "sat",
+            "count": 5,
+            "prob": 0.075,
+            "cumprob": 0.343,
+            "next": [
+                {
+                    "token": "on",
+                    "count": 5,
+                    "prob": 1,
+                    "cumprob": 1,
+                    "next": [
+                        {
+                            "token": "the",
+                            "count": 5,
+                            "prob": 1,
+                            "cumprob": 1,
+                            "next": [
+                                {
+                                    "token": "mat",
+                                    "count": 4,
+                                    "prob": 0.8,
+                                    "cumprob": 0.8,
+                                    "next": []
+                                },
+                                {
+                                    "token": "cat",
+                                    "count": 1,
+                                    "prob": 0.2,
+                                    "cumprob": 1,
+                                    "next": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "token": "on",
+            "count": 5,
+            "prob": 0.075,
+            "cumprob": 0.418,
+            "next": [
+                {
+                    "token": "the",
+                    "count": 5,
+                    "prob": 1,
+                    "cumprob": 1,
+                    "next": [
+                        {
+                            "token": "mat",
+                            "count": 4,
+                            "prob": 0.8,
+                            "cumprob": 0.8,
+                            "next": [
+                                {
+                                    "token": "<STOP>",
+                                    "count": 4,
+                                    "prob": 1,
+                                    "cumprob": 1,
+                                    "next": []
+                                }
+                            ]
+                        },
+                        {
+                            "token": "cat",
+                            "count": 1,
+                            "prob": 0.2,
+                            "cumprob": 1,
+                            "next": [
+                                {
+                                    "token": "<STOP>",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1,
+                                    "next": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "token": "the",
+            "count": 5,
+            "prob": 0.075,
+            "cumprob": 0.493,
+            "next": [
+                {
+                    "token": "mat",
+                    "count": 4,
+                    "prob": 0.8,
+                    "cumprob": 0.8,
+                    "next": [
+                        {
+                            "token": "<STOP>",
+                            "count": 4,
+                            "prob": 1,
+                            "cumprob": 1,
+                            "next": [
+                                {
+                                    "token": "The",
+                                    "count": 4,
+                                    "prob": 1,
+                                    "cumprob": 1,
+                                    "next": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "token": "cat",
+                    "count": 1,
+                    "prob": 0.2,
+                    "cumprob": 1,
+                    "next": [
+                        {
+                            "token": "'s",
+                            "count": 1,
+                            "prob": 1,
+                            "cumprob": 1,
+                            "next": [
+                                {
+                                    "token": "room",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1,
+                                    "next": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "token": "mat",
+            "count": 4,
+            "prob": 0.06,
+            "cumprob": 0.552,
+            "next": [
+                {
+                    "token": "<STOP>",
+                    "count": 4,
+                    "prob": 1,
+                    "cumprob": 1,
+                    "next": [
+                        {
+                            "token": "The",
+                            "count": 4,
+                            "prob": 1,
+                            "cumprob": 1,
+                            "next": [
+                                {
+                                    "token": "cat",
+                                    "count": 2,
+                                    "prob": 0.5,
+                                    "cumprob": 0.5,
+                                    "next": []
+                                },
+                                {
+                                    "token": "dog",
+                                    "count": 2,
+                                    "prob": 0.5,
+                                    "cumprob": 1,
+                                    "next": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "token": "'s",
+            "count": 4,
+            "prob": 0.06,
+            "cumprob": 0.612,
+            "next": [
+                {
+                    "token": "room",
+                    "count": 2,
+                    "prob": 0.5,
+                    "cumprob": 0.5,
+                    "next": [
+                        {
+                            "token": "and",
+                            "count": 1,
+                            "prob": 0.5,
+                            "cumprob": 0.5,
+                            "next": [
+                                {
+                                    "token": "it",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1,
+                                    "next": []
+                                }
+                            ]
+                        },
+                        {
+                            "token": "too",
+                            "count": 1,
+                            "prob": 0.5,
+                            "cumprob": 1,
+                            "next": [
+                                {
+                                    "token": "<STOP>",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1,
+                                    "next": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "token": "the",
+                    "count": 1,
+                    "prob": 0.25,
+                    "cumprob": 0.75,
+                    "next": [
+                        {
+                            "token": "cat",
+                            "count": 1,
+                            "prob": 1,
+                            "cumprob": 1,
+                            "next": [
+                                {
+                                    "token": "'s",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1,
+                                    "next": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "token": "007",
+                    "count": 1,
+                    "prob": 0.25,
+                    "cumprob": 1,
+                    "next": [
+                        {
+                            "token": "'s",
+                            "count": 1,
+                            "prob": 1,
+                            "cumprob": 1,
+                            "next": [
+                                {
+                                    "token": "room",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1,
+                                    "next": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "token": "dog",
+            "count": 3,
+            "prob": 0.045,
+            "cumprob": 0.657,
+            "next": [
+                {
+                    "token": "sat",
+                    "count": 2,
+                    "prob": 0.667,
+                    "cumprob": 0.667,
+                    "next": [
+                        {
+                            "token": "on",
+                            "count": 2,
+                            "prob": 1,
+                            "cumprob": 1,
+                            "next": [
+                                {
+                                    "token": "the",
+                                    "count": 2,
+                                    "prob": 1,
+                                    "cumprob": 1,
+                                    "next": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "token": "barked",
+                    "count": 1,
+                    "prob": 0.333,
+                    "cumprob": 1,
+                    "next": [
+                        {
+                            "token": "at",
+                            "count": 1,
+                            "prob": 1,
+                            "cumprob": 1,
+                            "next": [
+                                {
+                                    "token": "the",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1,
+                                    "next": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "token": "room",
+            "count": 3,
+            "prob": 0.045,
+            "cumprob": 0.701,
+            "next": [
+                {
+                    "token": "2",
+                    "count": 1,
+                    "prob": 0.333,
+                    "cumprob": 0.333,
+                    "next": [
+                        {
+                            "token": "<STOP>",
+                            "count": 1,
+                            "prob": 1,
+                            "cumprob": 1,
+                            "next": [
+                                {
+                                    "token": "It",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1,
+                                    "next": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "token": "10",
+                    "count": 1,
+                    "prob": 0.333,
+                    "cumprob": 0.667,
+                    "next": [
+                        {
+                            "token": "and",
+                            "count": 1,
+                            "prob": 1,
+                            "cumprob": 1,
+                            "next": [
+                                {
+                                    "token": "room",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1,
+                                    "next": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "token": "and",
+                    "count": 1,
+                    "prob": 0.333,
+                    "cumprob": 1,
+                    "next": [
+                        {
+                            "token": "it",
+                            "count": 1,
+                            "prob": 1,
+                            "cumprob": 1,
+                            "next": [
+                                {
+                                    "token": "'s",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1,
+                                    "next": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "token": "and",
+            "count": 2,
+            "prob": 0.03,
+            "cumprob": 0.731,
+            "next": [
+                {
+                    "token": "room",
+                    "count": 1,
+                    "prob": 0.5,
+                    "cumprob": 0.5,
+                    "next": [
+                        {
+                            "token": "2",
+                            "count": 1,
+                            "prob": 1,
+                            "cumprob": 1,
+                            "next": [
+                                {
+                                    "token": "<STOP>",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1,
+                                    "next": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "token": "it",
+                    "count": 1,
+                    "prob": 0.5,
+                    "cumprob": 1,
+                    "next": [
+                        {
+                            "token": "'s",
+                            "count": 1,
+                            "prob": 1,
+                            "cumprob": 1,
+                            "next": [
+                                {
+                                    "token": "007",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1,
+                                    "next": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "token": "Привет",
+            "count": 2,
+            "prob": 0.03,
+            "cumprob": 0.761,
+            "next": [
+                {
+                    "token": "мир",
+                    "count": 1,
+                    "prob": 0.5,
+                    "cumprob": 0.5,
+                    "next": [
+                        {
+                            "token": "<STOP>",
+                            "count": 1,
+                            "prob": 1,
+                            "cumprob": 1,
+                            "next": [
+                                {
+                                    "token": "Привет",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1,
+                                    "next": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "token": "кот",
+                    "count": 1,
+                    "prob": 0.5,
+                    "cumprob": 1,
+                    "next": [
+                        {
+                            "token": "<STOP>",
+                            "count": 1,
+                            "prob": 1,
+                            "cumprob": 1,
+                            "next": [
+                                {
+                                    "token": "лка",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1,
+                                    "next": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "token": "2",
+            "count": 1,
+            "prob": 0.015,
+            "cumprob": 0.776,
+            "next": [
+                {
+                    "token": "<STOP>",
+                    "count": 1,
+                    "prob": 1,
+                    "cumprob": 1,
+                    "next": [
+                        {
+                            "token": "It",
+                            "count": 1,
+                            "prob": 1,
+                            "cumprob": 1,
+                            "next": [
+                                {
+                                    "token": "'s",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1,
+                                    "next": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "token": "10",
+            "count": 1,
+            "prob": 0.015,
+            "cumprob": 0.791,
+            "next": [
+                {
+                    "token": "and",
+                    "count": 1,
+                    "prob": 1,
+                    "cumprob": 1,
+                    "next": [
+                        {
+                            "token": "room",
+                            "count": 1,
+                            "prob": 1,
+                            "cumprob": 1,
+                            "next": [
+                                {
+                                    "token": "2",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1,
+                                    "next": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "token": "101",
+            "count": 1,
+            "prob": 0.015,
+            "cumprob": 0.806,
+            "next": [
+                {
+                    "token": "is",
+                    "count": 1,
+                    "prob": 1,
+                    "cumprob": 1,
+                    "next": [
+                        {
+                            "token": "next",
+                            "count": 1,
+                            "prob": 1,
+                            "cumprob": 1,
+                            "next": [
+                                {
+                                    "token": "to",
+                                    "count": 1,
+                                    "prob": 1,
+                                    "cumprob": 1,
+                                    "next": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

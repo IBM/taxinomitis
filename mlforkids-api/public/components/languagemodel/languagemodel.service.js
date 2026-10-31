@@ -5,11 +5,10 @@
         .service('languageModelService', languageModelService);
 
     languageModelService.$inject = [
-        '$http',
         'gpuDetectionService'
     ];
 
-    function languageModelService($http, gpuDetectionService) {
+    function languageModelService(gpuDetectionService) {
 
         const modelsWhenShaderF16Supported = [
             {
@@ -352,17 +351,7 @@
             return webllm.deleteModelAllInfoInCache(modelId, webllm.prebuiltAppConfig);
         }
 
-        function generateNgrams(userid, tenant, inputstrings) {
-            var url = '/api/classes/' + tenant + '/students/' + userid + '/training/ngrams';
-            return $http.post(url, { input : inputstrings })
-                .then((resp) => {
-                    return resp.data;
-                });
-        }
-
         return {
-            generateNgrams,
-
             deleteModelCache,
             findModelRecord,
             getAllKnownModelIds,

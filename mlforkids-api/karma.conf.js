@@ -68,7 +68,11 @@ module.exports = function (config) {
             // the new-project form builds its project spec inline in an
             // ng-click expression, so the clone parity spec evaluates that
             // real expression rather than duplicating the field list
-            'public/components/newproject/newproject.html'
+            'public/components/newproject/newproject.html',
+
+            // output from the server's countNgrams() - fetched by
+            // ngrams.service.spec.js to check the browser gives the same results
+            { pattern : 'src/tests/utils/resources/ngrams/*', included : false, served : true, watched : false }
         ],
 
         exclude : [],

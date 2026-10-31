@@ -7,7 +7,7 @@ describe('LanguageModelController - toy model generation', function () {
 
     var authServiceMock, projectsServiceMock, trainingServiceMock,
         wikipediaServiceMock, weatherServiceMock, languageModelServiceMock, txtServiceMock,
-        utilServiceMock, loggerServiceMock, $mdDialogMock, $windowMock, $timeoutReal;
+        ngramsServiceMock, utilServiceMock, loggerServiceMock, $mdDialogMock, $windowMock, $timeoutReal;
     var $stateParams;
 
     var profile;
@@ -35,8 +35,7 @@ describe('LanguageModelController - toy model generation', function () {
         ]);
 
         trainingServiceMock = jasmine.createSpyObj('trainingService', [
-            'getTraining', 'retrieveAsset', 'newTrainingData', 'bulkAddTrainingData',
-            'deleteTrainingData', 'storeAsset'
+            'getTraining', 'newTrainingData', 'bulkAddTrainingData', 'deleteTrainingData'
         ]);
         trainingServiceMock.getTraining.and.returnValue($q.resolve([]));
 
@@ -44,12 +43,14 @@ describe('LanguageModelController - toy model generation', function () {
         weatherServiceMock = jasmine.createSpyObj('weatherService', ['getCurrentWeather']);
 
         languageModelServiceMock = jasmine.createSpyObj('languageModelService', [
-            'generateNgrams', 'getSupportedModels', 'getAllModels', 'getModelDetails'
+            'getSupportedModels', 'getAllModels', 'getModelDetails'
         ]);
         languageModelServiceMock.getSupportedModels.and.returnValue($q.resolve([]));
         languageModelServiceMock.getAllModels.and.returnValue([]);
 
         txtServiceMock = jasmine.createSpyObj('txtService', ['getContents']);
+
+        ngramsServiceMock = jasmine.createSpyObj('ngramsService', ['createModel']);
 
         utilServiceMock = jasmine.createSpyObj('utilService', ['loadWebLlmProjectSupport']);
         utilServiceMock.loadWebLlmProjectSupport.and.returnValue($q.resolve({ MLCEngine : function () {} }));
@@ -72,6 +73,7 @@ describe('LanguageModelController - toy model generation', function () {
             weatherService : weatherServiceMock,
             languageModelService : languageModelServiceMock,
             txtService : txtServiceMock,
+            ngramsService : ngramsServiceMock,
             utilService : utilServiceMock,
             loggerService : loggerServiceMock,
             $mdDialog : $mdDialogMock,
@@ -164,15 +166,34 @@ describe('LanguageModelController - toy model generation', function () {
         };
     }
 
+    // a model, as ngramsService.createModel() would return, that answers
+    // from a fixture in the shape above
+    function fakeModel(fixture) {
+        var byLength = { 2 : fixture.bigrams, 3 : fixture.trigrams, 4 : fixture.tetragrams };
+        return {
+            isEmpty : function () { return fixture.bigrams.count === 0; },
+            summary : function (n) { return byLength[n].summary; },
+            lookup : function (context) {
+                var entry = { next : byLength[context.length + 1].lookup };
+                for (var i = 0; i < context.length; i++) {
+                    if (!entry.next || !Object.prototype.hasOwnProperty.call(entry.next, context[i])) {
+                        return { count : 0, next : [] };
+                    }
+                    entry = entry.next[context[i]];
+                }
+                return { count : entry.count, next : entry.next };
+            }
+        };
+    }
+
     // brings a toy controller from a fresh project all the way to
     // TOY.TOKENS, with analyzedCorpus populated from the given fixture
     function createTokenizedController(ngrams, fixture) {
         trainingServiceMock.getTraining.and.returnValue($q.resolve([ { id : 'd1', title : 'Doc', type : 'text' } ]));
-        trainingServiceMock.retrieveAsset.and.returnValue($q.reject({ status : 404 }));
         var vm = createReadyController(baseProject({ modeltype : 'toy', toy : { ngrams : 0, temperature : 1, topp : 1 } }));
 
         $scope.project.toy.ngrams = ngrams;
-        languageModelServiceMock.generateNgrams.and.returnValue($q.resolve(fixture));
+        ngramsServiceMock.createModel.and.returnValue(fakeModel(fixture));
         $scope.initTokens();
         digestTwice();
 
@@ -250,6 +271,21 @@ describe('LanguageModelController - toy model generation', function () {
             expect(cat.selected).toBe(true);
         });
 
+        it('shows an error and keeps the current ngram size if the new tokens cannot be computed', function () {
+            var fixture = fullNgramsFixture();
+            Object.defineProperty(fixture.trigrams, 'summary', {
+                get : function () { throw new Error('out of memory'); }
+            });
+            var vm = createTokenizedController(1, fixture);
+
+            $scope.changeNgramSize(); // -> 2 (trigrams) fails
+            digestTwice(); // displayAlert's push happens inside $applyAsync
+
+            expect(vm.errors.length).toBe(1);
+            expect($scope.project.toy.ngrams).toBe(1);
+            expect($scope.project.toy.tokens).toBe(fixture.bigrams.summary);
+        });
+
         it('shows a warning and does not crash when the new ngram size has no tokens', function () {
             var fixture = fullNgramsFixture();
             fixture.trigrams.summary = [];
@@ -271,7 +307,7 @@ describe('LanguageModelController - toy model generation', function () {
             var fixture = fullNgramsFixture();
             var vm = createTokenizedController(1, fixture);
 
-            expect(languageModelServiceMock.generateNgrams).toHaveBeenCalled();
+            expect(ngramsServiceMock.createModel).toHaveBeenCalled();
             expect($scope.phase).toBe($scope.PHASES.TOY.TOKENS);
             expect($scope.project.toy.tokens).toBe(fixture.bigrams.summary);
             expect($scope.loading).toBe(false);
@@ -281,13 +317,13 @@ describe('LanguageModelController - toy model generation', function () {
         it('does not re-parse the corpus if it has already been analyzed', function () {
             var fixture = fullNgramsFixture();
             createTokenizedController(1, fixture);
-            languageModelServiceMock.generateNgrams.calls.reset();
+            ngramsServiceMock.createModel.calls.reset();
             trainingServiceMock.getTraining.calls.reset();
 
             $scope.initTokens();
             digestTwice();
 
-            expect(languageModelServiceMock.generateNgrams).not.toHaveBeenCalled();
+            expect(ngramsServiceMock.createModel).not.toHaveBeenCalled();
             expect(trainingServiceMock.getTraining).not.toHaveBeenCalled();
             expect($scope.phase).toBe($scope.PHASES.TOY.TOKENS);
         });
@@ -733,6 +769,72 @@ describe('LanguageModelController - toy model generation', function () {
 
             expect($scope.testfeedbackmoretokens).toBe(false);
             expect($scope.generatedtokens[1].text).toBe('cat');
+        });
+
+        describe('with the real ngramsService', function () {
+
+            var realNgramsService;
+
+            beforeEach(inject(function (_ngramsService_) {
+                realNgramsService = _ngramsService_;
+            }));
+
+            function readyWithCorpus(ngrams, text) {
+                trainingServiceMock.getTraining.and.returnValue($q.resolve([ { id : 'd1', title : 'Doc', type : 'text', contents : text } ]));
+                var vm = createReadyController(baseProject({ modeltype : 'toy', toy : { ngrams : 0, temperature : 1, topp : 1 } }));
+
+                $scope.project.toy.ngrams = ngrams;
+                ngramsServiceMock.createModel.and.callFake(realNgramsService.createModel);
+                $scope.initTokens();
+                digestTwice();
+
+                $scope.initToyModelTemperature();
+                projectsServiceMock.storeToyLanguageModelConfig.and.returnValue($q.resolve(
+                    angular.extend({}, $scope.project, { toy : angular.extend({}, $scope.project.toy) })
+                ));
+                $scope.setProjectReady();
+                digestTwice();
+                return vm;
+            }
+
+            it('shows the tokens for the chosen context window size', function () {
+                readyWithCorpus(1, 'The cat sat on the mat. The dog sat on the cat.');
+
+                expect($scope.project.toy.tokens[0].token).toBe('The');
+                expect($scope.project.toy.tokens[0].count).toBe(2);
+                expect($scope.project.toy.tokens[0].next.map(function (t) { return t.token; })).toEqual([ 'cat', 'dog' ]);
+            });
+
+            it('generates text from the corpus', async function () {
+                readyWithCorpus(2, 'The cat sat on the mat.');
+                $scope.prompt.message = 'cat sat';
+                spyOn(Math, 'random').and.returnValue(0.1);
+
+                $scope.testModel();
+                await flushAsyncGeneration();
+
+                expect($scope.generatedtokens).toEqual([
+                    { idx : 0, text : '', prompt : true },
+                    { idx : 1, text : 'cat sat', prompt : true },
+                    { idx : 2, text : 'on', token : 'on', count : 1, prob : 100, options : 1, candidates : 1, input : 'cat sat' },
+                    { idx : 3, text : 'the', token : 'the', count : 1, prob : 100, options : 1, candidates : 1, input : 'sat on' },
+                    { idx : 4, text : 'mat', token : 'mat', count : 1, prob : 100, options : 1, candidates : 1, input : 'on the' },
+                    { idx : 5, text : '.', token : '<STOP>', count : 1, prob : 100, options : 1, candidates : 1, input : 'the mat' }
+                ]);
+            });
+
+            it('generates text that includes words that are also names of JavaScript object properties', async function () {
+                readyWithCorpus(2, 'the constructor of the house');
+                $scope.prompt.message = 'the constructor';
+                spyOn(Math, 'random').and.returnValue(0.1);
+
+                $scope.testModel();
+                await flushAsyncGeneration();
+
+                expect($scope.generatedtokens.map(function (t) { return t.text; }))
+                    .toEqual([ '', 'the constructor', 'of', 'the', 'house' ]);
+            });
+
         });
 
         it('caps generation at MAX_LENGTH for a self-looping corpus', async function () {

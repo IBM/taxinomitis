@@ -17,8 +17,7 @@ describe('trainingService', function () {
         browserStorageServiceMock = jasmine.createSpyObj('browserStorageService', [
             'addTrainingData', 'bulkAddTrainingData', 'deleteTrainingData',
             'clearTrainingData', 'getTrainingData', 'getTrainingDataItem',
-            'idIsLocal', 'addCloudRefToProject', 'getTrainingForWatsonAssistant',
-            'storeAssetData', 'retrieveAsset'
+            'idIsLocal', 'addCloudRefToProject', 'getTrainingForWatsonAssistant'
         ]);
 
         module('app', function ($provide) {
@@ -737,44 +736,6 @@ describe('trainingService', function () {
 
             trainingService.deleteModel(project, 'student9', TENANT, 'm1');
             $httpBackend.flush();
-        });
-    });
-
-
-    // ------------------------------------------------------------------
-    //  assets
-    // ------------------------------------------------------------------
-
-    describe('assets', function () {
-
-        it('stores a language model asset under a project-scoped key', function () {
-            browserStorageServiceMock.storeAssetData.and.returnValue($q.resolve());
-            var asset = new Blob(['model']);
-
-            trainingService.storeAsset(localProject({ type : 'language' }), asset);
-
-            expect(browserStorageServiceMock.storeAssetData)
-                .toHaveBeenCalledWith('language-model-12', asset);
-        });
-
-        it('retrieves a language model asset', function () {
-            browserStorageServiceMock.retrieveAsset.and.returnValue($q.resolve(new Blob(['model'])));
-
-            trainingService.retrieveAsset(localProject({ type : 'language' }));
-
-            expect(browserStorageServiceMock.retrieveAsset).toHaveBeenCalledWith('language-model-12');
-        });
-
-        it('refuses to store assets for other project types', function () {
-            expect(function () {
-                trainingService.storeAsset(localProject({ type : 'text' }), new Blob(['x']));
-            }).toThrowError('Unsupported project type');
-        });
-
-        it('refuses to store assets for cloud projects', function () {
-            expect(function () {
-                trainingService.storeAsset(cloudProject({ type : 'language' }), new Blob(['x']));
-            }).toThrowError('Unsupported project type');
         });
     });
 

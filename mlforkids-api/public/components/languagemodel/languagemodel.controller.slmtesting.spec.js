@@ -36,8 +36,7 @@ describe('LanguageModelController - small model testing', function () {
         ]);
 
         trainingServiceMock = jasmine.createSpyObj('trainingService', [
-            'getTraining', 'retrieveAsset', 'newTrainingData', 'bulkAddTrainingData',
-            'deleteTrainingData', 'storeAsset'
+            'getTraining', 'newTrainingData', 'bulkAddTrainingData', 'deleteTrainingData'
         ]);
         trainingServiceMock.getTraining.and.returnValue($q.resolve([]));
 
@@ -45,7 +44,7 @@ describe('LanguageModelController - small model testing', function () {
         weatherServiceMock = jasmine.createSpyObj('weatherService', ['getCurrentWeather']);
 
         languageModelServiceMock = jasmine.createSpyObj('languageModelService', [
-            'generateNgrams', 'getSupportedModels', 'getAllModels', 'getModelDetails'
+            'getSupportedModels', 'getAllModels', 'getModelDetails'
         ]);
         languageModelServiceMock.getSupportedModels.and.returnValue($q.resolve([]));
         languageModelServiceMock.getAllModels.and.returnValue([]);

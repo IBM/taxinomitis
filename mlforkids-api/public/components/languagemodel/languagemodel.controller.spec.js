@@ -7,7 +7,7 @@ describe('LanguageModelController', function () {
 
     var authServiceMock, projectsServiceMock, trainingServiceMock,
         wikipediaServiceMock, weatherServiceMock, languageModelServiceMock, txtServiceMock,
-        utilServiceMock, loggerServiceMock, $mdDialogMock, $windowMock, $timeoutReal;
+        ngramsServiceMock, utilServiceMock, loggerServiceMock, $mdDialogMock, $windowMock, $timeoutReal;
     var $stateParams;
 
     var profile;
@@ -36,8 +36,7 @@ describe('LanguageModelController', function () {
         ]);
 
         trainingServiceMock = jasmine.createSpyObj('trainingService', [
-            'getTraining', 'retrieveAsset', 'newTrainingData', 'bulkAddTrainingData',
-            'deleteTrainingData', 'storeAsset'
+            'getTraining', 'newTrainingData', 'bulkAddTrainingData', 'deleteTrainingData'
         ]);
         trainingServiceMock.getTraining.and.returnValue($q.resolve([]));
 
@@ -45,12 +44,14 @@ describe('LanguageModelController', function () {
         weatherServiceMock = jasmine.createSpyObj('weatherService', ['getCurrentWeather']);
 
         languageModelServiceMock = jasmine.createSpyObj('languageModelService', [
-            'generateNgrams', 'getSupportedModels', 'getAllModels', 'getModelDetails'
+            'getSupportedModels', 'getAllModels', 'getModelDetails'
         ]);
         languageModelServiceMock.getSupportedModels.and.returnValue($q.resolve([]));
         languageModelServiceMock.getAllModels.and.returnValue([]);
 
         txtServiceMock = jasmine.createSpyObj('txtService', ['getContents']);
+
+        ngramsServiceMock = jasmine.createSpyObj('ngramsService', ['createModel']);
 
         reloadSpy = jasmine.createSpy('reload').and.returnValue($q.resolve());
         var fakeWebllm = {
@@ -80,6 +81,7 @@ describe('LanguageModelController', function () {
             weatherService : weatherServiceMock,
             languageModelService : languageModelServiceMock,
             txtService : txtServiceMock,
+            ngramsService : ngramsServiceMock,
             utilService : utilServiceMock,
             loggerService : loggerServiceMock,
             $mdDialog : $mdDialogMock,
@@ -104,6 +106,17 @@ describe('LanguageModelController', function () {
         var vm = createController();
         digestTwice();
         return vm;
+    }
+
+    // a model, as ngramsService.createModel() would return, with the given
+    // summaries (keyed by n-gram length) - or an empty corpus if there
+    // aren't any
+    function fakeModel(summaries) {
+        return {
+            isEmpty : function () { return !summaries; },
+            summary : function (n) { return (summaries && summaries[n]) || []; },
+            lookup : function () { return { count : 0, next : [] }; }
+        };
     }
 
     function baseProject(overrides) {
@@ -168,19 +181,6 @@ describe('LanguageModelController', function () {
 
             expect(vm.errors[0].status).toBe(500);
             expect(vm.errors[0].message).toBe('Unknown error');
-        });
-
-        it('shows a fixed too-large message for a 413 error, regardless of the error data', function () {
-            projectsServiceMock.getProject.and.returnValue($q.reject({ status : 413, data : { error : 'this is ignored' } }));
-
-            var vm = createController();
-            digestTwice();
-
-            expect(vm.errors[0].status).toBe(413);
-            expect(vm.errors[0].message).toBe(
-                'Sorry! Your corpus is too large for a toy language model project. ' +
-                'Please remove some text from your corpus and try again.'
-            );
         });
 
         it('scrolls to the top of the page when an alert is shown', function () {
@@ -262,7 +262,7 @@ describe('LanguageModelController', function () {
             expect($scope.corpus).toEqual([]);
             expect($scope.project.toy).toEqual({ ngrams : 0, temperature : 1.0, topp : 1.0 });
             expect($scope.phase).toBe($scope.PHASES.TOY.CORPUS);
-            expect(trainingServiceMock.retrieveAsset).not.toHaveBeenCalled();
+            expect(ngramsServiceMock.createModel).not.toHaveBeenCalled();
         });
 
         it('restores the corpus document list', function () {
@@ -271,7 +271,6 @@ describe('LanguageModelController', function () {
                 { id : 'd2', title : 'Doc 2', type : 'wikipedia' }
             ];
             trainingServiceMock.getTraining.and.returnValue($q.resolve(docs));
-            trainingServiceMock.retrieveAsset.and.returnValue($q.reject({ status : 404 }));
 
             createReadyController(baseProject({ modeltype : 'toy' }));
 
@@ -279,64 +278,61 @@ describe('LanguageModelController', function () {
                 { id : 'd1', title : 'Doc 1', type : 'text' },
                 { id : 'd2', title : 'Doc 2', type : 'wikipedia' }
             ]);
-            expect(trainingServiceMock.retrieveAsset).toHaveBeenCalledWith(jasmine.objectContaining({ id : 'project1' }));
         });
 
-        it('does not surface an error when there is no saved analysis yet (retrieveAsset rejects)', function () {
-            trainingServiceMock.getTraining.and.returnValue($q.resolve([ { id : 'd1', title : 'Doc 1', type : 'text' } ]));
-            trainingServiceMock.retrieveAsset.and.returnValue($q.reject({ status : 404 }));
+        it('does not analyze the corpus when no ngram size has been chosen yet', function () {
+            trainingServiceMock.getTraining.and.returnValue($q.resolve([ { id : 'd1', title : 'Doc 1', type : 'text', contents : 'hello world' } ]));
 
             var vm = createReadyController(baseProject({ modeltype : 'toy' }));
 
-            expect(vm.errors.length).toBe(0);
-            expect($scope.phase).toBe($scope.PHASES.TOY.CORPUS);
-        });
-
-        it('leaves the phase at CORPUS when there is a saved analysis, but no ngram size chosen yet', function () {
-            trainingServiceMock.getTraining.and.returnValue($q.resolve([ { id : 'd1', title : 'Doc 1', type : 'text' } ]));
-            trainingServiceMock.retrieveAsset.and.returnValue($q.resolve({
-                '1' : { count : 5, summary : [] }
-            }));
-
-            var vm = createReadyController(baseProject({ modeltype : 'toy' }));
-
+            expect(ngramsServiceMock.createModel).not.toHaveBeenCalled();
             expect($scope.phase).toBe($scope.PHASES.TOY.CORPUS);
             expect($scope.project.toy.tokens).toBeUndefined();
             expect($scope.project.toy.ready).toBeUndefined();
+            expect(vm.errors.length).toBe(0);
             expect(vm.warnings.length).toBe(0);
         });
 
-        it('leaves the phase at CORPUS when the saved analysis is empty', function () {
-            trainingServiceMock.getTraining.and.returnValue($q.resolve([ { id : 'd1', title : 'Doc 1', type : 'text' } ]));
-            trainingServiceMock.retrieveAsset.and.returnValue($q.resolve({}));
+        it('leaves the phase at CORPUS when the corpus has no ngrams', function () {
+            trainingServiceMock.getTraining.and.returnValue($q.resolve([ { id : 'd1', title : 'Doc 1', type : 'text', contents : 'hello' } ]));
+            ngramsServiceMock.createModel.and.returnValue(fakeModel());
 
             createReadyController(baseProject({ modeltype : 'toy', toy : { ngrams : 1, temperature : 1, topp : 1 } }));
 
             expect($scope.phase).toBe($scope.PHASES.TOY.CORPUS);
         });
 
-        it('restores previously-analyzed tokens and jumps straight to the ready phase', function () {
+        it('analyzes the corpus and jumps straight to the ready phase', function () {
             var candidateA = { token : 'world', count : 3, cumprob : 0.6, next : [] };
             var candidateB = { token : 'there', count : 2, cumprob : 1.0, next : [] };
             var rootToken = { token : 'hello', count : 5, next : [ candidateA, candidateB ] };
-            var savedCorpus = {
-                '1' : { count : 5, summary : [ rootToken ] },
-                '2' : { count : 0, summary : [] },
-                '3' : { count : 0, summary : [] }
-            };
+            var model = fakeModel({ 2 : [ rootToken ] });
 
-            trainingServiceMock.getTraining.and.returnValue($q.resolve([ { id : 'd1', title : 'Doc 1', type : 'text' } ]));
-            trainingServiceMock.retrieveAsset.and.returnValue($q.resolve(savedCorpus));
+            trainingServiceMock.getTraining.and.returnValue($q.resolve([ { id : 'd1', title : 'Doc 1', type : 'text', contents : 'hello world' } ]));
+            ngramsServiceMock.createModel.and.returnValue(model);
 
             createReadyController(baseProject({ modeltype : 'toy', toy : { ngrams : 1, temperature : 1, topp : 1 } }));
 
+            expect(ngramsServiceMock.createModel).toHaveBeenCalledWith([ 'hello world' ]);
             expect($scope.phase).toBe($scope.PHASES.TOY.READY);
             expect($scope.project.toy.ready).toBe(true);
-            expect($scope.project.toy.tokens).toBe(savedCorpus['1'].summary);
+            expect($scope.project.toy.tokens).toBe(model.summary(2));
             expect(rootToken.selected).toBe(true);
             // recomputeProbabilities should have run against the restored tokens
             expect(candidateA.viz).toBe(60);
             expect(candidateB.viz).toBe(40);
+        });
+
+        it('shows an error and stays on the corpus page if the corpus cannot be analyzed', function () {
+            trainingServiceMock.getTraining.and.returnValue($q.resolve([ { id : 'd1', title : 'Doc 1', type : 'text', contents : 'hello world' } ]));
+            ngramsServiceMock.createModel.and.throwError('broken corpus');
+
+            var vm = createReadyController(baseProject({ modeltype : 'toy', toy : { ngrams : 1, temperature : 1, topp : 1 } }));
+
+            expect(vm.errors.length).toBe(1);
+            expect($scope.phase).toBe($scope.PHASES.TOY.CORPUS);
+            expect($scope.project.toy.ready).toBeUndefined();
+            expect($scope.loading).toBe(false);
         });
 
     });
@@ -508,12 +504,8 @@ describe('LanguageModelController', function () {
         // so modifyCorpus's re-parse guard is exercised
         function toyControllerWithAnalyzedCorpus() {
             var rootToken = { token : 'hello', count : 5, next : [] };
-            trainingServiceMock.getTraining.and.returnValue($q.resolve([ { id : 'd1', title : 'Doc 1', type : 'text' } ]));
-            trainingServiceMock.retrieveAsset.and.returnValue($q.resolve({
-                '1' : { count : 5, summary : [ rootToken ] },
-                '2' : { count : 0, summary : [] },
-                '3' : { count : 0, summary : [] }
-            }));
+            trainingServiceMock.getTraining.and.returnValue($q.resolve([ { id : 'd1', title : 'Doc 1', type : 'text', contents : 'hello world' } ]));
+            ngramsServiceMock.createModel.and.returnValue(fakeModel({ 2 : [ rootToken ] }));
             return createReadyController(baseProject({ modeltype : 'toy', toy : { ngrams : 1, temperature : 1, topp : 1 } }));
         }
 
@@ -712,7 +704,6 @@ describe('LanguageModelController', function () {
                     { id : 'd1', title : 'Doc 1', type : 'text' },
                     { id : 'd2', title : 'Doc 2', type : 'text' }
                 ]));
-                trainingServiceMock.retrieveAsset.and.returnValue($q.reject({ status : 404 }));
                 readyToyController();
 
                 trainingServiceMock.deleteTrainingData.and.returnValue($q.resolve());
@@ -737,36 +728,34 @@ describe('LanguageModelController', function () {
                 $scope.addCorpusText({});
                 digestTwice();
 
-                expect(languageModelServiceMock.generateNgrams).not.toHaveBeenCalled();
+                expect(ngramsServiceMock.createModel).not.toHaveBeenCalled();
             });
 
             it('re-parses the corpus once an analysis already exists', function () {
                 toyControllerWithAnalyzedCorpus();
+                ngramsServiceMock.createModel.calls.reset();
                 trainingServiceMock.getTraining.and.returnValue($q.resolve([
                     { id : 'd1', title : 'Doc 1', type : 'text', contents : 'hello world' },
-                    { id : 'd2', title : 'My text', type : 'text', contents : 'hello world' }
+                    { id : 'd2', title : 'My text', type : 'text', contents : 'hello there' }
                 ]));
-                languageModelServiceMock.generateNgrams.and.returnValue($q.resolve({
-                    bigrams : { count : 1 }, trigrams : { count : 0 }, tetragrams : { count : 0 }
-                }));
                 trainingServiceMock.newTrainingData.and.returnValue($q.resolve({ id : 'd2', title : 'My text', type : 'text' }));
-                $mdDialogMock.show.and.returnValue($q.resolve({ title : 'My text', contents : 'hello world' }));
+                $mdDialogMock.show.and.returnValue($q.resolve({ title : 'My text', contents : 'hello there' }));
 
                 $scope.addCorpusText({});
                 digestTwice();
 
-                expect(languageModelServiceMock.generateNgrams).toHaveBeenCalled();
+                expect(ngramsServiceMock.createModel).toHaveBeenCalledWith([ 'hello world', 'hello there' ]);
             });
 
-            it('regression: shortcuts the ngrams API call and clears stale analysis when the corpus becomes empty', function () {
+            it('regression: clears stale analysis when the corpus becomes empty', function () {
                 toyControllerWithAnalyzedCorpus();
                 trainingServiceMock.getTraining.and.returnValue($q.resolve([]));
                 trainingServiceMock.deleteTrainingData.and.returnValue($q.resolve());
+                ngramsServiceMock.createModel.and.returnValue(fakeModel());
 
                 $scope.removeCorpusDoc('d1');
                 digestTwice();
 
-                expect(languageModelServiceMock.generateNgrams).not.toHaveBeenCalled();
                 expect($scope.phase).toBe($scope.PHASES.TOY.CORPUS);
                 expect($scope.project.toy.tokens).toBeUndefined();
                 expect($scope.project.toy.ready).toBe(false);

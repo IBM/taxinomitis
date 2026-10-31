@@ -7,15 +7,15 @@
     LanguageModelController.$inject = [
         'authService', 'projectsService', 'trainingService',
         'wikipediaService', 'weatherService',
-        'languageModelService', 'txtService',
+        'languageModelService', 'txtService', 'ngramsService',
         'utilService', 'loggerService',
         '$mdDialog', '$stateParams', '$scope', '$window', '$timeout', '$q'
     ];
 
-    function LanguageModelController(authService, projectsService, trainingService, 
-                                     wikipediaService, weatherService, 
-                                     languageModelService, txtService, 
-                                     utilService, loggerService, 
+    function LanguageModelController(authService, projectsService, trainingService,
+                                     wikipediaService, weatherService,
+                                     languageModelService, txtService, ngramsService,
+                                     utilService, loggerService,
                                      $mdDialog, $stateParams, $scope, $window, $timeout, $q) 
     {
         var vm = this;
@@ -46,14 +46,6 @@
                 if (status === 500 && Sentry && Sentry.captureException) {
                     Sentry.captureException({ error : errObj, errortype : typeof (errObj) });
                 }
-            }
-
-            if (status === 413) {
-                errObj = {
-                    status : 413,
-                    message : 'Sorry! Your corpus is too large for a toy language model project. ' +
-                              'Please remove some text from your corpus and try again.'
-                };
             }
 
             $scope.$applyAsync(() => {
@@ -275,24 +267,24 @@
                     }
 
                     $scope.phase = $scope.PHASES.TOY.CORPUS;
-                    if (docs.length > 0) {
-                        return trainingService.retrieveAsset($scope.project)
-                            .then((savedCorpus) => {
-                                loggerService.debug('[ml4klanguage] restoring corpus tokens');
-                                if (savedCorpus && savedCorpus['1'] && savedCorpus['1'].count > 0) {
-                                    analyzedCorpus = savedCorpus;
-                                    if ($scope.project.toy.ngrams) {
-                                        $scope.project.toy.tokens = analyzedCorpus[$scope.project.toy.ngrams].summary;
-                                        selectFirstToken();
-                                        $scope.recomputeProbabilities();
-                                        $scope.phase = $scope.PHASES.TOY.READY;
-                                        $scope.project.toy.ready = true;
-                                    }
-                                }
-                            })
-                            .catch((err) => {
-                                loggerService.debug('[ml4klanguage] no tokens saved', err);
-                            });
+                    if (docs.length > 0 && $scope.project.toy.ngrams) {
+                        loggerService.debug('[ml4klanguage] restoring corpus tokens');
+                        try {
+                            const model = ngramsService.createModel(docs.map((doc) => doc.contents));
+                            if (!model.isEmpty()) {
+                                analyzedCorpus = model;
+                                $scope.project.toy.tokens = analyzedCorpus.summary($scope.project.toy.ngrams + 1);
+                                selectFirstToken();
+                                $scope.recomputeProbabilities();
+                                $scope.phase = $scope.PHASES.TOY.READY;
+                                $scope.project.toy.ready = true;
+                            }
+                        }
+                        catch (err) {
+                            loggerService.error('[ml4klanguage] error restoring corpus tokens', err);
+                            analyzedCorpus = undefined;
+                            displayAlert('errors', 500, err);
+                        }
                     }
                 });
         }
@@ -569,24 +561,12 @@
         // TOY LANGUAGE MODEL - CORPUS PROCESSING - turning into n-grams
         // ===================================================================
 
-        // an empty corpus can never produce any tokens, so this is used to
-        //  skip calling the ngrams API when there's obviously nothing to analyze
-        const EMPTY_NGRAMS_OUTPUT = {
-            bigrams : { count : 0 }, trigrams : { count : 0 }, tetragrams : { count : 0 }
-        };
-
         function parseCorpus() {
             loggerService.debug('[ml4klanguage] parseCorpus');
             return trainingService.getTraining($scope.projectId, $scope.userId, $scope.project.classid)
                 .then((corpus) => {
-                    if (corpus.length === 0) {
-                        return EMPTY_NGRAMS_OUTPUT;
-                    }
-                    const text = corpus.map((doc) => doc.contents);
-                    return languageModelService.generateNgrams($scope.userId, $scope.project.classid, text);
-                })
-                .then((output) => {
-                    if (output.bigrams.count === 0) {
+                    const model = ngramsService.createModel(corpus.map((doc) => doc.contents));
+                    if (model.isEmpty()) {
                         displayAlert('warnings', 400, { message : 'Please add more text to your corpus' });
                         $scope.phase = $scope.PHASES.TOY.CORPUS;
 
@@ -598,26 +578,7 @@
                         return;
                     }
 
-                    analyzedCorpus = {
-                        '1' : output.bigrams,
-                        '2' : output.trigrams,
-                        '3' : output.tetragrams
-                    };
-
-                    // save the parsed corpus for reuse
-                    trainingService.storeAsset($scope.project, analyzedCorpus);
-                })
-                .catch((err) => {
-                    if (err.status) {
-                        // API error from generating the ngrams
-                        loggerService.error('[ml4klanguage] error generating ngrams', err);
-                        $scope.loading = false;
-                        displayAlert('errors', err.status, err.data);
-                    }
-                    else {
-                        // logic error
-                        throw err;
-                    }
+                    analyzedCorpus = model;
                 });
         }
 
@@ -648,12 +609,25 @@
             loggerService.debug('[ml4klanguage] changeNgramSize');
 
             // clicking the button adds 1 to n-grams - until we reach 3 - then we go round back to 1
+            const previousNgrams = $scope.project.toy.ngrams;
             $scope.project.toy.ngrams = ($scope.project.toy.ngrams === 3 ? 1 : $scope.project.toy.ngrams + 1);
 
             // if we have tokens, switch to the one based on the new ngrams choice
             //  - clearing any current selection
             if ($scope.project.toy.tokens) {
-                $scope.project.toy.tokens = analyzedCorpus[$scope.project.toy.ngrams].summary;
+                let tokens;
+                try {
+                    tokens = analyzedCorpus.summary($scope.project.toy.ngrams + 1);
+                }
+                catch (err) {
+                    // stay on the previous ngrams choice, which still matches
+                    //  the tokens being displayed
+                    loggerService.error('[ml4klanguage] error changing ngram size', err);
+                    $scope.project.toy.ngrams = previousNgrams;
+                    displayAlert('errors', 500, err);
+                    return;
+                }
+                $scope.project.toy.tokens = tokens;
                 $scope.project.toy.tokens.forEach(deselect);
                 tokenToRecompute = undefined;
                 delete $scope.confirmTokens;
@@ -690,7 +664,7 @@
             corpusFn
                 .then(() => {
                     if (analyzedCorpus) {
-                        $scope.project.toy.tokens = analyzedCorpus[$scope.project.toy.ngrams].summary;
+                        $scope.project.toy.tokens = analyzedCorpus.summary($scope.project.toy.ngrams + 1);
                         $scope.phase = $scope.PHASES.TOY.TOKENS;
                         selectFirstToken();
                     }
@@ -1437,31 +1411,13 @@
         }
 
         function lookupBigrams(token0) {
-            if (token0 in analyzedCorpus['1'].lookup)
-            {
-                const tok = analyzedCorpus['1'].lookup[token0];
-                return { count : tok.count, next : tok.next };
-            }
-            return { count : 0, next : [] };
+            return analyzedCorpus.lookup([ token0 ]);
         }
         function lookupTrigrams(token0, token1) {
-            if (token0 in analyzedCorpus['2'].lookup &&
-                token1 in analyzedCorpus['2'].lookup[token0].next)
-            {
-                const tok = analyzedCorpus['2'].lookup[token0].next[token1];
-                return { count : tok.count, next : tok.next };
-            }
-            return { count : 0, next : [] };
+            return analyzedCorpus.lookup([ token0, token1 ]);
         }
         function lookupTetragrams(token0, token1, token2) {
-            if (token0 in analyzedCorpus['3'].lookup &&
-                token1 in analyzedCorpus['3'].lookup[token0].next &&
-                token2 in analyzedCorpus['3'].lookup[token0].next[token1].next)
-            {
-                const tok = analyzedCorpus['3'].lookup[token0].next[token1].next[token2];
-                return { count : tok.count, next : tok.next };
-            }
-            return { count : 0, next : [] };
+            return analyzedCorpus.lookup([ token0, token1, token2 ]);
         }
 
 
