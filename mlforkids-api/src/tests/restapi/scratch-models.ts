@@ -5,7 +5,7 @@ import * as request from 'supertest';
 import { status as httpstatus } from 'http-status';
 import * as randomstring from 'randomstring';
 import * as sinon from 'sinon';
-import * as textmodels from '../../lib/training/textmodels';
+import * as conversation from '../../lib/training/conversation';
 import * as store from '../../lib/db/store';
 import * as DbTypes from '../../lib/db/db-types';
 import * as TrainingTypes from '../../lib/training/training-types';
@@ -23,8 +23,9 @@ const TESTCLASS = 'UNIQUECLASSIDSCMOD';
 
 describe('REST API - scratchkey models', () => {
 
-    let trainClassifierStub: sinon.SinonStub<any, any>;
-    let trainClassifierForProjectStub: sinon.SinonStub<any, any>;
+    let createModelStub: sinon.SinonStub<any, any>;
+    let updateModelStub: sinon.SinonStub<any, any>;
+    let deleteModelStub: sinon.SinonStub<any, any>;
     let numbersTrainingServicePostStub: sinon.SinonStub<any, any>;
     let numbersTrainingServiceDeleteStub: sinon.SinonStub<any, any>;
 
@@ -61,15 +62,22 @@ describe('REST API - scratchkey models', () => {
 
     beforeEach(() => {
         // each test sets the training outcome it needs
-        trainClassifierStub = sinon.stub(textmodels, 'trainClassifier')
-            .rejects(new Error('Test did not set up trainClassifier'));
-        trainClassifierForProjectStub = sinon.stub(textmodels, 'trainClassifierForProject')
-            .rejects(new Error('Test did not set up trainClassifierForProject'));
+        //  (the projects have no models yet, so only creating
+        //   a new model should be needed)
+        createModelStub = sinon.stub(conversation, 'createModel')
+            .rejects(new Error('Test did not set up createModel'));
+        updateModelStub = sinon.stub(conversation, 'updateModel')
+            .rejects(new Error('Test should not update a model'));
+        // avoid calling Watson Assistant when cleaning up after each test
+        deleteModelStub = sinon.stub(conversation, 'deleteModel').resolves();
     });
 
     afterEach(() => {
-        trainClassifierStub.restore();
-        trainClassifierForProjectStub.restore();
+        assert(updateModelStub.notCalled);
+
+        createModelStub.restore();
+        updateModelStub.restore();
+        deleteModelStub.restore();
     });
 
     after(() => {
@@ -79,11 +87,20 @@ describe('REST API - scratchkey models', () => {
     });
 
 
-    function createWorkspace(name: string, status: TrainingTypes.ClassifierStatus): TrainingTypes.ConversationWorkspace {
-        return {
+    function createWorkspace(name: string, status: TrainingTypes.ClassifierStatus): conversation.WorkspaceWithCredentials {
+        const credentials: TrainingTypes.BluemixCredentials = {
+            id : uuid(),
+            username : randomstring.generate(),
+            password : randomstring.generate(),
+            servicetype : 'conv',
+            url : 'https://conversation.service',
+            classid : TESTCLASS,
+            credstype : 'unknown',
+        };
+        const workspace: TrainingTypes.ConversationWorkspace = {
             id : uuid(),
             workspace_id : uuid(),
-            credentialsid : uuid(),
+            credentialsid : credentials.id,
             url : randomstring.generate(),
             name,
             language : 'en',
@@ -92,6 +109,7 @@ describe('REST API - scratchkey models', () => {
             updated : new Date(),
             expiry : new Date(),
         };
+        return { workspace, credentials };
     }
 
     function createTrainingData(name: string, exampleText = 'hello'): TrainingTypes.ConversationTrainingData {
@@ -123,7 +141,8 @@ describe('REST API - scratchkey models', () => {
         it('should train the text model for the project that the Scratch key belongs to', async () => {
             const userid = uuid();
             const { project, key } = await createCloudProjectKey(userid, 'text', 'hurrah');
-            trainClassifierStub.resolves(createWorkspace(project.name, 'Training'));
+            const model = createWorkspace(project.name, 'Training');
+            createModelStub.resolves(model);
 
             const res = await request(testServer)
                 .post('/api/scratch/' + key + '/models')
@@ -135,9 +154,15 @@ describe('REST API - scratchkey models', () => {
                 msg : 'Model not ready yet',
                 type : 'text',
             });
-            assert(trainClassifierStub.calledOnce);
-            assert.strictEqual(trainClassifierStub.firstCall.args[0].id, project.id);
-            assert(trainClassifierForProjectStub.notCalled);
+            assert(createModelStub.calledOnce);
+            assert.strictEqual(createModelStub.firstCall.args[0].id, project.id);
+            // cloud projects are trained using the training data stored in the DB
+            assert.strictEqual(createModelStub.firstCall.args[2].name, project.name);
+            assert.deepStrictEqual(createModelStub.firstCall.args[2].intents, []);
+
+            // the Scratch key now points at the new model
+            const updatedKey = await store.getScratchKey(key);
+            assert.strictEqual(updatedKey.classifierid, model.workspace.workspace_id);
 
             await store.deleteEntireUser(userid, TESTCLASS);
         });
@@ -146,7 +171,7 @@ describe('REST API - scratchkey models', () => {
         it('should report a model that failed to train', async () => {
             const userid = uuid();
             const { project, key } = await createCloudProjectKey(userid, 'text', 'badtrainingdata');
-            trainClassifierStub.resolves(createWorkspace(project.name, 'Failed'));
+            createModelStub.resolves(createWorkspace(project.name, 'Failed'));
 
             const res = await request(testServer)
                 .post('/api/scratch/' + key + '/models')
@@ -166,7 +191,7 @@ describe('REST API - scratchkey models', () => {
         it('should report an error from training', async () => {
             const userid = uuid();
             const { key } = await createCloudProjectKey(userid, 'text', 'explode');
-            trainClassifierStub.rejects(new Error('Something horrible happened'));
+            createModelStub.rejects(new Error('Something horrible happened'));
 
             const res = await request(testServer)
                 .post('/api/scratch/' + key + '/models')
@@ -195,7 +220,7 @@ describe('REST API - scratchkey models', () => {
             assert.deepStrictEqual(res.body, {
                 error : 'Only text or numbers models can be trained using a Scratch key',
             });
-            assert(trainClassifierStub.notCalled);
+            assert(createModelStub.notCalled);
 
             await store.deleteEntireUser(userid, TESTCLASS);
         });
@@ -232,7 +257,7 @@ describe('REST API - scratchkey models', () => {
             assert.strictEqual('Training', res.body.status);
             assert(res.body.lastupdate);
             assert(res.body.urls);
-            assert(trainClassifierStub.notCalled);
+            assert(createModelStub.notCalled);
 
             await store.deleteEntireUser(userid, TESTCLASS);
         });
@@ -254,7 +279,8 @@ describe('REST API - scratchkey models', () => {
             const userid = uuid();
             const { project, key } = await createLocalProjectKey(userid, 'hurrah');
             const training = createTrainingData(project.name);
-            trainClassifierForProjectStub.resolves(createWorkspace(project.name, 'Training'));
+            const model = createWorkspace(project.name, 'Training');
+            createModelStub.resolves(model);
 
             const res = await request(testServer)
                 .post('/api/scratch/' + key + '/local/models')
@@ -267,10 +293,13 @@ describe('REST API - scratchkey models', () => {
                 msg : 'Model not ready yet',
                 type : 'text',
             });
-            assert(trainClassifierForProjectStub.calledOnce);
-            assert.strictEqual(trainClassifierForProjectStub.firstCall.args[0].id, project.id);
-            assert.deepStrictEqual(trainClassifierForProjectStub.firstCall.args[1], training);
-            assert(trainClassifierStub.notCalled);
+            assert(createModelStub.calledOnce);
+            assert.strictEqual(createModelStub.firstCall.args[0].id, project.id);
+            assert.deepStrictEqual(createModelStub.firstCall.args[2], training);
+
+            // the Scratch key now points at the new model
+            const updatedKey = await store.getScratchKey(key);
+            assert.strictEqual(updatedKey.classifierid, model.workspace.workspace_id);
 
             await store.deleteEntireUser(userid, TESTCLASS);
         });
@@ -279,7 +308,7 @@ describe('REST API - scratchkey models', () => {
         it('should report a model that failed to train', async () => {
             const userid = uuid();
             const { project, key } = await createLocalProjectKey(userid, 'badtrainingdata');
-            trainClassifierForProjectStub.resolves(createWorkspace(project.name, 'Failed'));
+            createModelStub.resolves(createWorkspace(project.name, 'Failed'));
 
             const res = await request(testServer)
                 .post('/api/scratch/' + key + '/local/models')
@@ -300,7 +329,7 @@ describe('REST API - scratchkey models', () => {
         it('should report an error from training', async () => {
             const userid = uuid();
             const { project, key } = await createLocalProjectKey(userid, 'explode');
-            trainClassifierForProjectStub.rejects(new Error('Something horrible happened'));
+            createModelStub.rejects(new Error('Something horrible happened'));
 
             const res = await request(testServer)
                 .post('/api/scratch/' + key + '/local/models')
@@ -329,7 +358,7 @@ describe('REST API - scratchkey models', () => {
                 .expect(httpstatus.BAD_REQUEST);
 
             assert.deepStrictEqual(res.body, { error : 'Missing data' });
-            assert(trainClassifierForProjectStub.notCalled);
+            assert(createModelStub.notCalled);
 
             await store.deleteEntireUser(userid, TESTCLASS);
         });
@@ -346,7 +375,7 @@ describe('REST API - scratchkey models', () => {
                 .expect(httpstatus.BAD_REQUEST);
 
             assert.deepStrictEqual(res.body, { error : 'Missing data' });
-            assert(trainClassifierForProjectStub.notCalled);
+            assert(createModelStub.notCalled);
 
             await store.deleteEntireUser(userid, TESTCLASS);
         });
@@ -363,7 +392,7 @@ describe('REST API - scratchkey models', () => {
                 .expect(httpstatus.BAD_REQUEST);
 
             assert.deepStrictEqual(res.body, { error : NOT_PLAIN_TEXT });
-            assert(trainClassifierForProjectStub.notCalled);
+            assert(createModelStub.notCalled);
 
             await store.deleteEntireUser(userid, TESTCLASS);
         });

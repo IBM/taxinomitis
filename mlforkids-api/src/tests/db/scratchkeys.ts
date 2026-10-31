@@ -7,7 +7,7 @@ import * as sinon from 'sinon';
 import * as store from '../../lib/db/store';
 import * as DbTypes from '../../lib/db/db-types';
 import * as Types from '../../lib/training/training-types';
-import * as conversation from '../../lib/training/conversation';
+import * as textmodels from '../../lib/training/textmodels';
 import * as request from '../../lib/utils/request';
 
 
@@ -422,7 +422,7 @@ describe('ScratchKeys store', () => {
         }
 
         const deleteStub = sinon.stub(request, 'del').resolves();
-        await conversation.cleanupExpiredClassifiers();
+        await textmodels.cleanupExpiredModels();
         assert(deleteStub.called);
         deleteStub.restore();
 

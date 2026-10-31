@@ -1,6 +1,5 @@
 // local dependencies
 import * as Types from '../db/db-types';
-import * as TrainingTypes from '../training/training-types';
 import * as textmodels from '../training/textmodels';
 import * as ScratchTypes from './scratchx-types';
 import loggerSetup from '../utils/logger';
@@ -39,39 +38,7 @@ export function getStatus(scratchKey: Types.ScratchKey): Promise<ScratchTypes.St
 async function getTextClassifierStatus(scratchKey: Types.ScratchKey): Promise<ScratchTypes.Status> {
 
     if (scratchKey.credentials && scratchKey.classifierid) {
-        const credentials: TrainingTypes.BluemixCredentials = scratchKey.credentials;
-        const classifier: TrainingTypes.ConversationWorkspace = {
-            id : 'workspaceid',
-            name: scratchKey.name,
-            workspace_id: scratchKey.classifierid,
-            credentialsid: credentials.id,
-            created: new Date(),
-            expiry: new Date(),
-            language: 'en',
-            url: scratchKey.credentials.url + '/v1/workspaces/' + scratchKey.classifierid,
-        };
-
-        const classifierWithStatus = await textmodels.getStatus(credentials, classifier);
-        if (classifierWithStatus.status === 'Available') {
-            return {
-                status : 2,
-                msg : 'Ready',
-                type : 'text',
-            };
-        }
-        else if (classifierWithStatus.status === 'Training') {
-            return {
-                status : 1,
-                msg : 'Model not ready yet',
-                type : 'text',
-            };
-        }
-
-        return {
-            status : 0,
-            msg : 'Model ' + classifierWithStatus.status,
-            type : 'text',
-        };
+        return textmodels.getScratchKeyStatus(scratchKey);
     }
 
     return {

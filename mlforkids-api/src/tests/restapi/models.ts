@@ -47,10 +47,20 @@ describe('REST API - models', () => {
         next();
     }
 
-    let textmodelsStubGetClassifiersStub: sinon.SinonStub<any, any>;
+    let getModelStatusesStub: sinon.SinonStub<any, any>;
     let textmodelsStubTrainClassifierStub: sinon.SinonStub<any, any>;
-    let textmodelsStubTestClassifierStub: sinon.SinonStub<any, any>;
+    let classifyModelStub: sinon.SinonStub<any, any>;
     let textmodelsStubDeleteClassifierStub: sinon.SinonStub<any, any>;
+
+    function fakeClassify() {
+        const classifierTimestamp = new Date(Date.UTC(2017, 4, 4, 12, 1));
+        const classifications: Types.Classification[] = [
+            { class_name : 'first', confidence : 0.8, classifierTimestamp },
+            { class_name : 'second', confidence : 0.15, classifierTimestamp },
+            { class_name : 'third', confidence : 0.05, classifierTimestamp },
+        ];
+        return Promise.resolve(classifications);
+    }
 
     const updated = new Date();
     updated.setMilliseconds(0);
@@ -59,12 +69,12 @@ describe('REST API - models', () => {
     before(async () => {
         authStub = sinon.stub(auth, 'authenticate').callsFake(authNoOp);
 
-        textmodelsStubGetClassifiersStub = sinon.stub(textmodels, 'getClassifierStatuses');
+        getModelStatusesStub = sinon.stub(textmodels, 'getModelStatuses');
         textmodelsStubTrainClassifierStub = sinon.stub(textmodels, 'trainClassifier');
-        textmodelsStubTestClassifierStub = sinon.stub(textmodels, 'testClassifier');
+        classifyModelStub = sinon.stub(textmodels, 'classifyModel');
         textmodelsStubDeleteClassifierStub = sinon.stub(textmodels, 'deleteClassifier');
 
-        textmodelsStubGetClassifiersStub.callsFake((tenant, classifiers: Types.ConversationWorkspace[]) =>  {
+        getModelStatusesStub.callsFake((tenant, classifiers: Types.ConversationWorkspace[]) =>  {
             return new Promise((resolve) => {
                 let output: Types.ConversationWorkspace[] = [];
 
@@ -133,15 +143,7 @@ describe('REST API - models', () => {
                 return Promise.resolve(workspace);
             }
         });
-        textmodelsStubTestClassifierStub.callsFake(() => {
-            const classifierTimestamp = new Date(Date.UTC(2017, 4, 4, 12, 1));
-            const classifications: Types.Classification[] = [
-                { class_name : 'first', confidence : 0.8, classifierTimestamp },
-                { class_name : 'second', confidence : 0.15, classifierTimestamp },
-                { class_name : 'third', confidence : 0.05, classifierTimestamp },
-            ];
-            return Promise.resolve(classifications);
-        });
+        classifyModelStub.callsFake(fakeClassify);
         textmodelsStubDeleteClassifierStub.callsFake(() => {
             return Promise.resolve();
         });
@@ -155,9 +157,9 @@ describe('REST API - models', () => {
     after(() => {
         authStub.restore();
 
-        textmodelsStubGetClassifiersStub.restore();
+        getModelStatusesStub.restore();
         textmodelsStubTrainClassifierStub.restore();
-        textmodelsStubTestClassifierStub.restore();
+        classifyModelStub.restore();
         textmodelsStubDeleteClassifierStub.restore();
 
         return store.disconnect();
@@ -805,7 +807,7 @@ describe('REST API - models', () => {
 
 
 
-        it('should require credentials to test with', async () => {
+        it('should not require credentials to test with', async () => {
             nextAuth0Userid = 'userid';
             nextAuth0Role = 'student';
             nextAuth0Class = 'classid';
@@ -821,32 +823,105 @@ describe('REST API - models', () => {
                     text : 'HELLO',
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST);
+                .expect(httpstatus.OK);
 
-            assert.deepStrictEqual(resp.body, { error : 'Missing data' });
+            assert.strictEqual(resp.body.length, 3);
+            assert.strictEqual(classifyModelStub.lastCall.args[1], 'projectid');
+            assert.strictEqual(classifyModelStub.lastCall.args[2], 'modelid');
+            assert.strictEqual(classifyModelStub.lastCall.args[4], 'HELLO');
+        });
+
+
+        it('should return not found for models that no longer exist', async () => {
+            nextAuth0Userid = 'userid';
+            nextAuth0Role = 'student';
+            nextAuth0Class = 'classid';
+
+            // use the real textmodels implementation, so that the
+            //  lookup of the (missing) model record is tested
+            classifyModelStub.callsFake(classifyModelStub.wrappedMethod);
+            try {
+                const resp = await request(testServer)
+                    .post('/api/classes/' + 'classid' +
+                            '/students/' + 'userid' +
+                            '/projects/' + 'projectid' +
+                            '/models/' + 'modelid' +
+                            '/label')
+                    .send({
+                        type : 'text',
+                        text : 'HELLO',
+                        credentialsid : 'blahblahblah',
+                    })
+                    .expect('Content-Type', /json/)
+                    .expect(httpstatus.NOT_FOUND);
+
+                assert.deepStrictEqual(resp.body, {
+                    error : textmodels.ERROR_MESSAGES.MODEL_NOT_FOUND + ' Refresh the page',
+                });
+            }
+            finally {
+                classifyModelStub.callsFake(fakeClassify);
+            }
         });
 
 
         it('should require valid credentials to test text with', async () => {
-            nextAuth0Userid = 'userid';
+            const classid = uuid();
+            const userid = uuid();
+            const projName = uuid();
+            const modelid = randomstring.generate({ length : 10 });
+
+            const project = await store.storeProject(userid, classid, 'text', projName, 'en', [], false);
+
+            const created = new Date();
+            const missingCredentials: Types.BluemixCredentials = {
+                id : uuid(),
+                username : uuid(),
+                password : uuid(),
+                servicetype : 'conv',
+                url : uuid(),
+                classid,
+                credstype : 'unknown',
+            };
+            await store.storeConversationWorkspace(missingCredentials, project, {
+                id : uuid(),
+                workspace_id : modelid,
+                credentialsid : missingCredentials.id,
+                created,
+                expiry : created,
+                language : 'en',
+                name : projName,
+                url : uuid(),
+            });
+
+            nextAuth0Userid = userid;
             nextAuth0Role = 'student';
-            nextAuth0Class = 'classid';
+            nextAuth0Class = classid;
 
-            const resp = await request(testServer)
-                .post('/api/classes/' + 'classid' +
-                        '/students/' + 'userid' +
-                        '/projects/' + 'projectid' +
-                        '/models/' + 'modelid' +
-                        '/label')
-                .send({
-                    type : 'text',
-                    text : 'HELLO',
-                    credentialsid : 'blahblahblah',
-                })
-                .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_FOUND);
+            // use the real textmodels implementation, so that the
+            //  lookup of the (missing) credentials is tested
+            classifyModelStub.callsFake(classifyModelStub.wrappedMethod);
+            try {
+                const resp = await request(testServer)
+                    .post('/api/classes/' + classid +
+                            '/students/' + userid +
+                            '/projects/' + project.id +
+                            '/models/' + modelid +
+                            '/label')
+                    .send({
+                        type : 'text',
+                        text : 'HELLO',
+                    })
+                    .expect('Content-Type', /json/)
+                    .expect(httpstatus.NOT_FOUND);
 
-            assert.deepStrictEqual(resp.body, { error : 'Not found' });
+                assert.deepStrictEqual(resp.body, { error : 'Not found' });
+            }
+            finally {
+                classifyModelStub.callsFake(fakeClassify);
+            }
+
+            await store.deleteEntireUser(userid, classid);
         });
 
 

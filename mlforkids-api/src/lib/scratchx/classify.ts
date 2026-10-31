@@ -38,10 +38,7 @@ async function classifyText(key: Types.ScratchKey, text: string): Promise<Traini
         text = text.replace(TABS_OR_NEWLINES, ' ');
 
         // submit the text to the classifier
-        const resp = await textmodels.testClassifier(
-            key.credentials, key.classifierid, key.updated,
-            key.projectid, text);
-        return resp;
+        return textmodels.classifyWithScratchKey(key, text);
     }
     else {
         // we don't have a Conversation workspace yet, so we resort to random

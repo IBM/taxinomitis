@@ -24,27 +24,14 @@ export async function trainTextModelLocalProject(scratchKey: Types.ScratchKey, t
         }
 
         if (project.type === 'text') {
-            const model = await textmodels.trainClassifierForProject(project, trainingData);
+            const status = await textmodels.trainLocalWithScratchKey(project, trainingData);
 
             // lazily (after returning response to the user) update
             //  the expiry date and labels for the project
             project.labels = textmodels.getLabelNamesFromTraining(trainingData);
             db.updateLocalProject(project);
 
-            if (model.status === 'Training') {
-                return {
-                    status : 1,
-                    msg : 'Model not ready yet',
-                    type : scratchKey.type,
-                };
-            }
-            else {
-                return {
-                    status : 0,
-                    msg : 'Model ' + model.status,
-                    type : scratchKey.type,
-                };
-            }
+            return status;
         }
         else {
             return Promise.reject(new Error('Only text models can be trained using a Scratch key'));
@@ -74,21 +61,8 @@ export async function trainModel(scratchKey: Types.ScratchKey): Promise<ScratchT
         }
 
         if (project.type === 'text') {
-            const model = await textmodels.trainClassifier(project);
-            if (model.status === 'Training') {
-                return {
-                    status : 1,
-                    msg : 'Model not ready yet',
-                    type : scratchKey.type,
-                };
-            }
-            else {
-                return {
-                    status : 0,
-                    msg : 'Model ' + model.status,
-                    type : scratchKey.type,
-                };
-            }
+            // awaited so that training errors are handled below
+            return await textmodels.trainWithScratchKey(project);
         }
         else if (project.type === 'numbers') {
             return numbers.trainClassifierCloudProject(project);

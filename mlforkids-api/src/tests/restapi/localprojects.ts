@@ -46,15 +46,25 @@ describe('REST API - local projects', () => {
 
     const credsid = uuid();
 
+    function fakeClassify() {
+        const classifierTimestamp = new Date(Date.UTC(2017, 4, 4, 12, 1));
+        const classifications: Types.Classification[] = [
+            { class_name : 'first', confidence : 0.8, classifierTimestamp },
+            { class_name : 'second', confidence : 0.15, classifierTimestamp },
+            { class_name : 'third', confidence : 0.05, classifierTimestamp },
+        ];
+        return Promise.resolve(classifications);
+    }
+
     before(async () => {
         authStub = sinon.stub(auth, 'authenticate').callsFake(authNoOp);
 
-        textmodelsStubGetClassifiersStub = sinon.stub(textmodels, 'getClassifierStatuses');
+        getModelStatusesStub = sinon.stub(textmodels, 'getModelStatuses');
         textmodelsStubTrainClassifierStub = sinon.stub(textmodels, 'trainClassifierForProject');
-        textmodelsStubTestClassifierStub = sinon.stub(textmodels, 'testClassifier');
+        classifyModelStub = sinon.stub(textmodels, 'classifyModel');
         textmodelsStubDeleteClassifierStub = sinon.stub(textmodels, 'deleteClassifier');
 
-        textmodelsStubGetClassifiersStub.callsFake((tenant, classifiers: Types.ConversationWorkspace[]) =>  {
+        getModelStatusesStub.callsFake((tenant, classifiers: Types.ConversationWorkspace[]) =>  {
             return new Promise((resolve) => {
                 let output: Types.ConversationWorkspace[] = [];
 
@@ -91,15 +101,7 @@ describe('REST API - local projects', () => {
             };
             return Promise.resolve(workspace);
         });
-        textmodelsStubTestClassifierStub.callsFake(() => {
-            const classifierTimestamp = new Date(Date.UTC(2017, 4, 4, 12, 1));
-            const classifications: Types.Classification[] = [
-                { class_name : 'first', confidence : 0.8, classifierTimestamp },
-                { class_name : 'second', confidence : 0.15, classifierTimestamp },
-                { class_name : 'third', confidence : 0.05, classifierTimestamp },
-            ];
-            return Promise.resolve(classifications);
-        });
+        classifyModelStub.callsFake(fakeClassify);
         textmodelsStubDeleteClassifierStub.callsFake(() => {
             return Promise.resolve();
         });
@@ -123,18 +125,18 @@ describe('REST API - local projects', () => {
         await store.deleteProjectsByClassId(TESTCLASS);
         await store.deleteAllPendingJobs();
 
-        textmodelsStubGetClassifiersStub.restore();
+        getModelStatusesStub.restore();
         textmodelsStubTrainClassifierStub.restore();
-        textmodelsStubTestClassifierStub.restore();
+        classifyModelStub.restore();
         textmodelsStubDeleteClassifierStub.restore();
 
         return store.disconnect();
     });
 
 
-    let textmodelsStubGetClassifiersStub: sinon.SinonStub<any, any>;
+    let getModelStatusesStub: sinon.SinonStub<any, any>;
     let textmodelsStubTrainClassifierStub: sinon.SinonStub<any, any>;
-    let textmodelsStubTestClassifierStub: sinon.SinonStub<any, any>;
+    let classifyModelStub: sinon.SinonStub<any, any>;
     let textmodelsStubDeleteClassifierStub: sinon.SinonStub<any, any>;
 
 
@@ -384,6 +386,55 @@ describe('REST API - local projects', () => {
 
             await store.deleteEntireProject('userid', TESTCLASS, projectBody);
             await store.deleteBluemixCredentials(storedCredentials.id);
+        });
+
+        it('should not require a credentials id', async () => {
+            const createProject = await request(testServer)
+                .post('/api/classes/' + TESTCLASS + '/students/userid/localprojects')
+                .send({ type : 'text', name : 'model tester', labels : [ 'this', 'that' ] })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CREATED);
+            const projectBody = createProject.body;
+
+            const testModel = await request(testServer)
+                .post('/api/classes/' + TESTCLASS + '/students/userid/localprojects/' + projectBody.id + '/models/NEW-CREATED/label')
+                .send({ text: 'my test' })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+            assert(Array.isArray(testModel.body));
+            assert.strictEqual(classifyModelStub.lastCall.args[1], projectBody.id);
+            assert.strictEqual(classifyModelStub.lastCall.args[2], 'NEW-CREATED');
+            assert.strictEqual(classifyModelStub.lastCall.args[4], 'my test');
+
+            await store.deleteEntireProject('userid', TESTCLASS, projectBody);
+        });
+
+        it('should return not found for models that no longer exist', async () => {
+            const createProject = await request(testServer)
+                .post('/api/classes/' + TESTCLASS + '/students/userid/localprojects')
+                .send({ type : 'text', name : 'model tester', labels : [ 'this', 'that' ] })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CREATED);
+            const projectBody = createProject.body;
+
+            // use the real textmodels implementation, so that the
+            //  lookup of the (missing) model record is tested
+            classifyModelStub.callsFake(classifyModelStub.wrappedMethod);
+            try {
+                const testModel = await request(testServer)
+                    .post('/api/classes/' + TESTCLASS + '/students/userid/localprojects/' + projectBody.id + '/models/expired-model/label')
+                    .send({ credentialsid: credsid, text: 'my test' })
+                    .expect('Content-Type', /json/)
+                    .expect(httpstatus.NOT_FOUND);
+                assert.deepStrictEqual(testModel.body, {
+                    error : textmodels.ERROR_MESSAGES.MODEL_NOT_FOUND + ' Refresh the page',
+                });
+            }
+            finally {
+                classifyModelStub.callsFake(fakeClassify);
+            }
+
+            await store.deleteEntireProject('userid', TESTCLASS, projectBody);
         });
     });
 

@@ -24,7 +24,7 @@ export function run(): Promise<void> {
         })
         .then(() => {
             log.info('deleting expired Watson Assistant workspaces');
-            return textmodels.cleanupExpiredClassifiers();
+            return textmodels.cleanupExpiredModels();
         })
         .then(() => {
             log.info('deleting orphaned Watson Assistant workspaces owned by the platform');

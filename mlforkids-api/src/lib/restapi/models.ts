@@ -52,7 +52,7 @@ async function getModels(req: auth.RequestWithProject, res: Express.Response) {
     case 'text':
         tenant = await store.getClassTenant(classid);
         classifiers = await store.getConversationWorkspaces(projectid);
-        classifiers = await textmodels.getClassifierStatuses(tenant, classifiers);
+        classifiers = await textmodels.getModelStatuses(tenant, classifiers);
         classifiers = classifiers.map(returnConversationWorkspace);
         break;
     case 'imgtfjs':
@@ -165,20 +165,17 @@ async function testModel(req: Express.Request, res: Express.Response) {
     const projectid = req.params.projectid as string;
     const modelid = req.params.modelid as string;
     const type = req.body.type;
-    const credsid = req.body.credentialsid;
     const requestTimestamp = new Date();
 
     try {
         if (type === 'text') {
             const text = req.body.text;
-            if (!text || !credsid) {
+            if (!text) {
                 return errors.missingData(res);
             }
 
             const tenant = await store.getClassTenant(classid);
-            const creds = await store.getBluemixCredentialsById(tenant.tenantType, credsid);
-
-            const classes = await textmodels.testClassifier(creds, modelid, requestTimestamp, projectid, text);
+            const classes = await textmodels.classifyModel(tenant, projectid, modelid, requestTimestamp, text);
             return res.json(classes);
         }
         else if (type === 'numbers') {

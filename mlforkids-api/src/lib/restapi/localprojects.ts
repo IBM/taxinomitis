@@ -149,7 +149,7 @@ async function getLocalProjectModels(req: auth.RequestWithLocalProject, res: Exp
         let classifiers: any[];
         const tenant = await store.getClassTenant(classid);
         classifiers = await store.getConversationWorkspaces(projectid);
-        classifiers = await textmodels.getClassifierStatuses(tenant, classifiers);
+        classifiers = await textmodels.getModelStatuses(tenant, classifiers);
         classifiers = classifiers.map(returnConversationWorkspace);
         return res.set(headers.NO_CACHE).json(classifiers);
     }
@@ -199,19 +199,16 @@ async function testLocalProjectModel(req: auth.RequestWithLocalProject, res: Exp
     const classid = req.params.classid as string;
     const projectid = req.params.projectid as string;
     const modelid = req.params.modelid as string;
-    const credsid = req.body.credentialsid;
     const requestTimestamp = new Date();
 
     const text = req.body.text;
-    if (!text || !credsid) {
+    if (!text) {
         return errors.missingData(res);
     }
 
     try {
         const tenant = await store.getClassTenant(classid);
-        const creds = await store.getBluemixCredentialsById(tenant.tenantType, credsid);
-
-        const classes = await textmodels.testClassifier(creds, modelid, requestTimestamp, projectid, text);
+        const classes = await textmodels.classifyModel(tenant, projectid, modelid, requestTimestamp, text);
         return res.json(classes);
     }
     catch (err) {

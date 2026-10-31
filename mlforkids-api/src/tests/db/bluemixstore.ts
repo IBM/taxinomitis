@@ -6,7 +6,7 @@ import { v1 as uuid } from 'uuid';
 
 import * as store from '../../lib/db/store';
 import * as projectObjects from '../../lib/db/projects';
-import * as conversation from '../../lib/training/conversation';
+import * as textmodels from '../../lib/training/textmodels';
 import * as Types from '../../lib/training/training-types';
 import * as DbTypes from '../../lib/db/db-types';
 import * as request from '../../lib/utils/request';
@@ -635,7 +635,7 @@ describe('DB store', () => {
             assert(countBefore.length >= 0);
 
             const deleteStub = sinon.stub(request, 'del').resolves();
-            await conversation.cleanupExpiredClassifiers();
+            await textmodels.cleanupExpiredModels();
             assert(deleteStub.called);
             deleteStub.restore();
 
