@@ -385,7 +385,7 @@
             return {
                 request : function (httpconfig) {
                     if (isVersionableTemplate(httpconfig.url)) {
-                        httpconfig.url = httpconfig.url + '?v=375';
+                        httpconfig.url = httpconfig.url + '?v=376';
                     }
                     return httpconfig;
                 }
@@ -396,7 +396,7 @@
             .useSanitizeValueStrategy('sanitizeParameters')
             .useStaticFilesLoader({
                 prefix: 'static/languages/',
-                suffix: '.json?v=375'
+                suffix: '.json?v=376'
             })
             .determinePreferredLanguage(function () {
                 var lang = navigator.userLanguage || navigator.language;
