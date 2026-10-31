@@ -14,6 +14,7 @@ import * as express from 'express';
 import * as store from '../../lib/db/store';
 import * as auth from '../../lib/restapi/auth';
 import * as conversation from '../../lib/training/conversation';
+import * as textmodels from '../../lib/training/textmodels';
 import * as DbTypes from '../../lib/db/db-types';
 import * as Types from '../../lib/training/training-types';
 import testapiserver from './testserver';
@@ -113,7 +114,7 @@ describe('REST API - models', () => {
                 return Promise.reject(err);
             }
             else if (project.name === 'deleted model') {
-                const err: any = new Error(conversation.ERROR_MESSAGES.MODEL_NOT_FOUND);
+                const err: any = new Error(textmodels.ERROR_MESSAGES.MODEL_NOT_FOUND);
                 return Promise.reject(err);
             }
             else {

@@ -1,6 +1,6 @@
 // local dependencies
 import * as store from '../db/store';
-import * as conversation from '../training/conversation';
+import * as textmodels from '../training/textmodels';
 import * as Types from '../db/db-types';
 import * as TrainingTypes from '../training/training-types';
 import { shuffle } from '../utils/helpers';
@@ -38,7 +38,7 @@ async function classifyText(key: Types.ScratchKey, text: string): Promise<Traini
         text = text.replace(TABS_OR_NEWLINES, ' ');
 
         // submit the text to the classifier
-        const resp = await conversation.testClassifier(
+        const resp = await textmodels.testClassifier(
             key.credentials, key.classifierid, key.updated,
             key.projectid, text);
         return resp;

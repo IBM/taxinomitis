@@ -1,7 +1,7 @@
 // local dependencies
 import * as Types from '../db/db-types';
 import * as TrainingTypes from '../training/training-types';
-import * as conversation from '../training/conversation';
+import * as textmodels from '../training/textmodels';
 import * as ScratchTypes from './scratchx-types';
 import loggerSetup from '../utils/logger';
 
@@ -51,7 +51,7 @@ async function getTextClassifierStatus(scratchKey: Types.ScratchKey): Promise<Sc
             url: scratchKey.credentials.url + '/v1/workspaces/' + scratchKey.classifierid,
         };
 
-        const classifierWithStatus = await conversation.getStatus(credentials, classifier);
+        const classifierWithStatus = await textmodels.getStatus(credentials, classifier);
         if (classifierWithStatus.status === 'Available') {
             return {
                 status : 2,

@@ -7,6 +7,7 @@ import * as store from '../db/store';
 import * as iam from '../iam';
 import * as DbObjects from '../db/db-types';
 import * as TrainingObjects from './training-types';
+import * as textmodels from './textmodels';
 import * as notifications from '../notifications/slack';
 import { shuffle } from '../utils/helpers';
 import * as plaintext from '../utils/plaintext';
@@ -18,7 +19,6 @@ const log = loggerSetup();
 
 
 export const ERROR_MESSAGES = {
-    UNKNOWN : 'Failed to train machine learning model',
     INSUFFICIENT_API_KEYS : 'Your class already has created their maximum allowed number of models. ' +
                             'Please let your teacher or group leader know that ' +
                             'their "Watson Assistant API keys have no more skills available"',
@@ -30,14 +30,15 @@ export const ERROR_MESSAGES = {
                          'at too fast a rate. ' +
                          'Please stop now and let your teacher or group leader know that ' +
                          '"the Watson Assistant service is currently rate limiting their API key"',
-    MODEL_NOT_FOUND : 'Your machine learning model could not be found on the training server.',
-    TEXT_TOO_LONG : 'text cannot be longer than 2048 characters',
-    TEXT_NOT_PLAIN : 'Text to classify must be plain text',
-    SERVICE_ERROR : 'The Watson Assistant service that runs your machine learning model reported an unexpected error',
     MAINTENANCE : 'Sorry, the IBM Watson Assistant service used to train models to recognise text is currently undergoing maintenance',
     SKILL_IN_USE : 'Machine Learning for Kids is not allowed to delete this Watson Assistant workspace because ' +
                    'it is being used. Please delete it from IBM Cloud.',
 };
+
+// Error message returned by the Watson Assistant API when the text to
+//  classify is too long. Matched against WA responses, so it must stay
+//  identical to the WA API text (not reworded for users)
+const WA_TEXT_TOO_LONG = 'text cannot be longer than 2048 characters';
 
 
 // Builds the URL of a Watson Assistant workspace, safely encoding the
@@ -295,7 +296,7 @@ async function updateWorkspace(
             store.deleteConversationWorkspace(workspace.id);
 
             // fail, so the user can try again and this time create a new workspace
-            throw new Error(ERROR_MESSAGES.MODEL_NOT_FOUND);
+            throw new Error(textmodels.ERROR_MESSAGES.MODEL_NOT_FOUND);
         }
         else if (isMaintenanceError(err)) {
             // IBM is doing planned maintenance on the Watson Assistant service.
@@ -649,7 +650,7 @@ async function submitTrainingToConversation(
         return workspace;
     }
     catch (err) {
-        log.warn({ req, err, project : project.id, credentials : credentials.id }, ERROR_MESSAGES.UNKNOWN);
+        log.warn({ req, err, project : project.id, credentials : credentials.id }, textmodels.ERROR_MESSAGES.UNKNOWN);
 
         if (tenantPolicy.tenantType === DbObjects.ClassTenantType.ManagedPool) {
             await store.recordBluemixCredentialsPoolFailure(credentials as TrainingObjects.BluemixCredentialsPool);
@@ -659,7 +660,7 @@ async function submitTrainingToConversation(
         //  URL and credentials we used for it. So we don't want to return
         //  that - after logging, we create a new exception to throw, with
         //  just the bits that should be safe to share.
-        const trainingError: any = new Error(ERROR_MESSAGES.UNKNOWN);
+        const trainingError: any = new Error(textmodels.ERROR_MESSAGES.UNKNOWN);
         trainingError.error = err.error;
         trainingError.statusCode = err.statusCode;
 
@@ -678,7 +679,7 @@ export async function testClassifier(
 ): Promise<TrainingObjects.Classification[]>
 {
     if (!plaintext.isPlainText(text)) {
-        throw new Error(ERROR_MESSAGES.TEXT_NOT_PLAIN);
+        throw new Error(textmodels.ERROR_MESSAGES.TEXT_NOT_PLAIN);
     }
 
     try {
@@ -720,21 +721,21 @@ export async function testClassifier(
         if (err.statusCode === httpStatus.NOT_FOUND &&
             err.error && err.error.code && err.error.code === httpStatus.NOT_FOUND)
         {
-            throw new Error(ERROR_MESSAGES.MODEL_NOT_FOUND);
+            throw new Error(textmodels.ERROR_MESSAGES.MODEL_NOT_FOUND);
         }
         if (err.statusCode === httpStatus.BAD_REQUEST &&
             err.error &&
             err.error.code && err.error.code === httpStatus.BAD_REQUEST &&
             err.error.errors && Array.isArray(err.error.errors) && err.error.errors.length > 0 &&
-            err.error.errors[0].message === ERROR_MESSAGES.TEXT_TOO_LONG)
+            err.error.errors[0].message === WA_TEXT_TOO_LONG)
         {
-            throw new Error(ERROR_MESSAGES.TEXT_TOO_LONG);
+            throw new Error(textmodels.ERROR_MESSAGES.TEXT_TOO_LONG);
         }
         if (err.statusCode === httpStatus.SERVICE_UNAVAILABLE ||
             err.statusCode === httpStatus.BAD_GATEWAY ||
             err.statusCode === httpStatus.INTERNAL_SERVER_ERROR)
         {
-            throw new Error(ERROR_MESSAGES.SERVICE_ERROR);
+            throw new Error(textmodels.ERROR_MESSAGES.SERVICE_ERROR);
         }
 
         log.error({ err, classifierId, credentials, projectid, text }, 'Failed to classify text');

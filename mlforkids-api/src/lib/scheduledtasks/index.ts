@@ -1,5 +1,6 @@
 // local dependencies
 import * as conversation from '../training/conversation';
+import * as textmodels from '../training/textmodels';
 import * as expirer from '../db/expirer';
 import * as sessionusers from '../sessionusers';
 import * as pendingjobs from '../pendingjobs/runner';
@@ -23,7 +24,7 @@ export function run(): Promise<void> {
         })
         .then(() => {
             log.info('deleting expired Watson Assistant workspaces');
-            return conversation.cleanupExpiredClassifiers();
+            return textmodels.cleanupExpiredClassifiers();
         })
         .then(() => {
             log.info('deleting orphaned Watson Assistant workspaces owned by the platform');

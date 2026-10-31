@@ -3,7 +3,7 @@ import * as Types from '../db/db-types';
 import * as TrainingTypes from '../training/training-types';
 import * as ScratchTypes from './scratchx-types';
 import * as db from '../db/store';
-import * as conversation from '../training/conversation';
+import * as textmodels from '../training/textmodels';
 import * as numbers from '../training/numbers';
 import loggerSetup from '../utils/logger';
 
@@ -24,11 +24,11 @@ export async function trainTextModelLocalProject(scratchKey: Types.ScratchKey, t
         }
 
         if (project.type === 'text') {
-            const model = await conversation.trainClassifierForProject(project, trainingData);
+            const model = await textmodels.trainClassifierForProject(project, trainingData);
 
             // lazily (after returning response to the user) update
             //  the expiry date and labels for the project
-            project.labels = conversation.getLabelNamesFromTraining(trainingData);
+            project.labels = textmodels.getLabelNamesFromTraining(trainingData);
             db.updateLocalProject(project);
 
             if (model.status === 'Training') {
@@ -74,7 +74,7 @@ export async function trainModel(scratchKey: Types.ScratchKey): Promise<ScratchT
         }
 
         if (project.type === 'text') {
-            const model = await conversation.trainClassifier(project);
+            const model = await textmodels.trainClassifier(project);
             if (model.status === 'Training') {
                 return {
                     status : 1,

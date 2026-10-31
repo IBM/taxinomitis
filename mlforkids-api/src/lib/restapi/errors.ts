@@ -3,6 +3,7 @@ import * as Express from 'express';
 import { status as httpstatus } from 'http-status';
 // local dependencies
 import * as conversation from '../training/conversation';
+import * as textmodels from '../training/textmodels';
 import * as notifications from '../notifications/slack';
 import * as plaintext from '../utils/plaintext';
 import loggerSetup from '../utils/logger';
@@ -49,7 +50,7 @@ export function watsonAssistantModelCreationFailure(res: Express.Response, err: 
     else if (err.message === conversation.ERROR_MESSAGES.API_KEY_RATE_LIMIT) {
         return res.status(httpstatus.TOO_MANY_REQUESTS).send({ code : 'MLMOD02', error : err.message });
     }
-    else if (err.message === conversation.ERROR_MESSAGES.MODEL_NOT_FOUND) {
+    else if (err.message === textmodels.ERROR_MESSAGES.MODEL_NOT_FOUND) {
         return res.status(httpstatus.NOT_FOUND)
                   .send({ code : 'MLMOD03', error : err.message + ' Please try again' });
     }
@@ -77,18 +78,18 @@ export function watsonAssistantModelCreationFailure(res: Express.Response, err: 
     }
 }
 export function watsonAssistantModelTestFailure(res: Express.Response, err: NodeJS.ErrnoException | any) {
-    if (err.message === conversation.ERROR_MESSAGES.MODEL_NOT_FOUND) {
+    if (err.message === textmodels.ERROR_MESSAGES.MODEL_NOT_FOUND) {
         return res.status(httpstatus.NOT_FOUND).send({ error : err.message + ' Refresh the page' });
     }
-    if (err.message === conversation.ERROR_MESSAGES.TEXT_TOO_LONG ||
-        err.message === conversation.ERROR_MESSAGES.TEXT_NOT_PLAIN)
+    if (err.message === textmodels.ERROR_MESSAGES.TEXT_TOO_LONG ||
+        err.message === textmodels.ERROR_MESSAGES.TEXT_NOT_PLAIN)
     {
         return res.status(httpstatus.BAD_REQUEST).send({ error : err.message });
     }
     if (err.message === 'Unexpected response when retrieving the service credentials') {
         return notFound(res);
     }
-    if (err.message === conversation.ERROR_MESSAGES.SERVICE_ERROR) {
+    if (err.message === textmodels.ERROR_MESSAGES.SERVICE_ERROR) {
         return res.status(httpstatus.SERVICE_UNAVAILABLE).send({ error : err.message });
     }
     log.error({ err }, 'Test error');

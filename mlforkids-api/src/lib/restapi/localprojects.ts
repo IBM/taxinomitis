@@ -2,7 +2,7 @@
 import * as Express from 'express';
 import { status as httpstatus } from 'http-status';
 // local dependencies
-import * as conversation from '../training/conversation';
+import * as textmodels from '../training/textmodels';
 import * as numbers from '../training/numbers';
 import * as auth from './auth';
 import * as store from '../db/store';
@@ -105,15 +105,15 @@ async function newLocalProjectModel(req: auth.RequestWithLocalProject, res: Expr
         return errors.unknownError(res, new Error('Unexpected project type'));
     }
 
-    if (!conversation.validateTraining(req.body.training)) {
+    if (!textmodels.validateTraining(req.body.training)) {
         return errors.missingData(res);
     }
-    if (!conversation.isPlainTextTraining(req.body.training)) {
+    if (!textmodels.isPlainTextTraining(req.body.training)) {
         return errors.notPlainText(res);
     }
     let training: TrainingTypes.ConversationTrainingData;
     try {
-        training = conversation.sanitizeTraining(req.body.training);
+        training = textmodels.sanitizeTraining(req.body.training);
     }
     catch (err) {
         log.error({ err, func : 'newLocalProjectModel' }, 'Failed to parse training data');
@@ -121,13 +121,13 @@ async function newLocalProjectModel(req: auth.RequestWithLocalProject, res: Expr
     }
 
     try {
-        const model = await conversation.trainClassifierForProject(req.project, training);
+        const model = await textmodels.trainClassifierForProject(req.project, training);
         res.status(httpstatus.CREATED).json(returnConversationWorkspace(model));
 
         // lazily (after returning response to the user) update
         //  the expiry date and labels for the project
         const updatedProject = req.project;
-        updatedProject.labels = conversation.getLabelNamesFromTraining(req.body.training);
+        updatedProject.labels = textmodels.getLabelNamesFromTraining(req.body.training);
         store.updateLocalProject(req.project);
     }
     catch (err) {
@@ -149,7 +149,7 @@ async function getLocalProjectModels(req: auth.RequestWithLocalProject, res: Exp
         let classifiers: any[];
         const tenant = await store.getClassTenant(classid);
         classifiers = await store.getConversationWorkspaces(projectid);
-        classifiers = await conversation.getClassifierStatuses(tenant, classifiers);
+        classifiers = await textmodels.getClassifierStatuses(tenant, classifiers);
         classifiers = classifiers.map(returnConversationWorkspace);
         return res.set(headers.NO_CACHE).json(classifiers);
     }
@@ -172,7 +172,7 @@ async function deleteLocalProjectModel(req: auth.RequestWithLocalProject, res: E
     try {
         const tenant = await store.getClassTenant(classid);
         const workspace = await store.getConversationWorkspace(projectid, modelid);
-        await conversation.deleteClassifier(tenant, workspace);
+        await textmodels.deleteClassifier(tenant, workspace);
         res.sendStatus(httpstatus.NO_CONTENT);
 
         // lazily (after returning response to the user) update
@@ -211,7 +211,7 @@ async function testLocalProjectModel(req: auth.RequestWithLocalProject, res: Exp
         const tenant = await store.getClassTenant(classid);
         const creds = await store.getBluemixCredentialsById(tenant.tenantType, credsid);
 
-        const classes = await conversation.testClassifier(creds, modelid, requestTimestamp, projectid, text);
+        const classes = await textmodels.testClassifier(creds, modelid, requestTimestamp, projectid, text);
         return res.json(classes);
     }
     catch (err) {

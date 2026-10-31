@@ -16,7 +16,7 @@ import * as status from '../scratchx/status';
 import * as keys from '../scratchx/keys';
 import * as classifier from '../scratchx/classify';
 import * as training from '../scratchx/training';
-import * as conversation from '../training/conversation';
+import * as textmodels from '../training/textmodels';
 import * as numbers from '../training/numbers';
 import * as visrec from '../training/visualrecognition';
 import * as urls from './urls';
@@ -92,8 +92,8 @@ async function classifyWithScratchKey(req: Express.Request, res: Express.Respons
         if (err.message === 'Missing data') {
             return res.status(httpstatus.BAD_REQUEST).json({ error : 'Missing data' });
         }
-        if (err.message === conversation.ERROR_MESSAGES.TEXT_TOO_LONG ||
-            err.message === conversation.ERROR_MESSAGES.TEXT_NOT_PLAIN)
+        if (err.message === textmodels.ERROR_MESSAGES.TEXT_TOO_LONG ||
+            err.message === textmodels.ERROR_MESSAGES.TEXT_NOT_PLAIN)
         {
             return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
         }
@@ -143,8 +143,8 @@ async function postClassifyWithScratchKey(req: Express.Request, res: Express.Res
         if (err.message === 'Unexpected response when retrieving credentials for Scratch') {
             return res.status(httpstatus.NOT_FOUND).json({ error : 'Scratch key not found' });
         }
-        if (err.message === conversation.ERROR_MESSAGES.TEXT_TOO_LONG ||
-            err.message === conversation.ERROR_MESSAGES.TEXT_NOT_PLAIN)
+        if (err.message === textmodels.ERROR_MESSAGES.TEXT_TOO_LONG ||
+            err.message === textmodels.ERROR_MESSAGES.TEXT_NOT_PLAIN)
         {
             return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
         }
@@ -599,10 +599,10 @@ async function trainNewClassifierLocalProject(req: Express.Request, res: Express
 
     try {
         if (req.body.type === 'text') {
-            if (!conversation.validateTraining(req.body.training)) {
+            if (!textmodels.validateTraining(req.body.training)) {
                 return errors.missingData(res);
             }
-            if (!conversation.isPlainTextTraining(req.body.training)) {
+            if (!textmodels.isPlainTextTraining(req.body.training)) {
                 return errors.notPlainText(res);
             }
 

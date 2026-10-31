@@ -9,6 +9,7 @@ import * as clone from 'clone';
 
 import * as store from '../../lib/db/store';
 import * as conversation from '../../lib/training/conversation';
+import * as textmodels from '../../lib/training/textmodels';
 import * as DbTypes from '../../lib/db/db-types';
 import * as TrainingTypes from '../../lib/training/training-types';
 import * as requestUtil from '../../lib/utils/request';
@@ -165,7 +166,7 @@ describe('Training - Conversation', () => {
                 assert.fail('should not have allowed this');
             }
             catch (err) {
-                assert.strictEqual(err.message, conversation.ERROR_MESSAGES.UNKNOWN);
+                assert.strictEqual(err.message, textmodels.ERROR_MESSAGES.UNKNOWN);
             }
         });
 
@@ -338,7 +339,7 @@ describe('Training - Conversation', () => {
 
             await assert.rejects(
                 () => conversation.testClassifier(creds, 'good', new Date(), 'projectbob', 'PK\u0003\u0004\u0014\u0000'),
-                { message : conversation.ERROR_MESSAGES.TEXT_NOT_PLAIN });
+                { message : textmodels.ERROR_MESSAGES.TEXT_NOT_PLAIN });
 
             assert.strictEqual(createStub.called, false);
         });
@@ -405,7 +406,7 @@ describe('Training - Conversation', () => {
                 assert.fail('should not have allowed this');
             }
             catch (err) {
-                assert.strictEqual(err.message, conversation.ERROR_MESSAGES.SERVICE_ERROR);
+                assert.strictEqual(err.message, textmodels.ERROR_MESSAGES.SERVICE_ERROR);
             }
         });
     });

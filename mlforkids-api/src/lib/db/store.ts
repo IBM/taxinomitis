@@ -5,7 +5,7 @@ import * as postgresql from './postgresqldb';
 import * as dbobjects from './objects';
 import * as projectObjects from './projects';
 import * as Objects from './db-types';
-import * as conversation from '../training/conversation';
+import * as textmodels from '../training/textmodels';
 import * as TrainingObjects from '../training/training-types';
 import * as limits from './limits';
 import { ONE_HOUR, ONE_DAY_PLUS_A_BIT } from '../utils/constants';
@@ -252,7 +252,7 @@ export async function addLabelToProject(
     // case-insentive check to see if the label is already
     //  in use, because Watson Assistant chokes on projects
     //  with labels that differ only in case
-    if (labels.map(l => conversation.normalizeText(l)).includes(conversation.normalizeText(newlabel)) === false) {
+    if (labels.map(l => textmodels.normalizeText(l)).includes(textmodels.normalizeText(newlabel)) === false) {
         labels.push(newlabel);
     }
 
@@ -2850,7 +2850,7 @@ export async function deleteEntireProject(userid: string, classid: string, proje
         const tenant = await getClassTenant(classid);
         for (const classifier of classifiers) {
             try {
-                await conversation.deleteClassifier(tenant, classifier);
+                await textmodels.deleteClassifier(tenant, classifier);
             }
             catch (err) {
                 log.error({ err, userid, classid, projectid : project.id }, 'Failed to delete Assistant workspace');
