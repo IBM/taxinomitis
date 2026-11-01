@@ -18,6 +18,8 @@ export const ERROR_MESSAGES = {
     TEXT_TOO_LONG : 'text cannot be longer than 2048 characters',
     TEXT_NOT_PLAIN : 'Text to classify must be plain text',
     SERVICE_ERROR : 'The cloud service that runs your machine learning model reported an unexpected error',
+    SERVICE_BUSY : 'The machine learning server is busy training other models. Please wait a minute and try again.',
+    TRAINING_TOO_LARGE : 'Your training data is too big to train a machine learning model. Try using fewer or shorter examples.',
 };
 
 // longest text that can be classified
