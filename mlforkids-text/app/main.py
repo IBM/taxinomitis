@@ -11,6 +11,7 @@ MODELS_CACHE_TTL_SECONDS, MAX_CONCURRENT_TRAININGS.
 import sys
 from logging import basicConfig, getLogger
 # local dependencies
+from app.accesslog import log_probe_requests_at_debug
 from app.resources import load_production_resources
 from app.service import create_app
 from app.settings import Settings
@@ -19,5 +20,6 @@ from app.settings import Settings
 #  Only this service's own logs at INFO: libraries only log warnings.
 basicConfig(stream=sys.stdout, level="WARNING", format="%(asctime)s %(levelname)s %(name)s : %(message)s")
 getLogger("app").setLevel("INFO")
+log_probe_requests_at_debug()
 
 app = create_app(load_production_resources, Settings.from_environ())
