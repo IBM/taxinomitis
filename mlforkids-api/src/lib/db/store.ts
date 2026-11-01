@@ -1850,6 +1850,75 @@ export async function deleteNumberClassifier(
     }
 }
 
+
+export async function storeTextClassifierHead(
+    id: string,
+    project: Objects.Project | Objects.LocalProject,
+    head: Buffer,
+    updated: Date,
+): Promise<Objects.TextClassifierHead>
+{
+    const obj = dbobjects.createTextClassifierHead(id, project, head, updated);
+
+    const queryName = 'dbqn-insert-textclassifiers';
+    const queryString = 'INSERT INTO textclassifiers ' +
+                            '(id, projectid, userid, head, updated) ' +
+                        'VALUES ' +
+                            '($1, $2, $3, $4, $5) ' +
+                        'ON CONFLICT (id) DO UPDATE SET ' +
+                            'head = $4, updated = $5';
+    const queryValues = [ obj.id, obj.projectid, obj.userid, obj.head, obj.updated ];
+
+    try {
+        // bypasses dbExecute to avoid logging query values on failure
+        await dbConnPool.query({ name : queryName, text : queryString, values : queryValues });
+    }
+    catch (err) {
+        log.error({ err, id : obj.id }, 'Failed to store text classifier head');
+        throw new Error('Failed to store text classifier head');
+    }
+
+    return dbobjects.getTextClassifierHeadFromDbRow(obj);
+}
+
+export async function getTextClassifierHead(id: string): Promise<Objects.TextClassifierHead | undefined>
+{
+    const queryName = 'dbqn-select-textclassifiers-id';
+    const queryString = 'SELECT id, projectid, userid, head, updated ' +
+                        'FROM textclassifiers ' +
+                        'WHERE id = $1';
+    const queryValues = [ id ];
+
+    const response = await dbExecute(queryName, queryString, queryValues);
+    if (response.rows.length === 0) {
+        return;
+    }
+    return dbobjects.getTextClassifierHeadFromDbRow(response.rows[0]);
+}
+
+export async function getTextClassifierHeadUpdated(id: string): Promise<Date | undefined>
+{
+    const queryName = 'dbqn-select-textclassifiers-updated';
+    const queryString = 'SELECT updated FROM textclassifiers WHERE id = $1';
+    const queryValues = [ id ];
+
+    const response = await dbExecute(queryName, queryString, queryValues);
+    if (response.rows.length === 0) {
+        return;
+    }
+    return response.rows[0].updated;
+}
+
+export async function deleteTextClassifierHead(id: string): Promise<void>
+{
+    const queryName = 'dbqn-delete-textclassifiers-id';
+    const queryString = 'DELETE FROM textclassifiers WHERE id = $1';
+    const queryValues = [ id ];
+
+    await dbExecute(queryName, queryString, queryValues);
+}
+
+
 export async function updateTextClassifierExpiry(
     workspace: TrainingObjects.TextClassifier,
 ): Promise<void>
@@ -2904,6 +2973,7 @@ export async function deleteEntireProject(userid: string, classid: string, proje
         'DELETE FROM imagetraining WHERE projectid = $1',
         'DELETE FROM soundtraining WHERE projectid = $1',
         'DELETE FROM bluemixclassifiers WHERE projectid = $1',
+        'DELETE FROM textclassifiers WHERE projectid = $1',
         'DELETE FROM taxinoclassifiers WHERE projectid = $1',
         'DELETE FROM scratchkeys WHERE projectid = $1',
     ];
@@ -2924,6 +2994,7 @@ export async function deleteEntireUser(userid: string, classid: string): Promise
         'DELETE FROM projects WHERE userid = $1',
         'DELETE FROM localprojects WHERE userid = $1',
         'DELETE FROM bluemixclassifiers WHERE userid = $1',
+        'DELETE FROM textclassifiers WHERE userid = $1',
         'DELETE FROM taxinoclassifiers WHERE userid = $1',
         'DELETE FROM scratchkeys WHERE userid = $1',
     ];

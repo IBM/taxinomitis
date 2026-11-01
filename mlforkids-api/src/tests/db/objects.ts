@@ -660,6 +660,96 @@ describe('DB objects', () => {
     });
 
 
+    describe('createTextClassifierHead()', () => {
+
+        const project: Objects.Project = {
+            id : uuid(),
+            userid : 'testuser',
+            classid : 'testclass',
+            type : 'text',
+            name : 'my text project',
+            labels : [ 'happy', 'sad' ],
+            language : 'en',
+            numfields : 0,
+            isCrowdSourced : false,
+        };
+
+        it('should create a DB row for a text classifier head', () => {
+            const id = uuid();
+            const head = Buffer.from([ 0x4d, 0x4c, 0x46, 0x4b, 0x54, 0x58, 0x54, 0x01 ]);
+            const updated = new Date('2026-11-01T14:03:22Z');
+
+            const row = dbobjects.createTextClassifierHead(id, project, head, updated);
+
+            assert.deepStrictEqual(row, {
+                id,
+                projectid : project.id,
+                userid : 'testuser',
+                head : Buffer.from([ 0x4d, 0x4c, 0x46, 0x4b, 0x54, 0x58, 0x54, 0x01 ]),
+                updated : new Date('2026-11-01T14:03:22Z'),
+            });
+        });
+
+        it('should require ids', () => {
+            const head = Buffer.from([ 0x4d, 0x4c, 0x46, 0x4b, 0x54, 0x58, 0x54, 0x01 ]);
+            const updated = new Date();
+
+            const expected = { message : 'Missing required attributes' };
+            assert.throws(() => dbobjects.createTextClassifierHead(UNDEFINED_STRING, project, head, updated), expected);
+            assert.throws(() => dbobjects.createTextClassifierHead('', project, head, updated), expected);
+            assert.throws(() => dbobjects.createTextClassifierHead(uuid(), { ...project, id : '' }, head, updated), expected);
+            assert.throws(() => dbobjects.createTextClassifierHead(uuid(), { ...project, id : UNDEFINED_STRING }, head, updated), expected);
+            assert.throws(() => dbobjects.createTextClassifierHead(uuid(), { ...project, userid : '' }, head, updated), expected);
+            assert.throws(() => dbobjects.createTextClassifierHead(uuid(), { ...project, userid : UNDEFINED_STRING }, head, updated), expected);
+        });
+
+        it('should require a head', () => {
+            // @ts-expect-error need to check for values that might be undefined at runtime
+            const UNDEFINED_HEAD: Buffer = undefined;
+            const NOT_A_BUFFER = 'TUxGS1RYVAE=' as unknown as Buffer;
+
+            const expected = { message : 'Missing required attributes' };
+            assert.throws(() => dbobjects.createTextClassifierHead(uuid(), project, UNDEFINED_HEAD, new Date()), expected);
+            assert.throws(() => dbobjects.createTextClassifierHead(uuid(), project, Buffer.alloc(0), new Date()), expected);
+            assert.throws(() => dbobjects.createTextClassifierHead(uuid(), project, NOT_A_BUFFER, new Date()), expected);
+        });
+
+        it('should require a valid updated timestamp', () => {
+            const head = Buffer.from([ 0x4d, 0x4c, 0x46, 0x4b, 0x54, 0x58, 0x54, 0x01 ]);
+            // @ts-expect-error need to check for values that might be undefined at runtime
+            const UNDEFINED_DATE: Date = undefined;
+            const NOT_A_DATE = '2026-11-01T14:03:22Z' as unknown as Date;
+
+            const expected = { message : 'Missing required attributes' };
+            assert.throws(() => dbobjects.createTextClassifierHead(uuid(), project, head, UNDEFINED_DATE), expected);
+            assert.throws(() => dbobjects.createTextClassifierHead(uuid(), project, head, NOT_A_DATE), expected);
+            assert.throws(() => dbobjects.createTextClassifierHead(uuid(), project, head, new Date('not a date')), expected);
+        });
+    });
+
+
+    describe('getTextClassifierHeadFromDbRow()', () => {
+        it('should return a text classifier head from a DB row', () => {
+            const id = uuid();
+            const projectid = uuid();
+
+            const head = dbobjects.getTextClassifierHeadFromDbRow({
+                id, projectid,
+                userid : 'testuser',
+                head : Buffer.from([ 0x4d, 0x4c, 0x46, 0x4b, 0x54, 0x58, 0x54, 0x01 ]),
+                updated : new Date('2026-11-01T14:03:22Z'),
+            });
+
+            assert.deepStrictEqual(head, {
+                id, projectid,
+                userid : 'testuser',
+                head : Buffer.from([ 0x4d, 0x4c, 0x46, 0x4b, 0x54, 0x58, 0x54, 0x01 ]),
+                updated : new Date('2026-11-01T14:03:22Z'),
+            });
+        });
+    });
+
+
     describe('getCredentialsAsDbRow', () => {
 
         it('should handle missing credentials types', () => {

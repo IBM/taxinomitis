@@ -154,6 +154,22 @@ export interface SoundTrainingDbRow {
 }
 
 
+export interface TextClassifierHead {
+    readonly id: string;
+    readonly projectid: string;
+    readonly userid: string;
+    readonly head: Buffer;
+    readonly updated: Date;
+}
+
+export interface TextClassifierHeadDbRow {
+    readonly id: string;
+    readonly projectid: string;
+    readonly userid: string;
+    readonly head: Buffer;
+    readonly updated: Date;
+}
+
 
 export interface ScratchKey {
     readonly id: string;

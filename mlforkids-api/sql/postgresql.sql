@@ -156,6 +156,15 @@ CREATE TABLE mlforkidsdb.taxinoclassifiers (
 );
 -- update (5 Apr 2025) - new table
 
+CREATE TABLE mlforkidsdb.textclassifiers (
+    id character varying(36) NOT NULL PRIMARY KEY,
+    projectid character varying(36) NOT NULL,
+    userid character varying(36) NOT NULL,
+    head bytea NOT NULL,
+    updated timestamp with time zone NOT NULL
+);
+-- update (1 Nov 2026) - new table
+
 CREATE TABLE mlforkidsdb.tenants (
     id character varying(36) NOT NULL PRIMARY KEY,
     projecttypes character varying(34) DEFAULT 'text,imgtfjs,numbers,sounds'::character varying NOT NULL,
@@ -229,6 +238,9 @@ CREATE INDEX taxinoclassifiers_getclassifiersbyclassid ON mlforkidsdb.taxinoclas
 CREATE INDEX taxinoclassifiers_deleteclassifiers ON mlforkidsdb.taxinoclassifiers USING btree (projectid, userid);
 -- update (31 Oct 2026) - new indexes
 CREATE INDEX bluemixclassifiers_countclassifiersbyuserid ON mlforkidsdb.bluemixclassifiers USING btree (userid, servicetype);
+-- update (1 Nov 2026) - new indexes
+CREATE INDEX textclassifiers_deletebyprojectid ON mlforkidsdb.textclassifiers USING btree (projectid);
+CREATE INDEX textclassifiers_deletebyuserid ON mlforkidsdb.textclassifiers USING btree (userid);
 
 
 ALTER DATABASE mlforkidsdb SET search_path to mlforkidsdb;

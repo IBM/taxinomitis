@@ -771,6 +771,41 @@ export function createTextClassifier(
     };
 }
 
+export function createTextClassifierHead(
+    id: string,
+    project: Objects.Project | Objects.LocalProject,
+    head: Buffer,
+    updated: Date,
+): Objects.TextClassifierHeadDbRow
+{
+    if (id === undefined || typeof id !== 'string' || id.trim().length === 0 ||
+        project.id === undefined || typeof project.id !== 'string' || project.id.trim().length === 0 ||
+        project.userid === undefined || typeof project.userid !== 'string' || project.userid.trim().length === 0 ||
+        !Buffer.isBuffer(head) || head.length === 0 ||
+        !(updated instanceof Date) || isNaN(updated.getTime()))
+    {
+        throw new Error('Missing required attributes');
+    }
+
+    return {
+        id,
+        projectid : project.id,
+        userid : project.userid,
+        head,
+        updated,
+    };
+}
+
+export function getTextClassifierHeadFromDbRow(row: Objects.TextClassifierHeadDbRow): Objects.TextClassifierHead {
+    return {
+        id : row.id,
+        projectid : row.projectid,
+        userid : row.userid,
+        head : row.head,
+        updated : row.updated,
+    };
+}
+
 export function getTextClassifierFromDbRow(row: TrainingObjects.ClassifierDbRow): TrainingObjects.TextClassifier {
     let language: Objects.TextProjectLanguage;
     if (row.language) {
