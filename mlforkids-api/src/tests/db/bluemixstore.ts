@@ -901,7 +901,7 @@ describe('DB store', () => {
             assert.deepStrictEqual(retrieved, []);
         });
 
-        it('should not include text service models in expired Watson Assistant workspaces', async () => {
+        it('should include text service models in expired text models', async () => {
             const past = new Date();
             past.setDate(past.getDate() - 1);
             past.setMilliseconds(0);
@@ -912,7 +912,7 @@ describe('DB store', () => {
 
             const expired = await store.getExpiredConversationWorkspaces();
             const found = expired.find((workspace) => workspace.id === model.id);
-            assert.strictEqual(found, undefined);
+            assert.deepStrictEqual(found, model);
 
             await store.deleteTextClassifiersByProjectId(project.id);
         });

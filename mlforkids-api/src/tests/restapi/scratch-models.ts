@@ -28,10 +28,23 @@ describe('REST API - scratchkey models', () => {
     let deleteModelStub: sinon.SinonStub<any, any>;
     let numbersTrainingServicePostStub: sinon.SinonStub<any, any>;
     let numbersTrainingServiceDeleteStub: sinon.SinonStub<any, any>;
+    let classCredentials: TrainingTypes.BluemixCredentials;
 
     before(async () => {
         await store.init();
         testServer = testapiserver();
+
+        // the class has its own Watson Assistant keys, so new text
+        //  models are created using Watson Assistant
+        classCredentials = await store.storeBluemixCredentials(TESTCLASS, {
+            id : uuid(),
+            username : randomstring.generate(),
+            password : randomstring.generate(),
+            servicetype : 'conv',
+            url : 'https://conversation.service',
+            classid : TESTCLASS,
+            credstypeid : 2,
+        });
 
         const originalRequestPost = requestUtil.post;
         const originalRequestDelete = requestUtil.del;
@@ -80,9 +93,10 @@ describe('REST API - scratchkey models', () => {
         deleteModelStub.restore();
     });
 
-    after(() => {
+    after(async () => {
         numbersTrainingServicePostStub.restore();
         numbersTrainingServiceDeleteStub.restore();
+        await store.deleteBluemixCredentials(classCredentials.id);
         return store.disconnect();
     });
 

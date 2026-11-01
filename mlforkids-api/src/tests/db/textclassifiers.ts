@@ -4,6 +4,7 @@ import { v1 as uuid } from 'uuid';
 
 import * as store from '../../lib/db/store';
 import * as Objects from '../../lib/db/db-types';
+import * as TrainingObjects from '../../lib/training/training-types';
 
 
 describe('DB store - text classifier heads', () => {
@@ -165,6 +166,165 @@ describe('DB store - text classifier heads', () => {
             assert.deepStrictEqual(kept?.head, Buffer.from([ 0x02 ]));
 
             await store.deleteTextClassifierHead(keepId);
+        });
+    });
+
+
+    function createTextServiceModel(project: Objects.Project): TrainingObjects.TextClassifier {
+        return {
+            id : uuid(),
+            workspace_id : uuid(),
+            credentialsid : '',
+            servicetype : 'txt',
+            url : '',
+            name : project.name,
+            language : 'en',
+            created : new Date('2026-11-01T14:03:22Z'),
+            expiry : new Date('2026-11-02T14:03:22Z'),
+        };
+    }
+
+
+    describe('storeTextServiceModel', () => {
+        it('should store the model and its head', async () => {
+            const project = createProject();
+            const model = createTextServiceModel(project);
+
+            await store.storeTextServiceModel(project, model, Buffer.from([ 0x01, 0x02 ]), new Date('2026-11-01T14:03:22Z'));
+
+            const rows = await store.getTextClassifiers(project.id);
+            assert.deepStrictEqual(rows, [ model ]);
+            const head = await store.getTextClassifierHead(model.id);
+            assert.deepStrictEqual(head, {
+                id : model.id,
+                projectid : project.id,
+                userid : project.userid,
+                head : Buffer.from([ 0x01, 0x02 ]),
+                updated : new Date('2026-11-01T14:03:22Z'),
+            });
+
+            await store.deleteTextClassifier(model.id);
+        });
+
+        it('should store neither the model nor its head if the model cannot be stored', async () => {
+            const project = createProject();
+            const model = { ...createTextServiceModel(project), name : 'x'.repeat(101) };
+
+            await assert.rejects(
+                store.storeTextServiceModel(project, model, Buffer.from([ 0x01 ]), new Date()),
+                { message : 'Failed to store text model' });
+
+            assert.deepStrictEqual(await store.getTextClassifiers(project.id), []);
+            assert.strictEqual(await store.getTextClassifierHead(model.id), undefined);
+        });
+
+        it('should store neither the model nor its head if the head is invalid', async () => {
+            const project = createProject();
+            const model = createTextServiceModel(project);
+
+            await assert.rejects(
+                store.storeTextServiceModel(project, model, Buffer.alloc(0), new Date()),
+                { message : 'Missing required attributes' });
+
+            assert.deepStrictEqual(await store.getTextClassifiers(project.id), []);
+            assert.strictEqual(await store.getTextClassifierHead(model.id), undefined);
+        });
+    });
+
+
+    describe('updateTextServiceModel', () => {
+        it('should update the model id, expiry and head', async () => {
+            const project = createProject();
+            const model = createTextServiceModel(project);
+            await store.storeTextServiceModel(project, model, Buffer.from([ 0x01 ]), new Date('2026-11-01T14:03:22Z'));
+
+            const retrained = {
+                ...model,
+                workspace_id : uuid(),
+                expiry : new Date('2026-11-03T09:00:00Z'),
+            };
+            await store.updateTextServiceModel(project, retrained, Buffer.from([ 0x02, 0x03 ]), new Date('2026-11-02T09:00:00Z'));
+
+            const rows = await store.getTextClassifiers(project.id);
+            assert.deepStrictEqual(rows, [ retrained ]);
+            assert.deepStrictEqual(await store.getTextClassifier(project.id, retrained.workspace_id), {
+                ...retrained, language : 'en',
+            });
+            const head = await store.getTextClassifierHead(model.id);
+            assert.deepStrictEqual(head?.head, Buffer.from([ 0x02, 0x03 ]));
+            assert.deepStrictEqual(head?.updated, new Date('2026-11-02T09:00:00Z'));
+
+            await store.deleteTextClassifier(model.id);
+        });
+
+        it('should store a head for a model that is missing one', async () => {
+            const project = createProject();
+            const model = createTextServiceModel(project);
+            // the row only, with no head
+            await store.storeTextClassifier(project, model);
+            assert.strictEqual(await store.getTextClassifierHead(model.id), undefined);
+
+            const retrained = { ...model, workspace_id : uuid() };
+            await store.updateTextServiceModel(project, retrained, Buffer.from([ 0x02, 0x03 ]), new Date('2026-11-02T09:00:00Z'));
+
+            assert.deepStrictEqual(await store.getTextClassifiers(project.id), [ retrained ]);
+            assert.deepStrictEqual(await store.getTextClassifierHead(model.id), {
+                id : model.id,
+                projectid : project.id,
+                userid : project.userid,
+                head : Buffer.from([ 0x02, 0x03 ]),
+                updated : new Date('2026-11-02T09:00:00Z'),
+            });
+
+            await store.deleteTextClassifier(model.id);
+        });
+
+        it('should update neither the model nor its head if the model cannot be updated', async () => {
+            const project = createProject();
+            const model = createTextServiceModel(project);
+            await store.storeTextServiceModel(project, model, Buffer.from([ 0x01 ]), new Date('2026-11-01T14:03:22Z'));
+
+            const retrained = { ...model, workspace_id : 'x'.repeat(53) };
+            await assert.rejects(
+                store.updateTextServiceModel(project, retrained, Buffer.from([ 0x02 ]), new Date('2026-11-02T09:00:00Z')),
+                { message : 'Failed to update text model' });
+
+            assert.deepStrictEqual(await store.getTextClassifiers(project.id), [ model ]);
+            const head = await store.getTextClassifierHead(model.id);
+            assert.deepStrictEqual(head?.head, Buffer.from([ 0x01 ]));
+            assert.deepStrictEqual(head?.updated, new Date('2026-11-01T14:03:22Z'));
+
+            await store.deleteTextClassifier(model.id);
+        });
+
+        it('should not store a head for a model that no longer exists', async () => {
+            const project = createProject();
+            const model = createTextServiceModel(project);
+
+            await assert.rejects(
+                store.updateTextServiceModel(project, model, Buffer.from([ 0x02 ]), new Date()),
+                { message : 'Failed to update text model' });
+
+            assert.strictEqual(await store.getTextClassifierHead(model.id), undefined);
+        });
+    });
+
+
+    describe('deleteTextClassifier', () => {
+        it('should delete the model and its head', async () => {
+            const project = createProject();
+            const model = createTextServiceModel(project);
+            const other = createTextServiceModel(project);
+            await store.storeTextServiceModel(project, model, Buffer.from([ 0x01 ]), new Date());
+            await store.storeTextServiceModel(project, other, Buffer.from([ 0x02 ]), new Date());
+
+            await store.deleteTextClassifier(model.id);
+
+            assert.deepStrictEqual(await store.getTextClassifiers(project.id), [ other ]);
+            assert.strictEqual(await store.getTextClassifierHead(model.id), undefined);
+            assert.deepStrictEqual((await store.getTextClassifierHead(other.id))?.head, Buffer.from([ 0x02 ]));
+
+            await store.deleteTextClassifier(other.id);
         });
     });
 });

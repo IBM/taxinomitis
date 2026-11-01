@@ -1,11 +1,17 @@
+// core dependencies
+import { randomUUID } from 'node:crypto';
 // local dependencies
 import * as conversation from './conversation';
+import * as textservice from './textservice';
 import * as store from '../db/store';
 import * as DbObjects from '../db/db-types';
+import { TEXT_SERVICE_SCRATCHKEY_USERNAME } from '../db/objects';
 import * as TrainingObjects from './training-types';
 import * as ScratchTypes from '../scratchx/scratchx-types';
 import * as notifications from '../notifications/slack';
 import * as plaintext from '../utils/plaintext';
+import * as env from '../utils/env';
+import * as sessionusers from '../sessionusers';
 import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
@@ -20,6 +26,7 @@ export const ERROR_MESSAGES = {
     SERVICE_ERROR : 'The cloud service that runs your machine learning model reported an unexpected error',
     SERVICE_BUSY : 'The machine learning server is busy training other models. Please wait a minute and try again.',
     TRAINING_TOO_LARGE : 'Your training data is too big to train a machine learning model. Try using fewer or shorter examples.',
+    TOO_MANY_MODELS : 'You have too many machine learning models. Please delete a text project model you no longer need and try again.',
 };
 
 // longest text that can be classified
@@ -62,7 +69,64 @@ export async function trainClassifierForProject(
 }
 
 
+// error thrown by the store if a class has no Watson Assistant credentials
+const NO_CREDENTIALS_ERROR = 'Unexpected response when retrieving service credentials';
+
+
+async function chooseServiceForNewModel(tenantPolicy: DbObjects.ClassTenant): Promise<TrainingObjects.BluemixTextServiceType>
+{
+    if (tenantPolicy.id === sessionusers.CLASS_NAME) {
+        return 'conv';
+    }
+
+    if (tenantPolicy.tenantType !== DbObjects.ClassTenantType.UnManaged) {
+        return 'conv';
+    }
+
+    if (await hasWatsonAssistantCredentials(tenantPolicy)) {
+        return 'conv';
+    }
+
+    if (env.isTextServiceConfigured()) {
+        return 'txt';
+    }
+
+    // the class has no way to train a text model
+    throw new Error(NO_CREDENTIALS_ERROR);
+}
+
+async function hasWatsonAssistantCredentials(tenantPolicy: DbObjects.ClassTenant): Promise<boolean>
+{
+    try {
+        const credentials = await store.getBluemixCredentials(tenantPolicy, 'conv');
+        return credentials.length > 0;
+    }
+    catch (err) {
+        if (err.message === NO_CREDENTIALS_ERROR) {
+            return false;
+        }
+        throw err;
+    }
+}
+
+
 async function createNewModel(
+    project: DbObjects.Project | DbObjects.LocalProject,
+    tenantPolicy: DbObjects.ClassTenant,
+    training: TrainingObjects.ConversationTrainingData,
+): Promise<TrainingObjects.TextClassifier>
+{
+    const servicetype = await chooseServiceForNewModel(tenantPolicy);
+    switch (servicetype) {
+    case 'conv':
+        return createNewWatsonAssistantModel(project, tenantPolicy, training);
+    case 'txt':
+        return createNewTextServiceModel(project, tenantPolicy, training);
+    }
+}
+
+
+async function createNewWatsonAssistantModel(
     project: DbObjects.Project | DbObjects.LocalProject,
     tenantPolicy: DbObjects.ClassTenant,
     training: TrainingObjects.ConversationTrainingData,
@@ -76,14 +140,7 @@ async function createNewModel(
     }
     catch (err) {
         log.error({ err, project, credentials : credentials.id }, 'Failed to store new text model');
-
-        // This shouldn't happen.
-        // It probably needs more immediate attention, so notify the Slack bot
-        notifications.notify('Unexpected failure to train text classifier' +
-                            ' for project : ' + project.id +
-                            ' in class : ' + project.classid + ' : ' +
-                            err.message, notifications.SLACK_CHANNELS.TRAINING_ERRORS);
-
+        notifyStoreFailure(project, err);
         throw err;
     }
 
@@ -91,7 +148,136 @@ async function createNewModel(
 }
 
 
+async function createNewTextServiceModel(
+    project: DbObjects.Project | DbObjects.LocalProject,
+    tenantPolicy: DbObjects.ClassTenant,
+    training: TrainingObjects.ConversationTrainingData,
+): Promise<TrainingObjects.TextClassifier>
+{
+    const numModels = await store.countTextServiceModelsByUser(project.userid);
+    if (numModels >= tenantPolicy.maxProjectsPerUser) {
+        throw new Error(ERROR_MESSAGES.TOO_MANY_MODELS);
+    }
+
+    const trained = await textservice.train(training);
+
+    const now = new Date();
+    const model: TrainingObjects.TextClassifier = {
+        id : randomUUID(),
+        workspace_id : trained.modelid,
+        credentialsid : '',
+        servicetype : 'txt',
+        url : '',
+        name : training.name,
+        language : training.language,
+        created : now,
+        updated : now,
+        expiry : getTextServiceModelExpiry(tenantPolicy, now),
+        status : 'Available',
+    };
+
+    try {
+        await store.storeTextServiceModel(project, model, trained.head, now);
+        await store.storeOrUpdateScratchKey(project, getTextServiceScratchKeyCredentials(project),
+                                            model.workspace_id, now);
+    }
+    catch (err) {
+        log.error({ err, project : project.id, model : model.id }, 'Failed to store new text model');
+        notifyStoreFailure(project, err);
+        throw err;
+    }
+
+    return model;
+}
+
+
+function notifyStoreFailure(project: DbObjects.Project | DbObjects.LocalProject, err: Error): void
+{
+    notifications.notify('Unexpected failure to train text classifier' +
+                         ' for project : ' + project.id +
+                         ' in class : ' + project.classid + ' : ' +
+                         err.message, notifications.SLACK_CHANNELS.TRAINING_ERRORS);
+}
+
+
+function getTextServiceModelExpiry(tenantPolicy: DbObjects.ClassTenant, trained: Date): Date
+{
+    const expiry = new Date(trained.getTime());
+    expiry.setHours(expiry.getHours() + tenantPolicy.textClassifierExpiry);
+    return expiry;
+}
+
+
+/**
+ * Scratch keys for text service models don't store any credentials,
+ *  as they come from env vars. Instead, the username is used as a
+ *  marker for the service type.
+ */
+function getTextServiceScratchKeyCredentials(project: DbObjects.Project | DbObjects.LocalProject): TrainingObjects.BluemixCredentials
+{
+    return {
+        id : '',
+        servicetype : 'txt',
+        url : '',
+        username : TEXT_SERVICE_SCRATCHKEY_USERNAME,
+        password : '',
+        classid : project.classid,
+        credstype : 'unknown',
+    };
+}
+
+
 async function retrainModel(
+    project: DbObjects.Project | DbObjects.LocalProject,
+    tenantPolicy: DbObjects.ClassTenant,
+    existing: TrainingObjects.TextClassifier,
+    training: TrainingObjects.ConversationTrainingData,
+): Promise<TrainingObjects.TextClassifier>
+{
+    switch (existing.servicetype) {
+    case 'conv':
+        return retrainWatsonAssistantModel(project, tenantPolicy, existing, training);
+    case 'txt':
+        return retrainTextServiceModel(project, tenantPolicy, existing, training);
+    }
+}
+
+
+async function retrainTextServiceModel(
+    project: DbObjects.Project | DbObjects.LocalProject,
+    tenantPolicy: DbObjects.ClassTenant,
+    existing: TrainingObjects.TextClassifier,
+    training: TrainingObjects.ConversationTrainingData,
+): Promise<TrainingObjects.TextClassifier>
+{
+    const trained = await textservice.train(training);
+
+    const now = new Date();
+    const model: TrainingObjects.TextClassifier = {
+        ...existing,
+        // the service returns a new model id every time
+        workspace_id : trained.modelid,
+        updated : now,
+        expiry : getTextServiceModelExpiry(tenantPolicy, now),
+        status : 'Available',
+    };
+
+    try {
+        await store.updateTextServiceModel(project, model, trained.head, now);
+        await store.storeOrUpdateScratchKey(project, getTextServiceScratchKeyCredentials(project),
+                                            model.workspace_id, now);
+    }
+    catch (err) {
+        log.error({ err, project : project.id, model : model.id }, 'Failed to store retrained text model');
+        notifyStoreFailure(project, err);
+        throw err;
+    }
+
+    return model;
+}
+
+
+async function retrainWatsonAssistantModel(
     project: DbObjects.Project | DbObjects.LocalProject,
     tenantPolicy: DbObjects.ClassTenant,
     existing: TrainingObjects.TextClassifier,
@@ -134,7 +320,7 @@ async function retrainModel(
 export async function trainWithScratchKey(project: DbObjects.Project): Promise<ScratchTypes.Status>
 {
     const model = await trainClassifier(project);
-    return getScratchTrainingStatus(model);
+    return getScratchStatus(model.status);
 }
 
 
@@ -148,26 +334,32 @@ export async function trainLocalWithScratchKey(
 ): Promise<ScratchTypes.Status>
 {
     const model = await trainClassifierForProject(project, training);
-    return getScratchTrainingStatus(model);
+    return getScratchStatus(model.status);
 }
 
 
-function getScratchTrainingStatus(model: TrainingObjects.TextClassifier): ScratchTypes.Status
+function getScratchStatus(status: TrainingObjects.ClassifierStatus | undefined): ScratchTypes.Status
 {
-    if (model.status === 'Training') {
+    if (status === 'Available') {
+        return {
+            status : 2,
+            msg : 'Ready',
+            type : 'text',
+        };
+    }
+    else if (status === 'Training') {
         return {
             status : 1,
             msg : 'Model not ready yet',
             type : 'text',
         };
     }
-    else {
-        return {
-            status : 0,
-            msg : 'Model ' + model.status,
-            type : 'text',
-        };
-    }
+
+    return {
+        status : 0,
+        msg : 'Model ' + status,
+        type : 'text',
+    };
 }
 
 
@@ -187,7 +379,11 @@ function getScratchTrainingStatus(model: TrainingObjects.TextClassifier): Scratc
  */
 export async function deleteClassifier(tenant: DbObjects.ClassTenant, classifier: TrainingObjects.TextClassifier): Promise<void>
 {
-    await conversation.deleteModel(tenant, classifier);
+    if (classifier.servicetype === 'conv') {
+        await conversation.deleteModel(tenant, classifier);
+    }
+    // the text service doesn't store models, so text
+    //  service models only need deleting from the DB
     await deleteModelRecords(classifier);
 }
 
@@ -201,7 +397,9 @@ async function deleteModelRecords(classifier: TrainingObjects.TextClassifier): P
 
 async function deleteExpiredModel(classifier: TrainingObjects.TextClassifier): Promise<void>
 {
-    await conversation.deleteModelUnknownClass(classifier);
+    if (classifier.servicetype === 'conv') {
+        await conversation.deleteModelUnknownClass(classifier);
+    }
     await deleteModelRecords(classifier);
 }
 
@@ -241,6 +439,10 @@ export function getModelStatuses(
 
     return Promise.all(
         workspaces.map(async (workspace) => {
+            if (workspace.servicetype === 'txt') {
+                return getTextServiceModelStatus(workspace);
+            }
+
             if (workspace.credentialsid in credentialsCacheById === false) {
                 try {
                     const creds = await conversation.getModelCredentials(tenant, workspace);
@@ -255,6 +457,20 @@ export function getModelStatuses(
             return conversation.getModelStatus(credentialsCacheById[workspace.credentialsid], workspace);
         }),
     );
+}
+
+
+async function getTextServiceModelStatus(model: TrainingObjects.TextClassifier): Promise<TrainingObjects.TextClassifier>
+{
+    const updated = await store.getTextClassifierHeadUpdated(model.id);
+    if (updated) {
+        model.status = 'Available';
+        model.updated = updated;
+    }
+    else {
+        model.status = 'Non Existent';
+    }
+    return model;
 }
 
 
@@ -273,9 +489,18 @@ export async function createTextScratchKey(project: DbObjects.Project | DbObject
     else {
         const classifier = textClassifiers[0];
         const model = classifier.workspace_id;
-        const tenant = await store.getClassTenant(project.classid);
 
-        const credentials = await conversation.getModelCredentials(tenant, classifier);
+        let credentials: TrainingObjects.BluemixCredentials;
+        switch (classifier.servicetype) {
+        case 'conv': {
+            const tenant = await store.getClassTenant(project.classid);
+            credentials = await conversation.getModelCredentials(tenant, classifier);
+            break;
+        }
+        case 'txt':
+            credentials = getTextServiceScratchKeyCredentials(project);
+            break;
+        }
 
         const id = await store.storeOrUpdateScratchKey(project,
             credentials, classifier.workspace_id, classifier.created);
@@ -291,29 +516,65 @@ export async function createTextScratchKey(project: DbObjects.Project | DbObject
  */
 export async function getScratchKeyStatus(scratchKey: DbObjects.ScratchKey): Promise<ScratchTypes.Status>
 {
-    const classifierWithStatus = await conversation.getScratchKeyModelStatus(
-        scratchKey.credentials as TrainingObjects.BluemixCredentials,
-        scratchKey.classifierid as string,
-        scratchKey.name);
-    if (classifierWithStatus.status === 'Available') {
-        return {
-            status : 2,
-            msg : 'Ready',
-            type : 'text',
-        };
+    const model = getScratchKeyModel(scratchKey);
+    switch (model.servicetype) {
+    case 'conv': {
+        const classifierWithStatus = await conversation.getScratchKeyModelStatus(
+            model.credentials, model.classifierid, scratchKey.name);
+        return getScratchStatus(classifierWithStatus.status);
     }
-    else if (classifierWithStatus.status === 'Training') {
-        return {
-            status : 1,
-            msg : 'Model not ready yet',
-            type : 'text',
-        };
+    case 'txt': {
+        let status: TrainingObjects.ClassifierStatus;
+        try {
+            const workspace = await getModelRecord(scratchKey.projectid, model.classifierid);
+            const withStatus = await getTextServiceModelStatus(workspace);
+            status = withStatus.status as TrainingObjects.ClassifierStatus;
+        }
+        catch (err) {
+            if (err.message !== ERROR_MESSAGES.MODEL_NOT_FOUND) {
+                throw err;
+            }
+            status = 'Non Existent';
+        }
+        return getScratchStatus(status);
     }
+    }
+}
 
+
+/**
+ * The model that a Scratch key is for.
+ *
+ * Keys for Watson Assistant models include the credentials needed
+ *  to use the model. Keys for text service models don't, as every
+ *  call goes to the local text service.
+ */
+type ScratchKeyModel = {
+    readonly servicetype: 'conv';
+    readonly classifierid: string;
+    readonly credentials: TrainingObjects.BluemixCredentials;
+} | {
+    readonly servicetype: 'txt';
+    readonly classifierid: string;
+};
+
+
+function getScratchKeyModel(scratchKey: DbObjects.ScratchKey): ScratchKeyModel
+{
+    if (!scratchKey.credentials || !scratchKey.classifierid) {
+        // callers check this before using a key to access a model
+        throw new Error('Scratch key has no model');
+    }
+    if (scratchKey.credentials.servicetype === 'txt') {
+        return {
+            servicetype : 'txt',
+            classifierid : scratchKey.classifierid,
+        };
+    }
     return {
-        status : 0,
-        msg : 'Model ' + classifierWithStatus.status,
-        type : 'text',
+        servicetype : 'conv',
+        classifierid : scratchKey.classifierid,
+        credentials : scratchKey.credentials,
     };
 }
 
@@ -338,9 +599,41 @@ export async function classifyModel(
     text: string,
 ): Promise<TrainingObjects.Classification[]>
 {
-    let workspace: TrainingObjects.TextClassifier;
+    const workspace = await getModelRecord(projectid, modelid);
+
+    switch (workspace.servicetype) {
+    case 'conv': {
+        const credentials = await conversation.getModelCredentials(tenant, workspace);
+        return classify(projectid, classifierTimestamp, text,
+            () => conversation.classify(credentials, modelid, classifierTimestamp, text));
+    }
+    case 'txt':
+        return classify(projectid, classifierTimestamp, text,
+            () => classifyWithTextServiceModel(workspace, classifierTimestamp, text));
+    }
+}
+
+
+export async function classifyWithScratchKey(scratchKey: DbObjects.ScratchKey, text: string): Promise<TrainingObjects.Classification[]>
+{
+    const model = getScratchKeyModel(scratchKey);
+    switch (model.servicetype) {
+    case 'conv':
+        return classify(scratchKey.projectid, scratchKey.updated, text,
+            () => conversation.classify(model.credentials, model.classifierid, scratchKey.updated, text));
+    case 'txt': {
+        const workspace = await getModelRecord(scratchKey.projectid, model.classifierid);
+        return classify(scratchKey.projectid, scratchKey.updated, text,
+            () => classifyWithTextServiceModel(workspace, scratchKey.updated, text));
+    }
+    }
+}
+
+
+async function getModelRecord(projectid: string, modelid: string): Promise<TrainingObjects.TextClassifier>
+{
     try {
-        workspace = await store.getTextClassifier(projectid, modelid);
+        return await store.getTextClassifier(projectid, modelid);
     }
     catch (err) {
         if (err.message === 'Unexpected response when retrieving text classifier details') {
@@ -350,29 +643,37 @@ export async function classifyModel(
         }
         throw err;
     }
+}
 
-    const credentials = await conversation.getModelCredentials(tenant, workspace);
 
-    return classify(credentials, modelid, classifierTimestamp, projectid, text);
+function classifyWithTextServiceModel(
+    workspace: TrainingObjects.TextClassifier,
+    classifierTimestamp: Date,
+    text: string,
+): Promise<TrainingObjects.Classification[]>
+{
+    // the head is only read if the text service doesn't
+    //  already have the model cached
+    const getHead = async (): Promise<Buffer> => {
+        const stored = await store.getTextClassifierHead(workspace.id);
+        if (!stored) {
+            throw new Error(ERROR_MESSAGES.MODEL_NOT_FOUND);
+        }
+        return stored.head;
+    };
+
+    return textservice.classify(workspace.workspace_id, classifierTimestamp, text, getHead);
 }
 
 
 /**
- * Classifies text using the model for a Scratch key.
+ * Checks the text, before classifying it using the provided function.
  */
-export function classifyWithScratchKey(scratchKey: DbObjects.ScratchKey, text: string): Promise<TrainingObjects.Classification[]>
-{
-    return classify(scratchKey.credentials as TrainingObjects.BluemixCredentials,
-                    scratchKey.classifierid as string, scratchKey.updated,
-                    scratchKey.projectid, text);
-}
-
-
 async function classify(
-    credentials: TrainingObjects.BluemixCredentials,
-    classifierId: string, classifierTimestamp: Date,
     projectid: string,
+    classifierTimestamp: Date,
     text: string,
+    classifyUsingService: () => Promise<TrainingObjects.Classification[]>,
 ): Promise<TrainingObjects.Classification[]>
 {
     if (!plaintext.isPlainText(text)) {
@@ -382,7 +683,7 @@ async function classify(
         throw new Error(ERROR_MESSAGES.TEXT_TOO_LONG);
     }
 
-    const classifications = await conversation.classify(credentials, classifierId, classifierTimestamp, text);
+    const classifications = await classifyUsingService();
     if (classifications.length === 0) {
         const project = await store.getProject(projectid);
         if (project) {

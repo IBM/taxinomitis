@@ -35,6 +35,28 @@ export function replaceDbConnPoolForTest(testDbConnPool: pg.Pool) {
     dbConnPool = testDbConnPool;
 }
 
+async function dbTransaction<T>(queries: (client: pg.PoolClient) => Promise<T>): Promise<T> {
+    const client = await dbConnPool.connect();
+    try {
+        await client.query('BEGIN');
+        const result = await queries(client);
+        await client.query('COMMIT');
+        return result;
+    }
+    catch (err) {
+        try {
+            await client.query('ROLLBACK');
+        }
+        catch (rollbackErr) {
+            log.error({ err : rollbackErr }, 'Failed to rollback transaction');
+        }
+        throw err;
+    }
+    finally {
+        client.release();
+    }
+}
+
 function dbExecute(queryname: string, query: string, params: any[]) {
     return dbConnPool.query({ name: queryname, text: query, values: params })
         .catch((err) => {
@@ -1919,6 +1941,88 @@ export async function deleteTextClassifierHead(id: string): Promise<void>
 }
 
 
+export async function storeTextServiceModel(
+    project: Objects.Project | Objects.LocalProject,
+    classifier: TrainingObjects.TextClassifier,
+    head: Buffer,
+    updated: Date,
+): Promise<void>
+{
+    const headObj = dbobjects.createTextClassifierHead(classifier.id, project, head, updated);
+    const obj = dbobjects.createTextClassifier(classifier, project);
+
+    try {
+        await dbTransaction(async (client) => {
+            await client.query({
+                name : 'dbqn-insert-textclassifiers-tx',
+                text : 'INSERT INTO textclassifiers ' +
+                           '(id, projectid, userid, head, updated) ' +
+                       'VALUES ($1, $2, $3, $4, $5)',
+                values : [ headObj.id, headObj.projectid, headObj.userid, headObj.head, headObj.updated ],
+            });
+            await client.query({
+                name : 'dbqn-insert-bluemixclassifiers',
+                text : 'INSERT INTO bluemixclassifiers ' +
+                           '(id, credentialsid, ' +
+                            'projectid, userid, classid, ' +
+                            'servicetype, ' +
+                            'classifierid, url, name, language, ' +
+                            'created, expiry) ' +
+                       'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)',
+                values : [ obj.id, obj.credentialsid,
+                    obj.projectid, obj.userid, obj.classid,
+                    obj.servicetype,
+                    obj.classifierid, obj.url, obj.name, obj.language,
+                    obj.created, obj.expiry ],
+            });
+        });
+    }
+    catch (err) {
+        log.error({ id : classifier.id, code : err.code }, 'Failed to store text model');
+        throw new Error('Failed to store text model');
+    }
+}
+
+export async function updateTextServiceModel(
+    project: Objects.Project | Objects.LocalProject,
+    classifier: TrainingObjects.TextClassifier,
+    head: Buffer,
+    updated: Date,
+): Promise<void>
+{
+    const headObj = dbobjects.createTextClassifierHead(classifier.id, project, head, updated);
+
+    try {
+        await dbTransaction(async (client) => {
+            const response = await client.query({
+                name : 'dbqn-update-bluemixclassifiers-txtmodel',
+                text : 'UPDATE bluemixclassifiers ' +
+                       'SET classifierid = $1, expiry = $2 ' +
+                       'WHERE id = $3',
+                values : [ classifier.workspace_id, classifier.expiry, classifier.id ],
+            });
+            if (response.rowCount !== 1) {
+                log.warn({ id : classifier.id }, 'Text model not found');
+                throw new Error('Text model not found');
+            }
+            await client.query({
+                name : 'dbqn-insert-textclassifiers',
+                text : 'INSERT INTO textclassifiers ' +
+                           '(id, projectid, userid, head, updated) ' +
+                       'VALUES ' +
+                           '($1, $2, $3, $4, $5) ' +
+                       'ON CONFLICT (id) DO UPDATE SET ' +
+                           'head = $4, updated = $5',
+                values : [ headObj.id, headObj.projectid, headObj.userid, headObj.head, headObj.updated ],
+            });
+        });
+    }
+    catch (err) {
+        log.error({ id : classifier.id, code : err.code }, 'Failed to update text model');
+        throw new Error('Failed to update text model');
+    }
+}
+
 export async function updateTextClassifierExpiry(
     workspace: TrainingObjects.TextClassifier,
 ): Promise<void>
@@ -1942,8 +2046,8 @@ export async function getExpiredConversationWorkspaces(): Promise<TrainingObject
     const queryString = 'SELECT id, credentialsid, projectid, servicetype, ' +
                             'classifierid, url, name, language, created, expiry ' +
                         'FROM bluemixclassifiers ' +
-                        'WHERE expiry < $1 AND servicetype = $2';
-    const queryValues = [ new Date(), 'conv' ];
+                        'WHERE expiry < $1';
+    const queryValues = [ new Date() ];
 
     const response = await dbExecute(queryName, queryString, queryValues);
     return response.rows.map(dbobjects.getTextClassifierFromDbRow);
@@ -1954,12 +2058,19 @@ export async function getExpiredConversationWorkspaces(): Promise<TrainingObject
 
 export async function deleteTextClassifier(id: string): Promise<void>
 {
-    const queryName = 'dbqn-delete-bluemixclassifiers-id';
-    const queryString = 'DELETE FROM bluemixclassifiers WHERE id = $1';
-    const queryValues = [ id ];
-
     try {
-        await dbExecute(queryName, queryString, queryValues);
+        await dbTransaction(async (client) => {
+            await client.query({
+                name : 'dbqn-delete-textclassifiers-id',
+                text : 'DELETE FROM textclassifiers WHERE id = $1',
+                values : [ id ],
+            });
+            await client.query({
+                name : 'dbqn-delete-bluemixclassifiers-id',
+                text : 'DELETE FROM bluemixclassifiers WHERE id = $1',
+                values : [ id ],
+            });
+        });
     }
     catch (err) {
         log.error({ err }, 'Failed to delete classifiers info');

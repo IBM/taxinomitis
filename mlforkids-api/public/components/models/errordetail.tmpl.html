@@ -76,6 +76,33 @@
                     </em>
                 </div>
             </md-card-content>
+            <md-card-content ng-if="code === 'MLMOD16'">
+                <div class="errdetail">
+                    There is a limit for the number of machine learning models each student can have for their text projects.
+                </div>
+                <div class="errdetail">
+                    Unfortunately, you have hit this limit.
+                </div>
+                <div>
+                    You <strong>will not be able to train a new model</strong> until you delete a machine learning model that you no longer need from one of your text projects.
+                </div>
+            </md-card-content>
+            <md-card-content ng-if="code === 'MLMOD17'">
+                <div class="errdetail">
+                    Lots of people are training machine learning models right now.
+                </div>
+                <div>
+                    Please wait a minute and then try again.
+                </div>
+            </md-card-content>
+            <md-card-content ng-if="code === 'MLMOD18'">
+                <div class="errdetail">
+                    Your training data is too big to train a machine learning model.
+                </div>
+                <div>
+                    Try using fewer examples, or shorter examples, and then try again.
+                </div>
+            </md-card-content>
 
 
             <!-- ===================================== -->

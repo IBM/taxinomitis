@@ -12,6 +12,26 @@ const log = loggerSetup();
 
 
 
+// training errors that students can do something about, so
+//  are returned to Scratch instead of a generic error
+const TRAINING_ERRORS_TO_RETURN = [
+    textmodels.ERROR_MESSAGES.SERVICE_BUSY,
+    textmodels.ERROR_MESSAGES.TRAINING_TOO_LARGE,
+    textmodels.ERROR_MESSAGES.TOO_MANY_MODELS,
+];
+
+function getTrainingFailureStatus(scratchKey: Types.ScratchKey, err: Error): ScratchTypes.Status {
+    return {
+        status : 0,
+        msg : TRAINING_ERRORS_TO_RETURN.includes(err.message) ?
+            err.message :
+            'Failed to train machine learning model',
+        type : scratchKey.type,
+    };
+}
+
+
+
 export async function trainTextModelLocalProject(scratchKey: Types.ScratchKey, trainingData: TrainingTypes.ConversationTrainingData): Promise<ScratchTypes.Status> {
     if (scratchKey.type !== 'text') {
         return Promise.reject(new Error('Only text models can be trained using a Scratch key'));
@@ -39,11 +59,7 @@ export async function trainTextModelLocalProject(scratchKey: Types.ScratchKey, t
     }
     catch (err) {
         log.error({ err, scratchKey }, 'Failed to train model');
-        return {
-            status : 0,
-            msg : 'Failed to train machine learning model',
-            type : scratchKey.type,
-        };
+        return getTrainingFailureStatus(scratchKey, err);
     }
 }
 
@@ -73,10 +89,6 @@ export async function trainModel(scratchKey: Types.ScratchKey): Promise<ScratchT
     }
     catch (err) {
         log.error({ err, scratchKey }, 'Failed to train model');
-        return {
-            status : 0,
-            msg : 'Failed to train machine learning model',
-            type : scratchKey.type,
-        };
+        return getTrainingFailureStatus(scratchKey, err);
     }
 }

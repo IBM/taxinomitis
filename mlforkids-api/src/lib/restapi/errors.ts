@@ -37,7 +37,7 @@ export function notImplemented(res: Express.Response) {
 export function siteInMaintenanceMode(req: Express.Request, res: Express.Response) {
     return res.status(httpstatus.SERVICE_UNAVAILABLE).json({ error : 'Site is temporarily down for maintenance' });
 }
-export function watsonAssistantModelCreationFailure(res: Express.Response, err: NodeJS.ErrnoException | any) {
+export function textModelCreationFailure(res: Express.Response, err: NodeJS.ErrnoException | any) {
     if (err.message === conversation.ERROR_MESSAGES.INSUFFICIENT_API_KEYS) {
         return res.status(httpstatus.CONFLICT).send({ code : 'MLMOD01', error : err.message });
     }
@@ -73,11 +73,20 @@ export function watsonAssistantModelCreationFailure(res: Express.Response, err: 
     else if (err.message === conversation.ERROR_MESSAGES.MAINTENANCE) {
         return res.status(httpstatus.SERVICE_UNAVAILABLE).send({ code : 'MLMOD11', error : err.message });
     }
+    else if (err.message === textmodels.ERROR_MESSAGES.TOO_MANY_MODELS) {
+        return res.status(httpstatus.CONFLICT).send({ code : 'MLMOD16', error : err.message });
+    }
+    else if (err.message === textmodels.ERROR_MESSAGES.SERVICE_BUSY) {
+        return res.status(httpstatus.SERVICE_UNAVAILABLE).send({ code : 'MLMOD17', error : err.message });
+    }
+    else if (err.message === textmodels.ERROR_MESSAGES.TRAINING_TOO_LARGE) {
+        return res.status(httpstatus.REQUEST_ENTITY_TOO_LARGE).send({ code : 'MLMOD18', error : err.message });
+    }
     else {
         return unknownError(res, err);
     }
 }
-export function watsonAssistantModelTestFailure(res: Express.Response, err: NodeJS.ErrnoException | any) {
+export function textModelTestFailure(res: Express.Response, err: NodeJS.ErrnoException | any) {
     if (err.message === textmodels.ERROR_MESSAGES.MODEL_NOT_FOUND) {
         return res.status(httpstatus.NOT_FOUND).send({ error : err.message + ' Refresh the page' });
     }

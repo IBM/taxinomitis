@@ -14,6 +14,8 @@ import * as DbTypes from '../../lib/db/db-types';
 import * as TrainingTypes from '../../lib/training/training-types';
 import * as requestUtil from '../../lib/utils/request';
 import * as notifications from '../../lib/notifications/slack';
+import * as textservice from '../../lib/training/textservice';
+import * as env from '../../lib/utils/env';
 
 import * as mockstore from './mockstore';
 import {
@@ -757,6 +759,702 @@ describe('Training - text models', () => {
             assert.strictEqual(textmodels.isPlainTextTraining(training([
                 'www.goagle.com', 'PK\u0003\u0004\u0014\u0000\u0006\u0000',
             ])), false);
+        });
+    });
+
+
+
+    describe('text service models', () => {
+
+        let isConfiguredStub: sinon.SinonStub<[], boolean>;
+        let trainStub: sinon.SinonStub<any, any>;
+        let classifyStub: sinon.SinonStub<any, any>;
+        let countTxtStub: sinon.SinonStub<any, any>;
+        let storeTxtStub: sinon.SinonStub<any, any>;
+        let updateTxtStub: sinon.SinonStub<any, any>;
+        let getHeadStub: sinon.SinonStub<any, any>;
+        let getHeadUpdatedStub: sinon.SinonStub<any, any>;
+        let poolStub: sinon.SinonStub<any, any>;
+
+        const KEYLESS: DbTypes.ClassTenant = {
+            id : 'KEYLESS',
+            maxUsers : 10,
+            tenantType : DbTypes.ClassTenantType.UnManaged,
+            supportedProjectTypes : [ 'text' ],
+            textClassifierExpiry : 2,
+            maxProjectsPerUser : 3,
+        };
+        const POOL: DbTypes.ClassTenant = { ...KEYLESS, id : 'POOL', tenantType : DbTypes.ClassTenantType.ManagedPool };
+        const MANAGED: DbTypes.ClassTenant = { ...KEYLESS, id : 'session-users', tenantType : DbTypes.ClassTenantType.Managed };
+
+        const HEAD = Buffer.from([ 0x4d, 0x4c, 0x46, 0x4b, 0x01, 0x02 ]);
+        const MODELID = 'b0a5a5c8-2f2c-4d5e-9d3e-8a1f6e2b7c40';
+
+        const TXT_KEY_CREDENTIALS = sinon.match({ url : '', username : 'txt', password : '' });
+
+        function keylessProject(projectid: string): DbTypes.Project {
+            return { ...createProject(projectid, 'Keyless project', 'en', [ 'temperature', 'conditions' ]), classid : KEYLESS.id };
+        }
+
+        function keylessLocalProject(projectid: string): DbTypes.LocalProject {
+            return {
+                id : projectid, name : 'Keyless local project',
+                userid : 'bob', classid : KEYLESS.id,
+                type : 'text', labels : [], expiry : new Date(),
+            };
+        }
+
+        const TRAINING: TrainingTypes.ConversationTrainingData = {
+            name : 'Keyless local project',
+            language : 'en',
+            intents : [ { intent : 'label', examples : [ { text : 'example' } ] } ],
+            dialog_nodes : [],
+            counterexamples : [],
+            entities : [],
+            metadata : { createdby : 'machinelearningforkids' },
+        };
+
+        before(() => {
+            isConfiguredStub = sinon.stub(env, 'isTextServiceConfigured').returns(true);
+            trainStub = sinon.stub(textservice, 'train');
+            classifyStub = sinon.stub(textservice, 'classify');
+            countTxtStub = sinon.stub(store, 'countTextServiceModelsByUser');
+            storeTxtStub = sinon.stub(store, 'storeTextServiceModel');
+            updateTxtStub = sinon.stub(store, 'updateTextServiceModel');
+            getHeadStub = sinon.stub(store, 'getTextClassifierHead');
+            getHeadUpdatedStub = sinon.stub(store, 'getTextClassifierHeadUpdated');
+            poolStub = sinon.stub(store, 'getBluemixCredentialsPoolBatch');
+
+            getClassStub.withArgs(KEYLESS.id).resolves(KEYLESS);
+            getClassStub.withArgs(POOL.id).resolves(POOL);
+            getClassStub.withArgs(MANAGED.id).resolves(MANAGED);
+            authStoreStub.withArgs(sinon.match.has('id', KEYLESS.id), 'conv')
+                .rejects(new Error('Unexpected response when retrieving service credentials'));
+        });
+        beforeEach(() => {
+            isConfiguredStub.returns(true);
+            trainStub.reset();
+            trainStub.resolves({ modelid : MODELID, head : HEAD });
+            classifyStub.reset();
+            countTxtStub.reset();
+            countTxtStub.resolves(0);
+            storeTxtStub.reset();
+            storeTxtStub.resolves();
+            updateTxtStub.reset();
+            updateTxtStub.resolves();
+            getHeadStub.reset();
+            getHeadUpdatedStub.reset();
+            poolStub.reset();
+            poolStub.resolves([ { ...creds, credstype : 'conv_plus' } ]);
+        });
+        after(() => {
+            isConfiguredStub.restore();
+            trainStub.restore();
+            classifyStub.restore();
+            countTxtStub.restore();
+            storeTxtStub.restore();
+            updateTxtStub.restore();
+            getHeadStub.restore();
+            getHeadUpdatedStub.restore();
+            poolStub.restore();
+
+            getClassStub.reset();
+            getClassStub.callsFake(mockstore.getClassTenant);
+            authStoreStub.reset();
+            authStoreStub.callsFake(mockstore.getBluemixCredentials);
+        });
+
+
+        describe('routing new models', () => {
+
+            it('should use the text service for a class without Watson Assistant keys', async () => {
+                const project = keylessProject('keylessproject');
+
+                const before = new Date();
+                const classifier = await textmodels.trainClassifier(project);
+                const after = new Date();
+
+                assert(trainStub.calledOnce);
+                assert.strictEqual(createStub.called, false);
+
+                assert.deepStrictEqual(classifier, {
+                    id : classifier.id,
+                    workspace_id : MODELID,
+                    credentialsid : '',
+                    servicetype : 'txt',
+                    url : '',
+                    name : 'Keyless project',
+                    language : 'en',
+                    created : classifier.created,
+                    updated : classifier.created,
+                    expiry : new Date(classifier.created.getTime() + (2 * 60 * 60 * 1000)),
+                    status : 'Available',
+                });
+                assert.strictEqual(classifier.id.length, 36);
+                assert(classifier.created.getTime() >= before.getTime());
+                assert(classifier.created.getTime() <= after.getTime());
+            });
+
+            it('should use Watson Assistant for a class with its own keys', async () => {
+                const project = createProject('projectbob', 'Bob\'s text project', 'fr', [ 'temperature', 'conditions' ]);
+
+                const classifier = await textmodels.trainClassifier(project);
+
+                assert.strictEqual(classifier.servicetype, 'conv');
+                assert(trainStub.notCalled);
+                assert(countTxtStub.notCalled);
+            });
+
+            it('should report missing keys if the text service is not configured', async () => {
+                isConfiguredStub.returns(false);
+                const project = keylessProject('keylessproject');
+
+                await assert.rejects(
+                    () => textmodels.trainClassifier(project),
+                    { message : 'Unexpected response when retrieving service credentials' });
+
+                assert(trainStub.notCalled);
+                assert(storeTxtStub.notCalled);
+            });
+
+            it('should use the Watson Assistant pool for managed pool classes', async () => {
+                const project = { ...createProject('poolproject', 'Bob\'s text project', 'en', [ 'temperature' ]), classid : POOL.id };
+
+                const classifier = await textmodels.trainClassifier(project);
+
+                assert.strictEqual(classifier.servicetype, 'conv');
+                assert(poolStub.calledOnce);
+                assert(trainStub.notCalled);
+                assert(countTxtStub.notCalled);
+            });
+
+            it('should use Watson Assistant for session users without checking for keys', async () => {
+                // even if the class weren't a managed class
+                getClassStub.withArgs(MANAGED.id).resolves({ ...MANAGED, tenantType : DbTypes.ClassTenantType.UnManaged });
+                authStoreStub.resetHistory();
+                const project = { ...createProject('sessionproject', 'Bob\'s text project', 'en', [ 'temperature' ]), classid : MANAGED.id };
+
+                try {
+                    const classifier = await textmodels.trainClassifier(project);
+
+                    assert.strictEqual(classifier.servicetype, 'conv');
+                    assert(trainStub.notCalled);
+                    assert(countTxtStub.notCalled);
+                    // only the Watson Assistant adapter gets the credentials
+                    assert(authStoreStub.calledOnce);
+                }
+                finally {
+                    getClassStub.withArgs(MANAGED.id).resolves(MANAGED);
+                }
+            });
+
+            it('should use Watson Assistant for managed classes', async () => {
+                const project = { ...createProject('managedproject', 'Bob\'s text project', 'en', [ 'temperature' ]), classid : MANAGED.id };
+
+                const classifier = await textmodels.trainClassifier(project);
+
+                assert.strictEqual(classifier.servicetype, 'conv');
+                assert(trainStub.notCalled);
+                assert(countTxtStub.notCalled);
+            });
+        });
+
+
+        describe('creating text service models', () => {
+
+            it('should send the training data to the text service', async () => {
+                const project = keylessLocalProject('keylesslocal');
+
+                await textmodels.trainClassifierForProject(project, TRAINING);
+
+                assert(trainStub.calledOnceWithExactly(TRAINING));
+            });
+
+            it('should store the model, its head and a Scratch key', async () => {
+                const project = keylessProject('keylessproject');
+
+                const classifier = await textmodels.trainClassifier(project);
+
+                assert(storeTxtStub.calledOnce);
+                const [ storedProject, storedModel, storedHead, storedUpdated ] = storeTxtStub.firstCall.args;
+                assert.strictEqual(storedProject, project);
+                assert.strictEqual(storedModel.id, classifier.id);
+                assert.strictEqual(storedModel.workspace_id, MODELID);
+                assert.strictEqual(storedModel.servicetype, 'txt');
+                assert.strictEqual(storedModel.credentialsid, '');
+                assert.strictEqual(storedModel.url, '');
+                assert.deepStrictEqual(storedModel.expiry, classifier.expiry);
+                assert.strictEqual(storedHead, HEAD);
+                assert.deepStrictEqual(storedUpdated, classifier.updated);
+
+                assert(storeScratchKeyStub.calledOnceWith(project, TXT_KEY_CREDENTIALS, MODELID, classifier.updated));
+                assert(storeStoreStub.notCalled);
+            });
+
+            it('should not store a Scratch key if the model cannot be stored', async () => {
+                const project = keylessProject('keylessproject');
+                storeTxtStub.rejects(new Error('Failed to store text model'));
+                const notifyStub = sinon.stub(notifications, 'notify');
+
+                try {
+                    await assert.rejects(
+                        () => textmodels.trainClassifier(project),
+                        { message : 'Failed to store text model' });
+
+                    assert(storeScratchKeyStub.notCalled);
+                    assert(notifyStub.calledOnce);
+                }
+                finally {
+                    notifyStub.restore();
+                }
+            });
+
+            it('should not store anything if training fails', async () => {
+                const project = keylessProject('keylessproject');
+                trainStub.rejects(new Error(textmodels.ERROR_MESSAGES.SERVICE_BUSY));
+
+                await assert.rejects(
+                    () => textmodels.trainClassifier(project),
+                    { message : textmodels.ERROR_MESSAGES.SERVICE_BUSY });
+
+                assert(storeTxtStub.notCalled);
+                assert(storeScratchKeyStub.notCalled);
+            });
+        });
+
+
+        describe('model limit', () => {
+
+            it('should not train a new model for a student at the limit', async () => {
+                const project = keylessProject('keylessproject');
+                countTxtStub.withArgs('bob').resolves(3);
+
+                await assert.rejects(
+                    () => textmodels.trainClassifier(project),
+                    { message : textmodels.ERROR_MESSAGES.TOO_MANY_MODELS });
+
+                assert(trainStub.notCalled);
+                assert(storeTxtStub.notCalled);
+            });
+
+            it('should train a new model for a student below the limit', async () => {
+                const project = keylessProject('keylessproject');
+                countTxtStub.withArgs('bob').resolves(2);
+
+                await textmodels.trainClassifier(project);
+
+                assert(trainStub.calledOnce);
+            });
+
+            it('should apply the limit to local projects', async () => {
+                const project = keylessLocalProject('keylesslocal');
+                countTxtStub.withArgs('bob').resolves(3);
+
+                await assert.rejects(
+                    () => textmodels.trainClassifierForProject(project, TRAINING),
+                    { message : textmodels.ERROR_MESSAGES.TOO_MANY_MODELS });
+
+                assert(trainStub.notCalled);
+            });
+
+            it('should not limit Watson Assistant models', async () => {
+                const project = createProject('projectbob', 'Bob\'s text project', 'fr', [ 'temperature', 'conditions' ]);
+                countTxtStub.resolves(100);
+
+                const classifier = await textmodels.trainClassifier(project);
+
+                assert.strictEqual(classifier.servicetype, 'conv');
+            });
+        });
+
+
+        function existingTxtModel(projectid: string): TrainingTypes.TextClassifier {
+            return {
+                id : 'txt-dbid-' + projectid,
+                workspace_id : 'old-' + MODELID,
+                credentialsid : '',
+                servicetype : 'txt',
+                url : '',
+                name : 'Keyless project',
+                language : 'en',
+                created : new Date('2026-10-30T10:00:00Z'),
+                expiry : new Date('2026-10-30T12:00:00Z'),
+            };
+        }
+
+        function txtScratchKey(projectid: string, classifierid: string): DbTypes.ScratchKey {
+            return {
+                id : uuid(),
+                name : 'Keyless project',
+                type : 'text',
+                projectid,
+                classifierid,
+                credentials : {
+                    id : '', servicetype : 'txt',
+                    url : '', username : 'txt', password : '',
+                    classid : KEYLESS.id, credstype : 'unknown',
+                },
+                updated : new Date('2026-10-30T10:00:00Z'),
+            };
+        }
+
+
+        describe('retraining text service models', () => {
+
+            for (const tenant of [ KEYLESS, POOL, MANAGED ]) {
+                it('should retrain using the text service for a ' + DbTypes.ClassTenantType[tenant.tenantType] + ' class', async () => {
+                    const project = { ...keylessProject('retrainproject'), classid : tenant.id };
+                    const existing = existingTxtModel(project.id);
+                    getTextClassifiersStub.withArgs(project.id).resolves([ existing ]);
+                    const recordFailureStub = sinon.stub(store, 'recordBluemixCredentialsPoolFailure');
+
+                    try {
+                        const before = new Date();
+                        const classifier = await textmodels.trainClassifier(project);
+
+                        assert(trainStub.calledOnce);
+                        assert.strictEqual(createStub.called, false);
+                        assert(poolStub.notCalled);
+                        assert(recordFailureStub.notCalled);
+
+                        assert.strictEqual(classifier.id, existing.id);
+                        assert.strictEqual(classifier.workspace_id, MODELID);
+                        assert.strictEqual(classifier.status, 'Available');
+                        assert(classifier.updated && classifier.updated.getTime() >= before.getTime());
+                        assert.deepStrictEqual(classifier.expiry,
+                            new Date((classifier.updated as Date).getTime() + (2 * 60 * 60 * 1000)));
+
+                        assert(updateTxtStub.calledOnceWith(project, classifier, HEAD, classifier.updated));
+                        assert(storeScratchKeyStub.calledOnceWith(project, TXT_KEY_CREDENTIALS, MODELID, classifier.updated));
+                        assert(storeTxtStub.notCalled);
+                        assert(updateConversationStub.notCalled);
+                    }
+                    finally {
+                        recordFailureStub.restore();
+                        getTextClassifiersStub.withArgs(project.id).callsFake(mockstore.getTextClassifiers);
+                    }
+                });
+            }
+
+            it('should retrain a student\'s model when they are at the limit', async () => {
+                const project = keylessProject('retrainproject');
+                getTextClassifiersStub.withArgs(project.id).resolves([ existingTxtModel(project.id) ]);
+                countTxtStub.resolves(3);
+
+                try {
+                    const classifier = await textmodels.trainClassifier(project);
+                    assert.strictEqual(classifier.workspace_id, MODELID);
+                }
+                finally {
+                    getTextClassifiersStub.withArgs(project.id).callsFake(mockstore.getTextClassifiers);
+                }
+            });
+
+            it('should retrain using the text service even if it is no longer configured', async () => {
+                isConfiguredStub.returns(false);
+                const project = keylessProject('retrainproject');
+                getTextClassifiersStub.withArgs(project.id).resolves([ existingTxtModel(project.id) ]);
+
+                try {
+                    await textmodels.trainClassifier(project);
+                    assert(trainStub.calledOnce);
+                }
+                finally {
+                    getTextClassifiersStub.withArgs(project.id).callsFake(mockstore.getTextClassifiers);
+                }
+            });
+
+            it('should report failures to store a retrained model', async () => {
+                const project = keylessProject('retrainproject');
+                getTextClassifiersStub.withArgs(project.id).resolves([ existingTxtModel(project.id) ]);
+                const dbError = new Error('Scratch key not updated');
+                storeScratchKeyStub.onFirstCall().rejects(dbError);
+                const notifyStub = sinon.stub(notifications, 'notify');
+
+                try {
+                    await assert.rejects(
+                        () => textmodels.trainClassifier(project),
+                        dbError);
+
+                    assert(updateTxtStub.calledOnce);
+                    assert(notifyStub.calledOnce);
+                    assert(notifyStub.firstCall.args[0].includes('retrainproject'));
+                    assert(notifyStub.firstCall.args[0].includes('Scratch key not updated'));
+                    assert.strictEqual(notifyStub.firstCall.args[1], notifications.SLACK_CHANNELS.TRAINING_ERRORS);
+                }
+                finally {
+                    notifyStub.restore();
+                    storeScratchKeyStub.reset();
+                    storeScratchKeyStub.callsFake(mockstore.storeOrUpdateScratchKey);
+                    getTextClassifiersStub.withArgs(project.id).callsFake(mockstore.getTextClassifiers);
+                }
+            });
+
+            it('should keep the existing records if retraining fails', async () => {
+                const project = keylessProject('retrainproject');
+                getTextClassifiersStub.withArgs(project.id).resolves([ existingTxtModel(project.id) ]);
+                trainStub.rejects(new Error(textmodels.ERROR_MESSAGES.TRAINING_TOO_LARGE));
+
+                try {
+                    await assert.rejects(
+                        () => textmodels.trainClassifier(project),
+                        { message : textmodels.ERROR_MESSAGES.TRAINING_TOO_LARGE });
+
+                    assert(updateTxtStub.notCalled);
+                    assert(storeScratchKeyStub.notCalled);
+                    assert(deleteStoreStub.notCalled);
+                }
+                finally {
+                    getTextClassifiersStub.withArgs(project.id).callsFake(mockstore.getTextClassifiers);
+                }
+            });
+        });
+
+
+        describe('text service model statuses', () => {
+
+            for (const tenant of [ KEYLESS, POOL, MANAGED ]) {
+                it('should report a model with a head as available for a ' + DbTypes.ClassTenantType[tenant.tenantType] + ' class', async () => {
+                    const model = existingTxtModel('statusproject');
+                    getHeadUpdatedStub.withArgs(model.id).resolves(new Date('2026-10-31T09:00:00Z'));
+                    authByIdStoreStub.resetHistory();
+                    getStub.resetHistory();
+
+                    const statuses = await textmodels.getModelStatuses(tenant, [ model ]);
+
+                    assert.deepStrictEqual(statuses, [ {
+                        ...existingTxtModel('statusproject'),
+                        status : 'Available',
+                        updated : new Date('2026-10-31T09:00:00Z'),
+                    } ]);
+                    assert(authByIdStoreStub.notCalled);
+                    assert(getStub.neverCalledWith(sinon.match(/workspaces/)));
+                });
+            }
+
+            it('should report a model without a head as non existent', async () => {
+                const model = existingTxtModel('statusproject');
+                getHeadUpdatedStub.withArgs(model.id).resolves(undefined);
+
+                const statuses = await textmodels.getModelStatuses(KEYLESS, [ model ]);
+
+                assert.strictEqual(statuses[0].status, 'Non Existent');
+            });
+
+            it('should get statuses for a mix of models', async () => {
+                const model = existingTxtModel('statusproject');
+                getHeadUpdatedStub.withArgs(model.id).resolves(new Date('2026-10-31T09:00:00Z'));
+
+                const statuses = await textmodels.getModelStatuses(CLASS, [ clone(goodClassifier), model ]);
+
+                assert.deepStrictEqual(statuses[0], goodClassifierWithStatus);
+                assert.strictEqual(statuses[1].status, 'Available');
+            });
+        });
+
+
+        describe('classifying with text service models', () => {
+
+            const CLASSES = [
+                { class_name : 'temperature', confidence : 91, classifierTimestamp : new Date('2026-11-01T10:00:00Z') },
+                { class_name : 'conditions', confidence : 9, classifierTimestamp : new Date('2026-11-01T10:00:00Z') },
+            ];
+
+            it('should classify using the stored record of the model', async () => {
+                const model = { ...existingTxtModel('classifyproject'), workspace_id : MODELID };
+                getTextClassifierStub.withArgs('classifyproject', MODELID).resolves(model);
+                classifyStub.resolves(CLASSES);
+
+                const timestamp = new Date('2026-11-01T10:00:00Z');
+                const classes = await textmodels.classifyModel(POOL, 'classifyproject', MODELID, timestamp, 'Hello');
+
+                assert.deepStrictEqual(classes, CLASSES);
+                assert(classifyStub.calledOnceWith(MODELID, timestamp, 'Hello'));
+                assert.strictEqual(createStub.called, false);
+            });
+
+            it('should only read the head if the service asks for it', async () => {
+                const model = { ...existingTxtModel('classifyproject'), workspace_id : MODELID };
+                getTextClassifierStub.withArgs('classifyproject', MODELID).resolves(model);
+                getHeadStub.withArgs(model.id).resolves({ id : model.id, projectid : 'classifyproject', userid : 'bob', head : HEAD, updated : new Date() });
+                classifyStub.resolves(CLASSES);
+
+                await textmodels.classifyModel(KEYLESS, 'classifyproject', MODELID, new Date(), 'Hello');
+                assert(getHeadStub.notCalled);
+
+                const getHead = classifyStub.firstCall.args[3];
+                assert.strictEqual(await getHead(), HEAD);
+                assert(getHeadStub.calledOnceWith(model.id));
+            });
+
+            it('should report a missing head as a missing model', async () => {
+                const model = { ...existingTxtModel('classifyproject'), workspace_id : MODELID };
+                getTextClassifierStub.withArgs('classifyproject', MODELID).resolves(model);
+                getHeadStub.withArgs(model.id).resolves(undefined);
+                classifyStub.resolves(CLASSES);
+
+                await textmodels.classifyModel(KEYLESS, 'classifyproject', MODELID, new Date(), 'Hello');
+
+                const getHead = classifyStub.firstCall.args[3];
+                await assert.rejects(getHead, { message : textmodels.ERROR_MESSAGES.MODEL_NOT_FOUND });
+            });
+
+            it('should check the text before calling the text service', async () => {
+                const model = { ...existingTxtModel('classifyproject'), workspace_id : MODELID };
+                getTextClassifierStub.withArgs('classifyproject', MODELID).resolves(model);
+
+                await assert.rejects(
+                    () => textmodels.classifyModel(KEYLESS, 'classifyproject', MODELID, new Date(), 'x'.repeat(2049)),
+                    { message : textmodels.ERROR_MESSAGES.TEXT_TOO_LONG });
+                assert(classifyStub.notCalled);
+            });
+
+            it('should classify with a Scratch key', async () => {
+                const model = { ...existingTxtModel('classifyproject'), workspace_id : MODELID };
+                getTextClassifierStub.withArgs('classifyproject', MODELID).resolves(model);
+                classifyStub.resolves(CLASSES);
+                const key = txtScratchKey('classifyproject', MODELID);
+
+                const classes = await textmodels.classifyWithScratchKey(key, 'Hello');
+
+                assert.deepStrictEqual(classes, CLASSES);
+                assert(classifyStub.calledOnceWith(MODELID, key.updated, 'Hello'));
+                assert.strictEqual(createStub.called, false);
+            });
+
+            it('should report a Scratch key for a deleted model as not found', async () => {
+                getTextClassifierStub.withArgs('classifyproject', 'deleted')
+                    .rejects(new Error('Unexpected response when retrieving text classifier details'));
+
+                await assert.rejects(
+                    () => textmodels.classifyWithScratchKey(txtScratchKey('classifyproject', 'deleted'), 'Hello'),
+                    { message : textmodels.ERROR_MESSAGES.MODEL_NOT_FOUND });
+                assert(classifyStub.notCalled);
+            });
+        });
+
+
+        describe('deleting text service models', () => {
+
+            for (const tenant of [ KEYLESS, POOL, MANAGED ]) {
+                it('should delete only from the DB for a ' + DbTypes.ClassTenantType[tenant.tenantType] + ' class', async () => {
+                    const model = existingTxtModel('deleteproject');
+                    const deletionStub = sinon.stub(store, 'recordBluemixCredentialsPoolModelDeletion');
+                    authByIdStoreStub.resetHistory();
+
+                    try {
+                        await textmodels.deleteClassifier(tenant, model);
+
+                        assert(deleteStoreStub.calledOnceWith(model.id));
+                        assert(resetExpiredScratchKeyStub.calledOnceWith(model.workspace_id, 'text'));
+                        assert(deleteStub.notCalled);
+                        assert(authByIdStoreStub.notCalled);
+                        assert(deletionStub.notCalled);
+                    }
+                    finally {
+                        deletionStub.restore();
+                    }
+                });
+            }
+        });
+
+
+        describe('cleaning up expired text service models', () => {
+
+            let getExpiredStub: sinon.SinonStub<[], Promise<TrainingTypes.TextClassifier[]>>;
+            let getCombinedCredsStub: sinon.SinonStub<[string], Promise<TrainingTypes.BluemixCredentials>>;
+
+            before(() => {
+                getExpiredStub = sinon.stub(store, 'getExpiredConversationWorkspaces');
+                getCombinedCredsStub = sinon.stub(store, 'getCombinedBluemixCredentialsById');
+                getCombinedCredsStub.withArgs('123').resolves(creds);
+            });
+            after(() => {
+                getExpiredStub.restore();
+                getCombinedCredsStub.restore();
+            });
+
+            it('should delete expired text service models from the DB only', async () => {
+                const expiredTxt = existingTxtModel('expiredproject');
+                getExpiredStub.resolves([ goodClassifier, expiredTxt ]);
+
+                await textmodels.cleanupExpiredModels();
+
+                assert(deleteStoreStub.calledTwice);
+                assert(deleteStoreStub.calledWith(expiredTxt.id));
+                assert(resetExpiredScratchKeyStub.calledWith(expiredTxt.workspace_id, 'text'));
+                assert(getCombinedCredsStub.neverCalledWith(''));
+
+                // Watson Assistant models are deleted as before
+                assert(deleteStub.calledOnce);
+                assert(deleteStub.calledWith('http://conversation.service/v1/workspaces/good', sinon.match.any));
+                assert(deleteStoreStub.calledWith(goodClassifier.id));
+                assert(resetExpiredScratchKeyStub.calledWith(goodClassifier.workspace_id, 'text'));
+            });
+        });
+
+
+        describe('Scratch keys for text service models', () => {
+
+            it('should create a Scratch key for an existing model', async () => {
+                const project = keylessProject('scratchproject');
+                const model = existingTxtModel(project.id);
+                getTextClassifiersStub.withArgs(project.id).resolves([ model ]);
+                storeScratchKeyStub.resolves('newkeyid');
+                authByIdStoreStub.resetHistory();
+
+                try {
+                    const key = await textmodels.createTextScratchKey(project);
+
+                    assert.deepStrictEqual(key, { id : 'newkeyid', model : model.workspace_id });
+                    assert(storeScratchKeyStub.calledOnceWith(project, TXT_KEY_CREDENTIALS, model.workspace_id, model.created));
+                    assert(authByIdStoreStub.notCalled);
+                }
+                finally {
+                    getTextClassifiersStub.withArgs(project.id).callsFake(mockstore.getTextClassifiers);
+                    storeScratchKeyStub.reset();
+                    storeScratchKeyStub.callsFake(mockstore.storeOrUpdateScratchKey);
+                }
+            });
+
+            it('should report a model with a head as ready', async () => {
+                const model = { ...existingTxtModel('scratchproject'), workspace_id : MODELID };
+                getTextClassifierStub.withArgs('scratchproject', MODELID).resolves(model);
+                getHeadUpdatedStub.withArgs(model.id).resolves(new Date());
+
+                const status = await textmodels.getScratchKeyStatus(txtScratchKey('scratchproject', MODELID));
+
+                assert.deepStrictEqual(status, { status : 2, msg : 'Ready', type : 'text' });
+            });
+
+            it('should report a model without a head as unavailable', async () => {
+                const model = { ...existingTxtModel('scratchproject'), workspace_id : MODELID };
+                getTextClassifierStub.withArgs('scratchproject', MODELID).resolves(model);
+                getHeadUpdatedStub.withArgs(model.id).resolves(undefined);
+
+                const status = await textmodels.getScratchKeyStatus(txtScratchKey('scratchproject', MODELID));
+
+                assert.deepStrictEqual(status, { status : 0, msg : 'Model Non Existent', type : 'text' });
+            });
+
+            it('should report a deleted model as unavailable', async () => {
+                getTextClassifierStub.withArgs('scratchproject', 'deleted')
+                    .rejects(new Error('Unexpected response when retrieving text classifier details'));
+
+                const status = await textmodels.getScratchKeyStatus(txtScratchKey('scratchproject', 'deleted'));
+
+                assert.deepStrictEqual(status, { status : 0, msg : 'Model Non Existent', type : 'text' });
+            });
+
+            it('should report a new cloud model as ready', async () => {
+                const status = await textmodels.trainWithScratchKey(keylessProject('scratchproject'));
+                assert.deepStrictEqual(status, { status : 2, msg : 'Ready', type : 'text' });
+            });
+
+            it('should report a new local model as ready', async () => {
+                const status = await textmodels.trainLocalWithScratchKey(keylessLocalProject('scratchlocal'), TRAINING);
+                assert.deepStrictEqual(status, { status : 2, msg : 'Ready', type : 'text' });
+            });
         });
     });
 });

@@ -82,6 +82,11 @@ export function getSiteHostUrl() {
     return 'http://localhost:' + getPortNumber();
 }
 
+export function isTextServiceConfigured(): boolean {
+    return !!process.env[TEXT_SERVICE] &&
+           !!process.env[TEXT_SERVICE_USER] &&
+           !!process.env[TEXT_SERVICE_PASS];
+}
 
 export function getNumbersServiceHostUrls(): string[] {
     if (process.env[NUMBERS_SERVICE_HOSTS]) {

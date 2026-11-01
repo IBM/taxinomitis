@@ -83,7 +83,7 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
             return res.status(httpstatus.CREATED).json(returnTextClassifier(model));
         }
         catch (err) {
-            return errors.watsonAssistantModelCreationFailure(res, err);
+            return errors.textModelCreationFailure(res, err);
         }
     }
     case 'numbers': {
@@ -216,7 +216,7 @@ async function testModel(req: Express.Request, res: Express.Response) {
             return res.status(httpstatus.BAD_REQUEST)
                     .send({ error : 'The test image address is not a valid web address' });
         }
-        return errors.watsonAssistantModelTestFailure(res, err);
+        return errors.textModelTestFailure(res, err);
     }
 }
 

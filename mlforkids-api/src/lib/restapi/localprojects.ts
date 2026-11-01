@@ -131,7 +131,7 @@ async function newLocalProjectModel(req: auth.RequestWithLocalProject, res: Expr
         store.updateLocalProject(req.project);
     }
     catch (err) {
-        return errors.watsonAssistantModelCreationFailure(res, err);
+        return errors.textModelCreationFailure(res, err);
     }
 }
 
@@ -212,7 +212,7 @@ async function testLocalProjectModel(req: auth.RequestWithLocalProject, res: Exp
         return res.json(classes);
     }
     catch (err) {
-        return errors.watsonAssistantModelTestFailure(res, err);
+        return errors.textModelTestFailure(res, err);
     }
 }
 
