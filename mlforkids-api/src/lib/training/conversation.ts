@@ -39,6 +39,8 @@ export const ERROR_MESSAGES = {
 //  identical to the WA API text (not reworded for users)
 const WA_TEXT_TOO_LONG = 'text cannot be longer than 2048 characters';
 
+const SERVICE_TYPE: TrainingObjects.BluemixTextServiceType = 'conv';
+
 
 // Builds the URL of a Watson Assistant workspace, safely encoding the
 //  workspace id so it cannot be used to redirect the request to a
@@ -429,6 +431,7 @@ export function getScratchKeyModelStatus(
         name,
         workspace_id : workspaceId,
         credentialsid : credentials.id,
+        servicetype : SERVICE_TYPE,
         created : new Date(),
         expiry : new Date(),
         language : 'en',
@@ -512,6 +515,7 @@ async function submitTrainingToConversation(
             expiry : modelAutoExpiryTime,
             workspace_id : body.workspace_id,
             credentialsid : credentials.id,
+            servicetype : SERVICE_TYPE,
             status : body.status ? body.status : 'Training',
             url : workspaceUrl(credentials.url, body.workspace_id),
         };

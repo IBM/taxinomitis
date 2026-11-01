@@ -94,6 +94,7 @@ describe('Scratchx - status', () => {
             status : 'Available',
             workspace_id : uuid(),
             credentialsid : '123',
+            servicetype : 'conv',
             created : new Date(),
             expiry : new Date(),
             language : 'en',

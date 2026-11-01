@@ -38,6 +38,7 @@ describe('Training - Unmanaged classifiers', () => {
         id : uuid.v4(),
         workspace_id : uuid.v1(),
         credentialsid : convCredentials.id,
+        servicetype : 'conv',
         url : 'https://gateway-test.watsonplatform.net/conversation/api',
         name : textProjectName,
         language : 'en',
@@ -62,7 +63,7 @@ describe('Training - Unmanaged classifiers', () => {
 
             await store.storeBluemixCredentials(CLASSID, dbobjects.getCredentialsAsDbRow(convCredentials));
 
-            await store.storeConversationWorkspace(convCredentials, textProject, validWorkspace);
+            await store.storeConversationWorkspace(textProject, validWorkspace);
         });
 
         after(async () => {

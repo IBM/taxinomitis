@@ -39,7 +39,7 @@ describe('Training - text models', () => {
     let getConversationWorkspacesStub: sinon.SinonStub<[string], Promise<TrainingTypes.ConversationWorkspace[]>>;
     let getConversationWorkspaceStub: sinon.SinonStub<[string, string], Promise<TrainingTypes.ConversationWorkspace>>;
     let getStoreStub: sinon.SinonStub<[string, string, DbTypes.PagingOptions], Promise<string[]>>;
-    let storeStoreStub: sinon.SinonStub<[TrainingTypes.BluemixCredentials, DbTypes.Project | DbTypes.LocalProject, TrainingTypes.ConversationWorkspace], Promise<TrainingTypes.ConversationWorkspace>>;
+    let storeStoreStub: sinon.SinonStub<[DbTypes.Project | DbTypes.LocalProject, TrainingTypes.ConversationWorkspace], Promise<TrainingTypes.ConversationWorkspace>>;
     let updateConversationStub: sinon.SinonStub<[TrainingTypes.ConversationWorkspace], Promise<void>>;
     let deleteStoreStub: sinon.SinonStub<[string], Promise<void>>;
     let storeScratchKeyStub: sinon.SinonStub<[DbTypes.Project | DbTypes.LocalProject, TrainingTypes.BluemixCredentials, string, Date], Promise<string>>;
@@ -161,6 +161,7 @@ describe('Training - text models', () => {
                 expiry : newExpiryDate,
                 workspace_id : '04f2d303-16fd-4f2e-80f4-2c66784cc0fe',
                 credentialsid : '123',
+                servicetype : 'conv',
                 status : 'Training',
                 url : 'http://conversation.service/v1/workspaces/04f2d303-16fd-4f2e-80f4-2c66784cc0fe',
             });
@@ -172,7 +173,7 @@ describe('Training - text models', () => {
             assert.strictEqual(training.intents[0].examples.length, 18);
             assert.strictEqual(training.intents[1].examples.length, 16);
 
-            assert(storeStoreStub.calledOnceWith(mockstore.creds, project, classifier));
+            assert(storeStoreStub.calledOnceWith(project, classifier));
             assert(storeScratchKeyStub.calledOnceWith(project, mockstore.creds,
                 '04f2d303-16fd-4f2e-80f4-2c66784cc0fe', newClassifierDate));
         });

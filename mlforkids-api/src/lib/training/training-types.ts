@@ -38,8 +38,8 @@ export interface BluemixCredentialsPoolDbRow extends BluemixCredentialsDbRow {
 }
 
 
-
-export type BluemixServiceType = 'conv' | 'num' | 'sounds' | 'imgtfjs';
+export type BluemixTextServiceType = 'conv' | 'txt';
+export type BluemixServiceType = BluemixTextServiceType | 'num' | 'sounds' | 'imgtfjs';
 export type BluemixCredentialsTypeLabel = 'unknown' | ConversationCredentialsTypeLabel;
 
 export type ConversationCredentialsTypeLabel = 'conv_lite' | 'conv_standard' | 'conv_plus' | 'conv_plustrial';
@@ -48,6 +48,7 @@ export interface ConversationWorkspace {
     readonly id: string;
     readonly workspace_id: string;
     readonly credentialsid: string;
+    readonly servicetype: BluemixTextServiceType;
     readonly url: string;
     readonly name: string;
     readonly language: DbTypes.TextProjectLanguage;

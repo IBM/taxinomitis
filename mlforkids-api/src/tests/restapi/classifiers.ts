@@ -70,6 +70,7 @@ describe('REST API - classifiers', () => {
         id : uuid.v4(),
         workspace_id : uuid.v1(),
         credentialsid : convCredentials.id,
+        servicetype : 'conv',
         url : 'https://gateway-test.watsonplatform.net/conversation/api',
         name : textProjectName,
         language : 'en',
@@ -88,7 +89,7 @@ describe('REST API - classifiers', () => {
 
         await store.storeBluemixCredentials(CLASSID, dbobjects.getCredentialsAsDbRow(convCredentials));
 
-        await store.storeConversationWorkspace(convCredentials, textProject, validWorkspace);
+        await store.storeConversationWorkspace(textProject, validWorkspace);
 
         testServer = testapiserver();
     });

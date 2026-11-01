@@ -60,13 +60,14 @@ describe('Scratchx - keys', () => {
                 id : uuid(),
                 workspace_id: randomstring.generate({ length : 20 }),
                 credentialsid : creds.id,
+                servicetype : 'conv',
                 created: new Date(),
                 expiry: new Date(),
                 language : 'en',
                 name : project.name,
                 url : 'url',
             };
-            await store.storeConversationWorkspace(creds, project, conversationwkspace);
+            await store.storeConversationWorkspace(project, conversationwkspace);
 
             const key = await keys.createKey(project.id);
             assert(key.id);

@@ -111,7 +111,6 @@ export function getImageTrainingByLabel(projectid: string, label: string, option
 }
 
 export function storeConversationWorkspace(
-    credentials: TrainingTypes.BluemixCredentials,
     project: DbTypes.Project | DbTypes.LocalProject,
     classifier: TrainingTypes.ConversationWorkspace,
 ): Promise<TrainingTypes.ConversationWorkspace>
@@ -119,7 +118,7 @@ export function storeConversationWorkspace(
     return new Promise((resolve) => resolve(
         DbObjects.getWorkspaceFromDbRow(
             DbObjects.createConversationWorkspace(
-                classifier, credentials, project,
+                classifier, project,
             ),
         ),
     ));
@@ -139,6 +138,7 @@ export function getConversationWorkspaces(projectid: string): Promise<TrainingTy
                     id : 'existingworkspacedbid',
                     workspace_id : 'existing-classifier',
                     credentialsid : '123',
+                    servicetype : 'conv',
                     url : 'http://conversation.service/v1/workspaces/existing-classifier',
                     name : 'existing',
                     language : 'de',
@@ -153,6 +153,7 @@ export function getConversationWorkspaces(projectid: string): Promise<TrainingTy
                     id : 'existingworkspacedbid-maintenance',
                     workspace_id : 'existing-classifier-maintenance',
                     credentialsid : '123',
+                    servicetype : 'conv',
                     url : 'http://conversation.service/v1/workspaces/existing-classifier-maintenance',
                     name : 'existing',
                     language : 'de',

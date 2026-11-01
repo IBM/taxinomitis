@@ -292,6 +292,7 @@ export const mockConversation = {
 export const goodClassifier: TrainingTypes.ConversationWorkspace = {
     id : uuid(),
     credentialsid : '123',
+    servicetype : 'conv',
     name : 'good classifier',
     language : 'fr',
     created : new Date(),
@@ -320,6 +321,7 @@ export const goodClassifierStatus = {
 export const trainingClassifier: TrainingTypes.ConversationWorkspace = {
     id : uuid(),
     credentialsid : '123',
+    servicetype : 'conv',
     name : 'try again later',
     language : 'fr',
     created : new Date(),
@@ -348,6 +350,7 @@ export const trainingClassifierStatus = {
 export const brokenClassifier: TrainingTypes.ConversationWorkspace = {
     id : uuid(),
     credentialsid : '123',
+    servicetype : 'conv',
     name : 'bad bad bad',
     language : 'fr',
     created : new Date(),
@@ -375,6 +378,7 @@ export const brokenClassifierStatus = {
 export const unknownClassifier: TrainingTypes.ConversationWorkspace = {
     id : uuid(),
     credentialsid : '123',
+    servicetype : 'conv',
     name : 'not here any more',
     language : 'fr',
     created : new Date(),
@@ -391,6 +395,7 @@ export const unknownClassifierWithStatus = Object.assign({}, unknownClassifier, 
 export const existingClassifier: TrainingTypes.ConversationWorkspace = {
     id : 'existingworkspacedbid',
     credentialsid : '123',
+    servicetype : 'conv',
     name : 'existing',
     language : 'de',
     created : new Date(),

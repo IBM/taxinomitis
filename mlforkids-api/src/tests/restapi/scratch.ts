@@ -119,6 +119,7 @@ describe('REST API - scratch keys', () => {
                 id : uuid(),
                 workspace_id : randomstring.generate({ length : 12 }),
                 credentialsid : credentials.id,
+                servicetype : 'conv',
                 url : uuid(),
                 name,
                 language : 'en',
@@ -127,8 +128,8 @@ describe('REST API - scratch keys', () => {
             };
 
             const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [], false);
-            const storedCredentials = await store.storeBluemixCredentials(TESTCLASS, credentials);
-            await store.storeConversationWorkspace(storedCredentials, project, workspace);
+            await store.storeBluemixCredentials(TESTCLASS, credentials);
+            await store.storeConversationWorkspace(project, workspace);
 
             const res = await request(testServer)
                 .get('/api/classes/' + TESTCLASS + '/students/' + userid + '/projects/' + project.id + '/scratchkeys')
@@ -932,6 +933,7 @@ describe('REST API - scratch keys', () => {
                 id : uuid(),
                 workspace_id : workspaceId,
                 credentialsid : credentials.id,
+                servicetype : 'conv',
                 url : uuid(),
                 name,
                 language : 'en',
@@ -941,7 +943,7 @@ describe('REST API - scratch keys', () => {
 
             const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [], false);
             const storedCredentials = await store.storeBluemixCredentials(TESTCLASS, credentials);
-            await store.storeConversationWorkspace(storedCredentials, project, conversationWorkspace);
+            await store.storeConversationWorkspace(project, conversationWorkspace);
 
             const scratchKey = await store.storeOrUpdateScratchKey(
                 project, storedCredentials,
@@ -1002,6 +1004,7 @@ describe('REST API - scratch keys', () => {
                 id : uuid(),
                 workspace_id : workspaceId,
                 credentialsid : credentials.id,
+                servicetype : 'conv',
                 url : uuid(),
                 name,
                 language : 'en',
@@ -1011,7 +1014,7 @@ describe('REST API - scratch keys', () => {
 
             const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [], false);
             const storedCredentials = await store.storeBluemixCredentials(TESTCLASS, credentials);
-            await store.storeConversationWorkspace(storedCredentials, project, conversationWorkspace);
+            await store.storeConversationWorkspace(project, conversationWorkspace);
 
             const scratchKey = await store.storeOrUpdateScratchKey(
                 project, storedCredentials,
@@ -1077,6 +1080,7 @@ describe('REST API - scratch keys', () => {
                 id : uuid(),
                 workspace_id : workspaceId,
                 credentialsid : credentials.id,
+                servicetype : 'conv',
                 url : uuid(),
                 name,
                 language : 'en',
@@ -1086,7 +1090,7 @@ describe('REST API - scratch keys', () => {
 
             const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [], false);
             const storedCredentials = await store.storeBluemixCredentials(TESTCLASS, credentials);
-            await store.storeConversationWorkspace(storedCredentials, project, conversationWorkspace);
+            await store.storeConversationWorkspace(project, conversationWorkspace);
 
             const scratchKey = await store.storeOrUpdateScratchKey(
                 project, storedCredentials,
@@ -1133,6 +1137,7 @@ describe('REST API - scratch keys', () => {
                 id : uuid(),
                 workspace_id : randomstring.generate({ length : 12 }),
                 credentialsid : credentials.id,
+                servicetype : 'conv',
                 url : uuid(),
                 name,
                 language : 'en',
@@ -1142,7 +1147,7 @@ describe('REST API - scratch keys', () => {
 
             const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [], false);
             const storedCredentials = await store.storeBluemixCredentials(TESTCLASS, credentials);
-            await store.storeConversationWorkspace(storedCredentials, project, workspace);
+            await store.storeConversationWorkspace(project, workspace);
 
             const scratchKey = await store.storeOrUpdateScratchKey(
                 project, storedCredentials,

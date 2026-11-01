@@ -91,6 +91,7 @@ describe('REST API - local projects', () => {
                 id : uuid(),
                 workspace_id : 'NEW-CREATED',
                 credentialsid : credsid,
+                servicetype : 'conv',
                 name : project.name,
                 language : 'en',
                 created : new Date(Date.UTC(2017, 4, 4, 12, 0)),

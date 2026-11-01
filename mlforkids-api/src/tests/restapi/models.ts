@@ -132,6 +132,7 @@ describe('REST API - models', () => {
                     id : uuid(),
                     workspace_id : 'NEW-CREATED',
                     credentialsid : '123',
+                    servicetype : 'conv',
                     name : project.name,
                     language : 'en',
                     created : new Date(Date.UTC(2017, 4, 4, 12, 0)),
@@ -323,13 +324,14 @@ describe('REST API - models', () => {
                 id : uuid(),
                 workspace_id : 'good',
                 credentialsid : credentials.id,
+                servicetype : 'conv',
                 created : createdA,
                 expiry : createdA,
                 language : 'en',
                 name : 'DUMMY ONE',
                 url : uuid(),
             };
-            await store.storeConversationWorkspace(credentials, project, classifierAInfo);
+            await store.storeConversationWorkspace(project, classifierAInfo);
 
             const createdB = new Date();
             createdB.setMilliseconds(0);
@@ -339,13 +341,14 @@ describe('REST API - models', () => {
                 id : uuid(),
                 workspace_id : 'busy',
                 credentialsid : credentials.id,
+                servicetype : 'conv',
                 created : createdB,
                 expiry : createdB,
                 language : 'en',
                 name : 'DUMMY TWO',
                 url : uuid(),
             };
-            await store.storeConversationWorkspace(credentials, project, classifierBInfo);
+            await store.storeConversationWorkspace(project, classifierBInfo);
 
 
             nextAuth0Userid = userid;
@@ -883,10 +886,11 @@ describe('REST API - models', () => {
                 classid,
                 credstype : 'unknown',
             };
-            await store.storeConversationWorkspace(missingCredentials, project, {
+            await store.storeConversationWorkspace(project, {
                 id : uuid(),
                 workspace_id : modelid,
                 credentialsid : missingCredentials.id,
+                servicetype : 'conv',
                 created,
                 expiry : created,
                 language : 'en',
@@ -966,7 +970,7 @@ describe('REST API - models', () => {
                 classid,
                 credstypeid : 1,
             };
-            const storedCredentials = await store.storeBluemixCredentials(classid, credentials);
+            await store.storeBluemixCredentials(classid, credentials);
 
             const created = new Date();
             created.setMilliseconds(0);
@@ -975,13 +979,14 @@ describe('REST API - models', () => {
                 id : uuid(),
                 workspace_id : modelid,
                 credentialsid : credentials.id,
+                servicetype : 'conv',
                 created,
                 expiry : created,
                 language : 'en',
                 name : projName,
                 url : uuid(),
             };
-            await store.storeConversationWorkspace(storedCredentials, project, classifierInfo);
+            await store.storeConversationWorkspace(project, classifierInfo);
 
             nextAuth0Userid = userid;
             nextAuth0Role = 'student';
@@ -1270,7 +1275,7 @@ describe('REST API - models', () => {
                 classid,
                 credstypeid : 1,
             };
-            const storedCredentials = await store.storeBluemixCredentials(classid, credentials);
+            await store.storeBluemixCredentials(classid, credentials);
 
             const created = new Date();
             created.setMilliseconds(0);
@@ -1279,13 +1284,14 @@ describe('REST API - models', () => {
                 id : uuid(),
                 workspace_id : modelid,
                 credentialsid : credentials.id,
+                servicetype : 'conv',
                 created,
                 expiry : created,
                 language : 'en',
                 name : projName,
                 url : uuid(),
             };
-            await store.storeConversationWorkspace(storedCredentials, project, classifierInfo);
+            await store.storeConversationWorkspace(project, classifierInfo);
 
             nextAuth0Userid = 'teacheruserid';
             nextAuth0Role = 'supervisor';
@@ -1321,7 +1327,7 @@ describe('REST API - models', () => {
                 classid,
                 credstypeid : 2,
             };
-            const storedCredentials = await store.storeBluemixCredentials(classid, credentials);
+            await store.storeBluemixCredentials(classid, credentials);
 
             const created = new Date();
             created.setMilliseconds(0);
@@ -1330,13 +1336,14 @@ describe('REST API - models', () => {
                 id : uuid(),
                 workspace_id : modelid,
                 credentialsid : credentials.id,
+                servicetype : 'conv',
                 created,
                 expiry : created,
                 language : 'en',
                 name : projName,
                 url : uuid(),
             };
-            await store.storeConversationWorkspace(storedCredentials, project, classifierInfo);
+            await store.storeConversationWorkspace(project, classifierInfo);
 
             nextAuth0Userid = 'teacheruserid';
             nextAuth0Role = 'supervisor';
@@ -1426,7 +1433,7 @@ describe('REST API - models', () => {
                 classid,
                 credstypeid : 1,
             };
-            const storedCredentials = await store.storeBluemixCredentials(classid, credentials);
+            await store.storeBluemixCredentials(classid, credentials);
 
             const created = new Date();
             created.setMilliseconds(0);
@@ -1435,13 +1442,14 @@ describe('REST API - models', () => {
                 id : uuid(),
                 workspace_id : modelid,
                 credentialsid : credentials.id,
+                servicetype : 'conv',
                 created,
                 expiry : created,
                 language : 'en',
                 name : projName,
                 url : uuid(),
             };
-            await store.storeConversationWorkspace(storedCredentials, project, classifierInfo);
+            await store.storeConversationWorkspace(project, classifierInfo);
 
             nextAuth0Userid = userid;
             nextAuth0Role = 'student';

@@ -69,7 +69,7 @@ async function createNewModel(
     const { workspace, credentials } = await conversation.createModel(project, tenantPolicy, training);
 
     try {
-        await store.storeConversationWorkspace(credentials, project, workspace);
+        await store.storeConversationWorkspace(project, workspace);
         await store.storeOrUpdateScratchKey(project, credentials, workspace.workspace_id, workspace.created);
     }
     catch (err) {

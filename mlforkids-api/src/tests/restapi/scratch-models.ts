@@ -101,6 +101,7 @@ describe('REST API - scratchkey models', () => {
             id : uuid(),
             workspace_id : uuid(),
             credentialsid : credentials.id,
+            servicetype : 'conv',
             url : randomstring.generate(),
             name,
             language : 'en',

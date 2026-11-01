@@ -151,6 +151,7 @@ describe('Training - Conversation', () => {
                 expiry : newExpiryDate,
                 workspace_id : '04f2d303-16fd-4f2e-80f4-2c66784cc0fe',
                 credentialsid : '123',
+                servicetype : 'conv',
                 status : 'Training',
                 url : 'http://conversation.service/v1/workspaces/04f2d303-16fd-4f2e-80f4-2c66784cc0fe',
             });
@@ -322,6 +323,7 @@ describe('Training - Conversation', () => {
                 id : uuid(),
                 workspace_id : 'doesnotactuallyexist',
                 credentialsid : '123',
+                servicetype : 'conv',
                 url : 'http://conversation.service/v1/workspaces/doesnotactuallyexist',
                 name : 'This does not exist',
                 language : 'fr',

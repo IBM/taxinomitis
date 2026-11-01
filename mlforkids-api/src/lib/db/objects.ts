@@ -752,17 +752,16 @@ export function createBluemixCredentialsPool(
 
 export function createConversationWorkspace(
     classifierInfo: TrainingObjects.ConversationWorkspace,
-    credentialsInfo: TrainingObjects.BluemixCredentials,
     project: Objects.Project | Objects.LocalProject,
 ): TrainingObjects.ClassifierDbRow
 {
     return {
         id : classifierInfo.id,
-        credentialsid : credentialsInfo.id,
+        credentialsid : classifierInfo.credentialsid,
         userid : project.userid,
         projectid : project.id,
         classid : project.classid,
-        servicetype : 'conv',
+        servicetype : classifierInfo.servicetype,
         classifierid : classifierInfo.workspace_id,
         url : classifierInfo.url,
         name : classifierInfo.name,
@@ -785,6 +784,7 @@ export function getWorkspaceFromDbRow(row: TrainingObjects.ClassifierDbRow): Tra
         id : row.id,
         workspace_id : row.classifierid,
         credentialsid : row.credentialsid,
+        servicetype : row.servicetype as TrainingObjects.BluemixTextServiceType,
         url : row.url,
         name : row.name,
         language,
@@ -863,11 +863,32 @@ export function createUntrainedScratchKey(
     };
 }
 
+/**
+ * Scratch keys don't have a servicetype column, and their projecttype is
+ *  'text' for both Watson Assistant and text service models.
+ *
+ * Keys for text service models are identified by storing 'text' as a
+ *  eyecatcher constant in serviceusername, which is safe as service 
+ *  credentials come from env vars.
+ */
+export const TEXT_SERVICE_SCRATCHKEY_USERNAME = 'txt';
+
+function getTextScratchKeyServiceType(row: Objects.ScratchKeyDbRow): TrainingObjects.BluemixServiceType {
+    if (row.serviceusername === TEXT_SERVICE_SCRATCHKEY_USERNAME) {
+        // model hosted by the mlforkids-text service
+        return 'txt';
+    }
+    else {
+        // model hosted by Watson Assistant
+        return 'conv';
+    }
+}
+
 export function getScratchKeyFromDbRow(row: Objects.ScratchKeyDbRow): Objects.ScratchKey {
     let servicetype: TrainingObjects.BluemixServiceType;
     switch (row.projecttype) {
     case 'text':
-        servicetype = 'conv';
+        servicetype = getTextScratchKeyServiceType(row);
         break;
     case 'imgtfjs':
     case 'images':

@@ -227,6 +227,8 @@ CREATE INDEX localprojects_getprojectsbyclassid ON mlforkidsdb.localprojects USI
 CREATE INDEX taxinoclassifiers_getclassifiersbyuserid ON mlforkidsdb.taxinoclassifiers USING btree (userid);
 CREATE INDEX taxinoclassifiers_getclassifiersbyclassid ON mlforkidsdb.taxinoclassifiers USING btree (classid);
 CREATE INDEX taxinoclassifiers_deleteclassifiers ON mlforkidsdb.taxinoclassifiers USING btree (projectid, userid);
+-- update (31 Oct 2026) - new indexes
+CREATE INDEX bluemixclassifiers_countclassifiersbyuserid ON mlforkidsdb.bluemixclassifiers USING btree (userid, servicetype);
 
 
 ALTER DATABASE mlforkidsdb SET search_path to mlforkidsdb;
