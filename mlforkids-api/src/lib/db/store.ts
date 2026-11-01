@@ -1682,9 +1682,9 @@ export async function getNumbersClassifiers(projectid: string): Promise<Training
 }
 
 
-export async function getConversationWorkspaces(
+export async function getTextClassifiers(
     projectid: string,
-): Promise<TrainingObjects.ConversationWorkspace[]>
+): Promise<TrainingObjects.TextClassifier[]>
 {
     const queryName = 'dbqn-select-bluemixclassifiers-projectid';
     const queryString = 'SELECT id, credentialsid, projectid, servicetype, ' +
@@ -1695,12 +1695,12 @@ export async function getConversationWorkspaces(
     const queryValues = [ projectid ];
 
     const response = await dbExecute(queryName, queryString, queryValues);
-    return response.rows.map(dbobjects.getWorkspaceFromDbRow);
+    return response.rows.map(dbobjects.getTextClassifierFromDbRow);
 }
 
-export async function getConversationWorkspace(
+export async function getTextClassifier(
     projectid: string, classifierid: string,
-): Promise<TrainingObjects.ConversationWorkspace>
+): Promise<TrainingObjects.TextClassifier>
 {
     const queryName = 'dbqn-select-bluemixclassifieirs-classifierid';
     const queryString = 'SELECT id, credentialsid, projectid, servicetype, ' +
@@ -1712,19 +1712,19 @@ export async function getConversationWorkspace(
     const response = await dbExecute(queryName, queryString, queryValues);
     const rows = response.rows;
     if (rows.length === 1) {
-        return dbobjects.getWorkspaceFromDbRow(rows[0]);
+        return dbobjects.getTextClassifierFromDbRow(rows[0]);
     }
     else if (rows.length > 1) {
-        log.error({ projectid, classifierid, rows, func : 'getConversationWorkspace' }, 'Unexpected response from DB');
+        log.error({ projectid, classifierid, rows, func : 'getTextClassifier' }, 'Unexpected response from DB');
     }
     else {
-        log.warn({ projectid, classifierid, func : 'getConversationWorkspace' }, 'Conversation workspace not found');
+        log.warn({ projectid, classifierid, func : 'getTextClassifier' }, 'Text classifier not found');
     }
-    throw new Error('Unexpected response when retrieving conversation workspace details');
+    throw new Error('Unexpected response when retrieving text classifier details');
 }
 
 
-export async function countConversationWorkspaces(classid: string): Promise<number>
+export async function countTextClassifiers(classid: string): Promise<number>
 {
     const queryName = 'dbqn-select-bluemixclassifiers-countclass';
     const queryString = 'SELECT COUNT(*) AS count ' +
@@ -1739,7 +1739,7 @@ export async function countConversationWorkspaces(classid: string): Promise<numb
     // even if there are none, a SELECT COUNT(*) should return 0
     //  so we should never pass this if, but paranoia for the win
     if (rows.length !== 1) {
-        log.error({ rows, func: 'countConversationWorkspaces' }, 'Unexpected response from DB');
+        log.error({ rows, func: 'countTextClassifiers' }, 'Unexpected response from DB');
         return 0;
     }
 
@@ -1773,12 +1773,12 @@ export async function countTextServiceModelsByUser(userid: string): Promise<numb
 
 
 
-export async function storeConversationWorkspace(
+export async function storeTextClassifier(
     project: Objects.Project | Objects.LocalProject,
-    workspace: TrainingObjects.ConversationWorkspace,
-): Promise<TrainingObjects.ConversationWorkspace>
+    workspace: TrainingObjects.TextClassifier,
+): Promise<TrainingObjects.TextClassifier>
 {
-    const obj = dbobjects.createConversationWorkspace(workspace, project);
+    const obj = dbobjects.createTextClassifier(workspace, project);
 
     const queryName = 'dbqn-insert-bluemixclassifiers';
     const queryString = 'INSERT INTO bluemixclassifiers ' +
@@ -1850,8 +1850,8 @@ export async function deleteNumberClassifier(
     }
 }
 
-export async function updateConversationWorkspaceExpiry(
-    workspace: TrainingObjects.ConversationWorkspace,
+export async function updateTextClassifierExpiry(
+    workspace: TrainingObjects.TextClassifier,
 ): Promise<void>
 {
     const queryName = 'dbqn-update-bluemixclassifiers-expiry';
@@ -1863,11 +1863,11 @@ export async function updateConversationWorkspaceExpiry(
     const response = await dbExecute(queryName, queryString, queryValues);
     if (response.rowCount !== 1) {
         log.error({ queryString, queryValues, response }, 'Failed to update expiry date');
-        throw new Error('Conversation Workspace expiry not updated');
+        throw new Error('Text classifier expiry not updated');
     }
 }
 
-export async function getExpiredConversationWorkspaces(): Promise<TrainingObjects.ConversationWorkspace[]>
+export async function getExpiredConversationWorkspaces(): Promise<TrainingObjects.TextClassifier[]>
 {
     const queryName = 'dbqn-select-bluemixclassifiers-expired';
     const queryString = 'SELECT id, credentialsid, projectid, servicetype, ' +
@@ -1877,13 +1877,13 @@ export async function getExpiredConversationWorkspaces(): Promise<TrainingObject
     const queryValues = [ new Date(), 'conv' ];
 
     const response = await dbExecute(queryName, queryString, queryValues);
-    return response.rows.map(dbobjects.getWorkspaceFromDbRow);
+    return response.rows.map(dbobjects.getTextClassifierFromDbRow);
 }
 
 
 
 
-export async function deleteConversationWorkspace(id: string): Promise<void>
+export async function deleteTextClassifier(id: string): Promise<void>
 {
     const queryName = 'dbqn-delete-bluemixclassifiers-id';
     const queryString = 'DELETE FROM bluemixclassifiers WHERE id = $1';
@@ -1899,7 +1899,7 @@ export async function deleteConversationWorkspace(id: string): Promise<void>
 }
 
 
-export async function deleteConversationWorkspacesByProjectId(projectid: string): Promise<void>
+export async function deleteTextClassifiersByProjectId(projectid: string): Promise<void>
 {
     const queryName = 'dbqn-delete-bluemixclassifiers-projectid';
     const queryString = 'DELETE FROM bluemixclassifiers WHERE projectid = $1';
@@ -1940,7 +1940,7 @@ export async function getProjectsWithBluemixClassifiers(classid: string): Promis
  *  only ever called with WA ids. Throws for any other servicetype.
  */
 export async function getClassifierByBluemixId(classifierid: string):
-    Promise<TrainingObjects.ConversationWorkspace|undefined>
+    Promise<TrainingObjects.TextClassifier|undefined>
 {
     const queryName = 'dbqn-select-bluemixclassifiers-classifierid';
     const queryString = 'SELECT id, credentialsid, projectid, servicetype, ' +
@@ -1958,7 +1958,7 @@ export async function getClassifierByBluemixId(classifierid: string):
         const classifierType: TrainingObjects.BluemixServiceType = rows[0].servicetype;
         switch (classifierType) {
         case 'conv':
-            return dbobjects.getWorkspaceFromDbRow(rows[0]);
+            return dbobjects.getTextClassifierFromDbRow(rows[0]);
         default:
             log.error({ rows, func : 'getClassifierByBluemixId' }, 'Unexpected response from DB');
             throw new Error('Unexpected response when retrieving Bluemix classifier details');
@@ -2874,7 +2874,7 @@ export async function deleteEntireProject(userid: string, classid: string, proje
     // delete stored models
     switch (project.type) {
     case 'text': {
-        const classifiers = await getConversationWorkspaces(project.id);
+        const classifiers = await getTextClassifiers(project.id);
         const tenant = await getClassTenant(classid);
         for (const classifier of classifiers) {
             try {

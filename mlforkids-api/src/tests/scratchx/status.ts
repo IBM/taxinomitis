@@ -88,7 +88,7 @@ describe('Scratchx - status', () => {
 
     describe('text projects', () => {
 
-        const testStatus: TrainingTypes.ConversationWorkspace = {
+        const testStatus: TrainingTypes.TextClassifier = {
             id : uuid(),
             name : 'TEST PROJECT',
             status : 'Available',
@@ -101,7 +101,7 @@ describe('Scratchx - status', () => {
             url : 'conversation.url',
         };
         let getStatusStub: sinon.SinonStub<[TrainingTypes.BluemixCredentials, string, string],
-                                           Promise<TrainingTypes.ConversationWorkspace>>;
+                                           Promise<TrainingTypes.TextClassifier>>;
 
         before(() => {
             getStatusStub = sinon.stub(conversation, 'getScratchKeyModelStatus').resolves(testStatus);

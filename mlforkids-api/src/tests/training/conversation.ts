@@ -53,9 +53,9 @@ describe('Training - Conversation', () => {
         notAllowedStubs = [
             sinon.stub(store, 'countTrainingByLabel'),
             sinon.stub(store, 'getUniqueTrainingTextsByLabel'),
-            sinon.stub(store, 'storeConversationWorkspace'),
-            sinon.stub(store, 'updateConversationWorkspaceExpiry'),
-            sinon.stub(store, 'deleteConversationWorkspace'),
+            sinon.stub(store, 'storeTextClassifier'),
+            sinon.stub(store, 'updateTextClassifierExpiry'),
+            sinon.stub(store, 'deleteTextClassifier'),
             sinon.stub(store, 'storeOrUpdateScratchKey'),
             sinon.stub(store, 'updateScratchKeyTimestamp'),
             sinon.stub(store, 'resetExpiredScratchKey'),
@@ -220,7 +220,7 @@ describe('Training - Conversation', () => {
 
         it('should handle maintenance errors when updating a workspace', async () => {
             const project = createProject('existingprojectid-maintenance', 'existing', 'de');
-            const existing: TrainingTypes.ConversationWorkspace = {
+            const existing: TrainingTypes.TextClassifier = {
                 ...clone(existingClassifier),
                 id : 'existingworkspacedbid-maintenance',
                 workspace_id : 'existing-classifier-maintenance',
@@ -234,7 +234,7 @@ describe('Training - Conversation', () => {
 
         it('should report workspaces that have been deleted from Watson Assistant', async () => {
             const project = createProject('deletedprojectid', 'existing', 'de');
-            const existing: TrainingTypes.ConversationWorkspace = {
+            const existing: TrainingTypes.TextClassifier = {
                 ...clone(existingClassifier),
                 id : 'deletedworkspacedbid',
                 workspace_id : 'deleted-from-watson',

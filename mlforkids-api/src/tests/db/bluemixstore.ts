@@ -271,7 +271,7 @@ describe('DB store', () => {
             const created = new Date();
             created.setMilliseconds(0);
 
-            const classifierInfo: Types.ConversationWorkspace = {
+            const classifierInfo: Types.TextClassifier = {
                 id : uuid(),
                 workspace_id : randomstring.generate({ length : 32 }),
                 credentialsid : creds.id,
@@ -295,7 +295,7 @@ describe('DB store', () => {
                 isCrowdSourced : false,
             };
 
-            await store.storeConversationWorkspace(project, classifierInfo);
+            await store.storeTextClassifier(project, classifierInfo);
 
             const retrievedCreds = await store.getBluemixCredentialsById(DbTypes.ClassTenantType.UnManaged, creds.id);
             assert.deepStrictEqual(retrievedCreds, {
@@ -304,7 +304,7 @@ describe('DB store', () => {
             });
 
             await store.deleteBluemixCredentials(creds.id);
-            await store.deleteConversationWorkspacesByProjectId(projectid);
+            await store.deleteTextClassifiersByProjectId(projectid);
         });
 
 
@@ -334,7 +334,7 @@ describe('DB store', () => {
             const created = new Date();
             created.setMilliseconds(0);
 
-            const classifierInfo: Types.ConversationWorkspace = {
+            const classifierInfo: Types.TextClassifier = {
                 id : uuid(),
                 workspace_id : randomstring.generate({ length : 32 }),
                 credentialsid : creds.id,
@@ -345,7 +345,7 @@ describe('DB store', () => {
                 name : randomstring.generate({ length : 12 }),
                 url : uuid(),
             };
-            await store.storeConversationWorkspace(project, classifierInfo);
+            await store.storeTextClassifier(project, classifierInfo);
 
             const retrieved = await store.getClassifiersUsingCredentials(storedcreds);
             assert.strictEqual(retrieved.length, 1);
@@ -365,7 +365,7 @@ describe('DB store', () => {
             });
 
             await store.deleteBluemixCredentials(creds.id);
-            await store.deleteConversationWorkspacesByProjectId(project.id);
+            await store.deleteTextClassifiersByProjectId(project.id);
             await store.deleteEntireProject(userid, classid, project);
         });
 
@@ -396,7 +396,7 @@ describe('DB store', () => {
             const created = new Date();
             created.setMilliseconds(0);
 
-            const classifierInfo: Types.ConversationWorkspace = {
+            const classifierInfo: Types.TextClassifier = {
                 id : uuid(),
                 workspace_id : randomstring.generate({ length : 32 }),
                 credentialsid : creds.id,
@@ -407,7 +407,7 @@ describe('DB store', () => {
                 name : randomstring.generate({ length : 12 }),
                 url : uuid(),
             };
-            await store.storeConversationWorkspace(project, classifierInfo);
+            await store.storeTextClassifier(project, classifierInfo);
 
             const scratchkeyid = await store.storeOrUpdateScratchKey(
                 project, storedcreds, classifierInfo.workspace_id, created);
@@ -429,7 +429,7 @@ describe('DB store', () => {
 
             await store.deleteScratchKey(scratchkeyid);
             await store.deleteBluemixCredentials(creds.id);
-            await store.deleteConversationWorkspacesByProjectId(project.id);
+            await store.deleteTextClassifiersByProjectId(project.id);
             await store.deleteEntireProject(userid, classid, project);
         });
 
@@ -484,7 +484,7 @@ describe('DB store', () => {
 
         it('should return 0 for unknown users', async () => {
             const unknownClass = uuid();
-            const count = await store.countConversationWorkspaces(unknownClass);
+            const count = await store.countTextClassifiers(unknownClass);
             assert.strictEqual(count, 0);
         });
 
@@ -514,7 +514,7 @@ describe('DB store', () => {
                 classid,
                 credstype : 'conv_standard',
             };
-            const expired: Types.ConversationWorkspace = {
+            const expired: Types.TextClassifier = {
                 id : uuid(),
                 name : 'ONE',
                 workspace_id : uuid(),
@@ -525,7 +525,7 @@ describe('DB store', () => {
                 created : now,
                 expiry : past,
             };
-            const current: Types.ConversationWorkspace = {
+            const current: Types.TextClassifier = {
                 id : uuid(),
                 name : 'TWO',
                 workspace_id : uuid(),
@@ -562,10 +562,10 @@ describe('DB store', () => {
                 isCrowdSourced : false,
             };
 
-            await store.storeConversationWorkspace(projectExpired, expired);
-            await store.storeConversationWorkspace(projectCurrent, current);
+            await store.storeTextClassifier(projectExpired, expired);
+            await store.storeTextClassifier(projectCurrent, current);
 
-            const retrievedAll = await store.getConversationWorkspaces(projectid);
+            const retrievedAll = await store.getTextClassifiers(projectid);
             assert.deepStrictEqual(retrievedAll, [ expired, current ]);
 
             const retrievedExpired = await store.getExpiredConversationWorkspaces();
@@ -574,7 +574,7 @@ describe('DB store', () => {
         });
 
 
-        function sortWorkspaces(a: Types.ConversationWorkspace, b: Types.ConversationWorkspace): number {
+        function sortWorkspaces(a: Types.TextClassifier, b: Types.TextClassifier): number {
             if (a.id < b.id) {
                 return -1;
             }
@@ -608,7 +608,7 @@ describe('DB store', () => {
             };
             await store.storeBluemixCredentials(classid, credentials);
 
-            const expired: Types.ConversationWorkspace = {
+            const expired: Types.TextClassifier = {
                 id : uuid(),
                 name : 'ONE',
                 workspace_id : uuid(),
@@ -632,9 +632,9 @@ describe('DB store', () => {
                 isCrowdSourced : false,
             };
 
-            await store.storeConversationWorkspace(projectExpired, expired);
+            await store.storeTextClassifier(projectExpired, expired);
 
-            const verifyBefore = await store.getConversationWorkspace(projectid, expired.workspace_id);
+            const verifyBefore = await store.getTextClassifier(projectid, expired.workspace_id);
             assert.deepStrictEqual(verifyBefore, expired);
 
             const countBefore = await store.getExpiredConversationWorkspaces();
@@ -649,7 +649,7 @@ describe('DB store', () => {
             assert.strictEqual(countAfter.length, 0);
 
             try {
-                await store.getConversationWorkspace(projectid, expired.workspace_id);
+                await store.getTextClassifier(projectid, expired.workspace_id);
                 assert.fail('should not reach here');
             }
             catch (err) {
@@ -660,7 +660,7 @@ describe('DB store', () => {
         });
 
 
-        it('should update Conversation workspace expiry', async () => {
+        it('should update text classifier expiry', async () => {
             const classid = uuid();
             const projectid = uuid();
             const userid = uuid();
@@ -678,7 +678,7 @@ describe('DB store', () => {
             const created = new Date();
             created.setMilliseconds(0);
 
-            const classifierInfo: Types.ConversationWorkspace = {
+            const classifierInfo: Types.TextClassifier = {
                 id : uuid(),
                 workspace_id : randomstring.generate({ length : 32 }),
                 credentialsid : credentials.id,
@@ -702,7 +702,7 @@ describe('DB store', () => {
                 isCrowdSourced : false,
             };
 
-            await store.storeConversationWorkspace(project, classifierInfo);
+            await store.storeTextClassifier(project, classifierInfo);
 
             const updatedDate = new Date();
             updatedDate.setMonth(updatedDate.getMonth() + 6);
@@ -710,9 +710,9 @@ describe('DB store', () => {
 
             classifierInfo.expiry = updatedDate;
 
-            await store.updateConversationWorkspaceExpiry(classifierInfo);
+            await store.updateTextClassifierExpiry(classifierInfo);
 
-            const retrieve = await store.getConversationWorkspace(projectid, classifierInfo.workspace_id);
+            const retrieve = await store.getTextClassifier(projectid, classifierInfo.workspace_id);
             assert.deepStrictEqual(retrieve.expiry, updatedDate);
         });
 
@@ -748,7 +748,7 @@ describe('DB store', () => {
             created.setMilliseconds(0);
 
             const language = '' as DbTypes.TextProjectLanguage;
-            const classifierInfo: Types.ConversationWorkspace = {
+            const classifierInfo: Types.TextClassifier = {
                 id : uuid(),
                 workspace_id : randomstring.generate({ length : 32 }),
                 credentialsid : credentials.id,
@@ -758,24 +758,24 @@ describe('DB store', () => {
                 expiry : created,
                 name,
                 url : uuid(),
-            } as Types.ConversationWorkspace;
+            } as Types.TextClassifier;
 
-            await store.storeConversationWorkspace(project, classifierInfo);
+            await store.storeTextClassifier(project, classifierInfo);
 
-            const retrieved = await store.getConversationWorkspace(projectid, classifierInfo.workspace_id);
+            const retrieved = await store.getTextClassifier(projectid, classifierInfo.workspace_id);
             assert.strictEqual(retrieved.language, 'en');
 
-            await store.deleteConversationWorkspace(classifierInfo.id);
+            await store.deleteTextClassifier(classifierInfo.id);
         });
 
         it('should store and retrieve Conversation classifiers', async () => {
             const classid = uuid();
             const projectid = uuid();
 
-            const before = await store.getConversationWorkspaces(projectid);
+            const before = await store.getTextClassifiers(projectid);
             assert.strictEqual(before.length, 0);
 
-            const countBefore = await store.countConversationWorkspaces(classid);
+            const countBefore = await store.countTextClassifiers(classid);
             assert.strictEqual(countBefore, 0);
 
             const credentials: Types.BluemixCredentials = {
@@ -792,7 +792,7 @@ describe('DB store', () => {
             const created = new Date();
             created.setMilliseconds(0);
 
-            const classifierInfo: Types.ConversationWorkspace = {
+            const classifierInfo: Types.TextClassifier = {
                 id : uuid(),
                 workspace_id : randomstring.generate({ length : 32 }),
                 credentialsid : credentials.id,
@@ -816,12 +816,12 @@ describe('DB store', () => {
                 isCrowdSourced : false,
             };
 
-            await store.storeConversationWorkspace(project, classifierInfo);
+            await store.storeTextClassifier(project, classifierInfo);
 
-            const after = await store.getConversationWorkspaces(projectid);
+            const after = await store.getTextClassifiers(projectid);
             assert.strictEqual(after.length, 1);
 
-            const countAfter = await store.countConversationWorkspaces(classid);
+            const countAfter = await store.countTextClassifiers(classid);
             assert.strictEqual(countAfter, 1);
 
 
@@ -829,21 +829,21 @@ describe('DB store', () => {
 
             assert.deepStrictEqual(retrieved, classifierInfo);
 
-            await store.deleteConversationWorkspace(classifierInfo.id);
+            await store.deleteTextClassifier(classifierInfo.id);
 
-            const empty = await store.getConversationWorkspaces(projectid);
+            const empty = await store.getTextClassifiers(projectid);
             assert.strictEqual(empty.length, 0);
 
-            const countEmpty = await store.countConversationWorkspaces(classid);
+            const countEmpty = await store.countTextClassifiers(classid);
             assert.strictEqual(countEmpty, 0);
         });
 
 
-        function createTextServiceModel(expiry: Date): { project: DbTypes.Project, model: Types.ConversationWorkspace } {
+        function createTextServiceModel(expiry: Date): { project: DbTypes.Project, model: Types.TextClassifier } {
             const created = new Date();
             created.setMilliseconds(0);
 
-            const model: Types.ConversationWorkspace = {
+            const model: Types.TextClassifier = {
                 id : uuid(),
                 workspace_id : randomstring.generate({ length : 32 }),
                 credentialsid : '',
@@ -875,15 +875,15 @@ describe('DB store', () => {
 
             const { project, model } = createTextServiceModel(future);
 
-            await store.storeConversationWorkspace(project, model);
+            await store.storeTextClassifier(project, model);
 
-            const retrieved = await store.getConversationWorkspaces(project.id);
+            const retrieved = await store.getTextClassifiers(project.id);
             assert.deepStrictEqual(retrieved, [ model ]);
 
-            const retrievedOne = await store.getConversationWorkspace(project.id, model.workspace_id);
+            const retrievedOne = await store.getTextClassifier(project.id, model.workspace_id);
             assert.deepStrictEqual(retrievedOne, model);
 
-            await store.deleteConversationWorkspacesByProjectId(project.id);
+            await store.deleteTextClassifiersByProjectId(project.id);
         });
 
         it('should delete text service models', async () => {
@@ -893,11 +893,11 @@ describe('DB store', () => {
 
             const { project, model } = createTextServiceModel(future);
 
-            await store.storeConversationWorkspace(project, model);
+            await store.storeTextClassifier(project, model);
 
-            await store.deleteConversationWorkspace(model.id);
+            await store.deleteTextClassifier(model.id);
 
-            const retrieved = await store.getConversationWorkspaces(project.id);
+            const retrieved = await store.getTextClassifiers(project.id);
             assert.deepStrictEqual(retrieved, []);
         });
 
@@ -908,13 +908,13 @@ describe('DB store', () => {
 
             const { project, model } = createTextServiceModel(past);
 
-            await store.storeConversationWorkspace(project, model);
+            await store.storeTextClassifier(project, model);
 
             const expired = await store.getExpiredConversationWorkspaces();
             const found = expired.find((workspace) => workspace.id === model.id);
             assert.strictEqual(found, undefined);
 
-            await store.deleteConversationWorkspacesByProjectId(project.id);
+            await store.deleteTextClassifiersByProjectId(project.id);
         });
 
         it('should count a user\'s text service models', async () => {
@@ -940,18 +940,18 @@ describe('DB store', () => {
             const before = await store.countTextServiceModelsByUser(userid);
             assert.strictEqual(before, 0);
 
-            await store.storeConversationWorkspace(current.project, current.model);
-            await store.storeConversationWorkspace(expiredProject, expired.model);
-            await store.storeConversationWorkspace(waProject, waModel);
-            await store.storeConversationWorkspace(otherUser.project, otherUser.model);
+            await store.storeTextClassifier(current.project, current.model);
+            await store.storeTextClassifier(expiredProject, expired.model);
+            await store.storeTextClassifier(waProject, waModel);
+            await store.storeTextClassifier(otherUser.project, otherUser.model);
 
             const count = await store.countTextServiceModelsByUser(userid);
             assert.strictEqual(count, 2);
 
-            await store.deleteConversationWorkspacesByProjectId(current.project.id);
-            await store.deleteConversationWorkspacesByProjectId(expiredProject.id);
-            await store.deleteConversationWorkspacesByProjectId(waProject.id);
-            await store.deleteConversationWorkspacesByProjectId(otherUser.project.id);
+            await store.deleteTextClassifiersByProjectId(current.project.id);
+            await store.deleteTextClassifiersByProjectId(expiredProject.id);
+            await store.deleteTextClassifiersByProjectId(waProject.id);
+            await store.deleteTextClassifiersByProjectId(otherUser.project.id);
         });
 
     });

@@ -419,7 +419,7 @@ describe('ScratchKeys store', () => {
         };
         const credentials = await store.storeBluemixCredentials(project.classid, credentialsInfo);
 
-        const expired: Types.ConversationWorkspace = {
+        const expired: Types.TextClassifier = {
             id : uuid(),
             name : 'ONE',
             workspace_id : uuid(),
@@ -431,7 +431,7 @@ describe('ScratchKeys store', () => {
             expiry : past,
         };
 
-        await store.storeConversationWorkspace(project, expired);
+        await store.storeTextClassifier(project, expired);
 
         const scratchKey: string = await store.storeOrUpdateScratchKey(
             project,

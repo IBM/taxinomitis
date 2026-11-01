@@ -35,7 +35,7 @@ const MAX_TEXT_LENGTH = 2048;
 
 export async function trainClassifier(
     project: DbObjects.Project,
-): Promise<TrainingObjects.ConversationWorkspace>
+): Promise<TrainingObjects.TextClassifier>
 {
     const training = await getTraining(project);
 
@@ -46,11 +46,11 @@ export async function trainClassifier(
 export async function trainClassifierForProject(
     project: DbObjects.Project | DbObjects.LocalProject,
     training: TrainingObjects.ConversationTrainingData,
-): Promise<TrainingObjects.ConversationWorkspace>
+): Promise<TrainingObjects.TextClassifier>
 {
     const tenantPolicy = await store.getClassTenant(project.classid);
 
-    const existingWorkspaces = await store.getConversationWorkspaces(project.id);
+    const existingWorkspaces = await store.getTextClassifiers(project.id);
     if (existingWorkspaces.length > 0) {
         return retrainModel(project, tenantPolicy, existingWorkspaces[0], training);
     }
@@ -64,12 +64,12 @@ async function createNewModel(
     project: DbObjects.Project | DbObjects.LocalProject,
     tenantPolicy: DbObjects.ClassTenant,
     training: TrainingObjects.ConversationTrainingData,
-): Promise<TrainingObjects.ConversationWorkspace>
+): Promise<TrainingObjects.TextClassifier>
 {
     const { workspace, credentials } = await conversation.createModel(project, tenantPolicy, training);
 
     try {
-        await store.storeConversationWorkspace(project, workspace);
+        await store.storeTextClassifier(project, workspace);
         await store.storeOrUpdateScratchKey(project, credentials, workspace.workspace_id, workspace.created);
     }
     catch (err) {
@@ -92,14 +92,14 @@ async function createNewModel(
 async function retrainModel(
     project: DbObjects.Project | DbObjects.LocalProject,
     tenantPolicy: DbObjects.ClassTenant,
-    existing: TrainingObjects.ConversationWorkspace,
+    existing: TrainingObjects.TextClassifier,
     training: TrainingObjects.ConversationTrainingData,
-): Promise<TrainingObjects.ConversationWorkspace>
+): Promise<TrainingObjects.TextClassifier>
 {
     try {
         const { workspace } = await conversation.updateModel(project, tenantPolicy, existing, training);
 
-        await store.updateConversationWorkspaceExpiry(workspace);
+        await store.updateTextClassifierExpiry(workspace);
 
         const timestamp = workspace.updated ? workspace.updated : workspace.created;
         await store.updateScratchKeyTimestamp(project, timestamp);
@@ -113,7 +113,7 @@ async function retrainModel(
             //  so that the user can try again and this time create
             //  a new model
             try {
-                await store.deleteConversationWorkspace(existing.id);
+                await store.deleteTextClassifier(existing.id);
             }
             catch (deleteErr) {
                 // still report the missing model to the user
@@ -150,7 +150,7 @@ export async function trainLocalWithScratchKey(
 }
 
 
-function getScratchTrainingStatus(model: TrainingObjects.ConversationWorkspace): ScratchTypes.Status
+function getScratchTrainingStatus(model: TrainingObjects.TextClassifier): ScratchTypes.Status
 {
     if (model.status === 'Training') {
         return {
@@ -183,21 +183,21 @@ function getScratchTrainingStatus(model: TrainingObjects.ConversationWorkspace):
  *  This deletes both the model from the service that hosts it, and the
  *  record of it stored in the app's database.
  */
-export async function deleteClassifier(tenant: DbObjects.ClassTenant, classifier: TrainingObjects.ConversationWorkspace): Promise<void>
+export async function deleteClassifier(tenant: DbObjects.ClassTenant, classifier: TrainingObjects.TextClassifier): Promise<void>
 {
     await conversation.deleteModel(tenant, classifier);
     await deleteModelRecords(classifier);
 }
 
 
-async function deleteModelRecords(classifier: TrainingObjects.ConversationWorkspace): Promise<void>
+async function deleteModelRecords(classifier: TrainingObjects.TextClassifier): Promise<void>
 {
-    await store.deleteConversationWorkspace(classifier.id);
+    await store.deleteTextClassifier(classifier.id);
     await store.resetExpiredScratchKey(classifier.workspace_id, 'text');
 }
 
 
-async function deleteExpiredModel(classifier: TrainingObjects.ConversationWorkspace): Promise<void>
+async function deleteExpiredModel(classifier: TrainingObjects.TextClassifier): Promise<void>
 {
     await conversation.deleteModelUnknownClass(classifier);
     await deleteModelRecords(classifier);
@@ -207,7 +207,7 @@ async function deleteExpiredModel(classifier: TrainingObjects.ConversationWorksp
 export async function cleanupExpiredModels(): Promise<void[]>
 {
     log.info('Cleaning up expired text models');
-    const expired: TrainingObjects.ConversationWorkspace[] = await store.getExpiredConversationWorkspaces();
+    const expired: TrainingObjects.TextClassifier[] = await store.getExpiredConversationWorkspaces();
     return Promise.all(expired.map(deleteExpiredModel));
 }
 
@@ -232,8 +232,8 @@ export async function cleanupExpiredModels(): Promise<void[]>
  */
 export function getModelStatuses(
     tenant: DbObjects.ClassTenant,
-    workspaces: TrainingObjects.ConversationWorkspace[],
-): Promise<TrainingObjects.ConversationWorkspace[]>
+    workspaces: TrainingObjects.TextClassifier[],
+): Promise<TrainingObjects.TextClassifier[]>
 {
     const credentialsCacheById: { [id: string]: TrainingObjects.BluemixCredentials } = {};
 
@@ -262,7 +262,7 @@ export function getModelStatuses(
  */
 export async function createTextScratchKey(project: DbObjects.Project | DbObjects.LocalProject): Promise<ScratchTypes.Key>
 {
-    const textClassifiers = await store.getConversationWorkspaces(project.id);
+    const textClassifiers = await store.getTextClassifiers(project.id);
 
     if (textClassifiers.length === 0) {
         const id = await store.storeUntrainedScratchKey(project);
@@ -336,12 +336,12 @@ export async function classifyModel(
     text: string,
 ): Promise<TrainingObjects.Classification[]>
 {
-    let workspace: TrainingObjects.ConversationWorkspace;
+    let workspace: TrainingObjects.TextClassifier;
     try {
-        workspace = await store.getConversationWorkspace(projectid, modelid);
+        workspace = await store.getTextClassifier(projectid, modelid);
     }
     catch (err) {
-        if (err.message === 'Unexpected response when retrieving conversation workspace details') {
+        if (err.message === 'Unexpected response when retrieving text classifier details') {
             // no record of the model - it was likely deleted (e.g. because
             //  it expired) while the user was trying to use it
             throw new Error(ERROR_MESSAGES.MODEL_NOT_FOUND);

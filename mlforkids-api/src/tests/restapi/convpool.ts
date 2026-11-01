@@ -269,7 +269,7 @@ describe('REST API - text training for managed pool classes', () => {
 
 
         it('should delete a model', async () => {
-            const models = await store.getConversationWorkspaces(secondProject.id);
+            const models = await store.getTextClassifiers(secondProject.id);
             const credentialsUsedId = models[0].credentialsid;
             const credentialsUsed = await store.getBluemixCredentialsById(types.ClassTenantType.ManagedPool, credentialsUsedId);
             const credentialsTimestamp = (credentialsUsed as trainingtypes.BluemixCredentialsPool).lastfail.getTime();

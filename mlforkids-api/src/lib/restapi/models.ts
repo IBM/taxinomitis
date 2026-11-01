@@ -20,7 +20,7 @@ import loggerSetup from '../utils/logger';
 const log = loggerSetup();
 
 
-function returnConversationWorkspace(classifier: Types.ConversationWorkspace) {
+function returnTextClassifier(classifier: Types.TextClassifier) {
     return {
         classifierid : classifier.workspace_id,
         credentialsid : classifier.credentialsid,
@@ -51,9 +51,9 @@ async function getModels(req: auth.RequestWithProject, res: Express.Response) {
     switch (req.project.type) {
     case 'text':
         tenant = await store.getClassTenant(classid);
-        classifiers = await store.getConversationWorkspaces(projectid);
+        classifiers = await store.getTextClassifiers(projectid);
         classifiers = await textmodels.getModelStatuses(tenant, classifiers);
-        classifiers = classifiers.map(returnConversationWorkspace);
+        classifiers = classifiers.map(returnTextClassifier);
         break;
     case 'imgtfjs':
     case 'images':
@@ -80,7 +80,7 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
     case 'text': {
         try {
             const model = await textmodels.trainClassifier(req.project);
-            return res.status(httpstatus.CREATED).json(returnConversationWorkspace(model));
+            return res.status(httpstatus.CREATED).json(returnTextClassifier(model));
         }
         catch (err) {
             return errors.watsonAssistantModelCreationFailure(res, err);
@@ -113,7 +113,7 @@ async function deleteModel(req: auth.RequestWithProject, res: Express.Response) 
         switch (req.project.type) {
         case 'text': {
             const tenant = await store.getClassTenant(classid);
-            const workspace = await store.getConversationWorkspace(projectid, modelid);
+            const workspace = await store.getTextClassifier(projectid, modelid);
             await textmodels.deleteClassifier(tenant, workspace);
             return res.sendStatus(httpstatus.NO_CONTENT);
         }
@@ -128,7 +128,7 @@ async function deleteModel(req: auth.RequestWithProject, res: Express.Response) 
         }
     }
     catch (err) {
-        if (err.message === 'Unexpected response when retrieving conversation workspace details')
+        if (err.message === 'Unexpected response when retrieving text classifier details')
         {
             return errors.notFound(res);
         }

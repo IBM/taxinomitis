@@ -44,7 +44,7 @@ export type BluemixCredentialsTypeLabel = 'unknown' | ConversationCredentialsTyp
 
 export type ConversationCredentialsTypeLabel = 'conv_lite' | 'conv_standard' | 'conv_plus' | 'conv_plustrial';
 
-export interface ConversationWorkspace {
+export interface TextClassifier {
     readonly id: string;
     readonly workspace_id: string;
     readonly credentialsid: string;

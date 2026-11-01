@@ -62,7 +62,7 @@ function isMaintenanceError(err: any): boolean {
  *  that were used to create or update it.
  */
 export interface WorkspaceWithCredentials {
-    readonly workspace: TrainingObjects.ConversationWorkspace;
+    readonly workspace: TrainingObjects.TextClassifier;
     readonly credentials: TrainingObjects.BluemixCredentials;
 }
 
@@ -97,7 +97,7 @@ export async function createModel(
 export async function updateModel(
     project: DbObjects.Project | DbObjects.LocalProject,
     tenantPolicy: DbObjects.ClassTenant,
-    workspace: TrainingObjects.ConversationWorkspace,
+    workspace: TrainingObjects.TextClassifier,
     training: TrainingObjects.ConversationTrainingData,
 ): Promise<WorkspaceWithCredentials>
 {
@@ -112,7 +112,7 @@ export async function updateModel(
  */
 export function getModelCredentials(
     tenantPolicy: DbObjects.ClassTenant,
-    workspace: TrainingObjects.ConversationWorkspace,
+    workspace: TrainingObjects.TextClassifier,
 ): Promise<TrainingObjects.BluemixCredentials>
 {
     return store.getBluemixCredentialsById(tenantPolicy.tenantType, workspace.credentialsid);
@@ -271,10 +271,10 @@ async function createWorkspace(
 async function updateWorkspace(
     project: DbObjects.Project | DbObjects.LocalProject,
     credentials: TrainingObjects.BluemixCredentials,
-    workspace: TrainingObjects.ConversationWorkspace,
+    workspace: TrainingObjects.TextClassifier,
     training: TrainingObjects.ConversationTrainingData,
     tenantPolicy: DbObjects.ClassTenant,
-): Promise<TrainingObjects.ConversationWorkspace>
+): Promise<TrainingObjects.TextClassifier>
 {
     const url = workspaceUrl(credentials.url, workspace.workspace_id);
 
@@ -313,7 +313,7 @@ async function updateWorkspace(
     }
 }
 
-async function deleteWorkspaceUsingCredentials(classifier: TrainingObjects.ConversationWorkspace,
+async function deleteWorkspaceUsingCredentials(classifier: TrainingObjects.TextClassifier,
                                                credentials?: TrainingObjects.BluemixCredentials)
 {
     if (credentials) {
@@ -334,7 +334,7 @@ async function deleteWorkspaceUsingCredentials(classifier: TrainingObjects.Conve
  * Failures to find the credentials or to delete the workspace are logged,
  *  but not thrown.
  */
-export function deleteModelUnknownClass(classifier: TrainingObjects.ConversationWorkspace): Promise<void>
+export function deleteModelUnknownClass(classifier: TrainingObjects.TextClassifier): Promise<void>
 {
     return store.getCombinedBluemixCredentialsById(classifier.credentialsid)
         .then((creds) => {
@@ -353,7 +353,7 @@ export function deleteModelUnknownClass(classifier: TrainingObjects.Conversation
  * Failures to delete the workspace, or to record the deletion for pool
  *  credentials, are logged, but not thrown.
  */
-export async function deleteModel(tenant: DbObjects.ClassTenant, classifier: TrainingObjects.ConversationWorkspace): Promise<void>
+export async function deleteModel(tenant: DbObjects.ClassTenant, classifier: TrainingObjects.TextClassifier): Promise<void>
 {
     const credentials = await getModelCredentials(tenant, classifier);
 
@@ -424,9 +424,9 @@ export function getScratchKeyModelStatus(
     credentials: TrainingObjects.BluemixCredentials,
     workspaceId: string,
     name: string,
-): Promise<TrainingObjects.ConversationWorkspace>
+): Promise<TrainingObjects.TextClassifier>
 {
-    const workspace: TrainingObjects.ConversationWorkspace = {
+    const workspace: TrainingObjects.TextClassifier = {
         id : 'workspaceid',
         name,
         workspace_id : workspaceId,
@@ -448,8 +448,8 @@ export function getScratchKeyModelStatus(
  */
 export async function getModelStatus(
     credentials: TrainingObjects.BluemixCredentials,
-    workspace: TrainingObjects.ConversationWorkspace,
-): Promise<TrainingObjects.ConversationWorkspace>
+    workspace: TrainingObjects.TextClassifier,
+): Promise<TrainingObjects.TextClassifier>
 {
     let req: NewConvRequest | LegacyConvRequest;
     try {
@@ -484,7 +484,7 @@ async function submitTrainingToConversation(
     training: TrainingObjects.ConversationTrainingData,
     id: string,
     tenantPolicy: DbObjects.ClassTenant,
-): Promise<TrainingObjects.ConversationWorkspace>
+): Promise<TrainingObjects.TextClassifier>
 {
     let req: NewTrainingRequest | LegacyTrainingRequest | undefined;
 
@@ -506,7 +506,7 @@ async function submitTrainingToConversation(
         modelAutoExpiryTime.setHours(modelAutoExpiryTime.getHours() +
                                      tenantPolicy.textClassifierExpiry);
 
-        const workspace: TrainingObjects.ConversationWorkspace = {
+        const workspace: TrainingObjects.TextClassifier = {
             id,
             name : body.name,
             language : body.language,

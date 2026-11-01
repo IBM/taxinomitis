@@ -122,7 +122,7 @@ async function newLocalProjectModel(req: auth.RequestWithLocalProject, res: Expr
 
     try {
         const model = await textmodels.trainClassifierForProject(req.project, training);
-        res.status(httpstatus.CREATED).json(returnConversationWorkspace(model));
+        res.status(httpstatus.CREATED).json(returnTextClassifier(model));
 
         // lazily (after returning response to the user) update
         //  the expiry date and labels for the project
@@ -148,9 +148,9 @@ async function getLocalProjectModels(req: auth.RequestWithLocalProject, res: Exp
     try {
         let classifiers: any[];
         const tenant = await store.getClassTenant(classid);
-        classifiers = await store.getConversationWorkspaces(projectid);
+        classifiers = await store.getTextClassifiers(projectid);
         classifiers = await textmodels.getModelStatuses(tenant, classifiers);
-        classifiers = classifiers.map(returnConversationWorkspace);
+        classifiers = classifiers.map(returnTextClassifier);
         return res.set(headers.NO_CACHE).json(classifiers);
     }
     catch (err) {
@@ -171,7 +171,7 @@ async function deleteLocalProjectModel(req: auth.RequestWithLocalProject, res: E
 
     try {
         const tenant = await store.getClassTenant(classid);
-        const workspace = await store.getConversationWorkspace(projectid, modelid);
+        const workspace = await store.getTextClassifier(projectid, modelid);
         await textmodels.deleteClassifier(tenant, workspace);
         res.sendStatus(httpstatus.NO_CONTENT);
 
@@ -180,7 +180,7 @@ async function deleteLocalProjectModel(req: auth.RequestWithLocalProject, res: E
         store.updateLocalProject(req.project);
     }
     catch (err) {
-        if (err.message === 'Unexpected response when retrieving conversation workspace details')
+        if (err.message === 'Unexpected response when retrieving text classifier details')
         {
             return errors.notFound(res);
         }
@@ -218,7 +218,7 @@ async function testLocalProjectModel(req: auth.RequestWithLocalProject, res: Exp
 
 
 
-function returnConversationWorkspace(classifier: TrainingTypes.ConversationWorkspace) {
+function returnTextClassifier(classifier: TrainingTypes.TextClassifier) {
     return {
         classifierid : classifier.workspace_id,
         credentialsid : classifier.credentialsid,

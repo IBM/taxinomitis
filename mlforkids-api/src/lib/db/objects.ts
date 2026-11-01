@@ -750,8 +750,8 @@ export function createBluemixCredentialsPool(
 //
 // -----------------------------------------------------------------------------
 
-export function createConversationWorkspace(
-    classifierInfo: TrainingObjects.ConversationWorkspace,
+export function createTextClassifier(
+    classifierInfo: TrainingObjects.TextClassifier,
     project: Objects.Project | Objects.LocalProject,
 ): TrainingObjects.ClassifierDbRow
 {
@@ -771,7 +771,7 @@ export function createConversationWorkspace(
     };
 }
 
-export function getWorkspaceFromDbRow(row: TrainingObjects.ClassifierDbRow): TrainingObjects.ConversationWorkspace {
+export function getTextClassifierFromDbRow(row: TrainingObjects.ClassifierDbRow): TrainingObjects.TextClassifier {
     let language: Objects.TextProjectLanguage;
     if (row.language) {
         language = row.language as Objects.TextProjectLanguage;

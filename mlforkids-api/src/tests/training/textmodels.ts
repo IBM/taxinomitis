@@ -36,11 +36,11 @@ describe('Training - text models', () => {
     let authStoreStub: sinon.SinonStub<[DbTypes.ClassTenant, TrainingTypes.BluemixServiceType], Promise<TrainingTypes.BluemixCredentials[]>>;
     let authByIdStoreStub: sinon.SinonStub<[DbTypes.ClassTenantType, string], Promise<TrainingTypes.BluemixCredentials>>;
     let countStoreStub: sinon.SinonStub<[DbTypes.Project], Promise<{ [label: string]: number; }>>;
-    let getConversationWorkspacesStub: sinon.SinonStub<[string], Promise<TrainingTypes.ConversationWorkspace[]>>;
-    let getConversationWorkspaceStub: sinon.SinonStub<[string, string], Promise<TrainingTypes.ConversationWorkspace>>;
+    let getTextClassifiersStub: sinon.SinonStub<[string], Promise<TrainingTypes.TextClassifier[]>>;
+    let getTextClassifierStub: sinon.SinonStub<[string, string], Promise<TrainingTypes.TextClassifier>>;
     let getStoreStub: sinon.SinonStub<[string, string, DbTypes.PagingOptions], Promise<string[]>>;
-    let storeStoreStub: sinon.SinonStub<[DbTypes.Project | DbTypes.LocalProject, TrainingTypes.ConversationWorkspace], Promise<TrainingTypes.ConversationWorkspace>>;
-    let updateConversationStub: sinon.SinonStub<[TrainingTypes.ConversationWorkspace], Promise<void>>;
+    let storeStoreStub: sinon.SinonStub<[DbTypes.Project | DbTypes.LocalProject, TrainingTypes.TextClassifier], Promise<TrainingTypes.TextClassifier>>;
+    let updateConversationStub: sinon.SinonStub<[TrainingTypes.TextClassifier], Promise<void>>;
     let deleteStoreStub: sinon.SinonStub<[string], Promise<void>>;
     let storeScratchKeyStub: sinon.SinonStub<[DbTypes.Project | DbTypes.LocalProject, TrainingTypes.BluemixCredentials, string, Date], Promise<string>>;
     let resetExpiredScratchKeyStub: sinon.SinonStub<[string, DbTypes.ProjectTypeLabel], Promise<void>>;
@@ -58,13 +58,13 @@ describe('Training - text models', () => {
         getProjectStub = sinon.stub(store, 'getProject').callsFake(mockstore.getProject);
         authStoreStub = sinon.stub(store, 'getBluemixCredentials').callsFake(mockstore.getBluemixCredentials);
         authByIdStoreStub = sinon.stub(store, 'getBluemixCredentialsById').callsFake(mockstore.getBluemixCredentialsById);
-        getConversationWorkspacesStub = sinon.stub(store, 'getConversationWorkspaces').callsFake(mockstore.getConversationWorkspaces);
-        getConversationWorkspaceStub = sinon.stub(store, 'getConversationWorkspace');
+        getTextClassifiersStub = sinon.stub(store, 'getTextClassifiers').callsFake(mockstore.getTextClassifiers);
+        getTextClassifierStub = sinon.stub(store, 'getTextClassifier');
         countStoreStub = sinon.stub(store, 'countTrainingByLabel').callsFake(mockstore.countTrainingByLabel);
         getStoreStub = sinon.stub(store, 'getUniqueTrainingTextsByLabel').callsFake(mockstore.getUniqueTrainingTextsByLabel);
-        storeStoreStub = sinon.stub(store, 'storeConversationWorkspace').callsFake(mockstore.storeConversationWorkspace);
-        updateConversationStub = sinon.stub(store, 'updateConversationWorkspaceExpiry').callsFake(mockstore.updateConversationWorkspaceExpiry);
-        deleteStoreStub = sinon.stub(store, 'deleteConversationWorkspace').callsFake(mockstore.deleteConversationWorkspace);
+        storeStoreStub = sinon.stub(store, 'storeTextClassifier').callsFake(mockstore.storeTextClassifier);
+        updateConversationStub = sinon.stub(store, 'updateTextClassifierExpiry').callsFake(mockstore.updateConversationWorkspaceExpiry);
+        deleteStoreStub = sinon.stub(store, 'deleteTextClassifier').callsFake(mockstore.deleteTextClassifier);
         storeScratchKeyStub = sinon.stub(store, 'storeOrUpdateScratchKey').callsFake(mockstore.storeOrUpdateScratchKey);
         updateScratchKeyTimestampStub = sinon.stub(store, 'updateScratchKeyTimestamp').callsFake(mockstore.updateScratchKeyTimestamp);
         resetExpiredScratchKeyStub = sinon.stub(store, 'resetExpiredScratchKey').callsFake(mockstore.resetExpiredScratchKey);
@@ -87,8 +87,8 @@ describe('Training - text models', () => {
         getProjectStub.restore();
         authStoreStub.restore();
         authByIdStoreStub.restore();
-        getConversationWorkspacesStub.restore();
-        getConversationWorkspaceStub.restore();
+        getTextClassifiersStub.restore();
+        getTextClassifierStub.restore();
         countStoreStub.restore();
         getStoreStub.restore();
         storeStoreStub.restore();
@@ -234,7 +234,7 @@ describe('Training - text models', () => {
             finally {
                 notifyStub.restore();
                 storeStoreStub.reset();
-                storeStoreStub.callsFake(mockstore.storeConversationWorkspace);
+                storeStoreStub.callsFake(mockstore.storeTextClassifier);
             }
         });
     });
@@ -276,12 +276,12 @@ describe('Training - text models', () => {
 
         it('should delete the record of a model that could not be found', async () => {
             const project = createProject('deletedprojectid', 'existing', 'de', ['big', 'small']);
-            const existing: TrainingTypes.ConversationWorkspace = {
+            const existing: TrainingTypes.TextClassifier = {
                 ...clone(existingClassifier),
                 id : 'deletedworkspacedbid',
                 workspace_id : 'deleted-from-watson',
             };
-            getConversationWorkspacesStub.withArgs('deletedprojectid').resolves([ existing ]);
+            getTextClassifiersStub.withArgs('deletedprojectid').resolves([ existing ]);
 
             try {
                 await assert.rejects(
@@ -292,19 +292,19 @@ describe('Training - text models', () => {
                 assert(updateConversationStub.notCalled);
             }
             finally {
-                getConversationWorkspacesStub.withArgs('deletedprojectid').callsFake(mockstore.getConversationWorkspaces);
+                getTextClassifiersStub.withArgs('deletedprojectid').callsFake(mockstore.getTextClassifiers);
             }
         });
 
 
         it('should report a model that could not be found even if its record cannot be deleted', async () => {
             const project = createProject('deletedprojectid', 'existing', 'de', ['big', 'small']);
-            const existing: TrainingTypes.ConversationWorkspace = {
+            const existing: TrainingTypes.TextClassifier = {
                 ...clone(existingClassifier),
                 id : 'deletedworkspacedbid',
                 workspace_id : 'deleted-from-watson',
             };
-            getConversationWorkspacesStub.withArgs('deletedprojectid').resolves([ existing ]);
+            getTextClassifiersStub.withArgs('deletedprojectid').resolves([ existing ]);
             deleteStoreStub.onFirstCall().rejects(new Error('DB is unavailable'));
 
             try {
@@ -315,9 +315,9 @@ describe('Training - text models', () => {
                 assert(deleteStoreStub.calledOnceWith('deletedworkspacedbid'));
             }
             finally {
-                getConversationWorkspacesStub.withArgs('deletedprojectid').callsFake(mockstore.getConversationWorkspaces);
+                getTextClassifiersStub.withArgs('deletedprojectid').callsFake(mockstore.getTextClassifiers);
                 deleteStoreStub.reset();
-                deleteStoreStub.callsFake(mockstore.deleteConversationWorkspace);
+                deleteStoreStub.callsFake(mockstore.deleteTextClassifier);
             }
         });
     });
@@ -419,7 +419,7 @@ describe('Training - text models', () => {
 
 
         it('should classify using the stored record of the model', async () => {
-            getConversationWorkspaceStub.withArgs('projectbob', 'good').resolves(clone(goodClassifier));
+            getTextClassifierStub.withArgs('projectbob', 'good').resolves(clone(goodClassifier));
 
             const classifierTimestamp = new Date();
             const classes = await textmodels.classifyModel(CLASS, 'projectbob', 'good', classifierTimestamp, 'Hello');
@@ -432,8 +432,8 @@ describe('Training - text models', () => {
 
 
         it('should report models with no stored record as not found', async () => {
-            getConversationWorkspaceStub.withArgs('projectbob', 'expired')
-                .rejects(new Error('Unexpected response when retrieving conversation workspace details'));
+            getTextClassifierStub.withArgs('projectbob', 'expired')
+                .rejects(new Error('Unexpected response when retrieving text classifier details'));
 
             await assert.rejects(
                 () => textmodels.classifyModel(CLASS, 'projectbob', 'expired', new Date(), 'Hello'),
@@ -484,7 +484,7 @@ describe('Training - text models', () => {
 
     describe('cleanup expired models', () => {
 
-        let getExpiredStub: sinon.SinonStub<[], Promise<TrainingTypes.ConversationWorkspace[]>>;
+        let getExpiredStub: sinon.SinonStub<[], Promise<TrainingTypes.TextClassifier[]>>;
         let getCombinedCredsStub: sinon.SinonStub<[string], Promise<TrainingTypes.BluemixCredentials>>;
 
         before(() => {
@@ -551,7 +551,7 @@ describe('Training - text models', () => {
         });
 
         it('should get info for no models', async () => {
-            const reqClone: TrainingTypes.ConversationWorkspace[] = [ ];
+            const reqClone: TrainingTypes.TextClassifier[] = [ ];
             const none = await textmodels.getModelStatuses(CLASS, reqClone);
 
             assert.deepStrictEqual(none, []);

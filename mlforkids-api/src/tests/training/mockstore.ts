@@ -110,14 +110,14 @@ export function getImageTrainingByLabel(projectid: string, label: string, option
     return new Promise((resolve) => resolve(training));
 }
 
-export function storeConversationWorkspace(
+export function storeTextClassifier(
     project: DbTypes.Project | DbTypes.LocalProject,
-    classifier: TrainingTypes.ConversationWorkspace,
-): Promise<TrainingTypes.ConversationWorkspace>
+    classifier: TrainingTypes.TextClassifier,
+): Promise<TrainingTypes.TextClassifier>
 {
     return new Promise((resolve) => resolve(
-        DbObjects.getWorkspaceFromDbRow(
-            DbObjects.createConversationWorkspace(
+        DbObjects.getTextClassifierFromDbRow(
+            DbObjects.createTextClassifier(
                 classifier, project,
             ),
         ),
@@ -129,7 +129,7 @@ export function updateConversationWorkspaceExpiry()
     return Promise.resolve();
 }
 
-export function getConversationWorkspaces(projectid: string): Promise<TrainingTypes.ConversationWorkspace[]>
+export function getTextClassifiers(projectid: string): Promise<TrainingTypes.TextClassifier[]>
 {
     return new Promise((resolve) => {
         if (projectid === 'existingprojectid') {
@@ -170,7 +170,7 @@ export function getImageClassifiers()
     return Promise.resolve([]);
 }
 
-export function deleteConversationWorkspace()
+export function deleteTextClassifier()
 {
     return Promise.resolve();
 }

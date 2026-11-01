@@ -64,9 +64,9 @@ describe('REST API - local projects', () => {
         classifyModelStub = sinon.stub(textmodels, 'classifyModel');
         textmodelsStubDeleteClassifierStub = sinon.stub(textmodels, 'deleteClassifier');
 
-        getModelStatusesStub.callsFake((tenant, classifiers: Types.ConversationWorkspace[]) =>  {
+        getModelStatusesStub.callsFake((tenant, classifiers: Types.TextClassifier[]) =>  {
             return new Promise((resolve) => {
-                let output: Types.ConversationWorkspace[] = [];
+                let output: Types.TextClassifier[] = [];
 
                 output = classifiers.map((classifier) => {
                     classifier.updated = updated;
@@ -87,7 +87,7 @@ describe('REST API - local projects', () => {
         });
 
         textmodelsStubTrainClassifierStub.callsFake((project: DbTypes.LocalProject /*, training: Types.ConversationTrainingData*/) => {
-            const workspace: Types.ConversationWorkspace = {
+            const workspace: Types.TextClassifier = {
                 id : uuid(),
                 workspace_id : 'NEW-CREATED',
                 credentialsid : credsid,

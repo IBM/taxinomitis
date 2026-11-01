@@ -74,9 +74,9 @@ describe('REST API - models', () => {
         classifyModelStub = sinon.stub(textmodels, 'classifyModel');
         textmodelsStubDeleteClassifierStub = sinon.stub(textmodels, 'deleteClassifier');
 
-        getModelStatusesStub.callsFake((tenant, classifiers: Types.ConversationWorkspace[]) =>  {
+        getModelStatusesStub.callsFake((tenant, classifiers: Types.TextClassifier[]) =>  {
             return new Promise((resolve) => {
-                let output: Types.ConversationWorkspace[] = [];
+                let output: Types.TextClassifier[] = [];
 
                 output = classifiers.map((classifier) => {
                     classifier.updated = updated;
@@ -128,7 +128,7 @@ describe('REST API - models', () => {
                 return Promise.reject(err);
             }
             else {
-                const workspace: Types.ConversationWorkspace = {
+                const workspace: Types.TextClassifier = {
                     id : uuid(),
                     workspace_id : 'NEW-CREATED',
                     credentialsid : '123',
@@ -320,7 +320,7 @@ describe('REST API - models', () => {
             const createdA = new Date();
             createdA.setMilliseconds(0);
 
-            const classifierAInfo: Types.ConversationWorkspace = {
+            const classifierAInfo: Types.TextClassifier = {
                 id : uuid(),
                 workspace_id : 'good',
                 credentialsid : credentials.id,
@@ -331,13 +331,13 @@ describe('REST API - models', () => {
                 name : 'DUMMY ONE',
                 url : uuid(),
             };
-            await store.storeConversationWorkspace(project, classifierAInfo);
+            await store.storeTextClassifier(project, classifierAInfo);
 
             const createdB = new Date();
             createdB.setMilliseconds(0);
             createdB.setSeconds(createdA.getSeconds() + 1);
 
-            const classifierBInfo: Types.ConversationWorkspace = {
+            const classifierBInfo: Types.TextClassifier = {
                 id : uuid(),
                 workspace_id : 'busy',
                 credentialsid : credentials.id,
@@ -348,7 +348,7 @@ describe('REST API - models', () => {
                 name : 'DUMMY TWO',
                 url : uuid(),
             };
-            await store.storeConversationWorkspace(project, classifierBInfo);
+            await store.storeTextClassifier(project, classifierBInfo);
 
 
             nextAuth0Userid = userid;
@@ -531,7 +531,7 @@ describe('REST API - models', () => {
         });
 
 
-        it('should handle failure when updating deleted Conversation workspaces', async () => {
+        it('should handle failure when updating deleted text classifiers', async () => {
             const classid = uuid();
             const userid = uuid();
             const projName = 'deleted model';
@@ -886,7 +886,7 @@ describe('REST API - models', () => {
                 classid,
                 credstype : 'unknown',
             };
-            await store.storeConversationWorkspace(project, {
+            await store.storeTextClassifier(project, {
                 id : uuid(),
                 workspace_id : modelid,
                 credentialsid : missingCredentials.id,
@@ -975,7 +975,7 @@ describe('REST API - models', () => {
             const created = new Date();
             created.setMilliseconds(0);
 
-            const classifierInfo: Types.ConversationWorkspace = {
+            const classifierInfo: Types.TextClassifier = {
                 id : uuid(),
                 workspace_id : modelid,
                 credentialsid : credentials.id,
@@ -986,7 +986,7 @@ describe('REST API - models', () => {
                 name : projName,
                 url : uuid(),
             };
-            await store.storeConversationWorkspace(project, classifierInfo);
+            await store.storeTextClassifier(project, classifierInfo);
 
             nextAuth0Userid = userid;
             nextAuth0Role = 'student';
@@ -1280,7 +1280,7 @@ describe('REST API - models', () => {
             const created = new Date();
             created.setMilliseconds(0);
 
-            const classifierInfo: Types.ConversationWorkspace = {
+            const classifierInfo: Types.TextClassifier = {
                 id : uuid(),
                 workspace_id : modelid,
                 credentialsid : credentials.id,
@@ -1291,7 +1291,7 @@ describe('REST API - models', () => {
                 name : projName,
                 url : uuid(),
             };
-            await store.storeConversationWorkspace(project, classifierInfo);
+            await store.storeTextClassifier(project, classifierInfo);
 
             nextAuth0Userid = 'teacheruserid';
             nextAuth0Role = 'supervisor';
@@ -1332,7 +1332,7 @@ describe('REST API - models', () => {
             const created = new Date();
             created.setMilliseconds(0);
 
-            const classifierInfo: Types.ConversationWorkspace = {
+            const classifierInfo: Types.TextClassifier = {
                 id : uuid(),
                 workspace_id : modelid,
                 credentialsid : credentials.id,
@@ -1343,7 +1343,7 @@ describe('REST API - models', () => {
                 name : projName,
                 url : uuid(),
             };
-            await store.storeConversationWorkspace(project, classifierInfo);
+            await store.storeTextClassifier(project, classifierInfo);
 
             nextAuth0Userid = 'teacheruserid';
             nextAuth0Role = 'supervisor';
@@ -1438,7 +1438,7 @@ describe('REST API - models', () => {
             const created = new Date();
             created.setMilliseconds(0);
 
-            const classifierInfo: Types.ConversationWorkspace = {
+            const classifierInfo: Types.TextClassifier = {
                 id : uuid(),
                 workspace_id : modelid,
                 credentialsid : credentials.id,
@@ -1449,7 +1449,7 @@ describe('REST API - models', () => {
                 name : projName,
                 url : uuid(),
             };
-            await store.storeConversationWorkspace(project, classifierInfo);
+            await store.storeTextClassifier(project, classifierInfo);
 
             nextAuth0Userid = userid;
             nextAuth0Role = 'student';

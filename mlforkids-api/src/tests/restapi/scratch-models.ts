@@ -97,7 +97,7 @@ describe('REST API - scratchkey models', () => {
             classid : TESTCLASS,
             credstype : 'unknown',
         };
-        const workspace: TrainingTypes.ConversationWorkspace = {
+        const workspace: TrainingTypes.TextClassifier = {
             id : uuid(),
             workspace_id : uuid(),
             credentialsid : credentials.id,
