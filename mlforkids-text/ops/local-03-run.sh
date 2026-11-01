@@ -12,7 +12,7 @@ echo "Applying config from env files"
 export $(grep -v '^#' app.env | xargs)
 export $(grep -v '^#' devtest-credentials.env | xargs)
 
-PORT=8000
+PORT=8020
 DEVHOST=localhost
 
 echo "running image at http://$DEVHOST:$PORT"

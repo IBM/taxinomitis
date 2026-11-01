@@ -27,10 +27,12 @@ function setup_batch_job {
         --env-from-secret $DOCKER_IMAGE-cos \
         --env-from-secret $DOCKER_IMAGE-email \
         --env-from-secret $DOCKER_IMAGE-numbers \
+        --env-from-secret $DOCKER_IMAGE-text \
         --env-from-secret $DOCKER_IMAGE-postgresql \
         --env-from-secret $DOCKER_IMAGE-slack \
         --env-from-secret $DOCKER_IMAGE-cloudflare \
         --env NUMBERS_SERVICE=$(ibmcloud ce application get --name mlforkids-numbers -o json | jq -r .status.url) \
+        --env TEXT_SERVICE=$(ibmcloud ce application get --name mlforkids-text -o json | jq -r .status.url) \
         --mount-secret "/usr/src/app/pgsqlcerts"=$DOCKER_IMAGE-postgresql-cert \
         --maxexecutiontime 1800 \
         --retrylimit 1 \
@@ -71,6 +73,9 @@ function setup_secrets {
     ibmcloud ce secret create \
         --name $DOCKER_IMAGE-cloudflare \
         --from-env-file cloudflare-credentials.env
+    ibmcloud ce secret create \
+        --name $DOCKER_IMAGE-text \
+        --from-env-file text-credentials.env
 }
 
 echo "US-SOUTH deployment"
