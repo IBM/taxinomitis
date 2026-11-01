@@ -1,0 +1,743 @@
+{
+  "description": "Expected scores from the evaluated pipeline, for checking the service. Made-up examples only.",
+  "encoder": "intfloat/multilingual-e5-small",
+  "encoderrevision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+  "calibration": "q1",
+  "tatoebasha256": "6bfbf1c136fdb71a68e753dafbc615340c206f573253fcfb2202908f78d42451",
+  "tolerance": {
+    "confidence": 0.002,
+    "rawprobability": 0.002,
+    "embedding": 0.0005
+  },
+  "embeddings": [
+    {
+      "text": "I love my new bike",
+      "tokens": 10,
+      "first8": [
+        -0.00161,
+        -0.028738,
+        -0.057055,
+        -0.063945,
+        0.078446,
+        -0.056286,
+        0.014998,
+        0.030574
+      ]
+    },
+    {
+      "text": "고양이가 야옹해요",
+      "tokens": 10,
+      "first8": [
+        0.069378,
+        -0.011646,
+        -0.027693,
+        -0.101875,
+        0.07592,
+        0.009164,
+        0.046987,
+        -0.005123
+      ]
+    },
+    {
+      "text": "我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。",
+      "tokens": 725,
+      "first8": [
+        0.031227,
+        -0.000175,
+        -0.006588,
+        -0.045445,
+        0.134765,
+        -0.021812,
+        0.022343,
+        0.030068
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "en-feelings",
+      "request": {
+        "language": "en",
+        "labels": [
+          {
+            "label": "happy",
+            "examples": [
+              "I love my new bike",
+              "today was the best day ever",
+              "we won the football match",
+              "my friends threw me a surprise party",
+              "I got a puppy for my birthday"
+            ]
+          },
+          {
+            "label": "sad",
+            "examples": [
+              "I lost my favourite toy",
+              "my best friend moved away",
+              "it rained on sports day",
+              "I failed my spelling test",
+              "nobody came to play with me"
+            ]
+          }
+        ]
+      },
+      "longexamples": 0,
+      "tests": [
+        {
+          "text": "I am so excited about the holidays",
+          "tokens": 13,
+          "truncated": false,
+          "rawprobability": {
+            "happy": 0.537933,
+            "sad": 0.146806
+          },
+          "noneofthese": 0.315261,
+          "expected": [
+            {
+              "label": "happy",
+              "confidence": 0.8704
+            },
+            {
+              "label": "sad",
+              "confidence": 0.01
+            }
+          ]
+        },
+        {
+          "text": "I miss my grandma",
+          "tokens": 10,
+          "truncated": false,
+          "rawprobability": {
+            "happy": 0.242495,
+            "sad": 0.439165
+          },
+          "noneofthese": 0.31834,
+          "expected": [
+            {
+              "label": "sad",
+              "confidence": 0.755
+            },
+            {
+              "label": "happy",
+              "confidence": 0.06
+            }
+          ]
+        },
+        {
+          "text": "the capital of France is Paris",
+          "tokens": 11,
+          "truncated": false,
+          "rawprobability": {
+            "happy": 0.266799,
+            "sad": 0.192346
+          },
+          "noneofthese": 0.540855,
+          "expected": [
+            {
+              "label": "happy",
+              "confidence": 0.0983
+            },
+            {
+              "label": "sad",
+              "confidence": 0.02
+            }
+          ]
+        },
+        {
+          "text": "how many legs does a spider have",
+          "tokens": 14,
+          "truncated": false,
+          "rawprobability": {
+            "happy": 0.270577,
+            "sad": 0.290205
+          },
+          "noneofthese": 0.439218,
+          "expected": [
+            {
+              "label": "sad",
+              "confidence": 0.1394
+            },
+            {
+              "label": "happy",
+              "confidence": 0.1009
+            }
+          ]
+        },
+        {
+          "text": "",
+          "expectederror": "invalid-text"
+        }
+      ]
+    },
+    {
+      "name": "en-animals-food",
+      "request": {
+        "language": "en",
+        "labels": [
+          {
+            "label": "animals",
+            "examples": [
+              "dog",
+              "cat",
+              "elephant",
+              "giraffe",
+              "a lion in the zoo",
+              "the rabbit hopped away"
+            ]
+          },
+          {
+            "label": "food",
+            "examples": [
+              "pizza",
+              "apple",
+              "chocolate cake",
+              "spaghetti",
+              "a cheese sandwich",
+              "ice cream"
+            ]
+          },
+          {
+            "label": "colours",
+            "examples": [
+              "red",
+              "blue",
+              "bright green",
+              "purple",
+              "the sky is light blue",
+              "orange"
+            ]
+          }
+        ]
+      },
+      "longexamples": 0,
+      "tests": [
+        {
+          "text": "tiger",
+          "tokens": 7,
+          "truncated": false,
+          "rawprobability": {
+            "animals": 0.449377,
+            "food": 0.196782,
+            "colours": 0.20758
+          },
+          "noneofthese": 0.14626,
+          "expected": [
+            {
+              "label": "animals",
+              "confidence": 0.775
+            },
+            {
+              "label": "colours",
+              "confidence": 0.03
+            },
+            {
+              "label": "food",
+              "confidence": 0.0237
+            }
+          ]
+        },
+        {
+          "text": "banana",
+          "tokens": 6,
+          "truncated": false,
+          "rawprobability": {
+            "animals": 0.221138,
+            "food": 0.410492,
+            "colours": 0.239101
+          },
+          "noneofthese": 0.12927,
+          "expected": [
+            {
+              "label": "food",
+              "confidence": 0.6962
+            },
+            {
+              "label": "colours",
+              "confidence": 0.06
+            },
+            {
+              "label": "animals",
+              "confidence": 0.04
+            }
+          ]
+        },
+        {
+          "text": "yellow",
+          "tokens": 6,
+          "truncated": false,
+          "rawprobability": {
+            "animals": 0.165336,
+            "food": 0.236825,
+            "colours": 0.472915
+          },
+          "noneofthese": 0.124925,
+          "expected": [
+            {
+              "label": "colours",
+              "confidence": 0.818
+            },
+            {
+              "label": "food",
+              "confidence": 0.055
+            },
+            {
+              "label": "animals",
+              "confidence": 0.01
+            }
+          ]
+        },
+        {
+          "text": "my homework is due tomorrow",
+          "tokens": 11,
+          "truncated": false,
+          "rawprobability": {
+            "animals": 0.187371,
+            "food": 0.202481,
+            "colours": 0.227635
+          },
+          "noneofthese": 0.382513,
+          "expected": [
+            {
+              "label": "colours",
+              "confidence": 0.047
+            },
+            {
+              "label": "food",
+              "confidence": 0.03
+            },
+            {
+              "label": "animals",
+              "confidence": 0.02
+            }
+          ]
+        },
+        {
+          "text": "pink and white stripes",
+          "tokens": 10,
+          "truncated": false,
+          "rawprobability": {
+            "animals": 0.16846,
+            "food": 0.218823,
+            "colours": 0.33715
+          },
+          "noneofthese": 0.275567,
+          "expected": [
+            {
+              "label": "colours",
+              "confidence": 0.2695
+            },
+            {
+              "label": "food",
+              "confidence": 0.04
+            },
+            {
+              "label": "animals",
+              "confidence": 0.01
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "es-weather",
+      "request": {
+        "language": "es",
+        "labels": [
+          {
+            "label": "soleado",
+            "examples": [
+              "hace mucho sol hoy",
+              "vamos a la playa",
+              "qué calor hace",
+              "el cielo está despejado"
+            ]
+          },
+          {
+            "label": "lluvioso",
+            "examples": [
+              "está lloviendo mucho",
+              "necesito mi paraguas",
+              "hay charcos en la calle",
+              "va a llover"
+            ]
+          }
+        ]
+      },
+      "longexamples": 0,
+      "tests": [
+        {
+          "text": "hace un día precioso y caluroso",
+          "tokens": 14,
+          "truncated": false,
+          "rawprobability": {
+            "soleado": 0.419914,
+            "lluvioso": 0.28774
+          },
+          "noneofthese": 0.292347,
+          "expected": [
+            {
+              "label": "soleado",
+              "confidence": 0.7192
+            },
+            {
+              "label": "lluvioso",
+              "confidence": 0.133
+            }
+          ]
+        },
+        {
+          "text": "llueve sin parar",
+          "tokens": 11,
+          "truncated": false,
+          "rawprobability": {
+            "soleado": 0.266349,
+            "lluvioso": 0.451992
+          },
+          "noneofthese": 0.281659,
+          "expected": [
+            {
+              "label": "lluvioso",
+              "confidence": 0.7803
+            },
+            {
+              "label": "soleado",
+              "confidence": 0.0971
+            }
+          ]
+        },
+        {
+          "text": "me gusta jugar al ajedrez",
+          "tokens": 12,
+          "truncated": false,
+          "rawprobability": {
+            "soleado": 0.222069,
+            "lluvioso": 0.310424
+          },
+          "noneofthese": 0.467507,
+          "expected": [
+            {
+              "label": "lluvioso",
+              "confidence": 0.1879
+            },
+            {
+              "label": "soleado",
+              "confidence": 0.04
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ko-pets",
+      "request": {
+        "language": "ko",
+        "labels": [
+          {
+            "label": "강아지",
+            "examples": [
+              "강아지가 꼬리를 흔들어요",
+              "산책하러 가자",
+              "멍멍 짖어요",
+              "공을 물어 왔어요",
+              "우리 강아지는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 강아지는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 강아지는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 강아지는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 강아지는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 강아지는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 강아지는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 강아지는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 강아지는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 강아지는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 강아지는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 강아지는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 강아지는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 강아지는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 강아지는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 강아지는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 강아지는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 강아지는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 강아지는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 강아지는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 강아지는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 강아지는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 강아지는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. "
+            ]
+          },
+          {
+            "label": "고양이",
+            "examples": [
+              "고양이가 야옹해요",
+              "상자 안에 들어가 있어요",
+              "털을 핥고 있어요",
+              "생선을 좋아해요",
+              "우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. "
+            ]
+          }
+        ]
+      },
+      "longexamples": 2,
+      "tests": [
+        {
+          "text": "우리 강아지는 산책을 좋아해요",
+          "tokens": 14,
+          "truncated": false,
+          "rawprobability": {
+            "강아지": 0.485286,
+            "고양이": 0.277874
+          },
+          "noneofthese": 0.23684,
+          "expected": [
+            {
+              "label": "강아지",
+              "confidence": 0.828
+            },
+            {
+              "label": "고양이",
+              "confidence": 0.12
+            }
+          ]
+        },
+        {
+          "text": "고양이가 상자에서 자요",
+          "tokens": 12,
+          "truncated": false,
+          "rawprobability": {
+            "강아지": 0.20068,
+            "고양이": 0.534079
+          },
+          "noneofthese": 0.265241,
+          "expected": [
+            {
+              "label": "고양이",
+              "confidence": 0.8675
+            },
+            {
+              "label": "강아지",
+              "confidence": 0.03
+            }
+          ]
+        },
+        {
+          "text": "오늘 수학 시험이 있어요",
+          "tokens": 11,
+          "truncated": false,
+          "rawprobability": {
+            "강아지": 0.280006,
+            "고양이": 0.315506
+          },
+          "noneofthese": 0.404488,
+          "expected": [
+            {
+              "label": "고양이",
+              "confidence": 0.2123
+            },
+            {
+              "label": "강아지",
+              "confidence": 0.1206
+            }
+          ]
+        },
+        {
+          "text": "우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. 우리 고양이는 하루 종일 창문 옆에서 잠을 자고 밤에는 집 안을 뛰어다녀요. ",
+          "tokens": 580,
+          "truncated": true,
+          "rawprobability": {
+            "강아지": 0.296973,
+            "고양이": 0.482105
+          },
+          "noneofthese": 0.220922,
+          "expected": [
+            {
+              "label": "고양이",
+              "confidence": 0.8257
+            },
+            {
+              "label": "강아지",
+              "confidence": 0.1594
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "zh-cn-school",
+      "request": {
+        "language": "zh-cn",
+        "labels": [
+          {
+            "label": "数学",
+            "examples": [
+              "二加二等于四",
+              "我在学乘法",
+              "这道题怎么算",
+              "三角形有三条边"
+            ]
+          },
+          {
+            "label": "音乐",
+            "examples": [
+              "我会弹钢琴",
+              "我们一起唱歌吧",
+              "这首歌很好听",
+              "我在学小提琴",
+              "我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。"
+            ]
+          }
+        ]
+      },
+      "longexamples": 1,
+      "tests": [
+        {
+          "text": "五乘以六是多少",
+          "tokens": 12,
+          "truncated": false,
+          "rawprobability": {
+            "数学": 0.479878,
+            "音乐": 0.215969
+          },
+          "noneofthese": 0.304153,
+          "expected": [
+            {
+              "label": "数学",
+              "confidence": 0.8242
+            },
+            {
+              "label": "音乐",
+              "confidence": 0.0369
+            }
+          ]
+        },
+        {
+          "text": "我喜欢听音乐",
+          "tokens": 9,
+          "truncated": false,
+          "rawprobability": {
+            "数学": 0.12718,
+            "音乐": 0.610922
+          },
+          "noneofthese": 0.261898,
+          "expected": [
+            {
+              "label": "音乐",
+              "confidence": 0.9191
+            },
+            {
+              "label": "数学",
+              "confidence": 0.0
+            }
+          ]
+        },
+        {
+          "text": "今天天气很好",
+          "tokens": 8,
+          "truncated": false,
+          "rawprobability": {
+            "数学": 0.203858,
+            "音乐": 0.362743
+          },
+          "noneofthese": 0.433399,
+          "expected": [
+            {
+              "label": "音乐",
+              "confidence": 0.5114
+            },
+            {
+              "label": "数学",
+              "confidence": 0.03
+            }
+          ]
+        },
+        {
+          "text": "我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。我喜欢和我的小狗一起在公园里玩，它跑得很快，还会捡球。",
+          "tokens": 725,
+          "truncated": true,
+          "rawprobability": {
+            "数学": 0.169182,
+            "音乐": 0.571603
+          },
+          "noneofthese": 0.259214,
+          "expected": [
+            {
+              "label": "音乐",
+              "confidence": 0.8965
+            },
+            {
+              "label": "数学",
+              "confidence": 0.01
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "xx-greetings",
+      "request": {
+        "language": "xx",
+        "labels": [
+          {
+            "label": "hello",
+            "examples": [
+              "hallo",
+              "hej",
+              "cześć",
+              "merhaba",
+              "привет"
+            ]
+          },
+          {
+            "label": "goodbye",
+            "examples": [
+              "tot ziens",
+              "hej då",
+              "do widzenia",
+              "güle güle",
+              "до свидания"
+            ]
+          }
+        ]
+      },
+      "longexamples": 0,
+      "tests": [
+        {
+          "text": "dzień dobry",
+          "tokens": 7,
+          "truncated": false,
+          "rawprobability": {
+            "hello": 0.308325,
+            "goodbye": 0.371924
+          },
+          "noneofthese": 0.31975,
+          "expected": [
+            {
+              "label": "goodbye",
+              "confidence": 0.5695
+            },
+            {
+              "label": "hello",
+              "confidence": 0.1822
+            }
+          ]
+        },
+        {
+          "text": "do zobaczenia",
+          "tokens": 8,
+          "truncated": false,
+          "rawprobability": {
+            "hello": 0.22023,
+            "goodbye": 0.543336
+          },
+          "noneofthese": 0.236433,
+          "expected": [
+            {
+              "label": "goodbye",
+              "confidence": 0.874
+            },
+            {
+              "label": "hello",
+              "confidence": 0.04
+            }
+          ]
+        },
+        {
+          "text": "spokój",
+          "tokens": 7,
+          "truncated": false,
+          "rawprobability": {
+            "hello": 0.325247,
+            "goodbye": 0.28464
+          },
+          "noneofthese": 0.390113,
+          "expected": [
+            {
+              "label": "hello",
+              "confidence": 0.2351
+            },
+            {
+              "label": "goodbye",
+              "confidence": 0.13
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

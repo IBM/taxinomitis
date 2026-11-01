@@ -1,0 +1,8 @@
+# only what the Dockerfile copies
+*
+!requirements.txt
+!app
+!calibration
+!scripts
+!data/tatoeba-background.json
+**/__pycache__
