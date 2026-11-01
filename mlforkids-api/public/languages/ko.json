@@ -123,12 +123,7 @@
         },
         "UNMANAGED": {
             "TITLE": "<strong>등록되지 않는</strong> 교실 계정을 만들기",
-            "INTRO": "수업 계정을 직접 설정하고 관리하는 것이 더 좋다면 지금 바로 시작 할 수 있습니다",
-            "LISTINTRO": "다음과 같이 해야합니다:",
-            "LIST_CREATEACCOUNT": "IBM Cloud에서 계정 만들기",
-            "LIST_CREATEAPIKEYS": "머신러닝 모델을 학습하는 데 필요한 Watson 클라우드 서비스 용 API키 만들기",
-            "LIST_ENTERAPIKEYS": "아이들을 위한 머신러닝에 API 키 입력하기",
-            "HELP": "이 모든 것에 대한 단계별 지침(스크린 샷 포함)을 사용할 수 있습니다."
+            "INTRO": "수업 계정을 직접 설정하고 관리하는 것이 더 좋다면 지금 바로 시작 할 수 있습니다"
         },
         "MANAGED": {
             "TITLE": "<strong>관리되는</ strong> 교실 계정 만들기",
@@ -247,10 +242,6 @@
             "TOOLONG": "너무 길어요!",
             "EXCEEDLIMIT": "동시에 진행할 수 있는 최대 프로젝트 수에 도달했습니다. 새 프로젝트를 만들기 위해서는 진행중인 프로젝트 중 하나를 지워야 합니다.",
             "TRYITNOW": "미안해요! \"지금 사용해보기\"를 사용하면 한번에 한 프로젝트만 만들 수 있어요. 새 프로젝트를 만들기 전에 현재 진행중인 프로젝트를 지워야해요."
-        },
-        "WARNINGS": {
-            "MLCRED-TEXT-NOKEYS": "Please let your teacher know that they will need to add a \"Watson Assistant API key\" to your class to let you train the machine learning model for your new project",
-            "MLCRED-TEXT-INVALID": "There might be a problem with the IBM Cloud API keys you will need to train a machine learning model for your new project. Please ask your teacher to try verifying the \"Watson Assistant API keys\" in your class."
         }
     },
     "DATASETS": {
@@ -2004,6 +1995,7 @@
                 "TITLE": "여러분 학급의 제한 사항",
                 "NUM_USERS": "여러분은 <span class='mlprojecttype'>{{ num }}</span>명의 사용자를 만들 수 있습니다.",
                 "NUM_TEXT_MODELS": "여러분의 학급은 <span class='mlprojecttype'>text</span>프로젝트에서 <span class='mlprojecttype'>{{ num }}</span>개의 머신러닝 모델을 만들 수 있습니다.",
+                "NUM_STUDENT_TEXT_MODELS": "Each of your students is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> active machine learning models for their <span class='mlprojecttype'>text</span> projects.",
                 "NUM_IMAGE_MODELS": "여러분의 학급은 <span class='mlprojecttype'>images</span>프로젝트에서 <span class='mlprojecttype'>{{ num }}</span>개의 머신러닝 모델을 만들 수 있습니다.</div>"
             },
             "PROJECT_LIMITS": {
@@ -2210,9 +2202,6 @@
         "MODELS": {
             "TITLE": "머신러닝 모델의 훈련 오류",
 
-            "Q1": "\"Watson 인증서가 설정되지 않았습니다\"",
-            "Q1-A-1": "도구의 머신러닝 모델은 IBM Watson API를 사용하여 작성됩니다.",
-            "Q1-A-2": "\"관리되지 않는\" 클래스 계정이 있으면, 선생님이나 그룹 리더가 IBM Cloud에서 Watson API 인증서를 입력해야 작동할 수 있습니다. 그 방법은 페이지 상단의 \"시작하기\"에 있습니다.",
 
             "Q2": "\"학급에서 사용중인 Watson 인증서가 거부되었습니다\"",
             "Q2-A-1": "도구의 머신러닝 모델은 IBM Watson API를 사용하여 작성됩니다.",
@@ -2242,15 +2231,12 @@
             "Q6-A-2": "페이지는 30 초마다 기계 학습 모델의 상태를 확인하지만 매우 가끔 검사를 중단할 수 있습니다. 그렇기 때문에 실제로 모델이 준비된 상태일 수도 있습니다.",
             "Q6-A-3": "몇 분이 지났 으면 페이지를 새로 고침하여 확인해보세요.",
             "Q6-A-4": "10분 이상이 지난 경우 다시 학습을 시작하기를 권유합니다(취소 버튼을 클릭 한 다음 버튼을 클릭하여 새로운 기계 학습 모델을 다시 교육하십시오).",
+            "Q7": "You have too many machine learning models",
+            "Q7-A-1": "There is a limit for the number of machine learning models each student can have for their text projects.",
+            "Q7-A-2": "If you hit this limit, you will not be able to train a new model until you delete a machine learning model that you no longer need.",
+            "Q7-A-3": "To delete a model, open the text project, go to the \"Learn &amp; Test\" page, and click \"Delete this model\". Your training data will not be deleted, so you can train the model again later.",
+            "Q7-A-4": "Your teacher can see the limit for your class in the Restrictions section of their Teacher page."
 
-            "Q7": "\"Your class is sharing Watson API keys ... there are currently none available\"",
-            "Q7-A-1": "도구의 머신러닝 모델은 IBM Watson API를 사용하여 작성됩니다.",
-            "Q7-A-2": "If you have a \"managed\" class account, this means your class is sharing these keys with many other schools. ",
-            "Q7-A-3": "There are normally enough for all schools, but if it is very busy and all of the available API keys are currently in use, attempts to train new machine learning models will fail, and this message will be displayed:",
-            "Q7-A-4": "Your class is sharing Watson Assistant / Visual Recognition \"API keys\" with many other schools, and unfortunately there are currently none available. Please let your teacher or group leader know that you will have to train your machine learning model later",
-            "Q7-A-5": "만약 학생 중 성공적으로 학습된 모델을 가지고 있다면 이를 삭제하하세요. 이는 다른 학생들에게 기술을 사용할 수 있게 합니다.",
-            "Q7-A-6": "The best thing to do is to try again later, after other students have deleted their machine learning models and API keys are available again. Your training data will still be safe until then.",
-            "Q7-A-7": "Another way to avoid this error is for your class to create an \"unmanaged\" class account, which is where a teacher creates their own Watson \"API keys\" that can be dedicated only for use by their own class."
         },
 
         "TEACHERUI": {
@@ -2334,7 +2320,7 @@
     "APIKEYSGUIDE": {
         "TITLE": "Guide to IBM Cloud",
         "INTRO": {
-            "INTRO_1": "Teachers / parents / code club-leaders with unmanaged class accounts need to provide '<strong>API Keys</strong>' from IBM Cloud. These are secret codes that provide access to the artificial intelligence technology that will power student's text projects.",
+            "INTRO_1": "If your class uses '<strong>API Keys</strong>' from IBM Cloud, this guide explains how to create them. These are secret codes that provide access to the artificial intelligence technology that powers students' text projects.",
             "INTRO_2": "텍스트 프로젝트에는 'Watson Assistant' API 키가 필요합니다.(사진, 숫자, 소리 프로젝트는 API키가 필요하지 않습니다) ",
             "INTRO_3": "You will need to create an account on IBM Cloud to be able to create these codes. It is free to create an account, and there are no charges for 'Lite' API Keys. "
         },

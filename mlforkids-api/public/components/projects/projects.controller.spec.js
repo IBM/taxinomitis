@@ -25,7 +25,7 @@ describe('ProjectsController', function () {
             getProfileDeferred : jasmine.createSpy('getProfileDeferred').and.returnValue($q.resolve(profile))
         };
         projectsServiceMock = jasmine.createSpyObj('projectsService', [
-            'getProjects', 'deleteProject', 'shareProject', 'checkProjectCredentials'
+            'getProjects', 'deleteProject', 'shareProject'
         ]);
         modelServiceMock = jasmine.createSpyObj('modelService', ['generateProjectSummary']);
         browserStorageServiceMock = jasmine.createSpyObj('browserStorageService', [

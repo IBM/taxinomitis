@@ -123,12 +123,7 @@
         },
         "UNMANAGED": {
             "TITLE": "建立一個<strong>沒有管理權限</strong>的班級帳戶",
-            "INTRO": "如果你喜歡自己設定與管理班級帳戶，你可以立即進行！",
-            "LISTINTRO": "你將會需要：",
-            "LIST_CREATEACCOUNT": "建立一個「IBM Cloud」的免費帳戶",
-            "LIST_CREATEAPIKEYS": "建立「Watson服務」的API密碼，我們在訓練機器學習模型的時候需要使用它",
-            "LIST_ENTERAPIKEYS": "在「兒童機器學習」網站中輸入你的API密碼",
-            "HELP": "這些流程我們都有提供一步一步的教學文件(包含螢幕截圖)"
+            "INTRO": "如果你喜歡自己設定與管理班級帳戶，你可以立即進行！"
         },
         "MANAGED": {
             "TITLE": "建立一個<strong>有管理權限</strong>的班級帳戶",
@@ -247,10 +242,6 @@
             "TOOLONG": "太久了！",
             "EXCEEDLIMIT": "You've reached the limit for the number of projects you can have. You need to delete one of your current projects before you can create another.",
             "TRYITNOW": "Sorry! You can only create one project at a time if you use 'Try it now'. You need to delete your current project before you can create another."
-        },
-        "WARNINGS": {
-            "MLCRED-TEXT-NOKEYS": "請告知您的老師，他們將需要在課程中加入「 Watson Assistant API密碼」，才能為新專案訓練機器學習模型",
-            "MLCRED-TEXT-INVALID": "IBM Cloud API密鑰可能出現問題，你需要再次幫你的新專案訓練機器學習模型。 請讓你的老師嘗試驗證你課堂上的「 Watson Assistant API密碼。」"
         }
     },
     "DATASETS": {
@@ -2004,6 +1995,7 @@
                 "TITLE": "班級限制",
                 "NUM_USERS": "你的群組中最多可以有<span class='mlprojecttype'>{{ num }}</span>個用戶（包含學生與老師）",
                 "NUM_TEXT_MODELS": "你的班級擁有的所有<span class='mlprojecttype'>文字</span>專案，最多可以使用<span class='mlprojecttype'>{{ num }}個機器學習模型",
+                "NUM_STUDENT_TEXT_MODELS": "Each of your students is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> active machine learning models for their <span class='mlprojecttype'>text</span> projects.",
                 "NUM_IMAGE_MODELS": "你的班級擁有的所有<span class='mlprojecttype'>圖片</span>專案，最多可以使用<span class='mlprojecttype'>{{ num }}</span>個機器學習模型</div>"
             },
             "PROJECT_LIMITS": {
@@ -2209,9 +2201,6 @@
         "MODELS": {
             "TITLE": "訓練機器學習模型的常見錯誤",
 
-            "Q1": "「尚未設定Watson認證」",
-            "Q1-A-1": "此工具中的機器學習模型是使用IBM Watson API建立的。",
-            "Q1-A-2": "如果您擁有「沒有班級管理」的帳戶，則你的老師或小組負責人將需要提供IBM Cloud的Watson API認證才能使其正常運作。 有關如何執行此操作的詳細說明，請參閱此頁頂部的「第一次使用」文檔。",
 
             "Q2": "「班級正在使用的Watson認證被拒絕」",
             "Q2-A-1": "此工具中的機器學習模型是使用IBM Watson API建立的。",
@@ -2241,15 +2230,12 @@
             "Q6-A-2": "該頁面應該每30秒檢查一次機器學習模型的狀態，但是有時它會停止檢查，因此您可能一直在等待模型，但實際上已經準備完成。",
             "Q6-A-3": "如果超過好幾分鐘，則值得重新整理頁面進行檢查。",
             "Q6-A-4": "如果已超過十分鐘，則可能值得考慮重新啟動（點擊「取消」按鈕，然後點擊該按鈕以再次訓練新的機器學習模型）。",
+            "Q7": "You have too many machine learning models",
+            "Q7-A-1": "There is a limit for the number of machine learning models each student can have for their text projects.",
+            "Q7-A-2": "If you hit this limit, you will not be able to train a new model until you delete a machine learning model that you no longer need.",
+            "Q7-A-3": "To delete a model, open the text project, go to the \"Learn &amp; Test\" page, and click \"Delete this model\". Your training data will not be deleted, so you can train the model again later.",
+            "Q7-A-4": "Your teacher can see the limit for your class in the Restrictions section of their Teacher page."
 
-            "Q7": "你的班級使用共享的Watson Keys，目前已無可使用的空間。",
-            "Q7-A-1": "此工具中的機器學習模型是使用IBM Watson API建立的。",
-            "Q7-A-2": "如果你使用「有班級管理」功能的帳號，代表你的班級將與其他學校共用API密碼。",
-            "Q7-A-3": "通常來說足夠所有學校使用，但在非常高度密集使用的狀況下，可能會導致機器學習模型訓練失敗，並出現以下訊息：",
-            "Q7-A-4": "你的班級與其他許多學校共用Watson Assistant / Visual Recognition API Keys，很抱歉目前已無足夠的空間可供使用。請讓你的老師或教學領導者知道你需要晚點才能訓練你的機器學習模型。",
-            "Q7-A-5": "如果具有成功訓練過模型的學生刪除了他們的模型，這將釋放一個工作空間供其他學生使用。",
-            "Q7-A-6": "最好的解決方法是等其他學生刪除他們的機器學習模型後再測試一次。即便還沒完成訓練，你的訓練資料也會安全保存著。",
-            "Q7-A-7": "避免此錯誤的另一種方法是建立一個「沒有班級管理」的帳號，如此一來老師需要建立自己的Watson API Keys，而這組密碼就是班級專用的。"
         },
 
         "TEACHERUI": {

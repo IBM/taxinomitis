@@ -9,10 +9,6 @@
     margin-bottom: 5em;
 }
 
-.signupForm .well.terms {
-    font-size: 0.9em;
-}
-
 .signuptextentry {
     font-size: 1.2em;
 }
@@ -22,9 +18,5 @@
 }
 
 .signupPage .help-text-spacing {
-    margin-bottom: 1em;
-}
-
-.signupPage .terms-text-spacing {
     margin-bottom: 1em;
 }

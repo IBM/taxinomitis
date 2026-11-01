@@ -1,6 +1,5 @@
 import { describe, it, before, after } from 'node:test';
 import * as assert from 'assert';
-import { v1 as uuid } from 'uuid';
 import * as sinon from 'sinon';
 import * as request from 'supertest';
 import { status as httpstatus } from 'http-status';
@@ -8,8 +7,6 @@ import * as randomstring from 'randomstring';
 import * as express from 'express';
 
 import * as conversation from '../../lib/training/conversation';
-import * as TrainingTypes from '../../lib/training/training-types';
-import * as checker from '../../lib/training/credentialscheck';
 import * as ProjectTypes from '../../lib/db/projects';
 import * as store from '../../lib/db/store';
 import * as Types from '../../lib/db/db-types';
@@ -27,7 +24,6 @@ describe('REST API - Bluemix credentials', () => {
     // let ensureUnmanagedStub;
     let getClassStub: sinon.SinonStub<[string], Promise<Types.ClassTenant>>;
     let getTextClassifiersStub: sinon.SinonStub<[string, string], Promise<string>>;
-    let testTxtMultipleCredentialsStub: sinon.SinonStub<[TrainingTypes.BluemixCredentials[]], Promise<boolean>>;
 
     function authNoOp(
         req: express.Request,
@@ -46,8 +42,6 @@ describe('REST API - Bluemix credentials', () => {
 
 
     before(async () => {
-        checker.init();
-
         authStub = sinon.stub(auth, 'authenticate').callsFake(authNoOp);
         checkUserStub = sinon.stub(auth, 'checkValidUser').callsFake(authNoOp);
         requireSupervisorStub = sinon.stub(auth, 'requireSupervisor').callsFake(authNoOp);
@@ -80,14 +74,6 @@ describe('REST API - Bluemix credentials', () => {
                     statusCode : 401,
                 });
             });
-        testTxtMultipleCredentialsStub = sinon
-            .stub(conversation, 'testMultipleCredentials')
-            .callsFake((creds: TrainingTypes.BluemixCredentials[]) => {
-                if (creds[0].username === VALID_USERNAME && creds[0].password === VALID_PASSWORD) {
-                    return Promise.resolve(true);
-                }
-                return Promise.resolve(false);
-            });
 
         await store.init();
         await store.deleteClassResources('TESTTENANT');
@@ -101,7 +87,6 @@ describe('REST API - Bluemix credentials', () => {
         requireSupervisorStub.restore();
         getClassStub.restore();
         getTextClassifiersStub.restore();
-        testTxtMultipleCredentialsStub.restore();
 
         await store.disconnect();
     });
@@ -320,70 +305,6 @@ describe('REST API - Bluemix credentials', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.NOT_FOUND);
         });
-    });
-
-
-    describe('checkAllCredentials', () => {
-        const classid = 'DIFFERENT9';
-
-        describe('text credentials', () => {
-            const convid = uuid();
-
-            before(async () => {
-                await store.storeBluemixCredentials(classid, {
-                    id : convid,
-                    classid,
-                    username : VALID_USERNAME,
-                    password : VALID_PASSWORD,
-                    servicetype : 'conv',
-                    url : 'https://gateway.watsonplatform.net/assistant/api',
-                    credstypeid : 0,
-                });
-            });
-            after(async () => {
-                await store.deleteBluemixCredentials(convid);
-            });
-
-            it('should validate credentials', async () => {
-                const res = await request(testServer)
-                    .get('/api/classes/' + classid + '/modelsupport/text')
-                    .expect('Content-Type', /json/)
-                    .expect(httpstatus.OK);
-
-                assert.strictEqual(res.headers['cache-control'], 'max-age=31536000');
-                assert.deepStrictEqual(res.body, {
-                    code: 'MLCRED-OK',
-                    message: 'ok',
-                });
-            });
-
-            it('should recognize classes without credentials', async () => {
-                const res = await request(testServer)
-                    .get('/api/classes/DIFFERENTNOCREDS/modelsupport/text')
-                    .expect('Content-Type', /json/)
-                    .expect(httpstatus.CONFLICT);
-
-                assert.strictEqual(res.headers['cache-control'], 'max-age=60');
-                assert.deepStrictEqual(res.body, {
-                    code: 'MLCRED-TEXT-NOKEYS',
-                    message: 'There are no Watson Assistant credentials in this class',
-                });
-            });
-
-            it('should use the cache for repeated requests', async () => {
-                const res = await request(testServer)
-                    .get('/api/classes/' + classid + '/modelsupport/text')
-                    .expect('Content-Type', /json/)
-                    .expect(httpstatus.OK);
-
-                assert.strictEqual(res.headers['cache-control'], 'max-age=31536000');
-                assert.deepStrictEqual(res.body, {
-                    code: 'MLCRED-OK',
-                    message: 'ok',
-                });
-            });
-        });
-
     });
 
 

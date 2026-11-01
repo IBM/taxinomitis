@@ -117,12 +117,7 @@
         },
         "UNMANAGED": {
             "TITLE": "Erstelle einen <strong>nicht verwalteten</strong> Klassenaccount",
-            "INTRO": "Wenn du deinen Klassenaccount selbst einrichten und verwalten möchtest, mache das jetzt!",
-            "LISTINTRO": "Dafür musst du:",
-            "LIST_CREATEACCOUNT": "Einen Account auf IBM Cloud erstellen",
-            "LIST_CREATEAPIKEYS": "API Schlüssel für Watson Cloud Services erstellen, die benötigt werden, um die maschinellen Lernmodelle zu trainieren",
-            "LIST_ENTERAPIKEYS": "Die API Schlüssel im Machine Learning for Kids Tool eingeben",
-            "HELP": "Für alles gibt es Schritt-für-Schritt Anleitungen (mit Screenshots)."
+            "INTRO": "Wenn du deinen Klassenaccount selbst einrichten und verwalten möchtest, mache das jetzt!"
         },
         "MANAGED": {
             "TITLE": "Erstelle eine <strong>verwalteten</strong> Klassenaccount",
@@ -241,10 +236,6 @@
             "TOOLONG": "Das ist zu lang!",
             "EXCEEDLIMIT": "You've reached the limit for the number of projects you can have. You need to delete one of your current projects before you can create another.",
             "TRYITNOW": "Sorry! You can only create one project at a time if you use 'Try it now'. You need to delete your current project before you can create another."
-        },
-        "WARNINGS": {
-            "MLCRED-TEXT-NOKEYS": "Bitte lass deinen Lehrer wissen, dass ihr einen \"Watson Assistant API key\" für eure Klasse benötigt um das Machine-Learning-Modell für euer Projekt zu trainieren",
-            "MLCRED-TEXT-INVALID": "Es gibt ein Problem mit den IBM Cloud API keys die ihr für euer Projekt benötigt. Bittet euren Lehrer den \"Watson Assistant API keys\" in eurer Klasse zu prüfen."
         }
     },
     "DATASETS": {
@@ -1940,6 +1931,7 @@
                 "TITLE": "Limitierungen für deine Klasse",
                 "NUM_USERS": "Du kannst bis zu <span class='mlprojecttype'>{{ num }}</span> Nutzer (inklusive SchülerInnen und Lehrer) in deiner Gruppe haben.",
                 "NUM_TEXT_MODELS": "Deine Gruppe kann insgesamt maximal <span class='mlprojecttype'>{{ num }}</span> Machine Learning Models gleichzeitig für <span class='mlprojecttype'>Text</span> Projecte haben.",
+                "NUM_STUDENT_TEXT_MODELS": "Each of your students is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> active machine learning models for their <span class='mlprojecttype'>text</span> projects.",
                 "NUM_IMAGE_MODELS": "Deine Gruppe kann insgesamt maximal <span class='mlprojecttype'>{{ num }}</span> Machine Learning Models gleichzeitig für <span class='mlprojecttype'>Bild</span> Projecte haben.</div>"
             },
             "PROJECT_LIMITS": {
@@ -2121,9 +2113,6 @@
         },
         "MODELS": {
             "TITLE": "Fehler beim Trainieren eines Machine Learning Models",
-            "Q1": "\"Es wurden keine Watson Credentials eingerichtet\"",
-            "Q1-A-1": "Die Machine Learning Models in diesem Tool verwenden IBM Watson APIs.",
-            "Q1-A-2": "Wenn du einen \"nicht-verwalteten\" Klassenaccount hast, muss deine Lehrkraft die Watson API Credentials von der IBM Cloud einrichten. Schritt-für-Schritt Anleitungen dazu gibt es im \"Vorbereitungs-\"dokument, oben auf dieser Seite.",
             "Q2": "\"Die Watson Credentials deiner Klasse wurden abgelehnt\"",
             "Q2-A-1": "Die Machine Learning Models in diesem Tool verwenden IBM Watson APIs.",
             "Q2-A-2": "Wenn du einen \"nicht-verwalteten\" Klassenaccount hast, muss deine Lehrkraft die Watson API Credentials von der IBM Cloud einrichten. Schritt-für-Schritt Anleitungen dazu gibt es im  \"Vorbereitungs-\"dokument, oben auf dieser Seite.",
@@ -2149,14 +2138,11 @@
             "Q6-A-2": "Alle 30 Sekunden überprüft die Seite den Status des Machine Learning Models. Manchmal schlägt die Überprüfung fehl, sodass das Model bereits trainiert ist und du umsonst wartest.",
             "Q6-A-3": "Sobald du länger als ein paar Minuten wartest, solltest du die Seite neu laden.",
             "Q6-A-4": "Wenn das Trainieren des Models tatsächlich länger als 10 Minuten dauert, kannst du überlegen das Training erneut zu starten. Klicke dazu auf \"Abbrechen\" und dann erneut auf den \"Trainiere ein neues Machine Learning Model\" Button.",
-            "Q7": "\"Your class is sharing Watson API keys ... there are currently none available\"",
-            "Q7-A-1": "Machine learning models in the tool are created using IBM Watson APIs.",
-            "Q7-A-2": "If you have a \"managed\" class account, this means your class is sharing these keys with many other schools. ",
-            "Q7-A-3": "There are normally enough for all schools, but if it is very busy and all of the available API keys are currently in use, attempts to train new machine learning models will fail, and this message will be displayed:",
-            "Q7-A-4": "Your class is sharing Watson Assistant / Visual Recognition \"API keys\" with many other schools, and unfortunately there are currently none available. Please let your teacher or group leader know that you will have to train your machine learning model later",
-            "Q7-A-5": "If a student who has a successfully trained model then deletes their model, this will free up a skill for use by another student.",
-            "Q7-A-6": "The best thing to do is to try again later, after other students have deleted their machine learning models and API keys are available again. Your training data will still be safe until then.",
-            "Q7-A-7": "Another way to avoid this error is for your class to create an \"unmanaged\" class account, which is where a teacher creates their own Watson \"API keys\" that can be dedicated only for use by their own class."
+            "Q7": "You have too many machine learning models",
+            "Q7-A-1": "There is a limit for the number of machine learning models each student can have for their text projects.",
+            "Q7-A-2": "If you hit this limit, you will not be able to train a new model until you delete a machine learning model that you no longer need.",
+            "Q7-A-3": "To delete a model, open the text project, go to the \"Learn &amp; Test\" page, and click \"Delete this model\". Your training data will not be deleted, so you can train the model again later.",
+            "Q7-A-4": "Your teacher can see the limit for your class in the Restrictions section of their Teacher page."
         },
         "TEACHERUI": {
             "TITLE": "Probleme mit der Lehrkraft-/ Admin-Benutzeroberfläche",
@@ -2230,8 +2216,8 @@
     "APIKEYSGUIDE": {
         "TITLE": "Guide to IBM Cloud",
         "INTRO": {
-            "INTRO_1": "Teachers / parents / code club-leaders with unmanaged class accounts need to provide '<strong>API Keys</strong>' from IBM Cloud. These are secret codes that provide access to the artificial intelligence technology that will power student's text projects.",
-            "INTRO_2": "Text projects need a 'watsonx Assistant' API Key. (Images, numbers and sound projects don't require API Keys).",
+            "INTRO_1": "If your class uses '<strong>API Keys</strong>' from IBM Cloud, this guide explains how to create them. These are secret codes that provide access to the artificial intelligence technology that powers students' text projects.",
+            "INTRO_2": "The API Keys used for text projects are for 'watsonx Assistant'. (Images, numbers and sound projects don't use API Keys).",
             "INTRO_3": "You will need to create an account on IBM Cloud to be able to create these codes. It is free to create an account, and there are no charges for 'Lite' API Keys. "
         },
         "LINK": "How to create API Keys",

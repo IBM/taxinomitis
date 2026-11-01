@@ -123,12 +123,7 @@
         },
         "UNMANAGED": {
             "TITLE": "Luo <strong>itse hallinnoitava</strong> luokkatili",
-            "INTRO": "Jos haluat perustaa ja hallinnoida luokkatiliä itse, voit tehdä sen nyt!",
-            "LISTINTRO": "Tarvitset seuraavat asiat:",
-            "LIST_CREATEACCOUNT": "Luo maksuton käyttäjätili IBM Cloudiin",
-            "LIST_CREATEAPIKEYS": "Luo Watson-pilvipalveluille tarvittavat API-avaimet koneoppimismallien opettamista varten",
-            "LIST_ENTERAPIKEYS": "Syötä API-avaimet tähän Koneoppimista lapsille -työkaluun",
-            "HELP": "Kaikkiin näihin vaiheisiin on saatavilla <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'>kuvalliset vaihe vaiheelta -ohjeet</a>."
+            "INTRO": "Jos haluat perustaa ja hallinnoida luokkatiliä itse, voit tehdä sen nyt!"
         },
         "MANAGED": {
             "TITLE": "Luo <strong>hallinnoitu</strong> luokkatili",
@@ -247,10 +242,6 @@
             "TOOLONG": "Tämä on liian pitkä!",
             "EXCEEDLIMIT": "Olet saavuttanut projektien enimmäismäärän. Sinun täytyy poistaa yksi nykyisistä projekteistasi ennen uuden luomista.",
             "TRYITNOW": "Valitettavasti voit luoda vain yhden projektin kerrallaan käyttäessäsi 'Kokeile nyt' -toimintoa. Poista nykyinen projektisi ennen uuden luomista."
-        },
-        "WARNINGS": {
-            "MLCRED-TEXT-NOKEYS": "Kerro opettajallesi, että hänen täytyy lisätä luokallesi \"Watson Assistant API key\", jotta voit opettaa uuden projektisi koneoppimismallin",
-            "MLCRED-TEXT-INVALID": "Uuden projektisi koneoppimismallin opettamiseen tarvittavissa IBM Cloud -API-avaimissa saattaa olla ongelma. Pyydä opettajaasi tarkistamaan luokkasi \"Watson Assistant API keys\" -avaimet."
         }
     },
     "DATASETS": {
@@ -2006,6 +1997,7 @@
                 "TITLE": "Luokkasi rajoitukset",
                 "NUM_USERS": "Ryhmässäsi voi olla enintään <span class='mlprojecttype'>{{ num }}</span> käyttäjää (oppilaat ja opettajat mukaan lukien).",
                 "NUM_TEXT_MODELS": "Luokallasi voi olla yhteensä enintään <span class='mlprojecttype'>{{ num }}</span> koneoppimismallia kaikissa <span class='mlprojecttype'>teksti</span>projekteissaan.",
+                "NUM_STUDENT_TEXT_MODELS": "Each of your students is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> active machine learning models for their <span class='mlprojecttype'>text</span> projects.",
                 "NUM_IMAGE_MODELS": "Luokallasi voi olla yhteensä enintään <span class='mlprojecttype'>{{ num }}</span> koneoppimismallia kaikissa <span class='mlprojecttype'>kuva</span>projekteissaan.</div>"
             },
             "PROJECT_LIMITS": {
@@ -2212,9 +2204,6 @@
         "MODELS": {
             "TITLE": "Virheet koneoppimismallien opettamisessa",
 
-            "Q1": "\"Watson-tunnistetietoja ei ole määritetty\"",
-            "Q1-A-1": "Työkalun koneoppimismallit luodaan IBM Watson -rajapinnoilla.",
-            "Q1-A-2": "Jos käytät \"itse hallinnoitua\" luokkatiliä, opettajan tai ryhmän ohjaajan täytyy antaa IBM Cloudista watsonx Assistantin API-tunnistetiedot. <a href='https://machinelearningforkids.co.uk/#!/apikeys-guide'>Vaiheittaiset ohjeet</a> näyttävät, miten se tehdään.",
 
             "Q2": "\"Luokkasi käyttämät Watson-tunnistetiedot hylättiin\"",
             "Q2-A-1": "Työkalun koneoppimismallit luodaan IBM Watson -rajapinnoilla.",
@@ -2244,15 +2233,12 @@
             "Q6-A-2": "Sivun pitäisi tarkistaa koneoppimismallin tila 30 sekunnin välein, mutta hyvin harvoin tarkistus voi lakata toimimasta. Silloin saatat odottaa mallia, vaikka se olisi jo valmis käytettäväksi.",
             "Q6-A-3": "Jos aikaa on kulunut muutamaa minuuttia enemmän, tila kannattaa tarkistaa päivittämällä tai lataamalla sivu uudelleen.",
             "Q6-A-4": "Jos aikaa on kulunut yli kymmenen minuuttia, voi olla järkevää aloittaa uudelleen (napsauta Peruuta-painiketta ja sitten painiketta, jolla opetetaan uusi koneoppimismalli).",
+            "Q7": "You have too many machine learning models",
+            "Q7-A-1": "There is a limit for the number of machine learning models each student can have for their text projects.",
+            "Q7-A-2": "If you hit this limit, you will not be able to train a new model until you delete a machine learning model that you no longer need.",
+            "Q7-A-3": "To delete a model, open the text project, go to the \"Learn &amp; Test\" page, and click \"Delete this model\". Your training data will not be deleted, so you can train the model again later.",
+            "Q7-A-4": "Your teacher can see the limit for your class in the Restrictions section of their Teacher page."
 
-            "Q7": "\"Luokkasi jakaa Watson API -avaimia ... tällä hetkellä yhtään ei ole vapaana\"",
-            "Q7-A-1": "Työkalun koneoppimismallit luodaan IBM Watson -rajapinnoilla.",
-            "Q7-A-2": "Jos käytössäsi on \"hallinnoitu\" luokkatili, luokkasi jakaa nämä avaimet monien muiden koulujen kanssa. ",
-            "Q7-A-3": "Tavallisesti avaimia riittää kaikille kouluille, mutta jos palvelu on hyvin kiireinen ja kaikki saatavilla olevat API-avaimet ovat käytössä, uusien koneoppimismallien opettaminen epäonnistuu ja näkyviin tulee tämä viesti:",
-            "Q7-A-4": "Luokkasi jakaa Watson Assistant / Visual Recognition -\"API-avaimia\" monien muiden koulujen kanssa, eikä niitä valitettavasti ole juuri nyt vapaana. Kerro opettajallesi tai ryhmän ohjaajalle, että koneoppimismalli täytyy opettaa myöhemmin",
-            "Q7-A-5": "Jos oppilas, jolla on onnistuneesti opetettu malli, poistaa mallinsa, yksi taitopaikka vapautuu toisen oppilaan käyttöön.",
-            "Q7-A-6": "Paras ratkaisu on yrittää myöhemmin uudelleen, kun muut oppilaat ovat poistaneet koneoppimismallejaan ja API-avaimia vapautuu. Opetusdatasi säilyy siihen asti turvassa.",
-            "Q7-A-7": "Toinen tapa välttää tämä virhe on luoda luokalle \"itse hallinnoitu\" luokkatili. Siinä opettaja luo omat Watson-\"API-avaimensa\", jotka voidaan varata vain oman luokan käyttöön."
         },
 
         "TEACHERUI": {

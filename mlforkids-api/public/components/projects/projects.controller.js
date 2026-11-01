@@ -24,7 +24,6 @@
 
         var alertId = 1;
         vm.errors = [];
-        vm.warnings = [];
         vm.dismissAlert = function (type, errIdx) {
             vm[type].splice(errIdx, 1);
         };
@@ -42,8 +41,6 @@
 
         var translatedStrings = {};
         $translate([
-            'NEWPROJECT.WARNINGS.MLCRED-TEXT-NOKEYS',
-            'NEWPROJECT.WARNINGS.MLCRED-TEXT-INVALID',
             'PROJECTS.WHOLE_CLASS_TITLE', 'PROJECTS.WHOLE_CLASS_NOTES',
             'PROJECTS.CLOUD_STORAGE_TITLE', 'PROJECTS.CLOUD_STORAGE_NOTES',
             'PROJECTS.LOCAL_STORAGE_TITLE', 'PROJECTS.LOCAL_STORAGE_NOTES',
@@ -51,41 +48,6 @@
         ]).then(function (translations) {
             translatedStrings = translations;
         });
-
-
-        function displayApiKeyCheckWarning(warning) {
-            loggerService.debug('[ml4kprojects] display api key check', warning);
-
-            if (translatedStrings['NEWPROJECT.WARNINGS.' + warning.code]) {
-                displayAlert('warnings', 409, {
-                    message : translatedStrings['NEWPROJECT.WARNINGS.' + warning.code]
-                });
-            }
-        }
-
-
-
-        function checkApiKeys(profile, checkingProject) {
-            if (profile.tenant !== 'session-users' && checkingProject.type === 'text')
-            {
-                checkingProject.isPlaceholder = true;
-
-                loggerService.debug('[ml4kprojects] Checking class API keys');
-                projectsService.checkProjectCredentials(profile.tenant, checkingProject.type)
-                    .then(function (support) {
-                        loggerService.debug('[ml4kprojects] API keys checked');
-
-                        checkingProject.isPlaceholder = false;
-                        displayApiKeyCheckWarning(support);
-                    })
-                    .catch(function (supporterr) {
-                        loggerService.error('[ml4kprojects] Failed to check API keys', supporterr);
-
-                        checkingProject.isPlaceholder = false;
-                        displayApiKeyCheckWarning(supporterr);
-                    });
-            }
-        }
 
 
         function refreshProjectsList(profile) {
@@ -122,8 +84,6 @@
                         }
 
                         if (vm.highlightId === project.id) {
-                            checkApiKeys(profile, project);
-
                             if (project.storage === 'local') {
                                 browserStorageService.requestPersistentStorage();
                             }

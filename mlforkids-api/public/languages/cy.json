@@ -117,12 +117,7 @@
         },
         "UNMANAGED": {
             "TITLE": "Creu cyfrif dosbarth <strong>heb ei reoli</strong>",
-            "INTRO": "Os ydych chi'n hapus i sefydlu a rheoli'r cyfrif dosbarth eich hun, gallwch chi ei wneud nawr!",
-            "LISTINTRO": "Bydd angen i chi:",
-            "LIST_CREATEACCOUNT": "Creu cyfrif am ddim ar IBM Cloud",
-            "LIST_CREATEAPIKEYS": "Creu allwedd(i) API ar gyfer gwasanaethau cwmwl Watson sydd eu hangen i hyfforddi modelau dysgu peiriant",
-            "LIST_ENTERAPIKEYS": "Rhowch yr allweddi API yn yr offeryn Machine Learning for Kids hwn",
-            "HELP": "Mae cyfarwyddiadau cam wrth gam (gyda sgrinluniau) ar gael ar gyfer hyn i gyd."
+            "INTRO": "Os ydych chi'n hapus i sefydlu a rheoli'r cyfrif dosbarth eich hun, gallwch chi ei wneud nawr!"
         },
         "MANAGED": {
             "TITLE": "Creu cyfrif dosbarth <strong>wedi'i reoli</strong>",
@@ -241,10 +236,6 @@
             "TOOLONG": "Mae hynny'n rhy hir!",
             "EXCEEDLIMIT": "You've reached the limit for the number of projects you can have. You need to delete one of your current projects before you can create another.",
             "TRYITNOW": "Sorry! You can only create one project at a time if you use 'Try it now'. You need to delete your current project before you can create another."
-        },
-        "WARNINGS": {
-            "MLCRED-TEXT-NOKEYS": "Rhowch wybod i'ch athro / athrawes y bydd angen iddynt ychwanegu \"allwedd API Cynorthwyydd Watson\" i'ch dosbarth i adael i chi hyfforddi'r model dysgu peiriant ar gyfer eich prosiect newydd",
-            "MLCRED-TEXT-INVALID": "Efallai y bydd problem gyda'r allweddi IBM Cloud API bydd angen i chi hyfforddi model dysgu peiriant ar gyfer eich prosiect newydd. Gofynnwch i'ch athro geisio gwirio'r \"allweddi API Cynorthwyydd Watson \" yn eich dosbarth."
         }
     },
     "DATASETS": {
@@ -1940,6 +1931,7 @@
                 "TITLE": "Terfynau ar gyfer eich dosbarth",
                 "NUM_USERS": "Gallwch chi gael hyd at <span class='mlprojecttype'>{{ num }}</span> defnyddiwr (gan gynnwys myfyrwyr ac athrawon) yn eich grŵp.",
                 "NUM_TEXT_MODELS": "Caniateir i'ch dosbarth gael hyd at <span class='mlprojecttype'>{{ num }}</span> modelau dysgu peiriant i gyd ar draws eu holl prosiectau <span class='mlprojecttype'>testun</span>.",
+                "NUM_STUDENT_TEXT_MODELS": "Each of your students is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> active machine learning models for their <span class='mlprojecttype'>text</span> projects.",
                 "NUM_IMAGE_MODELS": "Caniateir i'ch dosbarth gael hyd at <span class='mlprojecttype'>{{ num }}</span> modelau dysgu peiriant i gyd ar draws eu holl prosiectau <span class='mlprojecttype'>delweddau</span>.</div>"
             },
             "PROJECT_LIMITS": {
@@ -2121,9 +2113,6 @@
         },
         "MODELS": {
             "TITLE": "Modelau dysgu peiriant hyfforddi gwallau",
-            "Q1": "\"Nid oes unrhyw gymwysterau Watson wedi'u sefydlu\"",
-            "Q1-A-1": "Mae modelau dysgu peiriant yn yr offeryn yn cael eu creu gan ddefnyddio APIs IBM Watson.",
-            "Q1-A-2": "Os oes gennych gyfrif dosbarth \"heb ei reoli\", yna bydd angen i'ch athro neu arweinydd grŵp ddarparu tystlythyrau API Watson gan IBM Cloud er mwyn i hyn weithio. Mae cyfarwyddiadau cam wrth gam ar sut y gallant wneud hyn yn y ddogfen \"Dechrau Arni\" ar frig y dudalen hon.",
             "Q2": "\"Gwrthodwyd tystlythyrau Watson sy'n cael eu defnyddio gan eich dosbarth\"",
             "Q2-A-1": "Mae modelau dysgu peiriant yn yr offeryn yn cael eu creu gan ddefnyddio APIs IBM Watson.",
             "Q2-A-2": "Os oes gennych gyfrif dosbarth \"heb ei reoli\", yna bydd eich athro neu arweinydd grŵp wedi darparu tystlythyrau API Watson gan IBM Cloud i hyn weithio (fel y disgrifir yn y ddogfen \"Dechrau Arni\" ar frig y dudalen hon) .",
@@ -2149,14 +2138,11 @@
             "Q6-A-2": "Dylai'r dudalen wirio statws y model dysgu peiriant bob 30 eiliad, ond yn achlysurol iawn mae'n stopio gwirio, felly efallai eich bod chi'n aros am y model pan fydd yn barod ar eich cyfer chi mewn gwirionedd.",
             "Q6-A-3": "Os yw wedi bod yn fwy nag ychydig funudau, mae'n werth gwirio trwy adnewyddu / ail-lwytho'r dudalen.",
             "Q6-A-4": "Os yw wedi bod yn fwy na deng munud, efallai y byddai'n werth ystyried ailgychwyn (cliciwch y botwm Canslo ac yna cliciwch y botwm i hyfforddi model dysgu peiriant newydd eto).",
-            "Q7": "\"Mae eich dosbarth yn rhannu allweddi API Watson ... nid oes unrhyw rai ar gael ar hyn o bryd\"",
-            "Q7-A-1": "Mae modelau dysgu peiriant yn yr offeryn yn cael eu creu gan ddefnyddio APIs IBM Watson.",
-            "Q7-A-2": "Os oes gennych gyfrif dosbarth \"wedi'i reoli\", mae hyn yn golygu bod eich dosbarth yn rhannu'r allweddi hyn â llawer o ysgolion eraill. ",
-            "Q7-A-3": "Fel rheol mae digon ar gyfer pob ysgol, ond os yw'n brysur iawn a bod yr holl allweddi API sydd ar gael yn cael eu defnyddio ar hyn o bryd, bydd ymdrechion i hyfforddi modelau dysgu peiriant newydd yn methu, a bydd y neges hon yn cael ei harddangos:",
-            "Q7-A-4": "Mae eich dosbarth yn rhannu \"allweddi API\" Watson Assistant / Visual Recognition gyda llawer o ysgolion eraill, ac yn anffodus nid oes yr un ar gael ar hyn o bryd. Rhowch wybod i'ch athro neu arweinydd grŵp y bydd yn rhaid i chi hyfforddi'ch model dysgu peiriant yn nes ymlaen",
-            "Q7-A-5": "Os yw myfyriwr sydd â model wedi'i hyfforddi'n llwyddiannus yna'n dileu ei fodel, bydd hyn yn rhyddhau man gwaith i'w ddefnyddio gan fyfyriwr arall.",
-            "Q7-A-6": "Y peth gorau i'w wneud yw rhoi cynnig arall arni yn nes ymlaen, ar ôl i fyfyrwyr eraill ddileu eu modelau dysgu peiriant ac mae allweddi API ar gael eto. Bydd eich data hyfforddi yn dal i fod yn ddiogel tan hynny.",
-            "Q7-A-7": "Ffordd arall o osgoi'r gwall hwn yw i'ch dosbarth greu cyfrif dosbarth \"heb ei reoli\", a dyna lle mae athro'n creu eu \"allweddi API\" Watson eu hunain y gellir eu dynodi i'w defnyddio gan eu dosbarth eu hunain yn unig."
+            "Q7": "You have too many machine learning models",
+            "Q7-A-1": "There is a limit for the number of machine learning models each student can have for their text projects.",
+            "Q7-A-2": "If you hit this limit, you will not be able to train a new model until you delete a machine learning model that you no longer need.",
+            "Q7-A-3": "To delete a model, open the text project, go to the \"Learn &amp; Test\" page, and click \"Delete this model\". Your training data will not be deleted, so you can train the model again later.",
+            "Q7-A-4": "Your teacher can see the limit for your class in the Restrictions section of their Teacher page."
         },
         "TEACHERUI": {
             "TITLE": "Problemau UI Athro / Gweinyddol",

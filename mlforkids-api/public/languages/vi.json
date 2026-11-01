@@ -123,12 +123,7 @@
         },
         "UNMANAGED": {
             "TITLE": "Tạo một <strong>unmanaged</strong> tài khoản lớp học",
-            "INTRO": "Nếu bạn hài lòng với việc tự thiết lập và tự quản lý tài khoản lớp học, bạn có thể thực hiện ngay bây giờ!",
-            "LISTINTRO": "Bạn sẽ cần phải:",
-            "LIST_CREATEACCOUNT": "Tạo một tài khoản miễn phí trên IBM Cloud",
-            "LIST_CREATEAPIKEYS": "Tạo các khóa API cho các dịch vụ đám mây Watson cần thiết để đào tạo các mô hình học máy",
-            "LIST_ENTERAPIKEYS": "Nhập các khóa API vào công cụ học máy cho trẻ em",
-            "HELP": "Hướng dẫn từng bước (có ảnh chụp màn hình) có sẵn cho tất cả những điều này."
+            "INTRO": "Nếu bạn hài lòng với việc tự thiết lập và tự quản lý tài khoản lớp học, bạn có thể thực hiện ngay bây giờ!"
         },
         "MANAGED": {
             "TITLE": "Tạo một <strong>managed</strong> tài khoản lớp học",
@@ -247,10 +242,6 @@
             "TOOLONG": "Nó quá dài!",
             "EXCEEDLIMIT": "Bạn đã đạt đến giới hạn về số lượng dự án bạn có thể có. Bạn cần xóa một trong các dự án hiện tại của mình trước khi có thể tạo một dự án khác.",
             "TRYITNOW": " Xin lỗi! Bạn chỉ có thể tạo một dự án tại một thời điểm nếu bạn sử dụng 'Thử ngay bây giờ'. Bạn cần xóa dự án hiện tại của mình trước khi có thể tạo dự án khác."
-        },
-        "WARNINGS": {
-            "MLCRED-TEXT-NOKEYS": " Vui lòng cho giáo viên của bạn biết rằng họ sẽ cần thêm một \"Watson Assistant API key\" đến lớp của bạn để cho phép bạn đào tạo mô hình máy học cho dự án mới của bạn",
-            "MLCRED-TEXT-INVALID": "Có thể đã xảy ra sự cố với các khóa API Đám mây của IBM, bạn sẽ cần đào tạo một mô hình máy học cho dự án mới của mình. Vui lòng yêu cầu giáo viên của bạn thử xác minh \"Các khóa API của Trợ lý Watson\" trong lớp học của bạn."
         }
     },
     "DATASETS": {

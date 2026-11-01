@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="mlprojectmenu"
-            ng-if="vm.policy && (vm.policy.isManaged === false)"
+            ng-if="vm.policy && (vm.policy.isManaged === false) && vm.policy.needsWatsonApiKeys"
             ng-class="{ 'warningmenu' : vm.policy && vm.policy.missingCredentials }">
             <div class="mlprojectmenutitle" translate="TEACHER.MENU.APIKEYS.TITLE"></div>
             <div class="mlprojectmenudescription">

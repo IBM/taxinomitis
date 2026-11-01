@@ -522,35 +522,6 @@ describe('projectsService', function () {
     });
 
 
-    describe('checkProjectCredentials', function () {
-
-        it('returns the support information for the class', function () {
-            $httpBackend.expectGET('/api/classes/class1/modelsupport/text')
-                .respond(200, { code : 'MLCRED-TEXT-VALID' });
-
-            var result;
-            projectsService.checkProjectCredentials('class1', 'text').then(function (value) { result = value; });
-            $httpBackend.flush();
-
-            expect(result).toEqual({ code : 'MLCRED-TEXT-VALID' });
-        });
-
-        it('resolves with the error body rather than rejecting, so callers get the warning code', function () {
-            $httpBackend.expectGET('/api/classes/class1/modelsupport/text')
-                .respond(409, { code : 'MLCRED-TEXT-NOKEYS' });
-
-            var result, failure;
-            projectsService.checkProjectCredentials('class1', 'text')
-                .then(function (value) { result = value; })
-                .catch(function (err) { failure = err; });
-            $httpBackend.flush();
-
-            expect(failure).toBeUndefined();
-            expect(result).toEqual({ code : 'MLCRED-TEXT-NOKEYS' });
-        });
-    });
-
-
     describe('shareProject', function () {
 
         it('patches the crowd-sourced flag and returns the new state', function () {

@@ -709,23 +709,6 @@ export async function getTextClassifiers(
 
 
 
-export async function testMultipleCredentials(creds: TrainingObjects.BluemixCredentials[]): Promise<boolean>
-{
-    let atLeastOneValidCredential = false;
-    for (const nextcred of creds) {
-        try {
-            await getTextClassifiers(nextcred);
-            atLeastOneValidCredential = true;
-        }
-        catch (err) {
-            log.info({ nextcred, err }, 'Credentials test failed');
-        }
-    }
-    return atLeastOneValidCredential;
-}
-
-
-
 /**
  * Identifies what type of credentials are provided, so that the right auth
  *  mechanism can be used.
