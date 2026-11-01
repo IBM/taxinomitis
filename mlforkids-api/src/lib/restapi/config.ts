@@ -35,8 +35,6 @@ export const CSP_DIRECTIVES: Record<string, string[]> = {
         'https://www.youtube-nocookie.com',
         // used for error capturing
         'https://browser.sentry-cdn.com',
-        // used for analytics
-        'https://scripts.withcabin.com',
         // used for small language models
         'https://esm.run',
         'https://cdn.jsdelivr.net',
@@ -59,8 +57,6 @@ export const CSP_DIRECTIVES: Record<string, string[]> = {
         'https://www.youtube-nocookie.com',
         // used for error capturing
         'https://browser.sentry-cdn.com',
-        // used for analytics
-        'https://scripts.withcabin.com',
         // used for small language models
         'https://esm.run',
         'https://cdn.jsdelivr.net',
@@ -104,8 +100,6 @@ export const CSP_DIRECTIVES: Record<string, string[]> = {
         'https://proxy.machinelearningforkids.co.uk',
         // used for error capturing
         'https://sentry.io',
-        // used for analytics
-        'https://ping.withcabin.com',
         // used for small language models
         'https://huggingface.co',
         'https://cas-bridge.xethub.hf.co',
