@@ -826,14 +826,28 @@ export function getTextServiceTrainingStateFromDbRow(
     return {
         id : row.id,
         hashead : row.hashead,
+        updated : row.updated,
         ...(row.trainingstarted ? { trainingstarted : row.trainingstarted } : {}),
         ...(row.trainingfailed ? { trainingfailed : row.trainingfailed } : {}),
     };
 }
 
+/**
+ * Checks if a training is abandoned - it started before abandonIfStartedBefore,
+ *  and nothing has recorded that it finished or failed (e.g.
+ *  the API instance running it crashed).
+ */
+export function isAbandonedTextServiceTraining(
+    state: Objects.TextClassifierTrainingState,
+    abandonIfStartedBefore: Date,
+): boolean
+{
+    return !!state.trainingstarted && state.trainingstarted < abandonIfStartedBefore;
+}
+
 export function getTextServiceTrainingStatus(
     state: Objects.TextClassifierTrainingState | undefined,
-    lostBefore: Date,
+    abandonIfStartedBefore: Date,
 ): TrainingObjects.ClassifierStatus
 {
     if (!state) {
@@ -843,7 +857,7 @@ export function getTextServiceTrainingStatus(
         return 'Failed';
     }
     if (state.trainingstarted) {
-        return state.trainingstarted < lostBefore ? 'Failed' : 'Training';
+        return isAbandonedTextServiceTraining(state, abandonIfStartedBefore) ? 'Failed' : 'Training';
     }
     if (state.hashead) {
         return 'Available';

@@ -1951,19 +1951,6 @@ export async function getTextClassifierHead(id: string): Promise<Objects.TextCla
     return dbobjects.getTextClassifierHeadFromDbRow(response.rows[0]);
 }
 
-export async function getTextClassifierHeadUpdated(id: string): Promise<Date | undefined>
-{
-    const queryName = 'dbqn-select-textclassifiers-updated';
-    const queryString = 'SELECT updated FROM textclassifiers WHERE id = $1 AND head IS NOT NULL';
-    const queryValues = [ id ];
-
-    const response = await dbExecute(queryName, queryString, queryValues);
-    if (response.rows.length === 0) {
-        return;
-    }
-    return response.rows[0].updated;
-}
-
 export async function deleteTextClassifierHead(id: string): Promise<void>
 {
     const queryName = 'dbqn-delete-textclassifiers-id';
@@ -2089,14 +2076,14 @@ export async function createTextServiceTraining(
  *
  * Only one claim can succeed while a training is in progress, so
  *  duplicate requests for the same training don't start another.
- *  A training started before lostBefore is treated as lost, so the
- *  model can be claimed again.
+ *  A training started before abandonIfStartedBefore is treated as
+ *  abandoned, so the model can be claimed again.
  *
  * @returns the start time of the training, or undefined if the
  *  claim failed (the model is already training, or doesn't exist)
  */
 export async function claimTextServiceTraining(
-    id: string, now: Date, lostBefore: Date,
+    id: string, now: Date, abandonIfStartedBefore: Date,
 ): Promise<Date | undefined>
 {
     const queryName = 'dbqn-update-textclassifiers-claim';
@@ -2105,7 +2092,7 @@ export async function claimTextServiceTraining(
                         'WHERE id = $2 AND ' +
                             '(trainingstarted IS NULL OR trainingstarted < $3) ' +
                         'RETURNING trainingstarted';
-    const queryValues = [ now, id, lostBefore ];
+    const queryValues = [ now, id, abandonIfStartedBefore ];
 
     const response = await dbExecute(queryName, queryString, queryValues);
     if (response.rows.length === 0) {
@@ -2202,7 +2189,7 @@ export async function failTextServiceTraining(
 export async function getTextServiceTrainingState(id: string): Promise<Objects.TextClassifierTrainingState | undefined>
 {
     const queryName = 'dbqn-select-textclassifiers-trainingstate';
-    const queryString = 'SELECT id, head IS NOT NULL AS hashead, trainingstarted, trainingfailed ' +
+    const queryString = 'SELECT id, head IS NOT NULL AS hashead, updated, trainingstarted, trainingfailed ' +
                         'FROM textclassifiers ' +
                         'WHERE id = $1';
     const queryValues = [ id ];

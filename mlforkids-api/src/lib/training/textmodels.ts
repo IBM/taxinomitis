@@ -5,7 +5,10 @@ import * as conversation from './conversation';
 import * as textservice from './textservice';
 import * as store from '../db/store';
 import * as DbObjects from '../db/db-types';
-import { TEXT_SERVICE_SCRATCHKEY_USERNAME } from '../db/objects';
+import {
+    TEXT_SERVICE_SCRATCHKEY_USERNAME,
+    getTextServiceTrainingStatus, isAbandonedTextServiceTraining,
+} from '../db/objects';
 import * as TrainingObjects from './training-types';
 import * as ScratchTypes from '../scratchx/scratchx-types';
 import * as notifications from '../notifications/slack';
@@ -33,9 +36,19 @@ export const ERROR_MESSAGES = {
 const MAX_TEXT_LENGTH = 2048;
 
 // a text service training that started longer ago than this is
-//  treated as lost (e.g. the API instance running it crashed), so
+//  abandoned (e.g. the API instance running it crashed), so
 //  it is reported as failed and the model can be trained again
-export const LOST_TRAINING_LIMIT_MS = 10 * 60 * 1000;
+export const ABANDON_TRAINING_AFTER_MS = 10 * 60 * 1000;
+
+// how long a text service training keeps retrying for, from when
+//  it was accepted - if the service hasn't managed it by then,
+//  letting the student try again sooner would only add to the load
+const TRAINING_RETRY_BUDGET_MS = 10 * 60 * 1000;
+
+// how long to wait before each retry of a text service training,
+//  unless the service says how long to wait (the last wait is
+//  used for every retry after that)
+const TRAINING_RETRY_BACKOFF_MS = [ 5000, 10000, 20000, 40000, 60000 ];
 
 
 
@@ -177,12 +190,12 @@ async function createNewTextServiceModel(
         throw new Error(ERROR_MESSAGES.TOO_MANY_MODELS);
     }
 
-    const trained = await textservice.train(training);
-
     const now = new Date();
+    const id = randomUUID();
     const model: TrainingObjects.TextClassifier = {
-        id : randomUUID(),
-        workspace_id : trained.modelid,
+        id,
+        // placeholder until the model is trained
+        workspace_id : id,
         credentialsid : '',
         servicetype : 'txt',
         url : '',
@@ -191,13 +204,12 @@ async function createNewTextServiceModel(
         created : now,
         updated : now,
         expiry : getTextServiceModelExpiry(tenantPolicy, now),
-        status : 'Available',
+        status : 'Training',
     };
 
+    let outcome: 'created' | 'already-training';
     try {
-        await store.storeTextServiceModel(project, model, trained.head, now);
-        await store.storeOrUpdateScratchKey(project, getTextServiceScratchKeyCredentials(project),
-                                            model.workspace_id, now);
+        outcome = await store.createTextServiceTraining(project, model, now);
     }
     catch (err) {
         log.error({ err, project : project.id, model : model.id }, 'Failed to store new text model');
@@ -205,7 +217,69 @@ async function createNewTextServiceModel(
         throw err;
     }
 
+    if (outcome === 'already-training') {
+        // a duplicate request, which arrived at the same time as the
+        //  one that created the model
+        return getTrainingInProgress(project);
+    }
+
+    await startTraining(project, tenantPolicy, model.id, now, training);
     return model;
+}
+
+
+/**
+ * Returns a project's text service model, for a request that found
+ *  that the model is already training.
+ */
+async function getTrainingInProgress(project: DbObjects.Project | DbObjects.LocalProject): Promise<TrainingObjects.TextClassifier>
+{
+    const models = await store.getTextClassifiers(project.id);
+    const model = models.find((existing) => existing.servicetype === 'txt');
+    if (!model) {
+        // the model was deleted straight after the other request
+        //  created it
+        throw new Error(ERROR_MESSAGES.MODEL_NOT_FOUND);
+    }
+    return getTextServiceModelStatus(model);
+}
+
+
+/**
+ * Starts a training that has been accepted, once the Scratch key
+ *  points at the model's placeholder id.
+ *
+ * The training runs in the background, after the response has
+ *  been returned.
+ */
+async function startTraining(
+    project: DbObjects.Project | DbObjects.LocalProject,
+    tenantPolicy: DbObjects.ClassTenant,
+    id: string, started: Date,
+    training: TrainingObjects.ConversationTrainingData,
+): Promise<void>
+{
+    try {
+        await store.storeOrUpdateScratchKey(project, getTextServiceScratchKeyCredentials(project), id, started);
+    }
+    catch (err) {
+        log.error({ err, project : project.id, model : id }, 'Failed to store Scratch key for text model');
+        notifyTextServiceStoreFailure(err);
+        // nothing will train the model, so record that the training
+        //  failed, so that the student can try again
+        await recordTrainingFailure(id, started);
+        throw err;
+    }
+
+    const running: Promise<void> = runTraining({ projectid : project.id, tenantPolicy, id, started, training })
+        .catch((err) => {
+            // not expected, as runTraining handles its own errors
+            log.error({ err, model : id }, 'Unexpected failure in text model training');
+        })
+        .finally(() => {
+            runningTrainings.delete(running);
+        });
+    runningTrainings.add(running);
 }
 
 
@@ -275,30 +349,46 @@ async function retrainTextServiceModel(
     training: TrainingObjects.ConversationTrainingData,
 ): Promise<TrainingObjects.TextClassifier>
 {
-    const trained = await textservice.train(training);
-
     const now = new Date();
-    const model: TrainingObjects.TextClassifier = {
-        ...existing,
-        // the service returns a new model id every time
-        workspace_id : trained.modelid,
-        updated : now,
-        expiry : getTextServiceModelExpiry(tenantPolicy, now),
-        status : 'Available',
-    };
+    const abandonIfStartedBefore = getAbandonIfStartedBefore(now);
+
+    // only used to find out if an abandoned training is being replaced
+    const previous = await store.getTextServiceTrainingState(existing.id);
+
+    const started = await store.claimTextServiceTraining(existing.id, now, abandonIfStartedBefore);
+    if (!started) {
+        // a duplicate request, while the model is training
+        const current = await store.getTextServiceTrainingState(existing.id);
+        if (!current) {
+            // the model was deleted after this request found it
+            throw new Error(ERROR_MESSAGES.MODEL_NOT_FOUND);
+        }
+        return setTextServiceModelStatus(existing, current, abandonIfStartedBefore);
+    }
+
+    if (previous && isAbandonedTextServiceTraining(previous, abandonIfStartedBefore)) {
+        notifyAbandonedTraining(existing.id);
+    }
 
     try {
-        await store.updateTextServiceModel(project, model, trained.head, now);
-        await store.storeOrUpdateScratchKey(project, getTextServiceScratchKeyCredentials(project),
-                                            model.workspace_id, now);
+        // the old model's head has gone, so stop classifying with it
+        await store.setTextServiceModelPlaceholder(existing.id);
     }
     catch (err) {
-        log.error({ err, project : project.id, model : model.id }, 'Failed to store retrained text model');
+        log.error({ err, project : project.id, model : existing.id }, 'Failed to store placeholder for text model');
         notifyTextServiceStoreFailure(err);
+        await recordTrainingFailure(existing.id, started);
         throw err;
     }
 
-    return model;
+    await startTraining(project, tenantPolicy, existing.id, started, training);
+
+    return {
+        ...existing,
+        workspace_id : existing.id,
+        updated : started,
+        status : 'Training',
+    };
 }
 
 
@@ -387,6 +477,179 @@ function getScratchStatus(status: TrainingObjects.ClassifierStatus | undefined):
     };
 }
 
+
+
+
+// -----------------------------------------------------------------------------
+//
+// Training in the background
+//
+// -----------------------------------------------------------------------------
+
+
+/**
+ * A text service training that has been accepted, and is running
+ *  in the background on this instance.
+ */
+interface TextServiceTrainingJob {
+    readonly projectid: string;
+    readonly tenantPolicy: DbObjects.ClassTenant;
+    // the model's id, which is also its placeholder model id
+    readonly id: string;
+    // identifies this training when storing the result, in case
+    //  the model has been deleted or a newer training started
+    readonly started: Date;
+    readonly training: TrainingObjects.ConversationTrainingData;
+}
+
+
+// the trainings running on this instance
+const runningTrainings = new Set<Promise<void>>();
+
+
+/**
+ * Waits for every training running on this instance to end.
+ */
+export async function waitForTrainings(): Promise<void>
+{
+    await Promise.all([ ...runningTrainings ]);
+}
+
+
+/**
+ * Trains a model using the text service, retrying failures that
+ *  could succeed if the training is sent again, and then stores
+ *  the result.
+ */
+async function runTraining(job: TextServiceTrainingJob): Promise<void>
+{
+    const deadline = job.started.getTime() + TRAINING_RETRY_BUDGET_MS;
+
+    for (let retries = 0; ; retries++) {
+        let trained: textservice.TrainedModel;
+        try {
+            trained = await textservice.train(job.training);
+        }
+        catch (err) {
+            const wait = getRetryWaitMs(err, retries);
+            if (wait === undefined || Date.now() + wait > deadline) {
+                await recordTrainingFailure(job.id, job.started);
+                return;
+            }
+
+            await pause(wait);
+
+            if (!await store.getTextServiceTrainingState(job.id)) {
+                // the model was deleted (cancelled by the student,
+                //  or expired), so it no longer needs training
+                log.info({ model : job.id }, 'Text model deleted during training');
+                return;
+            }
+            continue;
+        }
+
+        await storeTrainedModel(job, trained);
+        return;
+    }
+}
+
+
+/**
+ * How long to wait before retrying a failed training.
+ *
+ * @returns undefined if the training shouldn't be retried
+ */
+function getRetryWaitMs(err: any, retries: number): number | undefined
+{
+    if (!(err instanceof textservice.TextServiceTrainingError) || !err.retryable) {
+        return undefined;
+    }
+    if (err.retryAfterMs !== undefined) {
+        return err.retryAfterMs;
+    }
+    return TRAINING_RETRY_BACKOFF_MS[Math.min(retries, TRAINING_RETRY_BACKOFF_MS.length - 1)];
+}
+
+
+function pause(ms: number): Promise<void>
+{
+    return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+
+async function storeTrainedModel(job: TextServiceTrainingJob, trained: textservice.TrainedModel): Promise<void>
+{
+    const finished = new Date();
+    let stored: boolean;
+    try {
+        stored = await store.finishTextServiceTraining(job.id, job.started, {
+            modelid : trained.modelid,
+            head : trained.head,
+            finished,
+            expiry : getTextServiceModelExpiry(job.tenantPolicy, finished),
+        });
+    }
+    catch (err) {
+        log.error({ err, project : job.projectid, model : job.id }, 'Failed to store trained text model');
+        notifyTextServiceStoreFailure(err);
+        await recordTrainingFailure(job.id, job.started);
+        return;
+    }
+
+    if (!stored) {
+        // the model was deleted, or a newer training started
+        //  after this one was abandoned
+        log.info({ model : job.id }, 'Discarding text model training');
+        return;
+    }
+
+    try {
+        await store.replaceScratchKeyPlaceholder(job.projectid, job.id, trained.modelid, finished);
+    }
+    catch (err) {
+        // the model is trained, so the training hasn't failed - the
+        //  key is fixed the next time it is created or the model is
+        //  trained, until then Scratch reports the model as missing
+        log.error({ err, project : job.projectid, model : job.id }, 'Failed to update Scratch key for trained text model');
+        notifyTextServiceStoreFailure(err);
+    }
+}
+
+
+/**
+ * Records that a training failed, if it is still the model's
+ *  current training.
+ */
+async function recordTrainingFailure(id: string, started: Date): Promise<void>
+{
+    try {
+        const recorded = await store.failTextServiceTraining(id, started, new Date());
+        if (!recorded) {
+            log.info({ model : id }, 'Discarding failed text model training');
+        }
+    }
+    catch (err) {
+        // the training will be abandoned once it is
+        //  older than the limit
+        log.error({ err, model : id }, 'Failed to record failed text model training');
+    }
+}
+
+
+function getAbandonIfStartedBefore(now: Date): Date
+{
+    return new Date(now.getTime() - ABANDON_TRAINING_AFTER_MS);
+}
+
+function notifyAbandonedTraining(id: string): void
+{
+    // the model id is only logged, so that repeated alerts are
+    //  the same, and are collapsed by the notifications module
+    log.error({ model : id }, 'Text model training abandoned');
+    notifications.notify('A text model training was abandoned (it did not finish within ' +
+                         (ABANDON_TRAINING_AFTER_MS / 60000) + ' minutes)',
+                         notifications.SLACK_CHANNELS.TEXT_SERVICE);
+}
 
 
 
@@ -487,13 +750,26 @@ export function getModelStatuses(
 
 async function getTextServiceModelStatus(model: TrainingObjects.TextClassifier): Promise<TrainingObjects.TextClassifier>
 {
-    const updated = await store.getTextClassifierHeadUpdated(model.id);
-    if (updated) {
-        model.status = 'Available';
-        model.updated = updated;
+    const state = await store.getTextServiceTrainingState(model.id);
+    const abandonIfStartedBefore = getAbandonIfStartedBefore(new Date());
+    if (state && isAbandonedTextServiceTraining(state, abandonIfStartedBefore)) {
+        notifyAbandonedTraining(model.id);
     }
-    else {
-        model.status = 'Non Existent';
+    return setTextServiceModelStatus(model, state, abandonIfStartedBefore);
+}
+
+
+function setTextServiceModelStatus(
+    model: TrainingObjects.TextClassifier,
+    state: DbObjects.TextClassifierTrainingState | undefined,
+    abandonIfStartedBefore: Date,
+): TrainingObjects.TextClassifier
+{
+    model.status = getTextServiceTrainingStatus(state, abandonIfStartedBefore);
+    if (state) {
+        model.updated = model.status === 'Training' && state.trainingstarted ?
+            state.trainingstarted :
+            state.updated;
     }
     return model;
 }
@@ -675,6 +951,14 @@ function classifyWithTextServiceModel(
     text: string,
 ): Promise<TrainingObjects.Classification[]>
 {
+    if (workspace.workspace_id === workspace.id) {
+        // a placeholder id, as the model is training (or the
+        //  training failed), so there is no model to use - this
+        //  gives a random answer, as Watson Assistant does while
+        //  a model is training
+        return Promise.resolve([]);
+    }
+
     // the head is only read if the text service doesn't
     //  already have the model cached
     const getHead = async (): Promise<Buffer> => {

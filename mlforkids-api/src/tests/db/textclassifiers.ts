@@ -11,40 +11,41 @@ import * as TrainingObjects from '../../lib/training/training-types';
 
 describe('DB objects - text service training status', () => {
 
-    const lostBefore = new Date('2026-11-02T10:00:00.000Z');
+    const abandonIfStartedBefore = new Date('2026-11-02T10:00:00.000Z');
+    const UPDATED = new Date('2026-11-01T14:03:22.000Z');
 
     it('should be Non Existent with no row', () => {
-        assert.strictEqual(dbobjects.getTextServiceTrainingStatus(undefined, lostBefore), 'Non Existent');
+        assert.strictEqual(dbobjects.getTextServiceTrainingStatus(undefined, abandonIfStartedBefore), 'Non Existent');
     });
 
     it('should be Available with a head and no training', () => {
-        const state = { id : uuid(), hashead : true };
-        assert.strictEqual(dbobjects.getTextServiceTrainingStatus(state, lostBefore), 'Available');
+        const state = { id : uuid(), updated : UPDATED, hashead : true };
+        assert.strictEqual(dbobjects.getTextServiceTrainingStatus(state, abandonIfStartedBefore), 'Available');
     });
 
     it('should be Training with a recent start', () => {
-        const state = { id : uuid(), hashead : false, trainingstarted : new Date('2026-11-02T10:05:00.000Z') };
-        assert.strictEqual(dbobjects.getTextServiceTrainingStatus(state, lostBefore), 'Training');
+        const state = { id : uuid(), updated : UPDATED, hashead : false, trainingstarted : new Date('2026-11-02T10:05:00.000Z') };
+        assert.strictEqual(dbobjects.getTextServiceTrainingStatus(state, abandonIfStartedBefore), 'Training');
     });
 
     it('should be Training with a start exactly at the cutoff', () => {
-        const state = { id : uuid(), hashead : false, trainingstarted : new Date('2026-11-02T10:00:00.000Z') };
-        assert.strictEqual(dbobjects.getTextServiceTrainingStatus(state, lostBefore), 'Training');
+        const state = { id : uuid(), updated : UPDATED, hashead : false, trainingstarted : new Date('2026-11-02T10:00:00.000Z') };
+        assert.strictEqual(dbobjects.getTextServiceTrainingStatus(state, abandonIfStartedBefore), 'Training');
     });
 
     it('should be Failed with a start older than the cutoff', () => {
-        const state = { id : uuid(), hashead : false, trainingstarted : new Date('2026-11-02T09:59:59.999Z') };
-        assert.strictEqual(dbobjects.getTextServiceTrainingStatus(state, lostBefore), 'Failed');
+        const state = { id : uuid(), updated : UPDATED, hashead : false, trainingstarted : new Date('2026-11-02T09:59:59.999Z') };
+        assert.strictEqual(dbobjects.getTextServiceTrainingStatus(state, abandonIfStartedBefore), 'Failed');
     });
 
     it('should be Failed when the training failed', () => {
-        const state = { id : uuid(), hashead : false, trainingfailed : new Date('2026-11-02T10:05:00.000Z') };
-        assert.strictEqual(dbobjects.getTextServiceTrainingStatus(state, lostBefore), 'Failed');
+        const state = { id : uuid(), updated : UPDATED, hashead : false, trainingfailed : new Date('2026-11-02T10:05:00.000Z') };
+        assert.strictEqual(dbobjects.getTextServiceTrainingStatus(state, abandonIfStartedBefore), 'Failed');
     });
 
     it('should be Failed with no head and no training', () => {
-        const state = { id : uuid(), hashead : false };
-        assert.strictEqual(dbobjects.getTextServiceTrainingStatus(state, lostBefore), 'Failed');
+        const state = { id : uuid(), updated : UPDATED, hashead : false };
+        assert.strictEqual(dbobjects.getTextServiceTrainingStatus(state, abandonIfStartedBefore), 'Failed');
     });
 });
 
@@ -125,37 +126,6 @@ describe('DB store - text classifier heads', () => {
         it('should return nothing for an unknown id', async () => {
             const retrieved = await store.getTextClassifierHead(uuid());
             assert.strictEqual(retrieved, undefined);
-        });
-    });
-
-
-    describe('getTextClassifierHeadUpdated', () => {
-        it('should return when the model was last trained', async () => {
-            const id = uuid();
-            const project = createProject();
-            await store.storeTextClassifierHead(id, project, Buffer.from([ 0x01 ]), new Date('2026-11-01T14:03:22Z'));
-            await store.storeTextClassifierHead(id, project, Buffer.from([ 0x02 ]), new Date('2026-11-03T08:00:00Z'));
-
-            const updated = await store.getTextClassifierHeadUpdated(id);
-            assert.deepStrictEqual(updated, new Date('2026-11-03T08:00:00Z'));
-
-            await store.deleteTextClassifierHead(id);
-        });
-
-        it('should return nothing for an unknown id', async () => {
-            const updated = await store.getTextClassifierHeadUpdated(uuid());
-            assert.strictEqual(updated, undefined);
-        });
-
-        it('should return nothing for a model that is training', async () => {
-            const project = createProject();
-            const started = new Date('2026-11-02T10:00:00Z');
-            const model = createTrainingModel(project, started);
-            await store.createTextServiceTraining(project, model, started);
-
-            assert.strictEqual(await store.getTextClassifierHeadUpdated(model.id), undefined);
-
-            await store.deleteTextClassifier(model.id);
         });
     });
 
@@ -403,6 +373,18 @@ describe('DB store - text classifier heads', () => {
 
 
     describe('createTextServiceTraining', () => {
+        it('should count a model that is training towards the model limit', async () => {
+            const project = createProject();
+            const started = new Date('2026-11-02T10:00:00Z');
+            const model = createTrainingModel(project, started);
+
+            assert.strictEqual(await store.countTextServiceModelsByUser(project.userid), 0);
+            await store.createTextServiceTraining(project, model, started);
+            assert.strictEqual(await store.countTextServiceModelsByUser(project.userid), 1);
+
+            await store.deleteTextClassifier(model.id);
+        });
+
         it('should store a model that is training', async () => {
             const project = createProject();
             const started = new Date('2026-11-02T10:00:00.123Z');
@@ -415,6 +397,7 @@ describe('DB store - text classifier heads', () => {
             assert.deepStrictEqual(await store.getTextServiceTrainingState(model.id), {
                 id : model.id,
                 hashead : false,
+                updated : started,
                 trainingstarted : started,
             });
             assert.strictEqual(await store.getTextClassifierHead(model.id), undefined);
@@ -466,9 +449,9 @@ describe('DB store - text classifier heads', () => {
     });
 
 
-    // the cutoff for a training started at 'now' to be treated as lost
-    function lostBefore(now: Date): Date {
-        return new Date(now.getTime() - textmodels.LOST_TRAINING_LIMIT_MS);
+    // the cutoff for a training started at 'now' to be abandoned
+    function abandonIfStartedBefore(now: Date): Date {
+        return new Date(now.getTime() - textmodels.ABANDON_TRAINING_AFTER_MS);
     }
 
 
@@ -479,12 +462,13 @@ describe('DB store - text classifier heads', () => {
             await store.storeTextServiceModel(project, model, Buffer.from([ 0x01 ]), new Date('2026-11-01T14:03:22Z'));
 
             const now = new Date('2026-11-02T10:00:00.456Z');
-            const claimed = await store.claimTextServiceTraining(model.id, now, lostBefore(now));
+            const claimed = await store.claimTextServiceTraining(model.id, now, abandonIfStartedBefore(now));
             assert.deepStrictEqual(claimed, now);
 
             assert.deepStrictEqual(await store.getTextServiceTrainingState(model.id), {
                 id : model.id,
                 hashead : false,
+                updated : new Date('2026-11-01T14:03:22Z'),
                 trainingstarted : now,
             });
             assert.strictEqual(await store.getTextClassifierHead(model.id), undefined);
@@ -499,29 +483,31 @@ describe('DB store - text classifier heads', () => {
             await store.createTextServiceTraining(project, model, started);
 
             const now = new Date('2026-11-02T10:09:59.999Z');
-            assert.strictEqual(await store.claimTextServiceTraining(model.id, now, lostBefore(now)), undefined);
+            assert.strictEqual(await store.claimTextServiceTraining(model.id, now, abandonIfStartedBefore(now)), undefined);
 
             assert.deepStrictEqual(await store.getTextServiceTrainingState(model.id), {
                 id : model.id,
                 hashead : false,
+                updated : started,
                 trainingstarted : started,
             });
 
             await store.deleteTextClassifier(model.id);
         });
 
-        it('should claim a model whose training was lost', async () => {
+        it('should claim a model whose training was abandoned', async () => {
             const project = createProject();
             const started = new Date('2026-11-02T10:00:00Z');
             const model = createTrainingModel(project, started);
             await store.createTextServiceTraining(project, model, started);
 
             const now = new Date('2026-11-02T10:10:00.001Z');
-            assert.deepStrictEqual(await store.claimTextServiceTraining(model.id, now, lostBefore(now)), now);
+            assert.deepStrictEqual(await store.claimTextServiceTraining(model.id, now, abandonIfStartedBefore(now)), now);
 
             assert.deepStrictEqual(await store.getTextServiceTrainingState(model.id), {
                 id : model.id,
                 hashead : false,
+                updated : started,
                 trainingstarted : now,
             });
 
@@ -534,7 +520,7 @@ describe('DB store - text classifier heads', () => {
             await store.storeTextServiceModel(project, model, Buffer.from([ 0x01 ]), new Date('2026-11-01T14:03:22Z'));
 
             const times = [ 1, 2, 3, 4, 5 ].map((ms) => new Date(Date.UTC(2026, 10, 2, 10, 0, 0, ms)));
-            const claims = await Promise.all(times.map((now) => store.claimTextServiceTraining(model.id, now, lostBefore(now))));
+            const claims = await Promise.all(times.map((now) => store.claimTextServiceTraining(model.id, now, abandonIfStartedBefore(now))));
 
             const successes = claims.filter((claimed) => claimed !== undefined);
             assert.strictEqual(successes.length, 1);
@@ -546,7 +532,7 @@ describe('DB store - text classifier heads', () => {
 
         it('should not claim an unknown model', async () => {
             const now = new Date();
-            assert.strictEqual(await store.claimTextServiceTraining(uuid(), now, lostBefore(now)), undefined);
+            assert.strictEqual(await store.claimTextServiceTraining(uuid(), now, abandonIfStartedBefore(now)), undefined);
         });
     });
 
@@ -608,6 +594,7 @@ describe('DB store - text classifier heads', () => {
             assert.deepStrictEqual(await store.getTextServiceTrainingState(model.id), {
                 id : model.id,
                 hashead : true,
+                updated : finished,
             });
             assert.deepStrictEqual(await store.getTextClassifierHead(model.id), {
                 id : model.id,
@@ -625,7 +612,7 @@ describe('DB store - text classifier heads', () => {
             const model = createTextServiceModel(project);
             await store.storeTextServiceModel(project, model, Buffer.from([ 0x01 ]), new Date('2026-11-01T14:03:22Z'));
             const now = new Date('2026-11-02T10:00:00Z');
-            const started = await store.claimTextServiceTraining(model.id, now, lostBefore(now));
+            const started = await store.claimTextServiceTraining(model.id, now, abandonIfStartedBefore(now));
             assert(started);
             await store.setTextServiceModelPlaceholder(model.id);
 
@@ -668,7 +655,7 @@ describe('DB store - text classifier heads', () => {
             const model = createTrainingModel(project, started);
             await store.createTextServiceTraining(project, model, started);
             const now = new Date('2026-11-02T10:10:00.001Z');
-            assert.deepStrictEqual(await store.claimTextServiceTraining(model.id, now, lostBefore(now)), now);
+            assert.deepStrictEqual(await store.claimTextServiceTraining(model.id, now, abandonIfStartedBefore(now)), now);
 
             const stored = await store.finishTextServiceTraining(model.id, started, {
                 modelid : uuid(), head : Buffer.from([ 0x01 ]),
@@ -680,6 +667,7 @@ describe('DB store - text classifier heads', () => {
             assert.deepStrictEqual(await store.getTextServiceTrainingState(model.id), {
                 id : model.id,
                 hashead : false,
+                updated : started,
                 trainingstarted : now,
             });
 
@@ -701,6 +689,7 @@ describe('DB store - text classifier heads', () => {
             assert.deepStrictEqual(await store.getTextServiceTrainingState(model.id), {
                 id : model.id,
                 hashead : false,
+                updated : started,
                 trainingfailed : failed,
             });
             assert.deepStrictEqual(await store.getTextClassifiers(project.id), [ model ]);
@@ -716,11 +705,12 @@ describe('DB store - text classifier heads', () => {
             await store.failTextServiceTraining(model.id, started, new Date('2026-11-02T10:00:01Z'));
 
             const now = new Date('2026-11-02T10:00:02Z');
-            assert.deepStrictEqual(await store.claimTextServiceTraining(model.id, now, lostBefore(now)), now);
+            assert.deepStrictEqual(await store.claimTextServiceTraining(model.id, now, abandonIfStartedBefore(now)), now);
 
             assert.deepStrictEqual(await store.getTextServiceTrainingState(model.id), {
                 id : model.id,
                 hashead : false,
+                updated : started,
                 trainingstarted : now,
             });
 
@@ -744,13 +734,14 @@ describe('DB store - text classifier heads', () => {
             const model = createTrainingModel(project, started);
             await store.createTextServiceTraining(project, model, started);
             const now = new Date('2026-11-02T10:10:00.001Z');
-            await store.claimTextServiceTraining(model.id, now, lostBefore(now));
+            await store.claimTextServiceTraining(model.id, now, abandonIfStartedBefore(now));
 
             assert.strictEqual(await store.failTextServiceTraining(model.id, started, new Date('2026-11-02T10:10:01Z')), false);
 
             assert.deepStrictEqual(await store.getTextServiceTrainingState(model.id), {
                 id : model.id,
                 hashead : false,
+                updated : started,
                 trainingstarted : now,
             });
 

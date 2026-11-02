@@ -1,4 +1,4 @@
-import { describe, it, before, after, beforeEach } from 'node:test';
+import { describe, it, before, after, beforeEach, afterEach } from 'node:test';
 import { v1 as uuid } from 'uuid';
 import * as assert from 'assert';
 import * as request from 'supertest';
@@ -99,6 +99,11 @@ describe('REST API - text service models', () => {
         classifyStub.reset();
         classifyStub.resolves(CLASSES);
     });
+    afterEach(async () => {
+        // don't leave trainings running into the next test
+        finishTrainings();
+        await textmodels.waitForTrainings();
+    });
     after(async () => {
         authStub.restore();
         isConfiguredStub.restore();
@@ -138,24 +143,53 @@ describe('REST API - text service models', () => {
 
 
 
+    function listCloud(projectid: string) {
+        return request(testServer).get(cloudModelsUrl(projectid)).expect(httpstatus.OK);
+    }
+
+    function busy(retryAfterMs: number): textservice.TextServiceTrainingError {
+        return new textservice.TextServiceTrainingError(textmodels.ERROR_MESSAGES.SERVICE_BUSY, true, retryAfterMs);
+    }
+    function failure(message: string): textservice.TextServiceTrainingError {
+        return new textservice.TextServiceTrainingError(message, false);
+    }
+
+    // trainings started by deferredTraining that haven't finished
+    const unfinishedTrainings: (() => void)[] = [];
+
+    function finishTrainings(): void {
+        for (const finish of unfinishedTrainings.splice(0)) {
+            finish();
+        }
+    }
+
+    /** trainings that the test finishes when it chooses */
+    function deferredTraining(): () => void {
+        trainStub.callsFake(() => new Promise((resolve) => {
+            const modelid = nextModelId();
+            unfinishedTrainings.push(() => resolve({ modelid, head : headFor(modelid) }));
+        }));
+        return finishTrainings;
+    }
+
+
+
     describe('cloud projects', () => {
 
         it('should train, list, classify and delete a model', async () => {
+            const finishTraining = deferredTraining();
             const project = await createCloudProject();
 
             // train
             let res = await trainCloud(project.id)
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.CREATED);
-            const modelid = res.body.classifierid;
+            const placeholder = res.body.classifierid;
             assert.strictEqual(res.body.credentialsid, '');
-            assert.strictEqual(res.body.status, 'Available');
+            assert.strictEqual(res.body.status, 'Training');
             assert.strictEqual(res.body.name, 'my text project');
             assert(res.body.updated);
             assert(res.body.expiry);
-            assert.strictEqual(new Date(res.body.expiry).getTime() - new Date(res.body.updated).getTime(),
-                               24 * 60 * 60 * 1000);
-            const updated = res.body.updated;
 
             assert(trainStub.calledOnce);
             const training: Types.ConversationTrainingData = trainStub.firstCall.args[0];
@@ -164,19 +198,27 @@ describe('REST API - text service models', () => {
                 { intent : 'sad', examples : [ { text : 'I am sad' } ] },
             ]);
 
-            // list
-            res = await request(testServer)
-                .get(cloudModelsUrl(project.id))
-                .expect('Content-Type', /json/)
-                .expect(httpstatus.OK);
+            // list while training
+            res = await listCloud(project.id);
             assert.deepStrictEqual(res.body, [ {
-                classifierid : modelid,
+                classifierid : placeholder,
                 credentialsid : '',
-                updated,
+                updated : res.body[0].updated,
                 expiry : res.body[0].expiry,
                 name : 'my text project',
-                status : 'Available',
+                status : 'Training',
             } ]);
+
+            finishTraining();
+            await textmodels.waitForTrainings();
+
+            // list once trained
+            res = await listCloud(project.id);
+            const modelid = res.body[0].classifierid;
+            assert.notStrictEqual(modelid, placeholder);
+            assert.strictEqual(res.body[0].status, 'Available');
+            assert.strictEqual(new Date(res.body[0].expiry).getTime() - new Date(res.body[0].updated).getTime(),
+                               24 * 60 * 60 * 1000);
 
             // classify
             res = await request(testServer)
@@ -196,9 +238,7 @@ describe('REST API - text service models', () => {
                 .delete(cloudModelsUrl(project.id) + '/' + modelid)
                 .expect(httpstatus.NO_CONTENT);
 
-            res = await request(testServer)
-                .get(cloudModelsUrl(project.id))
-                .expect(httpstatus.OK);
+            res = await listCloud(project.id);
             assert.deepStrictEqual(res.body, []);
             await assert.rejects(getHead, { message : textmodels.ERROR_MESSAGES.MODEL_NOT_FOUND });
         });
@@ -207,25 +247,104 @@ describe('REST API - text service models', () => {
         it('should retrain a model with a new model id', async () => {
             const project = await createCloudProject();
 
-            let res = await trainCloud(project.id).expect(httpstatus.CREATED);
-            const firstModelId = res.body.classifierid;
+            await trainCloud(project.id).expect(httpstatus.CREATED);
+            await textmodels.waitForTrainings();
+            const firstModelId = (await store.getTextClassifiers(project.id))[0].workspace_id;
             const firstKey = (await store.findScratchKeys(userid, project.id, TESTCLASS))[0];
             assert.strictEqual(firstKey.classifierid, firstModelId);
 
-            res = await trainCloud(project.id).expect(httpstatus.CREATED);
-            const secondModelId = res.body.classifierid;
-            assert.notStrictEqual(secondModelId, firstModelId);
+            const finishTraining = deferredTraining();
+            let res = await trainCloud(project.id).expect(httpstatus.CREATED);
+            assert.strictEqual(res.body.status, 'Training');
+            const placeholder = res.body.classifierid;
+            assert.notStrictEqual(placeholder, firstModelId);
+            assert.strictEqual((await store.getScratchKey(firstKey.id)).classifierid, placeholder);
+
+            finishTraining();
+            await textmodels.waitForTrainings();
 
             const models = await store.getTextClassifiers(project.id);
             assert.strictEqual(models.length, 1);
-            assert.strictEqual(models[0].workspace_id, secondModelId);
+            assert.strictEqual(models[0].id, placeholder);
+            const secondModelId = models[0].workspace_id;
+            assert.notStrictEqual(secondModelId, firstModelId);
+            assert.notStrictEqual(secondModelId, placeholder);
 
             const key = await store.getScratchKey(firstKey.id);
             assert.strictEqual(key.classifierid, secondModelId);
 
+            res = await listCloud(project.id);
             const head = await store.getTextClassifierHead(models[0].id);
             assert.deepStrictEqual(head?.head, headFor(secondModelId));
-            assert.strictEqual(head?.updated.toISOString(), res.body.updated);
+            assert.strictEqual(head?.updated.toISOString(), res.body[0].updated);
+        });
+
+
+        it('should give a duplicate request the training in progress', async () => {
+            const finishTraining = deferredTraining();
+            const project = await createCloudProject();
+
+            const first = await trainCloud(project.id).expect(httpstatus.CREATED);
+            const second = await trainCloud(project.id).expect(httpstatus.CREATED);
+
+            assert.strictEqual(second.body.classifierid, first.body.classifierid);
+            assert.strictEqual(second.body.status, 'Training');
+            assert.strictEqual(second.body.updated, first.body.updated);
+
+            finishTraining();
+            await textmodels.waitForTrainings();
+            assert(trainStub.calledOnce);
+        });
+
+
+        it('should make one model from concurrent requests', async () => {
+            const finishTraining = deferredTraining();
+            const project = await createCloudProject();
+
+            const responses = await Promise.all([ 1, 2, 3, 4, 5 ].map(() => trainCloud(project.id).expect(httpstatus.CREATED)));
+
+            const ids = new Set(responses.map((res) => res.body.classifierid));
+            assert.strictEqual(ids.size, 1);
+            assert.strictEqual((await store.getTextClassifiers(project.id)).length, 1);
+
+            finishTraining();
+            await textmodels.waitForTrainings();
+            assert(trainStub.calledOnce);
+        });
+
+
+        it('should give a random answer while the model is training', async () => {
+            const finishTraining = deferredTraining();
+            const project = await createCloudProject();
+
+            const trained = await trainCloud(project.id).expect(httpstatus.CREATED);
+
+            const res = await request(testServer)
+                .post(cloudModelsUrl(project.id) + '/' + trained.body.classifierid + '/label')
+                .send({ text : 'I am very happy', type : 'text', credentialsid : '' })
+                .expect(httpstatus.OK);
+            assert.strictEqual(res.body.length, 1);
+            assert.strictEqual(res.body[0].random, true);
+            assert([ 'happy', 'sad' ].includes(res.body[0].class_name));
+            assert(classifyStub.notCalled);
+
+            finishTraining();
+        });
+
+
+        it('should throw away a training for a model deleted while it trains', async () => {
+            const finishTraining = deferredTraining();
+            const project = await createCloudProject();
+
+            const trained = await trainCloud(project.id).expect(httpstatus.CREATED);
+            await request(testServer)
+                .delete(cloudModelsUrl(project.id) + '/' + trained.body.classifierid)
+                .expect(httpstatus.NO_CONTENT);
+
+            finishTraining();
+            await textmodels.waitForTrainings();
+
+            assert.deepStrictEqual((await listCloud(project.id)).body, []);
         });
 
 
@@ -250,23 +369,50 @@ describe('REST API - text service models', () => {
         });
 
 
-        it('should report a busy text service', async () => {
-            trainStub.rejects(new Error(textmodels.ERROR_MESSAGES.SERVICE_BUSY));
+        it('should retry when the text service is busy', async () => {
+            trainStub.onFirstCall().rejects(busy(10));
             const project = await createCloudProject();
 
-            const res = await trainCloud(project.id).expect(httpstatus.SERVICE_UNAVAILABLE);
-            assert.deepStrictEqual(res.body, { code : 'MLMOD17', error : textmodels.ERROR_MESSAGES.SERVICE_BUSY });
-            assert.deepStrictEqual(await store.getTextClassifiers(project.id), []);
+            const res = await trainCloud(project.id).expect(httpstatus.CREATED);
+            assert.strictEqual(res.body.status, 'Training');
+
+            await textmodels.waitForTrainings();
+            assert(trainStub.calledTwice);
+            assert.strictEqual((await listCloud(project.id)).body[0].status, 'Available');
         });
 
 
-        it('should report training that is too large', async () => {
-            trainStub.rejects(new Error(textmodels.ERROR_MESSAGES.TRAINING_TOO_LARGE));
+        it('should report a failed training once it has failed', async () => {
+            trainStub.rejects(failure(textmodels.ERROR_MESSAGES.TRAINING_TOO_LARGE));
             const project = await createCloudProject();
 
-            const res = await trainCloud(project.id).expect(httpstatus.REQUEST_ENTITY_TOO_LARGE);
-            assert.deepStrictEqual(res.body, { code : 'MLMOD18', error : textmodels.ERROR_MESSAGES.TRAINING_TOO_LARGE });
-            assert.deepStrictEqual(await store.getTextClassifiers(project.id), []);
+            const res = await trainCloud(project.id).expect(httpstatus.CREATED);
+            assert.strictEqual(res.body.status, 'Training');
+
+            await textmodels.waitForTrainings();
+            assert(trainStub.calledOnce);
+            const listed = await listCloud(project.id);
+            assert.strictEqual(listed.body.length, 1);
+            assert.strictEqual(listed.body[0].status, 'Failed');
+        });
+
+
+        it('should leave no usable model if a retrain fails', async () => {
+            const project = await createCloudProject();
+            await trainCloud(project.id).expect(httpstatus.CREATED);
+            await textmodels.waitForTrainings();
+            const oldModelId = (await listCloud(project.id)).body[0].classifierid;
+
+            trainStub.rejects(failure(textmodels.ERROR_MESSAGES.UNKNOWN));
+            await trainCloud(project.id).expect(httpstatus.CREATED);
+            await textmodels.waitForTrainings();
+
+            assert.strictEqual((await listCloud(project.id)).body[0].status, 'Failed');
+            await request(testServer)
+                .post(cloudModelsUrl(project.id) + '/' + oldModelId + '/label')
+                .send({ text : 'I am very happy', type : 'text', credentialsid : '' })
+                .expect(httpstatus.NOT_FOUND);
+            assert(classifyStub.notCalled);
         });
     });
 
@@ -280,9 +426,10 @@ describe('REST API - text service models', () => {
             let res = await trainLocal(project.id)
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.CREATED);
-            const modelid = res.body.classifierid;
             assert.strictEqual(res.body.credentialsid, '');
-            assert.strictEqual(res.body.status, 'Available');
+            assert.strictEqual(res.body.status, 'Training');
+
+            await textmodels.waitForTrainings();
             assert(trainStub.calledOnce);
             assert.deepStrictEqual(trainStub.firstCall.args[0].intents, LOCAL_TRAINING.intents);
 
@@ -290,8 +437,8 @@ describe('REST API - text service models', () => {
                 .get(localModelsUrl(project.id))
                 .expect(httpstatus.OK);
             assert.strictEqual(res.body.length, 1);
-            assert.strictEqual(res.body[0].classifierid, modelid);
             assert.strictEqual(res.body[0].status, 'Available');
+            const modelid = res.body[0].classifierid;
 
             res = await request(testServer)
                 .post(localModelsUrl(project.id) + '/' + modelid + '/label')
@@ -315,11 +462,25 @@ describe('REST API - text service models', () => {
 
     describe('model limit', () => {
 
+        it('should count models that are still training', async () => {
+            deferredTraining();
+            for (let i = 0; i < MAX_MODELS_PER_STUDENT; i++) {
+                const project = await createCloudProject();
+                await trainCloud(project.id).expect(httpstatus.CREATED);
+            }
+            const project = await createCloudProject();
+            const res = await trainCloud(project.id).expect(httpstatus.CONFLICT);
+            assert.deepStrictEqual(res.body, { code : 'MLMOD16', error : textmodels.ERROR_MESSAGES.TOO_MANY_MODELS });
+            assert.strictEqual(trainStub.callCount, MAX_MODELS_PER_STUDENT);
+        });
+
+
         it('should stop a student with too many models from training a new one', async () => {
             for (let i = 0; i < MAX_MODELS_PER_STUDENT; i++) {
                 const project = await createCloudProject();
                 await trainCloud(project.id).expect(httpstatus.CREATED);
             }
+            await textmodels.waitForTrainings();
             trainStub.resetHistory();
 
             const project = await createCloudProject();
@@ -354,12 +515,15 @@ describe('REST API - text service models', () => {
                 await trainCloud(project.id).expect(httpstatus.CREATED);
                 projects.push(project);
             }
+            await textmodels.waitForTrainings();
 
-            await trainCloud(projects[0].id).expect(httpstatus.CREATED);
+            const res = await trainCloud(projects[0].id).expect(httpstatus.CREATED);
+            assert.strictEqual(res.body.status, 'Training');
         });
 
 
         it('should allow a new model once the student deletes one', async () => {
+            deferredTraining();
             const projects = [];
             for (let i = 0; i < MAX_MODELS_PER_STUDENT; i++) {
                 const project = await createCloudProject();
@@ -367,6 +531,7 @@ describe('REST API - text service models', () => {
                 projects.push({ project, modelid : res.body.classifierid });
             }
 
+            // deleting while it is training
             await request(testServer)
                 .delete(cloudModelsUrl(projects[0].project.id) + '/' + projects[0].modelid)
                 .expect(httpstatus.NO_CONTENT);
@@ -384,16 +549,20 @@ describe('REST API - text service models', () => {
             return '/api/scratch/' + key + path;
         }
 
+        const TRAINING = { status : 1, msg : 'Model not ready yet', type : 'text' };
+        const READY = { status : 2, msg : 'Ready', type : 'text' };
+
         it('should train, report status and classify for a cloud project', async () => {
+            const finishTraining = deferredTraining();
             const project = await createCloudProject();
             const key = await store.storeUntrainedScratchKey(project);
 
             let res = await request(testServer)
                 .post(scratchUrl(key, '/models'))
                 .expect(httpstatus.OK);
-            assert.deepStrictEqual(res.body, { status : 2, msg : 'Ready', type : 'text' });
+            assert.deepStrictEqual(res.body, TRAINING);
 
-            const scratchKey = await store.getScratchKey(key);
+            let scratchKey = await store.getScratchKey(key);
             assert.strictEqual(scratchKey.credentials?.servicetype, 'txt');
             assert.strictEqual(scratchKey.credentials?.username, 'txt');
             assert.strictEqual(scratchKey.credentials?.password, '');
@@ -402,14 +571,32 @@ describe('REST API - text service models', () => {
             res = await request(testServer)
                 .get(scratchUrl(key, '/status'))
                 .expect(httpstatus.OK);
-            assert.deepStrictEqual(res.body, { status : 2, msg : 'Ready', type : 'text' });
+            assert.deepStrictEqual(res.body, TRAINING);
 
+            // a random answer while the model is training
+            res = await request(testServer)
+                .get(scratchUrl(key, '/classify'))
+                .query({ data : 'I am very happy' })
+                .expect(httpstatus.OK);
+            assert.strictEqual(res.body[0].random, true);
+            assert(classifyStub.notCalled);
+
+            finishTraining();
+            await textmodels.waitForTrainings();
+
+            res = await request(testServer)
+                .get(scratchUrl(key, '/status'))
+                .expect(httpstatus.OK);
+            assert.deepStrictEqual(res.body, READY);
+
+            scratchKey = await store.getScratchKey(key);
             res = await request(testServer)
                 .get(scratchUrl(key, '/classify'))
                 .query({ data : 'I am very happy' })
                 .expect(httpstatus.OK);
             assert.deepStrictEqual(res.body, JSON.parse(JSON.stringify(CLASSES)));
             assert.strictEqual(classifyStub.firstCall.args[0], scratchKey.classifierid);
+            assert.strictEqual(scratchKey.classifierid, (await store.getTextClassifiers(project.id))[0].workspace_id);
         });
 
 
@@ -421,23 +608,31 @@ describe('REST API - text service models', () => {
                 .post(scratchUrl(key, '/local/models'))
                 .send({ type : 'text', training : LOCAL_TRAINING })
                 .expect(httpstatus.OK);
-            assert.deepStrictEqual(res.body, { status : 2, msg : 'Ready', type : 'text' });
+            assert.deepStrictEqual(res.body, TRAINING);
+
+            await textmodels.waitForTrainings();
+            const status = await request(testServer)
+                .get(scratchUrl(key, '/status'))
+                .expect(httpstatus.OK);
+            assert.deepStrictEqual(status.body, READY);
         });
 
 
         it('should create a key for an existing model', async () => {
             const project = await createCloudProject();
-            const trained = await trainCloud(project.id).expect(httpstatus.CREATED);
+            await trainCloud(project.id).expect(httpstatus.CREATED);
+            await textmodels.waitForTrainings();
+            const modelid = (await listCloud(project.id)).body[0].classifierid;
             await store.deleteScratchKeysByProjectId(project.id);
 
             const res = await request(testServer)
                 .get('/api/classes/' + TESTCLASS + '/students/' + userid + '/projects/' + project.id + '/scratchkeys')
                 .expect(httpstatus.OK);
             assert.strictEqual(res.body.length, 1);
-            assert.strictEqual(res.body[0].model, trained.body.classifierid);
+            assert.strictEqual(res.body[0].model, modelid);
 
             const scratchKey = await store.getScratchKey(res.body[0].id);
-            assert.strictEqual(scratchKey.classifierid, trained.body.classifierid);
+            assert.strictEqual(scratchKey.classifierid, modelid);
             assert.strictEqual(scratchKey.credentials?.servicetype, 'txt');
             assert.strictEqual(scratchKey.credentials?.username, 'txt');
         });
@@ -445,11 +640,13 @@ describe('REST API - text service models', () => {
 
         it('should report a deleted model', async () => {
             const project = await createCloudProject();
-            const trained = await trainCloud(project.id).expect(httpstatus.CREATED);
+            await trainCloud(project.id).expect(httpstatus.CREATED);
+            await textmodels.waitForTrainings();
+            const modelid = (await listCloud(project.id)).body[0].classifierid;
             const key = (await store.findScratchKeys(userid, project.id, TESTCLASS))[0];
 
             await request(testServer)
-                .delete(cloudModelsUrl(project.id) + '/' + trained.body.classifierid)
+                .delete(cloudModelsUrl(project.id) + '/' + modelid)
                 .expect(httpstatus.NO_CONTENT);
 
             // the key is reset, so the model can't be used
@@ -461,23 +658,29 @@ describe('REST API - text service models', () => {
 
 
         const TRAINING_ERRORS = [
-            textmodels.ERROR_MESSAGES.SERVICE_BUSY,
             textmodels.ERROR_MESSAGES.TRAINING_TOO_LARGE,
+            textmodels.ERROR_MESSAGES.SERVICE_ERROR,
         ];
         for (const message of TRAINING_ERRORS) {
-            it('should report a training error for a cloud project : ' + message, async () => {
-                trainStub.rejects(new Error(message));
+            it('should report a failed training for a cloud project : ' + message, async () => {
+                trainStub.rejects(failure(message));
                 const project = await createCloudProject();
                 const key = await store.storeUntrainedScratchKey(project);
 
                 const res = await request(testServer)
                     .post(scratchUrl(key, '/models'))
                     .expect(httpstatus.OK);
-                assert.deepStrictEqual(res.body, { status : 0, msg : message, type : 'text' });
+                assert.deepStrictEqual(res.body, TRAINING);
+
+                await textmodels.waitForTrainings();
+                const status = await request(testServer)
+                    .get(scratchUrl(key, '/status'))
+                    .expect(httpstatus.OK);
+                assert.deepStrictEqual(status.body, { status : 0, msg : 'Model Failed', type : 'text' });
             });
 
-            it('should report a training error for a local project : ' + message, async () => {
-                trainStub.rejects(new Error(message));
+            it('should report a failed training for a local project : ' + message, async () => {
+                trainStub.rejects(failure(message));
                 const project = await createLocalProject();
                 const key = await store.storeUntrainedScratchKey(project);
 
@@ -485,7 +688,13 @@ describe('REST API - text service models', () => {
                     .post(scratchUrl(key, '/local/models'))
                     .send({ type : 'text', training : LOCAL_TRAINING })
                     .expect(httpstatus.OK);
-                assert.deepStrictEqual(res.body, { status : 0, msg : message, type : 'text' });
+                assert.deepStrictEqual(res.body, TRAINING);
+
+                await textmodels.waitForTrainings();
+                const status = await request(testServer)
+                    .get(scratchUrl(key, '/status'))
+                    .expect(httpstatus.OK);
+                assert.deepStrictEqual(status.body, { status : 0, msg : 'Model Failed', type : 'text' });
             });
         }
 
@@ -510,18 +719,23 @@ describe('REST API - text service models', () => {
 
 
         it('should keep the generic reply for other training errors', async () => {
-            trainStub.rejects(new Error(textmodels.ERROR_MESSAGES.SERVICE_ERROR));
-            const project = await createCloudProject();
-            const key = await store.storeUntrainedScratchKey(project);
+            const createStub = sinon.stub(store, 'createTextServiceTraining').rejects(new Error('Failed to store text model'));
+            try {
+                const project = await createCloudProject();
+                const key = await store.storeUntrainedScratchKey(project);
 
-            const res = await request(testServer)
-                .post(scratchUrl(key, '/models'))
-                .expect(httpstatus.OK);
-            assert.deepStrictEqual(res.body, {
-                status : 0,
-                msg : 'Failed to train machine learning model',
-                type : 'text',
-            });
+                const res = await request(testServer)
+                    .post(scratchUrl(key, '/models'))
+                    .expect(httpstatus.OK);
+                assert.deepStrictEqual(res.body, {
+                    status : 0,
+                    msg : 'Failed to train machine learning model',
+                    type : 'text',
+                });
+            }
+            finally {
+                createStub.restore();
+            }
         });
     });
 });
