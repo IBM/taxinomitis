@@ -118,4 +118,5 @@ export const SLACK_CHANNELS = {
     TRAINING_ERRORS : 'training-errors',
     UI_ERRORS : 'sentry',
     SESSION_USERS : 'session-users',
+    TEXT_SERVICE : 'text-service',
 };

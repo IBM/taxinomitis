@@ -12,9 +12,16 @@ const log = loggerSetup();
 
 
 // how long to wait for the service to train a model
-//  the largest trainings are expected to take 40-60 seconds,
-//  and this must stay below the 100 second timeout in CIS
-const TRAINING_TIMEOUT_MS = 90 * 1000;
+//  about 1.5 times the longest expected call: a cold start
+//  without the image (about 70 seconds), plus up to 60 seconds
+//  waiting in the service, plus about 46 seconds training
+const TRAINING_TIMEOUT_MS = 180 * 1000;
+
+// how long to wait for the service to classify text
+//  covers a cold start without the image (about 70 seconds),
+//  and must stay below the 100 second timeout in CIS, as
+//  classifying is synchronous for students
+const CLASSIFY_TIMEOUT_MS = 80 * 1000;
 
 
 /**
@@ -59,13 +66,74 @@ export async function train(training: TrainingObjects.ConversationTrainingData):
 
 
 /**
+ * A failed training, with the message to show to the user, and
+ *  whether the same training could succeed if it is sent again.
+ */
+export class TextServiceTrainingError extends Error {
+    name = 'TextServiceTrainingError';
+    readonly retryable: boolean;
+    // how long the service asked for before trying again (only
+    //  for busy responses, and only if the service said)
+    readonly retryAfterMs?: number;
+
+    constructor(message: string, retryable: boolean, retryAfterMs?: number) {
+        super(message);
+        this.retryable = retryable;
+        this.retryAfterMs = retryAfterMs;
+        Object.setPrototypeOf(this, TextServiceTrainingError.prototype);
+    }
+}
+
+
+/**
  * Returns the error to throw to the user for a failed training.
  *
  * The error from the request includes the request options, which
  *  contain the credentials and training data, so a new error is
  *  created with just the message.
  */
-function getTrainingError(err: any): Error {
+function getTrainingError(err: any): TextServiceTrainingError {
+    return new TextServiceTrainingError(getTrainingErrorMessage(err),
+                                        isRetryableTrainingFailure(err),
+                                        getRetryAfterMs(err));
+}
+
+
+/**
+ * Checks if a training that failed could succeed if it is sent
+ *  again unchanged. Resending is safe, as the service doesn't
+ *  keep any state from a training.
+ */
+function isRetryableTrainingFailure(err: any): boolean {
+    if (err.statusCode) {
+        // busy, starting, and any other errors from the service
+        //  itself (rather than from the request) can be retried
+        return err.statusCode >= httpStatus.INTERNAL_SERVER_ERROR;
+    }
+    // timeouts, dropped connections, and no response at all
+    return true;
+}
+
+
+/**
+ * How long the service asked for before trying again, from the
+ *  Retry-After header (in seconds) of a busy response.
+ */
+function getRetryAfterMs(err: any): number | undefined {
+    if (!isServiceError(err, httpStatus.SERVICE_UNAVAILABLE, 'busy')) {
+        return undefined;
+    }
+    const header = err.response && err.response.headers ?
+        err.response.headers.get('retry-after') :
+        null;
+    if (header && /^\d+$/.test(header.trim())) {
+        return parseInt(header.trim(), 10) * 1000;
+    }
+    return undefined;
+}
+
+
+function getTrainingErrorMessage(err: any): string {
     if (isServiceError(err, httpStatus.BAD_REQUEST, 'training-too-large') ||
         err.statusCode === httpStatus.REQUEST_ENTITY_TOO_LARGE)
     {
@@ -75,8 +143,8 @@ function getTrainingError(err: any): Error {
         const detail = getSafeErrorDetail(err);
         log.warn(detail, 'Training too large for text service');
         notifications.notify('Training too large for mlforkids-text : ' + JSON.stringify(detail),
-                             notifications.SLACK_CHANNELS.TRAINING_ERRORS);
-        return new Error(textmodels.ERROR_MESSAGES.TRAINING_TOO_LARGE);
+                             notifications.SLACK_CHANNELS.TEXT_SERVICE);
+        return textmodels.ERROR_MESSAGES.TRAINING_TOO_LARGE;
     }
     if (isServiceError(err, httpStatus.SERVICE_UNAVAILABLE, 'busy')) {
         // expected when the service is at its limit for trainings at
@@ -84,19 +152,19 @@ function getTrainingError(err: any): Error {
         //  how to scale the service, so notify the Slack bot
         log.warn(getSafeErrorDetail(err), 'Text service busy');
         notifications.notify('mlforkids-text was too busy to train a text model',
-                             notifications.SLACK_CHANNELS.TRAINING_ERRORS);
-        return new Error(textmodels.ERROR_MESSAGES.SERVICE_BUSY);
+                             notifications.SLACK_CHANNELS.TEXT_SERVICE);
+        return textmodels.ERROR_MESSAGES.SERVICE_BUSY;
     }
 
     reportUnexpectedFailure('train text model', err);
 
     if (isTimeout(err)) {
-        return new Error(textmodels.ERROR_MESSAGES.UNKNOWN);
+        return textmodels.ERROR_MESSAGES.UNKNOWN;
     }
     if (isServiceUnavailable(err)) {
-        return new Error(textmodels.ERROR_MESSAGES.SERVICE_ERROR);
+        return textmodels.ERROR_MESSAGES.SERVICE_ERROR;
     }
-    return new Error(textmodels.ERROR_MESSAGES.UNKNOWN);
+    return textmodels.ERROR_MESSAGES.UNKNOWN;
 }
 
 
@@ -192,12 +260,16 @@ function submitClassify(url: string, body: { text: string, model?: string }): Pr
     const req: request.RequestPromiseOptions = {
         auth : getAuth(),
         json : true,
+        timeout : CLASSIFY_TIMEOUT_MS,
         body,
     };
 
-    const RETRY_ON_TIMEOUT = true;
+    // a retry after the timeout would go past the timeout in CIS
+    //  (request.ts also counts connection resets as timeouts, so
+    //  they aren't retried either - the student can try again)
+    const DO_NOT_RETRY = false;
 
-    return request.post(url, req, RETRY_ON_TIMEOUT);
+    return request.post(url, req, DO_NOT_RETRY);
 }
 
 
@@ -284,10 +356,11 @@ function reportUnexpectedFailure(action: string, err: any, modelid?: string): vo
     const detail = getSafeErrorDetail(err);
     log.error({ ...detail, modelid }, 'Failed to ' + action);
 
+    // the model id is only logged, so that repeated alerts are the
+    //  same, and are collapsed by the notifications module
     notifications.notify('Unexpected failure to ' + action + ' using mlforkids-text : ' +
-                         JSON.stringify(detail) +
-                         (modelid ? ' for model : ' + modelid : ''),
-                         notifications.SLACK_CHANNELS.TRAINING_ERRORS);
+                         JSON.stringify(detail),
+                         notifications.SLACK_CHANNELS.TEXT_SERVICE);
 }
 
 

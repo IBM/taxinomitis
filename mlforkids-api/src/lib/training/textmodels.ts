@@ -158,7 +158,7 @@ async function createNewWatsonAssistantModel(
     }
     catch (err) {
         log.error({ err, project, credentials : credentials.id }, 'Failed to store new text model');
-        notifyStoreFailure(project, err);
+        notifyWatsonStoreFailure(project, err);
         throw err;
     }
 
@@ -201,7 +201,7 @@ async function createNewTextServiceModel(
     }
     catch (err) {
         log.error({ err, project : project.id, model : model.id }, 'Failed to store new text model');
-        notifyStoreFailure(project, err);
+        notifyTextServiceStoreFailure(err);
         throw err;
     }
 
@@ -209,12 +209,19 @@ async function createNewTextServiceModel(
 }
 
 
-function notifyStoreFailure(project: DbObjects.Project | DbObjects.LocalProject, err: Error): void
+function notifyWatsonStoreFailure(project: DbObjects.Project | DbObjects.LocalProject, err: Error): void
 {
     notifications.notify('Unexpected failure to train text classifier' +
                          ' for project : ' + project.id +
                          ' in class : ' + project.classid + ' : ' +
                          err.message, notifications.SLACK_CHANNELS.TRAINING_ERRORS);
+}
+
+
+function notifyTextServiceStoreFailure(err: Error): void
+{
+    notifications.notify('Unexpected failure to store a text model trained by mlforkids-text : ' +
+                         err.message, notifications.SLACK_CHANNELS.TEXT_SERVICE);
 }
 
 
@@ -287,7 +294,7 @@ async function retrainTextServiceModel(
     }
     catch (err) {
         log.error({ err, project : project.id, model : model.id }, 'Failed to store retrained text model');
-        notifyStoreFailure(project, err);
+        notifyTextServiceStoreFailure(err);
         throw err;
     }
 

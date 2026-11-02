@@ -998,6 +998,10 @@ describe('Training - text models', () => {
 
                     assert(storeScratchKeyStub.notCalled);
                     assert(notifyStub.calledOnce);
+                    assert(notifyStub.firstCall.args[0].includes('Failed to store text model'));
+                    assert(!notifyStub.firstCall.args[0].includes(project.id));
+                    assert(!notifyStub.firstCall.args[0].includes(project.classid));
+                    assert.strictEqual(notifyStub.firstCall.args[1], notifications.SLACK_CHANNELS.TEXT_SERVICE);
                 }
                 finally {
                     notifyStub.restore();
@@ -1173,9 +1177,10 @@ describe('Training - text models', () => {
 
                     assert(updateTxtStub.calledOnce);
                     assert(notifyStub.calledOnce);
-                    assert(notifyStub.firstCall.args[0].includes('retrainproject'));
                     assert(notifyStub.firstCall.args[0].includes('Scratch key not updated'));
-                    assert.strictEqual(notifyStub.firstCall.args[1], notifications.SLACK_CHANNELS.TRAINING_ERRORS);
+                    assert(!notifyStub.firstCall.args[0].includes(project.id));
+                    assert(!notifyStub.firstCall.args[0].includes(project.classid));
+                    assert.strictEqual(notifyStub.firstCall.args[1], notifications.SLACK_CHANNELS.TEXT_SERVICE);
                 }
                 finally {
                     notifyStub.restore();

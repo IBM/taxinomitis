@@ -54,10 +54,10 @@ describe('Training - text service', () => {
     });
 
 
-    function serviceError(statusCode: number, error: string): requestUtil.StatusCodeError {
+    function serviceError(statusCode: number, error: string, headers: Record<string, string> = {}): requestUtil.StatusCodeError {
         return new requestUtil.StatusCodeError(statusCode,
             { error, message : 'error from the text service' },
-            {}, {} as Response);
+            {}, { headers : new Headers(headers) } as Response);
     }
 
 
@@ -94,7 +94,7 @@ describe('Training - text service', () => {
         }
         assert.strictEqual(slackStub.called, expectSlack);
         if (expectSlack) {
-            assert.strictEqual(slackStub.firstCall.args[1], slack.SLACK_CHANNELS.TRAINING_ERRORS);
+            assert.strictEqual(slackStub.firstCall.args[1], slack.SLACK_CHANNELS.TEXT_SERVICE);
         }
     }
 
@@ -158,32 +158,34 @@ describe('Training - text service', () => {
             assert(model.head.equals(head));
         });
 
-        it('should allow 90 seconds for training', async () => {
+        it('should allow 180 seconds for training', async () => {
             postStub.resolves({ modelid : 'id', model : '', labels : [], calibration : 'q1' });
 
             await textservice.train(trainingData());
 
-            assert.strictEqual(postStub.firstCall.args[1].timeout, 90000);
+            assert.strictEqual(postStub.firstCall.args[1].timeout, 180000);
         });
 
         describe('errors', () => {
 
-            const cases: { name: string, err: () => Error, message: string, slack: boolean }[] = [
-                { name : 'invalid training', err : () => serviceError(400, 'invalid-training'), message : textmodels.ERROR_MESSAGES.UNKNOWN, slack : true },
-                { name : 'training too large', err : () => serviceError(400, 'training-too-large'), message : textmodels.ERROR_MESSAGES.TRAINING_TOO_LARGE, slack : true },
-                { name : 'request too large', err : () => serviceError(413, 'request-too-large'), message : textmodels.ERROR_MESSAGES.TRAINING_TOO_LARGE, slack : true },
-                { name : 'busy', err : () => serviceError(503, 'busy'), message : textmodels.ERROR_MESSAGES.SERVICE_BUSY, slack : true },
-                { name : 'starting', err : () => serviceError(503, 'starting'), message : textmodels.ERROR_MESSAGES.SERVICE_ERROR, slack : true },
-                { name : 'internal error', err : () => serviceError(500, 'internal-error'), message : textmodels.ERROR_MESSAGES.SERVICE_ERROR, slack : true },
-                { name : 'other 5xx', err : () => serviceError(502, 'bad-gateway'), message : textmodels.ERROR_MESSAGES.SERVICE_ERROR, slack : true },
-                { name : 'unauthorized', err : () => serviceError(401, 'unauthorized'), message : textmodels.ERROR_MESSAGES.SERVICE_ERROR, slack : true },
-                { name : 'other 4xx', err : () => serviceError(404, 'not-found'), message : textmodels.ERROR_MESSAGES.UNKNOWN, slack : true },
-                { name : 'timeout', err : timeoutError, message : textmodels.ERROR_MESSAGES.UNKNOWN, slack : true },
-                { name : 'connection refused', err : () => networkError('ECONNREFUSED'), message : textmodels.ERROR_MESSAGES.SERVICE_ERROR, slack : true },
-                { name : 'unknown host', err : () => networkError('ENOTFOUND'), message : textmodels.ERROR_MESSAGES.SERVICE_ERROR, slack : true },
-                { name : 'connection timed out', err : () => networkError('ETIMEDOUT'), message : textmodels.ERROR_MESSAGES.UNKNOWN, slack : true },
-                { name : 'connection reset', err : () => networkError('ECONNRESET'), message : textmodels.ERROR_MESSAGES.SERVICE_ERROR, slack : true },
-                { name : 'unidentified network', err : () => requestError('ECONNRESET'), message : textmodels.ERROR_MESSAGES.SERVICE_ERROR, slack : true },
+            const cases: { name: string, err: () => Error, message: string, slack: boolean, retryable: boolean, retryAfterMs?: number }[] = [
+                { name : 'invalid training', err : () => serviceError(400, 'invalid-training'), message : textmodels.ERROR_MESSAGES.UNKNOWN, slack : true, retryable : false },
+                { name : 'training too large', err : () => serviceError(400, 'training-too-large'), message : textmodels.ERROR_MESSAGES.TRAINING_TOO_LARGE, slack : true, retryable : false },
+                { name : 'request too large', err : () => serviceError(413, 'request-too-large'), message : textmodels.ERROR_MESSAGES.TRAINING_TOO_LARGE, slack : true, retryable : false },
+                { name : 'busy', err : () => serviceError(503, 'busy', { 'Retry-After' : '30' }), message : textmodels.ERROR_MESSAGES.SERVICE_BUSY, slack : true, retryable : true, retryAfterMs : 30000 },
+                { name : 'busy with no Retry-After', err : () => serviceError(503, 'busy'), message : textmodels.ERROR_MESSAGES.SERVICE_BUSY, slack : true, retryable : true },
+                { name : 'busy with an invalid Retry-After', err : () => serviceError(503, 'busy', { 'Retry-After' : 'soon' }), message : textmodels.ERROR_MESSAGES.SERVICE_BUSY, slack : true, retryable : true },
+                { name : 'starting', err : () => serviceError(503, 'starting'), message : textmodels.ERROR_MESSAGES.SERVICE_ERROR, slack : true, retryable : true },
+                { name : 'internal error', err : () => serviceError(500, 'internal-error'), message : textmodels.ERROR_MESSAGES.SERVICE_ERROR, slack : true, retryable : true },
+                { name : 'other 5xx', err : () => serviceError(502, 'bad-gateway'), message : textmodels.ERROR_MESSAGES.SERVICE_ERROR, slack : true, retryable : true },
+                { name : 'unauthorized', err : () => serviceError(401, 'unauthorized'), message : textmodels.ERROR_MESSAGES.SERVICE_ERROR, slack : true, retryable : false },
+                { name : 'other 4xx', err : () => serviceError(404, 'not-found'), message : textmodels.ERROR_MESSAGES.UNKNOWN, slack : true, retryable : false },
+                { name : 'timeout', err : timeoutError, message : textmodels.ERROR_MESSAGES.UNKNOWN, slack : true, retryable : true },
+                { name : 'connection refused', err : () => networkError('ECONNREFUSED'), message : textmodels.ERROR_MESSAGES.SERVICE_ERROR, slack : true, retryable : true },
+                { name : 'unknown host', err : () => networkError('ENOTFOUND'), message : textmodels.ERROR_MESSAGES.SERVICE_ERROR, slack : true, retryable : true },
+                { name : 'connection timed out', err : () => networkError('ETIMEDOUT'), message : textmodels.ERROR_MESSAGES.UNKNOWN, slack : true, retryable : true },
+                { name : 'connection reset', err : () => networkError('ECONNRESET'), message : textmodels.ERROR_MESSAGES.SERVICE_ERROR, slack : true, retryable : true },
+                { name : 'unidentified network', err : () => requestError('ECONNRESET'), message : textmodels.ERROR_MESSAGES.SERVICE_ERROR, slack : true, retryable : true },
             ];
 
             for (const testcase of cases) {
@@ -191,6 +193,16 @@ describe('Training - text service', () => {
                     postStub.rejects(testcase.err());
                     await assertFailure(textservice.train(trainingData()), testcase.message, testcase.slack);
                     assert(postStub.calledOnce);
+                });
+
+                it('should report if ' + testcase.name + ' errors can be retried', async () => {
+                    postStub.rejects(testcase.err());
+                    await assert.rejects(textservice.train(trainingData()), (err: any) => {
+                        assert(err instanceof textservice.TextServiceTrainingError);
+                        assert.strictEqual(err.retryable, testcase.retryable);
+                        assert.strictEqual(err.retryAfterMs, testcase.retryAfterMs);
+                        return true;
+                    });
                 });
             }
 
@@ -258,6 +270,27 @@ describe('Training - text service', () => {
             assert.deepStrictEqual(opts.body, { text : 'what a lovely surprise', model : HEAD_BASE64 });
         });
 
+        it('should allow 80 seconds, with no retry after a timeout', async () => {
+            postStub.resolves(classifyResponse());
+
+            await textservice.classify(MODELID, TIMESTAMP, 'hello', sinon.stub().resolves(HEAD));
+
+            const [ , opts, retry ] = postStub.firstCall.args;
+            assert.strictEqual(opts.timeout, 80000);
+            assert.strictEqual(retry, false);
+        });
+
+        it('should allow 80 seconds, with no retry after a timeout, when sending the head', async () => {
+            postStub.onFirstCall().rejects(serviceError(404, 'model-not-cached'));
+            postStub.onSecondCall().resolves(classifyResponse());
+
+            await textservice.classify(MODELID, TIMESTAMP, 'hello', sinon.stub().resolves(HEAD));
+
+            const [ , opts, retry ] = postStub.secondCall.args;
+            assert.strictEqual(opts.timeout, 80000);
+            assert.strictEqual(retry, false);
+        });
+
         describe('errors', () => {
 
             const cases: { name: string, err: () => Error, message: string, slack: boolean }[] = [
@@ -296,6 +329,14 @@ describe('Training - text service', () => {
                     assert(getHead.calledOnce);
                 });
             }
+
+            it('should not include the model id in Slack alerts', async () => {
+                postStub.rejects(serviceError(500, 'internal-error'));
+
+                await assertFailure(textservice.classify(MODELID, TIMESTAMP, 'hello', sinon.stub().resolves(HEAD)), textmodels.ERROR_MESSAGES.SERVICE_ERROR, true);
+
+                assert(!slackStub.firstCall.args[0].includes(MODELID));
+            });
 
             it('should handle the model not being cached after sending the head', async () => {
                 postStub.rejects(serviceError(404, 'model-not-cached'));
