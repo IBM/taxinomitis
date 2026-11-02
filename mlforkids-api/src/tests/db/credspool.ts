@@ -53,6 +53,7 @@ describe('DB credentials pool store', () => {
                 password: credsPass,
                 classid: 'managedpooluse',
                 credstype: credsType,
+                source: 'managed-pool',
                 lastfail: (creds as TrainingTypes.BluemixCredentialsPool).lastfail,
             });
             assert((creds as TrainingTypes.BluemixCredentialsPool).lastfail.getTime() >= beforeTime.getTime());
@@ -75,7 +76,11 @@ describe('DB credentials pool store', () => {
                 password: credsPass,
                 classid: 'managedpooluse',
                 credstype: credsType,
+                source: 'managed-pool',
+                lastfail: (creds as TrainingTypes.BluemixCredentialsPool).lastfail,
             });
+            assert((creds as TrainingTypes.BluemixCredentialsPool).lastfail.getTime() >= beforeTime.getTime());
+            assert(dbObjects.isPoolCredentials(creds));
         });
 
         it('should handle requests for unknown pooled credentials', async () => {
@@ -105,7 +110,9 @@ describe('DB credentials pool store', () => {
                 password: credsPass,
                 classid: 'duplicate',
                 credstype: credsType,
+                source: 'class',
             });
+            assert.strictEqual(dbObjects.isPoolCredentials(retrieved), false);
 
             await store.deleteBluemixCredentials(duplicate.id);
         });

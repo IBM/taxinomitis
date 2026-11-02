@@ -25,6 +25,47 @@ describe('REST API - Error Handling', () => {
 
 
 
+    describe('Text model training errors', () => {
+
+        function validateSend(expectedStatusCode: number, expectedPayload: object, callback: () => void): Express.Response {
+            return {
+                status : (code) => {
+                    assert.strictEqual(code, expectedStatusCode);
+                    return {
+                        send : (obj) => {
+                            assert.deepStrictEqual(obj, expectedPayload);
+                            callback();
+                        },
+                    };
+                },
+            } as Express.Response;
+        }
+
+        const MISSING_CREDENTIALS = {
+            code : 'MLMOD05',
+            error : 'No Watson credentials have been set up for training text projects. ' +
+                    'Please let your teacher or group leader know.',
+        };
+
+        it('Class without credentials', async () => {
+            await new Promise<void>((resolve) => {
+                errors.textModelCreationFailure(
+                    validateSend(409, MISSING_CREDENTIALS, resolve),
+                    new Error('Unexpected response when retrieving service credentials'));
+            });
+        });
+
+        it('Model whose credentials have been removed', async () => {
+            await new Promise<void>((resolve) => {
+                errors.textModelCreationFailure(
+                    validateSend(409, MISSING_CREDENTIALS, resolve),
+                    new Error('Unexpected response when retrieving the service credentials'));
+            });
+        });
+    });
+
+
+
     describe('Internal Server Errors', () => {
 
         it('DB errors', async () => {

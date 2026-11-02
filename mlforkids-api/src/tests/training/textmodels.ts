@@ -36,7 +36,7 @@ describe('Training - text models', () => {
     let deleteStub: sinon.SinonStub<any, any>;
     let getProjectStub: sinon.SinonStub<[string], Promise<DbTypes.Project | undefined>>;
     let authStoreStub: sinon.SinonStub<[DbTypes.ClassTenant, TrainingTypes.BluemixServiceType], Promise<TrainingTypes.BluemixCredentials[]>>;
-    let authByIdStoreStub: sinon.SinonStub<[DbTypes.ClassTenantType, string], Promise<TrainingTypes.BluemixCredentials>>;
+    let authByIdStoreStub: sinon.SinonStub<[string], Promise<TrainingTypes.BluemixCredentials>>;
     let countStoreStub: sinon.SinonStub<[DbTypes.Project], Promise<{ [label: string]: number; }>>;
     let getTextClassifiersStub: sinon.SinonStub<[string], Promise<TrainingTypes.TextClassifier[]>>;
     let getTextClassifierStub: sinon.SinonStub<[string, string], Promise<TrainingTypes.TextClassifier>>;
@@ -59,7 +59,7 @@ describe('Training - text models', () => {
 
         getProjectStub = sinon.stub(store, 'getProject').callsFake(mockstore.getProject);
         authStoreStub = sinon.stub(store, 'getBluemixCredentials').callsFake(mockstore.getBluemixCredentials);
-        authByIdStoreStub = sinon.stub(store, 'getBluemixCredentialsById').callsFake(mockstore.getBluemixCredentialsById);
+        authByIdStoreStub = sinon.stub(store, 'getCombinedBluemixCredentialsById').callsFake(mockstore.getCombinedBluemixCredentialsById);
         getTextClassifiersStub = sinon.stub(store, 'getTextClassifiers').callsFake(mockstore.getTextClassifiers);
         getTextClassifierStub = sinon.stub(store, 'getTextClassifier');
         countStoreStub = sinon.stub(store, 'countTrainingByLabel').callsFake(mockstore.countTrainingByLabel);
@@ -429,7 +429,7 @@ describe('Training - text models', () => {
                 { class_name : 'temperature', confidence : 100, classifierTimestamp },
                 { class_name : 'conditions', confidence : 0, classifierTimestamp },
             ]);
-            assert(authByIdStoreStub.calledWith(CLASS.tenantType, goodClassifier.credentialsid));
+            assert(authByIdStoreStub.calledWith(goodClassifier.credentialsid));
         });
 
 
@@ -475,7 +475,7 @@ describe('Training - text models', () => {
         it('should keep the records of a model if the credentials are missing', async () => {
             await assert.rejects(
                 () => textmodels.deleteClassifier(TESTTENANT, { ...goodClassifier, credentialsid : 'missing' }),
-                { message : 'Unexpected response when retrieving service credentials' });
+                { message : 'Unexpected response when retrieving the service credentials' });
 
             assert(deleteStoreStub.notCalled);
             assert(resetExpiredScratchKeyStub.notCalled);
@@ -487,17 +487,12 @@ describe('Training - text models', () => {
     describe('cleanup expired models', () => {
 
         let getExpiredStub: sinon.SinonStub<[], Promise<TrainingTypes.TextClassifier[]>>;
-        let getCombinedCredsStub: sinon.SinonStub<[string], Promise<TrainingTypes.BluemixCredentials>>;
 
         before(() => {
             getExpiredStub = sinon.stub(store, 'getExpiredConversationWorkspaces');
-            getCombinedCredsStub = sinon.stub(store, 'getCombinedBluemixCredentialsById');
-            getCombinedCredsStub.withArgs('123').resolves(creds);
-            getCombinedCredsStub.rejects(new Error('Unexpected response when retrieving service credentials'));
         });
         after(() => {
             getExpiredStub.restore();
-            getCombinedCredsStub.restore();
         });
 
 
@@ -1362,16 +1357,12 @@ describe('Training - text models', () => {
         describe('cleaning up expired text service models', () => {
 
             let getExpiredStub: sinon.SinonStub<[], Promise<TrainingTypes.TextClassifier[]>>;
-            let getCombinedCredsStub: sinon.SinonStub<[string], Promise<TrainingTypes.BluemixCredentials>>;
 
             before(() => {
                 getExpiredStub = sinon.stub(store, 'getExpiredConversationWorkspaces');
-                getCombinedCredsStub = sinon.stub(store, 'getCombinedBluemixCredentialsById');
-                getCombinedCredsStub.withArgs('123').resolves(creds);
             });
             after(() => {
                 getExpiredStub.restore();
-                getCombinedCredsStub.restore();
             });
 
             it('should delete expired text service models from the DB only', async () => {
@@ -1383,7 +1374,7 @@ describe('Training - text models', () => {
                 assert(deleteStoreStub.calledTwice);
                 assert(deleteStoreStub.calledWith(expiredTxt.id));
                 assert(resetExpiredScratchKeyStub.calledWith(expiredTxt.workspace_id, 'text'));
-                assert(getCombinedCredsStub.neverCalledWith(''));
+                assert(authByIdStoreStub.neverCalledWith(''));
 
                 // Watson Assistant models are deleted as before
                 assert(deleteStub.calledOnce);

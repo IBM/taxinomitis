@@ -172,8 +172,8 @@ describe('REST API - scratchkey models', () => {
             assert(createModelStub.calledOnce);
             assert.strictEqual(createModelStub.firstCall.args[0].id, project.id);
             // cloud projects are trained using the training data stored in the DB
-            assert.strictEqual(createModelStub.firstCall.args[2].name, project.name);
-            assert.deepStrictEqual(createModelStub.firstCall.args[2].intents, []);
+            assert.strictEqual(createModelStub.firstCall.args[3].name, project.name);
+            assert.deepStrictEqual(createModelStub.firstCall.args[3].intents, []);
 
             // the Scratch key now points at the new model
             const updatedKey = await store.getScratchKey(key);
@@ -310,7 +310,7 @@ describe('REST API - scratchkey models', () => {
             });
             assert(createModelStub.calledOnce);
             assert.strictEqual(createModelStub.firstCall.args[0].id, project.id);
-            assert.deepStrictEqual(createModelStub.firstCall.args[2], training);
+            assert.deepStrictEqual(createModelStub.firstCall.args[3], training);
 
             // the Scratch key now points at the new model
             const updatedKey = await store.getScratchKey(key);

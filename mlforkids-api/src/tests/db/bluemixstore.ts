@@ -63,6 +63,7 @@ describe('DB store', () => {
             const retrieved = await store.getBluemixCredentials(testTenant, 'conv');
             assert.deepStrictEqual(retrieved, [ {
                 ...credsinfo,
+                source : 'class',
                 credstype : 'conv_lite',
             } ]);
 
@@ -101,6 +102,7 @@ describe('DB store', () => {
             const retrieved = await store.getBluemixCredentials(testTenant, 'conv');
             assert.deepStrictEqual(retrieved, [ {
                 ...credsinfo,
+                source : 'class',
                 credstype : 'conv_standard',
             } ]);
 
@@ -198,6 +200,7 @@ describe('DB store', () => {
             const retrieved = await store.getBluemixCredentials(testTenant, 'conv');
             assert.deepStrictEqual(retrieved, [ {
                 ...credsinfo,
+                source : 'class',
                 credstype : 'conv_standard',
             } ]);
 
@@ -238,6 +241,7 @@ describe('DB store', () => {
             const retrieved = await store.getBluemixCredentialsByClassId(classid, 'conv');
             assert.deepStrictEqual(retrieved, [ {
                 ...credsinfo,
+                source : 'class',
                 credstype : 'conv_standard',
             } ]);
 
@@ -300,6 +304,7 @@ describe('DB store', () => {
             const retrievedCreds = await store.getBluemixCredentialsById(DbTypes.ClassTenantType.UnManaged, creds.id);
             assert.deepStrictEqual(retrievedCreds, {
                 ...credsinfo,
+                source : 'class',
                 credstype : 'conv_standard',
             });
 

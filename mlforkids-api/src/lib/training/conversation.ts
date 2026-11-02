@@ -6,6 +6,7 @@ import { status as httpStatus } from 'http-status';
 import * as store from '../db/store';
 import * as iam from '../iam';
 import * as DbObjects from '../db/db-types';
+import { isPoolCredentials } from '../db/objects';
 import * as TrainingObjects from './training-types';
 import * as textmodels from './textmodels';
 import * as notifications from '../notifications/slack';
@@ -69,23 +70,26 @@ export interface WorkspaceWithCredentials {
 
 /**
  * Creates a new Watson Assistant workspace, using credentials
- *  chosen for the class.
+ *  from the given source.
  */
 export async function createModel(
     project: DbObjects.Project | DbObjects.LocalProject,
     tenantPolicy: DbObjects.ClassTenant,
+    source: TrainingObjects.CredentialSource,
     training: TrainingObjects.ConversationTrainingData,
 ): Promise<WorkspaceWithCredentials>
 {
-    let credentials: TrainingObjects.BluemixCredentials[];
-    if (tenantPolicy.tenantType === DbObjects.ClassTenantType.ManagedPool) {
+    let credentials: TrainingObjects.StoredBluemixCredentials[];
+    switch (source) {
+    case 'managed-pool':
         credentials = await store.getBluemixCredentialsPoolBatch('conv');
-    }
-    else {
+        break;
+    case 'class':
         credentials = await store.getBluemixCredentials(tenantPolicy, 'conv');
+        break;
     }
 
-    return createWorkspace(project, credentials, training, tenantPolicy);
+    return createWorkspace(project, credentials, source, training, tenantPolicy);
 }
 
 
@@ -101,7 +105,7 @@ export async function updateModel(
     training: TrainingObjects.ConversationTrainingData,
 ): Promise<WorkspaceWithCredentials>
 {
-    const credentials = await getModelCredentials(tenantPolicy, workspace);
+    const credentials = await getModelCredentials(workspace);
     const modified = await updateWorkspace(project, credentials, workspace, training, tenantPolicy);
     return { workspace : modified, credentials };
 }
@@ -109,13 +113,15 @@ export async function updateModel(
 
 /**
  * Returns the credentials needed to access an existing Watson Assistant workspace.
+ *
+ * The credentials can be the class's own, or from a pool, whatever the
+ *  type of the class. Their source property says which.
  */
 export function getModelCredentials(
-    tenantPolicy: DbObjects.ClassTenant,
     workspace: TrainingObjects.TextClassifier,
-): Promise<TrainingObjects.BluemixCredentials>
+): Promise<TrainingObjects.StoredBluemixCredentials>
 {
-    return store.getBluemixCredentialsById(tenantPolicy.tenantType, workspace.credentialsid);
+    return store.getCombinedBluemixCredentialsById(workspace.credentialsid);
 }
 
 
@@ -123,36 +129,35 @@ export function getModelCredentials(
 
 async function createWorkspace(
     project: DbObjects.Project | DbObjects.LocalProject,
-    credentialsPool: TrainingObjects.BluemixCredentials[],
+    credentialsPool: TrainingObjects.StoredBluemixCredentials[],
+    source: TrainingObjects.CredentialSource,
     training: TrainingObjects.ConversationTrainingData,
     tenantPolicy: DbObjects.ClassTenant,
 ): Promise<WorkspaceWithCredentials>
 {
     const id: string = randomUUID();
 
-    let finalError:string;
-    let shuffledCredentialsPool: TrainingObjects.BluemixCredentials[];
+    // Unless we see a different error, if this doesn't work, the reason
+    //  will be that we don't have room for any new workspaces with the
+    //  available credentials
+    //  (only tell the teacher to fix it if they're the one who can)
+    const exhaustedError = source === 'class' ?
+        ERROR_MESSAGES.INSUFFICIENT_API_KEYS :
+        ERROR_MESSAGES.POOL_EXHAUSTED;
 
-    if (tenantPolicy.tenantType === DbObjects.ClassTenantType.ManagedPool) {
-        // Unless we see a different error, if this doesn't work, the reason
-        //  will be that we don't have room for any new workspaces with the
-        //  available credentials
-        finalError = ERROR_MESSAGES.POOL_EXHAUSTED;
+    let finalError = exhaustedError;
+    let shuffledCredentialsPool: TrainingObjects.StoredBluemixCredentials[];
 
-        // don't shuffle the pool for managed requests, as this helps to
-        //  reduce the number of service instances used
-        shuffledCredentialsPool = credentialsPool;
-    }
-    else {
-        // Unless we see a different error, if this doesn't work, the reason
-        //  will be that we don't have room for any new workspaces with the
-        //  available credentials
-        finalError = ERROR_MESSAGES.INSUFFICIENT_API_KEYS;
-
+    if (source === 'class') {
         // shuffle the pool of credentials so the usage will be distributed
         //  across the set, rather than always directing training requests to
         //  the first creds in the pool
         shuffledCredentialsPool = shuffle(credentialsPool);
+    }
+    else {
+        // don't shuffle a shared pool, as this helps to
+        //  reduce the number of service instances used
+        shuffledCredentialsPool = credentialsPool;
     }
 
 
@@ -176,9 +181,7 @@ async function createWorkspace(
                 //  number of workspaces allowed with these creds.
                 // So we'll swallow the error so we can try the next set of
                 //  creds in the pool
-                finalError = tenantPolicy.tenantType === DbObjects.ClassTenantType.ManagedPool ?
-                    ERROR_MESSAGES.POOL_EXHAUSTED :
-                    ERROR_MESSAGES.INSUFFICIENT_API_KEYS;
+                finalError = exhaustedError;
             }
             else if (err.statusCode === httpStatus.TOO_MANY_REQUESTS ||
                      (err.error &&
@@ -240,8 +243,8 @@ async function createWorkspace(
         break;
     case ERROR_MESSAGES.API_KEY_RATE_LIMIT:
         // teacher is probably exceeding Lite plan limits - user error
-        if (tenantPolicy.tenantType === DbObjects.ClassTenantType.ManagedPool) {
-            // shouldn't be possible with Plus plans used in the pool
+        if (source !== 'class') {
+            // shouldn't be possible with Plus plans used in a pool
             notifySlackBot = true;
         }
         break;
@@ -270,7 +273,7 @@ async function createWorkspace(
 
 async function updateWorkspace(
     project: DbObjects.Project | DbObjects.LocalProject,
-    credentials: TrainingObjects.BluemixCredentials,
+    credentials: TrainingObjects.StoredBluemixCredentials,
     workspace: TrainingObjects.TextClassifier,
     training: TrainingObjects.ConversationTrainingData,
     tenantPolicy: DbObjects.ClassTenant,
@@ -353,18 +356,18 @@ export function deleteModelUnknownClass(classifier: TrainingObjects.TextClassifi
  * Failures to delete the workspace, or to record the deletion for pool
  *  credentials, are logged, but not thrown.
  */
-export async function deleteModel(tenant: DbObjects.ClassTenant, classifier: TrainingObjects.TextClassifier): Promise<void>
+export async function deleteModel(classifier: TrainingObjects.TextClassifier): Promise<void>
 {
-    const credentials = await getModelCredentials(tenant, classifier);
+    const credentials = await getModelCredentials(classifier);
 
     await deleteWorkspaceUsingCredentials(classifier, credentials);
 
-    if (tenant.tenantType === DbObjects.ClassTenantType.ManagedPool) {
-        // if this classifier was using credentials from the managed pool, then
+    if (isPoolCredentials(credentials)) {
+        // if this classifier was using credentials from a pool, then
         //  we move the last-fail timestamp back an hour to prioritse reusing
         //  these credentials for future model training requests
         try {
-            await store.recordBluemixCredentialsPoolModelDeletion(credentials as TrainingObjects.BluemixCredentialsPool);
+            await store.recordBluemixCredentialsPoolModelDeletion(credentials);
         }
         catch (err) {
             // this only affects which credentials are tried first, so
@@ -479,7 +482,7 @@ export async function getModelStatus(
 
 async function submitTrainingToConversation(
     project: DbObjects.Project | DbObjects.LocalProject,
-    credentials: TrainingObjects.BluemixCredentials,
+    credentials: TrainingObjects.StoredBluemixCredentials,
     url: string,
     training: TrainingObjects.ConversationTrainingData,
     id: string,
@@ -525,8 +528,8 @@ async function submitTrainingToConversation(
     catch (err) {
         log.warn({ req, err, project : project.id, credentials : credentials.id }, textmodels.ERROR_MESSAGES.UNKNOWN);
 
-        if (tenantPolicy.tenantType === DbObjects.ClassTenantType.ManagedPool) {
-            await store.recordBluemixCredentialsPoolFailure(credentials as TrainingObjects.BluemixCredentialsPool);
+        if (isPoolCredentials(credentials)) {
+            await store.recordBluemixCredentialsPoolFailure(credentials);
         }
 
         // The full error object will include the Conversation request with the

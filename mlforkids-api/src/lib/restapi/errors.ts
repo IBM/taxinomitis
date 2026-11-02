@@ -62,7 +62,11 @@ export function textModelCreationFailure(res: Express.Response, err: NodeJS.Errn
                             'Please let your teacher or group leader know.',
                 });
     }
-    else if (err.message === 'Unexpected response when retrieving service credentials') {
+    else if (err.message === 'Unexpected response when retrieving service credentials' ||
+             err.message === 'Unexpected response when retrieving the service credentials')
+    {
+        // the class has no credentials, or the credentials used by
+        //  the existing model have been removed
         return res.status(httpstatus.CONFLICT)
             .send({
                 code : 'MLMOD05',

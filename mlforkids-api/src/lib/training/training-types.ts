@@ -28,7 +28,23 @@ export interface BluemixCredentialsDbRow {
     notes?: string | null;
 }
 
-export interface BluemixCredentialsPool extends BluemixCredentials {
+/**
+ * Who owns a set of Watson credentials:
+ *  'managed-pool' - ML4K site owner (must not be shared with tenant admin, stored in bluemixcredentialspool)
+ *  'class'        - tenant admin    (stored in bluemixcredentials)
+ */
+export type CredentialSource = 'managed-pool' | 'class';
+
+/**
+ * Credentials read from one of the credentials tables, so it's
+ *  known which one they came from.
+ */
+export interface StoredBluemixCredentials extends BluemixCredentials {
+    readonly source: CredentialSource;
+}
+
+export interface BluemixCredentialsPool extends StoredBluemixCredentials {
+    readonly source: 'managed-pool';
     // the last time that the credentials couldn't be used
     //  to create a ML model
     lastfail: Date;

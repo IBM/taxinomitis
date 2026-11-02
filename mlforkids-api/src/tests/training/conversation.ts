@@ -32,7 +32,7 @@ describe('Training - Conversation', () => {
     let createStub: sinon.SinonStub<any, any>;
     let deleteStub: sinon.SinonStub<any, any>;
     let authStoreStub: sinon.SinonStub<[DbTypes.ClassTenant, TrainingTypes.BluemixServiceType], Promise<TrainingTypes.BluemixCredentials[]>>;
-    let authByIdStoreStub: sinon.SinonStub<[DbTypes.ClassTenantType, string], Promise<TrainingTypes.BluemixCredentials>>;
+    let authByIdStoreStub: sinon.SinonStub<[string], Promise<TrainingTypes.BluemixCredentials>>;
 
     // the WA adapter must not read training data, or write
     //  model records or Scratch keys - these stubs are here
@@ -48,7 +48,7 @@ describe('Training - Conversation', () => {
         deleteStub = sinon.stub(requestUtil, 'del').callsFake(mockConversation.deleteClassifier);
 
         authStoreStub = sinon.stub(store, 'getBluemixCredentials').callsFake(mockstore.getBluemixCredentials);
-        authByIdStoreStub = sinon.stub(store, 'getBluemixCredentialsById').callsFake(mockstore.getBluemixCredentialsById);
+        authByIdStoreStub = sinon.stub(store, 'getCombinedBluemixCredentialsById').callsFake(mockstore.getCombinedBluemixCredentialsById);
 
         notAllowedStubs = [
             sinon.stub(store, 'countTrainingByLabel'),
@@ -85,12 +85,6 @@ describe('Training - Conversation', () => {
         supportedProjectTypes : [ 'text', 'images', 'numbers', 'sounds' ],
         textClassifierExpiry : 2,
         maxProjectsPerUser : 10,
-    };
-
-    const POOLTENANT: DbTypes.ClassTenant = {
-        ...TESTTENANT,
-        id : 'POOLTENANT',
-        tenantType : DbTypes.ClassTenantType.ManagedPool,
     };
 
     const creds: TrainingTypes.BluemixCredentials = {
@@ -139,7 +133,7 @@ describe('Training - Conversation', () => {
             const project = createProject('projectbob', 'Bob\'s text project', 'fr');
             const training = createTraining(project.name, 'fr');
 
-            const { workspace, credentials } = await conversation.createModel(project, TESTTENANT, training);
+            const { workspace, credentials } = await conversation.createModel(project, TESTTENANT, 'class', training);
             assert(workspace.id);
 
             assert.deepStrictEqual(workspace, {
@@ -165,7 +159,7 @@ describe('Training - Conversation', () => {
             const project = createProject('projectbob', 'Bob\'s broken project', 'pt-br');
 
             await assert.rejects(
-                () => conversation.createModel(project, TESTTENANT, createTraining(project.name, 'pt-br')),
+                () => conversation.createModel(project, TESTTENANT, 'class', createTraining(project.name, 'pt-br')),
                 { message : textmodels.ERROR_MESSAGES.UNKNOWN });
         });
 
@@ -174,7 +168,7 @@ describe('Training - Conversation', () => {
             const project = createProject('projectbob', 'Too Many Models', 'en');
 
             await assert.rejects(
-                () => conversation.createModel(project, TESTTENANT, createTraining(project.name, 'en')),
+                () => conversation.createModel(project, TESTTENANT, 'class', createTraining(project.name, 'en')),
                 { message : conversation.ERROR_MESSAGES.INSUFFICIENT_API_KEYS });
         });
 
@@ -183,7 +177,7 @@ describe('Training - Conversation', () => {
             const project = createProject('projectbob', 'Coming Too Fast', 'en');
 
             await assert.rejects(
-                () => conversation.createModel(project, TESTTENANT, createTraining(project.name, 'en')),
+                () => conversation.createModel(project, TESTTENANT, 'class', createTraining(project.name, 'en')),
                 { message : conversation.ERROR_MESSAGES.API_KEY_RATE_LIMIT });
         });
 
@@ -192,7 +186,7 @@ describe('Training - Conversation', () => {
             const project = createProject('projectbob', 'Watson Under Maintenance', 'en');
 
             await assert.rejects(
-                () => conversation.createModel(project, TESTTENANT, createTraining(project.name, 'en')),
+                () => conversation.createModel(project, TESTTENANT, 'class', createTraining(project.name, 'en')),
                 { message : conversation.ERROR_MESSAGES.MAINTENANCE });
         });
     });
@@ -294,10 +288,15 @@ describe('Training - Conversation', () => {
 
     describe('delete model', () => {
 
+        const poolClassifier: TrainingTypes.TextClassifier = {
+            ...goodClassifier,
+            credentialsid : mockstore.poolCreds.id,
+        };
+
         it('should delete a workspace', async () => {
             deleteStub.resetHistory();
 
-            await conversation.deleteModel(TESTTENANT, goodClassifier);
+            await conversation.deleteModel(goodClassifier);
 
             assert(deleteStub.calledOnce);
             assert(deleteStub.calledWith('http://conversation.service/v1/workspaces/good', {
@@ -319,7 +318,7 @@ describe('Training - Conversation', () => {
                 .withArgs('http://conversation.service/v1/workspaces/doesnotactuallyexist', sinon.match.any)
                 .throws(missingErr);
 
-            await conversation.deleteModel(TESTTENANT, {
+            await conversation.deleteModel({
                 id : uuid(),
                 workspace_id : 'doesnotactuallyexist',
                 credentialsid : '123',
@@ -346,10 +345,26 @@ describe('Training - Conversation', () => {
             const poolDeletionStub = sinon.stub(store, 'recordBluemixCredentialsPoolModelDeletion').resolves();
 
             try {
-                await conversation.deleteModel(POOLTENANT, goodClassifier);
+                await conversation.deleteModel(poolClassifier);
 
                 assert(deleteStub.calledOnce);
-                assert(poolDeletionStub.calledOnceWith(mockstore.creds as TrainingTypes.BluemixCredentialsPool));
+                assert(poolDeletionStub.calledOnceWith(mockstore.poolCreds));
+            }
+            finally {
+                poolDeletionStub.restore();
+            }
+        });
+
+
+        it('should not record deletions of models using class credentials', async () => {
+            deleteStub.resetHistory();
+            const poolDeletionStub = sinon.stub(store, 'recordBluemixCredentialsPoolModelDeletion').resolves();
+
+            try {
+                await conversation.deleteModel(goodClassifier);
+
+                assert(deleteStub.calledOnce);
+                assert(poolDeletionStub.notCalled);
             }
             finally {
                 poolDeletionStub.restore();
@@ -363,7 +378,7 @@ describe('Training - Conversation', () => {
                 .rejects(new Error('DB is unavailable'));
 
             try {
-                await conversation.deleteModel(POOLTENANT, goodClassifier);
+                await conversation.deleteModel(poolClassifier);
 
                 assert(deleteStub.calledOnce);
                 assert(poolDeletionStub.calledOnce);
@@ -378,8 +393,8 @@ describe('Training - Conversation', () => {
             deleteStub.resetHistory();
 
             await assert.rejects(
-                () => conversation.deleteModel(TESTTENANT, { ...goodClassifier, credentialsid : 'missing' }),
-                { message : 'Unexpected response when retrieving service credentials' });
+                () => conversation.deleteModel({ ...goodClassifier, credentialsid : 'missing' }),
+                { message : 'Unexpected response when retrieving the service credentials' });
 
             assert(deleteStub.notCalled);
         });

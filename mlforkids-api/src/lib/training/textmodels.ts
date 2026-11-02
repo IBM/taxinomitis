@@ -126,13 +126,26 @@ async function createNewModel(
 }
 
 
+/**
+ * Chooses where the credentials for a new Watson Assistant model come from.
+ */
+function chooseCredentialSource(tenantPolicy: DbObjects.ClassTenant): TrainingObjects.CredentialSource
+{
+    if (tenantPolicy.tenantType === DbObjects.ClassTenantType.ManagedPool) {
+        return 'managed-pool';
+    }
+    return 'class';
+}
+
+
 async function createNewWatsonAssistantModel(
     project: DbObjects.Project | DbObjects.LocalProject,
     tenantPolicy: DbObjects.ClassTenant,
     training: TrainingObjects.ConversationTrainingData,
 ): Promise<TrainingObjects.TextClassifier>
 {
-    const { workspace, credentials } = await conversation.createModel(project, tenantPolicy, training);
+    const source = chooseCredentialSource(tenantPolicy);
+    const { workspace, credentials } = await conversation.createModel(project, tenantPolicy, source, training);
 
     try {
         await store.storeTextClassifier(project, workspace);
@@ -380,7 +393,7 @@ function getScratchStatus(status: TrainingObjects.ClassifierStatus | undefined):
 export async function deleteClassifier(tenant: DbObjects.ClassTenant, classifier: TrainingObjects.TextClassifier): Promise<void>
 {
     if (classifier.servicetype === 'conv') {
-        await conversation.deleteModel(tenant, classifier);
+        await conversation.deleteModel(classifier);
     }
     // the text service doesn't store models, so text
     //  service models only need deleting from the DB
@@ -445,7 +458,7 @@ export function getModelStatuses(
 
             if (workspace.credentialsid in credentialsCacheById === false) {
                 try {
-                    const creds = await conversation.getModelCredentials(tenant, workspace);
+                    const creds = await conversation.getModelCredentials(workspace);
                     credentialsCacheById[workspace.credentialsid] = creds;
                 }
                 catch (err) {
@@ -492,11 +505,9 @@ export async function createTextScratchKey(project: DbObjects.Project | DbObject
 
         let credentials: TrainingObjects.BluemixCredentials;
         switch (classifier.servicetype) {
-        case 'conv': {
-            const tenant = await store.getClassTenant(project.classid);
-            credentials = await conversation.getModelCredentials(tenant, classifier);
+        case 'conv':
+            credentials = await conversation.getModelCredentials(classifier);
             break;
-        }
         case 'txt':
             credentials = getTextServiceScratchKeyCredentials(project);
             break;
@@ -603,7 +614,7 @@ export async function classifyModel(
 
     switch (workspace.servicetype) {
     case 'conv': {
-        const credentials = await conversation.getModelCredentials(tenant, workspace);
+        const credentials = await conversation.getModelCredentials(workspace);
         return classify(projectid, classifierTimestamp, text,
             () => conversation.classify(credentials, modelid, classifierTimestamp, text));
     }

@@ -584,9 +584,10 @@ const CLASS_MANAGEDPOOL_PLACEHOLDER = 'managedpooluse';
 
 export function getCredentialsFromDbRow(
     row: TrainingObjects.BluemixCredentialsDbRow,
-): TrainingObjects.BluemixCredentials
+): TrainingObjects.StoredBluemixCredentials
 {
     return {
+        source : 'class',
         id : row.id,
         servicetype : row.servicetype as TrainingObjects.BluemixServiceType,
         url : row.url,
@@ -617,11 +618,22 @@ export function getCredentialsAsDbRow(obj: TrainingObjects.BluemixCredentials,
     return creds;
 }
 
+/**
+ * Returns true if the credentials were read from the pool table.
+ */
+export function isPoolCredentials(
+    credentials: TrainingObjects.StoredBluemixCredentials,
+): credentials is TrainingObjects.BluemixCredentialsPool
+{
+    return credentials.source === 'managed-pool';
+}
+
 export function getCredentialsPoolFromDbRow(
     row: TrainingObjects.BluemixCredentialsPoolDbRow,
 ): TrainingObjects.BluemixCredentialsPool
 {
     return {
+        source : 'managed-pool',
         id : row.id,
         servicetype : row.servicetype as TrainingObjects.BluemixServiceType,
         url : row.url,
@@ -738,7 +750,7 @@ export function createBluemixCredentialsPool(
     const creds = createBluemixCredentials(servicetype, CLASS_MANAGEDPOOL_PLACEHOLDER,
         apikey, username, password, credstype);
 
-    return { ...creds, lastfail : new Date() };
+    return { ...creds, source : 'managed-pool', lastfail : new Date() };
 }
 
 

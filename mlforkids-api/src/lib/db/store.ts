@@ -1255,7 +1255,7 @@ export async function getSoundTraining(
 
 export async function storeBluemixCredentials(
     classid: string, credentials: TrainingObjects.BluemixCredentialsDbRow,
-): Promise<TrainingObjects.BluemixCredentials>
+): Promise<TrainingObjects.StoredBluemixCredentials>
 {
     const queryName = 'dbqn-insert-bluemixcredentials';
     const queryString = 'INSERT INTO bluemixcredentials ' +
@@ -1276,7 +1276,7 @@ export async function storeBluemixCredentials(
 
 export async function storeBluemixCredentialsPool(
     credentials: TrainingObjects.BluemixCredentialsPoolDbRow,
-): Promise<TrainingObjects.BluemixCredentials>
+): Promise<TrainingObjects.StoredBluemixCredentials>
 {
     const queryName = 'dbqn-insert-bluemixcredentialspool';
     const queryString = 'INSERT INTO bluemixcredentialspool ' +
@@ -1324,7 +1324,7 @@ export async function setBluemixCredentialsType(
 
 export async function getAllBluemixCredentials(
     service: TrainingObjects.BluemixServiceType,
-): Promise<TrainingObjects.BluemixCredentials[]>
+): Promise<TrainingObjects.StoredBluemixCredentials[]>
 {
     const queryName = 'dbqn-select-bluemixcredentials-all';
     const queryString = 'SELECT id, classid, servicetype, url, username, password, credstypeid ' +
@@ -1340,7 +1340,7 @@ export async function getAllBluemixCredentials(
 
 export async function getBluemixCredentials(
     tenant: Objects.ClassTenant, service: TrainingObjects.BluemixServiceType,
-): Promise<TrainingObjects.BluemixCredentials[]>
+): Promise<TrainingObjects.StoredBluemixCredentials[]>
 {
     const queryName = 'dbqn-select-bluemixcredentials-classid';
     const queryString = 'SELECT id, classid, servicetype, url, username, password, credstypeid ' +
@@ -1358,7 +1358,7 @@ export async function getBluemixCredentials(
 
 export async function getBluemixCredentialsByClassId(
     classid: string, service: TrainingObjects.BluemixServiceType,
-): Promise<TrainingObjects.BluemixCredentials[]>
+): Promise<TrainingObjects.StoredBluemixCredentials[]>
 {
     const queryName = 'dbqn-select-bluemixcredentials-classid-safe';
     const queryString = 'SELECT id, classid, servicetype, url, username, password, credstypeid ' +
@@ -1373,7 +1373,7 @@ export async function getBluemixCredentialsByClassId(
 
 export async function getBluemixCredentialsPoolBatch(
     service: TrainingObjects.BluemixServiceType,
-): Promise<TrainingObjects.BluemixCredentials[]>
+): Promise<TrainingObjects.StoredBluemixCredentials[]>
 {
     const queryName = 'dbqn-select-bluemixcredentialspool-batch';
     const queryString = 'SELECT id, servicetype, url, username, password, credstypeid, lastfail ' +
@@ -1436,14 +1436,31 @@ async function updateBluemixCredentialsPoolTimestamp(credentials: TrainingObject
     return credentials;
 }
 
-export async function getCombinedBluemixCredentialsById(credentialsid: string): Promise<TrainingObjects.BluemixCredentials>
+// the query records which table each row came from
+interface CombinedCredentialsDbRow extends TrainingObjects.BluemixCredentialsPoolDbRow {
+    readonly source: TrainingObjects.CredentialSource;
+}
+
+function getCombinedCredentialsFromDbRow(row: CombinedCredentialsDbRow): TrainingObjects.StoredBluemixCredentials
+{
+    switch (row.source) {
+    case 'managed-pool':
+        return dbobjects.getCredentialsPoolFromDbRow(row);
+    case 'class':
+        return dbobjects.getCredentialsFromDbRow(row);
+    }
+}
+
+export async function getCombinedBluemixCredentialsById(credentialsid: string): Promise<TrainingObjects.StoredBluemixCredentials>
 {
     const queryName = 'dbqn-select-bluemixcredentials-combined';
-    const queryString = 'SELECT id, classid, servicetype, url, username, password, credstypeid ' +
+    const queryString = 'SELECT \'class\' as source, ' +
+                              'id, classid, servicetype, url, username, password, credstypeid, NULL::timestamptz as lastfail ' +
                            'FROM bluemixcredentials ' +
                            'WHERE id = $1 ' +
                        'UNION ' +
-                       'SELECT id, \'managedpooluse\' as classid, servicetype, url, username, password, credstypeid ' +
+                       'SELECT \'managed-pool\' as source, ' +
+                              'id, \'managedpooluse\' as classid, servicetype, url, username, password, credstypeid, lastfail ' +
                            'FROM bluemixcredentialspool ' +
                            'WHERE id = $1';
     const queryValues = [ credentialsid ];
@@ -1452,14 +1469,14 @@ export async function getCombinedBluemixCredentialsById(credentialsid: string): 
     const rows = response.rows;
 
     if (rows.length === 1) {
-        return dbobjects.getCredentialsFromDbRow(rows[0]);
+        return getCombinedCredentialsFromDbRow(rows[0]);
     }
     if (rows.length === 2) {
         log.error({
             credentialsid, queryString, rows,
             func : 'getCombinedBluemixCredentialsById',
         }, 'Credentials stored in multiple tables');
-        return dbobjects.getCredentialsFromDbRow(rows[0]);
+        return getCombinedCredentialsFromDbRow(rows[0]);
     }
 
     /* istanbul ignore else */
@@ -1479,7 +1496,7 @@ export async function getCombinedBluemixCredentialsById(credentialsid: string): 
     throw new Error('Unexpected response when retrieving the service credentials');
 }
 
-export async function getBluemixCredentialsById(classType: Objects.ClassTenantType, credentialsid: string): Promise<TrainingObjects.BluemixCredentials>
+export async function getBluemixCredentialsById(classType: Objects.ClassTenantType, credentialsid: string): Promise<TrainingObjects.StoredBluemixCredentials>
 {
     if (classType === Objects.ClassTenantType.ManagedPool) {
         return getPoolBluemixCredentialsById(credentialsid);
@@ -1489,7 +1506,7 @@ export async function getBluemixCredentialsById(classType: Objects.ClassTenantTy
     }
 }
 
-async function getClassBluemixCredentialsById(credentialsid: string): Promise<TrainingObjects.BluemixCredentials>
+async function getClassBluemixCredentialsById(credentialsid: string): Promise<TrainingObjects.StoredBluemixCredentials>
 {
     const queryName = 'dbqn-select-bluemixcredentials-id';
     const queryString = 'SELECT id, classid, servicetype, url, username, password, credstypeid ' +
@@ -1521,7 +1538,7 @@ async function getClassBluemixCredentialsById(credentialsid: string): Promise<Tr
     throw new Error('Unexpected response when retrieving the service credentials');
 }
 
-async function getPoolBluemixCredentialsById(credentialsid: string): Promise<TrainingObjects.BluemixCredentials>
+async function getPoolBluemixCredentialsById(credentialsid: string): Promise<TrainingObjects.StoredBluemixCredentials>
 {
     const queryName = 'dbqn-select-bluemixcredentialspool-id';
     const queryString = 'SELECT id, servicetype, url, username, password, credstypeid, lastfail ' +

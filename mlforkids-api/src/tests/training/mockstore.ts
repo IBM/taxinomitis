@@ -2,7 +2,8 @@ import * as TrainingTypes from '../../lib/training/training-types';
 import * as DbTypes from '../../lib/db/db-types';
 import * as DbObjects from '../../lib/db/objects';
 
-export const creds: TrainingTypes.BluemixCredentials = {
+export const creds: TrainingTypes.StoredBluemixCredentials = {
+    source : 'class',
     id : '123',
     username : 'useruseruseruseruseruseruseruseruser',
     password : 'passpasspass',
@@ -13,20 +14,35 @@ export const creds: TrainingTypes.BluemixCredentials = {
 };
 
 export function getBluemixCredentials(tenant: DbTypes.ClassTenant, service: TrainingTypes.BluemixServiceType)
-    : Promise<TrainingTypes.BluemixCredentials[]>
+    : Promise<TrainingTypes.StoredBluemixCredentials[]>
 {
     if (service === 'conv'){
         return new Promise((resolve) => resolve([ creds ]));
     }
     return new Promise((resolve) => resolve([ ]));
 }
-export function getBluemixCredentialsById(classid: DbTypes.ClassTenantType, id: string): Promise<TrainingTypes.BluemixCredentials> {
+export const poolCreds: TrainingTypes.BluemixCredentialsPool = {
+    source : 'managed-pool',
+    id : '456',
+    username : 'poolpoolpoolpoolpoolpoolpoolpoolpool',
+    password : 'poolpasspool',
+    servicetype : 'conv',
+    url : 'http://conversation.service',
+    classid : 'managedpooluse',
+    credstype : 'conv_plus',
+    lastfail : new Date('2026-10-01T10:00:00Z'),
+};
+
+export function getCombinedBluemixCredentialsById(id: string): Promise<TrainingTypes.StoredBluemixCredentials> {
     return new Promise((resolve, reject) => {
-        if (id === '123') {
+        if (id === creds.id) {
             return resolve(creds);
         }
+        else if (id === poolCreds.id) {
+            return resolve(poolCreds);
+        }
         else {
-            return reject(new Error('Unexpected response when retrieving service credentials'));
+            return reject(new Error('Unexpected response when retrieving the service credentials'));
         }
     });
 }
