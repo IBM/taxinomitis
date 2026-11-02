@@ -117,6 +117,40 @@ describe('DB credentials pool store', () => {
             await store.deleteBluemixCredentials(duplicate.id);
         });
 
+        it('should only retrieve credentials from the requested pool', async () => {
+            // a pool id that isn't used, so the test can't affect a real pool
+            const OTHER_POOL = 99;
+
+            const otherPoolCreds = dbObjects.createBluemixCredentialsPool('conv', undefined,
+                randomstring.generate(36),
+                randomstring.generate(12),
+                'conv_lite');
+            otherPoolCreds.notes = 'temporary test record';
+
+            try {
+                // the other pool isn't a known pool, so the stored row can't be returned
+                await assert.rejects(
+                    () => store.storeBluemixCredentialsPool({
+                        ...dbObjects.getCredentialsPoolAsDbRow(otherPoolCreds),
+                        poolid : OTHER_POOL,
+                    }),
+                    { message: 'Unrecognised credentials pool' });
+
+                const managed = await store.getBluemixCredentialsPoolBatch('managed-pool', 'conv');
+                const managedIds = managed.map((creds) => creds.id);
+                assert(managedIds.includes(credsId));
+                assert(!managedIds.includes(otherPoolCreds.id));
+
+                // the other pool isn't a known pool, so its credentials can't be read
+                await assert.rejects(
+                    () => store.getCombinedBluemixCredentialsById(otherPoolCreds.id),
+                    { message: 'Unrecognised credentials pool' });
+            }
+            finally {
+                await store.deleteBluemixCredentialsPool(otherPoolCreds.id);
+            }
+        });
+
         it('should handle requests to delete unknown pool credentials', () => {
             return store.deleteBluemixCredentialsPool(randomUUID());
         });

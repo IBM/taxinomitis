@@ -34,6 +34,15 @@ export interface BluemixCredentialsDbRow {
  *  'class'        - tenant admin    (stored in bluemixcredentials)
  */
 export type CredentialSource = 'managed-pool' | 'class';
+export type PoolCredentialSource = Exclude<CredentialSource, 'class'>;
+
+/**
+ * The pools of credentials in bluemixcredentialspool, and the
+ *  poolid used for each one in the table.
+ */
+export const CREDENTIALS_POOL_IDS: { readonly [source in PoolCredentialSource]: number } = {
+    'managed-pool' : 0,
+};
 
 /**
  * Credentials read from one of the credentials tables, so it's
@@ -44,13 +53,14 @@ export interface StoredBluemixCredentials extends BluemixCredentials {
 }
 
 export interface BluemixCredentialsPool extends StoredBluemixCredentials {
-    readonly source: 'managed-pool';
+    readonly source: PoolCredentialSource;
     // the last time that the credentials couldn't be used
     //  to create a ML model
     lastfail: Date;
 }
 export interface BluemixCredentialsPoolDbRow extends BluemixCredentialsDbRow {
     lastfail: Date;
+    readonly poolid: number;
 }
 
 

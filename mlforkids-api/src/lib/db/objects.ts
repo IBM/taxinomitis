@@ -628,12 +628,22 @@ export function isPoolCredentials(
     return credentials.source === 'managed-pool';
 }
 
+function getPoolCredentialSource(poolid: number): TrainingObjects.PoolCredentialSource
+{
+    const sources = Object.keys(TrainingObjects.CREDENTIALS_POOL_IDS) as TrainingObjects.PoolCredentialSource[];
+    const source = sources.find((poolsource) => TrainingObjects.CREDENTIALS_POOL_IDS[poolsource] === poolid);
+    if (!source) {
+        throw new Error('Unrecognised credentials pool');
+    }
+    return source;
+}
+
 export function getCredentialsPoolFromDbRow(
     row: TrainingObjects.BluemixCredentialsPoolDbRow,
 ): TrainingObjects.BluemixCredentialsPool
 {
     return {
-        source : 'managed-pool',
+        source : getPoolCredentialSource(row.poolid),
         id : row.id,
         servicetype : row.servicetype as TrainingObjects.BluemixServiceType,
         url : row.url,
@@ -660,6 +670,7 @@ export function getCredentialsPoolAsDbRow(obj: TrainingObjects.BluemixCredential
                         projects.credsTypesByLabel.unknown.id,
         notes : obj.notes,
         lastfail : obj.lastfail,
+        poolid : TrainingObjects.CREDENTIALS_POOL_IDS[obj.source],
     };
 }
 

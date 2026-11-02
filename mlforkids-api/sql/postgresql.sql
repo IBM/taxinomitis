@@ -36,8 +36,11 @@ CREATE TABLE mlforkidsdb.bluemixcredentialspool (
     password character varying(36),
     credstypeid smallint DEFAULT '0'::smallint NOT NULL,
     notes character varying(50) NOT NULL,
-    lastfail timestamp with time zone NOT NULL
+    lastfail timestamp with time zone NOT NULL,
+    poolid smallint DEFAULT 0 NOT NULL
 );
+-- update (2 Nov 2026)
+-- ALTER TABLE bluemixcredentialspool ADD COLUMN poolid smallint DEFAULT 0 NOT NULL;
 
 CREATE TABLE mlforkidsdb.imagetraining (
     id character(36) NOT NULL PRIMARY KEY,
@@ -241,6 +244,9 @@ CREATE INDEX bluemixclassifiers_countclassifiersbyuserid ON mlforkidsdb.bluemixc
 -- update (1 Nov 2026) - new indexes
 CREATE INDEX textclassifiers_deletebyprojectid ON mlforkidsdb.textclassifiers USING btree (projectid);
 CREATE INDEX textclassifiers_deletebyuserid ON mlforkidsdb.textclassifiers USING btree (userid);
+-- update (2 Nov 2026) - new indexes
+--  (replaces bluemixcredentialspool_getbluemixcredentials, which can be dropped once this is in place)
+CREATE INDEX bluemixcredentialspool_getpoolbatch ON mlforkidsdb.bluemixcredentialspool USING btree (poolid, servicetype, lastfail);
 
 
 ALTER DATABASE mlforkidsdb SET search_path to mlforkidsdb;

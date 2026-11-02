@@ -1280,13 +1280,13 @@ export async function storeBluemixCredentialsPool(
 {
     const queryName = 'dbqn-insert-bluemixcredentialspool';
     const queryString = 'INSERT INTO bluemixcredentialspool ' +
-                        '(id, servicetype, url, username, password, credstypeid, notes, lastfail) ' +
-                        'VALUES ($1, $2, $3, $4, $5, $6, $7, $8)';
+                        '(id, servicetype, url, username, password, credstypeid, notes, lastfail, poolid) ' +
+                        'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)';
 
     const queryValues = [ credentials.id,
         credentials.servicetype, credentials.url, credentials.username, credentials.password,
         credentials.credstypeid, credentials.notes,
-        credentials.lastfail,
+        credentials.lastfail, credentials.poolid,
     ];
 
     const response = await dbExecute(queryName, queryString, queryValues);
@@ -1372,16 +1372,17 @@ export async function getBluemixCredentialsByClassId(
 
 
 export async function getBluemixCredentialsPoolBatch(
+    pool: TrainingObjects.PoolCredentialSource,
     service: TrainingObjects.BluemixServiceType,
 ): Promise<TrainingObjects.StoredBluemixCredentials[]>
 {
     const queryName = 'dbqn-select-bluemixcredentialspool-batch';
-    const queryString = 'SELECT id, servicetype, url, username, password, credstypeid, lastfail ' +
+    const queryString = 'SELECT id, servicetype, url, username, password, credstypeid, lastfail, poolid ' +
                         'FROM bluemixcredentialspool ' +
-                        'WHERE servicetype = $1 ' +
+                        'WHERE poolid = $1 AND servicetype = $2 ' +
                         'ORDER BY lastfail ' +
                         'LIMIT 100';
-    const queryValues = [ service ];
+    const queryValues = [ TrainingObjects.CREDENTIALS_POOL_IDS[pool], service ];
 
     const response = await dbExecute(queryName, queryString, queryValues);
     if (response.rows.length === 0) {
@@ -1455,12 +1456,12 @@ export async function getCombinedBluemixCredentialsById(credentialsid: string): 
 {
     const queryName = 'dbqn-select-bluemixcredentials-combined';
     const queryString = 'SELECT \'class\' as source, ' +
-                              'id, classid, servicetype, url, username, password, credstypeid, NULL::timestamptz as lastfail ' +
+                              'id, classid, servicetype, url, username, password, credstypeid, NULL::timestamptz as lastfail, NULL::smallint as poolid ' +
                            'FROM bluemixcredentials ' +
                            'WHERE id = $1 ' +
                        'UNION ' +
                        'SELECT \'managed-pool\' as source, ' +
-                              'id, \'managedpooluse\' as classid, servicetype, url, username, password, credstypeid, lastfail ' +
+                              'id, \'managedpooluse\' as classid, servicetype, url, username, password, credstypeid, lastfail, poolid ' +
                            'FROM bluemixcredentialspool ' +
                            'WHERE id = $1';
     const queryValues = [ credentialsid ];
@@ -1541,7 +1542,7 @@ async function getClassBluemixCredentialsById(credentialsid: string): Promise<Tr
 async function getPoolBluemixCredentialsById(credentialsid: string): Promise<TrainingObjects.StoredBluemixCredentials>
 {
     const queryName = 'dbqn-select-bluemixcredentialspool-id';
-    const queryString = 'SELECT id, servicetype, url, username, password, credstypeid, lastfail ' +
+    const queryString = 'SELECT id, servicetype, url, username, password, credstypeid, lastfail, poolid ' +
                         'FROM bluemixcredentialspool ' +
                         'WHERE id = $1';
     const queryValues = [ credentialsid ];

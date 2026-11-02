@@ -82,7 +82,7 @@ export async function createModel(
     let credentials: TrainingObjects.StoredBluemixCredentials[];
     switch (source) {
     case 'managed-pool':
-        credentials = await store.getBluemixCredentialsPoolBatch('conv');
+        credentials = await store.getBluemixCredentialsPoolBatch(source, 'conv');
         break;
     case 'class':
         credentials = await store.getBluemixCredentials(tenantPolicy, 'conv');
@@ -844,7 +844,7 @@ export interface NewTestRequest extends TestRequest, NewConvRequest {}
 
 
 async function getBluemixCredentialsToCheckForOrphans(): Promise<TrainingObjects.BluemixCredentials[]> {
-    const poolCreds = await store.getBluemixCredentialsPoolBatch('conv');
+    const poolCreds = await store.getBluemixCredentialsPoolBatch('managed-pool', 'conv');
 
     const sessionUsersClass = await store.getClassTenant('session-users');
     const sessionUserCreds = await store.getBluemixCredentials(sessionUsersClass, 'conv');
