@@ -29,4 +29,9 @@ RUN python -m scripts.make_background
 
 ENV HF_HUB_OFFLINE=1
 
+# Code Engine gives each instance 1 vCPU but shows it every host core, so
+#  torch and BLAS would otherwise start a thread per host core and fight
+#  over the one CPU. Override with --env if CPU in app.env changes.
+ENV OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
+
 CMD ["/home/mlforkids/.local/bin/uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

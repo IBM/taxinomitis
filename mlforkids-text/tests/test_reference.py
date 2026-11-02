@@ -83,3 +83,44 @@ def test_classify_matches_the_reference(loaded, trained, name, reference):
         for lower in ranked[i + 1:]:
             if higher["confidence"] - lower["confidence"] > TOLERANCE["confidence"]:
                 assert order.index(higher["label"]) < order.index(lower["label"])
+
+
+# a real project whose examples are mostly a few tokens long, plus one
+#  that is longer than the encoder's 512-token limit
+MIXED_LENGTHS = next(p for p in REFERENCE["projects"] if p["name"] == "zh-cn-school")
+MIXED_TEXTS = [text for label in MIXED_LENGTHS["request"]["labels"] for text in label["examples"]]
+
+
+def test_long_examples_are_not_batched_with_short_ones(loaded, monkeypatch):
+    # every text in a batch is padded to the batch's longest, so batching
+    #  one 700-token example with short ones makes the encoder process
+    #  every one of them at 512 tokens - several seconds per training on
+    #  one vCPU
+    _, resources = loaded
+    model = resources.encoder._model
+    batches = []
+    real_encode = model.encode
+
+    def recording_encode(sentences, **kwargs):
+        batches.append(list(sentences))
+        return real_encode(sentences, **kwargs)
+    monkeypatch.setattr(model, "encode", recording_encode)
+
+    resources.encoder.embed(MIXED_TEXTS)
+
+    def tokens(text):
+        return len(model.tokenizer(text, truncation=True, max_length=512)["input_ids"])
+    longest = max(tokens(text) for batch in batches for text in batch)
+    assert longest > 500, "the test data no longer has a long example"
+    for batch in batches:
+        lengths = [tokens(text) for text in batch]
+        assert max(lengths) <= 2 * min(lengths), f"batch mixes texts of {min(lengths)} and {max(lengths)} tokens"
+    assert sum(len(batch) for batch in batches) == len(MIXED_TEXTS)
+
+
+def test_batching_keeps_the_order_and_the_values(loaded):
+    _, resources = loaded
+    together = resources.encoder.embed(MIXED_TEXTS)
+    for i, text in enumerate(MIXED_TEXTS):
+        alone = resources.encoder.embed([text])[0]
+        assert together[i].tolist() == pytest.approx(alone.tolist(), abs=TOLERANCE["embedding"])

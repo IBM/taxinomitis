@@ -332,22 +332,91 @@ def start_held_training(client, resources, held_text):
     return release, thread, result
 
 
-def test_says_busy_when_already_training(client, resources):
+def start_waiting_training(client, example):
+    """sends a training in another thread, and gives it time to start waiting for a place"""
+    result = {}
+    thread = threading.Thread(target=lambda: result.update(response=client.post(
+        "/models", json=with_labels(HAPPY, {"label": "waiting", "examples": [example]}))))
+    thread.start()
+    time.sleep(0.3)
+    return thread, result
+
+
+def encoded(resources, text):
+    return any(text in call for call in resources.encoder.calls)
+
+
+def test_waits_when_already_training(client, resources):
     trained = train(client)
     release, thread, result = start_held_training(client, resources, "a slow example")
     try:
-        response = client.post("/models", json=FEELINGS)
-        assert_error(response, 503, "busy")
-        assert response.headers["Retry-After"] == "30"
+        waiting, waiting_result = start_waiting_training(client, "a waiting example")
+        assert not encoded(resources, "a waiting example")
+        assert "response" not in waiting_result
 
-        # classify requests are still served
+        # classify requests are still served while trainings wait
         assert classify(client, trained, "terrible news").status_code == 200
     finally:
         release.set()
         thread.join(timeout=30)
+    waiting.join(timeout=30)
 
     assert result["response"].status_code == 200
+    assert waiting_result["response"].status_code == 200
     train(client)
+
+
+def test_waiting_trainings_start_in_the_order_they_arrived(client, resources):
+    release, thread, _ = start_held_training(client, resources, "a slow example")
+    examples = [f"waiting example {i}" for i in range(4)]
+    try:
+        waiting = [start_waiting_training(client, example) for example in examples]
+    finally:
+        release.set()
+    thread.join(timeout=30)
+    for waiting_thread, result in waiting:
+        waiting_thread.join(timeout=30)
+        assert result["response"].status_code == 200
+
+    def first_call(text):
+        return next(i for i, call in enumerate(resources.encoder.calls) if text in call)
+    assert [first_call(e) for e in examples] == sorted(first_call(e) for e in examples)
+
+
+def test_says_busy_when_too_many_trainings_are_waiting(resources):
+    with TestClient(create_app(lambda: resources, settings(max_waiting_trainings=1))) as client:
+        client.auth = AUTH
+        wait_until_ready(client)
+        release, thread, _ = start_held_training(client, resources, "a slow example")
+        try:
+            waiting, waiting_result = start_waiting_training(client, "a waiting example")
+            response = client.post("/models", json=FEELINGS)
+            assert_error(response, 503, "busy")
+            assert response.headers["Retry-After"] == "30"
+        finally:
+            release.set()
+        thread.join(timeout=30)
+        waiting.join(timeout=30)
+        assert waiting_result["response"].status_code == 200
+        train(client)
+
+
+def test_says_busy_after_waiting_too_long(resources):
+    with TestClient(create_app(lambda: resources, settings(max_training_wait_seconds=0.2))) as client:
+        client.auth = AUTH
+        wait_until_ready(client)
+        release, thread, _ = start_held_training(client, resources, "a slow example")
+        try:
+            started = time.monotonic()
+            response = client.post("/models", json=FEELINGS)
+            assert_error(response, 503, "busy")
+            assert response.headers["Retry-After"] == "30"
+            assert 0.2 <= time.monotonic() - started < 5
+        finally:
+            release.set()
+        thread.join(timeout=30)
+        # the training that gave up doesn't keep a place
+        train(client)
 
 
 def test_allows_the_configured_number_of_trainings_at_once(resources):
@@ -357,13 +426,105 @@ def test_allows_the_configured_number_of_trainings_at_once(resources):
         first = start_held_training(client, resources, "first slow example")
         second = start_held_training(client, resources, "second slow example")
         try:
-            assert_error(client.post("/models", json=FEELINGS), 503, "busy")
+            third, third_result = start_waiting_training(client, "a waiting example")
+            assert not encoded(resources, "a waiting example")
         finally:
             for release, thread, _ in (first, second):
                 release.set()
                 thread.join(timeout=30)
+        third.join(timeout=30)
         assert first[2]["response"].status_code == 200
         assert second[2]["response"].status_code == 200
+        assert third_result["response"].status_code == 200
+
+
+class HeldThenBroken:
+    """an encoder that waits, then fails, for one text"""
+    def __init__(self, encoder, text):
+        self.encoder, self.text, self.release = encoder, text, threading.Event()
+        self.name, self.revision, self.dims = encoder.name, encoder.revision, encoder.dims
+        self.calls = encoder.calls
+
+    def embed(self, texts):
+        if self.text in texts:
+            self.encoder.calls.append(list(texts))
+            self.release.wait(timeout=30)
+            raise RuntimeError("encoder failed")
+        return self.encoder.embed(texts)
+
+
+def test_a_failed_training_lets_a_waiting_one_start(resources):
+    broken = HeldThenBroken(resources.encoder, "a failing example")
+    failing = Resources(encoder=broken, background=resources.background, calibrations=resources.calibrations)
+    with TestClient(create_app(lambda: failing, settings()), raise_server_exceptions=False) as client:
+        client.auth = AUTH
+        wait_until_ready(client)
+        result = {}
+        thread = threading.Thread(target=lambda: result.update(response=client.post(
+            "/models", json=with_labels(HAPPY, {"label": "failing", "examples": ["a failing example"]}))))
+        thread.start()
+        deadline = time.monotonic() + 10
+        while not encoded(failing, "a failing example"):
+            assert time.monotonic() < deadline, "training never started"
+            time.sleep(0.01)
+        waiting, waiting_result = start_waiting_training(client, "a waiting example")
+        broken.release.set()
+        thread.join(timeout=30)
+        waiting.join(timeout=30)
+        assert_error(result["response"], 500, "internal-error")
+        assert waiting_result["response"].status_code == 200
+
+
+def call_with_hang_up(client, text):
+    """
+    sends a training straight to the app, from a caller that has hung up by
+    the time anything after the body is read (TestClient can't hang up)
+    """
+    body = json.dumps(with_labels(HAPPY, {"label": "gone", "examples": [text]})).encode()
+    credentials = base64.b64encode(f"{AUTH[0]}:{AUTH[1]}".encode()).decode()
+    scope = {"type": "http", "asgi": {"version": "3.0"}, "http_version": "1.1", "method": "POST",
+             "scheme": "http", "path": "/models", "raw_path": b"/models", "query_string": b"",
+             "root_path": "", "server": ("testserver", 80), "client": ("testclient", 50000),
+             "headers": [(b"host", b"testserver"), (b"content-type", b"application/json"),
+                         (b"content-length", str(len(body)).encode()),
+                         (b"authorization", f"Basic {credentials}".encode())]}
+    messages = [{"type": "http.request", "body": body, "more_body": False}]
+    sent = []
+
+    async def receive():
+        return messages.pop(0) if messages else {"type": "http.disconnect"}
+
+    async def send(message):
+        sent.append(message)
+
+    client.portal.call(client.app, scope, receive, send)
+    return sent[0]["status"]
+
+
+def test_skips_a_training_whose_caller_gave_up_waiting(client, resources, caplog):
+    release, thread, _ = start_held_training(client, resources, "a slow example")
+    status = {}
+    try:
+        with caplog.at_level(logging.INFO):
+            gone = threading.Thread(target=lambda: status.update(
+                code=call_with_hang_up(client, "nobody is listening")))
+            gone.start()
+            time.sleep(0.3)
+            release.set()
+            gone.join(timeout=30)
+    finally:
+        release.set()
+        thread.join(timeout=30)
+    assert status["code"] == 499
+    assert not encoded(resources, "nobody is listening")
+    assert "training skipped : caller disconnected" in caplog.text
+    train(client)
+
+
+def test_doesnt_check_for_a_hang_up_when_there_was_no_wait(client, resources):
+    # the caller sent it moments ago, so isn't worth the check's wait
+    assert call_with_hang_up(client, "sent just now") == 200
+    assert encoded(resources, "sent just now")
 
 
 class BrokenOnce:

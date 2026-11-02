@@ -50,10 +50,13 @@ function create_app {
         --cpu $CPU --memory $MEMORY --ephemeral-storage $DISK \
         --service-account $SERVICE_ACCOUNT \
         --port 8000 \
+        --user 1000 \
         --probe-ready type=http --probe-ready path=/ --probe-ready port=8000 \
+        --probe-ready initial-delay=0 --probe-ready interval=1 \
         --request-timeout $REQUEST_TIMEOUT \
         --env-from-secret $DOCKER_IMAGE \
         --min-scale $MIN_INSTANCES --max-scale $MAX_INSTANCES \
+        --concurrency $CONCURRENCY --concurrency-target $CONCURRENCY_TARGET \
         --no-cluster-local
 }
 

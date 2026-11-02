@@ -11,7 +11,8 @@ AUTH = ("testuser", "testpassword")
 
 
 def settings(**overrides):
-    values = dict(username=AUTH[0], password=AUTH[1], cache_size=100, cache_ttl_seconds=3600, max_trainings=1)
+    values = dict(username=AUTH[0], password=AUTH[1], cache_size=100, cache_ttl_seconds=3600, max_trainings=1,
+                  max_waiting_trainings=200, max_training_wait_seconds=60)
     values.update(overrides)
     return Settings(**values)
 

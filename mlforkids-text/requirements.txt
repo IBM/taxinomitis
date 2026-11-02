@@ -26,6 +26,7 @@ numpy==2.4.6
 # dependencies automatically dragged in
 #
 starlette==1.10.0
+anyio==4.16.0
 pydantic==2.14.2
 scipy==1.17.1
 huggingface_hub==2.4.0

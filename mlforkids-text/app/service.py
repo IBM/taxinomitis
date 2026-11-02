@@ -2,6 +2,7 @@
 The mlforkids-text HTTP API 
 """
 # core dependencies
+import asyncio
 import base64
 import logging
 import os
@@ -10,6 +11,7 @@ import time
 from contextlib import asynccontextmanager
 from typing import Callable
 # external dependencies
+import anyio
 from cachetools import TTLCache
 from fastapi import Depends, FastAPI, Request
 from fastapi.exception_handlers import http_exception_handler
@@ -34,6 +36,10 @@ log = logging.getLogger(__name__)
 
 RETRY_AFTER_SECONDS = 30
 
+# how long to give the connection to say the caller has gone, before
+#  starting a training that had to wait
+DISCONNECT_CHECK_SECONDS = 0.05
+
 
 def exit_process():
     # sys.exit would only end the loading thread
@@ -48,8 +54,11 @@ def create_app(load_resources: Callable[[], Resources], settings: Settings,
     #  because cachetools caches aren't thread-safe.
     cache: TTLCache[str, Model] = TTLCache(maxsize=settings.cache_size, ttl=settings.cache_ttl_seconds)
 
-    # trainings beyond this are turned away straight away, not queued
-    trainings = threading.BoundedSemaphore(settings.max_trainings)
+    # trainings beyond this wait their turn, in the order they arrived.
+    #  Waiting uses no thread: one is only taken when the training starts.
+    #  Only used from the event loop thread.
+    slots = asyncio.Semaphore(settings.max_trainings)
+    queue = {"waiting": 0}
 
     def load():
         try:
@@ -124,18 +133,36 @@ def create_app(load_resources: Callable[[], Resources], settings: Settings,
         resources = ready()
         body = await read_json(request, "invalid-training")
         training = parse_training(body)
-        if not trainings.acquire(blocking=False):
-            raise ApiError(503, "busy", "Already running as many trainings as allowed",
-                           headers={"Retry-After": str(RETRY_AFTER_SECONDS)})
-        started = time.monotonic()
+
+        # a backstop: it limits the memory held by waiting trainings, and
+        #  turns away a training with no chance of starting in time
+        if slots.locked() and queue["waiting"] >= settings.max_waiting_trainings:
+            raise busy("Too many trainings waiting")
+        queued = time.monotonic()
+        had_to_wait = slots.locked()
+        queue["waiting"] += 1
         try:
+            await asyncio.wait_for(slots.acquire(), timeout=settings.max_training_wait_seconds)
+        except TimeoutError:
+            raise busy("Waited too long for a place to train") from None
+        finally:
+            queue["waiting"] -= 1
+
+        try:
+            waited = time.monotonic() - queued
+            # nobody would receive a model trained for a caller that gave up
+            #  while waiting. A training that didn't wait was only just sent.
+            if had_to_wait and await caller_gone(request):
+                log.info("training skipped : caller disconnected after waiting %.2f s", waited)
+                return Response(status_code=499)
+            started = time.monotonic()
             modelid, blob = await run_in_threadpool(train, resources, training)
         finally:
-            trainings.release()
+            slots.release()
         cache[modelid] = decode_for_api(resources, blob)
-        log.info("%s : trained %d labels, %d examples, %d characters, %d bytes, in %.2f s",
+        log.info("%s : trained %d labels, %d examples, %d characters, %d bytes, in %.2f s, after waiting %.2f s",
                  modelid, len(training.labels), sum(len(e) for e in training.examples),
-                 sum(len(t) for e in training.examples for t in e), len(blob), time.monotonic() - started)
+                 sum(len(t) for e in training.examples for t in e), len(blob), time.monotonic() - started, waited)
         return {
             "modelid": modelid,
             "model": base64.b64encode(blob).decode("ascii"),
@@ -165,6 +192,24 @@ def create_app(load_resources: Callable[[], Resources], settings: Settings,
         return {"modelid": modelid, "classes": classes}
 
     return app
+
+
+async def caller_gone(request: Request) -> bool:
+    """
+    whether the caller has disconnected, once its request body has been read
+
+    Not Request.is_disconnected(): behind @app.middleware("http"), receive()
+    starts a task group, and is_disconnected()'s already-cancelled scope
+    cancels that before it can return anything, so it always says no.
+    """
+    with anyio.move_on_after(DISCONNECT_CHECK_SECONDS):
+        message = await request.receive()
+        return message["type"] == "http.disconnect"
+    return False
+
+
+def busy(message: str) -> ApiError:
+    return ApiError(503, "busy", message, headers={"Retry-After": str(RETRY_AFTER_SECONDS)})
 
 
 ROUTING_ERRORS = {
