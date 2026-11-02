@@ -819,6 +819,39 @@ export function createTextClassifierHead(
     };
 }
 
+export function getTextServiceTrainingStateFromDbRow(
+    row: Objects.TextClassifierTrainingStateDbRow,
+): Objects.TextClassifierTrainingState
+{
+    return {
+        id : row.id,
+        hashead : row.hashead,
+        ...(row.trainingstarted ? { trainingstarted : row.trainingstarted } : {}),
+        ...(row.trainingfailed ? { trainingfailed : row.trainingfailed } : {}),
+    };
+}
+
+export function getTextServiceTrainingStatus(
+    state: Objects.TextClassifierTrainingState | undefined,
+    lostBefore: Date,
+): TrainingObjects.ClassifierStatus
+{
+    if (!state) {
+        return 'Non Existent';
+    }
+    if (state.trainingfailed) {
+        return 'Failed';
+    }
+    if (state.trainingstarted) {
+        return state.trainingstarted < lostBefore ? 'Failed' : 'Training';
+    }
+    if (state.hashead) {
+        return 'Available';
+    }
+    // not expected - every training ends with a head or a failure
+    return 'Failed';
+}
+
 export function getTextClassifierHeadFromDbRow(row: Objects.TextClassifierHeadDbRow): Objects.TextClassifierHead {
     return {
         id : row.id,

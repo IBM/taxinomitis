@@ -14,6 +14,9 @@ import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
 
+// Postgres error code when an insert breaks a unique index
+const PG_UNIQUE_VIOLATION = '23505';
+
 let dbConnPool: pg.Pool;
 
 export async function init() {
@@ -1813,6 +1816,24 @@ export async function countTextServiceModelsByUser(userid: string): Promise<numb
 
 
 
+// queries used by more than one function
+const INSERT_TEXT_CLASSIFIER_QUERY = {
+    name : 'dbqn-insert-bluemixclassifiers',
+    text : 'INSERT INTO bluemixclassifiers ' +
+               '(id, credentialsid, ' +
+                'projectid, userid, classid, ' +
+                'servicetype, ' +
+                'classifierid, url, name, language, ' +
+                'created, expiry) ' +
+           'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)',
+};
+const UPDATE_TEXT_SERVICE_MODEL_QUERY = {
+    name : 'dbqn-update-bluemixclassifiers-txtmodel',
+    text : 'UPDATE bluemixclassifiers ' +
+           'SET classifierid = $1, expiry = $2 ' +
+           'WHERE id = $3',
+};
+
 export async function storeTextClassifier(
     project: Objects.Project | Objects.LocalProject,
     workspace: TrainingObjects.TextClassifier,
@@ -1820,14 +1841,8 @@ export async function storeTextClassifier(
 {
     const obj = dbobjects.createTextClassifier(workspace, project);
 
-    const queryName = 'dbqn-insert-bluemixclassifiers';
-    const queryString = 'INSERT INTO bluemixclassifiers ' +
-                            '(id, credentialsid, ' +
-                             'projectid, userid, classid, ' +
-                             'servicetype, ' +
-                             'classifierid, url, name, language, ' +
-                             'created, expiry) ' +
-                        'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)';
+    const queryName = INSERT_TEXT_CLASSIFIER_QUERY.name;
+    const queryString = INSERT_TEXT_CLASSIFIER_QUERY.text;
     const queryValues = [ obj.id, obj.credentialsid,
         obj.projectid, obj.userid, obj.classid,
         obj.servicetype,
@@ -1926,7 +1941,7 @@ export async function getTextClassifierHead(id: string): Promise<Objects.TextCla
     const queryName = 'dbqn-select-textclassifiers-id';
     const queryString = 'SELECT id, projectid, userid, head, updated ' +
                         'FROM textclassifiers ' +
-                        'WHERE id = $1';
+                        'WHERE id = $1 AND head IS NOT NULL';
     const queryValues = [ id ];
 
     const response = await dbExecute(queryName, queryString, queryValues);
@@ -1939,7 +1954,7 @@ export async function getTextClassifierHead(id: string): Promise<Objects.TextCla
 export async function getTextClassifierHeadUpdated(id: string): Promise<Date | undefined>
 {
     const queryName = 'dbqn-select-textclassifiers-updated';
-    const queryString = 'SELECT updated FROM textclassifiers WHERE id = $1';
+    const queryString = 'SELECT updated FROM textclassifiers WHERE id = $1 AND head IS NOT NULL';
     const queryValues = [ id ];
 
     const response = await dbExecute(queryName, queryString, queryValues);
@@ -1979,14 +1994,7 @@ export async function storeTextServiceModel(
                 values : [ headObj.id, headObj.projectid, headObj.userid, headObj.head, headObj.updated ],
             });
             await client.query({
-                name : 'dbqn-insert-bluemixclassifiers',
-                text : 'INSERT INTO bluemixclassifiers ' +
-                           '(id, credentialsid, ' +
-                            'projectid, userid, classid, ' +
-                            'servicetype, ' +
-                            'classifierid, url, name, language, ' +
-                            'created, expiry) ' +
-                       'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)',
+                ...INSERT_TEXT_CLASSIFIER_QUERY,
                 values : [ obj.id, obj.credentialsid,
                     obj.projectid, obj.userid, obj.classid,
                     obj.servicetype,
@@ -2013,10 +2021,7 @@ export async function updateTextServiceModel(
     try {
         await dbTransaction(async (client) => {
             const response = await client.query({
-                name : 'dbqn-update-bluemixclassifiers-txtmodel',
-                text : 'UPDATE bluemixclassifiers ' +
-                       'SET classifierid = $1, expiry = $2 ' +
-                       'WHERE id = $3',
+                ...UPDATE_TEXT_SERVICE_MODEL_QUERY,
                 values : [ classifier.workspace_id, classifier.expiry, classifier.id ],
             });
             if (response.rowCount !== 1) {
@@ -2039,6 +2044,174 @@ export async function updateTextServiceModel(
         log.error({ id : classifier.id, code : err.code }, 'Failed to update text model');
         throw new Error('Failed to update text model');
     }
+}
+
+export async function createTextServiceTraining(
+    project: Objects.Project | Objects.LocalProject,
+    classifier: TrainingObjects.TextClassifier,
+    started: Date,
+): Promise<'created' | 'already-training'>
+{
+    const obj = dbobjects.createTextClassifier(classifier, project);
+
+    try {
+        await dbTransaction(async (client) => {
+            await client.query({
+                name : 'dbqn-insert-textclassifiers-training',
+                text : 'INSERT INTO textclassifiers ' +
+                           '(id, projectid, userid, updated, trainingstarted) ' +
+                       'VALUES ($1, $2, $3, $4, $4)',
+                values : [ obj.id, obj.projectid, obj.userid, started ],
+            });
+            await client.query({
+                ...INSERT_TEXT_CLASSIFIER_QUERY,
+                values : [ obj.id, obj.credentialsid,
+                    obj.projectid, obj.userid, obj.classid,
+                    obj.servicetype,
+                    obj.classifierid, obj.url, obj.name, obj.language,
+                    obj.created, obj.expiry ],
+            });
+        });
+    }
+    catch (err) {
+        if (err.code === PG_UNIQUE_VIOLATION && err.constraint === 'textclassifiers_oneperproject') {
+            return 'already-training';
+        }
+        log.error({ id : classifier.id, code : err.code }, 'Failed to store text model');
+        throw new Error('Failed to store text model');
+    }
+
+    return 'created';
+}
+
+/**
+ * Claims a text service model for a new training, removing its head.
+ *
+ * Only one claim can succeed while a training is in progress, so
+ *  duplicate requests for the same training don't start another.
+ *  A training started before lostBefore is treated as lost, so the
+ *  model can be claimed again.
+ *
+ * @returns the start time of the training, or undefined if the
+ *  claim failed (the model is already training, or doesn't exist)
+ */
+export async function claimTextServiceTraining(
+    id: string, now: Date, lostBefore: Date,
+): Promise<Date | undefined>
+{
+    const queryName = 'dbqn-update-textclassifiers-claim';
+    const queryString = 'UPDATE textclassifiers ' +
+                        'SET trainingstarted = $1, trainingfailed = NULL, head = NULL ' +
+                        'WHERE id = $2 AND ' +
+                            '(trainingstarted IS NULL OR trainingstarted < $3) ' +
+                        'RETURNING trainingstarted';
+    const queryValues = [ now, id, lostBefore ];
+
+    const response = await dbExecute(queryName, queryString, queryValues);
+    if (response.rows.length === 0) {
+        return;
+    }
+    return response.rows[0].trainingstarted;
+}
+
+/**
+ * While a text service model is training, its model id is a
+ *  placeholder: the model's own id, which the text service has
+ *  never seen.
+ *
+ * Does nothing if the model has been deleted, or isn't a text
+ *  service model.
+ */
+export async function setTextServiceModelPlaceholder(id: string): Promise<void>
+{
+    const queryName = 'dbqn-update-bluemixclassifiers-placeholder';
+    const queryString = 'UPDATE bluemixclassifiers SET classifierid = id WHERE id = $1 AND servicetype = $2';
+    const queryValues = [ id, 'txt' ];
+
+    await dbExecute(queryName, queryString, queryValues);
+}
+
+/**
+ * Stores the result of a text service training, if it is still
+ *  the model's current training (identified by its start time).
+ *
+ * @returns false if nothing was stored, because the model has been
+ *  deleted, or a newer training has started
+ */
+export async function finishTextServiceTraining(
+    id: string, started: Date,
+    trained: {
+        readonly modelid: string;
+        readonly head: Buffer;
+        readonly finished: Date;
+        readonly expiry: Date;
+    },
+): Promise<boolean>
+{
+    const { modelid, head, finished, expiry } = trained;
+    try {
+        return await dbTransaction(async (client) => {
+            const response = await client.query({
+                name : 'dbqn-update-textclassifiers-finish',
+                text : 'UPDATE textclassifiers ' +
+                       'SET head = $1, updated = $2, trainingstarted = NULL ' +
+                       'WHERE id = $3 AND trainingstarted = $4',
+                values : [ head, finished, id, started ],
+            });
+            if (response.rowCount !== 1) {
+                return false;
+            }
+            await client.query({
+                ...UPDATE_TEXT_SERVICE_MODEL_QUERY,
+                values : [ modelid, expiry, id ],
+            });
+            return true;
+        });
+    }
+    catch (err) {
+        // values not logged, to avoid logging the head
+        log.error({ id, code : err.code }, 'Failed to store trained text model');
+        throw new Error('Failed to store trained text model');
+    }
+}
+
+/**
+ * Records that a text service training failed, if it is still
+ *  the model's current training (identified by its start time).
+ *
+ * The training is no longer in progress, so the model can be
+ *  claimed for a new training straight away.
+ *
+ * @returns false if nothing was recorded, because the model has
+ *  been deleted, or a newer training has started
+ */
+export async function failTextServiceTraining(
+    id: string, started: Date, failed: Date,
+): Promise<boolean>
+{
+    const queryName = 'dbqn-update-textclassifiers-fail';
+    const queryString = 'UPDATE textclassifiers ' +
+                        'SET trainingfailed = $1, trainingstarted = NULL ' +
+                        'WHERE id = $2 AND trainingstarted = $3';
+    const queryValues = [ failed, id, started ];
+
+    const response = await dbExecute(queryName, queryString, queryValues);
+    return response.rowCount === 1;
+}
+
+export async function getTextServiceTrainingState(id: string): Promise<Objects.TextClassifierTrainingState | undefined>
+{
+    const queryName = 'dbqn-select-textclassifiers-trainingstate';
+    const queryString = 'SELECT id, head IS NOT NULL AS hashead, trainingstarted, trainingfailed ' +
+                        'FROM textclassifiers ' +
+                        'WHERE id = $1';
+    const queryValues = [ id ];
+
+    const response = await dbExecute(queryName, queryString, queryValues);
+    if (response.rows.length === 0) {
+        return;
+    }
+    return dbobjects.getTextServiceTrainingStateFromDbRow(response.rows[0]);
 }
 
 export async function updateTextClassifierExpiry(
@@ -2263,6 +2436,30 @@ export function removeCredentialsFromScratchKeys(credentials: TrainingObjects.Bl
 
     return dbExecute(queryName, queryString, queryValues)
         .then(() => { return; });
+}
+
+
+
+/**
+ * Points a project's Scratch key at a newly trained text service
+ *  model, only if the key still holds the placeholder used while
+ *  the model was training.
+ *
+ * Never creates a key. A key that has since been reset (e.g. the
+ *  model was deleted) or removed (e.g. the project was deleted)
+ *  is left as it is.
+ */
+export async function replaceScratchKeyPlaceholder(
+    projectid: string, placeholder: string, classifierid: string, timestamp: Date,
+): Promise<void>
+{
+    const queryName = 'dbqn-update-scratchkeys-placeholder';
+    const queryString = 'UPDATE scratchkeys ' +
+                        'SET classifierid = $1, updated = $2 ' +
+                        'WHERE projectid = $3 AND classifierid = $4';
+    const queryValues = [ classifierid, timestamp, projectid, placeholder ];
+
+    await dbExecute(queryName, queryString, queryValues);
 }
 
 

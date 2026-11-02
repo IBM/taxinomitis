@@ -32,6 +32,11 @@ export const ERROR_MESSAGES = {
 // longest text that can be classified
 const MAX_TEXT_LENGTH = 2048;
 
+// a text service training that started longer ago than this is
+//  treated as lost (e.g. the API instance running it crashed), so
+//  it is reported as failed and the model can be trained again
+export const LOST_TRAINING_LIMIT_MS = 10 * 60 * 1000;
+
 
 
 

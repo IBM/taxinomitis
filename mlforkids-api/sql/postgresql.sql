@@ -163,8 +163,10 @@ CREATE TABLE mlforkidsdb.textclassifiers (
     id character varying(36) NOT NULL PRIMARY KEY,
     projectid character varying(36) NOT NULL,
     userid character varying(36) NOT NULL,
-    head bytea NOT NULL,
-    updated timestamp with time zone NOT NULL
+    head bytea,
+    updated timestamp with time zone NOT NULL,
+    trainingstarted timestamp with time zone,
+    trainingfailed timestamp with time zone
 );
 -- update (1 Nov 2026) - new table
 
@@ -242,7 +244,7 @@ CREATE INDEX taxinoclassifiers_deleteclassifiers ON mlforkidsdb.taxinoclassifier
 -- update (31 Oct 2026) - new indexes
 CREATE INDEX bluemixclassifiers_countclassifiersbyuserid ON mlforkidsdb.bluemixclassifiers USING btree (userid, servicetype);
 -- update (1 Nov 2026) - new indexes
-CREATE INDEX textclassifiers_deletebyprojectid ON mlforkidsdb.textclassifiers USING btree (projectid);
+CREATE UNIQUE INDEX textclassifiers_oneperproject ON mlforkidsdb.textclassifiers USING btree (projectid);
 CREATE INDEX textclassifiers_deletebyuserid ON mlforkidsdb.textclassifiers USING btree (userid);
 -- update (2 Nov 2026) - new indexes
 --  (replaces bluemixcredentialspool_getbluemixcredentials, which can be dropped once this is in place)

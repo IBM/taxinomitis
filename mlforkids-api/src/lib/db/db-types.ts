@@ -170,6 +170,20 @@ export interface TextClassifierHeadDbRow {
     readonly updated: Date;
 }
 
+export interface TextClassifierTrainingState {
+    readonly id: string;
+    readonly hashead: boolean;
+    readonly trainingstarted?: Date;
+    readonly trainingfailed?: Date;
+}
+
+export interface TextClassifierTrainingStateDbRow {
+    readonly id: string;
+    readonly hashead: boolean;
+    readonly trainingstarted: Date | null;
+    readonly trainingfailed: Date | null;
+}
+
 
 export interface ScratchKey {
     readonly id: string;
