@@ -1521,6 +1521,109 @@ describe('Training - text models', () => {
         });
 
 
+        describe('shutting down while text service models are training', () => {
+
+            let notifyStub: sinon.SinonStub<[string, string], void>;
+
+            beforeEach(() => {
+                notifyStub = sinon.stub(notifications, 'notify');
+            });
+            afterEach(() => {
+                notifyStub.restore();
+                textmodels.resumeTrainingsForTests();
+            });
+
+            function cutoffIn(ms: number): Date {
+                return new Date(Date.now() + ms);
+            }
+
+            it('should wait for a training that finishes before the cut-off', async () => {
+                await withFakeTimers(async (clock) => {
+                    const training = deferredTraining();
+                    const project = keylessProject('keylessproject');
+
+                    await textmodels.trainClassifier(project);
+
+                    let stopped = false;
+                    const stopping = textmodels.stopTrainings(cutoffIn(240000))
+                        .then(() => { stopped = true; });
+
+                    await clock.tickAsync(60000);
+                    assert.strictEqual(stopped, false);
+
+                    training.resolve();
+                    await clock.tickAsync(0);
+                    await stopping;
+
+                    assert.strictEqual(Date.now(), new Date('2026-11-02T10:01:00Z').getTime());
+                    assert.strictEqual((await getStoredModel(project.id)).status, 'Available');
+                    assert(failStub.notCalled);
+                    assert(notifyStub.notCalled);
+                });
+            });
+
+            it('should record trainings still running at the cut-off as failed', async () => {
+                await withFakeTimers(async (clock) => {
+                    deferredTraining();
+                    const first = keylessProject('firstproject');
+                    const second = keylessProject('secondproject');
+
+                    await textmodels.trainClassifier(first);
+                    await textmodels.trainClassifier(second);
+
+                    const stopping = textmodels.stopTrainings(cutoffIn(240000));
+                    await clock.tickAsync(240000);
+                    await stopping;
+
+                    assert.strictEqual(Date.now(), new Date('2026-11-02T10:04:00Z').getTime());
+                    assert(failStub.calledTwice);
+                    assert.strictEqual((await getStoredModel(first.id)).status, 'Failed');
+                    assert.strictEqual((await getStoredModel(second.id)).status, 'Failed');
+
+                    // one alert for all of them, without ids
+                    assert(notifyStub.calledOnce);
+                    assert(notifyStub.firstCall.args[0].includes('before 2 text model'));
+                    assert(!notifyStub.firstCall.args[0].includes(first.id));
+                    assert.strictEqual(notifyStub.firstCall.args[1], notifications.SLACK_CHANNELS.TEXT_SERVICE);
+
+                    // results that arrive after the cut-off are thrown away
+                    for (const finish of unfinishedTrainings.splice(0)) {
+                        finish();
+                    }
+                    await runTrainings(clock);
+                    assert.strictEqual((await getStoredModel(first.id)).status, 'Failed');
+                    assert.strictEqual((await getStoredModel(second.id)).status, 'Failed');
+                    assert(replacePlaceholderStub.notCalled);
+                });
+            });
+
+            it('should not start a new retry after shutdown begins', async () => {
+                await withFakeTimers(async (clock) => {
+                    trainStub.onFirstCall().rejects(busy(30000));
+                    const project = keylessProject('keylessproject');
+
+                    await textmodels.trainClassifier(project);
+                    await clock.tickAsync(0);
+                    assert(trainStub.calledOnce);
+
+                    const stopping = textmodels.stopTrainings(cutoffIn(240000));
+                    await clock.tickAsync(30000);
+                    await stopping;
+
+                    // ended when the wait before the retry ended, not at the cut-off
+                    assert.strictEqual(Date.now(), new Date('2026-11-02T10:00:30Z').getTime());
+                    assert(trainStub.calledOnce);
+                    assert(failStub.calledOnce);
+                    assert.strictEqual((await getStoredModel(project.id)).status, 'Failed');
+
+                    assert(notifyStub.calledOnce);
+                    assert(notifyStub.firstCall.args[0].includes('before 1 text model'));
+                    assert.strictEqual(notifyStub.firstCall.args[1], notifications.SLACK_CHANNELS.TEXT_SERVICE);
+                });
+            });
+        });
+
+
         describe('model limit', () => {
 
             it('should not train a new model for a student at the limit', async () => {

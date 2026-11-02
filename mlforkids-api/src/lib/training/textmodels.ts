@@ -271,7 +271,8 @@ async function startTraining(
         throw err;
     }
 
-    const running: Promise<void> = runTraining({ projectid : project.id, tenantPolicy, id, started, training })
+    const job: TextServiceTrainingJob = { projectid : project.id, tenantPolicy, id, started, training };
+    const running: Promise<void> = runTraining(job)
         .catch((err) => {
             // not expected, as runTraining handles its own errors
             log.error({ err, model : id }, 'Unexpected failure in text model training');
@@ -279,7 +280,7 @@ async function startTraining(
         .finally(() => {
             runningTrainings.delete(running);
         });
-    runningTrainings.add(running);
+    runningTrainings.set(running, job);
 }
 
 
@@ -503,8 +504,15 @@ interface TextServiceTrainingJob {
 }
 
 
-// the trainings running on this instance
-const runningTrainings = new Set<Promise<void>>();
+// the trainings running on this instance, with their jobs, so
+//  that a training can be recorded as failed at shutdown
+const runningTrainings = new Map<Promise<void>, TextServiceTrainingJob>();
+
+// set when this instance starts shutting down, after which
+//  trainings aren't retried
+let shuttingDown = false;
+// trainings recorded as failed because this instance is shutting down
+let numFailedByShutdown = 0;
 
 
 /**
@@ -512,7 +520,64 @@ const runningTrainings = new Set<Promise<void>>();
  */
 export async function waitForTrainings(): Promise<void>
 {
-    await Promise.all([ ...runningTrainings ]);
+    await Promise.all([ ...runningTrainings.keys() ]);
+}
+
+
+/**
+ * Lets the trainings running on this instance finish, before the
+ *  instance shuts down. Trainings still running at the cut-off are
+ *  recorded as failed, so that students can try again straight
+ *  away, instead of waiting for them to be abandoned.
+ */
+export async function stopTrainings(cutoff: Date): Promise<void>
+{
+    shuttingDown = true;
+    numFailedByShutdown = 0;
+
+    let cutoffTimer: NodeJS.Timeout | undefined;
+    const reachedCutoff = new Promise<boolean>((resolve) => {
+        cutoffTimer = setTimeout(() => resolve(true), Math.max(cutoff.getTime() - Date.now(), 0));
+    });
+    const finished = waitForTrainings().then(() => false);
+
+    const cutoffWasReached = await Promise.race([ finished, reachedCutoff ]);
+    clearTimeout(cutoffTimer);
+
+    if (cutoffWasReached) {
+        const unfinished = [ ...runningTrainings.values() ];
+        log.error({ models : unfinished.map((training) => training.id) }, 'Text model trainings unfinished at shutdown');
+
+        await Promise.all(unfinished.map(recordFailureAtShutdown));
+    }
+
+    if (numFailedByShutdown > 0) {
+        notifyFailedByShutdown(numFailedByShutdown);
+    }
+}
+
+export function resumeTrainingsForTests(): void
+{
+    shuttingDown = false;
+    numFailedByShutdown = 0;
+}
+
+/**
+ * Records that a training failed because this instance is shutting
+ *  down, counting it for the shutdown alert.
+ */
+async function recordFailureAtShutdown(job: TextServiceTrainingJob): Promise<void>
+{
+    if (await recordTrainingFailure(job.id, job.started)) {
+        numFailedByShutdown += 1;
+    }
+}
+
+function notifyFailedByShutdown(numFailed: number): void
+{
+    notifications.notify('An API instance shut down before ' + numFailed +
+                         ' text model training(s) finished, so they were recorded as failed',
+                         notifications.SLACK_CHANNELS.TEXT_SERVICE);
 }
 
 
@@ -538,6 +603,14 @@ async function runTraining(job: TextServiceTrainingJob): Promise<void>
             }
 
             await pause(wait);
+
+            if (shuttingDown) {
+                // this instance is shutting down, so a retry might
+                //  not finish before it stops
+                log.info({ model : job.id }, 'Text model training not retried during shutdown');
+                await recordFailureAtShutdown(job);
+                return;
+            }
 
             if (!await store.getTextServiceTrainingState(job.id)) {
                 // the model was deleted (cancelled by the student,
@@ -619,19 +692,23 @@ async function storeTrainedModel(job: TextServiceTrainingJob, trained: textservi
 /**
  * Records that a training failed, if it is still the model's
  *  current training.
+ *
+ * @returns true if the failure was recorded
  */
-async function recordTrainingFailure(id: string, started: Date): Promise<void>
+async function recordTrainingFailure(id: string, started: Date): Promise<boolean>
 {
     try {
         const recorded = await store.failTextServiceTraining(id, started, new Date());
         if (!recorded) {
             log.info({ model : id }, 'Discarding failed text model training');
         }
+        return recorded;
     }
     catch (err) {
         // the training will be abandoned once it is
         //  older than the limit
         log.error({ err, model : id }, 'Failed to record failed text model training');
+        return false;
     }
 }
 
