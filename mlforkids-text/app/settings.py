@@ -24,6 +24,9 @@ class Settings:
                         cache_ttl_seconds=int(environ.get("MODELS_CACHE_TTL_SECONDS", "86400")),
                         max_trainings=int(environ.get("MAX_CONCURRENT_TRAININGS", "1")),
                         max_waiting_trainings=int(environ.get("MAX_WAITING_TRAININGS", "200")),
-                        # below mlforkids-api's 90 s timeout, so a training that
-                        #  can't start in time gets busy while its caller is listening
+                        # a training that can't start in time gets busy while its
+                        #  caller is still listening: this wait, plus the time to
+                        #  train, must stay well below mlforkids-api's 180 s training
+                        #  timeout (TRAINING_TIMEOUT_MS in textservice.ts), which
+                        #  also allows for a cold start
                         max_training_wait_seconds=float(environ.get("MAX_TRAINING_WAIT_SECONDS", "60")))

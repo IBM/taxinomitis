@@ -382,6 +382,20 @@ describe('REST API - text service models', () => {
         });
 
 
+        it('should turn away training that the text service would not accept', async () => {
+            const project = await store.storeProject(userid, TESTCLASS, 'text', 'one label', 'en', [], false);
+            await store.addLabelToProject(userid, TESTCLASS, project.id, 'happy');
+            await store.addLabelToProject(userid, TESTCLASS, project.id, 'sad');
+            await store.storeTextTraining(project.id, 'I am happy', 'happy');
+
+            const res = await trainCloud(project.id).expect(httpstatus.BAD_REQUEST);
+            assert.deepStrictEqual(res.body, { code : 'MLMOD19', error : textmodels.ERROR_MESSAGES.INVALID_TRAINING });
+
+            assert(trainStub.notCalled);
+            assert.deepStrictEqual((await listCloud(project.id)).body, []);
+        });
+
+
         it('should report a failed training once it has failed', async () => {
             trainStub.rejects(failure(textmodels.ERROR_MESSAGES.TRAINING_TOO_LARGE));
             const project = await createCloudProject();

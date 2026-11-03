@@ -811,7 +811,10 @@ describe('Training - text models', () => {
         const TRAINING: TrainingTypes.ConversationTrainingData = {
             name : 'Keyless local project',
             language : 'en',
-            intents : [ { intent : 'label', examples : [ { text : 'example' } ] } ],
+            intents : [
+                { intent : 'label', examples : [ { text : 'example' } ] },
+                { intent : 'other', examples : [ { text : 'another example' } ] },
+            ],
             dialog_nodes : [],
             counterexamples : [],
             entities : [],
@@ -981,6 +984,11 @@ describe('Training - text models', () => {
         beforeEach(() => {
             fakeModels.clear();
 
+            // training for both of the labels in keylessProject, as
+            //  the text service needs at least two labels with examples
+            countStoreStub.reset();
+            countStoreStub.resolves({ temperature : 2, conditions : 2 });
+
             isConfiguredStub.returns(true);
             trainStub.reset();
             trainStub.resolves({ modelid : MODELID, head : HEAD });
@@ -1023,6 +1031,9 @@ describe('Training - text models', () => {
             await textmodels.waitForTrainings();
         });
         after(() => {
+            countStoreStub.reset();
+            countStoreStub.callsFake(mockstore.countTrainingByLabel);
+
             isConfiguredStub.restore();
             trainStub.restore();
             classifyStub.restore();
@@ -1219,6 +1230,67 @@ describe('Training - text models', () => {
                 assert.strictEqual(classifier.servicetype, 'conv');
                 assert(trainStub.notCalled);
                 assert(countTxtStub.notCalled);
+            });
+        });
+
+
+        describe('checking training for the text service', () => {
+
+            function trainingWithIntents(intents: TrainingTypes.ConversationIntent[]): TrainingTypes.ConversationTrainingData {
+                return { ...TRAINING, intents };
+            }
+
+            const INVALID: { name: string, intents: TrainingTypes.ConversationIntent[] }[] = [
+                { name : 'only one label', intents : [ { intent : 'label', examples : [ { text : 'example' } ] } ] },
+                { name : 'only one label with examples', intents : [
+                    { intent : 'label', examples : [ { text : 'example' } ] },
+                    { intent : 'empty', examples : [] },
+                ] },
+                { name : 'labels with the same name', intents : [
+                    { intent : 'label', examples : [ { text : 'example' } ] },
+                    { intent : 'label', examples : [ { text : 'another example' } ] },
+                ] },
+            ];
+            for (const testcase of INVALID) {
+                it('should turn away a new model with ' + testcase.name, async () => {
+                    const project = keylessLocalProject('invalidproject');
+
+                    await assert.rejects(() => textmodels.trainClassifierForProject(project, trainingWithIntents(testcase.intents)),
+                        { message : textmodels.ERROR_MESSAGES.INVALID_TRAINING });
+
+                    assert(trainStub.notCalled);
+                    assert(createTrainingStub.notCalled);
+                    assert.strictEqual(fakeModels.size, 0);
+                });
+
+                it('should turn away a retrain with ' + testcase.name + ', keeping the existing model', async () => {
+                    const project = keylessLocalProject('invalidproject');
+                    const existing = storeTrainedModel(project.id);
+
+                    await assert.rejects(() => textmodels.trainClassifierForProject(project, trainingWithIntents(testcase.intents)),
+                        { message : textmodels.ERROR_MESSAGES.INVALID_TRAINING });
+
+                    assert(trainStub.notCalled);
+                    assert(claimStub.notCalled);
+                    const stored = await getStoredModel(project.id);
+                    assert.strictEqual(stored.id, existing.id);
+                    assert.strictEqual(stored.status, 'Available');
+                });
+            }
+
+            it('should leave out labels without examples', async () => {
+                const project = keylessLocalProject('emptylabelproject');
+                const intents = [
+                    { intent : 'label', examples : [ { text : 'example' } ] },
+                    { intent : 'empty', examples : [] },
+                    { intent : 'other', examples : [ { text : 'another example' } ] },
+                ];
+
+                await textmodels.trainClassifierForProject(project, trainingWithIntents(intents));
+                await textmodels.waitForTrainings();
+
+                assert(trainStub.calledOnce);
+                assert.deepStrictEqual(trainStub.firstCall.args[0].intents, [ intents[0], intents[2] ]);
             });
         });
 
@@ -1431,7 +1503,7 @@ describe('Training - text models', () => {
                 });
             });
 
-            it('should fail if the service is still failing after ten minutes', async () => {
+            it('should fail if the service is still failing after six minutes', async () => {
                 await withFakeTimers(async (clock) => {
                     trainStub.rejects(droppedConnection());
                     const project = keylessProject('keylessproject');
@@ -1439,13 +1511,42 @@ describe('Training - text models', () => {
                     await textmodels.trainClassifier(project);
                     await runTrainings(clock);
 
-                    // retries after 5, 15, 35, 75, 135, 195 ... 555 seconds
-                    assert.strictEqual(trainStub.callCount, 13);
-                    assert(Date.now() <= new Date('2026-11-02T10:10:00Z').getTime());
+                    // retries after 5, 15, 35, 75, 135, 195, 255, 315 seconds
+                    assert.strictEqual(trainStub.callCount, 9);
+                    assert(Date.now() <= new Date('2026-11-02T10:06:00Z').getTime());
 
                     const failed = await getStoredModel(project.id);
                     assert.strictEqual(failed.status, 'Failed');
                     assert.strictEqual(failed.workspace_id, failed.id);
+                });
+            });
+
+            it('should only start a retry that can finish before the training is abandoned', async () => {
+                await withFakeTimers(async (clock) => {
+                    // each attempt runs for as long as the text service
+                    //  training timeout allows
+                    const TRAINING_TIMEOUT_MS = 180 * 1000;
+                    const attempts: { start: number, end: number }[] = [];
+                    trainStub.callsFake(() => {
+                        const start = Date.now();
+                        return new Promise((resolve, reject) => {
+                            setTimeout(() => {
+                                attempts.push({ start, end : Date.now() });
+                                reject(busy(30000));
+                            }, TRAINING_TIMEOUT_MS);
+                        });
+                    });
+                    const project = keylessProject('keylessproject');
+
+                    await textmodels.trainClassifier(project);
+                    await runTrainings(clock);
+
+                    const accepted = new Date('2026-11-02T10:00:00Z').getTime();
+                    assert(attempts.length > 1);
+                    for (const attempt of attempts) {
+                        assert(attempt.end - accepted < textmodels.ABANDON_TRAINING_AFTER_MS);
+                    }
+                    assert.strictEqual((await getStoredModel(project.id)).status, 'Failed');
                 });
             });
 
@@ -1624,6 +1725,32 @@ describe('Training - text models', () => {
                     assert.strictEqual(notifyStub.firstCall.args[1], notifications.SLACK_CHANNELS.TEXT_SERVICE);
                 });
             });
+
+            it('should not start a new retry once shutdown has started, before trainings are stopped', async () => {
+                await withFakeTimers(async (clock) => {
+                    trainStub.onFirstCall().rejects(busy(30000));
+                    const project = keylessProject('keylessproject');
+
+                    await textmodels.trainClassifier(project);
+                    await clock.tickAsync(0);
+                    assert(trainStub.calledOnce);
+
+                    // the shutdown signal, while the HTTP server is still closing
+                    textmodels.startShutdown();
+                    await clock.tickAsync(30000);
+
+                    assert(trainStub.calledOnce);
+                    assert(failStub.calledOnce);
+                    assert.strictEqual((await getStoredModel(project.id)).status, 'Failed');
+
+                    // the server has closed - the training that wasn't
+                    //  retried is still included in the alert
+                    await textmodels.stopTrainings(cutoffIn(240000));
+                    assert.strictEqual(Date.now(), new Date('2026-11-02T10:00:30Z').getTime());
+                    assert(notifyStub.calledOnce);
+                    assert(notifyStub.firstCall.args[0].includes('before 1 text model'));
+                });
+            });
         });
 
 
@@ -1631,13 +1758,23 @@ describe('Training - text models', () => {
 
             const THRESHOLD = 100000;
 
-            /** training with one example, that Watson Assistant can create a model for */
+            /**
+             * training with these examples, that Watson Assistant can create a model for
+             *
+             * The first example is split between two labels, as the text service
+             *  needs at least two, without changing the size of the training.
+             */
             function trainingWithExamples(texts: string[], language: DbTypes.TextProjectLanguage = 'en'): TrainingTypes.ConversationTrainingData {
+                const first = Array.from(texts[0]);
+                const half = Math.ceil(first.length / 2);
                 return {
                     ...TRAINING,
                     name : 'Bob\'s text project',
                     language,
-                    intents : [ { intent : 'label', examples : texts.map((text) => ({ text })) } ],
+                    intents : [
+                        { intent : 'label', examples : [ { text : first.slice(0, half).join('') } ] },
+                        { intent : 'other', examples : [ first.slice(half).join(''), ...texts.slice(1) ].map((text) => ({ text })) },
+                    ],
                 };
             }
 
@@ -2466,8 +2603,8 @@ describe('Training - text models', () => {
 
             const CLIENT: DbTypes.TextServiceUsageClient = { source : 'scratchkey', country : 'NZ' };
 
-            // TRAINING has one label, with one example of 7 characters
-            const TRAINING_SIZE = { labels : 1, examples : 1, chars : 7, weightedchars : 7 };
+            // TRAINING has two labels, each with one example (of 7 and 15 characters)
+            const TRAINING_SIZE = { labels : 2, examples : 2, chars : 22, weightedchars : 22 };
 
             let notifyStub: sinon.SinonStub<[string, string], void>;
 
@@ -2534,7 +2671,7 @@ describe('Training - text models', () => {
 
                     const event = recordedEvent('train-accept');
                     assert.strictEqual(event.language, 'ja');
-                    assert.deepStrictEqual(event.size, { labels : 1, examples : 1, chars : 7, weightedchars : 21 });
+                    assert.deepStrictEqual(event.size, { labels : 2, examples : 2, chars : 22, weightedchars : 66 });
                 });
 
                 it('should record an accepted retrain', async () => {
@@ -2575,6 +2712,19 @@ describe('Training - text models', () => {
                     assert.deepStrictEqual(outcomes, [ 'accepted', 'duplicate' ]);
 
                     training.resolve();
+                });
+
+                it('should record training that the text service would not accept', async () => {
+                    const project = keylessLocalProject('usageproject');
+                    const training = { ...TRAINING, intents : [ TRAINING.intents[0] ] };
+
+                    await assert.rejects(() => textmodels.trainClassifierForProject(project, training, CLIENT),
+                        { message : textmodels.ERROR_MESSAGES.INVALID_TRAINING });
+
+                    const event = recordedEvent('train-accept');
+                    assert.strictEqual(event.outcome, 'invalid');
+                    assert.strictEqual(event.modelid, undefined);
+                    assert.deepStrictEqual(event.size, { labels : 1, examples : 1, chars : 7, weightedchars : 7 });
                 });
 
                 it('should record a student at the model limit', async () => {
@@ -3043,7 +3193,10 @@ describe('Training - text models', () => {
                 const training = {
                     ...TRAINING,
                     name : 'secret project name',
-                    intents : [ { intent : SECRET_LABEL, examples : [ { text : SECRET_TEXT } ] } ],
+                    intents : [
+                        { intent : SECRET_LABEL, examples : [ { text : SECRET_TEXT } ] },
+                        { intent : SECRET_LABEL + 'two', examples : [ { text : SECRET_TEXT + ' two' } ] },
+                    ],
                 };
                 const project = keylessLocalProject('usageproject');
                 classifyStub.resolves({ classes : [ { class_name : SECRET_LABEL, confidence : 90, classifierTimestamp : new Date() } ], outcome : 'ok' });

@@ -31,6 +31,7 @@ export const ERROR_MESSAGES = {
     SERVICE_BUSY : 'The machine learning server is busy training other models. Please wait a minute and try again.',
     TRAINING_TOO_LARGE : 'Your training data is too big to train a machine learning model. Try using fewer or shorter examples.',
     TOO_MANY_MODELS : 'You have too many machine learning models. Please delete a text project model you no longer need and try again.',
+    INVALID_TRAINING : 'Your training data needs examples for at least two labels, and every label needs a different name.',
 };
 
 // longest text that can be classified
@@ -44,7 +45,10 @@ export const ABANDON_TRAINING_AFTER_MS = 10 * 60 * 1000;
 // how long a text service training keeps retrying for, from when
 //  it was accepted - if the service hasn't managed it by then,
 //  letting the student try again sooner would only add to the load
-const TRAINING_RETRY_BUDGET_MS = 10 * 60 * 1000;
+// it must be shorter than ABANDON_TRAINING_AFTER_MS by at least
+//  textservice's training timeout, so that the last attempt finishes
+//  before the training would be treated as abandoned
+const TRAINING_RETRY_BUDGET_MS = 6 * 60 * 1000;
 
 // how long to wait before each retry of a text service training,
 //  unless the service says how long to wait (the last wait is
@@ -356,6 +360,8 @@ async function createNewTextServiceModel(
     request: TrainRequest,
 ): Promise<TrainingObjects.TextClassifier>
 {
+    const serviceTraining = getTextServiceTraining(training, usage, request);
+
     const now = new Date();
     const id = randomUUID();
     const model: TrainingObjects.TextClassifier = {
@@ -391,9 +397,40 @@ async function createNewTextServiceModel(
         return inProgress;
     }
 
-    await startTraining(project, model.id, now, training, usage);
+    await startTraining(project, model.id, now, serviceTraining, usage);
     recordTrainAccept('accepted', usage, request, model.id);
     return model;
+}
+
+
+/**
+ * Returns the training to send to the text service, checked against
+ *  what the service accepts, so that training it would reject is
+ *  turned away while the student is waiting, rather than failing in
+ *  the background with no explanation.
+ *
+ * Labels without any examples are left out (the service needs at least
+ *  one example for every label). The training needs at least two labels
+ *  left, with different names (label names are changed to be valid
+ *  Watson Assistant intent names, so different labels can end up with
+ *  the same name).
+ *
+ * Training from the site has already been checked by the UI, but
+ *  training from a Scratch key hasn't.
+ */
+function getTextServiceTraining(
+    training: TrainingObjects.ConversationTrainingData,
+    usage: TrainingUsage,
+    request: TrainRequest,
+): TrainingObjects.ConversationTrainingData
+{
+    const intents = training.intents.filter((intent) => intent.examples.length > 0);
+    const names = new Set(intents.map((intent) => intent.intent));
+    if (intents.length < 2 || names.size !== intents.length) {
+        recordTrainAccept('invalid', usage, request);
+        throw new Error(ERROR_MESSAGES.INVALID_TRAINING);
+    }
+    return { ...training, intents };
 }
 
 
@@ -541,6 +578,9 @@ async function retrainTextServiceModel(
 {
     // the size decides if the model moves to Watson Assistant
     const usage = getTrainingUsage(project, tenantPolicy, training, request.client);
+    // only checked if it stays on the text service, as Watson
+    //  Assistant accepts training that the text service doesn't
+    const serviceTraining = isLargeTraining(usage) ? training : getTextServiceTraining(training, usage, request);
 
     const now = new Date();
     const abandonIfStartedBefore = getAbandonIfStartedBefore(now);
@@ -579,7 +619,7 @@ async function retrainTextServiceModel(
         return moveToWatsonAssistant(project, tenantPolicy, existing, started, training, usage, request);
     }
 
-    await startTraining(project, existing.id, started, training, usage);
+    await startTraining(project, existing.id, started, serviceTraining, usage);
     recordTrainAccept('accepted', usage, request, existing.id);
 
     return {
@@ -800,8 +840,8 @@ interface TextServiceTrainingJob {
 //  that a training can be recorded as failed at shutdown
 const runningTrainings = new Map<Promise<void>, TextServiceTrainingJob>();
 
-// set when this instance starts shutting down, after which
-//  trainings aren't retried
+// set when this instance starts shutting down (see startShutdown),
+//  after which trainings aren't retried
 let shuttingDown = false;
 // trainings recorded as failed because this instance is shutting down
 let numFailedByShutdown = 0;
@@ -817,6 +857,18 @@ export async function waitForTrainings(): Promise<void>
 
 
 /**
+ * Stops trainings on this instance from being retried, as soon as the
+ *  instance starts shutting down - before the HTTP server has finished
+ *  closing, as that can take a while, and a retry started then might
+ *  not finish before the instance stops.
+ */
+export function startShutdown(): void
+{
+    shuttingDown = true;
+}
+
+
+/**
  * Lets the trainings running on this instance finish, before the
  *  instance shuts down. Trainings still running at the cut-off are
  *  recorded as failed, so that students can try again straight
@@ -824,8 +876,7 @@ export async function waitForTrainings(): Promise<void>
  */
 export async function stopTrainings(cutoff: Date): Promise<void>
 {
-    shuttingDown = true;
-    numFailedByShutdown = 0;
+    startShutdown();
 
     let cutoffTimer: NodeJS.Timeout | undefined;
     const reachedCutoff = new Promise<boolean>((resolve) => {

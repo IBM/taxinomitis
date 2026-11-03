@@ -332,7 +332,8 @@ export type TextServiceUsageEventType = 'train-accept' | 'train-attempt' | 'trai
 //   limit     - the student has too many models
 //   large     - a new model was sent to Watson Assistant, as the training is large
 //   move      - a text service model moved to Watson Assistant, as the training is large
-export type TextServiceTrainAcceptOutcome = 'accepted' | 'duplicate' | 'limit' | 'large' | 'move';
+//   invalid   - the training was turned away, as the text service wouldn't accept it
+export type TextServiceTrainAcceptOutcome = 'accepted' | 'duplicate' | 'limit' | 'large' | 'move' | 'invalid';
 
 export type TextServiceRequestFailureOutcome = 'timeout' | 'network' | '5xx' | 'other';
 

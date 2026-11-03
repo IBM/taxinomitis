@@ -1907,36 +1907,6 @@ export async function deleteNumberClassifier(
 }
 
 
-export async function storeTextClassifierHead(
-    id: string,
-    project: Objects.Project | Objects.LocalProject,
-    head: Buffer,
-    updated: Date,
-): Promise<Objects.TextClassifierHead>
-{
-    const obj = dbobjects.createTextClassifierHead(id, project, head, updated);
-
-    const queryName = 'dbqn-insert-textclassifiers';
-    const queryString = 'INSERT INTO textclassifiers ' +
-                            '(id, projectid, userid, head, updated) ' +
-                        'VALUES ' +
-                            '($1, $2, $3, $4, $5) ' +
-                        'ON CONFLICT (id) DO UPDATE SET ' +
-                            'head = $4, updated = $5';
-    const queryValues = [ obj.id, obj.projectid, obj.userid, obj.head, obj.updated ];
-
-    try {
-        // bypasses dbExecute to avoid logging query values on failure
-        await dbConnPool.query({ name : queryName, text : queryString, values : queryValues });
-    }
-    catch (err) {
-        log.error({ err, id : obj.id }, 'Failed to store text classifier head');
-        throw new Error('Failed to store text classifier head');
-    }
-
-    return dbobjects.getTextClassifierHeadFromDbRow(obj);
-}
-
 export async function getTextClassifierHead(id: string): Promise<Objects.TextClassifierHead | undefined>
 {
     const queryName = 'dbqn-select-textclassifiers-id';
@@ -1950,88 +1920,6 @@ export async function getTextClassifierHead(id: string): Promise<Objects.TextCla
         return;
     }
     return dbobjects.getTextClassifierHeadFromDbRow(response.rows[0]);
-}
-
-export async function deleteTextClassifierHead(id: string): Promise<void>
-{
-    const queryName = 'dbqn-delete-textclassifiers-id';
-    const queryString = 'DELETE FROM textclassifiers WHERE id = $1';
-    const queryValues = [ id ];
-
-    await dbExecute(queryName, queryString, queryValues);
-}
-
-
-export async function storeTextServiceModel(
-    project: Objects.Project | Objects.LocalProject,
-    classifier: TrainingObjects.TextClassifier,
-    head: Buffer,
-    updated: Date,
-): Promise<void>
-{
-    const headObj = dbobjects.createTextClassifierHead(classifier.id, project, head, updated);
-    const obj = dbobjects.createTextClassifier(classifier, project);
-
-    try {
-        await dbTransaction(async (client) => {
-            await client.query({
-                name : 'dbqn-insert-textclassifiers-tx',
-                text : 'INSERT INTO textclassifiers ' +
-                           '(id, projectid, userid, head, updated) ' +
-                       'VALUES ($1, $2, $3, $4, $5)',
-                values : [ headObj.id, headObj.projectid, headObj.userid, headObj.head, headObj.updated ],
-            });
-            await client.query({
-                ...INSERT_TEXT_CLASSIFIER_QUERY,
-                values : [ obj.id, obj.credentialsid,
-                    obj.projectid, obj.userid, obj.classid,
-                    obj.servicetype,
-                    obj.classifierid, obj.url, obj.name, obj.language,
-                    obj.created, obj.expiry ],
-            });
-        });
-    }
-    catch (err) {
-        log.error({ id : classifier.id, code : err.code }, 'Failed to store text model');
-        throw new Error('Failed to store text model');
-    }
-}
-
-export async function updateTextServiceModel(
-    project: Objects.Project | Objects.LocalProject,
-    classifier: TrainingObjects.TextClassifier,
-    head: Buffer,
-    updated: Date,
-): Promise<void>
-{
-    const headObj = dbobjects.createTextClassifierHead(classifier.id, project, head, updated);
-
-    try {
-        await dbTransaction(async (client) => {
-            const response = await client.query({
-                ...UPDATE_TEXT_SERVICE_MODEL_QUERY,
-                values : [ classifier.workspace_id, classifier.expiry, classifier.id ],
-            });
-            if (response.rowCount !== 1) {
-                log.warn({ id : classifier.id }, 'Text model not found');
-                throw new Error('Text model not found');
-            }
-            await client.query({
-                name : 'dbqn-insert-textclassifiers',
-                text : 'INSERT INTO textclassifiers ' +
-                           '(id, projectid, userid, head, updated) ' +
-                       'VALUES ' +
-                           '($1, $2, $3, $4, $5) ' +
-                       'ON CONFLICT (id) DO UPDATE SET ' +
-                           'head = $4, updated = $5',
-                values : [ headObj.id, headObj.projectid, headObj.userid, headObj.head, headObj.updated ],
-            });
-        });
-    }
-    catch (err) {
-        log.error({ id : classifier.id, code : err.code }, 'Failed to update text model');
-        throw new Error('Failed to update text model');
-    }
 }
 
 export async function createTextServiceTraining(
@@ -2250,22 +2138,6 @@ export async function deleteTextClassifier(id: string): Promise<void>
                 values : [ id ],
             });
         });
-    }
-    catch (err) {
-        log.error({ err }, 'Failed to delete classifiers info');
-        throw new Error('Failed to delete classifiers info');
-    }
-}
-
-
-export async function deleteTextClassifiersByProjectId(projectid: string): Promise<void>
-{
-    const queryName = 'dbqn-delete-bluemixclassifiers-projectid';
-    const queryString = 'DELETE FROM bluemixclassifiers WHERE projectid = $1';
-    const queryValues = [ projectid ];
-
-    try {
-        await dbExecute(queryName, queryString, queryValues);
     }
     catch (err) {
         log.error({ err }, 'Failed to delete classifiers info');

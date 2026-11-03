@@ -308,6 +308,13 @@ def test_rejects_malformed_credentials(client, header):
     assert_error(response, 401, "unauthorized")
 
 
+@pytest.mark.parametrize("username,password", [("", "testpassword"), ("testuser", ""), ("", "")])
+def test_refuses_to_start_with_empty_credentials(resources, username, password):
+    # as in ops/template-credentials.env
+    with pytest.raises(ValueError):
+        create_app(resources, settings(username=username, password=password))
+
+
 @pytest.mark.parametrize("path,body", [("/models", FEELINGS), (CLASSIFY_PATH, {"text": "hello"})])
 def test_says_when_still_starting(resources, path, body):
     loader = HeldLoader(resources)

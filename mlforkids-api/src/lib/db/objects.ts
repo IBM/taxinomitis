@@ -794,31 +794,6 @@ export function createTextClassifier(
     };
 }
 
-export function createTextClassifierHead(
-    id: string,
-    project: Objects.Project | Objects.LocalProject,
-    head: Buffer,
-    updated: Date,
-): Objects.TextClassifierHeadDbRow
-{
-    if (id === undefined || typeof id !== 'string' || id.trim().length === 0 ||
-        project.id === undefined || typeof project.id !== 'string' || project.id.trim().length === 0 ||
-        project.userid === undefined || typeof project.userid !== 'string' || project.userid.trim().length === 0 ||
-        !Buffer.isBuffer(head) || head.length === 0 ||
-        !(updated instanceof Date) || isNaN(updated.getTime()))
-    {
-        throw new Error('Missing required attributes');
-    }
-
-    return {
-        id,
-        projectid : project.id,
-        userid : project.userid,
-        head,
-        updated,
-    };
-}
-
 export function getTextServiceTrainingStateFromDbRow(
     row: Objects.TextClassifierTrainingStateDbRow,
 ): Objects.TextClassifierTrainingState

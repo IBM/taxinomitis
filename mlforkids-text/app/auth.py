@@ -13,6 +13,9 @@ from app.errors import ApiError
 
 def basic_auth_check(username: str, password: str) -> Callable[[Request], None]:
     """a FastAPI dependency that refuses requests without these credentials"""
+    # empty credentials would let in anyone who sends Basic auth of ":"
+    if username == "" or password == "":
+        raise ValueError("VERIFY_USER and VERIFY_PASSWORD must not be empty")
     expected = f"{username}:{password}".encode("utf-8")
 
     def check(request: Request):

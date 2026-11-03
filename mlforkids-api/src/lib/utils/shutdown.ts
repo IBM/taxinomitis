@@ -34,6 +34,9 @@ export function now(signal: 'SIGINT' | 'SIGTERM' | 'TIMED', server?: Server): vo
 
     log.info({ signal }, 'Handling shutdown signal');
     const trainingCutoff = new Date(Date.now() + TRAINING_SHUTDOWN_CUTOFF_MS);
+    // straight away, rather than once the server has closed, so that no
+    //  training starts a retry that might not finish before the cut-off
+    textmodels.startShutdown();
     gracefulServerShutdown(server)
         .then(() => {
             return textmodels.stopTrainings(trainingCutoff);

@@ -309,7 +309,7 @@ describe('DB store', () => {
             });
 
             await store.deleteBluemixCredentials(creds.id);
-            await store.deleteTextClassifiersByProjectId(projectid);
+            await store.deleteTextClassifier(classifierInfo.id);
         });
 
 
@@ -370,7 +370,7 @@ describe('DB store', () => {
             });
 
             await store.deleteBluemixCredentials(creds.id);
-            await store.deleteTextClassifiersByProjectId(project.id);
+            await store.deleteTextClassifier(classifierInfo.id);
             await store.deleteEntireProject(userid, classid, project);
         });
 
@@ -434,7 +434,7 @@ describe('DB store', () => {
 
             await store.deleteScratchKey(scratchkeyid);
             await store.deleteBluemixCredentials(creds.id);
-            await store.deleteTextClassifiersByProjectId(project.id);
+            await store.deleteTextClassifier(classifierInfo.id);
             await store.deleteEntireProject(userid, classid, project);
         });
 
@@ -888,7 +888,7 @@ describe('DB store', () => {
             const retrievedOne = await store.getTextClassifier(project.id, model.workspace_id);
             assert.deepStrictEqual(retrievedOne, model);
 
-            await store.deleteTextClassifiersByProjectId(project.id);
+            await store.deleteTextClassifier(model.id);
         });
 
         it('should delete text service models', async () => {
@@ -919,7 +919,7 @@ describe('DB store', () => {
             const found = expired.find((workspace) => workspace.id === model.id);
             assert.deepStrictEqual(found, model);
 
-            await store.deleteTextClassifiersByProjectId(project.id);
+            await store.deleteTextClassifier(model.id);
         });
 
         it('should count a user\'s text models from every service', async () => {
@@ -953,10 +953,10 @@ describe('DB store', () => {
             const count = await store.countTextModelsByUser(userid);
             assert.strictEqual(count, 3);
 
-            await store.deleteTextClassifiersByProjectId(current.project.id);
-            await store.deleteTextClassifiersByProjectId(expiredProject.id);
-            await store.deleteTextClassifiersByProjectId(waProject.id);
-            await store.deleteTextClassifiersByProjectId(otherUser.project.id);
+            await store.deleteTextClassifier(current.model.id);
+            await store.deleteTextClassifier(expired.model.id);
+            await store.deleteTextClassifier(waModel.id);
+            await store.deleteTextClassifier(otherUser.model.id);
         });
 
     });

@@ -86,6 +86,9 @@ export function textModelCreationFailure(res: Express.Response, err: NodeJS.Errn
     else if (err.message === textmodels.ERROR_MESSAGES.TRAINING_TOO_LARGE) {
         return res.status(httpstatus.REQUEST_ENTITY_TOO_LARGE).send({ code : 'MLMOD18', error : err.message });
     }
+    else if (err.message === textmodels.ERROR_MESSAGES.INVALID_TRAINING) {
+        return res.status(httpstatus.BAD_REQUEST).send({ code : 'MLMOD19', error : err.message });
+    }
     else {
         return unknownError(res, err);
     }

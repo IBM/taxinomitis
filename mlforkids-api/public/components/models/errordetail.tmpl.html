@@ -103,6 +103,14 @@
                     Try using fewer examples, or shorter examples, and then try again.
                 </div>
             </md-card-content>
+            <md-card-content ng-if="code === 'MLMOD19'">
+                <div class="errdetail">
+                    Your training data can't be used to train a machine learning model.
+                </div>
+                <div>
+                    Make sure that at least two of your labels have examples, and that every label has a different name, and then try again.
+                </div>
+            </md-card-content>
 
 
             <!-- ===================================== -->

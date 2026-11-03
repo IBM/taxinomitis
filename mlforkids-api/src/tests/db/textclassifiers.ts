@@ -75,81 +75,27 @@ describe('DB store - text classifier heads', () => {
     }
 
 
-    describe('storeTextClassifierHead', () => {
-        it('should store a head', async () => {
-            const id = uuid();
+    describe('getTextClassifierHead', () => {
+        it('should return the head of a trained model', async () => {
             const project = createProject();
             const head = Buffer.from([ 0x4d, 0x4c, 0x46, 0x4b, 0x54, 0x58, 0x54, 0x01, 0x00, 0xff ]);
-            const updated = new Date('2026-11-01T14:03:22Z');
+            const trained = new Date('2026-11-01T14:03:22Z');
+            const model = await storeTrainedModel(project, head, trained);
 
-            const stored = await store.storeTextClassifierHead(id, project, head, updated);
-            assert.deepStrictEqual(stored, {
-                id,
+            assert.deepStrictEqual(await store.getTextClassifierHead(model.id), {
+                id : model.id,
                 projectid : project.id,
                 userid : project.userid,
                 head : Buffer.from([ 0x4d, 0x4c, 0x46, 0x4b, 0x54, 0x58, 0x54, 0x01, 0x00, 0xff ]),
-                updated : new Date('2026-11-01T14:03:22Z'),
+                updated : trained,
             });
 
-            const retrieved = await store.getTextClassifierHead(id);
-            assert.deepStrictEqual(retrieved, stored);
-
-            await store.deleteTextClassifierHead(id);
+            await store.deleteTextClassifier(model.id);
         });
 
-        it('should replace the head when a model is retrained', async () => {
-            const id = uuid();
-            const project = createProject();
-
-            await store.storeTextClassifierHead(id, project,
-                Buffer.from([ 0x01, 0x02, 0x03 ]),
-                new Date('2026-11-01T14:03:22Z'));
-            await store.storeTextClassifierHead(id, project,
-                Buffer.from([ 0x04, 0x05, 0x06, 0x07 ]),
-                new Date('2026-11-02T09:15:00Z'));
-
-            const retrieved = await store.getTextClassifierHead(id);
-            assert.deepStrictEqual(retrieved, {
-                id,
-                projectid : project.id,
-                userid : project.userid,
-                head : Buffer.from([ 0x04, 0x05, 0x06, 0x07 ]),
-                updated : new Date('2026-11-02T09:15:00Z'),
-            });
-
-            await store.deleteTextClassifierHead(id);
-        });
-    });
-
-
-    describe('getTextClassifierHead', () => {
         it('should return nothing for an unknown id', async () => {
             const retrieved = await store.getTextClassifierHead(uuid());
             assert.strictEqual(retrieved, undefined);
-        });
-    });
-
-
-    describe('deleteTextClassifierHead', () => {
-        it('should delete only the requested head', async () => {
-            const deleteProject = createProject();
-            const keepProject = createProject();
-            const deleteId = uuid();
-            const keepId = uuid();
-            await store.storeTextClassifierHead(deleteId, deleteProject, Buffer.from([ 0x01 ]), new Date());
-            await store.storeTextClassifierHead(keepId, keepProject, Buffer.from([ 0x02 ]), new Date());
-
-            await store.deleteTextClassifierHead(deleteId);
-
-            assert.strictEqual(await store.getTextClassifierHead(deleteId), undefined);
-            const kept = await store.getTextClassifierHead(keepId);
-            assert.deepStrictEqual(kept?.head, Buffer.from([ 0x02 ]));
-
-            await store.deleteTextClassifierHead(keepId);
-        });
-
-        it('should not fail for an unknown id', async () => {
-            await store.deleteTextClassifierHead(uuid());
         });
     });
 
@@ -158,18 +104,15 @@ describe('DB store - text classifier heads', () => {
         it('should delete the heads for the project', async () => {
             const deletedProject = createProject();
             const otherProject = { ...createProject(), userid : deletedProject.userid, classid : deletedProject.classid };
-            const deleteId = uuid();
-            const keepId = uuid();
-            await store.storeTextClassifierHead(deleteId, deletedProject, Buffer.from([ 0x01 ]), new Date());
-            await store.storeTextClassifierHead(keepId, otherProject, Buffer.from([ 0x02 ]), new Date());
+            const deleted = await storeTrainedModel(deletedProject, Buffer.from([ 0x01 ]));
+            const kept = await storeTrainedModel(otherProject, Buffer.from([ 0x02 ]));
 
             await store.deleteEntireProject(deletedProject.userid, deletedProject.classid, deletedProject);
 
-            assert.strictEqual(await store.getTextClassifierHead(deleteId), undefined);
-            const kept = await store.getTextClassifierHead(keepId);
-            assert.deepStrictEqual(kept?.head, Buffer.from([ 0x02 ]));
+            assert.strictEqual(await store.getTextClassifierHead(deleted.id), undefined);
+            assert.deepStrictEqual((await store.getTextClassifierHead(kept.id))?.head, Buffer.from([ 0x02 ]));
 
-            await store.deleteTextClassifierHead(keepId);
+            await store.deleteTextClassifier(kept.id);
         });
     });
 
@@ -178,158 +121,15 @@ describe('DB store - text classifier heads', () => {
         it('should delete the heads for the user', async () => {
             const deletedUserProject = createProject();
             const otherUserProject = { ...createProject(), classid : deletedUserProject.classid };
-            const deleteId = uuid();
-            const keepId = uuid();
-            await store.storeTextClassifierHead(deleteId, deletedUserProject, Buffer.from([ 0x01 ]), new Date());
-            await store.storeTextClassifierHead(keepId, otherUserProject, Buffer.from([ 0x02 ]), new Date());
+            const deleted = await storeTrainedModel(deletedUserProject, Buffer.from([ 0x01 ]));
+            const kept = await storeTrainedModel(otherUserProject, Buffer.from([ 0x02 ]));
 
             await store.deleteEntireUser(deletedUserProject.userid, deletedUserProject.classid);
 
-            assert.strictEqual(await store.getTextClassifierHead(deleteId), undefined);
-            const kept = await store.getTextClassifierHead(keepId);
-            assert.deepStrictEqual(kept?.head, Buffer.from([ 0x02 ]));
+            assert.strictEqual(await store.getTextClassifierHead(deleted.id), undefined);
+            assert.deepStrictEqual((await store.getTextClassifierHead(kept.id))?.head, Buffer.from([ 0x02 ]));
 
-            await store.deleteTextClassifierHead(keepId);
-        });
-    });
-
-
-    function createTextServiceModel(project: Objects.Project): TrainingObjects.TextClassifier {
-        return {
-            id : uuid(),
-            workspace_id : uuid(),
-            credentialsid : '',
-            servicetype : 'txt',
-            url : '',
-            name : project.name,
-            language : 'en',
-            created : new Date('2026-11-01T14:03:22Z'),
-            expiry : new Date('2026-11-02T14:03:22Z'),
-        };
-    }
-
-
-    describe('storeTextServiceModel', () => {
-        it('should store the model and its head', async () => {
-            const project = createProject();
-            const model = createTextServiceModel(project);
-
-            await store.storeTextServiceModel(project, model, Buffer.from([ 0x01, 0x02 ]), new Date('2026-11-01T14:03:22Z'));
-
-            const rows = await store.getTextClassifiers(project.id);
-            assert.deepStrictEqual(rows, [ model ]);
-            const head = await store.getTextClassifierHead(model.id);
-            assert.deepStrictEqual(head, {
-                id : model.id,
-                projectid : project.id,
-                userid : project.userid,
-                head : Buffer.from([ 0x01, 0x02 ]),
-                updated : new Date('2026-11-01T14:03:22Z'),
-            });
-
-            await store.deleteTextClassifier(model.id);
-        });
-
-        it('should store neither the model nor its head if the model cannot be stored', async () => {
-            const project = createProject();
-            const model = { ...createTextServiceModel(project), name : 'x'.repeat(101) };
-
-            await assert.rejects(
-                store.storeTextServiceModel(project, model, Buffer.from([ 0x01 ]), new Date()),
-                { message : 'Failed to store text model' });
-
-            assert.deepStrictEqual(await store.getTextClassifiers(project.id), []);
-            assert.strictEqual(await store.getTextClassifierHead(model.id), undefined);
-        });
-
-        it('should store neither the model nor its head if the head is invalid', async () => {
-            const project = createProject();
-            const model = createTextServiceModel(project);
-
-            await assert.rejects(
-                store.storeTextServiceModel(project, model, Buffer.alloc(0), new Date()),
-                { message : 'Missing required attributes' });
-
-            assert.deepStrictEqual(await store.getTextClassifiers(project.id), []);
-            assert.strictEqual(await store.getTextClassifierHead(model.id), undefined);
-        });
-    });
-
-
-    describe('updateTextServiceModel', () => {
-        it('should update the model id, expiry and head', async () => {
-            const project = createProject();
-            const model = createTextServiceModel(project);
-            await store.storeTextServiceModel(project, model, Buffer.from([ 0x01 ]), new Date('2026-11-01T14:03:22Z'));
-
-            const retrained = {
-                ...model,
-                workspace_id : uuid(),
-                expiry : new Date('2026-11-03T09:00:00Z'),
-            };
-            await store.updateTextServiceModel(project, retrained, Buffer.from([ 0x02, 0x03 ]), new Date('2026-11-02T09:00:00Z'));
-
-            const rows = await store.getTextClassifiers(project.id);
-            assert.deepStrictEqual(rows, [ retrained ]);
-            assert.deepStrictEqual(await store.getTextClassifier(project.id, retrained.workspace_id), {
-                ...retrained, language : 'en',
-            });
-            const head = await store.getTextClassifierHead(model.id);
-            assert.deepStrictEqual(head?.head, Buffer.from([ 0x02, 0x03 ]));
-            assert.deepStrictEqual(head?.updated, new Date('2026-11-02T09:00:00Z'));
-
-            await store.deleteTextClassifier(model.id);
-        });
-
-        it('should store a head for a model that is missing one', async () => {
-            const project = createProject();
-            const model = createTextServiceModel(project);
-            // the row only, with no head
-            await store.storeTextClassifier(project, model);
-            assert.strictEqual(await store.getTextClassifierHead(model.id), undefined);
-
-            const retrained = { ...model, workspace_id : uuid() };
-            await store.updateTextServiceModel(project, retrained, Buffer.from([ 0x02, 0x03 ]), new Date('2026-11-02T09:00:00Z'));
-
-            assert.deepStrictEqual(await store.getTextClassifiers(project.id), [ retrained ]);
-            assert.deepStrictEqual(await store.getTextClassifierHead(model.id), {
-                id : model.id,
-                projectid : project.id,
-                userid : project.userid,
-                head : Buffer.from([ 0x02, 0x03 ]),
-                updated : new Date('2026-11-02T09:00:00Z'),
-            });
-
-            await store.deleteTextClassifier(model.id);
-        });
-
-        it('should update neither the model nor its head if the model cannot be updated', async () => {
-            const project = createProject();
-            const model = createTextServiceModel(project);
-            await store.storeTextServiceModel(project, model, Buffer.from([ 0x01 ]), new Date('2026-11-01T14:03:22Z'));
-
-            const retrained = { ...model, workspace_id : 'x'.repeat(53) };
-            await assert.rejects(
-                store.updateTextServiceModel(project, retrained, Buffer.from([ 0x02 ]), new Date('2026-11-02T09:00:00Z')),
-                { message : 'Failed to update text model' });
-
-            assert.deepStrictEqual(await store.getTextClassifiers(project.id), [ model ]);
-            const head = await store.getTextClassifierHead(model.id);
-            assert.deepStrictEqual(head?.head, Buffer.from([ 0x01 ]));
-            assert.deepStrictEqual(head?.updated, new Date('2026-11-01T14:03:22Z'));
-
-            await store.deleteTextClassifier(model.id);
-        });
-
-        it('should not store a head for a model that no longer exists', async () => {
-            const project = createProject();
-            const model = createTextServiceModel(project);
-
-            await assert.rejects(
-                store.updateTextServiceModel(project, model, Buffer.from([ 0x02 ]), new Date()),
-                { message : 'Failed to update text model' });
-
-            assert.strictEqual(await store.getTextClassifierHead(model.id), undefined);
+            await store.deleteTextClassifier(kept.id);
         });
     });
 
@@ -338,10 +138,8 @@ describe('DB store - text classifier heads', () => {
         it('should delete the model and its head', async () => {
             const project = createProject();
             const otherProject = createProject();
-            const model = createTextServiceModel(project);
-            const other = createTextServiceModel(otherProject);
-            await store.storeTextServiceModel(project, model, Buffer.from([ 0x01 ]), new Date());
-            await store.storeTextServiceModel(otherProject, other, Buffer.from([ 0x02 ]), new Date());
+            const model = await storeTrainedModel(project, Buffer.from([ 0x01 ]));
+            const other = await storeTrainedModel(otherProject, Buffer.from([ 0x02 ]));
 
             await store.deleteTextClassifier(model.id);
 
@@ -369,6 +167,22 @@ describe('DB store - text classifier heads', () => {
             created : started,
             expiry : new Date(started.getTime() + (2 * 60 * 60 * 1000)),
         };
+    }
+
+    /** stores a text service model that has finished training, as training would */
+    async function storeTrainedModel(
+        project: Objects.Project,
+        head = Buffer.from([ 0x01 ]),
+        trained = new Date('2026-11-01T14:03:22Z'),
+    ): Promise<TrainingObjects.TextClassifier>
+    {
+        const model = createTrainingModel(project, trained);
+        assert.strictEqual(await store.createTextServiceTraining(project, model, trained), 'created');
+        const trainedModel = { ...model, workspace_id : uuid() };
+        assert.strictEqual(await store.finishTextServiceTraining(model.id, trained, {
+            modelid : trainedModel.workspace_id, head, finished : trained, expiry : model.expiry,
+        }), true);
+        return trainedModel;
     }
 
 
@@ -458,8 +272,7 @@ describe('DB store - text classifier heads', () => {
     describe('claimTextServiceTraining', () => {
         it('should claim a trained model, and remove its head', async () => {
             const project = createProject();
-            const model = createTextServiceModel(project);
-            await store.storeTextServiceModel(project, model, Buffer.from([ 0x01 ]), new Date('2026-11-01T14:03:22Z'));
+            const model = await storeTrainedModel(project);
 
             const now = new Date('2026-11-02T10:00:00.456Z');
             const claimed = await store.claimTextServiceTraining(model.id, now, abandonIfStartedBefore(now));
@@ -516,8 +329,7 @@ describe('DB store - text classifier heads', () => {
 
         it('should let only one of several concurrent claims succeed', async () => {
             const project = createProject();
-            const model = createTextServiceModel(project);
-            await store.storeTextServiceModel(project, model, Buffer.from([ 0x01 ]), new Date('2026-11-01T14:03:22Z'));
+            const model = await storeTrainedModel(project);
 
             const times = [ 1, 2, 3, 4, 5 ].map((ms) => new Date(Date.UTC(2026, 10, 2, 10, 0, 0, ms)));
             const claims = await Promise.all(times.map((now) => store.claimTextServiceTraining(model.id, now, abandonIfStartedBefore(now))));
@@ -540,8 +352,7 @@ describe('DB store - text classifier heads', () => {
     describe('setTextServiceModelPlaceholder', () => {
         it('should replace the model id with the placeholder', async () => {
             const project = createProject();
-            const model = createTextServiceModel(project);
-            await store.storeTextServiceModel(project, model, Buffer.from([ 0x01 ]), new Date('2026-11-01T14:03:22Z'));
+            const model = await storeTrainedModel(project);
 
             await store.setTextServiceModelPlaceholder(model.id);
 
@@ -557,7 +368,8 @@ describe('DB store - text classifier heads', () => {
         it('should not change a Watson Assistant model', async () => {
             const project = createProject();
             const model: TrainingObjects.TextClassifier = {
-                ...createTextServiceModel(project),
+                ...createTrainingModel(project, new Date('2026-11-01T14:03:22Z')),
+                workspace_id : uuid(),
                 credentialsid : uuid(),
                 servicetype : 'conv',
                 url : 'https://api.us-south.assistant.watson.cloud.ibm.com',
@@ -609,8 +421,7 @@ describe('DB store - text classifier heads', () => {
 
         it('should store a retrained model', async () => {
             const project = createProject();
-            const model = createTextServiceModel(project);
-            await store.storeTextServiceModel(project, model, Buffer.from([ 0x01 ]), new Date('2026-11-01T14:03:22Z'));
+            const model = await storeTrainedModel(project);
             const now = new Date('2026-11-02T10:00:00Z');
             const started = await store.claimTextServiceTraining(model.id, now, abandonIfStartedBefore(now));
             assert(started);

@@ -190,6 +190,13 @@ function getTrainingErrorMessage(err: any): string {
                              notifications.SLACK_CHANNELS.TEXT_SERVICE);
         return textmodels.ERROR_MESSAGES.SERVICE_BUSY;
     }
+    if (isServiceError(err, httpStatus.BAD_REQUEST, 'invalid-training')) {
+        // textmodels checks training before sending it, so this means
+        //  the checks there no longer match the service - logged, but
+        //  not an unexpected failure of the service
+        log.warn(getSafeErrorDetail(err), 'Training rejected by text service');
+        return textmodels.ERROR_MESSAGES.INVALID_TRAINING;
+    }
 
     reportUnexpectedFailure('train text model', err);
 

@@ -180,7 +180,7 @@ import * as textservice from '../../lib/training/textservice';
     });
 
 
-    it('should fail at once with a training the service rejects', async () => {
+    it('should turn away a training the service would reject', async () => {
         const project = await store.storeLocalProject(userid, CLASSID, 'text', 'my local project', []);
         const training = textmodels.sanitizeTraining({
             name : 'my local project',
@@ -193,13 +193,11 @@ import * as textservice from '../../lib/training/textservice';
             metadata : {},
         });
 
-        const accepted = await textmodels.trainClassifierForProject(project, training);
-        assert.strictEqual(accepted.status, 'Training');
+        await assert.rejects(() => textmodels.trainClassifierForProject(project, training),
+            { message : textmodels.ERROR_MESSAGES.INVALID_TRAINING });
 
-        await textmodels.waitForTrainings();
-
-        assert(trainSpy.calledOnce);
-        assert.strictEqual((await getModel(project.id)).status, 'Failed');
+        assert(trainSpy.notCalled);
+        assert.deepStrictEqual(await store.getTextClassifiers(project.id), []);
     });
 
 

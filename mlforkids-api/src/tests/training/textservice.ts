@@ -169,7 +169,7 @@ describe('Training - text service', () => {
         describe('errors', () => {
 
             const cases: { name: string, err: () => Error, message: string, slack: boolean, retryable: boolean, retryAfterMs?: number, outcome: string }[] = [
-                { name : 'invalid training', err : () => serviceError(400, 'invalid-training'), message : textmodels.ERROR_MESSAGES.UNKNOWN, slack : true, retryable : false, outcome : 'invalid' },
+                { name : 'invalid training', err : () => serviceError(400, 'invalid-training'), message : textmodels.ERROR_MESSAGES.INVALID_TRAINING, slack : false, retryable : false, outcome : 'invalid' },
                 { name : 'training too large', err : () => serviceError(400, 'training-too-large'), message : textmodels.ERROR_MESSAGES.TRAINING_TOO_LARGE, slack : true, retryable : false, outcome : 'toolarge' },
                 { name : 'request too large', err : () => serviceError(413, 'request-too-large'), message : textmodels.ERROR_MESSAGES.TRAINING_TOO_LARGE, slack : true, retryable : false, outcome : 'toolarge' },
                 { name : 'busy', err : () => serviceError(503, 'busy', { 'Retry-After' : '30' }), message : textmodels.ERROR_MESSAGES.SERVICE_BUSY, slack : true, retryable : true, retryAfterMs : 30000, outcome : 'busy' },

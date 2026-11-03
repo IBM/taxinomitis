@@ -824,10 +824,25 @@
                 }
             }
 
+            // the same checks as the API makes before training, so that
+            //  training it would turn away isn't sent (the error is the
+            //  same as the API's response)
+            const intents = Object.values(trainingByLabel);
+            const intentNames = new Set(intents.map((intent) => intent.intent));
+            if (intents.length < 2 || intentNames.size !== intents.length) {
+                throw {
+                    status : 400,
+                    data : {
+                        code : 'MLMOD19',
+                        error : 'Your training data needs examples for at least two labels, and every label needs a different name.'
+                    }
+                };
+            }
+
             return {
                 name : project.name,
                 language : project.language ? project.language : 'en',
-                intents : Object.values(trainingByLabel),
+                intents,
                 dialog_nodes : [],
                 counterexamples: [],
                 entities : [],
