@@ -2063,11 +2063,7 @@
         "CONTACT": "If you have any problems or questions, please ask in <a href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids Google Group</a>",
         "GETTINGSTARTED": {
             "TITLE": "Getting started?",
-            "INTRO": "Download a PDF with a short getting started guide:",
-            "MANAGED": "Managed class accounts",
-            "MANAGEDEXPL": "For schools or coding groups with modified or increased limits",
-            "UNMANAGED": "Unmanaged class accounts",
-            "UNMANAGEDEXPL": "For teachers who set up and manage their own class account, with default limits"
+            "INTRO": "Download a PDF with a short getting started guide"
         },
         "FAQS": {
             "TITLE": "Want to know more?",

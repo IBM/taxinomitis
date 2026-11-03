@@ -2143,11 +2143,7 @@
         "CONTACT": "Jos sinulla on ongelmia tai kysymyksiä, kysy <a target='_blank' href='https://groups.google.com/d/forum/mlforkids'>ML for Kids -foorumilla</a>",
         "GETTINGSTARTED": {
             "TITLE": "Aloittamassa?",
-            "INTRO": "Lataa lyhyt aloitusopas PDF-muodossa:",
-            "MANAGED": "Hallinnoidut luokkatilit",
-            "MANAGEDEXPL": "Koulujen opettajille, ohjelmointikerhojen ohjaajille tai muille vapaaehtoisille",
-            "UNMANAGED": "Itse hallinnoidut luokkatilit",
-            "UNMANAGEDEXPL": "IBM:n työntekijöille tai käyttäjille, jotka hallinnoivat omia luokkatilejään"
+            "INTRO": "Lataa lyhyt aloitusopas PDF-muodossa"
         },
         "FAQS": {
             "TITLE": "Haluatko tietää lisää?",

@@ -2059,11 +2059,7 @@
         "CONTACT": "If you have any problems or questions, please ask in <a href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids Google Group</a>",
         "GETTINGSTARTED": {
             "TITLE": "Come cominciare?",
-            "INTRO": "Scarica un PDF con una breve guida introduttiva:",
-            "MANAGED": "Account di classe gestiti",
-            "MANAGEDEXPL": "Per insegnanti scolastici, leader di gruppi di programmazione o altri volontari",
-            "UNMANAGED": "Account di classe non gestiti",
-            "UNMANAGEDEXPL": "Per i dipendenti IBM o gli insegnanti e i leader dei gruppi di programmazione che gestiscono i propri account di classe"
+            "INTRO": "Scarica un PDF con una breve guida introduttiva"
         },
         "FAQS": {
             "TITLE": "Voglio sapere di più?",

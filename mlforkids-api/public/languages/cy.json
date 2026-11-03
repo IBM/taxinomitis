@@ -2060,11 +2060,7 @@
         "CONTACT": "Os oes gennych unrhyw broblemau neu gwestiynau, gofynnwch yn <a target='_blank' href='https://groups.google.com/d/forum/mlforkids'>fforwm DP i Blant</a>",
         "GETTINGSTARTED": {
             "TITLE": "Dechrau arni?",
-            "INTRO": "Lawrlwythwch PDF gyda chanllaw cychwyn byr:",
-            "MANAGED": "Cyfrifon dosbarth wedi'u rheoli",
-            "MANAGEDEXPL": "Ar gyfer athrawon ysgol, arweinwyr grwpiau codio, neu wirfoddolwyr eraill",
-            "UNMANAGED": "Cyfrifon dosbarth heb eu rheoli",
-            "UNMANAGEDEXPL": "Ar gyfer gweithwyr IBM, neu athrawon ac arweinwyr grwpiau codio sy'n rheoli eu cyfrifon dosbarth eu hunain"
+            "INTRO": "Lawrlwythwch PDF gyda chanllaw cychwyn byr"
         },
         "FAQS": {
             "TITLE": "Am wybod mwy?",

@@ -2059,11 +2059,7 @@
         "CONTACT": "If you have any problems or questions, please ask in <a href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids Google Group</a>",
         "GETTINGSTARTED": {
             "TITLE": "入门？",
-            "INTRO": "使用简短的入门指南下载PDF: ",
-            "MANAGED": "托管班级帐户",
-            "MANAGEDEXPL": "对于学校教师,编码组领导或其他志愿者",
-            "UNMANAGED": "未管理的班级帐户",
-            "UNMANAGEDEXPL": "对于IBM员工,或管理自己的班级帐户的教师和编码组负责人"
+            "INTRO": "使用简短的入门指南下载PDF "
         },
         "FAQS": {
             "TITLE": "想知道更多？",

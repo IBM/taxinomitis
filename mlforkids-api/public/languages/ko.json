@@ -2141,11 +2141,7 @@
         "CONTACT": "If you have any problems or questions, please ask in <a href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids Google Group</a>",
         "GETTINGSTARTED": {
             "TITLE": "시작하기",
-            "INTRO": "한번에 시작하기 PDF 다운로드:",
-            "MANAGED": "관리 클래스 계정",
-            "MANAGEDEXPL": "학교 교사, 코딩 그룹 지도자 또는 기타 자원 봉사자의 경우",
-            "UNMANAGED": "관리되지 않는 클래스 계정",
-            "UNMANAGEDEXPL": "자신의 클래스 계정을 관리하는 IBM 직원 또는 교사 및 코딩 그룹 책임자의 경우"
+            "INTRO": "한번에 시작하기 PDF 다운로드"
         },
         "FAQS": {
             "TITLE": "더 알고 싶나요?",

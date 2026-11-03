@@ -2059,11 +2059,7 @@
         "CONTACT": "If you have any problems or questions, please ask in <a href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids Google Group</a>",
         "GETTINGSTARTED": {
             "TITLE": "Kullanmaya yeni mi başlıyorsunuz?",
-            "INTRO": "Kısa bir başlangıç kılavuzunu içeren PDF dosyasını karşıdan yükleyin:",
-            "MANAGED": "Yönetilen sınıf hesapları",
-            "MANAGEDEXPL": "Okul öğretmenleri, kodlama grubu liderleri veya diğer gönüllüler için",
-            "UNMANAGED": "Yönetilmeyen sınıf hesapları",
-            "UNMANAGEDEXPL": "IBM çalışanları veya kendi sınıf hesaplarını yöneten öğretmenler ve kodlama grubu liderleri için"
+            "INTRO": "Kısa bir başlangıç kılavuzunu içeren PDF dosyasını karşıdan yükleyin"
         },
         "FAQS": {
             "TITLE": "Daha fazla bilgi edinmek mi istiyorsunuz?",

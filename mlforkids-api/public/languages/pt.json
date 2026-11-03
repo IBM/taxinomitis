@@ -2142,11 +2142,7 @@
         "CONTACT": "Se tiveres algum problema ou dúvida, pergunta, por favor, no <a target='_blank' href='https://groups.google.com/d/forum/mlforkids'>fórum ML for Kids</a>",
         "GETTINGSTARTED": {
             "TITLE": "Estás a começar?",
-            "INTRO": "Descarrega um PDF com um breve guia de introdução:",
-            "MANAGED": "Contas de turma com gestão",
-            "MANAGEDEXPL": "Para professores, líderes de grupos de programação ou outros voluntários",
-            "UNMANAGED": "Contas de turma sem gestão",
-            "UNMANAGEDEXPL": "Para funcionários da IBM ou utilizadores que façam a gestão das contas das suas próprias turmas"
+            "INTRO": "Descarrega um PDF com um breve guia de introdução"
         },
         "FAQS": {
             "TITLE": "Queres saber mais?",

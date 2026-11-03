@@ -2061,11 +2061,7 @@
         "CONTACT": "Pokud máte nějaké problémy nebo dotazy, zeptejte se prosím ve <a target='_blank' href='https://groups.google.com/d/forum/mlforkids'>fóru ML for Kids</a>",
         "GETTINGSTARTED": {
             "TITLE": "Začínáte?",
-            "INTRO": "Stáhněte si soubor PDF s krátkým průvodcem pro začátek:",
-            "MANAGED": "Spravované třídní účty",
-            "MANAGEDEXPL": "Pro školní učitele, vedoucí skupin kódování nebo jiné dobrovolníky",
-            "UNMANAGED": "Účty nespravovaných tříd",
-            "UNMANAGEDEXPL": "Pro zaměstnance IBM nebo učitele a vedoucí kódovacích skupin, kteří spravují vlastní účty tříd"
+            "INTRO": "Stáhněte si soubor PDF s krátkým průvodcem pro začátek"
         },
         "FAQS": {
             "TITLE": "Chcete se dozvědět více?",

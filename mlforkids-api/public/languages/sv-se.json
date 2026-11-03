@@ -2060,11 +2060,7 @@
         "CONTACT": "If you have any problems or questions, please ask in <a href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids Google Group</a>",
         "GETTINGSTARTED": {
             "TITLE": "Precis börjat?",
-            "INTRO": "Ladda ner en PDF med en kort nybörjarguide:",
-            "MANAGED": "Hanterade klasskonto",
-            "MANAGEDEXPL": "För lärare i skolan, handledare i kodningsgrupper eller andra frivilliga",
-            "UNMANAGED": "Ohanterade klasskonton",
-            "UNMANAGEDEXPL": "För anställda inom IBM eller lärare och handledare för kodningsgrupper som hanterar sina egna klasskonton"
+            "INTRO": "Ladda ner en PDF med en kort nybörjarguide"
         },
         "FAQS": {
             "TITLE": "Vill du veta mer?",

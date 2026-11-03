@@ -2060,11 +2060,7 @@
         "CONTACT": "If you have any problems or questions, please ask in <a href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids Google Group</a>",
         "GETTINGSTARTED": {
             "TITLE": "さあ、始めましょう",
-            "INTRO": "入門（簡易版）のPDFをダウンロードしてください。:",
-            "MANAGED": "クラス用アカウントの管理を委託",
-            "MANAGEDEXPL": "学校の教師、コーディンググループのリーダー、その他のボランティアの方々用",
-            "UNMANAGED": "クラス用アカウントを自己管理",
-            "UNMANAGEDEXPL": "自らアカウントを管理したい学校の教師、コーディンググループのリーダーやIBM の従業員用"
+            "INTRO": "入門（簡易版）のPDFをダウンロードしてください。"
         },
         "FAQS": {
             "TITLE": "もっと知る?",

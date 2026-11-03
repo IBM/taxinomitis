@@ -2061,11 +2061,7 @@
         "CONTACT": "Si vous avez des problèmes ou des questions, veuillez vous adresser à <a href='https://groups.google.com/d/forum/mlforkids'>le groupe Google ML for Kids</a>",
         "GETTINGSTARTED": {
             "TITLE": "Pour commencer ?",
-            "INTRO": "Téléchargez un PDF avec un petit guide de démarrage :",
-            "MANAGED": "Comptes de classe gérés",
-            "MANAGEDEXPL": "Pour les enseignantes et enseignants des écoles, les responsables des groupes de codage ou d'autres bénévoles",
-            "UNMANAGED": "Comptes de classe non gérés",
-            "UNMANAGEDEXPL": "Pour les employés d'IBM ou les enseignants et les responsables de groupes de codage qui gèrent leurs propres comptes de classe."
+            "INTRO": "Téléchargez un PDF avec un petit guide de démarrage"
         },
         "FAQS": {
             "TITLE": "Vous voulez en savoir plus ?",

@@ -2141,11 +2141,7 @@
         "CONTACT": "Ha kérdésed, vagy problémád van, fordulj <a target='_blank' href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids fórumhoz</a>",
         "GETTINGSTARTED": {
             "TITLE": "Kezdhetjük?",
-            "INTRO": "Töltsd le a PDF fájlt egy rövid kezdő útmutatóval:",
-            "MANAGED": "Kezelt osztályfiókok",
-            "MANAGEDEXPL": "Iskolai tanároknak, kódoló csoportvezetőknek vagy más önkénteseknek",
-            "UNMANAGED": "Nem kezelt osztályfiókok",
-            "UNMANAGEDEXPL": "IBM alkalmazottak, tanárok és kódolócsoport-vezetők számára, akik saját osztályfiókjukat kezelik"
+            "INTRO": "Töltsd le a PDF fájlt egy rövid kezdő útmutatóval"
         },
         "FAQS": {
             "TITLE": "Többet akarsz tudni?",

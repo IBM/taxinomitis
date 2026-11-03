@@ -2059,11 +2059,7 @@
         "CONTACT": "If you have any problems or questions, please ask in <a target='_blank' href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids forum</a>",
         "GETTINGSTARTED": {
             "TITLE": "Klaar om te beginnen?",
-            "INTRO": "Download een PDF met een korte ‘Aan de slag’ gids:",
-            "MANAGED": "Managed klasaccounts",
-            "MANAGEDEXPL": "Voor leerkrachten, codeerclub begeleiders of andere vrijwilligers",
-            "UNMANAGED": "Unmanaged klasaccounts",
-            "UNMANAGEDEXPL": "Voor IBM werknemers, of leerkrachten en codeerclub begeleiders die hun eigen klasaccounts willen beheren"
+            "INTRO": "Download een PDF met een korte ‘Aan de slag’ gids"
         },
         "FAQS": {
             "TITLE": "Wil je meer weten?",

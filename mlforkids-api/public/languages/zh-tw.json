@@ -2140,11 +2140,7 @@
         "CONTACT": "如果你有任何問題或疑問，請洽詢<a target='_blank' href='https://groups.google.com/d/forum/mlforkids'>兒童機器學習論壇</a>",
         "GETTINGSTARTED": {
             "TITLE": "第一次使用？",
-            "INTRO": "下載PDF裡面有簡短的入門指南：",
-            "MANAGED": "有班級管理的帳戶",
-            "MANAGEDEXPL": "適合學校老師、程式教育者或其他志工",
-            "UNMANAGED": "沒有班級管理的帳戶",
-            "UNMANAGEDEXPL": "適合IBM員工或已經自行管理班級帳戶的老師與程式教育者"
+            "INTRO": "下載PDF裡面有簡短的入門指南"
         },
         "FAQS": {
             "TITLE": "想知道更多嗎？",
