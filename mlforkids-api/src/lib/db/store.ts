@@ -1790,10 +1790,6 @@ export async function countTextClassifiers(classid: string): Promise<number>
     return rows[0].count;
 }
 
-/**
- * Counts every text model owned by the user, from any service,
- *  including any past their expiry that haven't been deleted yet.
- */
 export async function countTextModelsByUser(userid: string): Promise<number>
 {
     const queryName = 'dbqn-select-bluemixclassifiers-countuser';

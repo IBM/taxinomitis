@@ -618,9 +618,6 @@ export function getCredentialsAsDbRow(obj: TrainingObjects.BluemixCredentials,
     return creds;
 }
 
-/**
- * Returns true if the credentials were read from the pool table.
- */
 export function isPoolCredentials(
     credentials: TrainingObjects.StoredBluemixCredentials,
 ): credentials is TrainingObjects.BluemixCredentialsPool
@@ -807,11 +804,6 @@ export function getTextServiceTrainingStateFromDbRow(
     };
 }
 
-/**
- * Checks if a training is abandoned - it started before abandonIfStartedBefore,
- *  and nothing has recorded that it finished or failed (e.g.
- *  the API instance running it crashed).
- */
 export function isAbandonedTextServiceTraining(
     state: Objects.TextClassifierTrainingState,
     abandonIfStartedBefore: Date,
@@ -837,7 +829,7 @@ export function getTextServiceTrainingStatus(
     if (state.hashead) {
         return 'Available';
     }
-    // not expected - every training ends with a head or a failure
+    // not expected
     return 'Failed';
 }
 

@@ -48,7 +48,6 @@ function setup_batch_job {
         --env-from-secret $DOCKER_IMAGE-slack \
         --env-from-secret $DOCKER_IMAGE-cloudflare \
         --env NUMBERS_SERVICE=$(ibmcloud ce application get --name mlforkids-numbers -o json | jq -r .status.url) \
-        --env TEXT_SERVICE=$(ibmcloud ce application get --name mlforkids-text -o json | jq -r .status.url) \
         --mount-secret "/usr/src/app/pgsqlcerts"=$DOCKER_IMAGE-postgresql-cert \
         --maxexecutiontime 1800 \
         --retrylimit 1 \

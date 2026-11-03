@@ -24,6 +24,10 @@ const TRAINING_TIMEOUT_MS = 180 * 1000;
 //  classifying is synchronous for students
 const CLASSIFY_TIMEOUT_MS = 80 * 1000;
 
+// how long after the shutdown signal to wait for text model trainings
+//  running on this instance to finish, before recording the rest as failed 
+// (must be inside the grace period that Code Engine gives an app to stop)
+export const TRAINING_SHUTDOWN_GRACE_MS = 240 * 1000;
 
 /**
  * Trains a text model using the mlforkids-text service.

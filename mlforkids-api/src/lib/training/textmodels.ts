@@ -181,8 +181,8 @@ function isLargeTraining(usage: TrainingUsage): boolean
 const NO_CREDENTIALS_ERROR = 'Unexpected response when retrieving service credentials';
 
 
-// where Watson Assistant credentials come from for a class's
-//  own models (only large trainings use the large pool)
+// where Watson Assistant credentials come from for a class's own models 
+//  (only large trainings use the large pool)
 type ClassCredentialSource = Exclude<TrainingObjects.CredentialSource, 'large-pool'>;
 
 /**
@@ -204,8 +204,8 @@ type NewModelService = {
 
 
 /**
- * Where the class's Watson Assistant credentials come from, or 'none'
- *  for a class that has to provide its own, but hasn't.
+ * Where the class's Watson Assistant credentials come from, 
+ *  or 'none' for a class that has to provide its own, but hasn't.
  */
 async function getClassCredentialSource(tenantPolicy: DbObjects.ClassTenant): Promise<ClassCredentialSource | 'none'>
 {
@@ -414,9 +414,6 @@ async function createNewTextServiceModel(
  *  left, with different names (label names are changed to be valid
  *  Watson Assistant intent names, so different labels can end up with
  *  the same name).
- *
- * Training from the site has already been checked by the UI, but
- *  training from a Scratch key hasn't.
  */
 function getTextServiceTraining(
     training: TrainingObjects.ConversationTrainingData,
@@ -455,8 +452,7 @@ async function getTrainingInProgress(project: DbObjects.Project | DbObjects.Loca
  * Starts a training that has been accepted, once the Scratch key
  *  points at the model's placeholder id.
  *
- * The training runs in the background, after the response has
- *  been returned.
+ * The training continues in the background.
  */
 async function startTraining(
     project: DbObjects.Project | DbObjects.LocalProject,
@@ -485,10 +481,6 @@ async function startTraining(
 }
 
 
-/**
- * Points the Scratch key at the model's placeholder id, while
- *  the model is training.
- */
 async function storeScratchKeyPlaceholder(
     project: DbObjects.Project | DbObjects.LocalProject,
     id: string, started: Date,
@@ -633,14 +625,12 @@ async function retrainTextServiceModel(
 
 /**
  * Replaces a text service model with a Watson Assistant model, for
- *  training that has become too large for the text service. The
- *  project then stays on Watson Assistant.
+ *  training that has become too large for the text service. 
+ * The project then stays on Watson Assistant.
  *
  * The text service model has been claimed for this training, so it
  *  is kept (with its placeholder id) while the Watson Assistant model
  *  is created, so that duplicate requests are told it is training.
- *  It is deleted even if the Watson Assistant model can't be created,
- *  so that a failed move leaves no model, as a failed retrain does.
  */
 async function moveToWatsonAssistant(
     project: DbObjects.Project | DbObjects.LocalProject,

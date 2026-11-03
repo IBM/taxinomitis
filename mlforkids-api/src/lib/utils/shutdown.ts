@@ -6,16 +6,11 @@ import { Server } from 'http';
 import * as store from '../db/store';
 import * as email from '../notifications/email';
 import * as textmodels from '../training/textmodels';
+import { TRAINING_SHUTDOWN_GRACE_MS } from '../training/textservice';
 import loggerSetup from './logger';
 
 const log = loggerSetup();
 
-
-// how long after the shutdown signal to wait for text model trainings
-//  running on this instance to finish, before recording the rest as
-//  failed - this must be safely inside the grace period that Code
-//  Engine gives the app to stop
-const TRAINING_SHUTDOWN_CUTOFF_MS = 240 * 1000;
 
 // set by the first shutdown signal, so that a second signal
 //  (e.g. SIGINT after SIGTERM) doesn't start another shutdown
@@ -33,7 +28,7 @@ export function now(signal: 'SIGINT' | 'SIGTERM' | 'TIMED', server?: Server): vo
     shutdownStarted = true;
 
     log.info({ signal }, 'Handling shutdown signal');
-    const trainingCutoff = new Date(Date.now() + TRAINING_SHUTDOWN_CUTOFF_MS);
+    const trainingCutoff = new Date(Date.now() + TRAINING_SHUTDOWN_GRACE_MS);
     // straight away, rather than once the server has closed, so that no
     //  training starts a retry that might not finish before the cut-off
     textmodels.startShutdown();

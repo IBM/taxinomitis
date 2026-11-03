@@ -13,8 +13,8 @@ const log = loggerSetup();
 //
 // Records how the text service (mlforkids-text) is used.
 //
-// Only sizes, counts, outcomes and timings are recorded - never the
-//  text or label names that students use.
+// Only sizes, counts, outcomes and timings are recorded 
+//  (never the text or label names that students use)
 //
 
 

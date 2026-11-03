@@ -824,9 +824,6 @@
                 }
             }
 
-            // the same checks as the API makes before training, so that
-            //  training it would turn away isn't sent (the error is the
-            //  same as the API's response)
             const intents = Object.values(trainingByLabel);
             const intentNames = new Set(intents.map((intent) => intent.intent));
             if (intents.length < 2 || intentNames.size !== intents.length) {
