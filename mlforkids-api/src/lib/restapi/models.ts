@@ -7,6 +7,7 @@ import * as store from '../db/store';
 import * as DbTypes from '../db/db-types';
 import * as Types from '../training/training-types';
 import * as textmodels from '../training/textmodels';
+import * as textserviceusage from '../training/textserviceusage';
 import * as visualrec from '../training/visualrecognition';
 import * as numbers from '../training/numbers';
 import * as describetext from '../training/describetext';
@@ -79,7 +80,7 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
     switch (req.project.type) {
     case 'text': {
         try {
-            const model = await textmodels.trainClassifier(req.project);
+            const model = await textmodels.trainClassifier(req.project, textserviceusage.getWebsiteClient(req));
             return res.status(httpstatus.CREATED).json(returnTextClassifier(model));
         }
         catch (err) {
@@ -175,7 +176,7 @@ async function testModel(req: Express.Request, res: Express.Response) {
             }
 
             const tenant = await store.getClassTenant(classid);
-            const classes = await textmodels.classifyModel(tenant, projectid, modelid, requestTimestamp, text);
+            const classes = await textmodels.classifyModel(tenant, projectid, modelid, requestTimestamp, text, textserviceusage.getWebsiteClient(req));
             return res.json(classes);
         }
         else if (type === 'numbers') {

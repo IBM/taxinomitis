@@ -102,11 +102,11 @@ export async function createModel(
 export async function updateModel(
     project: DbObjects.Project | DbObjects.LocalProject,
     tenantPolicy: DbObjects.ClassTenant,
+    credentials: TrainingObjects.StoredBluemixCredentials,
     workspace: TrainingObjects.TextClassifier,
     training: TrainingObjects.ConversationTrainingData,
 ): Promise<WorkspaceWithCredentials>
 {
-    const credentials = await getModelCredentials(workspace);
     const modified = await updateWorkspace(project, credentials, workspace, training, tenantPolicy);
     return { workspace : modified, credentials };
 }

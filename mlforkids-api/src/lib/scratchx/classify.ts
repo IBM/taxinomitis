@@ -25,7 +25,7 @@ function chooseLabelsAtRandom(project: Types.Project | Types.LocalProject): Trai
 
 const TABS_OR_NEWLINES = /\r?\n|\r|\t/gm;
 
-async function classifyText(key: Types.ScratchKey, text: string): Promise<TrainingTypes.Classification[]> {
+async function classifyText(key: Types.ScratchKey, text: string, client?: Types.TextServiceUsageClient): Promise<TrainingTypes.Classification[]> {
     if (!text || typeof text !== 'string' || text.trim().length === 0) {
         throw new Error('Missing data');
     }
@@ -38,7 +38,7 @@ async function classifyText(key: Types.ScratchKey, text: string): Promise<Traini
         text = text.replace(TABS_OR_NEWLINES, ' ');
 
         // submit the text to the classifier
-        return textmodels.classifyWithScratchKey(key, text);
+        return textmodels.classifyWithScratchKey(key, text, client);
     }
     else {
         // we don't have a Conversation workspace yet, so we resort to random
@@ -80,10 +80,10 @@ async function classifyImageTfjs(key: Types.ScratchKey): Promise<TrainingTypes.C
 
 
 
-export function classify(scratchKey: Types.ScratchKey, data: any): Promise<TrainingTypes.Classification[]> {
+export function classify(scratchKey: Types.ScratchKey, data: any, client?: Types.TextServiceUsageClient): Promise<TrainingTypes.Classification[]> {
     switch (scratchKey.type) {
     case 'text':
-        return classifyText(scratchKey, data as string);
+        return classifyText(scratchKey, data as string, client);
     case 'numbers':
         return classifyNumbers(scratchKey);
     case 'sounds':

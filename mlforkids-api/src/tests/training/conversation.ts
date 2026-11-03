@@ -201,7 +201,7 @@ describe('Training - Conversation', () => {
 
             const before = new Date();
 
-            const { workspace, credentials } = await conversation.updateModel(project, TESTTENANT,
+            const { workspace, credentials } = await conversation.updateModel(project, TESTTENANT, mockstore.creds,
                 clone(existingClassifier), createTraining(project.name, 'de'));
 
             assert.strictEqual(workspace.id, existingClassifier.id);
@@ -222,7 +222,7 @@ describe('Training - Conversation', () => {
             };
 
             await assert.rejects(
-                () => conversation.updateModel(project, TESTTENANT, existing, createTraining(project.name, 'de')),
+                () => conversation.updateModel(project, TESTTENANT, mockstore.creds, existing, createTraining(project.name, 'de')),
                 { message : conversation.ERROR_MESSAGES.MAINTENANCE });
         });
 
@@ -236,7 +236,7 @@ describe('Training - Conversation', () => {
             };
 
             await assert.rejects(
-                () => conversation.updateModel(project, TESTTENANT, existing, createTraining(project.name, 'de')),
+                () => conversation.updateModel(project, TESTTENANT, mockstore.creds, existing, createTraining(project.name, 'de')),
                 { message : textmodels.ERROR_MESSAGES.MODEL_NOT_FOUND });
         });
     });

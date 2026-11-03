@@ -48,9 +48,11 @@ describe('Training - text models', () => {
     let resetExpiredScratchKeyStub: sinon.SinonStub<[string, DbTypes.ProjectTypeLabel], Promise<void>>;
     let updateScratchKeyTimestampStub: sinon.SinonStub<[DbTypes.Project | DbTypes.LocalProject, Date], Promise<void>>;
     let getClassStub: sinon.SinonStub<[string], Promise<DbTypes.ClassTenant>>;
+    let usageStub: sinon.SinonStub<[DbTypes.TextServiceUsageEvent], Promise<void>>;
 
 
     before(() => {
+        usageStub = sinon.stub(store, 'storeTextServiceUsageEvent').resolves();
         getStub = sinon.stub(requestUtil, 'get').callsFake(mockConversation.getClassifier);
         createStub = sinon.stub(requestUtil, 'post');
         createStub.withArgs(sinon.match(/.*workspaces/), sinon.match.any).callsFake(mockConversation.createClassifier);
@@ -83,6 +85,7 @@ describe('Training - text models', () => {
         resetExpiredScratchKeyStub.resetHistory();
     });
     after(() => {
+        usageStub.restore();
         getStub.restore();
         createStub.restore();
         deleteStub.restore();
@@ -816,13 +819,13 @@ describe('Training - text models', () => {
         };
 
         function busy(retryAfterMs?: number): textservice.TextServiceTrainingError {
-            return new textservice.TextServiceTrainingError(textmodels.ERROR_MESSAGES.SERVICE_BUSY, true, retryAfterMs);
+            return new textservice.TextServiceTrainingError(textmodels.ERROR_MESSAGES.SERVICE_BUSY, 'busy', true, retryAfterMs);
         }
         function droppedConnection(): textservice.TextServiceTrainingError {
-            return new textservice.TextServiceTrainingError(textmodels.ERROR_MESSAGES.SERVICE_ERROR, true);
+            return new textservice.TextServiceTrainingError(textmodels.ERROR_MESSAGES.SERVICE_ERROR, 'network', true);
         }
         function invalidTraining(): textservice.TextServiceTrainingError {
-            return new textservice.TextServiceTrainingError(textmodels.ERROR_MESSAGES.UNKNOWN, false);
+            return new textservice.TextServiceTrainingError(textmodels.ERROR_MESSAGES.UNKNOWN, 'invalid', false);
         }
 
         // trainings started by deferredTraining that haven't finished,
@@ -2094,7 +2097,7 @@ describe('Training - text models', () => {
                     training.resolve();
                     await textmodels.waitForTrainings();
 
-                    classifyStub.resolves([ { class_name : 'temperature', confidence : 90, classifierTimestamp : new Date() } ]);
+                    classifyStub.resolves({ classes : [ { class_name : 'temperature', confidence : 90, classifierTimestamp : new Date() } ], outcome : 'ok' });
                     await textmodels.classifyModel(KEYLESS, project.id, MODELID, new Date(), 'Hello');
                     assert(classifyStub.calledOnceWith(MODELID));
                 }
@@ -2250,7 +2253,7 @@ describe('Training - text models', () => {
 
             it('should classify using the stored record of the model', async () => {
                 const model = storeTrainedModel('classifyproject');
-                classifyStub.resolves(CLASSES);
+                classifyStub.resolves({ classes : CLASSES, outcome : 'ok' });
 
                 const timestamp = new Date('2026-11-01T10:00:00Z');
                 const classes = await textmodels.classifyModel(POOL, 'classifyproject', model.workspace_id, timestamp, 'Hello');
@@ -2262,7 +2265,7 @@ describe('Training - text models', () => {
 
             it('should only read the head if the service asks for it', async () => {
                 const model = storeTrainedModel('classifyproject');
-                classifyStub.resolves(CLASSES);
+                classifyStub.resolves({ classes : CLASSES, outcome : 'ok' });
 
                 await textmodels.classifyModel(KEYLESS, 'classifyproject', model.workspace_id, new Date(), 'Hello');
                 assert(getHeadStub.notCalled);
@@ -2275,7 +2278,7 @@ describe('Training - text models', () => {
             it('should report a missing head as a missing model', async () => {
                 const model = storeTrainedModel('classifyproject');
                 delete (fakeModels.get(model.id) as FakeTextServiceModel).head;
-                classifyStub.resolves(CLASSES);
+                classifyStub.resolves({ classes : CLASSES, outcome : 'ok' });
 
                 await textmodels.classifyModel(KEYLESS, 'classifyproject', model.workspace_id, new Date(), 'Hello');
 
@@ -2294,7 +2297,7 @@ describe('Training - text models', () => {
 
             it('should classify with a Scratch key', async () => {
                 const model = storeTrainedModel('classifyproject');
-                classifyStub.resolves(CLASSES);
+                classifyStub.resolves({ classes : CLASSES, outcome : 'ok' });
                 const key = txtScratchKey('classifyproject', model.workspace_id);
 
                 const classes = await textmodels.classifyWithScratchKey(key, 'Hello');
@@ -2455,6 +2458,624 @@ describe('Training - text models', () => {
                 assert(replacePlaceholderStub.calledOnceWith(project.id, existing.id, MODELID));
                 const ready = await textmodels.getScratchKeyStatus(txtScratchKey(project.id, MODELID));
                 assert.deepStrictEqual(ready, { status : 2, msg : 'Ready', type : 'text' });
+            });
+        });
+
+
+        describe('usage events', () => {
+
+            const CLIENT: DbTypes.TextServiceUsageClient = { source : 'scratchkey', country : 'NZ' };
+
+            // TRAINING has one label, with one example of 7 characters
+            const TRAINING_SIZE = { labels : 1, examples : 1, chars : 7, weightedchars : 7 };
+
+            let notifyStub: sinon.SinonStub<[string, string], void>;
+
+            beforeEach(() => {
+                usageStub.reset();
+                usageStub.resolves();
+                notifyStub = sinon.stub(notifications, 'notify');
+            });
+            afterEach(() => {
+                notifyStub.restore();
+                textmodels.resumeTrainingsForTests();
+            });
+
+            /** the events recorded, without values that weren't known, so they can be compared exactly */
+            function recorded(): DbTypes.TextServiceUsageEvent[] {
+                return usageStub.getCalls().map((call) => {
+                    const known = Object.entries(call.args[0]).filter(([ , value ]) => value !== undefined);
+                    return Object.fromEntries(known) as DbTypes.TextServiceUsageEvent;
+                });
+            }
+            function recordedEvents(event: DbTypes.TextServiceUsageEventType): DbTypes.TextServiceUsageEvent[] {
+                return recorded().filter((item) => item.event === event);
+            }
+            function recordedEvent(event: DbTypes.TextServiceUsageEventType): DbTypes.TextServiceUsageEvent {
+                const found = recordedEvents(event);
+                assert.strictEqual(found.length, 1, 'expected one ' + event + ' event, got ' + JSON.stringify(found));
+                return found[0];
+            }
+
+            /** training that is above the threshold, that Watson Assistant can create a model for */
+            function largeTraining(): TrainingTypes.ConversationTrainingData {
+                return { ...WA_TRAINING, intents : [ { intent : 'label', examples : [ { text : 'a'.repeat(100000) } ] } ] };
+            }
+            /** training that Watson Assistant can create a model for */
+            const WA_TRAINING = { ...TRAINING, name : 'Bob\'s text project' };
+            const LARGE_SIZE = { labels : 1, examples : 1, chars : 100000, weightedchars : 100000 };
+
+
+            describe('train-accept', () => {
+
+                it('should record an accepted new model', async () => {
+                    const project = keylessLocalProject('usageproject');
+
+                    const classifier = await textmodels.trainClassifierForProject(project, TRAINING, CLIENT);
+
+                    const { recorded : when, durationms, ...event } = recordedEvent('train-accept');
+                    assert(when instanceof Date);
+                    assert(typeof durationms === 'number' && durationms >= 0);
+                    assert.deepStrictEqual(event, {
+                        event : 'train-accept',
+                        outcome : 'accepted',
+                        projectid : project.id,
+                        modelid : classifier.id,
+                        tenanttype : DbTypes.ClassTenantType.UnManaged,
+                        language : 'en',
+                        size : TRAINING_SIZE,
+                        client : CLIENT,
+                    });
+                });
+
+                it('should record the size weighted by the language', async () => {
+                    await textmodels.trainClassifierForProject(keylessLocalProject('usageproject'),
+                        { ...TRAINING, language : 'ja' }, CLIENT);
+
+                    const event = recordedEvent('train-accept');
+                    assert.strictEqual(event.language, 'ja');
+                    assert.deepStrictEqual(event.size, { labels : 1, examples : 1, chars : 7, weightedchars : 21 });
+                });
+
+                it('should record an accepted retrain', async () => {
+                    const project = keylessLocalProject('usageproject');
+                    const existing = storeTrainedModel(project.id);
+
+                    await textmodels.trainClassifierForProject(project, TRAINING, CLIENT);
+
+                    const event = recordedEvent('train-accept');
+                    assert.strictEqual(event.outcome, 'accepted');
+                    assert.strictEqual(event.modelid, existing.id);
+                    assert.deepStrictEqual(event.size, TRAINING_SIZE);
+                });
+
+                it('should record a duplicate request during a training', async () => {
+                    const training = deferredTraining();
+                    const project = keylessLocalProject('usageproject');
+
+                    const first = await textmodels.trainClassifierForProject(project, TRAINING, CLIENT);
+                    await textmodels.trainClassifierForProject(project, TRAINING, CLIENT);
+
+                    const outcomes = recordedEvents('train-accept').map((event) => [ event.outcome, event.modelid ]);
+                    assert.deepStrictEqual(outcomes, [ [ 'accepted', first.id ], [ 'duplicate', first.id ] ]);
+
+                    training.resolve();
+                });
+
+                it('should record a duplicate request that creates at the same time', async () => {
+                    const training = deferredTraining();
+                    const project = keylessLocalProject('usageproject');
+
+                    await Promise.all([
+                        textmodels.trainClassifierForProject(project, TRAINING, CLIENT),
+                        textmodels.trainClassifierForProject(project, TRAINING, CLIENT),
+                    ]);
+
+                    const outcomes = recordedEvents('train-accept').map((event) => event.outcome).sort();
+                    assert.deepStrictEqual(outcomes, [ 'accepted', 'duplicate' ]);
+
+                    training.resolve();
+                });
+
+                it('should record a student at the model limit', async () => {
+                    countTxtStub.withArgs('bob').resolves(3);
+                    const project = keylessLocalProject('usageproject');
+
+                    await assert.rejects(() => textmodels.trainClassifierForProject(project, TRAINING, CLIENT),
+                        { message : textmodels.ERROR_MESSAGES.TOO_MANY_MODELS });
+
+                    const { recorded : when, durationms, ...event } = recordedEvent('train-accept');
+                    assert(when instanceof Date);
+                    assert(typeof durationms === 'number' && durationms >= 0);
+                    assert.deepStrictEqual(event, {
+                        event : 'train-accept',
+                        outcome : 'limit',
+                        projectid : project.id,
+                        tenanttype : DbTypes.ClassTenantType.UnManaged,
+                        language : 'en',
+                        size : TRAINING_SIZE,
+                        client : CLIENT,
+                    });
+                });
+
+                it('should record a large new model sent to Watson Assistant', async () => {
+                    const project = keylessLocalProject('usageproject');
+
+                    const classifier = await textmodels.trainClassifierForProject(project, largeTraining(), CLIENT);
+
+                    const event = recordedEvent('train-accept');
+                    assert.strictEqual(event.outcome, 'large');
+                    assert.strictEqual(event.modelid, classifier.id);
+                    assert.deepStrictEqual(event.size, LARGE_SIZE);
+                    assert.deepStrictEqual(event.client, CLIENT);
+                });
+
+                it('should record a large retrain moving to Watson Assistant', async () => {
+                    const project = keylessLocalProject('usageproject');
+                    storeTrainedModel(project.id);
+
+                    const classifier = await textmodels.trainClassifierForProject(project, largeTraining(), CLIENT);
+
+                    const event = recordedEvent('train-accept');
+                    assert.strictEqual(event.outcome, 'move');
+                    assert.strictEqual(event.modelid, classifier.id);
+                    assert.deepStrictEqual(event.size, LARGE_SIZE);
+                });
+
+                it('should not record trainings for classes with their own keys', async () => {
+                    const project = createProject('projectbob', 'Bob\'s text project', 'fr', [ 'temperature', 'conditions' ]);
+
+                    await textmodels.trainClassifier(project, CLIENT);
+
+                    assert.deepStrictEqual(recorded(), []);
+                });
+
+                it('should not record trainings for managed pool classes', async () => {
+                    const project = { ...createProject('poolproject', 'Bob\'s text project', 'en', [ 'temperature' ]), classid : POOL.id };
+
+                    await textmodels.trainClassifier(project, CLIENT);
+
+                    assert.deepStrictEqual(recorded(), []);
+                });
+            });
+
+
+            describe('train-attempt', () => {
+
+                it('should record a successful call to the text service', async () => {
+                    const project = keylessLocalProject('usageproject');
+
+                    const classifier = await textmodels.trainClassifierForProject(project, TRAINING, CLIENT);
+                    await textmodels.waitForTrainings();
+
+                    const { recorded : when, durationms, ...event } = recordedEvent('train-attempt');
+                    assert(when instanceof Date);
+                    assert(typeof durationms === 'number' && durationms >= 0);
+                    assert.deepStrictEqual(event, {
+                        event : 'train-attempt',
+                        outcome : 'ok',
+                        projectid : project.id,
+                        modelid : classifier.id,
+                        tenanttype : DbTypes.ClassTenantType.UnManaged,
+                        language : 'en',
+                        size : TRAINING_SIZE,
+                        attempt : 1,
+                        client : CLIENT,
+                    });
+                });
+
+                it('should record every attempt, with how long the service asked to wait', async () => {
+                    await withFakeTimers(async (clock) => {
+                        trainStub.onFirstCall().rejects(busy(30000));
+                        trainStub.onSecondCall().rejects(droppedConnection());
+
+                        await textmodels.trainClassifierForProject(keylessLocalProject('usageproject'), TRAINING, CLIENT);
+                        await runTrainings(clock);
+
+                        const attempts = recordedEvents('train-attempt').map((event) => {
+                            return { outcome : event.outcome, attempt : event.attempt, retryafterms : event.retryafterms, client : event.client };
+                        });
+                        assert.deepStrictEqual(attempts, [
+                            { outcome : 'busy', attempt : 1, retryafterms : 30000, client : CLIENT },
+                            { outcome : 'network', attempt : 2, retryafterms : undefined, client : CLIENT },
+                            { outcome : 'ok', attempt : 3, retryafterms : undefined, client : CLIENT },
+                        ]);
+                    });
+                });
+
+                it('should record unexpected failures as other', async () => {
+                    trainStub.rejects(new Error('something unexpected'));
+
+                    await textmodels.trainClassifierForProject(keylessLocalProject('usageproject'), TRAINING, CLIENT);
+                    await textmodels.waitForTrainings();
+
+                    assert.strictEqual(recordedEvent('train-attempt').outcome, 'other');
+                });
+            });
+
+
+            describe('train-end', () => {
+
+                it('should record a model that is available', async () => {
+                    await withFakeTimers(async (clock) => {
+                        trainStub.onFirstCall().rejects(busy(30000));
+                        const project = keylessLocalProject('usageproject');
+
+                        const classifier = await textmodels.trainClassifierForProject(project, TRAINING, CLIENT);
+                        await runTrainings(clock);
+
+                        const { recorded : when, ...event } = recordedEvent('train-end');
+                        assert(when instanceof Date);
+                        assert.deepStrictEqual(event, {
+                            event : 'train-end',
+                            outcome : 'available',
+                            projectid : project.id,
+                            modelid : classifier.id,
+                            tenanttype : DbTypes.ClassTenantType.UnManaged,
+                            language : 'en',
+                            size : TRAINING_SIZE,
+                            totalms : 30000,
+                            attempt : 2,
+                            client : CLIENT,
+                        });
+                    });
+                });
+
+                it('should record a failed training', async () => {
+                    trainStub.rejects(invalidTraining());
+
+                    await textmodels.trainClassifierForProject(keylessLocalProject('usageproject'), TRAINING, CLIENT);
+                    await textmodels.waitForTrainings();
+
+                    const event = recordedEvent('train-end');
+                    assert.strictEqual(event.outcome, 'failed');
+                    assert.strictEqual(event.attempt, 1);
+                    assert.deepStrictEqual(event.client, CLIENT);
+                });
+
+                it('should record a training for a deleted model as discarded', async () => {
+                    const training = deferredTraining();
+                    const project = keylessLocalProject('usageproject');
+
+                    const classifier = await textmodels.trainClassifierForProject(project, TRAINING, CLIENT);
+                    await textmodels.deleteClassifier(KEYLESS, classifier);
+                    training.resolve();
+                    await textmodels.waitForTrainings();
+
+                    assert.strictEqual(recordedEvent('train-end').outcome, 'discarded');
+                });
+
+                it('should record a training that stops retrying after a delete as discarded', async () => {
+                    await withFakeTimers(async (clock) => {
+                        trainStub.onFirstCall().rejects(busy(30000));
+                        const project = keylessLocalProject('usageproject');
+
+                        const classifier = await textmodels.trainClassifierForProject(project, TRAINING, CLIENT);
+                        await clock.tickAsync(0);
+                        await textmodels.deleteClassifier(KEYLESS, classifier);
+                        await runTrainings(clock);
+
+                        assert(trainStub.calledOnce);
+                        const event = recordedEvent('train-end');
+                        assert.strictEqual(event.outcome, 'discarded');
+                        assert.strictEqual(event.attempt, 1);
+                    });
+                });
+
+                it('should record a training failed at the shutdown cut-off once', async () => {
+                    await withFakeTimers(async (clock) => {
+                        const training = deferredTraining();
+
+                        await textmodels.trainClassifierForProject(keylessLocalProject('usageproject'), TRAINING, CLIENT);
+                        await clock.tickAsync(0);
+
+                        const stopping = textmodels.stopTrainings(new Date(Date.now() + 240000));
+                        await clock.tickAsync(240000);
+                        await stopping;
+
+                        const event = recordedEvent('train-end');
+                        assert.strictEqual(event.outcome, 'shutdown');
+                        assert.strictEqual(event.totalms, 240000);
+                        assert.deepStrictEqual(event.client, CLIENT);
+
+                        // the training finishing afterwards doesn't record another end
+                        training.resolve();
+                        await runTrainings(clock);
+                        assert.strictEqual(recordedEvents('train-end').length, 1);
+                    });
+                });
+
+                it('should record a training not retried during shutdown', async () => {
+                    await withFakeTimers(async (clock) => {
+                        trainStub.onFirstCall().rejects(busy(30000));
+
+                        await textmodels.trainClassifierForProject(keylessLocalProject('usageproject'), TRAINING, CLIENT);
+                        await clock.tickAsync(0);
+                        const stopping = textmodels.stopTrainings(new Date(Date.now() + 240000));
+                        await clock.tickAsync(30000);
+                        await stopping;
+
+                        assert.strictEqual(recordedEvent('train-end').outcome, 'shutdown');
+                    });
+                });
+
+                it('should record an abandoned training found by a status check once', async () => {
+                    const model = storeTrainedModel('usageproject');
+                    const stored = fakeModels.get(model.id) as FakeTextServiceModel;
+                    delete stored.head;
+                    const started = new Date(Date.now() - textmodels.ABANDON_TRAINING_AFTER_MS - 1000);
+                    stored.trainingstarted = started;
+
+                    const first = await textmodels.getModelStatuses(KEYLESS, [ { ...model } ]);
+                    const second = await textmodels.getModelStatuses(KEYLESS, [ { ...model } ]);
+
+                    assert.strictEqual(first[0].status, 'Failed');
+                    assert.strictEqual(second[0].status, 'Failed');
+
+                    const { recorded : when, totalms, ...event } = recordedEvent('train-end');
+                    assert(when instanceof Date);
+                    // a status check doesn't know the project, but the
+                    //  model id matches the train-accept event
+                    assert.deepStrictEqual(event, {
+                        event : 'train-end',
+                        outcome : 'abandoned',
+                        modelid : model.id,
+                    });
+                    assert(typeof totalms === 'number' && totalms > textmodels.ABANDON_TRAINING_AFTER_MS);
+                    assert(notifyStub.calledOnce);
+                });
+
+                it('should record an abandoned training replaced by a retrain', async () => {
+                    const project = keylessLocalProject('usageproject');
+                    const model = storeTrainedModel(project.id);
+                    const stored = fakeModels.get(model.id) as FakeTextServiceModel;
+                    delete stored.head;
+                    stored.trainingstarted = new Date(Date.now() - textmodels.ABANDON_TRAINING_AFTER_MS - 1000);
+
+                    await textmodels.trainClassifierForProject(project, TRAINING, CLIENT);
+                    await textmodels.waitForTrainings();
+
+                    const outcomes = recordedEvents('train-end').map((event) => event.outcome);
+                    assert.deepStrictEqual(outcomes, [ 'abandoned', 'available' ]);
+
+                    // the new training's size and client aren't the abandoned training's
+                    const { recorded : when, totalms, ...abandoned } = recordedEvents('train-end')[0];
+                    assert(when instanceof Date);
+                    assert(typeof totalms === 'number' && totalms > textmodels.ABANDON_TRAINING_AFTER_MS);
+                    assert.deepStrictEqual(abandoned, {
+                        event : 'train-end',
+                        outcome : 'abandoned',
+                        projectid : project.id,
+                        modelid : model.id,
+                        tenanttype : DbTypes.ClassTenantType.UnManaged,
+                        language : 'en',
+                    });
+                });
+            });
+
+
+            describe('classify', () => {
+
+                const CLASSES = [
+                    { class_name : 'temperature', confidence : 91, classifierTimestamp : new Date('2026-11-01T10:00:00Z') },
+                    { class_name : 'conditions', confidence : 9, classifierTimestamp : new Date('2026-11-01T10:00:00Z') },
+                ];
+
+                it('should record classifying with a cached model', async () => {
+                    const model = storeTrainedModel('usageproject');
+                    classifyStub.resolves({ classes : CLASSES, outcome : 'ok' });
+
+                    await textmodels.classifyModel(KEYLESS, 'usageproject', model.workspace_id, new Date(), 'Héllo \u{1F600}', CLIENT);
+
+                    const { recorded : when, durationms, ...event } = recordedEvent('classify');
+                    assert(when instanceof Date);
+                    assert(typeof durationms === 'number' && durationms >= 0);
+                    assert.deepStrictEqual(event, {
+                        event : 'classify',
+                        outcome : 'ok',
+                        projectid : 'usageproject',
+                        modelid : model.id,
+                        language : 'en',
+                        // code points, not UTF-16 units
+                        size : { chars : 7 },
+                        client : CLIENT,
+                    });
+                });
+
+                it('should record classifying that needed the head', async () => {
+                    const model = storeTrainedModel('usageproject');
+                    classifyStub.resolves({ classes : CLASSES, outcome : 'cached-miss' });
+
+                    await textmodels.classifyWithScratchKey(txtScratchKey('usageproject', model.workspace_id), 'Hello', CLIENT);
+
+                    const event = recordedEvent('classify');
+                    assert.strictEqual(event.outcome, 'cached-miss');
+                    assert.deepStrictEqual(event.client, CLIENT);
+                });
+
+                it('should record a random answer while a model is training', async () => {
+                    const training = deferredTraining();
+                    // a project id that the mock store can choose random labels for
+                    const project = keylessProject('projectbob');
+                    const classifier = await textmodels.trainClassifier(project, CLIENT);
+                    usageStub.resetHistory();
+
+                    const classes = await textmodels.classifyWithScratchKey(txtScratchKey(project.id, classifier.id), 'Hello', CLIENT);
+
+                    assert.strictEqual(classes[0].random, true);
+                    assert(classifyStub.notCalled);
+                    const event = recordedEvent('classify');
+                    assert.strictEqual(event.outcome, 'placeholder');
+                    assert.strictEqual(event.modelid, classifier.id);
+
+                    training.resolve();
+                });
+
+                it('should record failures from the text service', async () => {
+                    const model = storeTrainedModel('usageproject');
+                    classifyStub.rejects(new textservice.TextServiceClassifyError(textmodels.ERROR_MESSAGES.SERVICE_ERROR, 'timeout'));
+
+                    await assert.rejects(() => textmodels.classifyModel(KEYLESS, 'usageproject', model.workspace_id, new Date(), 'Hello', CLIENT),
+                        { message : textmodels.ERROR_MESSAGES.SERVICE_ERROR });
+
+                    assert.strictEqual(recordedEvent('classify').outcome, 'timeout');
+                });
+
+                it('should record other failures as other', async () => {
+                    const model = storeTrainedModel('usageproject');
+                    classifyStub.rejects(new Error(textmodels.ERROR_MESSAGES.MODEL_NOT_FOUND));
+
+                    await assert.rejects(() => textmodels.classifyModel(KEYLESS, 'usageproject', model.workspace_id, new Date(), 'Hello', CLIENT),
+                        { message : textmodels.ERROR_MESSAGES.MODEL_NOT_FOUND });
+
+                    assert.strictEqual(recordedEvent('classify').outcome, 'other');
+                });
+
+                it('should not record text that is rejected before it is classified', async () => {
+                    const model = storeTrainedModel('usageproject');
+
+                    await assert.rejects(() => textmodels.classifyModel(KEYLESS, 'usageproject', model.workspace_id, new Date(), 'a'.repeat(3000), CLIENT),
+                        { message : textmodels.ERROR_MESSAGES.TEXT_TOO_LONG });
+
+                    assert.deepStrictEqual(recorded(), []);
+                });
+
+                it('should not record classifying with Watson Assistant models', async () => {
+                    getTextClassifierStub.withArgs('projectbob', goodClassifier.workspace_id).resolves(clone(goodClassifier));
+
+                    await textmodels.classifyModel(CLASS, 'projectbob', goodClassifier.workspace_id, new Date(), 'Hello', CLIENT);
+
+                    assert.deepStrictEqual(recorded(), []);
+                });
+            });
+
+
+            describe('large-pool', () => {
+
+                it('should record a new model trained using the large pool', async () => {
+                    const project = keylessLocalProject('usageproject');
+
+                    const classifier = await textmodels.trainClassifierForProject(project, largeTraining(), CLIENT);
+
+                    const { recorded : when, durationms, ...event } = recordedEvent('large-pool');
+                    assert(when instanceof Date);
+                    assert(typeof durationms === 'number' && durationms >= 0);
+                    assert.deepStrictEqual(event, {
+                        event : 'large-pool',
+                        outcome : 'ok',
+                        projectid : project.id,
+                        modelid : classifier.id,
+                        tenanttype : DbTypes.ClassTenantType.UnManaged,
+                        language : 'en',
+                        size : LARGE_SIZE,
+                        client : CLIENT,
+                    });
+                });
+
+                it('should record the large pool running out', async () => {
+                    poolStub.resolves([]);
+
+                    await assert.rejects(() => textmodels.trainClassifierForProject(keylessLocalProject('usageproject'), largeTraining(), CLIENT),
+                        { message : conversation.ERROR_MESSAGES.POOL_EXHAUSTED });
+
+                    const event = recordedEvent('large-pool');
+                    assert.strictEqual(event.outcome, 'exhausted');
+                    assert.strictEqual(event.modelid, undefined);
+                    assert.strictEqual(recordedEvent('train-accept').outcome, 'large');
+                });
+
+                it('should record other failures using the large pool', async () => {
+                    poolStub.rejects(new Error('DB is down'));
+
+                    await assert.rejects(() => textmodels.trainClassifierForProject(keylessLocalProject('usageproject'), largeTraining(), CLIENT),
+                        { message : 'DB is down' });
+
+                    assert.strictEqual(recordedEvent('large-pool').outcome, 'other');
+                });
+
+                it('should record a move to Watson Assistant using the large pool', async () => {
+                    const project = keylessLocalProject('usageproject');
+                    storeTrainedModel(project.id);
+
+                    const classifier = await textmodels.trainClassifierForProject(project, largeTraining(), CLIENT);
+
+                    const event = recordedEvent('large-pool');
+                    assert.strictEqual(event.outcome, 'ok');
+                    assert.strictEqual(event.modelid, classifier.id);
+                });
+
+                it('should record retraining a model from the large pool', async () => {
+                    const LARGE_POOL_CREDS = { ...mockstore.poolCreds, id : 'largepoolcreds', source : 'large-pool' as const };
+                    const convModel = { ...clone(goodClassifier), credentialsid : LARGE_POOL_CREDS.id };
+                    const project = keylessLocalProject('usageproject');
+                    authByIdStoreStub.withArgs(LARGE_POOL_CREDS.id).resolves(LARGE_POOL_CREDS);
+                    getTextClassifiersStub.withArgs(project.id).resolves([ convModel ]);
+
+                    try {
+                        await textmodels.trainClassifierForProject(project, WA_TRAINING, CLIENT);
+
+                        const event = recordedEvent('large-pool');
+                        assert.strictEqual(event.outcome, 'ok');
+                        assert.strictEqual(event.modelid, convModel.id);
+                        assert.deepStrictEqual(event.size, TRAINING_SIZE);
+                        assert.deepStrictEqual(recordedEvents('train-accept'), []);
+                    }
+                    finally {
+                        authByIdStoreStub.withArgs(LARGE_POOL_CREDS.id).callsFake(mockstore.getCombinedBluemixCredentialsById);
+                    }
+                });
+
+                it('should not record retraining a model from a class\'s own keys', async () => {
+                    const convModel = clone(goodClassifier);
+                    const project = keylessLocalProject('usageproject');
+                    getTextClassifiersStub.withArgs(project.id).resolves([ convModel ]);
+
+                    await textmodels.trainClassifierForProject(project, WA_TRAINING, CLIENT);
+
+                    assert.deepStrictEqual(recorded(), []);
+                });
+            });
+
+
+            it('should never record text or label names', async () => {
+                const SECRET_LABEL = 'secretlabelname';
+                const SECRET_TEXT = 'my secret example text';
+                const training = {
+                    ...TRAINING,
+                    name : 'secret project name',
+                    intents : [ { intent : SECRET_LABEL, examples : [ { text : SECRET_TEXT } ] } ],
+                };
+                const project = keylessLocalProject('usageproject');
+                classifyStub.resolves({ classes : [ { class_name : SECRET_LABEL, confidence : 90, classifierTimestamp : new Date() } ], outcome : 'ok' });
+
+                await textmodels.trainClassifierForProject(project, training, CLIENT);
+                await textmodels.waitForTrainings();
+                const [ model ] = await store.getTextClassifiers(project.id);
+                await textmodels.classifyModel(KEYLESS, project.id, model.workspace_id, new Date(), 'my secret test text', CLIENT);
+                await textmodels.trainClassifierForProject(keylessLocalProject('usagelarge'),
+                    { ...largeTraining(), intents : [ { intent : SECRET_LABEL, examples : [ { text : SECRET_TEXT + 'a'.repeat(100000) } ] } ] },
+                    CLIENT);
+
+                const events = recorded();
+                assert.deepStrictEqual([ ...new Set(events.map((event) => event.event)) ].sort(),
+                    [ 'classify', 'large-pool', 'train-accept', 'train-attempt', 'train-end' ]);
+                const all = JSON.stringify(events);
+                for (const secret of [ SECRET_LABEL, 'secret example', 'secret test', 'secret project' ]) {
+                    assert(!all.includes(secret), secret + ' was recorded');
+                }
+            });
+
+
+            it('should train as normal if events cannot be recorded', async () => {
+                usageStub.rejects(new Error('DB is down'));
+                const project = keylessLocalProject('usageproject');
+
+                const classifier = await textmodels.trainClassifierForProject(project, TRAINING, CLIENT);
+                await textmodels.waitForTrainings();
+
+                assert.strictEqual(classifier.status, 'Training');
+                assert.strictEqual((await getStoredModel(project.id)).status, 'Available');
+                assert(usageStub.called);
             });
         });
     });

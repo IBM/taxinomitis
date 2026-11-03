@@ -3,6 +3,7 @@ import * as Express from 'express';
 import { status as httpstatus } from 'http-status';
 // local dependencies
 import * as textmodels from '../training/textmodels';
+import * as textserviceusage from '../training/textserviceusage';
 import * as numbers from '../training/numbers';
 import * as auth from './auth';
 import * as store from '../db/store';
@@ -121,7 +122,7 @@ async function newLocalProjectModel(req: auth.RequestWithLocalProject, res: Expr
     }
 
     try {
-        const model = await textmodels.trainClassifierForProject(req.project, training);
+        const model = await textmodels.trainClassifierForProject(req.project, training, textserviceusage.getWebsiteClient(req));
         res.status(httpstatus.CREATED).json(returnTextClassifier(model));
 
         // lazily (after returning response to the user) update
@@ -208,7 +209,7 @@ async function testLocalProjectModel(req: auth.RequestWithLocalProject, res: Exp
 
     try {
         const tenant = await store.getClassTenant(classid);
-        const classes = await textmodels.classifyModel(tenant, projectid, modelid, requestTimestamp, text);
+        const classes = await textmodels.classifyModel(tenant, projectid, modelid, requestTimestamp, text, textserviceusage.getWebsiteClient(req));
         return res.json(classes);
     }
     catch (err) {

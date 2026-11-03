@@ -3,6 +3,7 @@ import { status as httpStatus } from 'http-status';
 // local dependencies
 import * as textmodels from './textmodels';
 import * as TrainingObjects from './training-types';
+import * as DbObjects from '../db/db-types';
 import * as request from '../utils/request';
 import * as env from '../utils/env';
 import * as notifications from '../notifications/slack';
@@ -66,18 +67,21 @@ export async function train(training: TrainingObjects.ConversationTrainingData):
 
 
 /**
- * A failed training, with the message to show to the user, and
- *  whether the same training could succeed if it is sent again.
+ * A failed training, with the message to show to the user, what
+ *  went wrong (for usage events), and whether the same training
+ *  could succeed if it is sent again.
  */
 export class TextServiceTrainingError extends Error {
     name = 'TextServiceTrainingError';
+    readonly outcome: DbObjects.TextServiceTrainAttemptOutcome;
     readonly retryable: boolean;
     // how long the service asked for before trying again (only
     //  for busy responses, and only if the service said)
     readonly retryAfterMs?: number;
 
-    constructor(message: string, retryable: boolean, retryAfterMs?: number) {
+    constructor(message: string, outcome: DbObjects.TextServiceTrainAttemptOutcome, retryable: boolean, retryAfterMs?: number) {
         super(message);
+        this.outcome = outcome;
         this.retryable = retryable;
         this.retryAfterMs = retryAfterMs;
         Object.setPrototypeOf(this, TextServiceTrainingError.prototype);
@@ -94,6 +98,7 @@ export class TextServiceTrainingError extends Error {
  */
 function getTrainingError(err: any): TextServiceTrainingError {
     return new TextServiceTrainingError(getTrainingErrorMessage(err),
+                                        getTrainingOutcome(err),
                                         isRetryableTrainingFailure(err),
                                         getRetryAfterMs(err));
 }
@@ -112,6 +117,36 @@ function isRetryableTrainingFailure(err: any): boolean {
     }
     // timeouts, dropped connections, and no response at all
     return true;
+}
+
+
+function getTrainingOutcome(err: any): DbObjects.TextServiceTrainAttemptOutcome {
+    if (isServiceError(err, httpStatus.BAD_REQUEST, 'invalid-training')) {
+        return 'invalid';
+    }
+    if (isServiceError(err, httpStatus.BAD_REQUEST, 'training-too-large') ||
+        err.statusCode === httpStatus.REQUEST_ENTITY_TOO_LARGE)
+    {
+        return 'toolarge';
+    }
+    if (isServiceError(err, httpStatus.SERVICE_UNAVAILABLE, 'busy')) {
+        return 'busy';
+    }
+    if (isServiceError(err, httpStatus.SERVICE_UNAVAILABLE, 'starting')) {
+        return 'starting';
+    }
+    if (err.statusCode === httpStatus.UNAUTHORIZED) {
+        return 'unauthorized';
+    }
+    return getRequestFailureOutcome(err);
+}
+
+
+function getRequestFailureOutcome(err: any): DbObjects.TextServiceRequestFailureOutcome {
+    if (err.statusCode) {
+        return err.statusCode >= httpStatus.INTERNAL_SERVER_ERROR ? '5xx' : 'other';
+    }
+    return isTimeout(err) ? 'timeout' : 'network';
 }
 
 
@@ -175,14 +210,17 @@ function getTrainingErrorMessage(err: any): string {
  * @param getHead - returns the model's head, which is only needed if
  *  the service doesn't have the model cached
  *
- * @returns every label, highest confidence first
+ * @returns every label, highest confidence first, and whether the
+ *  service needed the head (for usage events)
  */
 export async function classify(
     modelid: string, classifierTimestamp: Date,
     text: string,
     getHead: () => Promise<Buffer>,
-): Promise<TrainingObjects.Classification[]>
+): Promise<ClassifyResult>
 {
+    let outcome: ClassifyResult['outcome'] = 'ok';
+
     const url = getServiceUrl() + '/models/' + encodeURIComponent(modelid) + '/classify';
 
     let body: ClassifyResponse;
@@ -201,6 +239,7 @@ export async function classify(
         //  again, this time sending the model with the request
         // (failures to get the head aren't from the service,
         //  so they're returned unchanged)
+        outcome = 'cached-miss';
         const head = await getHead();
         try {
             body = await submitClassify(url, { text, model : head.toString('base64') });
@@ -210,13 +249,33 @@ export async function classify(
         }
     }
 
-    return body.classes.map((item: ClassifyResponseClass) => {
+    const classes = body.classes.map((item: ClassifyResponseClass) => {
         return {
             class_name : item.label,
             confidence : Math.round(item.confidence * 100),
             classifierTimestamp,
         };
     });
+    return { classes, outcome };
+}
+
+
+export interface ClassifyResult {
+    readonly classes: TrainingObjects.Classification[];
+    // cached-miss if the service needed the head
+    readonly outcome: 'ok' | 'cached-miss';
+}
+
+
+export class TextServiceClassifyError extends Error {
+    name = 'TextServiceClassifyError';
+    readonly outcome: DbObjects.TextServiceRequestFailureOutcome;
+
+    constructor(message: string, outcome: DbObjects.TextServiceRequestFailureOutcome) {
+        super(message);
+        this.outcome = outcome;
+        Object.setPrototypeOf(this, TextServiceClassifyError.prototype);
+    }
 }
 
 
@@ -228,12 +287,17 @@ export async function classify(
  *  contain the credentials, text and head, so a new error is
  *  created with just the message.
  */
-function getClassifyError(err: any, modelid: string): Error {
+function getClassifyError(err: any, modelid: string): TextServiceClassifyError {
+    return new TextServiceClassifyError(getClassifyErrorMessage(err, modelid),
+                                        getRequestFailureOutcome(err));
+}
+
+function getClassifyErrorMessage(err: any, modelid: string): string {
     if (isServiceError(err, httpStatus.CONFLICT, 'needs-retraining')) {
         // expected after a planned change to the encoder, so the
         //  student needs to train a new model
         log.warn({ ...getSafeErrorDetail(err), modelid }, 'Text model needs retraining');
-        return new Error(textmodels.ERROR_MESSAGES.MODEL_NOT_FOUND);
+        return textmodels.ERROR_MESSAGES.MODEL_NOT_FOUND;
     }
 
     reportUnexpectedFailure('classify text', err, modelid);
@@ -241,17 +305,17 @@ function getClassifyError(err: any, modelid: string): Error {
     if (isServiceError(err, httpStatus.BAD_REQUEST, 'text-too-long') ||
         err.statusCode === httpStatus.REQUEST_ENTITY_TOO_LARGE)
     {
-        return new Error(textmodels.ERROR_MESSAGES.TEXT_TOO_LONG);
+        return textmodels.ERROR_MESSAGES.TEXT_TOO_LONG;
     }
     if (isServiceError(err, httpStatus.BAD_REQUEST, 'invalid-model') ||
         isServiceError(err, httpStatus.NOT_FOUND, 'model-not-cached'))
     {
-        return new Error(textmodels.ERROR_MESSAGES.MODEL_NOT_FOUND);
+        return textmodels.ERROR_MESSAGES.MODEL_NOT_FOUND;
     }
     if (isServiceUnavailable(err)) {
-        return new Error(textmodels.ERROR_MESSAGES.SERVICE_ERROR);
+        return textmodels.ERROR_MESSAGES.SERVICE_ERROR;
     }
-    return new Error(textmodels.ERROR_MESSAGES.UNKNOWN);
+    return textmodels.ERROR_MESSAGES.UNKNOWN;
 }
 
 

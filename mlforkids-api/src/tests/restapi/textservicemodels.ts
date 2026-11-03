@@ -97,7 +97,7 @@ describe('REST API - text service models', () => {
             return Promise.resolve({ modelid, head : headFor(modelid) });
         });
         classifyStub.reset();
-        classifyStub.resolves(CLASSES);
+        classifyStub.resolves({ classes : CLASSES, outcome : 'ok' });
     });
     afterEach(async () => {
         // don't leave trainings running into the next test
@@ -148,10 +148,10 @@ describe('REST API - text service models', () => {
     }
 
     function busy(retryAfterMs: number): textservice.TextServiceTrainingError {
-        return new textservice.TextServiceTrainingError(textmodels.ERROR_MESSAGES.SERVICE_BUSY, true, retryAfterMs);
+        return new textservice.TextServiceTrainingError(textmodels.ERROR_MESSAGES.SERVICE_BUSY, 'busy', true, retryAfterMs);
     }
     function failure(message: string): textservice.TextServiceTrainingError {
-        return new textservice.TextServiceTrainingError(message, false);
+        return new textservice.TextServiceTrainingError(message, 'other', false);
     }
 
     // trainings started by deferredTraining that haven't finished

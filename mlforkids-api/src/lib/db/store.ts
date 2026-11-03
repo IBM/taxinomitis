@@ -3248,6 +3248,101 @@ export async function getLatestSiteAlert(): Promise<Objects.SiteAlert | undefine
 
 // -----------------------------------------------------------------------------
 //
+// TEXT SERVICE USAGE
+//
+// -----------------------------------------------------------------------------
+
+export function testonly_resetTextServiceUsageStore(): Promise<void>
+{
+    // ensure this function is only used in tests, so we don't
+    //  accidentally trash a production database table
+    /* istanbul ignore else */
+    if (process.env.POSTGRESQLHOST === 'localhost' || process.env.POSTGRESQLHOST === 'host.docker.internal') {
+        const queryName = 'dbqn-delete-textserviceusage-all';
+        const queryString = 'DELETE FROM textserviceusage';
+        const queryValues: any[] = [];
+
+        return dbExecute(queryName, queryString, queryValues)
+            .then(() => { return; });
+    }
+    else {
+        log.error('testonly_resetTextServiceUsageStore called on production system');
+        return Promise.resolve();
+    }
+}
+
+
+export async function storeTextServiceUsageEvent(event: Objects.TextServiceUsageEvent): Promise<void>
+{
+    const queryName = 'dbqn-insert-textserviceusage';
+    const queryString = 'INSERT INTO textserviceusage ' +
+                            '(recorded, event, outcome, region, country, ' +
+                             'projectid, modelid, tenanttype, language, ' +
+                             'examples, chars, weightedchars, labels, ' +
+                             'durationms, totalms, attempt, retryafter, source) ' +
+                        'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18)';
+    const size = event.size ?? {};
+    const queryValues = [
+        event.recorded, event.event, event.outcome,
+        event.region ?? null, event.client?.country ?? null,
+        event.projectid ?? null, event.modelid ?? null, event.tenanttype ?? null, event.language ?? null,
+        size.examples ?? null, size.chars ?? null, size.weightedchars ?? null, size.labels ?? null,
+        event.durationms ?? null, event.totalms ?? null, event.attempt ?? null, event.retryafterms ?? null,
+        event.client?.source ?? null,
+    ];
+
+    const response = await dbExecute(queryName, queryString, queryValues);
+    if (response.rowCount !== 1) {
+        throw new Error('Failed to store text service usage event');
+    }
+}
+
+export async function getLatestTextServiceUsageEventId(): Promise<number>
+{
+    const queryName = 'dbqn-select-textserviceusage-maxid';
+    const queryString = 'SELECT MAX(id) AS maxid FROM textserviceusage';
+    const queryValues: any[] = [];
+
+    const response = await dbExecute(queryName, queryString, queryValues);
+    const maxid = response.rows[0].maxid;
+    return maxid ? Number(maxid) : 0;
+}
+
+
+export async function getTextServiceUsageEvents(afterId: number, maxId: number, limit: number): Promise<Objects.TextServiceUsageEventDbRow[]>
+{
+    const queryName = 'dbqn-select-textserviceusage';
+    const queryString = 'SELECT id, recorded, event, outcome, region, country, ' +
+                               'projectid, modelid, tenanttype, language, ' +
+                               'examples, chars, weightedchars, labels, ' +
+                               'durationms, totalms, attempt, retryafter, source ' +
+                        'FROM textserviceusage ' +
+                        'WHERE id > $1 AND id <= $2 ' +
+                        'ORDER BY id ' +
+                        'LIMIT $3';
+    const queryValues = [ afterId, maxId, limit ];
+
+    const response = await dbExecute(queryName, queryString, queryValues);
+    return response.rows.map((row: any) => {
+        return { ...row, id : Number(row.id) };
+    });
+}
+
+
+export async function deleteTextServiceUsageEvents(maxId: number): Promise<number>
+{
+    const queryName = 'dbqn-delete-textserviceusage-maxid';
+    const queryString = 'DELETE FROM textserviceusage WHERE id <= $1';
+    const queryValues = [ maxId ];
+
+    const response = await dbExecute(queryName, queryString, queryValues);
+    return response.rowCount ?? 0;
+}
+
+
+
+// -----------------------------------------------------------------------------
+//
 // UBER DELETERS
 //
 // -----------------------------------------------------------------------------

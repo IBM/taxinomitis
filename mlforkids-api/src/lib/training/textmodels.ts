@@ -3,6 +3,7 @@ import { randomUUID } from 'node:crypto';
 // local dependencies
 import * as conversation from './conversation';
 import * as textservice from './textservice';
+import * as textserviceusage from './textserviceusage';
 import * as store from '../db/store';
 import * as DbObjects from '../db/db-types';
 import {
@@ -60,30 +61,50 @@ const TRAINING_RETRY_BACKOFF_MS = [ 5000, 10000, 20000, 40000, 60000 ];
 // -----------------------------------------------------------------------------
 
 
+/**
+ * @param client - where the request came from, for usage events
+ */
 export async function trainClassifier(
     project: DbObjects.Project,
+    client?: DbObjects.TextServiceUsageClient,
 ): Promise<TrainingObjects.TextClassifier>
 {
     const training = await getTraining(project);
 
-    return trainClassifierForProject(project, training);
+    return trainClassifierForProject(project, training, client);
 }
 
 
+/**
+ * @param client - where the request came from, for usage events
+ */
 export async function trainClassifierForProject(
     project: DbObjects.Project | DbObjects.LocalProject,
     training: TrainingObjects.ConversationTrainingData,
+    client?: DbObjects.TextServiceUsageClient,
 ): Promise<TrainingObjects.TextClassifier>
 {
+    const request: TrainRequest = { received : Date.now(), client };
+
     const tenantPolicy = await store.getClassTenant(project.classid);
 
     const existingWorkspaces = await store.getTextClassifiers(project.id);
     if (existingWorkspaces.length > 0) {
-        return retrainModel(project, tenantPolicy, existingWorkspaces[0], training);
+        return retrainModel(project, tenantPolicy, existingWorkspaces[0], training, request);
     }
     else {
-        return createNewModel(project, tenantPolicy, training);
+        return createNewModel(project, tenantPolicy, training, request);
     }
+}
+
+
+/**
+ * A request to train a model, for usage events.
+ */
+interface TrainRequest {
+    // when the request was received (ms since the epoch)
+    readonly received: number;
+    readonly client?: DbObjects.TextServiceUsageClient;
 }
 
 
@@ -108,22 +129,29 @@ const LANGUAGE_WEIGHTS: { readonly [language in DbObjects.TextProjectLanguage]?:
 
 
 /**
- * The size of training, as the number of characters in the examples,
- *  weighted by the language.
+ * The size of training. Its weighted chars (the number of characters
+ *  in the examples, weighted by the language) decide if it is large.
  *
  * Characters are counted as Unicode code points, as the text
  *  service counts them.
  */
-function countWeightedCharacters(training: TrainingObjects.ConversationTrainingData): number
+function getTrainingSize(training: TrainingObjects.ConversationTrainingData): DbObjects.TextServiceTrainingSize
 {
+    let examples = 0;
     let chars = 0;
     for (const intent of training.intents) {
+        examples += intent.examples.length;
         for (const example of intent.examples) {
-            chars += [ ...example.text ].length;
+            chars += countCharacters(example.text);
         }
     }
     const weight = LANGUAGE_WEIGHTS[training.language as DbObjects.TextProjectLanguage] ?? 1;
-    return chars * weight;
+    return { labels : training.intents.length, examples, chars, weightedchars : chars * weight };
+}
+
+function countCharacters(text: string): number
+{
+    return [ ...text ].length;
 }
 
 function getLargeTrainingThreshold(): number
@@ -139,9 +167,9 @@ function getLargeTrainingThreshold(): number
     return LARGE_TRAINING_THRESHOLD;
 }
 
-function isLargeTraining(training: TrainingObjects.ConversationTrainingData): boolean
+function isLargeTraining(usage: TrainingUsage): boolean
 {
-    return countWeightedCharacters(training) >= getLargeTrainingThreshold();
+    return usage.size.weightedchars >= getLargeTrainingThreshold();
 }
 
 
@@ -149,15 +177,25 @@ function isLargeTraining(training: TrainingObjects.ConversationTrainingData): bo
 const NO_CREDENTIALS_ERROR = 'Unexpected response when retrieving service credentials';
 
 
+// where Watson Assistant credentials come from for a class's
+//  own models (only large trainings use the large pool)
+type ClassCredentialSource = Exclude<TrainingObjects.CredentialSource, 'large-pool'>;
+
 /**
  * Where a new model is trained: the text service, or Watson
  *  Assistant using credentials from the given source.
  */
 type NewModelService = {
     readonly servicetype: 'txt';
+    readonly usage: TrainingUsage;
 } | {
     readonly servicetype: 'conv';
-    readonly source: TrainingObjects.CredentialSource;
+    readonly source: ClassCredentialSource;
+} | {
+    // a class without keys, with a large training
+    readonly servicetype: 'conv';
+    readonly source: 'large-pool';
+    readonly usage: TrainingUsage;
 };
 
 
@@ -165,7 +203,7 @@ type NewModelService = {
  * Where the class's Watson Assistant credentials come from, or 'none'
  *  for a class that has to provide its own, but hasn't.
  */
-async function getClassCredentialSource(tenantPolicy: DbObjects.ClassTenant): Promise<TrainingObjects.CredentialSource | 'none'>
+async function getClassCredentialSource(tenantPolicy: DbObjects.ClassTenant): Promise<ClassCredentialSource | 'none'>
 {
     if (tenantPolicy.id === sessionusers.CLASS_NAME) {
         return 'class';
@@ -186,6 +224,7 @@ async function chooseServiceForNewModel(
     project: DbObjects.Project | DbObjects.LocalProject,
     tenantPolicy: DbObjects.ClassTenant,
     training: TrainingObjects.ConversationTrainingData,
+    request: TrainRequest,
 ): Promise<NewModelService>
 {
     const source = await getClassCredentialSource(tenantPolicy);
@@ -198,18 +237,23 @@ async function chooseServiceForNewModel(
         throw new Error(NO_CREDENTIALS_ERROR);
     }
 
+    // only worked out for classes without keys, as the
+    //  size decides which service they use
+    const usage = getTrainingUsage(project, tenantPolicy, training, request.client);
+
     // a class without keys shares the text service and the large pool,
     //  so every model it has counts towards the limit, whichever
     //  service it is from
     const numModels = await store.countTextModelsByUser(project.userid);
     if (numModels >= tenantPolicy.maxProjectsPerUser) {
+        recordTrainAccept('limit', usage, request);
         throw new Error(ERROR_MESSAGES.TOO_MANY_MODELS);
     }
 
-    if (isLargeTraining(training)) {
-        return { servicetype : 'conv', source : 'large-pool' };
+    if (isLargeTraining(usage)) {
+        return { servicetype : 'conv', source : 'large-pool', usage };
     }
-    return { servicetype : 'txt' };
+    return { servicetype : 'txt', usage };
 }
 
 async function hasWatsonAssistantCredentials(tenantPolicy: DbObjects.ClassTenant): Promise<boolean>
@@ -231,14 +275,44 @@ async function createNewModel(
     project: DbObjects.Project | DbObjects.LocalProject,
     tenantPolicy: DbObjects.ClassTenant,
     training: TrainingObjects.ConversationTrainingData,
+    request: TrainRequest,
 ): Promise<TrainingObjects.TextClassifier>
 {
-    const service = await chooseServiceForNewModel(project, tenantPolicy, training);
+    const service = await chooseServiceForNewModel(project, tenantPolicy, training, request);
     switch (service.servicetype) {
     case 'conv':
+        if (service.source === 'large-pool') {
+            return createNewLargeModel(project, tenantPolicy, training, service.usage, request);
+        }
         return createNewWatsonAssistantModel(project, tenantPolicy, service.source, training);
     case 'txt':
-        return createNewTextServiceModel(project, tenantPolicy, training);
+        return createNewTextServiceModel(project, tenantPolicy, training, service.usage, request);
+    }
+}
+
+
+/**
+ * Creates a Watson Assistant model using the large pool, for a large
+ *  training from a class that would otherwise use the text service.
+ */
+async function createNewLargeModel(
+    project: DbObjects.Project | DbObjects.LocalProject,
+    tenantPolicy: DbObjects.ClassTenant,
+    training: TrainingObjects.ConversationTrainingData,
+    usage: TrainingUsage,
+    request: TrainRequest,
+): Promise<TrainingObjects.TextClassifier>
+{
+    let modelid: string | undefined;
+    try {
+        const created = await trainUsingLargePool(usage,
+            () => conversation.createModel(project, tenantPolicy, 'large-pool', training));
+        const model = await storeNewWatsonAssistantModel(project, created);
+        modelid = model.id;
+        return model;
+    }
+    finally {
+        recordTrainAccept('large', usage, request, modelid);
     }
 }
 
@@ -278,6 +352,8 @@ async function createNewTextServiceModel(
     project: DbObjects.Project | DbObjects.LocalProject,
     tenantPolicy: DbObjects.ClassTenant,
     training: TrainingObjects.ConversationTrainingData,
+    usage: TrainingUsage,
+    request: TrainRequest,
 ): Promise<TrainingObjects.TextClassifier>
 {
     const now = new Date();
@@ -310,10 +386,13 @@ async function createNewTextServiceModel(
     if (outcome === 'already-training') {
         // a duplicate request, which arrived at the same time as the
         //  one that created the model
-        return getTrainingInProgress(project);
+        const inProgress = await getTrainingInProgress(project);
+        recordTrainAccept('duplicate', usage, request, inProgress.id);
+        return inProgress;
     }
 
-    await startTraining(project, tenantPolicy, model.id, now, training);
+    await startTraining(project, model.id, now, training, usage);
+    recordTrainAccept('accepted', usage, request, model.id);
     return model;
 }
 
@@ -344,14 +423,19 @@ async function getTrainingInProgress(project: DbObjects.Project | DbObjects.Loca
  */
 async function startTraining(
     project: DbObjects.Project | DbObjects.LocalProject,
-    tenantPolicy: DbObjects.ClassTenant,
     id: string, started: Date,
     training: TrainingObjects.ConversationTrainingData,
+    usage: TrainingUsage,
 ): Promise<void>
 {
     await storeScratchKeyPlaceholder(project, id, started);
 
-    const job: TextServiceTrainingJob = { projectid : project.id, tenantPolicy, id, started, training };
+    const job: TextServiceTrainingJob = {
+        projectid : project.id, tenantPolicy : usage.tenantPolicy,
+        id, started, training,
+        usage,
+        attempts : 0, ended : false,
+    };
     const running: Promise<void> = runTraining(job)
         .catch((err) => {
             // not expected, as runTraining handles its own errors
@@ -435,13 +519,14 @@ async function retrainModel(
     tenantPolicy: DbObjects.ClassTenant,
     existing: TrainingObjects.TextClassifier,
     training: TrainingObjects.ConversationTrainingData,
+    request: TrainRequest,
 ): Promise<TrainingObjects.TextClassifier>
 {
     switch (existing.servicetype) {
     case 'conv':
-        return retrainWatsonAssistantModel(project, tenantPolicy, existing, training);
+        return retrainWatsonAssistantModel(project, tenantPolicy, existing, training, request);
     case 'txt':
-        return retrainTextServiceModel(project, tenantPolicy, existing, training);
+        return retrainTextServiceModel(project, tenantPolicy, existing, training, request);
     }
 }
 
@@ -451,8 +536,12 @@ async function retrainTextServiceModel(
     tenantPolicy: DbObjects.ClassTenant,
     existing: TrainingObjects.TextClassifier,
     training: TrainingObjects.ConversationTrainingData,
+    request: TrainRequest,
 ): Promise<TrainingObjects.TextClassifier>
 {
+    // the size decides if the model moves to Watson Assistant
+    const usage = getTrainingUsage(project, tenantPolicy, training, request.client);
+
     const now = new Date();
     const abandonIfStartedBefore = getAbandonIfStartedBefore(now);
 
@@ -467,11 +556,12 @@ async function retrainTextServiceModel(
             // the model was deleted after this request found it
             throw new Error(ERROR_MESSAGES.MODEL_NOT_FOUND);
         }
+        recordTrainAccept('duplicate', usage, request, existing.id);
         return setTextServiceModelStatus(existing, current, abandonIfStartedBefore);
     }
 
-    if (previous && isAbandonedTextServiceTraining(previous, abandonIfStartedBefore)) {
-        notifyAbandonedTraining(existing.id);
+    if (previous && previous.trainingstarted && isAbandonedTextServiceTraining(previous, abandonIfStartedBefore)) {
+        reportAbandonedTraining(existing.id, previous.trainingstarted, usage);
     }
 
     try {
@@ -485,11 +575,12 @@ async function retrainTextServiceModel(
         throw err;
     }
 
-    if (isLargeTraining(training)) {
-        return moveToWatsonAssistant(project, tenantPolicy, existing, started, training);
+    if (isLargeTraining(usage)) {
+        return moveToWatsonAssistant(project, tenantPolicy, existing, started, training, usage, request);
     }
 
-    await startTraining(project, tenantPolicy, existing.id, started, training);
+    await startTraining(project, existing.id, started, training, usage);
+    recordTrainAccept('accepted', usage, request, existing.id);
 
     return {
         ...existing,
@@ -517,10 +608,32 @@ async function moveToWatsonAssistant(
     existing: TrainingObjects.TextClassifier,
     started: Date,
     training: TrainingObjects.ConversationTrainingData,
+    usage: TrainingUsage,
+    request: TrainRequest,
 ): Promise<TrainingObjects.TextClassifier>
 {
     log.info({ project : project.id, model : existing.id }, 'Moving text model to Watson Assistant');
 
+    let modelid: string | undefined;
+    try {
+        const model = await moveModel(project, tenantPolicy, existing, started, training, usage);
+        modelid = model.id;
+        return model;
+    }
+    finally {
+        recordTrainAccept('move', usage, request, modelid);
+    }
+}
+
+async function moveModel(
+    project: DbObjects.Project | DbObjects.LocalProject,
+    tenantPolicy: DbObjects.ClassTenant,
+    existing: TrainingObjects.TextClassifier,
+    started: Date,
+    training: TrainingObjects.ConversationTrainingData,
+    usage: TrainingUsage,
+): Promise<TrainingObjects.TextClassifier>
+{
     await storeScratchKeyPlaceholder(project, existing.id, started);
 
     const classSource = await getClassCredentialSource(tenantPolicy);
@@ -529,7 +642,8 @@ async function moveToWatsonAssistant(
     let created: conversation.WorkspaceWithCredentials | undefined;
     let createError: Error | undefined;
     try {
-        created = await conversation.createModel(project, tenantPolicy, source, training);
+        const create = () => conversation.createModel(project, tenantPolicy, source, training);
+        created = source === 'large-pool' ? await trainUsingLargePool(usage, create) : await create();
     }
     catch (err) {
         createError = err;
@@ -559,10 +673,15 @@ async function retrainWatsonAssistantModel(
     tenantPolicy: DbObjects.ClassTenant,
     existing: TrainingObjects.TextClassifier,
     training: TrainingObjects.ConversationTrainingData,
+    request: TrainRequest,
 ): Promise<TrainingObjects.TextClassifier>
 {
     try {
-        const { workspace } = await conversation.updateModel(project, tenantPolicy, existing, training);
+        const credentials = await conversation.getModelCredentials(existing);
+        const update = () => conversation.updateModel(project, tenantPolicy, credentials, existing, training);
+        const { workspace } = credentials.source === 'large-pool' ?
+            await trainUsingLargePool(getTrainingUsage(project, tenantPolicy, training, request.client), update) :
+            await update();
 
         await store.updateTextClassifierExpiry(workspace);
 
@@ -594,9 +713,12 @@ async function retrainWatsonAssistantModel(
  * Training for a Scratch key for a cloud project, using the training
  *  stored in the DB - returns the response for the Scratch extension.
  */
-export async function trainWithScratchKey(project: DbObjects.Project): Promise<ScratchTypes.Status>
+export async function trainWithScratchKey(
+    project: DbObjects.Project,
+    client?: DbObjects.TextServiceUsageClient,
+): Promise<ScratchTypes.Status>
 {
-    const model = await trainClassifier(project);
+    const model = await trainClassifier(project, client);
     return getScratchStatus(model.status);
 }
 
@@ -608,9 +730,10 @@ export async function trainWithScratchKey(project: DbObjects.Project): Promise<S
 export async function trainLocalWithScratchKey(
     project: DbObjects.LocalProject,
     training: TrainingObjects.ConversationTrainingData,
+    client?: DbObjects.TextServiceUsageClient,
 ): Promise<ScratchTypes.Status>
 {
-    const model = await trainClassifierForProject(project, training);
+    const model = await trainClassifierForProject(project, training, client);
     return getScratchStatus(model.status);
 }
 
@@ -662,6 +785,14 @@ interface TextServiceTrainingJob {
     //  the model has been deleted or a newer training started
     readonly started: Date;
     readonly training: TrainingObjects.ConversationTrainingData;
+
+    // for usage events
+    readonly usage: TrainingUsage;
+    // calls to the text service so far
+    attempts: number;
+    // set once the end of the training has been recorded, as a
+    //  training failed at the shutdown cut-off keeps running
+    ended: boolean;
 }
 
 
@@ -709,7 +840,13 @@ export async function stopTrainings(cutoff: Date): Promise<void>
         const unfinished = [ ...runningTrainings.values() ];
         log.error({ models : unfinished.map((training) => training.id) }, 'Text model trainings unfinished at shutdown');
 
-        await Promise.all(unfinished.map(recordFailureAtShutdown));
+        await Promise.all(unfinished.map(async (job) => {
+            if (await recordFailureAtShutdown(job)) {
+                recordTrainEnd(job, 'shutdown');
+            }
+            // otherwise it ended just now and recorded that itself, or
+            //  the write failed and it will be found abandoned
+        }));
     }
 
     if (numFailedByShutdown > 0) {
@@ -726,12 +863,16 @@ export function resumeTrainingsForTests(): void
 /**
  * Records that a training failed because this instance is shutting
  *  down, counting it for the shutdown alert.
+ *
+ * @returns true if the failure was recorded
  */
-async function recordFailureAtShutdown(job: TextServiceTrainingJob): Promise<void>
+async function recordFailureAtShutdown(job: TextServiceTrainingJob): Promise<boolean>
 {
-    if (await recordTrainingFailure(job.id, job.started)) {
+    const recorded = await recordTrainingFailure(job.id, job.started);
+    if (recorded) {
         numFailedByShutdown += 1;
     }
+    return recorded;
 }
 
 function notifyFailedByShutdown(numFailed: number): void
@@ -752,14 +893,21 @@ async function runTraining(job: TextServiceTrainingJob): Promise<void>
     const deadline = job.started.getTime() + TRAINING_RETRY_BUDGET_MS;
 
     for (let retries = 0; ; retries++) {
+        job.attempts = retries + 1;
+        const attemptStarted = Date.now();
+
         let trained: textservice.TrainedModel;
         try {
             trained = await textservice.train(job.training);
         }
         catch (err) {
+            const isServiceError = err instanceof textservice.TextServiceTrainingError;
+            recordTrainAttempt(job, isServiceError ? err.outcome : 'other', attemptStarted,
+                               isServiceError ? err.retryAfterMs : undefined);
+
             const wait = getRetryWaitMs(err, retries);
             if (wait === undefined || Date.now() + wait > deadline) {
-                await recordTrainingFailure(job.id, job.started);
+                await recordFailedTraining(job);
                 return;
             }
 
@@ -769,7 +917,7 @@ async function runTraining(job: TextServiceTrainingJob): Promise<void>
                 // this instance is shutting down, so a retry might
                 //  not finish before it stops
                 log.info({ model : job.id }, 'Text model training not retried during shutdown');
-                await recordFailureAtShutdown(job);
+                recordTrainEnd(job, await recordFailureAtShutdown(job) ? 'shutdown' : 'discarded');
                 return;
             }
 
@@ -777,14 +925,25 @@ async function runTraining(job: TextServiceTrainingJob): Promise<void>
                 // the model was deleted (cancelled by the student,
                 //  or expired), so it no longer needs training
                 log.info({ model : job.id }, 'Text model deleted during training');
+                recordTrainEnd(job, 'discarded');
                 return;
             }
             continue;
         }
 
+        recordTrainAttempt(job, 'ok', attemptStarted);
         await storeTrainedModel(job, trained);
         return;
     }
+}
+
+
+/**
+ * Records that a training failed, if it is still the model's current training.
+ */
+async function recordFailedTraining(job: TextServiceTrainingJob): Promise<void>
+{
+    recordTrainEnd(job, await recordTrainingFailure(job.id, job.started) ? 'failed' : 'discarded');
 }
 
 
@@ -826,7 +985,7 @@ async function storeTrainedModel(job: TextServiceTrainingJob, trained: textservi
     catch (err) {
         log.error({ err, project : job.projectid, model : job.id }, 'Failed to store trained text model');
         notifyTextServiceStoreFailure(err);
-        await recordTrainingFailure(job.id, job.started);
+        await recordFailedTraining(job);
         return;
     }
 
@@ -834,8 +993,11 @@ async function storeTrainedModel(job: TextServiceTrainingJob, trained: textservi
         // the model was deleted, or a newer training started
         //  after this one was abandoned
         log.info({ model : job.id }, 'Discarding text model training');
+        recordTrainEnd(job, 'discarded');
         return;
     }
+
+    recordTrainEnd(job, 'available');
 
     try {
         await store.replaceScratchKeyPlaceholder(job.projectid, job.id, trained.modelid, finished);
@@ -879,6 +1041,31 @@ function getAbandonIfStartedBefore(now: Date): Date
     return new Date(now.getTime() - ABANDON_TRAINING_AFTER_MS);
 }
 
+/**
+ * Reports a training that has been found to be abandoned.
+ *
+ * Only the request that found it first should report it, so that
+ *  each abandoned training is only reported once.
+ *
+ * @param usage - the training replacing it, if known - only its project,
+ *  class and language are recorded, as those are the same for the
+ *  abandoned training, but its size and client aren't
+ */
+function reportAbandonedTraining(id: string, started: Date, usage?: TrainingUsage): void
+{
+    notifyAbandonedTraining(id);
+    textserviceusage.record({
+        recorded : new Date(),
+        event : 'train-end',
+        outcome : 'abandoned',
+        projectid : usage?.projectid,
+        modelid : id,
+        tenanttype : usage?.tenantPolicy.tenantType,
+        language : usage?.language,
+        totalms : Date.now() - started.getTime(),
+    });
+}
+
 function notifyAbandonedTraining(id: string): void
 {
     // the model id is only logged, so that repeated alerts are
@@ -888,6 +1075,139 @@ function notifyAbandonedTraining(id: string): void
                          (ABANDON_TRAINING_AFTER_MS / 60000) + ' minutes)',
                          notifications.SLACK_CHANNELS.TEXT_SERVICE);
 }
+
+
+
+// -----------------------------------------------------------------------------
+//
+// Usage events
+//
+// -----------------------------------------------------------------------------
+
+
+/**
+ * What is recorded about a training in usage events. Only sizes
+ *  are recorded, never the text or label names.
+ */
+interface TrainingUsage {
+    readonly projectid: string;
+    readonly tenantPolicy: DbObjects.ClassTenant;
+    readonly language: string;
+    readonly size: DbObjects.TextServiceTrainingSize;
+    readonly client?: DbObjects.TextServiceUsageClient;
+}
+
+function getTrainingUsage(
+    project: DbObjects.Project | DbObjects.LocalProject,
+    tenantPolicy: DbObjects.ClassTenant,
+    training: TrainingObjects.ConversationTrainingData,
+    client?: DbObjects.TextServiceUsageClient,
+): TrainingUsage
+{
+    return {
+        projectid : project.id,
+        tenantPolicy,
+        language : training.language,
+        size : getTrainingSize(training),
+        client,
+    };
+}
+
+function getTrainingEvent(
+    event: DbObjects.TextServiceUsageEventType, outcome: string,
+    usage: TrainingUsage,
+): DbObjects.TextServiceUsageEvent
+{
+    return {
+        recorded : new Date(),
+        event,
+        outcome,
+        projectid : usage.projectid,
+        tenanttype : usage.tenantPolicy.tenantType,
+        language : usage.language,
+        size : usage.size,
+        client : usage.client,
+    };
+}
+
+
+function recordTrainAccept(
+    outcome: DbObjects.TextServiceTrainAcceptOutcome,
+    usage: TrainingUsage, request: TrainRequest,
+    modelid?: string,
+): void
+{
+    textserviceusage.record({
+        ...getTrainingEvent('train-accept', outcome, usage),
+        modelid,
+        durationms : Date.now() - request.received,
+    });
+}
+
+function recordTrainAttempt(
+    job: TextServiceTrainingJob,
+    outcome: DbObjects.TextServiceTrainAttemptOutcome,
+    attemptStarted: number,
+    retryafterms?: number,
+): void
+{
+    textserviceusage.record({
+        ...getTrainingEvent('train-attempt', outcome, job.usage),
+        modelid : job.id,
+        durationms : Date.now() - attemptStarted,
+        attempt : job.attempts,
+        retryafterms,
+    });
+}
+
+/**
+ * Records how a training ended, unless that has already been recorded.
+ */
+function recordTrainEnd(job: TextServiceTrainingJob, outcome: DbObjects.TextServiceTrainEndOutcome): void
+{
+    if (job.ended) {
+        return;
+    }
+    job.ended = true;
+
+    textserviceusage.record({
+        ...getTrainingEvent('train-end', outcome, job.usage),
+        modelid : job.id,
+        totalms : Date.now() - job.started.getTime(),
+        attempt : job.attempts,
+    });
+}
+
+
+/**
+ * Trains a Watson Assistant model using the large pool, recording how it ends.
+ */
+async function trainUsingLargePool(
+    usage: TrainingUsage,
+    train: () => Promise<conversation.WorkspaceWithCredentials>,
+): Promise<conversation.WorkspaceWithCredentials>
+{
+    const started = Date.now();
+    const recordLargePool = (outcome: DbObjects.TextServiceLargePoolOutcome, modelid?: string) => {
+        textserviceusage.record({
+            ...getTrainingEvent('large-pool', outcome, usage),
+            modelid,
+            durationms : Date.now() - started,
+        });
+    };
+
+    try {
+        const trained = await train();
+        recordLargePool('ok', trained.workspace.id);
+        return trained;
+    }
+    catch (err) {
+        recordLargePool(err.message === conversation.ERROR_MESSAGES.POOL_EXHAUSTED ? 'exhausted' : 'other');
+        throw err;
+    }
+}
+
+
 
 
 
@@ -990,8 +1310,12 @@ async function getTextServiceModelStatus(model: TrainingObjects.TextClassifier):
 {
     const state = await store.getTextServiceTrainingState(model.id);
     const abandonIfStartedBefore = getAbandonIfStartedBefore(new Date());
-    if (state && isAbandonedTextServiceTraining(state, abandonIfStartedBefore)) {
-        notifyAbandonedTraining(model.id);
+    if (state && state.trainingstarted && isAbandonedTextServiceTraining(state, abandonIfStartedBefore)) {
+        // recording the failure means the training is only reported
+        //  as abandoned once, however often its status is checked
+        if (await recordTrainingFailure(model.id, state.trainingstarted)) {
+            reportAbandonedTraining(model.id, state.trainingstarted);
+        }
     }
     return setTextServiceModelStatus(model, state, abandonIfStartedBefore);
 }
@@ -1134,6 +1458,7 @@ export async function classifyModel(
     tenant: DbObjects.ClassTenant,
     projectid: string, modelid: string, classifierTimestamp: Date,
     text: string,
+    client?: DbObjects.TextServiceUsageClient,
 ): Promise<TrainingObjects.Classification[]>
 {
     const workspace = await getModelRecord(projectid, modelid);
@@ -1146,12 +1471,15 @@ export async function classifyModel(
     }
     case 'txt':
         return classify(projectid, classifierTimestamp, text,
-            () => classifyWithTextServiceModel(workspace, classifierTimestamp, text));
+            () => classifyWithTextServiceModel(projectid, workspace, classifierTimestamp, text, client));
     }
 }
 
 
-export async function classifyWithScratchKey(scratchKey: DbObjects.ScratchKey, text: string): Promise<TrainingObjects.Classification[]>
+export async function classifyWithScratchKey(
+    scratchKey: DbObjects.ScratchKey, text: string,
+    client?: DbObjects.TextServiceUsageClient,
+): Promise<TrainingObjects.Classification[]>
 {
     const model = getScratchKeyModel(scratchKey);
     switch (model.servicetype) {
@@ -1161,7 +1489,7 @@ export async function classifyWithScratchKey(scratchKey: DbObjects.ScratchKey, t
     case 'txt': {
         const workspace = await getModelRecord(scratchKey.projectid, model.classifierid);
         return classify(scratchKey.projectid, scratchKey.updated, text,
-            () => classifyWithTextServiceModel(workspace, scratchKey.updated, text));
+            () => classifyWithTextServiceModel(scratchKey.projectid, workspace, scratchKey.updated, text, client));
     }
     }
 }
@@ -1183,18 +1511,36 @@ async function getModelRecord(projectid: string, modelid: string): Promise<Train
 }
 
 
-function classifyWithTextServiceModel(
+async function classifyWithTextServiceModel(
+    projectid: string,
     workspace: TrainingObjects.TextClassifier,
     classifierTimestamp: Date,
     text: string,
+    client?: DbObjects.TextServiceUsageClient,
 ): Promise<TrainingObjects.Classification[]>
 {
+    const started = Date.now();
+    const recordClassify = (outcome: DbObjects.TextServiceClassifyOutcome, durationms?: number) => {
+        textserviceusage.record({
+            recorded : new Date(),
+            event : 'classify',
+            outcome,
+            projectid,
+            modelid : workspace.id,
+            language : workspace.language,
+            size : { chars : countCharacters(text) },
+            durationms,
+            client,
+        });
+    };
+
     if (workspace.workspace_id === workspace.id) {
         // a placeholder id, as the model is training (or the
         //  training failed), so there is no model to use - this
         //  gives a random answer, as Watson Assistant does while
         //  a model is training
-        return Promise.resolve([]);
+        recordClassify('placeholder');
+        return [];
     }
 
     // the head is only read if the text service doesn't
@@ -1207,7 +1553,15 @@ function classifyWithTextServiceModel(
         return stored.head;
     };
 
-    return textservice.classify(workspace.workspace_id, classifierTimestamp, text, getHead);
+    try {
+        const result = await textservice.classify(workspace.workspace_id, classifierTimestamp, text, getHead);
+        recordClassify(result.outcome, Date.now() - started);
+        return result.classes;
+    }
+    catch (err) {
+        recordClassify(err instanceof textservice.TextServiceClassifyError ? err.outcome : 'other', Date.now() - started);
+        throw err;
+    }
 }
 
 

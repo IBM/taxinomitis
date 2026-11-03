@@ -17,6 +17,7 @@ import * as keys from '../scratchx/keys';
 import * as classifier from '../scratchx/classify';
 import * as training from '../scratchx/training';
 import * as textmodels from '../training/textmodels';
+import * as textserviceusage from '../training/textserviceusage';
 import * as numbers from '../training/numbers';
 import * as visrec from '../training/visualrecognition';
 import * as urls from './urls';
@@ -84,7 +85,7 @@ async function classifyWithScratchKey(req: Express.Request, res: Express.Respons
             return res.sendStatus(httpstatus.NOT_MODIFIED);
         }
 
-        const classes = await classifier.classify(scratchKey, req.query.data);
+        const classes = await classifier.classify(scratchKey, req.query.data, textserviceusage.getScratchKeyClient(req));
 
         return res.set(headers.CACHE_10SECONDS).json(classes);
     }
@@ -135,7 +136,7 @@ async function postClassifyWithScratchKey(req: Express.Request, res: Express.Res
             return res.sendStatus(httpstatus.NOT_MODIFIED);
         }
 
-        const classes = await classifier.classify(scratchKey, req.body.data);
+        const classes = await classifier.classify(scratchKey, req.body.data, textserviceusage.getScratchKeyClient(req));
 
         return res.json(classes);
     }
@@ -575,7 +576,7 @@ async function trainNewClassifier(req: Express.Request, res: Express.Response) {
 
     try {
         const scratchKey = await store.getScratchKey(apikey);
-        const classifierStatus = await models.trainModel(scratchKey);
+        const classifierStatus = await models.trainModel(scratchKey, textserviceusage.getScratchKeyClient(req));
 
         return res.set(headers.NO_CACHE).json(classifierStatus);
     }
@@ -607,7 +608,7 @@ async function trainNewClassifierLocalProject(req: Express.Request, res: Express
             }
 
             const scratchKey = await store.getScratchKey(apikey);
-            const classifierStatus = await models.trainTextModelLocalProject(scratchKey, req.body.training);
+            const classifierStatus = await models.trainTextModelLocalProject(scratchKey, req.body.training, textserviceusage.getScratchKeyClient(req));
 
             return res.set(headers.NO_CACHE).json(classifierStatus);
         }

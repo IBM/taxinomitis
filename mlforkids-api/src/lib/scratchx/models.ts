@@ -32,7 +32,11 @@ function getTrainingFailureStatus(scratchKey: Types.ScratchKey, err: Error): Scr
 
 
 
-export async function trainTextModelLocalProject(scratchKey: Types.ScratchKey, trainingData: TrainingTypes.ConversationTrainingData): Promise<ScratchTypes.Status> {
+export async function trainTextModelLocalProject(
+    scratchKey: Types.ScratchKey,
+    trainingData: TrainingTypes.ConversationTrainingData,
+    client?: Types.TextServiceUsageClient,
+): Promise<ScratchTypes.Status> {
     if (scratchKey.type !== 'text') {
         return Promise.reject(new Error('Only text models can be trained using a Scratch key'));
     }
@@ -44,7 +48,7 @@ export async function trainTextModelLocalProject(scratchKey: Types.ScratchKey, t
         }
 
         if (project.type === 'text') {
-            const status = await textmodels.trainLocalWithScratchKey(project, trainingData);
+            const status = await textmodels.trainLocalWithScratchKey(project, trainingData, client);
 
             // lazily (after returning response to the user) update
             //  the expiry date and labels for the project
@@ -65,7 +69,10 @@ export async function trainTextModelLocalProject(scratchKey: Types.ScratchKey, t
 
 
 
-export async function trainModel(scratchKey: Types.ScratchKey): Promise<ScratchTypes.Status | numbers.NumbersApiResponsePayloadClassifierItem> {
+export async function trainModel(
+    scratchKey: Types.ScratchKey,
+    client?: Types.TextServiceUsageClient,
+): Promise<ScratchTypes.Status | numbers.NumbersApiResponsePayloadClassifierItem> {
     if (scratchKey.type !== 'text' && scratchKey.type !== 'numbers') {
         return Promise.reject(new Error('Only text or numbers models can be trained using a Scratch key'));
     }
@@ -78,7 +85,7 @@ export async function trainModel(scratchKey: Types.ScratchKey): Promise<ScratchT
 
         if (project.type === 'text') {
             // awaited so that training errors are handled below
-            return await textmodels.trainWithScratchKey(project);
+            return await textmodels.trainWithScratchKey(project, client);
         }
         else if (project.type === 'numbers') {
             return numbers.trainClassifierCloudProject(project);
