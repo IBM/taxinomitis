@@ -151,6 +151,38 @@ describe('DB credentials pool store', () => {
             }
         });
 
+        it('should keep the large pool separate from the managed pool', async () => {
+            const largePoolCreds: TrainingTypes.BluemixCredentialsPool = {
+                ...dbObjects.createBluemixCredentialsPool('conv', undefined,
+                    randomstring.generate(36),
+                    randomstring.generate(12),
+                    'conv_plus'),
+                source : 'large-pool',
+                notes : 'temporary test record',
+            };
+
+            try {
+                const stored = await store.storeBluemixCredentialsPool(dbObjects.getCredentialsPoolAsDbRow(largePoolCreds));
+                assert.strictEqual(stored.source, 'large-pool');
+
+                const large = await store.getBluemixCredentialsPoolBatch('large-pool', 'conv');
+                const largeIds = large.map((creds) => creds.id);
+                assert(largeIds.includes(largePoolCreds.id));
+                assert(!largeIds.includes(credsId));
+
+                const managed = await store.getBluemixCredentialsPoolBatch('managed-pool', 'conv');
+                assert(!managed.map((creds) => creds.id).includes(largePoolCreds.id));
+
+                // existing models find which pool their credentials are from
+                const retrieved = await store.getCombinedBluemixCredentialsById(largePoolCreds.id);
+                assert.strictEqual(retrieved.source, 'large-pool');
+                assert(dbObjects.isPoolCredentials(retrieved));
+            }
+            finally {
+                await store.deleteBluemixCredentialsPool(largePoolCreds.id);
+            }
+        });
+
         it('should handle requests to delete unknown pool credentials', () => {
             return store.deleteBluemixCredentialsPool(randomUUID());
         });

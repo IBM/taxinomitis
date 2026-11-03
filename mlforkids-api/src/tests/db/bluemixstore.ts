@@ -922,7 +922,7 @@ describe('DB store', () => {
             await store.deleteTextClassifiersByProjectId(project.id);
         });
 
-        it('should count a user\'s text service models', async () => {
+        it('should count a user\'s text models from every service', async () => {
             const past = new Date();
             past.setDate(past.getDate() - 1);
             past.setMilliseconds(0);
@@ -942,7 +942,7 @@ describe('DB store', () => {
 
             const otherUser = createTextServiceModel(future);
 
-            const before = await store.countTextServiceModelsByUser(userid);
+            const before = await store.countTextModelsByUser(userid);
             assert.strictEqual(before, 0);
 
             await store.storeTextClassifier(current.project, current.model);
@@ -950,8 +950,8 @@ describe('DB store', () => {
             await store.storeTextClassifier(waProject, waModel);
             await store.storeTextClassifier(otherUser.project, otherUser.model);
 
-            const count = await store.countTextServiceModelsByUser(userid);
-            assert.strictEqual(count, 2);
+            const count = await store.countTextModelsByUser(userid);
+            assert.strictEqual(count, 3);
 
             await store.deleteTextClassifiersByProjectId(current.project.id);
             await store.deleteTextClassifiersByProjectId(expiredProject.id);

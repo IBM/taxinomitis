@@ -31,9 +31,11 @@ export interface BluemixCredentialsDbRow {
 /**
  * Who owns a set of Watson credentials:
  *  'managed-pool' - ML4K site owner (must not be shared with tenant admin, stored in bluemixcredentialspool)
+ *  'large-pool'   - ML4K site owner, for large trainings from classes without
+ *                    keys of their own (stored in bluemixcredentialspool)
  *  'class'        - tenant admin    (stored in bluemixcredentials)
  */
-export type CredentialSource = 'managed-pool' | 'class';
+export type CredentialSource = 'managed-pool' | 'large-pool' | 'class';
 export type PoolCredentialSource = Exclude<CredentialSource, 'class'>;
 
 /**
@@ -42,6 +44,7 @@ export type PoolCredentialSource = Exclude<CredentialSource, 'class'>;
  */
 export const CREDENTIALS_POOL_IDS: { readonly [source in PoolCredentialSource]: number } = {
     'managed-pool' : 0,
+    'large-pool'   : 1,
 };
 
 /**

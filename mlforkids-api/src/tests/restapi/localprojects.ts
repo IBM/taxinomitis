@@ -288,6 +288,41 @@ describe('REST API - local projects', () => {
             assert.deepStrictEqual(proj.labels, [ 'this', 'that' ]);
         });
 
+        it('should train with sanitised training, which is what the size of training is counted from', async () => {
+            let res = await request(testServer)
+                .post('/api/classes/' + TESTCLASS + '/students/userid/localprojects')
+                .send({ type : 'text', name : 'sanitised training', labels : [ 'this' ] })
+                .expect(httpstatus.CREATED);
+            const projectid = res.body.id;
+
+            textmodelsStubTrainClassifierStub.resetHistory();
+
+            res = await request(testServer)
+                .post('/api/classes/' + TESTCLASS + '/students/userid/localprojects/' + projectid + '/models')
+                .send({ training : {
+                    ...VALID_TEXT_TRAINING_DATA,
+                    intents : [ {
+                        intent : 'this',
+                        examples : [
+                            // padding is trimmed, long examples are cut to 1024 characters,
+                            //  and duplicates and empty examples are removed
+                            { text : '      padded      ' },
+                            { text : 'x'.repeat(5000) },
+                            { text : 'PADDED' },
+                            { text : '     ' },
+                        ],
+                    } ],
+                } })
+                .expect(httpstatus.CREATED);
+
+            assert(textmodelsStubTrainClassifierStub.calledOnce);
+            const training = textmodelsStubTrainClassifierStub.firstCall.args[1];
+            assert.deepStrictEqual(training.intents, [ {
+                intent : 'this',
+                examples : [ { text : 'padded' }, { text : 'x'.repeat(1024) } ],
+            } ]);
+        });
+
         it('should reject requests for non-text projects', async () => {
             const res = await request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/userid/localprojects')

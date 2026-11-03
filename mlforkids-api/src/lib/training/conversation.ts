@@ -82,6 +82,7 @@ export async function createModel(
     let credentials: TrainingObjects.StoredBluemixCredentials[];
     switch (source) {
     case 'managed-pool':
+    case 'large-pool':
         credentials = await store.getBluemixCredentialsPoolBatch(source, 'conv');
         break;
     case 'class':
@@ -216,9 +217,8 @@ async function createWorkspace(
                 // This shouldn't happen.
                 // It probably needs more immediate attention, so notify the Slack bot
                 notifications.notify('Unexpected failure to train text classifier' +
-                                    ' for project : ' + project.id +
-                                    ' in class : ' + project.classid + ' : ' +
-                                    err.message, notifications.SLACK_CHANNELS.TRAINING_ERRORS);
+                                    describeTraining(project, source) + ' : ' +
+                                    err.message, getSlackChannel(source));
 
                 throw err;
             }
@@ -238,7 +238,7 @@ async function createWorkspace(
     let notifySlackBot = false;
     switch (finalError) {
     case ERROR_MESSAGES.POOL_EXHAUSTED:
-        // managedpool is full - that should never happen!
+        // a pool is full - that should never happen!
         notifySlackBot = true;
         break;
     case ERROR_MESSAGES.API_KEY_RATE_LIMIT:
@@ -257,14 +257,41 @@ async function createWorkspace(
     }
 
     if (notifySlackBot) {
+        log.error({ project : project.id, classid : project.classid, source, finalError }, 'Failed to train text classifier');
         notifications.notify('Failed to train text classifier' +
-                                ' for project : ' + project.id +
-                                ' in class : ' + project.classid +
+                                describeTraining(project, source) +
                                 ' because:\n' + finalError,
-                                notifications.SLACK_CHANNELS.TRAINING_ERRORS);
+                                getSlackChannel(source));
     }
 
     throw new Error(finalError);
+}
+
+
+/**
+ * Describes a training for a Slack alert. Trainings using a pool
+ *  name the pool instead of the project and class, so that repeated
+ *  alerts are the same, and are collapsed by the notifications module.
+ */
+function describeTraining(project: DbObjects.Project | DbObjects.LocalProject, source: TrainingObjects.CredentialSource): string
+{
+    if (source === 'class') {
+        return ' for project : ' + project.id +
+               ' in class : ' + project.classid;
+    }
+    return ' using the ' + source + ' credentials';
+}
+
+/**
+ * Alerts about the large pool go to the text service channel, as
+ *  it is used by classes that would otherwise use the text service.
+ */
+function getSlackChannel(source: TrainingObjects.CredentialSource): string
+{
+    if (source === 'large-pool') {
+        return notifications.SLACK_CHANNELS.TEXT_SERVICE;
+    }
+    return notifications.SLACK_CHANNELS.TRAINING_ERRORS;
 }
 
 
@@ -844,12 +871,24 @@ export interface NewTestRequest extends TestRequest, NewConvRequest {}
 
 
 async function getBluemixCredentialsToCheckForOrphans(): Promise<TrainingObjects.BluemixCredentials[]> {
-    const poolCreds = await store.getBluemixCredentialsPoolBatch('managed-pool', 'conv');
+    let allCreds: TrainingObjects.BluemixCredentials[] = [];
+
+    const pools = Object.keys(TrainingObjects.CREDENTIALS_POOL_IDS) as TrainingObjects.PoolCredentialSource[];
+    for (const pool of pools) {
+        try {
+            const poolCreds = await store.getBluemixCredentialsPoolBatch(pool, 'conv');
+            allCreds = allCreds.concat(poolCreds);
+        }
+        catch (err) {
+            // an empty pool shouldn't stop the other pools being checked
+            log.error({ err, pool }, 'Failed to get pool credentials to check for orphans');
+        }
+    }
 
     const sessionUsersClass = await store.getClassTenant('session-users');
     const sessionUserCreds = await store.getBluemixCredentials(sessionUsersClass, 'conv');
 
-    return poolCreds.concat(sessionUserCreds);
+    return allCreds.concat(sessionUserCreds);
 }
 
 

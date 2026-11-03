@@ -958,7 +958,7 @@ describe('Training - text models', () => {
             isConfiguredStub = sinon.stub(env, 'isTextServiceConfigured').returns(true);
             trainStub = sinon.stub(textservice, 'train');
             classifyStub = sinon.stub(textservice, 'classify');
-            countTxtStub = sinon.stub(store, 'countTextServiceModelsByUser');
+            countTxtStub = sinon.stub(store, 'countTextModelsByUser');
             getHeadStub = sinon.stub(store, 'getTextClassifierHead');
             poolStub = sinon.stub(store, 'getBluemixCredentialsPoolBatch');
             createTrainingStub = sinon.stub(store, 'createTextServiceTraining');
@@ -985,7 +985,7 @@ describe('Training - text models', () => {
             countTxtStub.reset();
             countTxtStub.resolves(0);
             poolStub.reset();
-            poolStub.resolves([ { ...creds, credstype : 'conv_plus' } ]);
+            poolStub.callsFake((pool: TrainingTypes.PoolCredentialSource) => Promise.resolve([ { ...mockstore.poolCreds, source : pool } ]));
 
             getHeadStub.reset();
             getHeadStub.callsFake(fakeStore.getTextClassifierHead);
@@ -1624,6 +1624,312 @@ describe('Training - text models', () => {
         });
 
 
+        describe('routing by training size', () => {
+
+            const THRESHOLD = 100000;
+
+            /** training with one example, that Watson Assistant can create a model for */
+            function trainingWithExamples(texts: string[], language: DbTypes.TextProjectLanguage = 'en'): TrainingTypes.ConversationTrainingData {
+                return {
+                    ...TRAINING,
+                    name : 'Bob\'s text project',
+                    language,
+                    intents : [ { intent : 'label', examples : texts.map((text) => ({ text })) } ],
+                };
+            }
+
+            it('should use the text service for a training below the threshold', async () => {
+                const project = keylessLocalProject('sizeproject');
+
+                const classifier = await textmodels.trainClassifierForProject(project,
+                    trainingWithExamples([ 'a'.repeat(THRESHOLD - 1) ]));
+
+                assert.strictEqual(classifier.servicetype, 'txt');
+                assert(poolStub.notCalled);
+            });
+
+            it('should use the large Watson Assistant pool for a training at the threshold', async () => {
+                const project = keylessLocalProject('sizeproject');
+
+                const classifier = await textmodels.trainClassifierForProject(project,
+                    trainingWithExamples([ 'a'.repeat(THRESHOLD - 10), 'b'.repeat(10) ]));
+
+                assert.strictEqual(classifier.servicetype, 'conv');
+                assert(poolStub.calledOnceWith('large-pool', 'conv'));
+                assert(trainStub.notCalled);
+                assert(createTrainingStub.notCalled);
+            });
+
+            const WEIGHTED_EDGES: { language: DbTypes.TextProjectLanguage, below: number, atOrAbove: number }[] = [
+                // 33333 x 3 = 99999, 33334 x 3 = 100002
+                { language : 'ko', below : 33333, atOrAbove : 33334 },
+                { language : 'ja', below : 33333, atOrAbove : 33334 },
+                { language : 'zh-cn', below : 33333, atOrAbove : 33334 },
+                { language : 'zh-tw', below : 33333, atOrAbove : 33334 },
+                // 66666 x 1.5 = 99999, 66667 x 1.5 = 100000.5
+                { language : 'ar', below : 66666, atOrAbove : 66667 },
+                { language : 'xx', below : 99999, atOrAbove : 100000 },
+                { language : 'fr', below : 99999, atOrAbove : 100000 },
+            ];
+            for (const edge of WEIGHTED_EDGES) {
+                it('should weight ' + edge.language + ' training at the edge of the threshold', async () => {
+                    const below = await textmodels.trainClassifierForProject(keylessLocalProject('below' + edge.language),
+                        trainingWithExamples([ 'a'.repeat(edge.below) ], edge.language));
+                    const atOrAbove = await textmodels.trainClassifierForProject(keylessLocalProject('above' + edge.language),
+                        trainingWithExamples([ 'a'.repeat(edge.atOrAbove) ], edge.language));
+
+                    assert.strictEqual(below.servicetype, 'txt');
+                    assert.strictEqual(atOrAbove.servicetype, 'conv');
+                });
+            }
+
+            it('should count characters as code points, not UTF-16 units', async () => {
+                // each emoji is two UTF-16 units, so the text has a
+                //  length of almost twice the threshold
+                const emoji = '\u{1F600}';
+                const classifier = await textmodels.trainClassifierForProject(keylessLocalProject('emojiproject'),
+                    trainingWithExamples([ emoji.repeat(THRESHOLD - 1) ]));
+
+                assert.strictEqual(classifier.servicetype, 'txt');
+            });
+
+            it('should not count label names', async () => {
+                const training = trainingWithExamples([ 'a'.repeat(THRESHOLD - 1) ]);
+                const classifier = await textmodels.trainClassifierForProject(keylessLocalProject('labelsproject'), {
+                    ...training,
+                    intents : [ ...training.intents, { intent : 'l'.repeat(1000), examples : [] } ],
+                });
+
+                assert.strictEqual(classifier.servicetype, 'txt');
+            });
+
+            for (const tenant of [ POOL, MANAGED ]) {
+                it('should not change where large training goes for a ' + DbTypes.ClassTenantType[tenant.tenantType] + ' class', async () => {
+                    const project = { ...keylessLocalProject('large' + tenant.id), classid : tenant.id };
+
+                    const classifier = await textmodels.trainClassifierForProject(project,
+                        trainingWithExamples([ 'a'.repeat(THRESHOLD) ]));
+
+                    assert.strictEqual(classifier.servicetype, 'conv');
+                    if (tenant === POOL) {
+                        assert(poolStub.calledOnceWith('managed-pool', 'conv'));
+                    }
+                    else {
+                        assert(poolStub.notCalled);
+                    }
+                });
+            }
+
+            describe('threshold from the environment', () => {
+
+                afterEach(() => {
+                    delete process.env.TEXT_SERVICE_LARGE_THRESHOLD;
+                });
+
+                it('should use a lower threshold from the environment', async () => {
+                    process.env.TEXT_SERVICE_LARGE_THRESHOLD = '1000';
+
+                    const below = await textmodels.trainClassifierForProject(keylessLocalProject('envbelow'),
+                        trainingWithExamples([ 'a'.repeat(999) ]));
+                    const atOrAbove = await textmodels.trainClassifierForProject(keylessLocalProject('envabove'),
+                        trainingWithExamples([ 'a'.repeat(1000) ]));
+
+                    assert.strictEqual(below.servicetype, 'txt');
+                    assert.strictEqual(atOrAbove.servicetype, 'conv');
+                });
+
+                it('should send every new model to Watson Assistant with a threshold of 0', async () => {
+                    process.env.TEXT_SERVICE_LARGE_THRESHOLD = '0';
+
+                    const classifier = await textmodels.trainClassifierForProject(keylessLocalProject('envzero'),
+                        trainingWithExamples([ 'a' ]));
+
+                    assert.strictEqual(classifier.servicetype, 'conv');
+                });
+
+                it('should use a higher threshold from the environment', async () => {
+                    process.env.TEXT_SERVICE_LARGE_THRESHOLD = '200000';
+
+                    const classifier = await textmodels.trainClassifierForProject(keylessLocalProject('envhigher'),
+                        trainingWithExamples([ 'a'.repeat(THRESHOLD) ]));
+
+                    assert.strictEqual(classifier.servicetype, 'txt');
+                });
+
+                for (const invalid of [ 'lots', '-1', '1.5', '' ]) {
+                    it('should use the default threshold if the environment has "' + invalid + '"', async () => {
+                        process.env.TEXT_SERVICE_LARGE_THRESHOLD = invalid;
+
+                        const below = await textmodels.trainClassifierForProject(keylessLocalProject('invalidbelow'),
+                            trainingWithExamples([ 'a'.repeat(THRESHOLD - 1) ]));
+                        const atOrAbove = await textmodels.trainClassifierForProject(keylessLocalProject('invalidabove'),
+                            trainingWithExamples([ 'a'.repeat(THRESHOLD) ]));
+
+                        assert.strictEqual(below.servicetype, 'txt');
+                        assert.strictEqual(atOrAbove.servicetype, 'conv');
+                    });
+                }
+            });
+
+            it('should use the class\'s own keys for large training', async () => {
+                const project = { ...keylessLocalProject('largekeyed'), classid : TESTTENANT.id };
+
+                const classifier = await textmodels.trainClassifierForProject(project,
+                    trainingWithExamples([ 'a'.repeat(THRESHOLD) ]));
+
+                assert.strictEqual(classifier.servicetype, 'conv');
+                assert.strictEqual(classifier.credentialsid, mockstore.creds.id);
+                assert(poolStub.notCalled);
+            });
+        });
+
+
+        describe('moving large retraining to Watson Assistant', () => {
+
+            /** training that is above the threshold, that Watson Assistant can create a model for */
+            function largeTraining(name = 'Bob\'s text project'): TrainingTypes.ConversationTrainingData {
+                return {
+                    ...TRAINING,
+                    name,
+                    intents : [ { intent : 'label', examples : [ { text : 'a'.repeat(100000) } ] } ],
+                };
+            }
+
+            it('should move a text service model to Watson Assistant, deleting the text service model', async () => {
+                const project = keylessLocalProject('moveproject');
+                const existing = storeTrainedModel(project.id);
+
+                const classifier = await textmodels.trainClassifierForProject(project, largeTraining());
+
+                assert.strictEqual(classifier.servicetype, 'conv');
+                assert.notStrictEqual(classifier.id, existing.id);
+                assert(poolStub.calledOnceWith('large-pool', 'conv'));
+                assert(trainStub.notCalled);
+
+                assert(deleteStoreStub.calledOnceWith(existing.id));
+                // the Scratch key points at the placeholder while the model moves
+                assert(storeScratchKeyStub.firstCall.calledWith(project, TXT_KEY_CREDENTIALS, existing.id));
+                assert(resetExpiredScratchKeyStub.calledOnceWith(existing.id, 'text'));
+                assert.strictEqual(await store.getTextServiceTrainingState(existing.id), undefined);
+                assert.strictEqual(await store.getTextClassifierHead(existing.id), undefined);
+
+                assert(storeStoreStub.calledOnceWith(project, classifier));
+                assert(storeScratchKeyStub.lastCall.calledWith(project, sinon.match({ servicetype : 'conv' }), classifier.workspace_id));
+            });
+
+            it('should move using the class\'s own keys if it has some', async () => {
+                const project = { ...keylessLocalProject('movekeyed'), classid : TESTTENANT.id };
+                storeTrainedModel(project.id);
+
+                const classifier = await textmodels.trainClassifierForProject(project, largeTraining());
+
+                assert.strictEqual(classifier.servicetype, 'conv');
+                assert.strictEqual(classifier.credentialsid, mockstore.creds.id);
+                assert(poolStub.notCalled);
+            });
+
+            it('should not apply the model limit to a move', async () => {
+                const project = keylessLocalProject('movelimit');
+                storeTrainedModel(project.id);
+                countTxtStub.resolves(3);
+
+                const classifier = await textmodels.trainClassifierForProject(project, largeTraining());
+
+                assert.strictEqual(classifier.servicetype, 'conv');
+            });
+
+            it('should leave no model if the move fails', async () => {
+                const project = keylessLocalProject('movefails');
+                const existing = storeTrainedModel(project.id);
+                const notifyStub = sinon.stub(notifications, 'notify');
+                const recordFailureStub = sinon.stub(store, 'recordBluemixCredentialsPoolFailure');
+
+                try {
+                    await assert.rejects(
+                        () => textmodels.trainClassifierForProject(project, largeTraining('Too Many Models')),
+                        { message : conversation.ERROR_MESSAGES.POOL_EXHAUSTED });
+
+                    // the failure is recorded against the large pool credentials
+                    assert(recordFailureStub.calledOnceWith(sinon.match({ id : mockstore.poolCreds.id, source : 'large-pool' })));
+
+                    assert.strictEqual(await store.getTextServiceTrainingState(existing.id), undefined);
+                    assert(resetExpiredScratchKeyStub.calledOnceWith(existing.id, 'text'));
+                    assert(storeStoreStub.notCalled);
+
+                    assert(notifyStub.calledOnce);
+                    assert.strictEqual(notifyStub.firstCall.args[1], notifications.SLACK_CHANNELS.TEXT_SERVICE);
+                    assert(!notifyStub.firstCall.args[0].includes(project.id));
+                }
+                finally {
+                    notifyStub.restore();
+                    recordFailureStub.restore();
+                }
+            });
+
+            it('should not move while a text service training is in progress', async () => {
+                const training = deferredTraining();
+                const project = keylessLocalProject('movetraining');
+                const existing = storeTrainedModel(project.id);
+
+                const first = await textmodels.trainClassifierForProject(project, TRAINING);
+                const second = await textmodels.trainClassifierForProject(project, largeTraining());
+
+                assert.strictEqual(second.servicetype, 'txt');
+                assert.strictEqual(second.id, existing.id);
+                assert.strictEqual(second.status, 'Training');
+                assert.deepStrictEqual(second.updated, first.updated);
+                assert(poolStub.notCalled);
+                assert(deleteStoreStub.notCalled);
+
+                training.resolve();
+                await textmodels.waitForTrainings();
+            });
+
+            it('should give a duplicate request during a move the move in progress', async () => {
+                const project = keylessLocalProject('moveduplicate');
+                const existing = storeTrainedModel(project.id);
+
+                // the Watson Assistant create waits until the duplicate has been answered
+                let finishCreate: () => void = () => { /* replaced below */ };
+                const createCalled = new Promise<void>((calledResolve) => {
+                    poolStub.callsFake(() => {
+                        calledResolve();
+                        return new Promise((poolResolve) => {
+                            finishCreate = () => poolResolve([ { ...mockstore.poolCreds, source : 'large-pool' } ]);
+                        });
+                    });
+                });
+
+                const moving = textmodels.trainClassifierForProject(project, largeTraining());
+                await createCalled;
+
+                const duplicate = await textmodels.trainClassifierForProject(project, largeTraining());
+                assert.strictEqual(duplicate.id, existing.id);
+                assert.strictEqual(duplicate.status, 'Training');
+
+                finishCreate();
+                const moved = await moving;
+                assert.strictEqual(moved.servicetype, 'conv');
+                assert(poolStub.calledOnce);
+                assert(storeStoreStub.calledOnce);
+            });
+
+            it('should keep a Watson Assistant model on Watson Assistant when its training shrinks', async () => {
+                const project = { ...keylessLocalProject('existingprojectid'), classid : KEYLESS.id };
+
+                const classifier = await textmodels.trainClassifierForProject(project, {
+                    ...TRAINING,
+                    name : 'Bob\'s text project',
+                });
+
+                assert.strictEqual(classifier.servicetype, 'conv');
+                assert(trainStub.notCalled);
+                assert(createTrainingStub.notCalled);
+                assert(deleteStoreStub.notCalled);
+            });
+        });
+
+
         describe('model limit', () => {
 
             it('should not train a new model for a student at the limit', async () => {
@@ -1659,13 +1965,30 @@ describe('Training - text models', () => {
                 assert(trainStub.notCalled);
             });
 
-            it('should not limit Watson Assistant models', async () => {
+            it('should not limit Watson Assistant models for a class with its own keys', async () => {
                 const project = createProject('projectbob', 'Bob\'s text project', 'fr', [ 'temperature', 'conditions' ]);
                 countTxtStub.resolves(100);
 
                 const classifier = await textmodels.trainClassifier(project);
 
                 assert.strictEqual(classifier.servicetype, 'conv');
+                assert(countTxtStub.notCalled);
+            });
+
+            it('should apply the limit to large training for a class without keys', async () => {
+                const project = keylessLocalProject('keylesslarge');
+                countTxtStub.withArgs('bob').resolves(3);
+
+                await assert.rejects(
+                    () => textmodels.trainClassifierForProject(project, {
+                        ...TRAINING,
+                        name : 'Bob\'s text project',
+                        intents : [ { intent : 'label', examples : [ { text : 'a'.repeat(100000) } ] } ],
+                    }),
+                    { message : textmodels.ERROR_MESSAGES.TOO_MANY_MODELS });
+
+                assert(poolStub.notCalled);
+                assert(createStub.notCalled);
             });
         });
 

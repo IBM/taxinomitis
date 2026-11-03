@@ -1440,15 +1440,16 @@ async function updateBluemixCredentialsPoolTimestamp(credentials: TrainingObject
     return credentials;
 }
 
-// the query records which table each row came from
+// the query records which table each row came from 
+//  (the poolid identifies which pool)
 interface CombinedCredentialsDbRow extends TrainingObjects.BluemixCredentialsPoolDbRow {
-    readonly source: TrainingObjects.CredentialSource;
+    readonly source: 'pool' | 'class';
 }
 
 function getCombinedCredentialsFromDbRow(row: CombinedCredentialsDbRow): TrainingObjects.StoredBluemixCredentials
 {
     switch (row.source) {
-    case 'managed-pool':
+    case 'pool':
         return dbobjects.getCredentialsPoolFromDbRow(row);
     case 'class':
         return dbobjects.getCredentialsFromDbRow(row);
@@ -1463,7 +1464,7 @@ export async function getCombinedBluemixCredentialsById(credentialsid: string): 
                            'FROM bluemixcredentials ' +
                            'WHERE id = $1 ' +
                        'UNION ' +
-                       'SELECT \'managed-pool\' as source, ' +
+                       'SELECT \'pool\' as source, ' +
                               'id, \'managedpooluse\' as classid, servicetype, url, username, password, credstypeid, lastfail, poolid ' +
                            'FROM bluemixcredentialspool ' +
                            'WHERE id = $1';
@@ -1790,16 +1791,16 @@ export async function countTextClassifiers(classid: string): Promise<number>
 }
 
 /**
- * Counts every text service model owned by the user, including any
- *  past their expiry that haven't been deleted yet.
+ * Counts every text model owned by the user, from any service,
+ *  including any past their expiry that haven't been deleted yet.
  */
-export async function countTextServiceModelsByUser(userid: string): Promise<number>
+export async function countTextModelsByUser(userid: string): Promise<number>
 {
-    const queryName = 'dbqn-select-bluemixclassifiers-counttxtuser';
+    const queryName = 'dbqn-select-bluemixclassifiers-countuser';
     const queryString = 'SELECT COUNT(*) AS count ' +
                         'FROM bluemixclassifiers ' +
-                        'WHERE userid = $1 AND servicetype = $2';
-    const queryValues = [ userid, 'txt' ];
+                        'WHERE userid = $1';
+    const queryValues = [ userid ];
 
     const response = await dbExecute(queryName, queryString, queryValues);
     const rows = response.rows;
@@ -1807,7 +1808,7 @@ export async function countTextServiceModelsByUser(userid: string): Promise<numb
     /* istanbul ignore if */
     // even if there are none, a SELECT COUNT(*) should return 0
     if (rows.length !== 1) {
-        log.error({ rows, func: 'countTextServiceModelsByUser' }, 'Unexpected response from DB');
+        log.error({ rows, func: 'countTextModelsByUser' }, 'Unexpected response from DB');
         return 0;
     }
 

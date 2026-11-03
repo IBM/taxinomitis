@@ -378,9 +378,9 @@ describe('DB store - text classifier heads', () => {
             const started = new Date('2026-11-02T10:00:00Z');
             const model = createTrainingModel(project, started);
 
-            assert.strictEqual(await store.countTextServiceModelsByUser(project.userid), 0);
+            assert.strictEqual(await store.countTextModelsByUser(project.userid), 0);
             await store.createTextServiceTraining(project, model, started);
-            assert.strictEqual(await store.countTextServiceModelsByUser(project.userid), 1);
+            assert.strictEqual(await store.countTextModelsByUser(project.userid), 1);
 
             await store.deleteTextClassifier(model.id);
         });

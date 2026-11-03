@@ -249,6 +249,9 @@ CREATE INDEX textclassifiers_deletebyuserid ON mlforkidsdb.textclassifiers USING
 -- update (2 Nov 2026) - new indexes
 --  (replaces bluemixcredentialspool_getbluemixcredentials, which can be dropped once this is in place)
 CREATE INDEX bluemixcredentialspool_getpoolbatch ON mlforkidsdb.bluemixcredentialspool USING btree (poolid, servicetype, lastfail);
+-- update (3 Nov 2026) - new indexes
+--  (replaces bluemixclassifiers_countclassifiersbyuserid, which can be dropped once this is in place)
+CREATE INDEX bluemixclassifiers_countmodelsbyuserid ON mlforkidsdb.bluemixclassifiers USING btree (userid);
 
 
 ALTER DATABASE mlforkidsdb SET search_path to mlforkidsdb;

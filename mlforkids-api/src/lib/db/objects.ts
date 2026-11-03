@@ -625,7 +625,7 @@ export function isPoolCredentials(
     credentials: TrainingObjects.StoredBluemixCredentials,
 ): credentials is TrainingObjects.BluemixCredentialsPool
 {
-    return credentials.source === 'managed-pool';
+    return credentials.source !== 'class';
 }
 
 function getPoolCredentialSource(poolid: number): TrainingObjects.PoolCredentialSource

@@ -13,6 +13,7 @@ import * as textmodels from '../../lib/training/textmodels';
 import * as DbTypes from '../../lib/db/db-types';
 import * as TrainingTypes from '../../lib/training/training-types';
 import * as requestUtil from '../../lib/utils/request';
+import * as notifications from '../../lib/notifications/slack';
 
 import * as mockstore from './mockstore';
 import {
@@ -281,6 +282,122 @@ describe('Training - Conversation', () => {
             await assert.rejects(
                 () => conversation.classify(creds, 'toolong', new Date(), 'Hello'),
                 { message : textmodels.ERROR_MESSAGES.TEXT_TOO_LONG });
+        });
+    });
+
+
+
+    describe('credential pools', () => {
+
+        const largePoolCreds: TrainingTypes.BluemixCredentialsPool = {
+            ...mockstore.poolCreds,
+            source : 'large-pool',
+            id : '789',
+            url : 'http://large.conversation.service',
+        };
+
+        let poolStub: sinon.SinonStub<any, any>;
+        let poolFailureStub: sinon.SinonStub<any, any>;
+        let poolDeletionStub: sinon.SinonStub<any, any>;
+        let notifyStub: sinon.SinonStub<any, any>;
+
+        before(() => {
+            poolStub = sinon.stub(store, 'getBluemixCredentialsPoolBatch');
+            poolFailureStub = sinon.stub(store, 'recordBluemixCredentialsPoolFailure');
+            poolDeletionStub = sinon.stub(store, 'recordBluemixCredentialsPoolModelDeletion');
+            notifyStub = sinon.stub(notifications, 'notify');
+            authByIdStoreStub.withArgs(largePoolCreds.id).resolves(largePoolCreds);
+        });
+        afterEach(() => {
+            poolStub.reset();
+            poolFailureStub.reset();
+            poolDeletionStub.reset();
+            notifyStub.reset();
+        });
+        after(() => {
+            poolStub.restore();
+            poolFailureStub.restore();
+            poolDeletionStub.restore();
+            notifyStub.restore();
+            authByIdStoreStub.reset();
+            authByIdStoreStub.callsFake(mockstore.getCombinedBluemixCredentialsById);
+        });
+
+
+        it('should create a workspace using the large pool', async () => {
+            poolStub.withArgs('large-pool', 'conv').resolves([ largePoolCreds ]);
+            const project = createProject('projectbob', 'Bob\'s text project', 'en');
+
+            const { workspace, credentials } = await conversation.createModel(project, TESTTENANT, 'large-pool', createTraining(project.name, 'en'));
+
+            assert.strictEqual(credentials, largePoolCreds);
+            assert.strictEqual(workspace.credentialsid, largePoolCreds.id);
+            assert(poolStub.calledOnceWith('large-pool', 'conv'));
+        });
+
+        it('should record failures against the large pool, and alert the text service channel without ids', async () => {
+            poolStub.withArgs('large-pool', 'conv').resolves([ largePoolCreds ]);
+            const project = createProject('projectbob', 'Too Many Models', 'en');
+
+            await assert.rejects(
+                () => conversation.createModel(project, TESTTENANT, 'large-pool', createTraining(project.name, 'en')),
+                { message : conversation.ERROR_MESSAGES.POOL_EXHAUSTED });
+
+            assert(poolFailureStub.calledOnceWith(largePoolCreds));
+            assert(poolStub.neverCalledWith('managed-pool'));
+
+            assert(notifyStub.calledOnce);
+            const [ text, channel ] = notifyStub.firstCall.args;
+            assert.strictEqual(channel, notifications.SLACK_CHANNELS.TEXT_SERVICE);
+            assert(text.includes('large-pool'));
+            assert(!text.includes(project.id));
+            assert(!text.includes(project.classid));
+        });
+
+        it('should alert about the managed pool in the training errors channel without ids', async () => {
+            poolStub.withArgs('managed-pool', 'conv').resolves([ mockstore.poolCreds ]);
+            const project = createProject('projectbob', 'Too Many Models', 'en');
+
+            await assert.rejects(
+                () => conversation.createModel(project, TESTTENANT, 'managed-pool', createTraining(project.name, 'en')),
+                { message : conversation.ERROR_MESSAGES.POOL_EXHAUSTED });
+
+            assert(poolFailureStub.calledOnceWith(mockstore.poolCreds));
+
+            const [ text, channel ] = notifyStub.firstCall.args;
+            assert.strictEqual(channel, notifications.SLACK_CHANNELS.TRAINING_ERRORS);
+            assert(text.includes('managed-pool'));
+            assert(!text.includes(project.id));
+        });
+
+        it('should record deletions of models using the large pool against the large pool', async () => {
+            await conversation.deleteModel({ ...goodClassifier, credentialsid : largePoolCreds.id });
+
+            assert(poolDeletionStub.calledOnceWith(largePoolCreds));
+        });
+
+        it('should check every pool for orphaned workspaces, even if one is empty', async () => {
+            poolStub.withArgs('managed-pool', 'conv').rejects(new Error('Unexpected response when retrieving service credentials'));
+            poolStub.withArgs('large-pool', 'conv').resolves([ largePoolCreds ]);
+            authStoreStub.withArgs(sinon.match.has('id', 'session-users'), 'conv').resolves([]);
+            const getClassStub = sinon.stub(store, 'getClassTenant').resolves({ ...TESTTENANT, id : 'session-users' });
+            getStub.withArgs('http://large.conversation.service/v1/workspaces', sinon.match.any).resolves({ workspaces : [] });
+            getStub.resetHistory();
+
+            try {
+                await conversation.cleanupOrphanedBluemixClassifiers();
+
+                assert(poolStub.calledWith('managed-pool', 'conv'));
+                assert(poolStub.calledWith('large-pool', 'conv'));
+                assert(getStub.calledOnceWith('http://large.conversation.service/v1/workspaces'));
+            }
+            finally {
+                getClassStub.restore();
+                authStoreStub.reset();
+                authStoreStub.callsFake(mockstore.getBluemixCredentials);
+                getStub.reset();
+                getStub.callsFake(mockConversation.getClassifier);
+            }
         });
     });
 

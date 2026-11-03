@@ -87,30 +87,129 @@ export async function trainClassifierForProject(
 }
 
 
+// the default size of training (in weighted characters, see
+//  countWeightedCharacters) that is too large for the text service,
+//  so is trained using Watson Assistant instead
+// it can be changed using the TEXT_SERVICE_LARGE_THRESHOLD env var
+//  e.g. lowered if the text service struggles with mid-sized training,
+//  or set to 0 to send every new model to Watson Assistant
+export const LARGE_TRAINING_THRESHOLD = 100000;
+
+// how much each character counts towards the size of training, for
+//  languages that the text service takes longer to train (languages
+//  that aren't listed have a weight of 1)
+const LANGUAGE_WEIGHTS: { readonly [language in DbObjects.TextProjectLanguage]?: number } = {
+    'ko' : 3,
+    'ja' : 3,
+    'zh-cn' : 3,
+    'zh-tw' : 3,
+    'ar' : 1.5,
+};
+
+
+/**
+ * The size of training, as the number of characters in the examples,
+ *  weighted by the language.
+ *
+ * Characters are counted as Unicode code points, as the text
+ *  service counts them.
+ */
+function countWeightedCharacters(training: TrainingObjects.ConversationTrainingData): number
+{
+    let chars = 0;
+    for (const intent of training.intents) {
+        for (const example of intent.examples) {
+            chars += [ ...example.text ].length;
+        }
+    }
+    const weight = LANGUAGE_WEIGHTS[training.language as DbObjects.TextProjectLanguage] ?? 1;
+    return chars * weight;
+}
+
+function getLargeTrainingThreshold(): number
+{
+    const configured = process.env[env.TEXT_SERVICE_LARGE_THRESHOLD];
+    if (configured === undefined) {
+        return LARGE_TRAINING_THRESHOLD;
+    }
+    if (/^\d+$/.test(configured.trim())) {
+        return parseInt(configured, 10);
+    }
+    log.warn({ configured }, 'Invalid ' + env.TEXT_SERVICE_LARGE_THRESHOLD + ', using the default');
+    return LARGE_TRAINING_THRESHOLD;
+}
+
+function isLargeTraining(training: TrainingObjects.ConversationTrainingData): boolean
+{
+    return countWeightedCharacters(training) >= getLargeTrainingThreshold();
+}
+
+
 // error thrown by the store if a class has no Watson Assistant credentials
 const NO_CREDENTIALS_ERROR = 'Unexpected response when retrieving service credentials';
 
 
-async function chooseServiceForNewModel(tenantPolicy: DbObjects.ClassTenant): Promise<TrainingObjects.BluemixTextServiceType>
+/**
+ * Where a new model is trained: the text service, or Watson
+ *  Assistant using credentials from the given source.
+ */
+type NewModelService = {
+    readonly servicetype: 'txt';
+} | {
+    readonly servicetype: 'conv';
+    readonly source: TrainingObjects.CredentialSource;
+};
+
+
+/**
+ * Where the class's Watson Assistant credentials come from, or 'none'
+ *  for a class that has to provide its own, but hasn't.
+ */
+async function getClassCredentialSource(tenantPolicy: DbObjects.ClassTenant): Promise<TrainingObjects.CredentialSource | 'none'>
 {
     if (tenantPolicy.id === sessionusers.CLASS_NAME) {
-        return 'conv';
+        return 'class';
     }
 
-    if (tenantPolicy.tenantType !== DbObjects.ClassTenantType.UnManaged) {
-        return 'conv';
+    switch (tenantPolicy.tenantType) {
+    case DbObjects.ClassTenantType.ManagedPool:
+        return 'managed-pool';
+    case DbObjects.ClassTenantType.Managed:
+        return 'class';
+    case DbObjects.ClassTenantType.UnManaged:
+        return await hasWatsonAssistantCredentials(tenantPolicy) ? 'class' : 'none';
+    }
+}
+
+
+async function chooseServiceForNewModel(
+    project: DbObjects.Project | DbObjects.LocalProject,
+    tenantPolicy: DbObjects.ClassTenant,
+    training: TrainingObjects.ConversationTrainingData,
+): Promise<NewModelService>
+{
+    const source = await getClassCredentialSource(tenantPolicy);
+    if (source !== 'none') {
+        return { servicetype : 'conv', source };
     }
 
-    if (await hasWatsonAssistantCredentials(tenantPolicy)) {
-        return 'conv';
+    if (!env.isTextServiceConfigured()) {
+        // the class has no way to train a text model
+        throw new Error(NO_CREDENTIALS_ERROR);
     }
 
-    if (env.isTextServiceConfigured()) {
-        return 'txt';
+    // a class without keys shares the text service and the large pool,
+    //  so every model it has counts towards the limit, whichever
+    //  service it is from
+    const numModels = await store.countTextModelsByUser(project.userid);
+    if (numModels >= tenantPolicy.maxProjectsPerUser) {
+        throw new Error(ERROR_MESSAGES.TOO_MANY_MODELS);
     }
 
-    // the class has no way to train a text model
-    throw new Error(NO_CREDENTIALS_ERROR);
+    if (isLargeTraining(training)) {
+        return { servicetype : 'conv', source : 'large-pool' };
+    }
+    return { servicetype : 'txt' };
 }
 
 async function hasWatsonAssistantCredentials(tenantPolicy: DbObjects.ClassTenant): Promise<boolean>
@@ -134,37 +233,33 @@ async function createNewModel(
     training: TrainingObjects.ConversationTrainingData,
 ): Promise<TrainingObjects.TextClassifier>
 {
-    const servicetype = await chooseServiceForNewModel(tenantPolicy);
-    switch (servicetype) {
+    const service = await chooseServiceForNewModel(project, tenantPolicy, training);
+    switch (service.servicetype) {
     case 'conv':
-        return createNewWatsonAssistantModel(project, tenantPolicy, training);
+        return createNewWatsonAssistantModel(project, tenantPolicy, service.source, training);
     case 'txt':
         return createNewTextServiceModel(project, tenantPolicy, training);
     }
 }
 
 
-/**
- * Chooses where the credentials for a new Watson Assistant model come from.
- */
-function chooseCredentialSource(tenantPolicy: DbObjects.ClassTenant): TrainingObjects.CredentialSource
-{
-    if (tenantPolicy.tenantType === DbObjects.ClassTenantType.ManagedPool) {
-        return 'managed-pool';
-    }
-    return 'class';
-}
-
-
 async function createNewWatsonAssistantModel(
     project: DbObjects.Project | DbObjects.LocalProject,
     tenantPolicy: DbObjects.ClassTenant,
+    source: TrainingObjects.CredentialSource,
     training: TrainingObjects.ConversationTrainingData,
 ): Promise<TrainingObjects.TextClassifier>
 {
-    const source = chooseCredentialSource(tenantPolicy);
-    const { workspace, credentials } = await conversation.createModel(project, tenantPolicy, source, training);
+    const created = await conversation.createModel(project, tenantPolicy, source, training);
+    return storeNewWatsonAssistantModel(project, created);
+}
 
+
+async function storeNewWatsonAssistantModel(
+    project: DbObjects.Project | DbObjects.LocalProject,
+    { workspace, credentials }: conversation.WorkspaceWithCredentials,
+): Promise<TrainingObjects.TextClassifier>
+{
     try {
         await store.storeTextClassifier(project, workspace);
         await store.storeOrUpdateScratchKey(project, credentials, workspace.workspace_id, workspace.created);
@@ -185,11 +280,6 @@ async function createNewTextServiceModel(
     training: TrainingObjects.ConversationTrainingData,
 ): Promise<TrainingObjects.TextClassifier>
 {
-    const numModels = await store.countTextServiceModelsByUser(project.userid);
-    if (numModels >= tenantPolicy.maxProjectsPerUser) {
-        throw new Error(ERROR_MESSAGES.TOO_MANY_MODELS);
-    }
-
     const now = new Date();
     const id = randomUUID();
     const model: TrainingObjects.TextClassifier = {
@@ -259,17 +349,7 @@ async function startTraining(
     training: TrainingObjects.ConversationTrainingData,
 ): Promise<void>
 {
-    try {
-        await store.storeOrUpdateScratchKey(project, getTextServiceScratchKeyCredentials(project), id, started);
-    }
-    catch (err) {
-        log.error({ err, project : project.id, model : id }, 'Failed to store Scratch key for text model');
-        notifyTextServiceStoreFailure(err);
-        // nothing will train the model, so record that the training
-        //  failed, so that the student can try again
-        await recordTrainingFailure(id, started);
-        throw err;
-    }
+    await storeScratchKeyPlaceholder(project, id, started);
 
     const job: TextServiceTrainingJob = { projectid : project.id, tenantPolicy, id, started, training };
     const running: Promise<void> = runTraining(job)
@@ -281,6 +361,29 @@ async function startTraining(
             runningTrainings.delete(running);
         });
     runningTrainings.set(running, job);
+}
+
+
+/**
+ * Points the Scratch key at the model's placeholder id, while
+ *  the model is training.
+ */
+async function storeScratchKeyPlaceholder(
+    project: DbObjects.Project | DbObjects.LocalProject,
+    id: string, started: Date,
+): Promise<void>
+{
+    try {
+        await store.storeOrUpdateScratchKey(project, getTextServiceScratchKeyCredentials(project), id, started);
+    }
+    catch (err) {
+        log.error({ err, project : project.id, model : id }, 'Failed to store Scratch key for text model');
+        notifyTextServiceStoreFailure(err);
+        // nothing will train the model, so record that the training
+        //  failed, so that the student can try again
+        await recordTrainingFailure(id, started);
+        throw err;
+    }
 }
 
 
@@ -382,6 +485,10 @@ async function retrainTextServiceModel(
         throw err;
     }
 
+    if (isLargeTraining(training)) {
+        return moveToWatsonAssistant(project, tenantPolicy, existing, started, training);
+    }
+
     await startTraining(project, tenantPolicy, existing.id, started, training);
 
     return {
@@ -390,6 +497,60 @@ async function retrainTextServiceModel(
         updated : started,
         status : 'Training',
     };
+}
+
+
+/**
+ * Replaces a text service model with a Watson Assistant model, for
+ *  training that has become too large for the text service. The
+ *  project then stays on Watson Assistant.
+ *
+ * The text service model has been claimed for this training, so it
+ *  is kept (with its placeholder id) while the Watson Assistant model
+ *  is created, so that duplicate requests are told it is training.
+ *  It is deleted even if the Watson Assistant model can't be created,
+ *  so that a failed move leaves no model, as a failed retrain does.
+ */
+async function moveToWatsonAssistant(
+    project: DbObjects.Project | DbObjects.LocalProject,
+    tenantPolicy: DbObjects.ClassTenant,
+    existing: TrainingObjects.TextClassifier,
+    started: Date,
+    training: TrainingObjects.ConversationTrainingData,
+): Promise<TrainingObjects.TextClassifier>
+{
+    log.info({ project : project.id, model : existing.id }, 'Moving text model to Watson Assistant');
+
+    await storeScratchKeyPlaceholder(project, existing.id, started);
+
+    const classSource = await getClassCredentialSource(tenantPolicy);
+    const source = classSource === 'none' ? 'large-pool' : classSource;
+
+    let created: conversation.WorkspaceWithCredentials | undefined;
+    let createError: Error | undefined;
+    try {
+        created = await conversation.createModel(project, tenantPolicy, source, training);
+    }
+    catch (err) {
+        createError = err;
+    }
+
+    try {
+        await deleteModelRecords({ ...existing, workspace_id : existing.id });
+    }
+    catch (err) {
+        log.error({ err, project : project.id, model : existing.id }, 'Failed to delete text model moving to Watson Assistant');
+        notifyTextServiceStoreFailure(err);
+        // the student can try again straight away, instead of
+        //  waiting for the training to be abandoned
+        await recordTrainingFailure(existing.id, started);
+        throw createError ?? err;
+    }
+
+    if (!created) {
+        throw createError;
+    }
+    return storeNewWatsonAssistantModel(project, created);
 }
 
 
