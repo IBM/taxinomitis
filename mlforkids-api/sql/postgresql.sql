@@ -243,7 +243,7 @@ CREATE INDEX bluemixclassifiers_deletenlcclassifier ON mlforkidsdb.bluemixclassi
 CREATE INDEX bluemixclassifiers_getclassifier ON mlforkidsdb.bluemixclassifiers USING btree (projectid, classifierid);
 CREATE INDEX bluemixclassifiers_getservicecredentials ON mlforkidsdb.bluemixclassifiers USING btree (servicetype, classifierid, projectid, classid, userid);
 CREATE INDEX bluemixcredentials_getbluemixcredentials ON mlforkidsdb.bluemixcredentials USING btree (classid, servicetype);
-CREATE INDEX bluemixcredentialspool_getbluemixcredentials ON mlforkidsdb.bluemixcredentialspool USING btree (servicetype, lastfail);
+-- CREATE INDEX bluemixcredentialspool_getbluemixcredentials ON mlforkidsdb.bluemixcredentialspool USING btree (servicetype, lastfail);
 CREATE INDEX imagetraining_getimagetraining ON mlforkidsdb.imagetraining USING btree (projectid, label, substr(imageurl, 250));
 CREATE INDEX imagetraining_gettraininglabels ON mlforkidsdb.imagetraining USING btree (projectid);
 CREATE INDEX numbersprojectsfields_getbyprojectid ON mlforkidsdb.numbersprojectsfields USING btree (userid, classid, projectid);
@@ -265,7 +265,7 @@ CREATE INDEX taxinoclassifiers_getclassifiersbyuserid ON mlforkidsdb.taxinoclass
 CREATE INDEX taxinoclassifiers_getclassifiersbyclassid ON mlforkidsdb.taxinoclassifiers USING btree (classid);
 CREATE INDEX taxinoclassifiers_deleteclassifiers ON mlforkidsdb.taxinoclassifiers USING btree (projectid, userid);
 -- update (31 Oct 2026) - new indexes
-CREATE INDEX bluemixclassifiers_countclassifiersbyuserid ON mlforkidsdb.bluemixclassifiers USING btree (userid, servicetype);
+-- CREATE INDEX bluemixclassifiers_countclassifiersbyuserid ON mlforkidsdb.bluemixclassifiers USING btree (userid, servicetype);
 -- update (1 Nov 2026) - new indexes
 CREATE UNIQUE INDEX textclassifiers_oneperproject ON mlforkidsdb.textclassifiers USING btree (projectid);
 CREATE INDEX textclassifiers_deletebyuserid ON mlforkidsdb.textclassifiers USING btree (userid);
@@ -275,7 +275,9 @@ CREATE INDEX bluemixcredentialspool_getpoolbatch ON mlforkidsdb.bluemixcredentia
 -- update (3 Nov 2026) - new indexes
 --  (replaces bluemixclassifiers_countclassifiersbyuserid, which can be dropped once this is in place)
 CREATE INDEX bluemixclassifiers_countmodelsbyuserid ON mlforkidsdb.bluemixclassifiers USING btree (userid);
-
+-- update (3 Nov 2026) - redundant indexes
+-- DROP INDEX bluemixclassifiers_countclassifiersbyuserid;
+-- DROP INDEX bluemixcredentialspool_getbluemixcredentials;
 
 ALTER DATABASE mlforkidsdb SET search_path to mlforkidsdb;
 
