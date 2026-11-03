@@ -6,10 +6,11 @@ import { status as httpStatus } from 'http-status';
 import * as store from '../db/store';
 import * as iam from '../iam';
 import * as DbObjects from '../db/db-types';
+import { isPoolCredentials } from '../db/objects';
 import * as TrainingObjects from './training-types';
+import * as textmodels from './textmodels';
 import * as notifications from '../notifications/slack';
 import { shuffle } from '../utils/helpers';
-import * as plaintext from '../utils/plaintext';
 import * as request from '../utils/request';
 import loggerSetup from '../utils/logger';
 
@@ -18,7 +19,6 @@ const log = loggerSetup();
 
 
 export const ERROR_MESSAGES = {
-    UNKNOWN : 'Failed to train machine learning model',
     INSUFFICIENT_API_KEYS : 'Your class already has created their maximum allowed number of models. ' +
                             'Please let your teacher or group leader know that ' +
                             'their "Watson Assistant API keys have no more skills available"',
@@ -30,14 +30,17 @@ export const ERROR_MESSAGES = {
                          'at too fast a rate. ' +
                          'Please stop now and let your teacher or group leader know that ' +
                          '"the Watson Assistant service is currently rate limiting their API key"',
-    MODEL_NOT_FOUND : 'Your machine learning model could not be found on the training server.',
-    TEXT_TOO_LONG : 'text cannot be longer than 2048 characters',
-    TEXT_NOT_PLAIN : 'Text to classify must be plain text',
-    SERVICE_ERROR : 'The Watson Assistant service that runs your machine learning model reported an unexpected error',
     MAINTENANCE : 'Sorry, the IBM Watson Assistant service used to train models to recognise text is currently undergoing maintenance',
     SKILL_IN_USE : 'Machine Learning for Kids is not allowed to delete this Watson Assistant workspace because ' +
                    'it is being used. Please delete it from IBM Cloud.',
 };
+
+// Error message returned by the Watson Assistant API when the text to
+//  classify is too long. Matched against WA responses, so it must stay
+//  identical to the WA API text (not reworded for users)
+const WA_TEXT_TOO_LONG = 'text cannot be longer than 2048 characters';
+
+const SERVICE_TYPE: TrainingObjects.BluemixTextServiceType = 'conv';
 
 
 // Builds the URL of a Watson Assistant workspace, safely encoding the
@@ -55,47 +58,71 @@ function isMaintenanceError(err: any): boolean {
 }
 
 
-export async function trainClassifier(
-    project: DbObjects.Project,
-): Promise<TrainingObjects.ConversationWorkspace>
-{
-    const training = await getTraining(project);
-
-    return trainClassifierForProject(project, training);
+/**
+ * A Watson Assistant workspace, together with the credentials
+ *  that were used to create or update it.
+ */
+export interface WorkspaceWithCredentials {
+    readonly workspace: TrainingObjects.TextClassifier;
+    readonly credentials: TrainingObjects.BluemixCredentials;
 }
 
 
-export async function trainClassifierForProject(
+/**
+ * Creates a new Watson Assistant workspace, using credentials
+ *  from the given source.
+ */
+export async function createModel(
     project: DbObjects.Project | DbObjects.LocalProject,
+    tenantPolicy: DbObjects.ClassTenant,
+    source: TrainingObjects.CredentialSource,
     training: TrainingObjects.ConversationTrainingData,
-): Promise<TrainingObjects.ConversationWorkspace>
+): Promise<WorkspaceWithCredentials>
 {
-    let workspace: TrainingObjects.ConversationWorkspace;
-
-    // determine when the Conversation workspace should be deleted
-    const tenantPolicy = await store.getClassTenant(project.classid);
-
-    const existingWorkspaces = await store.getConversationWorkspaces(project.id);
-    if (existingWorkspaces.length > 0) {
-        workspace = existingWorkspaces[0];
-
-        const credentials = await store.getBluemixCredentialsById(tenantPolicy.tenantType, workspace.credentialsid);
-
-        workspace = await updateWorkspace(project, credentials, workspace, training, tenantPolicy);
-    }
-    else {
-        let credentials;
-        if (tenantPolicy.tenantType === DbObjects.ClassTenantType.ManagedPool) {
-            credentials = await store.getBluemixCredentialsPoolBatch('conv');
-        }
-        else {
-            credentials = await store.getBluemixCredentials(tenantPolicy, 'conv');
-        }
-
-        workspace = await createWorkspace(project, credentials, training, tenantPolicy);
+    let credentials: TrainingObjects.StoredBluemixCredentials[];
+    switch (source) {
+    case 'managed-pool':
+    case 'large-pool':
+        credentials = await store.getBluemixCredentialsPoolBatch(source, 'conv');
+        break;
+    case 'class':
+        credentials = await store.getBluemixCredentials(tenantPolicy, 'conv');
+        break;
     }
 
-    return workspace;
+    return createWorkspace(project, credentials, source, training, tenantPolicy);
+}
+
+
+/**
+ * Replaces the training in an existing Watson Assistant workspace.
+ *
+ * Throws MODEL_NOT_FOUND if the workspace no longer exists in Watson Assistant.
+ */
+export async function updateModel(
+    project: DbObjects.Project | DbObjects.LocalProject,
+    tenantPolicy: DbObjects.ClassTenant,
+    credentials: TrainingObjects.StoredBluemixCredentials,
+    workspace: TrainingObjects.TextClassifier,
+    training: TrainingObjects.ConversationTrainingData,
+): Promise<WorkspaceWithCredentials>
+{
+    const modified = await updateWorkspace(project, credentials, workspace, training, tenantPolicy);
+    return { workspace : modified, credentials };
+}
+
+
+/**
+ * Returns the credentials needed to access an existing Watson Assistant workspace.
+ *
+ * The credentials can be the class's own, or from a pool, whatever the
+ *  type of the class. Their source property says which.
+ */
+export function getModelCredentials(
+    workspace: TrainingObjects.TextClassifier,
+): Promise<TrainingObjects.StoredBluemixCredentials>
+{
+    return store.getCombinedBluemixCredentialsById(workspace.credentialsid);
 }
 
 
@@ -103,56 +130,48 @@ export async function trainClassifierForProject(
 
 async function createWorkspace(
     project: DbObjects.Project | DbObjects.LocalProject,
-    credentialsPool: TrainingObjects.BluemixCredentials[],
+    credentialsPool: TrainingObjects.StoredBluemixCredentials[],
+    source: TrainingObjects.CredentialSource,
     training: TrainingObjects.ConversationTrainingData,
     tenantPolicy: DbObjects.ClassTenant,
-): Promise<TrainingObjects.ConversationWorkspace>
+): Promise<WorkspaceWithCredentials>
 {
-    let workspace;
-
     const id: string = randomUUID();
 
-    let finalError:string;
-    let shuffledCredentialsPool: TrainingObjects.BluemixCredentials[];
+    // Unless we see a different error, if this doesn't work, the reason
+    //  will be that we don't have room for any new workspaces with the
+    //  available credentials
+    //  (only tell the teacher to fix it if they're the one who can)
+    const exhaustedError = source === 'class' ?
+        ERROR_MESSAGES.INSUFFICIENT_API_KEYS :
+        ERROR_MESSAGES.POOL_EXHAUSTED;
 
-    if (tenantPolicy.tenantType === DbObjects.ClassTenantType.ManagedPool) {
-        // Unless we see a different error, if this doesn't work, the reason
-        //  will be that we don't have room for any new workspaces with the
-        //  available credentials
-        finalError = ERROR_MESSAGES.POOL_EXHAUSTED;
+    let finalError = exhaustedError;
+    let shuffledCredentialsPool: TrainingObjects.StoredBluemixCredentials[];
 
-        // don't shuffle the pool for managed requests, as this helps to
-        //  reduce the number of service instances used
-        shuffledCredentialsPool = credentialsPool;
-    }
-    else {
-        // Unless we see a different error, if this doesn't work, the reason
-        //  will be that we don't have room for any new workspaces with the
-        //  available credentials
-        finalError = ERROR_MESSAGES.INSUFFICIENT_API_KEYS;
-
+    if (source === 'class') {
         // shuffle the pool of credentials so the usage will be distributed
         //  across the set, rather than always directing training requests to
         //  the first creds in the pool
         shuffledCredentialsPool = shuffle(credentialsPool);
+    }
+    else {
+        // don't shuffle a shared pool, as this helps to
+        //  reduce the number of service instances used
+        shuffledCredentialsPool = credentialsPool;
     }
 
 
     for (const credentials of shuffledCredentialsPool) {
         try {
             const url = credentials.url + '/v1/workspaces';
-            workspace = await submitTrainingToConversation(
+            const workspace = await submitTrainingToConversation(
                 project,
                 credentials, url, training,
                 id,
                 tenantPolicy);
 
-            await store.storeConversationWorkspace(credentials, project, workspace);
-
-            await store.storeOrUpdateScratchKey(project,
-                credentials, workspace.workspace_id, workspace.created);
-
-            return workspace;
+            return { workspace, credentials };
         }
         catch (err) {
             if (err.error &&
@@ -163,9 +182,7 @@ async function createWorkspace(
                 //  number of workspaces allowed with these creds.
                 // So we'll swallow the error so we can try the next set of
                 //  creds in the pool
-                finalError = tenantPolicy.tenantType === DbObjects.ClassTenantType.ManagedPool ?
-                    ERROR_MESSAGES.POOL_EXHAUSTED :
-                    ERROR_MESSAGES.INSUFFICIENT_API_KEYS;
+                finalError = exhaustedError;
             }
             else if (err.statusCode === httpStatus.TOO_MANY_REQUESTS ||
                      (err.error &&
@@ -200,9 +217,8 @@ async function createWorkspace(
                 // This shouldn't happen.
                 // It probably needs more immediate attention, so notify the Slack bot
                 notifications.notify('Unexpected failure to train text classifier' +
-                                    ' for project : ' + project.id +
-                                    ' in class : ' + project.classid + ' : ' +
-                                    err.message, notifications.SLACK_CHANNELS.TRAINING_ERRORS);
+                                    describeTraining(project, source) + ' : ' +
+                                    err.message, getSlackChannel(source));
 
                 throw err;
             }
@@ -222,13 +238,13 @@ async function createWorkspace(
     let notifySlackBot = false;
     switch (finalError) {
     case ERROR_MESSAGES.POOL_EXHAUSTED:
-        // managedpool is full - that should never happen!
+        // a pool is full - that should never happen!
         notifySlackBot = true;
         break;
     case ERROR_MESSAGES.API_KEY_RATE_LIMIT:
         // teacher is probably exceeding Lite plan limits - user error
-        if (tenantPolicy.tenantType === DbObjects.ClassTenantType.ManagedPool) {
-            // shouldn't be possible with Plus plans used in the pool
+        if (source !== 'class') {
+            // shouldn't be possible with Plus plans used in a pool
             notifySlackBot = true;
         }
         break;
@@ -241,14 +257,41 @@ async function createWorkspace(
     }
 
     if (notifySlackBot) {
+        log.error({ project : project.id, classid : project.classid, source, finalError }, 'Failed to train text classifier');
         notifications.notify('Failed to train text classifier' +
-                                ' for project : ' + project.id +
-                                ' in class : ' + project.classid +
+                                describeTraining(project, source) +
                                 ' because:\n' + finalError,
-                                notifications.SLACK_CHANNELS.TRAINING_ERRORS);
+                                getSlackChannel(source));
     }
 
     throw new Error(finalError);
+}
+
+
+/**
+ * Describes a training for a Slack alert. Trainings using a pool
+ *  name the pool instead of the project and class, so that repeated
+ *  alerts are the same, and are collapsed by the notifications module.
+ */
+function describeTraining(project: DbObjects.Project | DbObjects.LocalProject, source: TrainingObjects.CredentialSource): string
+{
+    if (source === 'class') {
+        return ' for project : ' + project.id +
+               ' in class : ' + project.classid;
+    }
+    return ' using the ' + source + ' credentials';
+}
+
+/**
+ * Alerts about the large pool go to the text service channel, as
+ *  it is used by classes that would otherwise use the text service.
+ */
+function getSlackChannel(source: TrainingObjects.CredentialSource): string
+{
+    if (source === 'large-pool') {
+        return notifications.SLACK_CHANNELS.TEXT_SERVICE;
+    }
+    return notifications.SLACK_CHANNELS.TRAINING_ERRORS;
 }
 
 
@@ -257,26 +300,19 @@ async function createWorkspace(
 
 async function updateWorkspace(
     project: DbObjects.Project | DbObjects.LocalProject,
-    credentials: TrainingObjects.BluemixCredentials,
-    workspace: TrainingObjects.ConversationWorkspace,
+    credentials: TrainingObjects.StoredBluemixCredentials,
+    workspace: TrainingObjects.TextClassifier,
     training: TrainingObjects.ConversationTrainingData,
     tenantPolicy: DbObjects.ClassTenant,
-): Promise<TrainingObjects.ConversationWorkspace>
+): Promise<TrainingObjects.TextClassifier>
 {
     const url = workspaceUrl(credentials.url, workspace.workspace_id);
 
     try {
-        const modified = await submitTrainingToConversation(
+        return await submitTrainingToConversation(
             project,
             credentials, url, training, workspace.id,
             tenantPolicy);
-
-        await store.updateConversationWorkspaceExpiry(modified);
-
-        const timestamp = modified.updated ? modified.updated : modified.created;
-        await store.updateScratchKeyTimestamp(project, timestamp);
-
-        return modified;
     }
     catch (err) {
         if (err.error &&
@@ -290,12 +326,7 @@ async function updateWorkspace(
         else if (err.statusCode === httpStatus.NOT_FOUND) {
             // the Conversation workspace could not be found - it was likely
             //  deleted from outside of the tool
-
-            // delete the DB reference
-            store.deleteConversationWorkspace(workspace.id);
-
-            // fail, so the user can try again and this time create a new workspace
-            throw new Error(ERROR_MESSAGES.MODEL_NOT_FOUND);
+            throw new Error(textmodels.ERROR_MESSAGES.MODEL_NOT_FOUND);
         }
         else if (isMaintenanceError(err)) {
             // IBM is doing planned maintenance on the Watson Assistant service.
@@ -312,8 +343,8 @@ async function updateWorkspace(
     }
 }
 
-async function deleteClassifierUsingCredentials(classifier: TrainingObjects.ConversationWorkspace,
-                                                credentials?: TrainingObjects.BluemixCredentials)
+async function deleteWorkspaceUsingCredentials(classifier: TrainingObjects.TextClassifier,
+                                               credentials?: TrainingObjects.BluemixCredentials)
 {
     if (credentials) {
         try {
@@ -323,48 +354,54 @@ async function deleteClassifierUsingCredentials(classifier: TrainingObjects.Conv
             log.error({ err, classifier }, 'Unable to delete Conversation workspace');
         }
     }
-
-    await store.deleteConversationWorkspace(classifier.id);
-    await store.resetExpiredScratchKey(classifier.workspace_id, 'text');
 }
 
 
-async function deleteClassifierUnknownClass(classifier: TrainingObjects.ConversationWorkspace): Promise<void>
+/**
+ * Deletes a Watson Assistant workspace, when the class that owns it isn't
+ *  known (e.g. when cleaning up expired models).
+ *
+ * Failures to find the credentials or to delete the workspace are logged,
+ *  but not thrown.
+ */
+export function deleteModelUnknownClass(classifier: TrainingObjects.TextClassifier): Promise<void>
 {
     return store.getCombinedBluemixCredentialsById(classifier.credentialsid)
         .then((creds) => {
-            return deleteClassifierUsingCredentials(classifier, creds);
+            return deleteWorkspaceUsingCredentials(classifier, creds);
         })
         .catch((err) => {
             log.error({ err, classifier }, 'Could not find credentials to delete classifier from Bluemix');
-            return deleteClassifierUsingCredentials(classifier);
         });
 }
 
 
 
 /**
- * Deletes a conversation workspace.
- *  This deletes both the classifier from Bluemix, and the record of it
- *  stored in the app's database.
+ * Deletes a Watson Assistant workspace.
+ *
+ * Failures to delete the workspace, or to record the deletion for pool
+ *  credentials, are logged, but not thrown.
  */
-export function deleteClassifier(tenant: DbObjects.ClassTenant, classifier: TrainingObjects.ConversationWorkspace): Promise<void>
+export async function deleteModel(classifier: TrainingObjects.TextClassifier): Promise<void>
 {
-    let credentials: TrainingObjects.BluemixCredentials;
+    const credentials = await getModelCredentials(classifier);
 
-    return store.getBluemixCredentialsById(tenant.tenantType, classifier.credentialsid)
-        .then((creds) => {
-            credentials = creds;
-            return deleteClassifierUsingCredentials(classifier, credentials);
-        })
-        .then(async () => {
-            if (tenant.tenantType === DbObjects.ClassTenantType.ManagedPool) {
-                // if this classifier was using credentials from the managed pool, then
-                //  we move the last-fail timestamp back an hour to prioritse reusing
-                //  these credentials for future model training requests
-                await store.recordBluemixCredentialsPoolModelDeletion(credentials as TrainingObjects.BluemixCredentialsPool);
-            }
-        });
+    await deleteWorkspaceUsingCredentials(classifier, credentials);
+
+    if (isPoolCredentials(credentials)) {
+        // if this classifier was using credentials from a pool, then
+        //  we move the last-fail timestamp back an hour to prioritse reusing
+        //  these credentials for future model training requests
+        try {
+            await store.recordBluemixCredentialsPoolModelDeletion(credentials);
+        }
+        catch (err) {
+            // this only affects which credentials are tried first, so
+            //  it shouldn't prevent the model from being deleted
+            log.error({ err, classifier }, 'Failed to record deletion of model using pool credentials');
+        }
+    }
 }
 
 
@@ -410,46 +447,39 @@ export async function deleteClassifierFromBluemix(
 
 
 /**
- * Updates the provided set of Conversation workspaces with the current status from
- *  Bluemix.
- *
- * @param classid - the tenant that the user is a member of
- * @param workspaces - set of workspaces to get status info for
- *
- * @returns the same set of workspaces, with the status and updated timestamp
- *  properties set using responses from the Bluemix REST API
+ * Gets the current status of a Watson Assistant workspace used by
+ *  a Scratch key, where only the workspace id is known.
  */
-export function getClassifierStatuses(
-    tenant: DbObjects.ClassTenant,
-    workspaces: TrainingObjects.ConversationWorkspace[],
-): Promise<TrainingObjects.ConversationWorkspace[]>
+export function getScratchKeyModelStatus(
+    credentials: TrainingObjects.BluemixCredentials,
+    workspaceId: string,
+    name: string,
+): Promise<TrainingObjects.TextClassifier>
 {
-    const credentialsCacheById: any = {};
-
-    return Promise.all(
-        workspaces.map(async (workspace) => {
-            if (workspace.credentialsid in credentialsCacheById === false) {
-                try {
-                    const creds = await store.getBluemixCredentialsById(tenant.tenantType, workspace.credentialsid);
-                    credentialsCacheById[workspace.credentialsid] = creds;
-                }
-                catch (err) {
-                    log.error({ err }, 'Credentials for Conversation workspace are missing');
-                    workspace.status = 'Unavailable';
-                    return workspace;
-                }
-            }
-            return getStatus(credentialsCacheById[workspace.credentialsid], workspace);
-        }),
-    );
+    const workspace: TrainingObjects.TextClassifier = {
+        id : 'workspaceid',
+        name,
+        workspace_id : workspaceId,
+        credentialsid : credentials.id,
+        servicetype : SERVICE_TYPE,
+        created : new Date(),
+        expiry : new Date(),
+        language : 'en',
+        url : workspaceUrl(credentials.url, workspaceId),
+    };
+    return getModelStatus(credentials, workspace);
 }
 
 
-
-export async function getStatus(
+/**
+ * Updates the provided Conversation workspace with the current status from
+ *  Watson Assistant. If the status can't be retrieved, the status is set
+ *  to 'Non Existent'.
+ */
+export async function getModelStatus(
     credentials: TrainingObjects.BluemixCredentials,
-    workspace: TrainingObjects.ConversationWorkspace,
-): Promise<TrainingObjects.ConversationWorkspace>
+    workspace: TrainingObjects.TextClassifier,
+): Promise<TrainingObjects.TextClassifier>
 {
     let req: NewConvRequest | LegacyConvRequest;
     try {
@@ -477,141 +507,14 @@ export async function getStatus(
 
 
 
-async function getTraining(project: DbObjects.Project): Promise<TrainingObjects.ConversationTrainingData> {
-    const counts = await store.countTrainingByLabel(project);
-
-    const intents: TrainingObjects.ConversationIntent[] = [];
-    for (const label of project.labels) {
-
-        if (label in counts && counts[label] > 0) {
-            const training = await store.getUniqueTrainingTextsByLabel(project.id, label, {
-                start : 0, limit : counts[label],
-            });
-
-            const intentTraining: TrainingObjects.ConversationIntent = {
-                intent : label.replace(/\s/g, '_'),
-                examples : [],
-            };
-
-            const duplicatesCheck: string[] = [];
-            for (const text of training) {
-                const caseInsensitiveText = normalizeText(text);
-
-                if (!duplicatesCheck.includes(caseInsensitiveText)) {
-                    intentTraining.examples.push({ text });
-                    duplicatesCheck.push(caseInsensitiveText);
-                }
-            }
-
-            intents.push(intentTraining);
-        }
-    }
-
-    return {
-        name : project.name,
-        language : project.language ? project.language : 'en',
-        intents,
-        dialog_nodes : [],
-        counterexamples: [],
-        entities : [],
-        metadata : {
-            createdby : 'machinelearningforkids',
-        },
-    };
-}
-
-
-
-
-export function validateTraining(obj: TrainingObjects.ConversationTrainingData): boolean
-{
-    return obj &&
-           !!obj.name &&
-           obj.language &&
-           obj.intents && Array.isArray(obj.intents) && obj.intents.every(validateIntent) &&
-           obj.entities && Array.isArray(obj.entities) &&
-           obj.dialog_nodes && Array.isArray(obj.dialog_nodes);
-}
-
-export function isPlainTextTraining(obj: TrainingObjects.ConversationTrainingData): boolean
-{
-    return obj.intents.every((intent) => {
-        return intent.examples.every((example) => plaintext.isPlainText(example.text));
-    });
-}
-
-export function sanitizeTraining(obj:TrainingObjects.ConversationTrainingData): TrainingObjects.ConversationTrainingData
-{
-    // https://cloud.ibm.com/apidocs/assistant-v1#createworkspace
-    return {
-        name : obj.name.replace(/[\t\n]/g, '_').substring(0, 64),
-        language : obj.language,
-        intents : obj.intents.map((origintent) => {
-            const normalizedExamples: string[] = [];
-            return {
-                intent : origintent.intent.replace(/[^A-Za-z0-9_\-.]/g, '_').substring(0, 128),
-                examples : origintent.examples
-                            .map(example => example.text.replace(/[\t\n]/g, ' ').trim().substring(0, 1024).trim())
-                            .filter(txt => txt.length > 0)
-                            .filter((txt) => {
-                                const normalized = normalizeText(txt);
-                                if (normalizedExamples.includes(normalized)) {
-                                    // already got something like this in the training - filter it out
-                                    return false;
-                                }
-                                else {
-                                    // record this example to prevent future duplicates being added
-                                    normalizedExamples.push(normalized);
-                                    return true;
-                                }
-                            })
-                            .map((text) => { return {text} })
-            };
-        }),
-        dialog_nodes : [],
-        counterexamples : [],
-        entities : [],
-        metadata : {
-            createdby: 'machinelearningforkids',
-        }
-    };
-}
-
-export function getLabelNamesFromTraining(obj: TrainingObjects.ConversationTrainingData): string[]
-{
-    return obj.intents.map((intentObj) => {
-        return intentObj.intent;
-    });
-}
-
-function validateIntent(obj: TrainingObjects.ConversationIntent): boolean
-{
-    return obj &&
-           !!obj.intent &&
-           obj.examples.every((example) => {
-               return typeof example.text === 'string';
-           });
-}
-
-
-export function normalizeText(text: string): string {
-    return text
-        .toLowerCase()
-        .normalize('NFD')
-        // remove accents
-        .replace(/[\u0300-\u036f]/g, '');
-}
-
-
-
 async function submitTrainingToConversation(
     project: DbObjects.Project | DbObjects.LocalProject,
-    credentials: TrainingObjects.BluemixCredentials,
+    credentials: TrainingObjects.StoredBluemixCredentials,
     url: string,
     training: TrainingObjects.ConversationTrainingData,
     id: string,
     tenantPolicy: DbObjects.ClassTenant,
-): Promise<TrainingObjects.ConversationWorkspace>
+): Promise<TrainingObjects.TextClassifier>
 {
     let req: NewTrainingRequest | LegacyTrainingRequest | undefined;
 
@@ -633,7 +536,7 @@ async function submitTrainingToConversation(
         modelAutoExpiryTime.setHours(modelAutoExpiryTime.getHours() +
                                      tenantPolicy.textClassifierExpiry);
 
-        const workspace: TrainingObjects.ConversationWorkspace = {
+        const workspace: TrainingObjects.TextClassifier = {
             id,
             name : body.name,
             language : body.language,
@@ -642,6 +545,7 @@ async function submitTrainingToConversation(
             expiry : modelAutoExpiryTime,
             workspace_id : body.workspace_id,
             credentialsid : credentials.id,
+            servicetype : SERVICE_TYPE,
             status : body.status ? body.status : 'Training',
             url : workspaceUrl(credentials.url, body.workspace_id),
         };
@@ -649,17 +553,17 @@ async function submitTrainingToConversation(
         return workspace;
     }
     catch (err) {
-        log.warn({ req, err, project : project.id, credentials : credentials.id }, ERROR_MESSAGES.UNKNOWN);
+        log.warn({ req, err, project : project.id, credentials : credentials.id }, textmodels.ERROR_MESSAGES.UNKNOWN);
 
-        if (tenantPolicy.tenantType === DbObjects.ClassTenantType.ManagedPool) {
-            await store.recordBluemixCredentialsPoolFailure(credentials as TrainingObjects.BluemixCredentialsPool);
+        if (isPoolCredentials(credentials)) {
+            await store.recordBluemixCredentialsPoolFailure(credentials);
         }
 
         // The full error object will include the Conversation request with the
         //  URL and credentials we used for it. So we don't want to return
         //  that - after logging, we create a new exception to throw, with
         //  just the bits that should be safe to share.
-        const trainingError: any = new Error(ERROR_MESSAGES.UNKNOWN);
+        const trainingError: any = new Error(textmodels.ERROR_MESSAGES.UNKNOWN);
         trainingError.error = err.error;
         trainingError.statusCode = err.statusCode;
 
@@ -670,17 +574,18 @@ async function submitTrainingToConversation(
 
 
 
-export async function testClassifier(
+/**
+ * Classifies text using a Watson Assistant workspace.
+ *
+ * @returns the matching labels - an empty list if Watson Assistant
+ *  did not match any of them
+ */
+export async function classify(
     credentials: TrainingObjects.BluemixCredentials,
     classifierId: string, classifierTimestamp: Date,
-    projectid: string,
     text: string,
 ): Promise<TrainingObjects.Classification[]>
 {
-    if (!plaintext.isPlainText(text)) {
-        throw new Error(ERROR_MESSAGES.TEXT_NOT_PLAIN);
-    }
-
     try {
         const basereq = await createBaseRequest(credentials);
         const req = {
@@ -694,15 +599,6 @@ export async function testClassifier(
         };
 
         const body = await request.post(workspaceUrl(credentials.url, classifierId) + '/message', req, true);
-        if (body.intents.length === 0) {
-            const project = await store.getProject(projectid);
-            if (project) {
-                return [ chooseLabelAtRandom(project, classifierTimestamp) ];
-            }
-            else {
-                return [];
-            }
-        }
 
         return body.intents.map((item: ConversationApiResponsePayloadIntentItem) => {
             return {
@@ -720,39 +616,26 @@ export async function testClassifier(
         if (err.statusCode === httpStatus.NOT_FOUND &&
             err.error && err.error.code && err.error.code === httpStatus.NOT_FOUND)
         {
-            throw new Error(ERROR_MESSAGES.MODEL_NOT_FOUND);
+            throw new Error(textmodels.ERROR_MESSAGES.MODEL_NOT_FOUND);
         }
         if (err.statusCode === httpStatus.BAD_REQUEST &&
             err.error &&
             err.error.code && err.error.code === httpStatus.BAD_REQUEST &&
             err.error.errors && Array.isArray(err.error.errors) && err.error.errors.length > 0 &&
-            err.error.errors[0].message === ERROR_MESSAGES.TEXT_TOO_LONG)
+            err.error.errors[0].message === WA_TEXT_TOO_LONG)
         {
-            throw new Error(ERROR_MESSAGES.TEXT_TOO_LONG);
+            throw new Error(textmodels.ERROR_MESSAGES.TEXT_TOO_LONG);
         }
         if (err.statusCode === httpStatus.SERVICE_UNAVAILABLE ||
             err.statusCode === httpStatus.BAD_GATEWAY ||
             err.statusCode === httpStatus.INTERNAL_SERVER_ERROR)
         {
-            throw new Error(ERROR_MESSAGES.SERVICE_ERROR);
+            throw new Error(textmodels.ERROR_MESSAGES.SERVICE_ERROR);
         }
 
-        log.error({ err, classifierId, credentials, projectid, text }, 'Failed to classify text');
+        log.error({ err, classifierId, credentials, text }, 'Failed to classify text');
         throw err;
     }
-}
-
-
-
-
-function chooseLabelAtRandom(project: DbObjects.Project, classifierTimestamp: Date): TrainingObjects.Classification {
-    const randomIndex = Math.floor(Math.random() * project.labels.length);
-    return {
-        class_name : project.labels[randomIndex],
-        confidence : 0,
-        random : true,
-        classifierTimestamp,
-    };
 }
 
 
@@ -853,32 +736,6 @@ export async function getTextClassifiers(
     }
 }
 
-
-
-
-export async function testMultipleCredentials(creds: TrainingObjects.BluemixCredentials[]): Promise<boolean>
-{
-    let atLeastOneValidCredential = false;
-    for (const nextcred of creds) {
-        try {
-            await getTextClassifiers(nextcred);
-            atLeastOneValidCredential = true;
-        }
-        catch (err) {
-            log.info({ nextcred, err }, 'Credentials test failed');
-        }
-    }
-    return atLeastOneValidCredential;
-}
-
-
-
-export async function cleanupExpiredClassifiers(): Promise<void[]>
-{
-    log.info('Cleaning up expired Conversation workspaces');
-    const expired: TrainingObjects.ConversationWorkspace[] = await store.getExpiredConversationWorkspaces();
-    return Promise.all(expired.map(deleteClassifierUnknownClass));
-}
 
 
 
@@ -1014,12 +871,24 @@ export interface NewTestRequest extends TestRequest, NewConvRequest {}
 
 
 async function getBluemixCredentialsToCheckForOrphans(): Promise<TrainingObjects.BluemixCredentials[]> {
-    const poolCreds = await store.getBluemixCredentialsPoolBatch('conv');
+    let allCreds: TrainingObjects.BluemixCredentials[] = [];
+
+    const pools = Object.keys(TrainingObjects.CREDENTIALS_POOL_IDS) as TrainingObjects.PoolCredentialSource[];
+    for (const pool of pools) {
+        try {
+            const poolCreds = await store.getBluemixCredentialsPoolBatch(pool, 'conv');
+            allCreds = allCreds.concat(poolCreds);
+        }
+        catch (err) {
+            // an empty pool shouldn't stop the other pools being checked
+            log.error({ err, pool }, 'Failed to get pool credentials to check for orphans');
+        }
+    }
 
     const sessionUsersClass = await store.getClassTenant('session-users');
     const sessionUserCreds = await store.getBluemixCredentials(sessionUsersClass, 'conv');
 
-    return poolCreds.concat(sessionUserCreds);
+    return allCreds.concat(sessionUserCreds);
 }
 
 

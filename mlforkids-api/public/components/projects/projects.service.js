@@ -227,16 +227,6 @@
                 });
         }
 
-        function checkProjectCredentials(tenant, type) {
-            return $http.get('/api/classes/' + tenant + '/modelsupport/' + type)
-                .then(function (resp) {
-                    return resp.data;
-                })
-                .catch(function (errresp) {
-                    return errresp.data;
-                });
-        }
-
         function shareProject(project, userid, tenant, shareState) {
             return $http.patch('/api/classes/' + tenant + '/students/' + userid + '/projects/' + project.id + '/iscrowdsourced', [
                     {
@@ -335,8 +325,6 @@
             setLanguageModelType : setLanguageModelType,
             storeSmallLanguageModelConfig : storeSmallLanguageModelConfig,
             storeToyLanguageModelConfig : storeToyLanguageModelConfig,
-
-            checkProjectCredentials : checkProjectCredentials,
 
             shareProject : shareProject,
 

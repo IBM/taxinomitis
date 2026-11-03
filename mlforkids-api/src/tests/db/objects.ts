@@ -660,6 +660,28 @@ describe('DB objects', () => {
     });
 
 
+    describe('getTextClassifierHeadFromDbRow()', () => {
+        it('should return a text classifier head from a DB row', () => {
+            const id = uuid();
+            const projectid = uuid();
+
+            const head = dbobjects.getTextClassifierHeadFromDbRow({
+                id, projectid,
+                userid : 'testuser',
+                head : Buffer.from([ 0x4d, 0x4c, 0x46, 0x4b, 0x54, 0x58, 0x54, 0x01 ]),
+                updated : new Date('2026-11-01T14:03:22Z'),
+            });
+
+            assert.deepStrictEqual(head, {
+                id, projectid,
+                userid : 'testuser',
+                head : Buffer.from([ 0x4d, 0x4c, 0x46, 0x4b, 0x54, 0x58, 0x54, 0x01 ]),
+                updated : new Date('2026-11-01T14:03:22Z'),
+            });
+        });
+    });
+
+
     describe('getCredentialsAsDbRow', () => {
 
         it('should handle missing credentials types', () => {

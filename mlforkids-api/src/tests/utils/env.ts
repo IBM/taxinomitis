@@ -46,7 +46,47 @@ describe('Utils - env', () => {
         );
     });
 
+    describe('isTextServiceConfigured', () => {
+        const NAMES = [ env.TEXT_SERVICE, env.TEXT_SERVICE_USER, env.TEXT_SERVICE_PASS ];
+        const saved: { [name: string]: string | undefined } = {};
+
+        before(() => {
+            NAMES.forEach((name) => { saved[name] = process.env[name]; });
+        });
+        after(() => {
+            NAMES.forEach((name) => {
+                if (saved[name] === undefined) {
+                    delete process.env[name];
+                }
+                else {
+                    process.env[name] = saved[name];
+                }
+            });
+        });
+
+        function setAll() {
+            process.env[env.TEXT_SERVICE] = 'http://localhost:8020';
+            process.env[env.TEXT_SERVICE_USER] = 'user';
+            process.env[env.TEXT_SERVICE_PASS] = 'pass';
+        }
+
+        it('should be configured when all three variables are set', () => {
+            setAll();
+            assert.strictEqual(env.isTextServiceConfigured(), true);
+        });
+
+        for (const missing of NAMES) {
+            it('should not be configured without ' + missing, () => {
+                setAll();
+                delete process.env[missing];
+                assert.strictEqual(env.isTextServiceConfigured(), false);
+            });
+            it('should not be configured with an empty ' + missing, () => {
+                setAll();
+                process.env[missing] = '';
+                assert.strictEqual(env.isTextServiceConfigured(), false);
+            });
+        }
+    });
+
 });
-
-
-

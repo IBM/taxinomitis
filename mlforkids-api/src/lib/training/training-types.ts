@@ -28,26 +28,56 @@ export interface BluemixCredentialsDbRow {
     notes?: string | null;
 }
 
-export interface BluemixCredentialsPool extends BluemixCredentials {
+/**
+ * Who owns a set of Watson credentials:
+ *  'managed-pool' - ML4K site owner (must not be shared with tenant admin, stored in bluemixcredentialspool)
+ *  'large-pool'   - ML4K site owner, for large trainings from classes without
+ *                    keys of their own (stored in bluemixcredentialspool)
+ *  'class'        - tenant admin    (stored in bluemixcredentials)
+ */
+export type CredentialSource = 'managed-pool' | 'large-pool' | 'class';
+export type PoolCredentialSource = Exclude<CredentialSource, 'class'>;
+
+/**
+ * The pools of credentials in bluemixcredentialspool, and the
+ *  poolid used for each one in the table.
+ */
+export const CREDENTIALS_POOL_IDS: { readonly [source in PoolCredentialSource]: number } = {
+    'managed-pool' : 0,
+    'large-pool'   : 1,
+};
+
+/**
+ * Credentials read from one of the credentials tables, so it's
+ *  known which one they came from.
+ */
+export interface StoredBluemixCredentials extends BluemixCredentials {
+    readonly source: CredentialSource;
+}
+
+export interface BluemixCredentialsPool extends StoredBluemixCredentials {
+    readonly source: PoolCredentialSource;
     // the last time that the credentials couldn't be used
     //  to create a ML model
     lastfail: Date;
 }
 export interface BluemixCredentialsPoolDbRow extends BluemixCredentialsDbRow {
     lastfail: Date;
+    readonly poolid: number;
 }
 
 
-
-export type BluemixServiceType = 'conv' | 'num' | 'sounds' | 'imgtfjs';
+export type BluemixTextServiceType = 'conv' | 'txt';
+export type BluemixServiceType = BluemixTextServiceType | 'num' | 'sounds' | 'imgtfjs';
 export type BluemixCredentialsTypeLabel = 'unknown' | ConversationCredentialsTypeLabel;
 
 export type ConversationCredentialsTypeLabel = 'conv_lite' | 'conv_standard' | 'conv_plus' | 'conv_plustrial';
 
-export interface ConversationWorkspace {
+export interface TextClassifier {
     readonly id: string;
     readonly workspace_id: string;
     readonly credentialsid: string;
+    readonly servicetype: BluemixTextServiceType;
     readonly url: string;
     readonly name: string;
     readonly language: DbTypes.TextProjectLanguage;
@@ -145,23 +175,4 @@ export interface ClassifierSummary {
     readonly name: string;
     readonly credentials: BluemixCredentials;
     readonly type: BluemixServiceType;
-}
-
-
-
-
-
-export type CredentialsSupportCode = 'MLCRED-OK' |           // everything okay
-                                     'MLCRED-NUM' |          // no need for credentials for numbers projects
-                                     'MLCRED-SOUND' |        // no need for credentials for sound projects
-                                     'MLCRED-TYPEUNK' |      // request to check unknown project type
-                                     'MLCRED-MANAGED' |      // user is in a managed class
-                                     'MLCRED-TEXT-NOKEYS' |  // no available text credentials
-                                     'MLCRED-TEXT-INVALID' | // all text credentials rejected
-                                     'MLCRED-FAIL' |         // attempt to check credentials failed
-                                     'MLCRED-IMGTFJS';       // no need for credentials for TensorFlowJS projects
-
-export interface CredentialsSupportResponse {
-    readonly code: CredentialsSupportCode;
-    readonly message: string;
 }

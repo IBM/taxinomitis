@@ -6,7 +6,7 @@ import * as assert from 'assert';
 import * as request from 'supertest';
 import { status as httpstatus } from 'http-status';
 import * as auth from '../../lib/restapi/auth';
-import * as conversation from '../../lib/training/conversation';
+import * as textmodels from '../../lib/training/textmodels';
 import * as DbTypes from '../../lib/db/db-types';
 import * as Types from '../../lib/training/training-types';
 import * as store from '../../lib/db/store';
@@ -46,17 +46,27 @@ describe('REST API - local projects', () => {
 
     const credsid = uuid();
 
+    function fakeClassify() {
+        const classifierTimestamp = new Date(Date.UTC(2017, 4, 4, 12, 1));
+        const classifications: Types.Classification[] = [
+            { class_name : 'first', confidence : 0.8, classifierTimestamp },
+            { class_name : 'second', confidence : 0.15, classifierTimestamp },
+            { class_name : 'third', confidence : 0.05, classifierTimestamp },
+        ];
+        return Promise.resolve(classifications);
+    }
+
     before(async () => {
         authStub = sinon.stub(auth, 'authenticate').callsFake(authNoOp);
 
-        conversationStubGetClassifiersStub = sinon.stub(conversation, 'getClassifierStatuses');
-        conversationStubTrainClassifierStub = sinon.stub(conversation, 'trainClassifierForProject');
-        conversationStubTestClassifierStub = sinon.stub(conversation, 'testClassifier');
-        conversationStubDeleteClassifierStub = sinon.stub(conversation, 'deleteClassifier');
+        getModelStatusesStub = sinon.stub(textmodels, 'getModelStatuses');
+        textmodelsStubTrainClassifierStub = sinon.stub(textmodels, 'trainClassifierForProject');
+        classifyModelStub = sinon.stub(textmodels, 'classifyModel');
+        textmodelsStubDeleteClassifierStub = sinon.stub(textmodels, 'deleteClassifier');
 
-        conversationStubGetClassifiersStub.callsFake((tenant, classifiers: Types.ConversationWorkspace[]) =>  {
+        getModelStatusesStub.callsFake((tenant, classifiers: Types.TextClassifier[]) =>  {
             return new Promise((resolve) => {
-                let output: Types.ConversationWorkspace[] = [];
+                let output: Types.TextClassifier[] = [];
 
                 output = classifiers.map((classifier) => {
                     classifier.updated = updated;
@@ -76,11 +86,12 @@ describe('REST API - local projects', () => {
             });
         });
 
-        conversationStubTrainClassifierStub.callsFake((project: DbTypes.LocalProject /*, training: Types.ConversationTrainingData*/) => {
-            const workspace: Types.ConversationWorkspace = {
+        textmodelsStubTrainClassifierStub.callsFake((project: DbTypes.LocalProject /*, training: Types.ConversationTrainingData*/) => {
+            const workspace: Types.TextClassifier = {
                 id : uuid(),
                 workspace_id : 'NEW-CREATED',
                 credentialsid : credsid,
+                servicetype : 'conv',
                 name : project.name,
                 language : 'en',
                 created : new Date(Date.UTC(2017, 4, 4, 12, 0)),
@@ -91,16 +102,8 @@ describe('REST API - local projects', () => {
             };
             return Promise.resolve(workspace);
         });
-        conversationStubTestClassifierStub.callsFake(() => {
-            const classifierTimestamp = new Date(Date.UTC(2017, 4, 4, 12, 1));
-            const classifications: Types.Classification[] = [
-                { class_name : 'first', confidence : 0.8, classifierTimestamp },
-                { class_name : 'second', confidence : 0.15, classifierTimestamp },
-                { class_name : 'third', confidence : 0.05, classifierTimestamp },
-            ];
-            return Promise.resolve(classifications);
-        });
-        conversationStubDeleteClassifierStub.callsFake(() => {
+        classifyModelStub.callsFake(fakeClassify);
+        textmodelsStubDeleteClassifierStub.callsFake(() => {
             return Promise.resolve();
         });
 
@@ -123,19 +126,19 @@ describe('REST API - local projects', () => {
         await store.deleteProjectsByClassId(TESTCLASS);
         await store.deleteAllPendingJobs();
 
-        conversationStubGetClassifiersStub.restore();
-        conversationStubTrainClassifierStub.restore();
-        conversationStubTestClassifierStub.restore();
-        conversationStubDeleteClassifierStub.restore();
+        getModelStatusesStub.restore();
+        textmodelsStubTrainClassifierStub.restore();
+        classifyModelStub.restore();
+        textmodelsStubDeleteClassifierStub.restore();
 
         return store.disconnect();
     });
 
 
-    let conversationStubGetClassifiersStub: sinon.SinonStub<any, any>;
-    let conversationStubTrainClassifierStub: sinon.SinonStub<any, any>;
-    let conversationStubTestClassifierStub: sinon.SinonStub<any, any>;
-    let conversationStubDeleteClassifierStub: sinon.SinonStub<any, any>;
+    let getModelStatusesStub: sinon.SinonStub<any, any>;
+    let textmodelsStubTrainClassifierStub: sinon.SinonStub<any, any>;
+    let classifyModelStub: sinon.SinonStub<any, any>;
+    let textmodelsStubDeleteClassifierStub: sinon.SinonStub<any, any>;
 
 
     describe('createLocalProject', () => {
@@ -285,6 +288,41 @@ describe('REST API - local projects', () => {
             assert.deepStrictEqual(proj.labels, [ 'this', 'that' ]);
         });
 
+        it('should train with sanitised training, which is what the size of training is counted from', async () => {
+            let res = await request(testServer)
+                .post('/api/classes/' + TESTCLASS + '/students/userid/localprojects')
+                .send({ type : 'text', name : 'sanitised training', labels : [ 'this' ] })
+                .expect(httpstatus.CREATED);
+            const projectid = res.body.id;
+
+            textmodelsStubTrainClassifierStub.resetHistory();
+
+            res = await request(testServer)
+                .post('/api/classes/' + TESTCLASS + '/students/userid/localprojects/' + projectid + '/models')
+                .send({ training : {
+                    ...VALID_TEXT_TRAINING_DATA,
+                    intents : [ {
+                        intent : 'this',
+                        examples : [
+                            // padding is trimmed, long examples are cut to 1024 characters,
+                            //  and duplicates and empty examples are removed
+                            { text : '      padded      ' },
+                            { text : 'x'.repeat(5000) },
+                            { text : 'PADDED' },
+                            { text : '     ' },
+                        ],
+                    } ],
+                } })
+                .expect(httpstatus.CREATED);
+
+            assert(textmodelsStubTrainClassifierStub.calledOnce);
+            const training = textmodelsStubTrainClassifierStub.firstCall.args[1];
+            assert.deepStrictEqual(training.intents, [ {
+                intent : 'this',
+                examples : [ { text : 'padded' }, { text : 'x'.repeat(1024) } ],
+            } ]);
+        });
+
         it('should reject requests for non-text projects', async () => {
             const res = await request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/userid/localprojects')
@@ -384,6 +422,55 @@ describe('REST API - local projects', () => {
 
             await store.deleteEntireProject('userid', TESTCLASS, projectBody);
             await store.deleteBluemixCredentials(storedCredentials.id);
+        });
+
+        it('should not require a credentials id', async () => {
+            const createProject = await request(testServer)
+                .post('/api/classes/' + TESTCLASS + '/students/userid/localprojects')
+                .send({ type : 'text', name : 'model tester', labels : [ 'this', 'that' ] })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CREATED);
+            const projectBody = createProject.body;
+
+            const testModel = await request(testServer)
+                .post('/api/classes/' + TESTCLASS + '/students/userid/localprojects/' + projectBody.id + '/models/NEW-CREATED/label')
+                .send({ text: 'my test' })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+            assert(Array.isArray(testModel.body));
+            assert.strictEqual(classifyModelStub.lastCall.args[1], projectBody.id);
+            assert.strictEqual(classifyModelStub.lastCall.args[2], 'NEW-CREATED');
+            assert.strictEqual(classifyModelStub.lastCall.args[4], 'my test');
+
+            await store.deleteEntireProject('userid', TESTCLASS, projectBody);
+        });
+
+        it('should return not found for models that no longer exist', async () => {
+            const createProject = await request(testServer)
+                .post('/api/classes/' + TESTCLASS + '/students/userid/localprojects')
+                .send({ type : 'text', name : 'model tester', labels : [ 'this', 'that' ] })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CREATED);
+            const projectBody = createProject.body;
+
+            // use the real textmodels implementation, so that the
+            //  lookup of the (missing) model record is tested
+            classifyModelStub.callsFake(classifyModelStub.wrappedMethod);
+            try {
+                const testModel = await request(testServer)
+                    .post('/api/classes/' + TESTCLASS + '/students/userid/localprojects/' + projectBody.id + '/models/expired-model/label')
+                    .send({ credentialsid: credsid, text: 'my test' })
+                    .expect('Content-Type', /json/)
+                    .expect(httpstatus.NOT_FOUND);
+                assert.deepStrictEqual(testModel.body, {
+                    error : textmodels.ERROR_MESSAGES.MODEL_NOT_FOUND + ' Refresh the page',
+                });
+            }
+            finally {
+                classifyModelStub.callsFake(fakeClassify);
+            }
+
+            await store.deleteEntireProject('userid', TESTCLASS, projectBody);
         });
     });
 

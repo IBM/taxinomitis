@@ -27,6 +27,7 @@ function setup_batch_job {
         --env-from-secret $DOCKER_IMAGE-cos \
         --env-from-secret $DOCKER_IMAGE-email \
         --env-from-secret $DOCKER_IMAGE-numbers \
+        --env-from-secret $DOCKER_IMAGE-text \
         --env-from-secret $DOCKER_IMAGE-postgresql \
         --env-from-secret $DOCKER_IMAGE-slack \
         --env-from-secret $DOCKER_IMAGE-cloudflare \
@@ -71,6 +72,9 @@ function setup_secrets {
     ibmcloud ce secret create \
         --name $DOCKER_IMAGE-cloudflare \
         --from-env-file cloudflare-credentials.env
+    ibmcloud ce secret create \
+        --name $DOCKER_IMAGE-text \
+        --from-env-file text-credentials.env
 }
 
 echo "US-SOUTH deployment"

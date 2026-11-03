@@ -6,8 +6,9 @@ import * as sinon from 'sinon';
 
 import * as store from '../../lib/db/store';
 import * as DbTypes from '../../lib/db/db-types';
+import * as DbObjects from '../../lib/db/objects';
 import * as Types from '../../lib/training/training-types';
-import * as conversation from '../../lib/training/conversation';
+import * as textmodels from '../../lib/training/textmodels';
 import * as request from '../../lib/utils/request';
 
 
@@ -185,6 +186,29 @@ describe('ScratchKeys store', () => {
         const credsWithoutId = Object.assign({}, credentials, { id : 'id' });
         const retrievedCredsWithoutId = Object.assign({}, retrieved.credentials, { id : 'id' });
         assert.deepStrictEqual(retrievedCredsWithoutId, credsWithoutId);
+    });
+
+
+    it('should retrieve a text service scratch key', async () => {
+        const modelurl = 'https://mlforkids-text.example/models/' + uuid();
+        const credentials: Types.BluemixCredentials = {
+            id : '',
+            servicetype : 'txt',
+            username : DbObjects.TEXT_SERVICE_SCRATCHKEY_USERNAME,
+            password : '',
+            url : modelurl,
+            classid : reusedClassid,
+            credstype : 'unknown',
+        };
+        const classifierid = randomstring.generate({ length : 32 });
+        const ts = new Date(2018, 3, 2, 1, 15, 12);
+
+        const keyid = await store.storeOrUpdateScratchKey(project, credentials, classifierid, ts);
+
+        const retrieved = await store.getScratchKey(keyid);
+
+        assert.strictEqual(retrieved.classifierid, classifierid);
+        assert.deepStrictEqual(retrieved.credentials, credentials);
     });
 
 
@@ -395,18 +419,19 @@ describe('ScratchKeys store', () => {
         };
         const credentials = await store.storeBluemixCredentials(project.classid, credentialsInfo);
 
-        const expired: Types.ConversationWorkspace = {
+        const expired: Types.TextClassifier = {
             id : uuid(),
             name : 'ONE',
             workspace_id : uuid(),
             credentialsid : credentials.id,
+            servicetype : 'conv',
             url : uuid(),
             language : 'en',
             created : now,
             expiry : past,
         };
 
-        await store.storeConversationWorkspace(credentials, project, expired);
+        await store.storeTextClassifier(project, expired);
 
         const scratchKey: string = await store.storeOrUpdateScratchKey(
             project,
@@ -422,7 +447,7 @@ describe('ScratchKeys store', () => {
         }
 
         const deleteStub = sinon.stub(request, 'del').resolves();
-        await conversation.cleanupExpiredClassifiers();
+        await textmodels.cleanupExpiredModels();
         assert(deleteStub.called);
         deleteStub.restore();
 

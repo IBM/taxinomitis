@@ -623,6 +623,7 @@ describe('browserStorageService', function () {
         it('defaults the language to english when the project has none', async function () {
             var stored = await browserStorageService.addProject(newProject({ language : undefined }));
             await browserStorageService.addTrainingData(stored.id, { textdata : 'one', label : 'alpha' });
+            await browserStorageService.addTrainingData(stored.id, { textdata : 'two', label : 'beta' });
 
             var payload = await browserStorageService.getTrainingForWatsonAssistant(
                                     await browserStorageService.getProject(stored.id));
@@ -635,6 +636,7 @@ describe('browserStorageService', function () {
             await browserStorageService.addTrainingData(stored.id, { textdata : 'Hello There', label : 'alpha' });
             await browserStorageService.addTrainingData(stored.id, { textdata : 'hello there', label : 'alpha' });
             await browserStorageService.addTrainingData(stored.id, { textdata : 'something else', label : 'alpha' });
+            await browserStorageService.addTrainingData(stored.id, { textdata : 'other', label : 'beta' });
 
             var payload = await browserStorageService.getTrainingForWatsonAssistant(
                                     await browserStorageService.getProject(stored.id));
@@ -646,21 +648,23 @@ describe('browserStorageService', function () {
         });
 
         it('collapses labels that differ only by case onto the first one seen', async function () {
-            var stored = await browserStorageService.addProject(newProject({ labels : ['Alpha'] }));
+            var stored = await browserStorageService.addProject(newProject({ labels : ['Alpha', 'beta'] }));
             await browserStorageService.addTrainingData(stored.id, { textdata : 'one', label : 'Alpha' });
             await browserStorageService.addTrainingData(stored.id, { textdata : 'two', label : 'alpha' });
+            await browserStorageService.addTrainingData(stored.id, { textdata : 'three', label : 'beta' });
 
             var payload = await browserStorageService.getTrainingForWatsonAssistant(
                                     await browserStorageService.getProject(stored.id));
 
-            expect(payload.intents.length).toBe(1);
+            expect(payload.intents.length).toBe(2);
             expect(payload.intents[0].intent).toBe('Alpha');
             expect(payload.intents[0].examples.length).toBe(2);
         });
 
         it('replaces whitespace in intent names', async function () {
-            var stored = await browserStorageService.addProject(newProject({ labels : ['two words'] }));
+            var stored = await browserStorageService.addProject(newProject({ labels : ['two words', 'beta'] }));
             await browserStorageService.addTrainingData(stored.id, { textdata : 'one', label : 'two words' });
+            await browserStorageService.addTrainingData(stored.id, { textdata : 'two', label : 'beta' });
 
             var payload = await browserStorageService.getTrainingForWatsonAssistant(
                                     await browserStorageService.getProject(stored.id));
@@ -673,11 +677,31 @@ describe('browserStorageService', function () {
             await browserStorageService.addTrainingData(stored.id, {
                 textdata : new Array(1200).join('x'), label : 'alpha'
             });
+            await browserStorageService.addTrainingData(stored.id, { textdata : 'other', label : 'beta' });
 
             var payload = await browserStorageService.getTrainingForWatsonAssistant(
                                     await browserStorageService.getProject(stored.id));
 
             expect(payload.intents[0].examples[0].text.length).toBe(1024);
+        });
+
+        it('rejects training with only one label', async function () {
+            var stored = await browserStorageService.addProject(newProject({ labels : ['alpha', 'beta'] }));
+            await browserStorageService.addTrainingData(stored.id, { textdata : 'one', label : 'alpha' });
+
+            await expectAsync(browserStorageService.getTrainingForWatsonAssistant(
+                                    await browserStorageService.getProject(stored.id)))
+                .toBeRejectedWith(jasmine.objectContaining({ status : 400, data : jasmine.objectContaining({ code : 'MLMOD19' }) }));
+        });
+
+        it('rejects training with labels that end up with the same name', async function () {
+            var stored = await browserStorageService.addProject(newProject({ labels : ['two words', 'two_words'] }));
+            await browserStorageService.addTrainingData(stored.id, { textdata : 'one', label : 'two words' });
+            await browserStorageService.addTrainingData(stored.id, { textdata : 'two', label : 'two_words' });
+
+            await expectAsync(browserStorageService.getTrainingForWatsonAssistant(
+                                    await browserStorageService.getProject(stored.id)))
+                .toBeRejectedWith(jasmine.objectContaining({ status : 400, data : jasmine.objectContaining({ code : 'MLMOD19' }) }));
         });
     });
 

@@ -7,6 +7,7 @@ describe('TeacherRestrictionsController', function () {
     var authServiceMock, usersServiceMock, $mdDialogMock;
 
     beforeEach(module('app'));
+    beforeEach(module('ml4kTemplates'));
 
     beforeEach(inject(function (_$controller_, _$q_, _$rootScope_) {
         $controller = _$controller_;
@@ -309,6 +310,84 @@ describe('TeacherRestrictionsController', function () {
             expect(usersServiceMock.modifyClassPolicy).not.toHaveBeenCalled();
             expect(vm.saving).toBe(false);
             expect(vm.policy.textClassifierExpiry).toBe(48);
+        });
+
+    });
+
+
+    describe('per-student text model limit line', function () {
+
+        var $compile, $templateCache;
+        var element;
+
+        var TEMPLATE_PATH = 'public/components/teacher_restrictions/teacher_restrictions.html';
+
+        // Pulls the limit line straight out of the real template, rather
+        // than keeping a hand-copied duplicate that could drift from it
+        function extractLimitLineMarkup() {
+            var html = $templateCache.get(TEMPLATE_PATH);
+            var match = /<div class="adminrestriction"\s+ng-if="[^"]*"\s+translate="TEACHER\.RESTRICTIONS\.CLASS_LIMITS\.NUM_STUDENT_TEXT_MODELS"[^>]*><\/div>/.exec(html);
+            if (!match) {
+                throw new Error('Could not find the per-student text model limit line in ' + TEMPLATE_PATH);
+            }
+            return match[0];
+        }
+
+        beforeEach(inject(function (_$compile_, _$templateCache_) {
+            $compile = _$compile_;
+            $templateCache = _$templateCache_;
+        }));
+
+        afterEach(function () {
+            if (element) {
+                element.remove();
+            }
+        });
+
+        // returns the limit line, or null if it isn't shown
+        function renderLimitLine(overrides) {
+            authServiceMock.getProfileDeferred.and.returnValue($q.resolve(supervisorProfile()));
+            usersServiceMock.getClassPolicy.and.returnValue($q.resolve(policyFixture(overrides)));
+
+            var scope = $rootScope.$new();
+            scope.vm = createController();
+            $rootScope.$digest();
+
+            // ng-if needs a parent element to insert the line into
+            element = $compile('<div>' + extractLimitLineMarkup() + '</div>')(scope);
+            $rootScope.$digest();
+
+            return element[0].querySelector('.adminrestriction');
+        }
+
+        it('is shown for an unmanaged class that does not need Watson API keys', function () {
+            var line = renderLimitLine({ tenantType : 0, needsWatsonApiKeys : false, maxProjectsPerUser : 4 });
+            expect(line).not.toBeNull();
+            expect(line.getAttribute('translate-values')).toBe('{ num : vm.policy.maxProjectsPerUser }');
+        });
+
+        it('is hidden for an unmanaged class that needs Watson API keys', function () {
+            var line = renderLimitLine({ tenantType : 0, needsWatsonApiKeys : true });
+            expect(line).toBeNull();
+        });
+
+        it('is hidden for a pooled class', function () {
+            var line = renderLimitLine({ tenantType : 2, needsWatsonApiKeys : false });
+            expect(line).toBeNull();
+        });
+
+        it('is hidden for a managed class', function () {
+            var line = renderLimitLine({ tenantType : 1, needsWatsonApiKeys : false });
+            expect(line).toBeNull();
+        });
+
+        it('is hidden for a class that does not support text projects', function () {
+            var line = renderLimitLine({
+                tenantType : 0,
+                needsWatsonApiKeys : false,
+                supportedProjectTypes : [ 'numbers', 'imgtfjs', 'sounds' ]
+            });
+            expect(line).toBeNull();
         });
 
     });

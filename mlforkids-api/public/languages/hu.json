@@ -123,12 +123,7 @@
         },
         "UNMANAGED": {
             "TITLE": "Készíts egy <strong>nem ellenőrzött</strong> osztályfiókot",
-            "INTRO": "Ha szeretnél magad létre hozni egy osztálycsoportot, most megcsinálhatod.!",
-            "LISTINTRO": "Szükséged lesz ezekre:",
-            "LIST_CREATEACCOUNT": "Készíts egy ingyenes fiókot az IBM Cloud-ban",
-            "LIST_CREATEAPIKEYS": "Készíts API kulcs(oka)t  Watson felhő szolgáltatásaihoz, ami ahhoz szükséges, hogy a gépi tanulási modellt tanítani tudd",
-            "LIST_ENTERAPIKEYS": " Add hozzá az API kulcsokat a Machine Learning for Kids-hez",
-            "HELP": "Mindezekhez elérhetők lépésről lépésre utasítások képernyőképekkel."
+            "INTRO": "Ha szeretnél magad létre hozni egy osztálycsoportot, most megcsinálhatod.!"
         },
         "MANAGED": {
             "TITLE": "Készíts egy <strong>ellenőrzött</strong> osztály fiókot",
@@ -247,10 +242,6 @@
             "TOOLONG": "Ez túl hosszú!",
             "EXCEEDLIMIT": "You've reached the limit for the number of projects you can have. You need to delete one of your current projects before you can create another.",
             "TRYITNOW": "Sorry! You can only create one project at a time if you use 'Try it now'. You need to delete your current project before you can create another."
-        },
-        "WARNINGS": {
-            "MLCRED-TEXT-NOKEYS": "Mondd meg a tanárodnak, hogy szükségetek lesz egy \"Watson Assistant API kulcsra\" ahhoz, hogy egy új modellt be tudjatok tanítani a rendszernek.",
-            "MLCRED-TEXT-INVALID": "Gond lehet a IBM Cloud API kulccsal, amire azért lehet szükséged, hogy betaníts a rendszernek egy új projektet. Kérd meg a tanárodat, hogy erősítse meg a  \"Watson Assistant API kulcsokat\" az osztályban."
         }
     },
     "DATASETS": {
@@ -2004,6 +1995,7 @@
                 "TITLE": "Osztály limitek",
                 "NUM_USERS": "A tanár által regisztrált osztálynak <span class='mlprojecttype'>{{ num }}</span>  (tanulója lehet tanárral együtt).",
                 "NUM_TEXT_MODELS": "Az osztályod maximum <span class='mlprojecttype'>{{ num }}</span> a teljes modelljeikben <span class='mlprojecttype'>szöveges</span> projektet készíthet.",
+                "NUM_STUDENT_TEXT_MODELS": "Each of your students is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> active machine learning models for their <span class='mlprojecttype'>text</span> projects.",
                 "NUM_IMAGE_MODELS": "Az osztályod maximum <span class='mlprojecttype'>{{ num }}</span> a teljes modelljeikben <span class='mlprojecttype'>képi</span> projekteket készíthet.</div>"
             },
             "PROJECT_LIMITS": {
@@ -2149,11 +2141,7 @@
         "CONTACT": "Ha kérdésed, vagy problémád van, fordulj <a target='_blank' href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids fórumhoz</a>",
         "GETTINGSTARTED": {
             "TITLE": "Kezdhetjük?",
-            "INTRO": "Töltsd le a PDF fájlt egy rövid kezdő útmutatóval:",
-            "MANAGED": "Kezelt osztályfiókok",
-            "MANAGEDEXPL": "Iskolai tanároknak, kódoló csoportvezetőknek vagy más önkénteseknek",
-            "UNMANAGED": "Nem kezelt osztályfiókok",
-            "UNMANAGEDEXPL": "IBM alkalmazottak, tanárok és kódolócsoport-vezetők számára, akik saját osztályfiókjukat kezelik"
+            "INTRO": "Töltsd le a PDF fájlt egy rövid kezdő útmutatóval"
         },
         "FAQS": {
             "TITLE": "Többet akarsz tudni?",
@@ -2210,9 +2198,6 @@
         "MODELS": {
             "TITLE": "Hibák a gépi tanulási modellekkel",
 
-            "Q1": "\"Nincsenek Watson hitelesítők beállítva\"",
-            "Q1-A-1": "A gépi tanulási modelleket IBM Watson API-kat használva készítheted el.",
-            "Q1-A-2": "Ha egy \"nem ellenőrzött\" osztályfiókod van, akkor a tanárodnak vagy a csoportvezetődnek meg kell adnia a Watson API hitelesítő adatait az IBM Cloudból, hogy ez működjön. Ennek módja lépésről lépésre az oldal tetején található \"Kezdő lépések\" dokumentumban találhatók.",
 
             "Q2": "\"Az osztályod által használt Watson hitelesítő adatokat elutasították\"",
             "Q2-A-1": "A gépi tanulási modelleket IBM Watson API-kat használva készítheted el.",
@@ -2242,15 +2227,12 @@
             "Q6-A-2": "Az oldalnak 30 másodpercenként ellenőriznie kell a gépi tanulási modell állapotát, de időnként leállítja az ellenőrzést, így előfordulhat, hogy megvárja a modellt, amikor valóban készen áll a számodra.",
             "Q6-A-3": "Ha már több perc telt el, érdemes az oldal frissítésével/újratöltésével ellenőrizni.",
             "Q6-A-4": "Ha több mint tíz perc telt el, érdemes megfontolni az újraindítást (kattints a Mégse gombra, majd kattints a gombra az új gépi tanulási modell betanításához).",
+            "Q7": "You have too many machine learning models",
+            "Q7-A-1": "There is a limit for the number of machine learning models each student can have for their text projects.",
+            "Q7-A-2": "If you hit this limit, you will not be able to train a new model until you delete a machine learning model that you no longer need.",
+            "Q7-A-3": "To delete a model, open the text project, go to the \"Learn &amp; Test\" page, and click \"Delete this model\". Your training data will not be deleted, so you can train the model again later.",
+            "Q7-A-4": "Your teacher can see the limit for your class in the Restrictions section of their Teacher page."
 
-            "Q7": "\"Az osztályod megosztja a Watson API kulcsokat... jelenleg nincsenek elérhetők\"",
-            "Q7-A-1": "Az eszközben található gépi tanulási modellek IBM Watson API-k segítségével jönnek létre.",
-            "Q7-A-2": "Ha van \"ellenőrzött\" osztályfiókja, ez azt jelenti, hogy az osztálya sok más iskolával megosztja ezeket a kulcsokat. ",
-            "Q7-A-3": "Általában minden iskola számára van elegendő, de ha nagyon lefoglalt, és az összes elérhető API kulcs használatban van, akkor az új gépi tanulási modellek betanítására tett kísérletek sikertelenek, és ez az üzenet jelenik meg:",
-            "Q7-A-4": "Az osztályod megosztja a Watson Assistant / Vizuális Felsimerő \"API kulcsokat\" sok más iskolával, és sajnos jelenleg egyik sem érhető el. Kérjük, tájékoztasd a tanárodat vagy csoportvezetődet, hogy később tudod betanítani a gépi tanulási modelledet",
-            "Q7-A-5": "Ha egy diák, akinek sikeresen betanított modellje van, törli a modelljét, ez felszabadít lehetőségeket egy másik tanuló számára.",
-            "Q7-A-6": "A legjobb, ha később próbálkozik újra, miután a többi diák törölte gépi tanulási modelljét, és az API kulcsok újra elérhetőek lesznek. Tanulási adatai addig is biztonságban lesznek.",
-            "Q7-A-7": "A hiba elkerülésének másik módja, ha az osztály létrehoz egy \"nem ellenőrzött\" osztályfiókot, ahol a tanár létrehozza saját Watson \"API kulcsát\", amelyet csak a saját osztálya használhat."
         },
 
         "TEACHERUI": {

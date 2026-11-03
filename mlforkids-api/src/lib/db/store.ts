@@ -5,7 +5,7 @@ import * as postgresql from './postgresqldb';
 import * as dbobjects from './objects';
 import * as projectObjects from './projects';
 import * as Objects from './db-types';
-import * as conversation from '../training/conversation';
+import * as textmodels from '../training/textmodels';
 import * as TrainingObjects from '../training/training-types';
 import * as limits from './limits';
 import { ONE_HOUR, ONE_DAY_PLUS_A_BIT } from '../utils/constants';
@@ -13,6 +13,9 @@ import loggerSetup from '../utils/logger';
 
 
 const log = loggerSetup();
+
+// Postgres error code when an insert breaks a unique index
+const PG_UNIQUE_VIOLATION = '23505';
 
 let dbConnPool: pg.Pool;
 
@@ -33,6 +36,28 @@ export async function disconnect() {
 
 export function replaceDbConnPoolForTest(testDbConnPool: pg.Pool) {
     dbConnPool = testDbConnPool;
+}
+
+async function dbTransaction<T>(queries: (client: pg.PoolClient) => Promise<T>): Promise<T> {
+    const client = await dbConnPool.connect();
+    try {
+        await client.query('BEGIN');
+        const result = await queries(client);
+        await client.query('COMMIT');
+        return result;
+    }
+    catch (err) {
+        try {
+            await client.query('ROLLBACK');
+        }
+        catch (rollbackErr) {
+            log.error({ err : rollbackErr }, 'Failed to rollback transaction');
+        }
+        throw err;
+    }
+    finally {
+        client.release();
+    }
 }
 
 function dbExecute(queryname: string, query: string, params: any[]) {
@@ -252,7 +277,7 @@ export async function addLabelToProject(
     // case-insentive check to see if the label is already
     //  in use, because Watson Assistant chokes on projects
     //  with labels that differ only in case
-    if (labels.map(l => conversation.normalizeText(l)).includes(conversation.normalizeText(newlabel)) === false) {
+    if (labels.map(l => textmodels.normalizeText(l)).includes(textmodels.normalizeText(newlabel)) === false) {
         labels.push(newlabel);
     }
 
@@ -1233,7 +1258,7 @@ export async function getSoundTraining(
 
 export async function storeBluemixCredentials(
     classid: string, credentials: TrainingObjects.BluemixCredentialsDbRow,
-): Promise<TrainingObjects.BluemixCredentials>
+): Promise<TrainingObjects.StoredBluemixCredentials>
 {
     const queryName = 'dbqn-insert-bluemixcredentials';
     const queryString = 'INSERT INTO bluemixcredentials ' +
@@ -1254,17 +1279,17 @@ export async function storeBluemixCredentials(
 
 export async function storeBluemixCredentialsPool(
     credentials: TrainingObjects.BluemixCredentialsPoolDbRow,
-): Promise<TrainingObjects.BluemixCredentials>
+): Promise<TrainingObjects.StoredBluemixCredentials>
 {
     const queryName = 'dbqn-insert-bluemixcredentialspool';
     const queryString = 'INSERT INTO bluemixcredentialspool ' +
-                        '(id, servicetype, url, username, password, credstypeid, notes, lastfail) ' +
-                        'VALUES ($1, $2, $3, $4, $5, $6, $7, $8)';
+                        '(id, servicetype, url, username, password, credstypeid, notes, lastfail, poolid) ' +
+                        'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)';
 
     const queryValues = [ credentials.id,
         credentials.servicetype, credentials.url, credentials.username, credentials.password,
         credentials.credstypeid, credentials.notes,
-        credentials.lastfail,
+        credentials.lastfail, credentials.poolid,
     ];
 
     const response = await dbExecute(queryName, queryString, queryValues);
@@ -1302,7 +1327,7 @@ export async function setBluemixCredentialsType(
 
 export async function getAllBluemixCredentials(
     service: TrainingObjects.BluemixServiceType,
-): Promise<TrainingObjects.BluemixCredentials[]>
+): Promise<TrainingObjects.StoredBluemixCredentials[]>
 {
     const queryName = 'dbqn-select-bluemixcredentials-all';
     const queryString = 'SELECT id, classid, servicetype, url, username, password, credstypeid ' +
@@ -1318,7 +1343,7 @@ export async function getAllBluemixCredentials(
 
 export async function getBluemixCredentials(
     tenant: Objects.ClassTenant, service: TrainingObjects.BluemixServiceType,
-): Promise<TrainingObjects.BluemixCredentials[]>
+): Promise<TrainingObjects.StoredBluemixCredentials[]>
 {
     const queryName = 'dbqn-select-bluemixcredentials-classid';
     const queryString = 'SELECT id, classid, servicetype, url, username, password, credstypeid ' +
@@ -1336,7 +1361,7 @@ export async function getBluemixCredentials(
 
 export async function getBluemixCredentialsByClassId(
     classid: string, service: TrainingObjects.BluemixServiceType,
-): Promise<TrainingObjects.BluemixCredentials[]>
+): Promise<TrainingObjects.StoredBluemixCredentials[]>
 {
     const queryName = 'dbqn-select-bluemixcredentials-classid-safe';
     const queryString = 'SELECT id, classid, servicetype, url, username, password, credstypeid ' +
@@ -1350,16 +1375,17 @@ export async function getBluemixCredentialsByClassId(
 
 
 export async function getBluemixCredentialsPoolBatch(
+    pool: TrainingObjects.PoolCredentialSource,
     service: TrainingObjects.BluemixServiceType,
-): Promise<TrainingObjects.BluemixCredentials[]>
+): Promise<TrainingObjects.StoredBluemixCredentials[]>
 {
     const queryName = 'dbqn-select-bluemixcredentialspool-batch';
-    const queryString = 'SELECT id, servicetype, url, username, password, credstypeid, lastfail ' +
+    const queryString = 'SELECT id, servicetype, url, username, password, credstypeid, lastfail, poolid ' +
                         'FROM bluemixcredentialspool ' +
-                        'WHERE servicetype = $1 ' +
+                        'WHERE poolid = $1 AND servicetype = $2 ' +
                         'ORDER BY lastfail ' +
                         'LIMIT 100';
-    const queryValues = [ service ];
+    const queryValues = [ TrainingObjects.CREDENTIALS_POOL_IDS[pool], service ];
 
     const response = await dbExecute(queryName, queryString, queryValues);
     if (response.rows.length === 0) {
@@ -1414,14 +1440,32 @@ async function updateBluemixCredentialsPoolTimestamp(credentials: TrainingObject
     return credentials;
 }
 
-export async function getCombinedBluemixCredentialsById(credentialsid: string): Promise<TrainingObjects.BluemixCredentials>
+// the query records which table each row came from 
+//  (the poolid identifies which pool)
+interface CombinedCredentialsDbRow extends TrainingObjects.BluemixCredentialsPoolDbRow {
+    readonly source: 'pool' | 'class';
+}
+
+function getCombinedCredentialsFromDbRow(row: CombinedCredentialsDbRow): TrainingObjects.StoredBluemixCredentials
+{
+    switch (row.source) {
+    case 'pool':
+        return dbobjects.getCredentialsPoolFromDbRow(row);
+    case 'class':
+        return dbobjects.getCredentialsFromDbRow(row);
+    }
+}
+
+export async function getCombinedBluemixCredentialsById(credentialsid: string): Promise<TrainingObjects.StoredBluemixCredentials>
 {
     const queryName = 'dbqn-select-bluemixcredentials-combined';
-    const queryString = 'SELECT id, classid, servicetype, url, username, password, credstypeid ' +
+    const queryString = 'SELECT \'class\' as source, ' +
+                              'id, classid, servicetype, url, username, password, credstypeid, NULL::timestamptz as lastfail, NULL::smallint as poolid ' +
                            'FROM bluemixcredentials ' +
                            'WHERE id = $1 ' +
                        'UNION ' +
-                       'SELECT id, \'managedpooluse\' as classid, servicetype, url, username, password, credstypeid ' +
+                       'SELECT \'pool\' as source, ' +
+                              'id, \'managedpooluse\' as classid, servicetype, url, username, password, credstypeid, lastfail, poolid ' +
                            'FROM bluemixcredentialspool ' +
                            'WHERE id = $1';
     const queryValues = [ credentialsid ];
@@ -1430,14 +1474,14 @@ export async function getCombinedBluemixCredentialsById(credentialsid: string): 
     const rows = response.rows;
 
     if (rows.length === 1) {
-        return dbobjects.getCredentialsFromDbRow(rows[0]);
+        return getCombinedCredentialsFromDbRow(rows[0]);
     }
     if (rows.length === 2) {
         log.error({
             credentialsid, queryString, rows,
             func : 'getCombinedBluemixCredentialsById',
         }, 'Credentials stored in multiple tables');
-        return dbobjects.getCredentialsFromDbRow(rows[0]);
+        return getCombinedCredentialsFromDbRow(rows[0]);
     }
 
     /* istanbul ignore else */
@@ -1457,7 +1501,7 @@ export async function getCombinedBluemixCredentialsById(credentialsid: string): 
     throw new Error('Unexpected response when retrieving the service credentials');
 }
 
-export async function getBluemixCredentialsById(classType: Objects.ClassTenantType, credentialsid: string): Promise<TrainingObjects.BluemixCredentials>
+export async function getBluemixCredentialsById(classType: Objects.ClassTenantType, credentialsid: string): Promise<TrainingObjects.StoredBluemixCredentials>
 {
     if (classType === Objects.ClassTenantType.ManagedPool) {
         return getPoolBluemixCredentialsById(credentialsid);
@@ -1467,7 +1511,7 @@ export async function getBluemixCredentialsById(classType: Objects.ClassTenantTy
     }
 }
 
-async function getClassBluemixCredentialsById(credentialsid: string): Promise<TrainingObjects.BluemixCredentials>
+async function getClassBluemixCredentialsById(credentialsid: string): Promise<TrainingObjects.StoredBluemixCredentials>
 {
     const queryName = 'dbqn-select-bluemixcredentials-id';
     const queryString = 'SELECT id, classid, servicetype, url, username, password, credstypeid ' +
@@ -1499,10 +1543,10 @@ async function getClassBluemixCredentialsById(credentialsid: string): Promise<Tr
     throw new Error('Unexpected response when retrieving the service credentials');
 }
 
-async function getPoolBluemixCredentialsById(credentialsid: string): Promise<TrainingObjects.BluemixCredentials>
+async function getPoolBluemixCredentialsById(credentialsid: string): Promise<TrainingObjects.StoredBluemixCredentials>
 {
     const queryName = 'dbqn-select-bluemixcredentialspool-id';
-    const queryString = 'SELECT id, servicetype, url, username, password, credstypeid, lastfail ' +
+    const queryString = 'SELECT id, servicetype, url, username, password, credstypeid, lastfail, poolid ' +
                         'FROM bluemixcredentialspool ' +
                         'WHERE id = $1';
     const queryValues = [ credentialsid ];
@@ -1682,9 +1726,9 @@ export async function getNumbersClassifiers(projectid: string): Promise<Training
 }
 
 
-export async function getConversationWorkspaces(
+export async function getTextClassifiers(
     projectid: string,
-): Promise<TrainingObjects.ConversationWorkspace[]>
+): Promise<TrainingObjects.TextClassifier[]>
 {
     const queryName = 'dbqn-select-bluemixclassifiers-projectid';
     const queryString = 'SELECT id, credentialsid, projectid, servicetype, ' +
@@ -1695,12 +1739,12 @@ export async function getConversationWorkspaces(
     const queryValues = [ projectid ];
 
     const response = await dbExecute(queryName, queryString, queryValues);
-    return response.rows.map(dbobjects.getWorkspaceFromDbRow);
+    return response.rows.map(dbobjects.getTextClassifierFromDbRow);
 }
 
-export async function getConversationWorkspace(
+export async function getTextClassifier(
     projectid: string, classifierid: string,
-): Promise<TrainingObjects.ConversationWorkspace>
+): Promise<TrainingObjects.TextClassifier>
 {
     const queryName = 'dbqn-select-bluemixclassifieirs-classifierid';
     const queryString = 'SELECT id, credentialsid, projectid, servicetype, ' +
@@ -1712,19 +1756,19 @@ export async function getConversationWorkspace(
     const response = await dbExecute(queryName, queryString, queryValues);
     const rows = response.rows;
     if (rows.length === 1) {
-        return dbobjects.getWorkspaceFromDbRow(rows[0]);
+        return dbobjects.getTextClassifierFromDbRow(rows[0]);
     }
     else if (rows.length > 1) {
-        log.error({ projectid, classifierid, rows, func : 'getConversationWorkspace' }, 'Unexpected response from DB');
+        log.error({ projectid, classifierid, rows, func : 'getTextClassifier' }, 'Unexpected response from DB');
     }
     else {
-        log.warn({ projectid, classifierid, func : 'getConversationWorkspace' }, 'Conversation workspace not found');
+        log.warn({ projectid, classifierid, func : 'getTextClassifier' }, 'Text classifier not found');
     }
-    throw new Error('Unexpected response when retrieving conversation workspace details');
+    throw new Error('Unexpected response when retrieving text classifier details');
 }
 
 
-export async function countConversationWorkspaces(classid: string): Promise<number>
+export async function countTextClassifiers(classid: string): Promise<number>
 {
     const queryName = 'dbqn-select-bluemixclassifiers-countclass';
     const queryString = 'SELECT COUNT(*) AS count ' +
@@ -1739,7 +1783,28 @@ export async function countConversationWorkspaces(classid: string): Promise<numb
     // even if there are none, a SELECT COUNT(*) should return 0
     //  so we should never pass this if, but paranoia for the win
     if (rows.length !== 1) {
-        log.error({ rows, func: 'countConversationWorkspaces' }, 'Unexpected response from DB');
+        log.error({ rows, func: 'countTextClassifiers' }, 'Unexpected response from DB');
+        return 0;
+    }
+
+    return rows[0].count;
+}
+
+export async function countTextModelsByUser(userid: string): Promise<number>
+{
+    const queryName = 'dbqn-select-bluemixclassifiers-countuser';
+    const queryString = 'SELECT COUNT(*) AS count ' +
+                        'FROM bluemixclassifiers ' +
+                        'WHERE userid = $1';
+    const queryValues = [ userid ];
+
+    const response = await dbExecute(queryName, queryString, queryValues);
+    const rows = response.rows;
+
+    /* istanbul ignore if */
+    // even if there are none, a SELECT COUNT(*) should return 0
+    if (rows.length !== 1) {
+        log.error({ rows, func: 'countTextModelsByUser' }, 'Unexpected response from DB');
         return 0;
     }
 
@@ -1748,22 +1813,33 @@ export async function countConversationWorkspaces(classid: string): Promise<numb
 
 
 
-export async function storeConversationWorkspace(
-    credentials: TrainingObjects.BluemixCredentials,
-    project: Objects.Project | Objects.LocalProject,
-    workspace: TrainingObjects.ConversationWorkspace,
-): Promise<TrainingObjects.ConversationWorkspace>
-{
-    const obj = dbobjects.createConversationWorkspace(workspace, credentials, project);
+// queries used by more than one function
+const INSERT_TEXT_CLASSIFIER_QUERY = {
+    name : 'dbqn-insert-bluemixclassifiers',
+    text : 'INSERT INTO bluemixclassifiers ' +
+               '(id, credentialsid, ' +
+                'projectid, userid, classid, ' +
+                'servicetype, ' +
+                'classifierid, url, name, language, ' +
+                'created, expiry) ' +
+           'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)',
+};
+const UPDATE_TEXT_SERVICE_MODEL_QUERY = {
+    name : 'dbqn-update-bluemixclassifiers-txtmodel',
+    text : 'UPDATE bluemixclassifiers ' +
+           'SET classifierid = $1, expiry = $2 ' +
+           'WHERE id = $3',
+};
 
-    const queryName = 'dbqn-insert-bluemixclassifiers';
-    const queryString = 'INSERT INTO bluemixclassifiers ' +
-                            '(id, credentialsid, ' +
-                             'projectid, userid, classid, ' +
-                             'servicetype, ' +
-                             'classifierid, url, name, language, ' +
-                             'created, expiry) ' +
-                        'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)';
+export async function storeTextClassifier(
+    project: Objects.Project | Objects.LocalProject,
+    workspace: TrainingObjects.TextClassifier,
+): Promise<TrainingObjects.TextClassifier>
+{
+    const obj = dbobjects.createTextClassifier(workspace, project);
+
+    const queryName = INSERT_TEXT_CLASSIFIER_QUERY.name;
+    const queryString = INSERT_TEXT_CLASSIFIER_QUERY.text;
     const queryValues = [ obj.id, obj.credentialsid,
         obj.projectid, obj.userid, obj.classid,
         obj.servicetype,
@@ -1826,8 +1902,192 @@ export async function deleteNumberClassifier(
     }
 }
 
-export async function updateConversationWorkspaceExpiry(
-    workspace: TrainingObjects.ConversationWorkspace,
+
+export async function getTextClassifierHead(id: string): Promise<Objects.TextClassifierHead | undefined>
+{
+    const queryName = 'dbqn-select-textclassifiers-id';
+    const queryString = 'SELECT id, projectid, userid, head, updated ' +
+                        'FROM textclassifiers ' +
+                        'WHERE id = $1 AND head IS NOT NULL';
+    const queryValues = [ id ];
+
+    const response = await dbExecute(queryName, queryString, queryValues);
+    if (response.rows.length === 0) {
+        return;
+    }
+    return dbobjects.getTextClassifierHeadFromDbRow(response.rows[0]);
+}
+
+export async function createTextServiceTraining(
+    project: Objects.Project | Objects.LocalProject,
+    classifier: TrainingObjects.TextClassifier,
+    started: Date,
+): Promise<'created' | 'already-training'>
+{
+    const obj = dbobjects.createTextClassifier(classifier, project);
+
+    try {
+        await dbTransaction(async (client) => {
+            await client.query({
+                name : 'dbqn-insert-textclassifiers-training',
+                text : 'INSERT INTO textclassifiers ' +
+                           '(id, projectid, userid, updated, trainingstarted) ' +
+                       'VALUES ($1, $2, $3, $4, $4)',
+                values : [ obj.id, obj.projectid, obj.userid, started ],
+            });
+            await client.query({
+                ...INSERT_TEXT_CLASSIFIER_QUERY,
+                values : [ obj.id, obj.credentialsid,
+                    obj.projectid, obj.userid, obj.classid,
+                    obj.servicetype,
+                    obj.classifierid, obj.url, obj.name, obj.language,
+                    obj.created, obj.expiry ],
+            });
+        });
+    }
+    catch (err) {
+        if (err.code === PG_UNIQUE_VIOLATION && err.constraint === 'textclassifiers_oneperproject') {
+            return 'already-training';
+        }
+        log.error({ id : classifier.id, code : err.code }, 'Failed to store text model');
+        throw new Error('Failed to store text model');
+    }
+
+    return 'created';
+}
+
+/**
+ * Claims a text service model for a new training, removing its head.
+ *
+ * Only one claim can succeed while a training is in progress, so
+ *  duplicate requests for the same training don't start another.
+ *  A training started before abandonIfStartedBefore is treated as
+ *  abandoned, so the model can be claimed again.
+ *
+ * @returns the start time of the training, or undefined if the
+ *  claim failed (the model is already training, or doesn't exist)
+ */
+export async function claimTextServiceTraining(
+    id: string, now: Date, abandonIfStartedBefore: Date,
+): Promise<Date | undefined>
+{
+    const queryName = 'dbqn-update-textclassifiers-claim';
+    const queryString = 'UPDATE textclassifiers ' +
+                        'SET trainingstarted = $1, trainingfailed = NULL, head = NULL ' +
+                        'WHERE id = $2 AND ' +
+                            '(trainingstarted IS NULL OR trainingstarted < $3) ' +
+                        'RETURNING trainingstarted';
+    const queryValues = [ now, id, abandonIfStartedBefore ];
+
+    const response = await dbExecute(queryName, queryString, queryValues);
+    if (response.rows.length === 0) {
+        return;
+    }
+    return response.rows[0].trainingstarted;
+}
+
+/**
+ * While a text service model is training, its model id is a
+ *  placeholder: the model's own id, which the text service has
+ *  never seen.
+ *
+ * Does nothing if the model has been deleted, or isn't a text
+ *  service model.
+ */
+export async function setTextServiceModelPlaceholder(id: string): Promise<void>
+{
+    const queryName = 'dbqn-update-bluemixclassifiers-placeholder';
+    const queryString = 'UPDATE bluemixclassifiers SET classifierid = id WHERE id = $1 AND servicetype = $2';
+    const queryValues = [ id, 'txt' ];
+
+    await dbExecute(queryName, queryString, queryValues);
+}
+
+/**
+ * Stores the result of a text service training, if it is still
+ *  the model's current training (identified by its start time).
+ *
+ * @returns false if nothing was stored, because the model has been
+ *  deleted, or a newer training has started
+ */
+export async function finishTextServiceTraining(
+    id: string, started: Date,
+    trained: {
+        readonly modelid: string;
+        readonly head: Buffer;
+        readonly finished: Date;
+        readonly expiry: Date;
+    },
+): Promise<boolean>
+{
+    const { modelid, head, finished, expiry } = trained;
+    try {
+        return await dbTransaction(async (client) => {
+            const response = await client.query({
+                name : 'dbqn-update-textclassifiers-finish',
+                text : 'UPDATE textclassifiers ' +
+                       'SET head = $1, updated = $2, trainingstarted = NULL ' +
+                       'WHERE id = $3 AND trainingstarted = $4',
+                values : [ head, finished, id, started ],
+            });
+            if (response.rowCount !== 1) {
+                return false;
+            }
+            await client.query({
+                ...UPDATE_TEXT_SERVICE_MODEL_QUERY,
+                values : [ modelid, expiry, id ],
+            });
+            return true;
+        });
+    }
+    catch (err) {
+        // values not logged, to avoid logging the head
+        log.error({ id, code : err.code }, 'Failed to store trained text model');
+        throw new Error('Failed to store trained text model');
+    }
+}
+
+/**
+ * Records that a text service training failed, if it is still
+ *  the model's current training (identified by its start time).
+ *
+ * The training is no longer in progress, so the model can be
+ *  claimed for a new training straight away.
+ *
+ * @returns false if nothing was recorded, because the model has
+ *  been deleted, or a newer training has started
+ */
+export async function failTextServiceTraining(
+    id: string, started: Date, failed: Date,
+): Promise<boolean>
+{
+    const queryName = 'dbqn-update-textclassifiers-fail';
+    const queryString = 'UPDATE textclassifiers ' +
+                        'SET trainingfailed = $1, trainingstarted = NULL ' +
+                        'WHERE id = $2 AND trainingstarted = $3';
+    const queryValues = [ failed, id, started ];
+
+    const response = await dbExecute(queryName, queryString, queryValues);
+    return response.rowCount === 1;
+}
+
+export async function getTextServiceTrainingState(id: string): Promise<Objects.TextClassifierTrainingState | undefined>
+{
+    const queryName = 'dbqn-select-textclassifiers-trainingstate';
+    const queryString = 'SELECT id, head IS NOT NULL AS hashead, updated, trainingstarted, trainingfailed ' +
+                        'FROM textclassifiers ' +
+                        'WHERE id = $1';
+    const queryValues = [ id ];
+
+    const response = await dbExecute(queryName, queryString, queryValues);
+    if (response.rows.length === 0) {
+        return;
+    }
+    return dbobjects.getTextServiceTrainingStateFromDbRow(response.rows[0]);
+}
+
+export async function updateTextClassifierExpiry(
+    workspace: TrainingObjects.TextClassifier,
 ): Promise<void>
 {
     const queryName = 'dbqn-update-bluemixclassifiers-expiry';
@@ -1839,50 +2099,41 @@ export async function updateConversationWorkspaceExpiry(
     const response = await dbExecute(queryName, queryString, queryValues);
     if (response.rowCount !== 1) {
         log.error({ queryString, queryValues, response }, 'Failed to update expiry date');
-        throw new Error('Conversation Workspace expiry not updated');
+        throw new Error('Text classifier expiry not updated');
     }
 }
 
-export async function getExpiredConversationWorkspaces(): Promise<TrainingObjects.ConversationWorkspace[]>
+export async function getExpiredConversationWorkspaces(): Promise<TrainingObjects.TextClassifier[]>
 {
     const queryName = 'dbqn-select-bluemixclassifiers-expired';
     const queryString = 'SELECT id, credentialsid, projectid, servicetype, ' +
                             'classifierid, url, name, language, created, expiry ' +
                         'FROM bluemixclassifiers ' +
-                        'WHERE expiry < $1 AND servicetype = $2';
-    const queryValues = [ new Date(), 'conv' ];
+                        'WHERE expiry < $1';
+    const queryValues = [ new Date() ];
 
     const response = await dbExecute(queryName, queryString, queryValues);
-    return response.rows.map(dbobjects.getWorkspaceFromDbRow);
+    return response.rows.map(dbobjects.getTextClassifierFromDbRow);
 }
 
 
 
 
-export async function deleteConversationWorkspace(id: string): Promise<void>
+export async function deleteTextClassifier(id: string): Promise<void>
 {
-    const queryName = 'dbqn-delete-bluemixclassifiers-id';
-    const queryString = 'DELETE FROM bluemixclassifiers WHERE id = $1 AND servicetype = $2';
-    const queryValues = [ id, 'conv' ];
-
     try {
-        await dbExecute(queryName, queryString, queryValues);
-    }
-    catch (err) {
-        log.error({ err }, 'Failed to delete classifiers info');
-        throw new Error('Failed to delete classifiers info');
-    }
-}
-
-
-export async function deleteConversationWorkspacesByProjectId(projectid: string): Promise<void>
-{
-    const queryName = 'dbqn-delete-bluemixclassifiers-projectid';
-    const queryString = 'DELETE FROM bluemixclassifiers WHERE projectid = $1';
-    const queryValues = [ projectid ];
-
-    try {
-        await dbExecute(queryName, queryString, queryValues);
+        await dbTransaction(async (client) => {
+            await client.query({
+                name : 'dbqn-delete-textclassifiers-id',
+                text : 'DELETE FROM textclassifiers WHERE id = $1',
+                values : [ id ],
+            });
+            await client.query({
+                name : 'dbqn-delete-bluemixclassifiers-id',
+                text : 'DELETE FROM bluemixclassifiers WHERE id = $1',
+                values : [ id ],
+            });
+        });
     }
     catch (err) {
         log.error({ err }, 'Failed to delete classifiers info');
@@ -1911,8 +2162,12 @@ export async function getProjectsWithBluemixClassifiers(classid: string): Promis
 
 
 
+/**
+ * Only used by the checks for orphaned Watson Assistant workspaces, so
+ *  only ever called with WA ids. Throws for any other servicetype.
+ */
 export async function getClassifierByBluemixId(classifierid: string):
-    Promise<TrainingObjects.ConversationWorkspace|undefined>
+    Promise<TrainingObjects.TextClassifier|undefined>
 {
     const queryName = 'dbqn-select-bluemixclassifiers-classifierid';
     const queryString = 'SELECT id, credentialsid, projectid, servicetype, ' +
@@ -1930,15 +2185,15 @@ export async function getClassifierByBluemixId(classifierid: string):
         const classifierType: TrainingObjects.BluemixServiceType = rows[0].servicetype;
         switch (classifierType) {
         case 'conv':
-            return dbobjects.getWorkspaceFromDbRow(rows[0]);
+            return dbobjects.getTextClassifierFromDbRow(rows[0]);
         default:
             log.error({ rows, func : 'getClassifierByBluemixId' }, 'Unexpected response from DB');
-            throw new Error('Unspected response when retrieving Bluemix classifier details');
+            throw new Error('Unexpected response when retrieving Bluemix classifier details');
         }
     }
     else {
         log.error({ rows, func : 'getClassifierByBluemixId' }, 'Unexpected response from DB');
-        throw new Error('Unspected response when retrieving Bluemix classifier details');
+        throw new Error('Unexpected response when retrieving Bluemix classifier details');
     }
 }
 
@@ -2037,6 +2292,30 @@ export function removeCredentialsFromScratchKeys(credentials: TrainingObjects.Bl
 
     return dbExecute(queryName, queryString, queryValues)
         .then(() => { return; });
+}
+
+
+
+/**
+ * Points a project's Scratch key at a newly trained text service
+ *  model, only if the key still holds the placeholder used while
+ *  the model was training.
+ *
+ * Never creates a key. A key that has since been reset (e.g. the
+ *  model was deleted) or removed (e.g. the project was deleted)
+ *  is left as it is.
+ */
+export async function replaceScratchKeyPlaceholder(
+    projectid: string, placeholder: string, classifierid: string, timestamp: Date,
+): Promise<void>
+{
+    const queryName = 'dbqn-update-scratchkeys-placeholder';
+    const queryString = 'UPDATE scratchkeys ' +
+                        'SET classifierid = $1, updated = $2 ' +
+                        'WHERE projectid = $3 AND classifierid = $4';
+    const queryValues = [ classifierid, timestamp, projectid, placeholder ];
+
+    await dbExecute(queryName, queryString, queryValues);
 }
 
 
@@ -2837,6 +3116,101 @@ export async function getLatestSiteAlert(): Promise<Objects.SiteAlert | undefine
 
 // -----------------------------------------------------------------------------
 //
+// TEXT SERVICE USAGE
+//
+// -----------------------------------------------------------------------------
+
+export function testonly_resetTextServiceUsageStore(): Promise<void>
+{
+    // ensure this function is only used in tests, so we don't
+    //  accidentally trash a production database table
+    /* istanbul ignore else */
+    if (process.env.POSTGRESQLHOST === 'localhost' || process.env.POSTGRESQLHOST === 'host.docker.internal') {
+        const queryName = 'dbqn-delete-textserviceusage-all';
+        const queryString = 'DELETE FROM textserviceusage';
+        const queryValues: any[] = [];
+
+        return dbExecute(queryName, queryString, queryValues)
+            .then(() => { return; });
+    }
+    else {
+        log.error('testonly_resetTextServiceUsageStore called on production system');
+        return Promise.resolve();
+    }
+}
+
+
+export async function storeTextServiceUsageEvent(event: Objects.TextServiceUsageEvent): Promise<void>
+{
+    const queryName = 'dbqn-insert-textserviceusage';
+    const queryString = 'INSERT INTO textserviceusage ' +
+                            '(recorded, event, outcome, region, country, ' +
+                             'projectid, modelid, tenanttype, language, ' +
+                             'examples, chars, weightedchars, labels, ' +
+                             'durationms, totalms, attempt, retryafter, source) ' +
+                        'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18)';
+    const size = event.size ?? {};
+    const queryValues = [
+        event.recorded, event.event, event.outcome,
+        event.region ?? null, event.client?.country ?? null,
+        event.projectid ?? null, event.modelid ?? null, event.tenanttype ?? null, event.language ?? null,
+        size.examples ?? null, size.chars ?? null, size.weightedchars ?? null, size.labels ?? null,
+        event.durationms ?? null, event.totalms ?? null, event.attempt ?? null, event.retryafterms ?? null,
+        event.client?.source ?? null,
+    ];
+
+    const response = await dbExecute(queryName, queryString, queryValues);
+    if (response.rowCount !== 1) {
+        throw new Error('Failed to store text service usage event');
+    }
+}
+
+export async function getLatestTextServiceUsageEventId(): Promise<number>
+{
+    const queryName = 'dbqn-select-textserviceusage-maxid';
+    const queryString = 'SELECT MAX(id) AS maxid FROM textserviceusage';
+    const queryValues: any[] = [];
+
+    const response = await dbExecute(queryName, queryString, queryValues);
+    const maxid = response.rows[0].maxid;
+    return maxid ? Number(maxid) : 0;
+}
+
+
+export async function getTextServiceUsageEvents(afterId: number, maxId: number, limit: number): Promise<Objects.TextServiceUsageEventDbRow[]>
+{
+    const queryName = 'dbqn-select-textserviceusage';
+    const queryString = 'SELECT id, recorded, event, outcome, region, country, ' +
+                               'projectid, modelid, tenanttype, language, ' +
+                               'examples, chars, weightedchars, labels, ' +
+                               'durationms, totalms, attempt, retryafter, source ' +
+                        'FROM textserviceusage ' +
+                        'WHERE id > $1 AND id <= $2 ' +
+                        'ORDER BY id ' +
+                        'LIMIT $3';
+    const queryValues = [ afterId, maxId, limit ];
+
+    const response = await dbExecute(queryName, queryString, queryValues);
+    return response.rows.map((row: any) => {
+        return { ...row, id : Number(row.id) };
+    });
+}
+
+
+export async function deleteTextServiceUsageEvents(maxId: number): Promise<number>
+{
+    const queryName = 'dbqn-delete-textserviceusage-maxid';
+    const queryString = 'DELETE FROM textserviceusage WHERE id <= $1';
+    const queryValues = [ maxId ];
+
+    const response = await dbExecute(queryName, queryString, queryValues);
+    return response.rowCount ?? 0;
+}
+
+
+
+// -----------------------------------------------------------------------------
+//
 // UBER DELETERS
 //
 // -----------------------------------------------------------------------------
@@ -2846,11 +3220,11 @@ export async function deleteEntireProject(userid: string, classid: string, proje
     // delete stored models
     switch (project.type) {
     case 'text': {
-        const classifiers = await getConversationWorkspaces(project.id);
+        const classifiers = await getTextClassifiers(project.id);
         const tenant = await getClassTenant(classid);
         for (const classifier of classifiers) {
             try {
-                await conversation.deleteClassifier(tenant, classifier);
+                await textmodels.deleteClassifier(tenant, classifier);
             }
             catch (err) {
                 log.error({ err, userid, classid, projectid : project.id }, 'Failed to delete Assistant workspace');
@@ -2876,6 +3250,7 @@ export async function deleteEntireProject(userid: string, classid: string, proje
         'DELETE FROM imagetraining WHERE projectid = $1',
         'DELETE FROM soundtraining WHERE projectid = $1',
         'DELETE FROM bluemixclassifiers WHERE projectid = $1',
+        'DELETE FROM textclassifiers WHERE projectid = $1',
         'DELETE FROM taxinoclassifiers WHERE projectid = $1',
         'DELETE FROM scratchkeys WHERE projectid = $1',
     ];
@@ -2896,6 +3271,7 @@ export async function deleteEntireUser(userid: string, classid: string): Promise
         'DELETE FROM projects WHERE userid = $1',
         'DELETE FROM localprojects WHERE userid = $1',
         'DELETE FROM bluemixclassifiers WHERE userid = $1',
+        'DELETE FROM textclassifiers WHERE userid = $1',
         'DELETE FROM taxinoclassifiers WHERE userid = $1',
         'DELETE FROM scratchkeys WHERE userid = $1',
     ];

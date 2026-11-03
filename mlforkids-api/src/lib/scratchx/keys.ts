@@ -1,5 +1,6 @@
 // local dependencies
 import * as store from '../db/store';
+import * as textmodels from '../training/textmodels';
 import * as Types from '../db/db-types';
 import * as ScratchTypes from './scratchx-types';
 
@@ -7,26 +8,8 @@ import * as ScratchTypes from './scratchx-types';
 
 
 
-async function createTextKey(project: Types.Project | Types.LocalProject): Promise<ScratchTypes.Key> {
-    const textClassifiers = await store.getConversationWorkspaces(project.id);
-
-    if (textClassifiers.length === 0) {
-        const id = await store.storeUntrainedScratchKey(project);
-        return { id };
-    }
-    else {
-        const classifier = textClassifiers[0];
-        const model = classifier.workspace_id;
-        const tenant = await store.getClassTenant(project.classid);
-
-        const credentials = await store.getBluemixCredentialsById(tenant.tenantType,
-                                                                  classifier.credentialsid);
-
-        const id = await store.storeOrUpdateScratchKey(project,
-            credentials, classifier.workspace_id, classifier.created);
-
-        return { id, model };
-    }
+function createTextKey(project: Types.Project | Types.LocalProject): Promise<ScratchTypes.Key> {
+    return textmodels.createTextScratchKey(project);
 }
 
 

@@ -22,6 +22,12 @@ export const NUMBERS_SERVICE = 'NUMBERS_SERVICE';
 export const NUMBERS_SERVICE_USER = 'NUMBERS_SERVICE_USER';
 export const NUMBERS_SERVICE_PASS = 'NUMBERS_SERVICE_PASS';
 export const NUMBERS_SERVICE_HOSTS = 'NUMBERS_SERVICE_HOSTS';
+export const TEXT_SERVICE = 'TEXT_SERVICE';
+export const TEXT_SERVICE_USER = 'TEXT_SERVICE_USER';
+export const TEXT_SERVICE_PASS = 'TEXT_SERVICE_PASS';
+export const TEXT_SERVICE_LARGE_THRESHOLD = 'TEXT_SERVICE_LARGE_THRESHOLD';
+// set by Code Engine
+export const CE_REGION = 'CE_REGION';
 export const SENTRY_CSP_REPORT_URI = 'SENTRY_CSP_REPORT_URI';
 export const SLACK_WEBHOOK_URL = 'SLACK_WEBHOOK_URL';
 export const SITE_HOST_URL = 'SITE_HOST_URL';
@@ -79,6 +85,11 @@ export function getSiteHostUrl() {
     return 'http://localhost:' + getPortNumber();
 }
 
+export function isTextServiceConfigured(): boolean {
+    return !!process.env[TEXT_SERVICE] &&
+           !!process.env[TEXT_SERVICE_USER] &&
+           !!process.env[TEXT_SERVICE_PASS];
+}
 
 export function getNumbersServiceHostUrls(): string[] {
     if (process.env[NUMBERS_SERVICE_HOSTS]) {

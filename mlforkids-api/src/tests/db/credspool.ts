@@ -53,6 +53,7 @@ describe('DB credentials pool store', () => {
                 password: credsPass,
                 classid: 'managedpooluse',
                 credstype: credsType,
+                source: 'managed-pool',
                 lastfail: (creds as TrainingTypes.BluemixCredentialsPool).lastfail,
             });
             assert((creds as TrainingTypes.BluemixCredentialsPool).lastfail.getTime() >= beforeTime.getTime());
@@ -75,7 +76,11 @@ describe('DB credentials pool store', () => {
                 password: credsPass,
                 classid: 'managedpooluse',
                 credstype: credsType,
+                source: 'managed-pool',
+                lastfail: (creds as TrainingTypes.BluemixCredentialsPool).lastfail,
             });
+            assert((creds as TrainingTypes.BluemixCredentialsPool).lastfail.getTime() >= beforeTime.getTime());
+            assert(dbObjects.isPoolCredentials(creds));
         });
 
         it('should handle requests for unknown pooled credentials', async () => {
@@ -105,9 +110,77 @@ describe('DB credentials pool store', () => {
                 password: credsPass,
                 classid: 'duplicate',
                 credstype: credsType,
+                source: 'class',
             });
+            assert.strictEqual(dbObjects.isPoolCredentials(retrieved), false);
 
             await store.deleteBluemixCredentials(duplicate.id);
+        });
+
+        it('should only retrieve credentials from the requested pool', async () => {
+            // a pool id that isn't used, so the test can't affect a real pool
+            const OTHER_POOL = 99;
+
+            const otherPoolCreds = dbObjects.createBluemixCredentialsPool('conv', undefined,
+                randomstring.generate(36),
+                randomstring.generate(12),
+                'conv_lite');
+            otherPoolCreds.notes = 'temporary test record';
+
+            try {
+                // the other pool isn't a known pool, so the stored row can't be returned
+                await assert.rejects(
+                    () => store.storeBluemixCredentialsPool({
+                        ...dbObjects.getCredentialsPoolAsDbRow(otherPoolCreds),
+                        poolid : OTHER_POOL,
+                    }),
+                    { message: 'Unrecognised credentials pool' });
+
+                const managed = await store.getBluemixCredentialsPoolBatch('managed-pool', 'conv');
+                const managedIds = managed.map((creds) => creds.id);
+                assert(managedIds.includes(credsId));
+                assert(!managedIds.includes(otherPoolCreds.id));
+
+                // the other pool isn't a known pool, so its credentials can't be read
+                await assert.rejects(
+                    () => store.getCombinedBluemixCredentialsById(otherPoolCreds.id),
+                    { message: 'Unrecognised credentials pool' });
+            }
+            finally {
+                await store.deleteBluemixCredentialsPool(otherPoolCreds.id);
+            }
+        });
+
+        it('should keep the large pool separate from the managed pool', async () => {
+            const largePoolCreds: TrainingTypes.BluemixCredentialsPool = {
+                ...dbObjects.createBluemixCredentialsPool('conv', undefined,
+                    randomstring.generate(36),
+                    randomstring.generate(12),
+                    'conv_plus'),
+                source : 'large-pool',
+                notes : 'temporary test record',
+            };
+
+            try {
+                const stored = await store.storeBluemixCredentialsPool(dbObjects.getCredentialsPoolAsDbRow(largePoolCreds));
+                assert.strictEqual(stored.source, 'large-pool');
+
+                const large = await store.getBluemixCredentialsPoolBatch('large-pool', 'conv');
+                const largeIds = large.map((creds) => creds.id);
+                assert(largeIds.includes(largePoolCreds.id));
+                assert(!largeIds.includes(credsId));
+
+                const managed = await store.getBluemixCredentialsPoolBatch('managed-pool', 'conv');
+                assert(!managed.map((creds) => creds.id).includes(largePoolCreds.id));
+
+                // existing models find which pool their credentials are from
+                const retrieved = await store.getCombinedBluemixCredentialsById(largePoolCreds.id);
+                assert.strictEqual(retrieved.source, 'large-pool');
+                assert(dbObjects.isPoolCredentials(retrieved));
+            }
+            finally {
+                await store.deleteBluemixCredentialsPool(largePoolCreds.id);
+            }
         });
 
         it('should handle requests to delete unknown pool credentials', () => {

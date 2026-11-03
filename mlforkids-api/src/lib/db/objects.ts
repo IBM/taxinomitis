@@ -584,9 +584,10 @@ const CLASS_MANAGEDPOOL_PLACEHOLDER = 'managedpooluse';
 
 export function getCredentialsFromDbRow(
     row: TrainingObjects.BluemixCredentialsDbRow,
-): TrainingObjects.BluemixCredentials
+): TrainingObjects.StoredBluemixCredentials
 {
     return {
+        source : 'class',
         id : row.id,
         servicetype : row.servicetype as TrainingObjects.BluemixServiceType,
         url : row.url,
@@ -617,11 +618,29 @@ export function getCredentialsAsDbRow(obj: TrainingObjects.BluemixCredentials,
     return creds;
 }
 
+export function isPoolCredentials(
+    credentials: TrainingObjects.StoredBluemixCredentials,
+): credentials is TrainingObjects.BluemixCredentialsPool
+{
+    return credentials.source !== 'class';
+}
+
+function getPoolCredentialSource(poolid: number): TrainingObjects.PoolCredentialSource
+{
+    const sources = Object.keys(TrainingObjects.CREDENTIALS_POOL_IDS) as TrainingObjects.PoolCredentialSource[];
+    const source = sources.find((poolsource) => TrainingObjects.CREDENTIALS_POOL_IDS[poolsource] === poolid);
+    if (!source) {
+        throw new Error('Unrecognised credentials pool');
+    }
+    return source;
+}
+
 export function getCredentialsPoolFromDbRow(
     row: TrainingObjects.BluemixCredentialsPoolDbRow,
 ): TrainingObjects.BluemixCredentialsPool
 {
     return {
+        source : getPoolCredentialSource(row.poolid),
         id : row.id,
         servicetype : row.servicetype as TrainingObjects.BluemixServiceType,
         url : row.url,
@@ -648,6 +667,7 @@ export function getCredentialsPoolAsDbRow(obj: TrainingObjects.BluemixCredential
                         projects.credsTypesByLabel.unknown.id,
         notes : obj.notes,
         lastfail : obj.lastfail,
+        poolid : TrainingObjects.CREDENTIALS_POOL_IDS[obj.source],
     };
 }
 
@@ -738,7 +758,7 @@ export function createBluemixCredentialsPool(
     const creds = createBluemixCredentials(servicetype, CLASS_MANAGEDPOOL_PLACEHOLDER,
         apikey, username, password, credstype);
 
-    return { ...creds, lastfail : new Date() };
+    return { ...creds, source : 'managed-pool', lastfail : new Date() };
 }
 
 
@@ -750,19 +770,18 @@ export function createBluemixCredentialsPool(
 //
 // -----------------------------------------------------------------------------
 
-export function createConversationWorkspace(
-    classifierInfo: TrainingObjects.ConversationWorkspace,
-    credentialsInfo: TrainingObjects.BluemixCredentials,
+export function createTextClassifier(
+    classifierInfo: TrainingObjects.TextClassifier,
     project: Objects.Project | Objects.LocalProject,
 ): TrainingObjects.ClassifierDbRow
 {
     return {
         id : classifierInfo.id,
-        credentialsid : credentialsInfo.id,
+        credentialsid : classifierInfo.credentialsid,
         userid : project.userid,
         projectid : project.id,
         classid : project.classid,
-        servicetype : 'conv',
+        servicetype : classifierInfo.servicetype,
         classifierid : classifierInfo.workspace_id,
         url : classifierInfo.url,
         name : classifierInfo.name,
@@ -772,7 +791,59 @@ export function createConversationWorkspace(
     };
 }
 
-export function getWorkspaceFromDbRow(row: TrainingObjects.ClassifierDbRow): TrainingObjects.ConversationWorkspace {
+export function getTextServiceTrainingStateFromDbRow(
+    row: Objects.TextClassifierTrainingStateDbRow,
+): Objects.TextClassifierTrainingState
+{
+    return {
+        id : row.id,
+        hashead : row.hashead,
+        updated : row.updated,
+        ...(row.trainingstarted ? { trainingstarted : row.trainingstarted } : {}),
+        ...(row.trainingfailed ? { trainingfailed : row.trainingfailed } : {}),
+    };
+}
+
+export function isAbandonedTextServiceTraining(
+    state: Objects.TextClassifierTrainingState,
+    abandonIfStartedBefore: Date,
+): boolean
+{
+    return !!state.trainingstarted && state.trainingstarted < abandonIfStartedBefore;
+}
+
+export function getTextServiceTrainingStatus(
+    state: Objects.TextClassifierTrainingState | undefined,
+    abandonIfStartedBefore: Date,
+): TrainingObjects.ClassifierStatus
+{
+    if (!state) {
+        return 'Non Existent';
+    }
+    if (state.trainingfailed) {
+        return 'Failed';
+    }
+    if (state.trainingstarted) {
+        return isAbandonedTextServiceTraining(state, abandonIfStartedBefore) ? 'Failed' : 'Training';
+    }
+    if (state.hashead) {
+        return 'Available';
+    }
+    // not expected
+    return 'Failed';
+}
+
+export function getTextClassifierHeadFromDbRow(row: Objects.TextClassifierHeadDbRow): Objects.TextClassifierHead {
+    return {
+        id : row.id,
+        projectid : row.projectid,
+        userid : row.userid,
+        head : row.head,
+        updated : row.updated,
+    };
+}
+
+export function getTextClassifierFromDbRow(row: TrainingObjects.ClassifierDbRow): TrainingObjects.TextClassifier {
     let language: Objects.TextProjectLanguage;
     if (row.language) {
         language = row.language as Objects.TextProjectLanguage;
@@ -785,6 +856,7 @@ export function getWorkspaceFromDbRow(row: TrainingObjects.ClassifierDbRow): Tra
         id : row.id,
         workspace_id : row.classifierid,
         credentialsid : row.credentialsid,
+        servicetype : row.servicetype as TrainingObjects.BluemixTextServiceType,
         url : row.url,
         name : row.name,
         language,
@@ -863,11 +935,32 @@ export function createUntrainedScratchKey(
     };
 }
 
+/**
+ * Scratch keys don't have a servicetype column, and their projecttype is
+ *  'text' for both Watson Assistant and text service models.
+ *
+ * Keys for text service models are identified by storing 'text' as a
+ *  eyecatcher constant in serviceusername, which is safe as service 
+ *  credentials come from env vars.
+ */
+export const TEXT_SERVICE_SCRATCHKEY_USERNAME = 'txt';
+
+function getTextScratchKeyServiceType(row: Objects.ScratchKeyDbRow): TrainingObjects.BluemixServiceType {
+    if (row.serviceusername === TEXT_SERVICE_SCRATCHKEY_USERNAME) {
+        // model hosted by the mlforkids-text service
+        return 'txt';
+    }
+    else {
+        // model hosted by Watson Assistant
+        return 'conv';
+    }
+}
+
 export function getScratchKeyFromDbRow(row: Objects.ScratchKeyDbRow): Objects.ScratchKey {
     let servicetype: TrainingObjects.BluemixServiceType;
     switch (row.projecttype) {
     case 'text':
-        servicetype = 'conv';
+        servicetype = getTextScratchKeyServiceType(row);
         break;
     case 'imgtfjs':
     case 'images':

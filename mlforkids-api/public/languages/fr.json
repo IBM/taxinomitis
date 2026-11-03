@@ -117,12 +117,7 @@
         },
         "UNMANAGED": {
             "TITLE": "Créer un compte de classe <strong>non géré</strong>",
-            "INTRO": "Si vous êtes heureux d'ouvrir et de gérer le compte de classe vous-même, vous pouvez le faire maintenant !",
-            "LISTINTRO": "Vous aurez besoin de : ",
-            "LIST_CREATEACCOUNT": "Créer un compte sur IBM Cloud",
-            "LIST_CREATEAPIKEYS": "Créer des clés API pour les services cloud de Watson qui sont nécessaires à la formation des modèles d'apprentissage machine",
-            "LIST_ENTERAPIKEYS": "Entrez les clés API dans cet outil d'apprentissage machine pour les enfants",
-            "HELP": "Des instructions pas à pas (avec des captures d'écran) sont disponibles pour cela."
+            "INTRO": "Si vous êtes heureux d'ouvrir et de gérer le compte de classe vous-même, vous pouvez le faire maintenant !"
         },
         "MANAGED": {
             "TITLE": "Créer un compte de classe <strong> géré </strong>",
@@ -241,10 +236,6 @@
             "TOOLONG": "C'est trop long !",
             "EXCEEDLIMIT": "Vous avez atteint la limite du nombre de projets que vous pouvez avoir. Vous devez supprimer l'un de vos projets actuels avant de pouvoir en créer un autre.",
             "TRYITNOW": "Désolé, mais vous ne pouvez créer qu'un seul projet à la fois. Vous ne pouvez créer qu'un seul projet à la fois si vous utilisez la fonction \"Essayer maintenant\". Vous devez supprimer votre projet actuel avant de pouvoir en créer un autre."
-        },
-        "WARNINGS": {
-            "MLCRED-TEXT-NOKEYS": "Veuillez informer votre enseignant qu'il devra ajouter une \"Watson Assistant API key\"  à votre classe pour vous permettre de former le modèle d'apprentissage machine pour votre nouveau projet",
-            "MLCRED-TEXT-INVALID": "Il se peut qu'il y ait un problème avec les clés de l'API IBM Cloud ; vous devrez entraîner un modèle d'apprentissage machine pour votre nouveau projet. Veuillez demander à votre professeur d'essayer de vérifier les \"Watson Assistant API keys\"» dans votre classe."
         }
     },
     "DATASETS": {
@@ -1941,6 +1932,7 @@
                 "TITLE": "Limites pour votre classe",
                 "NUM_USERS": "Vous pouvez avoir jusqu'à <span class='mlprojecttype'>{{ num }}</span> utilisateurs (y compris étudiants et enseignants) dans votre groupe.",
                 "NUM_TEXT_MODELS": "Votre classe est autorisée à avoir jusqu'à <span class='mlprojecttype'>{{ num }}</span> modèles d'apprentissage machine au total sur tous ses projets d'analyse de <span class='mlprojecttype'>texte</span>.",
+                "NUM_STUDENT_TEXT_MODELS": "Each of your students is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> active machine learning models for their <span class='mlprojecttype'>text</span> projects.",
                 "NUM_IMAGE_MODELS": "Votre classe est autorisée à avoir jusqu'à <span class='mlprojecttype'>{{ num }}</span> modèles d'apprentissage machine au total sur tous leurs projets de <span class='mlprojecttype'>reconnaissance d'images </span>.</div>"
             },
             "PROJECT_LIMITS": {
@@ -2069,11 +2061,7 @@
         "CONTACT": "Si vous avez des problèmes ou des questions, veuillez vous adresser à <a href='https://groups.google.com/d/forum/mlforkids'>le groupe Google ML for Kids</a>",
         "GETTINGSTARTED": {
             "TITLE": "Pour commencer ?",
-            "INTRO": "Téléchargez un PDF avec un petit guide de démarrage :",
-            "MANAGED": "Comptes de classe gérés",
-            "MANAGEDEXPL": "Pour les enseignantes et enseignants des écoles, les responsables des groupes de codage ou d'autres bénévoles",
-            "UNMANAGED": "Comptes de classe non gérés",
-            "UNMANAGEDEXPL": "Pour les employés d'IBM ou les enseignants et les responsables de groupes de codage qui gèrent leurs propres comptes de classe."
+            "INTRO": "Téléchargez un PDF avec un petit guide de démarrage"
         },
         "FAQS": {
             "TITLE": "Vous voulez en savoir plus ?",
@@ -2121,9 +2109,6 @@
         },
         "MODELS": {
             "TITLE": "Erreurs pendant l'entraînement des modèles d'apprentissage machine",
-            "Q1": "\"Aucune authentification Watson n'a été mise en place.\"",
-            "Q1-A-1": "Les modèles d'apprentissage machine de l'outil sont créés à l'aide des API IBM Watson.",
-            "Q1-A-2": "Si vous avez un compte de classe \" non géré \", votre enseignant ou votre resonsable de groupe devra fournir les identifiants API Watson d'IBM Cloud pour que cela fonctionne. Des instructions étape par étape sur la façon de procéder se trouvent dans le document \" Pour commencer \" en haut de cette page.",
             "Q2": "\"Les identifiants Watson utilisés par votre classe ont été rejetés.\"",
             "Q2-A-1": "Les modèles d'apprentissage machine de l'outil sont créés à l'aide des API IBM Watson.",
             "Q2-A-2": "Si vous avez un compte de classe \" non géré \", votre enseignant ou chef de groupe aura fourni les identifiants API Watson d'IBM Cloud pour que cela fonctionne (comme décrit dans le document \" Mise en route \" au haut de cette page).",
@@ -2149,14 +2134,11 @@
             "Q6-A-2": "La page devrait vérifier l'état du modèle d'apprentissage machine toutes les 30 secondes, mais il arrive très rarement qu'elle s'arrête, vous pouvez donc attendre que le modèle soit prêt pour vous.",
             "Q6-A-3": "Si cela fait plus de quelques minutes, cela vaut la peine de vérifier en rafraîchissant/rechargeant la page.",
             "Q6-A-4": "Si cela fait plus de dix minutes, il peut être utile d'envisager de redémarrer (cliquez sur le bouton Annuler, puis sur le bouton pour former à nouveau un nouveau modèle d'apprentissage machine).",
-            "Q7": "\"Votre classe partage les clés de l'API Watson ... il n'y en a actuellement aucune de disponible\"",
-            "Q7-A-1": "Les modèles d'apprentissage machine de l'outil sont créés à l'aide des API IBM Watson.",
-            "Q7-A-2": "Si vous avez un compte de classe \"géré\", cela signifie que votre classe partage ces clés avec de nombreuses autres classes ou écoles. ",
-            "Q7-A-3": "Il y en a normalement assez pour toutes les écoles, mais s'il y a beaucoup de monde et que toutes les clés API disponibles sont actuellement utilisées, les tentatives d'entraînement de nouveaux modèles d'apprentissage machine échoueront, et ce message sera affiché :",
-            "Q7-A-4": "Votre classe partage des \"clés API\" Watson Assistant / Reconnaissance visuelle avec de nombreuses autres écoles, et malheureusement il n'y en a aucune de disponible actuellement. Veuillez informer votre professeur ou votre chef de groupe que vous devrez entraîner votre modèle d'apprentissage machine plus tard",
-            "Q7-A-5": "Si un élève qui a entraîné un modèle avec succès efface  ensuite son modèle, cela libérera un espace de travail qui pourra être utilisé par un autre élève.",
-            "Q7-A-6": "Le mieux est de réessayer plus tard, après que les autres élèves aient supprimé leurs modèles d'apprentissage machine et que les clés API soient à nouveau disponibles. Vos données d'entraînement seront toujours en sécurité d'ici là.",
-            "Q7-A-7": "Une autre façon d'éviter cette erreur est de créer un compte de classe \"non géré\", c'est-à-dire qu'un enseignant crée ses propres clés API Watson qui ne peuvent être utilisées que par sa propre classe."
+            "Q7": "You have too many machine learning models",
+            "Q7-A-1": "There is a limit for the number of machine learning models each student can have for their text projects.",
+            "Q7-A-2": "If you hit this limit, you will not be able to train a new model until you delete a machine learning model that you no longer need.",
+            "Q7-A-3": "To delete a model, open the text project, go to the \"Learn &amp; Test\" page, and click \"Delete this model\". Your training data will not be deleted, so you can train the model again later.",
+            "Q7-A-4": "Your teacher can see the limit for your class in the Restrictions section of their Teacher page."
         },
         "TEACHERUI": {
             "TITLE": "Problèmes d'interface utilisateur pour Enseignant/Administrateur",

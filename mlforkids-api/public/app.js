@@ -82,10 +82,6 @@
                 url: '/help',
                 templateUrl: 'static/components/help/help.html'
             })
-            .state('apikeysguide', {
-                url: '/apikeys-guide',
-                templateUrl: 'static/components/apikeysguide/guide.html'
-            })
             .state('worksheets', {
                 url: '/worksheets',
                 controller: 'WorksheetsController',

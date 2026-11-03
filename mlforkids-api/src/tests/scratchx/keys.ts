@@ -56,17 +56,18 @@ describe('Scratchx - keys', () => {
                 classid : TESTCLASS,
                 credstypeid : 2,
             });
-            const conversationwkspace: TrainingTypes.ConversationWorkspace = {
+            const conversationwkspace: TrainingTypes.TextClassifier = {
                 id : uuid(),
                 workspace_id: randomstring.generate({ length : 20 }),
                 credentialsid : creds.id,
+                servicetype : 'conv',
                 created: new Date(),
                 expiry: new Date(),
                 language : 'en',
                 name : project.name,
                 url : 'url',
             };
-            await store.storeConversationWorkspace(creds, project, conversationwkspace);
+            await store.storeTextClassifier(project, conversationwkspace);
 
             const key = await keys.createKey(project.id);
             assert(key.id);
@@ -75,7 +76,7 @@ describe('Scratchx - keys', () => {
             const scratchkey = await store.getScratchKey(key.id);
             assert.strictEqual(scratchkey.name, project.name);
             await store.deleteScratchKey(key.id);
-            await store.deleteConversationWorkspace(conversationwkspace.id);
+            await store.deleteTextClassifier(conversationwkspace.id);
             await store.deleteBluemixCredentials(creds.id);
         });
     });

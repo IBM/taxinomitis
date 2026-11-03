@@ -49,6 +49,7 @@ module.exports = function (config) {
             'public/components/projectimport/*.js',
             'public/components/projects/*.js',
             'public/components/scratch3/*.js',
+            'public/components/teacher/*.js',
             'public/components/soundtraining/*.js',
             'public/components/teacher_apikeys/*.js',
             'public/components/teacher_restrictions/*.js',
@@ -63,6 +64,8 @@ module.exports = function (config) {
             // loaded into $templateCache (via ngHtml2JsPreprocessor below) so
             // DOM-level tests can compile fragments of the *real* template
             // instead of a hand-copied - and driftable - duplicate of it
+            'public/components/teacher/teacher.html',
+            'public/components/teacher_restrictions/teacher_restrictions.html',
             'public/components/teacher_students/teacher_students.html',
             'public/components/training/training.html',
             // the new-project form builds its project spec inline in an
@@ -78,6 +81,8 @@ module.exports = function (config) {
         exclude : [],
 
         preprocessors : {
+            'public/components/teacher/teacher.html' : ['ng-html2js'],
+            'public/components/teacher_restrictions/teacher_restrictions.html' : ['ng-html2js'],
             'public/components/teacher_students/teacher_students.html' : ['ng-html2js'],
             'public/components/training/training.html' : ['ng-html2js'],
             'public/components/newproject/newproject.html' : ['ng-html2js']

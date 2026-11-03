@@ -3,7 +3,7 @@ import * as Types from '../db/db-types';
 import * as TrainingTypes from '../training/training-types';
 import * as ScratchTypes from './scratchx-types';
 import * as db from '../db/store';
-import * as conversation from '../training/conversation';
+import * as textmodels from '../training/textmodels';
 import * as numbers from '../training/numbers';
 import loggerSetup from '../utils/logger';
 
@@ -12,7 +12,31 @@ const log = loggerSetup();
 
 
 
-export async function trainTextModelLocalProject(scratchKey: Types.ScratchKey, trainingData: TrainingTypes.ConversationTrainingData): Promise<ScratchTypes.Status> {
+// training errors that students can do something about, so
+//  are returned to Scratch instead of a generic error
+const TRAINING_ERRORS_TO_RETURN = [
+    textmodels.ERROR_MESSAGES.SERVICE_BUSY,
+    textmodels.ERROR_MESSAGES.TRAINING_TOO_LARGE,
+    textmodels.ERROR_MESSAGES.TOO_MANY_MODELS,
+];
+
+function getTrainingFailureStatus(scratchKey: Types.ScratchKey, err: Error): ScratchTypes.Status {
+    return {
+        status : 0,
+        msg : TRAINING_ERRORS_TO_RETURN.includes(err.message) ?
+            err.message :
+            'Failed to train machine learning model',
+        type : scratchKey.type,
+    };
+}
+
+
+
+export async function trainTextModelLocalProject(
+    scratchKey: Types.ScratchKey,
+    trainingData: TrainingTypes.ConversationTrainingData,
+    client?: Types.TextServiceUsageClient,
+): Promise<ScratchTypes.Status> {
     if (scratchKey.type !== 'text') {
         return Promise.reject(new Error('Only text models can be trained using a Scratch key'));
     }
@@ -24,27 +48,14 @@ export async function trainTextModelLocalProject(scratchKey: Types.ScratchKey, t
         }
 
         if (project.type === 'text') {
-            const model = await conversation.trainClassifierForProject(project, trainingData);
+            const status = await textmodels.trainLocalWithScratchKey(project, trainingData, client);
 
             // lazily (after returning response to the user) update
             //  the expiry date and labels for the project
-            project.labels = conversation.getLabelNamesFromTraining(trainingData);
+            project.labels = textmodels.getLabelNamesFromTraining(trainingData);
             db.updateLocalProject(project);
 
-            if (model.status === 'Training') {
-                return {
-                    status : 1,
-                    msg : 'Model not ready yet',
-                    type : scratchKey.type,
-                };
-            }
-            else {
-                return {
-                    status : 0,
-                    msg : 'Model ' + model.status,
-                    type : scratchKey.type,
-                };
-            }
+            return status;
         }
         else {
             return Promise.reject(new Error('Only text models can be trained using a Scratch key'));
@@ -52,17 +63,16 @@ export async function trainTextModelLocalProject(scratchKey: Types.ScratchKey, t
     }
     catch (err) {
         log.error({ err, scratchKey }, 'Failed to train model');
-        return {
-            status : 0,
-            msg : 'Failed to train machine learning model',
-            type : scratchKey.type,
-        };
+        return getTrainingFailureStatus(scratchKey, err);
     }
 }
 
 
 
-export async function trainModel(scratchKey: Types.ScratchKey): Promise<ScratchTypes.Status | numbers.NumbersApiResponsePayloadClassifierItem> {
+export async function trainModel(
+    scratchKey: Types.ScratchKey,
+    client?: Types.TextServiceUsageClient,
+): Promise<ScratchTypes.Status | numbers.NumbersApiResponsePayloadClassifierItem> {
     if (scratchKey.type !== 'text' && scratchKey.type !== 'numbers') {
         return Promise.reject(new Error('Only text or numbers models can be trained using a Scratch key'));
     }
@@ -74,21 +84,8 @@ export async function trainModel(scratchKey: Types.ScratchKey): Promise<ScratchT
         }
 
         if (project.type === 'text') {
-            const model = await conversation.trainClassifier(project);
-            if (model.status === 'Training') {
-                return {
-                    status : 1,
-                    msg : 'Model not ready yet',
-                    type : scratchKey.type,
-                };
-            }
-            else {
-                return {
-                    status : 0,
-                    msg : 'Model ' + model.status,
-                    type : scratchKey.type,
-                };
-            }
+            // awaited so that training errors are handled below
+            return await textmodels.trainWithScratchKey(project, client);
         }
         else if (project.type === 'numbers') {
             return numbers.trainClassifierCloudProject(project);
@@ -99,10 +96,6 @@ export async function trainModel(scratchKey: Types.ScratchKey): Promise<ScratchT
     }
     catch (err) {
         log.error({ err, scratchKey }, 'Failed to train model');
-        return {
-            status : 0,
-            msg : 'Failed to train machine learning model',
-            type : scratchKey.type,
-        };
+        return getTrainingFailureStatus(scratchKey, err);
     }
 }

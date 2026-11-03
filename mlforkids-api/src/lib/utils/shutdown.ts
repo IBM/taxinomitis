@@ -5,18 +5,37 @@ import { Server } from 'http';
 // local dependencies
 import * as store from '../db/store';
 import * as email from '../notifications/email';
+import * as textmodels from '../training/textmodels';
+import { TRAINING_SHUTDOWN_GRACE_MS } from '../training/textservice';
 import loggerSetup from './logger';
 
 const log = loggerSetup();
 
+
+// set by the first shutdown signal, so that a second signal
+//  (e.g. SIGINT after SIGTERM) doesn't start another shutdown
+let shutdownStarted = false;
 
 
 /**
  * Cleanly shut down the application.
  */
 export function now(signal: 'SIGINT' | 'SIGTERM' | 'TIMED', server?: Server): void {
+    if (shutdownStarted) {
+        log.info({ signal }, 'Ignoring shutdown signal, as already shutting down');
+        return;
+    }
+    shutdownStarted = true;
+
     log.info({ signal }, 'Handling shutdown signal');
+    const trainingCutoff = new Date(Date.now() + TRAINING_SHUTDOWN_GRACE_MS);
+    // straight away, rather than once the server has closed, so that no
+    //  training starts a retry that might not finish before the cut-off
+    textmodels.startShutdown();
     gracefulServerShutdown(server)
+        .then(() => {
+            return textmodels.stopTrainings(trainingCutoff);
+        })
         .then(() => {
             email.close();
             return store.disconnect();

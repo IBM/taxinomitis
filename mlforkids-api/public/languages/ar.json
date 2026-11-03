@@ -117,12 +117,7 @@
         },
         "UNMANAGED": {
             "TITLE": "إنشائ حساب الصف",
-            "INTRO": "إذا كنت سعيدًا بإعداد حساب الصف وإدارته بنفسك ، فيمكنك القيام بذلك الآن!",
-            "LISTINTRO": "ستحتاج إلى:",
-            "LIST_CREATEACCOUNT": "قم بإنشاء حساب مجاني على IBM Cloud",
-            "LIST_CREATEAPIKEYS": "إنشاء مفتاح (مفاتيح) API لخدمات Watson السحابية اللازمة لتدريب نماذج تعلم الآلة",
-            "LIST_ENTERAPIKEYS": "أدخل مفتاح واجهة برمجة التطبيقات API في أداة تعلم الآلة للأطفال ",
-            "HELP": "تتوفر إرشادات خطوة بخطوة (مع لقطات الشاشة) لكل هذا."
+            "INTRO": "إذا كنت سعيدًا بإعداد حساب الصف وإدارته بنفسك ، فيمكنك القيام بذلك الآن!"
         },
         "MANAGED": {
             "TITLE": "إنشاء <strong>إدارة</strong>حساب الصف ",
@@ -241,10 +236,6 @@
             "TOOLONG": "هذا طويل جدًا!",
             "EXCEEDLIMIT": "You've reached the limit for the number of projects you can have. You need to delete one of your current projects before you can create another.",
             "TRYITNOW": "Sorry! You can only create one project at a time if you use 'Try it now'. You need to delete your current project before you can create another."
-        },
-        "WARNINGS": {
-            "MLCRED-TEXT-NOKEYS": "يُرجى إعلام معلمك بأنه سيحتاج إلى إضافة \"Watson Assistant API key \" إلى صفك للسماح لك بالتدريب على نموذج تعلُّم الآلة لمشروعك الجديد.",
-            "MLCRED-TEXT-INVALID": "قد تكون هناك مشكلة في مفاتيح واجهة برمجة تطبيقات IBM Cloud ستحتاج إلى تدريب نموذج تعلُّم الآلة لمشروعك الجديد. أطلب من معلمك  التحقق من \"Watson Assistant API key\" في صفك."
         }
     },
     "DATASETS": {
@@ -1940,6 +1931,7 @@
                 "TITLE": "حدود لصفك",
                 "NUM_USERS": "يمكن أن يكون لديك ما يصل إلى<span class='mlprojecttype'> {{num}}</span> من المستخدمين (بما في ذلك الطلاب والمعلمين) في مجموعتك.",
                 "NUM_TEXT_MODELS": "يُسمح لصفك بما يصل إلى<span class='mlprojecttype'> {{num}} </span>من مجموع نماذج تعلم الآلة من خلال جميع مشاريعهم <span class='mlprojecttype'>النصية</span>.",
+                "NUM_STUDENT_TEXT_MODELS": "Each of your students is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> active machine learning models for their <span class='mlprojecttype'>text</span> projects.",
                 "NUM_IMAGE_MODELS": "يُسمح لصفك بما يصل إلى<span class='mlprojecttype'> {{num}} </span>من مجموع نماذج تعلم الآلة من خلال جميع مشاريع <span class='mlprojecttype'>الصور</span>الخاصة بهم.</div>"
             },
             "PROJECT_LIMITS": {
@@ -2070,11 +2062,7 @@
         "CONTACT": "إذا كان لديك أي مشاكل أو أسئلة ، يرجى طرحها في <a target='_blank' href='https://groups.google.com/d/forum/mlforkids'>منتدى تعلم الآلة للأطفال</a>",
         "GETTINGSTARTED": {
             "TITLE": "هل تريد البدء؟",
-            "INTRO": "تنزيل ملف PDF مع دليل البدء القصير:",
-            "MANAGED": "حسابات الصفوف المدارة",
-            "MANAGEDEXPL": "لمعلمين المدارس أو قادة مجموعات الأكواد أو غيرهم من المتطوعين",
-            "UNMANAGED": "حسابات صفوف غير مُدارة",
-            "UNMANAGEDEXPL": "لموظفي IBM ، أو المعلمين وقادة مجموعة الأكواد الذين يديرون حسابات صفوفهم"
+            "INTRO": "تنزيل ملف PDF مع دليل البدء القصير"
         },
         "FAQS": {
             "TITLE": "هل تريد معرفة المزيد؟",
@@ -2123,9 +2111,6 @@
         },
         "MODELS": {
             "TITLE": "أخطاء تدريب نماذج تعلم الآلة",
-            "Q1": "\"لم يتم إعداد بيانات اعتماد Watson\"",
-            "Q1-A-1": "يتم إنشاء نماذج تعلم الآلة في الأداة باستخدام IBM Watson APIs.",
-            "Q1-A-2": "إذا كان لديك حساب صف \"غير مُدار\" ، فسيحتاج معلمك أو قائد المجموعة إلى تقديم بيانات اعتماد Watson API من IBM Cloud لكي يعمل هذا. توجد إرشادات خطوة بخطوة حول كيفية القيام بذلك في مستند \"ابدء\" أعلى هذه الصفحة.",
             "Q2": "\"تم رفض بيانات اعتماد Watson المستخدمة من قبل صفك\"",
             "Q2-A-1": "يتم إنشاء نماذج تعلم الآلة في الأداة باستخدام IBM Watson APIs.",
             "Q2-A-2": "إذا كان لديك حساب صف \"غير مُدار\" ، فسيحتاج معلمك أو قائد المجموعة إلى تقديم بيانات اعتماد Watson API من IBM Cloud لكي يعمل (كما هو موضح في وثيقة \"ابدء\" أعلى هذه الصفحة).",
@@ -2151,14 +2136,11 @@
             "Q6-A-2": "يجب أن تتحقق الصفحة من حالة نموذج تعلم الآلة كل 30 ثانية ، ولكن في بعض الأحيان تتوقف عن التحقق ، لذلك قد تنتظر النموذج عندما يكون جاهزًا لك بالفعل.",
             "Q6-A-3": "إذا مرت أكثر من بضع دقائق, فإنه يستحسن التحقق عن طريق التحديث أو إعادة تحميل الصفحة.",
             "Q6-A-4": "إذا مرت أكثر من عشر دقائق ، فقد يكون من المفيد التفكير في إعادة التشغيل (انقر فوق زر إلغاء ثم انقر فوق زر لتدريب نموذج جديد لتعلم الآلة مرة أخرى).",
-            "Q7": "\"Your class is sharing Watson API keys ... there are currently none available\"",
-            "Q7-A-1": "يتم إنشاء نماذج تعلم الآلة في الأداة باستخدام IBM Watson APIs.",
-            "Q7-A-2": "If you have a \"managed\" class account, this means your class is sharing these keys with many other schools. ",
-            "Q7-A-3": "There are normally enough for all schools, but if it is very busy and all of the available API keys are currently in use, attempts to train new machine learning models will fail, and this message will be displayed:",
-            "Q7-A-4": "Your class is sharing Watson Assistant / Visual Recognition \"API keys\" with many other schools, and unfortunately there are currently none available. Please let your teacher or group leader know that you will have to train your machine learning model later",
-            "Q7-A-5": "إذا قام طالب لديه نموذج مدرب ناجح ثم حذف نموذجه ، فسيؤدي ذلك إلى تحرير مساحة عمل لاستخدامها من قبل طالب آخر.",
-            "Q7-A-6": "The best thing to do is to try again later, after other students have deleted their machine learning models and API keys are available again. Your training data will still be safe until then.",
-            "Q7-A-7": "Another way to avoid this error is for your class to create an \"unmanaged\" class account, which is where a teacher creates their own Watson \"API keys\" that can be dedicated only for use by their own class."
+            "Q7": "You have too many machine learning models",
+            "Q7-A-1": "There is a limit for the number of machine learning models each student can have for their text projects.",
+            "Q7-A-2": "If you hit this limit, you will not be able to train a new model until you delete a machine learning model that you no longer need.",
+            "Q7-A-3": "To delete a model, open the text project, go to the \"Learn &amp; Test\" page, and click \"Delete this model\". Your training data will not be deleted, so you can train the model again later.",
+            "Q7-A-4": "Your teacher can see the limit for your class in the Restrictions section of their Teacher page."
         },
         "TEACHERUI": {
             "TITLE": "مشاكل واجهة المستخدم للمعلم / المشرف",

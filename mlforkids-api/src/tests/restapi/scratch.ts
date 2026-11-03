@@ -115,10 +115,11 @@ describe('REST API - scratch keys', () => {
                 credstypeid : 0,
             };
 
-            const workspace: Types.ConversationWorkspace = {
+            const workspace: Types.TextClassifier = {
                 id : uuid(),
                 workspace_id : randomstring.generate({ length : 12 }),
                 credentialsid : credentials.id,
+                servicetype : 'conv',
                 url : uuid(),
                 name,
                 language : 'en',
@@ -127,8 +128,8 @@ describe('REST API - scratch keys', () => {
             };
 
             const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [], false);
-            const storedCredentials = await store.storeBluemixCredentials(TESTCLASS, credentials);
-            await store.storeConversationWorkspace(storedCredentials, project, workspace);
+            await store.storeBluemixCredentials(TESTCLASS, credentials);
+            await store.storeTextClassifier(project, workspace);
 
             const res = await request(testServer)
                 .get('/api/classes/' + TESTCLASS + '/students/' + userid + '/projects/' + project.id + '/scratchkeys')
@@ -928,10 +929,11 @@ describe('REST API - scratch keys', () => {
 
             const ts = new Date(2018, 3, 2, 1, 12, 0);
 
-            const conversationWorkspace: Types.ConversationWorkspace = {
+            const conversationWorkspace: Types.TextClassifier = {
                 id : uuid(),
                 workspace_id : workspaceId,
                 credentialsid : credentials.id,
+                servicetype : 'conv',
                 url : uuid(),
                 name,
                 language : 'en',
@@ -941,7 +943,7 @@ describe('REST API - scratch keys', () => {
 
             const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [], false);
             const storedCredentials = await store.storeBluemixCredentials(TESTCLASS, credentials);
-            await store.storeConversationWorkspace(storedCredentials, project, conversationWorkspace);
+            await store.storeTextClassifier(project, conversationWorkspace);
 
             const scratchKey = await store.storeOrUpdateScratchKey(
                 project, storedCredentials,
@@ -998,10 +1000,11 @@ describe('REST API - scratch keys', () => {
 
             const ts = new Date(2018, 3, 2, 1, 12, 0);
 
-            const conversationWorkspace: Types.ConversationWorkspace = {
+            const conversationWorkspace: Types.TextClassifier = {
                 id : uuid(),
                 workspace_id : workspaceId,
                 credentialsid : credentials.id,
+                servicetype : 'conv',
                 url : uuid(),
                 name,
                 language : 'en',
@@ -1011,7 +1014,7 @@ describe('REST API - scratch keys', () => {
 
             const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [], false);
             const storedCredentials = await store.storeBluemixCredentials(TESTCLASS, credentials);
-            await store.storeConversationWorkspace(storedCredentials, project, conversationWorkspace);
+            await store.storeTextClassifier(project, conversationWorkspace);
 
             const scratchKey = await store.storeOrUpdateScratchKey(
                 project, storedCredentials,
@@ -1073,10 +1076,11 @@ describe('REST API - scratch keys', () => {
             const ts = new Date();
             ts.setMilliseconds(0);
 
-            const conversationWorkspace: Types.ConversationWorkspace = {
+            const conversationWorkspace: Types.TextClassifier = {
                 id : uuid(),
                 workspace_id : workspaceId,
                 credentialsid : credentials.id,
+                servicetype : 'conv',
                 url : uuid(),
                 name,
                 language : 'en',
@@ -1086,7 +1090,7 @@ describe('REST API - scratch keys', () => {
 
             const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [], false);
             const storedCredentials = await store.storeBluemixCredentials(TESTCLASS, credentials);
-            await store.storeConversationWorkspace(storedCredentials, project, conversationWorkspace);
+            await store.storeTextClassifier(project, conversationWorkspace);
 
             const scratchKey = await store.storeOrUpdateScratchKey(
                 project, storedCredentials,
@@ -1129,10 +1133,11 @@ describe('REST API - scratch keys', () => {
                 credstypeid : 0,
             };
 
-            const workspace: Types.ConversationWorkspace = {
+            const workspace: Types.TextClassifier = {
                 id : uuid(),
                 workspace_id : randomstring.generate({ length : 12 }),
                 credentialsid : credentials.id,
+                servicetype : 'conv',
                 url : uuid(),
                 name,
                 language : 'en',
@@ -1142,7 +1147,7 @@ describe('REST API - scratch keys', () => {
 
             const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [], false);
             const storedCredentials = await store.storeBluemixCredentials(TESTCLASS, credentials);
-            await store.storeConversationWorkspace(storedCredentials, project, workspace);
+            await store.storeTextClassifier(project, workspace);
 
             const scratchKey = await store.storeOrUpdateScratchKey(
                 project, storedCredentials,

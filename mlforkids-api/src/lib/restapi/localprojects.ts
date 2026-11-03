@@ -2,7 +2,8 @@
 import * as Express from 'express';
 import { status as httpstatus } from 'http-status';
 // local dependencies
-import * as conversation from '../training/conversation';
+import * as textmodels from '../training/textmodels';
+import * as textserviceusage from '../training/textserviceusage';
 import * as numbers from '../training/numbers';
 import * as auth from './auth';
 import * as store from '../db/store';
@@ -105,15 +106,15 @@ async function newLocalProjectModel(req: auth.RequestWithLocalProject, res: Expr
         return errors.unknownError(res, new Error('Unexpected project type'));
     }
 
-    if (!conversation.validateTraining(req.body.training)) {
+    if (!textmodels.validateTraining(req.body.training)) {
         return errors.missingData(res);
     }
-    if (!conversation.isPlainTextTraining(req.body.training)) {
+    if (!textmodels.isPlainTextTraining(req.body.training)) {
         return errors.notPlainText(res);
     }
     let training: TrainingTypes.ConversationTrainingData;
     try {
-        training = conversation.sanitizeTraining(req.body.training);
+        training = textmodels.sanitizeTraining(req.body.training);
     }
     catch (err) {
         log.error({ err, func : 'newLocalProjectModel' }, 'Failed to parse training data');
@@ -121,17 +122,17 @@ async function newLocalProjectModel(req: auth.RequestWithLocalProject, res: Expr
     }
 
     try {
-        const model = await conversation.trainClassifierForProject(req.project, training);
-        res.status(httpstatus.CREATED).json(returnConversationWorkspace(model));
+        const model = await textmodels.trainClassifierForProject(req.project, training, textserviceusage.getWebsiteClient(req));
+        res.status(httpstatus.CREATED).json(returnTextClassifier(model));
 
         // lazily (after returning response to the user) update
         //  the expiry date and labels for the project
         const updatedProject = req.project;
-        updatedProject.labels = conversation.getLabelNamesFromTraining(req.body.training);
+        updatedProject.labels = textmodels.getLabelNamesFromTraining(req.body.training);
         store.updateLocalProject(req.project);
     }
     catch (err) {
-        return errors.watsonAssistantModelCreationFailure(res, err);
+        return errors.textModelCreationFailure(res, err);
     }
 }
 
@@ -148,9 +149,9 @@ async function getLocalProjectModels(req: auth.RequestWithLocalProject, res: Exp
     try {
         let classifiers: any[];
         const tenant = await store.getClassTenant(classid);
-        classifiers = await store.getConversationWorkspaces(projectid);
-        classifiers = await conversation.getClassifierStatuses(tenant, classifiers);
-        classifiers = classifiers.map(returnConversationWorkspace);
+        classifiers = await store.getTextClassifiers(projectid);
+        classifiers = await textmodels.getModelStatuses(tenant, classifiers);
+        classifiers = classifiers.map(returnTextClassifier);
         return res.set(headers.NO_CACHE).json(classifiers);
     }
     catch (err) {
@@ -171,8 +172,8 @@ async function deleteLocalProjectModel(req: auth.RequestWithLocalProject, res: E
 
     try {
         const tenant = await store.getClassTenant(classid);
-        const workspace = await store.getConversationWorkspace(projectid, modelid);
-        await conversation.deleteClassifier(tenant, workspace);
+        const workspace = await store.getTextClassifier(projectid, modelid);
+        await textmodels.deleteClassifier(tenant, workspace);
         res.sendStatus(httpstatus.NO_CONTENT);
 
         // lazily (after returning response to the user) update
@@ -180,7 +181,7 @@ async function deleteLocalProjectModel(req: auth.RequestWithLocalProject, res: E
         store.updateLocalProject(req.project);
     }
     catch (err) {
-        if (err.message === 'Unexpected response when retrieving conversation workspace details')
+        if (err.message === 'Unexpected response when retrieving text classifier details')
         {
             return errors.notFound(res);
         }
@@ -199,29 +200,26 @@ async function testLocalProjectModel(req: auth.RequestWithLocalProject, res: Exp
     const classid = req.params.classid as string;
     const projectid = req.params.projectid as string;
     const modelid = req.params.modelid as string;
-    const credsid = req.body.credentialsid;
     const requestTimestamp = new Date();
 
     const text = req.body.text;
-    if (!text || !credsid) {
+    if (!text) {
         return errors.missingData(res);
     }
 
     try {
         const tenant = await store.getClassTenant(classid);
-        const creds = await store.getBluemixCredentialsById(tenant.tenantType, credsid);
-
-        const classes = await conversation.testClassifier(creds, modelid, requestTimestamp, projectid, text);
+        const classes = await textmodels.classifyModel(tenant, projectid, modelid, requestTimestamp, text, textserviceusage.getWebsiteClient(req));
         return res.json(classes);
     }
     catch (err) {
-        return errors.watsonAssistantModelTestFailure(res, err);
+        return errors.textModelTestFailure(res, err);
     }
 }
 
 
 
-function returnConversationWorkspace(classifier: TrainingTypes.ConversationWorkspace) {
+function returnTextClassifier(classifier: TrainingTypes.TextClassifier) {
     return {
         classifierid : classifier.workspace_id,
         credentialsid : classifier.credentialsid,

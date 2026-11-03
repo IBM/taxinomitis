@@ -6,10 +6,11 @@ import * as auth from './auth';
 import * as store from '../db/store';
 import * as DbTypes from '../db/db-types';
 import * as Types from '../training/training-types';
-import * as conversation from '../training/conversation';
+import * as textmodels from '../training/textmodels';
+import * as textserviceusage from '../training/textserviceusage';
 import * as visualrec from '../training/visualrecognition';
 import * as numbers from '../training/numbers';
-import * as textmodels from '../training/describetext';
+import * as describetext from '../training/describetext';
 import * as download from '../utils/download';
 import * as urls from './urls';
 import * as errors from './errors';
@@ -20,7 +21,7 @@ import loggerSetup from '../utils/logger';
 const log = loggerSetup();
 
 
-function returnConversationWorkspace(classifier: Types.ConversationWorkspace) {
+function returnTextClassifier(classifier: Types.TextClassifier) {
     return {
         classifierid : classifier.workspace_id,
         credentialsid : classifier.credentialsid,
@@ -51,9 +52,9 @@ async function getModels(req: auth.RequestWithProject, res: Express.Response) {
     switch (req.project.type) {
     case 'text':
         tenant = await store.getClassTenant(classid);
-        classifiers = await store.getConversationWorkspaces(projectid);
-        classifiers = await conversation.getClassifierStatuses(tenant, classifiers);
-        classifiers = classifiers.map(returnConversationWorkspace);
+        classifiers = await store.getTextClassifiers(projectid);
+        classifiers = await textmodels.getModelStatuses(tenant, classifiers);
+        classifiers = classifiers.map(returnTextClassifier);
         break;
     case 'imgtfjs':
     case 'images':
@@ -79,11 +80,11 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
     switch (req.project.type) {
     case 'text': {
         try {
-            const model = await conversation.trainClassifier(req.project);
-            return res.status(httpstatus.CREATED).json(returnConversationWorkspace(model));
+            const model = await textmodels.trainClassifier(req.project, textserviceusage.getWebsiteClient(req));
+            return res.status(httpstatus.CREATED).json(returnTextClassifier(model));
         }
         catch (err) {
-            return errors.watsonAssistantModelCreationFailure(res, err);
+            return errors.textModelCreationFailure(res, err);
         }
     }
     case 'numbers': {
@@ -113,8 +114,8 @@ async function deleteModel(req: auth.RequestWithProject, res: Express.Response) 
         switch (req.project.type) {
         case 'text': {
             const tenant = await store.getClassTenant(classid);
-            const workspace = await store.getConversationWorkspace(projectid, modelid);
-            await conversation.deleteClassifier(tenant, workspace);
+            const workspace = await store.getTextClassifier(projectid, modelid);
+            await textmodels.deleteClassifier(tenant, workspace);
             return res.sendStatus(httpstatus.NO_CONTENT);
         }
         case 'numbers': {
@@ -128,7 +129,7 @@ async function deleteModel(req: auth.RequestWithProject, res: Express.Response) 
         }
     }
     catch (err) {
-        if (err.message === 'Unexpected response when retrieving conversation workspace details')
+        if (err.message === 'Unexpected response when retrieving text classifier details')
         {
             return errors.notFound(res);
         }
@@ -141,7 +142,7 @@ async function deleteModel(req: auth.RequestWithProject, res: Express.Response) 
 async function describeModel(req: auth.RequestWithProject, res: Express.Response) {
     try {
         if (req.project.type === 'text') {
-            const classifierInfo = await textmodels.getModelVisualisation(req.project);
+            const classifierInfo = await describetext.getModelVisualisation(req.project);
 
             // computing this analysis is quite expensiive, so
             //  ask browsers to cache it for a while
@@ -165,20 +166,17 @@ async function testModel(req: Express.Request, res: Express.Response) {
     const projectid = req.params.projectid as string;
     const modelid = req.params.modelid as string;
     const type = req.body.type;
-    const credsid = req.body.credentialsid;
     const requestTimestamp = new Date();
 
     try {
         if (type === 'text') {
             const text = req.body.text;
-            if (!text || !credsid) {
+            if (!text) {
                 return errors.missingData(res);
             }
 
             const tenant = await store.getClassTenant(classid);
-            const creds = await store.getBluemixCredentialsById(tenant.tenantType, credsid);
-
-            const classes = await conversation.testClassifier(creds, modelid, requestTimestamp, projectid, text);
+            const classes = await textmodels.classifyModel(tenant, projectid, modelid, requestTimestamp, text, textserviceusage.getWebsiteClient(req));
             return res.json(classes);
         }
         else if (type === 'numbers') {
@@ -219,7 +217,7 @@ async function testModel(req: Express.Request, res: Express.Response) {
             return res.status(httpstatus.BAD_REQUEST)
                     .send({ error : 'The test image address is not a valid web address' });
         }
-        return errors.watsonAssistantModelTestFailure(res, err);
+        return errors.textModelTestFailure(res, err);
     }
 }
 

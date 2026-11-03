@@ -16,6 +16,7 @@ import * as errors from './errors';
 import * as urls from './urls';
 import * as headers from './headers';
 import * as notifications from '../notifications/slack';
+import * as env from '../utils/env';
 import loggerSetup from '../utils/logger';
 import { ClassTenantType } from '../db/db-types';
 
@@ -519,6 +520,7 @@ async function getPolicy(req: Express.Request, res: Express.Response) {
             tenantType : policy.tenantType,
 
             maxTextModels : availableTextCredentials,
+            needsWatsonApiKeys : availableTextCredentials > 0 || !env.isTextServiceConfigured(),
 
             maxUsers : policy.maxUsers,
             supportedProjectTypes : policy.supportedProjectTypes,

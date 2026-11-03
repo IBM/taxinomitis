@@ -14,6 +14,7 @@ import * as express from 'express';
 import * as store from '../../lib/db/store';
 import * as auth from '../../lib/restapi/auth';
 import * as conversation from '../../lib/training/conversation';
+import * as textmodels from '../../lib/training/textmodels';
 import * as DbTypes from '../../lib/db/db-types';
 import * as Types from '../../lib/training/training-types';
 import testapiserver from './testserver';
@@ -46,10 +47,20 @@ describe('REST API - models', () => {
         next();
     }
 
-    let conversationStubGetClassifiersStub: sinon.SinonStub<any, any>;
-    let conversationStubTrainClassifierStub: sinon.SinonStub<any, any>;
-    let conversationStubTestClassifierStub: sinon.SinonStub<any, any>;
-    let conversationStubDeleteClassifierStub: sinon.SinonStub<any, any>;
+    let getModelStatusesStub: sinon.SinonStub<any, any>;
+    let textmodelsStubTrainClassifierStub: sinon.SinonStub<any, any>;
+    let classifyModelStub: sinon.SinonStub<any, any>;
+    let textmodelsStubDeleteClassifierStub: sinon.SinonStub<any, any>;
+
+    function fakeClassify() {
+        const classifierTimestamp = new Date(Date.UTC(2017, 4, 4, 12, 1));
+        const classifications: Types.Classification[] = [
+            { class_name : 'first', confidence : 0.8, classifierTimestamp },
+            { class_name : 'second', confidence : 0.15, classifierTimestamp },
+            { class_name : 'third', confidence : 0.05, classifierTimestamp },
+        ];
+        return Promise.resolve(classifications);
+    }
 
     const updated = new Date();
     updated.setMilliseconds(0);
@@ -58,14 +69,14 @@ describe('REST API - models', () => {
     before(async () => {
         authStub = sinon.stub(auth, 'authenticate').callsFake(authNoOp);
 
-        conversationStubGetClassifiersStub = sinon.stub(conversation, 'getClassifierStatuses');
-        conversationStubTrainClassifierStub = sinon.stub(conversation, 'trainClassifier');
-        conversationStubTestClassifierStub = sinon.stub(conversation, 'testClassifier');
-        conversationStubDeleteClassifierStub = sinon.stub(conversation, 'deleteClassifier');
+        getModelStatusesStub = sinon.stub(textmodels, 'getModelStatuses');
+        textmodelsStubTrainClassifierStub = sinon.stub(textmodels, 'trainClassifier');
+        classifyModelStub = sinon.stub(textmodels, 'classifyModel');
+        textmodelsStubDeleteClassifierStub = sinon.stub(textmodels, 'deleteClassifier');
 
-        conversationStubGetClassifiersStub.callsFake((tenant, classifiers: Types.ConversationWorkspace[]) =>  {
+        getModelStatusesStub.callsFake((tenant, classifiers: Types.TextClassifier[]) =>  {
             return new Promise((resolve) => {
-                let output: Types.ConversationWorkspace[] = [];
+                let output: Types.TextClassifier[] = [];
 
                 output = classifiers.map((classifier) => {
                     classifier.updated = updated;
@@ -85,7 +96,7 @@ describe('REST API - models', () => {
             });
         });
 
-        conversationStubTrainClassifierStub.callsFake((project: DbTypes.Project) => {
+        textmodelsStubTrainClassifierStub.callsFake((project: DbTypes.Project) => {
             if (project.name === 'no more room') {
                 const err = new Error(conversation.ERROR_MESSAGES.INSUFFICIENT_API_KEYS);
                 return Promise.reject(err);
@@ -113,14 +124,15 @@ describe('REST API - models', () => {
                 return Promise.reject(err);
             }
             else if (project.name === 'deleted model') {
-                const err: any = new Error(conversation.ERROR_MESSAGES.MODEL_NOT_FOUND);
+                const err: any = new Error(textmodels.ERROR_MESSAGES.MODEL_NOT_FOUND);
                 return Promise.reject(err);
             }
             else {
-                const workspace: Types.ConversationWorkspace = {
+                const workspace: Types.TextClassifier = {
                     id : uuid(),
                     workspace_id : 'NEW-CREATED',
                     credentialsid : '123',
+                    servicetype : 'conv',
                     name : project.name,
                     language : 'en',
                     created : new Date(Date.UTC(2017, 4, 4, 12, 0)),
@@ -132,16 +144,8 @@ describe('REST API - models', () => {
                 return Promise.resolve(workspace);
             }
         });
-        conversationStubTestClassifierStub.callsFake(() => {
-            const classifierTimestamp = new Date(Date.UTC(2017, 4, 4, 12, 1));
-            const classifications: Types.Classification[] = [
-                { class_name : 'first', confidence : 0.8, classifierTimestamp },
-                { class_name : 'second', confidence : 0.15, classifierTimestamp },
-                { class_name : 'third', confidence : 0.05, classifierTimestamp },
-            ];
-            return Promise.resolve(classifications);
-        });
-        conversationStubDeleteClassifierStub.callsFake(() => {
+        classifyModelStub.callsFake(fakeClassify);
+        textmodelsStubDeleteClassifierStub.callsFake(() => {
             return Promise.resolve();
         });
 
@@ -154,10 +158,10 @@ describe('REST API - models', () => {
     after(() => {
         authStub.restore();
 
-        conversationStubGetClassifiersStub.restore();
-        conversationStubTrainClassifierStub.restore();
-        conversationStubTestClassifierStub.restore();
-        conversationStubDeleteClassifierStub.restore();
+        getModelStatusesStub.restore();
+        textmodelsStubTrainClassifierStub.restore();
+        classifyModelStub.restore();
+        textmodelsStubDeleteClassifierStub.restore();
 
         return store.disconnect();
     });
@@ -316,33 +320,35 @@ describe('REST API - models', () => {
             const createdA = new Date();
             createdA.setMilliseconds(0);
 
-            const classifierAInfo: Types.ConversationWorkspace = {
+            const classifierAInfo: Types.TextClassifier = {
                 id : uuid(),
                 workspace_id : 'good',
                 credentialsid : credentials.id,
+                servicetype : 'conv',
                 created : createdA,
                 expiry : createdA,
                 language : 'en',
                 name : 'DUMMY ONE',
                 url : uuid(),
             };
-            await store.storeConversationWorkspace(credentials, project, classifierAInfo);
+            await store.storeTextClassifier(project, classifierAInfo);
 
             const createdB = new Date();
             createdB.setMilliseconds(0);
             createdB.setSeconds(createdA.getSeconds() + 1);
 
-            const classifierBInfo: Types.ConversationWorkspace = {
+            const classifierBInfo: Types.TextClassifier = {
                 id : uuid(),
                 workspace_id : 'busy',
                 credentialsid : credentials.id,
+                servicetype : 'conv',
                 created : createdB,
                 expiry : createdB,
                 language : 'en',
                 name : 'DUMMY TWO',
                 url : uuid(),
             };
-            await store.storeConversationWorkspace(credentials, project, classifierBInfo);
+            await store.storeTextClassifier(project, classifierBInfo);
 
 
             nextAuth0Userid = userid;
@@ -525,7 +531,7 @@ describe('REST API - models', () => {
         });
 
 
-        it('should handle failure when updating deleted Conversation workspaces', async () => {
+        it('should handle failure when updating deleted text classifiers', async () => {
             const classid = uuid();
             const userid = uuid();
             const projName = 'deleted model';
@@ -804,7 +810,7 @@ describe('REST API - models', () => {
 
 
 
-        it('should require credentials to test with', async () => {
+        it('should not require credentials to test with', async () => {
             nextAuth0Userid = 'userid';
             nextAuth0Role = 'student';
             nextAuth0Class = 'classid';
@@ -820,32 +826,106 @@ describe('REST API - models', () => {
                     text : 'HELLO',
                 })
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST);
+                .expect(httpstatus.OK);
 
-            assert.deepStrictEqual(resp.body, { error : 'Missing data' });
+            assert.strictEqual(resp.body.length, 3);
+            assert.strictEqual(classifyModelStub.lastCall.args[1], 'projectid');
+            assert.strictEqual(classifyModelStub.lastCall.args[2], 'modelid');
+            assert.strictEqual(classifyModelStub.lastCall.args[4], 'HELLO');
+        });
+
+
+        it('should return not found for models that no longer exist', async () => {
+            nextAuth0Userid = 'userid';
+            nextAuth0Role = 'student';
+            nextAuth0Class = 'classid';
+
+            // use the real textmodels implementation, so that the
+            //  lookup of the (missing) model record is tested
+            classifyModelStub.callsFake(classifyModelStub.wrappedMethod);
+            try {
+                const resp = await request(testServer)
+                    .post('/api/classes/' + 'classid' +
+                            '/students/' + 'userid' +
+                            '/projects/' + 'projectid' +
+                            '/models/' + 'modelid' +
+                            '/label')
+                    .send({
+                        type : 'text',
+                        text : 'HELLO',
+                        credentialsid : 'blahblahblah',
+                    })
+                    .expect('Content-Type', /json/)
+                    .expect(httpstatus.NOT_FOUND);
+
+                assert.deepStrictEqual(resp.body, {
+                    error : textmodels.ERROR_MESSAGES.MODEL_NOT_FOUND + ' Refresh the page',
+                });
+            }
+            finally {
+                classifyModelStub.callsFake(fakeClassify);
+            }
         });
 
 
         it('should require valid credentials to test text with', async () => {
-            nextAuth0Userid = 'userid';
+            const classid = uuid();
+            const userid = uuid();
+            const projName = uuid();
+            const modelid = randomstring.generate({ length : 10 });
+
+            const project = await store.storeProject(userid, classid, 'text', projName, 'en', [], false);
+
+            const created = new Date();
+            const missingCredentials: Types.BluemixCredentials = {
+                id : uuid(),
+                username : uuid(),
+                password : uuid(),
+                servicetype : 'conv',
+                url : uuid(),
+                classid,
+                credstype : 'unknown',
+            };
+            await store.storeTextClassifier(project, {
+                id : uuid(),
+                workspace_id : modelid,
+                credentialsid : missingCredentials.id,
+                servicetype : 'conv',
+                created,
+                expiry : created,
+                language : 'en',
+                name : projName,
+                url : uuid(),
+            });
+
+            nextAuth0Userid = userid;
             nextAuth0Role = 'student';
-            nextAuth0Class = 'classid';
+            nextAuth0Class = classid;
 
-            const resp = await request(testServer)
-                .post('/api/classes/' + 'classid' +
-                        '/students/' + 'userid' +
-                        '/projects/' + 'projectid' +
-                        '/models/' + 'modelid' +
-                        '/label')
-                .send({
-                    type : 'text',
-                    text : 'HELLO',
-                    credentialsid : 'blahblahblah',
-                })
-                .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_FOUND);
+            // use the real textmodels implementation, so that the
+            //  lookup of the (missing) credentials is tested
+            classifyModelStub.callsFake(classifyModelStub.wrappedMethod);
+            try {
+                const resp = await request(testServer)
+                    .post('/api/classes/' + classid +
+                            '/students/' + userid +
+                            '/projects/' + project.id +
+                            '/models/' + modelid +
+                            '/label')
+                    .send({
+                        type : 'text',
+                        text : 'HELLO',
+                    })
+                    .expect('Content-Type', /json/)
+                    .expect(httpstatus.NOT_FOUND);
 
-            assert.deepStrictEqual(resp.body, { error : 'Not found' });
+                assert.deepStrictEqual(resp.body, { error : 'Not found' });
+            }
+            finally {
+                classifyModelStub.callsFake(fakeClassify);
+            }
+
+            await store.deleteEntireUser(userid, classid);
         });
 
 
@@ -890,22 +970,23 @@ describe('REST API - models', () => {
                 classid,
                 credstypeid : 1,
             };
-            const storedCredentials = await store.storeBluemixCredentials(classid, credentials);
+            await store.storeBluemixCredentials(classid, credentials);
 
             const created = new Date();
             created.setMilliseconds(0);
 
-            const classifierInfo: Types.ConversationWorkspace = {
+            const classifierInfo: Types.TextClassifier = {
                 id : uuid(),
                 workspace_id : modelid,
                 credentialsid : credentials.id,
+                servicetype : 'conv',
                 created,
                 expiry : created,
                 language : 'en',
                 name : projName,
                 url : uuid(),
             };
-            await store.storeConversationWorkspace(storedCredentials, project, classifierInfo);
+            await store.storeTextClassifier(project, classifierInfo);
 
             nextAuth0Userid = userid;
             nextAuth0Role = 'student';
@@ -1194,22 +1275,23 @@ describe('REST API - models', () => {
                 classid,
                 credstypeid : 1,
             };
-            const storedCredentials = await store.storeBluemixCredentials(classid, credentials);
+            await store.storeBluemixCredentials(classid, credentials);
 
             const created = new Date();
             created.setMilliseconds(0);
 
-            const classifierInfo: Types.ConversationWorkspace = {
+            const classifierInfo: Types.TextClassifier = {
                 id : uuid(),
                 workspace_id : modelid,
                 credentialsid : credentials.id,
+                servicetype : 'conv',
                 created,
                 expiry : created,
                 language : 'en',
                 name : projName,
                 url : uuid(),
             };
-            await store.storeConversationWorkspace(storedCredentials, project, classifierInfo);
+            await store.storeTextClassifier(project, classifierInfo);
 
             nextAuth0Userid = 'teacheruserid';
             nextAuth0Role = 'supervisor';
@@ -1245,22 +1327,23 @@ describe('REST API - models', () => {
                 classid,
                 credstypeid : 2,
             };
-            const storedCredentials = await store.storeBluemixCredentials(classid, credentials);
+            await store.storeBluemixCredentials(classid, credentials);
 
             const created = new Date();
             created.setMilliseconds(0);
 
-            const classifierInfo: Types.ConversationWorkspace = {
+            const classifierInfo: Types.TextClassifier = {
                 id : uuid(),
                 workspace_id : modelid,
                 credentialsid : credentials.id,
+                servicetype : 'conv',
                 created,
                 expiry : created,
                 language : 'en',
                 name : projName,
                 url : uuid(),
             };
-            await store.storeConversationWorkspace(storedCredentials, project, classifierInfo);
+            await store.storeTextClassifier(project, classifierInfo);
 
             nextAuth0Userid = 'teacheruserid';
             nextAuth0Role = 'supervisor';
@@ -1350,22 +1433,23 @@ describe('REST API - models', () => {
                 classid,
                 credstypeid : 1,
             };
-            const storedCredentials = await store.storeBluemixCredentials(classid, credentials);
+            await store.storeBluemixCredentials(classid, credentials);
 
             const created = new Date();
             created.setMilliseconds(0);
 
-            const classifierInfo: Types.ConversationWorkspace = {
+            const classifierInfo: Types.TextClassifier = {
                 id : uuid(),
                 workspace_id : modelid,
                 credentialsid : credentials.id,
+                servicetype : 'conv',
                 created,
                 expiry : created,
                 language : 'en',
                 name : projName,
                 url : uuid(),
             };
-            await store.storeConversationWorkspace(storedCredentials, project, classifierInfo);
+            await store.storeTextClassifier(project, classifierInfo);
 
             nextAuth0Userid = userid;
             nextAuth0Role = 'student';

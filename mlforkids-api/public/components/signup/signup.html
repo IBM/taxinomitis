@@ -103,59 +103,11 @@
         </div>
 
         <div class="newprojectrow">
-            <md-input-container class="newprojectform">
-                <md-checkbox
-                    ng-model="terms"
-                    ng-disabled="vm.complete || vm.creating"
-                    ng-focus="vm.focused = 'terms'">
-                    By checking this box, you accept responsibility for any fees or charges incurred on <a href="https://cloud.ibm.com/">IBM Cloud</a>.
-                </md-checkbox>
-            </md-input-container>
-            <div class="well newprojecthelp" ng-if="vm.focused === 'terms'">
-                Please read the notes below. If you're concerned about any of this, or have any questions, please
-                <a ui-sref="help">get in touch</a>.
-            </div>
-        </div>
-
-        <div class="well terms">
-            <div class="terms-text-spacing">
-                <strong>Setting up this tool to allow your students to train machine learning models will require some access codes (called "API keys") from IBM Cloud. </strong>
-            </div>
-            <div>"Do I have to pay for that?"</div>
-            <ul>
-                <li>No.</li>
-                <li>Creating an account on IBM Cloud is free.</li>
-                <li>There is a limit to the number of free API keys you can create. </li>
-                <li>Watson API keys you can create for free have usage limits. You can choose to pay IBM if you want to increase these limits. It is these charges that are your responsibility.</li>
-            </ul>
-            <div>"Will my students need to do this?"</div>
-            <ul>
-                <li>No.</li>
-                <li>This is a one-off setup task that you will need to do as the teacher / group-leader. </li>
-                <li>Students in your group will not need to create an account with IBM Cloud.</li>
-                <li>Students in your group will not need to visit IBM Cloud.</li>
-            </ul>
-            <div>"How will I know how to do that?"</div>
-            <ul>
-                <li><a href="https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-ibmer.pdf">Step-by-step instructions with screenshots</a> are available to walk you through this.</li>
-            </ul>
-            <div>"Do all projects require IBM Cloud API keys?"</div>
-            <ul>
-                <li>No. Machine learning projects to recognize or predict numbers, images or sounds do not require API keys. Projects using pre-trained models do not require API keys.</li>
-                <li>Only machine learning projects to recognize text require IBM Cloud API keys.</li>
-            </ul>
-            <div class="terms-text-spacing">
-                If you're concerned about any of this, or have any questions, please
-                <a ui-sref="help">get in touch</a>.
-            </div>
-        </div>
-
-        <div class="newprojectrow">
             <span flex></span>
             <div id="turnstile-container"></div>
             <md-button
                 class="md-raised md-primary"
-                ng-disabled="vm.complete || vm.creating || newClass.$invalid || terms !== true || turnstileerror"
+                ng-disabled="vm.complete || vm.creating || newClass.$invalid || turnstileerror"
                 ng-click="vm.confirm({ username : username, email : email, intendeduse : intendeduse })">
                 Create class account
             </md-button>

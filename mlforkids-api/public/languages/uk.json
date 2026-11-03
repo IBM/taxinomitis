@@ -45,7 +45,7 @@
     },
     "TECH": {
       "TITLE": "Технологія",
-      "BODY": "The tool is entirely web-based and requires no installs or complicated setup to be able to use. <br/><br/>It can be used without any signup or registration, however was designed for use in the classroom by schools - and so optionally provides an admin page for teachers or group leaders to be able to manage and administer access for their students.<br/><br/>It is being built by <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> using APIs from <a target='_blank' href='https://www.ibm.com/watson/'>IBM Watson</a>.<br/><br/>For more details about the implementation, you can see the <a target='_blank' href='https://github.com/IBM/taxinomitis/'>source code on GitHub</a>, or read some of the <a target='_blank' href='http://dalelane.co.uk/blog/?tag=mlforkids-tech'>blog posts about the tech</a>. ",
+      "BODY": "The tool is entirely web-based and requires no installs or complicated setup to be able to use. <br/><br/>It can be used without any signup or registration, however was designed for use in the classroom by schools - and so optionally provides an admin page for teachers or group leaders to be able to manage and administer access for their students.<br/><br/>It is being built by <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a>.<br/><br/>For more details about the implementation, you can see the <a target='_blank' href='https://github.com/IBM/taxinomitis/'>source code on GitHub</a>, or read some of the <a target='_blank' href='http://dalelane.co.uk/blog/?tag=mlforkids-tech'>blog posts about the tech</a>. ",
       "LOGIN": "Для початку:"
     },
     "PRETRAINED": {
@@ -123,16 +123,11 @@
     },
     "UNMANAGED": {
       "TITLE": "Створити <strong>некерований</strong>обліковий запис класу",
-      "INTRO": "Якщо ви готові налаштувати та керувати обліковим записом класу самостійно, ви можете зробити це зараз!",
-      "LISTINTRO": "Вам потрібно буде:",
-      "LIST_CREATEACCOUNT": "Створіть безкоштовний обліковий запис у IBM Cloud",
-      "LIST_CREATEAPIKEYS": "Створити ключ (і) API для хмарних служб Watson, необхідних для навчання моделей машинного навчання",
-      "LIST_ENTERAPIKEYS": "Додайте ключ(і) API до інструменту Machine Learning for Kids",
-      "HELP": "Для всього цього доступні <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'>покрокові інструкції (зі знімками екрана)</a>."
+      "INTRO": "Якщо ви готові налаштувати та керувати обліковим записом класу самостійно, ви можете зробити це зараз!"
     },
     "MANAGED": {
       "TITLE": "Створити <strong>керований</strong> обліковий запис класу",
-      "INTRO": "If you would like Dale to set up the class account for you, you can send an email to request this.",
+      "INTRO": "If you need a class account with modified or increased limits, you can send an email to request this.",
       "RESTRICTIONS": "Ця пропозиція доступна лише для шкіл і некомерційних учнівських клубів програмування.",
       "EMAIL": "Електронна пошта"
     }
@@ -247,10 +242,6 @@
       "TOOLONG": "Це занадто довго!",
       "EXCEEDLIMIT": "Ви досягли обмеження кількості проектів, які ви можете мати. Вам потрібно видалити один із поточних проектів, перш ніж ви зможете створити інший.",
       "TRYITNOW": "Вибачте! Ви можете створювати лише один проект за раз, якщо ви використовуєте 'Спробувати зараз'. Вам потрібно видалити поточний проект, перш ніж ви зможете створити інший."
-    },
-    "WARNINGS": {
-      "MLCRED-TEXT-NOKEYS": "Будь ласка, повідомте свого вчителя, що йому потрібно додати \"Watson Assistant API key\" до вашого класу, щоб ви могли навчити модель машинного навчання для вашого нового проекту",
-      "MLCRED-TEXT-INVALID": "Можливо, виникла проблема з ключами IBM Cloud API, які вам знадобляться для навчання моделі машинного навчання для вашого нового проекту. Будь ласка, попросіть свого вчителя спробувати підтвердити \"Watson Assistant API keys\" у вашому класі."
     }
   },
   "DATASETS": {
@@ -2005,6 +1996,7 @@
         "TITLE": "Обмеження для вашого класу",
         "NUM_USERS": "Ви можете мати до <span class='mlprojecttype'>{{ num }}</span> користувачів (включаючи учнів і викладачів) у вашій групі",
         "NUM_TEXT_MODELS": "Ваш клас може мати до <span class='mlprojecttype'>{{ num }}</span> моделей машинного навчання для всіх своїх <span class='mlprojecttype'>text</span> проектів.",
+        "NUM_STUDENT_TEXT_MODELS": "Each of your students is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> active machine learning models for their <span class='mlprojecttype'>text</span> projects.",
         "NUM_IMAGE_MODELS": "Ваш клас може мати до <span class='mlprojecttype'>{{ num }}</span> моделей машинного навчання для всіх своїх <span class='mlprojecttype'>images</span> проектів.</div>"
       },
       "PROJECT_LIMITS": {
@@ -2149,11 +2141,7 @@
     "CONTACT": "Якщо у вас виникли проблеми чи запитання, запитайте в <a href='https://groups.google.com/d/forum/mlforkids'>групі Google на тему ML for Kids</a>",
     "GETTINGSTARTED": {
       "TITLE": "Починаємо?",
-      "INTRO": "Скачати PDF-файл із коротким керівництвом на початку роботи:",
-      "MANAGED": "Облікові записи контрольованого класу",
-      "MANAGEDEXPL": "Для шкільних учителів, керівників груп з програмування або інших добровольців",
-      "UNMANAGED": "Учетні записи неконтрольованого класу",
-      "UNMANAGEDEXPL": "Для співробітників IBM або викладачів і керівників груп програмування, які керують власними обліковими записами класу"
+      "INTRO": "Скачати PDF-файл із коротким керівництвом на початку роботи"
     },
     "FAQS": {
       "TITLE": "Хочете дізнатися більше?",
@@ -2210,9 +2198,6 @@
     "MODELS": {
       "TITLE": "Помилки навчання моделей машинного навчання",
 
-      "Q1": "«Облікові дані Watson не налаштовано»",
-      "Q1-A-1": "Моделі машинного навчання в інструменті створюються за допомогою API IBM Watson.",
-      "Q1-A-2": "Якщо у вас є \"некерований\" обліковий запис класу, ваш викладач або керівник групи повинні будуть надати облікові дані Watson API від IBM Cloud, щоб це працювало. Покрокові інструкції, як вони можуть зробити це в документі \"Початок роботи\" у верхній частині цієї сторінки.",
       "Q2": "«Облікові дані Watson, які використовуються вашим класом, відхилено»",
       "Q2-A-1": "Моделі машинного навчання в інструменті створюються за допомогою API IBM Watson.",
       "Q2-A-2": "Якщо у вас є \"некерований\" обліковий запис класу, ваш викладач або керівник групи надасть облікові дані Watson API від IBM Cloud, щоб це працювало (як описано в \"Початок роботи\" документ у верхній частині сторінки).",
@@ -2241,15 +2226,12 @@
       "Q6-A-2": "Сторінка має перевіряти статус моделі машинного навчання кожні 30 секунд, але іноді вона припиняє перевірку, тому ви можете чекати на модель, коли вона буде готова для вас.",
       "Q6-A-3": "Якщо минуло більше кількох хвилин, варто перевірити, оновивши/перезавантаживши сторінку.",
       "Q6-A-4": "Якщо минуло більше десяти хвилин, можливо, варто розглянути можливість перезапуску (натисніть кнопку «Скасувати», а потім натисніть кнопку, щоб знову навчити нову модель машинного навчання).",
+      "Q7": "You have too many machine learning models",
+      "Q7-A-1": "There is a limit for the number of machine learning models each student can have for their text projects.",
+      "Q7-A-2": "If you hit this limit, you will not be able to train a new model until you delete a machine learning model that you no longer need.",
+      "Q7-A-3": "To delete a model, open the text project, go to the \"Learn &amp; Test\" page, and click \"Delete this model\". Your training data will not be deleted, so you can train the model again later.",
+      "Q7-A-4": "Your teacher can see the limit for your class in the Restrictions section of their Teacher page."
 
-      "Q7": "\"Ваш клас надає спільний доступ до ключів Watson API... наразі немає доступних\"",
-      "Q7-A-1": "Моделі машинного навчання в інструменті створюються за допомогою API IBM Watson.",
-      "Q7-A-2": "Якщо у вас є \"керований\" обліковий запис класу, це означає, що ваш клас ділиться цими ключами з багатьма іншими школами. ",
-      "Q7-A-3": "Зазвичай їх достатньо для всіх шкіл, але якщо вони дуже зайняті й усі доступні ключі API наразі використовуються, спроби навчити нові моделі машинного навчання будуть невдалими, і це повідомлення буде відображається:",
-      "Q7-A-4": "Ваш клас ділиться \"ключами API\" Watson Assistant / Visual Recognition \"з багатьма іншими школами, і, на жаль, наразі вони недоступні. Будь ласка, повідомте свого вчителя або керівника групи, що вам доведеться навчіть свою модель машинного навчання пізніше",
-      "Q7-A-5": "Якщо учень, який має успішно навчену модель, потім видалить свою модель, це звільнить навичку для використання іншим учнем.",
-      "Q7-A-6": "Найкраще спробувати ще раз пізніше, коли інші учні видалять свої моделі машинного навчання та ключі API знову стануть доступними. До того часу ваші навчальні дані будуть у безпеці.",
-      "Q7-A-7": "Іншим способом уникнути цієї помилки є створення для вашого класу \"некерованого\" облікового запису класу, де вчитель створює власні \"ключі API\" Watson, які можуть бути призначені лише для використання власним класом."
     },
 
     "TEACHERUI": {

@@ -1,0 +1,30 @@
+#!/bin/sh
+
+set -e
+
+# allow this script to be run from other locations, despite the
+#  relative file paths used in it
+if [[ $BASH_SOURCE = */* ]]; then
+    cd -- "${BASH_SOURCE%/*}/" || exit
+fi
+
+echo "Applying config from env files"
+export $(grep -v '^#' app.env | xargs)
+export $(grep -v '^#' devtest-credentials.env | xargs)
+
+PORT=8020
+
+echo "Running image"
+docker run --rm --detach \
+    --platform linux/amd64 \
+    --env VERIFY_USER=$VERIFY_USER \
+    --env VERIFY_PASSWORD=$VERIFY_PASSWORD \
+    -p $PORT:8000 \
+    --name taxinomitis-text \
+    $DOCKER_ORG/$DOCKER_IMAGE:local
+
+# stop the image however the tests end
+trap "echo 'Stopping image'; docker stop taxinomitis-text > /dev/null" EXIT
+
+echo "Checking the service against the reference scores"
+../venv/bin/python check-service.py http://localhost:$PORT

@@ -1,4 +1,4 @@
-import { describe, it, before, after } from 'node:test';
+import { describe, it, before, after, afterEach } from 'node:test';
 
 // tslint:disable:max-line-length
 
@@ -9,15 +9,22 @@ import * as clone from 'clone';
 
 import * as store from '../../lib/db/store';
 import * as conversation from '../../lib/training/conversation';
+import * as textmodels from '../../lib/training/textmodels';
 import * as DbTypes from '../../lib/db/db-types';
 import * as TrainingTypes from '../../lib/training/training-types';
 import * as requestUtil from '../../lib/utils/request';
-
-import loggerSetup from '../../lib/utils/logger';
+import * as notifications from '../../lib/notifications/slack';
 
 import * as mockstore from './mockstore';
-
-const log = loggerSetup();
+import {
+    mockConversation,
+    newClassifierDate, newExpiryDate,
+    goodClassifier, goodClassifierWithStatus,
+    trainingClassifier, trainingClassifierWithStatus,
+    brokenClassifier, brokenClassifierWithStatus,
+    unknownClassifier, unknownClassifierWithStatus,
+    existingClassifier,
+} from './mockconversation';
 
 
 describe('Training - Conversation', () => {
@@ -25,19 +32,13 @@ describe('Training - Conversation', () => {
     let getStub: sinon.SinonStub<any, any>;
     let createStub: sinon.SinonStub<any, any>;
     let deleteStub: sinon.SinonStub<any, any>;
-    let getProjectStub: sinon.SinonStub<[string], Promise<DbTypes.Project | undefined>>;
     let authStoreStub: sinon.SinonStub<[DbTypes.ClassTenant, TrainingTypes.BluemixServiceType], Promise<TrainingTypes.BluemixCredentials[]>>;
-    let authByIdStoreStub: sinon.SinonStub<[DbTypes.ClassTenantType, string], Promise<TrainingTypes.BluemixCredentials>>;
-    let countStoreStub: sinon.SinonStub<[DbTypes.Project], Promise<{ [label: string]: number; }>>;
-    let getConversationWorkspacesStub: sinon.SinonStub<[string], Promise<TrainingTypes.ConversationWorkspace[]>>;
-    let getStoreStub: sinon.SinonStub<[string, string, DbTypes.PagingOptions], Promise<string[]>>;
-    let storeStoreStub: sinon.SinonStub<[TrainingTypes.BluemixCredentials, DbTypes.Project | DbTypes.LocalProject, TrainingTypes.ConversationWorkspace], Promise<TrainingTypes.ConversationWorkspace>>;
-    let updateConversationStub: sinon.SinonStub<[TrainingTypes.ConversationWorkspace], Promise<void>>;
-    let deleteStoreStub: sinon.SinonStub<[string], Promise<void>>;
-    let storeScratchKeyStub: sinon.SinonStub<[DbTypes.Project | DbTypes.LocalProject, TrainingTypes.BluemixCredentials, string, Date], Promise<string>>;
-    let resetExpiredScratchKeyStub: sinon.SinonStub<[string, DbTypes.ProjectTypeLabel], Promise<void>>;
-    let updateScratchKeyTimestampStub: sinon.SinonStub<[DbTypes.Project | DbTypes.LocalProject, Date], Promise<void>>;
-    let getClassStub: sinon.SinonStub<[string], Promise<DbTypes.ClassTenant>>;
+    let authByIdStoreStub: sinon.SinonStub<[string], Promise<TrainingTypes.BluemixCredentials>>;
+
+    // the WA adapter must not read training data, or write
+    //  model records or Scratch keys - these stubs are here
+    //  to verify that they are never called
+    let notAllowedStubs: sinon.SinonStub<any, any>[];
 
 
     before(() => {
@@ -47,37 +48,34 @@ describe('Training - Conversation', () => {
         createStub.withArgs(sinon.match(/.*message/), sinon.match.any).callsFake(mockConversation.testClassifier);
         deleteStub = sinon.stub(requestUtil, 'del').callsFake(mockConversation.deleteClassifier);
 
-        getProjectStub = sinon.stub(store, 'getProject').callsFake(mockstore.getProject);
         authStoreStub = sinon.stub(store, 'getBluemixCredentials').callsFake(mockstore.getBluemixCredentials);
-        authByIdStoreStub = sinon.stub(store, 'getBluemixCredentialsById').callsFake(mockstore.getBluemixCredentialsById);
-        getConversationWorkspacesStub = sinon.stub(store, 'getConversationWorkspaces').callsFake(mockstore.getConversationWorkspaces);
-        countStoreStub = sinon.stub(store, 'countTrainingByLabel').callsFake(mockstore.countTrainingByLabel);
-        getStoreStub = sinon.stub(store, 'getUniqueTrainingTextsByLabel').callsFake(mockstore.getUniqueTrainingTextsByLabel);
-        storeStoreStub = sinon.stub(store, 'storeConversationWorkspace').callsFake(mockstore.storeConversationWorkspace);
-        updateConversationStub = sinon.stub(store, 'updateConversationWorkspaceExpiry').callsFake(mockstore.updateConversationWorkspaceExpiry);
-        deleteStoreStub = sinon.stub(store, 'deleteConversationWorkspace').callsFake(mockstore.deleteConversationWorkspace);
-        storeScratchKeyStub = sinon.stub(store, 'storeOrUpdateScratchKey').callsFake(mockstore.storeOrUpdateScratchKey);
-        updateScratchKeyTimestampStub = sinon.stub(store, 'updateScratchKeyTimestamp').callsFake(mockstore.updateScratchKeyTimestamp);
-        resetExpiredScratchKeyStub = sinon.stub(store, 'resetExpiredScratchKey').callsFake(mockstore.resetExpiredScratchKey);
-        getClassStub = sinon.stub(store, 'getClassTenant').callsFake(mockstore.getClassTenant);
+        authByIdStoreStub = sinon.stub(store, 'getCombinedBluemixCredentialsById').callsFake(mockstore.getCombinedBluemixCredentialsById);
+
+        notAllowedStubs = [
+            sinon.stub(store, 'countTrainingByLabel'),
+            sinon.stub(store, 'getUniqueTrainingTextsByLabel'),
+            sinon.stub(store, 'storeTextClassifier'),
+            sinon.stub(store, 'updateTextClassifierExpiry'),
+            sinon.stub(store, 'deleteTextClassifier'),
+            sinon.stub(store, 'storeOrUpdateScratchKey'),
+            sinon.stub(store, 'updateScratchKeyTimestamp'),
+            sinon.stub(store, 'resetExpiredScratchKey'),
+        ];
+    });
+    afterEach(() => {
+        for (const stub of notAllowedStubs) {
+            assert(stub.notCalled);
+        }
     });
     after(() => {
         getStub.restore();
         createStub.restore();
         deleteStub.restore();
-        getProjectStub.restore();
         authStoreStub.restore();
         authByIdStoreStub.restore();
-        getConversationWorkspacesStub.restore();
-        countStoreStub.restore();
-        getStoreStub.restore();
-        storeStoreStub.restore();
-        updateConversationStub.restore();
-        deleteStoreStub.restore();
-        storeScratchKeyStub.restore();
-        updateScratchKeyTimestampStub.restore();
-        resetExpiredScratchKeyStub.restore();
-        getClassStub.restore();
+        for (const stub of notAllowedStubs) {
+            stub.restore();
+        }
     });
 
 
@@ -86,277 +84,172 @@ describe('Training - Conversation', () => {
         maxUsers : 10,
         tenantType : DbTypes.ClassTenantType.UnManaged,
         supportedProjectTypes : [ 'text', 'images', 'numbers', 'sounds' ],
-        textClassifierExpiry : 1,
-        maxProjectsPerUser : 10,
-    };
-    const CLASS: DbTypes.ClassTenant = {
-        id: 'CLASSID',
-        maxUsers : 6,
-        tenantType : DbTypes.ClassTenantType.UnManaged,
-        supportedProjectTypes : [ 'text', 'images', 'numbers' ],
-        textClassifierExpiry : 1,
+        textClassifierExpiry : 2,
         maxProjectsPerUser : 10,
     };
 
-    describe('create classifier', () => {
+    const creds: TrainingTypes.BluemixCredentials = {
+        id : '123',
+        username : 'useruseruseruseruseruseruseruseruser',
+        password : 'passpasspass',
+        servicetype : 'conv',
+        url : 'http://conversation.service',
+        classid : 'classid',
+        credstype : 'unknown',
+    };
 
-        it('should create a classifier', async () => {
-            storeScratchKeyStub.reset();
 
-            const classid = TESTTENANT.id;
-            const userid = 'bob';
-            const projectid = 'projectbob';
-            const projectname = 'Bob\'s text project';
+    function createProject(projectid: string, name: string, language: DbTypes.TextProjectLanguage): DbTypes.Project {
+        return {
+            id : projectid,
+            name,
+            userid : 'bob', classid : TESTTENANT.id,
+            type : 'text',
+            language,
+            labels : ['this', 'that'],
+            numfields : 0,
+            isCrowdSourced : false,
+        };
+    }
 
-            const project: DbTypes.Project = {
-                id : projectid,
-                name : projectname,
-                userid, classid,
-                type : 'text',
-                language : 'fr',
-                labels : ['temperature', 'conditions'],
-                numfields : 0,
-                isCrowdSourced : false,
-            };
+    function createTraining(name: string, language: DbTypes.TextProjectLanguage): TrainingTypes.ConversationTrainingData {
+        return {
+            name,
+            language,
+            intents : [
+                { intent : 'this', examples : [ { text : 'one' }, { text : 'two' } ] },
+                { intent : 'that', examples : [ { text : 'three' } ] },
+            ],
+            dialog_nodes : [],
+            counterexamples : [],
+            entities : [],
+            metadata : { createdby : 'machinelearningforkids' },
+        };
+    }
 
-            const classifier = await conversation.trainClassifier(project);
-            assert(classifier.id);
 
-            assert.deepStrictEqual(classifier, {
-                id : classifier.id,
-                name : projectname,
+    describe('create model', () => {
+
+        it('should create a workspace', async () => {
+            const project = createProject('projectbob', 'Bob\'s text project', 'fr');
+            const training = createTraining(project.name, 'fr');
+
+            const { workspace, credentials } = await conversation.createModel(project, TESTTENANT, 'class', training);
+            assert(workspace.id);
+
+            assert.deepStrictEqual(workspace, {
+                id : workspace.id,
+                name : 'Bob\'s text project',
                 language : 'fr',
                 created : newClassifierDate,
                 updated : newClassifierDate,
                 expiry : newExpiryDate,
                 workspace_id : '04f2d303-16fd-4f2e-80f4-2c66784cc0fe',
                 credentialsid : '123',
+                servicetype : 'conv',
                 status : 'Training',
                 url : 'http://conversation.service/v1/workspaces/04f2d303-16fd-4f2e-80f4-2c66784cc0fe',
             });
+            assert.deepStrictEqual(credentials, mockstore.creds);
 
-            assert(
-                storeScratchKeyStub.calledWith(project, mockstore.creds,
-                    '04f2d303-16fd-4f2e-80f4-2c66784cc0fe', sinon.match.any));
+            assert.deepStrictEqual(createStub.lastCall.args[1].body, training);
         });
 
 
-        it('should handle failures to create a classifier', async () => {
-            storeScratchKeyStub.reset();
+        it('should handle failures to create a workspace', async () => {
+            const project = createProject('projectbob', 'Bob\'s broken project', 'pt-br');
 
-            const classid = TESTTENANT.id;
-            const userid = 'unluckybob';
-            const projectid = 'projectbob';
-            const projectname = 'Bob\'s broken project';
-
-            const project: DbTypes.Project = {
-                id : projectid,
-                name : projectname,
-                userid, classid,
-                type : 'text',
-                language : 'pt-br',
-                labels : ['this', 'that'],
-                numfields : 0,
-                isCrowdSourced : false,
-            };
-
-            try {
-                await conversation.trainClassifier(project);
-                assert.fail('should not have allowed this');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, conversation.ERROR_MESSAGES.UNKNOWN);
-            }
+            await assert.rejects(
+                () => conversation.createModel(project, TESTTENANT, 'class', createTraining(project.name, 'pt-br')),
+                { message : textmodels.ERROR_MESSAGES.UNKNOWN });
         });
 
 
-        it('should handle model limit failures to create a classifier', async () => {
-            storeScratchKeyStub.reset();
+        it('should handle model limit failures to create a workspace', async () => {
+            const project = createProject('projectbob', 'Too Many Models', 'en');
 
-            const classid = TESTTENANT.id;
-            const userid = 'unluckybob';
-            const projectid = 'projectbob';
-            const projectname = 'Too Many Models';
-
-            const project: DbTypes.Project = {
-                id : projectid,
-                name : projectname,
-                userid, classid,
-                type : 'text',
-                language : 'en',
-                labels : ['this', 'that'],
-                numfields : 0,
-                isCrowdSourced : false,
-            };
-
-            try {
-                await conversation.trainClassifier(project);
-                assert.fail('should not have allowed this');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, conversation.ERROR_MESSAGES.INSUFFICIENT_API_KEYS);
-            }
+            await assert.rejects(
+                () => conversation.createModel(project, TESTTENANT, 'class', createTraining(project.name, 'en')),
+                { message : conversation.ERROR_MESSAGES.INSUFFICIENT_API_KEYS });
         });
 
 
-        it('should handle rate limit failures to create a classifier', async () => {
-            storeScratchKeyStub.reset();
+        it('should handle rate limit failures to create a workspace', async () => {
+            const project = createProject('projectbob', 'Coming Too Fast', 'en');
 
-            const classid = TESTTENANT.id;
-            const userid = 'unluckybob';
-            const projectid = 'projectbob';
-            const projectname = 'Coming Too Fast';
-
-            const project: DbTypes.Project = {
-                id : projectid,
-                name : projectname,
-                userid, classid,
-                type : 'text',
-                language : 'en',
-                labels : ['this', 'that'],
-                numfields : 0,
-                isCrowdSourced : false,
-            };
-
-            try {
-                await conversation.trainClassifier(project);
-                assert.fail('should not have allowed this');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, conversation.ERROR_MESSAGES.API_KEY_RATE_LIMIT);
-            }
+            await assert.rejects(
+                () => conversation.createModel(project, TESTTENANT, 'class', createTraining(project.name, 'en')),
+                { message : conversation.ERROR_MESSAGES.API_KEY_RATE_LIMIT });
         });
 
 
-        it('should handle maintenance errors when creating a classifier', async () => {
-            storeScratchKeyStub.reset();
+        it('should handle maintenance errors when creating a workspace', async () => {
+            const project = createProject('projectbob', 'Watson Under Maintenance', 'en');
 
-            const classid = TESTTENANT.id;
-            const userid = 'unluckybob';
-            const projectid = 'projectbob';
-            const projectname = 'Watson Under Maintenance';
-
-            const project: DbTypes.Project = {
-                id : projectid,
-                name : projectname,
-                userid, classid,
-                type : 'text',
-                language : 'en',
-                labels : ['this', 'that'],
-                numfields : 0,
-                isCrowdSourced : false,
-            };
-
-            try {
-                await conversation.trainClassifier(project);
-                assert.fail('should not have allowed this');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, conversation.ERROR_MESSAGES.MAINTENANCE);
-            }
+            await assert.rejects(
+                () => conversation.createModel(project, TESTTENANT, 'class', createTraining(project.name, 'en')),
+                { message : conversation.ERROR_MESSAGES.MAINTENANCE });
         });
     });
 
 
 
-    describe('update classifier', () => {
+    describe('update model', () => {
 
-        it('should update a classifier', async () => {
-            storeScratchKeyStub.reset();
-
-            const classid = 'classid';
-            const userid = 'bob';
-            const projectid = 'existingprojectid';
-            const projectname = 'existing';
-
-            const project: DbTypes.Project = {
-                id : projectid,
-                name : projectname,
-                userid, classid,
-                type : 'text',
-                language : 'de',
-                labels : ['big', 'small'],
-                numfields : 0,
-                isCrowdSourced : false,
-            };
+        it('should update a workspace', async () => {
+            const project = createProject('existingprojectid', 'existing', 'de');
 
             const before = new Date();
 
-            const classifier = await conversation.trainClassifier(project);
+            const { workspace, credentials } = await conversation.updateModel(project, TESTTENANT, mockstore.creds,
+                clone(existingClassifier), createTraining(project.name, 'de'));
 
+            assert.strictEqual(workspace.id, existingClassifier.id);
+            assert.strictEqual(workspace.workspace_id, existingClassifier.workspace_id);
             assert.notStrictEqual(existingClassifier.expiry.getTime(),
-                                  classifier.expiry.getTime());
-            assert(classifier.expiry.getTime() > before.getTime());
+                                  workspace.expiry.getTime());
+            assert(workspace.expiry.getTime() > before.getTime());
+            assert.deepStrictEqual(credentials, mockstore.creds);
         });
 
 
-        it('should handle maintenance errors when updating a classifier', async () => {
-            storeScratchKeyStub.reset();
-
-            const classid = 'classid';
-            const userid = 'bob';
-            const projectid = 'existingprojectid-maintenance';
-            const projectname = 'existing';
-
-            const project: DbTypes.Project = {
-                id : projectid,
-                name : projectname,
-                userid, classid,
-                type : 'text',
-                language : 'de',
-                labels : ['big', 'small'],
-                numfields : 0,
-                isCrowdSourced : false,
+        it('should handle maintenance errors when updating a workspace', async () => {
+            const project = createProject('existingprojectid-maintenance', 'existing', 'de');
+            const existing: TrainingTypes.TextClassifier = {
+                ...clone(existingClassifier),
+                id : 'existingworkspacedbid-maintenance',
+                workspace_id : 'existing-classifier-maintenance',
             };
 
-            try {
-                await conversation.trainClassifier(project);
-                assert.fail('should not have allowed this');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, conversation.ERROR_MESSAGES.MAINTENANCE);
-            }
+            await assert.rejects(
+                () => conversation.updateModel(project, TESTTENANT, mockstore.creds, existing, createTraining(project.name, 'de')),
+                { message : conversation.ERROR_MESSAGES.MAINTENANCE });
         });
 
+
+        it('should report workspaces that have been deleted from Watson Assistant', async () => {
+            const project = createProject('deletedprojectid', 'existing', 'de');
+            const existing: TrainingTypes.TextClassifier = {
+                ...clone(existingClassifier),
+                id : 'deletedworkspacedbid',
+                workspace_id : 'deleted-from-watson',
+            };
+
+            await assert.rejects(
+                () => conversation.updateModel(project, TESTTENANT, mockstore.creds, existing, createTraining(project.name, 'de')),
+                { message : textmodels.ERROR_MESSAGES.MODEL_NOT_FOUND });
+        });
     });
 
 
 
-    describe('test classifier', () => {
-
-        it('should not send text from binary files to the Conversation service', async () => {
-            const creds: TrainingTypes.BluemixCredentials = {
-                id : '123',
-                username : 'useruseruseruseruseruseruseruseruser',
-                password : 'passpasspass',
-                servicetype : 'conv',
-                url : 'http://conversation.service',
-                classid : 'classid',
-                credstype : 'unknown',
-            };
-            createStub.resetHistory();
-
-            await assert.rejects(
-                () => conversation.testClassifier(creds, 'good', new Date(), 'projectbob', 'PK\u0003\u0004\u0014\u0000'),
-                { message : conversation.ERROR_MESSAGES.TEXT_NOT_PLAIN });
-
-            assert.strictEqual(createStub.called, false);
-        });
+    describe('classify', () => {
 
         it('should return classes from Conversation service', async () => {
-            const creds: TrainingTypes.BluemixCredentials = {
-                id : '123',
-                username : 'useruseruseruseruseruseruseruseruser',
-                password : 'passpasspass',
-                servicetype : 'conv',
-                url : 'http://conversation.service',
-                classid : 'classid',
-                credstype : 'unknown',
-            };
             const classifierTimestamp = new Date();
             classifierTimestamp.setMilliseconds(0);
 
-            const classes = await conversation.testClassifier(creds, 'good', classifierTimestamp, 'projectbob', 'Hello');
+            const classes = await conversation.classify(creds, 'good', classifierTimestamp, 'Hello');
             assert.deepStrictEqual(classes, [
                 {
                     class_name : 'temperature',
@@ -372,76 +265,168 @@ describe('Training - Conversation', () => {
         });
 
 
-        it('should fail to return classes from broken Conversation workspace', async () => {
-            const creds: TrainingTypes.BluemixCredentials = {
-                id : '123',
-                username : 'useruseruseruseruseruseruseruseruser',
-                password : 'passpasspass',
-                servicetype : 'conv',
-                url : 'http://conversation.service',
-                classid : 'classid',
-                credstype : 'unknown',
-            };
-            const classes = await conversation.testClassifier(creds, 'bad', new Date(), 'projectbob', 'Hello');
-            assert.strictEqual(classes.length, 1);
-            assert.strictEqual(classes[0].confidence, 0);
-            assert.strictEqual(classes[0].random, true);
+        it('should return no classes when nothing matches', async () => {
+            const classes = await conversation.classify(creds, 'bad', new Date(), 'Hello');
+            assert.deepStrictEqual(classes, []);
         });
 
 
         it('should handle unexpected server errors from Conversation', async () => {
-            const creds: TrainingTypes.BluemixCredentials = {
-                id : '123',
-                username : 'useruseruseruseruseruseruseruseruser',
-                password : 'passpasspass',
-                servicetype : 'conv',
-                url : 'http://conversation.service',
-                classid : 'classid',
-                credstype : 'unknown',
-            };
+            await assert.rejects(
+                () => conversation.classify(creds, 'broken500', new Date(), 'Hello'),
+                { message : textmodels.ERROR_MESSAGES.SERVICE_ERROR });
+        });
+
+
+        it('should handle text too long errors from Conversation', async () => {
+            await assert.rejects(
+                () => conversation.classify(creds, 'toolong', new Date(), 'Hello'),
+                { message : textmodels.ERROR_MESSAGES.TEXT_TOO_LONG });
+        });
+    });
+
+
+
+    describe('credential pools', () => {
+
+        const largePoolCreds: TrainingTypes.BluemixCredentialsPool = {
+            ...mockstore.poolCreds,
+            source : 'large-pool',
+            id : '789',
+            url : 'http://large.conversation.service',
+        };
+
+        let poolStub: sinon.SinonStub<any, any>;
+        let poolFailureStub: sinon.SinonStub<any, any>;
+        let poolDeletionStub: sinon.SinonStub<any, any>;
+        let notifyStub: sinon.SinonStub<any, any>;
+
+        before(() => {
+            poolStub = sinon.stub(store, 'getBluemixCredentialsPoolBatch');
+            poolFailureStub = sinon.stub(store, 'recordBluemixCredentialsPoolFailure');
+            poolDeletionStub = sinon.stub(store, 'recordBluemixCredentialsPoolModelDeletion');
+            notifyStub = sinon.stub(notifications, 'notify');
+            authByIdStoreStub.withArgs(largePoolCreds.id).resolves(largePoolCreds);
+        });
+        afterEach(() => {
+            poolStub.reset();
+            poolFailureStub.reset();
+            poolDeletionStub.reset();
+            notifyStub.reset();
+        });
+        after(() => {
+            poolStub.restore();
+            poolFailureStub.restore();
+            poolDeletionStub.restore();
+            notifyStub.restore();
+            authByIdStoreStub.reset();
+            authByIdStoreStub.callsFake(mockstore.getCombinedBluemixCredentialsById);
+        });
+
+
+        it('should create a workspace using the large pool', async () => {
+            poolStub.withArgs('large-pool', 'conv').resolves([ largePoolCreds ]);
+            const project = createProject('projectbob', 'Bob\'s text project', 'en');
+
+            const { workspace, credentials } = await conversation.createModel(project, TESTTENANT, 'large-pool', createTraining(project.name, 'en'));
+
+            assert.strictEqual(credentials, largePoolCreds);
+            assert.strictEqual(workspace.credentialsid, largePoolCreds.id);
+            assert(poolStub.calledOnceWith('large-pool', 'conv'));
+        });
+
+        it('should record failures against the large pool, and alert the text service channel without ids', async () => {
+            poolStub.withArgs('large-pool', 'conv').resolves([ largePoolCreds ]);
+            const project = createProject('projectbob', 'Too Many Models', 'en');
+
+            await assert.rejects(
+                () => conversation.createModel(project, TESTTENANT, 'large-pool', createTraining(project.name, 'en')),
+                { message : conversation.ERROR_MESSAGES.POOL_EXHAUSTED });
+
+            assert(poolFailureStub.calledOnceWith(largePoolCreds));
+            assert(poolStub.neverCalledWith('managed-pool'));
+
+            assert(notifyStub.calledOnce);
+            const [ text, channel ] = notifyStub.firstCall.args;
+            assert.strictEqual(channel, notifications.SLACK_CHANNELS.TEXT_SERVICE);
+            assert(text.includes('large-pool'));
+            assert(!text.includes(project.id));
+            assert(!text.includes(project.classid));
+        });
+
+        it('should alert about the managed pool in the training errors channel without ids', async () => {
+            poolStub.withArgs('managed-pool', 'conv').resolves([ mockstore.poolCreds ]);
+            const project = createProject('projectbob', 'Too Many Models', 'en');
+
+            await assert.rejects(
+                () => conversation.createModel(project, TESTTENANT, 'managed-pool', createTraining(project.name, 'en')),
+                { message : conversation.ERROR_MESSAGES.POOL_EXHAUSTED });
+
+            assert(poolFailureStub.calledOnceWith(mockstore.poolCreds));
+
+            const [ text, channel ] = notifyStub.firstCall.args;
+            assert.strictEqual(channel, notifications.SLACK_CHANNELS.TRAINING_ERRORS);
+            assert(text.includes('managed-pool'));
+            assert(!text.includes(project.id));
+        });
+
+        it('should record deletions of models using the large pool against the large pool', async () => {
+            await conversation.deleteModel({ ...goodClassifier, credentialsid : largePoolCreds.id });
+
+            assert(poolDeletionStub.calledOnceWith(largePoolCreds));
+        });
+
+        it('should check every pool for orphaned workspaces, even if one is empty', async () => {
+            poolStub.withArgs('managed-pool', 'conv').rejects(new Error('Unexpected response when retrieving service credentials'));
+            poolStub.withArgs('large-pool', 'conv').resolves([ largePoolCreds ]);
+            authStoreStub.withArgs(sinon.match.has('id', 'session-users'), 'conv').resolves([]);
+            const getClassStub = sinon.stub(store, 'getClassTenant').resolves({ ...TESTTENANT, id : 'session-users' });
+            getStub.withArgs('http://large.conversation.service/v1/workspaces', sinon.match.any).resolves({ workspaces : [] });
+            getStub.resetHistory();
 
             try {
-                await conversation.testClassifier(creds, 'broken500', new Date(), 'projectbob', 'Hello');
-                assert.fail('should not have allowed this');
+                await conversation.cleanupOrphanedBluemixClassifiers();
+
+                assert(poolStub.calledWith('managed-pool', 'conv'));
+                assert(poolStub.calledWith('large-pool', 'conv'));
+                assert(getStub.calledOnceWith('http://large.conversation.service/v1/workspaces'));
             }
-            catch (err) {
-                assert.strictEqual(err.message, conversation.ERROR_MESSAGES.SERVICE_ERROR);
+            finally {
+                getClassStub.restore();
+                authStoreStub.reset();
+                authStoreStub.callsFake(mockstore.getBluemixCredentials);
+                getStub.reset();
+                getStub.callsFake(mockConversation.getClassifier);
             }
         });
     });
 
 
 
-    describe('delete classifier', () => {
+    describe('delete model', () => {
 
-        it('should delete a classifier', async () => {
-            deleteStub.reset();
-            deleteStoreStub.reset();
-            resetExpiredScratchKeyStub.reset();
+        const poolClassifier: TrainingTypes.TextClassifier = {
+            ...goodClassifier,
+            credentialsid : mockstore.poolCreds.id,
+        };
 
-            assert.strictEqual(deleteStub.called, false);
-            assert.strictEqual(deleteStoreStub.called, false);
+        it('should delete a workspace', async () => {
+            deleteStub.resetHistory();
 
-            await conversation.deleteClassifier(TESTTENANT, goodClassifier);
+            await conversation.deleteModel(goodClassifier);
 
             assert(deleteStub.calledOnce);
-            assert(deleteStoreStub.calledOnce);
-
             assert(deleteStub.calledWith('http://conversation.service/v1/workspaces/good', {
                 auth : { user : 'useruseruseruseruseruseruseruseruser', pass : 'passpasspass' },
                 qs : { version : '2017-05-26' },
                 headers : { 'user-agent' : 'machinelearningforkids', 'X-Watson-Learning-Opt-Out': 'true' },
                 json: true, gzip: true, timeout: 30000,
             }));
-            assert(deleteStoreStub.calledWith(goodClassifier.id));
-            assert(resetExpiredScratchKeyStub.called);
         });
 
 
-        it('should cope with deleting a classifier missing from Bluemix', async () => {
-            deleteStub.reset();
-            deleteStoreStub.reset();
-            resetExpiredScratchKeyStub.reset();
+        it('should cope with deleting a workspace missing from Bluemix', async () => {
+            deleteStub.resetHistory();
 
             const missingErr: any = new Error();
             missingErr.statusCode = 404;
@@ -450,15 +435,11 @@ describe('Training - Conversation', () => {
                 .withArgs('http://conversation.service/v1/workspaces/doesnotactuallyexist', sinon.match.any)
                 .throws(missingErr);
 
-            assert.strictEqual(deleteStub.called, false);
-            assert.strictEqual(deleteStoreStub.called, false);
-
-            const workspaceid = uuid();
-
-            await conversation.deleteClassifier(TESTTENANT, {
-                id : workspaceid,
+            await conversation.deleteModel({
+                id : uuid(),
                 workspace_id : 'doesnotactuallyexist',
                 credentialsid : '123',
+                servicetype : 'conv',
                 url : 'http://conversation.service/v1/workspaces/doesnotactuallyexist',
                 name : 'This does not exist',
                 language : 'fr',
@@ -467,591 +448,117 @@ describe('Training - Conversation', () => {
             });
 
             assert(deleteStub.calledOnce);
-            assert(deleteStoreStub.calledOnce);
-
             assert(deleteStub.calledWith('http://conversation.service/v1/workspaces/doesnotactuallyexist', {
                 auth : { user : 'useruseruseruseruseruseruseruseruser', pass : 'passpasspass' },
                 qs : { version : '2017-05-26' },
                 headers : { 'user-agent' : 'machinelearningforkids', 'X-Watson-Learning-Opt-Out': 'true' },
                 json: true, gzip: true, timeout: 30000,
             }));
-            assert(deleteStoreStub.calledWith(workspaceid));
-            assert(resetExpiredScratchKeyStub.called);
-        });
-    });
-
-
-    describe('get classifier info', () => {
-
-        it('should get info for a ready classifier', async () => {
-            const reqClone = clone([ goodClassifier ]);
-            const one = await conversation.getClassifierStatuses(CLASS, reqClone);
-
-            assert.deepStrictEqual(one, [ goodClassifierWithStatus ]);
         });
 
 
-        it('should get info for a broken classifier', async () => {
-            const reqClone = clone([ brokenClassifier ]);
-            const one = await conversation.getClassifierStatuses(CLASS, reqClone);
+        it('should record deletions of models using pool credentials', async () => {
+            deleteStub.resetHistory();
+            const poolDeletionStub = sinon.stub(store, 'recordBluemixCredentialsPoolModelDeletion').resolves();
 
-            assert.deepStrictEqual(one, [ brokenClassifierWithStatus ]);
-        });
+            try {
+                await conversation.deleteModel(poolClassifier);
 
-        it('should get info for multiple classifiers', async () => {
-            const reqClone = clone([
-                goodClassifier,
-                brokenClassifier,
-                trainingClassifier,
-            ]);
-            const three = await conversation.getClassifierStatuses(CLASS, reqClone);
-
-            assert.deepStrictEqual(three, [
-                goodClassifierWithStatus,
-                brokenClassifierWithStatus,
-                trainingClassifierWithStatus,
-            ]);
-        });
-
-        it('should get info for no classifiers', async () => {
-            const reqClone: TrainingTypes.ConversationWorkspace[] = [ ];
-            const none = await conversation.getClassifierStatuses(CLASS, reqClone);
-
-            assert.deepStrictEqual(none, []);
-        });
-
-
-        it('should get info for unknown classifiers', async () => {
-            const reqClone = clone([
-                brokenClassifier,
-                unknownClassifier,
-                trainingClassifier,
-                goodClassifier,
-            ]);
-            const three = await conversation.getClassifierStatuses(CLASS, reqClone);
-
-            assert.deepStrictEqual(three, [
-                brokenClassifierWithStatus,
-                unknownClassifierWithStatus,
-                trainingClassifierWithStatus,
-                goodClassifierWithStatus,
-            ]);
-        });
-    });
-
-
-    describe('normalize text', () => {
-        it('should return expected text', () => {
-            const TESTS = [
-                { input : 'HELLO', expected : 'hello' },
-                { input : 'Hello', expected : 'hello' },
-                { input : 'HÉLLO', expected : 'hello' },
-                { input : 'héllo', expected : 'hello' },
-                { input : 'àèìòùÀÈÌÒÙ', expected : 'aeiouaeiou' }
-            ];
-            for (const test of TESTS) {
-                assert.strictEqual(test.expected, conversation.normalizeText(test.input));
+                assert(deleteStub.calledOnce);
+                assert(poolDeletionStub.calledOnceWith(mockstore.poolCreds));
             }
-        });
-    });
-
-    describe('sanitize training', () => {
-        it('should remove duplicates from a training set', () => {
-            const language: DbTypes.TextProjectLanguage = 'en';
-            const testinput = {
-                name: "Me hace feliz",
-                language,
-                intents:[
-                    {
-                        intent: 'bien',
-                        examples:[
-                            {text:'guapo'},
-                            {text:'hermoso'},
-                            {text:'Amort'},
-                            {text:'precioso'},
-                            {text:'listo'},
-                            {text:'inteligente'},
-                            {text:'gracioso'},
-                            {text:'amort'},
-                            {text:'amor'},
-                            {text:'tt'}
-                        ]
-                    },
-                    {
-                        intent: 'mal',
-                        examples:[
-                            {text:'feo'},
-                            {text:'tonto'},
-                            {text:'tontorron'},
-                            {text:'aburrido'},
-                            {text:'autista'},
-                            {text:'retrasado'},
-                            {text:'malo'},
-                            {text:'tontorrón'},
-                            {text:'Autista'}
-                        ]
-                    }
-                ],
-                dialog_nodes:[],
-                counterexamples:[],
-                entities:[],
-                metadata:{createdby:'machinelearningforkids'}
-            };
-            const output = conversation.sanitizeTraining(testinput);
-            assert.deepStrictEqual(output.intents[0].examples.map(e => e.text),
-                [ 'guapo', 'hermoso', 'Amort', 'precioso', 'listo',
-                  'inteligente', 'gracioso', 'amor', 'tt' ]);
-            assert.deepStrictEqual(output.intents[1].examples.map(e => e.text),
-                [ 'feo', 'tonto', 'tontorron', 'aburrido', 'autista',
-                  'retrasado', 'malo' ]);
-        });
-
-        it('should keep the project name', () => {
-            const language: DbTypes.TextProjectLanguage = 'en';
-            const TESTS = [
-                { input : 'My project', expected : 'My project' },
-                { input : 'My\tproject\nname', expected : 'My_project_name' },
-                { input : 'x'.repeat(64), expected : 'x'.repeat(64) },
-                { input : 'a'.repeat(64) + 'b'.repeat(10), expected : 'a'.repeat(64) },
-            ];
-            for (const test of TESTS) {
-                const output = conversation.sanitizeTraining({
-                    name : test.input,
-                    language,
-                    intents : [ { intent : 'label', examples : [ { text : 'example' } ] } ],
-                    dialog_nodes : [],
-                    counterexamples : [],
-                    entities : [],
-                    metadata : { createdby : 'machinelearningforkids' },
-                });
-                assert.strictEqual(output.name, test.expected);
+            finally {
+                poolDeletionStub.restore();
             }
         });
 
-        it('should truncate long examples', () => {
-            const language: DbTypes.TextProjectLanguage = 'en';
-            const output = conversation.sanitizeTraining({
-                name : 'test',
-                language,
-                intents : [ { intent : 'label', examples : [ { text : 'x'.repeat(1100) }, { text : 'short' } ] } ],
-                dialog_nodes : [],
-                counterexamples : [],
-                entities : [],
-                metadata : { createdby : 'machinelearningforkids' },
-            });
-            assert.deepStrictEqual(output.intents[0].examples.map(e => e.text), [ 'x'.repeat(1024), 'short' ]);
+
+        it('should not record deletions of models using class credentials', async () => {
+            deleteStub.resetHistory();
+            const poolDeletionStub = sinon.stub(store, 'recordBluemixCredentialsPoolModelDeletion').resolves();
+
+            try {
+                await conversation.deleteModel(goodClassifier);
+
+                assert(deleteStub.calledOnce);
+                assert(poolDeletionStub.notCalled);
+            }
+            finally {
+                poolDeletionStub.restore();
+            }
+        });
+
+
+        it('should not fail if the deletion of a model using pool credentials cannot be recorded', async () => {
+            deleteStub.resetHistory();
+            const poolDeletionStub = sinon.stub(store, 'recordBluemixCredentialsPoolModelDeletion')
+                .rejects(new Error('DB is unavailable'));
+
+            try {
+                await conversation.deleteModel(poolClassifier);
+
+                assert(deleteStub.calledOnce);
+                assert(poolDeletionStub.calledOnce);
+            }
+            finally {
+                poolDeletionStub.restore();
+            }
+        });
+
+
+        it('should fail if the credentials are missing', async () => {
+            deleteStub.resetHistory();
+
+            await assert.rejects(
+                () => conversation.deleteModel({ ...goodClassifier, credentialsid : 'missing' }),
+                { message : 'Unexpected response when retrieving the service credentials' });
+
+            assert(deleteStub.notCalled);
         });
     });
 
-    describe('check training is plain text', () => {
-        const language: DbTypes.TextProjectLanguage = 'en';
-        function training(examples: string[]) {
-            return {
-                name : 'test',
-                language,
-                intents : [
-                    { intent : 'safe', examples : [ { text : 'www.google.com' } ] },
-                    { intent : 'phishing', examples : examples.map((text) => { return { text }; }) },
-                ],
-                dialog_nodes : [],
-                counterexamples : [],
-                entities : [],
-                metadata : { createdby : 'machinelearningforkids' },
-            };
-        }
 
-        it('should allow plain text', () => {
-            assert.strictEqual(conversation.isPlainTextTraining(training([ 'www.goagle.com' ])), true);
+
+    describe('get model status', () => {
+
+        it('should get status for a ready workspace', async () => {
+            const status = await conversation.getModelStatus(creds, clone(goodClassifier));
+            assert.deepStrictEqual(status, goodClassifierWithStatus);
         });
 
-        it('should reject training with the contents of a binary file', () => {
-            assert.strictEqual(conversation.isPlainTextTraining(training([
-                'www.goagle.com', 'PK\u0003\u0004\u0014\u0000\u0006\u0000',
-            ])), false);
+        it('should get status for a broken workspace', async () => {
+            const status = await conversation.getModelStatus(creds, clone(brokenClassifier));
+            assert.deepStrictEqual(status, brokenClassifierWithStatus);
+        });
+
+        it('should get status for a workspace that is still training', async () => {
+            const status = await conversation.getModelStatus(creds, clone(trainingClassifier));
+            assert.deepStrictEqual(status, trainingClassifierWithStatus);
+        });
+
+        it('should get status for an unknown workspace', async () => {
+            const status = await conversation.getModelStatus(creds, clone(unknownClassifier));
+            assert.deepStrictEqual(status, unknownClassifierWithStatus);
+        });
+
+
+        it('should get status for a workspace used by a Scratch key', async () => {
+            getStub.resetHistory();
+
+            const status = await conversation.getScratchKeyModelStatus(creds, 'good', 'scratch project');
+            assert.strictEqual(status.status, 'Available');
+            assert.strictEqual(status.workspace_id, 'good');
+            assert.strictEqual(status.name, 'scratch project');
+            assert(getStub.calledOnceWith('http://conversation.service/v1/workspaces/good', sinon.match.any));
+        });
+
+
+        it('should encode workspace ids from Scratch keys', async () => {
+            getStub.resetHistory();
+
+            const status = await conversation.getScratchKeyModelStatus(creds, '../other', 'scratch project');
+            assert.strictEqual(status.status, 'Non Existent');
+            assert(getStub.calledOnceWith('http://conversation.service/v1/workspaces/..%2Fother', sinon.match.any));
         });
     });
-
-    const newClassifierDate = new Date();
-    newClassifierDate.setMilliseconds(0);
-    const newExpiryDate = new Date();
-    newExpiryDate.setMilliseconds(0);
-    newExpiryDate.setHours(newClassifierDate.getHours() + 2);
-
-    const mockConversation = {
-        getClassifier : (url: string) => {
-            const prom: unknown = new Promise((resolve, reject) => {
-                switch (url) {
-                case 'http://conversation.service/v1/workspaces/good':
-                    return resolve(goodClassifierStatus);
-                case 'http://conversation.service/v1/workspaces/bad':
-                    return resolve(brokenClassifierStatus);
-                case 'http://conversation.service/v1/workspaces/stillgoing':
-                    return resolve(trainingClassifierStatus);
-                default:
-                    return reject({
-                        error : 'Resource not found',
-                    });
-                }
-            });
-            return prom as Promise<any>;
-        },
-        deleteClassifier : (url: string) => {
-            const prom: unknown = new Promise((resolve, reject) => {
-                switch (url) {
-                case 'http://conversation.service/v1/workspaces/good':
-                    return resolve('');
-                case 'http://conversation.service/v1/workspaces/bad':
-                    return resolve('');
-                case 'http://conversation.service/v1/workspaces/stillgoing':
-                    return resolve('');
-                default:
-                    return reject({ error : 'Resource not found' });
-                }
-            });
-            return prom as Promise<any>;
-        },
-        createClassifier : (url: string, options: conversation.LegacyTrainingRequest) => {
-            log.debug({ url, options }, 'mock create classifier');
-            assert.strictEqual(options.headers['X-Watson-Learning-Opt-Out'], 'true');
-            return new Promise((resolve, reject) => {
-                if (options.body.name === 'Bob\'s text project') {
-
-                    assert.strictEqual(options.body.language, 'fr');
-                    assert.strictEqual(options.body.intents[0].intent, 'temperature');
-                    assert.strictEqual(options.body.intents[1].intent, 'conditions');
-                    assert.strictEqual(options.body.intents[0].examples.length, 18);
-                    assert.strictEqual(options.body.intents[1].examples.length, 16);
-
-                    resolve({
-                        name : options.body.name,
-                        created : newClassifierDate.toISOString(),
-                        updated : newClassifierDate.toISOString(),
-                        language : options.body.language,
-                        metadata : null,
-                        description : null,
-                        workspace_id : '04f2d303-16fd-4f2e-80f4-2c66784cc0fe',
-                    });
-                }
-                else if (options.body.name === 'Coming Too Fast') {
-                    reject({
-                        error : {
-                            error : 'Rate limit exceeded',
-                            code : 429,
-                        },
-                    });
-                }
-                else if (options.body.name === 'Too Many Models') {
-                    reject({
-                        error : {
-                            error : 'Maximum workspaces limit exceeded. Limit = 5',
-                            code : 400,
-                        },
-                    });
-                }
-                else if (options.body.name === 'Watson Under Maintenance') {
-                    reject({
-                        statusCode : 500,
-                        error : {
-                            error : 'Service is currently undergoing maintenance.',
-                            code : 500,
-                        },
-                    });
-                }
-                else if (options.body.name === 'existing' &&
-                         url.endsWith('/existing-classifier'))
-                {
-                    resolve({
-                        name : options.body.name,
-                        created : new Date().toISOString(),
-                        updated : new Date().toISOString(),
-                        language : options.body.language,
-                        metadata : null,
-                        description : null,
-                        workspace_id : 'existing-classifier',
-                    });
-                }
-                else if (url.endsWith('/existing-classifier-maintenance')) {
-                    reject({
-                        statusCode : 500,
-                        error : {
-                            error : 'Service is currently undergoing maintenance.',
-                            code : 500,
-                        },
-                    });
-                }
-                else {
-                    reject({
-                        error : {
-                            error : 'Invalid Request Body',
-                            errors : [
-                                {
-                                    message : 'text cannot be longer than 1024 characters',
-                                    path : '.intents[0].examples[0].text',
-                                },
-                            ],
-                        },
-                    });
-                }
-            });
-        },
-        testClassifier : (url: string, opts: conversation.LegacyTestRequest) => {
-            assert.strictEqual(opts.headers['X-Watson-Learning-Opt-Out'], 'true');
-            return new Promise((resolve, reject) => {
-                switch (url) {
-                case 'http://conversation.service/v1/workspaces/broken500/message':
-                    return reject({
-                        statusCode : 500,
-                        error : {
-                            error : 'Classification Error: A runtime error occurred',
-                            code : 500,
-                        },
-                    });
-                case 'http://conversation.service/v1/workspaces/good/message':
-                    return resolve({
-                        intents : [
-                            {
-                                intent : 'temperature',
-                                confidence : 0.9998201258549781,
-                            },
-                            {
-                                intent : 'conditions',
-                                confidence : 0.00017987414502176904,
-                            },
-                        ],
-                        entities : [],
-                        input : { text : opts.body.input.text },
-                        output : {
-                            text : [],
-                            nodes_visited : [],
-                            warning : 'No dialog node matched for the input at a root level. ' +
-                                        '(and there is 1 more warning in the log)',
-                            log_messages : [
-                                {
-                                    level : 'warn',
-                                    msg : 'No dialog node matched for the input at a root level.',
-                                },
-                                {
-                                    level : 'warn',
-                                    msg : 'No dialog node condition matched to true in the last dialog round ' +
-                                            '- context.nodes_visited is empty. ' +
-                                            'Falling back to the root node in the next round.',
-                                },
-                            ],
-                        },
-                        context : {
-                            conversation_id : uuid(),
-                            system : {
-                                dialog_stack : [
-                                    {
-                                        dialog_node : 'root',
-                                    },
-                                ],
-                                dialog_turn_counter : 1,
-                                dialog_request_counter : 1,
-                            },
-                        },
-                    });
-                case 'http://conversation.service/v1/workspaces/bad/message':
-                    return resolve({
-                        intents : [],
-                        entities : [],
-                        input : { text : opts.body.input.text },
-                        output : {
-                            text : [],
-                            nodes_visited : [],
-                            warning : 'No dialog node matched for the input at a root level. ' +
-                                        '(and there is 1 more warning in the log)',
-                            log_messages : [
-                                {
-                                    level : 'warn',
-                                    msg : 'No dialog node matched for the input at a root level.',
-                                },
-                                {
-                                    level : 'warn',
-                                    msg : 'No dialog node condition matched to true in the last dialog round ' +
-                                            '- context.nodes_visited is empty. ' +
-                                            'Falling back to the root node in the next round.',
-                                },
-                            ],
-                        },
-                        context : {
-                            conversation_id : uuid(),
-                            system : {
-                                dialog_stack : [
-                                    {
-                                        dialog_node : 'root',
-                                    },
-                                ],
-                                dialog_turn_counter : 1,
-                                dialog_request_counter : 1,
-                            },
-                        },
-                    });
-                case 'http://conversation.service/v1/workspaces/stillgoing/message':
-                    return resolve({
-                        intents : [],
-                        entities : [],
-                        input : { text : opts.body.input.text },
-                        output : {
-                            text : [],
-                            nodes_visited : [],
-                            warning : 'No dialog node matched for the input at a root level. ' +
-                                        '(and there is 1 more warning in the log)',
-                            log_messages : [
-                                {
-                                    level : 'warn',
-                                    msg : 'No dialog node matched for the input at a root level.',
-                                },
-                                {
-                                    level : 'warn',
-                                    msg : 'No dialog node condition matched to true in the last dialog round ' +
-                                            '- context.nodes_visited is empty. ' +
-                                            'Falling back to the root node in the next round.',
-                                },
-                            ],
-                        },
-                        context : {
-                            conversation_id : uuid(),
-                            system : {
-                                dialog_stack : [
-                                    {
-                                        dialog_node : 'root',
-                                    },
-                                ],
-                                dialog_turn_counter : 1,
-                                dialog_request_counter : 1,
-                            },
-                        },
-                    });
-                }
-            });
-        },
-    };
-
-
-    const goodClassifier: TrainingTypes.ConversationWorkspace = {
-        id : uuid(),
-        credentialsid : '123',
-        name : 'good classifier',
-        language : 'fr',
-        created : new Date(),
-        expiry : new Date(),
-        url : 'http://conversation.service/v1/workspaces/good',
-        workspace_id : 'good',
-    };
-    const goodClassifierWithStatus = Object.assign({}, goodClassifier, {
-        status : 'Available',
-        updated : goodClassifier.created,
-    });
-
-    const goodClassifierStatus = {
-        name : goodClassifier.name,
-        language : goodClassifier.language,
-        metadata : null,
-        description : null,
-        workspace_id : 'good',
-        status : 'Available',
-        created : goodClassifier.created.toISOString(),
-        updated : goodClassifier.created.toISOString(),
-    };
-
-
-
-    const trainingClassifier: TrainingTypes.ConversationWorkspace = {
-        id : uuid(),
-        credentialsid : '123',
-        name : 'try again later',
-        language : 'fr',
-        created : new Date(),
-        expiry : new Date(),
-        url : 'http://conversation.service/v1/workspaces/stillgoing',
-        workspace_id : 'stillgoing',
-    };
-    const trainingClassifierWithStatus = Object.assign({}, trainingClassifier, {
-        status : 'Training',
-        updated : trainingClassifier.created,
-    });
-
-    const trainingClassifierStatus = {
-        name : trainingClassifier.name,
-        language : trainingClassifier.language,
-        metadata : null,
-        description : null,
-        workspace_id : 'stillgoing',
-        status : 'Training',
-        created : trainingClassifier.created.toISOString(),
-        updated : trainingClassifier.created.toISOString(),
-    };
-
-
-
-    const brokenClassifier: TrainingTypes.ConversationWorkspace = {
-        id : uuid(),
-        credentialsid : '123',
-        name : 'bad bad bad',
-        language : 'fr',
-        created : new Date(),
-        expiry : new Date(),
-        url : 'http://conversation.service/v1/workspaces/bad',
-        workspace_id : 'bad',
-    };
-    const brokenClassifierWithStatus = Object.assign({}, brokenClassifier, {
-        status : 'Failed',
-        updated : brokenClassifier.created,
-    });
-
-    const brokenClassifierStatus = {
-        name : brokenClassifier.name,
-        language : brokenClassifier.language,
-        metadata : null,
-        description : null,
-        workspace_id : 'bad',
-        status : 'Failed',
-        created : brokenClassifier.created.toISOString(),
-        updated : brokenClassifier.created.toISOString(),
-    };
-
-
-    const unknownClassifier: TrainingTypes.ConversationWorkspace = {
-        id : uuid(),
-        credentialsid : '123',
-        name : 'not here any more',
-        language : 'fr',
-        created : new Date(),
-        expiry : new Date(),
-        url : 'http://conversation.service/v1/workspaces/deleted',
-        workspace_id : 'deleted',
-    };
-    const unknownClassifierWithStatus = Object.assign({}, unknownClassifier, {
-        status : 'Non Existent',
-    });
-
-
-
-    const existingClassifier: TrainingTypes.ConversationWorkspace = {
-        id : 'existingworkspacedbid',
-        credentialsid : '123',
-        name : 'existing',
-        language : 'de',
-        created : new Date(),
-        expiry : new Date(),
-        url : 'http://conversation.service/v1/workspaces/existing-classifier',
-        workspace_id : 'existing-classifier',
-    };
-    // const existingClassifierWithStatus = Object.assign({}, existingClassifier, {
-    //     status : 'Available',
-    //     updated : existingClassifier.created,
-    // });
-
-    // const existingClassifierStatus = {
-    //     name : existingClassifier.name,
-    //     language : existingClassifier.language,
-    //     metadata : null,
-    //     description : null,
-    //     workspace_id : 'existing-classifier',
-    //     status : 'Available',
-    //     created : existingClassifier.created.toISOString(),
-    //     updated : existingClassifier.created.toISOString(),
-    // };
-
 });

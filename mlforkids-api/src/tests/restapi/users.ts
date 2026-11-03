@@ -11,6 +11,7 @@ import * as Types from '../../lib/db/db-types';
 import * as auth from '../../lib/restapi/auth';
 import * as auth0 from '../../lib/auth0/requests';
 import * as mocks from '../auth0/requestmocks';
+import * as env from '../../lib/utils/env';
 
 import testapiserver from './testserver';
 
@@ -78,6 +79,7 @@ describe('REST API - users', () => {
             sandbox.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good);
             sandbox.stub(auth0, 'createUser').callsFake(mocks.createUser.good);
             sandbox.stub(auth0, 'getUserCounts').callsFake(mocks.getUserCounts);
+            sandbox.stub(env, 'isTextServiceConfigured').returns(false);
 
             tenantId = 'AN_UNKNOWN_TENANT_ID';
 
@@ -90,6 +92,7 @@ describe('REST API - users', () => {
 
             assert.deepStrictEqual(res.body, {
                 maxTextModels : 0,
+                needsWatsonApiKeys : true,
                 maxUsers: 31,
                 supportedProjectTypes: [ 'text', 'imgtfjs', 'numbers', 'sounds' ],
                 tenantType : Types.ClassTenantType.UnManaged,
@@ -104,6 +107,45 @@ describe('REST API - users', () => {
             });
 
             await store.disconnect();
+        });
+
+
+        describe('needsWatsonApiKeys', () => {
+
+            async function getHasTextCredentials(numKeys: number, configured: boolean): Promise<boolean> {
+                sandbox.stub(store, 'countBluemixCredentialsByType').resolves({ conv : numKeys });
+                sandbox.stub(env, 'isTextServiceConfigured').returns(configured);
+
+                tenantId = 'AN_UNKNOWN_TENANT_ID';
+
+                await store.init();
+
+                const res = await request(testServer)
+                    .get('/api/classes/AN_UNKNOWN_TENANT_ID/policy')
+                    .expect('Content-Type', /json/)
+                    .expect(httpstatus.OK);
+
+                await store.disconnect();
+
+                return res.body.needsWatsonApiKeys;
+            }
+
+            it('should be true for a class with keys when the text service is configured', async () => {
+                assert.strictEqual(await getHasTextCredentials(2, true), true);
+            });
+
+            it('should be true for a class with keys when the text service is not configured', async () => {
+                assert.strictEqual(await getHasTextCredentials(2, false), true);
+            });
+
+            it('should be false for a class without keys when the text service is configured', async () => {
+                assert.strictEqual(await getHasTextCredentials(0, true), false);
+            });
+
+            it('should be true for a class without keys when the text service is not configured', async () => {
+                assert.strictEqual(await getHasTextCredentials(0, false), true);
+            });
+
         });
 
     });

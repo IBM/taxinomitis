@@ -117,12 +117,7 @@
         },
         "UNMANAGED": {
             "TITLE": "Creër een <strong>unmanaged</strong> klasaccount",
-            "INTRO": "Als je je eigen klasaccount wilt opstarten, kan je dat nu doen! ",
-            "LISTINTRO": "Je zal het volgende moeten doen:",
-            "LIST_CREATEACCOUNT": "Creëer een account op IBM Cloud",
-            "LIST_CREATEAPIKEYS": "Creëer API key(s) voor Watson cloud services die nodig zijn om machine learning modellen te trainen",
-            "LIST_ENTERAPIKEYS": "Vul de API keys in in de Machine Learning voor Kids tool",
-            "HELP": "Stap-voor-stap instructies (met screenshots) zijn beschikbaar voor dit alles."
+            "INTRO": "Als je je eigen klasaccount wilt opstarten, kan je dat nu doen! "
         },
         "MANAGED": {
             "TITLE": "Creëer een <strong>managed</strong> klasaccount",
@@ -241,10 +236,6 @@
             "TOOLONG": "Dat is te lang!",
             "EXCEEDLIMIT": "You've reached the limit for the number of projects you can have. You need to delete one of your current projects before you can create another.",
             "TRYITNOW": "Sorry! You can only create one project at a time if you use 'Try it now'. You need to delete your current project before you can create another."
-        },
-        "WARNINGS": {
-            "MLCRED-TEXT-NOKEYS": "Please let your teacher know that they will need to add a \"Watson Assistant API key\" to your class to let you train the machine learning model for your new project",
-            "MLCRED-TEXT-INVALID": "There might be a problem with the IBM Cloud API keys you will need to train a machine learning model for your new project. Please ask your teacher to try verifying the \"Watson Assistant API keys\" in your class."
         }
     },
     "DATASETS": {
@@ -1939,6 +1930,7 @@
                 "TITLE": "Limieten voor je klas",
                 "NUM_USERS": "Je kan tot <span class='mlprojecttype'>{{ num }}</span> gebruikers (studenten en leerkrachten) hebben in je groep.",
                 "NUM_TEXT_MODELS": "Je klas kan tot <span class='mlprojecttype'>{{ num }}</span> machine learning modellen in totaal hebben over al hun <span class='mlprojecttype'>tekst</span> projecten.",
+                "NUM_STUDENT_TEXT_MODELS": "Each of your students is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> active machine learning models for their <span class='mlprojecttype'>text</span> projects.",
                 "NUM_IMAGE_MODELS": "Je klas kan maximaal <span class='mlprojecttype'>{{ num }}</span> machine learning modellen hebben in al hun <span class='mlprojecttype'>afbeeldingsherkenning</span> projecten.</div>"
             },
             "PROJECT_LIMITS": {
@@ -2067,11 +2059,7 @@
         "CONTACT": "If you have any problems or questions, please ask in <a target='_blank' href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids forum</a>",
         "GETTINGSTARTED": {
             "TITLE": "Klaar om te beginnen?",
-            "INTRO": "Download een PDF met een korte ‘Aan de slag’ gids:",
-            "MANAGED": "Managed klasaccounts",
-            "MANAGEDEXPL": "Voor leerkrachten, codeerclub begeleiders of andere vrijwilligers",
-            "UNMANAGED": "Unmanaged klasaccounts",
-            "UNMANAGEDEXPL": "Voor IBM werknemers, of leerkrachten en codeerclub begeleiders die hun eigen klasaccounts willen beheren"
+            "INTRO": "Download een PDF met een korte ‘Aan de slag’ gids"
         },
         "FAQS": {
             "TITLE": "Wil je meer weten?",
@@ -2120,9 +2108,6 @@
         },
         "MODELS": {
             "TITLE": "Problemen bij trainen van machine learning modellen",
-            "Q1": "\"Geen Watson inloggegevens zijn ingesteld\"",
-            "Q1-A-1": "Machine learning modellen in deze tool worden getraind via IBM Watson APIs.",
-            "Q1-A-2": "Als je een \"unmanaged\" klasaccount hebt, moet je leerkracht of groepsbegeleider Watson API inloggegevens van IBM Cloud invullen. Stap-voor-stap instructies om dit te doen zijn beschikbaar in het \"Aan de slag\" document bovenaan deze pagina.",
             "Q2": "\"Watson inloggegevens gebruikt door je klas zijn afgewezen.\"",
             "Q2-A-1": " Machine learning modellen in deze tool worden getraind via IBM Watson APIs.",
             "Q2-A-2": "Als je een \"unmanaged\" klasaccount hebt, moet je leerkracht of groepsbegeleider Watson API inloggegevens van IBM Cloud voorzien om dit te doen werken (zoals beschreven in het \"Aan de slag\" document bovenaan deze pagina).",
@@ -2148,14 +2133,11 @@
             "Q6-A-2": "De pagina zou de status van het machine learning model elke 30 seconden moeten controleren, maar af en toe gebeurt het dat het controleren stopt, waardoor je wacht terwijl het model eigenlijk al klaar is.",
             "Q6-A-3": "Als je meer dan een paar minuten aan het wachten bent, probeer dan de pagina te herladen.",
             "Q6-A-4": "Als je meer dan tien minuten aan het wachten bent, herstart dan het hele process (klik op de Annuleer knop en klik dan opnieuw op Train een nieuw machine learning model).",
-            "Q7": "\"Your class is sharing Watson API keys ... there are currently none available\"",
-            "Q7-A-1": "Machine learning modellen in de tool worden gegenereerd via IBM Watson APIs.",
-            "Q7-A-2": "If you have a \"managed\" class account, this means your class is sharing these keys with many other schools. ",
-            "Q7-A-3": "There are normally enough for all schools, but if it is very busy and all of the available API keys are currently in use, attempts to train new machine learning models will fail, and this message will be displayed:",
-            "Q7-A-4": "Your class is sharing Watson Assistant / Visual Recognition \"API keys\" with many other schools, and unfortunately there are currently none available. Please let your teacher or group leader know that you will have to train your machine learning model later",
-            "Q7-A-5": "Als een student zijn succesvol getraind model dan verwijdert, komt er weer plaats vrij voor een model van een andere student.",
-            "Q7-A-6": "The best thing to do is to try again later, after other students have deleted their machine learning models and API keys are available again. Your training data will still be safe until then.",
-            "Q7-A-7": "Another way to avoid this error is for your class to create an \"unmanaged\" class account, which is where a teacher creates their own Watson \"API keys\" that can be dedicated only for use by their own class."
+            "Q7": "You have too many machine learning models",
+            "Q7-A-1": "There is a limit for the number of machine learning models each student can have for their text projects.",
+            "Q7-A-2": "If you hit this limit, you will not be able to train a new model until you delete a machine learning model that you no longer need.",
+            "Q7-A-3": "To delete a model, open the text project, go to the \"Learn &amp; Test\" page, and click \"Delete this model\". Your training data will not be deleted, so you can train the model again later.",
+            "Q7-A-4": "Your teacher can see the limit for your class in the Restrictions section of their Teacher page."
         },
         "TEACHERUI": {
             "TITLE": "Leerkracht / Administrator interface problemen",
@@ -2229,8 +2211,8 @@
     "APIKEYSGUIDE": {
         "TITLE": "Guide to IBM Cloud",
         "INTRO": {
-            "INTRO_1": "Teachers / parents / code club-leaders with unmanaged class accounts need to provide '<strong>API Keys</strong>' from IBM Cloud. These are secret codes that provide access to the artificial intelligence technology that will power student's text projects.",
-            "INTRO_2": "Text projects need a 'watsonx Assistant' API Key. (Images, numbers and sound projects don't require API Keys).",
+            "INTRO_1": "If your class uses '<strong>API Keys</strong>' from IBM Cloud, this guide explains how to create them. These are secret codes that provide access to the artificial intelligence technology that powers students' text projects.",
+            "INTRO_2": "The API Keys used for text projects are for 'watsonx Assistant'. (Images, numbers and sound projects don't use API Keys).",
             "INTRO_3": "You will need to create an account on IBM Cloud to be able to create these codes. It is free to create an account, and there are no charges for 'Lite' API Keys. "
         },
         "LINK": "How to create API Keys",

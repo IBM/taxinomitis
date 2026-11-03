@@ -97,6 +97,7 @@ describe('REST API - tenants', () => {
                     'isManaged',
                     'tenantType',
                     'maxTextModels',
+                    'needsWatsonApiKeys',
                     'maxUsers',
                     'supportedProjectTypes',
                     'maxProjectsPerUser',

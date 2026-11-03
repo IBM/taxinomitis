@@ -123,12 +123,7 @@
         },
         "UNMANAGED": {
             "TITLE": "Cria uma conta de turma <strong>sem gestão</strong>",
-            "INTRO": "Se pretende configurar e gerir a conta de turma, podes fazê-lo agora mesmo!",
-            "LISTINTRO": "Vais precisar de:",
-            "LIST_CREATEACCOUNT": "Criar uma conta grátis no IBM Cloud",
-            "LIST_CREATEAPIKEYS": "Criar chave(s) API para os serviços em nuvem Watson necessários para treinar modelos de machine learning",
-            "LIST_ENTERAPIKEYS": "Insere a(s) chave(s) API nesta ferramenta de Machine Learning for Kids",
-            "HELP": "<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'>Instruções passo a passo (com capturas de ecrã)</a> estão disponíveis para tudo."
+            "INTRO": "Se pretende configurar e gerir a conta de turma, podes fazê-lo agora mesmo!"
         },
         "MANAGED": {
             "TITLE": "Cria uma conta de turma com <strong>gestão</strong>",
@@ -247,10 +242,6 @@
             "TOOLONG": "Isso é muito longo!",
             "EXCEEDLIMIT": "Atingiste o limite do número de projetos que podes ter. Precisas de eliminar um dos teus projetos atuais antes de poderes criar outro.",
             "TRYITNOW": "Desculpa! Só podes criar um projeto de cada vez se utilizares a opção 'Experimenta agora'. É necessário eliminar o teu projeto atual antes de poder criar outro."
-        },
-        "WARNINGS": {
-            "MLCRED-TEXT-NOKEYS": "Informa o teu professor que precisa de adicionar à tua turma uma “chave API do Watson Assistant” para que possas treinar o modelo de machine learning para o teu novo projeto.",
-            "MLCRED-TEXT-INVALID": "Pode haver um problema com as chaves da API IBM Cloud necessárias para treinar um modelo de machine learning para o teu novo projeto. Pede ao teu professor para verificar as \\\"«chaves da API Watson Assistant\\\" na tua turma."
         }
     },
     "DATASETS": {
@@ -2005,6 +1996,7 @@
                 "TITLE": "Limites para a tua turma",
                 "NUM_USERS": "Podes ter até <span class='mlprojecttype'>{{ num }}</span> utilizadores (incluindo alunos e professores) no teu grupo.",
                 "NUM_TEXT_MODELS": "A tua turma pode ter até <span class='mlprojecttype'>{{ num }}</span> modelos de machine learning no total em todos os teus projetos de <span class='mlprojecttype'>texto</span>.",
+                "NUM_STUDENT_TEXT_MODELS": "Each of your students is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> active machine learning models for their <span class='mlprojecttype'>text</span> projects.",
                 "NUM_IMAGE_MODELS": "A tua turma pode ter até <span class='mlprojecttype'>{{ num }}</span> modelos de machine learning no total em todos os teus projetos de <span class='mlprojecttype'>imagens</span>.</div>"
             },
             "PROJECT_LIMITS": {
@@ -2150,11 +2142,7 @@
         "CONTACT": "Se tiveres algum problema ou dúvida, pergunta, por favor, no <a target='_blank' href='https://groups.google.com/d/forum/mlforkids'>fórum ML for Kids</a>",
         "GETTINGSTARTED": {
             "TITLE": "Estás a começar?",
-            "INTRO": "Descarrega um PDF com um breve guia de introdução:",
-            "MANAGED": "Contas de turma com gestão",
-            "MANAGEDEXPL": "Para professores, líderes de grupos de programação ou outros voluntários",
-            "UNMANAGED": "Contas de turma sem gestão",
-            "UNMANAGEDEXPL": "Para funcionários da IBM ou utilizadores que façam a gestão das contas das suas próprias turmas"
+            "INTRO": "Descarrega um PDF com um breve guia de introdução"
         },
         "FAQS": {
             "TITLE": "Queres saber mais?",
@@ -2211,9 +2199,6 @@
         "MODELS": {
             "TITLE": "Erros no treino de modelos de machine learning",
 
-            "Q1": "“Nenhuma credencial Watson foi configurada”",
-            "Q1-A-1": "Na ferramenta, os modelos de machine learning são criados com APIs IBM Watson.",
-            "Q1-A-2": "Se tiveres uma conta de turma «sem gestão», o teu professor ou líder de grupo precisará de fornecer as credenciais da API do Watsonx Assistant da IBM Cloud para que funcione. As <a href='https://machinelearningforkids.co.uk/#!/apikeys-guide'>instruções passo a passo</a> explicam como eles podem fazer isso.",
 
             "Q2": "\"As credenciais Watson utilizadas pela tua turma foram rejeitadas\"",
             "Q2-A-1": "Na ferramenta, os modelos de machine learning são criados com APIs IBM Watson.",
@@ -2243,15 +2228,12 @@
             "Q6-A-2": "A página deve verificar o estado do modelo de machine learning a cada 30 segundos, mas muito ocasionalmente deixa de verificar, pelo que pode ficar à espera do modelo quando este já está pronto para ti.",
             "Q6-A-3": "Se já se passaram mais do que alguns minutos, vale a pena verificar ao atualizar/recarregar a página.",
             "Q6-A-4": "Se já se passaram mais de dez minutos, talvez seja melhor considerares reiniciar (clica no botão Cancelar e, em seguida, clica no botão para treinar um novo modelo de machine learning novamente).",
+            "Q7": "You have too many machine learning models",
+            "Q7-A-1": "There is a limit for the number of machine learning models each student can have for their text projects.",
+            "Q7-A-2": "If you hit this limit, you will not be able to train a new model until you delete a machine learning model that you no longer need.",
+            "Q7-A-3": "To delete a model, open the text project, go to the \"Learn &amp; Test\" page, and click \"Delete this model\". Your training data will not be deleted, so you can train the model again later.",
+            "Q7-A-4": "Your teacher can see the limit for your class in the Restrictions section of their Teacher page."
 
-            "Q7": "“A tua turma está a partilhar chaves API Watson... atualmente não há nenhuma disponível”",
-            "Q7-A-1": "Na ferramenta, os modelos de machine learning são criados com APIs IBM Watson.",
-            "Q7-A-2": "Se tiveres uma conta de turma «com gestão», isso significa que a tua turma está a partilhar essas chaves com muitas outras escolas. ",
-            "Q7-A-3": "Normalmente, há chaves suficientes para todas as escolas, mas se estiver muito movimentado e todas as chaves API disponíveis estiverem em uso, as tentativas de treinar novos modelos de machine learning vão falhar e esta mensagem será exibida:",
-            "Q7-A-4": "A tua turma está a partilhar as \"chaves API\" do Watson Assistant / Reconhecimento Visual com muitas outras escolas e, infelizmente, não há nenhuma disponível no momento. Informa o teu professor ou líder de grupo que terá de treinar o teu modelo de machine learning mais tarde.",
-            "Q7-A-5": "Se um aluno que tenha um modelo treinado com sucesso excluir o seu modelo, vai libertar uma competência para ser usada por outro aluno.",
-            "Q7-A-6": "O melhor a fazer é tentar novamente mais tarde, depois que outros alunos tiverem eliminado os seus modelos de machine learning e as chaves API estiverem disponíveis novamente. Os teus dados de treino vão permanecer seguros até lá.",
-            "Q7-A-7": "Outra forma de evitar esse erro é a tua turma criar uma conta de turma «sem gestão», na qual o professor cria as tuas próprias \"chaves API\" do Watson, que podem ser utilizadas exclusivamente pela tua turma."
         },
 
         "TEACHERUI": {

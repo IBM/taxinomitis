@@ -154,6 +154,38 @@ export interface SoundTrainingDbRow {
 }
 
 
+export interface TextClassifierHead {
+    readonly id: string;
+    readonly projectid: string;
+    readonly userid: string;
+    readonly head: Buffer;
+    readonly updated: Date;
+}
+
+export interface TextClassifierHeadDbRow {
+    readonly id: string;
+    readonly projectid: string;
+    readonly userid: string;
+    readonly head: Buffer;
+    readonly updated: Date;
+}
+
+export interface TextClassifierTrainingState {
+    readonly id: string;
+    readonly hashead: boolean;
+    readonly updated: Date;
+    readonly trainingstarted?: Date;
+    readonly trainingfailed?: Date;
+}
+
+export interface TextClassifierTrainingStateDbRow {
+    readonly id: string;
+    readonly hashead: boolean;
+    readonly updated: Date;
+    readonly trainingstarted: Date | null;
+    readonly trainingfailed: Date | null;
+}
+
 
 export interface ScratchKey {
     readonly id: string;
@@ -285,4 +317,101 @@ export interface SiteAlertDbRow {
     readonly message: string;
     readonly url: string;
     readonly expiry: Date;
+}
+
+
+
+
+
+
+export type TextServiceUsageEventType = 'train-accept' | 'train-attempt' | 'train-end' | 'classify' | 'large-pool';
+
+// what happened when a train request was answered
+//   accepted  - a text service training started
+//   duplicate - a text service training was already in progress
+//   limit     - the student has too many models
+//   large     - a new model was sent to Watson Assistant, as the training is large
+//   move      - a text service model moved to Watson Assistant, as the training is large
+//   invalid   - the training was turned away, as the text service wouldn't accept it
+export type TextServiceTrainAcceptOutcome = 'accepted' | 'duplicate' | 'limit' | 'large' | 'move' | 'invalid';
+
+export type TextServiceRequestFailureOutcome = 'timeout' | 'network' | '5xx' | 'other';
+
+export type TextServiceTrainAttemptOutcome = 'ok' | 'busy' | 'starting' | 'invalid' | 'toolarge' | 'unauthorized' |
+                                             TextServiceRequestFailureOutcome;
+
+// how a text service training ended
+//   available - the model was trained and stored
+//   failed    - the training failed
+//   discarded - the model was deleted, or a newer training started
+//   shutdown  - the API instance shut down before the training finished
+//   abandoned - the training didn't finish in time
+export type TextServiceTrainEndOutcome = 'available' | 'failed' | 'discarded' | 'shutdown' | 'abandoned';
+
+// how classifying with a text service model ended
+//   ok          - classified by the text service, which had the model cached
+//   cached-miss - classified by the text service, which needed the model's head
+//   placeholder - a random answer, as the model is training (or its training failed)
+export type TextServiceClassifyOutcome = 'ok' | 'cached-miss' | 'placeholder' | TextServiceRequestFailureOutcome;
+
+// how a training using the large pool of Watson Assistant credentials ended
+export type TextServiceLargePoolOutcome = 'ok' | 'exhausted' | 'other';
+
+// where a request came from
+//   website    - the main ML for Kids site
+//   scratchkey - the Scratch key API (used by Scratch, Python, App Inventor, etc.)
+export type TextServiceUsageSource = 'website' | 'scratchkey';
+
+export interface TextServiceUsageClient {
+    readonly source: TextServiceUsageSource;
+    // two-letter country code, from the edge worker
+    readonly country?: string;
+}
+
+export interface TextServiceTrainingSize {
+    readonly labels: number;
+    readonly examples: number;
+    // Unicode code points in the examples
+    readonly chars: number;
+    // chars, weighted by the language
+    readonly weightedchars: number;
+}
+
+export interface TextServiceUsageEvent {
+    readonly recorded: Date;
+    readonly event: TextServiceUsageEventType;
+    readonly outcome: string;
+    readonly region?: string;
+    readonly projectid?: string;
+    readonly modelid?: string;
+    readonly tenanttype?: ClassTenantType;
+    readonly language?: string;
+    readonly size?: Partial<TextServiceTrainingSize>;
+    readonly durationms?: number;
+    readonly totalms?: number;
+    readonly attempt?: number;
+    readonly retryafterms?: number;
+    readonly client?: TextServiceUsageClient;
+}
+
+export interface TextServiceUsageEventDbRow {
+    readonly id: number;
+    readonly recorded: Date;
+    readonly event: TextServiceUsageEventType;
+    readonly outcome: string;
+    readonly region: string | null;
+    readonly country: string | null;
+    readonly projectid: string | null;
+    readonly modelid: string | null;
+    readonly tenanttype: number | null;
+    readonly language: string | null;
+    readonly examples: number | null;
+    readonly chars: number | null;
+    readonly weightedchars: number | null;
+    readonly labels: number | null;
+    readonly durationms: number | null;
+    readonly totalms: number | null;
+    readonly attempt: number | null;
+    readonly retryafter: number | null;
+    readonly source: TextServiceUsageSource | null;
 }

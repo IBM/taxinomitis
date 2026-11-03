@@ -29,7 +29,7 @@
         <strong translate="APP.WARNING"></strong> {{ warning.message }}
     </div>
 
-    <div ng-if="vm && vm.policy">
+    <div ng-if="vm && vm.policy" class="siterestrictions">
         <div class="alert alert-info pageheadermsg" translate>TEACHER.RESTRICTIONS.ASK_FOR_CHANGES</div>
 
         <div class="helpsection">
@@ -39,6 +39,9 @@
 
             <div class="adminrestriction" ng-if="vm.policy.tenantType === 1 && vm.policy.supportedProjectTypes.indexOf('text') >= 0"
                                           translate="TEACHER.RESTRICTIONS.CLASS_LIMITS.NUM_TEXT_MODELS" translate-values="{ num : vm.policy.maxTextModels }"></div>
+
+            <div class="adminrestriction" ng-if="vm.policy.tenantType === 0 && !vm.policy.needsWatsonApiKeys && vm.policy.supportedProjectTypes.indexOf('text') >= 0"
+                                          translate="TEACHER.RESTRICTIONS.CLASS_LIMITS.NUM_STUDENT_TEXT_MODELS" translate-values="{ num : vm.policy.maxProjectsPerUser }"></div>
         </div>
 
         <div class="helpsection">

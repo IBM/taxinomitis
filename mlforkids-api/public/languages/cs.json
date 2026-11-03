@@ -117,12 +117,7 @@
         },
         "UNMANAGED": {
             "TITLE": "Vytvoření účtu <strong>nespravované</strong> třídy",
-            "INTRO": "Pokud si chcete třídní účet založit a spravovat sami, můžete to udělat hned!",
-            "LISTINTRO": "Budete potřebovat:",
-            "LIST_CREATEACCOUNT": "Vytvoření bezplatného účtu v IBM Cloud",
-            "LIST_CREATEAPIKEYS": "Vytvoření klíčů API pro cloudové služby Watson potřebné k trénování modelů strojového učení",
-            "LIST_ENTERAPIKEYS": "Zadejte klíče API do tohoto nástroje Machine Learning for Kids",
-            "HELP": "Pro všechny tyto účely jsou k dispozici pokyny krok za krokem (se snímky obrazovky)."
+            "INTRO": "Pokud si chcete třídní účet založit a spravovat sami, můžete to udělat hned!"
         },
         "MANAGED": {
             "TITLE": "Vytvoření účtu <strong>spravované</strong> třídy",
@@ -241,10 +236,6 @@
             "TOOLONG": "To je příliš dlouhé!",
             "EXCEEDLIMIT": "Dosáhli jste limitu počtu projektů, které můžete mít. Než budete moci vytvořit další projekt, musíte jeden z aktuálních projektů odstranit.",
             "TRYITNOW": "Omlouváme se! Pokud použijete možnost \"Vyzkoušet nyní\", můžete vytvořit pouze jeden projekt. Před vytvořením dalšího projektu je třeba odstranit aktuální projekt."
-        },
-        "WARNINGS": {
-            "MLCRED-TEXT-NOKEYS": "Upozorněte učitele, že bude muset do vaší třídy přidat \"klíč Watson Assistant API\", abyste mohli trénovat model strojového učení pro váš nový projekt",
-            "MLCRED-TEXT-INVALID": "Může se vyskytnout problém s klíči IBM Cloud API, které budete potřebovat k trénování modelu strojového učení pro svůj nový projekt. Požádejte svého učitele, aby zkusil ověřit klíče API \"Watson Assistant\" ve vaší třídě."
         }
     },
     "DATASETS": {
@@ -1940,6 +1931,7 @@
                 "TITLE": "Limity pro vaši třídu",
                 "NUM_USERS": "Ve skupině můžete mít až <span class='mlprojecttype'>{{ num }}</span> uživatelů (včetně studentů a učitelů).",
                 "NUM_TEXT_MODELS": "Vaše třída může mít ve všech svých <span class='mlprojecttype'>textových</span> projektech celkem až <span class='mlprojecttype'>{{ num }}</span> modelů strojového učení.",
+                "NUM_STUDENT_TEXT_MODELS": "Each of your students is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> active machine learning models for their <span class='mlprojecttype'>text</span> projects.",
                 "NUM_IMAGE_MODELS": "Vaše třída může mít ve všech svých projektech s <span class='mlprojecttype'>obrázky</span> celkem až <span class='mlprojecttype'>{{ num }}</span> modelů strojového učení.</div>"
             },
             "PROJECT_LIMITS": {
@@ -2069,11 +2061,7 @@
         "CONTACT": "Pokud máte nějaké problémy nebo dotazy, zeptejte se prosím ve <a target='_blank' href='https://groups.google.com/d/forum/mlforkids'>fóru ML for Kids</a>",
         "GETTINGSTARTED": {
             "TITLE": "Začínáte?",
-            "INTRO": "Stáhněte si soubor PDF s krátkým průvodcem pro začátek:",
-            "MANAGED": "Spravované třídní účty",
-            "MANAGEDEXPL": "Pro školní učitele, vedoucí skupin kódování nebo jiné dobrovolníky",
-            "UNMANAGED": "Účty nespravovaných tříd",
-            "UNMANAGEDEXPL": "Pro zaměstnance IBM nebo učitele a vedoucí kódovacích skupin, kteří spravují vlastní účty tříd"
+            "INTRO": "Stáhněte si soubor PDF s krátkým průvodcem pro začátek"
         },
         "FAQS": {
             "TITLE": "Chcete se dozvědět více?",
@@ -2121,9 +2109,6 @@
         },
         "MODELS": {
             "TITLE": "Chyby při trénování modelů strojového učení",
-            "Q1": "\"Žádné pověření Watsona nebylo vytvořeno\"",
-            "Q1-A-1": "Modely strojového učení v nástroji jsou vytvářeny pomocí rozhraní API IBM Watson.",
-            "Q1-A-2": "Pokud máte účet \"nespravované\" třídy, bude muset učitel nebo vedoucí skupiny zadat přihlašovací údaje k rozhraní Watson API od IBM Cloud, aby tato funkce fungovala. Pokyny krok za krokem, jak to mohou udělat, najdete v dokumentu \"Začínáme\" v horní části této stránky.",
             "Q2": "\"Pověření Watsona používané vaší třídou bylo zamítnuto\"",
             "Q2-A-1": "Modely strojového učení v nástroji jsou vytvářeny pomocí rozhraní API IBM Watson.",
             "Q2-A-2": "Pokud máte účet \"nespravované\" třídy, pak vám učitel nebo vedoucí skupiny poskytl přihlašovací údaje k rozhraní Watson API od IBM Cloud, aby tato funkce fungovala (jak je popsáno v dokumentu \"Začínáme\" v horní části této stránky).",
@@ -2149,14 +2134,11 @@
             "Q6-A-2": "Stránka by měla kontrolovat stav modelu strojového učení každých 30 sekund, ale velmi občas kontrolu zastaví, takže se může stát, že budete čekat na model, až bude skutečně připraven.",
             "Q6-A-3": "Pokud to trvá déle než několik minut, vyplatí se to zkontrolovat obnovením/znovunačtením stránky.",
             "Q6-A-4": "Pokud je to déle než deset minut, možná by stálo za to zvážit restartování (klikněte na tlačítko Zrušit a poté znovu klikněte na tlačítko pro trénování nového modelu strojového učení).",
-            "Q7": "\"Vaše třída sdílí klíče API Watson ... v současné době nejsou žádné k dispozici.\"",
-            "Q7-A-1": "Modely strojového učení v nástroji jsou vytvářeny pomocí rozhraní API IBM Watson.",
-            "Q7-A-2": "Pokud máte účet \"spravované\" třídy, znamená to, že vaše třída sdílí tyto klíče s mnoha dalšími školami. ",
-            "Q7-A-3": "Obvykle je jich dostatek pro všechny školy, ale pokud je velmi vytížený a všechny dostupné klíče API jsou právě používány, pokusy o trénování nových modelů strojového učení selžou a zobrazí se tato zpráva:",
-            "Q7-A-4": "Vaše třída sdílí \"klíče API\" Watson Assistant / Visual Recognition s mnoha dalšími školami a v současné době bohužel nejsou k dispozici žádné. Informujte prosím svého učitele nebo vedoucího skupiny, že budete muset svůj model strojového učení vycvičit později",
-            "Q7-A-5": "Pokud student, který má úspěšně vycvičený model, svůj model odstraní, uvolní tím dovednost pro použití jiným studentem.",
-            "Q7-A-6": "Nejlepší je zkusit to znovu později, až ostatní studenti své modely strojového učení odstraní a klíče API budou opět k dispozici. Do té doby budou vaše tréninková data stále v bezpečí.",
-            "Q7-A-7": "Dalším způsobem, jak se této chybě vyhnout, je vytvořit pro třídu \"nespravovaný\" účet, kdy si učitel vytvoří vlastní \"klíče API\" Watson, které mohou být určeny pouze pro použití jeho třídou."
+            "Q7": "You have too many machine learning models",
+            "Q7-A-1": "There is a limit for the number of machine learning models each student can have for their text projects.",
+            "Q7-A-2": "If you hit this limit, you will not be able to train a new model until you delete a machine learning model that you no longer need.",
+            "Q7-A-3": "To delete a model, open the text project, go to the \"Learn &amp; Test\" page, and click \"Delete this model\". Your training data will not be deleted, so you can train the model again later.",
+            "Q7-A-4": "Your teacher can see the limit for your class in the Restrictions section of their Teacher page."
         },
         "TEACHERUI": {
             "TITLE": "Problémy s uživatelským rozhraním učitele / správce",

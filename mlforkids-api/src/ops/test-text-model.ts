@@ -2,7 +2,7 @@
 /* tslint:disable: no-console max-line-length */
 import * as store from '../lib/db/store';
 import * as iam from '../lib/iam';
-import * as wa from '../lib/training/conversation';
+import * as textmodels from '../lib/training/textmodels';
 import loggerSetup from '../lib/utils/logger';
 
 const log = loggerSetup();
@@ -10,7 +10,7 @@ const log = loggerSetup();
 const opsArgs = process.argv.slice(2);
 
 if (opsArgs.length !== 1) {
-    console.error('usage: node test-wa-model.js projectid');
+    console.error('usage: node test-text-model.js projectid');
     process.exit(-1); // eslint-disable-line
 }
 
@@ -31,7 +31,7 @@ store.init()
         if (!project) {
             throw new Error('Unable to retrieve project info');
         }
-        return wa.trainClassifier(project);
+        return textmodels.trainClassifier(project);
     })
     .then((workspace) => {
         log.info({ workspace }, 'training in progress');

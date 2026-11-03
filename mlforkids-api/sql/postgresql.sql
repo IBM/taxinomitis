@@ -36,8 +36,11 @@ CREATE TABLE mlforkidsdb.bluemixcredentialspool (
     password character varying(36),
     credstypeid smallint DEFAULT '0'::smallint NOT NULL,
     notes character varying(50) NOT NULL,
-    lastfail timestamp with time zone NOT NULL
+    lastfail timestamp with time zone NOT NULL,
+    poolid smallint DEFAULT 0 NOT NULL
 );
+-- update (2 Nov 2026)
+-- ALTER TABLE bluemixcredentialspool ADD COLUMN poolid smallint DEFAULT 0 NOT NULL;
 
 CREATE TABLE mlforkidsdb.imagetraining (
     id character(36) NOT NULL PRIMARY KEY,
@@ -156,6 +159,17 @@ CREATE TABLE mlforkidsdb.taxinoclassifiers (
 );
 -- update (5 Apr 2025) - new table
 
+CREATE TABLE mlforkidsdb.textclassifiers (
+    id character varying(36) NOT NULL PRIMARY KEY,
+    projectid character varying(36) NOT NULL,
+    userid character varying(36) NOT NULL,
+    head bytea,
+    updated timestamp with time zone NOT NULL,
+    trainingstarted timestamp with time zone,
+    trainingfailed timestamp with time zone
+);
+-- update (1 Nov 2026) - new table
+
 CREATE TABLE mlforkidsdb.tenants (
     id character varying(36) NOT NULL PRIMARY KEY,
     projecttypes character varying(34) DEFAULT 'text,imgtfjs,numbers,sounds'::character varying NOT NULL,
@@ -201,6 +215,29 @@ CREATE TABLE mlforkidsdb.texttraining (
 -- );
 -- update (31 Oct 2026) - deleted table
 
+CREATE TABLE mlforkidsdb.textserviceusage (
+    id bigserial NOT NULL PRIMARY KEY,
+    recorded timestamp with time zone NOT NULL,
+    event character varying(16) NOT NULL,
+    outcome character varying(16) NOT NULL,
+    region character varying(16),
+    country character varying(2),
+    projectid character varying(36),
+    modelid character varying(36),
+    tenanttype smallint,
+    language character varying(6),
+    examples integer,
+    chars integer,
+    weightedchars real,
+    labels smallint,
+    durationms integer,
+    totalms integer,
+    attempt smallint,
+    retryafter integer,
+    source character varying(10)
+);
+-- update (3 Nov 2026) - new table
+
 CREATE INDEX bluemixclassifiers_countnlcclassifiers ON mlforkidsdb.bluemixclassifiers USING btree (classid);
 CREATE INDEX bluemixclassifiers_deletenlcclassifier ON mlforkidsdb.bluemixclassifiers USING btree (projectid, userid, classid, classifierid);
 CREATE INDEX bluemixclassifiers_getclassifier ON mlforkidsdb.bluemixclassifiers USING btree (projectid, classifierid);
@@ -227,6 +264,17 @@ CREATE INDEX localprojects_getprojectsbyclassid ON mlforkidsdb.localprojects USI
 CREATE INDEX taxinoclassifiers_getclassifiersbyuserid ON mlforkidsdb.taxinoclassifiers USING btree (userid);
 CREATE INDEX taxinoclassifiers_getclassifiersbyclassid ON mlforkidsdb.taxinoclassifiers USING btree (classid);
 CREATE INDEX taxinoclassifiers_deleteclassifiers ON mlforkidsdb.taxinoclassifiers USING btree (projectid, userid);
+-- update (31 Oct 2026) - new indexes
+CREATE INDEX bluemixclassifiers_countclassifiersbyuserid ON mlforkidsdb.bluemixclassifiers USING btree (userid, servicetype);
+-- update (1 Nov 2026) - new indexes
+CREATE UNIQUE INDEX textclassifiers_oneperproject ON mlforkidsdb.textclassifiers USING btree (projectid);
+CREATE INDEX textclassifiers_deletebyuserid ON mlforkidsdb.textclassifiers USING btree (userid);
+-- update (2 Nov 2026) - new indexes
+--  (replaces bluemixcredentialspool_getbluemixcredentials, which can be dropped once this is in place)
+CREATE INDEX bluemixcredentialspool_getpoolbatch ON mlforkidsdb.bluemixcredentialspool USING btree (poolid, servicetype, lastfail);
+-- update (3 Nov 2026) - new indexes
+--  (replaces bluemixclassifiers_countclassifiersbyuserid, which can be dropped once this is in place)
+CREATE INDEX bluemixclassifiers_countmodelsbyuserid ON mlforkidsdb.bluemixclassifiers USING btree (userid);
 
 
 ALTER DATABASE mlforkidsdb SET search_path to mlforkidsdb;

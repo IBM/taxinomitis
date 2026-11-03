@@ -88,22 +88,23 @@ describe('Scratchx - status', () => {
 
     describe('text projects', () => {
 
-        const testStatus: TrainingTypes.ConversationWorkspace = {
+        const testStatus: TrainingTypes.TextClassifier = {
             id : uuid(),
             name : 'TEST PROJECT',
             status : 'Available',
             workspace_id : uuid(),
             credentialsid : '123',
+            servicetype : 'conv',
             created : new Date(),
             expiry : new Date(),
             language : 'en',
             url : 'conversation.url',
         };
-        let getStatusStub: sinon.SinonStub<[TrainingTypes.BluemixCredentials, TrainingTypes.ConversationWorkspace],
-                                           Promise<TrainingTypes.ConversationWorkspace>>;
+        let getStatusStub: sinon.SinonStub<[TrainingTypes.BluemixCredentials, string, string],
+                                           Promise<TrainingTypes.TextClassifier>>;
 
         before(() => {
-            getStatusStub = sinon.stub(conversation, 'getStatus').resolves(testStatus);
+            getStatusStub = sinon.stub(conversation, 'getScratchKeyModelStatus').resolves(testStatus);
         });
         after(() => {
             getStatusStub.restore();
