@@ -1,3 +1,4 @@
+const { describe, it } = require('node:test');
 const assert = require('assert');
 const uuid = require('uuid').v4;
 const fs = require('fs');
