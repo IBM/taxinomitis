@@ -854,7 +854,7 @@
                     difficulty : 2,
                     type : 'sounds',
                     maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-secretcode.png',
+                    image : 'static/images/project-safecode.png',
                     tags : [ 'speech recognition', 'sound recognition', 'supervised learning' ],
                     teachersnotes : translations['WORKSHEETS.SECRETCODE.TEACHERSNOTES_URL'],
                     downloads : [
@@ -1284,7 +1284,7 @@
                     difficulty : 1,
                     type : 'language',
                     maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-secretkeeper.png',
+                    image : 'static/images/project-safekeeper.png',
                     tags : [ 'language models', 'LLM' ],
                     downloads : [
                         {
