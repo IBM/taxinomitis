@@ -1857,6 +1857,11 @@
             "TITLE": "UK Places Quiz",
             "SUMMARY": "Use a computer trained to generate text",
             "DESCRIPTION": "Make an interactive guide to the UK in Scratch"
+        },
+        "SECRETKEEPER": {
+            "TITLE": "Secret Keeper",
+            "SUMMARY": "Use a computer trained to generate text",
+            "DESCRIPTION": "Make a robot guard in Scratch that tries to keep a secret from you"
         }
     },
     "TEACHER": {

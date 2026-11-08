@@ -306,8 +306,12 @@
         }
 
         function getResponseSize(response) {
-            return response.clone().arrayBuffer()
-                .then((buffer) => buffer.byteLength)
+            const length = parseInt(response.headers.get('content-length'), 10);
+            if (!isNaN(length)) {
+                return Promise.resolve(length);
+            }
+            return response.blob()
+                .then((blob) => blob.size)
                 .catch(() => 0);
         }
 

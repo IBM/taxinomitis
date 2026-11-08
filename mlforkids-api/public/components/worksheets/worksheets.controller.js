@@ -237,7 +237,9 @@
             'WORKSHEETS.TRANSLATIONTELEPHONE.TITLE', 'WORKSHEETS.TRANSLATIONTELEPHONE.SUMMARY', 'WORKSHEETS.TRANSLATIONTELEPHONE.DESCRIPTION',
             'WORKSHEETS.TRANSLATIONTELEPHONE.WORKSHEET_1.URL',
 
-            'WORKSHEETS.UKPLACESQUIZ.TITLE', 'WORKSHEETS.UKPLACESQUIZ.SUMMARY', 'WORKSHEETS.UKPLACESQUIZ.DESCRIPTION'
+            'WORKSHEETS.UKPLACESQUIZ.TITLE', 'WORKSHEETS.UKPLACESQUIZ.SUMMARY', 'WORKSHEETS.UKPLACESQUIZ.DESCRIPTION',
+
+            'WORKSHEETS.SECRETKEEPER.TITLE', 'WORKSHEETS.SECRETKEEPER.SUMMARY', 'WORKSHEETS.SECRETKEEPER.DESCRIPTION'
         ]).then(function (translations) {
             vm.worksheets = [
                 {
@@ -1274,6 +1276,22 @@
                         "Learn about how tool calling has transformed how we use language models by creating your own tools for a small language model to use."
                     ],
                     video : 'f_ImFTorf2s'
+                },
+                {
+                    title : translations['WORKSHEETS.SECRETKEEPER.TITLE'],
+                    summary : translations['WORKSHEETS.SECRETKEEPER.SUMMARY'],
+                    description : translations['WORKSHEETS.SECRETKEEPER.DESCRIPTION'],
+                    difficulty : 1,
+                    type : 'language',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-secretkeeper.png',
+                    tags : [ 'language models', 'LLM' ],
+                    downloads : [
+                        {
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-secretkeeper.pdf'
+                        }
+                    ],
+                    original : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/msword/worksheet-secretkeeper.docx'
                 },
                 {
                     title : translations['WORKSHEETS.BENCHMARK.TITLE'],
