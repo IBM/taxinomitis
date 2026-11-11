@@ -10,7 +10,6 @@ import * as textmodels from '../training/textmodels';
 import * as textserviceusage from '../training/textserviceusage';
 import * as visualrec from '../training/visualrecognition';
 import * as numbers from '../training/numbers';
-import * as describetext from '../training/describetext';
 import * as download from '../utils/download';
 import * as urls from './urls';
 import * as errors from './errors';
@@ -139,28 +138,6 @@ async function deleteModel(req: auth.RequestWithProject, res: Express.Response) 
 }
 
 
-async function describeModel(req: auth.RequestWithProject, res: Express.Response) {
-    try {
-        if (req.project.type === 'text') {
-            const classifierInfo = await describetext.getModelVisualisation(req.project);
-
-            // computing this analysis is quite expensiive, so
-            //  ask browsers to cache it for a while
-            res.set(headers.CACHE_1HOUR);
-
-            return res.json(classifierInfo);
-        }
-        else {
-            // sounds and images not supported yet
-            return errors.notImplemented(res);
-        }
-    }
-    catch (err) {
-        return errors.unknownError(res, err);
-    }
-}
-
-
 async function testModel(req: Express.Request, res: Express.Response) {
     const classid = req.params.classid as string;
     const projectid = req.params.projectid as string;
@@ -238,13 +215,6 @@ export default function registerApis(app: Express.Application) {
              auth.verifyProjectOwner,
              // @ts-expect-error custom middleware not understood by linter
              newModel);
-
-    app.get(urls.MODEL,
-            auth.authenticate,
-            auth.checkValidUser,
-            auth.verifyProjectAccess,
-            // @ts-expect-error custom middleware not understood by linter
-            describeModel);
 
     app.delete(urls.MODEL,
                auth.authenticate,

@@ -15,7 +15,6 @@ import registerScratchApis from './scratch';
 import registerAppInventorApis from './appinventor';
 import registerWatsonApis from './watsonapis';
 import registerClassifierApis from './classifiers';
-import registerNgramApis from './ngrams';
 import registerSessionUserApis from './sessionusers';
 import registerSiteAlertApis from './sitealerts';
 import registerDebugApis from './debug';
@@ -57,7 +56,6 @@ export default function setup(app: Express.Application): void {
 
     // body types
     log.info('Applying custom API limitations');
-    app.use(URLS.PREPARE_NGRAMS, bodyParser.json({ limit : '3mb' }));
     app.use(URLS.LOCALMODELS, bodyParser.json({ limit : '4mb' }));
     app.use(URLS.LOCALNUMBERSMODELS, bodyParser.json({ limit : '4mb' }));
     app.use(URLS.SCRATCHKEY_CLASSIFY, bodyParser.json({ limit : '3mb' }));
@@ -92,7 +90,6 @@ export default function setup(app: Express.Application): void {
         registerAppInventorApis(app);
         registerWatsonApis(app);
         registerClassifierApis(app);
-        registerNgramApis(app);
         registerSessionUserApis(app);
         registerDebugApis(app);
     }
