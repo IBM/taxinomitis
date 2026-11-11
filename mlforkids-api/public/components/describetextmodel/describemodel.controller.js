@@ -6,11 +6,11 @@
 
         ModelTextDescribeController.$inject = [
             'authService', 'projectsService', 'trainingService', 'fcnnVisualisationService', 'loggerService', 'utilService',
-            'scrollService',
+            'scrollService', 'describeTextService',
             '$stateParams', '$scope', '$timeout', '$interval'
         ];
 
-    function ModelTextDescribeController(authService, projectsService, trainingService, fcnnVisualisationService, loggerService, utilService, scrollService, $stateParams, $scope, $timeout, $interval) {
+    function ModelTextDescribeController(authService, projectsService, trainingService, fcnnVisualisationService, loggerService, utilService, scrollService, describeTextService, $stateParams, $scope, $timeout, $interval) {
         var vm = this;
         vm.authService = authService;
 
@@ -72,11 +72,15 @@
                 loggerService.debug('[ml4kdesc] models', models);
                 if (models && models.length > 0 &&
                     (models[0].status === 'Available' || models[0].status === 'Training')) {
-                    return trainingService.getModel($scope.project.id, $scope.userId, vm.profile.tenant, $scope.modelId, models[0].updated);
+                    loggerService.debug('[ml4kdesc] getting training data');
+                    return trainingService.getTraining($scope.project.id, $scope.userId, vm.profile.tenant);
                 }
                 else {
                     throw NO_MODEL_AVAILABLE;
                 }
+            })
+            .then(function (training) {
+                return describeTextService.describeTraining($scope.project, training);
             })
             .then(function (modelinfo) {
                 loggerService.debug('[ml4kdesc] model info', modelinfo);

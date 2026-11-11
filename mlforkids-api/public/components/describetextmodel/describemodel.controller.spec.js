@@ -8,7 +8,7 @@ describe('ModelTextDescribeController', function () {
     var $interval;
 
     var authServiceMock, projectsServiceMock, trainingServiceMock, fcnnVisualisationServiceMock,
-        loggerServiceMock, utilServiceMock, scrollServiceMock;
+        loggerServiceMock, utilServiceMock, scrollServiceMock, describeTextServiceMock;
     var $stateParamsMock;
 
     var profile;
@@ -32,7 +32,9 @@ describe('ModelTextDescribeController', function () {
 
         projectsServiceMock = jasmine.createSpyObj('projectsService', ['getProject']);
 
-        trainingServiceMock = jasmine.createSpyObj('trainingService', ['getModels', 'getModel']);
+        trainingServiceMock = jasmine.createSpyObj('trainingService', ['getModels', 'getTraining']);
+
+        describeTextServiceMock = jasmine.createSpyObj('describeTextService', ['describeTraining']);
 
         fcnnVisualisationServiceMock = jasmine.createSpyObj('fcnnVisualisationService', [
             'init', 'create', 'clearInputLabels', 'hideAnnotation', 'updateInputText',
@@ -60,6 +62,7 @@ describe('ModelTextDescribeController', function () {
             loggerService : loggerServiceMock,
             utilService : utilServiceMock,
             scrollService : scrollServiceMock,
+            describeTextService : describeTextServiceMock,
             $stateParams : $stateParamsMock,
             $scope : $scope,
             $timeout : $timeout,
@@ -93,6 +96,13 @@ describe('ModelTextDescribeController', function () {
         return { id : 'proj1', labels : [ 'cat', 'dog' ] };
     }
 
+    function training() {
+        return [
+            { id : 't1', label : 'cat', textdata : 'this is example one' },
+            { id : 't2', label : 'dog', textdata : 'this is example two' }
+        ];
+    }
+
     function modelinfo() {
         return {
             examples : [
@@ -107,7 +117,8 @@ describe('ModelTextDescribeController', function () {
     function readyController() {
         projectsServiceMock.getProject.and.returnValue($q.resolve(project()));
         trainingServiceMock.getModels.and.returnValue($q.resolve([ { status : 'Available', updated : new Date() } ]));
-        trainingServiceMock.getModel.and.returnValue($q.resolve(modelinfo()));
+        trainingServiceMock.getTraining.and.returnValue($q.resolve(training()));
+        describeTextServiceMock.describeTraining.and.returnValue($q.resolve(modelinfo()));
 
         var vm = createController();
         $rootScope.$digest();
@@ -143,11 +154,12 @@ describe('ModelTextDescribeController', function () {
 
     describe('successful load', function () {
 
-        it('fetches models for the project and then the specific model, and initialises the visualisation', function () {
+        it('checks for a model, then describes the project training data, and initialises the visualisation', function () {
             var vm = readyController();
 
             expect(trainingServiceMock.getModels).toHaveBeenCalledWith(project(), 'user1', 'class1');
-            expect(trainingServiceMock.getModel).toHaveBeenCalledWith('proj1', 'user1', 'class1', 'model1', jasmine.any(Date));
+            expect(trainingServiceMock.getTraining).toHaveBeenCalledWith('proj1', 'user1', 'class1');
+            expect(describeTextServiceMock.describeTraining).toHaveBeenCalledWith(project(), training());
             expect($scope.loading).toBe(false);
             expect($scope.modelinfo).toEqual(modelinfo());
             expect(fcnnVisualisationServiceMock.init).toHaveBeenCalledWith('mlforkidsmodelvizimg');
@@ -158,13 +170,14 @@ describe('ModelTextDescribeController', function () {
         it('treats a "Training" model the same as "Available" and still describes it', function () {
             projectsServiceMock.getProject.and.returnValue($q.resolve(project()));
             trainingServiceMock.getModels.and.returnValue($q.resolve([ { status : 'Training', updated : new Date() } ]));
-            trainingServiceMock.getModel.and.returnValue($q.resolve(modelinfo()));
+            trainingServiceMock.getTraining.and.returnValue($q.resolve(training()));
+            describeTextServiceMock.describeTraining.and.returnValue($q.resolve(modelinfo()));
 
             var vm = createController();
             $rootScope.$digest();
             $timeout.flush();
 
-            expect(trainingServiceMock.getModel).toHaveBeenCalled();
+            expect(describeTextServiceMock.describeTraining).toHaveBeenCalled();
             expect(vm.errors).toEqual([]);
             expect(vm.warnings).toEqual([]);
         });
@@ -183,7 +196,7 @@ describe('ModelTextDescribeController', function () {
             var vm = createController();
             $rootScope.$digest();
 
-            expect(trainingServiceMock.getModel).not.toHaveBeenCalled();
+            expect(trainingServiceMock.getTraining).not.toHaveBeenCalled();
             expect(vm.errors).toEqual([]);
             expect(vm.warnings.length).toBe(1);
             expect(vm.warnings[0].message).toBe('Model not ready to be described');
@@ -210,7 +223,7 @@ describe('ModelTextDescribeController', function () {
             var vm = createController();
             $rootScope.$digest();
 
-            expect(trainingServiceMock.getModel).not.toHaveBeenCalled();
+            expect(trainingServiceMock.getTraining).not.toHaveBeenCalled();
             expect(vm.warnings.length).toBe(1);
             expect(vm.warnings[0].message).toBe('Model not ready to be described');
         });
@@ -241,10 +254,10 @@ describe('ModelTextDescribeController', function () {
             expect(scrollServiceMock.scrollToNewItem).toHaveBeenCalledWith('errors1');
         });
 
-        it('shows the friendly "train a new model" warning when the project loaded but the model fetch itself 404s', function () {
+        it('shows the friendly "train a new model" warning when the project loaded but the training data fetch 404s', function () {
             projectsServiceMock.getProject.and.returnValue($q.resolve(project()));
             trainingServiceMock.getModels.and.returnValue($q.resolve([ { status : 'Available', updated : new Date() } ]));
-            trainingServiceMock.getModel.and.returnValue($q.reject({ status : 404 }));
+            trainingServiceMock.getTraining.and.returnValue($q.reject({ status : 404 }));
 
             var vm = createController();
             $rootScope.$digest();
