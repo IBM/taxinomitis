@@ -131,6 +131,7 @@
     "auth0-lock": "15.0.2",
     "blueimp-canvas-to-blob": "3.29.0",
     "bootstrap": "3.4.1",
+    "compromise-speech": "0.2.0",
     "d3-selection": "3.0.0",
     "jquery": "3.7.1"
   },

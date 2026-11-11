@@ -180,6 +180,23 @@ const copyOperations = [
         ]
     },
 
+    // compromise (with its syllables plugin) - used on the describe-text-model
+    //  page to count verbs, numbers, contractions and syllables. Lazy loaded
+    //  by describetext.service.js, so only downloaded on that page.
+    //  compromise.js is the full ("three") UMD build that registers `nlp`.
+    {
+        name: 'compromise',
+        operations: [
+            { type: 'file', from: 'compromise', fromPath: 'builds/compromise.js', to: 'compromise', toPath: 'compromise.min.js' }
+        ]
+    },
+    {
+        name: 'compromise-speech',
+        operations: [
+            { type: 'file', from: 'compromise-speech', fromPath: 'builds/compromise-speech.min.js', to: 'compromise-speech', toPath: 'compromise-speech.min.js' }
+        ]
+    },
+
     // Blueimp Canvas to Blob
     {
         name: 'blueimp-canvas-to-blob',

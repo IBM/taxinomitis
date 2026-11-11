@@ -26,6 +26,12 @@ module.exports = function (config) {
             // format rather than the format itself
             'node_modules/jszip/dist/jszip.min.js',
 
+            // compromise is lazy loaded in production too 
+            // describe-text tests need the real library 
+            //  (so verbs/numbers/contractions/syllables counts are tested)
+            'node_modules/compromise/builds/compromise.js',
+            'node_modules/compromise-speech/builds/compromise-speech.min.js',
+
             // defines the global `Sentry` var (as `null`) that some controllers
             // reference directly - without this, referencing it in a test that
             // exercises a 500-status error path throws a ReferenceError
