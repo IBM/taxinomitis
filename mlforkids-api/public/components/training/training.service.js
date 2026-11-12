@@ -270,6 +270,8 @@
                         '/projects/' + projectid +
                         '/models';
 
+            clearTestResultsCache();
+
             return $http.post(url, {}, { timeout : 180000 }).then(function (resp) {
                 resp.data.lastPollTime = new Date();
                 return resp.data;
@@ -284,6 +286,8 @@
                         '/students/' + project.userid +
                         '/localprojects/' + project.cloudid +
                         '/models';
+
+            clearTestResultsCache();
 
             return browserStorageService.getTrainingForWatsonAssistant(project)
                 .then(function (training) {
@@ -327,7 +331,27 @@
         }
 
 
-        function testModel(project, userid, tenant, modelid, credsid, testdata) {
+        // results of testing a text model, for the most recent model tested
+        //   modelKey : model id and updated timestamp
+        //   results  : { text : {
+        //                  response : promise resolving to the response,
+        //                  fetched  : when the response arrived (ms since epoch),
+        //                             or undefined while it is in flight
+        //              } }
+        var testResultsCache = { modelKey : null, results : {} };
+
+        // called when the model is definitely changing (trained or
+        //  deleted from this page), rather than waiting for its
+        //  updated timestamp to change
+        function clearTestResultsCache() {
+            testResultsCache = { modelKey : null, results : {} };
+        }
+
+        // how long a test result is reused for
+        var TEST_RESULT_REUSE_MS = 10 * 1000;
+
+        function testModel(project, userid, tenant, model, testdata) {
+            var modelid = model.classifierid;
             var url;
             if (project.storage === 'local') {
                 url = '/api/classes/' + tenant +
@@ -343,12 +367,36 @@
                         '/models/' + modelid +
                         '/label';
             }
-            testdata.credentialsid = credsid;
+            testdata.credentialsid = model.credentialsid;
 
-            return $http.post(url, testdata)
+            // repeat tests of the same text reuse the first request rather than
+            //  sending another one within 10 seconds of the first request
+            var modelKey = modelid + '|' + model.updated;
+            if (modelKey !== testResultsCache.modelKey) {
+                testResultsCache = { modelKey : modelKey, results : {} };
+            }
+            var results = testResultsCache.results;
+            var text = testdata.text;
+            var cached = Object.prototype.hasOwnProperty.call(results, text) ? results[text] : undefined;
+            if (cached && (cached.fetched === undefined || Date.now() - cached.fetched < TEST_RESULT_REUSE_MS)) {
+                return cached.response;
+            }
+
+            var entry = {};
+            entry.response = $http.post(url, testdata)
                 .then(function (resp) {
+                    entry.fetched = Date.now();
                     return resp.data;
+                })
+                .catch(function (err) {
+                    // let the test be tried again
+                    if (results[text] === entry) {
+                        delete results[text];
+                    }
+                    throw err;
                 });
+            results[text] = entry;
+            return entry.response;
         }
 
         function testModelPrep(projectid, userid, tenant, modelid, testdata) {
@@ -386,6 +434,7 @@
                         '/projects/' + project.id +
                         '/models/' + modelid;
             }
+            clearTestResultsCache();
             return $http.delete(url);
         }
 

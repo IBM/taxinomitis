@@ -413,7 +413,7 @@ describe('ModelsController (text projects)', function () {
             $timeout.flush();
 
             expect(trainingServiceMock.testModel).toHaveBeenCalledWith(
-                project, 'user1', 'class1', 'm1', 'creds1', { type : 'text', text : 'hello there' }
+                project, 'user1', 'class1', model, { type : 'text', text : 'hello there' }
             );
             expect($scope.testoutput).toBe('cat');
             expect($scope.testoutput_explanation).toBe('with 87% confidence');

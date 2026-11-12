@@ -688,6 +688,20 @@ describe('trainingService', function () {
 
     describe('testModel', function () {
 
+        var RESULT = [ { class_name : 'alpha', confidence : 90 } ];
+
+        function textModel(attrs) {
+            return Object.assign({
+                classifierid : 'm1', credentialsid : 'creds1',
+                updated : '2026-11-12T14:41:47.000Z'
+            }, attrs || {});
+        }
+
+        function cloudTestUrl(project, modelid) {
+            return '/api/classes/class1/students/user1/projects/' + project.id +
+                   '/models/' + (modelid || 'm1') + '/label';
+        }
+
         it('tests a local project model through the localprojects API', function () {
             $httpBackend.expectPOST(
                 '/api/classes/class1/students/user1/localprojects/cloud-1/models/m1/label',
@@ -695,19 +709,197 @@ describe('trainingService', function () {
                 .respond(200, []);
 
             trainingService.testModel(localProject({ cloudid : 'cloud-1' }), USERID, TENANT,
-                                      'm1', 'creds1', { text : 'hello' });
+                                      textModel(), { text : 'hello' });
             $httpBackend.flush();
         });
 
         it('tests a cloud project model through the projects API', function () {
             var project = cloudProject();
 
-            $httpBackend.expectPOST(
-                '/api/classes/class1/students/user1/projects/' + project.id + '/models/m1/label',
+            $httpBackend.expectPOST(cloudTestUrl(project),
                 { text : 'hello', credentialsid : 'creds1' })
                 .respond(200, []);
 
-            trainingService.testModel(project, USERID, TENANT, 'm1', 'creds1', { text : 'hello' });
+            trainingService.testModel(project, USERID, TENANT, textModel(), { text : 'hello' });
+            $httpBackend.flush();
+        });
+
+        it('sends one request for repeat tests made while the first is in flight', function () {
+            var project = cloudProject();
+            var answers = [];
+
+            $httpBackend.expectPOST(cloudTestUrl(project)).respond(200, RESULT);
+
+            for (var i = 0; i < 5; i++) {
+                trainingService.testModel(project, USERID, TENANT, textModel(), { text : 'hello' })
+                    .then(function (answer) { answers.push(answer); });
+            }
+            $httpBackend.flush();
+
+            expect(answers.length).toBe(5);
+            answers.forEach(function (answer) {
+                expect(answer).toEqual(RESULT);
+            });
+        });
+
+        it('reuses the answer for a repeat test after the first has finished', function () {
+            var project = cloudProject();
+            var answer;
+
+            $httpBackend.expectPOST(cloudTestUrl(project)).respond(200, RESULT);
+            trainingService.testModel(project, USERID, TENANT, textModel(), { text : 'hello' });
+            $httpBackend.flush();
+
+            trainingService.testModel(project, USERID, TENANT, textModel(), { text : 'hello' })
+                .then(function (resp) { answer = resp; });
+            $rootScope.$digest();
+
+            expect(answer).toEqual(RESULT);
+        });
+
+        it('sends a new request for a repeat test after 20 seconds', function () {
+            var project = cloudProject();
+            var now = 1000000;
+            spyOn(Date, 'now').and.callFake(function () { return now; });
+
+            $httpBackend.expectPOST(cloudTestUrl(project)).respond(200, RESULT);
+            trainingService.testModel(project, USERID, TENANT, textModel(), { text : 'hello' });
+            $httpBackend.flush();
+
+            // still reused just before the limit
+            now += 19999;
+            trainingService.testModel(project, USERID, TENANT, textModel(), { text : 'hello' });
+            $httpBackend.verifyNoOutstandingRequest();
+
+            now += 1;
+            $httpBackend.expectPOST(cloudTestUrl(project)).respond(200, RESULT);
+            trainingService.testModel(project, USERID, TENANT, textModel(), { text : 'hello' });
+            $httpBackend.flush();
+        });
+
+        it('reuses an in-flight request however long it takes', function () {
+            var project = cloudProject();
+            var now = 1000000;
+            spyOn(Date, 'now').and.callFake(function () { return now; });
+
+            $httpBackend.expectPOST(cloudTestUrl(project)).respond(200, RESULT);
+            trainingService.testModel(project, USERID, TENANT, textModel(), { text : 'hello' });
+
+            now += 60000;
+            trainingService.testModel(project, USERID, TENANT, textModel(), { text : 'hello' });
+            $httpBackend.flush();
+        });
+
+        it('sends a new request for different text', function () {
+            var project = cloudProject();
+
+            $httpBackend.expectPOST(cloudTestUrl(project), { text : 'hello', credentialsid : 'creds1' })
+                .respond(200, RESULT);
+            $httpBackend.expectPOST(cloudTestUrl(project), { text : 'goodbye', credentialsid : 'creds1' })
+                .respond(200, RESULT);
+
+            trainingService.testModel(project, USERID, TENANT, textModel(), { text : 'hello' });
+            trainingService.testModel(project, USERID, TENANT, textModel(), { text : 'goodbye' });
+            $httpBackend.flush();
+        });
+
+        it('sends a new request after the model is retrained', function () {
+            var project = cloudProject();
+
+            $httpBackend.expectPOST(cloudTestUrl(project)).respond(200, RESULT);
+            trainingService.testModel(project, USERID, TENANT, textModel(), { text : 'hello' });
+            $httpBackend.flush();
+
+            $httpBackend.expectPOST(cloudTestUrl(project)).respond(200, RESULT);
+            trainingService.testModel(project, USERID, TENANT,
+                                      textModel({ updated : '2026-11-12T15:00:00.000Z' }),
+                                      { text : 'hello' });
+            $httpBackend.flush();
+        });
+
+        it('sends a new request for a different model', function () {
+            var project = cloudProject();
+
+            $httpBackend.expectPOST(cloudTestUrl(project)).respond(200, RESULT);
+            trainingService.testModel(project, USERID, TENANT, textModel(), { text : 'hello' });
+            $httpBackend.flush();
+
+            $httpBackend.expectPOST(cloudTestUrl(project, 'm2')).respond(200, RESULT);
+            trainingService.testModel(project, USERID, TENANT,
+                                      textModel({ classifierid : 'm2' }),
+                                      { text : 'hello' });
+            $httpBackend.flush();
+        });
+
+        it('sends a new request for a repeat test after the first failed', function () {
+            var project = cloudProject();
+            var failed = false;
+            var answer;
+
+            $httpBackend.expectPOST(cloudTestUrl(project)).respond(500, { error : 'oops' });
+            trainingService.testModel(project, USERID, TENANT, textModel(), { text : 'hello' })
+                .catch(function () { failed = true; });
+            $httpBackend.flush();
+            expect(failed).toBe(true);
+
+            $httpBackend.expectPOST(cloudTestUrl(project)).respond(200, RESULT);
+            trainingService.testModel(project, USERID, TENANT, textModel(), { text : 'hello' })
+                .then(function (resp) { answer = resp; });
+            $httpBackend.flush();
+            expect(answer).toEqual(RESULT);
+        });
+
+        it('sends a new request after training a new model', function () {
+            var project = cloudProject();
+
+            $httpBackend.expectPOST(cloudTestUrl(project)).respond(200, RESULT);
+            trainingService.testModel(project, USERID, TENANT, textModel(), { text : 'hello' });
+            $httpBackend.flush();
+
+            $httpBackend.expectPOST('/api/classes/class1/students/user1/projects/' + project.id + '/models')
+                .respond(201, {});
+            trainingService.newModel(project.id, USERID, TENANT);
+            $httpBackend.flush();
+
+            // the page hasn't seen the new updated timestamp yet
+            $httpBackend.expectPOST(cloudTestUrl(project)).respond(200, RESULT);
+            trainingService.testModel(project, USERID, TENANT, textModel(), { text : 'hello' });
+            $httpBackend.flush();
+        });
+
+        it('sends a new request after training a new local project model', function () {
+            var project = localProject({ cloudid : 'cloud-1' });
+            var testUrl = '/api/classes/class1/students/user1/localprojects/cloud-1/models/m1/label';
+            browserStorageServiceMock.getTrainingForWatsonAssistant.and.returnValue($q.resolve({}));
+
+            $httpBackend.expectPOST(testUrl).respond(200, RESULT);
+            trainingService.testModel(project, USERID, TENANT, textModel(), { text : 'hello' });
+            $httpBackend.flush();
+
+            $httpBackend.expectPOST('/api/classes/class1/students/user1/localprojects/cloud-1/models')
+                .respond(201, {});
+            trainingService.newLocalProjectTextModel(project);
+            $httpBackend.flush();
+
+            $httpBackend.expectPOST(testUrl).respond(200, RESULT);
+            trainingService.testModel(project, USERID, TENANT, textModel(), { text : 'hello' });
+            $httpBackend.flush();
+        });
+
+        it('sends a new request after deleting the model', function () {
+            var project = cloudProject();
+
+            $httpBackend.expectPOST(cloudTestUrl(project)).respond(200, RESULT);
+            trainingService.testModel(project, USERID, TENANT, textModel(), { text : 'hello' });
+            $httpBackend.flush();
+
+            $httpBackend.expectDELETE('/api/classes/class1/students/user1/projects/' + project.id + '/models/m1')
+                .respond(204);
+            trainingService.deleteModel(project, USERID, TENANT, 'm1');
+            $httpBackend.flush();
+
+            $httpBackend.expectPOST(cloudTestUrl(project)).respond(200, RESULT);
+            trainingService.testModel(project, USERID, TENANT, textModel(), { text : 'hello' });
             $httpBackend.flush();
         });
     });

@@ -661,7 +661,7 @@
             else {
                 testFnPromise = trainingService.testModel(project,
                     $scope.userId, vm.profile.tenant,
-                    $scope.models[0].classifierid, $scope.models[0].credentialsid,
+                    $scope.models[0],
                     testdata);
             }
 
