@@ -26,8 +26,7 @@ COPY --chown=node:node build-scripts build-scripts
 RUN ls -l /usr/src/build
 
 # customize build for use with machinelearningforkids.co.uk
-# TODO - how can this be provided to buildruns dynamically?
-ENV DEPLOYMENT=machinelearningforkids.co.uk
+ARG DEPLOYMENT=machinelearningforkids.co.uk
 
 # run the build
 RUN npm run buildprod
