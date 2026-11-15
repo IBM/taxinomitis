@@ -1,5 +1,5 @@
 import { describe, it, afterEach } from 'node:test';
-import * as assert from 'assert';
+import assert from 'assert';
 import * as sinon from 'sinon';
 import * as Express from 'express';
 import * as store from '../../lib/db/store';

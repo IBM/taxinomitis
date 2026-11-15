@@ -1,8 +1,8 @@
 import { describe, it, before, beforeEach, after } from 'node:test';
 import { v1 as uuid } from 'uuid';
-import * as assert from 'assert';
+import assert from 'assert';
 import * as sinon from 'sinon';
-import * as request from 'supertest';
+import request from 'supertest';
 import { status as httpstatus } from 'http-status';
 import * as express from 'express';
 import * as auth0objects from '../../lib/auth0/auth-types';

@@ -1,7 +1,7 @@
 import { describe, it, before, beforeEach, after } from 'node:test';
-import * as assert from 'assert';
+import assert from 'assert';
 import { v1 as uuid } from 'uuid';
-import * as request from 'supertest';
+import request from 'supertest';
 import { status as httpstatus } from 'http-status';
 import * as sinon from 'sinon';
 import * as express from 'express';

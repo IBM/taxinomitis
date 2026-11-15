@@ -1,6 +1,6 @@
 // external dependencies
-import * as md5 from 'crypto-js/md5';
-import * as got from 'mlforkids-got';
+import md5 from 'crypto-js/md5';
+import got from 'got';
 // local dependencies
 import * as ScratchTypes from './scratchx-types';
 import * as urls from '../restapi/urls';
@@ -25,7 +25,7 @@ function getBaseUrl(url: string): string {
 // model URLs are supplied by users (pointing at wherever they've hosted
 //  their own TensorFlow.js model), so these requests need SSRF protection
 function checkUrlExists(url: string): Promise<void> {
-    return got.head(url, download.getSsrfProtectionOptions())
+    return got.head(url, download.SSRF_PROTECTION_OPTIONS)
         .then(() => {
             return;
         });
@@ -38,7 +38,7 @@ function fetchMetadata(baseurl: string): Promise<ScratchTypes.TensorFlowJsMetada
             'tfjs-format' : 'file'
         },
         responseType: 'json' as const,
-        ...download.getSsrfProtectionOptions(),
+        ...download.SSRF_PROTECTION_OPTIONS,
     };
     return got.get(url, options)
         .then((resp: any) => {

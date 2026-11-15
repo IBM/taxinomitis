@@ -2,7 +2,7 @@ import { describe, it, before, after, beforeEach, afterEach } from 'node:test';
 import * as assert from 'assert';
 import * as sinon from 'sinon';
 import * as randomstring from 'randomstring';
-import * as IBMCosSDK from 'ibm-cos-sdk-v2';
+import IBMCosSDK from 'ibm-cos-sdk-v2';
 
 import * as objectstore from '../../lib/objectstore';
 import * as mock from './mockStore';

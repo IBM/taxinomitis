@@ -3,9 +3,9 @@ import { describe, it, before, after, afterEach } from 'node:test';
 // tslint:disable:max-line-length
 
 import { v1 as uuid } from 'uuid';
-import * as assert from 'assert';
+import assert from 'assert';
 import * as sinon from 'sinon';
-import * as clone from 'clone';
+import clone from 'clone';
 
 import * as store from '../../lib/db/store';
 import * as conversation from '../../lib/training/conversation';

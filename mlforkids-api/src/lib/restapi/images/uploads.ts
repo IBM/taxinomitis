@@ -1,6 +1,6 @@
 // external dependencies
 import * as Express from 'express';
-import * as multer from 'multer';
+import multer from 'multer';
 import { status as httpStatus } from 'http-status';
 // local dependencies
 import * as auth from '../auth';

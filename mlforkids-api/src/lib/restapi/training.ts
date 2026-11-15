@@ -1,7 +1,7 @@
 // external dependencies
 import * as Express from 'express';
 import { status as httpstatus } from 'http-status';
-import * as rangeParse from 'http-range-parse';
+import rangeParse from 'http-range-parse';
 // local dependencies
 import * as auth from './auth';
 import * as store from '../db/store';

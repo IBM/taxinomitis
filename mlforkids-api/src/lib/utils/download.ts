@@ -5,9 +5,9 @@ import { IncomingHttpHeaders, IncomingMessage } from 'http';
 import { pipeline, Writable, Readable } from 'node:stream';
 // external dependencies
 import { status as httpstatus } from 'http-status';
-import * as sharp from 'sharp';
-import * as got from 'mlforkids-got';
-import * as googleDns from 'mlforkids-google-dns';
+import sharp from 'sharp';
+import got from 'got';
+import CacheableLookup from 'cacheable-lookup';
 // local dependencies
 import loggerSetup from './logger';
 import * as urlsafety from './urlsafety';
@@ -26,14 +26,24 @@ sharp.concurrency(1);
 // used as a got beforeRequest/beforeRedirect hook, so a literal-IP target
 //  is checked on the initial request and on every redirect hop - dnsLookup
 //  never sees a literal IP, as got connects directly without DNS lookup
-function checkRequestUrl(options: { url: URL }): void {
+function checkRequestUrl(options: { url?: URL }): void {
+    if (!options.url) {
+        throw new Error('Missing request URL');
+    }
     urlsafety.assertSafeUrl(options.url);
 }
+
+// use Google DNS (with a cache) for looking up the hosts of user-supplied URLs
+const GOOGLE_DNS     = '8.8.8.8';
+const GOOGLE_DNS_ALT = '8.8.4.4';
+const googleResolver = new dns.Resolver();
+googleResolver.setServers([ GOOGLE_DNS, GOOGLE_DNS_ALT ]);
+const dnsCache = new CacheableLookup({ resolver : googleResolver, lookup : false });
 
 // standard options for downloading images
 const REQUEST_OPTIONS = {
     http2 : true,
-    dnsLookup : urlsafety.wrapDnsLookup(dns.lookup), // replaced once googleDns module has loaded
+    dnsLookup : urlsafety.wrapDnsLookup(dnsCache.lookup.bind(dnsCache)),
     timeout : { request : 20000 },
     https : { rejectUnauthorized : false },
     decompress : true,
@@ -64,16 +74,11 @@ const RESIZE_OPTIONS = {
  * The dnsLookup/hooks options that protect outgoing requests against
  *  SSRF for reuse by other modules that also fetch from arbitrary,
  *  user-supplied URLs via got.
- *
- * Returned fresh on every call, since REQUEST_OPTIONS.dnsLookup is
- *  replaced in place once the Google DNS cache has finished loading.
  */
-export function getSsrfProtectionOptions() {
-    return {
-        dnsLookup : REQUEST_OPTIONS.dnsLookup,
-        hooks : REQUEST_OPTIONS.hooks,
-    };
-}
+export const SSRF_PROTECTION_OPTIONS = {
+    dnsLookup : REQUEST_OPTIONS.dnsLookup,
+    hooks : REQUEST_OPTIONS.hooks,
+};
 
 
 export interface ML4KError extends Error {
@@ -313,14 +318,3 @@ export const ERRORS = {
     DOWNLOAD_TOO_BIG : 'The image is too big to use. Please choose a different image.',
     DOWNLOAD_TOO_MANY_REQUESTS : ' is receiving too many requests for images and has started refusing access.'
 };
-
-
-log.debug('setting up alternate DNS cache');
-googleDns.getCacheableLookup()
-    .then((dnsCache: any) => {
-        REQUEST_OPTIONS.dnsLookup = urlsafety.wrapDnsLookup(dnsCache.lookup.bind(dnsCache));
-        log.info('using Google DNS for downloading images');
-    })
-    .catch((err: Error) => {
-        log.error({ err }, 'Unable to use Google DNS');
-    });

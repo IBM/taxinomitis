@@ -1,6 +1,6 @@
 import { describe, it, before } from 'node:test';
-import * as assert from 'assert';
-import * as request from 'supertest';
+import assert from 'assert';
+import request from 'supertest';
 import { status as httpstatus } from 'http-status';
 import * as express from 'express';
 import testapiserver from './testserver';

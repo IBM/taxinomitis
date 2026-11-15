@@ -1,6 +1,6 @@
 import { describe, it, before, after } from 'node:test';
 import * as assert from 'assert';
-import * as request from 'supertest';
+import request from 'supertest';
 import { status as httpstatus } from 'http-status';
 import * as express from 'express';
 import * as jsonwebtoken from 'jsonwebtoken';

@@ -1,10 +1,10 @@
 import { describe, it, before, after } from 'node:test';
-import * as assert from 'assert';
+import assert from 'assert';
 import * as express from 'express';
 import * as sinon from 'sinon';
 import * as uuid from 'uuid';
 import * as randomstring from 'randomstring';
-import * as testRequest from 'supertest';
+import testRequest from 'supertest';
 import { status as httpstatus } from 'http-status';
 
 

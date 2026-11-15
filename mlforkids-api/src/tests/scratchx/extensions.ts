@@ -1,5 +1,5 @@
 import { describe, it } from 'node:test';
-import * as assert from 'assert';
+import assert from 'assert';
 import { v1 as uuid } from 'uuid';
 import * as extensions from '../../lib/scratchx/extensions';
 import * as Types from '../../lib/db/db-types';

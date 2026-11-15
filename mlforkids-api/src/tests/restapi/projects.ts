@@ -1,8 +1,8 @@
 import { describe, it, before, after, beforeEach } from 'node:test';
-import * as assert from 'node:assert';
+import assert from 'node:assert';
 import { v1 as uuid } from 'uuid';
 import * as sinon from 'sinon';
-import * as request from 'supertest';
+import request from 'supertest';
 import { status as httpstatus } from 'http-status';
 import * as randomstring from 'randomstring';
 import * as express from 'express';

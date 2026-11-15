@@ -29,8 +29,8 @@ export interface RequestPromiseOptions {
 }
 
 export class RequestError extends Error {
-    name = 'RequestError';
-    cause: any;
+    override name = 'RequestError';
+    override cause: any;
     error: any;
     options: RequestPromiseOptions;
     response?: Response;
@@ -46,7 +46,7 @@ export class RequestError extends Error {
 }
 
 export class StatusCodeError extends Error {
-    name = 'StatusCodeError';
+    override name = 'StatusCodeError';
     statusCode: number;
     error: any;
     options: RequestPromiseOptions;

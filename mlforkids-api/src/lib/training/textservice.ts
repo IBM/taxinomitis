@@ -76,7 +76,7 @@ export async function train(training: TrainingObjects.ConversationTrainingData):
  *  could succeed if it is sent again.
  */
 export class TextServiceTrainingError extends Error {
-    name = 'TextServiceTrainingError';
+    override name = 'TextServiceTrainingError';
     readonly outcome: DbObjects.TextServiceTrainAttemptOutcome;
     readonly retryable: boolean;
     // how long the service asked for before trying again (only
@@ -279,7 +279,7 @@ export interface ClassifyResult {
 
 
 export class TextServiceClassifyError extends Error {
-    name = 'TextServiceClassifyError';
+    override name = 'TextServiceClassifyError';
     readonly outcome: DbObjects.TextServiceRequestFailureOutcome;
 
     constructor(message: string, outcome: DbObjects.TextServiceRequestFailureOutcome) {

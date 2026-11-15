@@ -24,6 +24,6 @@ COPY public/languages public/languages
 
 COPY custom_typings custom_typings
 COPY tsconfig.json .
-COPY .eslintrc.json .
+COPY .oxlintrc.json .
 
 CMD ["npm", "run", "coverage"]

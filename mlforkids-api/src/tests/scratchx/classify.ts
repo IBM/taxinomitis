@@ -1,8 +1,8 @@
 import { describe, it, before, after } from 'node:test';
-import * as assert from 'assert';
+import assert from 'assert';
 import { v1 as uuid } from 'uuid';
 import * as sinon from 'sinon';
-import * as proxyquire from 'proxyquire';
+import proxyquire from 'proxyquire';
 import { setTimeout } from 'node:timers/promises';
 import * as store from '../../lib/db/store';
 import * as classifier from '../../lib/scratchx/classify';

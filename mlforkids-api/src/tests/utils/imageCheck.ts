@@ -162,6 +162,6 @@ const INVALID_GIF = 'https://i.allthepics.net/2026/03/08/b790f265ec59.gif';
 const NON_EXISTENT = 'http://this.does.not.exist.com/mypic.jpg';
 const GIBBERISH = '12345';
 const SPECIALCHARS = '*';
-const HTTP_ADDRESS = 'http://image-net.org/static_files/index_files/logo.jpg';
-const HTTPS_REDIR_TO_HTTP = 'https://ibm.biz/Bdf2Bu';
+const HTTP_ADDRESS = 'http://httpbin.org/image/jpeg';
+const HTTPS_REDIR_TO_HTTP = 'https://httpbin.org/redirect-to?url=http%3A%2F%2Fhttpbin.org%2Fimage%2Fjpeg';
 const SPECIAL_CHAR_URL = 'http://blogfiles.naver.net/MjAyNDA1MjFfMTg4/MDAxNzE2Mjc2MTg3Mzkx.lOoMKRMHnh5w1GgDQRf6e61M2n9pRcJytnLaY9nhBvYg.MyvpXiieqx78oKDQo2gS0S8tS2Xmtk7sYInmz8NsuIUg.JPEG/DSC_8982_%BA%B9%BB%E7_2.jpg';

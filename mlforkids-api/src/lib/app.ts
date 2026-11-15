@@ -1,5 +1,5 @@
 // external dependencies
-import * as express from 'express';
+import express from 'express';
 import { Server } from 'http';
 // local dependencies
 import * as store from './db/store';

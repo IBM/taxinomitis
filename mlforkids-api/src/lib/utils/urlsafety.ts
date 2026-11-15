@@ -1,3 +1,5 @@
+// core dependencies
+import * as net from 'node:net';
 // external dependencies
 import * as ipaddr from 'ipaddr.js';
 
@@ -11,7 +13,7 @@ import * as ipaddr from 'ipaddr.js';
  *  metadata endpoint, or loopback.
  */
 export class UnsafeAddressError extends Error {
-    name = 'UnsafeAddressError';
+    override name = 'UnsafeAddressError';
 
     constructor(host: string, address: string) {
         super('Refusing to connect to ' + host + ' (' + address + ') ' +
@@ -102,8 +104,8 @@ type LookupFunction = (hostname: string, options: any, callback: LookupCallback)
  *
  * @param lookup - the underlying resolver to wrap
  */
-export function wrapDnsLookup(lookup: LookupFunction): LookupFunction {
-    return (hostname: string, options: any, callback: LookupCallback) => {
+export function wrapDnsLookup(lookup: LookupFunction): net.LookupFunction {
+    return ((hostname: string, options: any, callback: LookupCallback) => {
         lookup(hostname, options, (err, address, family) => {
             if (err) {
                 return callback(err);
@@ -123,5 +125,5 @@ export function wrapDnsLookup(lookup: LookupFunction): LookupFunction {
 
             callback(null, address, family);
         });
-    };
+    }) as net.LookupFunction;
 }

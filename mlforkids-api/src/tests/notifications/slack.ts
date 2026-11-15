@@ -1,5 +1,5 @@
 import { describe, it, before, after, beforeEach } from 'node:test';
-import * as assert from 'assert';
+import assert from 'assert';
 import * as sinon from 'sinon';
 
 import * as slackClient from '@slack/webhook';
@@ -19,7 +19,7 @@ describe('Notifications - Slack', () => {
     let clock: sinon.SinonFakeTimers;
 
     before(() => {
-        clock = sinon.useFakeTimers({ now: Date.now(), shouldAdvanceTime: true });
+        clock = sinon.useFakeTimers({ now: Date.now(), shouldAdvanceTime: true, toFake: [ 'setTimeout', 'clearTimeout', 'setInterval', 'clearInterval', 'Date' ] });
 
         slackEnv = process.env.SLACK_WEBHOOK_URL;
 
