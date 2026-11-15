@@ -2,7 +2,7 @@ import { describe, it, before, after, beforeEach, afterEach } from 'node:test';
 
 // tslint:disable:max-line-length
 
-import * as assert from 'assert';
+import assert from 'assert';
 import * as sinon from 'sinon';
 
 import * as textservice from '../../lib/training/textservice';

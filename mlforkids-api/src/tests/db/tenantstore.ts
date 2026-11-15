@@ -1,5 +1,5 @@
 import { describe, it, before, after } from 'node:test';
-import * as assert from 'assert';
+import assert from 'assert';
 import { v4 as uuid } from 'uuid';
 
 import * as store from '../../lib/db/store';

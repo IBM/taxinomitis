@@ -757,7 +757,7 @@ describe('trainingService', function () {
             expect(answer).toEqual(RESULT);
         });
 
-        it('sends a new request for a repeat test after 20 seconds', function () {
+        it('sends a new request for a repeat test after 10 seconds', function () {
             var project = cloudProject();
             var now = 1000000;
             spyOn(Date, 'now').and.callFake(function () { return now; });
@@ -767,7 +767,7 @@ describe('trainingService', function () {
             $httpBackend.flush();
 
             // still reused just before the limit
-            now += 19999;
+            now += 9999;
             trainingService.testModel(project, USERID, TENANT, textModel(), { text : 'hello' });
             $httpBackend.verifyNoOutstandingRequest();
 

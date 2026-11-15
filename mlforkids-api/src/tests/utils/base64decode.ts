@@ -1,7 +1,7 @@
 import { describe, it } from 'node:test';
-import * as assert from 'assert';
+import assert from 'assert';
 import * as fs from 'fs';
-import * as filecompare from 'filecompare';
+import filecompare from 'filecompare';
 
 import * as decoder from '../../lib/utils/base64decode';
 

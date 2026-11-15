@@ -1,5 +1,5 @@
 import { describe, it, before, after } from 'node:test';
-import * as assert from 'assert';
+import assert from 'assert';
 import * as sinon from 'sinon';
 import * as uuid from 'uuid';
 import * as randomstring from 'randomstring';

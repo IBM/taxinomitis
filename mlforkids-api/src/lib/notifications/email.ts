@@ -2,7 +2,7 @@
 import * as nodemailer from 'nodemailer';
 import * as SMTPPool from 'nodemailer/lib/smtp-pool';
 import * as Mailer from 'nodemailer/lib/mailer';
-import * as Mustache from 'mustache';
+import Mustache from 'mustache';
 // local dependencies
 import * as fileutils from '../utils/fileutils';
 import { SupervisorInfo } from '../auth0/auth-types';
@@ -15,7 +15,6 @@ const log = loggerSetup();
 //  as all emails ever generated are kept in memory
 // doing this disables the cache to avoid the memory leak
 // cf. https://github.com/janl/mustache.js/blob/master/CHANGELOG.md#400--16-january-2020
-// @ts-expect-error workaround for mustache issue
 Mustache.templateCache = undefined;
 
 

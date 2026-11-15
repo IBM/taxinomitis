@@ -2,8 +2,7 @@
 import * as fs from 'fs';
 // external dependencies
 import { LRUCache as LRU } from 'lru-cache';
-import { loadEsm } from "load-esm";
-// import { fileTypeFromFile } from 'file-type';
+import { fileTypeFromFile } from 'file-type';
 import * as tmp from 'tmp';
 import * as async from 'async';
 import { filesize } from 'filesize';
@@ -11,15 +10,6 @@ import { filesize } from 'filesize';
 import * as download from './download';
 import * as urlchecker from './urlchecker';
 import loggerSetup from '../utils/logger';
-import { Detector, FileTypeResult } from 'file-type';
-
-// workaround to use an ESM module
-let fileTypeFromFile: ((filePath: string, options?: { customDetectors?: Iterable<Detector>; }) => Promise<FileTypeResult | undefined>) | ((arg0: string) => Promise<any>);
-(async () => {
-    const fileType = await loadEsm<typeof import("file-type")>("file-type");
-    fileTypeFromFile = fileType.fileTypeFromFile;
-})();
-
 
 
 

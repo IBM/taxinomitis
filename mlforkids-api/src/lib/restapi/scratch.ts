@@ -1,7 +1,7 @@
 // external dependencies
 import * as Express from 'express';
 import { status as httpstatus } from 'http-status';
-import * as cors from 'cors';
+import cors from 'cors';
 // local dependencies
 import * as store from '../db/store';
 import * as Types from '../db/db-types';

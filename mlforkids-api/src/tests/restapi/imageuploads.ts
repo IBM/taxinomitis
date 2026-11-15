@@ -1,11 +1,11 @@
 import { describe, it, before, beforeEach, after, afterEach } from 'node:test';
-import * as assert from 'assert';
+import assert from 'assert';
 import * as fs from 'fs';
 import { v1 as uuid } from 'uuid';
 import * as express from 'express';
 import * as sinon from 'sinon';
-import * as IBMCosSDK from 'ibm-cos-sdk-v2';
-import * as request from 'supertest';
+import IBMCosSDK from 'ibm-cos-sdk-v2';
+import request from 'supertest';
 import { status as httpStatus } from 'http-status';
 
 import * as store from '../../lib/db/store';

@@ -1,36 +1,22 @@
 {
   "compilerOptions": {
-    "target": "es2022",
+    "target": "es2025",
     "lib": [
-       "es2022"
+       "es2025"
     ],
-    "moduleResolution": "node",
-    "module": "commonjs",
-    "paths": {
-      "sharp": ["./node_modules/sharp/dist/index.d.cts"]
-    },
+    "module": "node20",
     "rootDir": "src",
     "outDir": "dist",
-    "alwaysStrict": true,
-    "removeComments": false,
-    "sourceMap": false,
     "strict": true,
     "skipLibCheck": true,
-    "strictFunctionTypes": true,
     "noUnusedLocals": true,
-    "strictPropertyInitialization": true,
-    "strictNullChecks": true,
     "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
     "resolveJsonModule": true,
-    "useUnknownInCatchVariables": false,
-    "forceConsistentCasingInFileNames": true
+    "useUnknownInCatchVariables": false
   },
-  "compileOnSave": false,
   "include": [
     "src/**/*.ts",
     "custom_typings/**/*"
-  ],
-  "exclude": [
-    "node_modules"
   ]
 }

@@ -1,18 +1,11 @@
-import { describe, it, before } from 'node:test';
-import * as assert from 'assert';
+import { describe, it } from 'node:test';
+import assert from 'assert';
 
 import * as scratchtfjs from '../../lib/scratchx/scratchtfjs';
 import * as urlsafety from '../../lib/utils/urlsafety';
 
 
 describe('Scratchx - scratchtfjs', () => {
-
-    // mlforkids-got loads 'got' via a dynamic import(), which resolves
-    //  asynchronously after this module is first required - give it a
-    //  moment to finish before making any requests
-    before(() => {
-        return new Promise((resolve) => { setTimeout(resolve, 1000); });
-    });
 
     // these target private/loopback literal IP addresses, so no listener
     //  is needed on the other end - the SSRF guard must refuse to connect

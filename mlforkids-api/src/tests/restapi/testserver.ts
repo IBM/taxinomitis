@@ -1,4 +1,4 @@
-import * as express from 'express';
+import express from 'express';
 import restapi from '../../lib/restapi';
 
 export default function setup(): express.Express {

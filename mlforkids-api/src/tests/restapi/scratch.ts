@@ -1,11 +1,11 @@
 import { describe, it, before, after } from 'node:test';
 import { v1 as uuid } from 'uuid';
-import * as assert from 'assert';
-import * as request from 'supertest';
+import assert from 'assert';
+import request from 'supertest';
 import { status as httpstatus } from 'http-status';
 import * as randomstring from 'randomstring';
 import * as sinon from 'sinon';
-import * as proxyquire from 'proxyquire';
+import proxyquire from 'proxyquire';
 import * as Express from 'express';
 import { readFile } from 'fs/promises';
 import { Buffer } from 'buffer';

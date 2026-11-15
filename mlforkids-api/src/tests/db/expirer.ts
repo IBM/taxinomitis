@@ -1,5 +1,5 @@
 import { describe, it, before, after, afterEach } from 'node:test';
-import * as assert from 'assert';
+import assert from 'assert';
 import * as sinon from 'sinon';
 import { v1 as uuid } from 'uuid';
 

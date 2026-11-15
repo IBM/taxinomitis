@@ -1,5 +1,5 @@
 import { describe, it, before, beforeEach, after } from 'node:test';
-import * as assert from 'assert';
+import assert from 'assert';
 import * as sinon from 'sinon';
 import * as store from '../../lib/db/store';
 import * as Objects from '../../lib/db/db-types';
@@ -38,7 +38,7 @@ describe('session users', { concurrency: false }, () => {
 
 
     before(async () => {
-        clock = sinon.useFakeTimers({ now: Date.now(), shouldAdvanceTime: true });
+        clock = sinon.useFakeTimers({ now: Date.now(), shouldAdvanceTime: true, toFake: [ 'setTimeout', 'clearTimeout', 'setInterval', 'clearInterval', 'Date' ] });
         await store.init();
         await store.testonly_resetSessionUsersStore();
     });

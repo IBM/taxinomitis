@@ -1,5 +1,5 @@
 import { describe, it, before, beforeEach, after } from 'node:test';
-import * as assert from 'assert';
+import assert from 'assert';
 import * as sinon from 'sinon';
 import * as tokens from '../../lib/iam/tokens';
 import * as store from '../../lib/iam/token-store';
@@ -18,7 +18,7 @@ describe('IAM - tokens store', () => {
     before(() => {
         fetchStub = sinon.stub(global, 'fetch');
         fetchStub.callsFake(mockIAM.fetch.post);
-        clock = sinon.useFakeTimers();
+        clock = sinon.useFakeTimers({ toFake: [ 'setTimeout', 'clearTimeout', 'setInterval', 'clearInterval', 'Date' ] });
     });
     after(() => {
         fetchStub.restore();

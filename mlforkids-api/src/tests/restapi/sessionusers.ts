@@ -1,7 +1,7 @@
 import { describe, it, before, beforeEach, after, afterEach } from 'node:test';
-import * as assert from 'assert';
+import assert from 'assert';
 import * as sinon from 'sinon';
-import * as request from 'supertest';
+import request from 'supertest';
 import { status as httpstatus } from 'http-status';
 import * as express from 'express';
 
@@ -39,7 +39,7 @@ describe('REST API - session users', { concurrency: false }, () => {
     }
 
     before(() => {
-        clock = sinon.useFakeTimers({ now: Date.now(), shouldAdvanceTime: true });
+        clock = sinon.useFakeTimers({ now: Date.now(), shouldAdvanceTime: true, toFake: [ 'setTimeout', 'clearTimeout', 'setInterval', 'clearInterval', 'Date' ] });
 
         authStub = sinon.stub(auth, 'authenticate').callsFake(authNoOp);
 

@@ -1,7 +1,7 @@
 // external dependencies
 import * as express from 'express';
 import * as path from 'path';
-import * as compression from 'compression';
+import compression from 'compression';
 // local dependencies
 import * as constants from '../utils/constants';
 import * as env from '../utils/env';

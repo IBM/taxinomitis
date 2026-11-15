@@ -1,5 +1,5 @@
 import { describe, it, before } from 'node:test';
-import * as request from 'supertest';
+import request from 'supertest';
 import { status as httpStatus } from 'http-status';
 import * as express from 'express';
 

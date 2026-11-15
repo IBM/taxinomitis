@@ -1,5 +1,5 @@
 import { describe, it, before, after } from 'node:test';
-import * as assert from 'assert';
+import assert from 'assert';
 
 import * as store from '../../lib/db/store';
 import * as Objects from '../../lib/db/db-types';
