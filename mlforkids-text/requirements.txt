@@ -6,29 +6,29 @@
 #
 
 # REST API support
-fastapi==0.162.0
+fastapi==0.165.0
 uvicorn==0.54.0
 
 # LRU cache
-cachetools==7.2.4
+cachetools==8.0.2
 
 # encoder
-sentence-transformers==6.2.0
-transformers==5.22.1
+sentence-transformers==6.3.0
+transformers==5.23.0
 tokenizers==0.23.3
 torch==2.15.0
 
 # per-project model
 scikit-learn==1.9.1
-numpy==2.4.6
+numpy==2.5.5
 
 #
 # dependencies automatically dragged in
 #
 starlette==1.10.0
 anyio==4.16.0
-pydantic==2.14.2
-scipy==1.17.1
+pydantic==2.14.4
+scipy==1.18.1
 huggingface_hub==2.4.0
 safetensors==0.8.0
 joblib==1.6.0
