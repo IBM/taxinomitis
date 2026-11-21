@@ -1082,6 +1082,7 @@
             "TITLE": "Prompt",
             "GENERATE": "A gerar",
             "RESET": "Repor",
+            "STOP": "Stop",
             "CLICK": "Clica numa palavra para ver porque foi gerada essa palavra",
             "ERROR": {
                 "TOOSHORT": "Precisas adicionar mais palavras ao teu prompt para que o modelo funcione.",

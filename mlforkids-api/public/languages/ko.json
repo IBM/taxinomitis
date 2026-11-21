@@ -1081,6 +1081,7 @@
             "TITLE": " Prompt ",
             "GENERATE": "Generate",
             "RESET": "Reset",
+            "STOP": "Stop",
             "CLICK": "Click on a word to see why that word was generated",
             "ERROR": {
                 "TOOSHORT": "You need to add more words to your prompt for the model to work.",

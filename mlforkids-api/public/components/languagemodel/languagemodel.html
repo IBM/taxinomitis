@@ -634,10 +634,11 @@
             <div class="testing-input-row">
                 <div class="stepheading" translate="LANGUAGEMODEL.TESTING.TITLE"></div>
                 <input ng-model="prompt.message" ng-keypress="$event.which === 13 && testModel()" class="testing-input">
-                <button type="button" class="btn" translate="LANGUAGEMODEL.TESTING.RESET"
+                <button type="button" class="btn"
+                    translate="{{ streaming ? 'LANGUAGEMODEL.TESTING.STOP' : 'LANGUAGEMODEL.TESTING.RESET' }}"
                     ng-if="project.modeltype === 'small'"
-                    ng-click="resetContextWindow()"
-                    ng-disabled="generating || loading || generatedmessages.length === 0"></button>
+                    ng-click="streaming ? stopGenerating() : resetContextWindow()"
+                    ng-disabled="(generating && !streaming) || loading || generatedmessages.length === 0"></button>
                 <button type="button" translate="LANGUAGEMODEL.TESTING.GENERATE"
                     class="btn btn-primary"
                     ng-click="testModel()"

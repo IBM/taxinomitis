@@ -1082,6 +1082,7 @@
             "TITLE": " Kehote ",
             "GENERATE": "Tuota",
             "RESET": "Palauta",
+            "STOP": "Stop",
             "CLICK": "Napsauta sanaa nähdäksesi, miksi juuri se sana tuotettiin",
             "ERROR": {
                 "TOOSHORT": "Kehotteessa täytyy olla enemmän sanoja, jotta malli voi toimia.",

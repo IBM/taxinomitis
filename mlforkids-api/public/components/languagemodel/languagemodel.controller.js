@@ -1620,6 +1620,10 @@
             $scope.generatedmessages = [];
         };
 
+        $scope.stopGenerating = function () {
+            $scope.webllmEngine.interruptGenerate();
+        };
+
         function scrollToNewMessage () {
             $timeout(() => {
                 $scope.prompt.message = '';
@@ -1755,20 +1759,30 @@
             }) - 1;
             scrollToNewMessage();
 
-            for await (const chunk of completion) {
-                const curDelta = chunk.choices[0].delta.content;
-                if (curDelta) {
-                    const formatted = curDelta.replace(/\n/g, '<br>');
-                    $scope.$applyAsync(() => {
-                        $scope.generatedmessages[nextMessageIdx].content += curDelta;
-                        if ($scope.generatedmessages[nextMessageIdx].render === '...') {
-                            $scope.generatedmessages[nextMessageIdx].render = formatted;
-                        }
-                        else {
-                            $scope.generatedmessages[nextMessageIdx].render  += formatted;
-                        }
-                    });
+            $scope.$applyAsync(() => {
+                $scope.streaming = true;
+            });
+            try {
+                for await (const chunk of completion) {
+                    const curDelta = chunk.choices[0].delta.content;
+                    if (curDelta) {
+                        const formatted = curDelta.replace(/\n/g, '<br>');
+                        $scope.$applyAsync(() => {
+                            $scope.generatedmessages[nextMessageIdx].content += curDelta;
+                            if ($scope.generatedmessages[nextMessageIdx].render === '...') {
+                                $scope.generatedmessages[nextMessageIdx].render = formatted;
+                            }
+                            else {
+                                $scope.generatedmessages[nextMessageIdx].render  += formatted;
+                            }
+                        });
+                    }
                 }
+            }
+            finally {
+                $scope.$applyAsync(() => {
+                    $scope.streaming = false;
+                });
             }
 
             const finalMessage = await $scope.webllmEngine.getMessage();
